@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * @author 小野瀬
+ * @author Teruteru
  *
  */
 public final class VoidHolder {
