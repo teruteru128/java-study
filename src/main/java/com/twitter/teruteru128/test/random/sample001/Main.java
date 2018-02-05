@@ -29,7 +29,7 @@ public class Main {
 		SecretKeyFactory factory = SecretKeyFactory
 				.getInstance("PBKDF2WithHMACSHA512");
 
-		char[] password = "".toCharArray();
+		char[] password = "In cryptographic salt, uniqueness is more important than unpredictability.".toCharArray();
 		/**
 		 * salt生成法 seedをシステム製作時に符号なし512bit整数として生成し、
 		 * seedからsaltを作成するたびにseedをインクリメントする
@@ -39,7 +39,6 @@ public class Main {
 		seed = seed.add(BigInteger.valueOf(1L));
 		int iterationCount = 1 << 14;
 		int keyLength = 512;
-		System.out.println(iterationCount);
 		PBEKeySpec spec = new PBEKeySpec(password, salt, iterationCount,
 				keyLength);
 		PBEKey key = (PBEKey) factory.generateSecret(spec);
