@@ -1,5 +1,6 @@
 package com.twitter.teruteru128.test.random.sample001;
 
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -29,8 +30,13 @@ public class Main {
 				.getInstance("PBKDF2WithHMACSHA512");
 
 		char[] password = "".toCharArray();
-		byte[] salt = new byte[64];
-		random.nextBytes(salt);
+		/**
+		 * salt生成法 seedをシステム製作時に符号なし512bit整数として生成し、
+		 * seedからsaltを作成するたびにseedをインクリメントする
+		 * */
+		BigInteger seed = new BigInteger(64 * 8, random);
+		byte[] salt = seed.toByteArray();
+		seed = seed.add(BigInteger.valueOf(1L));
 		int iterationCount = 1 << 14;
 		int keyLength = 512;
 		System.out.println(iterationCount);
