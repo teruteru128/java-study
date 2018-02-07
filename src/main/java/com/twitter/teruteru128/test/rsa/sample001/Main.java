@@ -25,7 +25,9 @@ public class Main {
 		System.out.printf("0x%0514x%n", modulus);
 		// 2, 4, 8, 16
 		// 3, 5, 7, 9, 11, 13
-		int[][] matrix = { { 2, 7 }, { 5, 8 }, { 3, 13 }, { 4, 9 }, { 11, 16 } };
+		// 2, 3, 4, 5, 7, 8, 9, 11, 13, 16
+		// 2, 13, 4, 11, 5, 9, 7, 8, 3, 16
+		int[][] matrix = { { 2, 13 }, { 4, 11 }, { 5, 9 }, { 7, 8 }, { 3, 16 } };
 		int length = matrix.length;
 		BigInteger tmp = modulus;
 		for (int i = 0; i < length; i++) {
