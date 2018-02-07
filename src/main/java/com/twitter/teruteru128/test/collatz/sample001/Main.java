@@ -3,7 +3,7 @@ package com.twitter.teruteru128.test.collatz.sample001;
 import java.math.BigInteger;
 import java.util.function.Consumer;
 
-import com.twitter.teruteru128.test.holders.SecureRandomHolder;
+import com.twitter.teruteru128.holders.SecureRandomHolder;
 
 /**
  * @author Teruteru

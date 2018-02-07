@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.holders;
+package com.twitter.teruteru128.holders;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -14,7 +14,7 @@ import org.junit.Test;
 public class SecureRandomHolderTest {
 
 	/**
-	 * {@link com.twitter.teruteru128.test.holders.SecureRandomHolder#getInstance()} のためのテスト・メソッド。
+	 * {@link com.twitter.teruteru128.holders.SecureRandomHolder#getInstance()} のためのテスト・メソッド。
 	 */
 	@Test
 	public void testGetInstance() {
@@ -22,7 +22,7 @@ public class SecureRandomHolderTest {
 	}
 
 	/**
-	 * {@link com.twitter.teruteru128.test.holders.SecureRandomHolder#getInstanceStrong()} のためのテスト・メソッド。
+	 * {@link com.twitter.teruteru128.holders.SecureRandomHolder#getInstanceStrong()} のためのテスト・メソッド。
 	 */
 	@Test
 	public void testGetInstanceStrong() {

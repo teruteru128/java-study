@@ -13,7 +13,7 @@ import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
 
-import com.twitter.teruteru128.test.holders.SecureRandomHolder;
+import com.twitter.teruteru128.holders.SecureRandomHolder;
 
 /**
  * @author Teruteru

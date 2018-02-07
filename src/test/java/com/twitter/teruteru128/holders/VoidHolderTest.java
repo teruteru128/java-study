@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.holders;
+package com.twitter.teruteru128.holders;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
@@ -12,7 +12,7 @@ import org.junit.Test;
 public class VoidHolderTest {
 
 	/**
-	 * {@link com.twitter.teruteru128.test.holders.VoidHolder#getInstance()}
+	 * {@link com.twitter.teruteru128.holders.VoidHolder#getInstance()}
 	 * のためのテスト・メソッド。
 	 */
 	@Test

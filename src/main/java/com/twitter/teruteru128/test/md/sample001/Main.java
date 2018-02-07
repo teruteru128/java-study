@@ -11,7 +11,7 @@ import javax.xml.bind.DatatypeConverter;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import com.twitter.teruteru128.test.holders.SecureRandomHolder;
+import com.twitter.teruteru128.holders.SecureRandomHolder;
 
 /**
  * @author Teruteru

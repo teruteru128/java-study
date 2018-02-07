@@ -10,7 +10,7 @@ import javax.crypto.interfaces.PBEKey;
 import javax.crypto.spec.PBEKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
-import com.twitter.teruteru128.test.holders.SecureRandomHolder;
+import com.twitter.teruteru128.holders.SecureRandomHolder;
 
 /**
  * @author Teruteru
