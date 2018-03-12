@@ -29,7 +29,8 @@ public class Main {
 		SecretKeyFactory factory = SecretKeyFactory
 				.getInstance("PBKDF2WithHMACSHA512");
 
-		char[] password = "In cryptographic salt, uniqueness is more important than unpredictability.".toCharArray();
+		char[] password = "In cryptographic salt, uniqueness is more important than unpredictability."
+				.toCharArray();
 		/**
 		 * salt生成法 seedをシステム製作時に符号なし256bit整数として生成し、
 		 * seedからsaltを作成するたびにseedをインクリメントする
