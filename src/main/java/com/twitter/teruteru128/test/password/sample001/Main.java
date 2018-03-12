@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.random.sample001;
+package com.twitter.teruteru128.test.password.sample001;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
