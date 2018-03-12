@@ -31,10 +31,10 @@ public class Main {
 
 		char[] password = "In cryptographic salt, uniqueness is more important than unpredictability.".toCharArray();
 		/**
-		 * salt生成法 seedをシステム製作時に符号なし512bit整数として生成し、
+		 * salt生成法 seedをシステム製作時に符号なし256bit整数として生成し、
 		 * seedからsaltを作成するたびにseedをインクリメントする
 		 * */
-		BigInteger seed = new BigInteger(64 * 8, random);
+		BigInteger seed = new BigInteger(256, random);
 		byte[] salt = seed.toByteArray();
 		seed = seed.add(BigInteger.valueOf(1L));
 		int iterationCount = 1 << 14;
