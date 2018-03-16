@@ -86,7 +86,7 @@ class Searcher implements Runnable {
 	/**
 	 * 
 	 */
-	private static int toUnsignedDecByteArray(long l, byte[] buf) {
+	private int toUnsignedDecByteArray(long l, byte[] buf) {
 		long quot = (l >>> 1) / 5;
 		long rem = l - quot * 10;
 		int length = 0;
@@ -123,7 +123,7 @@ class Searcher implements Runnable {
 	private static final byte[] digits = { '0', '1', '2', '3', '4', '5', '6',
 			'7', '8', '9' };
 
-	private static int toUnsignedDecByteArrayPos(long l, byte[] buf) {
+	private int toUnsignedDecByteArrayPos(long l, byte[] buf) {
 		int length = stringSize(l);
 		long q;
 		int r;
@@ -161,7 +161,7 @@ class Searcher implements Runnable {
 	 * @param l
 	 * @return
 	 */
-	private static int stringSize(long l) {
+	private int stringSize(long l) {
 		long p = 10;
 		for (int i = 1; i < 19; i++) {
 			if (l < p) {
