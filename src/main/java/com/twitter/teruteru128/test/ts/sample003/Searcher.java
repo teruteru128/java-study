@@ -4,7 +4,7 @@ import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-class Searcher implements Runnable {
+public class Searcher implements Runnable {
 	private final String publicKey;
 	private long verifier;
 	private final int minSecurityLevel;
@@ -33,7 +33,8 @@ class Searcher implements Runnable {
 		try {
 			MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
 			long verifier = this.verifier;
-			byte[] buf = new byte[20];
+			byte[] buf1 = new byte[20];
+			byte[] buf2 = new byte[20];
 			final byte[] key = publicKey.getBytes();
 			final int minbytes = this.minbytes;
 			final int minbits = this.minSecurityLevel;
@@ -43,21 +44,21 @@ class Searcher implements Runnable {
 			final boolean flg = (minSecurityLevel < 8);
 			int length;
 			while (true) {
-				length = toUnsignedDecByteArray(verifier, buf);
+				length = toUnsignedDecByteArray(verifier, buf2);
 				sha1.update(key);
-				sha1.update(buf, 0, length);
+				sha1.update(buf2, 0, length);
 				try {
-					sha1.digest(buf, 0, 20);
+					sha1.digest(buf1, 0, 20);
 				} catch (DigestException e) {
 					e.printStackTrace();
 				}
-				if (flg || buf[0] == 0) {
-					for (zerobytes = 0; zerobytes < 20 && buf[zerobytes] == 0; zerobytes++) {
+				if (flg || buf1[0] == 0) {
+					for (zerobytes = 0; zerobytes < 20 && buf1[zerobytes] == 0; zerobytes++) {
 						// NONE
 					}
 					if (zerobytes >= minbytes) {
 						if (zerobytes < 20) {
-							byte lastbyte = buf[zerobytes];
+							byte lastbyte = buf1[zerobytes];
 							for (zerobits = 0; (lastbyte & 1) != 1; zerobits++, lastbyte >>= 1) {
 								// NONE
 							}
@@ -88,7 +89,7 @@ class Searcher implements Runnable {
 	 */
 	private int toUnsignedDecByteArray(long l, byte[] buf) {
 		long quot = (l >>> 1) / 5;
-		long rem = l - quot * 10;
+		long rem = l - (quot * 10);
 		int length = 0;
 		if (l == Long.MIN_VALUE) {
 			System.arraycopy("18446744073709551615".getBytes(), 0, buf, 0, 20);
@@ -97,7 +98,7 @@ class Searcher implements Runnable {
 			length = toUnsignedDecByteArrayPos(l, buf);
 		} else {
 			length = toUnsignedDecByteArrayPos(quot, buf);
-			buf[++length] = DIGIT[(int) rem];
+			buf[length++] = DIGIT[(int) rem];
 		}
 		return length;
 	}
