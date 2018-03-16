@@ -19,8 +19,8 @@ public class Main {
 	public static void main(String[] args) {
 		ZoneId id = ZoneId.of("Asia/Tokyo");
 		Clock clock = Clock.fixed(
-				ZonedDateTime.of(2018, 3, 12, 17, 14, 35, 0, id).toInstant(),
-				id);
+				ZonedDateTime.of(2018, 3, 31, 17, 14, 35, 0, id)
+						.truncatedTo(ChronoUnit.DAYS).toInstant(), id);
 		OffsetDateTime time1 = OffsetDateTime.now(clock);
 		OffsetDateTime time2 = time1.plus(2, ChronoUnit.YEARS);
 		OffsetDateTime time3 = time1.plus(365 * 2, ChronoUnit.DAYS);
