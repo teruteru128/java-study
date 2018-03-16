@@ -44,7 +44,8 @@ public class Main {
 				keyLength);
 		PBEKey key = (PBEKey) factory.generateSecret(spec);
 		byte[] hashedPassword = key.getEncoded();
-		System.out.printf("%s%n",
+		System.out.printf("$%d$%s$%s%n", 1,
+				DatatypeConverter.printHexBinary(salt),
 				DatatypeConverter.printHexBinary(hashedPassword));
 	}
 
