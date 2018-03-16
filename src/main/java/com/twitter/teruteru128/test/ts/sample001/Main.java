@@ -30,6 +30,7 @@ import org.bouncycastle.asn1.DERSequence;
 /**
  * @author Teruteru
  * @see <a href="https://github.com/landave/TSIdentityTool">landave/TSIdentityTool - Github</a>
+ * @see <a href="https://hackforums.net/showthread.php?tid=5610594">What is the target hash for a certain security level in TeamSpeak 3?</a>
  */
 public class Main {
 
