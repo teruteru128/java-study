@@ -36,40 +36,42 @@ public class Searcher implements Runnable {
 			byte[] buf1 = new byte[20];
 			byte[] buf2 = new byte[20];
 			final byte[] key = publicKey.getBytes();
+			final int keyLength = key.length;
 			final int minbytes = this.minbytes;
 			final int minbits = this.minSecurityLevel;
 			int zerobytes;
 			int zerobits;
 			int securityLevel = 0;
 			final boolean flg = (minSecurityLevel < 8);
-			int length;
+			int verifierLength;
 			while (true) {
-				length = toUnsignedDecByteArray(verifier, buf2);
-				sha1.update(key);
-				sha1.update(buf2, 0, length);
+				verifierLength = toUnsignedDecByteArray(verifier, buf2);
+				sha1.update(key, 0, keyLength);
+				sha1.update(buf2, 0, verifierLength);
 				try {
 					sha1.digest(buf1, 0, 20);
 				} catch (DigestException e) {
 					e.printStackTrace();
 				}
 				if (flg || buf1[0] == 0) {
-					for (zerobytes = 0; zerobytes < 20 && buf1[zerobytes] == 0; zerobytes++) {
+					zerobits = zerobytes = 0;
+					for (; zerobytes < 20 && buf1[zerobytes] == 0; zerobytes++) {
 						// NONE
 					}
 					if (zerobytes >= minbytes) {
 						if (zerobytes < 20) {
 							byte lastbyte = buf1[zerobytes];
-							for (zerobits = 0; (lastbyte & 1) != 1; zerobits++, lastbyte >>= 1) {
+							for (; (lastbyte & 1) != 1; zerobits++, lastbyte >>= 1) {
 								// NONE
 							}
-							securityLevel = 8 * zerobytes + zerobits;
-							if (securityLevel >= minbits) {
-								synchronized (System.out) {
-									System.out
-											.printf("Security Level(verifier) : %d(%s)%n",
-													securityLevel,
-													Long.toUnsignedString(verifier));
-								}
+						}
+						securityLevel = 8 * zerobytes + zerobits;
+						if (securityLevel >= minbits) {
+							synchronized (System.out) {
+								System.out.printf(
+										"Security Level(verifier) : %d(%s)%n",
+										securityLevel,
+										Long.toUnsignedString(verifier));
 							}
 						}
 					}
