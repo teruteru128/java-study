@@ -29,8 +29,11 @@ import org.bouncycastle.asn1.DERSequence;
 
 /**
  * @author Teruteru
- * @see <a href="https://github.com/landave/TSIdentityTool">landave/TSIdentityTool - Github</a>
- * @see <a href="https://hackforums.net/showthread.php?tid=5610594">What is the target hash for a certain security level in TeamSpeak 3?</a>
+ * @see <a
+ *      href="https://github.com/landave/TSIdentityTool">landave/TSIdentityTool
+ *      - Github</a>
+ * @see <a href="https://hackforums.net/showthread.php?tid=5610594">What is the
+ *      target hash for a certain security level in TeamSpeak 3?</a>
  */
 public class Main {
 
@@ -90,8 +93,9 @@ public class Main {
 		printf("Fingerprint: %s\n", idfingerprint[0]);
 		printf("Curve size (octets): %d\n", ecckey[0].getPublicKey()
 				.getParams().getCurve().getField().getFieldSize());
-		printf("Current security level: %d (with counter=%d)\n",
-				getSecurityLevel(ecc_public_base64[0], counter[0]), counter[0]);
+		printf("Current security level: %d (with counter=%s)\n",
+				getSecurityLevel(ecc_public_base64[0], counter[0]),
+				Long.toUnsignedString(counter[0], 10));
 
 	}
 
@@ -105,8 +109,8 @@ public class Main {
 		int zerobits = 0;
 		try {
 			MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
-			byte[] hash = sha1.digest(String.format("%s%d", string, l)
-					.getBytes());
+			byte[] hash = sha1.digest(String.format("%s%s", string,
+					Long.toUnsignedString(l, 10)).getBytes());
 			while (zerobytes < 20 && hash[zerobytes] == 0) {
 				zerobytes++;
 			}
@@ -216,7 +220,7 @@ public class Main {
 		try {
 			MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
 			int zerobytes = 0;
-			while (zerobytes < data.length && data[20 + zerobytes] != 0) {
+			while ((zerobytes + 20) < data.length && data[20 + zerobytes] != 0) {
 				zerobytes++;
 			}
 			sha1.update(data, 20, zerobytes);
