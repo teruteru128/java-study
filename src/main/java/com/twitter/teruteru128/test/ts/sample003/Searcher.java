@@ -69,9 +69,9 @@ public class Searcher implements Runnable {
 						if (securityLevel >= minbits) {
 							synchronized (System.out) {
 								System.out.printf(
-										"Security Level(verifier) : %d(%s)%n",
+										"Security Level(verifier), Public Key : %d(%s), %s%n",
 										securityLevel,
-										Long.toUnsignedString(verifier));
+										Long.toUnsignedString(verifier), this.publicKey);
 							}
 						}
 					}
