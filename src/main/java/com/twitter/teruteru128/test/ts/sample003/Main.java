@@ -23,14 +23,14 @@ public class Main {
 		String publicKey2 = "MEsDAgcAAgEgAiAoQPNcS7L4k+q2qf3U7uyujtwRQNS3pLKN/zrRGERGagIgFjdV1JlqHF8BiIQne0/E3jVM7hWda/USrFI58per45s=";
 		SecureRandom random = SecureRandomHolder.getInstance();
 		int min1 = 41;
-		int min2 = 37;
+		int min2 = 38;
 		ArrayList<Callable<Void>> list = new ArrayList<>();
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 0; i++) {
 			list.add(Executors.callable(
 					new Searcher(publicKey1, random.nextLong(), min1),
 					VoidHolder.getInstance()));
 		}
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 4; i++) {
 			list.add(Executors.callable(
 					new Searcher(publicKey2, random.nextLong(), min2),
 					VoidHolder.getInstance()));

@@ -27,10 +27,9 @@ public class Main {
 	public static void main(String[] args) {
 		int width = 1320;
 		int height = 1320;
-		Random random = new Random(SecureRandomHolder.getInstanceStrong()
-				.nextLong());
+		Random random = SecureRandomHolder.getInstanceStrong();
 		BufferedImage image = new BufferedImage(width, height,
-				BufferedImage.TYPE_INT_BGR);
+				BufferedImage.TYPE_INT_RGB);
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
