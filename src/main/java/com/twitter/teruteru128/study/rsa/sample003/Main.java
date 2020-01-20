@@ -31,7 +31,7 @@ public class Main {
 		BigInteger mod = c;
 		BigInteger x = new BigInteger(1300, SecureRandomHolder.getInstance());
 		BigInteger d = c.divide(a).add(one).multiply(a).mod(c);
-		
+
 		int maxModBitLength = mod.bitLength();
 		int currentModBitLength;
 		BigInteger primod = c;
