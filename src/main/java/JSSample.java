@@ -12,6 +12,8 @@ public class JSSample{
   public static void main(String[] args){
     ScriptEngineManager manager = new ScriptEngineManager();
     List<ScriptEngineFactory> engineFactories = manager.getEngineFactories();
+    System.out.printf("List length : %d\n", engineFactories.size());
+    System.out.println("--------");
     for (ScriptEngineFactory factory : engineFactories) {
       System.out.println("Engine: " + factory.getEngineName()
           + ", Version: " + factory.getEngineVersion());
@@ -23,11 +25,12 @@ public class JSSample{
       System.out.println("--------");
     }
     ScriptEngine engine = new ScriptEngineManager().getEngineByName("graal.js");
+    System.out.println(engine);
+    engine = new ScriptEngineManager().getEngineByName("js");
     try {
-      System.out.println(engine.eval("var hoge = 'test'; hoge;"));
+      System.out.println(engine.eval("var hoge = 'aaaaaaaa'; print(hoge); hoge;"));
     } catch (ScriptException e) {
       e.printStackTrace();
     }
   }
 }
-
