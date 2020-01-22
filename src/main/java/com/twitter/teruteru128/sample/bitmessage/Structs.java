@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample2.bitmessage;
+package com.twitter.teruteru128.sample.bitmessage;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
