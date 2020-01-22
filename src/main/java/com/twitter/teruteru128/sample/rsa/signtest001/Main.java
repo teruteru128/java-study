@@ -25,11 +25,11 @@ public class Main {
 		Provider provider = Security.getProvider("BC");
 		if (provider == null) {
 			// Security.addProvider(provider = new BouncyCastleProvider());
-			Optional<Module> optional = ModuleLayer.boot().findModule("bcprov.jdk15on");
+			Optional<Module> optional = ModuleLayer.boot().findModule("org.bouncycastle.provider");
 			if (optional.isPresent()) {
 				Class<?> class1 = Class.forName(optional.get(), "org.bouncycastle.jce.provider.BouncyCastleProvider");
-				Constructor<?> constructor = class1.getConstructor(new Class<?>[0]);
-				var obj = constructor.newInstance(new Object[0]);
+				Constructor<?> constructor = class1.getConstructor();
+				var obj = constructor.newInstance();
 				if (obj instanceof Provider) {
 					Security.addProvider(provider = (Provider) obj);
 				}

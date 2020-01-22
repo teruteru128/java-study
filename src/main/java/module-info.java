@@ -4,18 +4,18 @@
  *
  */
 module com.twitter.teruteru128.study {
-	requires static java.desktop;
-//	requires static java.json;
-	requires static java.logging;
-	requires static java.management;
-	requires static java.scripting;
-	requires static java.sql;
-	requires static java.xml.bind;
-	requires static com.google.gson;
-	requires static jcuda;
-	requires static org.bouncycastle.pg;
-	requires static org.bouncycastle.provider;
-	requires static org.bukkit;
-	requires static org.json;
-	requires static org.twitter4j.core;
+	requires java.desktop;
+//	requires java.json;
+	requires java.logging;
+	requires java.management;
+	requires java.scripting;
+	requires java.sql;
+	requires java.xml.bind;
+	requires com.google.gson;
+	requires jcuda;
+	requires org.bouncycastle.pg;
+	requires org.bouncycastle.provider;
+	requires org.bukkit;
+	requires org.json;
+	requires org.twitter4j.core;
 }

@@ -48,7 +48,9 @@ public class Main {
 
 		// ノンス生成
 		byte[] nonce = new byte[12];
-		SecureRandom random = SecureRandom.getInstanceStrong();
+		SecureRandom random = SecureRandom.getInstanceStrong();//NativePRNGNonBlocking
+		System.out.println(random.getAlgorithm());
+		random = SecureRandom.getInstance("NativePRNGNonBlocking");
 		random.nextBytes(nonce);
 		AlgorithmParameterSpec parameterSpec2 = new IvParameterSpec(nonce);
 

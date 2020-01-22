@@ -1,5 +1,5 @@
 {
     "java.configuration.updateBuildConfiguration": "automatic",
-    "java.home": "/usr/lib/jvm/default-java/",
+    "java.home": "/usr/lib/jvm/default-java",
     "maven.view": "flat"
 }
