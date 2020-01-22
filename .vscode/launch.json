@@ -8,6 +8,27 @@
             "type": "java",
             "name": "CodeLens (Launch) - Main",
             "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.sample2.nyanpass.Main",
+            "projectName": "test"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.management.sample001.Main",
+            "projectName": "test"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.md.sample001.Main",
+            "projectName": "test"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
             "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.password.sample001.Main",
             "projectName": "test"
         },

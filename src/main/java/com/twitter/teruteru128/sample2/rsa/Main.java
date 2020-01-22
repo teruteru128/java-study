@@ -40,7 +40,6 @@ public class Main {
 		System.out.println(DataPrinter.printHexBinary(mod.toByteArray()));
 		System.out.println(DataPrinter.printHexBinary(ciphertext));
 		System.out.println(OffsetDateTime.now(ZoneId.of("UTC")).truncatedTo(ChronoUnit.SECONDS));
-		System.out.println("ひぐらしの\u001b[31;42mな\u001b[0mく頃に");
 	}
 
 }

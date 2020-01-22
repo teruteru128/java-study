@@ -3,7 +3,9 @@ package com.twitter.teruteru128.sample2.nyanpass;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -15,18 +17,17 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor(Executors.defaultThreadFactory());
-		service.scheduleAtFixedRate(new Runnable() {
-			@Override
-			public void run() {
-				final URI NYANPASS_URI = URI.create("http://nyanpass.com/api/get_count");
-				try (InputStream in = NYANPASS_URI.toURL().openStream();
-						BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
-					System.out.println(reader.readLine());
-				} catch (Exception e) {
+		service.scheduleAtFixedRate(() -> {
+			try{
+				final URL NYANPASS_URL = new URL("https://nyanpass.com/api/get_count");
+				HttpURLConnection connection= (HttpURLConnection) NYANPASS_URL.openConnection();
+				try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+					reader.lines().forEach(System.out::println);
+				}} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		}, 0, 29, TimeUnit.MINUTES);
+		, 0, 5, TimeUnit.SECONDS);
 		/*
 		NyanpassConfigBuilder builder = new NyanpassConfigBuilder();
 		NyanpassConfig config = builder.build();
