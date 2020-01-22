@@ -19,6 +19,7 @@ public class Main {
 		BigDecimal n = new BigDecimal(
 				"3.2590569672321782171743988150442311952228418283526525233070268010887319184696991837922217436198986916871395313891958895e+115");
 		BigInteger sqrt_n = n.toBigInteger();
+		System.out.printf("%f%n", n);
 		System.out.printf("%x%n", sqrt_n);
 		System.out.println(sqrt_n.pow(2));
 		System.out.println(n1);
