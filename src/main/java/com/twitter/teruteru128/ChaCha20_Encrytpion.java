@@ -27,9 +27,6 @@ public class ChaCha20_Encrytpion
 
 		String decryptedText = decrypt(cipherText, key);
 		System.out.println("DeCrypted Text : " + decryptedText);
-
-		var cipher = Cipher.getInstance("ChaCha20-Poly1305");
-		System.out.println(cipher);
 	}
 
 	public static byte[] encrypt(byte[] plaintext, SecretKey key) throws Exception
