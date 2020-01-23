@@ -1,15 +1,8 @@
 package com.twitter.teruteru128;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.security.Provider;
-import java.security.Security;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateFactory;
-
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 class Main {
 
