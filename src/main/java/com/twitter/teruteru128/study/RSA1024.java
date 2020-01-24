@@ -1,4 +1,4 @@
-package com.twitter.teruteru128;
+package com.twitter.teruteru128.study;
 import java.math.BigInteger;
 import java.security.KeyFactory;
 import java.security.PublicKey;
