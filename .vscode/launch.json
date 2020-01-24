@@ -8,6 +8,13 @@
             "type": "java",
             "name": "CodeLens (Launch) - Main",
             "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.sample.nyanpass.Main",
+            "projectName": "test"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
             "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.Main",
             "projectName": "study"
         },
