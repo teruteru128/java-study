@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.security.MessageDigest;
 import java.security.Provider;
 import java.security.Security;
+import java.util.List;
 import java.util.Optional;
 
 import javax.crypto.Cipher;
@@ -14,10 +15,7 @@ public class BCProviderTest {
         if (provider == null) {
             ModuleLayer layer = ModuleLayer.boot();
             Optional<Module> optional = layer.findModule("org.bouncycastle.provider");
-            layer.findModule("org.bouncycastle.pg").ifPresentOrElse(System.out::println,
-                    () -> System.out.println("none"));
-            layer.findModule("org.bouncycastle.provider").ifPresentOrElse(System.out::println,
-                    () -> System.out.println("none"));
+            List.of("org.bouncycastle.provider", "org.bouncycastle.pg").stream().map(i->layer.findModule(i)).filter(Optional::isPresent).map(Optional::get).forEach(System.out::println);;
             Class<?> class1 = null;
             if (optional.isPresent()) {
                 System.out.println("module found");
