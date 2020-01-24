@@ -12,6 +12,9 @@
       <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots</url>
     </repository>
   </repositories>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   <build>
     <plugins>
       <plugin>
@@ -20,6 +23,7 @@
         <configuration>
           <source>11</source>
           <target>11</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
       <plugin>
@@ -36,7 +40,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
-        <version></version>
+        <version>3.2.0</version>
         <configuration>
           <archive>
             <manifest>
@@ -46,6 +50,13 @@
               <classpathPrefix></classpathPrefix>
             </manifest>
           </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+          <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
     </plugins>

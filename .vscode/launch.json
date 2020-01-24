@@ -22,7 +22,7 @@
             "type": "java",
             "name": "CodeLens (Launch) - Main",
             "request": "launch",
-            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.Main",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.Main",
             "projectName": "study"
         },
         {
