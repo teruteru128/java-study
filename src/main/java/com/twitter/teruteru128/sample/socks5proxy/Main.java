@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample2.socks5proxy;
+package com.twitter.teruteru128.sample.socks5proxy;
 
 import java.io.BufferedReader;
 import java.io.IOException;
