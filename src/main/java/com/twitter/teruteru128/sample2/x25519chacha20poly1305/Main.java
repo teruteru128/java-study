@@ -13,6 +13,8 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.twitter.teruteru128.sample.x25519chacha20poly1305.DataPrinter;
+
 public class Main {
 
 	public static void main(String[] args) throws Exception {

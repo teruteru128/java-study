@@ -13,7 +13,7 @@ import java.time.temporal.ChronoUnit;
 
 import javax.crypto.Cipher;
 
-import com.twitter.teruteru128.sample2.x25519chacha20poly1305.DataPrinter;
+import com.twitter.teruteru128.sample.x25519chacha20poly1305.DataPrinter;
 
 public class Main {
 
