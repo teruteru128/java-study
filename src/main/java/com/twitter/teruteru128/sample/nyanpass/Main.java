@@ -9,7 +9,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
+ * TODO nyanpass.com 関連で何かサービス作る
  * */
 public class Main {
 

@@ -1,10 +1,8 @@
-package com.twitter.teruteru128.sample2.nyanpass;
+package com.twitter.teruteru128.sample.nyanpass;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -13,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 /**
  *
  * */
-public class Main {
+public class Main2 {
 
 	public static void main(String[] args) throws Exception {
 		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor(Executors.defaultThreadFactory());
