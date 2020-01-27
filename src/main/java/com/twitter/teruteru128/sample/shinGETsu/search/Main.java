@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample2.shinGETsu.search;
+package com.twitter.teruteru128.sample.shinGETsu.search;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
