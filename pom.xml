@@ -21,6 +21,7 @@
         <configuration>
           <source>11</source>
           <target>11</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
       <plugin>
@@ -37,6 +38,9 @@
       </plugin>
     </plugins>
   </build>
+  <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
