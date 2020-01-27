@@ -1,30 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" output="target/classes" path="src/main/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
-		<attributes>
-			<attribute name="optional" value="true"/>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="test" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-11">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
-	<!-- このエントリーをjarファイルのエントリーより下にしてはいけない -->
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
@@ -37,52 +18,17 @@
 			<attribute name="m2e-apt" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
 			<attribute name="test" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/javax/mail/mailapi/1.4.3/mailapi-1.4.3.jar"/>
-	<classpathentry kind="var" path="M2_REPO/javax/activation/activation/1.1/activation-1.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/javax/mail/javax.mail-api/1.6.2/javax.mail-api-1.6.2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/javax/xml/bind/jaxb-api/2.4.0-b180830.0359/jaxb-api-2.4.0-b180830.0359.jar"/>
-	<classpathentry kind="var" path="M2_REPO/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/junit/junit/4.13/junit-4.13.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/junit/jupiter/junit-jupiter-api/5.3.0/junit-jupiter-api-5.3.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apiguardian/apiguardian-api/1.0.0/apiguardian-api-1.0.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/opentest4j/opentest4j/1.1.0/opentest4j-1.1.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/junit/platform/junit-platform-commons/1.3.0/junit-platform-commons-1.3.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/junit/jupiter/junit-jupiter-engine/5.3.0/junit-jupiter-engine-5.3.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/junit/platform/junit-platform-engine/1.3.0/junit-platform-engine-1.3.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/h2database/h2/1.4.200/h2-1.4.200.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/twitter4j/twitter4j-core/4.0.7/twitter4j-core-4.0.7.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/bouncycastle/bcprov-jdk15on/1.64/bcprov-jdk15on-1.64.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/bouncycastle/bcmail-jdk15on/1.64/bcmail-jdk15on-1.64.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/bouncycastle/bcpkix-jdk15on/1.64/bcpkix-jdk15on-1.64.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/bouncycastle/bcpg-jdk15on/1.64/bcpg-jdk15on-1.64.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/graalvm/js/js/19.3.1/js-19.3.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/graalvm/regex/regex/19.3.1/regex-19.3.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/graalvm/truffle/truffle-api/19.3.1/truffle-api-19.3.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/graalvm/sdk/graal-sdk/19.3.1/graal-sdk-19.3.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/ow2/asm/asm/7.1/asm-7.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/ow2/asm/asm-tree/7.1/asm-tree-7.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/ow2/asm/asm-analysis/7.1/asm-analysis-7.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/ow2/asm/asm-commons/7.1/asm-commons-7.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/ow2/asm/asm-util/7.1/asm-util-7.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/ibm/icu/icu4j/64.2/icu4j-64.2.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/jcuda/jcuda/10.1.1/jcuda-10.1.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/jcuda/jcuda-natives/10.1.1/jcuda-natives-10.1.1-linux-x86_64.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/json/json/20190722/json-20190722.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/2.8.6/gson-2.8.6.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/spigotmc/spigot-api/1.13.2-R0.1-SNAPSHOT/spigot-api-1.13.2-R0.1-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/google/guava/guava/21.0/guava-21.0.jar"/>
-	<classpathentry kind="var" path="M2_REPO/net/md-5/bungeecord-chat/1.13-SNAPSHOT/bungeecord-chat-1.13-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/yaml/snakeyaml/1.23/snakeyaml-1.23.jar"/>
 	<classpathentry kind="src" output="target/test-classes" path="target/generated-test-sources/test-annotations">
 		<attributes>
 			<attribute name="optional" value="true"/>
