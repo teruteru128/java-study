@@ -6,6 +6,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * これはなんのために作られたクラスなのだ？
+ * 
+ * {@link java.io.ByteArrayOutputStream ByteArrayOutputStream}と{@link java.io.ObjectOutputStream ObjectOutputStream}を使えば
+ * 簡単にzipファイルにJavaオブジェクトを詰め込むことができるのだ
+ * @see {@link java.io.ByteArrayOutputStream }
+ * @see {@link java.io.ObjectOutputStream }
+*/
 public class Main {
 
 	public static void main(String[] args) {
