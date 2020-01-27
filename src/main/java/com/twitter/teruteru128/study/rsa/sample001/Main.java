@@ -30,7 +30,9 @@ public class Main {
 	}
 
 	/**
-	 * 
+	 * @see {@link Class#getResourceAsStream(String) }
+	 * @see {@link ClassLoader#getSystemResourceAsStream(String) }
+	 * @see {@link java.io.FileInputStream }
 	 */
 	private static Certificate loadCertificate(String name)
 			throws CertificateException, IOException {
