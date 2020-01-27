@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample.bitmessage.decode1;
+package com.twitter.teruteru128.study.bitmessage.decode1;
 
 import java.util.Base64;
 

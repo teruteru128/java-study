@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample.bitmessage;
+package com.twitter.teruteru128.study;
 
 import java.math.BigInteger;
 import java.security.AlgorithmParameters;
@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.concurrent.Callable;
 
 import javax.crypto.KeyGenerator;
+
+import com.twitter.teruteru128.study.bitmessage.Structs;
 
 class DeterministicAddressesCalcurator implements Callable<String> {
 	@Override

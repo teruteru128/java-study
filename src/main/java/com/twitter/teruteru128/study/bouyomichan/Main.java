@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample.bouyomichan;
+package com.twitter.teruteru128.study.bouyomichan;
 
 import java.io.IOException;
 import java.net.InetAddress;

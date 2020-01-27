@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample.bm.genaddress;
+package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
