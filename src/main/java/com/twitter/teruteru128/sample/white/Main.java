@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample2.white;
+package com.twitter.teruteru128.sample.white;
 
 import java.time.LocalDate;
 import java.time.Period;
