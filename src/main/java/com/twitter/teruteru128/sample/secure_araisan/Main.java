@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample2.cipher_arai;
+package com.twitter.teruteru128.sample.secure_araisan;
 
 import java.math.BigInteger;
 import java.util.Base64;
@@ -9,6 +9,9 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
+/**
+ * @see https://twitter.com/secure_araisan
+*/
 public class Main {
 
 	public static void main(String[] args) throws Exception {

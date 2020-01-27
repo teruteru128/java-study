@@ -19,14 +19,8 @@ class MyNumberValidater{
       return false;
     }
     int checkDigit = (int)digits[11] - '0';
-    int p;
-    int q;
     int sum=0;
-    for(int i = 1;i <= 11; i++){
-      p = (int)digits[11-i] - '0';
-      q = (i <= 6) ? i+1:i-5;
-      sum = (sum + p*q)%11;
-    }
+    sum = calcCheckDigit(digits);
     System.out.printf("%d == %d -> ", checkDigit, sum);
     if(sum <= 1) {
       return checkDigit == 0;

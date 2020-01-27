@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample2.chacha20;
+package com.twitter.teruteru128.sample.chacha20;
 
 import java.security.Key;
 import java.security.SecureRandom;
