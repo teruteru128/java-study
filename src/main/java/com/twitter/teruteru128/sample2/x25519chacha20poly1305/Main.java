@@ -4,7 +4,6 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
-import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.NamedParameterSpec;
 
 import javax.crypto.AEADBadTagException;
@@ -52,7 +51,7 @@ public class Main {
 		System.out.println(random.getAlgorithm());
 		random = SecureRandom.getInstance("NativePRNGNonBlocking");
 		random.nextBytes(nonce);
-		AlgorithmParameterSpec parameterSpec2 = new IvParameterSpec(nonce);
+		var parameterSpec2 = new IvParameterSpec(nonce);
 
 		// 暗号化
 		aliceCipher.init(Cipher.ENCRYPT_MODE, aliceSecretKey, parameterSpec2);

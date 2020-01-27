@@ -17,7 +17,7 @@ public class Main {
 			random.nextBytes(nonce);
 		}
 		int counter = 1;
-		ChaCha20ParameterSpec spec = new ChaCha20ParameterSpec(nonce, counter);
+		var spec = new ChaCha20ParameterSpec(nonce, counter);
 
 		KeyGenerator keyGenerator = KeyGenerator.getInstance("ChaCha20");
 		keyGenerator.init(256);

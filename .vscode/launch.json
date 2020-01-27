@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.sample2.socks5proxy.Main",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.sample2.white.Main",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.sample2.chacha20.Main",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - BCProviderTest",
             "request": "launch",
             "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.BCProviderTest",
