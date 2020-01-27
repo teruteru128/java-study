@@ -1,9 +1,7 @@
 package com.twitter.teruteru128;
 
-import java.util.*;
+import java.util.List;
 
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
