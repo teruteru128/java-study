@@ -1,4 +1,4 @@
-package com.twitter.teruteru128;
+package com.twitter.teruteru128.study;
 
 import java.util.Base64;
 
@@ -38,7 +38,7 @@ public class ChaCha20_Encrytpion
 		Cipher cipher = Cipher.getInstance("ChaCha20");
 
 		// Create ChaCha20ParameterSpec
-		ChaCha20ParameterSpec paramSpec = new ChaCha20ParameterSpec(nonceBytes, counter);
+		var paramSpec = new ChaCha20ParameterSpec(nonceBytes, counter);
 
 		// Create SecretKeySpec
 		SecretKeySpec keySpec = new SecretKeySpec(key.getEncoded(), "ChaCha20");
@@ -61,7 +61,7 @@ public class ChaCha20_Encrytpion
 		Cipher cipher = Cipher.getInstance("ChaCha20");
 
 		// Create ChaCha20ParameterSpec
-		ChaCha20ParameterSpec paramSpec = new ChaCha20ParameterSpec(nonceBytes, counter);
+		var paramSpec = new ChaCha20ParameterSpec(nonceBytes, counter);
 
 		// Create SecretKeySpec
 		SecretKeySpec keySpec = new SecretKeySpec(key.getEncoded(), "ChaCha20");

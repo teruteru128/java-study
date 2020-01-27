@@ -1,4 +1,4 @@
-package com.twitter.teruteru128;
+package com.twitter.teruteru128.study;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

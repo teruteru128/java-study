@@ -20,9 +20,27 @@ public class Main {
 		URL url = uri.toURL();
 		// 通信関係ってかなり厳重に隠蔽されてるんですね……
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
-
-		try(BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), Charset.forName("SJIS")))){
-			reader.lines().forEach(System.out::println);
+		connection.addRequestProperty("If-None-Match", "\"b7fd84d-50892-5e286b79\"");
+		connection.connect();
+		int responseCode = connection.getResponseCode();
+		System.out.println(responseCode);
+		var fields = connection.getHeaderFields();
+		if (responseCode == 200) {
+			try (BufferedReader reader = new BufferedReader(
+					new InputStreamReader(connection.getInputStream(), Charset.forName("SJIS")))) {
+				reader.lines().forEach(System.out::println);
+			}
+		} else {
+			System.out.printf("%d : %s\n", responseCode, connection.getResponseMessage());
+			for (var e : fields.entrySet()) {
+				var key = e.getKey();
+				var val = e.getValue();
+				if(key == null){
+					System.out.printf("<%s> : %s%n", key, val);
+				}else{
+					System.out.printf("%s : %s%n", key, val);
+				}
+			}
 		}
 	}
 

@@ -1,4 +1,4 @@
-package com.twitter.teruteru128;
+package com.twitter.teruteru128.study;
 import static java.lang.Math.abs;
 import static java.math.BigInteger.valueOf;
 

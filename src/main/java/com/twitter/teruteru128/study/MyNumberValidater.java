@@ -1,4 +1,4 @@
-package com.twitter.teruteru128;
+package com.twitter.teruteru128.study;
 class MyNumberValidater{
 
   static private int calcCheckDigit(char[] digits){

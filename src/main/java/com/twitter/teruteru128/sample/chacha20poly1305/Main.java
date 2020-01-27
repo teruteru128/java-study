@@ -1,7 +1,6 @@
 package com.twitter.teruteru128.sample.chacha20poly1305;
 
 import java.security.SecureRandom;
-import java.security.spec.AlgorithmParameterSpec;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -25,7 +24,7 @@ public class Main {
 		Cipher aliceCipher = Cipher.getInstance("ChaCha20-Poly1305");
 		Cipher bobCipher = Cipher.getInstance("ChaCha20-Poly1305");
 
-		AlgorithmParameterSpec parameterSpec2 = new IvParameterSpec(nonce);
+		var parameterSpec2 = new IvParameterSpec(nonce);
 
 		aliceCipher.init(Cipher.ENCRYPT_MODE, secretKey, parameterSpec2);
 
