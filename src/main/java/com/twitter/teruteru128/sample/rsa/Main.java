@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample2.rsa;
+package com.twitter.teruteru128.sample.rsa;
 
 import java.math.BigInteger;
 import java.nio.file.Files;
