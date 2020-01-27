@@ -46,7 +46,3 @@ public class NyanpassButtonPoller implements Runnable {
 		}
 	}
 }
-
-class NyanpassException extends Exception {
-	private static final long serialVersionUID = 0;
-}

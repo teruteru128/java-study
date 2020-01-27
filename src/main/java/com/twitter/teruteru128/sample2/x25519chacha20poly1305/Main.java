@@ -35,7 +35,7 @@ public class Main {
 		bobAgreement.doPhase(aliceXKeypair.getPublic(), true);
 
 		// 共有秘密生成＆秘密鍵に変換
-		// XXX Not supported... f**k
+		// XXX .generateSecret("ChaCha20") is not supported... fuck
 		//SecretKey aliceSecretKey = aliceAgreement.generateSecret("ChaCha20");
 		//SecretKey bobSecretKey = bobAgreement.generateSecret("ChaCha20");
 		MessageDigest sha3_256 = MessageDigest.getInstance("SHA3-256");
