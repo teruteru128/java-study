@@ -3,7 +3,8 @@
  */
 package com.twitter.teruteru128.sample;
 
-public class Library2 {
+public class LibraryImpl implements Library {
+    @Override
     public boolean someLibraryMethod() {
         return true;
     }
