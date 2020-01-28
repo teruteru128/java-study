@@ -18,10 +18,9 @@ public final class VoidHolder {
 		Void instance = null;
 		try {
 			Class<Void> clazz = Void.class;
-			Constructor<Void> constructor = clazz
-					.getDeclaredConstructor(new Class<?>[0]);
+			Constructor<Void> constructor = clazz.getDeclaredConstructor();
 			constructor.setAccessible(true);
-			instance = constructor.newInstance(new Object[0]);
+			instance = constructor.newInstance();
 		} catch (Throwable e) {
 			throw new InternalError(e);
 		} finally {
