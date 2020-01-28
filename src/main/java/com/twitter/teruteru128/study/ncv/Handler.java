@@ -7,8 +7,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 class Handler extends DefaultHandler {
-    private final HashSet<User> set;
-    public Handler(final HashSet<User> set){
+    private final HashSet<UserB> set;
+    public Handler(final HashSet<UserB> set){
         this.set = set;
     }
     @Override
