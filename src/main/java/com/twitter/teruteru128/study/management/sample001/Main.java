@@ -11,21 +11,19 @@ import java.util.concurrent.TimeUnit;
  *
  */
 public class Main implements Runnable {
+	protected String[] args;
+
+	public Main(String[] args) {
+		super();
+		this.args = args;
+	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		ScheduledExecutorService service = Executors
-				.newSingleThreadScheduledExecutor();
-		service.scheduleWithFixedDelay(new Main(), 0, 500,
-				TimeUnit.MILLISECONDS);
-		try {
-			Thread.sleep(5L * 60 * 1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		service.shutdown();
+		Thread t = new Thread(new Main(args));
+		t.start();
 	}
 
 	/**
@@ -33,10 +31,18 @@ public class Main implements Runnable {
 	 */
 	@Override
 	public void run() {
-		OperatingSystemMXBean bean = ManagementFactory
-				.getOperatingSystemMXBean();
-		System.out.printf("%s, %d,%f%n", bean.getArch(),
-				bean.getAvailableProcessors(), bean.getSystemLoadAverage());
+		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+		service.scheduleWithFixedDelay(() -> {
+			OperatingSystemMXBean bean = ManagementFactory.getOperatingSystemMXBean();
+			System.out.printf("%s, %d, %f%n", bean.getArch(), bean.getAvailableProcessors(),
+					bean.getSystemLoadAverage());
+		}, 0, 500, TimeUnit.MILLISECONDS);
+		try {
+			Thread.sleep(5L * 60 * 1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		service.shutdown();
 	}
 
 }
