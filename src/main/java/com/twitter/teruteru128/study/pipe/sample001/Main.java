@@ -1,8 +1,11 @@
 package com.twitter.teruteru128.study.pipe.sample001;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
+import java.io.PrintStream;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -46,23 +49,18 @@ public class Main implements Runnable {
 	}
 
 	/**
-     * 
-     */
+	 * 
+	 */
 	private void produceData(PipedOutputStream pos, CountDownLatch latch) {
-		try {
+		try (PrintStream p = new PrintStream(pos)) {
 			for (int i = 0; i < 50; i++) {
-				pos.write(i);
-				System.out.printf("Writing : %d%n", i);
+				p.printf("%s%n", (i % 3) == 0 ? "アッー！" : i);
+				//System.out.printf("Writing : %d%n", i);
 				Thread.sleep(500);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				pos.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			latch.countDown();
 		}
 	}
@@ -71,10 +69,10 @@ public class Main implements Runnable {
 	 * 
 	 */
 	private void consumeData(PipedInputStream pis, CountDownLatch latch) {
-		try(PipedInputStream p = pis) {
-			int num = -1;
-			while ((num = p.read()) != -1) {
-				System.out.printf("Reading : %d%n", num);
+		try (BufferedReader p = new BufferedReader(new InputStreamReader(pis))) {
+			String l = null;
+			while ((l = p.readLine()) != null) {
+				System.out.printf("Reading : %s%n", l);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
