@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.regex.Pattern;
 
-import com.twitter.teruteru128.sample.x25519chacha20poly1305.DataPrinter;
+import com.twitter.teruteru128.sample.x25519.chacha20.poly1305.DataPrinter;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample.x25519chacha20poly1305;
+package com.twitter.teruteru128.sample.x25519.chacha20.poly1305;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -13,7 +13,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.twitter.teruteru128.sample.x25519chacha20poly1305.DataPrinter;
+import com.twitter.teruteru128.sample.x25519.chacha20.poly1305.DataPrinter;
 
 public class Main {
 

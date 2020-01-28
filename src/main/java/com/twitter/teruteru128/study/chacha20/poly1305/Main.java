@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample.chacha20poly1305;
+package com.twitter.teruteru128.study.chacha20.poly1305;
 
 import java.security.SecureRandom;
 

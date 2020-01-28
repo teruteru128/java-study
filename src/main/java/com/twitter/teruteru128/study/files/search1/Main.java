@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample.files.search1;
+package com.twitter.teruteru128.study.files.search1;
 
 import java.io.File;
 import java.io.IOException;

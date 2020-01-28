@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample.x25519chacha20poly1305;
+package com.twitter.teruteru128.sample.x25519.chacha20.poly1305;
 
 import java.io.OutputStream;
 import java.io.PrintStream;

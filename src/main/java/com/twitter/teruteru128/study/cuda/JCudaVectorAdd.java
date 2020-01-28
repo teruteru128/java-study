@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample.cuda.study1;
+package com.twitter.teruteru128.study.cuda;
 /*
  * JCuda - Java bindings for NVIDIA CUDA driver and runtime API
  * http://www.jcuda.org

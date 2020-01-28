@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample.fourcube;
+package com.twitter.teruteru128.study.fourcube;
 
 import java.security.SecureRandom;
 import java.util.Random;

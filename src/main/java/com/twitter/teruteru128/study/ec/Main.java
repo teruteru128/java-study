@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.sample.ec;
+package com.twitter.teruteru128.study.ec;
 
 import java.math.BigInteger;
 import java.security.AlgorithmParameters;
