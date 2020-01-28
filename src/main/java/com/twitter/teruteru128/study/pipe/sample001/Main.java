@@ -11,15 +11,25 @@ import java.util.concurrent.Executors;
  * @author Teruteru
  *
  */
-public class Main {
+public class Main implements Runnable {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
+		Thread thread = new Thread(new Main());
+		thread.start();
+	}
+
+	@Override
+	public void run() {
 		PipedInputStream pis = new PipedInputStream();
 		PipedOutputStream pos = new PipedOutputStream();
-		pos.connect(pis);
+		try {
+			pos.connect(pis);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		CountDownLatch latch = new CountDownLatch(2);
 		Runnable producer = () -> produceData(pos, latch);
@@ -27,14 +37,18 @@ public class Main {
 		ExecutorService service = Executors.newCachedThreadPool();
 		service.execute(producer);
 		service.execute(consumer);
-		latch.await();
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		service.shutdown();
 	}
 
 	/**
      * 
      */
-	private static void produceData(PipedOutputStream pos, CountDownLatch latch) {
+	private void produceData(PipedOutputStream pos, CountDownLatch latch) {
 		try {
 			for (int i = 0; i < 50; i++) {
 				pos.write(i);
@@ -56,20 +70,15 @@ public class Main {
 	/**
 	 * 
 	 */
-	private static void consumeData(PipedInputStream pis, CountDownLatch latch) {
-		try {
+	private void consumeData(PipedInputStream pis, CountDownLatch latch) {
+		try(PipedInputStream p = pis) {
 			int num = -1;
-			while ((num = pis.read()) != -1) {
+			while ((num = p.read()) != -1) {
 				System.out.printf("Reading : %d%n", num);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				pis.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 			latch.countDown();
 		}
 	}
