@@ -12,7 +12,7 @@ import javax.xml.bind.DatatypeConverter;
 /**
  * @see https://twitter.com/secure_araisan
 */
-public class Main {
+public class DecryptoAraisanMessage {
 
 	public static void main(String[] args) throws Exception {
 		String keyStr = "3512b51c37086e360289b55ae217565c56816d16a228a162c7a49fe7637f1f8f";
