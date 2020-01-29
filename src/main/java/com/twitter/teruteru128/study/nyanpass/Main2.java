@@ -20,9 +20,10 @@ import com.google.gson.JsonObject;
  * */
 public class Main2 implements Runnable {
 
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.JAPAN);
+	private static final Gson gson = new Gson();
+
 	private Runnable get(URL url) {
-		final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.JAPAN);
-		final var gson = new Gson();
 		return () -> {
 			try {
 				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
