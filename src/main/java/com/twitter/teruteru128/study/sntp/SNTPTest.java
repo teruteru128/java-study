@@ -1,0 +1,70 @@
+package com.twitter.teruteru128.study.sntp;
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.security.SecureRandom;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
+class SNTPTest {
+    private static final String SERVER_NAME = "ntp.nict.jp";
+
+    public static void main(String[] args) throws Exception {
+        System.out.println(InetAddress.getLocalHost());
+        System.out.println(InetAddress.getLoopbackAddress());
+        InetSocketAddress host = new InetSocketAddress(InetAddress.getByName("192.168.1.128"),
+                new SecureRandom().nextInt(64510) + 1025);
+        InetSocketAddress address = new InetSocketAddress(SERVER_NAME, 123);
+        byte[] sendBuf = new byte[48];
+        sendBuf[0] = 0x0b;
+        System.out.printf("%d %d %d%n", (sendBuf[0] >> 6) & 0x03, (sendBuf[0] >> 3) & 0x07, (sendBuf[0] >> 0) & 0x07);
+        // sendBuf[0] = 0x0b;
+        // System.out.printf("%d %d %d%n", (sendBuf[0]>>6) & 0x03, (sendBuf[0]>>3) &
+        // 0x07, (sendBuf[0]>>0) & 0x07);
+        DatagramPacket send = new DatagramPacket(sendBuf, 48, address);
+        byte[] recvBuf = new byte[48];
+        DatagramPacket recv = new DatagramPacket(recvBuf, 48, address);
+        try (DatagramSocket socket = new DatagramSocket(host)) {
+            socket.send(send);
+            socket.receive(recv);
+        }
+        ByteBuffer a = ByteBuffer.wrap(recv.getData());
+        a.order(ByteOrder.BIG_ENDIAN);
+        byte first = a.get();
+        byte stratum = a.get();
+        byte poll = a.get();
+        byte precision = a.get();
+        int root_delay = a.getInt();
+        int root_dispersion = a.getInt();
+        int reference_identifier = a.getInt();
+        long reference_timestamp = a.getLong();
+        long originate_timestamp = a.getLong();
+        long receive_timestamp = a.getLong();
+        int transmit_timestamp_seconds = a.getInt();
+        int transmit_timestamp_fractions = a.getInt();
+
+        System.out.printf("LI : %d, VN : %d, Mode : %d%n", (first >> 6) & 0x03, (first >> 3) & 0x07,
+                (first >> 0) & 0x07);
+        System.out.printf("stratum : %d%n", stratum);
+        System.out.printf("poll : %d%n", poll);
+        System.out.printf("precision : %d%n", precision);
+        System.out.printf("root delay : %d%n", root_delay);
+        System.out.printf("root dispersion : %d%n", root_dispersion);
+        System.out.printf("reference_identifier : 0x%08x(%c%c%c%c)%n", reference_identifier, (reference_identifier >> 24) & 0xff,
+                (reference_identifier >> 16) & 0xff, (reference_identifier >> 8) & 0xff,
+                (reference_identifier >> 0) & 0xff);
+        System.out.printf("reference_timestamp %s%n", Long.toUnsignedString(reference_timestamp, 16));
+        System.out.printf("originate_timestamp : %s%n", Long.toUnsignedString(originate_timestamp));
+        System.out.printf("receive_timestamp : %s%n", Long.toUnsignedString(receive_timestamp, 16));
+        System.out.printf("transmit_timestamp_seconds : %s(%d)%n", Integer.toUnsignedLong(transmit_timestamp_seconds),Integer.toUnsignedLong(transmit_timestamp_seconds) - 2208988800L);
+        long unixtime = Integer.toUnsignedLong(transmit_timestamp_seconds) - 2208988800L;
+        System.out.printf("time : %s%n",
+                LocalDateTime.ofInstant((Instant.ofEpochSecond(unixtime)), ZoneId.systemDefault()));
+        System.out.printf("transmit timestamp fractions : %d%n", transmit_timestamp_fractions);
+    }
+}

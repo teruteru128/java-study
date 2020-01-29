@@ -3,35 +3,70 @@ package com.twitter.teruteru128.study.nyanpass;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.Executors;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 /**
  *
  * */
-public class Main2 {
+public class Main2 implements Runnable {
+
+	private Runnable get(URL url) {
+		final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.JAPAN);
+		final var gson = new Gson();
+		return () -> {
+			try {
+				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+				connection.addRequestProperty("Connection", "close");
+				connection.connect();
+				if (connection.getResponseCode() == 200) {
+					try (BufferedReader reader = new BufferedReader(
+							new InputStreamReader(connection.getInputStream()))) {
+						String a = reader.readLine();
+						var obj = gson.fromJson(a, JsonObject.class);
+						var time = LocalDateTime.parse(obj.get("time").getAsString(), FORMATTER);
+						var count = Long.parseLong(obj.get("count").getAsString());
+						System.out.printf("%s : %s\n", time, count);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		};
+	}
+
+	@Override
+	public void run() {
+		ScheduledExecutorService service = new ScheduledThreadPoolExecutor(2);
+		URL NYANPASS_URL = null;
+		try {
+			NYANPASS_URL = new URL("https://nyanpass.com/api/get_count");
+		} catch (MalformedURLException e1) {
+			e1.printStackTrace();
+			System.exit(1);
+		}
+		service.scheduleAtFixedRate(get(NYANPASS_URL), 0, 5, TimeUnit.SECONDS);
+		try {
+			Thread.sleep(1000 * 60);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		service.shutdown();
+	}
 
 	public static void main(String[] args) throws Exception {
-		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor(Executors.defaultThreadFactory());
-		service.scheduleAtFixedRate(() -> {
-			try{
-				final URL NYANPASS_URL = new URL("https://nyanpass.com/api/get_count");
-				HttpURLConnection connection= (HttpURLConnection) NYANPASS_URL.openConnection();
-				try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-					reader.lines().forEach(System.out::println);
-				}} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		, 0, 5, TimeUnit.SECONDS);
-		/*
-		NyanpassConfigBuilder builder = new NyanpassConfigBuilder();
-		NyanpassConfig config = builder.build();
-		service.scheduleAtFixedRate(new NyanpassButtonPoller(config), 0, 5, TimeUnit.MINUTES);
-		service.execute(new StdoutTask(config));
-		*/
+		System.out.println("にゃんぱすー");
+		var thread = new Thread(new Main2());
+		thread.start();
 	}
 
 }

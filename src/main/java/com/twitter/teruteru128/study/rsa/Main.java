@@ -2,7 +2,7 @@ package com.twitter.teruteru128.study.rsa;
 
 import java.math.BigInteger;
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
@@ -21,7 +21,10 @@ public class Main {
 		KeyFactory factory = KeyFactory.getInstance("RSA");
 
 		System.out.println(Cipher.getMaxAllowedKeyLength("RSA"));
-		X509EncodedKeySpec spec = new X509EncodedKeySpec(Files.readAllBytes(Path.of("rsa1024.der")));
+		var resource = ClassLoader.getSystemResource("rsa1024.der");
+		var fileUri = resource.toURI();
+		var path = Paths.get(fileUri);
+		X509EncodedKeySpec spec = new X509EncodedKeySpec(Files.readAllBytes(path));
 
 		PublicKey key = factory.generatePublic(spec);
 		System.out.println(key);
@@ -29,7 +32,7 @@ public class Main {
 		Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
 
 		cipher.init(Cipher.ENCRYPT_MODE, key);
-		byte[] ciphertext=cipher.doFinal("That's one small step for a man, one giant leap for mankind.".getBytes());
+		byte[] ciphertext = cipher.doFinal("That's one small step for a man, one giant leap for mankind.".getBytes());
 
 		RSAPublicKey rsaKey = (RSAPublicKey) key;
 		BigInteger mod = rsaKey.getModulus();

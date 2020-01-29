@@ -6,6 +6,62 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - SNTPTest",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.sntp.SNTPTest",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.rsa.Main",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.tor.s2k.Main",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.secure_araisan.Main",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.mod.Main",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.net.Main",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.socks5proxy.Main",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main2",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.nyanpass.Main2",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Main",
             "request": "launch",
             "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.pipe.sample001.Main",

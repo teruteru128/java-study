@@ -7,7 +7,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.twitter.teruteru128.holders.SecureRandomHolder;
-import com.twitter.teruteru128.holders.VoidHolder;
 
 /**
  * @author Teruteru
@@ -28,12 +27,12 @@ public class Main {
 		for (int i = 0; i < 0; i++) {
 			list.add(Executors.callable(
 					new Searcher(publicKey1, random.nextLong(), min1),
-					VoidHolder.getInstance()));
+					null));
 		}
 		for (int i = 0; i < 4; i++) {
 			list.add(Executors.callable(
 					new Searcher(publicKey2, random.nextLong(), min2),
-					VoidHolder.getInstance()));
+					null));
 		}
 		ExecutorService service = Executors.newWorkStealingPool();
 		try {
