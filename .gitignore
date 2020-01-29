@@ -34,6 +34,8 @@ buildNumber.properties
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
 
+.classpath
+
 ## https://github.com/github/gitignore/blob/master/Global/Eclipse.gitignore
 .metadata
 bin/
