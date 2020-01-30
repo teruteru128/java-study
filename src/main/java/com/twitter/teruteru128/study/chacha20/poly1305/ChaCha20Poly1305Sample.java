@@ -7,7 +7,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 
-public class Main {
+public class ChaCha20Poly1305Sample {
 
 	public static void main(String[] args) throws Exception {
 
