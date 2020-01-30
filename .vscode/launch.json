@@ -20,10 +20,10 @@
         },
         {
             "type": "java",
-            "name": "CodeLens (Launch) - Main",
+            "name": "CodeLens (Launch) - BouyomiTalker",
             "request": "launch",
             "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.bouyomichan.BouyomiTalker",
-            "projectName": "test"
+            "projectName": "study"
         },
         {
             "type": "java",
