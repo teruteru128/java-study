@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study.collatz.sample001;
 
 import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.function.Consumer;
 
 import com.twitter.teruteru128.holders.SecureRandomHolder;
@@ -15,8 +16,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		BigInteger rn = new BigInteger(8192,
-				SecureRandomHolder.getInstanceStrong());
+		BigInteger rn = new BigInteger(8192, new SecureRandom());
 		collatz(n -> {
 		}, rn.pow(27).multiply(rn).add(rn));
 	}
@@ -28,8 +28,7 @@ public class Main {
 
 		consumer.accept(n);
 		if (n.compareTo(ONE) > 0) {
-			return collatz(consumer, n.testBit(0) ? n.multiply(THREE).add(ONE)
-					: n.shiftRight(1));
+			return collatz(consumer, n.testBit(0) ? n.multiply(THREE).add(ONE) : n.shiftRight(1));
 		} else {
 			return ONE;
 		}
