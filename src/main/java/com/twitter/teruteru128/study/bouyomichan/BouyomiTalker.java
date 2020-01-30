@@ -1,12 +1,12 @@
 package com.twitter.teruteru128.study.bouyomichan;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.channels.SocketChannel;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -14,55 +14,34 @@ import java.time.chrono.JapaneseDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class Main {
-	private static final String host = "localhost";
-	private static final int port = 50001;
-	private static InetAddress addr = null;
-	private static InetSocketAddress address = null;
-
-	private static void init() {
-		try {
-			addr = InetAddress.getByName(host);
-			address = new InetSocketAddress(addr, port);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
-	}
+public class BouyomiTalker {
 
 	public static void main(String[] args) throws Exception {
-		init();
 		LocalDateTime dateTime = LocalDateTime.now(Clock.systemDefaultZone());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日 ah時m分s秒", Locale.JAPAN);
 		DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("Gy年M月d日", Locale.JAPAN);
 		DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("ah時m分s秒", Locale.JAPAN);
 		JapaneseDate date = JapaneseDate.from(dateTime);
 		LocalTime time = LocalTime.from(dateTime);
+		var main = new BouyomiTalker();
 		// for (;;) {
-		//readText(String.format("今は %s %s ですよー", date.format(formatter2), time.format(formatter3)));
-		readText("hakatanoshio");
+		main.readText(String.format("今は %s %s ですよー", date.format(formatter2), time.format(formatter3)));
+		// readText("hakatanoshio");
+		// main.readText("何時？？");
 		// Thread.sleep(1000 * 30);
 		// }
 	}
 
-	private static void readText(String text) {
-		String message = text;
-		byte[] messageData = message.getBytes();
-		int capacity = 0;
+	private void readText(String text) throws UnknownHostException {
+		byte[] messageData = text.getBytes();
 		short command = 1;
-		capacity += getDataLength(command);
 		short speed = -1;
-		capacity += getDataLength(speed);
 		short tone = -1;
-		capacity += getDataLength(tone);
 		short volume = -1;
-		capacity += getDataLength(volume);
 		short voice = 0;
-		capacity += getDataLength(voice);
 		byte encode = 0;
-		capacity += getDataLength(encode);
 		int length = messageData.length;
-		capacity += getDataLength(length);
-		capacity += length;
+		int capacity = 15 + length;
 		ByteBuffer buffer = ByteBuffer.allocate(capacity).order(ByteOrder.LITTLE_ENDIAN);
 		buffer.putShort(command);
 		buffer.putShort(speed);
@@ -81,9 +60,13 @@ public class Main {
 		System.out.printf("length : %d\n", buffer.getInt(11));
 		buffer.flip();
 		byte[] array = buffer.array();
-		for (int i = 0; i < array.length; i++) {
+		for (int i = 0; i < 15; i++) {
 			System.out.printf("%02x", array[i]);
-			if (i % 15 == 14) {
+		}
+		System.out.println();
+		for (int i = 15; i < array.length; i++) {
+			System.out.printf("%02x", array[i]);
+			if (i % 16 == 14) {
 				System.out.println();
 			}
 		}
@@ -91,30 +74,16 @@ public class Main {
 		System.out.printf("fulllength : %dbytes\n", buffer.capacity());
 		System.out.printf("datalength : %dbytes\n", messageData.length);
 		assert (messageData.length + 15) == buffer.capacity();
-		try (SocketChannel channel = SocketChannel.open(address)) {
-			channel.write(buffer);
+		boolean useProxy = true;
+		String host = useProxy ? "2ayu6gqru3xzfzbvud64ezocamykp56kunmkzveqmuxvout2yubeeuad.onion" : "localhost";
+		int port = 50001;
+		var proxy = useProxy ? new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9050)) : Proxy.NO_PROXY;
+		try (Socket socket = new Socket(proxy)) {
+			socket.connect(new InetSocketAddress(host, port));
+			socket.getOutputStream().write(array);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static int getDataLength(byte b) {
-		return 1;
-	}
-
-	public static int getDataLength(short b) {
-		return 2;
-	}
-
-	public static int getDataLength(int b) {
-		return 4;
-	}
-
-	public static int getDataLength(long b) {
-		return 8;
-	}
-
-	public static int getDataLength(byte[] b) {
-		return b.length;
-	}
 }
