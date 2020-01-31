@@ -14,13 +14,13 @@ import java.util.concurrent.Executors;
  * @author Teruteru
  *
  */
-public class Main implements Runnable {
+public class PipeSample implements Runnable {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception {
-		Thread thread = new Thread(new Main());
+		Thread thread = new Thread(new PipeSample());
 		thread.start();
 	}
 
