@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * @author Teruteru
  *
  */
-public class Main {
+public class ECReflectionSample {
 
 	/**
 	 * @param args

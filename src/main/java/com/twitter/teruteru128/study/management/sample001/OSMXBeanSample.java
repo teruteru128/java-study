@@ -10,10 +10,10 @@ import java.util.concurrent.TimeUnit;
  * @author Teruteru
  *
  */
-public class Main implements Runnable {
+public class OSMXBeanSample implements Runnable {
 	protected String[] args;
 
-	public Main(String[] args) {
+	public OSMXBeanSample(String[] args) {
 		super();
 		this.args = args;
 	}
@@ -22,7 +22,7 @@ public class Main implements Runnable {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Thread t = new Thread(new Main(args));
+		Thread t = new Thread(new OSMXBeanSample(args));
 		t.start();
 	}
 

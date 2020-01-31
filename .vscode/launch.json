@@ -6,7 +6,7 @@
     "configurations": [
         {
             "type": "java",
-            "name": "CodeLens (Launch) - Main",
+            "name": "CodeLens (Launch) - CollatzClac",
             "request": "launch",
             "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.collatz.sample001.CollatzClac",
             "projectName": "study"
@@ -20,9 +20,9 @@
         },
         {
             "type": "java",
-            "name": "CodeLens (Launch) - Main",
+            "name": "CodeLens (Launch) - ReadLocalFileViaURLSample",
             "request": "launch",
-            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.Main",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.ReadLocalFileViaURLSample",
             "projectName": "test"
         },
         {
@@ -34,16 +34,9 @@
         },
         {
             "type": "java",
-            "name": "CodeLens (Launch) - Main",
+            "name": "CodeLens (Launch) - ChaCha20Poly1305Sample",
             "request": "launch",
             "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.chacha20.poly1305.ChaCha20Poly1305Sample",
-            "projectName": "study"
-        },
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - Main",
-            "request": "launch",
-            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.Main",
             "projectName": "study"
         },
         {
@@ -62,16 +55,16 @@
         },
         {
             "type": "java",
-            "name": "CodeLens (Launch) - Main",
+            "name": "CodeLens (Launch) - ECReflectionSample",
             "request": "launch",
-            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.ec.sample001.Main",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.ec.sample001.ECReflectionSample",
             "projectName": "study"
         },
         {
             "type": "java",
-            "name": "CodeLens (Launch) - Main",
+            "name": "CodeLens (Launch) - OSMXBeanSample",
             "request": "launch",
-            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.management.sample001.Main",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.management.sample001.OSMXBeanSample",
             "projectName": "study"
         },
         {
