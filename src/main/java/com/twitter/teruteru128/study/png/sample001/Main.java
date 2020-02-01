@@ -1,14 +1,11 @@
 package com.twitter.teruteru128.study.png.sample001;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
 
 /**
  * @author Teruteru
