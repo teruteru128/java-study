@@ -83,9 +83,9 @@
       <version>[1.6.0,)</version>
     </dependency>
     <dependency>
-        <groupId>org.twitter4j</groupId>
-        <artifactId>twitter4j-core</artifactId>
-        <version>[4.0.7,)</version>
+      <groupId>org.twitter4j</groupId>
+      <artifactId>twitter4j-core</artifactId>
+      <version>[4.0.7,)</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase -->
     <dependency>
@@ -144,6 +144,12 @@
       <artifactId>spigot-api</artifactId>
       <version>1.13.2-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>[8.0.19,)</version>
     </dependency>
   </dependencies>
 </project>

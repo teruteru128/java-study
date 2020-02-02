@@ -18,4 +18,5 @@ module com.twitter.teruteru128.study {
 	requires org.bukkit;
 	requires org.json;
 	requires org.twitter4j.core;
+	requires mysql.connector.java;
 }
