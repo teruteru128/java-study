@@ -1,8 +1,10 @@
 package com.twitter.teruteru128.study.rsa;
 
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
@@ -43,6 +45,13 @@ public class RSA1024EncryptSample {
 		System.out.println(DataPrinter.printHexBinary(mod.toByteArray()));
 		System.out.println(DataPrinter.printHexBinary(ciphertext));
 		System.out.println(OffsetDateTime.now(ZoneId.of("UTC")).truncatedTo(ChronoUnit.SECONDS));
+		var primefileURL = ClassLoader.getSystemResource("prime1.bin");
+		var primefileURI = primefileURL.toURI();
+		var primefilePath = Paths.get(primefileURI);
+		var primeBytes = Files.readAllBytes(primefilePath);
+		BigInteger a = new BigInteger(1, primeBytes, 0, primeBytes.length);
+		var probablePrime = a.nextProbablePrime();
+		Files.write(Paths.get("probablePrime1.bin"), probablePrime.toByteArray(), StandardOpenOption.WRITE, StandardOpenOption.CREATE);
 	}
 
 }
