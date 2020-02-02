@@ -15,7 +15,7 @@ import javax.crypto.Cipher;
 
 import com.twitter.teruteru128.study.crypto.DataPrinter;
 
-public class Main {
+public class RSA1024EncryptSample {
 
 	public static void main(String[] args) throws Exception {
 		KeyFactory factory = KeyFactory.getInstance("RSA");
