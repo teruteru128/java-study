@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 public class PrimeSearch implements Runnable {
+
     public PrimeSearch() {
         super();
     }
@@ -16,10 +17,10 @@ public class PrimeSearch implements Runnable {
         Thread thread = new Thread(new PrimeSearch());
         thread.start();
     }
+
     @Override
     public void run() {
         try {
-            System.out.printf("%d", new BigInteger(1, Files.readAllBytes(Paths.get(ClassLoader.getSystemResource("probablePrime1024.bin").toURI()))));
             var primefileURL = ClassLoader.getSystemResource("prime1.bin");
             var primefileURI = primefileURL.toURI();
             var primefilePath = Paths.get(primefileURI);
