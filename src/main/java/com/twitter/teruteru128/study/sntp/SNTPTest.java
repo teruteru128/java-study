@@ -2,8 +2,11 @@ package com.twitter.teruteru128.study.sntp;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.security.SecureRandom;
@@ -15,16 +18,56 @@ class SNTPTest {
     private static final String SERVER_NAME = "ntp.nict.jp";
 
     public static void main(String[] args) throws Exception {
-        var addr = InetAddress.getLocalHost();
-        System.out.println(addr.getHostName());
-        System.out.println(addr.getHostAddress());
-        System.out.println(InetAddress.getLoopbackAddress());
-        InetSocketAddress host = new InetSocketAddress(InetAddress.getByName("192.168.11.52"),
-                new SecureRandom().nextInt(64510) + 1025);
-        InetSocketAddress address = new InetSocketAddress(SERVER_NAME, 123);
+        var localHost = InetAddress.getLocalHost();
+        System.out.println(localHost.getHostName());
+        System.out.println(localHost.getHostAddress());
+        var loopback = InetAddress.getLoopbackAddress();
+        System.out.println(loopback);
+        var getByName = InetAddress.getByName("localhost");
+        System.out.println(getByName);
+        InetAddress src = null;
+        var nics = NetworkInterface.getNetworkInterfaces();
+        String[] inet4Prefix = { "192.168.1.", "172.16", "10." };
+        while (nics.hasMoreElements()) {
+            var nic = nics.nextElement();
+            var addresses = nic.getInetAddresses();
+            while (addresses.hasMoreElements()) {
+                var address = addresses.nextElement();
+                System.out.printf("selectlocalhost :%s : ", address);
+                System.out.printf("%s %s %s %s %s %s %s %s %s %s", address.isAnyLocalAddress(), address.isLinkLocalAddress(),
+                        address.isLoopbackAddress(),
+                        address.isMCGlobal(),
+                        address.isMCLinkLocal(),
+                        address.isMCNodeLocal(),
+                        address.isMCOrgLocal(),
+                        address.isMCSiteLocal(),
+                        address.isMulticastAddress(),
+                        address.isSiteLocalAddress());
+                if (address instanceof Inet4Address) {
+                    for (String prefix : inet4Prefix) {
+                        if (src == null && address.getHostAddress().startsWith(prefix)) {
+                            src = address;
+                        }
+                    }
+                } else if (address instanceof Inet6Address) {
+                    System.out.printf(" %s",((Inet6Address)address).isIPv4CompatibleAddress());
+                }
+                System.out.println();
+            }
+        }
+        if (src == null) {
+            System.err.println("ちっぱい");
+            return;
+        } else {
+            System.err.println("やったぜ。");
+            System.out.println(src);
+        }
+        InetSocketAddress host = new InetSocketAddress(src, new SecureRandom().nextInt(64511) + 1024);
+        InetSocketAddress address = new InetSocketAddress(InetAddress.getByName(SERVER_NAME), 123);
         byte[] sendBuf = new byte[48];
         sendBuf[0] = 0x0b;
-        System.out.printf("send : LI : %d, VN : %d, Mode : %d%n", (sendBuf[0] >> 6) & 0x03, (sendBuf[0] >> 3) & 0x07, (sendBuf[0] >> 0) & 0x07);
+        System.out.printf("send : LI : %d, VN : %d, Mode : %d%n", (sendBuf[0] >> 6) & 0x03, (sendBuf[0] >> 3) & 0x07,
+                (sendBuf[0] >> 0) & 0x07);
         // sendBuf[0] = 0x0b;
         // System.out.printf("%d %d %d%n", (sendBuf[0]>>6) & 0x03, (sendBuf[0]>>3) &
         // 0x07, (sendBuf[0]>>0) & 0x07);
@@ -57,9 +100,9 @@ class SNTPTest {
         System.out.printf("precision : %d%n", precision);
         System.out.printf("root delay : %d%n", root_delay);
         System.out.printf("root dispersion : %d%n", root_dispersion);
-        System.out.printf("reference_identifier : 0x%08x(%c%c%c%c)%n", reference_identifier,
-                (reference_identifier >> 24) & 0xff, (reference_identifier >> 16) & 0xff,
-                (reference_identifier >> 8) & 0xff, (reference_identifier >> 0) & 0xff);
+        // (char *)&reference_identifier
+        System.out.printf("reference_identifier : 0x%08x(%s)%n", reference_identifier,
+                new String(ByteBuffer.allocate(4).putInt(0, reference_identifier).array(), "UTF-8"));
         System.out.printf("reference_timestamp %s%n", Long.toUnsignedString(reference_timestamp, 16));
         System.out.printf("originate_timestamp : %s%n", Long.toUnsignedString(originate_timestamp));
         System.out.printf("receive_timestamp : %s%n", Long.toUnsignedString(receive_timestamp, 16));
