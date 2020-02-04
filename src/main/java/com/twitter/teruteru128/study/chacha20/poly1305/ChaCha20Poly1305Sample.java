@@ -9,30 +9,31 @@ import javax.crypto.spec.IvParameterSpec;
 
 public class ChaCha20Poly1305Sample {
 
-	public static void main(String[] args) throws Exception {
+    public static void main(final String[] args) throws Exception {
 
-		KeyGenerator keyGenerator = KeyGenerator.getInstance("ChaCha20");
+        final KeyGenerator keyGenerator = KeyGenerator.getInstance("ChaCha20");
 
-		SecretKey secretKey = keyGenerator.generateKey();
+        final SecretKey secretKey = keyGenerator.generateKey();
+        System.out.println(secretKey.getAlgorithm());
+        System.out.println(secretKey.getFormat());
+        final byte[] nonce = new byte[12];
+        {
+            final SecureRandom random = SecureRandom.getInstance("nativeprngnonblocking");
+            random.nextBytes(nonce);
+        }
 
-		byte[] nonce = new byte[12];
-		{
-			SecureRandom random = SecureRandom.getInstanceStrong();
-			random.nextBytes(nonce);
-		}
+        final Cipher aliceCipher = Cipher.getInstance("ChaCha20-Poly1305");
+        final Cipher bobCipher = Cipher.getInstance("ChaCha20-Poly1305");
 
-		Cipher aliceCipher = Cipher.getInstance("ChaCha20-Poly1305");
-		Cipher bobCipher = Cipher.getInstance("ChaCha20-Poly1305");
+        final var parameterSpec2 = new IvParameterSpec(nonce);
 
-		var parameterSpec2 = new IvParameterSpec(nonce);
+        aliceCipher.init(Cipher.ENCRYPT_MODE, secretKey, parameterSpec2);
 
-		aliceCipher.init(Cipher.ENCRYPT_MODE, secretKey, parameterSpec2);
+        final byte[] encryptedResult = aliceCipher.doFinal("Hello world! This is Alice!".getBytes());
 
-		byte[] encryptedResult = aliceCipher.doFinal("Hello world! This is Alice!".getBytes());
-
-		bobCipher.init(Cipher.DECRYPT_MODE, secretKey, parameterSpec2);
-		byte[] clearText = bobCipher.doFinal(encryptedResult);
-		System.out.println(new String(clearText));
-	}
+        bobCipher.init(Cipher.DECRYPT_MODE, secretKey, parameterSpec2);
+        final byte[] clearText = bobCipher.doFinal(encryptedResult);
+        System.out.println(new String(clearText));
+    }
 
 }
