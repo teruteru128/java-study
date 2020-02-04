@@ -1,10 +1,8 @@
 package com.twitter.teruteru128.study.rsa;
 
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
@@ -19,39 +17,32 @@ import com.twitter.teruteru128.study.crypto.DataPrinter;
 
 public class RSA1024EncryptSample {
 
-	public static void main(String[] args) throws Exception {
-		KeyFactory factory = KeyFactory.getInstance("RSA");
+    public static void main(String[] args) throws Exception {
+        KeyFactory factory = KeyFactory.getInstance("RSA");
 
-		System.out.println(Cipher.getMaxAllowedKeyLength("RSA"));
-		var resource = ClassLoader.getSystemResource("rsa1024.der");
-		var fileUri = resource.toURI();
-		var path = Paths.get(fileUri);
-		X509EncodedKeySpec spec = new X509EncodedKeySpec(Files.readAllBytes(path));
+        System.out.println(Cipher.getMaxAllowedKeyLength("RSA"));
+        var resource = ClassLoader.getSystemResource("rsa1024.der");
+        var fileUri = resource.toURI();
+        var path = Paths.get(fileUri);
+        X509EncodedKeySpec spec = new X509EncodedKeySpec(Files.readAllBytes(path));
 
-		PublicKey key = factory.generatePublic(spec);
-		System.out.println(key);
+        PublicKey key = factory.generatePublic(spec);
+        System.out.println(key);
 
-		Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
+        Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
 
-		cipher.init(Cipher.ENCRYPT_MODE, key);
-		byte[] ciphertext = cipher.doFinal("That's one small step for a man, one giant leap for mankind.".getBytes());
+        cipher.init(Cipher.ENCRYPT_MODE, key);
+        byte[] ciphertext = cipher.doFinal("That's one small step for a man, one giant leap for mankind.".getBytes());
 
-		RSAPublicKey rsaKey = (RSAPublicKey) key;
-		BigInteger mod = rsaKey.getModulus();
-		BigInteger pubexp = rsaKey.getPublicExponent();
-		BigInteger ctext = new BigInteger(1, ciphertext);
-		System.out.printf("%s$%s$%s\n", mod, pubexp, ctext);
-		System.out.println(mod.toString(16));
-		System.out.println(DataPrinter.printHexBinary(mod.toByteArray()));
-		System.out.println(DataPrinter.printHexBinary(ciphertext));
-		System.out.println(OffsetDateTime.now(ZoneId.of("UTC")).truncatedTo(ChronoUnit.SECONDS));
-		var primefileURL = ClassLoader.getSystemResource("prime1.bin");
-		var primefileURI = primefileURL.toURI();
-		var primefilePath = Paths.get(primefileURI);
-		var primeBytes = Files.readAllBytes(primefilePath);
-		BigInteger a = new BigInteger(1, primeBytes, 0, primeBytes.length);
-		var probablePrime = a.nextProbablePrime();
-		Files.write(Paths.get("probablePrime1.bin"), probablePrime.toByteArray(), StandardOpenOption.WRITE, StandardOpenOption.CREATE);
-	}
+        RSAPublicKey rsaKey = (RSAPublicKey) key;
+        BigInteger mod = rsaKey.getModulus();
+        BigInteger pubexp = rsaKey.getPublicExponent();
+        BigInteger ctext = new BigInteger(1, ciphertext);
+        System.out.printf("%s$%s$%s\n", mod, pubexp, ctext);
+        System.out.println(mod.toString(16));
+        System.out.println(DataPrinter.printHexBinary(mod.toByteArray()));
+        System.out.println(DataPrinter.printHexBinary(ciphertext));
+        System.out.println(OffsetDateTime.now(ZoneId.of("UTC")).truncatedTo(ChronoUnit.SECONDS));
+    }
 
 }
