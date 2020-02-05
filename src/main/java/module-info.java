@@ -19,4 +19,5 @@ module com.twitter.teruteru128.study {
 	requires org.json;
 	requires org.twitter4j.core;
 	requires mysql.connector.java;
+	requires commons.math3;
 }
