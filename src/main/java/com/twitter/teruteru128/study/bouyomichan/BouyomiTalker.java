@@ -16,6 +16,16 @@ import java.util.Locale;
 
 public class BouyomiTalker {
 
+	public BouyomiTalker() {
+		super();
+	}
+
+	/**
+	 * ←優先度高 コマンドライン引数 ユーザー設定ファイル システム設定ファイル →優先度低
+	 * 
+	 * @param args
+	 * @throws Exception
+	 */
 	public static void main(String[] args) throws Exception {
 		LocalDateTime dateTime = LocalDateTime.now(Clock.systemDefaultZone());
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日 ah時m分s秒", Locale.JAPAN);
