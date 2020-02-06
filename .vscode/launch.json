@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.nyanpass.Main",
+            "projectName": "test"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - CalcHash",
             "request": "launch",
             "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.mysql.CalcHash",

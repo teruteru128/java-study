@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.BlockingQueue;
 
 class NyanpassConfigBuilder {
-	NyanpassConfigBase base = new NyanpassConfigBase();
+	NyanpassConfigImpl base = new NyanpassConfigImpl();
 
 	public NyanpassConfigBuilder() {
 	}
