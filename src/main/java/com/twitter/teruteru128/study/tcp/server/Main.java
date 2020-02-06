@@ -6,29 +6,29 @@ import java.util.concurrent.Executors;
 
 public class Main implements Runnable {
 
-	public Main() {
-	}
+    public Main() {
+    }
 
-	@Override
-	public void run() {
-		ExecutorService service = Executors.newWorkStealingPool();
-		String hostname = "localhost";
-		int port = 50000;
-		CountDownLatch latch = new CountDownLatch(1);
-		ServerConfig config = new ServerConfig(hostname, port, service, latch);
-		service.submit(new ServerWaittingThread(config));
-		try {
-			config.getLatch().await();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} finally {
-			service.shutdown();
-		}
-	}
+    @Override
+    public void run() {
+        ExecutorService service = Executors.newWorkStealingPool();
+        String hostname = "localhost";
+        int port = 50000;
+        CountDownLatch latch = new CountDownLatch(1);
+        ServerConfig config = new ServerConfig(hostname, port, service, latch);
+        service.submit(new ServerWaittingThread(config));
+        try {
+            config.getLatch().await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            service.shutdown();
+        }
+    }
 
-	public static void main(String[] args) throws Exception {
-		Thread serverThread = new Thread(new Main());
-		serverThread.start();
-	}
+    public static void main(String[] args) throws Exception {
+        Thread serverThread = new Thread(new Main());
+        serverThread.start();
+    }
 
 }

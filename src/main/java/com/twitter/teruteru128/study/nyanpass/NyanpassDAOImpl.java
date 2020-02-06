@@ -1,11 +1,11 @@
 package com.twitter.teruteru128.study.nyanpass;
 
 class NyanpassDAOImpl implements NyanpassDAO {
-	public NyanpassDAOImpl() {
-	}
+    public NyanpassDAOImpl() {
+    }
 
-	@Override
-	public NyanpassBean getNyanpassBean() throws NyanpassException {
-		return null;
-	}
+    @Override
+    public NyanpassBean getNyanpassBean() throws NyanpassException {
+        return null;
+    }
 }

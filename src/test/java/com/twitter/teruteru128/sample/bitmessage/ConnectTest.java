@@ -7,11 +7,11 @@ import java.nio.channels.SocketChannel;
 
 public class ConnectTest {
 
-	public static void main(String[] args) throws IOException {
-		InetSocketAddress address = new InetSocketAddress(InetAddress.getLoopbackAddress(), 8444);
-		try (SocketChannel channel = SocketChannel.open(address)) {
-			System.out.println(channel.isConnected());
-		}
-	}
+    public static void main(String[] args) throws IOException {
+        InetSocketAddress address = new InetSocketAddress(InetAddress.getLoopbackAddress(), 8444);
+        try (SocketChannel channel = SocketChannel.open(address)) {
+            System.out.println(channel.isConnected());
+        }
+    }
 
 }

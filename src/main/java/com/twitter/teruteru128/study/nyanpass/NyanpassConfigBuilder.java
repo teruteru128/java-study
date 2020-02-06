@@ -5,27 +5,27 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.BlockingQueue;
 
 class NyanpassConfigBuilder {
-	NyanpassConfigImpl base = new NyanpassConfigImpl();
+    NyanpassConfigImpl base = new NyanpassConfigImpl();
 
-	public NyanpassConfigBuilder() {
-	}
+    public NyanpassConfigBuilder() {
+    }
 
-	public NyanpassConfigBuilder setEndpointURI(URI uri) {
-		base.setEndpointURI(uri);
-		return this;
-	}
+    public NyanpassConfigBuilder setEndpointURI(URI uri) {
+        base.setEndpointURI(uri);
+        return this;
+    }
 
-	public NyanpassConfigBuilder setFormatter(DateTimeFormatter formatter) {
-		base.setFormatter(formatter);
-		return this;
-	}
+    public NyanpassConfigBuilder setFormatter(DateTimeFormatter formatter) {
+        base.setFormatter(formatter);
+        return this;
+    }
 
-	public NyanpassConfigBuilder setQueue(BlockingQueue<NyanpassBean> queue) {
-		base.setQueue(queue);
-		return this;
-	}
+    public NyanpassConfigBuilder setQueue(BlockingQueue<NyanpassBean> queue) {
+        base.setQueue(queue);
+        return this;
+    }
 
-	public NyanpassConfig build() {
-		return base.clone();
-	}
+    public NyanpassConfig build() {
+        return base.clone();
+    }
 }

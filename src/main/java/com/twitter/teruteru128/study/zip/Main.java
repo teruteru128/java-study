@@ -16,13 +16,13 @@ import java.util.zip.ZipOutputStream;
 */
 public class Main {
 
-	public static void main(String[] args) {
-		File outfile = new File("out.zip");
+    public static void main(String[] args) {
+        File outfile = new File("out.zip");
 
-		try (ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(outfile)))) {
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+        try (ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(outfile)))) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

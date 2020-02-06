@@ -5,12 +5,12 @@ import java.security.interfaces.ECPublicKey;
 
 class ECKeyPair extends KeyPair<ECPrivateKey, ECPublicKey> {
 
-	/**
-	 * @param privateKey
-	 * @param publicKey
-	 */
-	public ECKeyPair(ECPrivateKey privateKey, ECPublicKey publicKey) {
-		super(privateKey, publicKey);
-	}
+    /**
+     * @param privateKey
+     * @param publicKey
+     */
+    public ECKeyPair(ECPrivateKey privateKey, ECPublicKey publicKey) {
+        super(privateKey, publicKey);
+    }
 
 }

@@ -51,41 +51,41 @@ public class UserB implements Serializable {
     public void setCommunity(String community) {
         this.community = community;
     }
-	/**
-	 * @return the bgcolor
-	 */
-	public String getBgcolor() {
-		return bgcolor;
-	}
-	/**
-	 * @param bgcolor the bgcolor to set
-	 */
-	public void setBgcolor(String bgcolor) {
-		this.bgcolor = bgcolor;
-	}
-	/**
-	 * @return the time
-	 */
-	public String getTime() {
-		return time;
-	}
-	/**
-	 * @param time the time to set
-	 */
-	public void setTime(String time) {
-		this.time = time;
-	}
-	/**
-	 * @return the is_readout
-	 */
-	public String getIs_readout() {
-		return is_readout;
-	}
-	/**
-	 * @param is_readout the is_readout to set
-	 */
-	public void setIs_readout(String is_readout) {
-		this.is_readout = is_readout;
+    /**
+     * @return the bgcolor
+     */
+    public String getBgcolor() {
+        return bgcolor;
+    }
+    /**
+     * @param bgcolor the bgcolor to set
+     */
+    public void setBgcolor(String bgcolor) {
+        this.bgcolor = bgcolor;
+    }
+    /**
+     * @return the time
+     */
+    public String getTime() {
+        return time;
+    }
+    /**
+     * @param time the time to set
+     */
+    public void setTime(String time) {
+        this.time = time;
+    }
+    /**
+     * @return the is_readout
+     */
+    public String getIs_readout() {
+        return is_readout;
+    }
+    /**
+     * @param is_readout the is_readout to set
+     */
+    public void setIs_readout(String is_readout) {
+        this.is_readout = is_readout;
     }
     @Override
     public boolean equals(Object obj) {
