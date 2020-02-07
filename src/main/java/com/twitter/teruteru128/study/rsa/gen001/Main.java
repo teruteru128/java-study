@@ -13,24 +13,24 @@ import java.util.List;
 
 public class Main {
 
-	public static void main(String[] args) {
-		File out = new File("C:\\Users\\terut\\OneDrive\\デスクトップ\\", "out.bin");
-		Base64.Encoder encoder = Base64.getEncoder();
-		SecureRandom rnd = null;
-		try {
-			rnd = SecureRandom.getInstanceStrong();
-		} catch (NoSuchAlgorithmException e) {
-			rnd = new SecureRandom();
-		}
-		BigInteger p = new BigInteger(1 << 26, rnd).setBit(0);
-		BigInteger q = new BigInteger(1 << 26, rnd).setBit(0);
-		List<BigInteger> list = List.of(p, q);
-		try (ObjectOutputStream oos = new ObjectOutputStream(
-				encoder.wrap(new BufferedOutputStream(new FileOutputStream(out))))) {
-			oos.writeObject(list);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    public static void main(String[] args) {
+        File out = new File("C:\\Users\\terut\\OneDrive\\デスクトップ\\", "out.bin");
+        Base64.Encoder encoder = Base64.getEncoder();
+        SecureRandom rnd = null;
+        try {
+            rnd = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            rnd = new SecureRandom();
+        }
+        BigInteger p = new BigInteger(1 << 26, rnd).setBit(0);
+        BigInteger q = new BigInteger(1 << 26, rnd).setBit(0);
+        List<BigInteger> list = List.of(p, q);
+        try (ObjectOutputStream oos = new ObjectOutputStream(
+                encoder.wrap(new BufferedOutputStream(new FileOutputStream(out))))) {
+            oos.writeObject(list);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -4,6 +4,6 @@ import java.math.BigInteger;
 
 /***/
 class TSBean {
-	public TSBean(long salt, BigInteger pri, BigInteger pubX, BigInteger pubY) {
-	}
+    public TSBean(long salt, BigInteger pri, BigInteger pubX, BigInteger pubY) {
+    }
 }

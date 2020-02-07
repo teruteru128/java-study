@@ -8,42 +8,42 @@ import java.security.SecureRandom;
  *
  */
 public final class SecureRandomHolder {
-	/**
+    /**
  * 
  */
-	private SecureRandomHolder() {
+    private SecureRandomHolder() {
 
-	}
+    }
 
-	private static final SecureRandom INSTANCE;
-	private static final SecureRandom INSTANCE_STRONG;
+    private static final SecureRandom INSTANCE;
+    private static final SecureRandom INSTANCE_STRONG;
 
-	static {
-		SecureRandom instance = null;
-		SecureRandom instanceStrong = null;
-		try {
-			instanceStrong = SecureRandom.getInstanceStrong();
-		} catch (NoSuchAlgorithmException e) {
-			// XXX (Probably) environment dependent code
-			instanceStrong = new SecureRandom();
-		} finally {
-			instance = new SecureRandom(instanceStrong.generateSeed(8));
-			INSTANCE_STRONG = instanceStrong;
-			INSTANCE = instance;
-		}
-	}
+    static {
+        SecureRandom instance = null;
+        SecureRandom instanceStrong = null;
+        try {
+            instanceStrong = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            // XXX (Probably) environment dependent code
+            instanceStrong = new SecureRandom();
+        } finally {
+            instance = new SecureRandom(instanceStrong.generateSeed(8));
+            INSTANCE_STRONG = instanceStrong;
+            INSTANCE = instance;
+        }
+    }
 
-	/**
-	 * @return instance
-	 */
-	public static SecureRandom getInstance() {
-		return INSTANCE;
-	}
+    /**
+     * @return instance
+     */
+    public static SecureRandom getInstance() {
+        return INSTANCE;
+    }
 
-	/**
-	 * @return instanceStrong
-	 */
-	public static SecureRandom getInstanceStrong() {
-		return INSTANCE_STRONG;
-	}
+    /**
+     * @return instanceStrong
+     */
+    public static SecureRandom getInstanceStrong() {
+        return INSTANCE_STRONG;
+    }
 }

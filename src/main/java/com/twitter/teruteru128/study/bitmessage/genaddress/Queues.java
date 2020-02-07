@@ -4,15 +4,15 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 class Queues {
-	/**
-	 * オリジナルはタプルで実装されています。
-	 */
-	private static final BlockingQueue<AddressGeneratorRequest> ADDRESS_GENERATOR_QUEUE = new LinkedBlockingQueue<>();
+    /**
+     * オリジナルはタプルで実装されています。
+     */
+    private static final BlockingQueue<AddressGeneratorRequest> ADDRESS_GENERATOR_QUEUE = new LinkedBlockingQueue<>();
 
-	private Queues() {
-	}
+    private Queues() {
+    }
 
-	public static BlockingQueue<AddressGeneratorRequest> getAddressGeneratorQueue() {
-		return ADDRESS_GENERATOR_QUEUE;
-	}
+    public static BlockingQueue<AddressGeneratorRequest> getAddressGeneratorQueue() {
+        return ADDRESS_GENERATOR_QUEUE;
+    }
 }

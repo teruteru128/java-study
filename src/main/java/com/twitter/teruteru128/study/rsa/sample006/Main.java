@@ -7,11 +7,11 @@ package com.twitter.teruteru128.study.rsa.sample006;
  */
 public class Main {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
 
-	}
+    }
 
 }

@@ -15,57 +15,57 @@ import javax.xml.bind.DatatypeConverter;
  */
 class Main {
 
-	public static void main(String[] args) {
-		System.out.println(genHashedPassword("unchi".getBytes()));
-	}
-	private static final int EXPBIAS = 6;
+    public static void main(String[] args) {
+        System.out.println(genHashedPassword("unchi".getBytes()));
+    }
+    private static final int EXPBIAS = 6;
 
-	public static String genHashedPassword(byte[] secret) {
-		SecureRandom random = new SecureRandom();
-		char indicator = (char) 0x60;
+    public static String genHashedPassword(byte[] secret) {
+        SecureRandom random = new SecureRandom();
+        char indicator = (char) 0x60;
 
-		byte[] salt = new byte[9];
-		random.nextBytes(salt);
-		salt[8] = (byte) indicator;
+        byte[] salt = new byte[9];
+        random.nextBytes(salt);
+        salt[8] = (byte) indicator;
 
-		String prefix = "16:";
-		int c = salt[8];
-		int count = (16 + (c & 15)) << ((c >> 4) + EXPBIAS);
-		System.out.println(count);
-		MessageDigest d = null;
-		try {
-			d = MessageDigest.getInstance("SHA-1");
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
-		byte[] tmp = new byte[8 + secret.length];
-		System.arraycopy(salt, 0, tmp, 0, 8);
-		System.arraycopy(secret, 0, tmp, 8, secret.length);
+        String prefix = "16:";
+        int c = salt[8];
+        int count = (16 + (c & 15)) << ((c >> 4) + EXPBIAS);
+        System.out.println(count);
+        MessageDigest d = null;
+        try {
+            d = MessageDigest.getInstance("SHA-1");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        byte[] tmp = new byte[8 + secret.length];
+        System.arraycopy(salt, 0, tmp, 0, 8);
+        System.arraycopy(secret, 0, tmp, 8, secret.length);
 
-		int slen = tmp.length;
-		while (count > 0) {
-			if (count >= slen) {
-				d.update(tmp);
-				count -= slen;
-			} else {
-				d.update(tmp, 0, count);
-				count = 0;
-			}
-		}
-		byte[] hashed = new byte[9 + d.getDigestLength()];
-		System.arraycopy(salt, 0, hashed, 0, 9);
-		try {
-			d.digest(hashed, 9, d.getDigestLength());
-		} catch (DigestException e) {
-			e.printStackTrace();
-		}
-		/*
-		 * #Convert to hex salt = binascii.b2a_hex(salt[:8]).upper() indicator =
-		 * binascii.b2a_hex(indicator) torhash = binascii.b2a_hex(hashed).upper()
-		 * 
-		 * #Put it all together into the proprietary Tor format. print(prefix + salt +
-		 * torhash)
-		 */
-		return prefix + DatatypeConverter.printHexBinary(hashed).toUpperCase();
-	}
+        int slen = tmp.length;
+        while (count > 0) {
+            if (count >= slen) {
+                d.update(tmp);
+                count -= slen;
+            } else {
+                d.update(tmp, 0, count);
+                count = 0;
+            }
+        }
+        byte[] hashed = new byte[9 + d.getDigestLength()];
+        System.arraycopy(salt, 0, hashed, 0, 9);
+        try {
+            d.digest(hashed, 9, d.getDigestLength());
+        } catch (DigestException e) {
+            e.printStackTrace();
+        }
+        /*
+         * #Convert to hex salt = binascii.b2a_hex(salt[:8]).upper() indicator =
+         * binascii.b2a_hex(indicator) torhash = binascii.b2a_hex(hashed).upper()
+         * 
+         * #Put it all together into the proprietary Tor format. print(prefix + salt +
+         * torhash)
+         */
+        return prefix + DatatypeConverter.printHexBinary(hashed).toUpperCase();
+    }
 }
