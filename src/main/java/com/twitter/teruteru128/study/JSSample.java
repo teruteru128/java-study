@@ -29,7 +29,8 @@ public class JSSample {
     }
     engine = new ScriptEngineManager().getEngineByName("js");
     try {
-      System.out.println(engine.eval("var hoge = 'aaaaaaaa'; print(hoge); hoge;"));
+      Object val = engine.eval("var hoge = 'aaaaaaaa'; print(hoge); hoge;");
+      System.out.printf("%s, %s%n", val, val.getClass());
     } catch (ScriptException e) {
       e.printStackTrace();
     }

@@ -32,7 +32,11 @@ public class BouyomiTalker {
 		// }
 	}
 
-	private void readText(String text) throws UnknownHostException {
+	private void readText(String text) throws UnknownHostException{
+		readText(text, false);
+	}
+
+	private void readText(String text, boolean useProxy) throws UnknownHostException {
 		byte[] messageData = text.getBytes();
 		short command = 1;
 		short speed = -1;
@@ -74,7 +78,6 @@ public class BouyomiTalker {
 		System.out.printf("fulllength : %dbytes\n", buffer.capacity());
 		System.out.printf("datalength : %dbytes\n", messageData.length);
 		assert (messageData.length + 15) == buffer.capacity();
-		boolean useProxy = true;
 		String host = useProxy ? "2ayu6gqru3xzfzbvud64ezocamykp56kunmkzveqmuxvout2yubeeuad.onion" : "localhost";
 		int port = 50001;
 		var proxy = useProxy ? new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9050)) : Proxy.NO_PROXY;

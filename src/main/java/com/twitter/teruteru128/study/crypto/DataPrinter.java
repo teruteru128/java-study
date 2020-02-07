@@ -1,112 +1,84 @@
 package com.twitter.teruteru128.study.crypto;
 
-import java.io.OutputStream;
-import java.io.PrintStream;
+import javax.xml.bind.DatatypeConverter;
 
 public class DataPrinter {
 
-	private static final char[] p = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    private static final char[] p = ("0123456789abcdef").toCharArray();
 
-	/**
-	 * {@link javax.xml.bind.DatatypeConverter#printHexBinary(byte[])}
-	 */
-	private static String printHexBinary1(byte[] data) {
-		StringBuffer buffer = new StringBuffer(data.length * 2);
-		for (byte b : data) {
-			// TODO どっちが早いんでしょうね？
-			buffer.append(p[(b >> 4) & 0x0f]);
-			buffer.append(p[(b >> 0) & 0x0f]);
-			//buffer.append(q[b & 0xff]);
-			//buffer.append(r[b & 0xff]);
-		}
-		return buffer.toString();
-	}
+    /**
+     * {@link javax.xml.bind.DatatypeConverter#printHexBinary(byte[])}
+     */
+    private static String printHexBinary1(byte[] data) {
+        StringBuilder builder = new StringBuilder(data.length << 1);
+        for (byte b : data) {
+            builder.append(p[(b >> 4) & 0x0f]);
+            builder.append(p[b & 0x0f]);
+        }
+        return builder.toString();
+    }
 
-	private static final char[] q = { '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0',
-		'1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1',
-		'2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2',
-		'3', '3', '3', '3', '3', '3', '3', '3', '3', '3', '3', '3', '3', '3', '3', '3',
-		'4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4',
-		'5', '5', '5', '5', '5', '5', '5', '5', '5', '5', '5', '5', '5', '5', '5', '5',
-		'6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6',
-		'7', '7', '7', '7', '7', '7', '7', '7', '7', '7', '7', '7', '7', '7', '7', '7',
-		'8', '8', '8', '8', '8', '8', '8', '8', '8', '8', '8', '8', '8', '8', '8', '8',
-		'9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9',
-		'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a',
-		'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b',
-		'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c',
-		'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd', 'd',
-		'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e',
-		'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f', 'f'
-	};
-	private static final char[] r = {
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
-	};
-	/**
-	 * {@link javax.xml.bind.DatatypeConverter#printHexBinary(byte[])}
-	 */
-	private static String printHexBinary2(byte[] data) {
+    private static final char[] q = ("0000000000000000" + "1111111111111111" + "2222222222222222" + "3333333333333333"
+            + "4444444444444444" + "5555555555555555" + "6666666666666666" + "7777777777777777" + "8888888888888888"
+            + "9999999999999999" + "aaaaaaaaaaaaaaaa" + "bbbbbbbbbbbbbbbb" + "cccccccccccccccc" + "dddddddddddddddd"
+            + "eeeeeeeeeeeeeeee" + "ffffffffffffffff").toCharArray();
+    private static final char[] r = ("0123456789abcdef" + "0123456789abcdef" + "0123456789abcdef" + "0123456789abcdef"
+            + "0123456789abcdef" + "0123456789abcdef" + "0123456789abcdef" + "0123456789abcdef" + "0123456789abcdef"
+            + "0123456789abcdef" + "0123456789abcdef" + "0123456789abcdef" + "0123456789abcdef" + "0123456789abcdef"
+            + "0123456789abcdef" + "0123456789abcdef").toCharArray();
 
-		StringBuffer buffer = new StringBuffer(data.length * 2);
+    /**
+     * {@link javax.xml.bind.DatatypeConverter#printHexBinary(byte[])}
+     */
+    private static String printHexBinary2(byte[] data) {
+        StringBuilder builder = new StringBuilder(data.length << 1);
 
-		for (byte b : data) {
-			// TODO どっちが早いんでしょうね？
-			//buffer.append(p[(b >> 4) & 0x0f]);
-			//buffer.append(p[(b >> 0) & 0x0f]);
-			buffer.append(q[b & 0xff]);
-			buffer.append(r[b & 0xff]);
-		}
-		return buffer.toString();
-	}
+        for (byte b : data) {
+            builder.append(q[b & 0xff]);
+            builder.append(r[b & 0xff]);
+        }
+        return builder.toString();
+    }
 
-	public static String printHexBinary(byte[] data) {
-		return printHexBinary2(data);
-	}
+    public static String printHexBinary(byte[] data) {
+        return printHexBinary1(data);
+    }
 
-	public static void printHexBinaryBench() {
-		byte[] data = new byte[512];
-		for (int i = 0; i < 512; i++) {
-			data[i] = (byte) (i & 0xff);
-		}
-		long start = 0;
-		long stop = 0;
-		int count = 100000;
-		int loop = 1000;
-		long diff1 = 0;
-		long diff2 = 0;
-		try (PrintStream ps = new PrintStream(OutputStream.nullOutputStream());) {
-			for (int j = 0; j < loop; j++) {
-				start = System.nanoTime();
-				for (int i = 0; i < count; i++) {
-					ps.print(printHexBinary1(data));
-				}
-				stop = System.nanoTime();
-				diff1 += stop - start;
-				start = System.nanoTime();
-				for (int i = 0; i < count; i++) {
-					ps.print(printHexBinary2(data));
-				}
-				stop = System.nanoTime();
-				diff2 += stop - start;
-			}
-		}
-		System.out.printf("%f\n", diff1 / (1000000000.0 * loop));
-		System.out.printf("%f\n", diff2 / (1000000000.0 * loop));
-	}
+    public static void printHexBinaryBench() {
+        byte[] data = new byte[512];
+        for (int i = 0; i < 512; i++) {
+            data[i] = (byte) (i & 0xff);
+        }
+        long start = 0;
+        long stop = 0;
+        int count = 1000000;
+        int loop = 1;
+        long diff1 = 0;
+        long diff2 = 0;
+        long diff3 = 0;
+        for (int j = 0; j < loop; j++) {
+            start = System.nanoTime();
+            for (int i = 0; i < count; i++) {
+                printHexBinary1(data);
+            }
+            stop = System.nanoTime();
+            diff1 += stop - start;
+            start = System.nanoTime();
+            for (int i = 0; i < count; i++) {
+                printHexBinary2(data);
+            }
+            stop = System.nanoTime();
+            diff2 += stop - start;
+            start = System.nanoTime();
+            for (int i = 0; i < count; i++) {
+                DatatypeConverter.printHexBinary(data);
+            }
+            stop = System.nanoTime();
+            diff3 += stop - start;
+        }
+        System.out.printf("printHexBinary1 : %f\n", diff1 / (1000000000.0 * loop));
+        System.out.printf("printHexBinary2 : %f\n", diff2 / (1000000000.0 * loop));
+        System.out.printf("DatatypeConverter.printHexBinary : %f\n", diff3 / (1000000000.0 * loop));
+    }
 
 }

@@ -17,6 +17,29 @@ import java.time.ZoneId;
 class SNTPTest {
     private static final String SERVER_NAME = "ntp.nict.jp";
 
+    /**
+     * TODO srcアドレスを選んでからdestアドレスを選ぶ
+     * <table>
+     * <tr>
+     * <td>dest\src</td>
+     * <td>has IPv6</td>
+     * <td>not has IPv6</td>
+     * </tr>
+     * <tr>
+     * <td>has IPv6</td>
+     * <td>ipv6</td>
+     * <td>ipv4</td>
+     * </tr>
+     * <tr>
+     * <td>not has IPv6</td>
+     * <td>ipv4</td>
+     * <td>ipv4</td>
+     * </tr>
+     * </table>
+     * 
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         var localHost = InetAddress.getLocalHost();
         System.out.println(localHost.getHostName());
@@ -34,15 +57,10 @@ class SNTPTest {
             while (addresses.hasMoreElements()) {
                 var address = addresses.nextElement();
                 System.out.printf("selectlocalhost :%s : ", address);
-                System.out.printf("%s %s %s %s %s %s %s %s %s %s", address.isAnyLocalAddress(), address.isLinkLocalAddress(),
-                        address.isLoopbackAddress(),
-                        address.isMCGlobal(),
-                        address.isMCLinkLocal(),
-                        address.isMCNodeLocal(),
-                        address.isMCOrgLocal(),
-                        address.isMCSiteLocal(),
-                        address.isMulticastAddress(),
-                        address.isSiteLocalAddress());
+                System.out.printf("%s %s %s %s %s %s %s %s %s %s", address.isAnyLocalAddress(),
+                        address.isLinkLocalAddress(), address.isLoopbackAddress(), address.isMCGlobal(),
+                        address.isMCLinkLocal(), address.isMCNodeLocal(), address.isMCOrgLocal(),
+                        address.isMCSiteLocal(), address.isMulticastAddress(), address.isSiteLocalAddress());
                 if (address instanceof Inet4Address) {
                     for (String prefix : inet4Prefix) {
                         if (src == null && address.getHostAddress().startsWith(prefix)) {
@@ -50,7 +68,8 @@ class SNTPTest {
                         }
                     }
                 } else if (address instanceof Inet6Address) {
-                    System.out.printf(" %s",((Inet6Address)address).isIPv4CompatibleAddress());
+                    var v6Address = (Inet6Address) address;
+                    System.out.printf(" %s", v6Address.isIPv4CompatibleAddress());
                 }
                 System.out.println();
             }
@@ -61,6 +80,10 @@ class SNTPTest {
         } else {
             System.err.println("やったぜ。");
             System.out.println(src);
+        }
+        InetAddress dest = null;
+        for (var address : InetAddress.getAllByName(SERVER_NAME)) {
+            System.out.println(address);
         }
         InetSocketAddress host = new InetSocketAddress(src, new SecureRandom().nextInt(64511) + 1024);
         InetSocketAddress address = new InetSocketAddress(InetAddress.getByName(SERVER_NAME), 123);
