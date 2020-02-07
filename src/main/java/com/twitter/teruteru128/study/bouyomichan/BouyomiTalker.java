@@ -42,10 +42,10 @@ public class BouyomiTalker {
         // }
     }
 
-    private void readText(String text) throws UnknownHostException{
+    private void readText(String text) throws UnknownHostException {
         readText(text, false);
     }
-    
+
     private void readText(String text, boolean useProxy) throws UnknownHostException {
         byte[] messageData = text.getBytes();
         short command = 1;
