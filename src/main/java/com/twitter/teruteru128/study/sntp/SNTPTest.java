@@ -50,7 +50,7 @@ class SNTPTest {
         System.out.println(getByName);
         InetAddress src = null;
         var nics = NetworkInterface.getNetworkInterfaces();
-        String[] inet4Prefix = { "192.168.1.", "172.16", "10." };
+        String[] inet4Prefix = { "192.168.", "172.16", "10." };
         while (nics.hasMoreElements()) {
             var nic = nics.nextElement();
             var addresses = nic.getInetAddresses();
@@ -63,7 +63,7 @@ class SNTPTest {
                         address.isMCSiteLocal(), address.isMulticastAddress(), address.isSiteLocalAddress());
                 if (address instanceof Inet4Address) {
                     for (String prefix : inet4Prefix) {
-                        if (src == null && address.getHostAddress().startsWith(prefix)) {
+                        if (address.getHostAddress().startsWith(prefix)) {
                             src = address;
                         }
                     }

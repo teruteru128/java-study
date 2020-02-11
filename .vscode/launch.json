@@ -6,6 +6,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.password.sample001.Main",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - ImageSample",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.image.ImageSample",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - DecryptoAraisanMessage",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.secure_araisan.DecryptoAraisanMessage",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Main",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.utf8.Main",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - X25519ChaCha20Poly1305Sample",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.crypto.X25519ChaCha20Poly1305Sample",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - DataPrinter",
             "request": "launch",
             "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.crypto.DataPrinter",

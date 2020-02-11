@@ -4,13 +4,14 @@ import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Base64;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.interfaces.PBEKey;
 import javax.crypto.spec.PBEKeySpec;
-import javax.xml.bind.DatatypeConverter;
 
 import com.twitter.teruteru128.holders.SecureRandomHolder;
+import com.twitter.teruteru128.study.crypto.DataPrinter;
 
 /**
  * @author Teruteru
@@ -41,8 +42,11 @@ public class Main {
             PBEKeySpec spec = new PBEKeySpec(password, salt, iterationCount, keyLength);
             PBEKey key = (PBEKey) factory.generateSecret(spec);
             byte[] hashedPassword = key.getEncoded();
-            System.out.printf("$%d$%s$%s%n", 1, DatatypeConverter.printHexBinary(salt),
-                    DatatypeConverter.printHexBinary(hashedPassword));
+            System.out.print("$1$");
+            System.out.print(DataPrinter.printHexBinary(salt));
+            System.out.print("$");
+            System.out.print(DataPrinter.printHexBinary(hashedPassword));
+            System.out.println();
         }
     }
 

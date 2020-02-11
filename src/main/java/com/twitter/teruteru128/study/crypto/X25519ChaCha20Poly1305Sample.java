@@ -9,6 +9,7 @@ import java.security.spec.NamedParameterSpec;
 import javax.crypto.AEADBadTagException;
 import javax.crypto.Cipher;
 import javax.crypto.KeyAgreement;
+import javax.crypto.SealedObject;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -37,8 +38,8 @@ public class X25519ChaCha20Poly1305Sample {
 
         // 共有秘密生成＆秘密鍵に変換
         // XXX .generateSecret("ChaCha20") is not supported... fuck
-        //SecretKey aliceSecretKey = aliceAgreement.generateSecret("ChaCha20");
-        //SecretKey bobSecretKey = bobAgreement.generateSecret("ChaCha20");
+        // SecretKey aliceSecretKey = aliceAgreement.generateSecret("ChaCha20");
+        // SecretKey bobSecretKey = bobAgreement.generateSecret("ChaCha20");
         MessageDigest sha3_256 = MessageDigest.getInstance("SHA3-256");
         SecretKey aliceSecretKey = new SecretKeySpec(sha3_256.digest(aliceAgreement.generateSecret()), "ChaCha20");
         SecretKey bobSecretKey = new SecretKeySpec(sha3_256.digest(bobAgreement.generateSecret()), "ChaCha20");
@@ -49,20 +50,18 @@ public class X25519ChaCha20Poly1305Sample {
 
         // ノンス生成
         byte[] nonce = new byte[12];
-        SecureRandom random = SecureRandom.getInstanceStrong();//NativePRNGNonBlocking
+        SecureRandom random = SecureRandom.getInstanceStrong();// NativePRNGNonBlocking
         System.out.println(random.getAlgorithm());
         random = SecureRandom.getInstance("NativePRNGNonBlocking");
         random.nextBytes(nonce);
-        var parameterSpec2 = new IvParameterSpec(nonce);
+        var IvParameterSpec = new IvParameterSpec(nonce);
 
         // 暗号化
-        aliceCipher.init(Cipher.ENCRYPT_MODE, aliceSecretKey, parameterSpec2);
+        aliceCipher.init(Cipher.ENCRYPT_MODE, aliceSecretKey, IvParameterSpec);
         byte[] encryptedResult = aliceCipher.doFinal("Hello world! This is Alice!".getBytes());
 
-        System.out.println(DataPrinter.printHexBinary(encryptedResult));
-
         // 複合
-        bobCipher.init(Cipher.DECRYPT_MODE, bobSecretKey, parameterSpec2);
+        bobCipher.init(Cipher.DECRYPT_MODE, bobSecretKey, IvParameterSpec);
         try {
             byte[] clearText = bobCipher.doFinal(encryptedResult);
 
@@ -71,7 +70,12 @@ public class X25519ChaCha20Poly1305Sample {
             e.printStackTrace();
             System.err.println("This message has been tampered with!");
         }
-
+        random.nextBytes(nonce);
+        var IvParameterSpec2 = new IvParameterSpec(nonce);
+        aliceCipher.init(Cipher.ENCRYPT_MODE, aliceSecretKey, IvParameterSpec2);
+        SealedObject object = new SealedObject("おまんこ＾～", aliceCipher);
+        bobCipher.init(Cipher.DECRYPT_MODE, bobSecretKey, IvParameterSpec2);
+        System.out.println(object.getObject(bobCipher));
     }
 
 }

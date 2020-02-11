@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import javax.xml.bind.DatatypeConverter;
+import com.twitter.teruteru128.study.crypto.DataPrinter;
 
 /**
  * test -> 16:17AEC9679C42F075600CF835CE02ECAB6D297F27D233E150D3EA71DB9A
@@ -66,6 +66,6 @@ class Main {
          * #Put it all together into the proprietary Tor format. print(prefix + salt +
          * torhash)
          */
-        return prefix + DatatypeConverter.printHexBinary(hashed).toUpperCase();
+        return prefix + DataPrinter.printHexBinary(hashed).toUpperCase();
     }
 }
