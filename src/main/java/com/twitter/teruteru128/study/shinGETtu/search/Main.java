@@ -29,14 +29,26 @@ public class Main implements Runnable {
         return msg;
     }
 
-    public Main() {
+    private long start;
+    private long end;
+
+    public Main(long start, long end) {
         super();
+        this.start = start;
+        this.end = end;
     }
 
     @Override
     public void run() {
-        System.out.println(LocalDateTime.now());
+        {
+            final var starttime = LocalDateTime.now();
+            synchronized (System.out) {
+                System.out.println(starttime);
+            }
+        }
         MessageDigest md5;
+        long s = this.start;
+        long en = this.end;
         try {
             md5 = MessageDigest.getInstance("md5");
             final byte[] prefix = "body:IGA".getBytes();
@@ -45,22 +57,31 @@ public class Main implements Runnable {
             final byte[] id = new byte[16];
             final byte[] target = ByteBuffer.allocate(4).putInt(0x19190721).array();
             final long start = System.nanoTime();
-            for (long i = 0x80000000L; i < 0x100000000L; i++) {
+            for (long i = s; i < en; i++) {
                 md5.update(prefix);
                 bodystr = Long.toString(i);
                 escapedStr = escape(bodystr);
                 md5.update(escapedStr.getBytes());
                 md5.digest(id, 0, 16);
                 if (Arrays.equals(id, 0, 4, target, 0, 4)) {
-                    System.out.println(bodystr);
-                    System.out.println(escapedStr);
-                    System.out.println(DataPrinter.printHexBinary(id));
+                    String binarystr = DataPrinter.printHexBinary(id);
+                    synchronized (System.out) {
+                        System.out.println(bodystr);
+                        System.out.println(escapedStr);
+                        System.out.println(binarystr);
+                    }
                 }
             }
-            final long end = System.nanoTime();
-            final long diff = end - start;
-            System.out.println((double) diff / 1000000000);
-            System.out.println(LocalDateTime.now());
+            {
+                final long end = System.nanoTime();
+                final long diff = end - start;
+                final double seconds = (double) diff / 1000000000;
+                final var endtime = LocalDateTime.now();
+                synchronized (System.out) {
+                    System.out.println(seconds);
+                    System.out.println(endtime);
+                }
+            }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (DigestException e) {
@@ -69,8 +90,15 @@ public class Main implements Runnable {
     }
 
     public static void main(final String[] args) {
-        Thread thread = new Thread(new Main());
-        thread.start();
+        System.out.printf("pid : %d%n", ProcessHandle.current().pid());
+        Thread thread1 = new Thread(new Main(0x80000000L, 0xA0000000L));
+        thread1.start();
+        Thread thread2 = new Thread(new Main(0xA0000000L, 0xC0000000L));
+        thread2.start();
+        Thread thread3 = new Thread(new Main(0xC0000000L, 0xE0000000L));
+        thread3.start();
+        Thread thread4 = new Thread(new Main(0xE0000000L, 0x100000000L));
+        thread4.start();
     }
 
 }
