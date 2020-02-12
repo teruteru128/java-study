@@ -6,6 +6,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
 
 import com.twitter.teruteru128.study.crypto.DataPrinter;
@@ -42,8 +44,9 @@ public class Main implements Runnable {
     public void run() {
         {
             final var starttime = LocalDateTime.now();
+            final var threadname = Thread.currentThread().getName();
             synchronized (System.out) {
-                System.out.println(starttime);
+                System.out.printf("%s : %s%n", threadname, starttime);
             }
         }
         MessageDigest md5;
@@ -51,17 +54,19 @@ public class Main implements Runnable {
         long en = this.end;
         try {
             md5 = MessageDigest.getInstance("md5");
-            final byte[] prefix = "body:IGA".getBytes();
+            final byte[] prefix = "body:♂♂♂♂".getBytes();
             String bodystr = null;
             String escapedStr = null;
             final byte[] id = new byte[16];
-            final byte[] target = ByteBuffer.allocate(4).putInt(0x19190721).array();
+            final byte[] target = ByteBuffer.allocate(4).putInt(0x45454545).array();
             final long start = System.nanoTime();
+            byte[] bytes = null;
             for (long i = s; i < en; i++) {
                 md5.update(prefix);
                 bodystr = Long.toString(i);
                 escapedStr = escape(bodystr);
-                md5.update(escapedStr.getBytes());
+                bytes = escapedStr.getBytes();
+                md5.update(bytes, 0, bytes.length);
                 md5.digest(id, 0, 16);
                 if (Arrays.equals(id, 0, 4, target, 0, 4)) {
                     String binarystr = DataPrinter.printHexBinary(id);
@@ -77,9 +82,9 @@ public class Main implements Runnable {
                 final long diff = end - start;
                 final double seconds = (double) diff / 1000000000;
                 final var endtime = LocalDateTime.now();
+                final var threadname = Thread.currentThread().getName();
                 synchronized (System.out) {
-                    System.out.println(seconds);
-                    System.out.println(endtime);
+                    System.out.printf("%s: %s %s%n", threadname, seconds, endtime);
                 }
             }
         } catch (NoSuchAlgorithmException e) {
@@ -90,15 +95,13 @@ public class Main implements Runnable {
     }
 
     public static void main(final String[] args) {
-        System.out.printf("pid : %d%n", ProcessHandle.current().pid());
-        Thread thread1 = new Thread(new Main(0x80000000L, 0xA0000000L));
-        thread1.start();
-        Thread thread2 = new Thread(new Main(0xA0000000L, 0xC0000000L));
-        thread2.start();
-        Thread thread3 = new Thread(new Main(0xC0000000L, 0xE0000000L));
-        thread3.start();
-        Thread thread4 = new Thread(new Main(0xE0000000L, 0x100000000L));
-        thread4.start();
+        var handle = ProcessHandle.current();
+        System.out.printf("pid : %d%n", handle.pid());
+        ExecutorService service = Executors.newFixedThreadPool(6);
+        for (long i = 0; i < 0x20; i++) {
+            service.execute(new Main(i * 0x10000000L, (i + 1) * 0x10000000L));
+        }
+        service.shutdown();
     }
 
 }
