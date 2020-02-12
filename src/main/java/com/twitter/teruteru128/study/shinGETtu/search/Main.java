@@ -1,14 +1,16 @@
 package com.twitter.teruteru128.study.shinGETtu.search;
 
 import java.nio.ByteBuffer;
+import java.security.DigestException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
 import com.twitter.teruteru128.study.crypto.DataPrinter;
 
-public class Main {
+public class Main implements Runnable {
 
     private static final Pattern pattern1 = Pattern.compile("&");
     private static final Pattern pattern2 = Pattern.compile("&amp;(#\\d+|#[Xx][0-9A-Fa-f]+|[A-Za-z0-9]+);");
@@ -27,31 +29,48 @@ public class Main {
         return msg;
     }
 
-    public static void main(final String[] args) throws Exception {
+    public Main() {
+        super();
+    }
+
+    @Override
+    public void run() {
         System.out.println(LocalDateTime.now());
-        final MessageDigest md5 = MessageDigest.getInstance("md5");
-        final byte[] prefix = "body:IGA".getBytes();
-        String bodystr = null;
-        String escapedStr = null;
-        final byte[] id = new byte[16];
-        final byte[] target = ByteBuffer.allocate(4).putInt(0x19190721).array();
-        final long start = System.nanoTime();
-        for (long i = 0x80000000L; i < 0x100000000L; i++) {
-            md5.update(prefix);
-            bodystr = Long.toString(i);
-            escapedStr = escape(bodystr);
-            md5.update(escapedStr.getBytes());
-            md5.digest(id, 0 , 16);
-            if (Arrays.equals(id, 0, 4, target, 0, 4)) {
-                System.out.println(bodystr);
-                System.out.println(escapedStr);
-                System.out.println(DataPrinter.printHexBinary(id));
+        MessageDigest md5;
+        try {
+            md5 = MessageDigest.getInstance("md5");
+            final byte[] prefix = "body:IGA".getBytes();
+            String bodystr = null;
+            String escapedStr = null;
+            final byte[] id = new byte[16];
+            final byte[] target = ByteBuffer.allocate(4).putInt(0x19190721).array();
+            final long start = System.nanoTime();
+            for (long i = 0x80000000L; i < 0x100000000L; i++) {
+                md5.update(prefix);
+                bodystr = Long.toString(i);
+                escapedStr = escape(bodystr);
+                md5.update(escapedStr.getBytes());
+                md5.digest(id, 0, 16);
+                if (Arrays.equals(id, 0, 4, target, 0, 4)) {
+                    System.out.println(bodystr);
+                    System.out.println(escapedStr);
+                    System.out.println(DataPrinter.printHexBinary(id));
+                }
             }
+            final long end = System.nanoTime();
+            final long diff = end - start;
+            System.out.println((double) diff / 1000000000);
+            System.out.println(LocalDateTime.now());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (DigestException e) {
+            e.printStackTrace();
         }
-        final long end = System.nanoTime();
-        final long diff = end - start;
-        System.out.println((double)diff/1000000000);
-        System.out.println(LocalDateTime.now());
+    }
+
+    public static void main(final String[] args) {
+        Thread thread = new Thread(new Main());
+        thread.start();
     }
 
 }
