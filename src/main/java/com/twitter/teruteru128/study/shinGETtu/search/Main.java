@@ -1,10 +1,9 @@
 package com.twitter.teruteru128.study.shinGETtu.search;
 
-import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.regex.Pattern;
 
 import com.twitter.teruteru128.study.crypto.DataPrinter;
@@ -28,35 +27,30 @@ public class Main {
         return msg;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(final String[] args) throws Exception {
         System.out.println(LocalDateTime.now());
-        MessageDigest md5 = MessageDigest.getInstance("md5");
-        byte[] prefix = "body:IGA".getBytes();
-        StringBuilder builder = new StringBuilder(0x807);
-        Random random = new Random(System.nanoTime());
+        final MessageDigest md5 = MessageDigest.getInstance("md5");
+        final byte[] prefix = "body:IGA".getBytes();
         String bodystr = null;
         String escapedStr = null;
-        byte[] id = null;
-        byte[] target = BigInteger.valueOf(0x19190721).toByteArray();
-        for (long i = 0; i < 0x7ffL; i++) {
+        final byte[] id = new byte[16];
+        final byte[] target = ByteBuffer.allocate(4).putInt(0x19190721).array();
+        final long start = System.nanoTime();
+        for (long i = 0x80000000L; i < 0x100000000L; i++) {
             md5.update(prefix);
-            for (int j = 0; j < i; j++) {
-                builder.append('A');
-            }
-            bodystr = builder.toString();
+            bodystr = Long.toString(i);
             escapedStr = escape(bodystr);
             md5.update(escapedStr.getBytes());
-            id = md5.digest();
-            System.out.println(DataPrinter.printHexBinary(id));
-
+            md5.digest(id, 0 , 16);
             if (Arrays.equals(id, 0, 4, target, 0, 4)) {
                 System.out.println(bodystr);
                 System.out.println(escapedStr);
                 System.out.println(DataPrinter.printHexBinary(id));
-                break;
             }
-            builder.setLength(0);
         }
+        final long end = System.nanoTime();
+        final long diff = end - start;
+        System.out.println((double)diff/1000000000);
         System.out.println(LocalDateTime.now());
     }
 
