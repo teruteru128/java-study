@@ -41,6 +41,13 @@
         },
         {
             "type": "java",
+            "name": "CodeLens (Launch) - ImageSample",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.shinGETtu.search.Main",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - DataPrinter",
             "request": "launch",
             "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.crypto.DataPrinter",
