@@ -6,6 +6,34 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - ChaCha20Poly1305Sample",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.crypto.ChaCha20Poly1305Sample",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - KeyEncryption",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.crypto.KeyEncryption",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - KeyDecryption",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.crypto.KeyDecryption",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - KeyEnctyption",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.crypto.KeyEnctyption",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Main",
             "request": "launch",
             "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.password.sample001.Main",

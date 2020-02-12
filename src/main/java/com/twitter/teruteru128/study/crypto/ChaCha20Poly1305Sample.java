@@ -15,8 +15,8 @@ public class ChaCha20Poly1305Sample {
 
         SecretKey secretKey = keyGenerator.generateKey();
 
-        Cipher aliceCipher = Cipher.getInstance("ChaCha20-Poly1305");
-        Cipher bobCipher = Cipher.getInstance("ChaCha20-Poly1305");
+        Cipher aliceCipher = Cipher.getInstance("ChaCha20-Poly1305/NONE/NOPADDING");
+        Cipher bobCipher = Cipher.getInstance("ChaCha20-Poly1305/NONE/NOPADDING");
 
         byte[] nonce = new byte[12];
         {
