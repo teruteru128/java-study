@@ -45,10 +45,10 @@ class KeyDecryption {
                 .parseHexBinary("8C03C5FE9CEE8EF79AF0D65D10DCBAF6F3966B63E17088CF9167529A");
         PBEParameterSpec spec2 = new PBEParameterSpec(salt, 1024, new IvParameterSpec(iv));
         PBEKeySpec spec = new PBEKeySpec("Insert your password".toCharArray());
-        String pbkalgo = "PBEwithHmacSHA512andAES_256";
-        SecretKeyFactory factory = SecretKeyFactory.getInstance(pbkalgo);
+        String pbealgo = "PBEwithHmacSHA512andAES_256";
+        SecretKeyFactory factory = SecretKeyFactory.getInstance(pbealgo);
         SecretKey key2 = factory.generateSecret(spec);
-        Cipher cipher = Cipher.getInstance(pbkalgo);
+        Cipher cipher = Cipher.getInstance(pbealgo);
         cipher.init(Cipher.UNWRAP_MODE, key2, spec2);
         SecretKey key = (SecretKey) cipher.unwrap(encryptedkey, "ChaCha20", Cipher.SECRET_KEY);
         System.out.println(DatatypeConverter.printHexBinary(key.getEncoded()));
