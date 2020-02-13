@@ -8,6 +8,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 
+import javax.xml.bind.DatatypeConverter;
+
 public class Main implements Callable<HashBean> {
     private int targetnlz;
     private String obfId;
@@ -124,7 +126,7 @@ public class Main implements Callable<HashBean> {
         int zerobytes = 0;
         int zerobits = 0;
         int currentnlz;
-        int bestnlz = 0;
+        int bestnlz = 32;
         int targetnlz = this.targetnlz;
         byte lastbyte_tmp = 0;
         System.out.printf("Thread id : %d%n", Thread.currentThread().getId());
@@ -147,13 +149,9 @@ public class Main implements Callable<HashBean> {
             if (currentnlz > bestnlz) {
                 synchronized (System.out) {
                     System.out.printf("%d:%dbits:", Thread.currentThread().getId(), currentnlz);
-                    for (byte data : a) {
-                        System.out.printf("%02x", data);
-                    }
+                    System.out.print(DatatypeConverter.printHexBinary(a));
                     System.out.print(":");
-                    for (byte data : b) {
-                        System.out.printf("%02x", data);
-                    }
+                    System.out.print(DatatypeConverter.printHexBinary(b));
                     System.out.println();
                 }
                 bestnlz = currentnlz;
