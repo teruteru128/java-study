@@ -48,7 +48,7 @@ public class KeyEncryption {
         byte[] salt = random.generateSeed(32);
         PBEParameterSpec spec2 = new PBEParameterSpec(salt, 1024);
 
-        PBEKeySpec spec = new PBEKeySpec("Insert your password".toCharArray());
+        PBEKeySpec spec = new PBEKeySpec("Security strength depends on your password. At least 12 digits are required.".toCharArray());
         String pbkalgo = "PBEwithHmacSHA512andAES_256";
         SecretKeyFactory factory = SecretKeyFactory.getInstance(pbkalgo);
         SecretKey key2 = factory.generateSecret(spec);

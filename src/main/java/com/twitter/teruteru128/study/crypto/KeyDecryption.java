@@ -36,15 +36,16 @@ class KeyDecryption {
             throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeySpecException, InvalidKeyException,
             InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException, IOException {
         byte[] encryptedkey = DatatypeConverter.parseHexBinary(
-                "32c305e20c477bb7eaf610355bd3c2d3433cb9ffcc3630237ca6afd903214982431b099bd34fb8ed17ec9f5adcdbd523");
+                "fbd74ac97dc44e84aaf8c8032e5606e6c3f23bc7ecae3b454ecdc57bc0a770db2bf3d730d17434d461c7039e2c882bbc");
         byte[] salt = DatatypeConverter
-                .parseHexBinary("CC0A998D5874D36598AE3B9A5BB121129172600869C9E1F7010DD9F8CFA53DAD");
-        byte[] iv = DatatypeConverter.parseHexBinary("03A7018A5EED3E34B856B6BC19CB7AF7");
-        byte[] iv2 = DatatypeConverter.parseHexBinary("3474CBC1ABF4DA38DD293160");
-        byte[] encryptedmessage = DatatypeConverter
-                .parseHexBinary("8C03C5FE9CEE8EF79AF0D65D10DCBAF6F3966B63E17088CF9167529A");
+                .parseHexBinary("2DB7888F305E88092266F60FCCDC011339677C6949DA07F850819A566695E8B5");
+        byte[] iv = DatatypeConverter.parseHexBinary("43219559BCF8521593A315A27AA61CCE");
+        byte[] iv2 = DatatypeConverter.parseHexBinary("B438A7E5EDC89CFAC14B18EE");
+        byte[] encryptedmessage = DatatypeConverter.parseHexBinary(
+                "DFDA2E427E81EE03CC401B8D3DD1A193C1717022B4419364C280A7FC0F8F19A51EC47F43463381C444124A706D5BD3435C3B721FA57801E8F24906C01986EC0139753E82D791B5E6D2FC47B355");
         PBEParameterSpec spec2 = new PBEParameterSpec(salt, 1024, new IvParameterSpec(iv));
-        PBEKeySpec spec = new PBEKeySpec("Insert your password".toCharArray());
+        PBEKeySpec spec = new PBEKeySpec(
+                "Security strength depends on your password. At least 12 digits are required.".toCharArray());
         String pbealgo = "PBEwithHmacSHA512andAES_256";
         SecretKeyFactory factory = SecretKeyFactory.getInstance(pbealgo);
         SecretKey key2 = factory.generateSecret(spec);
