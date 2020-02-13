@@ -3,7 +3,7 @@ package com.twitter.teruteru128.study.fourcube;
 import java.security.SecureRandom;
 import java.util.Random;
 
-public class Main {
+public class SearchSumOfThreeCubes114 {
 
     public static void main(String[] args) {
         long x, xLength, xMax;
