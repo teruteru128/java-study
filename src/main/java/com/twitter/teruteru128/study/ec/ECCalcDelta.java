@@ -5,8 +5,13 @@ import java.security.AlgorithmParameters;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.ECParameterSpec;
 
-public class Main {
+public class ECCalcDelta {
 
+    /**
+     * 楕円曲線の判別式&Delta;を計算する
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         AlgorithmParameters parameters = AlgorithmParameters.getInstance("EC");
         parameters.init(new ECGenParameterSpec("secp256r1"));
@@ -14,12 +19,7 @@ public class Main {
         var curve = spec.getCurve();
         var a = curve.getA();
         var b = curve.getB();
-        var coefficient_A = BigInteger.valueOf(4L);
-        var coefficient_B = BigInteger.valueOf(27);
-        var coefficient_delta = BigInteger.valueOf(-16L);
-        var term_A = coefficient_A.multiply(a.pow(3));
-        var term_B = coefficient_B.multiply(b.pow(2));
-        var delta = term_A.add(term_B).multiply(coefficient_delta);
+        var delta = a.pow(3).multiply(BigInteger.valueOf(4L)).add(b.pow(2).multiply(BigInteger.valueOf(27))).multiply(BigInteger.valueOf(-16L));
         System.out.println(delta);
     }
 
