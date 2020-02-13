@@ -11,18 +11,21 @@ public class Main {
         long z, zLength, zMax;
 
         Random rnd = new SecureRandom();
-        x =Math.abs(rnd.nextInt());
-        y = rnd.nextInt();
-        z = -Math.abs(rnd.nextInt());
+        x = Math.abs(rnd.nextLong());
+        y = rnd.nextLong();
+        z = -Math.abs(rnd.nextLong());
         System.out.printf("%d, %d, %d%n", x, y, z);
-        xLength = yLength = zLength = 100000000;
+        xLength = yLength = zLength = 0x100000000L;
+        xMax = x + xLength;
+        yMax = y + yLength;
+        zMax = z + zLength;
 
         long sum = 0;
-        for (; x < Long.MAX_VALUE; x++) {
-            for (; y < Long.MAX_VALUE; y++) {
-                for (; z < Long.MAX_VALUE; z++) {
+        for (; x < xMax; x++) {
+            for (; y < yMax; y++) {
+                for (; z < zMax; z++) {
                     sum = x * x * x + y * y * y + z * z * z;
-                    if (0 <= sum && sum < 200) {
+                    if (-200 < sum && sum < 200) {
                         System.out.printf("%d, %d, %d, %d%n", sum, x, y, z);
                     }
                 }

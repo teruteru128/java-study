@@ -14,8 +14,6 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.twitter.teruteru128.study.crypto.DataPrinter;
-
 public class X25519ChaCha20Poly1305Sample {
 
     public static void main(String[] args) throws Exception {
