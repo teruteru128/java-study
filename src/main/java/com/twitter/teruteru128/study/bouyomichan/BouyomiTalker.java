@@ -14,11 +14,18 @@ import java.time.chrono.JapaneseDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * 
+ */
 public class BouyomiTalker {
 
     public BouyomiTalker() {
         super();
     }
+
+    private String hostname = "localhost";
+    private int hostport = 50001;
+    private Proxy proxy = Proxy.NO_PROXY;
 
     /**
      * ←優先度高 コマンドライン引数 ユーザー設定ファイル システム設定ファイル →優先度低
@@ -27,6 +34,17 @@ public class BouyomiTalker {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        final int arglen = args.length;
+        boolean useTor = false;
+        for (int argi = 0; argi < arglen;) {
+            boolean hasmoreargs = true;
+            String arg = args[argi];
+            if (arg.equals("--use-tor")) {
+                useTor = true;
+                hasmoreargs = false;
+            }
+            argi += hasmoreargs ? 2 : 1;
+        }
         LocalDateTime dateTime = LocalDateTime.now(Clock.systemDefaultZone());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日 ah時m分s秒", Locale.JAPAN);
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("Gy年M月d日", Locale.JAPAN);
@@ -35,18 +53,30 @@ public class BouyomiTalker {
         LocalTime time = LocalTime.from(dateTime);
         var main = new BouyomiTalker();
         // for (;;) {
-        main.readText(String.format("今は %s %s ですよー", date.format(formatter2), time.format(formatter3)));
+        main.readText(String.format("今は %s %s ですよー", date.format(formatter2), time.format(formatter3)), useTor);
         // readText("hakatanoshio");
-        // main.readText("何時？？");
+        // main.readText("何時？？", useTor);
         // Thread.sleep(1000 * 30);
         // }
     }
 
-    private void readText(String text) throws UnknownHostException {
+    /**
+     * TODO リファクタリング
+     * 
+     * @param text
+     * @throws UnknownHostException
+     */
+    public void readText(String text) throws UnknownHostException {
         readText(text, false);
     }
 
-    private void readText(String text, boolean useProxy) throws UnknownHostException {
+    /**
+     * 
+     * @param text
+     * @param useProxy
+     * @throws UnknownHostException
+     */
+    public void readText(String text, boolean useProxy) throws UnknownHostException {
         byte[] messageData = text.getBytes();
         short command = 1;
         short speed = -1;
