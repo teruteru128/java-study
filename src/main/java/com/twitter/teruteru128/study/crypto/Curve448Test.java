@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.ed;
+package com.twitter.teruteru128.study.crypto;
 
 import java.security.KeyPairGenerator;
 import java.security.spec.NamedParameterSpec;

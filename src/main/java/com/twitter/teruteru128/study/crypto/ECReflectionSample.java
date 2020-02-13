@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.ec.sample001;
+package com.twitter.teruteru128.study.crypto;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

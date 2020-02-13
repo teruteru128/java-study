@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.ec.sample002;
+package com.twitter.teruteru128.study.crypto;
 
 import java.math.BigInteger;
 
