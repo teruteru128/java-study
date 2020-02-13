@@ -10,7 +10,7 @@ import org.bouncycastle.math.ec.ECPoint;
  * @author Teruteru
  *
  */
-public class Main {
+public class ECCalcSample002 {
 
     /**
      * @param args
