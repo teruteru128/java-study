@@ -17,9 +17,9 @@ import java.util.Locale;
 /**
  * 
  */
-public class BouyomiTalker {
+public class BouyomiChan {
 
-    public BouyomiTalker() {
+    public BouyomiChan() {
         super();
     }
 
@@ -51,7 +51,7 @@ public class BouyomiTalker {
         DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("ah時m分s秒", Locale.JAPAN);
         JapaneseDate date = JapaneseDate.from(dateTime);
         LocalTime time = LocalTime.from(dateTime);
-        var main = new BouyomiTalker();
+        var main = new BouyomiChan();
         // for (;;) {
         main.readText(String.format("今は %s %s ですよー", date.format(formatter2), time.format(formatter3)), useTor);
         // readText("hakatanoshio");
