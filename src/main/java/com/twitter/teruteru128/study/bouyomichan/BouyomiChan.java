@@ -68,13 +68,24 @@ public class BouyomiChan {
         var main = new BouyomiChan(host, port, proxy);
         var text1 = formatter.format(dateTime);
         System.out.println(text1);
-        // main.readText(text1);
+        main.doTalk(text1);
         var text2 = String.format("今は %s %s ですよー", date.format(formatter2), time.format(formatter3));
         System.out.println(text2);
-        // main.readText(text2);
-        // main.readText("hakatanoshio");
-        // main.readText("何時？？");
-        System.out.println(main.getPause());
+        main.doTalk(text2);
+        main.doTalk("hakatanoshio");
+        main.doTalk("何時？？");
+        for (int i = 0; i < 24; i++) {
+            main.doTalk("世界で一番おひめさま");
+            System.out.printf("task count : %d%n", main.getTaskCount());
+        }
+        System.out.printf("pause status : %d%n", main.getPause());
+        main.doPause();
+        System.out.printf("pause status : %d%n", main.getPause());
+        main.doResume();
+        System.out.printf("pause status : %d%n", main.getPause());
+        main.doSkip();
+        System.out.printf("now playing : %d%n", main.getNowPlaying());
+        main.doClear();
     }
 
     /**
@@ -83,7 +94,7 @@ public class BouyomiChan {
      * @param text
      * @throws UnknownHostException
      */
-    public void readText(String text) throws UnknownHostException {
+    public void doTalk(String text) throws UnknownHostException {
         byte[] messageData = text.getBytes();
         short command = 1;
         short speed = -1;
@@ -102,28 +113,24 @@ public class BouyomiChan {
         buffer.put(encode);
         buffer.putInt(length);
         buffer.put(messageData);
-        System.out.printf("command : %d\n", buffer.getShort(0));
-        System.out.printf("speed : %d\n", buffer.getShort(2));
-        System.out.printf("tone : %d\n", buffer.getShort(4));
-        System.out.printf("volume : %d\n", buffer.getShort(6));
-        System.out.printf("voice : %d\n", buffer.getShort(8));
-        System.out.printf("encode : %d\n", buffer.get(10));
-        System.out.printf("length : %d\n", buffer.getInt(11));
-        buffer.flip();
+        /*
+         * System.out.printf("command : %d\n", buffer.getShort(0));
+         * System.out.printf("speed : %d\n", buffer.getShort(2));
+         * System.out.printf("tone : %d\n", buffer.getShort(4));
+         * System.out.printf("volume : %d\n", buffer.getShort(6));
+         * System.out.printf("voice : %d\n", buffer.getShort(8));
+         * System.out.printf("encode : %d\n", buffer.get(10));
+         * System.out.printf("length : %d\n", buffer.getInt(11)); buffer.flip();
+         */
         byte[] array = buffer.array();
-        for (int i = 0; i < 15; i++) {
-            System.out.printf("%02x", array[i]);
-        }
-        System.out.println();
-        for (int i = 15; i < array.length; i++) {
-            System.out.printf("%02x", array[i]);
-            if (i % 16 == 14) {
-                System.out.println();
-            }
-        }
-        System.out.println();
-        System.out.printf("fulllength : %dbytes\n", buffer.capacity());
-        System.out.printf("datalength : %dbytes\n", messageData.length);
+        /*
+         * for (int i = 0; i < 15; i++) { System.out.printf("%02x", array[i]); }
+         * System.out.println(); for (int i = 15; i < array.length; i++) {
+         * System.out.printf("%02x", array[i]); if (i % 16 == 14) {
+         * System.out.println(); } } System.out.println();
+         * System.out.printf("fulllength : %dbytes\n", buffer.capacity());
+         * System.out.printf("datalength : %dbytes\n", messageData.length);
+         */
         assert (messageData.length + 15) == buffer.capacity();
         try (Socket socket = new Socket(proxy)) {
             socket.connect(new InetSocketAddress(hostname, hostport));
@@ -149,6 +156,97 @@ public class BouyomiChan {
         }
         ByteBuffer inbuf = ByteBuffer.wrap(in);
         return inbuf.get();
+    }
+
+    public void doPause() {
+        ByteBuffer buf = ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN);
+        short command = 0x0010;
+        buf.putShort(command);
+        buf.flip();
+        byte[] array = buf.array();
+        try (Socket socket = new Socket(proxy)) {
+            socket.connect(new InetSocketAddress(hostname, hostport));
+            socket.getOutputStream().write(array);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void doResume() {
+        ByteBuffer buf = ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN);
+        short command = 0x0020;
+        buf.putShort(command);
+        buf.flip();
+        byte[] array = buf.array();
+        try (Socket socket = new Socket(proxy)) {
+            socket.connect(new InetSocketAddress(hostname, hostport));
+            socket.getOutputStream().write(array);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void doSkip() {
+        ByteBuffer buf = ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN);
+        short command = 0x0030;
+        buf.putShort(command);
+        buf.flip();
+        byte[] array = buf.array();
+        try (Socket socket = new Socket(proxy)) {
+            socket.connect(new InetSocketAddress(hostname, hostport));
+            socket.getOutputStream().write(array);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void doClear() {
+        ByteBuffer buf = ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN);
+        short command = 0x0040;
+        buf.putShort(command);
+        buf.flip();
+        byte[] array = buf.array();
+        try (Socket socket = new Socket(proxy)) {
+            socket.connect(new InetSocketAddress(hostname, hostport));
+            socket.getOutputStream().write(array);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public byte getNowPlaying() {
+        ByteBuffer buf = ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN);
+        short command = 0x0120;
+        buf.putShort(command);
+        buf.flip();
+        byte[] array = buf.array();
+        byte[] in = new byte[1];
+        try (Socket socket = new Socket(proxy)) {
+            socket.connect(new InetSocketAddress(hostname, hostport));
+            socket.getOutputStream().write(array);
+            socket.getInputStream().read(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ByteBuffer inbuf = ByteBuffer.wrap(in);
+        return inbuf.get();
+    }
+
+    public int getTaskCount() {
+        ByteBuffer buf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN);
+        short command = 0x0130;
+        buf.putShort(command);
+        buf.flip();
+        byte[] array = buf.array();
+        ByteBuffer inbuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN);
+        try (Socket socket = new Socket(proxy)) {
+            socket.connect(new InetSocketAddress(hostname, hostport));
+            socket.getOutputStream().write(array);
+            socket.getInputStream().read(inbuf.array());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return inbuf.getInt();
     }
 
 }
