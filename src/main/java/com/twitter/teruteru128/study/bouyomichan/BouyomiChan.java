@@ -52,8 +52,12 @@ public class BouyomiChan {
         JapaneseDate date = JapaneseDate.from(dateTime);
         LocalTime time = LocalTime.from(dateTime);
         var main = new BouyomiChan();
+        String host = useTor ? "2ayu6gqru3xzfzbvud64ezocamykp56kunmkzveqmuxvout2yubeeuad.onion" : "localhost";
+        int port = 50001;
+        var proxy = useTor ? new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9050)) : Proxy.NO_PROXY;
         // for (;;) {
-        main.readText(String.format("今は %s %s ですよー", date.format(formatter2), time.format(formatter3)), useTor);
+        main.readText(String.format("今は %s %s ですよー", date.format(formatter2), time.format(formatter3)), host, port,
+                proxy);
         // readText("hakatanoshio");
         // main.readText("何時？？", useTor);
         // Thread.sleep(1000 * 30);
@@ -64,19 +68,12 @@ public class BouyomiChan {
      * TODO リファクタリング
      * 
      * @param text
+     * @param host
+     * @param port
+     * @param proxy
      * @throws UnknownHostException
      */
-    public void readText(String text) throws UnknownHostException {
-        readText(text, false);
-    }
-
-    /**
-     * 
-     * @param text
-     * @param useProxy
-     * @throws UnknownHostException
-     */
-    public void readText(String text, boolean useProxy) throws UnknownHostException {
+    public void readText(String text, String host, int port, Proxy proxy) throws UnknownHostException {
         byte[] messageData = text.getBytes();
         short command = 1;
         short speed = -1;
@@ -118,9 +115,6 @@ public class BouyomiChan {
         System.out.printf("fulllength : %dbytes\n", buffer.capacity());
         System.out.printf("datalength : %dbytes\n", messageData.length);
         assert (messageData.length + 15) == buffer.capacity();
-        String host = useProxy ? "2ayu6gqru3xzfzbvud64ezocamykp56kunmkzveqmuxvout2yubeeuad.onion" : "localhost";
-        int port = 50001;
-        var proxy = useProxy ? new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9050)) : Proxy.NO_PROXY;
         try (Socket socket = new Socket(proxy)) {
             socket.connect(new InetSocketAddress(host, port));
             socket.getOutputStream().write(array);
