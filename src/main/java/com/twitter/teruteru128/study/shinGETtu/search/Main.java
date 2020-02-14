@@ -58,7 +58,7 @@ public class Main implements Runnable {
             String bodystr = null;
             String escapedStr = null;
             final byte[] id = new byte[16];
-            final byte[] target = ByteBuffer.allocate(4).putInt(0x45454545).array();
+            final byte[] target = ByteBuffer.allocate(4).putInt(0x19191919).array();
             final long start = System.nanoTime();
             byte[] bytes = null;
             for (long i = s; i < en; i++) {
@@ -84,7 +84,7 @@ public class Main implements Runnable {
                 final var endtime = LocalDateTime.now();
                 final var threadname = Thread.currentThread().getName();
                 synchronized (System.out) {
-                    System.out.printf("%s: %s %s%n", threadname, seconds, endtime);
+                    System.out.printf("%s : %s %s%n", threadname, endtime, seconds);
                 }
             }
         } catch (NoSuchAlgorithmException e) {
