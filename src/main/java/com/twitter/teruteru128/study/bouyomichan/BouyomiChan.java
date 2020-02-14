@@ -20,12 +20,23 @@ import java.util.Locale;
 public class BouyomiChan {
 
     public BouyomiChan() {
-        super();
+        this("localhost", 50001, Proxy.NO_PROXY);
     }
 
-    private String hostname = "localhost";
-    private int hostport = 50001;
-    private Proxy proxy = Proxy.NO_PROXY;
+    public BouyomiChan(String host, int port) {
+        this(host, port, Proxy.NO_PROXY);
+    }
+
+    public BouyomiChan(String host, int port, Proxy proxy) {
+        super();
+        this.hostname = host;
+        this.hostport = port;
+        this.proxy = proxy;
+    }
+
+    private String hostname;
+    private int hostport;
+    private Proxy proxy;
 
     /**
      * ←優先度高 コマンドライン引数 ユーザー設定ファイル システム設定ファイル →優先度低
@@ -51,29 +62,27 @@ public class BouyomiChan {
         DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("ah時m分s秒", Locale.JAPAN);
         JapaneseDate date = JapaneseDate.from(dateTime);
         LocalTime time = LocalTime.from(dateTime);
-        var main = new BouyomiChan();
         String host = useTor ? "2ayu6gqru3xzfzbvud64ezocamykp56kunmkzveqmuxvout2yubeeuad.onion" : "localhost";
         int port = 50001;
         var proxy = useTor ? new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9050)) : Proxy.NO_PROXY;
-        // for (;;) {
-        main.readText(String.format("今は %s %s ですよー", date.format(formatter2), time.format(formatter3)), host, port,
-                proxy);
-        // readText("hakatanoshio");
-        // main.readText("何時？？", useTor);
-        // Thread.sleep(1000 * 30);
-        // }
+        var main = new BouyomiChan(host, port, proxy);
+        var text1 = formatter.format(dateTime);
+        System.out.println(text1);
+        main.readText(text1);
+        var text2 = String.format("今は %s %s ですよー", date.format(formatter2), time.format(formatter3));
+        System.out.println(text2);
+        main.readText(text2);
+        main.readText("hakatanoshio");
+        main.readText("何時？？");
     }
 
     /**
      * TODO リファクタリング
      * 
      * @param text
-     * @param host
-     * @param port
-     * @param proxy
      * @throws UnknownHostException
      */
-    public void readText(String text, String host, int port, Proxy proxy) throws UnknownHostException {
+    public void readText(String text) throws UnknownHostException {
         byte[] messageData = text.getBytes();
         short command = 1;
         short speed = -1;
@@ -116,7 +125,7 @@ public class BouyomiChan {
         System.out.printf("datalength : %dbytes\n", messageData.length);
         assert (messageData.length + 15) == buffer.capacity();
         try (Socket socket = new Socket(proxy)) {
-            socket.connect(new InetSocketAddress(host, port));
+            socket.connect(new InetSocketAddress(hostname, hostport));
             socket.getOutputStream().write(array);
         } catch (IOException e) {
             e.printStackTrace();
