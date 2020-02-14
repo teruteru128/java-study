@@ -68,12 +68,13 @@ public class BouyomiChan {
         var main = new BouyomiChan(host, port, proxy);
         var text1 = formatter.format(dateTime);
         System.out.println(text1);
-        main.readText(text1);
+        // main.readText(text1);
         var text2 = String.format("今は %s %s ですよー", date.format(formatter2), time.format(formatter3));
         System.out.println(text2);
-        main.readText(text2);
-        main.readText("hakatanoshio");
-        main.readText("何時？？");
+        // main.readText(text2);
+        // main.readText("hakatanoshio");
+        // main.readText("何時？？");
+        System.out.println(main.getPause());
     }
 
     /**
@@ -130,6 +131,24 @@ public class BouyomiChan {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public byte getPause() {
+        ByteBuffer buf = ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN);
+        short command = 0x0110;
+        buf.putShort(command);
+        buf.flip();
+        byte[] array = buf.array();
+        byte[] in = new byte[1];
+        try (Socket socket = new Socket(proxy)) {
+            socket.connect(new InetSocketAddress(hostname, hostport));
+            socket.getOutputStream().write(array);
+            socket.getInputStream().read(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ByteBuffer inbuf = ByteBuffer.wrap(in);
+        return inbuf.get();
     }
 
 }
