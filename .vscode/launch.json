@@ -9,6 +9,13 @@
             "name": "CodeLens (Launch) - BouyomiChan",
             "request": "launch",
             "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.bouyomichan.BouyomiChan",
+            "projectName": "study"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - BouyomiChan",
+            "request": "launch",
+            "mainClass": "com.twitter.teruteru128.study/com.twitter.teruteru128.study.bouyomichan.BouyomiChan",
             "projectName": "test"
         },
         {
