@@ -13,7 +13,7 @@ public class Main {
         System.out.println(j);
         var k = gson.fromJson(i, JsonPrimitive.class);
         System.out.println(k);
-    System.out.println(k.getClass());
+        System.out.println(k.getClass());
         var obj = gson.fromJson("{\"test\": 18.5}", JsonObject.class);
         System.out.println(obj);
         System.out.println(obj.get("test"));
