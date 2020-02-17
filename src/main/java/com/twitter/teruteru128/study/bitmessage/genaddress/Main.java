@@ -1,14 +1,14 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
-import java.security.SecureRandom;
 import java.security.Security;
-import java.util.Arrays;
+
+import javax.xml.bind.DatatypeConverter;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.rfc8032.Ed25519;
+import org.bouncycastle.util.Arrays;
 
 public class Main {
 
@@ -19,61 +19,35 @@ public class Main {
      * @see https://en.bitcoin.it/wiki/Wallet_import_format
      * @param args
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Provider provider = Security.getProvider("BC");
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
         Ed25519.precompute();
-        byte[] potentialPrivSigningKey = new byte[Ed25519.SECRET_KEY_SIZE];
-        byte[] potentialPubSigningKey = new byte[Ed25519.PUBLIC_KEY_SIZE];
-        SecureRandom random = new SecureRandom();
-        random.nextBytes(potentialPrivSigningKey);
-        Ed25519.generatePublicKey(potentialPrivSigningKey, 0, potentialPubSigningKey, 0);
-        byte[] potentialPrivEncryptionKey = new byte[Ed25519.SECRET_KEY_SIZE];
-        byte[] potentialPubEncryptionKey = new byte[Ed25519.PUBLIC_KEY_SIZE];
-        byte[] nullbytes = new byte[20];
-        try {
-            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-            MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
-            MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
-            byte[] ripe;
-            while (true) {
-                random.nextBytes(potentialPrivEncryptionKey);
-                Ed25519.generatePublicKey(potentialPrivEncryptionKey, 0, potentialPubEncryptionKey, 0);
-                sha512.update(potentialPubSigningKey, 0, Ed25519.PUBLIC_KEY_SIZE);
-                sha512.update(potentialPubEncryptionKey, 0, Ed25519.PUBLIC_KEY_SIZE);
-                ripe = ripemd160.digest(sha512.digest());
-                if (Arrays.equals(ripe, 0, 2, nullbytes, 0, 2)) {
-                    break;
-                }
-            }
-            BMAddress bmaddress = new BMAddress();
-            String address = bmaddress.encodeAddress(4, 1, ripe);
-            byte[] privSigningKey = new byte[Ed25519.SECRET_KEY_SIZE + 1];
-            privSigningKey[0] = (byte) 0x80;
-            System.arraycopy(potentialPrivSigningKey, 0, privSigningKey, 1, Ed25519.SECRET_KEY_SIZE);
-            byte[] checksum = Arrays.copyOfRange(sha256.digest(sha256.digest(privSigningKey)), 0, 4);
-            byte[] tmp = new byte[privSigningKey.length + checksum.length];
-            System.arraycopy(privSigningKey, 0, tmp, 0, privSigningKey.length);
-            System.arraycopy(checksum, 0, tmp, privSigningKey.length, checksum.length);
-            // encode to base58
-            Base58 base58 = new Base58();
-            String privSigningKeyWIF = base58.encode(tmp);
-
-            byte[] privEncryptionKey = new byte[Ed25519.SECRET_KEY_SIZE + 1];
-            privEncryptionKey[0] = (byte) 0x80;
-            System.arraycopy(potentialPubEncryptionKey, 0, privEncryptionKey, 1, Ed25519.SECRET_KEY_SIZE);
-            checksum = Arrays.copyOfRange(sha256.digest(sha256.digest(privEncryptionKey)), 0, 4);
-            System.arraycopy(privEncryptionKey, 0, tmp, 0, privEncryptionKey.length);
-            System.arraycopy(checksum, 0, tmp, privEncryptionKey.length, checksum.length);
-            String privEncryptionKeyWIF = base58.encode(tmp);
-            System.out.println(address);
-            System.out.println(privSigningKeyWIF);
-            System.out.println(privEncryptionKeyWIF);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        String address = "BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM";
+        String privSigningKeyWIF = "5KSKK9tJfuMrkUfwBqGS3ktfPix5zZBtgxAao2GtKeUgJNpEo6R";
+        String privEncryptionKeyWIF = "5KUoQKDmcmAKpjaas3k9U6bGFN5Nz937zqLqDDo1sNUqeJCiMZn";
+        Base58 base58 = new Base58();
+        byte[] privSigningKey = base58.decode(privSigningKeyWIF);
+        byte[] privEncryptionKey = base58.decode(privEncryptionKeyWIF);
+        byte[] posPrivSigningKey = Arrays.copyOfRange(privSigningKey, 1, 33);
+        byte[] posPrivEncryptionKey = Arrays.copyOfRange(privEncryptionKey, 1, 33);
+        byte[] pubSigningKey = new byte[Ed25519.PUBLIC_KEY_SIZE];
+        byte[] pubEncryptionKey = new byte[Ed25519.PUBLIC_KEY_SIZE];
+        Ed25519.generatePublicKey(posPrivSigningKey, 0, pubSigningKey, 0);
+        Ed25519.generatePublicKey(posPrivEncryptionKey, 0, pubEncryptionKey, 0);
+        MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+        MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
+        MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
+        sha512.update(pubSigningKey);
+        sha512.update(pubEncryptionKey);
+        byte[] ripe = ripemd160.digest(sha512.digest());
+        System.out.println(DatatypeConverter.printHexBinary(ripe));
+        BMAddress bmAddress = new BMAddress();
+        String address2 = bmAddress.encodeAddress(4, 1, ripe);
+        System.out.println(address2);
+        System.out.println(address2.equals(address));
     }
 
 }

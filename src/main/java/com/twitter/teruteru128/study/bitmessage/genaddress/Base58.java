@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 import javax.xml.bind.DatatypeConverter;
 
@@ -60,11 +61,10 @@ public class Base58 {
             decimal = decimal.multiply(BASE).add(BigInteger.valueOf(index_num));
         }
 
-        // 10進数 → 16進数
-        String s_hex = decimal.toString(16);
-
-        // 16進数をバイナリに戻す
-        byte[] bytes = DatatypeConverter.parseHexBinary(s_hex);
+        byte[] bytes = decimal.toByteArray();
+        if(bytes[0] == 0 && (bytes[1] & 0x80) == 0x80){
+            bytes = Arrays.copyOfRange(bytes, 1, bytes.length);
+        }
         return bytes;
     }
 
