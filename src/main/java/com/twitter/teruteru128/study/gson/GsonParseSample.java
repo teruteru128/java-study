@@ -1,10 +1,10 @@
-package com.twitter.teruteru128.study.integer;
+package com.twitter.teruteru128.study.gson;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-public class Main {
+public class GsonParseSample {
 
     public static void main(String[] args) {
         String i = "18.5";

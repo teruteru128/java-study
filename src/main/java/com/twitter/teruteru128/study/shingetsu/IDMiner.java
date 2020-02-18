@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.shinGETtu.search;
+package com.twitter.teruteru128.study.shingetsu;
 
 import java.nio.ByteBuffer;
 import java.security.DigestException;
@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 import com.twitter.teruteru128.study.crypto.DataPrinter;
 
-public class Main implements Runnable {
+public class IDMiner implements Runnable {
 
     private static final Pattern pattern1 = Pattern.compile("&");
     private static final Pattern pattern2 = Pattern.compile("&amp;(#\\d+|#[Xx][0-9A-Fa-f]+|[A-Za-z0-9]+);");
@@ -34,7 +34,7 @@ public class Main implements Runnable {
     private long start;
     private long end;
 
-    public Main(long start, long end) {
+    public IDMiner(long start, long end) {
         super();
         this.start = start;
         this.end = end;
@@ -99,7 +99,7 @@ public class Main implements Runnable {
         System.out.printf("pid : %d%n", handle.pid());
         ExecutorService service = Executors.newFixedThreadPool(6);
         for (long i = 0; i < 0x20; i++) {
-            service.execute(new Main(i * 0x10000000L, (i + 1) * 0x10000000L));
+            service.execute(new IDMiner(i * 0x10000000L, (i + 1) * 0x10000000L));
         }
         service.shutdown();
     }

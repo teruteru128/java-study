@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.img.sample001;
+package com.twitter.teruteru128.study.image;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
@@ -19,7 +19,7 @@ import com.twitter.teruteru128.holders.SecureRandomHolder;
  * @author Teruteru
  *
  */
-public class Main {
+public class RandomImageOutputSample2 {
 
     /**
      * @param args

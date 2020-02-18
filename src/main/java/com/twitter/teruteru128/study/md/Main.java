@@ -3,6 +3,7 @@ package com.twitter.teruteru128.study.md;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -39,17 +40,11 @@ public class Main implements Callable<HashBean> {
         }
     }
 
-    static final byte[] DigitTens = { '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1', '1', '1', '1', '1', '1',
-            '1', '1', '1', '1', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '3', '3', '3', '3', '3', '3', '3',
-            '3', '3', '3', '4', '4', '4', '4', '4', '4', '4', '4', '4', '4', '5', '5', '5', '5', '5', '5', '5', '5',
-            '5', '5', '6', '6', '6', '6', '6', '6', '6', '6', '6', '6', '7', '7', '7', '7', '7', '7', '7', '7', '7',
-            '7', '8', '8', '8', '8', '8', '8', '8', '8', '8', '8', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', };
+    static final byte[] DigitTens = "0000000000111111111122222222223333333333444444444455555555556666666666777777777788888888889999999999"
+            .getBytes();
 
-    static final byte[] DigitOnes = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5',
-            '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '6',
-            '7', '8', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '6', '7',
-            '8', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8',
-            '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', };
+    static final byte[] DigitOnes = "0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789"
+            .getBytes();
 
     private int toStringBytes(long i, int index, byte[] buf) {
         long q;
@@ -112,6 +107,25 @@ public class Main implements Callable<HashBean> {
         return 19 + d;
     }
 
+    private int getNLZ(byte[] b) {
+        int zerobytes = 0;
+        int zerobits = 0;
+        int hashbytes = b.length;
+        byte lastbyte_tmp = 0;
+        for (zerobytes = 0; zerobytes < hashbytes && b[zerobytes] == 0; zerobytes++) {
+            // NONE
+        }
+        zerobits = 0;
+        if (zerobytes < hashbytes) {
+            lastbyte_tmp = b[zerobytes];
+            while ((lastbyte_tmp & 0x80) == 0) {
+                zerobits++;
+                lastbyte_tmp <<= 1;
+            }
+        }
+        return zerobytes * 8 + zerobits;
+    }
+
     @Override
     public HashBean call() throws Exception {
         long salt = 0;
@@ -119,14 +133,13 @@ public class Main implements Callable<HashBean> {
         byte[] a = new byte[20];
         byte[] b = new byte[20];
         Arrays.fill(b, (byte) 0);
-        byte[] swap_tmp = null;
         MessageDigest sha1 = MessageDigest.getInstance("SHA1");
         final int hashbytes = sha1.getDigestLength();
         ThreadLocalRandom.current().nextBytes(a);
         int zerobytes = 0;
         int zerobits = 0;
         int currentnlz;
-        int bestnlz = 32;
+        int bestnlz = 24;
         int targetnlz = this.targetnlz;
         byte lastbyte_tmp = 0;
         System.out.printf("Thread id : %d%n", Thread.currentThread().getId());
@@ -134,18 +147,7 @@ public class Main implements Callable<HashBean> {
         for (;;) {
             sha1.update(a, 0, 20);
             sha1.digest(b, 0, 20);
-            for (zerobytes = 0; zerobytes < hashbytes && b[zerobytes] == 0; zerobytes++) {
-                // NONE
-            }
-            zerobits = 0;
-            if (zerobytes < hashbytes) {
-                lastbyte_tmp = b[zerobytes];
-                while ((lastbyte_tmp & 0x80) == 0) {
-                    zerobits++;
-                    lastbyte_tmp <<= 1;
-                }
-            }
-            currentnlz = zerobytes * 8 + zerobits;
+            currentnlz = getNLZ(b);
             if (currentnlz > bestnlz) {
                 synchronized (System.out) {
                     System.out.printf("%d:%dbits:", Thread.currentThread().getId(), currentnlz);
@@ -161,9 +163,11 @@ public class Main implements Callable<HashBean> {
             if (currentnlz >= targetnlz) {
                 break;
             }
-            swap_tmp = a;
-            a = b;
-            b = swap_tmp;
+            {
+                byte[] swap_tmp = a;
+                a = b;
+                b = swap_tmp;
+            }
         }
         return bean;
     }
