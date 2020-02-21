@@ -10,7 +10,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.rfc8032.Ed25519;
 import org.bouncycastle.util.Arrays;
 
-public class Main {
+public class BMAddressGenerateSample {
 
     /**
      * TODO WTF? bitmessageってed25519でしたっけ？

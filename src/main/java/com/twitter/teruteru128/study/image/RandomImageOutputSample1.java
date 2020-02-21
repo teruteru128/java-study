@@ -7,7 +7,7 @@ import java.security.SecureRandom;
 
 import javax.imageio.ImageIO;
 
-public class ImageOutputSample implements Runnable {
+public class RandomImageOutputSample1 implements Runnable {
 
     @Override
     public void run() {
@@ -33,7 +33,7 @@ public class ImageOutputSample implements Runnable {
     }
 
     public static void main(String[] args) {
-        Thread thread = new Thread(new ImageOutputSample());
+        Thread thread = new Thread(new RandomImageOutputSample1());
         thread.start();
     }
 }

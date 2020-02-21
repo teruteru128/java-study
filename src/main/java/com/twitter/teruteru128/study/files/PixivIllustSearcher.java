@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.files.search1;
+package com.twitter.teruteru128.study.files;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
-public class Main {
+public class PixivIllustSearcher {
 
     public static void main(String[] args) {
         Path dir = Paths.get("D:\\GoogleDrive_backup\\image\\pixiv.net\\");
