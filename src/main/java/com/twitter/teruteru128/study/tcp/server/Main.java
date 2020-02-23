@@ -16,7 +16,8 @@ public class Main implements Runnable {
         int port = 50000;
         CountDownLatch latch = new CountDownLatch(1);
         ServerConfig config = new ServerConfig(hostname, port, service, latch);
-        service.submit(new ServerWaittingThread(config));
+        service.submit(new ServerWaittingTask(config));
+        System.out.printf("Main.run() : %s%n", Thread.currentThread().getName());
         try {
             config.getLatch().await();
         } catch (InterruptedException e) {
@@ -26,7 +27,20 @@ public class Main implements Runnable {
         }
     }
 
+    /**
+     * mainスレッドでコンフィグなりコマンドライン引数なりパースしてからサーバー起動
+     * <ul>
+     * <li>シグナル</li>
+     * <li>ロギング</li>
+     * </ul>
+     * 
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
+        ServerConfigBuilder builder = new ServerConfigBuilder();
+        System.out.println("I hope for you.");
+        System.out.printf("Main.main() : %s%n", Thread.currentThread().getName());
         Thread serverThread = new Thread(new Main());
         serverThread.start();
     }

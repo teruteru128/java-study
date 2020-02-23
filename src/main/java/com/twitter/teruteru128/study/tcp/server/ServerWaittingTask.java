@@ -6,10 +6,10 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.concurrent.Callable;
 
-class ServerWaittingThread implements Callable<Void> {
+class ServerWaittingTask implements Callable<Void> {
     private ServerConfig config;
 
-    public ServerWaittingThread(ServerConfig config) {
+    public ServerWaittingTask(ServerConfig config) {
         this.config = config;
     }
 
@@ -20,7 +20,7 @@ class ServerWaittingThread implements Callable<Void> {
             server.bind(new InetSocketAddress(config.getHostname(), config.getPort()));
             while (true) {
                 SocketChannel channel = server.accept();
-                config.getService().submit(new ChannelEchoThread(channel,config));
+                config.getService().submit(new ChannelEchoTask(channel, config));
             }
         } catch (IOException e) {
             e.printStackTrace();

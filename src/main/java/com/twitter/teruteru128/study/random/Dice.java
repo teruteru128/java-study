@@ -8,12 +8,14 @@ public class Dice {
         final var random = SecureRandom.getInstance("nativeprngnonblocking");
         // System.out.printf("%03d%n", random.nextInt(999)+1);
         double sum = 0;
-        for (int i = 0; i < 48; i++) {
-            double cum = (random.nextDouble() * 9 / 2) + 3.5;
+        int count = 60;
+        for (int i = 0; i < count; i++) {
+            double cum = (random.nextDouble() * 4) + 5;
             sum += cum;
-            System.out.printf("cum %2d : %f%n", i + 1, cum);
+            System.out.printf("cum,%d,%f%n", i + 1, cum);
         }
-        System.out.printf("sum : %f%n", sum);
+        System.out.printf("sum,,%f%n", sum);
+        System.out.printf("avg,,%f%n", sum / count);
     }
 
 }
