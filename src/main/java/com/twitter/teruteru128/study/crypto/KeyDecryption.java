@@ -19,6 +19,9 @@ import javax.xml.bind.DatatypeConverter;
 
 class KeyDecryption {
 
+    public KeyDecryption() {
+    }
+
     /**
      * PBE+KeyWrapping+ChaCha20-Poly1305 decryption
      * 
