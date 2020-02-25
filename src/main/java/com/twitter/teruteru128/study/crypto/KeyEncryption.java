@@ -24,6 +24,7 @@ import javax.xml.bind.DatatypeConverter;
 public class KeyEncryption {
 
     /**
+     * 共通鍵とIVは鍵共有による共有秘密から導出すべきでは？
      * PBE+KeyWrapping+ChaCha20-Poly1305 encryption
      * 
      * @param args
