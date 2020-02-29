@@ -11,6 +11,7 @@ import java.util.HashMap;
 
 /**
  * ネットワークインターフェースの取得
+ * 
  * @author https://yukun.info/java-networkinterface-ipv6-ipv4/
  */
 public class InetAddressesInfo {
@@ -44,11 +45,20 @@ public class InetAddressesInfo {
 
     public void show() {
         for (NetworkInterface n : interfaceMap.keySet()) {
-            System.out.println("Interface " + n.getName() + ": ");
+            System.out.print("Interface ");
+            System.out.print(n.getName());
+            System.out.println(": ");
             for (InetAddress a : interfaceMap.get(n)) {
-                System.out.print("\tAddress "
-                        + ((a instanceof Inet4Address ? "(IPv4)" : (a instanceof Inet6Address ? "(IPv6)" : "(?)"))));
-                System.out.println(": " + a.getHostAddress());
+                System.out.print("\tAddress (");
+                if (a instanceof Inet4Address) {
+                    System.out.print("IPv4");
+                } else if (a instanceof Inet6Address) {
+                    System.out.print("IPv6");
+                } else {
+                    System.out.print("?");
+                }
+                System.out.print(") :");
+                System.out.println(a.getHostAddress());
             }
         }
     }

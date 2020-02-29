@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.time.chrono.JapaneseDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.StringJoiner;
 
 /**
  * 
@@ -47,12 +48,16 @@ public class BouyomiChan {
     public static void main(String[] args) throws Exception {
         final int arglen = args.length;
         boolean useTor = false;
-        for (int argi = 0; argi < arglen;) {
+        int argi = 0;
+        StringJoiner readtext = new StringJoiner("\n");
+        while (argi < arglen) {
             boolean hasmoreargs = true;
             String arg = args[argi];
             if (arg.equals("--use-tor")) {
                 useTor = true;
                 hasmoreargs = false;
+            } else {
+                readtext.add(arg);
             }
             argi += hasmoreargs ? 2 : 1;
         }
@@ -66,6 +71,10 @@ public class BouyomiChan {
         int port = 50001;
         var proxy = useTor ? new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9050)) : Proxy.NO_PROXY;
         var main = new BouyomiChan(host, port, proxy);
+        if (readtext.length() > 0) {
+            main.doTalk(readtext.toString());
+            System.out.println("読み上げました");
+        }
         var text1 = formatter.format(dateTime);
         System.out.println(text1);
         main.doTalk(text1);
@@ -74,11 +83,14 @@ public class BouyomiChan {
         main.doTalk(text2);
         main.doTalk("hakatanoshio");
         main.doTalk("何時？？");
+        /*
         for (int i = 0; i < 24; i++) {
             main.doTalk("世界で一番おひめさま");
             System.out.printf("task count : %d%n", main.getTaskCount());
         }
+        */
         System.out.printf("pause status : %d%n", main.getPause());
+        /*
         main.doPause();
         System.out.printf("pause status : %d%n", main.getPause());
         main.doResume();
@@ -86,6 +98,7 @@ public class BouyomiChan {
         main.doSkip();
         System.out.printf("now playing : %d%n", main.getNowPlaying());
         main.doClear();
+        */
     }
 
     /**
@@ -154,8 +167,7 @@ public class BouyomiChan {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ByteBuffer inbuf = ByteBuffer.wrap(in);
-        return inbuf.get();
+        return in[0];
     }
 
     public void doPause() {
@@ -228,24 +240,24 @@ public class BouyomiChan {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ByteBuffer inbuf = ByteBuffer.wrap(in);
-        return inbuf.get();
+        return in[0];
     }
 
     public int getTaskCount() {
-        ByteBuffer buf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN);
+        ByteBuffer buf = ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN);
         short command = 0x0130;
         buf.putShort(command);
         buf.flip();
         byte[] array = buf.array();
-        ByteBuffer inbuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN);
+        byte[] in = new byte[4];
         try (Socket socket = new Socket(proxy)) {
             socket.connect(new InetSocketAddress(hostname, hostport));
             socket.getOutputStream().write(array);
-            socket.getInputStream().read(inbuf.array());
+            socket.getInputStream().read(in);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        ByteBuffer inbuf = ByteBuffer.wrap(in).order(ByteOrder.LITTLE_ENDIAN);
         return inbuf.getInt();
     }
 

@@ -6,33 +6,18 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.security.SecureRandom;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 class SNTPTest {
     private static final String SERVER_NAME = "ntp.nict.jp";
 
+    public SNTPTest() {
+    }
+
     /**
-     * TODO destアドレスを選んでからsrcアドレスを選ぶ
-     * <table>
-     * <tr>
-     * <td>dest\src</td>
-     * <td>has IPv6</td>
-     * <td>not has IPv6</td>
-     * </tr>
-     * <tr>
-     * <td>has IPv6</td>
-     * <td>ipv6</td>
-     * <td>ipv4</td>
-     * </tr>
-     * <tr>
-     * <td>not has IPv6</td>
-     * <td>ipv4</td>
-     * <td>ipv4</td>
-     * </tr>
-     * </table>
+     * TODO リファクタリング
      * 
      * @param args
      * @throws Exception
@@ -41,8 +26,12 @@ class SNTPTest {
         InetSocketAddress dest = new InetSocketAddress(InetAddress.getByName(SERVER_NAME), 123);
         byte[] sendBuf = new byte[48];
         sendBuf[0] = 0x0b;
-        System.out.printf("send : LI : %d, VN : %d, Mode : %d%n", (sendBuf[0] >> 6) & 0x03, (sendBuf[0] >> 3) & 0x07,
-                (sendBuf[0] >> 0) & 0x07);
+        System.out.print("send : LI : ");
+        System.out.print((sendBuf[0] >> 6) & 0x03);
+        System.out.print(", VN : ");
+        System.out.print((sendBuf[0] >> 3) & 0x07);
+        System.out.print(", Mode : ");
+        System.out.println((sendBuf[0] >> 0) & 0x07);
         DatagramPacket send = new DatagramPacket(sendBuf, 48, dest);
         byte[] recvBuf = new byte[48];
         DatagramPacket recv = new DatagramPacket(recvBuf, 48, dest);
@@ -81,7 +70,7 @@ class SNTPTest {
         System.out.printf("transmit_timestamp_seconds : %s(%d)%n", Integer.toUnsignedLong(transmit_timestamp_seconds),
                 unixtime);
         var epoch = Instant.ofEpochSecond(unixtime);
-        System.out.printf("time : %s, %s%n", epoch, LocalDateTime.ofInstant(epoch, ZoneId.systemDefault()));
+        System.out.printf("time : %s, %s%n", epoch, ZonedDateTime.ofInstant(epoch, ZoneId.systemDefault()));
         System.out.printf("transmit timestamp fractions : %d%n", transmit_timestamp_fractions);
     }
 }

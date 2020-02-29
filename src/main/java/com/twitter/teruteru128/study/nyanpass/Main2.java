@@ -24,7 +24,7 @@ public class Main2 implements Runnable {
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.JAPAN);
     private static final Gson gson = new Gson();
 
-    private Runnable get(URL url) {
+    private Runnable get(final URL url) {
         return () -> {
             try {
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -48,27 +48,28 @@ public class Main2 implements Runnable {
 
     @Override
     public void run() {
-        ScheduledExecutorService service = new ScheduledThreadPoolExecutor(2);
         URL NYANPASS_URL = null;
         try {
             NYANPASS_URL = new URL("https://nyanpass.com/api/get_count");
+            service.scheduleAtFixedRate(get(NYANPASS_URL), 0, 5, TimeUnit.SECONDS);
+            Thread.sleep(1000 * 60);
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
             System.exit(1);
-        }
-        service.scheduleAtFixedRate(get(NYANPASS_URL), 0, 5, TimeUnit.SECONDS);
-        try {
-            Thread.sleep(1000 * 60);
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
+        } finally {
+            System.out.println("シャットダウンするのん");
+            service.shutdown();
         }
-        service.shutdown();
     }
 
+    private static final ScheduledExecutorService service = new ScheduledThreadPoolExecutor(2);
+
     public static void main(String[] args) throws Exception {
-        System.out.println("にゃんぱすー");
-        var thread = new Thread(new Main2());
-        thread.start();
+        System.out.println("にゃんぱすー。定期クロールを開始したのん！");
+        service.execute(new Main2());
     }
 
 }

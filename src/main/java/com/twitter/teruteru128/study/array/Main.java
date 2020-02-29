@@ -3,7 +3,6 @@ package com.twitter.teruteru128.study.array;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.SortedMap;
-import java.util.stream.Collectors;
 
 /**
  * これはディープコピーではなくシャローコピーです
@@ -34,15 +33,15 @@ public class Main {
         System.out.println(src_list);
         System.out.println(dst_list);
         // 使用可能なキャラセット
-		SortedMap<String, Charset> m = Charset.availableCharsets();
-			for (Charset c : m.values()) {
-			System.out.println(c.name());
+        SortedMap<String, Charset> m = Charset.availableCharsets();
+            for (Charset c : m.values()) {
+            System.out.println(c.name());
 
-			// エイリアス
-			for (String alias : c.aliases()) {
-				System.out.println(" " + alias);
-			}
-		}
+            // エイリアス
+            for (String alias : c.aliases()) {
+                System.out.println(" " + alias);
+            }
+        }
     }
 
 }
