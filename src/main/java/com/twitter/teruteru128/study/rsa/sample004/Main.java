@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.util.Random;
 
 import com.twitter.teruteru128.holders.SecureRandomHolder;
-import com.twitter.teruteru128.study.rsa.util.Util;
+import com.twitter.teruteru128.study.rsa.util.Const;
 
 /**
  * @author Teruteru
@@ -16,7 +16,7 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        final BigInteger n = Util.N;
+        final BigInteger n = Const.N;
         Random rand = SecureRandomHolder.getInstance();
         BigInteger p = new BigInteger(1365, rand).setBit(1364);
         BigInteger mod = n.mod(p);

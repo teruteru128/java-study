@@ -14,8 +14,8 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        File in = new File("C:\\Users\\terut\\OneDrive\\デスクトップ\\", "out.asc");
-        File out = new File("C:\\Users\\terut\\Downloads\\", "out2.txt");
+        File in = new File("out.asc");
+        File out = new File("out2.txt");
         List<BigInteger> list = new ArrayList<BigInteger>(2);
         Base64.Decoder decoder = Base64.getDecoder();
         try (ObjectInputStream oin = new ObjectInputStream(

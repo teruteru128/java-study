@@ -2,7 +2,7 @@ package com.twitter.teruteru128.study.rsa.sample005;
 
 import java.math.BigInteger;
 
-import com.twitter.teruteru128.study.rsa.util.Util;
+import com.twitter.teruteru128.study.rsa.util.Const;
 
 /**
  * @author Teruteru
@@ -14,7 +14,7 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        final BigInteger n = Util.N;
+        final BigInteger n = Const.N;
         final BigInteger a = new BigInteger(
                 "46533689758410544315033324209232232041649211313899982548825257982378068384438521783282834771388717486759341110061845845624199483381289534305547121925312518038199710750533474958576184486383448732606714618004",
                 10);
