@@ -9,19 +9,14 @@ import java.util.Arrays;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.rfc8032.Ed25519;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class BMAddressTest {
 
-    @BeforeAll
-    void initAll(){
-        Ed25519.precompute();
-    }
-
     @BeforeEach
     void init() {
+        Ed25519.precompute();
         Provider provider = Security.getProvider("BC");
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
@@ -40,7 +35,6 @@ public class BMAddressTest {
         byte[] pubEncryptionKey = new byte[Ed25519.PUBLIC_KEY_SIZE];
         Ed25519.generatePublicKey(privSigningKey, 0, pubSigningKey, 0);
         Ed25519.generatePublicKey(privEncryptionKey, 0, pubEncryptionKey, 0);
-        MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
         MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
         MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
         sha512.update(pubSigningKey);

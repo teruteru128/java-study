@@ -4,7 +4,10 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Random;
 
-public class SearchSumOfThreeCubes114 {
+/**
+ * 
+ */
+public class SearchSumOfThreeCubes {
 
     public static void main(String[] args) {
         BigInteger x, xLength, xMax;
