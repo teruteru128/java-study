@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.net;
+package com.twitter.teruteru128.study.tcp;
 
 import java.io.IOException;
 import java.net.ServerSocket;

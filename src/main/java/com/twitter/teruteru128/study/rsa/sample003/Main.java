@@ -3,7 +3,7 @@ package com.twitter.teruteru128.study.rsa.sample003;
 import java.math.BigInteger;
 
 import com.twitter.teruteru128.holders.SecureRandomHolder;
-import com.twitter.teruteru128.study.rsa.util.Util;
+import com.twitter.teruteru128.study.rsa.util.Const;
 
 /**
  * ax + b ≡ 0 (mod c - x) を満たす整数xを探す
@@ -17,8 +17,8 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        final BigInteger n = Util.N;
-        final BigInteger sqrt_n = Util.SQRT_N;
+        final BigInteger n = Const.N;
+        final BigInteger sqrt_n = Const.SQRT_N;
         final BigInteger zero = BigInteger.valueOf(0L);
         final BigInteger one = BigInteger.valueOf(1L);
         final BigInteger two = BigInteger.valueOf(2L);
