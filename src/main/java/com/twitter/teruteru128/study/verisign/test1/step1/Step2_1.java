@@ -1,7 +1,6 @@
 package com.twitter.teruteru128.study.verisign.test1.step1;
 
 import java.math.BigDecimal;
-import java.util.concurrent.Callable;
 
 public class Step2_1 extends Step2<BigDecimal> {
     public static final long[] COEFFICIENTS = { 13059432575421L, 35854406314518L, 17331828477071L, 13034327323742L,

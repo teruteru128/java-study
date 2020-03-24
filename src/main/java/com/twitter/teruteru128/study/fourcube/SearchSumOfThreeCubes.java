@@ -2,40 +2,20 @@ package com.twitter.teruteru128.study.fourcube;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.Random;
 
 /**
+ * 144 - z^3 = x^3 + y^3 の形式に変形し、 x^3 + y^3 = (x + y)(x^2 - xy + y^2)
+ * の形式に変形できれば成功
  * 
+ * @see https://www.quantamagazine.org/why-the-sum-of-three-cubes-is-a-hard-math-problem-20191105/
  */
 public class SearchSumOfThreeCubes {
 
     public static void main(String[] args) {
-        BigInteger x, xLength, xMax;
-        BigInteger y, yLength, yMax;
-        BigInteger z, zLength, zMax;
-
-        Random rnd = new SecureRandom();
-        x = new BigInteger(128, rnd).abs();
-        y = new BigInteger(128, rnd);
-        z = new BigInteger(128, rnd).abs().negate();
-        System.out.printf("%d, %d, %d%n", x, y, z);
-        xLength = yLength = zLength = BigInteger.valueOf(0x1000000L);
-        xMax = x.add(xLength);
-        yMax = y.add(yLength);
-        zMax = z.add(zLength);
-
-        final var ONE = BigInteger.valueOf(1);
-        final var threshold = BigInteger.valueOf(200);
-        for (; x.compareTo(xMax) < 0; x = x.add(ONE)) {
-            for (; y.compareTo(yMax) < 0; y = y.add(ONE)) {
-                for (; z.compareTo(zMax) < 0; z = z.add(ONE)) {
-                    BigInteger sum = x.pow(3).add(y.pow(3)).add(z.pow(3));
-                    if (sum.abs().compareTo(threshold) < 0) {
-                        System.out.printf("%d, %d, %d, %d%n", sum, x, y, z);
-                    }
-                }
-            }
-        }
+        final var _144 = BigInteger.valueOf(114);
+        final var random = new SecureRandom();
+        var z = new BigInteger(128, random);
+        System.out.println(_144.subtract(z.pow(3)));
     }
 
 }
