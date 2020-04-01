@@ -41,9 +41,10 @@ public class Multi implements Runnable {
             agreement.doPhase(himPublicKey, true);
 
             // 共有秘密生成＆秘密鍵に変換
-            MessageDigest sha3_512 = MessageDigest.getInstance("SHA3-512");
             byte[] rawAgreement = agreement.generateSecret();
             System.out.printf("%s's raw: %s%n", name, DataPrinter.printHexBinary(rawAgreement));
+
+            MessageDigest sha3_512 = MessageDigest.getInstance("SHA3-512");
             byte[] hashedAgreement = sha3_512.digest(rawAgreement);
             System.out.printf("%s's hashed: %s%n", name, DataPrinter.printHexBinary(hashedAgreement));
         } catch (Exception e) {
