@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+import com.twitter.teruteru128.study.Base58;
 import com.twitter.teruteru128.study.bitmessage.Structs;
 
 /**
@@ -52,8 +53,7 @@ class BMAddress {
             byte[] addressBytes = new byte[storedBinaryData.length + checksum.length];
             System.arraycopy(storedBinaryData, 0, addressBytes, 0, storedBinaryData.length);
             System.arraycopy(checksum, 0, addressBytes, storedBinaryData.length, checksum.length);
-            Base58 base58 = new Base58();
-            return "BM-" + base58.encode(addressBytes);
+            return "BM-" + Base58.encode(addressBytes);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

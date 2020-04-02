@@ -6,10 +6,11 @@ import org.junit.jupiter.api.Test;
 
 /**
  * @see https://oohira.github.io/junit5-doc-jp/user-guide/#writing-tests
-*/
-public class MainTest{
+ */
+public class MainTest {
+
     @Test
-    void myFirstTest(){
-        assertEquals(2, 1+1);
+    public void myFirstTest() {
+        assertEquals(2, 1 + 1);
     }
 }
