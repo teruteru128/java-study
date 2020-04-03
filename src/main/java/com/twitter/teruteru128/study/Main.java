@@ -11,7 +11,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         char[] b = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".toCharArray();
         StringBuilder a = new StringBuilder(32);
-        a.append("NB3Ac4aH3dVRtvPnFnffRwHTgs9QeAAA");
+        a.append("NB3Ac4aH3dVRtvPnFnffRwHTgs9Qe");
+        a.setLength(32);
         MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
         for (char c : b) {
             a.setCharAt(29, c);
