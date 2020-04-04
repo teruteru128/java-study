@@ -8,17 +8,17 @@ import java.util.concurrent.Callable;
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.math.ec.ECPoint;
 
-class Task implements Callable<ResponseComponents> {
+class Task implements Callable<ResponseComponent> {
 
-    private RequestComponents components;
+    private RequestComponent components;
 
-    public Task(RequestComponents components) {
+    public Task(RequestComponent components) {
         super();
         this.components = components;
     }
 
     @Override
-    public ResponseComponents call() throws Exception {
+    public ResponseComponent call() throws Exception {
         SecureRandom random = new SecureRandom();
         ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
         byte[] potentialPrivEncryptionKey = new byte[32];
@@ -42,6 +42,6 @@ class Task implements Callable<ResponseComponents> {
             for (nlz = 0; ripe[nlz] == 0 && nlz < 20; nlz++) {
             }
         } while (nlz < requireNlz);
-        return new ResponseComponents(potentialPrivEncryptionKey, potentialPrivEncryptionKey, ripe);
+        return new ResponseComponent(potentialPrivEncryptionKey, potentialPrivEncryptionKey, ripe);
     }
 }

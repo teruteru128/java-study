@@ -1,12 +1,12 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
-class ResponseComponents {
+public class ResponseComponent {
 
     private byte[] privateEncryptionKey;
     private byte[] publicEncryptionKey;
     private byte[] ripe;
 
-    public ResponseComponents(byte[] privEncryptionKey, byte[] pubEncryptionKey, byte[] ripe) {
+    public ResponseComponent(byte[] privEncryptionKey, byte[] pubEncryptionKey, byte[] ripe) {
         super();
         this.privateEncryptionKey = privEncryptionKey.clone();
         this.publicEncryptionKey = pubEncryptionKey.clone();

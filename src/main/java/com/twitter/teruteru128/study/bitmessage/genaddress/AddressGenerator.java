@@ -6,6 +6,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 import java.security.SecureRandom;
 import java.security.Security;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import com.twitter.teruteru128.study.Base58;
 
@@ -35,6 +38,7 @@ public class AddressGenerator implements Runnable {
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
+        ExecutorService service = Executors.newCachedThreadPool();
         try {
             byte[] potentialPrivSigningKey = new byte[32];
             byte[] potentialPubSigningKey = new byte[32];
@@ -42,26 +46,15 @@ public class AddressGenerator implements Runnable {
             random.nextBytes(potentialPrivSigningKey);
             ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
             potentialPubSigningKey = g.multiply(new BigInteger(1, potentialPrivSigningKey)).normalize().getEncoded(false);
-            byte[] potentialPrivEncryptionKey = new byte[32];
-            byte[] potentialPubEncryptionKey = new byte[32];
+            var list = new ArrayList<Task>();
+            int requireNlz = 2;
+            for (int i = 0; i < 2; i++) {
+                list.add(new Task(new RequestComponent(potentialPubSigningKey, requireNlz)));
+            }
+            var responseComponent = service.invokeAny(list);
+            byte[] potentialPrivEncryptionKey = responseComponent.getPrivateEncryptionKey();
+            byte[] ripe = responseComponent.getRipe();
             MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-            MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
-            MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
-            byte[] sha512hash = new byte[64];
-            byte[] ripe = new byte[20];
-            int requireNlz = 4;
-            int nlz = 0;
-            do {
-                random.nextBytes(potentialPrivEncryptionKey);
-                potentialPubEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize().getEncoded(false);
-                sha512.update(potentialPubSigningKey, 0, 65);
-                sha512.update(potentialPubEncryptionKey, 0, 65);
-                sha512.digest(sha512hash, 0, 64);
-                ripemd160.update(sha512hash);
-                ripemd160.digest(ripe, 0, 20);
-                for (nlz = 0; ripe[nlz] == 0 && nlz < 20; nlz++) {
-                }
-            } while (nlz < requireNlz);
             var bmaddress = new BMAddress();
             var address4 = bmaddress.encodeAddress(4, 1, ripe);
             var address3 = bmaddress.encodeAddress(3, 1, ripe);
@@ -109,6 +102,8 @@ public class AddressGenerator implements Runnable {
             System.out.println();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+        } finally {
+            service.shutdown();
         }
     }
 }
