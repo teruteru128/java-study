@@ -7,6 +7,8 @@ import java.security.Provider;
 import java.security.SecureRandom;
 import java.security.Security;
 
+import javax.xml.bind.DatatypeConverter;
+
 import com.twitter.teruteru128.study.Base58;
 
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
@@ -54,8 +56,8 @@ public class AddressGenerator implements Runnable {
             do {
                 random.nextBytes(potentialPrivEncryptionKey);
                 potentialPubEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize().getEncoded(false);
-                sha512.update(potentialPubSigningKey, 0, 32);
-                sha512.update(potentialPubEncryptionKey, 0, 32);
+                sha512.update(potentialPubSigningKey, 0, 65);
+                sha512.update(potentialPubEncryptionKey, 0, 65);
                 sha512.digest(sha512hash, 0, 64);
                 ripemd160.update(sha512hash);
                 ripemd160.digest(ripe, 0, 20);
