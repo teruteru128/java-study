@@ -7,8 +7,6 @@ import java.security.Provider;
 import java.security.SecureRandom;
 import java.security.Security;
 
-import javax.xml.bind.DatatypeConverter;
-
 import com.twitter.teruteru128.study.Base58;
 
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
