@@ -34,14 +34,14 @@ class Task implements Callable<ResponseComponents> {
             random.nextBytes(potentialPrivEncryptionKey);
             potentialPubEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize()
                     .getEncoded(false);
-            sha512.update(publicSigningKey, 0, 32);
-            sha512.update(potentialPubEncryptionKey, 0, 32);
+            sha512.update(publicSigningKey, 0, 65);
+            sha512.update(potentialPubEncryptionKey, 0, 65);
             sha512.digest(sha512hash, 0, 64);
             ripemd160.update(sha512hash);
             ripemd160.digest(ripe, 0, 20);
             for (nlz = 0; ripe[nlz] == 0 && nlz < 20; nlz++) {
             }
-        } while (nlz >= requireNlz);
+        } while (nlz < requireNlz);
         return new ResponseComponents(potentialPrivEncryptionKey, potentialPrivEncryptionKey, ripe);
     }
 }
