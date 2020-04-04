@@ -6,6 +6,8 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class PrimeSearch implements Runnable {
 
@@ -19,10 +21,9 @@ public class PrimeSearch implements Runnable {
     }
 
     public static void main(String[] args) {
-        Thread thread1 = new Thread(new PrimeSearch("prime1.bin", "probablePrime1.bin"));
-        thread1.start();
-        Thread thread2 = new Thread(new PrimeSearch("prime2.bin", "probablePrime2.bin"));
-        thread2.start();
+        ExecutorService service = Executors.newCachedThreadPool();
+        service.submit(new PrimeSearch("prime1.bin", "probablePrime1.bin"));
+        service.submit(new PrimeSearch("prime2.bin", "probablePrime2.bin"));
     }
 
     @Override
