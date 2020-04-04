@@ -86,9 +86,16 @@ public class AddressGenerator implements Runnable {
             System.arraycopy(privEncryptionKey, 0, tmp, 0, privEncryptionKey.length);
             System.arraycopy(checksum, 0, tmp, privEncryptionKey.length, 4);
             var privEncryptionKeyWIF = Base58.encode(tmp);
-            System.out.println(address);
-            System.out.println(privSigningKeyWIF);
-            System.out.println(privEncryptionKeyWIF);
+            System.out.printf("[%s]%n", address);
+            System.out.println("label = relpace this label");
+            System.out.println("enabled = true");
+            System.out.println("decoy = false");
+            System.out.println("noncetrialsperbyte = 1000");
+            System.out.println("payloadlengthextrabytes = 1000");
+            System.out.printf("privsigningkey = %s%n", privSigningKeyWIF);
+            System.out.printf("privencryptionkey = %s%n", privEncryptionKeyWIF);
+            System.out.println();
+            System.out.println();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
