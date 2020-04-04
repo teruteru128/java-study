@@ -51,6 +51,8 @@ public class AddressGenerator implements Runnable {
             MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
             byte[] sha512hash = new byte[64];
             byte[] ripe = new byte[20];
+            int requireNlz = 4;
+            int nlz = 0;
             do {
                 random.nextBytes(potentialPrivEncryptionKey);
                 potentialPubEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize().getEncoded(false);
@@ -59,9 +61,12 @@ public class AddressGenerator implements Runnable {
                 sha512.digest(sha512hash, 0, 64);
                 ripemd160.update(sha512hash);
                 ripemd160.digest(ripe, 0, 20);
-            } while (!Arrays.equals(ripe, 0, 1, nullbytes, 0, 1));
+                for (nlz = 0; ripe[nlz] == 0 && nlz < 20; nlz++) {
+                }
+            } while (nlz >= requireNlz);
             var bmaddress = new BMAddress();
-            var address = bmaddress.encodeAddress(4, 1, ripe);
+            var address4 = bmaddress.encodeAddress(4, 1, ripe);
+            var address3 = bmaddress.encodeAddress(3, 1, ripe);
             var privSigningKey = new byte[33];
             privSigningKey[0] = (byte) 0x80;
             System.arraycopy(potentialPrivSigningKey, 0, privSigningKey, 1, 32);
@@ -86,7 +91,7 @@ public class AddressGenerator implements Runnable {
             System.arraycopy(privEncryptionKey, 0, tmp, 0, privEncryptionKey.length);
             System.arraycopy(checksum, 0, tmp, privEncryptionKey.length, 4);
             var privEncryptionKeyWIF = Base58.encode(tmp);
-            System.out.printf("[%s]%n", address);
+            System.out.printf("[%s]%n", address3);
             System.out.println("label = relpace this label");
             System.out.println("enabled = true");
             System.out.println("decoy = false");
@@ -95,6 +100,14 @@ public class AddressGenerator implements Runnable {
             System.out.printf("privsigningkey = %s%n", privSigningKeyWIF);
             System.out.printf("privencryptionkey = %s%n", privEncryptionKeyWIF);
             System.out.println();
+            System.out.printf("[%s]%n", address4);
+            System.out.println("label = relpace this label");
+            System.out.println("enabled = true");
+            System.out.println("decoy = false");
+            System.out.println("noncetrialsperbyte = 1000");
+            System.out.println("payloadlengthextrabytes = 1000");
+            System.out.printf("privsigningkey = %s%n", privSigningKeyWIF);
+            System.out.printf("privencryptionkey = %s%n", privEncryptionKeyWIF);
             System.out.println();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
