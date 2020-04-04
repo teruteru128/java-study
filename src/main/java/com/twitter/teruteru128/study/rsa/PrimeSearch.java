@@ -1,5 +1,6 @@
 package com.twitter.teruteru128.study.rsa;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URISyntaxException;
@@ -30,15 +31,25 @@ public class PrimeSearch implements Runnable {
     public void run() {
         try {
             var primefileURL = ClassLoader.getSystemResource(inputName);
-            var primefileURI = primefileURL.toURI();
-            var primefilePath = Paths.get(primefileURI);
-            var primeBytes = Files.readAllBytes(primefilePath);
+            var o = primefileURL.openConnection();
+            var baos = new ByteArrayOutputStream(32768);
+            try (var in = o.getInputStream()) {
+                byte[] buf = new byte[8192];
+                int len = 0;
+                while (true) {
+                    len = in.read(buf, 0, 8192);
+                    if (len < 0) {
+                        break;
+                    }
+                    baos.write(buf, 0, len);
+                }
+            }
+            var primeBytes = baos.toByteArray();
+            System.out.println("読み込みました");
             BigInteger a = new BigInteger(1, primeBytes, 0, primeBytes.length);
             var probablePrime = a.nextProbablePrime();
             Files.write(Paths.get(outputName), probablePrime.toByteArray(), StandardOpenOption.WRITE,
                     StandardOpenOption.CREATE);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
