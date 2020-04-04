@@ -6,7 +6,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 import java.security.SecureRandom;
 import java.security.Security;
-import java.util.Arrays;
 
 import com.twitter.teruteru128.study.Base58;
 
@@ -45,7 +44,6 @@ public class AddressGenerator implements Runnable {
             potentialPubSigningKey = g.multiply(new BigInteger(1, potentialPrivSigningKey)).normalize().getEncoded(false);
             byte[] potentialPrivEncryptionKey = new byte[32];
             byte[] potentialPubEncryptionKey = new byte[32];
-            byte[] nullbytes = new byte[20];
             MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
             MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
             MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
@@ -63,7 +61,7 @@ public class AddressGenerator implements Runnable {
                 ripemd160.digest(ripe, 0, 20);
                 for (nlz = 0; ripe[nlz] == 0 && nlz < 20; nlz++) {
                 }
-            } while (nlz >= requireNlz);
+            } while (nlz < requireNlz);
             var bmaddress = new BMAddress();
             var address4 = bmaddress.encodeAddress(4, 1, ripe);
             var address3 = bmaddress.encodeAddress(3, 1, ripe);
