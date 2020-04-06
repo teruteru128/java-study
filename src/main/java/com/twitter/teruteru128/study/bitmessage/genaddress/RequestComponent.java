@@ -1,12 +1,12 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 // Number of Leading Zero
-class RequestComponents {
+public class RequestComponent {
 
     private byte[] publicSigningKey;
     private int requireNlz;
 
-    public RequestComponents(byte[] pubSigningKey, int nlzbytes) {
+    public RequestComponent(byte[] pubSigningKey, int nlzbytes) {
         super();
         this.publicSigningKey = pubSigningKey.clone();
         this.requireNlz = nlzbytes;
