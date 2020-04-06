@@ -35,12 +35,7 @@ public class PrimeSearch implements Runnable {
             var baos = new ByteArrayOutputStream(32768);
             try (var in = o.getInputStream()) {
                 byte[] buf = new byte[8192];
-                int len = 0;
-                while (true) {
-                    len = in.read(buf, 0, 8192);
-                    if (len < 0) {
-                        break;
-                    }
+                for (int len = 0; 0 <= (len = in.read(buf, 0, 8192));) {
                     baos.write(buf, 0, len);
                 }
             }
