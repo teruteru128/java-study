@@ -3,7 +3,6 @@ package com.twitter.teruteru128.study.rsa;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
@@ -25,6 +24,7 @@ public class PrimeSearch implements Runnable {
         ExecutorService service = Executors.newCachedThreadPool();
         service.submit(new PrimeSearch("prime1.bin", "probablePrime1.bin"));
         service.submit(new PrimeSearch("prime2.bin", "probablePrime2.bin"));
+        service.shutdown();
     }
 
     @Override
@@ -45,7 +45,7 @@ public class PrimeSearch implements Runnable {
                 }
             }
             var primeBytes = baos.toByteArray();
-            System.out.println("読み込みました");
+            System.out.printf("読み込みました : %dbytes%n", primeBytes.length);
             BigInteger a = new BigInteger(1, primeBytes, 0, primeBytes.length);
             var probablePrime = a.nextProbablePrime();
             Files.write(Paths.get(outputName), probablePrime.toByteArray(), StandardOpenOption.WRITE,
