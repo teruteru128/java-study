@@ -47,11 +47,26 @@ public class AddressGenerator implements Runnable {
             ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
             potentialPubSigningKey = g.multiply(new BigInteger(1, potentialPrivSigningKey)).normalize().getEncoded(false);
             var list = new ArrayList<Task>();
-            int requireNlz = 2;
-            for (int i = 0; i < 2; i++) {
-                list.add(new Task(new RequestComponent(potentialPubSigningKey, requireNlz)));
+            int requireNlz = 5;
+            {
+                int tasknum = 2;
+                int tmp = 2;
+                for (var arg : args) {
+                    try {
+                        tmp = Integer.parseInt(arg, 10);
+                        if(tmp >= 1){
+                            tasknum = tmp;
+                        }
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+                for (int i = 0; i < tasknum; i++) {
+                    list.add(new Task(new RequestComponent(potentialPubSigningKey, requireNlz)));
+                }
             }
             var responseComponent = service.invokeAny(list);
+            service.shutdown();
             byte[] potentialPrivEncryptionKey = responseComponent.getPrivateEncryptionKey();
             byte[] ripe = responseComponent.getRipe();
             MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
@@ -103,7 +118,8 @@ public class AddressGenerator implements Runnable {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } finally {
-            service.shutdown();
+            if (!service.isShutdown())
+                service.shutdown();
         }
     }
 }
