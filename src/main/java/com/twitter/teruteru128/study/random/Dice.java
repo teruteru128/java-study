@@ -33,9 +33,7 @@ public class Dice {
     */
     public static void main(final String[] args) throws Exception {
         final var random = SecureRandom.getInstance("nativeprngnonblocking");
-        System.out.printf("%d%n", random.nextInt(360));
-        random.ints(24, 0, 360).forEach(System.out::println);
-        System.out.println(random.doubles(10000000).max());
+        System.out.printf("%d%n", 1450 + random.nextInt(150));
     }
 
 }

@@ -1,39 +1,69 @@
 package com.twitter.teruteru128;
 
-import java.lang.reflect.Constructor;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.security.MessageDigest;
 import java.security.Provider;
 import java.security.Security;
-import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import javax.crypto.Cipher;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
 public class BCProviderTest {
-    public static void main(String[] args) throws Exception {
+
+    private ModuleLayer getModuleLayer() {
+        return ModuleLayer.boot();
+    }
+
+    private Optional<Module> findModule(String moduleName) {
+        return getModuleLayer().findModule(moduleName);
+    }
+
+    @ParameterizedTest
+    @MethodSource("getModuleStream")
+    public void findModules(String moduleName) {
+        Optional<Module> optional = findModule(moduleName);
+        assertTrue(optional.isPresent());
+    }
+
+    private Stream<Arguments> getModuleStream() {
+        return Stream.of(Arguments.of("org.bouncycastle.provider"), Arguments.of("org.bouncycastle.pg"));
+    }
+
+    private Class<?> getProviderClass() {
+        return Class.forName(findModule("org.bouncycastle.provider").get(),
+                "org.bouncycastle.jce.provider.BouncyCastleProvider");
+    }
+
+    @Test
+    public void forNameWithModuleTest() throws Throwable {
+        assertNotNull(getProviderClass());
+    }
+
+    private Object getProviderObject() throws Throwable {
+        return getProviderClass().getConstructor().newInstance();
+    }
+
+    @Test
+    public void newInstanceTest() throws Throwable {
+        assertTrue(getProviderObject() instanceof Provider);
+    }
+
+    @Test
+    public void detailedAlgorithmReferenceTest() throws Throwable {
         Provider provider = Security.getProvider("BC");
         if (provider == null) {
-            ModuleLayer layer = ModuleLayer.boot();
-            Optional<Module> optional = layer.findModule("org.bouncycastle.provider");
-            List.of("org.bouncycastle.provider", "org.bouncycastle.pg").stream().map(i->layer.findModule(i)).filter(Optional::isPresent).map(Optional::get).forEach(System.out::println);;
-            Class<?> class1 = null;
-            if (optional.isPresent()) {
-                System.out.println("module found");
-                class1 = Class.forName(optional.get(), "org.bouncycastle.jce.provider.BouncyCastleProvider");
-            } else {
-                System.out.println("module not found");
-                class1 = Class.forName("org.bouncycastle.jce.provider.BouncyCastleProvider");
-            }
-            Constructor<?> constructor = class1.getConstructor();
-            var obj = constructor.newInstance();
-            if (obj instanceof Provider) {
-                Security.addProvider(provider = (Provider) obj);
-                System.out.println(provider);
-            }
+            Security.addProvider((Provider) getProviderObject());
         }
-        var digest = MessageDigest.getInstance("ripemd160");
-        System.out.println(digest.getProvider());
-        var cipher = Cipher.getInstance("ChaCha20-Poly1305");
-        System.out.println(cipher.getAlgorithm());
+        assertNotNull(MessageDigest.getInstance("ripemd160"));
+        assertNotNull(Cipher.getInstance("ChaCha20-Poly1305"));
     }
+
 }
