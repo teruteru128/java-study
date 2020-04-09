@@ -1,7 +1,10 @@
 package com.twitter.teruteru128.study;
 
-import java.security.MessageDigest;
-import java.util.Arrays;
+import java.math.BigInteger;
+
+import javax.xml.bind.DatatypeConverter;
+
+import com.twitter.teruteru128.study.bitmessage.Structs;
 
 /**
  * Main
@@ -9,28 +12,31 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        char[] b = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".toCharArray();
-        StringBuilder a = new StringBuilder(32);
-        a.append("NB3Ac4aH3dVRtvPnFnffRwHTgs9Qe");
-        a.setLength(32);
-        MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
-        for (char c : b) {
-            a.setCharAt(29, c);
-            for (char d : b) {
-                a.setCharAt(30, d);
-                for (char e : b) {
-                    a.setCharAt(31, e);
-                    String h = a.toString();
-                    byte[] f = Base58.decode(h);
-                    sha512.update(f, 0, 20);
-                    byte[] g = sha512.digest(sha512.digest());
-                    if (Arrays.equals(f, 20, 24, g, 0, 4)) {
-                        System.out.print(h);
-                        System.out.print(" : ");
-                        System.out.println(Arrays.equals(f, 20, 24, g, 0, 4));
-                    }
-                }
-            }
-        }
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(0x1)));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(0x10)));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(0x100)));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(0x1000)));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(0x010000)));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(0x100000)));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(0x10000000)));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(0x1000000000L)));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(0x100000000000L)));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(0x10000000000000L)));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(0x1000000000000000L)));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(9223372036854775807L)));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(BigInteger.valueOf(0x1))));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(BigInteger.valueOf(0x10))));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(BigInteger.valueOf(0x100))));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(BigInteger.valueOf(0x1000))));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(BigInteger.valueOf(0x010000)))); // !!
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(BigInteger.valueOf(0x100000)))); // !!
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(BigInteger.valueOf(0x10000000))));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(BigInteger.valueOf(0x1000000000L)))); // !!
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(BigInteger.valueOf(0x100000000000L)))); // !!
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(BigInteger.valueOf(0x10000000000000L)))); // !!
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(BigInteger.valueOf(0x1000000000000000L))));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(BigInteger.valueOf(9223372036854775807L))));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(new BigInteger("18446744073709551615", 10))));
+        System.out.println(DatatypeConverter.printHexBinary(Structs.encodeVarint(new BigInteger("18446744073709551616", 10))));
     }
 }
