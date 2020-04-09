@@ -14,15 +14,17 @@ import com.twitter.teruteru128.study.Base58;
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.ECPoint;
-import org.bouncycastle.math.ec.rfc8032.Ed25519;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class BMAddressTest {
 
-    @BeforeEach
-    public void initBeforeEach() {
-        Ed25519.precompute();
+    /**
+     * @see https://qiita.com/tsukakei/items/7e48c84b96e3ebf34498 {@code @BeforeAll}についてはこのリンクを参照
+     */
+    @BeforeAll
+    public static void initBeforeEach() {
         Provider provider = Security.getProvider("BC");
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
@@ -52,6 +54,11 @@ public class BMAddressTest {
         assertTrue(Arrays.equals(nullbytes, 0, 2, ripe, 0, 2));
         BMAddress bmAddress = new BMAddress();
         assertEquals(bmAddress.encodeAddress(4, 1, ripe), address);
+    }
+
+    @AfterAll
+    public static void clearBCProvider() {
+        Security.removeProvider("BC");
     }
 
 }

@@ -26,7 +26,7 @@ public class Base58Test {
         assertEquals(key, b);
     }
 
-    static Stream<Arguments> getArgumentStream() {
+    public static Stream<Arguments> getArgumentStream() {
         return Stream.of(Arguments.of("", ""), Arguments.of("61", "2g"), Arguments.of("626262", "a3gV"),
                 Arguments.of("636363", "aPEr"),
                 Arguments.of("73696d706c792061206c6f6e6720737472696e67", "2cFupjhnEsSn59qHXstmK2ffpLv2"),

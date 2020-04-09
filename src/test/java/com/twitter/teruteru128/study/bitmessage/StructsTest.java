@@ -24,7 +24,7 @@ public class StructsTest {
         assertArrayEquals(Structs.encodeVarint(n), b);
     }
 
-    static Stream<Arguments> encodeVarintTest_Parameters() throws Throwable {
+    public static Stream<Arguments> encodeVarintTest_Parameters() throws Throwable {
         return Stream.of(Arguments.of(0x1, DatatypeConverter.parseHexBinary("01")),
                 Arguments.of(0x10, DatatypeConverter.parseHexBinary("10")),
                 Arguments.of(0x100, DatatypeConverter.parseHexBinary("FD0100")),
@@ -45,7 +45,7 @@ public class StructsTest {
         assertThrows(RuntimeException.class, () -> Structs.encodeVarint(n));
     }
 
-    static Stream<Arguments> encodeVarintTest_Parameters2() throws Throwable {
+    public static Stream<Arguments> encodeVarintTest_Parameters2() throws Throwable {
         return Stream.of(Arguments.of(0x8000000000000000L));
     }
 
@@ -55,7 +55,7 @@ public class StructsTest {
         assertArrayEquals(Structs.encodeVarint(n), b);
     }
 
-    static Stream<Arguments> encodeVarintTest_Parameters3() throws Throwable {
+    public static Stream<Arguments> encodeVarintTest_Parameters3() throws Throwable {
         return Stream.of(Arguments.of(BigInteger.valueOf(0x1), DatatypeConverter.parseHexBinary("01")),
                 Arguments.of(BigInteger.valueOf(0x10), DatatypeConverter.parseHexBinary("10")),
                 Arguments.of(BigInteger.valueOf(0x100), DatatypeConverter.parseHexBinary("FD0100")),
@@ -84,7 +84,7 @@ public class StructsTest {
         assertThrows(RuntimeException.class, () -> Structs.encodeVarint(n));
     }
 
-    static Stream<Arguments> encodeVarintTest_Parameters4() throws Throwable {
+    public static Stream<Arguments> encodeVarintTest_Parameters4() throws Throwable {
         return Stream.of(Arguments.of(new BigInteger("18446744073709551616", 10)));
     }
 }

@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import javax.crypto.Cipher;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -33,7 +34,7 @@ public class BCProviderTest {
         assertTrue(optional.isPresent());
     }
 
-    private Stream<Arguments> getModuleStream() {
+    public static Stream<Arguments> getModuleStream() {
         return Stream.of(Arguments.of("org.bouncycastle.provider"), Arguments.of("org.bouncycastle.pg"));
     }
 
@@ -60,10 +61,16 @@ public class BCProviderTest {
     public void detailedAlgorithmReferenceTest() throws Throwable {
         Provider provider = Security.getProvider("BC");
         if (provider == null) {
-            Security.addProvider((Provider) getProviderObject());
+            Security.addProvider(provider = (Provider) getProviderObject());
+            System.out.printf("BCProviderTest.detailedAlgorithmReferenceTest() : Security provider %s was added.%n", provider);
         }
         assertNotNull(MessageDigest.getInstance("ripemd160"));
         assertNotNull(Cipher.getInstance("ChaCha20-Poly1305"));
+    }
+
+    @AfterAll
+    public static void clearBCProvider() {
+        Security.removeProvider("BC");
     }
 
 }
