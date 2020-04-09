@@ -12,7 +12,7 @@ public class Structs {
             return ByteBuffer.allocate(1).put((byte) u).array();
         }
         if (253 <= u && u < 65536) {
-            return ByteBuffer.allocate(3).put((byte) 253).putInt((int) u).array();
+            return ByteBuffer.allocate(3).put((byte) 253).putShort((short) u).array();
         }
         if (65536 <= u && u < 4294967296L) {
             return ByteBuffer.allocate(5).put((byte) 254).putInt((int) u).array();

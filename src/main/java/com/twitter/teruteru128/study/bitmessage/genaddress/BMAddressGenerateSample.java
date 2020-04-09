@@ -61,9 +61,12 @@ public class BMAddressGenerateSample {
         byte[] ripe = ripemd160.digest(sha512.digest());
         System.out.println(DatatypeConverter.printHexBinary(ripe));
         BMAddress bmAddress = new BMAddress();
-        String address2 = bmAddress.encodeAddress(4, 1, ripe);
-        System.out.println(address2);
-        System.out.println(address2.equals(address));
+        String address4 = bmAddress.encodeAddress(4, 1, ripe);
+        System.out.println(address4);
+        System.out.println(address4.equals(address));
+        String address3 = bmAddress.encodeAddress(3, 1, ripe);
+        System.out.println(address3);
+        System.out.println(address3.equals(address));
     }
 
 }

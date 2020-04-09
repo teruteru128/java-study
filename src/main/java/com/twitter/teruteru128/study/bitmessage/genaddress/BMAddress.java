@@ -10,7 +10,7 @@ import com.twitter.teruteru128.study.bitmessage.Structs;
 /**
  * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/addresses.py
  */
-class BMAddress {
+public class BMAddress {
     public BMAddress() {
     }
 
