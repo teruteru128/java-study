@@ -26,22 +26,23 @@ public class BBSThread implements Comparable<BBSThread>, Serializable {
     public long getDatid() {
         return datid;
     }
+
     public String getDatname() {
         return datname;
     }
+
     public String getTitle() {
         return title;
     }
+
     public int getRes() {
         return res;
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("BBSThread [datid=").append(datid).append(", datname=").append(datname).append(", title=")
-                .append(title).append(", res=").append(res).append("]");
-        return builder.toString();
+        return new StringBuilder().append("BBSThread [datid=").append(datid).append(", datname=").append(datname).append(", title=")
+        .append(title).append(", res=").append(res).append("]").toString();
     }
-    
+
 }
