@@ -18,7 +18,7 @@ public class Structs {
             return ByteBuffer.allocate(5).put((byte) 254).putInt((int) u).array();
         }
         if (4294967296L <= u && Long.compareUnsigned(u, -1) <= 0) {
-            return ByteBuffer.allocate(5).put((byte) 255).putInt((int) u).array();
+            return ByteBuffer.allocate(9).put((byte) 255).putLong(u).array();
         }
         // dead code
         throw new RuntimeException("varint cannot be >= 18446744073709551616");
