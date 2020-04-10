@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 
 /**
  * Encode variable integer.
+ * 
  * 参照実装を見るに多倍長整数をエンコードすることを意図していると思われる。
  * 
  * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/addresses.py#L63
@@ -42,6 +43,7 @@ public class Structs {
 
     /**
      * 9223372036854775808以上の整数をエンコードする場合は{@link #encodeVarint(BigInteger)}か{@link #encodeUnsignedVarint(long)}を使用してください。
+     * 
      * @param u
      * @return
      */
@@ -60,7 +62,7 @@ public class Structs {
             return ByteBuffer.allocate(5).put((byte) 254).putInt((int) u).array();
         }
         if (4294967296L <= u && Long.compareUnsigned(u, Long.MIN_VALUE) < 0) {
-            //  9223372036854775808以上18446744073709551616未満は符号付き64ビットでは0未満になるため意図した結果にならない。
+            // 9223372036854775808以上18446744073709551616未満は符号付き64ビットでは0未満になるため意図した結果にならない。
             return ByteBuffer.allocate(9).put((byte) 255).putLong(u).array();
         }
         // dead code
@@ -73,9 +75,6 @@ public class Structs {
      * @return
      */
     public static byte[] encodeUnsignedVarint(long u) {
-        //if (u < 0) {
-        //    throw new RuntimeException("varint cannot be < 0");
-        //}
 
         if (Long.compareUnsigned(0, u) <= 0 && Long.compareUnsigned(u, 253) < 0) {
             return ByteBuffer.allocate(1).put((byte) u).array();
@@ -87,10 +86,13 @@ public class Structs {
             return ByteBuffer.allocate(5).put((byte) 254).putInt((int) u).array();
         }
         if (Long.compareUnsigned(4294967296L, u) <= 0 && Long.compareUnsigned(u, -1) <= 0) {
-            //  9223372036854775808以上18446744073709551616未満は符号付き64ビットでは0未満になるため意図した結果にならない。
             return ByteBuffer.allocate(9).put((byte) 255).putLong(u).array();
         }
         // dead code
         throw new IllegalArgumentException("varint cannot be >= 18446744073709551616");
     }
+
+    private Structs() {
+    }
+
 }
