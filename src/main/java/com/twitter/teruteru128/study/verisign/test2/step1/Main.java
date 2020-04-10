@@ -15,12 +15,12 @@ public class Main {
             8003031153939L, 1764692752928L, 23371216285082L, 30597180133872L, 24109952539057L, 6062466143281L,
             38251774072999L, 19092807831160L, 9083060666127L, 14527227616768L, 32037266559191L, 36077235972286L,
             22377606219621L, 49679898511950L, 20449603096312L, 43620429879736L, 27L, 1L };
-    // 45乗�?�
+    // 45乗根
     private static final BigInteger m = BigInteger.valueOf(49721724815627L);
 
     public static void main(String[] args) {
         final BigInteger n = Const.N;
-        BigInteger sum=BigInteger.valueOf(0L);
+        System.out.println(n);
         long[] array = new long[] { 13059432575421L, 35854406314518L, 17331828477071L, 13034327323742L, 29514981607474L,
                 43445188776312L, 3142829599298L, 5460057595620L, 34527421678024L, 49393492009205L, 40550988304495L,
                 25701092995268L, 6966123055549L, 27402022662977L, 8180294287490L, 15982263555793L, 30364252058746L,
@@ -30,10 +30,12 @@ public class Main {
                 19092807831160L, 9083060666127L, 14527227616768L, 32037266559191L, 36077235972286L, 22377606219626L,
                 -49763551119310L, 20449603096314L, -6101294935891L, 28L, 1L };
         // 6101294935891mod7 = 1
-        sum = CalcUtil.f(m, COEFFICIENT);
-        System.out.println(n);
-        System.out.println(sum);
-        System.out.printf("sum - n = %d%n", sum.subtract(n));
+        BigInteger sum1 = CalcUtil.f(m, COEFFICIENT);
+        System.out.println(sum1);
+        System.out.printf("sum1 - n = %d%n", sum1.subtract(n));
+        BigInteger sum2 = CalcUtil.f(m, array);
+        System.out.println(sum2);
+        System.out.printf("sum2 - n = %d%n", sum2.subtract(n));
     }
 
 }

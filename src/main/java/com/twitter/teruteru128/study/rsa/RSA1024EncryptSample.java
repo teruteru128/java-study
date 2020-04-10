@@ -1,10 +1,8 @@
 package com.twitter.teruteru128.study.rsa;
 
+import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.KeyFactory;
-import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.X509EncodedKeySpec;
 import java.time.OffsetDateTime;
@@ -22,12 +20,19 @@ public class RSA1024EncryptSample {
 
         System.out.println(Cipher.getMaxAllowedKeyLength("RSA"));
         var resource = ClassLoader.getSystemResource("rsa1024.der");
-        var fileUri = resource.toURI();
-        var path = Paths.get(fileUri);
-        X509EncodedKeySpec spec = new X509EncodedKeySpec(Files.readAllBytes(path));
+        var c = resource.openConnection();
+        var baos = new ByteArrayOutputStream(1024);
+        try (var in = c.getInputStream()) {
+            byte[] buf = new byte[8192];
+            for (int len = 0; 0 <= (len = in.read(buf, 0, 8192));) {
+                baos.write(buf, 0, len);
+            }
+        }
+        var primeBytes = baos.toByteArray();
+        X509EncodedKeySpec spec = new X509EncodedKeySpec(primeBytes);
 
-        PublicKey key = factory.generatePublic(spec);
-        System.out.println(key);
+        RSAPublicKey key = (RSAPublicKey) factory.generatePublic(spec);
+        System.out.println(key.getModulus());
 
         Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
 
