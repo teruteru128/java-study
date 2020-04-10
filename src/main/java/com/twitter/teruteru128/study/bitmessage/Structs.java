@@ -22,10 +22,10 @@ public class Structs {
      */
     public static byte[] encodeVarint(BigInteger u) {
         if (u.compareTo(BigInteger.ZERO) < 0) {
-            throw new RuntimeException("varint cannot be < 0");
+            throw new IllegalArgumentException("varint cannot be < 0");
         }
         if (u.compareTo(_253) < 0) {
-            return ByteBuffer.allocate(1).put(u.toByteArray()).array();
+            return ByteBuffer.allocate(1).put(u.byteValue()).array();
         }
         if (_253.compareTo(u) <= 0 && u.compareTo(_65536) < 0) {
             return ByteBuffer.allocate(3).put((byte) 253).putShort(u.shortValue()).array();
@@ -37,17 +37,17 @@ public class Structs {
             return ByteBuffer.allocate(9).put((byte) 255).putLong(u.longValue()).array();
         }
         // alive code
-        throw new RuntimeException("varint cannot be >= 18446744073709551616");
+        throw new IllegalArgumentException("varint cannot be >= 18446744073709551616");
     }
 
     /**
-     * 
+     * 9223372036854775808以上の整数をエンコードする場合は{@link #encodeVarint(BigInteger)}か{@link #encodeUnsignedVarint(long)}を使用してください。
      * @param u
      * @return
      */
     public static byte[] encodeVarint(long u) {
         if (u < 0) {
-            throw new RuntimeException("varint cannot be < 0");
+            throw new IllegalArgumentException("varint cannot be < 0");
         }
 
         if (u < 253) {
@@ -59,11 +59,38 @@ public class Structs {
         if (65536 <= u && u < 4294967296L) {
             return ByteBuffer.allocate(5).put((byte) 254).putInt((int) u).array();
         }
-        if (4294967296L <= u && Long.compareUnsigned(u, -1) <= 0) {
+        if (4294967296L <= u && Long.compareUnsigned(u, Long.MIN_VALUE) < 0) {
             //  9223372036854775808以上18446744073709551616未満は符号付き64ビットでは0未満になるため意図した結果にならない。
             return ByteBuffer.allocate(9).put((byte) 255).putLong(u).array();
         }
         // dead code
-        throw new RuntimeException("varint cannot be >= 18446744073709551616");
+        throw new IllegalArgumentException("varint cannot be >= 9223372036854775808");
+    }
+
+    /**
+     * 
+     * @param u
+     * @return
+     */
+    public static byte[] encodeUnsignedVarint(long u) {
+        //if (u < 0) {
+        //    throw new RuntimeException("varint cannot be < 0");
+        //}
+
+        if (Long.compareUnsigned(0, u) <= 0 && Long.compareUnsigned(u, 253) < 0) {
+            return ByteBuffer.allocate(1).put((byte) u).array();
+        }
+        if (Long.compareUnsigned(253, u) <= 0 && Long.compareUnsigned(u, 65536) < 0) {
+            return ByteBuffer.allocate(3).put((byte) 253).putShort((short) u).array();
+        }
+        if (Long.compareUnsigned(65536, u) <= 0 && Long.compareUnsigned(u, 4294967296L) < 0) {
+            return ByteBuffer.allocate(5).put((byte) 254).putInt((int) u).array();
+        }
+        if (Long.compareUnsigned(4294967296L, u) <= 0 && Long.compareUnsigned(u, -1) <= 0) {
+            //  9223372036854775808以上18446744073709551616未満は符号付き64ビットでは0未満になるため意図した結果にならない。
+            return ByteBuffer.allocate(9).put((byte) 255).putLong(u).array();
+        }
+        // dead code
+        throw new IllegalArgumentException("varint cannot be >= 18446744073709551616");
     }
 }
