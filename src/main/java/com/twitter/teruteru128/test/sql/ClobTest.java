@@ -8,8 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Random;
 
-import com.twitter.teruteru128.dao.AbstractH2DAO;
-
 public class ClobTest {
 
     public static void main(String[] args) {
@@ -44,11 +42,4 @@ public class ClobTest {
             e.printStackTrace();
         }
     }
-}
-
-class SimpleH2DAO extends AbstractH2DAO {
-    public Connection getConnection() throws SQLException {
-        return super.getConnection("jdbc:h2:tcp://localhost/test", "sa", "");
-    }
-
 }

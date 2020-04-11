@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -135,11 +136,11 @@ public class SamplePluginApp extends JFrame {
                     Class<?>[] ifnames = cobj.getInterfaces();
                     for (int j = 0; j < ifnames.length; j++) {
                         /* implementsされたクラスの中にSamplePluginAppPluginが含まれていないかチェック */
-                        if (ifnames[j] == SamplePluginAppPlugin.class) {
+                        if (ifnames[j] .equals(SamplePluginAppPlugin.class)) {
                             System.out.println("load..... " + cname);
                             // 含まれている場合はインスタンスを生成してArrayListに追加
-                            SamplePluginAppPlugin plugin = (SamplePluginAppPlugin) cobj
-                                    .newInstance();
+                            Constructor<?> con = cobj.getConstructor();
+                            SamplePluginAppPlugin plugin = (SamplePluginAppPlugin) con.newInstance();
                             plugins.add(plugin);
                             break;
                         }

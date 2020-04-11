@@ -3,6 +3,7 @@ package com.twitter.teruteru128.twitter_bot;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.ref.Cleaner;
 import java.util.List;
 
 import com.twitter.Extractor;
@@ -15,15 +16,38 @@ import twitter4j.TwitterException;
  * @author Teruteru
  *
  */
-public class ConsoleTweetPlugin implements Runnable {
+public class ConsoleTweetPlugin implements Runnable, AutoCloseable {
     private BufferedReader reader = null;
+    private final State state;
+    private final Cleaner.Cleanable cleanable;
     private static final int short_url_length_https = 23;
     private static final int short_url_length = 22;
+    private static final Cleaner cleaner = Cleaner.create();
+
+    static class State implements Runnable {
+        private ConsoleTweetPlugin plugin;
+        public State(ConsoleTweetPlugin plugin) {
+            this.plugin = plugin;
+        }
+        public void run() {
+            try {
+                if (plugin.reader != null) {
+                    plugin.reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                plugin.reader = null;
+            }
+        }
+    }
 
     /**
      * 
      */
     public ConsoleTweetPlugin() {
+        this.state = new State(this);
+        this.cleanable = cleaner.register(this, state);
     }
 
     /**
@@ -67,22 +91,8 @@ public class ConsoleTweetPlugin implements Runnable {
         }
     }
 
-    /**
-     * (非 Javadoc)
-     * 
-     * @see java.lang.Object#finalize()
-     */
     @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-        try {
-            if (reader != null) {
-                reader.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            reader = null;
-        }
+    public void close() {
+        cleanable.clean();
     }
 }
