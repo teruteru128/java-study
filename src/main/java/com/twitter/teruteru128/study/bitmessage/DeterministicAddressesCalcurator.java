@@ -21,22 +21,28 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 class DeterministicAddressesCalcurator implements Callable<String> {
 
     private String passphrase;
+    private int adderssVersionNumber = 4;
 
     public DeterministicAddressesCalcurator() {
         this("Bit_Message_JA");
     }
 
     public DeterministicAddressesCalcurator(String passphrase) {
+        this(passphrase, 4);
+    }
+
+    public DeterministicAddressesCalcurator(String passphrase, int adderssVersionNumber) {
         super();
         this.passphrase = passphrase;
+        this.adderssVersionNumber = adderssVersionNumber;
     }
 
     @Override
     public String call() throws NoSuchAlgorithmException, UnsupportedEncodingException, DigestException {
-        String deterministicPassphrase = passphrase;
+        String deterministicPassphrase = this.passphrase;
         int nonceTrialsPerByte = 0;
         int payloadLengthExtraBytes = 0;
-        int adderssVersionNumber = 4;
+        int adderssVersionNumber = this.adderssVersionNumber;
         int streamNumber = 1;
         int numberOfAddressesToMake = 1;
         int numberOfNullBytesDemandedOnFrontOfRipeHash = 1;
@@ -81,7 +87,7 @@ class DeterministicAddressesCalcurator implements Callable<String> {
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
-        var calcurator = new DeterministicAddressesCalcurator("bm_newsg");
+        var calcurator = new DeterministicAddressesCalcurator("bm_newsg", 3);
         System.out.println(calcurator.call());
     }
 }

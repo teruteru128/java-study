@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.xml.bind.DatatypeConverter;
+
 import com.twitter.teruteru128.study.Base58;
 
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
@@ -69,6 +71,7 @@ public class AddressGenerator implements Runnable {
             service.shutdown();
             byte[] potentialPrivEncryptionKey = responseComponent.getPrivateEncryptionKey();
             byte[] ripe = responseComponent.getRipe();
+            System.out.println(DatatypeConverter.printHexBinary(ripe));
             MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
             var bmaddress = new BMAddress();
             var address4 = bmaddress.encodeAddress(4, 1, ripe);

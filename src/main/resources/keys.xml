@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configurations>
+<configurations>
+    <accounts>
+        <account><!-- teruteru128 -->
+            <accesstoken>533912006-ynJc1I8iRnlCMaNtDv0NiIXdhyqF4ymjsGCJ8cop</accesstoken>
+            <tokensecret>BxsQiJGD3ZXQ2zXEB5l2rH7zAI553UBIo7SBbt7a0</tokensecret>
+        </account>
+        <account><!-- teruteru256 -->
+            <accesstoken>3326415307-tAoUexbbHRrI2zktz4yb2gcV7wESr5qhxqwDT5v
+            </accesstoken>
+            <tokensecret>fcVo6e2E0E1LSqr0MF54qkLB5R6zMX5P0FUKVSBUSJzRb
+            </tokensecret>
+        </account>
+    </accounts>
+    <consumer>
+        <consumerkey>GeogKDXsv92ARCFL0jNDmw</consumerkey>
+        <consumersecret>9g2VHWumoigKOwieEB8gV4QGtyFHjdtwG4WmJMcDHQ8</consumersecret>
+    </consumer>
+</configurations>
