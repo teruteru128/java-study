@@ -92,18 +92,18 @@
       <version>[1.4.196,)</version>
     </dependency>
     <dependency>
-      <groupId>javax.mail</groupId>
-      <artifactId>mailapi</artifactId>
-      <version>[1.4.3,)</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.mail</groupId>
-      <artifactId>javax.mail-api</artifactId>
-      <version>[1.6.0,)</version>
+      <groupId>org.twitter4j</groupId>
+      <artifactId>twitter4j-core</artifactId>
+      <version>[4.0.7,)</version>
     </dependency>
     <dependency>
       <groupId>org.twitter4j</groupId>
-      <artifactId>twitter4j-core</artifactId>
+      <artifactId>twitter4j-http2-support</artifactId>
+      <version>[4.0.7,)</version>
+    </dependency>
+    <dependency>
+      <groupId>org.twitter4j</groupId>
+      <artifactId>twitter4j-stream</artifactId>
       <version>[4.0.7,)</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase -->
@@ -176,5 +176,38 @@
       <artifactId>commons-math3</artifactId>
       <version>[3.6.1,)</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>15-ea+2</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-fxml</artifactId>
+      <version>15-ea+2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.twitter</groupId>
+      <artifactId>twitter-text</artifactId>
+      <version>[1.13.0,)</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>jakarta.mail</artifactId>
+      <version>1.6.5</version>
+    </dependency>
+    <!--
+      jakarta.mail:1.xは1.6.5で終了し、
+      jakarta.mail:2.0.0は大規模なAPIの変更を伴う。
+    -->
+    <!--
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>jakarta.mail</artifactId>
+      <version>[1.6.5,)</version>
+    </dependency>
+    -->
   </dependencies>
 </project>
