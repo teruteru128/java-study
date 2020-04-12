@@ -8,7 +8,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -26,13 +25,9 @@ public class Main extends Application {
         text1.setFill(Color.RED);
         Font font = null;
         var url = ClassLoader.getSystemResource("851tegaki_zatsu.ttf");
-        System.out.println(url);
-        Font.getFamilies().stream().filter(i -> i.contains("851")).forEach(System.out::println);
-        Font.getFontNames().stream().filter(i -> i.contains("851")).forEach(System.out::println);
         try (InputStream in = url.openConnection().getInputStream()) {
             font = Font.loadFont(in, 40);
         }
-        System.out.println(font);
         text1.setFont(font);
         Text text2 = new Text(" little bold blue text");
         text2.setFill(Color.BLUE);
