@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.swing;
+package com.twitter.teruteru128.study.swing;
 
 /**
  * @author Teruteru
