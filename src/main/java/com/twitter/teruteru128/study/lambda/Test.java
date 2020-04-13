@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.lambda;
+package com.twitter.teruteru128.study.lambda;
 
 import java.util.ArrayList;
 import java.util.Arrays;
