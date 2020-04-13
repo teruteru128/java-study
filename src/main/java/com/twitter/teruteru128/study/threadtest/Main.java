@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.threadtest;
+package com.twitter.teruteru128.study.threadtest;
 
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
