@@ -1,13 +1,12 @@
 package com.twitter.teruteru128.study.browser;
 
-import java.awt.Desktop;
-import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.URI;
+
+import com.twitter.teruteru128.util.Utils;
 
 import org.h2.engine.SysProperties;
 import org.h2.util.StringUtils;
-
-import com.twitter.teruteru128.util.Utils;
 
 /**
  * @author Teruteru
@@ -15,7 +14,7 @@ import com.twitter.teruteru128.util.Utils;
  */
 public class Main {
     public static void main(String[] args) {
-        String url = "https://www.google.co.jp";
+        String url = "http://abehiroshi.la.coocan.jp/";
         try {
             Main.openBrowser(url);
         } catch (Exception e) {
@@ -29,13 +28,11 @@ public class Main {
                     Utils.getProperty("os.name", "linux"));
             Runtime rt = Runtime.getRuntime();
             String browser = null;
-            if (browser == null) {
-                // under Linux, this will point to the default system browser
-                try {
-                    browser = System.getenv("BROWSER");
-                } catch (SecurityException se) {
-                    // ignore
-                }
+            // under Linux, this will point to the default system browser
+            try {
+                browser = System.getenv("BROWSER");
+            } catch (SecurityException se) {
+                // ignore
             }
             if (browser != null) {
                 if (browser.startsWith("call:")) {
@@ -57,17 +54,16 @@ public class Main {
             try {
                 Class<?> desktopClass = Class.forName("java.awt.Desktop");
                 // Desktop.isDesktopSupported()
-                Boolean supported = (Boolean) desktopClass.
-                    getMethod("isDesktopSupported").
-                    invoke(null, new Object[0]);
+                Method isDesktopSupported = desktopClass.getMethod("isDesktopSupported");
+                boolean supported = (boolean) isDesktopSupported.invoke(null);
                 URI uri = new URI(url);
                 if (supported) {
                     // Desktop.getDesktop();
-                    Object desktop = desktopClass.getMethod("getDesktop").
-                        invoke(null, new Object[0]);
+                    Method getDesktop = desktopClass.getMethod("getDesktop");
+                    Object desktop = getDesktop.invoke(null);
                     // desktop.browse(uri);
-                    desktopClass.getMethod("browse", URI.class).
-                        invoke(desktop, uri);
+                    Method browse = desktopClass.getMethod("browse", URI.class);
+                    browse.invoke(desktop, uri);
                     return;
                 }
             } catch (Exception e) {
@@ -102,15 +98,6 @@ public class Main {
         } catch (Exception e) {
             throw new Exception("Failed to start a browser to open the URL "
                     + url + ": " + e.getMessage());
-        }
-    }
-    public static void browse(){
-        Desktop d= Desktop.getDesktop();
-        try {
-            d.browse(null);
-        } catch (IOException e) {
-            // TODO 自動生成された catch ブロック
-            e.printStackTrace();
         }
     }
 }
