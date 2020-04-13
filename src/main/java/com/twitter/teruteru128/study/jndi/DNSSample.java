@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.jndi;
+package com.twitter.teruteru128.study.jndi;
 
 import java.util.Hashtable;
 import java.util.Properties;
