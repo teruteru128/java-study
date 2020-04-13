@@ -21,7 +21,7 @@ public class Citrus_depressa {
     }
 
     private static Stream<String> createStream() {
-        ArrayList<String> sourceA = new ArrayList<>(Arrays.asList("イ", "ィー", "イー", "ー"));
+        ArrayList<String> sourceA = new ArrayList<>(Arrays.asList("ィ", "イ", "ィー", "イー", "ー"));
         ArrayList<String> sourceB = new ArrayList<>(Arrays.asList("ア", "ァ", "ワ", "ヮ"));
         ArrayList<String> sourceC = new ArrayList<>(Arrays.asList("ー", ""));
         ArrayList<String> sourceD = new ArrayList<>(Arrays.asList("サ", "シャ"));
@@ -29,7 +29,7 @@ public class Citrus_depressa {
             return sourceB.stream().<String>flatMap(b -> {
                 return sourceC.stream().<String>flatMap(c -> {
                     return sourceD.stream().<String>map(d -> {
-                        return new StringBuilder("シ").append(a).append("ク").append(c).append(d).append("ー").toString();
+                        return new StringBuilder("シ").append(a).append("ク").append(b).append(c).append(d).append("ー").toString();
                     });
                 });
             });
