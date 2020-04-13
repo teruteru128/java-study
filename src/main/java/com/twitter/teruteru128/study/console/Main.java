@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.console;
+package com.twitter.teruteru128.study.console;
 
 import java.io.Console;
 
