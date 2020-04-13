@@ -32,8 +32,16 @@ public class Main extends Frame {
      * @param args
      */
     public static void main(String[] args) {
-        Frame f = new Frame("frame");
-        f.addWindowListener(new WinAdapter(f));
+        Frame f = new Main("frame");
+        int width = 600;
+        int height = 400;
+        f.setBounds(660, 50, width, height);
+        WinAdapter adapter = new WinAdapter(f);
+        f.addWindowFocusListener(adapter);
+        f.addWindowStateListener(adapter);
+        f.addWindowListener(adapter);
+        CoAdapter adapter2 = new CoAdapter();
+        f.addComponentListener(adapter2);
         f.setVisible(true);
     }
 
