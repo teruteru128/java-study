@@ -24,8 +24,7 @@ public class Main {
 
     public static void openBrowser(String url) throws Exception {
         try {
-            String osName = StringUtils.toLowerEnglish(
-                    Utils.getProperty("os.name", "linux"));
+            String osName = StringUtils.toLowerEnglish(Utils.getProperty("os.name", "linux"));
             Runtime rt = Runtime.getRuntime();
             String browser = null;
             // under Linux, this will point to the default system browser
@@ -45,7 +44,7 @@ public class Main {
                     }
                     rt.exec(args);
                 } else if (osName.indexOf("windows") >= 0) {
-                    rt.exec(new String[] { "cmd.exe", "/C",  browser, url });
+                    rt.exec(new String[] { "cmd.exe", "/C", browser, url });
                 } else {
                     rt.exec(new String[] { browser, url });
                 }
@@ -75,9 +74,8 @@ public class Main {
                 // Mac OS: to open a page with Safari, use "open -a Safari"
                 Runtime.getRuntime().exec(new String[] { "open", url });
             } else {
-                String[] browsers = { "chromium", "google-chrome", "firefox",
-                        "mozilla-firefox", "mozilla", "konqueror", "netscape",
-                        "opera", "midori" };
+                String[] browsers = { "chromium", "google-chrome", "firefox", "mozilla-firefox", "mozilla", "konqueror",
+                        "netscape", "opera", "midori" };
                 boolean ok = false;
                 for (String b : browsers) {
                     try {
@@ -91,13 +89,11 @@ public class Main {
                 if (!ok) {
                     // No success in detection.
                     throw new Exception(
-                            "Browser detection failed and system property " +
-                            SysProperties.H2_BROWSER + " not set");
+                            "Browser detection failed and system property " + SysProperties.H2_BROWSER + " not set");
                 }
             }
         } catch (Exception e) {
-            throw new Exception("Failed to start a browser to open the URL "
-                    + url + ": " + e.getMessage());
+            throw new Exception("Failed to start a browser to open the URL " + url + ": " + e.getMessage());
         }
     }
 }
