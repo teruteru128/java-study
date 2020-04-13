@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.base64;
+package com.twitter.teruteru128.study.base64;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
