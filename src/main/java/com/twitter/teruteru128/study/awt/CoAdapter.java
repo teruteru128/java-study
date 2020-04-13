@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.awt;
+package com.twitter.teruteru128.study.awt;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;

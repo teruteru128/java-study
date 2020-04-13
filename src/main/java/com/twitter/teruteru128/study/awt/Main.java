@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.awt;
+package com.twitter.teruteru128.study.awt;
 
 import java.awt.Frame;
 import java.awt.GraphicsConfiguration;
