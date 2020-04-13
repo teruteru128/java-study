@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.desktop;
+package com.twitter.teruteru128.study.browser;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import com.twitter.teruteru128.util.Utils;
  * @author Teruteru
  *
  */
-public class Main {
+public class Main2 {
 
     /**
      * @param args
