@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.browser;
+package com.twitter.teruteru128.study.browser;
 
 import java.awt.Desktop;
 import java.io.IOException;
