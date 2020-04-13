@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.password;
+package com.twitter.teruteru128.study.password;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

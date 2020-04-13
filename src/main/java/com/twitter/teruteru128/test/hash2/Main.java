@@ -24,7 +24,7 @@ import twitter4j.auth.RequestToken;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
-import com.twitter.teruteru128.test.password.SecureRandomCache;
+import com.twitter.teruteru128.study.password.SecureRandomCache;
 import com.twitter.teruteru128.test.twitter.util.Util;
 import com.twitter.teruteru128.util.Arrays;
 
