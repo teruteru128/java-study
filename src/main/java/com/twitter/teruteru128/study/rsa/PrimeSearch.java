@@ -1,10 +1,13 @@
 package com.twitter.teruteru128.study.rsa;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
 import java.nio.file.Files;
@@ -26,42 +29,22 @@ public class PrimeSearch implements Runnable {
     }
 
     public static void main(String[] args) throws Exception {
-        var primeFileURL = ClassLoader.getSystemResource("prime1.bin");
-        var o = primeFileURL.openConnection();
-        var baos = new ByteArrayOutputStream(32768);
-        try (var in = o.getInputStream()) {
-            byte[] buf = new byte[8192];
-            for (int len = 0; 0 <= (len = in.read(buf, 0, 8192));) {
-                baos.write(buf, 0, len);
-            }
+        File prime1File = new File("prime1.obj");
+        File prime2File = new File("prime2.obj");
+        File primsFile = new File("primes.obj");
+        BigInteger prime1 = null;
+        BigInteger prime2 = null;
+        ArrayList<BigInteger> list = new ArrayList<>();
+        try(ObjectInputStream oin = new ObjectInputStream(new BufferedInputStream(new FileInputStream(prime1File)))){
+            prime1 = (BigInteger) oin.readObject();
         }
-        var primeBytes = baos.toByteArray();
-        BigInteger a = new BigInteger(1, primeBytes);
-        BigInteger b = a;
-        ArrayList<BigInteger> primeList = new ArrayList<>();
-        BigInteger p = BigInteger.valueOf(1);
-        for (int i = 0; i < 200000; i++) {
-            p = p.nextProbablePrime();
-            primeList.add(p);
+        try(ObjectInputStream oin = new ObjectInputStream(new BufferedInputStream(new FileInputStream(prime2File)))){
+            prime2 = (BigInteger) oin.readObject();
         }
-        final BigInteger zero = BigInteger.valueOf(0);
-        final BigInteger two = BigInteger.valueOf(2);
-        //System.out.println(b.add(BigInteger.valueOf(98)).isProbablePrime(1));
-        out:
-        while(true) {
-            for (BigInteger prime : primeList) {
-                if(b.mod(prime).equals(zero)){
-                    //
-                    b = b.add(two);
-                    continue out;
-                }
-            }
-            break;
-        }
-        System.out.println(b.subtract(a));
-        File out = new File("prime1.obj");
-        try(ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(out)))){
-            oos.writeObject(b);
+        list.add(prime1);
+        list.add(prime2);
+        try(ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(primsFile)))){
+            oos.writeObject(list);
         }
         /*
         ExecutorService service = Executors.newCachedThreadPool();
