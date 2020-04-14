@@ -10,8 +10,8 @@ public class DatatypeConverterTest {
 
     @Test
     public void classFoundTest() throws Exception {
-        Optional<Module> optional = ModuleLayer.boot().findModule("java.xml.bind");// org.bouncycastle.provider
+        Optional<Module> optional = ModuleLayer.boot().findModule("jakarta.xml.bind");// org.bouncycastle.provider
         assertTrue(optional.isPresent());
-        assertNotNull(Class.forName(optional.get(), "javax.xml.bind.DatatypeConverter"));
+        assertNotNull(Class.forName(optional.get(), "jakarta.xml.bind.DatatypeConverter"));
     }
 }

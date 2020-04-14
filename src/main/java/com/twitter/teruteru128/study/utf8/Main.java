@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study.utf8;
 
-import javax.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.DatatypeConverter;
 
 public class Main {
 

@@ -1,13 +1,13 @@
 package com.twitter.teruteru128.study.crypto;
 
-import javax.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.DatatypeConverter;
 
 public class DataPrinter {
 
     private static final char[] p = ("0123456789abcdef").toCharArray();
 
     /**
-     * {@link javax.xml.bind.DatatypeConverter#printHexBinary(byte[])}
+     * {@link jakarta.xml.bind.DatatypeConverter#printHexBinary(byte[])}
      */
     private static String printHexBinary1(byte[] data) {
         StringBuilder builder = new StringBuilder(data.length << 1);
@@ -28,7 +28,7 @@ public class DataPrinter {
             + "0123456789abcdef" + "0123456789abcdef").toCharArray();
 
     /**
-     * {@link javax.xml.bind.DatatypeConverter#printHexBinary(byte[])}
+     * {@link jakarta.xml.bind.DatatypeConverter#printHexBinary(byte[])}
      */
     private static String printHexBinary2(byte[] data) {
         StringBuilder builder = new StringBuilder(data.length << 1);

@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import javax.xml.bind.JAXB;
+import jakarta.xml.bind.JAXB;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;

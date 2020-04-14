@@ -12,8 +12,7 @@ module com.twitter.teruteru128.study {
     requires java.rmi;
     requires java.scripting;
     requires java.sql;
-    requires transitive java.xml.bind;
-    requires transitive jakarta.xml.bind;
+    requires jakarta.xml.bind;
     requires com.google.gson;
     requires jcuda;
     requires org.bouncycastle.pg;

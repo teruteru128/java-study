@@ -14,29 +14,33 @@ public class BMAddress {
     public BMAddress() {
     }
 
-    /**
-     * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/addresses.py#L143
-     * @return
-     */
-    public String encodeAddress(int version, int stream, byte[] ripe) {
+    public String encodeAddress(int version, int stream, byte[] ripe, int max) {
+        max = Math.min(max, 20);
         if (version >= 2 && version < 4) {
             if (ripe.length != 20) {
                 throw new IllegalArgumentException(
                         "Programming error in encodeAddress: The length of a given ripe hash was not 20.");
             }
+            /*
             byte[] tmp = new byte[2];
             if (Arrays.equals(ripe, 0, 2, tmp, 0, 2)) {
                 ripe = Arrays.copyOfRange(ripe, 2, 20);
             } else if (Arrays.equals(ripe, 0, 1, tmp, 0, 1)) {
                 ripe = Arrays.copyOfRange(ripe, 1, 20);
             }
+            */
+            int i = 0;
+            for (; ripe[i] == 0 && i < max; i++) {
+                // COUNTING
+            }
+            ripe = Arrays.copyOfRange(ripe, i, 20);
         } else if (version == 4) {
             if (ripe.length != 20) {
                 throw new IllegalArgumentException(
                         "Programming error in encodeAddress: The length of a given ripe hash was not 20.");
             }
             int i = 0;
-            for (; ripe[i] == 0 && i < 20; i++) {
+            for (; ripe[i] == 0 && i < max; i++) {
                 // COUNTING
             }
             ripe = Arrays.copyOfRange(ripe, i, 20);
@@ -58,5 +62,13 @@ public class BMAddress {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/addresses.py#L143
+     * @return
+     */
+    public String encodeAddress(int version, int stream, byte[] ripe) {
+        return this.encodeAddress(version, stream, ripe, 20);
     }
 }

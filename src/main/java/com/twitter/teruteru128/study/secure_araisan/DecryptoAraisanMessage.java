@@ -7,7 +7,8 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
+
+import jakarta.xml.bind.DatatypeConverter;
 
 /**
  * @see https://twitter.com/secure_araisan

@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.util;
 
-import javax.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.DatatypeConverter;
 
 /**
  * プリミティブ型配列を16進数文字列に変換します。
@@ -11,7 +11,7 @@ import javax.xml.bind.DatatypeConverter;
  * @see <a
  *      href="http://weblabo.oscasierra.net/java-hex-convert-1/">Javaにおけるbyte配列⇔16進数文字列の変換方法</a>
  *      16進数文字列からbyte愛列に戻す際について
- * @see javax.xml.bind.DatatypeConverter#parseHexBinary(String)
+ * @see jakarta.xml.bind.DatatypeConverter#parseHexBinary(String)
  *      DatatypeConverter#parseHexBinary(String)
  * */
 public final class Arrays {
@@ -22,8 +22,8 @@ public final class Arrays {
 
     /**
      * 
-     * @see javax.xml.bind.DatatypeConverter#printHexBinary(byte[])
-     * @see javax.xml.bind.DatatypeConverterImpl#printHexBinary(byte[])
+     * @see jakarta.xml.bind.DatatypeConverter#printHexBinary(byte[])
+     * @see jakarta.xml.bind.DatatypeConverter#printHexBinary(byte[])
      * */
     public static String toHexString(byte[] array) {
         StringBuilder r = new StringBuilder(array.length * 2);
