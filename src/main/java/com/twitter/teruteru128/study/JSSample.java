@@ -17,11 +17,11 @@ public class JSSample {
         System.out.printf("List length : %d\n", engineFactories.size());
         System.out.println("--------");
         for (ScriptEngineFactory factory : engineFactories) {
-            System.out.println("Engine: " + factory.getEngineName() + ", Version: " + factory.getEngineVersion());
-            System.out.println("Language: " + factory.getLanguageName() + ", Version: " + factory.getLanguageVersion());
-            System.out.println("Extensions: " + factory.getExtensions());
-            System.out.println("MimeTypes: " + factory.getMimeTypes());
-            System.out.println("Names: " + factory.getNames());
+            System.out.printf("Engine: %s, Version: %s%n", factory.getEngineName(), factory.getEngineVersion());
+            System.out.printf("Language: %s, Version: %s%n", factory.getLanguageName(), factory.getLanguageVersion());
+            System.out.printf("Extensions: %s%n", factory.getExtensions());
+            System.out.printf("MimeTypes: %s%n", factory.getMimeTypes());
+            System.out.printf("Names: %s%n", factory.getNames());
             System.out.println("--------");
         }
         var engine = manager.getEngineByName("graal.js");
