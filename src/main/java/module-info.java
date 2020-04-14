@@ -12,7 +12,8 @@ module com.twitter.teruteru128.study {
     requires java.rmi;
     requires java.scripting;
     requires java.sql;
-    requires java.xml.bind;
+    requires transitive java.xml.bind;
+    requires transitive jakarta.xml.bind;
     requires com.google.gson;
     requires jcuda;
     requires org.bouncycastle.pg;
@@ -31,4 +32,5 @@ module com.twitter.teruteru128.study {
     exports com.twitter.teruteru128.study.fx.sample2;
     exports com.twitter.teruteru128.study.fx.sample3;
     exports com.twitter.teruteru128.study.fx.sample4;
+    opens com.twitter.teruteru128.study.jaxb;
 }
