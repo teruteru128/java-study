@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.ui;
+package com.twitter.teruteru128.study.ui;
 
 import javax.swing.SwingUtilities;
 

@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.ui;
+package com.twitter.teruteru128.study.ui;
 
 import java.awt.Color;
 import java.awt.GraphicsConfiguration;
