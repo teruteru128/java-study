@@ -29,23 +29,15 @@ public class PrimeSearch implements Runnable {
     }
 
     public static void main(String[] args) throws Exception {
-        File prime1File = new File("prime1.obj");
-        File prime2File = new File("prime2.obj");
         File primsFile = new File("primes.obj");
-        BigInteger prime1 = null;
-        BigInteger prime2 = null;
-        ArrayList<BigInteger> list = new ArrayList<>();
-        try(ObjectInputStream oin = new ObjectInputStream(new BufferedInputStream(new FileInputStream(prime1File)))){
-            prime1 = (BigInteger) oin.readObject();
+        ArrayList<?> list = new ArrayList<>();
+        try(ObjectInputStream oos = new ObjectInputStream(new BufferedInputStream(new FileInputStream(primsFile)))){
+            list = (ArrayList<?>) oos.readObject();
         }
-        try(ObjectInputStream oin = new ObjectInputStream(new BufferedInputStream(new FileInputStream(prime2File)))){
-            prime2 = (BigInteger) oin.readObject();
-        }
-        list.add(prime1);
-        list.add(prime2);
-        try(ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(primsFile)))){
-            oos.writeObject(list);
-        }
+        BigInteger prime1 = (BigInteger)list.get(0);
+        System.out.println(prime1);
+        BigInteger prime2 = (BigInteger)list.get(1);
+        System.out.println(prime2);
         /*
         ExecutorService service = Executors.newCachedThreadPool();
         service.submit(new PrimeSearch("prime1.bin", "probablePrime1.bin"));
