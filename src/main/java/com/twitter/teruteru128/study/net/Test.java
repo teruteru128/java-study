@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.net;
+package com.twitter.teruteru128.study.net;
 
 import java.io.BufferedReader;
 import java.io.IOException;
