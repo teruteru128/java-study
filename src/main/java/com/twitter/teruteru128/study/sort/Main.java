@@ -1,14 +1,15 @@
-package com.twitter.teruteru128.test.sort;
+package com.twitter.teruteru128.study.sort;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * 
  *
  */
-public class Main implements AbstractSort{
+public class Main implements AbstractIntSort{
 
     /**
      * @param args
@@ -30,7 +31,7 @@ public class Main implements AbstractSort{
         System.out.println("シャッフル終了");
         System.out.println("シャッフル"+((shufflee-shuffles)/1000000000.0)+"ミリ秒");
         //System.out.println(Arrays.toString(table));
-        AbstractSort m = new Main();
+        AbstractIntSort m = new Main();
         sorts=System.nanoTime();
         m.sort(table);
         sorte=System.nanoTime();
@@ -38,20 +39,12 @@ public class Main implements AbstractSort{
         System.out.println("ソート"+((sorte-sorts)/1000000000.0)+"ミリ秒");
     }
 
-    private static List<Integer> toList(int[] arg) {
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        for (int i : arg) {
-            list.add(arg[i]);
-        }
-        return list;
+    public static List<Integer> toList(int[] arg) {
+        return Arrays.stream(arg).boxed().collect(Collectors.toList());
     }
 
-    private static int[] toArray(List<Integer> arg) {
-        int[] array = new int[arg.size()];
-        for (int i = 0, length = arg.size(); i < length; i++) {
-            array[i] = arg.get(i);
-        }
-        return array;
+    public static int[] toArray(List<Integer> arg) {
+        return arg.stream().mapToInt(Integer::intValue).toArray();
     }
 
     /*

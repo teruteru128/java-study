@@ -1,10 +1,10 @@
-package com.twitter.teruteru128.test.sort;
+package com.twitter.teruteru128.study.sort;
 
 /**
  * @author Teruteru
  *
  */
-public class Sort implements AbstractSort{
+public class Sort implements AbstractIntSort {
     public void sort(int[] src) {
         int tmp;
         int i;
@@ -25,7 +25,4 @@ public class Sort implements AbstractSort{
         }
         return;
     }
-}
-interface AbstractSort{
-    void sort(int[] arg);
 }
