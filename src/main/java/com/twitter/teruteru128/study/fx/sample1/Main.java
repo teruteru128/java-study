@@ -19,23 +19,21 @@ public class Main extends Application {
 
     /**
      * 
-     * @param stage
-     *            {@inheritDoc}
-     * @throws IOException
-     *             ファイルリソースの読み込みに失敗したとき。
+     * @param stage {@inheritDoc}
+     * @throws IOException ファイルリソースの読み込みに失敗したとき。
      * @throws Exception
-     * */
+     */
     @Override
     public void start(Stage stage) throws IOException, Exception {
-            var c = getClass();
-            var mainUIURL = c.getResource("MainUI.fxml");
-            VBox root = FXMLLoader.load(mainUIURL);
-            Scene scene = new Scene(root, 800, 640);
-            var CSSURL = c.getResource("application.css");
-            String applicationCSSURL = CSSURL.toExternalForm();
-            scene.getStylesheets().add(applicationCSSURL);
-            stage.setScene(scene);
-            stage.show();
+        var c = getClass();
+        var mainUIURL = c.getResource("MainUI.fxml");
+        VBox root = FXMLLoader.load(mainUIURL);
+        Scene scene = new Scene(root, 800, 640);
+        var CSSURL = c.getResource("application.css");
+        String applicationCSSURL = CSSURL.toExternalForm();
+        scene.getStylesheets().add(applicationCSSURL);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }
