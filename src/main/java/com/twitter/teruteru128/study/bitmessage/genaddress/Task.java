@@ -42,6 +42,6 @@ class Task implements Callable<ResponseComponent> {
             for (nlz = 0; ripe[nlz] == 0 && nlz < 20; nlz++) {
             }
         } while (nlz < requireNlz);
-        return new ResponseComponent(potentialPrivEncryptionKey, potentialPrivEncryptionKey, ripe);
+        return new ResponseComponent(potentialPrivEncryptionKey, potentialPubEncryptionKey, ripe);
     }
 }

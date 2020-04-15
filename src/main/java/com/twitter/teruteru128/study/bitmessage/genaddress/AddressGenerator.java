@@ -49,7 +49,7 @@ public class AddressGenerator implements Runnable {
             ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
             potentialPubSigningKey = g.multiply(new BigInteger(1, potentialPrivSigningKey)).normalize().getEncoded(false);
             var list = new ArrayList<Task>();
-            int requireNlz = 5;
+            int requireNlz = 4;
             {
                 int tasknum = 2;
                 int tmp = 2;
@@ -69,13 +69,13 @@ public class AddressGenerator implements Runnable {
             }
             var responseComponent = service.invokeAny(list);
             service.shutdown();
+            State.shutdown = 1;
             byte[] potentialPrivEncryptionKey = responseComponent.getPrivateEncryptionKey();
             byte[] ripe = responseComponent.getRipe();
             System.out.println(DatatypeConverter.printHexBinary(ripe));
             MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
             var bmaddress = new BMAddress();
             var address4 = bmaddress.encodeAddress(4, 1, ripe);
-            var address3 = bmaddress.encodeAddress(3, 1, ripe);
             var privSigningKey = new byte[33];
             privSigningKey[0] = (byte) 0x80;
             System.arraycopy(potentialPrivSigningKey, 0, privSigningKey, 1, 32);
@@ -100,15 +100,6 @@ public class AddressGenerator implements Runnable {
             System.arraycopy(privEncryptionKey, 0, tmp, 0, privEncryptionKey.length);
             System.arraycopy(checksum, 0, tmp, privEncryptionKey.length, 4);
             var privEncryptionKeyWIF = Base58.encode(tmp);
-            System.out.printf("[%s]%n", address3);
-            System.out.println("label = relpace this label");
-            System.out.println("enabled = true");
-            System.out.println("decoy = false");
-            System.out.println("noncetrialsperbyte = 1000");
-            System.out.println("payloadlengthextrabytes = 1000");
-            System.out.printf("privsigningkey = %s%n", privSigningKeyWIF);
-            System.out.printf("privencryptionkey = %s%n", privEncryptionKeyWIF);
-            System.out.println();
             System.out.printf("[%s]%n", address4);
             System.out.println("label = relpace this label");
             System.out.println("enabled = true");
