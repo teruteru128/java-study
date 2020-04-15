@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.regex;
+package com.twitter.teruteru128.study.regex;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
