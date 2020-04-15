@@ -64,15 +64,6 @@ public class BMAddressGenerateSample {
         String address4 = bmAddress.encodeAddress(4, 1, ripe);
         System.out.println(address4);
         System.out.println(address4.equals(address));
-        String address4_2 = bmAddress.encodeAddress(4, 1, ripe, 2);
-        System.out.println(address4_2);
-        System.out.println(address4_2.equals(address));
-        String address3 = bmAddress.encodeAddress(3, 1, ripe);
-        System.out.println(address3);
-        System.out.println(address3.equals(address));
-        String address3_2 = bmAddress.encodeAddress(3, 1, ripe, 2);
-        System.out.println(address3_2);
-        System.out.println(address3_2.equals(address));
     }
 
 }
