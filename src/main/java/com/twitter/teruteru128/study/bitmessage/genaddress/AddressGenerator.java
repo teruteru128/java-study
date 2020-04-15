@@ -64,7 +64,7 @@ public class AddressGenerator implements Runnable {
                     }
                 }
                 for (int i = 0; i < tasknum; i++) {
-                    list.add(new Task(new RequestComponent(potentialPubSigningKey, requireNlz)));
+                    list.add(new Task(new RequestComponent(potentialPrivSigningKey, potentialPubSigningKey, requireNlz)));
                 }
             }
             var responseComponent = service.invokeAny(list);
