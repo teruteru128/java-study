@@ -27,17 +27,15 @@ public class Main extends Application {
      * */
     @Override
     public void start(Stage stage) throws IOException, Exception {
-        try {
-            VBox root = FXMLLoader.load(getClass().getResource("MainUI.fxml"));
+            var c = getClass();
+            var mainUIURL = c.getResource("MainUI.fxml");
+            VBox root = FXMLLoader.load(mainUIURL);
             Scene scene = new Scene(root, 800, 640);
-            scene.getStylesheets().add(
-                    getClass().getResource("application.css").toExternalForm());
+            var CSSURL = c.getResource("application.css");
+            String applicationCSSURL = CSSURL.toExternalForm();
+            scene.getStylesheets().add(applicationCSSURL);
             stage.setScene(scene);
             stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw e;
-        }
     }
 
 }
