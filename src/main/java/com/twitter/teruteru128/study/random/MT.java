@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.random;
+package com.twitter.teruteru128.study.random;
 
 /**
  * @author Teruteru
