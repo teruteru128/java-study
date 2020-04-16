@@ -30,18 +30,17 @@ public class Main implements Runnable {
      */
     @Override
     public void run() {
-        ServerSocket server = null;
-        Socket socket = null;
-        ExecutorService service = Executors.newSingleThreadExecutor();
-        try {
-            server = new ServerSocket(server_port);
-            while (!stop) {
+        ExecutorService service = Executors.newFixedThreadPool(2);
+        try (ServerSocket server = new ServerSocket(server_port)) {
+            while (Status.shutdown == 0) {
+                Socket socket = server.accept();
+                service.submit(new AcceptedTask(socket));
             }
-            server.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            service.shutdown();
         }
-        service.shutdown();
     }
 
     private static final int DEFAULT_SERVER_PORT = 20007;
