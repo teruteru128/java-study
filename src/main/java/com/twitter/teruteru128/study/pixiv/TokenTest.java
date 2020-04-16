@@ -1,4 +1,4 @@
-package pixiv;
+package com.twitter.teruteru128.study.pixiv;
 
 import java.io.IOException;
 import java.io.PrintStream;
