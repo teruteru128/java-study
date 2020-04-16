@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.identity.dao;
+package com.twitter.teruteru128.study.identity.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
