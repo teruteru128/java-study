@@ -9,14 +9,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 
 import com.twitter.teruteru128.dao.AbstractFileDAO;
-import com.twitter.teruteru128.util.Arrays;
+
+import jakarta.xml.bind.DatatypeConverter;
 
 /**
  * TODO DAOは１ファイル単位か１ディレクトリ単位にすべきか？ -> １ファイル単位
@@ -153,8 +153,7 @@ public class ImageFileDAO extends AbstractFileDAO implements ImageDAO {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String id = Arrays.toHexString(sha256.digest()).toUpperCase(
-                Locale.ENGLISH);
+        String id = DatatypeConverter.printHexBinary(sha256.digest());
         return id;
     }
 

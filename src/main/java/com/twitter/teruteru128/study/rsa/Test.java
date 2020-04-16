@@ -5,7 +5,7 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import com.twitter.teruteru128.util.Arrays;
+import jakarta.xml.bind.DatatypeConverter;
 
 public class Test {
 
@@ -14,9 +14,9 @@ public class Test {
             KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
             kpg.initialize(4096, SecureRandom.getInstance("SHA1PRNG"));
             KeyPair kp = kpg.generateKeyPair();
-            System.out.println(Arrays.toHexString(kp.getPrivate().getEncoded()));
+            System.out.println(DatatypeConverter.printHexBinary(kp.getPrivate().getEncoded()));
             System.out.println(kp.getPrivate().getFormat());
-            System.out.println(Arrays.toHexString(kp.getPublic().getEncoded()));
+            System.out.println(DatatypeConverter.printHexBinary(kp.getPublic().getEncoded()));
             System.out.println(kp.getPublic().getFormat());
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

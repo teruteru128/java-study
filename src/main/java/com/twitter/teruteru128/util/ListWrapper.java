@@ -14,7 +14,7 @@ public class ListWrapper<E> {
     private Random random;
     /**
      * 連続で同じ要素が出ることを抑止する
-     * */
+     */
     private boolean collision;
     private E element = null;
 
@@ -31,9 +31,10 @@ public class ListWrapper<E> {
     }
 
     public ListWrapper(List<E> list, Random r, boolean collision) {
-        Collections.shuffle(list,r);
+        Collections.shuffle(list, r);
         this.list = list;
         this.random = r;
+        this.collision = collision;
     }
 
     public E randamGet() {

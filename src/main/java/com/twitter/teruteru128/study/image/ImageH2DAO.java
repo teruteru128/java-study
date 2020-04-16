@@ -14,7 +14,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import com.twitter.teruteru128.dao.AbstractH2DAO;
-import com.twitter.teruteru128.util.Arrays;
+
+import jakarta.xml.bind.DatatypeConverter;
 
 /**
  * create table image (id char(64) not null,name varchar(128)not null default
@@ -51,7 +52,7 @@ public class ImageH2DAO extends AbstractH2DAO implements ImageDAO {
                                 dos.write(buf, 0, readedsize);
                             }
                             dos.flush();
-                            ps.setString(1, Arrays.toHexString(dos
+                            ps.setString(1, DatatypeConverter.printHexBinary(dos
                                     .getMessageDigest().digest()));
                         }
                         ps.setBlob(3, blob);

@@ -10,6 +10,8 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+import jakarta.xml.bind.DatatypeConverter;
+
 /**
  * 分割可能.
  * 
@@ -29,22 +31,21 @@ public class PBKDF2 {
                 -121, -43, 67, 105, -68, -7, 54, -95, 85, 116, -46, -39, -58,
                 15, 76, -92, 86, -105, 124, -93, 109, -20, -42 };
         printfln("salt: %s", Arrays.toString(salt));
-        printfln("salt: %n%s",
-                com.twitter.teruteru128.util.Arrays.toHexString(salt));
+        printfln("salt: %n%s", DatatypeConverter.printHexBinary(salt));
 
         byte[] d1 = pbkdf2(p1.toCharArray(), salt);
         System.out.println(Base64.getEncoder().encodeToString(d1));
         /*
         printfln("length : %d", d1.length);
         printfln("derived 1: %s", Arrays.toString(d1));
-        printfln("%s", com.twitter.teruteru128.util.Arrays.toHexString(d1));
+        printfln("%s", DatatypeConverter.printHexBinary(d1));
         */
         byte[] d2 = pbkdf2(p2.toCharArray(), salt);
         System.out.println(Base64.getEncoder().encodeToString(d2));
         /*
         printfln("length : %d", d2.length);
         printfln("derived 2: %s", Arrays.toString(d2));
-        printfln("%s", com.twitter.teruteru128.util.Arrays.toHexString(d2));
+        printfln("%s", DatatypeConverter.printHexBinary(d2));
         */
     }
 

@@ -22,7 +22,7 @@ public final class Arrays {
 
     /**
      * 
-     * @see jakarta.xml.bind.DatatypeConverter#printHexBinary(byte[])
+     * @deprecated Use {@link jakarta.xml.bind.DatatypeConverter#printHexBinary(byte[])}
      * @see jakarta.xml.bind.DatatypeConverter#printHexBinary(byte[])
      * */
     public static String toHexString(byte[] array) {
@@ -128,16 +128,12 @@ public final class Arrays {
     }
 
     /**
-     * @deprecated この実装は不完全で、使用されるではありません。
+     * @deprecated この実装は不完全で、使用されるべきではありません。
      * */
     @Deprecated
     public static String toHexString(char[] array) {
-        StringBuilder r = new StringBuilder(array.length * 8);
+        StringBuilder r = new StringBuilder(array.length * 4);
         for (char b : array) {
-            r.append(Character.forDigit(b >> 28 & 0xF, 16));
-            r.append(Character.forDigit(b >> 24 & 0xF, 16));
-            r.append(Character.forDigit(b >> 20 & 0xF, 16));
-            r.append(Character.forDigit(b >> 16 & 0xF, 16));
             r.append(Character.forDigit(b >> 12 & 0xF, 16));
             r.append(Character.forDigit(b >> 8 & 0xF, 16));
             r.append(Character.forDigit(b >> 4 & 0xF, 16));

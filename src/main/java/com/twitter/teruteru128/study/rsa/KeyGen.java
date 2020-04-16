@@ -19,7 +19,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESedeKeySpec;
 
-import com.twitter.teruteru128.util.Arrays;
+import jakarta.xml.bind.DatatypeConverter;
 
 /**
  * Key Generation
@@ -140,7 +140,7 @@ class KeyGen {
     static void getKeyData() {
         try {
             byte[] secKey = readKey(secKeyFile);
-            System.out.println("Secret Key : " + Arrays.toHexString(secKey));
+            System.out.println("Secret Key : " + DatatypeConverter.printHexBinary(secKey));
             DESedeKeySpec secKeySpec = new DESedeKeySpec(secKey);
             SecretKeyFactory skeyFactory = SecretKeyFactory
                     .getInstance(secKeyAlg);
