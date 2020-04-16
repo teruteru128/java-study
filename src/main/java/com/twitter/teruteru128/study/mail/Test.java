@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.mail;
+package com.twitter.teruteru128.study.mail;
 
 import java.io.IOException;
 import java.util.Date;
