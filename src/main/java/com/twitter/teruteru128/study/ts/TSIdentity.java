@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.ts;
+package com.twitter.teruteru128.study.ts;
 
 /**
  * @author Teruteru
