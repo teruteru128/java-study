@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.fx.sample3;
+package com.twitter.teruteru128.study.fx.sample6;
 
 import javafx.application.Application;
 import javafx.scene.Group;
