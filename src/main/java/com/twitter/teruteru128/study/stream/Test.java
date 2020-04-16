@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.stream;
+package com.twitter.teruteru128.study.stream;
 
 import java.util.ArrayList;
 import java.util.Random;
