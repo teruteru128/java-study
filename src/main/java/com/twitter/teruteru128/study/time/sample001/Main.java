@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study.time.sample001;
 
 import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
@@ -18,9 +19,10 @@ public class Main {
      */
     public static void main(String[] args) {
         ZoneId id = ZoneId.of("Asia/Tokyo");
-        Clock clock = Clock.fixed(
-                ZonedDateTime.of(2018, 3, 31, 17, 14, 35, 0, id)
-                        .truncatedTo(ChronoUnit.DAYS).toInstant(), id);
+        ZonedDateTime time = ZonedDateTime.of(2018, 3, 31, 17, 14, 35, 0, id);
+        time = time.truncatedTo(ChronoUnit.DAYS);
+        Instant instant = time.toInstant();
+        Clock clock = Clock.fixed(instant, id);
         OffsetDateTime time1 = OffsetDateTime.now(clock);
         OffsetDateTime time2 = time1.plus(2, ChronoUnit.YEARS);
         OffsetDateTime time3 = time1.plus(365 * 2, ChronoUnit.DAYS);
