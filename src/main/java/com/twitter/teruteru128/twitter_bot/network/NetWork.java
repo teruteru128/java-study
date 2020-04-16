@@ -3,7 +3,6 @@ package com.twitter.teruteru128.twitter_bot.network;
 import java.util.ArrayList;
 import java.util.List;
 
-import twitter4j.IDs;
 import twitter4j.PagableResponseList;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;

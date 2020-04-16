@@ -1,6 +1,5 @@
 package com.twitter.teruteru128.twitter_bot;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -55,14 +54,11 @@ public final class ConfigurationLodaer {
                 if (accountList.item(i) instanceof Element) {
                     Element account = (Element) accountList.item(i);
                     // アクセストークンをNodeとして取り出し
-                    Node consumerKey = (Node) consumerKeyExpr.evaluate(account,
-                            XPathConstants.NODE);
+                    Node consumerKey = (Node) consumerKeyExpr.evaluate(account, XPathConstants.NODE);
                     // トークンシークレットをNodeとして取り出し
-                    Node consumerSecret = (Node) consumerSecretExpr.evaluate(
-                            account, XPathConstants.NODE);
+                    Node consumerSecret = (Node) consumerSecretExpr.evaluate(account, XPathConstants.NODE);
                     // アクセストークンリストに追加(trimは必須)
-                    key = new ConsumerKey(consumerKey.getTextContent().trim(),
-                            consumerSecret.getTextContent().trim());
+                    key = new ConsumerKey(consumerKey.getTextContent().trim(), consumerSecret.getTextContent().trim());
                 }
             }
         } catch (IOException e) {
@@ -98,14 +94,11 @@ public final class ConfigurationLodaer {
                 if (accountList.item(i) instanceof Element) {
                     Element account = (Element) accountList.item(i);
                     // アクセストークンをNodeとして取り出し
-                    Node token = (Node) tokenExpr.evaluate(account,
-                            XPathConstants.NODE);
+                    Node token = (Node) tokenExpr.evaluate(account, XPathConstants.NODE);
                     // トークンシークレットをNodeとして取り出し
-                    Node secret = (Node) secretExpr.evaluate(account,
-                            XPathConstants.NODE);
+                    Node secret = (Node) secretExpr.evaluate(account, XPathConstants.NODE);
                     // アクセストークンリストに追加(trimは必須)
-                    accessTokens.add(new AccessToken(token.getTextContent()
-                            .trim(), secret.getTextContent().trim()));
+                    accessTokens.add(new AccessToken(token.getTextContent().trim(), secret.getTextContent().trim()));
                 }
             }
         } catch (IOException e) {
@@ -139,8 +132,7 @@ public final class ConfigurationLodaer {
         return builder;
     }
 
-    private static XPathExpression createXPath(String expression)
-            throws XPathExpressionException {
+    private static XPathExpression createXPath(String expression) throws XPathExpressionException {
         if (xpath == null) {
             XPathFactory xPathFactory = XPathFactory.newInstance();
             xpath = xPathFactory.newXPath();

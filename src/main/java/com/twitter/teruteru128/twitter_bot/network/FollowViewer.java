@@ -20,13 +20,15 @@ import com.twitter.teruteru128.twitter_bot.ConsumerKey;
  *
  */
 public class FollowViewer implements Runnable {
-    private AccountManager manager = null;
+
+    public FollowViewer() {
+    }
+
+    private AccountManager manager = AccountManager.getInstance();
 
     @Override
     public void run() {
-        manager = AccountManager.getInstance();
-        ConsumerKey key = ConfigurationLodaer
-                .loadConsumerKey(".\\data\\keys.xml");
+        ConsumerKey key = ConfigurationLodaer.loadConsumerKey("keys.xml");
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setOAuthConsumerKey(key.getConsumerKey());
         cb.setOAuthConsumerSecret(key.getConsumerSecret());
@@ -34,18 +36,15 @@ public class FollowViewer implements Runnable {
         cb.setAsyncNumThreads(4);
         Configuration conf = cb.build();
         TwitterFactory tf = new TwitterFactory(conf);
-        ArrayList<AccessToken> keys = ConfigurationLodaer
-                .loadAccessToken(".\\data\\keys.xml");
+        ArrayList<AccessToken> keys = ConfigurationLodaer.loadAccessToken("keys.xml");
         Twitter twitter = tf.getInstance(keys.get(0));
+        manager.add(twitter);
         try {
             User target = twitter.verifyCredentials();
             NetWork network = new NetWork(twitter);
             List<User> follows_L = network.getFollows(target);
-            String[] follows = follows_L
-                    .stream()
-                    .<String> map(
-                            (v) -> String.format("%s@%s(%d)",
-                                    v.getScreenName(), v.getName(), v.getId()))
+            String[] follows = follows_L.stream()
+                    .<String>map((v) -> String.format("%s@%s(%d)", v.getScreenName(), v.getName(), v.getId()))
                     .toArray(String[]::new);
             for (String id : follows) {
                 System.out.println(id);
