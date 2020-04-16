@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.logger;
+package com.twitter.teruteru128.study.logger;
 
 import java.util.logging.Logger;
 
