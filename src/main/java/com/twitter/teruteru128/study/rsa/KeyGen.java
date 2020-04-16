@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.rsa;
+package com.twitter.teruteru128.study.rsa;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
