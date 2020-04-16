@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.sql;
+package com.twitter.teruteru128.study.sql;
 
 import java.io.IOException;
 import java.io.OutputStream;

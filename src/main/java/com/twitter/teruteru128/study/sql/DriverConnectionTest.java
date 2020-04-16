@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.sql;
+package com.twitter.teruteru128.study.sql;
 
 import java.sql.Connection;
 import java.sql.Driver;
