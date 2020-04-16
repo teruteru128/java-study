@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.math;
+package com.twitter.teruteru128.study.math;
 
 import java.math.BigInteger;
 
