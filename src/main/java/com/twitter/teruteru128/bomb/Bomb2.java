@@ -6,6 +6,9 @@ package com.twitter.teruteru128.bomb;
  */
 public class Bomb2 implements Bomb {
 
+    public Bomb2() {
+    }
+
     /**
      * (非 Javadoc)
      * 
@@ -13,9 +16,7 @@ public class Bomb2 implements Bomb {
      */
     @Override
     public void run() {
-        long i;
-        for (i = 0; i < 10000000000L; i++) {
-        }
+        new Thread(new Bomb1(), "bomblets").start();
     }
 
 }
