@@ -6,15 +6,28 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Main implements Runnable{
+public class Main implements Runnable {
+
+    /**
+     * 
+     */
     public Main() {
         this(DEFAULT_SERVER_PORT);
     }
+
+    /**
+     * 
+     */
     public Main(int port) {
         super();
         this.server_port = port;
     }
+
     volatile boolean stop;
+
+    /**
+     * 
+     */
     @Override
     public void run() {
         ServerSocket server = null;
@@ -22,7 +35,7 @@ public class Main implements Runnable{
         ExecutorService service = Executors.newSingleThreadExecutor();
         try {
             server = new ServerSocket(server_port);
-            while(!stop){
+            while (!stop) {
             }
             server.close();
         } catch (IOException e) {
