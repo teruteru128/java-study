@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.test.text;
+package com.twitter.teruteru128.study.text;
 
 /**
  * @author Teruteru
