@@ -25,7 +25,7 @@ public class Main {
         int responseCode = connection.getResponseCode();
         System.out.println(responseCode);
         var fields = connection.getHeaderFields();
-        if (responseCode == 200) {
+        if (responseCode == HttpURLConnection.HTTP_OK) {
             try (BufferedReader reader = new BufferedReader(
                     new InputStreamReader(connection.getInputStream(), Charset.forName("SJIS")))) {
                 reader.lines().forEach(System.out::println);

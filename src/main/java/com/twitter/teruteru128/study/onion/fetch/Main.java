@@ -17,7 +17,7 @@ public class Main {
         var connection = (HttpURLConnection) url.openConnection(proxy);
         connection.connect();
         int rescode = connection.getResponseCode();
-        if (rescode == 200) {
+        if (rescode == HttpURLConnection.HTTP_OK) {
             try (BufferedReader reader = new BufferedReader(
                     new InputStreamReader(connection.getInputStream(), "SJIS"))) {
                 reader.lines().map(l -> BBSThread.pattern.matcher(l)).filter(Matcher::matches)
