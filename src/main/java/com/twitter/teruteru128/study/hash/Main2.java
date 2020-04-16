@@ -38,7 +38,7 @@ public class Main2 {
             int mode = 1;
             Date date = GregorianCalendar.getInstance(Locale.JAPAN).getTime();
             DateFormat df = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL, Locale.JAPAN);
-            df = new SimpleDateFormat("y年M月d日 k時m分s秒", Locale.JAPAN);
+            DateFormat df2 = new SimpleDateFormat("y年M月d日 k時m分s秒", Locale.JAPAN);
             switch (mode) {
                 case 1:
                     sr.nextBytes(input);
@@ -70,7 +70,7 @@ public class Main2 {
                     Util.tweet("ねくろいど");
                     break;
                 case 3:
-                    String dateformat = df.format(date);
+                    String dateformat = df2.format(date);
                     Util.tweet(String.format("【BOT試験中】アップデート: %s", dateformat));
                     break;
                 case 4:
