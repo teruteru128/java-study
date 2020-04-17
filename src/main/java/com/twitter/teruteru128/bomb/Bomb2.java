@@ -6,10 +6,8 @@ package com.twitter.teruteru128.bomb;
  */
 public class Bomb2 implements Bomb {
 
-    private long a;
 
-    public Bomb2(long a) {
-        this.a = a;
+    public Bomb2() {
     }
 
     /**
@@ -19,7 +17,7 @@ public class Bomb2 implements Bomb {
      */
     @Override
     public void run() {
-        new Thread(new Bomb1(a + 1), "bomblets").start();
+        new Thread(new Bomb1(), "bomblets").start();
     }
 
 }
