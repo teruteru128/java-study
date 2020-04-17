@@ -25,10 +25,9 @@ public class Main extends Application {
      * 
      * @param stage {@inheritDoc}
      * @throws IOException ファイルリソースの読み込みに失敗したとき。
-     * @throws Exception
      */
     @Override
-    public void start(Stage stage) throws IOException, Exception {
+    public void start(Stage stage) throws IOException {
         var c = getClass();
         var mainUIURL = c.getResource("MainUI.fxml");
         VBox root = FXMLLoader.load(mainUIURL);

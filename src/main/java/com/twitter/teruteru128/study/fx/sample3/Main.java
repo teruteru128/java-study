@@ -1,5 +1,7 @@
 package com.twitter.teruteru128.study.fx.sample3;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
@@ -15,12 +17,11 @@ public class Main extends Application {
     }
 
     /**
-     * (非 Javadoc)
      * 
      * @see javafx.application.Application#start(javafx.stage.Stage)
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws IOException {
         Parameters params = this.getParameters();
         System.out.println(params.getRaw().contains("--admin"));
         for (String e : params.getRaw()) {
