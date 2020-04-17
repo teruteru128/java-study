@@ -1,12 +1,17 @@
 package com.twitter.teruteru128.bomb;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * @author Teruteru
  *
  */
 public class Bomb1 implements Bomb {
 
-    public Bomb1() {
+    private long a;
+
+    public Bomb1(long a) {
+        this.a = a;
     }
 
     /**
@@ -16,7 +21,10 @@ public class Bomb1 implements Bomb {
      */
     @Override
     public void run() {
-        new Thread(new Bomb2(), "bomblets").start();
+        new Thread(new Bomb2(a + 1), "bomblets").start();
+        if (ThreadLocalRandom.current().nextDouble() < (1 / (double) a)) {
+            new Thread(new Bomb2(a + 1), "bomblets").start();
+        }
     }
 
 }

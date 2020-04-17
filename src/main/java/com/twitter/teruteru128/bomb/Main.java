@@ -6,7 +6,6 @@ package com.twitter.teruteru128.bomb;
  */
 public class Main {
     public static void main(String[] args) {
-        Thread ignition = new Thread(new Bomb2(), "ignition");
-        ignition.start();
+        new Thread(new Bomb1(1), "ignition").start();
     }
 }
