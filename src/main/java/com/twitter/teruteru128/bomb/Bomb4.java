@@ -4,6 +4,6 @@ public class Bomb4 implements Bomb {
 
     @Override
     public void run() {
-        new Thread(new Bomb1(), "bomblets").start();
+        Main.service.submit(new Bomb1());
     }
 }
