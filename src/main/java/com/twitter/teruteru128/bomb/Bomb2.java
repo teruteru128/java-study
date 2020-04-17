@@ -17,7 +17,7 @@ public class Bomb2 implements Bomb {
      */
     @Override
     public void run() {
-        new Thread(new Bomb1(), "bomblets").start();
+        new Thread(new Bomb3(), "bomblets").start();
     }
 
 }
