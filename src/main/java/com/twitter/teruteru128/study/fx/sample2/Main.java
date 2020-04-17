@@ -1,5 +1,6 @@
 package com.twitter.teruteru128.study.fx.sample2;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import javafx.application.Application;
@@ -20,7 +21,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws IOException {
         Text text1 = new Text("Big italic red text");
         text1.setFill(Color.RED);
         Font font = null;

@@ -17,7 +17,7 @@ public class MyLauncher extends Application {
      * @inheritDoc
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         Circle circ = new Circle(40, 40, 30);
         circ.setFill(Color.RED);
         Group root = new Group(circ);
