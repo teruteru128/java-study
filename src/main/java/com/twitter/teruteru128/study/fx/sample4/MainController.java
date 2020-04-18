@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-
+import javafx.stage.Stage;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -22,8 +22,16 @@ public class MainController {
     public Button btnAdmin;
     public LinkedList<StatusUpdate> list1;
     public LinkedList<StatusUpdate> list2;
-    Twitter twitter = null;
-    public boolean adminMode = false;
+    private Twitter twitter = null;
+    private boolean adminMode = false;
+    private Stage stage;
+
+    /**
+     * @param stage the stage to set
+     */
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
     public MainController() {
         list1 = new LinkedList<StatusUpdate>();

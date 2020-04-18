@@ -14,10 +14,15 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         var c = getClass();
         var fxml = c.getResource("Main.fxml");
-        BorderPane root = FXMLLoader.load(fxml);
-        Scene scene = new Scene(root, 400, 400);
+        FXMLLoader loader = new FXMLLoader(fxml);
+        BorderPane root = loader.load();
+        MainController controller = loader.getController();
+        controller.setStage(primaryStage);
+
+        Scene scene = new Scene(root);
         var css = c.getResource("application.css");
         var cssef = css.toExternalForm();
+        System.out.println(cssef);
         scene.getStylesheets().add(cssef);
         primaryStage.setScene(scene);
         primaryStage.show();

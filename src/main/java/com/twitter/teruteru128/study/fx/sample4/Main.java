@@ -6,18 +6,24 @@ import java.util.Map;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
+    public Main() {
+    }
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         var c = getClass();
         var fxml = c.getResource("Main.fxml");
         FXMLLoader loader = new FXMLLoader(fxml);
-        GridPane root = loader.load();
+        Pane root = loader.load();
+        MainController controller = loader.getController();
+        controller.setStage(primaryStage);
         if (this.getParameters().getRaw().contains("--admin")) {
-            loader.<MainController>getController().setAdminMode(true);
+            controller.setAdminMode(true);
         }
         for (String s : this.getParameters().getRaw()) {
             System.out.printf("%s raw%n", s);

@@ -1,7 +1,7 @@
 
 /**
  * @author teruteru
- *
+ * @moduleGraph
  */
 module com.twitter.teruteru128.study {
     requires java.desktop;
@@ -28,10 +28,10 @@ module com.twitter.teruteru128.study {
     requires jakarta.mail;
     requires twitter.text;
 
-    exports com.twitter.teruteru128.study.fx.sample1;
-    exports com.twitter.teruteru128.study.fx.sample2;
-    exports com.twitter.teruteru128.study.fx.sample3;
-    exports com.twitter.teruteru128.study.fx.sample4;
-
+    opens com.twitter.teruteru128.application to javafx.fxml, javafx.graphics;
+    opens com.twitter.teruteru128.study.fx.sample1 to javafx.fxml, javafx.graphics;
+    opens com.twitter.teruteru128.study.fx.sample2 to javafx.fxml, javafx.graphics;
+    opens com.twitter.teruteru128.study.fx.sample3 to javafx.fxml, javafx.graphics;
+    opens com.twitter.teruteru128.study.fx.sample4 to javafx.fxml, javafx.graphics;
     opens com.twitter.teruteru128.study.jaxb to jakarta.xml.bind;
 }
