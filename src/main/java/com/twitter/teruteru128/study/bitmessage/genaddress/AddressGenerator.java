@@ -1,22 +1,23 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.math.BigInteger;
+import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
-import java.security.SecureRandom;
 import java.security.Security;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import jakarta.xml.bind.DatatypeConverter;
 
 import com.twitter.teruteru128.study.Base58;
 
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.ECPoint;
+
+import jakarta.xml.bind.DatatypeConverter;
 
 public class AddressGenerator implements Runnable {
 
@@ -42,10 +43,10 @@ public class AddressGenerator implements Runnable {
         }
         ExecutorService service = Executors.newCachedThreadPool();
         try {
-            byte[] potentialPrivSigningKey = new byte[32];
+            byte[] potentialPrivSigningKey = DatatypeConverter.parseBase64Binary("");
             byte[] potentialPubSigningKey = new byte[32];
-            SecureRandom random = new SecureRandom();
-            random.nextBytes(potentialPrivSigningKey);
+            // SecureRandom random = new SecureRandom();
+            // random.nextBytes(potentialPrivSigningKey);
             ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
             potentialPubSigningKey = g.multiply(new BigInteger(1, potentialPrivSigningKey)).normalize().getEncoded(false);
             var list = new ArrayList<Task>();
@@ -67,39 +68,20 @@ public class AddressGenerator implements Runnable {
                     list.add(new Task(new RequestComponent(potentialPrivSigningKey, potentialPubSigningKey, requireNlz)));
                 }
             }
+            System.out.printf("start : %s%n", LocalDateTime.now());
             var responseComponent = service.invokeAny(list);
+            System.out.printf("found : %s%n", LocalDateTime.now());
             service.shutdown();
             State.shutdown = 1;
-            byte[] potentialPrivEncryptionKey = responseComponent.getPrivateEncryptionKey();
+
+            var bmaddress = new BMAddress();
             byte[] ripe = responseComponent.getRipe();
             System.out.println(DatatypeConverter.printHexBinary(ripe));
-            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-            var bmaddress = new BMAddress();
             var address4 = bmaddress.encodeAddress(4, 1, ripe);
-            var privSigningKey = new byte[33];
-            privSigningKey[0] = (byte) 0x80;
-            System.arraycopy(potentialPrivSigningKey, 0, privSigningKey, 1, 32);
-            byte[] checksum = new byte[32];
-            sha256.update(privSigningKey);
-            sha256.digest(checksum, 0, 32);
-            sha256.update(checksum);
-            sha256.digest(checksum, 0, 32);
-            var tmp = new byte[privSigningKey.length + 4];
-            System.arraycopy(privSigningKey, 0, tmp, 0, privSigningKey.length);
-            System.arraycopy(checksum, 0, tmp, privSigningKey.length, 4);
-            // encode to base58
-            var privSigningKeyWIF = Base58.encode(tmp);
 
-            var privEncryptionKey = new byte[33];
-            privEncryptionKey[0] = (byte) 0x80;
-            System.arraycopy(potentialPrivEncryptionKey, 0, privEncryptionKey, 1, 32);
-            sha256.update(privEncryptionKey);
-            sha256.digest(checksum, 0, 32);
-            sha256.update(checksum);
-            sha256.digest(checksum, 0, 32);
-            System.arraycopy(privEncryptionKey, 0, tmp, 0, privEncryptionKey.length);
-            System.arraycopy(checksum, 0, tmp, privEncryptionKey.length, 4);
-            var privEncryptionKeyWIF = Base58.encode(tmp);
+            var privSigningKeyWIF = encodeWIF(potentialPrivSigningKey);
+            var privEncryptionKeyWIF = encodeWIF(responseComponent.getPrivateEncryptionKey());
+
             System.out.printf("[%s]%n", address4);
             System.out.println("label = relpace this label");
             System.out.println("enabled = true");
@@ -109,11 +91,29 @@ public class AddressGenerator implements Runnable {
             System.out.printf("privsigningkey = %s%n", privSigningKeyWIF);
             System.out.printf("privencryptionkey = %s%n", privEncryptionKeyWIF);
             System.out.println();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
         } finally {
-            if (!service.isShutdown())
+            if (!service.isShutdown()) {
                 service.shutdown();
+            }
         }
+    }
+
+    private static String encodeWIF(byte[] key) {
+        byte[] wrappedKey = new byte[37];
+        byte[] checksum = new byte[32];
+
+        wrappedKey[0] = (byte) 0x80;
+        System.arraycopy(key, 0, wrappedKey, 1, key.length);
+        try {
+            MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+            sha256.update(wrappedKey, 0, 33);
+            sha256.digest(checksum, 0, 32);
+            sha256.update(checksum, 0, 32);
+            sha256.digest(checksum, 0, 32);
+        } catch (NoSuchAlgorithmException e) {
+        } catch (DigestException e){
+        }
+        System.arraycopy(checksum, 0, wrappedKey, 33, 4);
+        return Base58.encode(wrappedKey);
     }
 }

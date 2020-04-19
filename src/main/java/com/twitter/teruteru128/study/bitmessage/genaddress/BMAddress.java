@@ -15,7 +15,7 @@ public class BMAddress {
     }
 
     public String encodeAddress(int version, int stream, byte[] ripe, int max) {
-        max = Math.min(max, 20);
+        max = Math.max(Math.min(max, 20), 1);
         if (version >= 2 && version < 4) {
             if (ripe.length != 20) {
                 throw new IllegalArgumentException(
