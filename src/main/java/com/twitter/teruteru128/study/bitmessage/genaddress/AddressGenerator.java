@@ -65,23 +65,10 @@ public class AddressGenerator implements Runnable {
             service.shutdown();
             State.shutdown = 1;
 
-            var bmaddress = new BMAddress();
             byte[] ripe = responseComponent.getRipe();
             System.out.println(DatatypeConverter.printHexBinary(ripe));
-            var address4 = bmaddress.encodeAddress(4, 1, ripe);
 
-            var privSigningKeyWIF = encodeWIF(responseComponent.getPrivateSigningKey());
-            var privEncryptionKeyWIF = encodeWIF(responseComponent.getPrivateEncryptionKey());
-
-            System.out.printf("[%s]%n", address4);
-            System.out.println("label = relpace this label");
-            System.out.println("enabled = true");
-            System.out.println("decoy = false");
-            System.out.println("noncetrialsperbyte = 1000");
-            System.out.println("payloadlengthextrabytes = 1000");
-            System.out.printf("privsigningkey = %s%n", privSigningKeyWIF);
-            System.out.printf("privencryptionkey = %s%n", privEncryptionKeyWIF);
-            System.out.println();
+            exportAddress(responseComponent);
         } finally {
             if (!service.isShutdown()) {
                 service.shutdown();
