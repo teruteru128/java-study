@@ -29,9 +29,9 @@ public class BMAddressGenerateSample {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
         // アドレスと鍵
-        String address = "BM-5oFuVbD6fpFMt4YmG52uqTmH7fYkxPs";
-        String privSigningKeyWIF = "5JfYqChJFSFpBkC1T2LZd4U8taG2jh9wMBrTzXdxq3xtMEpsHxA";
-        String privEncryptionKeyWIF = "5K97e9qf7rbVrbQMko3PRMuwMAnUM9ULkCkqL8UwRVPWGRoSTUs";
+        String address = "BM-5oGRoLfdW8fRkwwT99MFyABVXJxFgQx";
+        String privSigningKeyWIF = "5K4j8xBksS4puYLBMdQWgDMVjYQs6ByQ1FMGXsSmH5oy4uhjYFC";
+        String privEncryptionKeyWIF = "5KZ77nhgKLdaznkuCuVjmUxDjR9aAZ4bUtEG8ZxXXAxKS6HHoNf";
 
         // 鍵をデコード
         byte[] privSigningKey = Base58.decode(privSigningKeyWIF);

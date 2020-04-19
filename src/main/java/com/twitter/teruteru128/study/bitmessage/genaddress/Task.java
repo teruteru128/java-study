@@ -29,14 +29,10 @@ class Task implements Callable<ResponseComponent> {
         SecureRandom random = new SecureRandom();
         ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
         byte[] potentialPrivEncryptionKey = new byte[32];
-        final int requireNlz = components.getRequireNlz();
-        byte[] publicSigningKey = components.getList().get(0).getPublicKey();
         byte[] potentialPublicEncryptionKey = null;
-        byte[] ripe = new byte[20];
-        KeyPair[] sigKeys = components.getList().stream().map(KeyPair::clone).toArray(KeyPair[]::new);
-        int sigKeysLen = sigKeys.length;
-        KeyPair[] encKeys = new KeyPair[2500];
-        int encKeysLen = encKeys.length;
+        final int requireNlz = components.getRequireNlz();
+        KeyPair[] pairs = new KeyPair[2500];
+        int pairsLen = pairs.length;
         Ripe ripe1 = new Ripe();
         byte[] ripe2 = ripe1.getRipe();
         int nlz = 0;
@@ -50,24 +46,34 @@ class Task implements Callable<ResponseComponent> {
         } while (nlz < requireNlz);
         return new ResponseComponent(potentialPrivEncryptionKey, potentialPublicEncryptionKey, ripe);
         */
-        // int blockSize = 5;
+        // 予め署名鍵を作っておく必要すらなくない？
+        final int blockSize = 5;
+        int nextI = 0;
+        int nextJ = 0;
         while(true) {
-            for (int i = 0; i < 2500; i++) {
+            for (int i = 0; i < pairsLen; i++) {
                 random.nextBytes(potentialPrivEncryptionKey);
                 potentialPublicEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize().getEncoded(false);
-                encKeys[i] = new KeyPair(potentialPrivEncryptionKey, potentialPublicEncryptionKey);
+                pairs[i] = new KeyPair(potentialPrivEncryptionKey, potentialPublicEncryptionKey);
             }
-            for (int i = 0; i < sigKeysLen; i++) {
-                for (int j = 0; j < encKeysLen; j++) {
-                    ripe1.ripe(sigKeys[i].getPublicKey(), encKeys[j].getPublicKey());
-                    for (nlz = 0; ripe2[nlz] == 0 && nlz < 20; nlz++) {
-                    }
-                    if(nlz >= requireNlz) {
-                        return new ResponseComponent(sigKeys[i], encKeys[j], ripe2);
+            for (int i = 0; i < pairsLen; i += blockSize) {
+                for (int j = 0; j < pairsLen; j += blockSize) {
+                    nextI = i + blockSize;
+                    for (int ii = i; ii < nextI; ii++) {
+                        nextJ = j + blockSize;
+                        for (int jj = j; jj < nextJ; jj++) {
+                            ripe1.ripe(pairs[ii].getPublicKey(), pairs[jj].getPublicKey());
+                            for (nlz = 0; ripe2[nlz] == 0 && nlz < 20; nlz++) {
+                            }
+                            if(nlz >= requireNlz) {
+                                var component = new ResponseComponent(pairs[ii], pairs[jj], ripe2);
+                                AddressGenerator.exportAddress(component);
+                                return component;
+                            }
+                        }
                     }
                 }
             }
-            System.out.println("アッー！");
         }
     }
 }

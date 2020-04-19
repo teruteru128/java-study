@@ -11,8 +11,8 @@ public class Ripe {
 
     private MessageDigest sha512;
     private MessageDigest ripemd160;
-    private byte[] cache64 = new byte[64];
-    private byte[] ripe = new byte[20];
+    private final byte[] cache64 = new byte[64];
+    private final byte[] ripe = new byte[20];
 
     public Ripe() {
         try {
