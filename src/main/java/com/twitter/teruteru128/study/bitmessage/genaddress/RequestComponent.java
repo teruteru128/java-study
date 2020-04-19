@@ -1,31 +1,20 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
+import java.util.List;
+
 // Number of Leading Zero
 public class RequestComponent {
 
-    private byte[] privateSigningKey;
-    private byte[] publicSigningKey;
+    private List<KeyPair> list;
     private int requireNlz;
 
     public RequestComponent(byte[] priSigningKey, byte[] pubSigningKey, int nlzbytes) {
-        super();
-        this.privateSigningKey = priSigningKey.clone();
-        this.publicSigningKey = pubSigningKey.clone();
+        this(List.of(new KeyPair(priSigningKey, pubSigningKey)), nlzbytes);
+    }
+
+    public RequestComponent(List<KeyPair> list, int nlzbytes) {
+        this.list = list;
         this.requireNlz = nlzbytes;
-    }
-
-    /**
-     * @return the privateSigningKey
-     */
-    public byte[] getPrivateSigningKey() {
-        return privateSigningKey;
-    }
-
-    /**
-     * @return the publicSigningKey
-     */
-    public byte[] getPublicSigningKey() {
-        return publicSigningKey;
     }
 
     /**
@@ -33,5 +22,12 @@ public class RequestComponent {
      */
     public int getRequireNlz() {
         return requireNlz;
+    }
+
+    /**
+     * @return the list
+     */
+    public List<KeyPair> getList() {
+        return list;
     }
 }

@@ -5,6 +5,7 @@ import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
+import java.security.SecureRandom;
 import java.security.Security;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -43,12 +44,16 @@ public class AddressGenerator implements Runnable {
         }
         ExecutorService service = Executors.newCachedThreadPool();
         try {
-            byte[] potentialPrivSigningKey = DatatypeConverter.parseBase64Binary("");
+            byte[] potentialPrivSigningKey = new byte[32];
             byte[] potentialPubSigningKey = new byte[32];
-            // SecureRandom random = new SecureRandom();
-            // random.nextBytes(potentialPrivSigningKey);
-            ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
-            potentialPubSigningKey = g.multiply(new BigInteger(1, potentialPrivSigningKey)).normalize().getEncoded(false);
+            SecureRandom random = new SecureRandom();
+            ArrayList<KeyPair> pairs = new ArrayList<>();
+            for (int i = 0; i < 2500; i++) {
+                random.nextBytes(potentialPrivSigningKey);
+                ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
+                potentialPubSigningKey = g.multiply(new BigInteger(1, potentialPrivSigningKey)).normalize().getEncoded(false);
+                pairs.add(new KeyPair(potentialPrivSigningKey, potentialPubSigningKey));
+            }
             var list = new ArrayList<Task>();
             int requireNlz = 4;
             {
@@ -65,7 +70,7 @@ public class AddressGenerator implements Runnable {
                     }
                 }
                 for (int i = 0; i < tasknum; i++) {
-                    list.add(new Task(new RequestComponent(potentialPrivSigningKey, potentialPubSigningKey, requireNlz)));
+                    list.add(new Task(new RequestComponent(pairs, requireNlz)));
                 }
             }
             System.out.printf("start : %s%n", LocalDateTime.now());
@@ -79,7 +84,7 @@ public class AddressGenerator implements Runnable {
             System.out.println(DatatypeConverter.printHexBinary(ripe));
             var address4 = bmaddress.encodeAddress(4, 1, ripe);
 
-            var privSigningKeyWIF = encodeWIF(potentialPrivSigningKey);
+            var privSigningKeyWIF = encodeWIF(responseComponent.getPrivateSigningKey());
             var privEncryptionKeyWIF = encodeWIF(responseComponent.getPrivateEncryptionKey());
 
             System.out.printf("[%s]%n", address4);

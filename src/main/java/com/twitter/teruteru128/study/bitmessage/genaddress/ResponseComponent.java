@@ -2,14 +2,13 @@ package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 public class ResponseComponent {
 
-    private byte[] privateEncryptionKey;
-    private byte[] publicEncryptionKey;
+    private KeyPair signingKeyPair;
+    private KeyPair encryptionKeyPair;
     private byte[] ripe;
 
-    public ResponseComponent(byte[] privEncryptionKey, byte[] pubEncryptionKey, byte[] ripe) {
-        super();
-        this.privateEncryptionKey = privEncryptionKey.clone();
-        this.publicEncryptionKey = pubEncryptionKey.clone();
+    public ResponseComponent(KeyPair signingKeyPair, KeyPair encryptionKeyPair, byte[] ripe) {
+        this.signingKeyPair = signingKeyPair.clone();
+        this.encryptionKeyPair = encryptionKeyPair.clone();
         this.ripe = ripe.clone();
     }
 
@@ -17,14 +16,42 @@ public class ResponseComponent {
      * @return the privateEncryptionKey
      */
     public byte[] getPrivateEncryptionKey() {
-        return privateEncryptionKey;
+        return encryptionKeyPair.getPrivateKey();
+    }
+
+    /**
+     * @return the publicEncryptionKey
+     */
+    public byte[] getPublicSigningKey() {
+        return encryptionKeyPair.getPublicKey();
+    }
+
+    /**
+     * @return the privateEncryptionKey
+     */
+    public byte[] getPrivateSigningKey() {
+        return signingKeyPair.getPrivateKey();
     }
 
     /**
      * @return the publicEncryptionKey
      */
     public byte[] getPublicEncryptionKey() {
-        return publicEncryptionKey;
+        return signingKeyPair.getPublicKey();
+    }
+
+    /**
+     * @return the signingKeyPair
+     */
+    public KeyPair getSigningKeyPair() {
+        return signingKeyPair;
+    }
+
+    /**
+     * @return the encryptionKeyPair
+     */
+    public KeyPair getEncryptionKeyPair() {
+        return encryptionKeyPair;
     }
 
     /**

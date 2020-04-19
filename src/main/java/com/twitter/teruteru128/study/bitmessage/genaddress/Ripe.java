@@ -12,7 +12,7 @@ public class Ripe {
     private MessageDigest sha512;
     private MessageDigest ripemd160;
     private byte[] cache64 = new byte[64];
-    private byte[] cache20 = new byte[20];
+    private byte[] ripe = new byte[20];
 
     public Ripe() {
         try {
@@ -32,9 +32,16 @@ public class Ripe {
             sha512.update(publicEncryptionKey, 0, 65);
             sha512.digest(cache64, 0, 64);
             ripemd160.update(cache64, 0, 64);
-            ripemd160.digest(cache20, 0, 20);
+            ripemd160.digest(ripe, 0, 20);
         } catch (DigestException e) {
         }
-        return cache20;
+        return ripe;
+    }
+
+    /**
+     * @return the ripe
+     */
+    public byte[] getRipe() {
+        return ripe;
     }
 }
