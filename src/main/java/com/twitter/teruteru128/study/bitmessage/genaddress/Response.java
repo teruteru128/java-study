@@ -2,7 +2,7 @@ package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.io.Serializable;
 
-public class ResponseComponent implements Serializable {
+public class Response implements Serializable {
 
     private static final long serialVersionUID = 1;
 
@@ -10,7 +10,7 @@ public class ResponseComponent implements Serializable {
     private KeyPair encryptionKeyPair;
     private byte[] ripe;
 
-    public ResponseComponent(KeyPair signingKeyPair, KeyPair encryptionKeyPair, byte[] ripe) {
+    public Response(KeyPair signingKeyPair, KeyPair encryptionKeyPair, byte[] ripe) {
         this.signingKeyPair = signingKeyPair.clone();
         this.encryptionKeyPair = encryptionKeyPair.clone();
         this.ripe = ripe.clone();

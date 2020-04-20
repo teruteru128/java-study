@@ -1,12 +1,12 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 // Number of Leading Zero
-public class RequestComponent {
+public class Request {
 
     private int requireNlz;
     private int taskID;
 
-    public RequestComponent(int nlzbytes, int taskID) {
+    public Request(int nlzbytes, int taskID) {
         this.requireNlz = nlzbytes;
         this.taskID = taskID;
     }

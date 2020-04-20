@@ -10,12 +10,12 @@ import java.util.concurrent.Callable;
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.math.ec.ECPoint;
 
-class Task implements Callable<ResponseComponent> {
+class Task implements Callable<Response> {
 
-    private RequestComponent components;
+    private Request request;
 
-    public Task(RequestComponent components) {
-        this.components = components;
+    public Task(Request request) {
+        this.request = request;
     }
 
     /**
@@ -26,12 +26,12 @@ class Task implements Callable<ResponseComponent> {
      * @see https://qiita.com/Syo_pr/items/92b3cf7d7fc5dab4a3a7#%E8%A1%8C%E5%88%97%E8%A1%8C%E5%88%97%E7%A9%8D%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96
      */
     @Override
-    public ResponseComponent call() throws NoSuchAlgorithmException, DigestException {
+    public Response call() throws NoSuchAlgorithmException, DigestException {
         SecureRandom random = new SecureRandom();
         ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
         byte[] potentialPrivEncryptionKey = new byte[32];
         byte[] potentialPublicEncryptionKey = null;
-        final int requireNlz = components.getRequireNlz();
+        final int requireNlz = request.getRequireNlz();
         KeyPair[] pairs = new KeyPair[8192];
         int pairsLen = pairs.length;
         Ripe ripe1 = new Ripe();
@@ -69,7 +69,7 @@ class Task implements Callable<ResponseComponent> {
                             for (nlz = 0; ripe2[nlz] == 0 && nlz < 20; nlz++) {
                             }
                             if(nlz >= requireNlz) {
-                                var component = new ResponseComponent(pairs[ii], pairs[jj], ripe2);
+                                var component = new Response(pairs[ii], pairs[jj], ripe2);
                                 AddressGenerator.exportAddress(component);
                                 System.out.printf("aargh!     (%s) : %s%n", toString(), LocalDateTime.now());
                                 return component;
@@ -84,6 +84,6 @@ class Task implements Callable<ResponseComponent> {
 
     @Override
     public String toString() {
-        return "Task-" + components.getTaskID() + ", require " + components.getRequireNlz() + "byte NLZ";
+        return "Task-" + request.getTaskID() + ", require " + request.getRequireNlz() + "byte NLZ";
     }
 }

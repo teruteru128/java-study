@@ -56,7 +56,7 @@ public class AddressGenerator implements Runnable {
                     }
                 }
                 for (int i = 0; i < tasknum; i++) {
-                    list.add(new Task(new RequestComponent(requireNlz, i)));
+                    list.add(new Task(new Request(requireNlz, i)));
                 }
             }
             System.out.printf("start : %s%n", LocalDateTime.now());
@@ -76,7 +76,7 @@ public class AddressGenerator implements Runnable {
         }
     }
 
-    public static void exportAddress(ResponseComponent component) {
+    public static void exportAddress(Response component) {
         byte[] ripe = component.getRipe();
         var bmaddress = new BMAddress();
         var address4 = bmaddress.encodeAddress(4, 1, ripe);
