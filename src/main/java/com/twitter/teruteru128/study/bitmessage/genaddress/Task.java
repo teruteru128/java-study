@@ -52,7 +52,7 @@ class Task implements Callable<ResponseComponent> {
         int nextI = 0;
         int nextJ = 0;
         while(true) {
-            System.out.printf("uho(%s) : %s%n", toString(), LocalDateTime.now());
+            System.out.printf("uho        (%s) : %s%n", toString(), LocalDateTime.now());
             for (int i = 0; i < pairsLen; i++) {
                 random.nextBytes(potentialPrivEncryptionKey);
                 potentialPublicEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize().getEncoded(false);
@@ -71,14 +71,14 @@ class Task implements Callable<ResponseComponent> {
                             if(nlz >= requireNlz) {
                                 var component = new ResponseComponent(pairs[ii], pairs[jj], ripe2);
                                 AddressGenerator.exportAddress(component);
-                                System.out.printf("aargh!(%s) : %s%n", toString(), LocalDateTime.now());
+                                System.out.printf("aargh!     (%s) : %s%n", toString(), LocalDateTime.now());
                                 return component;
                             }
                         }
                     }
                 }
             }
-            System.out.printf("Yaranaika(%s) : %s%n", toString(), LocalDateTime.now());
+            System.out.printf("Yaranaika  (%s) : %s%n", toString(), LocalDateTime.now());
         }
     }
 
