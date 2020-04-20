@@ -51,7 +51,7 @@ class Producer implements Callable<Response> {
         BlockingQueue<Response> queue = Queues.getResponseQueue();
         ArrayList<Response> waitList = new ArrayList<>();
         */
-        // 予め署名鍵を作っておく必要すらなくない？
+        // TODO 一つのでかいテーブルを全スレッド協調して計算する
         final int blockSize = 8;
         int nextI = 0;
         int nextJ = 0;
