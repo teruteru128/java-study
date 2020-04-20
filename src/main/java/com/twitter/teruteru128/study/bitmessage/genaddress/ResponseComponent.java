@@ -1,6 +1,10 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
-public class ResponseComponent {
+import java.io.Serializable;
+
+public class ResponseComponent implements Serializable {
+
+    private static final long serialVersionUID = 1;
 
     private KeyPair signingKeyPair;
     private KeyPair encryptionKeyPair;
