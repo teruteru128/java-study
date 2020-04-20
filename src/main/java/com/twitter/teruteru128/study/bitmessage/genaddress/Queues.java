@@ -7,12 +7,15 @@ class Queues {
     /**
      * オリジナルはタプルで実装されています。
      */
-    private static final BlockingQueue<AddressGeneratorRequest> ADDRESS_GENERATOR_QUEUE = new LinkedBlockingQueue<>();
+    private static final BlockingQueue<Response> RESPONSE_QUEUE = new LinkedBlockingQueue<>();
 
     private Queues() {
     }
 
-    public static BlockingQueue<AddressGeneratorRequest> getAddressGeneratorQueue() {
-        return ADDRESS_GENERATOR_QUEUE;
+    /**
+     * @return the responseQueue
+     */
+    public static BlockingQueue<Response> getResponseQueue() {
+        return RESPONSE_QUEUE;
     }
 }

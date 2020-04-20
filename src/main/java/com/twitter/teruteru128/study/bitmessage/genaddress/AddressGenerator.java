@@ -16,6 +16,9 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import jakarta.xml.bind.DatatypeConverter;
 
+/**
+ * Producer-Consumerパターンを使い、プロデューサースレッドで鍵ペアを生成、コンシューマースレッドでサーバーへ送信
+ */
 public class AddressGenerator implements Runnable {
 
     public AddressGenerator() {
@@ -38,10 +41,11 @@ public class AddressGenerator implements Runnable {
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
-        ExecutorService service = Executors.newCachedThreadPool();
+        ExecutorService service1 = Executors.newCachedThreadPool();
+        //ScheduledExecutorService service2 = Executors.newScheduledThreadPool(1);
         try {
             var list = new ArrayList<Task>();
-            int requireNlz = 4;
+            int requireNlz = 5;
             {
                 int tasknum = 2;
                 int tmp = 2;
@@ -60,9 +64,11 @@ public class AddressGenerator implements Runnable {
                 }
             }
             System.out.printf("start : %s%n", LocalDateTime.now());
-            var responseComponent = service.invokeAny(list);
+            // TODO メインスレッドに戻さずに無限ループさせる
+            var responseComponent = service1.invokeAny(list);
             System.out.printf("found : %s%n", LocalDateTime.now());
-            service.shutdown();
+            //service2.scheduleAtFixedRate(new ResponseConsumer(), 1, 1, TimeUnit.HOURS);
+            service1.shutdown();
             State.shutdown = 1;
 
             byte[] ripe = responseComponent.getRipe();
@@ -70,9 +76,10 @@ public class AddressGenerator implements Runnable {
 
             exportAddress(responseComponent);
         } finally {
-            if (!service.isShutdown()) {
-                service.shutdown();
+            if (!service1.isShutdown()) {
+                service1.shutdown();
             }
+            //service2.shutdown();
         }
     }
 
