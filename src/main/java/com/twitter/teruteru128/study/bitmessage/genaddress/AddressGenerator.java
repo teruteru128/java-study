@@ -56,7 +56,7 @@ public class AddressGenerator implements Runnable {
                     }
                 }
                 for (int i = 0; i < tasknum; i++) {
-                    list.add(new Task(new RequestComponent(requireNlz)));
+                    list.add(new Task(new RequestComponent(requireNlz, i)));
                 }
             }
             System.out.printf("start : %s%n", LocalDateTime.now());

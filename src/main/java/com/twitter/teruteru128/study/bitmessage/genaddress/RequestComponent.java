@@ -4,9 +4,11 @@ package com.twitter.teruteru128.study.bitmessage.genaddress;
 public class RequestComponent {
 
     private int requireNlz;
+    private int taskID;
 
-    public RequestComponent(int nlzbytes) {
+    public RequestComponent(int nlzbytes, int taskID) {
         this.requireNlz = nlzbytes;
+        this.taskID = taskID;
     }
 
     /**
@@ -14,6 +16,13 @@ public class RequestComponent {
      */
     public int getRequireNlz() {
         return requireNlz;
+    }
+
+    /**
+     * @return the taskID
+     */
+    public int getTaskID() {
+        return taskID;
     }
 
 }
