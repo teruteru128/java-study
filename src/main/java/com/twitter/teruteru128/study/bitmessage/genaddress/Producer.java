@@ -10,11 +10,11 @@ import java.util.concurrent.Callable;
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.math.ec.ECPoint;
 
-class Task implements Callable<Response> {
+class Producer implements Callable<Response> {
 
     private Request request;
 
-    public Task(Request request) {
+    public Producer(Request request) {
         this.request = request;
     }
 

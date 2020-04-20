@@ -44,7 +44,7 @@ public class AddressGenerator implements Runnable {
         ExecutorService service1 = Executors.newCachedThreadPool();
         //ScheduledExecutorService service2 = Executors.newScheduledThreadPool(1);
         try {
-            var list = new ArrayList<Task>();
+            var list = new ArrayList<Producer>();
             int requireNlz = 5;
             {
                 int tasknum = 2;
@@ -60,7 +60,7 @@ public class AddressGenerator implements Runnable {
                     }
                 }
                 for (int i = 0; i < tasknum; i++) {
-                    list.add(new Task(new Request(requireNlz, i)));
+                    list.add(new Producer(new Request(requireNlz, i)));
                 }
             }
             System.out.printf("start : %s%n", LocalDateTime.now());
