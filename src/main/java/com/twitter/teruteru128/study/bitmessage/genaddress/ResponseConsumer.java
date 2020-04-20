@@ -9,7 +9,7 @@ import java.util.concurrent.BlockingQueue;
  */
 public class ResponseConsumer implements Runnable {
 
-    private final ArrayList<Response> resonseShelter = new ArrayList<>();
+    private final ArrayList<Response> responseShelter = new ArrayList<>();
 
     public ResponseConsumer() {
     }
@@ -29,15 +29,15 @@ public class ResponseConsumer implements Runnable {
             queue.drainTo(responses);
         }
         // 避難リストの中身をチェックして取り出す
-        if (!resonseShelter.isEmpty()) {
-            responses.addAll(resonseShelter);
-            resonseShelter.clear();
+        if (!responseShelter.isEmpty()) {
+            responses.addAll(responseShelter);
+            responseShelter.clear();
         }
         // リストに取ったらサーバーへ接続して転送
         try {
             throw new IOException();
         } catch (IOException e) {
-            resonseShelter.addAll(responses);
+            responseShelter.addAll(responses);
         }
         // 送信に失敗したらインスタンスのリストへ退避
     }
