@@ -48,7 +48,7 @@ public class AddressGenerator implements Runnable {
                 for (var arg : args) {
                     try {
                         tmp = Integer.parseInt(arg, 10);
-                        if(tmp >= 1){
+                        if (tmp >= 1) {
                             tasknum = tmp;
                         }
                     } catch (NumberFormatException e) {
@@ -82,15 +82,17 @@ public class AddressGenerator implements Runnable {
         var address4 = bmaddress.encodeAddress(4, 1, ripe);
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
         var privEncryptionKeyWIF = encodeWIF(component.getPrivateEncryptionKey());
-        System.out.printf("[%s]%n", address4);
-        System.out.println("label = relpace this label");
-        System.out.println("enabled = true");
-        System.out.println("decoy = false");
-        System.out.println("noncetrialsperbyte = 1000");
-        System.out.println("payloadlengthextrabytes = 1000");
-        System.out.printf("privsigningkey = %s%n", privSigningKeyWIF);
-        System.out.printf("privencryptionkey = %s%n", privEncryptionKeyWIF);
-        System.out.println();
+        synchronized (System.out) {
+            System.out.printf("[%s]%n", address4);
+            System.out.println("label = relpace this label");
+            System.out.println("enabled = true");
+            System.out.println("decoy = false");
+            System.out.println("noncetrialsperbyte = 1000");
+            System.out.println("payloadlengthextrabytes = 1000");
+            System.out.printf("privsigningkey = %s%n", privSigningKeyWIF);
+            System.out.printf("privencryptionkey = %s%n", privEncryptionKeyWIF);
+            System.out.println();
+        }
     }
 
     public static String encodeWIF(byte[] key) {
@@ -106,7 +108,7 @@ public class AddressGenerator implements Runnable {
             sha256.update(checksum, 0, 32);
             sha256.digest(checksum, 0, 32);
         } catch (NoSuchAlgorithmException e) {
-        } catch (DigestException e){
+        } catch (DigestException e) {
         }
         System.arraycopy(checksum, 0, wrappedKey, 33, 4);
         return Base58.encode(wrappedKey);
