@@ -56,14 +56,11 @@ class Producer implements Callable<Response> {
         int nextI = 0;
         int nextJ = 0;
         while (true) {
-            System.out.printf("uho        (%s) : %s%n", toString(), LocalDateTime.now());
             for (int i = 0; i < pairsLen; i++) {
                 random.nextBytes(potentialPrivEncryptionKey);
-                potentialPublicEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize()
-                        .getEncoded(false);
+                potentialPublicEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize().getEncoded(false);
                 pairs[i] = new KeyPair(potentialPrivEncryptionKey, potentialPublicEncryptionKey);
             }
-            System.out.printf("Nice guy...(%s) : %s%n", toString(), LocalDateTime.now());
             for (int i = 0; i < pairsLen; i += blockSize) {
                 for (int j = 0; j < pairsLen; j += blockSize) {
                     nextI = i + blockSize;
@@ -103,12 +100,11 @@ class Producer implements Callable<Response> {
                 }
             }
             */
-            System.out.printf("Yaranaika  (%s) : %s%n", toString(), LocalDateTime.now());
         }
     }
 
     @Override
     public String toString() {
-        return "Task-" + request.getTaskID() + ", require " + request.getRequireNlz() + "byte NLZ";
+        return new StringBuilder("Task-").append(request.getTaskID()).append(", require ").append(request.getRequireNlz()).append("byte NLZ").toString();
     }
 }

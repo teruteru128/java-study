@@ -44,7 +44,7 @@ public class AddressGenerator implements Runnable {
         ExecutorService service1 = Executors.newCachedThreadPool();
         //ScheduledExecutorService service2 = Executors.newScheduledThreadPool(1);
         try {
-            var list = new ArrayList<Producer>();
+            var tasks = new ArrayList<Producer>();
             int requireNlz = 5;
             {
                 int tasknum = 2;
@@ -60,21 +60,23 @@ public class AddressGenerator implements Runnable {
                     }
                 }
                 for (int i = 0; i < tasknum; i++) {
-                    list.add(new Producer(new Request(requireNlz, i)));
+                    tasks.add(new Producer(new Request(requireNlz, i)));
                 }
             }
             System.out.printf("start : %s%n", LocalDateTime.now());
             // TODO メインスレッドに戻さずに無限ループさせる
-            var responseComponent = service1.invokeAny(list);
+            var response = service1.invokeAny(tasks);
+            //List<Future<Response>> futures = service1.invokeAll(tasks);
             System.out.printf("found : %s%n", LocalDateTime.now());
             //service2.scheduleAtFixedRate(new ResponseConsumer(), 1, 1, TimeUnit.HOURS);
+            //service2.scheduleAtFixedRate(System::gc, 30, 30, TimeUnit.MINUTES);
             service1.shutdown();
             State.shutdown = 1;
 
-            byte[] ripe = responseComponent.getRipe();
+            byte[] ripe = response.getRipe();
             System.out.println(DatatypeConverter.printHexBinary(ripe));
 
-            exportAddress(responseComponent);
+            exportAddress(response);
         } finally {
             if (!service1.isShutdown()) {
                 service1.shutdown();
