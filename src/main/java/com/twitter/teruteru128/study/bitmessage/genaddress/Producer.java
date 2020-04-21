@@ -32,7 +32,7 @@ class Producer implements Callable<Response> {
         final byte[] potentialPrivEncryptionKey = new byte[32];
         byte[] potentialPublicEncryptionKey = null;
         final int requireNlz = request.getRequireNlz();
-        final KeyPair[] pairs = new KeyPair[4096];
+        final KeyPair[] pairs = new KeyPair[8192];
         KeyPair pairI = null;
         byte[] iPublicKey = null;
         final int pairsLen = pairs.length;

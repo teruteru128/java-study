@@ -29,47 +29,79 @@ public class BMAddressGenerateSample {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
         // アドレスと鍵
-        String address = "BM-5oGRoLfdW8fRkwwT99MFyABVXJxFgQx";
-        String privSigningKeyWIF = "5K4j8xBksS4puYLBMdQWgDMVjYQs6ByQ1FMGXsSmH5oy4uhjYFC";
-        String privEncryptionKeyWIF = "5KZ77nhgKLdaznkuCuVjmUxDjR9aAZ4bUtEG8ZxXXAxKS6HHoNf";
+        final String address = "BM-pLHGovVQKxCYBp4tsWhAahaTiqyo9";
+        final String privSigningKeyWIF = "5JMFicjiQ8vGpqCH2JkSnjsCu4iT55ZZNrPWErdadfbdYUzmqyV";
+        final String privEncryptionKeyWIF = "5Kc8jRTzoqHC32txRseVYZWmrx7CmjMeGv1pnjXjTg3Dgda8LSF";
 
         // 鍵をデコード
-        byte[] privSigningKey = Base58.decode(privSigningKeyWIF);
-        byte[] privEncryptionKey = Base58.decode(privEncryptionKeyWIF);
+        final byte[] privSigningKey = Base58.decode(privSigningKeyWIF);
+        final byte[] privEncryptionKey = Base58.decode(privEncryptionKeyWIF);
 
         // 鍵のチェックサムを検証
-        MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+        final MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
+        final byte[] sha256hash = new byte[32];
+
         sha256.update(privSigningKey, 0, 33);
-        byte[] checksum = sha256.digest(sha256.digest());
-        System.out.println(Arrays.equals(privSigningKey, 33, 37, checksum, 0, 4));
+        sha256.digest(sha256hash, 0, 32);
+        sha256.update(sha256hash, 0, 32);
+        sha256.digest(sha256hash, 0, 32);
+        System.out.print("private Signing Key : checksum ");
+        System.out.println(Arrays.equals(privSigningKey, 33, 37, sha256hash, 0, 4) ? "verified" : "not verified");
+
         sha256.update(privEncryptionKey, 0, 33);
-        checksum = sha256.digest(sha256.digest());
-        System.out.println(Arrays.equals(privEncryptionKey, 33, 37, checksum, 0, 4));
+        sha256.digest(sha256hash, 0, 32);
+        sha256.update(sha256hash, 0, 32);
+        sha256.digest(sha256hash, 0, 32);
+        System.out.print("private Encryption Key : checksum ");
+        System.out.println(Arrays.equals(privEncryptionKey, 33, 37, sha256hash, 0, 4) ? "verified" : "not verified");
 
         // 公開鍵を導出
-        byte[] posPrivSigningKey = Arrays.copyOfRange(privSigningKey, 1, 33);
-        byte[] posPrivEncryptionKey = Arrays.copyOfRange(privEncryptionKey, 1, 33);
-        ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
-        byte[] pubSigningKey = g.multiply(new BigInteger(1, posPrivSigningKey)).normalize().getEncoded(false);
-        byte[] pubEncryptionKey = g.multiply(new BigInteger(1, posPrivEncryptionKey)).normalize().getEncoded(false);
+        final byte[] posPrivSigningKey = Arrays.copyOfRange(privSigningKey, 1, 33);
+        final byte[] posPrivEncryptionKey = Arrays.copyOfRange(privEncryptionKey, 1, 33);
+
+        final ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
+
+        final ECPoint pubSigningPoint = g.multiply(new BigInteger(1, posPrivSigningKey)).normalize();
+        final byte[] pubSigningKey = pubSigningPoint.getEncoded(false);
+        final ECPoint pubEncryptionPoint = g.multiply(new BigInteger(1, posPrivEncryptionKey)).normalize();
+        final byte[] pubEncryptionKey = pubEncryptionPoint.getEncoded(false);
 
         // アドレスと鍵が一致することを検証
-        MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
-        MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
-        sha512.update(pubSigningKey);
-        sha512.update(pubEncryptionKey);
-        byte[] ripe = ripemd160.digest(sha512.digest());
+        final MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
+        final MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
+        final byte[] sha512hash = new byte[64];
+        final byte[] ripe = new byte[20];
+
+        sha512.update(pubSigningKey, 0, 65);
+        sha512.update(pubEncryptionKey, 0, 65);
+        sha512.digest(sha512hash, 0, 64);
+        ripemd160.update(sha512hash, 0, 64);
+        ripemd160.digest(ripe, 0, 20);
+        System.out.print("ripe : ");
         System.out.println(DatatypeConverter.printHexBinary(ripe));
-        BMAddress bmAddress = new BMAddress();
-        String address4 = bmAddress.encodeAddress(4, 1, ripe);
-        System.out.println(address4);
-        System.out.println(address4.equals(address));
-        String address3 = bmAddress.encodeAddress(3, 1, ripe);
-        System.out.println(address3);
-        System.out.println(address3.equals(address));
-        String address3_2 = bmAddress.encodeAddress(3, 1, ripe, 2);
-        System.out.println(address3_2);
-        System.out.println(address3_2.equals(address));
+
+        final BMAddress bmAddress = new BMAddress();
+
+        final String address4 = bmAddress.encodeAddress(4, 1, ripe);
+        System.out.print("          v4 address calculated from ripe : ");
+        System.out.print(address4);
+        System.out.print(" (");
+        System.out.print(address4.equals(address) ? "matched" : "not matched");
+        System.out.println(")");
+
+        final String address3 = bmAddress.encodeAddress(3, 1, ripe);
+        System.out.print("unlimited v3 address calculated from ripe : ");
+        System.out.print(address3);
+        System.out.print(" (");
+        System.out.print(address3.equals(address) ? "matched" : "not matched");
+        System.out.println(")");
+
+        final String address3_2 = bmAddress.encodeAddress(3, 1, ripe, 2);
+        System.out.print("  limited v3 address calculated from ripe : ");
+        System.out.print(address3_2);
+        System.out.print(" (");
+        System.out.print(address3_2.equals(address) ? "matched" : "not matched");
+        System.out.println(")");
     }
 
 }
