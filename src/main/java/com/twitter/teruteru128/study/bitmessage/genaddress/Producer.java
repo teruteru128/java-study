@@ -13,9 +13,11 @@ import org.bouncycastle.math.ec.ECPoint;
 class Producer implements Callable<Response> {
 
     private Request request;
+    private final String string;
 
     public Producer(Request request) {
         this.request = request;
+        string = new StringBuilder("Task-").append(request.getTaskID()).toString();
     }
 
     /**
@@ -32,7 +34,7 @@ class Producer implements Callable<Response> {
         final byte[] potentialPrivEncryptionKey = new byte[32];
         byte[] potentialPublicEncryptionKey = null;
         final int requireNlz = request.getRequireNlz();
-        final KeyPair[] pairs = new KeyPair[8192];
+        final KeyPair[] pairs = new KeyPair[16384];
         KeyPair pairI = null;
         byte[] iPublicKey = null;
         final int pairsLen = pairs.length;
@@ -54,6 +56,7 @@ class Producer implements Callable<Response> {
         ArrayList<Response> waitList = new ArrayList<>();
         */
         // TODO 一つのでかいテーブルを全スレッド協調して計算する
+        final int blockSize = 8;
         while (true) {
             System.out.printf("uho        (%s) : %s%n", toString(), LocalDateTime.now());
             for (int i = 0; i < pairsLen; i++) {
@@ -62,25 +65,29 @@ class Producer implements Callable<Response> {
                 pairs[i] = new KeyPair(potentialPrivEncryptionKey, potentialPublicEncryptionKey);
             }
             System.out.printf("Nice guy...(%s) : %s%n", toString(), LocalDateTime.now());
-            for (int i = 0; i < pairsLen; i++) {
-                pairI = pairs[i];
-                iPublicKey = pairI.getPublicKey();
-                for (int j = 0; j < pairsLen; j++) {
-                    ripe1.ripe(iPublicKey, pairs[j].getPublicKey());
-                    for (nlz = 0; ripe2[nlz] == 0 && nlz < 20; nlz++) {
-                    }
-                    if (nlz >= requireNlz) {
-                        var component = new Response(pairI, pairs[j], ripe2);
-                        AddressGenerator.exportAddress(component);
-                        /*
-                        try {
-                            queue.put(component);
-                        } catch (InterruptedException e) {
-                            waitList.add(component);
+            for (int i = 0, nextI = blockSize; i < pairsLen; i += blockSize, nextI += blockSize) {
+                for (int j = 0, nextJ = blockSize; j < pairsLen; j += blockSize, nextJ += blockSize) {
+                    for (int ii = i; ii < nextI; ii++) {
+                        pairI = pairs[ii];
+                        iPublicKey = pairI.getPublicKey();
+                        for (int jj = j; jj < nextJ; jj++) {
+                            ripe1.ripe(iPublicKey, pairs[jj].getPublicKey());
+                            for (nlz = 0; ripe2[nlz] == 0 && nlz < 20; nlz++) {
+                            }
+                            if (nlz >= requireNlz) {
+                                var component = new Response(pairI, pairs[jj], ripe2);
+                                AddressGenerator.exportAddress(component);
+                                /*
+                                try {
+                                    queue.put(component);
+                                } catch (InterruptedException e) {
+                                    waitList.add(component);
+                                }
+                                */
+                                System.out.printf("aargh!     (%s) : %s%n", toString(), LocalDateTime.now());
+                                return component;
+                            }
                         }
-                        */
-                        System.out.printf("aargh!     (%s) : %s%n", toString(), LocalDateTime.now());
-                        return component;
                     }
                 }
             }
@@ -103,6 +110,6 @@ class Producer implements Callable<Response> {
 
     @Override
     public String toString() {
-        return new StringBuilder("Task-").append(request.getTaskID()).append(", require ").append(request.getRequireNlz()).append("byte NLZ").toString();
+        return string;
     }
 }

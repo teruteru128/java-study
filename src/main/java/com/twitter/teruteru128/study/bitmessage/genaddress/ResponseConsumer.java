@@ -22,23 +22,21 @@ public class ResponseConsumer implements Runnable {
         // サーバーアドレス取得
         BlockingQueue<Response> queue = Queues.getResponseQueue();
         ArrayList<Response> responses = new ArrayList<>();
-        // キューの中身をチェック
-        // キューが空ならなにもしない
-        if (!queue.isEmpty()) {
-            // キューに中身があるなら全て取り出して一時的にリストに取る
-            queue.drainTo(responses);
+        while (true) {
+            try {
+                queue.take();
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            // キューから取り出したらとりあえずリストへ突っ込む
+            // リストに取ったらサーバーへ接続して転送
+            // 成功したらリストから削除
+            // リストが空になるまで送信を無限ループ
+            try {
+                throw new IOException();
+            } catch (IOException e) {
+                responseShelter.addAll(responses);
+            }
         }
-        // 避難リストの中身をチェックして取り出す
-        if (!responseShelter.isEmpty()) {
-            responses.addAll(responseShelter);
-            responseShelter.clear();
-        }
-        // リストに取ったらサーバーへ接続して転送
-        try {
-            throw new IOException();
-        } catch (IOException e) {
-            responseShelter.addAll(responses);
-        }
-        // 送信に失敗したらインスタンスのリストへ退避
     }
 }
