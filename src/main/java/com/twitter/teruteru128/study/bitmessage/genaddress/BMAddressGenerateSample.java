@@ -86,22 +86,22 @@ public class BMAddressGenerateSample {
         System.out.print("          v4 address calculated from ripe : ");
         System.out.print(address4);
         System.out.print(" (");
-        System.out.print(address4.equals(address) ? "matched" : "not matched");
-        System.out.println(")");
+        System.out.print(address4.equals(address) ? "" : "not ");
+        System.out.println("matched)");
 
         final String address3 = bmAddress.encodeAddress(3, 1, ripe);
         System.out.print("unlimited v3 address calculated from ripe : ");
         System.out.print(address3);
         System.out.print(" (");
-        System.out.print(address3.equals(address) ? "matched" : "not matched");
-        System.out.println(")");
+        System.out.print(address3.equals(address) ? "" : "not ");
+        System.out.println("matched)");
 
         final String address3_2 = bmAddress.encodeAddress(3, 1, ripe, 2);
         System.out.print("  limited v3 address calculated from ripe : ");
         System.out.print(address3_2);
         System.out.print(" (");
-        System.out.print(address3_2.equals(address) ? "matched" : "not matched");
-        System.out.println(")");
+        System.out.print(address3_2.equals(address) ? "" : "not ");
+        System.out.println("matched)");
     }
 
 }

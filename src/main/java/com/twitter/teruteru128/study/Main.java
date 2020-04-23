@@ -20,20 +20,22 @@ import jakarta.xml.bind.DatatypeConverter;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Provider provider = Security.getProvider("BC");
-        if (provider == null) {
-            Security.addProvider(provider = new BouncyCastleProvider());
+        double a = (1099511627775D / 1099511627776D);
+        double b = 5e-1;
+        double min = 1e10;
+        double max = 1e12;
+        double middle = (min + max) / 2;
+        for (int i = 0; i < 114514; i++) {
+            b = Math.pow(a, middle);
+            if (b > 0.5) {
+                min = middle;
+            } else if (b < 0.5) {
+                max = middle;
+            }
+            middle = (min + max) / 2;
         }
-        MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
-        MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
-        byte[] data = DatatypeConverter.parseBase64Binary(
-                "BDqSvUHjvfN4zpH1r9Dqk1c3Zo7x8bs9O4MJ+Ap6bUMwpnX+yhZrc5iCgN/VWzp3X5zCjLPg5gY5CjsJ7XTOhmgE/tKAaBmHu2XluynxS37dnJBx+2dNXccTLc/ojM872iBYudGgO8DWYHSTrQt3ZKO1bcNdr5ut/QS0ywRn4HL9lg==");
-        System.out.println(DatatypeConverter.printHexBinary(ripemd160.digest(sha512.digest(data))));
-        long step = 604800L;
-        ZonedDateTime currentTime = ZonedDateTime.now();
-        Instant currentInstant = currentTime.toInstant();
-        long currentEpoch = currentInstant.getEpochSecond();
-        System.out.println((currentEpoch / step) * step);
-        System.out.println(((currentEpoch + (step - 1)) / step) * step);
+        System.out.printf("%.25g%n", middle);
+        System.out.printf("%.25g%n", Math.pow(a, 762123384785D));
+        System.out.printf("%.25g%n", Math.pow(a, 762123384786D));
     }
 }
