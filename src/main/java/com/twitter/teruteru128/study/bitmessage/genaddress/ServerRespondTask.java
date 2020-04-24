@@ -1,3 +1,12 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
-class ServerRespondTask {}
+public class ServerRespondTask implements Runnable {
+
+    public ServerRespondTask() {
+        super();
+    }
+
+    @Override
+    public void run() {
+    }
+}
