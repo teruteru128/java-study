@@ -8,9 +8,11 @@ package com.twitter.teruteru128.study;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        double a = (1099511627775D / 1099511627776D);
+        // 1回引いて外れる確率
+        System.out.println((double) (1L << 62) - 1);
+        double a = (double) ((1L << 48) - 1) / (1L << 48);
         double b = 5e-1;
-        double c = 2D / 3D;
+        double c = 1D / 2D;
         double min = 0;
         double max = 1e308;
         double middle = (min + max) / 2;
@@ -24,7 +26,7 @@ public class Main {
             middle = (min + max) / 2;
         }
         System.out.printf("%.25g%n", middle);
-        System.out.printf("%.25g%n", Math.pow(a, 1207936985807D));
-        System.out.printf("%.25g%n", Math.pow(a, 1207936985808D));
+        System.out.printf("%.25g%n", Math.pow(a, middle));
+        System.out.printf("%.25g%n", Math.pow(a, middle + 1));
     }
 }

@@ -30,7 +30,7 @@ public class Main implements Runnable {
      */
     @Override
     public void run() {
-        ExecutorService service = Executors.newFixedThreadPool(2);
+        ExecutorService service = Executors.newCachedThreadPool();
         try (ServerSocket server = new ServerSocket(server_port)) {
             while (Status.shutdown == 0) {
                 Socket socket = server.accept();
