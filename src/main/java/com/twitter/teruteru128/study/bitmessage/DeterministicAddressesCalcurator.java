@@ -93,7 +93,7 @@ class DeterministicAddressesCalcurator implements Callable<String> {
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
-        var calcurator = new DeterministicAddressesCalcurator("bm_newsg", 3);
+        var calcurator = new DeterministicAddressesCalcurator("Bit_Message_JA", 3);
         System.out.println(calcurator.call());
     }
 }
