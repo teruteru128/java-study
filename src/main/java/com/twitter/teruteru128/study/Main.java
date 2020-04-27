@@ -32,7 +32,10 @@ public class Main {
         System.out.print(new String(a, eucjp));
         System.out.println(0x01343d10);
         System.out.println(new String("遘√ｏ豁､蜃ｦ縺ｫ繧舌◆\n繧医￥隕九▽縺代∪縺励◆縺ｭ".getBytes(sjis), utf8));
+        // ポケベル
+        // 0720
         String c = "00079700";
+        // ふつかつよてい
         String d = "63432143854412";
         String e = "01343d10";
         String f = "63432143B54412";
