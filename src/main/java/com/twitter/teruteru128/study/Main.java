@@ -28,22 +28,24 @@ public class Main {
         Charset eucjp = Charset.forName("EUC-JP");
         Charset sjis = Charset.forName("Shift-JIS");
         Charset utf8 = StandardCharsets.UTF_8;
-        System.out.println(new String(a, eucjp));
+        System.out.println(utf8.getClass());
+        System.out.print(new String(a, eucjp));
         System.out.println(0x01343d10);
+        System.out.println(new String("遘√ｏ豁､蜃ｦ縺ｫ繧舌◆\n繧医￥隕九▽縺代∪縺励◆縺ｭ".getBytes(sjis), utf8));
         String c = "00079700";
         String d = "63432143854412";
-        String j = "01343d10";
-        byte[] f = DatatypeConverter.parseHexBinary(c);
-        byte[] g = DatatypeConverter.parseHexBinary(d);
-        byte[] k = DatatypeConverter.parseHexBinary(j);
-        System.out.println(new String(f));
-        for(int i = 0 ; i < f.length; i++){
-            f[i] ^= k[i];
+        String e = "01343d10";
+        String f = "63432143B54412";
+        byte[] g = DatatypeConverter.parseHexBinary(c);
+        byte[] h = DatatypeConverter.parseHexBinary(d);
+        byte[] j = DatatypeConverter.parseHexBinary(e);
+        System.out.println(new String(g));
+        for(int i = 0 ; i < g.length; i++){
+            g[i] ^= j[i];
         }
-        System.out.println(new String(f));
-        StringBuilder e = new StringBuilder("63432143B54412").reverse();
-        byte[] h = DatatypeConverter.parseHexBinary(e.toString());
-        System.out.println(new String(h, sjis));
-        System.out.println(new String("遘√ｏ豁､蜃ｦ縺ｫ繧舌◆\n繧医￥隕九▽縺代∪縺励◆縺ｭ".getBytes(sjis), utf8));
+        System.out.println(new String(g));
+        StringBuilder k = new StringBuilder(f).reverse();
+        byte[] l = DatatypeConverter.parseHexBinary(k.toString());
+        System.out.println(new String(l, sjis));
     }
 }
