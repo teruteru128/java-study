@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        Thread thread = new Thread(new ClientTask(6910));
         // 設定ファイルから設定読み込み
         // サーバー立ち上げ
         List<String> serverList = Arrays.asList("p2pquake.dyndns.info", "www.p2pquake.net", "p2pquake.dnsalias.net",
