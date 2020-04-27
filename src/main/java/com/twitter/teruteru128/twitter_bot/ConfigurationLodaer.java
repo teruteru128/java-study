@@ -38,7 +38,7 @@ public final class ConfigurationLodaer {
             // ビルダー生成
             DocumentBuilder b = getDocumentBuilder();
             // ファイル読み込み
-            Document doc = b.parse(ClassLoader.getSystemResource(file).openConnection().getInputStream());
+            Document doc = b.parse(ClassLoader.getSystemResource(file).toString());
             // TODO XPathの勉強
             // アカウント要素のみを抽出
             XPathExpression consumerExpr = createXPath("/configurations/consumer");
