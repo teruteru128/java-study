@@ -21,14 +21,10 @@ public class RSA1024EncryptSample {
         System.out.println(Cipher.getMaxAllowedKeyLength("RSA"));
         var resource = ClassLoader.getSystemResource("rsa1024.der");
         var c = resource.openConnection();
-        var baos = new ByteArrayOutputStream(1024);
+        byte[] primeBytes = null;
         try (var in = c.getInputStream()) {
-            byte[] buf = new byte[8192];
-            for (int len = 0; 0 <= (len = in.read(buf, 0, 8192));) {
-                baos.write(buf, 0, len);
-            }
+            primeBytes = in.readAllBytes();
         }
-        var primeBytes = baos.toByteArray();
         X509EncodedKeySpec spec = new X509EncodedKeySpec(primeBytes);
 
         RSAPublicKey key = (RSAPublicKey) factory.generatePublic(spec);
