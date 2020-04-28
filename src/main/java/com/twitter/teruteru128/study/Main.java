@@ -29,7 +29,14 @@ public class Main {
         Charset eucjp = Charset.forName("EUC-JP");
         Charset sjis = Charset.forName("Shift-JIS");
         Charset utf8 = StandardCharsets.UTF_8;
-        System.out.println(utf8.getClass());
+        System.out.print(new String(a, eucjp));
+        String in2 = "1011101111100100101001001100111110100100101000101010010011001010101001001011111110100100111100101100001011010100101001001100001110100100110001101010010010100100101001001101111010100100101110011010000110100011";
+        b = in2.getBytes();
+        len = in2.length();
+        a = new byte[len/8];
+        for(int i = 0; i < len;i++){
+            a[i/8] |= (b[i] & 0x01) << (7 - (i % 8));
+        }
         System.out.print(new String(a, eucjp));
         System.out.println(0x01343d10);
         System.out.println(new String("遘√ｏ豁､蜃ｦ縺ｫ繧舌◆\n繧医￥隕九▽縺代∪縺励◆縺ｭ".getBytes(sjis), utf8));
@@ -42,6 +49,5 @@ public class Main {
         System.out.println(c);
         System.out.println(d);
         System.out.println(Integer.valueOf(e, 16));
-        // char[] touch = new char[100];
     }
 }
