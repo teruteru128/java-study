@@ -39,17 +39,9 @@ public class Main {
         // ふつかつよてい
         String d = "63432143854412";
         String e = "01343d10";
-        String f = "63432143B54412";
-        byte[] g = DatatypeConverter.parseHexBinary(c);
-        byte[] h = DatatypeConverter.parseHexBinary(d);
-        byte[] j = DatatypeConverter.parseHexBinary(e);
-        System.out.println(new String(g));
-        for(int i = 0 ; i < g.length; i++){
-            g[i] ^= j[i];
-        }
-        System.out.println(new String(g));
-        StringBuilder k = new StringBuilder(f).reverse();
-        byte[] l = DatatypeConverter.parseHexBinary(k.toString());
-        System.out.println(new String(l, sjis));
+        System.out.println(c);
+        System.out.println(d);
+        System.out.println(Integer.valueOf(e, 16));
+        // char[] touch = new char[100];
     }
 }
