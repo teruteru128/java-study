@@ -84,7 +84,7 @@ class DeterministicAddressesCalcurator implements Callable<String> {
         }
         BMAddress bmaddress = new BMAddress();
         String address = bmaddress.encodeAddress(adderssVersionNumber, streamNumber, ripe);
-        AddressGenerator.exportAddress(new Response(new KeyPair(Arrays.copyOf(potentialPrivSigningKey, 32), potentialPubSigningKey), new KeyPair(Arrays.copyOf(potentialPrivEncryptionKey, 32), potentialPubEncryptionKey), ripe));
+        //AddressGenerator.exportAddress(new Response(new KeyPair(Arrays.copyOf(potentialPrivSigningKey, 32), potentialPubSigningKey), new KeyPair(Arrays.copyOf(potentialPrivEncryptionKey, 32), potentialPubEncryptionKey), ripe));
         return address;
     }
 
@@ -93,7 +93,9 @@ class DeterministicAddressesCalcurator implements Callable<String> {
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
-        var calcurator = new DeterministicAddressesCalcurator("Bit_Message_JA", 3);
-        System.out.println(calcurator.call());
+        var calcurator = new DeterministicAddressesCalcurator("testicle party ", 4);
+        String address = calcurator.call();
+        System.out.println(address);
+        System.out.println(address.equals("BM-2cX1vSLQ79NVZJqRd5oH6LGgh5E7Zu2Kx4"));
     }
 }
