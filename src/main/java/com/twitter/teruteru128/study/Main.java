@@ -35,24 +35,30 @@ public class Main {
         Charset sjis = Charset.forName("Shift-JIS");
         Charset utf8 = StandardCharsets.UTF_8;
         System.out.print(new String(a, eucjp));
-        String in2 = "1011101111100100101001001100111110100100101000101010010011001010101001001011111110100100111100101100001011010100101001001100001110100100110001101010010010100100101001001101111010100100101110011010000110100011";
+        String in2 = "101110111110010010100100110011111010010010100010101001001100101010100100101111111010010011110010110000101101010010100100110000111010010011000110101001001010010010100100110111101010010010111001101000011010001100001010";
         b = in2.getBytes();
         len = in2.length();
         a = new byte[len/8];
         for(int i = 0; i < len;i++){
             a[i/8] |= (b[i] & 0x01) << (7 - (i % 8));
         }
+        String in3 = "私はあなたを待っています。\n";
+        byte[] f = in3.getBytes(eucjp);
+        for (byte g : f) {
+            for (int i = 7 ; i >= 0; i--) {
+                System.out.print((char)(((g>>i) & 0x01) + 0x30));
+            }
+        }
+        System.out.println();
         System.out.print(new String(a, eucjp));
         System.out.println(0x01343d10);
         System.out.println(new String("遘√ｏ豁､蜃ｦ縺ｫ繧舌◆\n繧医￥隕九▽縺代∪縺励◆縺ｭ".getBytes(sjis), utf8));
-        // ポケベル
+        // ツータッチ入力
         // 0720
         String c = "00079700";
         // ふつかつよてい
         String d = "63432143854412";
-        String e = "01343d10";
         System.out.println(c);
         System.out.println(d);
-        System.out.println(Integer.valueOf(e, 16));
     }
 }
