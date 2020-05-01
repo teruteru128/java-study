@@ -28,8 +28,8 @@ public class Main {
         byte[] b = in.getBytes();
         int len = in.length();
         byte[] a = new byte[len / 8];
-        for(int i = 0; i < len;i++){
-            a[i/8] |= (b[i] & 0x01) << (7 - (i % 8));
+        for (int i = 0; i < len; i++) {
+            a[i / 8] |= (b[i] & 0x01) << (7 - (i % 8));
         }
         Charset eucjp = Charset.forName("EUC-JP");
         Charset sjis = Charset.forName("Shift-JIS");
@@ -38,15 +38,15 @@ public class Main {
         String in2 = "101110111110010010100100110011111010010010100010101001001100101010100100101111111010010011110010110000101101010010100100110000111010010011000110101001001010010010100100110111101010010010111001101000011010001100001010";
         b = in2.getBytes();
         len = in2.length();
-        a = new byte[len/8];
-        for(int i = 0; i < len;i++){
-            a[i/8] |= (b[i] & 0x01) << (7 - (i % 8));
+        a = new byte[len / 8];
+        for (int i = 0; i < len; i++) {
+            a[i / 8] |= (b[i] & 0x01) << (7 - (i % 8));
         }
         String in3 = "私はあなたを待っています。\n";
         byte[] f = in3.getBytes(eucjp);
         for (byte g : f) {
-            for (int i = 7 ; i >= 0; i--) {
-                System.out.print((char)(((g>>i) & 0x01) + 0x30));
+            for (int i = 7; i >= 0; i--) {
+                System.out.print((char) (((g >> i) & 0x01) + 0x30));
             }
         }
         System.out.println();
