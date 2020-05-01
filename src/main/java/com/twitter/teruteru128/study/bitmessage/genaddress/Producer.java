@@ -2,9 +2,10 @@ package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.math.BigInteger;
 import java.security.DigestException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.concurrent.Callable;
 
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
@@ -17,7 +18,7 @@ class Producer implements Callable<Response> {
 
     public Producer(Request request) {
         this.request = request;
-        string = new StringBuilder("Task-").append(request.getTaskID()).toString();
+        string = "Task-" + request.getTaskID();
     }
 
     /**
@@ -40,25 +41,15 @@ class Producer implements Callable<Response> {
         KeyPair pairJ = null;
         byte[] jPublicKey = null;
         final int pairsLen = pairs.length;
-        final Ripe ripe1 = new Ripe();
-        final byte[] ripe2 = ripe1.getRipe();
+        final MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
+        final MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
+        final byte[] cache64 = new byte[64];
         int nlz = 0;
-        /*
-        do {
-            random.nextBytes(potentialPrivEncryptionKey);
-            potentialPublicEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize().getEncoded(false);
-            ripe1.ripe(publicSigningKey, potentialPublicEncryptionKey);
-            for (nlz = 0; ripe[nlz] == 0 && nlz < 20; nlz++) {
-            }
-        } while (nlz < requireNlz);
-        return new ResponseComponent(potentialPrivEncryptionKey, potentialPublicEncryptionKey, ripe);
-        */
         /*
         BlockingQueue<Response> queue = Queues.getResponseQueue();
         ArrayList<Response> waitList = new ArrayList<>();
         */
         // TODO 一つのでかいテーブルを全スレッド協調して計算する
-        final int blockSize = 8;
         while (true) {
             for (int i = 0; i < pairsLen; i++) {
                 random.nextBytes(potentialPrivEncryptionKey);
@@ -71,11 +62,15 @@ class Producer implements Callable<Response> {
                 for (int j = 0; j <= i; j++) {
                     pairJ = pairs[j];
                     jPublicKey = pairJ.getPublicKey();
-                    ripe1.ripe(iPublicKey, jPublicKey);
-                    for (nlz = 0; ripe2[nlz] == 0 && nlz < 20; nlz++) {
+                    sha512.update(iPublicKey, 0, 65);
+                    sha512.update(jPublicKey, 0, 65);
+                    sha512.digest(cache64, 0, 64);
+                    ripemd160.update(cache64, 0, 64);
+                    ripemd160.digest(cache64, 0, 20);
+                    for (nlz = 0; cache64[nlz] == 0 && nlz < 20; nlz++) {
                     }
                     if (nlz >= requireNlz) {
-                        var component = new Response(pairI, pairJ, ripe2);
+                        var component = new Response(pairI, pairJ, Arrays.copyOf(cache64, 20));
                         AddressGenerator.exportAddress(component);
                         /*
                         try {
@@ -86,11 +81,15 @@ class Producer implements Callable<Response> {
                         */
                         return component;
                     }
-                    ripe1.ripe(jPublicKey, iPublicKey);
-                    for (nlz = 0; ripe2[nlz] == 0 && nlz < 20; nlz++) {
+                    sha512.update(jPublicKey, 0, 65);
+                    sha512.update(iPublicKey, 0, 65);
+                    sha512.digest(cache64, 0, 64);
+                    ripemd160.update(cache64, 0, 64);
+                    ripemd160.digest(cache64, 0, 20);
+                    for (nlz = 0; cache64[nlz] == 0 && nlz < 20; nlz++) {
                     }
                     if (nlz >= requireNlz) {
-                        var component = new Response(pairJ, pairI, ripe2);
+                        var component = new Response(pairJ, pairI, Arrays.copyOf(cache64, 20));
                         AddressGenerator.exportAddress(component);
                         /*
                         try {

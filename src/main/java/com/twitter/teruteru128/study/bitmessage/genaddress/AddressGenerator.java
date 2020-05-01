@@ -47,7 +47,7 @@ public class AddressGenerator implements Runnable {
             var tasks = new ArrayList<Producer>();
             int requireNlz = 5;
             {
-                int tasknum = 2;
+                int tasknum = 4;
                 int tmp = 2;
                 for (var arg : args) {
                     try {
