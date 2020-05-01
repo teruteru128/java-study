@@ -6,8 +6,6 @@ import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
-import jakarta.xml.bind.DatatypeConverter;
-
 // TODO 将来的にエントリポイントをこのクラス一つにする
 // TODO コマンドライン引数の実装方法
 // TODO 設定ファイルの実装方法 Propaties XML JSON YAML
