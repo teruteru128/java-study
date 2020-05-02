@@ -23,7 +23,7 @@ class SNTPTest {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        InetSocketAddress dest = new InetSocketAddress(InetAddress.getByName(SERVER_NAME), 123);
+        InetSocketAddress dest = new InetSocketAddress(SERVER_NAME, 123);
         byte[] sendBuf = new byte[48];
         sendBuf[0] = 0x0b;
         System.out.print("send : LI : ");
@@ -39,7 +39,7 @@ class SNTPTest {
             socket.send(send);
             socket.receive(recv);
         }
-        ByteBuffer a = ByteBuffer.wrap(recv.getData()).order(ByteOrder.BIG_ENDIAN);
+        ByteBuffer a = ByteBuffer.wrap(recv.getData());
         byte first = a.get();
         byte stratum = a.get();
         byte poll = a.get();
@@ -47,6 +47,8 @@ class SNTPTest {
         int root_delay = a.getInt();
         int root_dispersion = a.getInt();
         int reference_identifier = a.getInt();
+        byte[] reference_identifier2 = new byte[4];
+        a.get(12, reference_identifier2, 0, 4);
         long reference_timestamp = a.getLong();
         long originate_timestamp = a.getLong();
         long receive_timestamp = a.getLong();
@@ -61,11 +63,11 @@ class SNTPTest {
         System.out.printf("root delay : %d%n", root_delay);
         System.out.printf("root dispersion : %d%n", root_dispersion);
         // (char *)&reference_identifier
-        System.out.printf("reference_identifier : 0x%08x(%s)%n", reference_identifier,
-                new String(ByteBuffer.allocate(4).putInt(reference_identifier).array(), "UTF-8"));
-        System.out.printf("reference_timestamp %s%n", Long.toUnsignedString(reference_timestamp, 16));
+        System.out.printf("reference_identifier : %#08x(%s)%n", reference_identifier,
+                new String(reference_identifier2, "UTF-8"));
+        System.out.printf("reference_timestamp %#08x, %s%n", reference_timestamp, Long.toUnsignedString(reference_timestamp, 10));
         System.out.printf("originate_timestamp : %s%n", Long.toUnsignedString(originate_timestamp));
-        System.out.printf("receive_timestamp : %s%n", Long.toUnsignedString(receive_timestamp, 16));
+        System.out.printf("receive_timestamp : %#08x, %s%n", receive_timestamp, Long.toUnsignedString(receive_timestamp, 10));
         long unixtime = Integer.toUnsignedLong(transmit_timestamp_seconds) - 2208988800L;
         System.out.printf("transmit_timestamp_seconds : %s(%d)%n", Integer.toUnsignedLong(transmit_timestamp_seconds),
                 unixtime);
