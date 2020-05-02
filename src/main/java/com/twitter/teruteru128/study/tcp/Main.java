@@ -8,6 +8,8 @@ import java.util.concurrent.Executors;
 
 public class Main implements Runnable {
 
+    private static ExecutorService service;
+
     /**
      * 
      */
@@ -30,7 +32,6 @@ public class Main implements Runnable {
      */
     @Override
     public void run() {
-        ExecutorService service = Executors.newCachedThreadPool();
         try (ServerSocket server = new ServerSocket(server_port)) {
             while (Status.shutdown == 0) {
                 Socket socket = server.accept();
@@ -47,8 +48,8 @@ public class Main implements Runnable {
     private int server_port;
 
     public static void main(String[] args) {
-        var thread = new Thread(new Main());
-        thread.start();
+        service = Executors.newCachedThreadPool();
+        var future = service.submit(new Main());
     }
 
 }
