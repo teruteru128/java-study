@@ -6,8 +6,8 @@ import java.io.InputStreamReader;
 import java.lang.ref.Cleaner;
 import java.util.List;
 
-import com.twitter.Extractor;
-import com.twitter.Extractor.Entity;
+import com.twitter.twittertext.Extractor;
+import com.twitter.twittertext.Extractor.Entity;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;

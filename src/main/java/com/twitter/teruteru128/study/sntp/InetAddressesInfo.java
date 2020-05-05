@@ -8,6 +8,7 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * ネットワークインターフェースの取得
@@ -15,7 +16,7 @@ import java.util.HashMap;
  * @author https://yukun.info/java-networkinterface-ipv6-ipv4/
  */
 public class InetAddressesInfo {
-    private HashMap<NetworkInterface, ArrayList<InetAddress>> interfaceMap = new HashMap<NetworkInterface, ArrayList<InetAddress>>();
+    private HashMap<NetworkInterface, List<InetAddress>> interfaceMap = new HashMap<>();
 
     public InetAddressesInfo() {
     }
@@ -63,11 +64,11 @@ public class InetAddressesInfo {
         }
     }
 
-    public HashMap<NetworkInterface, ArrayList<InetAddress>> getInterfaceMap() {
+    public HashMap<NetworkInterface, List<InetAddress>> getInterfaceMap() {
         return interfaceMap;
     }
 
-    public void setInterfaceMap(HashMap<NetworkInterface, ArrayList<InetAddress>> interfaceMap) {
+    public void setInterfaceMap(HashMap<NetworkInterface, List<InetAddress>> interfaceMap) {
         this.interfaceMap = interfaceMap;
     }
 

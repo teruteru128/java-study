@@ -32,9 +32,13 @@ public class DecryptoAraisanMessage {
         Cipher cipher = Cipher.getInstance("blowfish/ECB/NoPadding");
         cipher.init(Cipher.DECRYPT_MODE, spec);
 
-        System.out.write((cipher.doFinal(Base64.getDecoder().decode(base64Text))));
+        System.out.print("decode : ");
+        byte[] cipherRaw = Base64.getDecoder().decode(base64Text);
+        byte[] decode = cipher.doFinal(Base64.getDecoder().decode(base64Text));
+        System.out.println(DatatypeConverter.printHexBinary(decode));
+        String decodeText = new String(decode, "sjis");
+        System.out.println(decodeText);
 
-        System.out.println();
         for(byte b :Base64.getDecoder().decode("cookNoatdoufedteolibes==")) {
             int c = b & 0xff;
             System.out.printf("%02x", c);
