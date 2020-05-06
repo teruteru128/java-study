@@ -210,9 +210,9 @@
       <version>15-ea+3</version>
     </dependency>
     <dependency>
-      <groupId>com.twitter</groupId>
+      <groupId>com.twitter.twittertext</groupId>
       <artifactId>twitter-text</artifactId>
-      <version>[1.13.0,)</version>
+      <version>[3.1.0,)</version>
     </dependency>
     <!-- https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail -->
     <dependency>
