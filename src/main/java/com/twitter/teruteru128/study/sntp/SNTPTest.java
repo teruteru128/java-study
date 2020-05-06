@@ -15,8 +15,8 @@ class SNTPTest {
     public SNTPTest() {
     }
 
+    // TODO リファクタリング
     /**
-     * TODO リファクタリング
      * 
      * @param args
      * @throws Exception

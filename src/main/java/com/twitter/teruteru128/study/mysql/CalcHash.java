@@ -12,7 +12,7 @@ public class CalcHash {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        String password = "advanforce";
+        String password = "Advanforce";
         MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
         var hash = sha1.digest(sha1.digest(password.getBytes()));
         final var c = "0123456789ABCDEF".toCharArray();

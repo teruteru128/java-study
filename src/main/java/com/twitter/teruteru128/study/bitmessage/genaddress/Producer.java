@@ -5,7 +5,11 @@ import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ListIterator;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
@@ -45,11 +49,15 @@ class Producer implements Callable<Response> {
         final MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
         final byte[] cache64 = new byte[64];
         int nlz = 0;
-        /*
-        BlockingQueue<Response> queue = Queues.getResponseQueue();
-        ArrayList<Response> waitList = new ArrayList<>();
-        */
+        final BlockingQueue<Response> queue = Queues.getResponseQueue();
+        final ArrayList<Response> waitList = new ArrayList<>();
         // TODO 一つのでかいテーブルを全スレッド協調して計算する
+        // テーブルサイズを20万ぐらいにしてiをスレッドで分割する？
+        // スレッド0 :    0 <= i <  5万
+        // スレッド1 :  5万 <= i < 10万
+        // スレッド2 : 10万 <= i < 15万
+        // スレッド3 : 15万 <= i < 20万
+        // 変なことやらせずに1スレッドに巨大テーブル処理させたほうが早い？
         while (true) {
             for (int i = 0; i < pairsLen; i++) {
                 random.nextBytes(potentialPrivEncryptionKey);
@@ -70,16 +78,15 @@ class Producer implements Callable<Response> {
                     for (nlz = 0; cache64[nlz] == 0 && nlz < 20; nlz++) {
                     }
                     if (nlz >= requireNlz) {
-                        var component = new Response(pairI, pairJ, Arrays.copyOf(cache64, 20));
-                        AddressGenerator.exportAddress(component);
-                        /*
+                        var response = new Response(pairI, pairJ, Arrays.copyOf(cache64, 20));
+                        System.err.printf("keypair found! : %s%n", LocalDateTime.now());
                         try {
-                            queue.put(component);
+                            queue.put(response);
                         } catch (InterruptedException e) {
-                            waitList.add(component);
+                            System.err.println("queue append failed!");
+                            e.printStackTrace();
+                            waitList.add(response);
                         }
-                        */
-                        return component;
                     }
                     sha512.update(jPublicKey, 0, 65);
                     sha512.update(iPublicKey, 0, 65);
@@ -89,20 +96,18 @@ class Producer implements Callable<Response> {
                     for (nlz = 0; cache64[nlz] == 0 && nlz < 20; nlz++) {
                     }
                     if (nlz >= requireNlz) {
-                        var component = new Response(pairJ, pairI, Arrays.copyOf(cache64, 20));
-                        AddressGenerator.exportAddress(component);
-                        /*
+                        var response = new Response(pairJ, pairI, Arrays.copyOf(cache64, 20));
+                        System.err.printf("keypair found! : %s%n", LocalDateTime.now());
                         try {
-                            queue.put(component);
+                            queue.put(response);
                         } catch (InterruptedException e) {
-                            waitList.add(component);
+                            System.err.println("queue append failed!");
+                            e.printStackTrace();
+                            waitList.add(response);
                         }
-                        */
-                        return component;
                     }
                 }
             }
-            /*
             if(!waitList.isEmpty()){
                 ListIterator<Response> responses = waitList.listIterator();
                 while(responses.hasNext()){
@@ -111,10 +116,10 @@ class Producer implements Callable<Response> {
                         queue.put(response);
                         responses.remove();
                     } catch (InterruptedException e) {
+                        // skip
                     }
                 }
             }
-            */
         }
     }
 

@@ -2,7 +2,7 @@ package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.io.Serializable;
 
-public class Response implements Serializable {
+public class Response implements Cloneable, Serializable {
 
     private static final long serialVersionUID = 1;
 
@@ -63,5 +63,21 @@ public class Response implements Serializable {
      */
     public byte[] getRipe() {
         return ripe;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Response clone() {
+        Response response = null;
+        try {
+            response = (Response) super.clone();
+            response.signingKeyPair = this.signingKeyPair.clone();
+            response.encryptionKeyPair = this.encryptionKeyPair.clone();
+            response.ripe = this.ripe.clone();
+        } catch (CloneNotSupportedException e) {
+        }
+        return response;
     }
 }

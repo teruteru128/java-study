@@ -7,6 +7,7 @@ import java.security.Provider;
 import java.security.Security;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -21,31 +22,25 @@ import jakarta.xml.bind.DatatypeConverter;
  */
 public class AddressGenerator implements Runnable {
 
-    public AddressGenerator() {
+    private String[] args;
 
+    public AddressGenerator() {
+        this(new String[0]);
     }
+
+    public AddressGenerator(String[] args) {
+        this.args = args;
+    }
+
+    private ExecutorService service1 = Executors.newCachedThreadPool();
+    //private ScheduledExecutorService service2 = Executors.newScheduledThreadPool(1);
 
     @Override
     public void run() {
-    }
-
-    /**
-     * 
-     * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/class_addressGenerator.py#L131
-     * @see https://en.bitcoin.it/wiki/Wallet_import_format
-     * @see https://stackoverflow.com/questions/49204787/deriving-ecdsa-public-key-from-private-key
-     * @param args
-     */
-    public static void main(String[] args) throws Exception {
-        Provider provider = Security.getProvider("BC");
-        if (provider == null) {
-            Security.addProvider(provider = new BouncyCastleProvider());
-        }
-        ExecutorService service1 = Executors.newCachedThreadPool();
-        //ScheduledExecutorService service2 = Executors.newScheduledThreadPool(1);
         try {
             var tasks = new ArrayList<Producer>();
             int requireNlz = 5;
+            service1.submit(new Consumer());
             {
                 int tasknum = 4;
                 int tmp = 2;
@@ -63,26 +58,32 @@ public class AddressGenerator implements Runnable {
                     tasks.add(new Producer(new Request(requireNlz, i)));
                 }
             }
-            System.out.printf("start : %s%n", LocalDateTime.now());
-            // TODO メインスレッドに戻さずに無限ループさせる
-            var response = service1.invokeAny(tasks);
-            //List<Future<Response>> futures = service1.invokeAll(tasks);
-            System.out.printf("found : %s%n", LocalDateTime.now());
-            //service2.scheduleAtFixedRate(new ResponseConsumer(), 1, 1, TimeUnit.HOURS);
-            //service2.scheduleAtFixedRate(System::gc, 30, 30, TimeUnit.MINUTES);
-            service1.shutdown();
-            State.shutdown = 1;
-
-            byte[] ripe = response.getRipe();
-            System.out.println(DatatypeConverter.printHexBinary(ripe));
-
-            exportAddress(response);
+            System.err.printf("start : %s%n", LocalDateTime.now());
+            service1.invokeAny(tasks);
+        } catch(InterruptedException e){
+        } catch(ExecutionException e){
         } finally {
             if (!service1.isShutdown()) {
                 service1.shutdown();
             }
             //service2.shutdown();
         }
+    }
+
+    /**
+     * 
+     * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/class_addressGenerator.py#L131
+     * @see https://en.bitcoin.it/wiki/Wallet_import_format
+     * @see https://stackoverflow.com/questions/49204787/deriving-ecdsa-public-key-from-private-key
+     * @param args
+     */
+    public static void main(String[] args) throws Exception {
+        Provider provider = Security.getProvider("BC");
+        if (provider == null) {
+            Security.addProvider(provider = new BouncyCastleProvider());
+        }
+        Thread thread = new Thread(new AddressGenerator(args));
+        thread.start();
     }
 
     public static void exportAddress(Response component) {
@@ -92,14 +93,18 @@ public class AddressGenerator implements Runnable {
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
         var privEncryptionKeyWIF = encodeWIF(component.getPrivateEncryptionKey());
         synchronized (System.out) {
-            System.out.printf("[%s]%n", address4);
+            System.out.print("[");
+            System.out.print(address4);
+            System.out.println("]");
             System.out.println("label = relpace this label");
             System.out.println("enabled = true");
             System.out.println("decoy = false");
             System.out.println("noncetrialsperbyte = 1000");
             System.out.println("payloadlengthextrabytes = 1000");
-            System.out.printf("privsigningkey = %s%n", privSigningKeyWIF);
-            System.out.printf("privencryptionkey = %s%n", privEncryptionKeyWIF);
+            System.out.print("privsigningkey = ");
+            System.out.println(privSigningKeyWIF);
+            System.out.print("privencryptionkey = ");
+            System.out.println(privEncryptionKeyWIF);
             System.out.println();
         }
     }

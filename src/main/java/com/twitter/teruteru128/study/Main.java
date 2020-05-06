@@ -3,7 +3,11 @@ package com.twitter.teruteru128.study;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.Provider;
+import java.security.SecureRandom;
 import java.security.Security;
+import java.util.Arrays;
+
+import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddress;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
