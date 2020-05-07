@@ -15,8 +15,6 @@ import com.twitter.teruteru128.study.Base58;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import jakarta.xml.bind.DatatypeConverter;
-
 /**
  * Producer-Consumerパターンを使い、プロデューサースレッドで鍵ペアを生成、コンシューマースレッドでサーバーへ送信
  */
@@ -42,7 +40,7 @@ public class AddressGenerator implements Runnable {
             int requireNlz = 5;
             service1.submit(new Consumer());
             {
-                int tasknum = 4;
+                int tasknum = 1;
                 int tmp = 2;
                 for (var arg : args) {
                     try {
