@@ -39,6 +39,9 @@ class Producer implements Callable<Response> {
         final byte[] potentialPrivEncryptionKey = new byte[32];
         byte[] potentialPublicEncryptionKey = null;
         final int requireNlz = request.getRequireNlz();
+        // XXX インスタンスから鍵を取り出すのと二次元配列から鍵を取り出すのはどちらが重い？
+        // final byte[][] privateKeys = new byte[65536][];
+        // final byte[][] publicKeys = new byte[65536][];
         final KeyPair[] pairs = new KeyPair[65536];
         KeyPair pairI = null;
         byte[] iPublicKey = null;
@@ -69,6 +72,8 @@ class Producer implements Callable<Response> {
                 iPublicKey = pairI.getPublicKey();
                 for (int j = 0; j <= i; j++) {
                     pairJ = pairs[j];
+                    // XXX 変数生成処理をやらせないために1メソッドにベタ打ちしてるんだが、スタック領域に変数を生成/削除するのってそれなりに重い処理なのか？
+                    // static変数はメソッドをインライン展開してくれるらしい
                     jPublicKey = pairJ.getPublicKey();
                     sha512.update(iPublicKey, 0, 65);
                     sha512.update(jPublicKey, 0, 65);
