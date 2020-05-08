@@ -52,8 +52,7 @@ public class BMAddressTest {
         byte[] ripe = ripemd160.digest(sha512.digest());
         byte[] nullbytes = new byte[]{0, 0};
         assertTrue(Arrays.equals(nullbytes, 0, 2, ripe, 0, 2));
-        BMAddress bmAddress = new BMAddress();
-        assertEquals(bmAddress.encodeAddress(4, 1, ripe), address);
+        assertEquals(BMAddress.encodeAddress(4, 1, ripe), address);
     }
 
     @AfterAll

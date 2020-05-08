@@ -24,6 +24,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * Main -呼び出し-> Client
  * クライアントの設定フォルダ : C:\Users\terut\AppData\Local\VirtualStore\Program Files (x86)\P2PQuake
  * https://p2pquake.github.io/epsp-specifications/epsp-specifications.html
  */

@@ -24,16 +24,20 @@ public class JSSample {
             System.out.printf("Names: %s%n", factory.getNames());
             System.out.println("--------");
         }
-        var engine = manager.getEngineByName("graal.js");
-        if (engine != null) {
-            System.out.println(engine);
+        var graaljs = manager.getEngineByName("graal.js");
+        if (graaljs != null) {
+            System.out.println(graaljs);
         } else {
             System.out.println("graal.js not found");
         }
-        engine = new ScriptEngineManager().getEngineByName("js");
+        var js = manager.getEngineByName("js");
         try {
-            Object val = engine.eval("var hoge = 'aaaaaaaa'; print(hoge); hoge;");
-            System.out.printf("%s, %s%n", val, val.getClass());
+            Object val = js.eval("var hoge = 'aaaaaaaa'; print(hoge); print('Hello? This is teruteru.'); hoge;");
+            if(val != null){
+                System.out.printf("%s, %s%n", val, val.getClass());
+            } else {
+                System.out.printf("%s, (null)%n", val);
+            }
         } catch (ScriptException e) {
             e.printStackTrace();
         }
