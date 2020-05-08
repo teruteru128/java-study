@@ -80,23 +80,21 @@ public class BMAddressGenerateSample {
         System.out.print("ripe : ");
         System.out.println(DatatypeConverter.printHexBinary(ripe));
 
-        final BMAddress bmAddress = new BMAddress();
-
-        final String address4 = bmAddress.encodeAddress(4, 1, ripe);
+        final String address4 = BMAddress.encodeAddress(4, 1, ripe);
         System.out.print("          v4 address calculated from ripe : ");
         System.out.print(address4);
         System.out.print(" (");
         System.out.print(address4.equals(address) ? "" : "not ");
         System.out.println("matched)");
 
-        final String address3 = bmAddress.encodeAddress(3, 1, ripe);
+        final String address3 = BMAddress.encodeAddress(3, 1, ripe);
         System.out.print("unlimited v3 address calculated from ripe : ");
         System.out.print(address3);
         System.out.print(" (");
         System.out.print(address3.equals(address) ? "" : "not ");
         System.out.println("matched)");
 
-        final String address3_2 = bmAddress.encodeAddress(3, 1, ripe, 2);
+        final String address3_2 = BMAddress.encodeAddress(3, 1, ripe, 2);
         System.out.print("  limited v3 address calculated from ripe : ");
         System.out.print(address3_2);
         System.out.print(" (");

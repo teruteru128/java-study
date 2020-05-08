@@ -82,8 +82,7 @@ class DeterministicAddressesCalcurator implements Callable<String> {
             for (nlz = 0; ripe[nlz] == 0 && nlz < 20; nlz++) {
             }
         }
-        BMAddress bmaddress = new BMAddress();
-        String address = bmaddress.encodeAddress(adderssVersionNumber, streamNumber, ripe);
+        String address = BMAddress.encodeAddress(adderssVersionNumber, streamNumber, ripe);
         //AddressGenerator.exportAddress(new Response(new KeyPair(Arrays.copyOf(potentialPrivSigningKey, 32), potentialPubSigningKey), new KeyPair(Arrays.copyOf(potentialPrivEncryptionKey, 32), potentialPubEncryptionKey), ripe));
         return address;
     }

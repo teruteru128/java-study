@@ -95,8 +95,7 @@ public class AddressGenerator implements Runnable {
 
     public static void exportAddress(Response component) {
         byte[] ripe = component.getRipe();
-        var bmaddress = new BMAddress();
-        var address4 = bmaddress.encodeAddress(4, 1, ripe);
+        var address4 = BMAddress.encodeAddress(4, 1, ripe);
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
         var privEncryptionKeyWIF = encodeWIF(component.getPrivateEncryptionKey());
         synchronized (System.out) {
