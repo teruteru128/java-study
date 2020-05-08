@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
 
-import com.twitter.teruteru128.study.crypto.DataPrinter;
+import jakarta.xml.bind.DatatypeConverter;
 
 public class IDMiner implements Runnable {
 
@@ -35,7 +35,6 @@ public class IDMiner implements Runnable {
     private long end;
 
     public IDMiner(long start, long end) {
-        super();
         this.start = start;
         this.end = end;
     }
@@ -69,7 +68,7 @@ public class IDMiner implements Runnable {
                 md5.update(bytes, 0, bytes.length);
                 md5.digest(id, 0, 16);
                 if (Arrays.equals(id, 0, 4, target, 0, 4)) {
-                    String binarystr = DataPrinter.printHexBinary(id);
+                    String binarystr = DatatypeConverter.printHexBinary(id);
                     synchronized (System.out) {
                         System.out.println(bodystr);
                         System.out.println(escapedStr);
@@ -80,7 +79,7 @@ public class IDMiner implements Runnable {
             {
                 final long end = System.nanoTime();
                 final long diff = end - start;
-                final double seconds = (double) diff / 1000000000;
+                final double seconds = diff / 1000000000D;
                 final var endtime = LocalDateTime.now();
                 final var threadname = Thread.currentThread().getName();
                 synchronized (System.out) {
