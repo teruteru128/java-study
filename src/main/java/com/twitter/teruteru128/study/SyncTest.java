@@ -1,24 +1,40 @@
 package com.twitter.teruteru128.study;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 class SyncTest {
 
     public static void main(String[] args) {
         Counter counter = new Counter();
 
         // スレッドを1000個作成する
-        Thread[] threads = new Thread[1000];
+        List<Callable<Void>> threads = new ArrayList<Callable<Void>>(1000);
         for (int i = 0; i < 1000; i++) {
-            threads[i] = new Thread(new MyThread(counter));
-            threads[i].start();
+            threads.add(Executors.<Void>callable(new MyThread(counter), null));
         }
 
-        // スレッドがすべて終了するのを待つ
-        for (int i = 0; i < 1000; i++) {
-            try {
-                threads[i].join();
-            } catch (InterruptedException e) {
-                System.out.println(e);
+        ExecutorService service = Executors.newCachedThreadPool();
+        try {
+            List<Future<Void>> futures = service.invokeAll(threads);
+
+            // スレッドがすべて終了するのを待つ
+            for (int i = 0; i < 1000; i++) {
+                try {
+                    futures.get(i).get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
             }
+        } catch (InterruptedException e1) {
+            e1.printStackTrace();
+        } finally {
+            service.shutdown();
         }
 
         // カウンターを表示する

@@ -24,7 +24,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Main -呼び出し-> Client
+ * Mainクラスは実装クラスを叩くだけで可能な限り何もしない
+ * 
+ * peer
+ * node
+ * client
+ * server
+ * clientrunner
+ *  スレッド管理
+ *  サーバー起動処理
+ *  ネットワーク参加処理
+ *  サーバーハートビート送信処理
+ *  ピアハートビート送信
+ * 
  * クライアントの設定フォルダ : C:\Users\terut\AppData\Local\VirtualStore\Program Files (x86)\P2PQuake
  * https://p2pquake.github.io/epsp-specifications/epsp-specifications.html
  */
@@ -34,10 +46,10 @@ public class Main {
         Thread thread = new Thread(new ClientTask(6910));
         // 設定ファイルから設定読み込み
         // サーバー立ち上げ
-        List<String> serverList = Arrays.asList("p2pquake.dyndns.info", "www.p2pquake.net", "p2pquake.dnsalias.net",
+        List<String> serverAddressList = Arrays.asList("p2pquake.dyndns.info", "www.p2pquake.net", "p2pquake.dnsalias.net",
                 "p2pquake.ddo.jp");
         SecureRandom random = new SecureRandom();
-        Collections.shuffle(serverList, random);
+        Collections.shuffle(serverAddressList, random);
         Socket socket = null;
         Socket socket2 = null;
         Charset charset = Charset.forName("SJIS");
@@ -46,14 +58,14 @@ public class Main {
         ZoneId tokyo = ZoneId.of("Asia/Tokyo");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH-mm-ss", Locale.JAPAN);
         try {
-            for (String server : serverList) {
+            for (String serverAddress : serverAddressList) {
                 try {
-                    InetSocketAddress address = new InetSocketAddress(InetAddress.getByName(server), 6910);
+                    InetSocketAddress address = new InetSocketAddress(InetAddress.getByName(serverAddress), 6910);
                     socket = new Socket(Proxy.NO_PROXY);
                     socket.connect(address, 5000);
                     break;
                 } catch (IOException e) {
-                    System.err.printf("%s : %sへの接続に失敗%n", LocalTime.now(), server);
+                    System.err.printf("%s : %sへの接続に失敗%n", LocalTime.now(), serverAddress);
                     continue;
                 }
             }
@@ -120,8 +132,8 @@ public class Main {
             if(!socket.isClosed()){socket.close();System.out.println("closeされました1");}
             socket = null;
             Thread.sleep(5000);
-            Collections.shuffle(serverList, random);
-            for (String server : serverList) {
+            Collections.shuffle(serverAddressList, random);
+            for (String server : serverAddressList) {
                 try {
                     InetSocketAddress address = new InetSocketAddress(InetAddress.getByName(server), 6910);
                     socket2 = new Socket(Proxy.NO_PROXY);
