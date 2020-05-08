@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
  * server
  * clientrunner
  *  スレッド管理
- *  サーバー起動処理
+ *  ピア接続受付サーバー起動処理
  *  ネットワーク参加処理
  *  サーバーハートビート送信処理
  *  ピアハートビート送信
