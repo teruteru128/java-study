@@ -7,6 +7,8 @@ import java.util.Locale;
 import com.twitter.teruteru128.util.New;
 import com.twitter.teruteru128.util.Utils;
 
+import org.h2.engine.SysProperties;
+
 /**
  * @author Teruteru
  *
@@ -25,7 +27,7 @@ public class Main2 {
             String osName = toLowerEnglish(
                             getProperty("os.name", "linux"));
                     Runtime rt = Runtime.getRuntime();
-                    String browser = getProperty(H2_BROWSER, null);
+                    String browser = getProperty(SysProperties.H2_BROWSER, null);
                     if (browser == null) {
                         // under Linux, this will point to the default system browser
                         try {
@@ -92,7 +94,7 @@ public class Main2 {
                             // No success in detection.
                             throw new Exception(
                                     "Browser detection failed and system property " +
-                                    H2_BROWSER + " not set");
+                                    SysProperties.H2_BROWSER + " not set");
                         }
                     }
         } catch (Exception e) {
@@ -188,8 +190,4 @@ public class Main2 {
         list.toArray(array);
         return array;
     }
-    /**
-     * INTERNAL
-     */
-    public static final String H2_BROWSER = "h2.browser";
 }

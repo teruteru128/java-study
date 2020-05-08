@@ -9,9 +9,8 @@ import java.util.concurrent.Executors;
  */
 public class Main {
 
-    public static final ExecutorService service = Executors.newFixedThreadPool(8);
-
     public static void main(String[] args) {
-        service.submit(new Bomb1());
+        final ExecutorService service = Executors.newFixedThreadPool(8);
+        service.submit(new Bomb1(service));
     }
 }

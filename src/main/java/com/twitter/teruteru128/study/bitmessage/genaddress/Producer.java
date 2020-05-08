@@ -12,10 +12,12 @@ import java.util.ListIterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 
+import com.twitter.teruteru128.study.tcp.Status;
+
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.math.ec.ECPoint;
 
-class Producer implements Callable<Response> {
+class Producer implements Callable<Void> {
 
     private Request request;
     private final String string;
@@ -33,7 +35,7 @@ class Producer implements Callable<Response> {
      * @see https://qiita.com/Syo_pr/items/92b3cf7d7fc5dab4a3a7#%E8%A1%8C%E5%88%97%E8%A1%8C%E5%88%97%E7%A9%8D%E3%81%AE%E6%9C%80%E9%81%A9%E5%8C%96
      */
     @Override
-    public Response call() throws NoSuchAlgorithmException, DigestException {
+    public Void call() throws NoSuchAlgorithmException, DigestException {
         final SecureRandom random = new SecureRandom();
         final ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
         final byte[] potentialPrivEncryptionKey = new byte[32];
@@ -56,15 +58,16 @@ class Producer implements Callable<Response> {
         final ArrayList<Response> waitList = new ArrayList<>();
         // TODO 一つのでかいテーブルを全スレッド協調して計算する
         // テーブルサイズを20万ぐらいにしてiをスレッドで分割する？
-        // スレッド0 :    0 <= i <  5万
-        // スレッド1 :  5万 <= i < 10万
+        // スレッド0 : 0 <= i < 5万
+        // スレッド1 : 5万 <= i < 10万
         // スレッド2 : 10万 <= i < 15万
         // スレッド3 : 15万 <= i < 20万
         // 変なことやらせずに1スレッドに巨大テーブル処理させたほうが早い？
-        while (true) {
+        while (Status.shutdown == 0) {
             for (int i = 0; i < pairsLen; i++) {
                 random.nextBytes(potentialPrivEncryptionKey);
-                potentialPublicEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize().getEncoded(false);
+                potentialPublicEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize()
+                        .getEncoded(false);
                 pairs[i] = new KeyPair(potentialPrivEncryptionKey, potentialPublicEncryptionKey);
             }
             for (int i = 0; i < pairsLen; i++) {
@@ -73,7 +76,7 @@ class Producer implements Callable<Response> {
                 for (int j = 0; j <= i; j++) {
                     pairJ = pairs[j];
                     // XXX 変数生成処理をやらせないために1メソッドにベタ打ちしてるんだが、スタック領域に変数を生成/削除するのってそれなりに重い処理なのか？
-                    // static変数はメソッドをインライン展開してくれるらしい
+                    // staticメソッドはメソッドをインライン展開してくれるらしい
                     jPublicKey = pairJ.getPublicKey();
                     sha512.update(iPublicKey, 0, 65);
                     sha512.update(jPublicKey, 0, 65);
@@ -113,9 +116,9 @@ class Producer implements Callable<Response> {
                     }
                 }
             }
-            if(!waitList.isEmpty()){
+            if (!waitList.isEmpty()) {
                 ListIterator<Response> responses = waitList.listIterator();
-                while(responses.hasNext()){
+                while (responses.hasNext()) {
                     Response response = responses.next();
                     try {
                         queue.put(response);
@@ -126,6 +129,7 @@ class Producer implements Callable<Response> {
                 }
             }
         }
+        return null;
     }
 
     @Override

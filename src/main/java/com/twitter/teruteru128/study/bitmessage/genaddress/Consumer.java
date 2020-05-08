@@ -1,19 +1,26 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
 
-class Consumer implements Callable<Void> {
+class Consumer implements Runnable {
 
+    private CountDownLatch latch;
 
-    public Consumer() {
+    public Consumer(CountDownLatch latch) {
+        this.latch = latch;
     }
 
     @Override
-    public Void call() throws InterruptedException {
+    public void run() {
         BlockingQueue<Response> responses = Queues.getResponseQueue();
         while (true) {
-            AddressGenerator.exportAddress(responses.take());
+            try {
+                AddressGenerator.exportAddress(responses.take());
+                latch.countDown();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

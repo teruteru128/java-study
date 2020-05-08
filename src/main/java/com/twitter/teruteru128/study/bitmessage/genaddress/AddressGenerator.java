@@ -7,11 +7,13 @@ import java.security.Provider;
 import java.security.Security;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.twitter.teruteru128.study.Base58;
+import com.twitter.teruteru128.study.tcp.Status;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -30,41 +32,48 @@ public class AddressGenerator implements Runnable {
         this.args = args;
     }
 
-    private ExecutorService service1 = Executors.newCachedThreadPool();
-    //private ScheduledExecutorService service2 = Executors.newScheduledThreadPool(1);
-
     @Override
     public void run() {
-        try {
-            var tasks = new ArrayList<Producer>();
-            int requireNlz = 5;
-            service1.submit(new Consumer());
-            {
-                int tasknum = 1;
-                int tmp = 2;
-                for (var arg : args) {
-                    try {
-                        tmp = Integer.parseInt(arg, 10);
-                        if (tmp >= 1) {
-                            tasknum = tmp;
-                        }
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
+        var tasks = new ArrayList<Producer>();
+        int requireNlz = 5;
+        CountDownLatch latch = new CountDownLatch(6);
+        Thread consumerThread = new Thread(new Consumer(latch));
+        consumerThread.setDaemon(true);
+        consumerThread.start();
+        {
+            int tasknum = 1;
+            int tmp = 2;
+            for (var arg : args) {
+                try {
+                    tmp = Integer.parseInt(arg, 10);
+                    if (tmp >= 1) {
+                        tasknum = tmp;
                     }
-                }
-                for (int i = 0; i < tasknum; i++) {
-                    tasks.add(new Producer(new Request(requireNlz, i)));
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
                 }
             }
-            System.err.printf("start : %s%n", LocalDateTime.now());
-            service1.invokeAny(tasks);
+            for (int i = 0; i < tasknum; i++) {
+                tasks.add(new Producer(new Request(requireNlz, i)));
+            }
+        }
+        ExecutorService service1 = Executors.newCachedThreadPool();
+        // ScheduledExecutorService service2 = Executors.newScheduledThreadPool(1);
+        System.err.printf("start : %s%n", LocalDateTime.now());
+        try {
+            service1.invokeAll(tasks);
+            latch.await();
+            Status.shutdown = 1;
         } catch(InterruptedException e){
-        } catch(ExecutionException e){
+            e.printStackTrace();
+            Status.shutdown = 2;
         } finally {
+            System.err.println("タスクの終了を待機しています。しばらくお待ち下さい...");
             if (!service1.isShutdown()) {
                 service1.shutdown();
             }
             //service2.shutdown();
+            System.err.println("タスクの終了が完了しました。シャットダウンします。");
         }
     }
 
