@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
  * @author Teruteru
  *
  */
-public class Main {
+public class Detonator {
 
     public static void main(String[] args) {
         final ExecutorService service = Executors.newFixedThreadPool(8);

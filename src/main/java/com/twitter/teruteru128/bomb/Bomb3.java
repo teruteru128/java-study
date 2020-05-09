@@ -21,7 +21,6 @@ public class Bomb3 implements Bomb {
      */
     @Override
     public void run() {
-        final ExecutorService service = this.service;
         service.submit(new Bomb4(service));
     }
 
