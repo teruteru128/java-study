@@ -17,8 +17,7 @@ public class Omikuji {
         System.out.print(omikuji[a][0]);
         System.out.print("\u001b[m(");
         System.out.print(omikuji[a][1]);
-        System.out.print(")です。");
-        System.out.println();
+        System.out.println(")です。");
         System.out.println(omikuji[a][2]);
     }
 
