@@ -20,6 +20,7 @@ public class MainController {
 
     @FXML
     void close(ActionEvent event) throws Exception {
-        stage.hide();
+        //stage.hide();
+        System.out.println("hello!");
     }
 }
