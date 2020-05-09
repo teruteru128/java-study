@@ -18,6 +18,8 @@
             <buttons>
                <Button text="yes" ButtonBar.buttonData="YES" />
                <Button text="no" ButtonBar.buttonData="NO" />
+               <Button text="ok" ButtonBar.buttonData="OK_DONE" />
+               <Button text="cancel" ButtonBar.buttonData="CANCEL_CLOSE" />
             </buttons>
          </ButtonBar>
       </bottom>
