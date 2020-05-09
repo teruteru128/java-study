@@ -1,7 +1,9 @@
 package com.twitter.teruteru128.study.lambda;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -24,6 +26,8 @@ public class Main {
         stream2.forEach(e -> Printer.println(e));
         stream3.forEach(e -> Printer.println(e));
         stream4.forEach(e -> Printer.println(e));
+        Supplier<Stream<String>> t = () -> Stream.of("t");
+        CompareFunction<LocalDateTime> f = LocalDateTime.now()::compareTo; 
     }
 
 }
