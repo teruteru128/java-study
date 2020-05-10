@@ -12,7 +12,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -44,7 +43,6 @@ public class DBMain2 implements Callable<Void> {
         ExecutorService ex = new ThreadPoolExecutor(16, 16,
                 0L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<Runnable>());
-        ScheduledThreadPoolExecutor service = new ScheduledThreadPoolExecutor(10);
         try {
             List<Future<Void>> list = new ArrayList<Future<Void>>();
             for (int i = 0; i < 16; i++) {
