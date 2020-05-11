@@ -12,8 +12,6 @@ import java.util.ListIterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 
-import com.twitter.teruteru128.study.tcp.Status;
-
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.math.ec.ECPoint;
 
@@ -63,7 +61,7 @@ class Producer implements Callable<Void> {
         // スレッド2 : 10万 <= i < 15万
         // スレッド3 : 15万 <= i < 20万
         // 変なことやらせずに1スレッドに巨大テーブル処理させたほうが早い？
-        while (Status.shutdown == 0) {
+        while (true) {
             for (int i = 0; i < pairsLen; i++) {
                 random.nextBytes(potentialPrivEncryptionKey);
                 potentialPublicEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize()
@@ -129,7 +127,6 @@ class Producer implements Callable<Void> {
                 }
             }
         }
-        return null;
     }
 
     @Override
