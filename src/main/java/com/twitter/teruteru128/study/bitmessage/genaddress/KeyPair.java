@@ -33,8 +33,6 @@ public class KeyPair implements Cloneable, Serializable {
         KeyPair pair = null;
         try {
             pair = (KeyPair) super.clone();
-            pair.privateKey = this.privateKey.clone();
-            pair.publicKey = this.publicKey.clone();
         } catch (CloneNotSupportedException e) {
         }
         return pair;

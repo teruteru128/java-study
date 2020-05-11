@@ -42,12 +42,11 @@ class NyanpassConfigImpl implements Cloneable, NyanpassConfig {
     }
 
     @Override
-    protected NyanpassConfigImpl clone() {
+    public NyanpassConfigImpl clone() {
         NyanpassConfigImpl base = null;
         try {
             base = (NyanpassConfigImpl) super.clone();
         } catch (CloneNotSupportedException e) {
-            throw new InternalError(e);
         }
         return base;
     }

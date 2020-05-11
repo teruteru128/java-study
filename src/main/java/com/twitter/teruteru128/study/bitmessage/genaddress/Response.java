@@ -73,9 +73,6 @@ public class Response implements Cloneable, Serializable {
         Response response = null;
         try {
             response = (Response) super.clone();
-            response.signingKeyPair = this.signingKeyPair.clone();
-            response.encryptionKeyPair = this.encryptionKeyPair.clone();
-            response.ripe = this.ripe.clone();
         } catch (CloneNotSupportedException e) {
         }
         return response;
