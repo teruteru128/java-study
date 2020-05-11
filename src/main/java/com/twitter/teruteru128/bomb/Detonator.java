@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 public class Detonator {
 
     public static void main(String[] args) {
-        final ExecutorService service = Executors.newFixedThreadPool(8);
+        final ExecutorService service = Executors.newCachedThreadPool();
         service.submit(new Bomb1(service));
     }
 }

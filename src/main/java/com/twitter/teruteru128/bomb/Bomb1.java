@@ -22,6 +22,8 @@ public class Bomb1 implements Bomb {
     @Override
     public void run() {
         service.submit(new Bomb2(service));
+        service.submit(new Bomb3(service));
+        service.submit(new Bomb4(service));
     }
 
 }

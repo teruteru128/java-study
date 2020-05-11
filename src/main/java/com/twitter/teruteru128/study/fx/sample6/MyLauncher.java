@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 public class MyLauncher extends Application {
 
     public MyLauncher() {
-        super();
     }
 
     /**
