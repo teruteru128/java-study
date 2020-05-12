@@ -48,8 +48,8 @@ public class X25519ChaCha20Poly1305Sample {
         Cipher aliceCipher = Cipher.getInstance("ChaCha20-Poly1305");
         Cipher bobCipher = Cipher.getInstance("ChaCha20-Poly1305");
 
-        var aliceIvParameterSpec = new IvParameterSpec(Arrays.copyOfRange(hashedAliceAgreement, 32, 44));
-        var bobIvParameterSpec = new IvParameterSpec(Arrays.copyOfRange(hashedBobAgreement, 32, 44));
+        var aliceIvParameterSpec = new IvParameterSpec(Arrays.copyOfRange(hashedAliceAgreement, 32, 44), 0, 12);
+        var bobIvParameterSpec = new IvParameterSpec(Arrays.copyOfRange(hashedBobAgreement, 32, 44), 0, 12);
 
         // 暗号化
         aliceCipher.init(Cipher.ENCRYPT_MODE, aliceSecretKey, aliceIvParameterSpec);
