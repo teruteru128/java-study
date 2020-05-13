@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,9 +19,9 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class Falcon {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         List<String> falcon = Arrays.asList("フ", "ァ", "ル", "コ", "ン", "・", "パ", "ン", "チ");
-        var random = new SecureRandom();
+        var random = SecureRandom.getInstanceStrong();
         Collections.shuffle(falcon, random);
         var tweetText = falcon.stream().collect(StringBuilder::new, (a, b) -> a.append(b), (a, b) -> a.append(b))
                 .toString();

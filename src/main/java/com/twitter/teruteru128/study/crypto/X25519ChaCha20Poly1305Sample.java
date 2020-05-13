@@ -45,8 +45,8 @@ public class X25519ChaCha20Poly1305Sample {
         SecretKey bobSecretKey = new SecretKeySpec(Arrays.copyOfRange(hashedBobAgreement, 0, 32), "ChaCha20");
 
         // 暗号インスタンス生成
-        Cipher aliceCipher = Cipher.getInstance("ChaCha20-Poly1305");
-        Cipher bobCipher = Cipher.getInstance("ChaCha20-Poly1305");
+        Cipher aliceCipher = Cipher.getInstance("ChaCha20-Poly1305/None/NoPadding");
+        Cipher bobCipher = Cipher.getInstance("ChaCha20-Poly1305/None/NoPadding");
 
         var aliceIvParameterSpec = new IvParameterSpec(Arrays.copyOfRange(hashedAliceAgreement, 32, 44), 0, 12);
         var bobIvParameterSpec = new IvParameterSpec(Arrays.copyOfRange(hashedBobAgreement, 32, 44), 0, 12);
@@ -68,12 +68,11 @@ public class X25519ChaCha20Poly1305Sample {
         var aliceIvParameterSpec2 = new IvParameterSpec(Arrays.copyOfRange(hashedAliceAgreement, 44, 56));
         aliceCipher.init(Cipher.ENCRYPT_MODE, aliceSecretKey, aliceIvParameterSpec2);
         SealedObject object = new SealedObject("おまんこ＾～", aliceCipher);
-        var bobIvParameterSpec2 = new IvParameterSpec(Arrays.copyOfRange(hashedBobAgreement, 44, 56));
-        bobCipher.init(Cipher.DECRYPT_MODE, bobSecretKey, bobIvParameterSpec2);
-        var obj = object.getObject(bobCipher);
+        var obj = object.getObject(bobSecretKey);
         if (obj instanceof String) {
+            String text = (String) obj;
             System.out.println("obj is String");
-            System.out.println((String) obj);
+            System.out.println(text);
         } else {
             System.out.println(obj);
         }
