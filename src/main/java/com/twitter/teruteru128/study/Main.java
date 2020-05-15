@@ -1,5 +1,7 @@
 package com.twitter.teruteru128.study;
 
+import java.security.SecureRandom;
+
 // TODO 将来的にエントリポイントをこのクラス一つにする
 // TODO コマンドライン引数の実装方法
 // TODO 設定ファイルの実装方法 Propaties XML JSON YAML
@@ -10,20 +12,18 @@ package com.twitter.teruteru128.study;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        byte[] buf = new byte[8192];
-        int len = 0;
-        byte[] b = "0123456789ABCDEF".getBytes();
-        int writeNum = 0;
-        while ((len = System.in.read(buf, 0, 8192)) >= 0) {
-            for (int i = 0; i < len; i++, writeNum++) {
-                System.out.write(b[(buf[i] >>> 4) & 0x0f]);
-                System.out.write(b[(buf[i] >>> 0) & 0x0f]);
-                if ((writeNum % 16) == 15) {
-                    System.out.println();
-                }
-            }
+        // litres par gallon
+        double lpg = 3.785412;
+        SecureRandom random = SecureRandom.getInstanceStrong();
+        double sumOfGallons = 0D;
+        for (int i = 0; i < 5; i++) {
+            double gallons = 1d + random.nextDouble() * 2D;
+            sumOfGallons += gallons;
+            System.out.printf("%f gallons, %f litres%n", gallons, gallons * lpg);
         }
-        // 後始末
-        System.out.flush();
+        double gallons = 3d + random.nextDouble() * 0.1D;
+        sumOfGallons += gallons;
+        System.out.printf("%f gallons, %f litres%n", gallons, gallons * lpg);
+        System.out.printf("sum : %f gallons, %f litres%n", sumOfGallons, sumOfGallons * lpg);
     }
 }

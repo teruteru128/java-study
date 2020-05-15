@@ -49,7 +49,8 @@ public class BouyomiChan {
         final int arglen = args.length;
         boolean useTor = false;
         int argi = 0;
-        StringJoiner readtext = new StringJoiner("\n");
+        StringJoiner readtextJ = new StringJoiner("\n");
+        readtextJ.setEmptyValue("やったぜ。");
         while (argi < arglen) {
             boolean hasmoreargs = true;
             String arg = args[argi];
@@ -57,10 +58,11 @@ public class BouyomiChan {
                 useTor = true;
                 hasmoreargs = false;
             } else {
-                readtext.add(arg);
+                readtextJ.add(arg);
             }
             argi += hasmoreargs ? 2 : 1;
         }
+        String readText = readtextJ.toString();
         LocalDateTime dateTime = LocalDateTime.now(Clock.systemDefaultZone());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日 ah時m分s秒", Locale.JAPAN);
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("Gy年M月d日", Locale.JAPAN);
@@ -70,36 +72,12 @@ public class BouyomiChan {
         // TODO host port proxy の設定を動的に設定できるようにする 2020-05-01T09:13:33.071237200+09:00
         String host = useTor ? "2ayu6gqru3xzfzbvud64ezocamykp56kunmkzveqmuxvout2yubeeuad.onion" : "localhost";
         int port = 50001;
-        var proxy = useTor ? new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9050)) : Proxy.NO_PROXY;
+        var proxy = useTor ? new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("192.168.11.52", 9050)) : Proxy.NO_PROXY;
         var main = new BouyomiChan(host, port, proxy);
-        if (readtext.length() > 0) {
-            main.doTalk(readtext.toString());
+        if (readText.length() > 0) {
+            main.doTalk(readText);
             System.out.println("読み上げました");
         }
-        var text1 = formatter.format(dateTime);
-        System.out.println(text1);
-        main.doTalk(text1);
-        var text2 = String.format("今は %s %s ですよー", date.format(formatter2), time.format(formatter3));
-        System.out.println(text2);
-        main.doTalk(text2);
-        main.doTalk("hakatanoshio");
-        main.doTalk("何時？？");
-        /*
-        for (int i = 0; i < 24; i++) {
-            main.doTalk("世界で一番おひめさま");
-            System.out.printf("task count : %d%n", main.getTaskCount());
-        }
-        */
-        System.out.printf("pause status : %d%n", main.getPause());
-        /*
-        main.doPause();
-        System.out.printf("pause status : %d%n", main.getPause());
-        main.doResume();
-        System.out.printf("pause status : %d%n", main.getPause());
-        main.doSkip();
-        System.out.printf("now playing : %d%n", main.getNowPlaying());
-        main.doClear();
-        */
     }
 
     /**
