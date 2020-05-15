@@ -70,6 +70,7 @@ class Producer implements Callable<Void> {
         // スレッド3 : 15万 <= i < 20万
         // 変なことやらせずに1スレッドに巨大テーブル処理させたほうが早い？
         while (true) {
+            // 鍵を生成
             for (int i = 0; i < pairsLen; i++) {
                 random.nextBytes(potentialPrivEncryptionKey);
                 potentialPublicEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize()
@@ -89,12 +90,12 @@ class Producer implements Callable<Void> {
                     for (nlz = 0; cache64[nlz] == 0 && nlz < ripemd160HashLen; nlz++) {
                     }
                     if (nlz >= requireNlz) {
-                        KeyPair signingKeyPair = new KeyPair(
-                                Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen),
-                                Arrays.copyOfRange(publicKeys, i * publicKeyLen, (i + 1) * publicKeyLen));
-                        KeyPair encryptionKeyPair = new KeyPair(
-                                Arrays.copyOfRange(privateKeys, j * privateKeyLen, (j + 1) * privateKeyLen),
-                                Arrays.copyOfRange(publicKeys, j * publicKeyLen, (j + 1) * publicKeyLen));
+                        byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen);
+                        byte[] signingPublicKey = Arrays.copyOfRange(publicKeys, i * publicKeyLen, (i + 1) * publicKeyLen);
+                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, signingPublicKey);
+                        byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, j * privateKeyLen, (j + 1) * privateKeyLen);
+                        byte[] encryptionPublicKey = Arrays.copyOfRange(publicKeys, j * publicKeyLen, (j + 1) * publicKeyLen);
+                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, encryptionPublicKey);
                         var response = new Response(signingKeyPair, encryptionKeyPair,
                                 Arrays.copyOf(cache64, ripemd160HashLen));
                         System.err.printf("keypair found! : %s%n", LocalDateTime.now());
@@ -114,12 +115,12 @@ class Producer implements Callable<Void> {
                     for (nlz = 0; cache64[nlz] == 0 && nlz < ripemd160HashLen; nlz++) {
                     }
                     if (nlz >= requireNlz) {
-                        KeyPair signingKeyPair = new KeyPair(
-                                Arrays.copyOfRange(privateKeys, j * privateKeyLen, (j + 1) * privateKeyLen),
-                                Arrays.copyOfRange(publicKeys, j * publicKeyLen, (j + 1) * publicKeyLen));
-                        KeyPair encryptionKeyPair = new KeyPair(
-                                Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen),
-                                Arrays.copyOfRange(publicKeys, i * publicKeyLen, (i + 1) * publicKeyLen));
+                        byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, j * privateKeyLen, (j + 1) * privateKeyLen);
+                        byte[] signingPublicKey = Arrays.copyOfRange(publicKeys, j * publicKeyLen, (j + 1) * publicKeyLen);
+                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, signingPublicKey);
+                        byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen);
+                        byte[] encryptionPublicKey = Arrays.copyOfRange(publicKeys, i * publicKeyLen, (i + 1) * publicKeyLen);
+                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, encryptionPublicKey);
                         var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, 20));
                         System.err.printf("keypair found! : %s%n", LocalDateTime.now());
                         try {
