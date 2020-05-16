@@ -47,14 +47,14 @@ public class BMAddressValidator {
         sha256.update(sha256hash, 0, 32);
         sha256.digest(sha256hash, 0, 32);
         System.out.print("private Signing Key : checksum ");
-        System.out.println(Arrays.equals(privSigningKey, 33, 37, sha256hash, 0, 4) ? "verified" : "not verified");
+        System.out.println(Arrays.equals(privSigningKey, 33, 37, sha256hash, 0, 4) ? "validated" : "not validated");
 
         sha256.update(privEncryptionKey, 0, 33);
         sha256.digest(sha256hash, 0, 32);
         sha256.update(sha256hash, 0, 32);
         sha256.digest(sha256hash, 0, 32);
         System.out.print("private Encryption Key : checksum ");
-        System.out.println(Arrays.equals(privEncryptionKey, 33, 37, sha256hash, 0, 4) ? "verified" : "not verified");
+        System.out.println(Arrays.equals(privEncryptionKey, 33, 37, sha256hash, 0, 4) ? "validated" : "not validated");
 
         // 公開鍵を導出
         final byte[] posPrivSigningKey = Arrays.copyOfRange(privSigningKey, 1, 33);
@@ -78,24 +78,26 @@ public class BMAddressValidator {
         sha512.digest(sha512hash, 0, 64);
         ripemd160.update(sha512hash, 0, 64);
         ripemd160.digest(ripe, 0, 20);
+
+        final String address4 = BMAddress.encodeAddress(4, 1, ripe);
+        final String address3 = BMAddress.encodeAddress(3, 1, ripe);
+        final String address3_2 = BMAddress.encodeAddress(3, 1, ripe, 2);
+
         System.out.print("ripe : ");
         System.out.println(DatatypeConverter.printHexBinary(ripe));
 
-        final String address4 = BMAddress.encodeAddress(4, 1, ripe);
         System.out.print("          v4 address calculated from ripe : ");
         System.out.print(address4);
         System.out.print(" (");
         System.out.print(address4.equals(address) ? "" : "not ");
         System.out.println("matched)");
 
-        final String address3 = BMAddress.encodeAddress(3, 1, ripe);
         System.out.print("unlimited v3 address calculated from ripe : ");
         System.out.print(address3);
         System.out.print(" (");
         System.out.print(address3.equals(address) ? "" : "not ");
         System.out.println("matched)");
 
-        final String address3_2 = BMAddress.encodeAddress(3, 1, ripe, 2);
         System.out.print("  limited v3 address calculated from ripe : ");
         System.out.print(address3_2);
         System.out.print(" (");

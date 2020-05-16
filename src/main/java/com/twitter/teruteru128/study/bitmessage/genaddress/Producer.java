@@ -33,13 +33,17 @@ class Producer implements Callable<Void> {
      * version
      * 
      * generate
-     *     コマンドラインオプション
-     *     スレッド数
-     *     要求
+     *  コマンドラインオプション
+     *  スレッド数
+     *  要求する短さ
+     *  キャッシュサイズ(鍵)
+     *  出力先
+     *   標準出力
+     *   ファイル
      * validate
-     *     address
-     *     signingPrivateKeyWIF
-     *     encryptionPrivateKeyWIF
+     *  address
+     *  signingPrivateKeyWIF
+     *  encryptionPrivateKeyWIF
      *
      * @return
      * @throws NoSuchAlgorithmException
@@ -67,11 +71,10 @@ class Producer implements Callable<Void> {
         // XXX 生の鍵データを一つの配列に詰め込むのは本当に早いのか？
         final byte[] privateKeys = new byte[pairsLen * privateKeyLen];
         final byte[] iPublicKey = new byte[publicKeyLen];
+        final byte[] jPublicKey = new byte[publicKeyLen];
         final byte[] publicKeys = new byte[pairsLen * publicKeyLen];
         final byte[] cache64 = new byte[sha512HashLen];
         int nlz = 0;
-        int iPublicKeyOffset;
-        int jPublicKeyOffset;
 
         /* hash objects */
         final MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
@@ -93,22 +96,20 @@ class Producer implements Callable<Void> {
             random.nextBytes(privateKeys);
             System.err.printf("huga (%d) %s%n", request.getTaskID(), LocalDateTime.now());
             for (int i = 0; i < pairsLen; i++) {
-                potentialPublicEncryptionKey = g.multiply(new BigInteger(1, privateKeys, i * privateKeyLen, privateKeyLen)).normalize()
-                        .getEncoded(false);
+                potentialPublicEncryptionKey = g.multiply(new BigInteger(1, privateKeys, i * privateKeyLen, privateKeyLen)).normalize().getEncoded(false);
                 System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * publicKeyLen, publicKeyLen);
             }
             System.err.printf("piyo (%d) %s%n", request.getTaskID(), LocalDateTime.now());
             for (int i = 0; i < pairsLen; i++) {
-                iPublicKeyOffset = i * publicKeyLen;
-                System.arraycopy(publicKeys, iPublicKeyOffset, iPublicKey, 0, publicKeyLen);
+                System.arraycopy(publicKeys, i * publicKeyLen, iPublicKey, 0, publicKeyLen);
                 for (int j = 0; j <= i; j++) {
-                    jPublicKeyOffset = j * publicKeyLen;
+                    System.arraycopy(publicKeys, j * publicKeyLen, jPublicKey, 0, publicKeyLen);
                     // XXX 変数生成処理をやらせないために1メソッドにベタ打ちしてるんだが、スタック領域に変数を生成/削除するのってそれなりに重い処理なのか？
                     // staticメソッドはメソッドをインライン展開してくれるらしい
                     // ここから
                     // ripeを計算する
                     sha512.update(iPublicKey, 0, publicKeyLen);
-                    sha512.update(publicKeys, jPublicKeyOffset, publicKeyLen);
+                    sha512.update(jPublicKey, 0, publicKeyLen);
                     sha512.digest(cache64, 0, sha512HashLen);
                     ripemd160.update(cache64, 0, sha512HashLen);
                     ripemd160.digest(cache64, 0, ripemd160HashLen);
@@ -118,12 +119,10 @@ class Producer implements Callable<Void> {
                     // 計算したnlz結果が要求値より良好なら
                     if (nlz >= requireNlz) {
                         // responseインスタンスを生成してエンキュー
-                        byte[] signingPrivateKey = Arrays.copyOfRange(iPublicKey, i * privateKeyLen, (i + 1) * privateKeyLen);
-                        byte[] signingPublicKey = iPublicKey;
-                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, signingPublicKey);
+                        byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen);
+                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, iPublicKey);
                         byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, j * privateKeyLen, (j + 1) * privateKeyLen);
-                        byte[] encryptionPublicKey = Arrays.copyOfRange(publicKeys, jPublicKeyOffset, jPublicKeyOffset + publicKeyLen);
-                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, encryptionPublicKey);
+                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, jPublicKey);
                         var response = new Response(signingKeyPair, encryptionKeyPair,
                                 Arrays.copyOf(cache64, ripemd160HashLen));
                         System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
@@ -139,7 +138,7 @@ class Producer implements Callable<Void> {
                     // ここまで
                     // ここから
                     // ripeを計算する
-                    sha512.update(publicKeys, jPublicKeyOffset, publicKeyLen);
+                    sha512.update(jPublicKey, 0, publicKeyLen);
                     sha512.update(iPublicKey, 0, publicKeyLen);
                     sha512.digest(cache64, 0, sha512HashLen);
                     ripemd160.update(cache64, 0, sha512HashLen);
@@ -151,11 +150,9 @@ class Producer implements Callable<Void> {
                     if (nlz >= requireNlz) {
                         // responseインスタンスを生成してエンキュー
                         byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, j * privateKeyLen, (j + 1) * privateKeyLen);
-                        byte[] signingPublicKey = Arrays.copyOfRange(publicKeys, jPublicKeyOffset, jPublicKeyOffset + publicKeyLen);
-                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, signingPublicKey);
+                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, jPublicKey);
                         byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen);
-                        byte[] encryptionPublicKey = iPublicKey;
-                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, encryptionPublicKey);
+                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, iPublicKey);
                         var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, 20));
                         System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
                         try {

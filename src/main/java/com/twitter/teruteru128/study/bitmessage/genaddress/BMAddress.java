@@ -21,14 +21,6 @@ public final class BMAddress {
                 throw new IllegalArgumentException(
                         "Programming error in encodeAddress: The length of a given ripe hash was not 20.");
             }
-            /*
-            byte[] tmp = new byte[2];
-            if (Arrays.equals(ripe, 0, 2, tmp, 0, 2)) {
-                ripe = Arrays.copyOfRange(ripe, 2, 20);
-            } else if (Arrays.equals(ripe, 0, 1, tmp, 0, 1)) {
-                ripe = Arrays.copyOfRange(ripe, 1, 20);
-            }
-            */
             int i = 0;
             for (; ripe[i] == 0 && i < max; i++) {
                 // COUNTING
