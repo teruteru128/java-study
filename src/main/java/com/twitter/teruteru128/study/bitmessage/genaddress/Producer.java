@@ -6,8 +6,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
@@ -25,6 +25,14 @@ class Producer implements Callable<Void> {
         string = "Task-" + request.getTaskID();
     }
 
+    /* static const */
+    private final static ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
+    private final static int pairsLen = 65536;
+    private final static int privateKeyLen = 32;
+    private final static int publicKeyLen = 65;
+    private final static int sha512HashLen = 64;
+    private final static int ripemd160HashLen = 20;
+
     /**
      *
      * @return
@@ -37,19 +45,12 @@ class Producer implements Callable<Void> {
         /* random source */
         final SecureRandom random = new SecureRandom();
 
-        /* const */
-        final ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
+        /* instance const */
         final int requireNlz = request.getRequireNlz();
-        final int pairsLen = 65536;
-        final int privateKeyLen = 32;
-        final int publicKeyLen = 65;
-        final int sha512HashLen = 64;
-        final int ripemd160HashLen = 20;
 
         /* working area */
-        final byte[] potentialPrivEncryptionKey = new byte[32];
         byte[] potentialPublicEncryptionKey = null;
-        // XXX インスタンスから鍵を取り出すのと二次元配列から鍵を取り出すのはどちらが重い？ -> 1次元配列にしてしまえば無問題
+        // XXX すべての生の鍵データを一つの配列に詰め込むのは本当に早いのか？
         final byte[] privateKeys = new byte[pairsLen * privateKeyLen];
         final byte[] publicKeys = new byte[pairsLen * publicKeyLen];
         final byte[] cache64 = new byte[sha512HashLen];
@@ -61,7 +62,7 @@ class Producer implements Callable<Void> {
 
         /* consumer queues */
         final BlockingQueue<Response> queue = Queues.getResponseQueue();
-        final ArrayList<Response> waitList = new ArrayList<>();
+        final LinkedList<Response> waitList = new LinkedList<>();
         // TODO 一つのでかいテーブルを全スレッド協調して計算する
         // テーブルサイズを20万ぐらいにしてiをスレッドで分割する？
         // スレッド0 : 0 <= i < 5万
@@ -72,24 +73,28 @@ class Producer implements Callable<Void> {
         while (true) {
             // 鍵を生成
             for (int i = 0; i < pairsLen; i++) {
-                random.nextBytes(potentialPrivEncryptionKey);
-                potentialPublicEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize()
+                random.nextBytes(privateKeys);
+                potentialPublicEncryptionKey = g.multiply(new BigInteger(1, privateKeys, i * privateKeyLen, privateKeyLen)).normalize()
                         .getEncoded(false);
-                System.arraycopy(potentialPrivEncryptionKey, 0, privateKeys, i * privateKeyLen, privateKeyLen);
                 System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * publicKeyLen, publicKeyLen);
             }
             for (int i = 0; i < pairsLen; i++) {
                 for (int j = 0; j <= i; j++) {
                     // XXX 変数生成処理をやらせないために1メソッドにベタ打ちしてるんだが、スタック領域に変数を生成/削除するのってそれなりに重い処理なのか？
                     // staticメソッドはメソッドをインライン展開してくれるらしい
+                    // ここから
+                    // ripeを計算する
                     sha512.update(publicKeys, i * publicKeyLen, publicKeyLen);
                     sha512.update(publicKeys, j * publicKeyLen, publicKeyLen);
                     sha512.digest(cache64, 0, sha512HashLen);
                     ripemd160.update(cache64, 0, sha512HashLen);
                     ripemd160.digest(cache64, 0, ripemd160HashLen);
+                    // number of leading zeroを計算する
                     for (nlz = 0; cache64[nlz] == 0 && nlz < ripemd160HashLen; nlz++) {
                     }
+                    // 計算したnlz結果が要求値より良好なら
                     if (nlz >= requireNlz) {
+                        // responseインスタンスを生成してエンキュー
                         byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen);
                         byte[] signingPublicKey = Arrays.copyOfRange(publicKeys, i * publicKeyLen, (i + 1) * publicKeyLen);
                         KeyPair signingKeyPair = new KeyPair(signingPrivateKey, signingPublicKey);
@@ -102,19 +107,26 @@ class Producer implements Callable<Void> {
                         try {
                             queue.put(response);
                         } catch (InterruptedException e) {
-                            System.err.println("queue append failed!");
+                            System.err.println("enqueue failed!");
                             e.printStackTrace();
+                            // Save if failed
                             waitList.add(response);
                         }
                     }
+                    // ここまで
+                    // ここから
+                    // ripeを計算する
                     sha512.update(publicKeys, j * publicKeyLen, publicKeyLen);
                     sha512.update(publicKeys, i * publicKeyLen, publicKeyLen);
                     sha512.digest(cache64, 0, sha512HashLen);
                     ripemd160.update(cache64, 0, sha512HashLen);
                     ripemd160.digest(cache64, 0, ripemd160HashLen);
+                    // number of leading zeroを計算する
                     for (nlz = 0; cache64[nlz] == 0 && nlz < ripemd160HashLen; nlz++) {
                     }
+                    // 計算したnlz結果が要求値より良好なら
                     if (nlz >= requireNlz) {
+                        // responseインスタンスを生成してエンキュー
                         byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, j * privateKeyLen, (j + 1) * privateKeyLen);
                         byte[] signingPublicKey = Arrays.copyOfRange(publicKeys, j * publicKeyLen, (j + 1) * publicKeyLen);
                         KeyPair signingKeyPair = new KeyPair(signingPrivateKey, signingPublicKey);
@@ -126,11 +138,12 @@ class Producer implements Callable<Void> {
                         try {
                             queue.put(response);
                         } catch (InterruptedException e) {
-                            System.err.println("queue append failed!");
+                            System.err.println("enqueue failed!");
                             e.printStackTrace();
                             waitList.add(response);
                         }
                     }
+                    // ここまで
                 }
             }
             if (!waitList.isEmpty()) {
@@ -139,6 +152,7 @@ class Producer implements Callable<Void> {
                     Response response = responses.next();
                     try {
                         queue.put(response);
+                        // remove after enqueue
                         responses.remove();
                     } catch (InterruptedException e) {
                         // skip

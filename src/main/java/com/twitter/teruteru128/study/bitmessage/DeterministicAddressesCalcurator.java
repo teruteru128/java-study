@@ -83,7 +83,7 @@ class DeterministicAddressesCalcurator implements Callable<String> {
             }
         }
         String address = BMAddress.encodeAddress(adderssVersionNumber, streamNumber, ripe);
-        //AddressGenerator.exportAddress(new Response(new KeyPair(Arrays.copyOf(potentialPrivSigningKey, 32), potentialPubSigningKey), new KeyPair(Arrays.copyOf(potentialPrivEncryptionKey, 32), potentialPubEncryptionKey), ripe));
+        //AddressGenerator.exportAddressToStdout(new Response(new KeyPair(Arrays.copyOf(potentialPrivSigningKey, 32), potentialPubSigningKey), new KeyPair(Arrays.copyOf(potentialPrivEncryptionKey, 32), potentialPubEncryptionKey), ripe));
         return address;
     }
 

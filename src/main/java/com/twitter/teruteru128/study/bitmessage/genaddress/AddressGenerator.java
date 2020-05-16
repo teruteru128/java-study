@@ -33,7 +33,7 @@ public class AddressGenerator implements Runnable {
     @Override
     public void run() {
         var tasks = new ArrayList<Producer>();
-        int requireNlz = 5;
+        int requireNlz = 2;
         Thread consumerThread = new Thread(new Consumer());
         consumerThread.setDaemon(true);
         consumerThread.start();
@@ -89,7 +89,7 @@ public class AddressGenerator implements Runnable {
         thread.start();
     }
 
-    public static void exportAddress(Response component) {
+    public static void exportAddressToStdout(Response component) {
         byte[] ripe = component.getRipe();
         var address4 = BMAddress.encodeAddress(4, 1, ripe);
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
