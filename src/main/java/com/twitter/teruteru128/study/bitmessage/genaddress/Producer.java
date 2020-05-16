@@ -64,7 +64,7 @@ class Producer implements Callable<Void> {
 
         /* working area */
         byte[] potentialPublicEncryptionKey = null;
-        // XXX すべての生の鍵データを一つの配列に詰め込むのは本当に早いのか？
+        // XXX 生の鍵データを一つの配列に詰め込むのは本当に早いのか？
         final byte[] privateKeys = new byte[pairsLen * privateKeyLen];
         final byte[] iPublicKey = new byte[publicKeyLen];
         final byte[] publicKeys = new byte[pairsLen * publicKeyLen];
@@ -80,7 +80,7 @@ class Producer implements Callable<Void> {
         /* consumer queues */
         final BlockingQueue<Response> queue = Queues.getResponseQueue();
         final LinkedList<Response> waitList = new LinkedList<>();
-        // TODO 一つのでかいテーブルを全スレッド協調して計算する
+        // TODO 一つのでかいテーブルを全スレッド協調して計算する -> ？
         // テーブルサイズを20万ぐらいにしてiをスレッドで分割する？
         // スレッド0 : 0 <= i < 5万
         // スレッド1 : 5万 <= i < 10万
@@ -107,7 +107,7 @@ class Producer implements Callable<Void> {
                     // staticメソッドはメソッドをインライン展開してくれるらしい
                     // ここから
                     // ripeを計算する
-                    sha512.update(publicKeys, iPublicKeyOffset, publicKeyLen);
+                    sha512.update(iPublicKey, 0, publicKeyLen);
                     sha512.update(publicKeys, jPublicKeyOffset, publicKeyLen);
                     sha512.digest(cache64, 0, sha512HashLen);
                     ripemd160.update(cache64, 0, sha512HashLen);
@@ -118,8 +118,8 @@ class Producer implements Callable<Void> {
                     // 計算したnlz結果が要求値より良好なら
                     if (nlz >= requireNlz) {
                         // responseインスタンスを生成してエンキュー
-                        byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen);
-                        byte[] signingPublicKey = Arrays.copyOfRange(publicKeys, iPublicKeyOffset, iPublicKeyOffset + publicKeyLen);
+                        byte[] signingPrivateKey = Arrays.copyOfRange(iPublicKey, i * privateKeyLen, (i + 1) * privateKeyLen);
+                        byte[] signingPublicKey = iPublicKey;
                         KeyPair signingKeyPair = new KeyPair(signingPrivateKey, signingPublicKey);
                         byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, j * privateKeyLen, (j + 1) * privateKeyLen);
                         byte[] encryptionPublicKey = Arrays.copyOfRange(publicKeys, jPublicKeyOffset, jPublicKeyOffset + publicKeyLen);
@@ -140,7 +140,7 @@ class Producer implements Callable<Void> {
                     // ここから
                     // ripeを計算する
                     sha512.update(publicKeys, jPublicKeyOffset, publicKeyLen);
-                    sha512.update(publicKeys, iPublicKeyOffset, publicKeyLen);
+                    sha512.update(iPublicKey, 0, publicKeyLen);
                     sha512.digest(cache64, 0, sha512HashLen);
                     ripemd160.update(cache64, 0, sha512HashLen);
                     ripemd160.digest(cache64, 0, ripemd160HashLen);
@@ -154,7 +154,7 @@ class Producer implements Callable<Void> {
                         byte[] signingPublicKey = Arrays.copyOfRange(publicKeys, jPublicKeyOffset, jPublicKeyOffset + publicKeyLen);
                         KeyPair signingKeyPair = new KeyPair(signingPrivateKey, signingPublicKey);
                         byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen);
-                        byte[] encryptionPublicKey = Arrays.copyOfRange(publicKeys, iPublicKeyOffset, iPublicKeyOffset + publicKeyLen);
+                        byte[] encryptionPublicKey = iPublicKey;
                         KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, encryptionPublicKey);
                         var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, 20));
                         System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
