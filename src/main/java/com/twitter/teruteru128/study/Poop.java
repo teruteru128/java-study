@@ -1,5 +1,8 @@
 package com.twitter.teruteru128.study;
 
+import java.io.IOException;
+import java.util.Properties;
+
 class Poop implements Runnable {
 
     public Poop() {
@@ -14,4 +17,11 @@ class Poop implements Runnable {
         System.out.printf("\\u%04X\\u%04X%n", (int) p.charAt(0), (int) p.charAt(1));
     }
 
+    public static void main(String[] args) throws IOException {
+        Thread poop = new Thread(new Poop());
+        poop.start();
+        Properties properties = new Properties(System.getProperties());
+        properties.setProperty("\uD83D\uDCA9", "やったぜ。");
+        properties.store(System.out, null);
+    }
 }

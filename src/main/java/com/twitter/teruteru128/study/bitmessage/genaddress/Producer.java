@@ -26,9 +26,20 @@ class Producer implements Callable<Void> {
     }
 
     /**
-     * コマンドラインオプション
-     * スレッド数
-     * 要求
+     * 
+     * コマンド
+     * generate
+     * validate
+     * version
+     * 
+     * generate
+     *     コマンドラインオプション
+     *     スレッド数
+     *     要求
+     * validate
+     *     address
+     *     signingPrivateKeyWIF
+     *     encryptionPrivateKeyWIF
      *
      * @return
      * @throws NoSuchAlgorithmException
