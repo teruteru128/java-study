@@ -21,6 +21,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.math.BigInteger;
 import java.util.TimeZone;
 
+import jakarta.xml.bind.DatatypeConverter;
 
 /**
  * This is an example implementation of the OATH
@@ -96,9 +97,7 @@ public class TOTP {
      *              {@link truncationDigits} digits
      */
 
-    public static String generateTOTP(String key,
-            String time,
-            String returnDigits){
+    public static String generateTOTP(String key, String time, int returnDigits){
         return generateTOTP(key, time, returnDigits, "HmacSHA1");
     }
 
@@ -113,9 +112,7 @@ public class TOTP {
      * @return: a numeric String in base 10 that includes
      *              {@link truncationDigits} digits
      */
-    public static String generateTOTP256(String key,
-            String time,
-            String returnDigits){
+    public static String generateTOTP256(String key, String time, int returnDigits){
         return generateTOTP(key, time, returnDigits, "HmacSHA256");
     }
 
@@ -131,9 +128,7 @@ public class TOTP {
      *              {@link truncationDigits} digits
      */
 
-    public static String generateTOTP512(String key,
-            String time,
-            String returnDigits){
+    public static String generateTOTP512(String key, String time, int returnDigits){
         return generateTOTP(key, time, returnDigits, "HmacSHA512");
     }
 
@@ -150,12 +145,8 @@ public class TOTP {
      *              {@link truncationDigits} digits
      */
 
-    public static String generateTOTP(String key,
-            String time,
-            String returnDigits,
-            String crypto){
-        int codeDigits = Integer.decode(returnDigits).intValue();
-        String result = null;
+    public static String generateTOTP(String key, String time, int returnDigits, String crypto){
+        int codeDigits = returnDigits;
 
         // Using the counter
         // First 8 bytes are for the movingFactor
@@ -181,10 +172,8 @@ public class TOTP {
 
         int otp = binary % DIGITS_POWER[codeDigits];
 
-        result = Integer.toString(otp);
-        while (result.length() < codeDigits) {
-            result = "0" + result;
-        }
+        String format = String.format("%%0%dd", codeDigits);
+        String result = String.format(format, otp);
         return result;
     }
 
@@ -205,48 +194,37 @@ public class TOTP {
         long testTime[] = {59L, 1111111109L, 1111111111L,
                 1234567890L, 2000000000L, 20000000000L, Instant.now().getEpochSecond()};
 
+        System.out.println(new String(DatatypeConverter.parseHexBinary(seed)));
+
         String steps = "0";
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         try {
-            System.out.println(
-                    "+---------------+-----------------------+" +
-            "------------------+--------+--------+");
-            System.out.println(
-                    "|  Time(sec)    |   Time (UTC format)   " +
-            "| Value of T(Hex)  |  TOTP  | Mode   |");
-            System.out.println(
-                    "+---------------+-----------------------+" +
-            "------------------+--------+--------+");
+            System.out.println("+---------------+-----------------------+------------------+--------+--------+");
+            System.out.println("|  Time(sec)    |   Time (UTC format)   | Value of T(Hex)  |  TOTP  | Mode   |");
+            System.out.println("+---------------+-----------------------+------------------+--------+--------+");
 
             for (int i=0; i<testTime.length; i++) {
                 long T = (testTime[i] - T0)/X;
                 steps = Long.toHexString(T).toUpperCase();
                 while (steps.length() < 16) steps = "0" + steps;
-                String fmtTime = String.format("%1$-11s", testTime[i]);
+                String fmtTime = String.format("%-11s", testTime[i]);
                 String utcTime = df.format(new Date(testTime[i]*1000));
-                System.out.print("|  " + fmtTime + "  |  " + utcTime +
-                        "  | " + steps + " |");
-                System.out.println(generateTOTP(seed, steps, "8",
-                "HmacSHA1") + "| SHA1   |");
                 System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
-                System.out.println(generateTOTP(seed1, steps, "6", "HmacSHA1") + "| SHA1   |");
-                System.out.print("|  " + fmtTime + "  |  " + utcTime +
-                        "  | " + steps + " |");
-                System.out.println(generateTOTP(seed32, steps, "8",
-                "HmacSHA256") + "| SHA256 |");
-                System.out.print("|  " + fmtTime + "  |  " + utcTime +
-                        "  | " + steps + " |");
-                System.out.println(generateTOTP(seed64, steps, "8",
-                "HmacSHA512") + "| SHA512 |");
-
-                System.out.println(
-                        "+---------------+-----------------------+" +
-                "------------------+--------+--------+");
+                System.out.println(generateTOTP(seed, steps, 8, "HmacSHA1") + "| SHA1   |");
+                System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
+                System.out.printf("%8s| SHA1   |\n", generateTOTP(seed, steps, 6, "HmacSHA1"));
+                System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
+                System.out.printf("%8s| SHA1   |\n", generateTOTP(seed1, steps, 6, "HmacSHA1"));
+                System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
+                System.out.println(generateTOTP(seed32, steps, 8, "HmacSHA256") + "| SHA256 |");
+                System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
+                System.out.println(generateTOTP(seed64, steps, 8, "HmacSHA512") + "| SHA512 |");
+                System.out.println("+---------------+-----------------------+------------------+--------+--------+");
             }
-        }catch (final Exception e){
-            System.out.println("Error : " + e);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }
