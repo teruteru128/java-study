@@ -65,7 +65,7 @@ public class BCProviderTest {
             System.out.printf("BCProviderTest.detailedAlgorithmReferenceTest() : Security provider %s was added.%n", provider);
         }
         assertNotNull(MessageDigest.getInstance("ripemd160"));
-        assertNotNull(Cipher.getInstance("ChaCha20-Poly1305"));
+        assertNotNull(Cipher.getInstance("ChaCha20-Poly1305/None/NoPadding"));
     }
 
     @AfterAll

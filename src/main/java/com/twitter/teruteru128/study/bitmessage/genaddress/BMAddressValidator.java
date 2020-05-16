@@ -14,7 +14,7 @@ import org.bouncycastle.math.ec.ECPoint;
 
 import jakarta.xml.bind.DatatypeConverter;
 
-public class BMAddressGenerateSample {
+public class BMAddressValidator {
 
     /**
      * 
@@ -37,6 +37,7 @@ public class BMAddressGenerateSample {
         final byte[] privSigningKey = Base58.decode(privSigningKeyWIF);
         final byte[] privEncryptionKey = Base58.decode(privEncryptionKeyWIF);
 
+        // validateメソッドの引数は何型にすべき？String？byte[]？
         // 鍵のチェックサムを検証
         final MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
         final byte[] sha256hash = new byte[32];

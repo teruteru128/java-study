@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.study.serialize.sample002;
 
 import java.io.Serializable;
 

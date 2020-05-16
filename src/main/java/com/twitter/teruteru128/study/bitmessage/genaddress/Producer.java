@@ -6,13 +6,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
-
-import com.twitter.teruteru128.study.tcp.Status;
 
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.math.ec.ECPoint;
@@ -27,6 +25,14 @@ class Producer implements Callable<Void> {
         string = "Task-" + request.getTaskID();
     }
 
+    /* static const */
+    private final static ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
+    private final static int pairsLen = 65536;
+    private final static int privateKeyLen = 32;
+    private final static int publicKeyLen = 65;
+    private final static int sha512HashLen = 64;
+    private final static int ripemd160HashLen = 20;
+
     /**
      *
      * @return
@@ -36,26 +42,30 @@ class Producer implements Callable<Void> {
      */
     @Override
     public Void call() throws NoSuchAlgorithmException, DigestException {
+        /* random source */
         final SecureRandom random = new SecureRandom();
-        final ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
-        final byte[] potentialPrivEncryptionKey = new byte[32];
-        byte[] potentialPublicEncryptionKey = null;
+
+        /* instance const */
         final int requireNlz = request.getRequireNlz();
-        // XXX インスタンスから鍵を取り出すのと二次元配列から鍵を取り出すのはどちらが重い？
-        // final byte[][] privateKeys = new byte[65536][];
-        // final byte[][] publicKeys = new byte[65536][];
-        final KeyPair[] pairs = new KeyPair[65536];
-        KeyPair pairI = null;
-        byte[] iPublicKey = null;
-        KeyPair pairJ = null;
-        byte[] jPublicKey = null;
-        final int pairsLen = pairs.length;
+
+        /* working area */
+        byte[] potentialPublicEncryptionKey = null;
+        // XXX すべての生の鍵データを一つの配列に詰め込むのは本当に早いのか？
+        final byte[] privateKeys = new byte[pairsLen * privateKeyLen];
+        final byte[] iPublicKey = new byte[publicKeyLen];
+        final byte[] publicKeys = new byte[pairsLen * publicKeyLen];
+        final byte[] cache64 = new byte[sha512HashLen];
+        int nlz = 0;
+        int iPublicKeyOffset;
+        int jPublicKeyOffset;
+
+        /* hash objects */
         final MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
         final MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
-        final byte[] cache64 = new byte[64];
-        int nlz = 0;
+
+        /* consumer queues */
         final BlockingQueue<Response> queue = Queues.getResponseQueue();
-        final ArrayList<Response> waitList = new ArrayList<>();
+        final LinkedList<Response> waitList = new LinkedList<>();
         // TODO 一つのでかいテーブルを全スレッド協調して計算する
         // テーブルサイズを20万ぐらいにしてiをスレッドで分割する？
         // スレッド0 : 0 <= i < 5万
@@ -63,57 +73,85 @@ class Producer implements Callable<Void> {
         // スレッド2 : 10万 <= i < 15万
         // スレッド3 : 15万 <= i < 20万
         // 変なことやらせずに1スレッドに巨大テーブル処理させたほうが早い？
-        while (Status.shutdown == 0) {
+        while (true) {
+            // 鍵を生成
+            System.err.printf("フフフ…… %d%n", request.getTaskID());
             for (int i = 0; i < pairsLen; i++) {
-                random.nextBytes(potentialPrivEncryptionKey);
-                potentialPublicEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey)).normalize()
+                random.nextBytes(privateKeys);
+                potentialPublicEncryptionKey = g.multiply(new BigInteger(1, privateKeys, i * privateKeyLen, privateKeyLen)).normalize()
                         .getEncoded(false);
-                pairs[i] = new KeyPair(potentialPrivEncryptionKey, potentialPublicEncryptionKey);
+                System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * publicKeyLen, publicKeyLen);
             }
+            System.err.printf("SEX! %d%n", request.getTaskID());
             for (int i = 0; i < pairsLen; i++) {
-                pairI = pairs[i];
-                iPublicKey = pairI.getPublicKey();
+                iPublicKeyOffset = i * publicKeyLen;
+                System.arraycopy(publicKeys, iPublicKeyOffset, iPublicKey, 0, publicKeyLen);
                 for (int j = 0; j <= i; j++) {
-                    pairJ = pairs[j];
+                    jPublicKeyOffset = j * publicKeyLen;
                     // XXX 変数生成処理をやらせないために1メソッドにベタ打ちしてるんだが、スタック領域に変数を生成/削除するのってそれなりに重い処理なのか？
                     // staticメソッドはメソッドをインライン展開してくれるらしい
-                    jPublicKey = pairJ.getPublicKey();
-                    sha512.update(iPublicKey, 0, 65);
-                    sha512.update(jPublicKey, 0, 65);
-                    sha512.digest(cache64, 0, 64);
-                    ripemd160.update(cache64, 0, 64);
-                    ripemd160.digest(cache64, 0, 20);
-                    for (nlz = 0; cache64[nlz] == 0 && nlz < 20; nlz++) {
+                    // ここから
+                    // ripeを計算する
+                    sha512.update(publicKeys, iPublicKeyOffset, publicKeyLen);
+                    sha512.update(publicKeys, jPublicKeyOffset, publicKeyLen);
+                    sha512.digest(cache64, 0, sha512HashLen);
+                    ripemd160.update(cache64, 0, sha512HashLen);
+                    ripemd160.digest(cache64, 0, ripemd160HashLen);
+                    // number of leading zeroを計算する
+                    for (nlz = 0; cache64[nlz] == 0 && nlz < ripemd160HashLen; nlz++) {
                     }
+                    // 計算したnlz結果が要求値より良好なら
                     if (nlz >= requireNlz) {
-                        var response = new Response(pairI, pairJ, Arrays.copyOf(cache64, 20));
+                        // responseインスタンスを生成してエンキュー
+                        byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen);
+                        byte[] signingPublicKey = Arrays.copyOfRange(publicKeys, iPublicKeyOffset, iPublicKeyOffset + publicKeyLen);
+                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, signingPublicKey);
+                        byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, j * privateKeyLen, (j + 1) * privateKeyLen);
+                        byte[] encryptionPublicKey = Arrays.copyOfRange(publicKeys, jPublicKeyOffset, jPublicKeyOffset + publicKeyLen);
+                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, encryptionPublicKey);
+                        var response = new Response(signingKeyPair, encryptionKeyPair,
+                                Arrays.copyOf(cache64, ripemd160HashLen));
                         System.err.printf("keypair found! : %s%n", LocalDateTime.now());
                         try {
                             queue.put(response);
                         } catch (InterruptedException e) {
-                            System.err.println("queue append failed!");
+                            System.err.println("enqueue failed!");
                             e.printStackTrace();
+                            // Save if failed
                             waitList.add(response);
                         }
                     }
-                    sha512.update(jPublicKey, 0, 65);
-                    sha512.update(iPublicKey, 0, 65);
-                    sha512.digest(cache64, 0, 64);
-                    ripemd160.update(cache64, 0, 64);
-                    ripemd160.digest(cache64, 0, 20);
-                    for (nlz = 0; cache64[nlz] == 0 && nlz < 20; nlz++) {
+                    // ここまで
+                    // ここから
+                    // ripeを計算する
+                    sha512.update(publicKeys, jPublicKeyOffset, publicKeyLen);
+                    sha512.update(publicKeys, iPublicKeyOffset, publicKeyLen);
+                    sha512.digest(cache64, 0, sha512HashLen);
+                    ripemd160.update(cache64, 0, sha512HashLen);
+                    ripemd160.digest(cache64, 0, ripemd160HashLen);
+                    // number of leading zeroを計算する
+                    for (nlz = 0; cache64[nlz] == 0 && nlz < ripemd160HashLen; nlz++) {
                     }
+                    // 計算したnlz結果が要求値より良好なら
                     if (nlz >= requireNlz) {
-                        var response = new Response(pairJ, pairI, Arrays.copyOf(cache64, 20));
+                        // responseインスタンスを生成してエンキュー
+                        byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, j * privateKeyLen, (j + 1) * privateKeyLen);
+                        byte[] signingPublicKey = Arrays.copyOfRange(publicKeys, jPublicKeyOffset, jPublicKeyOffset + publicKeyLen);
+                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, signingPublicKey);
+                        byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen);
+                        byte[] encryptionPublicKey = Arrays.copyOfRange(publicKeys, iPublicKeyOffset, iPublicKeyOffset + publicKeyLen);
+                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, encryptionPublicKey);
+                        var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, 20));
                         System.err.printf("keypair found! : %s%n", LocalDateTime.now());
                         try {
                             queue.put(response);
                         } catch (InterruptedException e) {
-                            System.err.println("queue append failed!");
+                            System.err.println("enqueue failed!");
                             e.printStackTrace();
                             waitList.add(response);
                         }
                     }
+                    // ここまで
                 }
             }
             if (!waitList.isEmpty()) {
@@ -122,14 +160,15 @@ class Producer implements Callable<Void> {
                     Response response = responses.next();
                     try {
                         queue.put(response);
+                        // remove after enqueue
                         responses.remove();
                     } catch (InterruptedException e) {
                         // skip
                     }
                 }
             }
+            System.err.printf("やめないか！ %d%n", request.getTaskID());
         }
-        return null;
     }
 
     @Override

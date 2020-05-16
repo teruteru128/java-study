@@ -1,5 +1,8 @@
 package com.twitter.teruteru128.study.twitter.test01;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -19,16 +22,23 @@ public class Test01 {
      * @param args
      */
     public static void main(String[] args) {
-        ConfigurationBuilder cb=new ConfigurationBuilder();
-        //cb.setOAuthAccessToken("");
-        //cb.setOAuthAccessTokenSecret("");
-        Configuration conf=cb.build();
-        TwitterFactory tf=new TwitterFactory(conf);
-        AccessToken at=new AccessToken("533912006-ynJc1I8iRnlCMaNtDv0NiIXdhyqF4ymjsGCJ8cop", "BxsQiJGD3ZXQ2zXEB5l2rH7zAI553UBIo7SBbt7a0");
-        Twitter t=tf.getInstance(at);
+        Properties systemProperties = System.getProperties();
+        Properties properties = new Properties(systemProperties);
+        try (var in = ClassLoader.getSystemResourceAsStream("twitter4j.properties")) {
+            properties.load(in);
+        } catch (IOException e) {
+        }
+        ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.setOAuthConsumerKey(properties.getProperty("oauth.consumerKey"));
+        cb.setOAuthConsumerSecret(properties.getProperty("oauth.consumerSecret"));
+        Configuration conf = cb.build();
+        TwitterFactory tf = new TwitterFactory(conf);
+        AccessToken at = new AccessToken(properties.getProperty("oauth.accessToken"),
+                properties.getProperty("oauth.accessTokenSecret"));
+        Twitter t = tf.getInstance(at);
         try {
-            ResponseList<Status> rls= t.getFavorites();
-            for(Status s : rls){
+            ResponseList<Status> rls = t.getFavorites();
+            for (Status s : rls) {
                 System.out.print(s.getUser().getName());
                 System.out.print(" : ");
                 System.out.println(s.getText());
@@ -36,7 +46,7 @@ public class Test01 {
         } catch (TwitterException e) {
             e.printStackTrace();
         }
-        
+
     }
 
 }

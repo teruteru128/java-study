@@ -1,14 +1,11 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CountDownLatch;
 
 class Consumer implements Runnable {
 
-    private CountDownLatch latch;
 
-    public Consumer(CountDownLatch latch) {
-        this.latch = latch;
+    public Consumer() {
     }
 
     @Override
@@ -16,8 +13,7 @@ class Consumer implements Runnable {
         BlockingQueue<Response> responses = Queues.getResponseQueue();
         while (true) {
             try {
-                AddressGenerator.exportAddress(responses.take());
-                latch.countDown();
+                AddressGenerator.exportAddressToStdout(responses.take());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

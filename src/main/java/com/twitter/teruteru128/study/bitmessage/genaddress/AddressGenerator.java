@@ -7,13 +7,11 @@ import java.security.Provider;
 import java.security.Security;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.twitter.teruteru128.study.Base58;
-import com.twitter.teruteru128.study.tcp.Status;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -35,13 +33,12 @@ public class AddressGenerator implements Runnable {
     @Override
     public void run() {
         var tasks = new ArrayList<Producer>();
-        int requireNlz = 5;
-        CountDownLatch latch = new CountDownLatch(6);
-        Thread consumerThread = new Thread(new Consumer(latch));
+        int requireNlz = 2;
+        Thread consumerThread = new Thread(new Consumer());
         consumerThread.setDaemon(true);
         consumerThread.start();
         {
-            int tasknum = 1;
+            int tasknum = 2;
             int tmp = 2;
             for (var arg : args) {
                 try {
@@ -61,12 +58,11 @@ public class AddressGenerator implements Runnable {
         // ScheduledExecutorService service2 = Executors.newScheduledThreadPool(1);
         System.err.printf("start : %s%n", LocalDateTime.now());
         try {
-            service1.invokeAll(tasks);
-            latch.await();
-            Status.shutdown = 1;
-        } catch(InterruptedException e){
+            service1.invokeAny(tasks);
+        } catch (ExecutionException e) {
             e.printStackTrace();
-            Status.shutdown = 2;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         } finally {
             System.err.println("タスクの終了を待機しています。しばらくお待ち下さい...");
             if (!service1.isShutdown()) {
@@ -93,7 +89,7 @@ public class AddressGenerator implements Runnable {
         thread.start();
     }
 
-    public static void exportAddress(Response component) {
+    public static void exportAddressToStdout(Response component) {
         byte[] ripe = component.getRipe();
         var address4 = BMAddress.encodeAddress(4, 1, ripe);
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
