@@ -10,7 +10,7 @@ import java.security.Security;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
 
-import com.twitter.teruteru128.study.bitmessage.genaddress.AddressGenerator;
+import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddressGenerator;
 import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddress;
 import com.twitter.teruteru128.study.bitmessage.genaddress.KeyPair;
 import com.twitter.teruteru128.study.bitmessage.genaddress.Response;

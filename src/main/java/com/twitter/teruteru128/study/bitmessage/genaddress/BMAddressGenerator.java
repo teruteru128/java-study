@@ -18,15 +18,15 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 /**
  * Producer-Consumerパターンを使い、プロデューサースレッドで鍵ペアを生成、コンシューマースレッドでサーバーへ送信
  */
-public class AddressGenerator implements Runnable {
+public class BMAddressGenerator implements Runnable {
 
     private String[] args;
 
-    public AddressGenerator() {
+    public BMAddressGenerator() {
         this(new String[0]);
     }
 
-    public AddressGenerator(String[] args) {
+    public BMAddressGenerator(String[] args) {
         this.args = args;
     }
 
@@ -85,7 +85,7 @@ public class AddressGenerator implements Runnable {
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
-        Thread thread = new Thread(new AddressGenerator(args));
+        Thread thread = new Thread(new BMAddressGenerator(args));
         thread.start();
     }
 
