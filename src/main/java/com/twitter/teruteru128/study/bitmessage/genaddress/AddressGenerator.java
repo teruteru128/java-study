@@ -33,7 +33,7 @@ public class AddressGenerator implements Runnable {
     @Override
     public void run() {
         var tasks = new ArrayList<Producer>();
-        int requireNlz = 2;
+        int requireNlz = 1;
         Thread consumerThread = new Thread(new Consumer());
         consumerThread.setDaemon(true);
         consumerThread.start();

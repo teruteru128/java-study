@@ -25,15 +25,10 @@ class Producer implements Callable<Void> {
         string = "Task-" + request.getTaskID();
     }
 
-    /* static const */
-    private final static ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
-    private final static int pairsLen = 65536;
-    private final static int privateKeyLen = 32;
-    private final static int publicKeyLen = 65;
-    private final static int sha512HashLen = 64;
-    private final static int ripemd160HashLen = 20;
-
     /**
+     * コマンドラインオプション
+     * スレッド数
+     * 要求
      *
      * @return
      * @throws NoSuchAlgorithmException
@@ -44,6 +39,14 @@ class Producer implements Callable<Void> {
     public Void call() throws NoSuchAlgorithmException, DigestException {
         /* random source */
         final SecureRandom random = new SecureRandom();
+
+        /* static const */
+        final ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
+        final int pairsLen = 65536;
+        final int privateKeyLen = 32;
+        final int publicKeyLen = 65;
+        final int sha512HashLen = 64;
+        final int ripemd160HashLen = 20;
 
         /* instance const */
         final int requireNlz = request.getRequireNlz();
@@ -75,14 +78,15 @@ class Producer implements Callable<Void> {
         // 変なことやらせずに1スレッドに巨大テーブル処理させたほうが早い？
         while (true) {
             // 鍵を生成
-            System.err.printf("フフフ…… %d%n", request.getTaskID());
+            System.err.printf("hoge (%d) %s%n", request.getTaskID(), LocalDateTime.now());
+            random.nextBytes(privateKeys);
+            System.err.printf("huga (%d) %s%n", request.getTaskID(), LocalDateTime.now());
             for (int i = 0; i < pairsLen; i++) {
-                random.nextBytes(privateKeys);
                 potentialPublicEncryptionKey = g.multiply(new BigInteger(1, privateKeys, i * privateKeyLen, privateKeyLen)).normalize()
                         .getEncoded(false);
                 System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * publicKeyLen, publicKeyLen);
             }
-            System.err.printf("SEX! %d%n", request.getTaskID());
+            System.err.printf("piyo (%d) %s%n", request.getTaskID(), LocalDateTime.now());
             for (int i = 0; i < pairsLen; i++) {
                 iPublicKeyOffset = i * publicKeyLen;
                 System.arraycopy(publicKeys, iPublicKeyOffset, iPublicKey, 0, publicKeyLen);
@@ -111,7 +115,7 @@ class Producer implements Callable<Void> {
                         KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, encryptionPublicKey);
                         var response = new Response(signingKeyPair, encryptionKeyPair,
                                 Arrays.copyOf(cache64, ripemd160HashLen));
-                        System.err.printf("keypair found! : %s%n", LocalDateTime.now());
+                        System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
                         try {
                             queue.put(response);
                         } catch (InterruptedException e) {
@@ -142,7 +146,7 @@ class Producer implements Callable<Void> {
                         byte[] encryptionPublicKey = Arrays.copyOfRange(publicKeys, iPublicKeyOffset, iPublicKeyOffset + publicKeyLen);
                         KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, encryptionPublicKey);
                         var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, 20));
-                        System.err.printf("keypair found! : %s%n", LocalDateTime.now());
+                        System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
                         try {
                             queue.put(response);
                         } catch (InterruptedException e) {
@@ -167,7 +171,7 @@ class Producer implements Callable<Void> {
                     }
                 }
             }
-            System.err.printf("やめないか！ %d%n", request.getTaskID());
+            System.err.printf("hogera (%d) %s%n", request.getTaskID(), LocalDateTime.now());
         }
     }
 
