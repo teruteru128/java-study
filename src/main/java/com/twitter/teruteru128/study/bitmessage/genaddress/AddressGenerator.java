@@ -38,7 +38,7 @@ public class AddressGenerator implements Runnable {
         consumerThread.setDaemon(true);
         consumerThread.start();
         {
-            int tasknum = 1;
+            int tasknum = 2;
             int tmp = 2;
             for (var arg : args) {
                 try {
