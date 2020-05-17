@@ -92,14 +92,14 @@ class Producer implements Callable<Void> {
         // 変なことやらせずに1スレッドに巨大テーブル処理させたほうが早い？
         while (true) {
             // 鍵を生成
-            System.err.printf("hoge (%d) %s%n", request.getTaskID(), LocalDateTime.now());
+            // System.err.printf("hoge (%d) %s%n", request.getTaskID(), LocalDateTime.now());
             random.nextBytes(privateKeys);
-            System.err.printf("huga (%d) %s%n", request.getTaskID(), LocalDateTime.now());
+            // System.err.printf("huga (%d) %s%n", request.getTaskID(), LocalDateTime.now());
             for (int i = 0; i < pairsLen; i++) {
                 potentialPublicEncryptionKey = g.multiply(new BigInteger(1, privateKeys, i * privateKeyLen, privateKeyLen)).normalize().getEncoded(false);
                 System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * publicKeyLen, publicKeyLen);
             }
-            System.err.printf("piyo (%d) %s%n", request.getTaskID(), LocalDateTime.now());
+            // System.err.printf("piyo (%d) %s%n", request.getTaskID(), LocalDateTime.now());
             for (int i = 0; i < pairsLen; i++) {
                 System.arraycopy(publicKeys, i * publicKeyLen, iPublicKey, 0, publicKeyLen);
                 for (int j = 0; j <= i; j++) {
@@ -125,7 +125,7 @@ class Producer implements Callable<Void> {
                         KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, jPublicKey);
                         var response = new Response(signingKeyPair, encryptionKeyPair,
                                 Arrays.copyOf(cache64, ripemd160HashLen));
-                        System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
+                        // System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
                         try {
                             queue.put(response);
                         } catch (InterruptedException e) {
@@ -179,7 +179,7 @@ class Producer implements Callable<Void> {
                     }
                 }
             }
-            System.err.printf("hogera (%d) %s%n", request.getTaskID(), LocalDateTime.now());
+            // System.err.printf("hogera (%d) %s%n", request.getTaskID(), LocalDateTime.now());
         }
     }
 
