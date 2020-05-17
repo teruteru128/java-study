@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
-class SNTPTest {
+public class SNTPTest {
     private static final String SERVER_NAME = "ntp.nict.jp";
 
     public SNTPTest() {

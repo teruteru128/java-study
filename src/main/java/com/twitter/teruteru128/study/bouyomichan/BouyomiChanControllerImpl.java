@@ -2,7 +2,7 @@ package com.twitter.teruteru128.study.bouyomichan;
 
 import java.net.Proxy;
 
-class BouyomiChanControllerImpl implements BouyomiChanController {
+public class BouyomiChanControllerImpl implements BouyomiChanController {
 
     @Override
     public void setServerInfo() {

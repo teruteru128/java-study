@@ -2,7 +2,7 @@ package com.twitter.teruteru128.study.image;
 
 import javax.imageio.ImageIO;
 
-class ImageSample {
+public class ImageSample {
 
     public static void main(String[] args) {
         final var types = ImageIO.getWriterFormatNames();

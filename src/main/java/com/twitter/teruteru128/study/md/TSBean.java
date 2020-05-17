@@ -6,7 +6,7 @@ import java.math.BigInteger;
 /**
  * 
  */
-class TSBean implements Serializable {
+public class TSBean implements Serializable {
     private static final long serialVersionUID = 0;
 
     /**

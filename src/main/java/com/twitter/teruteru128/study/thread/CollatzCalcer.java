@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import com.twitter.teruteru128.study.collatz.Collatz3;
 
-class CollatzCalcer implements Runnable {
+public class CollatzCalcer implements Runnable {
     private Collatz3 c3_i = null;
     private Connection db = null;
     private long start = -1;

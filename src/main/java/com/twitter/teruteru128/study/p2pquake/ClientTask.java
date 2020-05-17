@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study.p2pquake;
 
-class ClientTask implements Runnable {
+public class ClientTask implements Runnable {
 
     public ClientTask() {
         this(-1);

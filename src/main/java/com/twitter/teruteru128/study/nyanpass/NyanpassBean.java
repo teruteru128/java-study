@@ -3,7 +3,7 @@ package com.twitter.teruteru128.study.nyanpass;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-class NyanpassBean implements Serializable {
+public class NyanpassBean implements Serializable {
     private static final long serialVersionUID = 0;
     private LocalDateTime time;
     private long count;

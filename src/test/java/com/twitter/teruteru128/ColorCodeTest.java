@@ -2,8 +2,7 @@ package com.twitter.teruteru128;
 
 import org.junit.jupiter.api.Test;
 
-public
-class ColorCodeTest{
+public class ColorCodeTest{
 
   @Test
   public void colorCodeTest(){

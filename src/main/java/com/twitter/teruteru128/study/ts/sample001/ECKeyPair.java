@@ -3,7 +3,7 @@ package com.twitter.teruteru128.study.ts.sample001;
 import java.security.interfaces.ECPrivateKey;
 import java.security.interfaces.ECPublicKey;
 
-class ECKeyPair extends KeyPair<ECPrivateKey, ECPublicKey> {
+public class ECKeyPair extends KeyPair<ECPrivateKey, ECPublicKey> {
 
     /**
      * @param privateKey

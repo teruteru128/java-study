@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study.farm;
 
-class Slime {
+public class Slime {
 
     /**
      * セクション(シード値を一定数ごとに塊にする) シード値ループ ブランチループ(南北ループ1) 東西方向ループ

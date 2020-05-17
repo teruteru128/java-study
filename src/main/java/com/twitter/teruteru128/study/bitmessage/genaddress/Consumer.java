@@ -2,7 +2,7 @@ package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.util.concurrent.BlockingQueue;
 
-class Consumer implements Runnable {
+public class Consumer implements Runnable {
 
 
     public Consumer() {

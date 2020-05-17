@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study;
 
-class NLZSample {
+public class NLZSample {
 
     public static void main(String[] args) {
         byte[] buf = new byte[32];

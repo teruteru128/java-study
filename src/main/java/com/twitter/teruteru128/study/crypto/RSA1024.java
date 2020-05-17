@@ -9,7 +9,7 @@ import java.util.Base64;
 
 import com.twitter.teruteru128.study.rsa.util.Const;
 
-class RSA1024 {
+public class RSA1024 {
 
     /**
      * @param args

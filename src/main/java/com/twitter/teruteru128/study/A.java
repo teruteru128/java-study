@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study;
 
-class A {
+public class A {
     private byte[] input;
     private byte[] hash;
 

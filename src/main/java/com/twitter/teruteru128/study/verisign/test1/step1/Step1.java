@@ -7,7 +7,7 @@ import java.util.concurrent.Callable;
 /**
  * calc coefficients
  */
-class Step1 implements Callable<ArrayList<BigInteger>> {
+public class Step1 implements Callable<ArrayList<BigInteger>> {
     BigInteger n;
     int d;
     final BigInteger m;

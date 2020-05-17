@@ -3,7 +3,7 @@ package com.twitter.teruteru128.study.bitmessage.genaddress;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-class Queues {
+public class Queues {
     /**
      * オリジナルはタプルで実装されています。
      */

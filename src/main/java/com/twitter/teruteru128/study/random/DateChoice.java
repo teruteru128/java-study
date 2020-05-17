@@ -5,7 +5,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-class DateChoice {
+public class DateChoice {
 
     public static void main(String[] args) throws Exception {
         final var random = SecureRandom.getInstance("nativeprngnonblocking");

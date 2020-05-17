@@ -3,7 +3,7 @@ package com.twitter.teruteru128.study;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-class LitresPerGallonSample {
+public class LitresPerGallonSample {
     public static void main(String[] args) throws NoSuchAlgorithmException {
         // litres par gallon
         double lpg = 3.785412;

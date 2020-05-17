@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study.nyanpass;
 
-class NyanpassDAOImpl implements NyanpassDAO {
+public class NyanpassDAOImpl implements NyanpassDAO {
     public NyanpassDAOImpl() {
     }
 

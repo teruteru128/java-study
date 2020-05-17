@@ -4,8 +4,8 @@ import java.net.URI;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.BlockingQueue;
 
-class NyanpassConfigBuilder {
-    NyanpassConfigImpl base = new NyanpassConfigImpl();
+public class NyanpassConfigBuilder {
+    protected NyanpassConfigImpl base = new NyanpassConfigImpl();
 
     public NyanpassConfigBuilder() {
     }

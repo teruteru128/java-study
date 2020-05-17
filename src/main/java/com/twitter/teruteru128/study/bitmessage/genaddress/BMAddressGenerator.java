@@ -33,7 +33,7 @@ public class BMAddressGenerator implements Runnable {
     @Override
     public void run() {
         var tasks = new ArrayList<Producer>();
-        int requireNlz = 1;
+        int requireNlz = 5;
         Thread consumerThread = new Thread(new Consumer());
         consumerThread.setDaemon(true);
         consumerThread.start();

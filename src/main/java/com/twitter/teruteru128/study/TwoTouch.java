@@ -14,6 +14,6 @@ package com.twitter.teruteru128.study;
  *わをん゛゜６７８９０
  *</pre>
  */
-class TwoTouch {
+public class TwoTouch {
     
 }

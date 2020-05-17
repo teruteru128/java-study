@@ -3,7 +3,7 @@ package com.twitter.teruteru128.study;
 import java.io.IOException;
 import java.util.Properties;
 
-class Poop implements Runnable {
+public class Poop implements Runnable {
 
     public Poop() {
     }

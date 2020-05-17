@@ -6,7 +6,7 @@ import java.util.Locale;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-class NyanpassConfigImpl implements Cloneable, NyanpassConfig {
+public class NyanpassConfigImpl implements Cloneable, NyanpassConfig {
     protected NyanpassConfigImpl() {
     }
 

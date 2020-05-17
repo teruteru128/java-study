@@ -3,7 +3,7 @@ package com.twitter.teruteru128.study.crypto;
 import java.security.KeyPairGenerator;
 import java.security.spec.NamedParameterSpec;
 
-class Curve448Test {
+public class Curve448Test {
 
     public static void main(String[] args) throws Exception {
         var keyPairGenerator = KeyPairGenerator.getInstance("XDH");

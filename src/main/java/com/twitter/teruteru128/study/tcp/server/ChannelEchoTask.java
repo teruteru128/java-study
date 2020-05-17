@@ -12,7 +12,7 @@ import com.twitter.teruteru128.study.tcp.SerializableObjectDAO;
  * @author teruteru
  * @see https://stackoverflow.com/questions/5862971/java-readobject-with-nio
  */
-class ChannelEchoTask implements Callable<Void> {
+public class ChannelEchoTask implements Callable<Void> {
     private SocketChannel channel;
     private ServerConfig config;
 

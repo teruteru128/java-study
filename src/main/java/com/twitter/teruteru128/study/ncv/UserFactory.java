@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study.ncv;
 
-class UserFactory {
+public class UserFactory {
     private static UserFactory INSTANCE = new UserFactory();
 
     private UserFactory() {

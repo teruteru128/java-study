@@ -14,7 +14,7 @@ import com.twitter.teruteru128.study.tcp.Status;
 
 import jakarta.xml.bind.DatatypeConverter;
 
-class HashMiningSample implements Callable<A> {
+public class HashMiningSample implements Callable<A> {
 
     public HashMiningSample() {
     }

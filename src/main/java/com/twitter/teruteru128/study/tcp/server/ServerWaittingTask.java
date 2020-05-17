@@ -6,7 +6,7 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.concurrent.Callable;
 
-class ServerWaittingTask implements Callable<Void> {
+public class ServerWaittingTask implements Callable<Void> {
     private ServerConfig config;
 
     public ServerWaittingTask(ServerConfig config) {

@@ -15,7 +15,7 @@ import java.util.concurrent.Callable;
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.math.ec.ECPoint;
 
-class Producer implements Callable<Void> {
+public class Producer implements Callable<Void> {
 
     private Request request;
     private final String string;

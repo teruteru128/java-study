@@ -2,7 +2,7 @@ package com.twitter.teruteru128.study.nyanpass;
 
 /**
  * */
-class NyanpassDAOFactory {
+public class NyanpassDAOFactory {
     public NyanpassDAOFactory(NyanpassConfig config) {
     }
 

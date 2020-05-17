@@ -26,7 +26,7 @@ import jakarta.xml.bind.DatatypeConverter;
  * 
  * usage: KeyGen [initialFileName]
  */
-class KeyGen {
+public class KeyGen {
     /** Security Provider */
     private static String provider = "SunJSSE";
     /** Secret Key Algorithm */

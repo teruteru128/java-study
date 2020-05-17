@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study;
 
-class MyNumberValidater {
+public class MyNumberValidater {
 
   private static int calcCheckDigit(char[] digits) {
     int p;

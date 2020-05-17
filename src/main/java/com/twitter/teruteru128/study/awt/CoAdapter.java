@@ -3,7 +3,7 @@ package com.twitter.teruteru128.study.awt;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-class CoAdapter extends ComponentAdapter {
+public class CoAdapter extends ComponentAdapter {
 
     @Override
     public void componentHidden(ComponentEvent e) {

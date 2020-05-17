@@ -4,7 +4,7 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.List;
 
-class SumOfThreeCubes {
+public class SumOfThreeCubes {
 
   public static void main(String args[]) {
     final var terms = List.of(new BigInteger("569936821221962380720"), new BigInteger("-569936821113563493509"),

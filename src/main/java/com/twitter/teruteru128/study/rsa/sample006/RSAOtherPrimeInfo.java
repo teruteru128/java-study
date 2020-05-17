@@ -2,7 +2,7 @@ package com.twitter.teruteru128.study.rsa.sample006;
 
 import java.math.BigInteger;
 
-class RSAOtherPrimeInfo {
+public class RSAOtherPrimeInfo {
     private BigInteger prime;
     private BigInteger exponent;
     private BigInteger crtCoefficient;

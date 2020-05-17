@@ -6,7 +6,7 @@ import java.nio.file.FileVisitor;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 
-class Vi implements FileVisitor<Path> {
+public class Vi implements FileVisitor<Path> {
 
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {

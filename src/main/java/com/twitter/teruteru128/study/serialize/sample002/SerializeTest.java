@@ -4,7 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.Base64;
 
-class SerializeTest {
+public class SerializeTest {
 
     public static void main(String[] args) throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

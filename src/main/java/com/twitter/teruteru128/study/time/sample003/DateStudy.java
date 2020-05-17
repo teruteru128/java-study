@@ -3,7 +3,7 @@ package com.twitter.teruteru128.study.time.sample003;
 import java.time.OffsetDateTime;
 import java.util.Date;
 
-class DateStudy {
+public class DateStudy {
 
   public static void main(String[] args) {
     OffsetDateTime time1 = OffsetDateTime.parse("2038-01-19T03:14:07Z");

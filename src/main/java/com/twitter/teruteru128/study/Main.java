@@ -1,6 +1,8 @@
 package com.twitter.teruteru128.study;
 
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.util.Properties;
 
 // TODO 将来的にエントリポイントをこのクラス一つにする
@@ -12,15 +14,6 @@ import java.util.Properties;
  */
 public class Main {
 
-    public Main() {
-    }
-
     public static void main(String[] args) throws Exception {
-        Properties properties = new Properties();
-        try(InputStream in = Main.class.getResourceAsStream("config.properties")){
-            properties.load(in);
-        }
-        System.out.printf("%s%n", properties.getProperty("version"));
-        System.out.println("この始末☆");
     }
 }

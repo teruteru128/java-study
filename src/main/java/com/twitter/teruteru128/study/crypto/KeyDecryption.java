@@ -17,7 +17,7 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 import jakarta.xml.bind.DatatypeConverter;
 
-class KeyDecryption {
+public class KeyDecryption {
 
     public KeyDecryption() {
     }

@@ -21,7 +21,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 /**
  * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/class_addressGenerator.py
  */
-class DeterministicAddressesCalcurator implements Callable<String> {
+public class DeterministicAddressesCalcurator implements Callable<String> {
 
     private String passphrase;
     private int adderssVersionNumber = 4;
