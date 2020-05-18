@@ -6,6 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -65,6 +66,7 @@ public class Producer implements Callable<Void> {
 
         /* instance const */
         final int requireNlz = request.getRequireNlz();
+        final int taskId = request.getTaskID();
 
         /* working area */
         byte[] potentialPublicEncryptionKey = null;
@@ -90,16 +92,22 @@ public class Producer implements Callable<Void> {
         // スレッド2 : 10万 <= i < 15万
         // スレッド3 : 15万 <= i < 20万
         // 変なことやらせずに1スレッドに巨大テーブル処理させたほうが早い？
+        LocalDateTime privateKeyCacheGenStart;
+        LocalDateTime privateKeyCacheGenFinish;
+        LocalDateTime publicKeyCacheGenFinish;
+        LocalDateTime cacheFinish;
         while (true) {
             // 鍵を生成
-            // System.err.printf("hoge (%d) %s%n", request.getTaskID(), LocalDateTime.now());
+            privateKeyCacheGenStart = LocalDateTime.now();
             random.nextBytes(privateKeys);
-            // System.err.printf("huga (%d) %s%n", request.getTaskID(), LocalDateTime.now());
+            privateKeyCacheGenFinish = LocalDateTime.now();
+            System.err.printf("private cache gen finish(%d) : %f%n", taskId, privateKeyCacheGenStart.until(privateKeyCacheGenFinish, ChronoUnit.NANOS)/1000000000d);
             for (int i = 0; i < pairsLen; i++) {
                 potentialPublicEncryptionKey = g.multiply(new BigInteger(1, privateKeys, i * privateKeyLen, privateKeyLen)).normalize().getEncoded(false);
                 System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * publicKeyLen, publicKeyLen);
             }
-            // System.err.printf("piyo (%d) %s%n", request.getTaskID(), LocalDateTime.now());
+            publicKeyCacheGenFinish = LocalDateTime.now();
+            System.err.printf("public cache gen finish(%d) : %f%n", taskId, privateKeyCacheGenFinish.until(publicKeyCacheGenFinish, ChronoUnit.NANOS)/1000000000d);
             for (int i = 0; i < pairsLen; i++) {
                 System.arraycopy(publicKeys, i * publicKeyLen, iPublicKey, 0, publicKeyLen);
                 for (int j = 0; j <= i; j++) {
@@ -154,7 +162,7 @@ public class Producer implements Callable<Void> {
                         byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen);
                         KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, iPublicKey);
                         var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, 20));
-                        System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
+                        // System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
                         try {
                             queue.put(response);
                         } catch (InterruptedException e) {
@@ -179,7 +187,8 @@ public class Producer implements Callable<Void> {
                     }
                 }
             }
-            // System.err.printf("hogera (%d) %s%n", request.getTaskID(), LocalDateTime.now());
+            cacheFinish = LocalDateTime.now();
+            System.err.printf("cache finish(%d) : %f%n", taskId, publicKeyCacheGenFinish.until(cacheFinish, ChronoUnit.NANOS)/1000000000d);
         }
     }
 
