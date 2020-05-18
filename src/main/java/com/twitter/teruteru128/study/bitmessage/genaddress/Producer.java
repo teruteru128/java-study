@@ -101,13 +101,13 @@ public class Producer implements Callable<Void> {
             privateKeyCacheGenStart = LocalDateTime.now();
             random.nextBytes(privateKeys);
             privateKeyCacheGenFinish = LocalDateTime.now();
-            System.err.printf("private cache gen finish(%d) : %f%n", taskId, privateKeyCacheGenStart.until(privateKeyCacheGenFinish, ChronoUnit.NANOS)/1000000000d);
+            //System.err.printf("private cache gen finish(%d) : %f%n", taskId, privateKeyCacheGenStart.until(privateKeyCacheGenFinish, ChronoUnit.NANOS)/1000000000d);
             for (int i = 0; i < pairsLen; i++) {
                 potentialPublicEncryptionKey = g.multiply(new BigInteger(1, privateKeys, i * privateKeyLen, privateKeyLen)).normalize().getEncoded(false);
                 System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * publicKeyLen, publicKeyLen);
             }
             publicKeyCacheGenFinish = LocalDateTime.now();
-            System.err.printf("public cache gen finish(%d) : %f%n", taskId, privateKeyCacheGenFinish.until(publicKeyCacheGenFinish, ChronoUnit.NANOS)/1000000000d);
+            //System.err.printf("public cache gen finish(%d) : %f%n", taskId, privateKeyCacheGenFinish.until(publicKeyCacheGenFinish, ChronoUnit.NANOS)/1000000000d);
             for (int i = 0; i < pairsLen; i++) {
                 System.arraycopy(publicKeys, i * publicKeyLen, iPublicKey, 0, publicKeyLen);
                 for (int j = 0; j <= i; j++) {
@@ -133,7 +133,7 @@ public class Producer implements Callable<Void> {
                         KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, jPublicKey);
                         var response = new Response(signingKeyPair, encryptionKeyPair,
                                 Arrays.copyOf(cache64, ripemd160HashLen));
-                        // System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
+                        System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
                         try {
                             queue.put(response);
                         } catch (InterruptedException e) {
@@ -162,7 +162,7 @@ public class Producer implements Callable<Void> {
                         byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen);
                         KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, iPublicKey);
                         var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, 20));
-                        // System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
+                        System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
                         try {
                             queue.put(response);
                         } catch (InterruptedException e) {
@@ -188,7 +188,7 @@ public class Producer implements Callable<Void> {
                 }
             }
             cacheFinish = LocalDateTime.now();
-            System.err.printf("cache finish(%d) : %f%n", taskId, publicKeyCacheGenFinish.until(cacheFinish, ChronoUnit.NANOS)/1000000000d);
+            //System.err.printf("cache finish(%d) : %f%n", taskId, publicKeyCacheGenFinish.until(cacheFinish, ChronoUnit.NANOS)/1000000000d);
         }
     }
 

@@ -21,24 +21,30 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 public class BMAddressGenerator implements Runnable {
 
     private String[] args;
+    private Args args2;
 
     public BMAddressGenerator() {
-        this(new String[0]);
+        this(new String[0], null);
     }
 
-    public BMAddressGenerator(String[] args) {
-        this.args = args;
+    public BMAddressGenerator(Args args) {
+        this(null, args);
+    }
+
+    public BMAddressGenerator(String[] args1, Args args2) {
+        this.args = args1;
+        this.args2 = args2;
     }
 
     @Override
     public void run() {
         var tasks = new ArrayList<Producer>();
-        int requireNlz = 5;
+        int requireNlz = 1;
         Thread consumerThread = new Thread(new Consumer());
         consumerThread.setDaemon(true);
         consumerThread.start();
         {
-            int tasknum = 2;
+            int tasknum = 1;
             int tmp = 2;
             for (var arg : args) {
                 try {
@@ -85,7 +91,9 @@ public class BMAddressGenerator implements Runnable {
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
-        Thread thread = new Thread(new BMAddressGenerator(args));
+        ArgsFactory factory = new ArgsFactory();
+        Args args2 = factory.getInstance(args);
+        Thread thread = new Thread(new BMAddressGenerator(args2));
         thread.start();
     }
 

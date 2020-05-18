@@ -4,6 +4,13 @@ import java.net.Proxy;
 
 public class BouyomiChanControllerImpl implements BouyomiChanController {
 
+    private String host;
+    private int port;
+    private Proxy proxy;
+
+    public BouyomiChanControllerImpl(String host, int port, Proxy proxy) {
+    }
+
     @Override
     public void setServerInfo() {
 

@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study.bouyomichan;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.Socket;
@@ -48,7 +49,7 @@ public class BouyomiChan {
      */
     public static void main(String[] args) throws Exception {
         // TCP281
-        URI uri = new URI("bouyomi://localhost/str?volume=100");
+        URI uri = new URI("bouyomi://localhost:50001/str?volume=100");
         System.out.println(uri.getScheme());
         System.out.println(uri.getHost());
         System.out.println(uri.getPort());
@@ -78,10 +79,10 @@ public class BouyomiChan {
         // TODO host port proxy の設定を動的に設定できるようにする 2020-05-01T09:13:33.071237200+09:00
         String host = useTor ? "2ayu6gqru3xzfzbvud64ezocamykp56kunmkzveqmuxvout2yubeeuad.onion" : "localhost";
         int port = 50001;
-        var proxy = useTor ? new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("192.168.11.52", 9050)) : Proxy.NO_PROXY;
-        var main = new BouyomiChan(host, port, proxy);
+        var proxy = useTor ? new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9050)) : Proxy.NO_PROXY;
+        var client = new BouyomiChan(host, port, proxy);
         if (readText.length() > 0) {
-            main.doTalk(readText);
+            client.doTalk(readText);
             System.out.println("読み上げました");
         }
     }
