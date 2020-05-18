@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.ListIterator;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
 
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
@@ -57,22 +56,22 @@ public class Producer implements Callable<Void> {
 
         /* static const */
         final ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
-        final int pairsLen = 65536;
         final int privateKeyLen = 32;
         final int publicKeyLen = 65;
         final int sha512HashLen = 64;
         final int ripemd160HashLen = 20;
 
         /* instance const */
-        final int requireNlz = request.getRequireNlz();
+        final int keyCacheSize = request.getKeyCacheSize();
+        final int requireNlz = request.getNlzToRequest();
 
         /* working area */
         byte[] potentialPublicEncryptionKey = null;
         // XXX 生の鍵データを一つの配列に詰め込むのは本当に早いのか？
-        final byte[] privateKeys = new byte[pairsLen * privateKeyLen];
+        final byte[] privateKeys = new byte[keyCacheSize * privateKeyLen];
         final byte[] iPublicKey = new byte[publicKeyLen];
         final byte[] jPublicKey = new byte[publicKeyLen];
-        final byte[] publicKeys = new byte[pairsLen * publicKeyLen];
+        final byte[] publicKeys = new byte[keyCacheSize * publicKeyLen];
         final byte[] cache64 = new byte[sha512HashLen];
         int nlz = 0;
 
@@ -81,8 +80,7 @@ public class Producer implements Callable<Void> {
         final MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
 
         /* consumer queues */
-        final BlockingQueue<Response> queue = Queues.getResponseQueue();
-        final LinkedList<Response> waitList = new LinkedList<>();
+        final LinkedList<Response> enqueueTray = new LinkedList<>();
         // TODO 一つのでかいテーブルを全スレッド協調して計算する -> ？
         // テーブルサイズを20万ぐらいにしてiをスレッドで分割する？
         // スレッド0 : 0 <= i < 5万
@@ -91,16 +89,18 @@ public class Producer implements Callable<Void> {
         // スレッド3 : 15万 <= i < 20万
         // 変なことやらせずに1スレッドに巨大テーブル処理させたほうが早い？
         while (true) {
-            // 鍵を生成
+            // 秘密鍵を生成する
             // System.err.printf("hoge (%d) %s%n", request.getTaskID(), LocalDateTime.now());
             random.nextBytes(privateKeys);
             // System.err.printf("huga (%d) %s%n", request.getTaskID(), LocalDateTime.now());
-            for (int i = 0; i < pairsLen; i++) {
+            // 秘密鍵から対応する公開鍵を導出する
+            for (int i = 0; i < keyCacheSize; i++) {
+                // 公開鍵の導出は重い処理のため、予め大量に導出しておいて組み合わせたほうが早い
                 potentialPublicEncryptionKey = g.multiply(new BigInteger(1, privateKeys, i * privateKeyLen, privateKeyLen)).normalize().getEncoded(false);
                 System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * publicKeyLen, publicKeyLen);
             }
             // System.err.printf("piyo (%d) %s%n", request.getTaskID(), LocalDateTime.now());
-            for (int i = 0; i < pairsLen; i++) {
+            for (int i = 0; i < keyCacheSize; i++) {
                 System.arraycopy(publicKeys, i * publicKeyLen, iPublicKey, 0, publicKeyLen);
                 for (int j = 0; j <= i; j++) {
                     System.arraycopy(publicKeys, j * publicKeyLen, jPublicKey, 0, publicKeyLen);
@@ -127,12 +127,12 @@ public class Producer implements Callable<Void> {
                                 Arrays.copyOf(cache64, ripemd160HashLen));
                         // System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
                         try {
-                            queue.put(response);
+                            Queues.getResponseQueue().put(response);
                         } catch (InterruptedException e) {
                             System.err.println("enqueue failed!");
                             e.printStackTrace();
                             // Save if failed
-                            waitList.add(response);
+                            enqueueTray.add(response);
                         }
                     }
                     // ここまで
@@ -156,22 +156,22 @@ public class Producer implements Callable<Void> {
                         var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, 20));
                         System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
                         try {
-                            queue.put(response);
+                            Queues.getResponseQueue().put(response);
                         } catch (InterruptedException e) {
                             System.err.println("enqueue failed!");
                             e.printStackTrace();
-                            waitList.add(response);
+                            enqueueTray.add(response);
                         }
                     }
                     // ここまで
                 }
             }
-            if (!waitList.isEmpty()) {
-                ListIterator<Response> responses = waitList.listIterator();
+            if (!enqueueTray.isEmpty()) {
+                ListIterator<Response> responses = enqueueTray.listIterator();
                 while (responses.hasNext()) {
                     Response response = responses.next();
                     try {
-                        queue.put(response);
+                        Queues.getResponseQueue().put(response);
                         // remove after enqueue
                         responses.remove();
                     } catch (InterruptedException e) {
@@ -179,7 +179,7 @@ public class Producer implements Callable<Void> {
                     }
                 }
             }
-            // System.err.printf("hogera (%d) %s%n", request.getTaskID(), LocalDateTime.now());
+            System.err.printf("hogera (%d) %s%n", request.getTaskID(), LocalDateTime.now());
         }
     }
 

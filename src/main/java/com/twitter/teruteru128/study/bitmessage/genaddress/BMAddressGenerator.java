@@ -33,12 +33,12 @@ public class BMAddressGenerator implements Runnable {
     @Override
     public void run() {
         var tasks = new ArrayList<Producer>();
-        int requireNlz = 5;
+        int requireNlz = 1;
         Thread consumerThread = new Thread(new Consumer());
         consumerThread.setDaemon(true);
         consumerThread.start();
         {
-            int tasknum = 2;
+            int tasknum = 1;
             int tmp = 2;
             for (var arg : args) {
                 try {
@@ -51,7 +51,9 @@ public class BMAddressGenerator implements Runnable {
                 }
             }
             for (int i = 0; i < tasknum; i++) {
-                tasks.add(new Producer(new Request(requireNlz, i)));
+                Request request = new Request(requireNlz, i);
+                //request.setKeyCacheSize(1024);
+                tasks.add(new Producer(request));
             }
         }
         ExecutorService service1 = Executors.newCachedThreadPool();
@@ -94,20 +96,16 @@ public class BMAddressGenerator implements Runnable {
         var address4 = BMAddress.encodeAddress(4, 1, ripe);
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
         var privEncryptionKeyWIF = encodeWIF(component.getPrivateEncryptionKey());
+        StringBuilder builder = new StringBuilder(301);
+        builder.append('[');
+        builder.append(address4);
+        builder.append("]\nlabel = relpace this label\nenabled = true\ndecoy = false\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nprivsigningkey = ");
+        builder.append(privSigningKeyWIF);
+        builder.append("\nprivencryptionkey = ");
+        builder.append(privEncryptionKeyWIF);
+        builder.append("\n");
         synchronized (System.out) {
-            System.out.print("[");
-            System.out.print(address4);
-            System.out.println("]");
-            System.out.println("label = relpace this label");
-            System.out.println("enabled = true");
-            System.out.println("decoy = false");
-            System.out.println("noncetrialsperbyte = 1000");
-            System.out.println("payloadlengthextrabytes = 1000");
-            System.out.print("privsigningkey = ");
-            System.out.println(privSigningKeyWIF);
-            System.out.print("privencryptionkey = ");
-            System.out.println(privEncryptionKeyWIF);
-            System.out.println();
+            System.out.println(builder.toString());
         }
     }
 
