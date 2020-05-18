@@ -1,6 +1,8 @@
 
 package com.twitter.teruteru128.study;
 
+import java.util.Arrays;
+
 /**
  * @author https://gist.github.com/vrotaru/1753908
  */
@@ -29,7 +31,7 @@ public class Base58 {
     //
     // Make a copy of the input since we are going to modify it.
     //
-    input = copyOfRange(input, 0, input.length);
+    input = Arrays.copyOfRange(input, 0, input.length);
 
     //
     // Count leading zeroes
@@ -69,7 +71,7 @@ public class Base58 {
       temp[--j] = (byte) ALPHABET[0];
     }
 
-    byte[] output = copyOfRange(temp, j, temp.length);
+    byte[] output = Arrays.copyOfRange(temp, j, temp.length);
     return new String(output);
   }
 
@@ -128,14 +130,14 @@ public class Base58 {
       ++j;
     }
 
-    return copyOfRange(temp, j - zeroCount, temp.length);
+    return Arrays.copyOfRange(temp, j - zeroCount, temp.length);
   }
 
   private static byte divmod58(byte[] number, int startAt) {
     int remainder = 0;
     for (int i = startAt; i < number.length; i++) {
-      int digit256 = (int) number[i] & 0xFF;
-      int temp = remainder * BASE_256 + digit256;
+      int digit256 = number[i] & 0xFF;
+      int temp = (remainder << 8) + digit256;
 
       number[i] = (byte) (temp / BASE_58);
 
@@ -159,10 +161,4 @@ public class Base58 {
     return (byte) remainder;
   }
 
-  private static byte[] copyOfRange(byte[] source, int from, int to) {
-    byte[] range = new byte[to - from];
-    System.arraycopy(source, from, range, 0, range.length);
-
-    return range;
-  }
 }

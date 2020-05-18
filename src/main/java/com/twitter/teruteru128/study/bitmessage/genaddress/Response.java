@@ -11,9 +11,9 @@ public class Response implements Cloneable, Serializable {
     private byte[] ripe;
 
     public Response(KeyPair signingKeyPair, KeyPair encryptionKeyPair, byte[] ripe) {
-        this.signingKeyPair = signingKeyPair.clone();
-        this.encryptionKeyPair = encryptionKeyPair.clone();
-        this.ripe = ripe.clone();
+        this.signingKeyPair = signingKeyPair;
+        this.encryptionKeyPair = encryptionKeyPair;
+        this.ripe = ripe;
     }
 
     /**

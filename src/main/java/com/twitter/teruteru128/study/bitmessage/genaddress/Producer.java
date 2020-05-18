@@ -128,9 +128,9 @@ public class Producer implements Callable<Void> {
                     if (nlz >= requireNlz) {
                         // responseインスタンスを生成してエンキュー
                         byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen);
-                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, iPublicKey);
+                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, Arrays.copyOf(iPublicKey, publicKeyLen));
                         byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, j * privateKeyLen, (j + 1) * privateKeyLen);
-                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, jPublicKey);
+                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, Arrays.copyOf(jPublicKey, publicKeyLen));
                         var response = new Response(signingKeyPair, encryptionKeyPair,
                                 Arrays.copyOf(cache64, ripemd160HashLen));
                         System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
@@ -158,9 +158,9 @@ public class Producer implements Callable<Void> {
                     if (nlz >= requireNlz) {
                         // responseインスタンスを生成してエンキュー
                         byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, j * privateKeyLen, (j + 1) * privateKeyLen);
-                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, jPublicKey);
+                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, Arrays.copyOf(jPublicKey, publicKeyLen));
                         byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen);
-                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, iPublicKey);
+                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, Arrays.copyOf(iPublicKey, publicKeyLen));
                         var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, 20));
                         System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
                         try {

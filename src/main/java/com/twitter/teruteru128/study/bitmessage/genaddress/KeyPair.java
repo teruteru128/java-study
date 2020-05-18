@@ -10,8 +10,8 @@ public class KeyPair implements Cloneable, Serializable {
     private byte[] publicKey;
 
     public KeyPair(byte[] privateKey, byte[] publicKey) {
-        this.privateKey = privateKey.clone();
-        this.publicKey = publicKey.clone();
+        this.privateKey = privateKey;
+        this.publicKey = publicKey;
     }
 
     /**
