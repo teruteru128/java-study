@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.Socket;
+import java.net.URI;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -46,6 +47,11 @@ public class BouyomiChan {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        // TCP281
+        URI uri = new URI("bouyomi://localhost/str?volume=100");
+        System.out.println(uri.getScheme());
+        System.out.println(uri.getHost());
+        System.out.println(uri.getPort());
         final int arglen = args.length;
         boolean useTor = false;
         int argi = 0;
