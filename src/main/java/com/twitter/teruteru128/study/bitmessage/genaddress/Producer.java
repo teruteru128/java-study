@@ -133,7 +133,7 @@ public class Producer implements Callable<Void> {
                         KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, Arrays.copyOf(jPublicKey, publicKeyLen));
                         var response = new Response(signingKeyPair, encryptionKeyPair,
                                 Arrays.copyOf(cache64, ripemd160HashLen));
-                        System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
+                        //System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
                         try {
                             queue.put(response);
                         } catch (InterruptedException e) {
@@ -162,7 +162,7 @@ public class Producer implements Callable<Void> {
                         byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, i * privateKeyLen, (i + 1) * privateKeyLen);
                         KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, Arrays.copyOf(iPublicKey, publicKeyLen));
                         var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, 20));
-                        System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
+                        //System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
                         try {
                             queue.put(response);
                         } catch (InterruptedException e) {
