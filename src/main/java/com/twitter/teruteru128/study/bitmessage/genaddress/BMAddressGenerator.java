@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import com.twitter.teruteru128.study.Base58;
 
@@ -34,9 +35,12 @@ public class BMAddressGenerator implements Runnable {
     public void run() {
         var tasks = new ArrayList<Producer>();
         int requireNlz = 1;
-        Thread consumerThread = new Thread(new Consumer());
-        consumerThread.setDaemon(true);
-        consumerThread.start();
+        Thread consumerThread1 = new Thread(new Consumer(), "consumerThread1");
+        consumerThread1.setDaemon(true);
+        consumerThread1.start();
+        Thread consumerThread2 = new Thread(new Consumer(), "consumerThread1");
+        consumerThread2.setDaemon(true);
+        consumerThread2.start();
         {
             int tasknum = 1;
             int tmp = 2;
