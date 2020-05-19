@@ -48,7 +48,7 @@ public class BMAddressGenerator implements Runnable {
         Thread consumerThread1 = new Thread(new Consumer(), "consumerThread1");
         consumerThread1.setDaemon(true);
         consumerThread1.start();
-        Thread consumerThread2 = new Thread(new Consumer(), "consumerThread1");
+        Thread consumerThread2 = new Thread(new Consumer(), "consumerThread2");
         consumerThread2.setDaemon(true);
         consumerThread2.start();
         {
