@@ -3,19 +3,32 @@ package com.twitter.teruteru128.study.bitmessage.genaddress;
 // Number of Leading Zero
 public class Request {
 
-    private int requireNlz;
+    private int nlzToRequest;
     private int taskID;
+    /**
+     * 65,536 key (pairs) as default cache size,
+     * 4,294,967,296 patterns as combination of signature key and encryption key.
+     * The key combination pattern is proportional to the square of the cache size.
+     */
+    private int keyCacheSize = 65536;
 
-    public Request(int nlzbytes, int taskID) {
-        this.requireNlz = nlzbytes;
+    public Request(int nlzToRequest, int taskID) {
+        this.nlzToRequest = nlzToRequest;
         this.taskID = taskID;
     }
 
     /**
      * @return the requireNlz
      */
-    public int getRequireNlz() {
-        return requireNlz;
+    public int getNlzToRequest() {
+        return nlzToRequest;
+    }
+
+    /**
+     * @param nlzToRequest the nlzToRequest to set
+     */
+    public void setNlzToRequest(int nlzToRequest) {
+        this.nlzToRequest = nlzToRequest;
     }
 
     /**
@@ -25,4 +38,24 @@ public class Request {
         return taskID;
     }
 
+    /**
+     * @param taskID the taskID to set
+     */
+    public void setTaskID(int taskID) {
+        this.taskID = taskID;
+    }
+
+    /**
+     * @return the keyCacheSize
+     */
+    public int getKeyCacheSize() {
+        return keyCacheSize;
+    }
+
+    /**
+     * @param keyCacheSize the keyCacheSize to set
+     */
+    public void setKeyCacheSize(int keyCacheSize) {
+        this.keyCacheSize = keyCacheSize;
+    }
 }

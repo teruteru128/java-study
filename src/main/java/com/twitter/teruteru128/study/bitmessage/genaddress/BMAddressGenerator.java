@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import com.twitter.teruteru128.study.Base58;
 
@@ -44,9 +45,12 @@ public class BMAddressGenerator implements Runnable {
     public void run() {
         var tasks = new ArrayList<Producer>();
         int requireNlz = 1;
-        Thread consumerThread = new Thread(new Consumer());
-        consumerThread.setDaemon(true);
-        consumerThread.start();
+        Thread consumerThread1 = new Thread(new Consumer(), "consumerThread1");
+        consumerThread1.setDaemon(true);
+        consumerThread1.start();
+        Thread consumerThread2 = new Thread(new Consumer(), "consumerThread1");
+        consumerThread2.setDaemon(true);
+        consumerThread2.start();
         {
             int tasknum = 1;
             int tmp = 2;
@@ -61,7 +65,9 @@ public class BMAddressGenerator implements Runnable {
                 }
             }
             for (int i = 0; i < tasknum; i++) {
-                tasks.add(new Producer(new Request(requireNlz, i)));
+                Request request = new Request(requireNlz, i);
+                //request.setKeyCacheSize(1024);
+                tasks.add(new Producer(request));
             }
         }
         ExecutorService service1 = Executors.newCachedThreadPool();
@@ -105,8 +111,7 @@ public class BMAddressGenerator implements Runnable {
         byte[] ripe = component.getRipe();
         var address4 = BMAddress.encodeAddress(4, 1, ripe);
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
-        var privEncryptionKeyWIF = encodeWIF(component.getPrivateEncryptionKey());
-        String key = new StringBuilder(301).append('[').append(address4).append("]\nlabel = relpace this label\nenabled = true\ndecoy = false\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nprivsigningkey = ").append(privSigningKeyWIF).append("\nprivencryptionkey = ").append(privEncryptionKeyWIF).append("\n").toString();
+        var privEncryptionKeyWIF = encodeWIF(component.getPrivateEncryptionKey());String key = new StringBuilder(301).append('[').append(address4).append("]\nlabel = relpace this label\nenabled = true\ndecoy = false\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nprivsigningkey = ").append(privSigningKeyWIF).append("\nprivencryptionkey = ").append(privEncryptionKeyWIF).append("\n").toString();
         synchronized (System.out) {
             System.out.println(key);
         }
