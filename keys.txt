@@ -727,3 +727,102 @@ payloadlengthextrabytes = 1000
 privsigningkey = 5JdVHsAqU866Y13Vk7zwPHFayPHRPuhBUDqSsG1rb7fS6W6fwn1
 privencryptionkey = 5KRnStvwJyV7eYZGgTvg74tPJHTPa8F5414Tk7z1iRC2Pq8ZMi2
 
+[BM-5oL1Hvu4n8DP1PMmsyrp3ue8rugZqHw]
+label = relpace this label
+enabled = true
+decoy = false
+noncetrialsperbyte = 1000
+payloadlengthextrabytes = 1000
+privsigningkey = 5JVQwh6pGekqk9h7gX1fsKnRvnh9413uEmbicHMZHCuZLaQN5L6
+privencryptionkey = 5Jo2M1idnNCzzzyfz8M24VhH9teJjkNeq7jJftq7gC5BZCfV5U6
+
+[BM-5oFuEguud8TjUuRewKtSo8xRSWcJW92]
+label = relpace this label
+enabled = true
+decoy = false
+noncetrialsperbyte = 1000
+payloadlengthextrabytes = 1000
+privsigningkey = 5KU9Xg8P7NSTkQfaiU1tZN28uSfT5KYKGaMSQF5BmuPYx3uaFgf
+privencryptionkey = 5Jhz5ty4um2GVLH8zwkweuUC3AbAPCwaZ2oAJhvwac7CCEK54o2
+
+[BM-5oRj4KvrZeNxxsk6UczrcY9atf3nBU2]
+label = relpace this label
+enabled = true
+decoy = false
+noncetrialsperbyte = 1000
+payloadlengthextrabytes = 1000
+privsigningkey = 5Hys2iVHA6vs2W4zUoyv898HAQ7K56zXF2rqrLDXZjQ1unsAq57
+privencryptionkey = 5K6VQXiEwBLVWF2k34U6xCU9YP7SpYjnPhnSHXyupNMAKrAUV6S
+
+[BM-5oKGrv6YvYGqGzQHArWPZvvi5jinDtM]
+label = relpace this label
+enabled = true
+decoy = false
+noncetrialsperbyte = 1000
+payloadlengthextrabytes = 1000
+privsigningkey = 5JT99H9d7ehKCGSyvXQk9xwduXJ2t9DfQLFf1wWAWuvGVCrb8mA
+privencryptionkey = 5K4Yq1NBSEsUW1nFKy4nE7PfXHxfwGJrkE5GfDT28e3yBgn8Xza
+
+[BM-5oKVHCg7CHcKRjW1cWFGT1bY6z9TwU9]
+label = relpace this label
+enabled = true
+decoy = false
+noncetrialsperbyte = 1000
+payloadlengthextrabytes = 1000
+privsigningkey = 5KEX5NRLSVWtmtY2VQXXXEXh7o8KTqm2peeeedbL7tcvDJg897d
+privencryptionkey = 5KPTb6KGQpH1Gh6zRgXUK26GcjqDAJaGNp33KiwdPTvsu943P2i
+
+[BM-5oLAEjKBe5Sj5QC5tUN4JbE4Ka8GnMF]
+label = relpace this label
+enabled = true
+decoy = false
+noncetrialsperbyte = 1000
+payloadlengthextrabytes = 1000
+privsigningkey = 5KRFuGu4n3oyXCTC6zRConDTJm4mrMSsTAReLuAaBrWiPodGVbP
+privencryptionkey = 5HqnB72X1a6PHvs314Enx4Up7swECCBMndEXFacDwFPPitxVECT
+
+[BM-5oDBj481MntWuhh9XtGWaPjmBRL5Q7H]
+label = relpace this label
+enabled = true
+decoy = false
+noncetrialsperbyte = 1000
+payloadlengthextrabytes = 1000
+privsigningkey = 5HwtwK6YsrnwGySKSPKhc17fjfmNfFuokDTXHLQT32VjJE6T8Zk
+privencryptionkey = 5KPxwMxSdAdunYKyo7DXv55BwvvsZngEpMy4LkCzoMeE7G2Ff65
+
+[BM-5oM4JJaer2b7Jumj2wSwZSe6Jbe7Dn5]
+label = relpace this label
+enabled = true
+decoy = false
+noncetrialsperbyte = 1000
+payloadlengthextrabytes = 1000
+privsigningkey = 5KjKE9W6MaVTuzduRa4GGsmDyakw2B7L7XMAJ4mhwHaooVFZWAX
+privencryptionkey = 5JwwJbY8jrPAqG88YBjUZJb9BwNo5ZqmKUDkkmBeAoQdrkruCUo
+
+[BM-5oPmkbXFAqZev1Zq7MYW2FtTujpZbrv]
+label = relpace this label
+enabled = true
+decoy = false
+noncetrialsperbyte = 1000
+payloadlengthextrabytes = 1000
+privsigningkey = 5JuQbe2pkTt8gbBcK75BTyJyKcErp1XMjkiBkm3cL12NtCtMbCL
+privencryptionkey = 5JzFM6hVW5DnzE1yxBdxu9kDY9c8a7qe1z1rXTMXcLsorUEAhQN
+
+[BM-5oGGQzwJzNqr3qaN4SA3xfUdhBy7GyD]
+label = relpace this label
+enabled = true
+decoy = false
+noncetrialsperbyte = 1000
+payloadlengthextrabytes = 1000
+privsigningkey = 5JP8dniMnYPZccVt8Qr6NHVUrbNojSWdvv7ba2T6JKqi2XqVzyp
+privencryptionkey = 5JMpWs9v4CM8fcck7WD7swUC6dzU21BC5b5TxFPM4AACPT76JJv
+
+[BM-5oCbeczJGQT2DwtcGH9qd9m6Xbz4CiM]
+label = relpace this label
+enabled = true
+decoy = false
+noncetrialsperbyte = 1000
+payloadlengthextrabytes = 1000
+privsigningkey = 5JxkC6nLN1Jnd1p5fY59FwcCM7bufvjmiFBuKxHfsYSGx54uHGN
+privencryptionkey = 5JVPx1DoRLXdQcqNoH6xSQYP5JBDq9Yc9gVnpDmzBPnidHwNBf1
+
