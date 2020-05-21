@@ -1,5 +1,6 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
+import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -39,18 +40,22 @@ public final class BMAddress {
         }
         byte[] variantVersion = Structs.encodeVarint(version);
         byte[] variantStream = Structs.encodeVarint(stream);
-        byte[] storedBinaryData = new byte[variantVersion.length + variantStream.length + ripe.length];
+        byte[] storedBinaryData = new byte[variantVersion.length + variantStream.length + ripe.length + 4];
         System.arraycopy(variantVersion, 0, storedBinaryData, 0, variantVersion.length);
         System.arraycopy(variantStream, 0, storedBinaryData, variantVersion.length, variantStream.length);
         System.arraycopy(ripe, 0, storedBinaryData, variantVersion.length + variantStream.length, ripe.length);
         try {
             MessageDigest sha512 = MessageDigest.getInstance("sha-512");
-            byte[] checksum = Arrays.copyOfRange(sha512.digest(sha512.digest(storedBinaryData)), 0, 4);
-            byte[] addressBytes = new byte[storedBinaryData.length + checksum.length];
-            System.arraycopy(storedBinaryData, 0, addressBytes, 0, storedBinaryData.length);
-            System.arraycopy(checksum, 0, addressBytes, storedBinaryData.length, checksum.length);
-            return "BM-" + Base58.encode(addressBytes);
+            byte[] cache64 = new byte[64];
+            sha512.update(storedBinaryData, 0, storedBinaryData.length - 4);
+            sha512.digest(cache64, 0, 64);
+            sha512.update(cache64, 0, 64);
+            sha512.digest(cache64, 0, 64);
+            System.arraycopy(cache64, 0, storedBinaryData, storedBinaryData.length - 4, 4);
+            return "BM-" + Base58.encode(storedBinaryData);
         } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (DigestException e) {
             e.printStackTrace();
         }
         return null;

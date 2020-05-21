@@ -6,7 +6,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -130,8 +129,7 @@ public class Producer implements Callable<Void> {
                         KeyPair signingKeyPair = new KeyPair(signingPrivateKey, Arrays.copyOf(iPublicKey, publicKeyLen));
                         byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, j * privateKeyLen, (j + 1) * privateKeyLen);
                         KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, Arrays.copyOf(jPublicKey, publicKeyLen));
-                        var response = new Response(signingKeyPair, encryptionKeyPair,
-                                Arrays.copyOf(cache64, ripemd160HashLen));
+                        var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, ripemd160HashLen));
                         //System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
                         try {
                             Queues.getResponseQueue().put(response);

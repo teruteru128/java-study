@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 import com.twitter.teruteru128.study.Base58;
 
@@ -111,7 +110,8 @@ public class BMAddressGenerator implements Runnable {
         byte[] ripe = component.getRipe();
         var address4 = BMAddress.encodeAddress(4, 1, ripe);
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
-        var privEncryptionKeyWIF = encodeWIF(component.getPrivateEncryptionKey());String key = new StringBuilder(301).append('[').append(address4).append("]\nlabel = relpace this label\nenabled = true\ndecoy = false\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nprivsigningkey = ").append(privSigningKeyWIF).append("\nprivencryptionkey = ").append(privEncryptionKeyWIF).append("\n").toString();
+        var privEncryptionKeyWIF = encodeWIF(component.getPrivateEncryptionKey());
+        String key = new StringBuilder(305).append('[').append(address4).append("]\nlabel = relpace this label\nenabled = true\ndecoy = false\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nprivsigningkey = ").append(privSigningKeyWIF).append("\nprivencryptionkey = ").append(privEncryptionKeyWIF).append("\n").toString();
         synchronized (System.out) {
             System.out.println(key);
         }
