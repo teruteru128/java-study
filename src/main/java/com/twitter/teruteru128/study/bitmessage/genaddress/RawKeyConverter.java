@@ -23,9 +23,9 @@ class RawKeyConverter {
         // ripe = 00000d9663f57318b4e52288bfdc8b3c23e84de1
         // private signing key = 684dc32a7343005b94a3350045e190cc09df6e2684de81f517397a3655167120
         // private encrytion key = 8c518358935fccf4beb4b808e13acf48c6a9ad27827eaf1df31cc3c6db3d2f09
-        byte[] inputRipe = DatatypeConverter.parseHexBinary("000000037691efb47d47cd48293996c03068dea4");
-        byte[] privateSigningKey = DatatypeConverter.parseHexBinary("96e720f30f8fd74a63971797acae31949ef323209779c24845fff6cbee530775");
-        byte[] privateEncrytionKey = DatatypeConverter.parseHexBinary("58cdb5d72cdd13e60691cc415f6f13125d324ed89b46001986d3a73547995cce");
+        final byte[] inputRipe = DatatypeConverter.parseHexBinary("00000000b3d62f34afe15310363237708e91eb83");
+        final byte[] privateSigningKey = DatatypeConverter.parseHexBinary("c26122a6c0a816aabba56f05d165a8c7268fd7f29f6464cf6d5841f37ce810fe");
+        final byte[] privateEncrytionKey = DatatypeConverter.parseHexBinary("f803bfac76e3795893dc35f14940af28ec1b3d99f9dc59522f0465ceb2d3830b");
 
         final var g = CustomNamedCurves.getByName("secp256k1").getG();
         final byte[] pubSigningKey = g.multiply(new BigInteger(1, privateSigningKey)).normalize().getEncoded(false);
@@ -49,7 +49,7 @@ class RawKeyConverter {
         System.out.print("v4 address calculated from ripe : ");
         System.out.println(address4);
         System.out.println();
-        Response response = new Response(new KeyPair(privateSigningKey, pubSigningKey), new KeyPair(privateEncrytionKey, pubEncryptionKey), ripe);
+        final Response response = new Response(new KeyPair(privateSigningKey, pubSigningKey), new KeyPair(privateEncrytionKey, pubEncryptionKey), ripe);
         BMAddressGenerator.exportAddressToStdout(response);
     }
 }
