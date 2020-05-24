@@ -65,7 +65,7 @@ public class BMAddressGenerator implements Runnable {
             }
             for (int i = 0; i < tasknum; i++) {
                 Request request = new Request(requireNlz, i);
-                //request.setKeyCacheSize(1024);
+                request.setKeyCacheSize(65536);
                 tasks.add(new Producer(request));
             }
         }
