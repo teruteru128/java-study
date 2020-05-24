@@ -29,14 +29,14 @@ public class Main implements AbstractIntSort{
         shuffle(table, new Random());
         shufflee=System.nanoTime();
         System.out.println("シャッフル終了");
-        System.out.println("シャッフル"+((shufflee-shuffles)/1000000000.0)+"ミリ秒");
+        System.out.println("シャッフル"+((shufflee-shuffles)/1e9)+"ミリ秒");
         //System.out.println(Arrays.toString(table));
         AbstractIntSort m = new Main();
         sorts=System.nanoTime();
         m.sort(table);
         sorte=System.nanoTime();
         //System.out.println(Arrays.toString(table));
-        System.out.println("ソート"+((sorte-sorts)/1000000000.0)+"ミリ秒");
+        System.out.println("ソート"+((sorte-sorts)/1e9)+"ミリ秒");
     }
 
     public static List<Integer> toList(int[] arg) {

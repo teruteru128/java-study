@@ -76,9 +76,9 @@ public class DataPrinter {
             stop = System.nanoTime();
             diff3 += stop - start;
         }
-        System.out.printf("printHexBinary1 : %f\n", diff1 / (1000000000.0 * loop));
-        System.out.printf("printHexBinary2 : %f\n", diff2 / (1000000000.0 * loop));
-        System.out.printf("DatatypeConverter.printHexBinary : %f\n", diff3 / (1000000000.0 * loop));
+        System.out.printf("printHexBinary1 : %f\n", diff1 / (1e9 * loop));
+        System.out.printf("printHexBinary2 : %f\n", diff2 / (1e9 * loop));
+        System.out.printf("DatatypeConverter.printHexBinary : %f\n", diff3 / (1e9 * loop));
     }
 
 }

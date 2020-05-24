@@ -79,7 +79,7 @@ public class IDMiner implements Runnable {
             {
                 final long end = System.nanoTime();
                 final long diff = end - start;
-                final double seconds = diff / 1000000000D;
+                final double seconds = diff / 1e9;
                 final var endtime = LocalDateTime.now();
                 final var threadname = Thread.currentThread().getName();
                 synchronized (System.out) {
