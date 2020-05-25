@@ -1,21 +1,11 @@
 package com.twitter.teruteru128.study;
 
-import java.math.BigInteger;
-import java.net.URL;
-import java.security.KeyFactory;
+import java.security.MessageDigest;
 import java.security.Provider;
-import java.security.PublicKey;
-import java.security.SecureRandom;
 import java.security.Security;
+import java.util.Arrays;
 
-import org.bouncycastle.crypto.ec.CustomNamedCurves;
-import org.bouncycastle.jcajce.provider.asymmetric.ec.BCECPublicKey;
-import org.bouncycastle.jce.ECNamedCurveTable;
-import org.bouncycastle.jce.interfaces.ECPublicKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.jce.spec.ECPrivateKeySpec;
-import org.bouncycastle.jce.spec.ECPublicKeySpec;
-import org.bouncycastle.math.ec.ECPoint;
 
 import jakarta.xml.bind.DatatypeConverter;
 
@@ -33,5 +23,14 @@ public class Main {
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
+        MessageDigest sha512 = MessageDigest.getInstance("sha-512");
+        byte[] cache64 = new byte[64];
+        byte[] decodedAddress1 = Base58.decode("2cXNEKsFMtcN96qVLzeKqiozzfCHmDk1dR");
+        System.out.println(DatatypeConverter.printHexBinary(decodedAddress1));
+        sha512.update(decodedAddress1, 0, 21);
+        sha512.digest(cache64, 0, 64);
+        sha512.update(cache64, 0, 64);
+        sha512.digest(cache64, 0, 64);
+        System.out.println(Arrays.equals(decodedAddress1, 21, 25, cache64, 0, 4));
     }
 }
