@@ -95,3 +95,5 @@ local.properties
 .worksheet
 .vscode/
 .project
+
+src/main/resources/twitter4j.properties
