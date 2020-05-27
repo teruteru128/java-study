@@ -22,3 +22,13 @@ jobs:
         java-version: 11
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Save artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: jar
+        path: target/study-*-SNAPSHOT.jar
+    - name: Save artifacts jar with dependencies
+      uses: actions/upload-artifact@v2
+      with:
+        name: jar
+        path: target\study-*-jar-with-dependencies.jar
