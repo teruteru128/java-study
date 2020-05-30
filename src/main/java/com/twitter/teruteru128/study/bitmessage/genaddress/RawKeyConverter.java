@@ -21,15 +21,20 @@ class RawKeyConverter {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
         // ripe = 00000d9663f57318b4e52288bfdc8b3c23e84de1
-        // private signing key = 684dc32a7343005b94a3350045e190cc09df6e2684de81f517397a3655167120
-        // private encrytion key = 8c518358935fccf4beb4b808e13acf48c6a9ad27827eaf1df31cc3c6db3d2f09
-        final byte[] inputRipe = DatatypeConverter.parseHexBinary("00000000b3d62f34afe15310363237708e91eb83");
-        final byte[] privateSigningKey = DatatypeConverter.parseHexBinary("c26122a6c0a816aabba56f05d165a8c7268fd7f29f6464cf6d5841f37ce810fe");
-        final byte[] privateEncrytionKey = DatatypeConverter.parseHexBinary("f803bfac76e3795893dc35f14940af28ec1b3d99f9dc59522f0465ceb2d3830b");
+        // private signing key =
+        // 684dc32a7343005b94a3350045e190cc09df6e2684de81f517397a3655167120
+        // private encrytion key =
+        // 8c518358935fccf4beb4b808e13acf48c6a9ad27827eaf1df31cc3c6db3d2f09
+        final byte[] inputRipe = DatatypeConverter.parseHexBinary("0000000502cb9c65c1b7ec5f56dd925b6f0051d2");
+        final byte[] privateSigningKey = DatatypeConverter
+                .parseHexBinary("9a2faa5bdf7725452e0037a94390e538f3335bfce2e0d8683c3a3cda8d7b2956");
+        final byte[] privateEncrytionKey = DatatypeConverter
+                .parseHexBinary("c1752d82a74904e438dffb40c54b43d5387a42dd6f9437b9bb474d91f2450e8c");
 
         final var g = CustomNamedCurves.getByName("secp256k1").getG();
         final byte[] pubSigningKey = g.multiply(new BigInteger(1, privateSigningKey)).normalize().getEncoded(false);
-        final byte[] pubEncryptionKey = g.multiply(new BigInteger(1, privateEncrytionKey)).normalize().getEncoded(false);
+        final byte[] pubEncryptionKey = g.multiply(new BigInteger(1, privateEncrytionKey)).normalize()
+                .getEncoded(false);
         final MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
         final MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
         final byte[] sha512hash = new byte[64];
@@ -43,13 +48,17 @@ class RawKeyConverter {
         final String address4 = BMAddress.encodeAddress(4, 1, ripe);
         System.out.print("ripe : ");
         System.out.print(DatatypeConverter.printHexBinary(ripe));
+        boolean isMatch = Arrays.equals(ripe, inputRipe);
         System.out.print(" (");
-        System.out.print(Arrays.equals(ripe, inputRipe) ? "match": "not match");
+        System.out.print(isMatch ? "match" : "not match");
         System.out.println(")");
         System.out.print("v4 address calculated from ripe : ");
         System.out.println(address4);
         System.out.println();
-        final Response response = new Response(new KeyPair(privateSigningKey, pubSigningKey), new KeyPair(privateEncrytionKey, pubEncryptionKey), ripe);
-        BMAddressGenerator.exportAddressToStdout(response);
+        if (isMatch) {
+            final Response response = new Response(new KeyPair(privateSigningKey, pubSigningKey),
+                    new KeyPair(privateEncrytionKey, pubEncryptionKey), ripe);
+            BMAddressGenerator.exportAddressToStdout(response);
+        }
     }
 }

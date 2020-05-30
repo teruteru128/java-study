@@ -31,7 +31,7 @@ public class Base58 {
     //
     // Make a copy of the input since we are going to modify it.
     //
-    input = Arrays.copyOfRange(input, 0, input.length);
+    input = Arrays.copyOf(input, input.length);
 
     //
     // Count leading zeroes
