@@ -44,8 +44,8 @@ public class Main {
             }
         }
         long end = System.nanoTime();
-        System.out.printf("合計: %.6f秒%n", (end - start) / 1000000000d);
-        System.out.printf("1回あたり: %.10f秒%n", (end - start) / (loopCount * 1000000000d));
+        System.out.printf("合計: %.6f秒%n", (end - start) / 1e9);
+        System.out.printf("1回あたり: %.10f秒%n", (end - start) / (loopCount * 1e9));
         String hashedPassword = Base64.getEncoder().encodeToString(secretKey.getEncoded());
         System.out.println(hashedPassword);
     }

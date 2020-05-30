@@ -66,7 +66,7 @@ public class Main {
         start = System.nanoTime();
         byte[] ciphertext = cipher.doFinal(data);
         end = System.nanoTime();
-        System.out.printf("%f秒\n", (end - start) / 1000000000.);
+        System.out.printf("%f秒\n", (end - start) / 1e9);
         for (int i = 0; i < ciphertext.length; i++) {
             System.out.printf("%02x", ciphertext[i]);
         }
@@ -78,7 +78,7 @@ public class Main {
             byte[] plaintext = {};
             plaintext = cipher.doFinal(ciphertext);
             end = System.nanoTime();
-            System.out.printf("%f秒\n", (end - start) / 1000000000.);
+            System.out.printf("%f秒\n", (end - start) / 1e9);
 
             for (int i = 0; i < plaintext.length; i++) {
                 System.out.printf("%02x", plaintext[i]);
@@ -94,7 +94,7 @@ public class Main {
         start = System.nanoTime();
         byte[] sign = signature.sign();
         end = System.nanoTime();
-        System.out.printf("%f秒\n", (end - start) / 1000000000.);
+        System.out.printf("%f秒\n", (end - start) / 1e9);
 
         for (int i = 0; i < sign.length; i++) {
             System.out.printf("%02x", sign[i]);
@@ -106,7 +106,7 @@ public class Main {
         start = System.nanoTime();
         System.out.println(signature.verify(sign) ? "verified" : "not verified");
         end = System.nanoTime();
-        System.out.printf("%f秒\n", (end - start) / 1000000000.);
+        System.out.printf("%f秒\n", (end - start) / 1e9);
 
     }
 

@@ -27,6 +27,10 @@ public class BMAddressGenerator implements Runnable {
         this(new String[0], null);
     }
 
+    public BMAddressGenerator(String[] args) {
+        this(args, null);
+    }
+
     public BMAddressGenerator(Args args) {
         this(null, args);
     }
@@ -39,10 +43,13 @@ public class BMAddressGenerator implements Runnable {
     @Override
     public void run() {
         var tasks = new ArrayList<Producer>();
-        int requireNlz = 1;
-        Thread consumerThread = new Thread(new Consumer());
-        consumerThread.setDaemon(true);
-        consumerThread.start();
+        int requireNlz = 3;
+        Thread consumerThread1 = new Thread(new Consumer(), "consumerThread1");
+        consumerThread1.setDaemon(true);
+        consumerThread1.start();
+        Thread consumerThread2 = new Thread(new Consumer(), "consumerThread2");
+        consumerThread2.setDaemon(true);
+        consumerThread2.start();
         {
             int tasknum = 1;
             int tmp = 2;
@@ -57,7 +64,9 @@ public class BMAddressGenerator implements Runnable {
                 }
             }
             for (int i = 0; i < tasknum; i++) {
-                tasks.add(new Producer(new Request(requireNlz, i)));
+                Request request = new Request(requireNlz, i);
+                request.setKeyCacheSize(65536);
+                tasks.add(new Producer(request));
             }
         }
         ExecutorService service1 = Executors.newCachedThreadPool();
@@ -93,7 +102,7 @@ public class BMAddressGenerator implements Runnable {
         }
         ArgsFactory factory = new ArgsFactory();
         Args args2 = factory.getInstance(args);
-        Thread thread = new Thread(new BMAddressGenerator(args2));
+        Thread thread = new Thread(new BMAddressGenerator(args));
         thread.start();
     }
 
@@ -102,20 +111,9 @@ public class BMAddressGenerator implements Runnable {
         var address4 = BMAddress.encodeAddress(4, 1, ripe);
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
         var privEncryptionKeyWIF = encodeWIF(component.getPrivateEncryptionKey());
+        String key = new StringBuilder(305).append('[').append(address4).append("]\nlabel = relpace this label\nenabled = true\ndecoy = false\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nprivsigningkey = ").append(privSigningKeyWIF).append("\nprivencryptionkey = ").append(privEncryptionKeyWIF).append("\n").toString();
         synchronized (System.out) {
-            System.out.print("[");
-            System.out.print(address4);
-            System.out.println("]");
-            System.out.println("label = relpace this label");
-            System.out.println("enabled = true");
-            System.out.println("decoy = false");
-            System.out.println("noncetrialsperbyte = 1000");
-            System.out.println("payloadlengthextrabytes = 1000");
-            System.out.print("privsigningkey = ");
-            System.out.println(privSigningKeyWIF);
-            System.out.print("privencryptionkey = ");
-            System.out.println(privEncryptionKeyWIF);
-            System.out.println();
+            System.out.println(key);
         }
     }
 

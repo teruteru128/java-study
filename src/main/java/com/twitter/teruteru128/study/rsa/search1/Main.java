@@ -20,21 +20,21 @@ public class Main {
         start = System.nanoTime();
         System.out.println(p.isProbablePrime(2));
         finish = System.nanoTime();
-        System.out.printf("system : %fseconds\n", (finish - start) / (1000000000.));
+        System.out.printf("system : %fseconds\n", (finish - start) / (1e9));
         start = System.nanoTime();
         System.out.println(isProbablePrime(p, 2));
         finish = System.nanoTime();
-        System.out.printf("stream : %fseconds\n", (finish - start) / (1000000000.));
+        System.out.printf("stream : %fseconds\n", (finish - start) / (1e9));
         // findFirst(false);->見つからないなら正常、falseが見つかったら中断
         p = new BigInteger(131072, random).setBit(0);
         start = System.nanoTime();
         System.out.println(isProbablePrime(p, 4));
         finish = System.nanoTime();
-        System.out.printf("stream : %fseconds\n", (finish - start) / (1000000000.));
+        System.out.printf("stream : %fseconds\n", (finish - start) / (1e9));
         start = System.nanoTime();
         System.out.println(p.isProbablePrime(2));
         finish = System.nanoTime();
-        System.out.printf("system : %fseconds\n", (finish - start) / (1000000000.));
+        System.out.printf("system : %fseconds\n", (finish - start) / (1e9));
     }
 
     private static final BigInteger ONE = BigInteger.valueOf(1L);
