@@ -2,6 +2,7 @@ package com.twitter.teruteru128.study;
 
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -24,28 +25,25 @@ public class Main {
     private static final int PUBLIC_KEY_LENGTH = 65;
 
     public static void main(String[] args) throws Exception {
-        var privateKeyFile = Paths.get("privateKeys.bin");
+        var privateKeyPath = Paths.get("privateKeys.bin");
         var publicKeyPath = Paths.get("publicKeys.bin");
 
-        ByteBuffer privateKeyBuffer = ByteBuffer.allocateDirect((1 << 24) * 32);
-        byte[] privateKeys = privateKeyBuffer.array();
+        byte[] privateKeys = new byte[(1 << 24) * 32];
         {
             var random = SecureRandom.getInstanceStrong();
             random.nextBytes(privateKeys);
         }
-        byte[] potentialPublicEncryptionKey = null;
-        var publicKeyBuffer = ByteBuffer.allocateDirect((1 << 24) * 65);
+        Files.write(privateKeyPath, privateKeys);
+        ByteBuffer publicKeyBuffer = ByteBuffer.allocateDirect((1 << 24) * 65);
         for (int i = 0; i < 16777216; i++) {
-            potentialPublicEncryptionKey = G
-                    .multiply(new BigInteger(1, privateKeys, i * PRIVATE_KEY_LENGTH, PRIVATE_KEY_LENGTH)).normalize()
-                    .getEncoded(false);
-            publicKeyBuffer.put(potentialPublicEncryptionKey, 0, PUBLIC_KEY_LENGTH);
+            publicKeyBuffer.put(G.multiply(new BigInteger(1, privateKeys, i * PRIVATE_KEY_LENGTH, PRIVATE_KEY_LENGTH))
+                    .normalize().getEncoded(false), 0, PUBLIC_KEY_LENGTH);
         }
-        privateKeyBuffer.flip();
+
         publicKeyBuffer.flip();
-        try (FileChannel ch1 = FileChannel.open(privateKeyFile); FileChannel ch2 = FileChannel.open(publicKeyPath)) {
-            ch1.write(privateKeyBuffer);
+        try (FileChannel ch2 = FileChannel.open(publicKeyPath)) {
             ch2.write(publicKeyBuffer);
         }
+
     }
 }
