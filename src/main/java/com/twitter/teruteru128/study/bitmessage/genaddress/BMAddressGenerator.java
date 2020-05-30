@@ -1,10 +1,14 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.Provider;
-import java.security.Security;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -13,7 +17,8 @@ import java.util.concurrent.Executors;
 
 import com.twitter.teruteru128.study.Base58;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.crypto.ec.CustomNamedCurves;
+import org.bouncycastle.math.ec.ECPoint;
 
 /**
  * Producer-Consumerパターンを使い、プロデューサースレッドで鍵ペアを生成、コンシューマースレッドでサーバーへ送信
@@ -83,10 +88,14 @@ public class BMAddressGenerator implements Runnable {
             if (!service1.isShutdown()) {
                 service1.shutdown();
             }
-            //service2.shutdown();
+            // service2.shutdown();
             System.err.println("タスクの終了が完了しました。シャットダウンします。");
         }
     }
+
+    private static final ECPoint G = CustomNamedCurves.getByName("secp256k1").getG();
+    private static final int PRIVATE_KEY_LENGTH = 32;
+    private static final int PUBLIC_KEY_LENGTH = 65;
 
     /**
      * 
@@ -96,14 +105,18 @@ public class BMAddressGenerator implements Runnable {
      * @param args
      */
     public static void main(String[] args) throws Exception {
-        Provider provider = Security.getProvider("BC");
-        if (provider == null) {
-            Security.addProvider(provider = new BouncyCastleProvider());
+        Path privateKeyPath = Paths.get("privateKeys.bin");
+        Path publicKeyPath = Paths.get("publicKeys.bin");
+        byte[] potentialPublicEncryptionKey = null;
+        byte[] privateKeys = Files.readAllBytes(privateKeyPath);
+        byte[] publicKeys = new byte[(1 << 24) * 65];
+        ByteBuffer buffer = ByteBuffer.allocateDirect((1 << 24) * 65);
+        for (int i = 0; i < 16777216; i++) {
+            potentialPublicEncryptionKey = G.multiply(new BigInteger(1, privateKeys, i * PRIVATE_KEY_LENGTH, PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
+            buffer.put(potentialPublicEncryptionKey, 0, PUBLIC_KEY_LENGTH);
+            System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * PUBLIC_KEY_LENGTH, PUBLIC_KEY_LENGTH);
         }
-        ArgsFactory factory = new ArgsFactory();
-        Args args2 = factory.getInstance(args);
-        Thread thread = new Thread(new BMAddressGenerator(args));
-        thread.start();
+        Files.write(publicKeyPath, publicKeys);
     }
 
     public static void exportAddressToStdout(Response component) {
@@ -111,12 +124,16 @@ public class BMAddressGenerator implements Runnable {
         var address4 = BMAddress.encodeAddress(4, 1, ripe);
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
         var privEncryptionKeyWIF = encodeWIF(component.getPrivateEncryptionKey());
-        String key = new StringBuilder(305).append('[').append(address4).append("]\nlabel = relpace this label\nenabled = true\ndecoy = false\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nprivsigningkey = ").append(privSigningKeyWIF).append("\nprivencryptionkey = ").append(privEncryptionKeyWIF).append("\n").toString();
+        String key = new StringBuilder(305).append('[').append(address4).append(
+                "]\nlabel = relpace this label\nenabled = true\ndecoy = false\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nprivsigningkey = ")
+                .append(privSigningKeyWIF).append("\nprivencryptionkey = ").append(privEncryptionKeyWIF).append("\n")
+                .toString();
         synchronized (System.out) {
             System.out.println(key);
         }
     }
 
+    /** TODO: Split to new class */
     public static String encodeWIF(byte[] key) {
         byte[] wrappedKey = new byte[37];
         byte[] checksum = new byte[32];
