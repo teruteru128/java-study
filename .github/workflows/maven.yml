@@ -22,8 +22,6 @@ jobs:
           java-version: 11
       - name: Build with Maven
         run: mvn -B package --file pom.xml
-      - name: HELLO!
-        run: free -h
       - name: Save artifacts
         uses: actions/upload-artifact@v2
         with:
