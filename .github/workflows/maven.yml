@@ -39,7 +39,7 @@ jobs:
         with:
           name: publicKeys.bin
           path: publicKeys.bin
-      - name: Save artifacts1
+      - name: Save artifacts2
         uses: actions/upload-artifact@v2
         with:
           name: privateKeys.bin

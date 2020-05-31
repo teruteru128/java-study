@@ -58,6 +58,7 @@ class GenerateKeyPair {
             random.nextBytes(privateKeys);
         }
         Files.write(privateKeyPath, cipher.doFinal(privateKeys));
+        System.out.println("秘密鍵をファイルに書き込みました。");
         var publicKeyBuffer = ByteBuffer.allocateDirect(KEY_NUM * 65);
         for (int i = 0; i < KEY_NUM; i++) {
             publicKeyBuffer.put(G.multiply(new BigInteger(1, privateKeys, i * PRIVATE_KEY_LENGTH, PRIVATE_KEY_LENGTH))
