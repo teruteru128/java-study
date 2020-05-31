@@ -58,17 +58,22 @@ class GenerateKeyPair {
             random.nextBytes(privateKeys);
         }
         Files.write(privateKeyPath, cipher.doFinal(privateKeys));
-        System.out.println("秘密鍵をファイルに書き込みました。");
-        var publicKeyBuffer = ByteBuffer.allocateDirect(KEY_NUM * 65);
+
+        System.out.println("秘密鍵をファイルに書き込んだんご！");
+
+        final byte[] publicKeys = new byte[KEY_NUM * PUBLIC_KEY_LENGTH];
+        byte[] potentialPublicEncryptionKey = null;
         for (int i = 0; i < KEY_NUM; i++) {
-            publicKeyBuffer.put(G.multiply(new BigInteger(1, privateKeys, i * PRIVATE_KEY_LENGTH, PRIVATE_KEY_LENGTH))
-                    .normalize().getEncoded(false), 0, PUBLIC_KEY_LENGTH);
+            potentialPublicEncryptionKey = G.multiply(new BigInteger(1, privateKeys, i * PRIVATE_KEY_LENGTH, PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
+            System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * PUBLIC_KEY_LENGTH, PUBLIC_KEY_LENGTH);
         }
 
-        publicKeyBuffer.flip();
+        System.out.println("鍵の生成が終わったんご！これからファイルに書き込むんご！");
+
         try (var ch2 = FileChannel.open(publicKeyPath, StandardOpenOption.WRITE, StandardOpenOption.CREATE)) {
-            ch2.write(publicKeyBuffer);
+            ch2.write(ByteBuffer.wrap(publicKeys));
         }
+        System.out.println("ファイルに書き込んだんご！");
         System.out.printf("public key : %s%n", DatatypeConverter.printHexBinary(keyPair.getPublic().getEncoded()));
     }
 }
