@@ -90,6 +90,7 @@ class GenerateKeyPair implements Runnable {
 
         final var publicKeys = new byte[KEY_NUM * PUBLIC_KEY_LENGTH];
 
+        // https://relearn-java.com/multithread/
         var thread1 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, 0, KEY_NUM / 2));
         var thread2 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, KEY_NUM / 2, KEY_NUM / 2));
         thread1.start();
