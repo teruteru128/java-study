@@ -78,7 +78,7 @@ class GenerateKeyPair implements Runnable {
         var privateKeyPath = Paths.get("privateKeys.bin");
         var publicKeyPath = Paths.get("publicKeys.bin");
 
-        final var privateKeys = new byte[KEY_NUM * 32];
+        final var privateKeys = new byte[KEY_NUM * PRIVATE_KEY_LENGTH];
         {
             var random = SecureRandom.getInstance("NativePRNGBlocking");
             random.nextBytes(privateKeys);
