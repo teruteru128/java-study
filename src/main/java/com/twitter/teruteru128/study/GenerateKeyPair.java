@@ -56,26 +56,6 @@ class GenerateKeyPair implements Runnable {
   private static final int KEY_NUM = 1 << 24;
 
   public static void gen() throws Exception {
-    /*
-    var encodedKeySpec = new X509EncodedKeySpec(DatatypeConverter.parseHexBinary(
-        "302C300706032B656E05000321002CD3C20389E56A1D94238940D1B1F3FD19C72A23105F5167773225B35BC36244"));
-    var factory = KeyFactory.getInstance("X25519");
-    var publicKey = factory.generatePublic(encodedKeySpec);
-
-    var generator = KeyPairGenerator.getInstance("X25519");
-    var keyPair = generator.generateKeyPair();
-
-    var agreement = KeyAgreement.getInstance("X25519");
-    agreement.init(keyPair.getPrivate());
-    agreement.doPhase(publicKey, true);
-    var sha3_512 = MessageDigest.getInstance("sha3-512");
-    sha3_512.update(agreement.generateSecret());
-    var hashedSecret = sha3_512.digest();
-    var secretKey = new SecretKeySpec(hashedSecret, 0, 32, "ChaCha20");
-    var parameterSpec = new IvParameterSpec(hashedSecret, 32, 12);
-    var cipher = Cipher.getInstance("ChaCha20-Poly1305/NONE/NoPadding");
-    cipher.init(Cipher.ENCRYPT_MODE, secretKey, parameterSpec);
-    */
     var privateKeyPath = Paths.get("privateKeys.bin");
     var publicKeyPath = Paths.get("publicKeys.bin");
 
@@ -84,17 +64,40 @@ class GenerateKeyPair implements Runnable {
       SecureRandom random = null;
       try {
         random = SecureRandom.getInstance("NativePRNGBlocking");
-      } catch(NoSuchAlgorithmException e) {
+      } catch (NoSuchAlgorithmException e) {
         try {
           random = SecureRandom.getInstance("Windows-PRNG");
-        } catch(NoSuchAlgorithmException e1) {
+        } catch (NoSuchAlgorithmException e1) {
           random = SecureRandom.getInstance("SHA1PRNG");
         }
       }
       random.nextBytes(privateKeys);
     }
-    //Files.write(privateKeyPath, cipher.doFinal(privateKeys));
-    Files.write(privateKeyPath, privateKeys);
+    boolean encrypt = false;
+    if (encrypt) {
+      var encodedKeySpec = new X509EncodedKeySpec(DatatypeConverter.parseHexBinary(
+          "302C300706032B656E05000321002CD3C20389E56A1D94238940D1B1F3FD19C72A23105F5167773225B35BC36244"));
+      var factory = KeyFactory.getInstance("X25519");
+      var publicKey = factory.generatePublic(encodedKeySpec);
+
+      var generator = KeyPairGenerator.getInstance("X25519");
+      var keyPair = generator.generateKeyPair();
+
+      var agreement = KeyAgreement.getInstance("X25519");
+      agreement.init(keyPair.getPrivate());
+      agreement.doPhase(publicKey, true);
+      var sha3_512 = MessageDigest.getInstance("sha3-512");
+      sha3_512.update(agreement.generateSecret());
+      var hashedSecret = sha3_512.digest();
+      var secretKey = new SecretKeySpec(hashedSecret, 0, 32, "ChaCha20");
+      var parameterSpec = new IvParameterSpec(hashedSecret, 32, 12);
+      var cipher = Cipher.getInstance("ChaCha20-Poly1305/NONE/NoPadding");
+      cipher.init(Cipher.ENCRYPT_MODE, secretKey, parameterSpec);
+      Files.write(privateKeyPath, cipher.doFinal(privateKeys));
+      System.out.printf("public key : %s%n", DatatypeConverter.printHexBinary(keyPair.getPublic().getEncoded()));
+    } else {
+      Files.write(privateKeyPath, privateKeys);
+    }
 
     System.out.println("秘密鍵をファイルに書き込んだんご！");
 
@@ -119,6 +122,5 @@ class GenerateKeyPair implements Runnable {
       ch2.write(ByteBuffer.wrap(publicKeys));
     }
     System.out.println("ファイルに書き込んだんご！");
-    //System.out.printf("public key : %s%n", DatatypeConverter.printHexBinary(keyPair.getPublic().getEncoded()));
   }
 }
