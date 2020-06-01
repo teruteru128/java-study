@@ -100,10 +100,10 @@ class GenerateKeyPair implements Runnable {
 
     final var publicKeys = new byte[KEY_NUM * PUBLIC_KEY_LENGTH];
 
-    var thread0 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 0) / 4, (KEY_NUM * 1) / 4));
-    var thread1 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 1) / 4, (KEY_NUM * 2) / 4));
-    var thread2 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 2) / 4, (KEY_NUM * 3) / 4));
-    var thread3 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 3) / 4, (KEY_NUM * 4) / 4));
+    var thread0 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 0) / 4, KEY_NUM / 4));
+    var thread1 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 1) / 4, KEY_NUM / 4));
+    var thread2 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 2) / 4, KEY_NUM / 4));
+    var thread3 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 3) / 4, KEY_NUM / 4));
     thread0.start();
     thread1.start();
     thread2.start();
