@@ -38,6 +38,8 @@ class GenerateKeyPair implements Runnable {
 
     @Override
     public void run() {
+        byte[] privateKeys = this.privateKeys;
+        byte[] publicKeys = this.publicKeys;
         byte[] potentialPublicEncryptionKey = null;
         for (int from = offset, to = offset + length; from < to; from++) {
             potentialPublicEncryptionKey = G
