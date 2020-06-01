@@ -9,6 +9,7 @@ import java.nio.file.StandardOpenOption;
 import java.security.KeyFactory;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.X509EncodedKeySpec;
 
@@ -80,7 +81,16 @@ class GenerateKeyPair implements Runnable {
 
         final var privateKeys = new byte[KEY_NUM * PRIVATE_KEY_LENGTH];
         {
-            var random = SecureRandom.getInstance("NativePRNGBlocking");
+            SecureRandom random = null;
+            try {
+                random = SecureRandom.getInstance("NativePRNGBlocking");
+            } catch(NoSuchAlgorithmException e) {
+                try {
+                    random = SecureRandom.getInstance("Windows-PRNG");
+                } catch(NoSuchAlgorithmException e1) {
+                    random = SecureRandom.getInstance("SHA1PRNG");
+                }
+            }
             random.nextBytes(privateKeys);
         }
         //Files.write(privateKeyPath, cipher.doFinal(privateKeys));
@@ -90,12 +100,18 @@ class GenerateKeyPair implements Runnable {
 
         final var publicKeys = new byte[KEY_NUM * PUBLIC_KEY_LENGTH];
 
-        var thread1 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, 0, KEY_NUM / 2));
-        var thread2 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, KEY_NUM / 2, KEY_NUM / 2));
+        var thread0 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 0) / 4, (KEY_NUM * 1) / 4));
+        var thread1 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 1) / 4, (KEY_NUM * 2) / 4));
+        var thread2 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 2) / 4, (KEY_NUM * 3) / 4));
+        var thread3 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 3) / 4, (KEY_NUM * 4) / 4));
+        thread0.start();
         thread1.start();
         thread2.start();
+        thread3.start();
+        thread0.join();
         thread1.join();
         thread2.join();
+        thread3.join();
 
         System.out.println("鍵の生成が終わったんご！これからファイルに書き込むんご！");
 
