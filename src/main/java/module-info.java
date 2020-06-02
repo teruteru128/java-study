@@ -27,6 +27,9 @@ module com.twitter.teruteru128.study {
     requires com.h2database;
     requires jakarta.mail;
     requires twitter.text;
+    requires transitive xmlrpc.common;
+    requires transitive xmlrpc.client;
+    requires transitive ws.commons.util;
 
     opens com.twitter.teruteru128.application to javafx.fxml, javafx.graphics;
     opens com.twitter.teruteru128.study.fx.sample1 to javafx.fxml, javafx.graphics;
