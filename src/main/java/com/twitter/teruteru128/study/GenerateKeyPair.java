@@ -66,12 +66,16 @@ class GenerateKeyPair implements Runnable {
     {
       SecureRandom random = null;
       try {
-        random = SecureRandom.getInstance("NativePRNGBlocking");
+        random = SecureRandom.getInstanceStrong();
       } catch (NoSuchAlgorithmException e) {
         try {
-          random = SecureRandom.getInstance("Windows-PRNG");
+          random = SecureRandom.getInstance("NativePRNGBlocking");
         } catch (NoSuchAlgorithmException e1) {
-          random = SecureRandom.getInstance("SHA1PRNG");
+          try {
+            random = SecureRandom.getInstance("Windows-PRNG");
+          } catch (NoSuchAlgorithmException e2) {
+            random = SecureRandom.getInstance("SHA1PRNG");
+          }
         }
       }
       random.nextBytes(privateKeys);
@@ -111,13 +115,13 @@ class GenerateKeyPair implements Runnable {
     var threads = new LinkedList<Thread>();
 
     // https://relearn-java.com/multithread/
-    for(int i = 0; i < core; i++) {
+    for (int i = 0; i < core; i++) {
       var thread = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * i) / core, KEY_NUM / core));
       thread.start();
       threads.add(thread);
     }
 
-    for(Thread thread : threads) {
+    for (Thread thread : threads) {
       thread.join();
     }
 
