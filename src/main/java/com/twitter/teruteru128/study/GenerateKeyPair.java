@@ -12,6 +12,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyAgreement;
@@ -103,19 +106,20 @@ class GenerateKeyPair implements Runnable {
 
     final var publicKeys = new byte[KEY_NUM * PUBLIC_KEY_LENGTH];
 
+    // Use three quarters of all processors
+    int core = Runtime.getRuntime().availableProcessors() * 3 / 4;
+    var threads = new LinkedList<Thread>();
+
     // https://relearn-java.com/multithread/
-    var thread0 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 0) / 4, KEY_NUM / 4));
-    var thread1 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 1) / 4, KEY_NUM / 4));
-    var thread2 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 2) / 4, KEY_NUM / 4));
-    var thread3 = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * 3) / 4, KEY_NUM / 4));
-    thread0.start();
-    thread1.start();
-    thread2.start();
-    thread3.start();
-    thread0.join();
-    thread1.join();
-    thread2.join();
-    thread3.join();
+    for(int i = 0; i < core; i++) {
+      var thread = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * i) / core, KEY_NUM / core));
+      thread.start();
+      threads.add(thread);
+    }
+
+    for(Thread thread : threads) {
+      thread.join();
+    }
 
     System.out.println("鍵の生成が終わったんご！これからファイルに書き込むんご！");
 
