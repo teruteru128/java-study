@@ -20,16 +20,11 @@ class RawKeyConverter {
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
-        // ripe = 00000d9663f57318b4e52288bfdc8b3c23e84de1
-        // private signing key =
-        // 684dc32a7343005b94a3350045e190cc09df6e2684de81f517397a3655167120
-        // private encrytion key =
-        // 8c518358935fccf4beb4b808e13acf48c6a9ad27827eaf1df31cc3c6db3d2f09
-        final byte[] inputRipe = DatatypeConverter.parseHexBinary("0000000502cb9c65c1b7ec5f56dd925b6f0051d2");
+        final byte[] inputRipe = DatatypeConverter.parseHexBinary("000000003ea1a3d7bdaae62832fc367ed4fb5284");
         final byte[] privateSigningKey = DatatypeConverter
-                .parseHexBinary("9a2faa5bdf7725452e0037a94390e538f3335bfce2e0d8683c3a3cda8d7b2956");
+                .parseHexBinary("c904ba4d973b94b3dd3c38a70f6c898745502df4cef1017b2b9544f6a171d63b");
         final byte[] privateEncrytionKey = DatatypeConverter
-                .parseHexBinary("c1752d82a74904e438dffb40c54b43d5387a42dd6f9437b9bb474d91f2450e8c");
+                .parseHexBinary("fc061ce82e9b49141e6fe7fdf37c7aa21de8c054be89ef44f2076a5b3321462c");
 
         final var g = CustomNamedCurves.getByName("secp256k1").getG();
         final byte[] pubSigningKey = g.multiply(new BigInteger(1, privateSigningKey)).normalize().getEncoded(false);
