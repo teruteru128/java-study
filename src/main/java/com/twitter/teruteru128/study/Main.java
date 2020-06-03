@@ -9,6 +9,21 @@ package com.twitter.teruteru128.study;
  */
 public class Main {
 
+    /**
+     * U+0028
+     * U+0020
+     * U+ff9f
+     * U+0434
+     * U+ff9f
+     * U+0029
+     * U+ff64
+     * U+ff8d
+     * U+ff9f
+     * U+ff6f
+     * 
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         String pe = "( ﾟдﾟ)､ﾍﾟｯ";
         int len = pe.length();
