@@ -26,7 +26,7 @@ public class Main {
         byte[] outbuf = null;
         int len = 0;
         try (FileInputStream in = new FileInputStream(fin); FileOutputStream out = new FileOutputStream(fout)) {
-            while ((len = in.read(inbuf, 0, 32)) != 0) {
+            while ((len = in.read(inbuf, 0, 32)) != -1) {
                 outbuf = G.multiply(new BigInteger(1, inbuf, 0, len)).normalize().getEncoded(false);
                 out.write(outbuf, 0, 65);
             }
