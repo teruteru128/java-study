@@ -133,7 +133,7 @@ class GenerateKeyPair implements Runnable {
       thread.join();
     }
 
-    System.out.println("鍵の生成が終わったんご！これからファイルに書き込むんご！");
+    System.out.println("公開鍵の生成が終わったんご！これからファイルに書き込むんご！");
 
     try (var ch2 = FileChannel.open(publicKeyPath, StandardOpenOption.WRITE, StandardOpenOption.CREATE)) {
       ch2.write(ByteBuffer.wrap(publicKeys));
