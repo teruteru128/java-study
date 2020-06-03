@@ -12,7 +12,6 @@ import com.twitter.teruteru128.study.bitmessage.client.BitMessageHelloWorld;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        var helloWorld = new BitMessageHelloWorld();
-        helloWorld.call();
+        GenerateKeyPair.gen();
     }
 }

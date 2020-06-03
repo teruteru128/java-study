@@ -63,6 +63,7 @@ class GenerateKeyPair implements Runnable {
     var publicKeyPath = Paths.get("publicKeys.bin");
 
     final var privateKeys = new byte[KEY_NUM * PRIVATE_KEY_LENGTH];
+    System.out.println("秘密鍵を集めるんご！");
     {
       SecureRandom random = null;
       try {
@@ -78,10 +79,13 @@ class GenerateKeyPair implements Runnable {
           }
         }
       }
+      System.out.printf("乱数ソースのアルゴリズムは%sんご！\n", random.getAlgorithm());
       random.nextBytes(privateKeys);
     }
+    System.out.println("秘密鍵を集め終わったんご！");
     boolean encrypt = false;
     if (encrypt) {
+      System.out.println("暗号化するんご！");
       var encodedKeySpec = new X509EncodedKeySpec(DatatypeConverter.parseHexBinary(
           "302C300706032B656E05000321002CD3C20389E56A1D94238940D1B1F3FD19C72A23105F5167773225B35BC36244"));
       var factory = KeyFactory.getInstance("X25519");
@@ -103,16 +107,20 @@ class GenerateKeyPair implements Runnable {
       Files.write(privateKeyPath, cipher.doFinal(privateKeys));
       System.out.printf("public key : %s%n", DatatypeConverter.printHexBinary(keyPair.getPublic().getEncoded()));
     } else {
+      System.out.println("暗号化しないんご！");
       Files.write(privateKeyPath, privateKeys);
     }
 
     System.out.println("秘密鍵をファイルに書き込んだんご！");
 
+/*
     final var publicKeys = new byte[KEY_NUM * PUBLIC_KEY_LENGTH];
 
     // Use three quarters of all processors
     int core = Runtime.getRuntime().availableProcessors() * 3 / 4;
     var threads = new LinkedList<Thread>();
+
+    System.out.printf("公開鍵を生成するんご！%dスレッドでぶん回すんごー！", core);
 
     // https://relearn-java.com/multithread/
     for (int i = 0; i < core; i++) {
@@ -130,6 +138,9 @@ class GenerateKeyPair implements Runnable {
     try (var ch2 = FileChannel.open(publicKeyPath, StandardOpenOption.WRITE, StandardOpenOption.CREATE)) {
       ch2.write(ByteBuffer.wrap(publicKeys));
     }
-    System.out.println("ファイルに書き込んだんご！");
+    System.out.println("公開鍵をファイルに書き込んだんご！");
+*/
+    System.out.println("おわりんご");
+    System.out.println("こいつはりんごろう (んごー) https://www.nicovideo.jp/watch/sm36210300");
   }
 }
