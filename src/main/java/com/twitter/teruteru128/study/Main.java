@@ -34,7 +34,7 @@ public class Main {
         final var cache64 = new byte[SHA512_DIGEST_LENGTH];
         final var sha512 = MessageDigest.getInstance("SHA-512");
         final var ripemd160 = MessageDigest.getInstance("ripemd160");
-        final int requireNlz = 4;
+        final int requireNlz = 2;
         int len = 0;
         int nlz = 0;
         int j = 0;
@@ -60,7 +60,9 @@ public class Main {
                         }
                     }
                 }
+                System.out.printf("%d%n", (num * PUBLIC_KEY_LENGTH * 2400 + j) / PUBLIC_KEY_LENGTH);
             }
+            System.out.printf("%s fin!%n", inputFileName);
         }
     }
 }
