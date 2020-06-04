@@ -4,8 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.security.MessageDigest;
 import java.security.Security;
+import java.util.Arrays;
+import java.util.Base64;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import jakarta.xml.bind.DatatypeConverter;
 
 // TODO 将来的にエントリポイントをこのクラス一つにする
 // TODO コマンドライン引数の実装方法
@@ -34,16 +38,17 @@ public class Main {
         final var cache64 = new byte[SHA512_DIGEST_LENGTH];
         final var sha512 = MessageDigest.getInstance("SHA-512");
         final var ripemd160 = MessageDigest.getInstance("ripemd160");
-        final int requireNlz = 2;
+        final int requireNlz = 3;
         int len = 0;
         int nlz = 0;
         int j = 0;
-        int num = 0;
+        long num = 0;
         String inputFileName = null;
         File fin = null;
         for (int i = 1; i <= 4; i++) {
             inputFileName = String.format("publicKeys%d.bin", i);
             fin = new File(inputFileName);
+            num = 0;
             try (FileInputStream in = new FileInputStream(fin)) {
                 for (; (len = in.read(inbuf, 0, PUBLIC_KEY_LENGTH * 2400)) != -1; num++) {
                     for (j = 0; j < len; j += PUBLIC_KEY_LENGTH) {
@@ -57,6 +62,8 @@ public class Main {
                         if (nlz >= requireNlz) {
                             System.out.printf("filename : %s, index : %d, nlz : %d%n", inputFileName,
                                     num * PUBLIC_KEY_LENGTH * 2400 + j, nlz);
+                            var k = Arrays.copyOfRange(inbuf, j, j + PUBLIC_KEY_LENGTH);
+                            System.out.println(DatatypeConverter.printBase64Binary(k));
                         }
                     }
                 }
