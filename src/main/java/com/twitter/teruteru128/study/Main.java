@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.security.MessageDigest;
 import java.security.Security;
-import java.util.Base64;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -17,7 +16,6 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
  */
 public class Main {
 
-    private static final int PRIVATE_KEY_LENGTH = 32;
     private static final int PUBLIC_KEY_LENGTH = 65;
     private static final int SHA512_DIGEST_LENGTH = 64;
     private static final int RIPEMD160_DIGEST_LENGTH = 20;
@@ -32,25 +30,35 @@ public class Main {
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
-        File fin = new File("publicKeys4.bin");
-        byte[] inbuf = new byte[65];
-        byte[] cache64 = new byte[64];
-        var sha512 = MessageDigest.getInstance("SHA-512");
-        var ripemd160 = MessageDigest.getInstance("ripemd160");
+        final var inbuf = new byte[PUBLIC_KEY_LENGTH * 2400];
+        final var cache64 = new byte[SHA512_DIGEST_LENGTH];
+        final var sha512 = MessageDigest.getInstance("SHA-512");
+        final var ripemd160 = MessageDigest.getInstance("ripemd160");
+        final int requireNlz = 4;
         int len = 0;
         int nlz = 0;
-        final int requireNlz = 4;
-        try (FileInputStream in = new FileInputStream(fin)) {
-            while ((len = in.read(inbuf, 0, 65)) != -1) {
-                sha512.update(inbuf, 0, len);
-                sha512.update(inbuf, 0, len);
-                sha512.digest(cache64, 0, SHA512_DIGEST_LENGTH);
-                ripemd160.update(cache64, 0, SHA512_DIGEST_LENGTH);
-                ripemd160.digest(cache64, 0, RIPEMD160_DIGEST_LENGTH);
-                for (nlz = 0; cache64[nlz] == 0 && nlz < RIPEMD160_DIGEST_LENGTH; nlz++) {
-                }
-                if(nlz >= requireNlz){
-                    
+        int i = 1;
+        int j = 0;
+        String inputFileName = null;
+        File fin = null;
+        for (i = 1; i <= 4; i++) {
+            inputFileName = String.format("publicKeys%d.bin", i);
+            fin = new File(inputFileName);
+            j = 0;
+            try (FileInputStream in = new FileInputStream(fin)) {
+                while ((len = in.read(inbuf, 0, PUBLIC_KEY_LENGTH * 2400)) != -1) {
+                    for (j = 0; j < 2400; j++) {
+                        sha512.update(inbuf, j * PUBLIC_KEY_LENGTH, len);
+                        sha512.update(inbuf, j * PUBLIC_KEY_LENGTH, len);
+                        sha512.digest(cache64, 0, SHA512_DIGEST_LENGTH);
+                        ripemd160.update(cache64, 0, SHA512_DIGEST_LENGTH);
+                        ripemd160.digest(cache64, 0, RIPEMD160_DIGEST_LENGTH);
+                        for (nlz = 0; cache64[nlz] == 0 && nlz < RIPEMD160_DIGEST_LENGTH; nlz++) {
+                        }
+                        if (nlz >= requireNlz) {
+                            System.out.printf("filename : %s, index : %d, nlz : %d%n", inputFileName, j, nlz);
+                        }
+                    }
                 }
             }
         }
