@@ -47,9 +47,8 @@ public class Main {
         for (int i = 1; i <= 4; i++) {
             inputFileName = String.format("publicKeys%d.bin", i);
             fin = new File(inputFileName);
-            num = 0;
             try (FileInputStream in = new FileInputStream(fin)) {
-                for (; (len = in.read(inbuf, 0, PUBLIC_KEY_LENGTH * 2400)) != -1;) {
+                for (num = 0; (len = in.read(inbuf, 0, PUBLIC_KEY_LENGTH * 2400)) != -1;) {
                     for (j = 0; j < len; j += PUBLIC_KEY_LENGTH, num++) {
                         sha512.update(inbuf, j, PUBLIC_KEY_LENGTH);
                         sha512.update(inbuf, j, PUBLIC_KEY_LENGTH);
