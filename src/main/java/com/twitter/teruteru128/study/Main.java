@@ -44,12 +44,11 @@ public class Main {
         for (i = 1; i <= 4; i++) {
             inputFileName = String.format("publicKeys%d.bin", i);
             fin = new File(inputFileName);
-            j = 0;
             try (FileInputStream in = new FileInputStream(fin)) {
                 while ((len = in.read(inbuf, 0, PUBLIC_KEY_LENGTH * 2400)) != -1) {
-                    for (j = 0; j < 2400; j++) {
-                        sha512.update(inbuf, j * PUBLIC_KEY_LENGTH, len);
-                        sha512.update(inbuf, j * PUBLIC_KEY_LENGTH, len);
+                    for (j = 0; j < len; j += PUBLIC_KEY_LENGTH) {
+                        sha512.update(inbuf, j, len);
+                        sha512.update(inbuf, j, len);
                         sha512.digest(cache64, 0, SHA512_DIGEST_LENGTH);
                         ripemd160.update(cache64, 0, SHA512_DIGEST_LENGTH);
                         ripemd160.digest(cache64, 0, RIPEMD160_DIGEST_LENGTH);
