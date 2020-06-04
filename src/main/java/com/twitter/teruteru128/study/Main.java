@@ -47,8 +47,8 @@ public class Main {
             try (FileInputStream in = new FileInputStream(fin)) {
                 for (; (len = in.read(inbuf, 0, PUBLIC_KEY_LENGTH * 2400)) != -1; num++) {
                     for (j = 0; j < len; j += PUBLIC_KEY_LENGTH) {
-                        sha512.update(inbuf, j, len);
-                        sha512.update(inbuf, j, len);
+                        sha512.update(inbuf, j, PUBLIC_KEY_LENGTH);
+                        sha512.update(inbuf, j, PUBLIC_KEY_LENGTH);
                         sha512.digest(cache64, 0, SHA512_DIGEST_LENGTH);
                         ripemd160.update(cache64, 0, SHA512_DIGEST_LENGTH);
                         ripemd160.digest(cache64, 0, RIPEMD160_DIGEST_LENGTH);
