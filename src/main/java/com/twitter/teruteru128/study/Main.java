@@ -49,8 +49,8 @@ public class Main {
             fin = new File(inputFileName);
             num = 0;
             try (FileInputStream in = new FileInputStream(fin)) {
-                for (; (len = in.read(inbuf, 0, PUBLIC_KEY_LENGTH * 2400)) != -1; num++) {
-                    for (j = 0; j < len; j += PUBLIC_KEY_LENGTH) {
+                for (; (len = in.read(inbuf, 0, PUBLIC_KEY_LENGTH * 2400)) != -1;) {
+                    for (j = 0; j < len; j += PUBLIC_KEY_LENGTH, num++) {
                         sha512.update(inbuf, j, PUBLIC_KEY_LENGTH);
                         sha512.update(inbuf, j, PUBLIC_KEY_LENGTH);
                         sha512.digest(cache64, 0, SHA512_DIGEST_LENGTH);
@@ -66,7 +66,7 @@ public class Main {
                         }
                     }
                 }
-                System.out.printf("%d%n", (num * PUBLIC_KEY_LENGTH * 2400 + j) / PUBLIC_KEY_LENGTH);
+                System.out.printf("%d%n", num);
             }
             System.out.printf("%s fin!%n", inputFileName);
         }
