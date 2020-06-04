@@ -7,8 +7,8 @@ import java.security.Security;
 import java.util.Arrays;
 
 import com.twitter.teruteru128.study.Base58;
+import com.twitter.teruteru128.study.bitmessage.Const;
 
-import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.ECPoint;
 
@@ -40,19 +40,19 @@ public class BMAddressValidator {
         // validateメソッドの引数は何型にすべき？String？byte[]？
         // 鍵のチェックサムを検証
         final MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-        final byte[] sha256hash = new byte[32];
+        final byte[] sha256hash = new byte[Const.SHA256_DIGEST_LENGTH];
 
         sha256.update(privSigningKey, 0, 33);
-        sha256.digest(sha256hash, 0, 32);
-        sha256.update(sha256hash, 0, 32);
-        sha256.digest(sha256hash, 0, 32);
+        sha256.digest(sha256hash, 0, Const.SHA256_DIGEST_LENGTH);
+        sha256.update(sha256hash, 0, Const.SHA256_DIGEST_LENGTH);
+        sha256.digest(sha256hash, 0, Const.SHA256_DIGEST_LENGTH);
         System.out.print("private Signing Key : checksum ");
         System.out.println(Arrays.equals(privSigningKey, 33, 37, sha256hash, 0, 4) ? "validated" : "not validated");
 
         sha256.update(privEncryptionKey, 0, 33);
-        sha256.digest(sha256hash, 0, 32);
-        sha256.update(sha256hash, 0, 32);
-        sha256.digest(sha256hash, 0, 32);
+        sha256.digest(sha256hash, 0, Const.SHA256_DIGEST_LENGTH);
+        sha256.update(sha256hash, 0, Const.SHA256_DIGEST_LENGTH);
+        sha256.digest(sha256hash, 0, Const.SHA256_DIGEST_LENGTH);
         System.out.print("private Encryption Key : checksum ");
         System.out.println(Arrays.equals(privEncryptionKey, 33, 37, sha256hash, 0, 4) ? "validated" : "not validated");
 
@@ -60,11 +60,9 @@ public class BMAddressValidator {
         final byte[] posPrivSigningKey = Arrays.copyOfRange(privSigningKey, 1, 33);
         final byte[] posPrivEncryptionKey = Arrays.copyOfRange(privEncryptionKey, 1, 33);
 
-        final ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
-
-        final ECPoint pubSigningPoint = g.multiply(new BigInteger(1, posPrivSigningKey)).normalize();
+        final ECPoint pubSigningPoint = Const.G.multiply(new BigInteger(1, posPrivSigningKey)).normalize();
         final byte[] pubSigningKey = pubSigningPoint.getEncoded(false);
-        final ECPoint pubEncryptionPoint = g.multiply(new BigInteger(1, posPrivEncryptionKey)).normalize();
+        final ECPoint pubEncryptionPoint = Const.G.multiply(new BigInteger(1, posPrivEncryptionKey)).normalize();
         final byte[] pubEncryptionKey = pubEncryptionPoint.getEncoded(false);
 
         // アドレスと鍵が一致することを検証
@@ -73,11 +71,11 @@ public class BMAddressValidator {
         final byte[] sha512hash = new byte[64];
         final byte[] ripe = new byte[20];
 
-        sha512.update(pubSigningKey, 0, 65);
-        sha512.update(pubEncryptionKey, 0, 65);
-        sha512.digest(sha512hash, 0, 64);
-        ripemd160.update(sha512hash, 0, 64);
-        ripemd160.digest(ripe, 0, 20);
+        sha512.update(pubSigningKey, 0, Const.PUBLIC_KEY_LENGTH);
+        sha512.update(pubEncryptionKey, 0, Const.PUBLIC_KEY_LENGTH);
+        sha512.digest(sha512hash, 0, Const.SHA512_DIGEST_LENGTH);
+        ripemd160.update(sha512hash, 0, Const.SHA512_DIGEST_LENGTH);
+        ripemd160.digest(ripe, 0, Const.RIPEMD160_DIGEST_LENGTH);
 
         final String address4 = BMAddress.encodeAddress(4, 1, ripe);
         final String address3 = BMAddress.encodeAddress(3, 1, ripe);

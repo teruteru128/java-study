@@ -10,12 +10,8 @@ import java.security.Security;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
 
-import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddressGenerator;
 import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddress;
-import com.twitter.teruteru128.study.bitmessage.genaddress.KeyPair;
-import com.twitter.teruteru128.study.bitmessage.genaddress.Response;
 
-import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
@@ -53,37 +49,35 @@ public class DeterministicAddressesCalcurator implements Callable<String> {
         int encryptionKeyNonce = 1;
         int numberOfAddressesWeHadToMakeBeforeWeFoundOneWithTheCorrectRipePrefix = 0;
         MessageDigest sha512 = MessageDigest.getInstance("sha-512");
-        MessageDigest ripemd = MessageDigest.getInstance("RIPEMD160");
+        MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
         final byte[] potentialPrivSigningKey = new byte[64];
         byte[] potentialPubSigningKey = null;
         final byte[] potentialPrivEncryptionKey = new byte[64];
         byte[] potentialPubEncryptionKey = null;
-        final var g = CustomNamedCurves.getByName("secp256k1").getG();
 
         int nlz = 0;
-        final byte[] sha512hash = new byte[64];
-        final byte[] ripe = new byte[20];
+        final byte[] cache64 = new byte[Const.SHA512_DIGEST_LENGTH];
         final byte[] passphraseBytes = deterministicPassphrase.getBytes("UTF-8");
         for(;nlz < numberOfNullBytesDemandedOnFrontOfRipeHash;signingKeyNonce += 2, encryptionKeyNonce += 2) {
             numberOfAddressesWeHadToMakeBeforeWeFoundOneWithTheCorrectRipePrefix += 1;
             sha512.update(passphraseBytes);
             sha512.update(Structs.encodeVarint(signingKeyNonce));
-            sha512.digest(potentialPrivSigningKey, 0, 64);
+            sha512.digest(potentialPrivSigningKey, 0, Const.SHA512_DIGEST_LENGTH);
             sha512.update(passphraseBytes);
             sha512.update(Structs.encodeVarint(encryptionKeyNonce));
-            sha512.digest(potentialPrivEncryptionKey, 0, 64);
-            potentialPubSigningKey = g.multiply(new BigInteger(1, potentialPrivSigningKey, 0, 32)).normalize().getEncoded(false);
-            potentialPubEncryptionKey = g.multiply(new BigInteger(1, potentialPrivEncryptionKey, 0, 32)).normalize().getEncoded(false);
+            sha512.digest(potentialPrivEncryptionKey, 0, Const.SHA512_DIGEST_LENGTH);
+            potentialPubSigningKey = Const.G.multiply(new BigInteger(1, potentialPrivSigningKey, 0, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
+            potentialPubEncryptionKey = Const.G.multiply(new BigInteger(1, potentialPrivEncryptionKey, 0, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
             sha512.update(potentialPubSigningKey);
             sha512.update(potentialPubEncryptionKey);
-            sha512.digest(sha512hash, 0, 64);
-            ripemd.update(sha512hash);
-            ripemd.digest(ripe, 0, 20);
-            for (nlz = 0; ripe[nlz] == 0 && nlz < 20; nlz++) {
+            sha512.digest(cache64, 0, Const.SHA512_DIGEST_LENGTH);
+            ripemd160.update(cache64);
+            ripemd160.digest(cache64, 0, Const.RIPEMD160_DIGEST_LENGTH);
+            for (nlz = 0; cache64[nlz] == 0 && nlz < Const.RIPEMD160_DIGEST_LENGTH; nlz++) {
             }
         }
-        String address = BMAddress.encodeAddress(adderssVersionNumber, streamNumber, ripe);
-        //AddressGenerator.exportAddressToStdout(new Response(new KeyPair(Arrays.copyOf(potentialPrivSigningKey, 32), potentialPubSigningKey), new KeyPair(Arrays.copyOf(potentialPrivEncryptionKey, 32), potentialPubEncryptionKey), ripe));
+        String address = BMAddress.encodeAddress(adderssVersionNumber, streamNumber, Arrays.copyOf(cache64, Const.RIPEMD160_DIGEST_LENGTH));
+        //AddressGenerator.exportAddressToStdout(new Response(new KeyPair(Arrays.copyOf(potentialPrivSigningKey, Const.PRIVATE_KEY_LENGTH), potentialPubSigningKey), new KeyPair(Arrays.copyOf(potentialPrivEncryptionKey, Const.PRIVATE_KEY_LENGTH), potentialPubEncryptionKey), ripe));
         return address;
     }
 

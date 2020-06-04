@@ -19,12 +19,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class BCProviderTest {
 
-    private ModuleLayer getModuleLayer() {
-        return ModuleLayer.boot();
-    }
-
     private Optional<Module> findModule(String moduleName) {
-        return getModuleLayer().findModule(moduleName);
+        return ModuleLayer.boot().findModule(moduleName);
     }
 
     @ParameterizedTest
@@ -62,9 +58,8 @@ public class BCProviderTest {
         Provider provider = Security.getProvider("BC");
         if (provider == null) {
             Security.addProvider(provider = (Provider) getProviderObject());
-            System.out.printf("BCProviderTest.detailedAlgorithmReferenceTest() : Security provider %s was added.%n", provider);
         }
-        assertNotNull(MessageDigest.getInstance("ripemd160"));
+        assertNotNull(MessageDigest.getInstance("RIPEMD160"));
         assertNotNull(Cipher.getInstance("ChaCha20-Poly1305/None/NoPadding"));
     }
 

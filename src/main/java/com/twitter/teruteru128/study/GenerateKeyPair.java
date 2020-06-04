@@ -12,21 +12,18 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyAgreement;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.bouncycastle.crypto.ec.CustomNamedCurves;
-import org.bouncycastle.math.ec.ECPoint;
+import com.twitter.teruteru128.study.bitmessage.Const;
 
 import jakarta.xml.bind.DatatypeConverter;
 
-class GenerateKeyPair implements Runnable {
+public class GenerateKeyPair implements Runnable {
 
   private byte[] privateKeys;
   private byte[] publicKeys;
@@ -46,23 +43,20 @@ class GenerateKeyPair implements Runnable {
     byte[] publicKeys = this.publicKeys;
     byte[] potentialPublicEncryptionKey = null;
     for (int from = offset, to = offset + length; from < to; from++) {
-      potentialPublicEncryptionKey = G
-          .multiply(new BigInteger(1, privateKeys, from * PRIVATE_KEY_LENGTH, PRIVATE_KEY_LENGTH)).normalize()
+      potentialPublicEncryptionKey = Const.G
+          .multiply(new BigInteger(1, privateKeys, from * Const.PRIVATE_KEY_LENGTH, Const.PRIVATE_KEY_LENGTH)).normalize()
           .getEncoded(false);
-      System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, from * PUBLIC_KEY_LENGTH, PUBLIC_KEY_LENGTH);
+      System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, from * Const.PUBLIC_KEY_LENGTH, Const.PUBLIC_KEY_LENGTH);
     }
   }
 
-  private static final ECPoint G = CustomNamedCurves.getByName("secp256k1").getG();
-  private static final int PRIVATE_KEY_LENGTH = 32;
-  private static final int PUBLIC_KEY_LENGTH = 65;
   private static final int KEY_NUM = 1 << 24;
 
   public static void gen() throws Exception {
     var privateKeyPath = Paths.get("privateKeys.bin");
     var publicKeyPath = Paths.get("publicKeys.bin");
 
-    final var privateKeys = new byte[KEY_NUM * PRIVATE_KEY_LENGTH];
+    final var privateKeys = new byte[KEY_NUM * Const.PRIVATE_KEY_LENGTH];
     System.out.println("秘密鍵を集めるんご！");
     {
       SecureRandom random = null;
@@ -113,8 +107,8 @@ class GenerateKeyPair implements Runnable {
 
     System.out.println("秘密鍵をファイルに書き込んだんご！");
 
-/*
-    final var publicKeys = new byte[KEY_NUM * PUBLIC_KEY_LENGTH];
+    //
+    final var publicKeys = new byte[KEY_NUM * Const.PUBLIC_KEY_LENGTH];
 
     // Use three quarters of all processors
     int core = Runtime.getRuntime().availableProcessors() * 3 / 4;
@@ -139,7 +133,7 @@ class GenerateKeyPair implements Runnable {
       ch2.write(ByteBuffer.wrap(publicKeys));
     }
     System.out.println("公開鍵をファイルに書き込んだんご！");
-*/
+    //
     System.out.println("おわりんご");
     System.out.println("こいつはりんごろう (んごー) https://www.nicovideo.jp/watch/sm36210300");
   }

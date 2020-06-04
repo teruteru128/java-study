@@ -8,7 +8,8 @@ import java.security.Provider;
 import java.security.Security;
 import java.util.Arrays;
 
-import org.bouncycastle.crypto.ec.CustomNamedCurves;
+import com.twitter.teruteru128.study.bitmessage.Const;
+
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import jakarta.xml.bind.DatatypeConverter;
@@ -26,19 +27,18 @@ class RawKeyConverter {
         final byte[] privateEncrytionKey = DatatypeConverter
                 .parseHexBinary("fc061ce82e9b49141e6fe7fdf37c7aa21de8c054be89ef44f2076a5b3321462c");
 
-        final var g = CustomNamedCurves.getByName("secp256k1").getG();
-        final byte[] pubSigningKey = g.multiply(new BigInteger(1, privateSigningKey)).normalize().getEncoded(false);
-        final byte[] pubEncryptionKey = g.multiply(new BigInteger(1, privateEncrytionKey)).normalize()
+        final byte[] pubSigningKey = Const.G.multiply(new BigInteger(1, privateSigningKey)).normalize().getEncoded(false);
+        final byte[] pubEncryptionKey = Const.G.multiply(new BigInteger(1, privateEncrytionKey)).normalize()
                 .getEncoded(false);
         final MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
         final MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
-        final byte[] sha512hash = new byte[64];
-        final byte[] ripe = new byte[20];
-        sha512.update(pubSigningKey, 0, 65);
-        sha512.update(pubEncryptionKey, 0, 65);
-        sha512.digest(sha512hash, 0, 64);
-        ripemd160.update(sha512hash, 0, 64);
-        ripemd160.digest(ripe, 0, 20);
+        final byte[] sha512hash = new byte[Const.SHA512_DIGEST_LENGTH];
+        final byte[] ripe = new byte[Const.RIPEMD160_DIGEST_LENGTH];
+        sha512.update(pubSigningKey, 0, Const.PUBLIC_KEY_LENGTH);
+        sha512.update(pubEncryptionKey, 0, Const.PUBLIC_KEY_LENGTH);
+        sha512.digest(sha512hash, 0, Const.SHA512_DIGEST_LENGTH);
+        ripemd160.update(sha512hash, 0, Const.SHA512_DIGEST_LENGTH);
+        ripemd160.digest(ripe, 0, Const.RIPEMD160_DIGEST_LENGTH);
 
         final String address4 = BMAddress.encodeAddress(4, 1, ripe);
         System.out.print("ripe : ");
@@ -53,7 +53,7 @@ class RawKeyConverter {
         if (isMatch) {
             final Response response = new Response(new KeyPair(privateSigningKey, pubSigningKey),
                     new KeyPair(privateEncrytionKey, pubEncryptionKey), ripe);
-            BMAddressGenerator.exportAddressToStdout(response);
+            BMAddressGenerator.exportAddress(response);
         }
     }
 }

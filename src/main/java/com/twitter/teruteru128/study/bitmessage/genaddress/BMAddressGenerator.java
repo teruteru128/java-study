@@ -1,8 +1,8 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
+import java.io.PrintStream;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,9 +16,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.twitter.teruteru128.study.Base58;
-
-import org.bouncycastle.crypto.ec.CustomNamedCurves;
-import org.bouncycastle.math.ec.ECPoint;
+import com.twitter.teruteru128.study.bitmessage.Const;
 
 /**
  * Producer-Consumerパターンを使い、プロデューサースレッドで鍵ペアを生成、コンシューマースレッドでサーバーへ送信
@@ -93,10 +91,6 @@ public class BMAddressGenerator implements Runnable {
         }
     }
 
-    private static final ECPoint G = CustomNamedCurves.getByName("secp256k1").getG();
-    private static final int PRIVATE_KEY_LENGTH = 32;
-    private static final int PUBLIC_KEY_LENGTH = 65;
-
     /**
      * 
      * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/class_addressGenerator.py#L131
@@ -109,17 +103,21 @@ public class BMAddressGenerator implements Runnable {
         Path publicKeyPath = Paths.get("publicKeys.bin");
         byte[] potentialPublicEncryptionKey = null;
         byte[] privateKeys = Files.readAllBytes(privateKeyPath);
-        byte[] publicKeys = new byte[(1 << 24) * 65];
-        ByteBuffer buffer = ByteBuffer.allocateDirect((1 << 24) * 65);
+        byte[] publicKeys = new byte[(1 << 24) * Const.PUBLIC_KEY_LENGTH];
+        ByteBuffer buffer = ByteBuffer.allocateDirect((1 << 24) * Const.PUBLIC_KEY_LENGTH);
         for (int i = 0; i < 16777216; i++) {
-            potentialPublicEncryptionKey = G.multiply(new BigInteger(1, privateKeys, i * PRIVATE_KEY_LENGTH, PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
-            buffer.put(potentialPublicEncryptionKey, 0, PUBLIC_KEY_LENGTH);
-            System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * PUBLIC_KEY_LENGTH, PUBLIC_KEY_LENGTH);
+            potentialPublicEncryptionKey = Const.G.multiply(new BigInteger(1, privateKeys, i * Const.PRIVATE_KEY_LENGTH, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
+            buffer.put(potentialPublicEncryptionKey, 0, Const.PUBLIC_KEY_LENGTH);
+            System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * Const.PUBLIC_KEY_LENGTH, Const.PUBLIC_KEY_LENGTH);
         }
         Files.write(publicKeyPath, publicKeys);
     }
 
-    public static void exportAddressToStdout(Response component) {
+    public static void exportAddress(Response component) {
+        exportAddressTo(component, System.out);
+    }
+
+    public static void exportAddressTo(Response component, PrintStream out) {
         byte[] ripe = component.getRipe();
         var address4 = BMAddress.encodeAddress(4, 1, ripe);
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
@@ -128,24 +126,24 @@ public class BMAddressGenerator implements Runnable {
                 "]\nlabel = relpace this label\nenabled = true\ndecoy = false\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nprivsigningkey = ")
                 .append(privSigningKeyWIF).append("\nprivencryptionkey = ").append(privEncryptionKeyWIF).append("\n")
                 .toString();
-        synchronized (System.out) {
-            System.out.println(key);
+        synchronized (out) {
+            out.println(key);
         }
     }
 
     /** TODO: Split to new class */
     public static String encodeWIF(byte[] key) {
         byte[] wrappedKey = new byte[37];
-        byte[] checksum = new byte[32];
+        byte[] checksum = new byte[Const.SHA256_DIGEST_LENGTH];
 
         wrappedKey[0] = (byte) 0x80;
         System.arraycopy(key, 0, wrappedKey, 1, key.length);
         try {
             MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
             sha256.update(wrappedKey, 0, 33);
-            sha256.digest(checksum, 0, 32);
-            sha256.update(checksum, 0, 32);
-            sha256.digest(checksum, 0, 32);
+            sha256.digest(checksum, 0, Const.SHA256_DIGEST_LENGTH);
+            sha256.update(checksum, 0, Const.SHA256_DIGEST_LENGTH);
+            sha256.digest(checksum, 0, Const.SHA256_DIGEST_LENGTH);
         } catch (NoSuchAlgorithmException e) {
         } catch (DigestException e) {
         }

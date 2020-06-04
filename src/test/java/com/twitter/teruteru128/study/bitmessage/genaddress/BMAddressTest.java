@@ -10,10 +10,9 @@ import java.security.Security;
 import java.util.Arrays;
 
 import com.twitter.teruteru128.study.Base58;
+import com.twitter.teruteru128.study.bitmessage.Const;
 
-import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.math.ec.ECPoint;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -38,13 +37,12 @@ public class BMAddressTest {
         String privEncryptionKeyWIF = "5KUoQKDmcmAKpjaas3k9U6bGFN5Nz937zqLqDDo1sNUqeJCiMZn";
         byte[] wrapedPrivSigningKey = Base58.decode(privSigningKeyWIF);
         byte[] wrapedPrivEncryptionKey = Base58.decode(privEncryptionKeyWIF);
-        byte[] privSigningKey = new byte[32];
-        byte[] privEncryptionKey = new byte[32];
-        System.arraycopy(wrapedPrivEncryptionKey, 1, privEncryptionKey, 0, 32);
-        System.arraycopy(wrapedPrivSigningKey, 1, privSigningKey, 0, 32);
-        ECPoint g = CustomNamedCurves.getByName("secp256k1").getG();
-        byte[] pubSigningKey = g.multiply(new BigInteger(1, privSigningKey)).normalize().getEncoded(false);
-        byte[] pubEncryptionKey = g.multiply(new BigInteger(1, privEncryptionKey)).normalize().getEncoded(false);
+        byte[] privSigningKey = new byte[Const.PRIVATE_KEY_LENGTH];
+        byte[] privEncryptionKey = new byte[Const.PRIVATE_KEY_LENGTH];
+        System.arraycopy(wrapedPrivEncryptionKey, 1, privEncryptionKey, 0, Const.PRIVATE_KEY_LENGTH);
+        System.arraycopy(wrapedPrivSigningKey, 1, privSigningKey, 0, Const.PRIVATE_KEY_LENGTH);
+        byte[] pubSigningKey = Const.G.multiply(new BigInteger(1, privSigningKey)).normalize().getEncoded(false);
+        byte[] pubEncryptionKey = Const.G.multiply(new BigInteger(1, privEncryptionKey)).normalize().getEncoded(false);
         MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
         MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
         sha512.update(pubSigningKey);

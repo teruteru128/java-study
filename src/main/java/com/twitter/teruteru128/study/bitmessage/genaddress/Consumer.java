@@ -13,7 +13,7 @@ public class Consumer implements Runnable {
         BlockingQueue<Response> responses = Queues.getResponseQueue();
         while (true) {
             try {
-                BMAddressGenerator.exportAddressToStdout(responses.take());
+                BMAddressGenerator.exportAddress(responses.take());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
