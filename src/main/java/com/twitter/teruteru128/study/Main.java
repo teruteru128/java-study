@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.security.MessageDigest;
 import java.security.Security;
 import java.util.Arrays;
-import java.util.Base64;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
