@@ -22,6 +22,11 @@ public class Main {
     private static final int SHA512_DIGEST_LENGTH = 64;
     private static final int RIPEMD160_DIGEST_LENGTH = 20;
 
+    /**
+     * 
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         var provider = Security.getProvider("BC");
         if (provider == null) {
