@@ -37,15 +37,15 @@ public class Main {
         final int requireNlz = 4;
         int len = 0;
         int nlz = 0;
-        int i = 1;
         int j = 0;
+        int num = 0;
         String inputFileName = null;
         File fin = null;
-        for (i = 1; i <= 4; i++) {
+        for (int i = 1; i <= 4; i++) {
             inputFileName = String.format("publicKeys%d.bin", i);
             fin = new File(inputFileName);
             try (FileInputStream in = new FileInputStream(fin)) {
-                while ((len = in.read(inbuf, 0, PUBLIC_KEY_LENGTH * 2400)) != -1) {
+                for (; (len = in.read(inbuf, 0, PUBLIC_KEY_LENGTH * 2400)) != -1; num++) {
                     for (j = 0; j < len; j += PUBLIC_KEY_LENGTH) {
                         sha512.update(inbuf, j, len);
                         sha512.update(inbuf, j, len);
@@ -55,7 +55,8 @@ public class Main {
                         for (nlz = 0; cache64[nlz] == 0 && nlz < RIPEMD160_DIGEST_LENGTH; nlz++) {
                         }
                         if (nlz >= requireNlz) {
-                            System.out.printf("filename : %s, index : %d, nlz : %d%n", inputFileName, j, nlz);
+                            System.out.printf("filename : %s, index : %d, nlz : %d%n", inputFileName,
+                                    num * PUBLIC_KEY_LENGTH * 2400 + j, nlz);
                         }
                     }
                 }
