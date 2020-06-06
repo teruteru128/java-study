@@ -21,13 +21,6 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var path0 = Paths.get("publickeys0.bin");
-        var path1 = Paths.get("publickeys1.bin");
-        var path2 = Paths.get("publickeys2.bin");
-        var path3 = Paths.get("publickeys3.bin");
-        byte[] pubkeys0 = Files.readAllBytes(path0);
-        byte[] pubkeys1 = Files.readAllBytes(path1);
-        byte[] pubkeys2 = Files.readAllBytes(path2);
-        byte[] pubkeys3 = Files.readAllBytes(path3);
+        System.out.println(Runtime.getRuntime().availableProcessors());
     }
 }
