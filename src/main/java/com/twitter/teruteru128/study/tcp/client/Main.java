@@ -11,7 +11,7 @@ import com.twitter.teruteru128.study.tcp.SerializableObjectDAO;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        try (SocketChannel channel = SocketChannel.open(new InetSocketAddress("localhost", 50000))) {
+        try (SocketChannel channel = SocketChannel.open(new InetSocketAddress("localhost", 50007))) {
             MessageBean bean = new MessageBean();
             bean.getTimestamps().add(OffsetDateTime.now());
             SerializableObjectDAO dao = new SerializableObjectDAO();
