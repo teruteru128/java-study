@@ -1,5 +1,8 @@
 package com.twitter.teruteru128.study.tcp.server;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Main implements Runnable {
 
     public Main() {
@@ -20,6 +23,8 @@ public class Main implements Runnable {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        ExecutorService service = Executors.newSingleThreadExecutor();
+        service.submit(new ServerAcceptTask(new ServerConfig("", 50002, service, null)));
     }
 
 }
