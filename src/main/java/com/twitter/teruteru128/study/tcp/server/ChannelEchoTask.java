@@ -43,7 +43,6 @@ public class ChannelEchoTask implements Callable<Void> {
             }
         } finally {
             channel.close();
-            System.out.println("CLOSED");
         }
         return null;
     }

@@ -6,6 +6,9 @@ public class ServerConfigBuilder {
      * 
      */
     public ServerConfigBuilder() {
-        super();
+    }
+
+    public ServerConfig build() {
+        return null;
     }
 }

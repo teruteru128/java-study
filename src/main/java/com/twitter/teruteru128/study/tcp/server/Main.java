@@ -16,10 +16,9 @@ public class Main implements Runnable {
         int port = 50000;
         CountDownLatch latch = new CountDownLatch(1);
         ServerConfig config = new ServerConfig(hostname, port, service, latch);
-        service.submit(new ServerWaittingTask(config));
-        System.out.printf("Main.run() : %s%n", Thread.currentThread().getName());
+        service.submit(new ServerAcceptTask(config));
         try {
-            config.getLatch().await();
+            latch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
