@@ -38,6 +38,7 @@ public class ChannelEchoTask implements Callable<Void> {
             os.write(buf, 0, l);
         }
         socket.close();
+        System.out.println("(*´ω`*)");
         return null;
     }
 }
