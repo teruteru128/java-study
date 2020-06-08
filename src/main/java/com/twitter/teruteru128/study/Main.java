@@ -1,8 +1,6 @@
 package com.twitter.teruteru128.study;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Scanner;
+import com.twitter.teruteru128.study.tcp.client.Client;
 
 // TODO 将来的にエントリポイントをこのクラス一つにする
 // TODO コマンドライン引数の実装方法
@@ -21,6 +19,7 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        System.out.println(Runtime.getRuntime().availableProcessors());
+        Thread thread = new Thread(new Client());
+        thread.start();
     }
 }
