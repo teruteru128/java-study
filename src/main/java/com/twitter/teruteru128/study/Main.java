@@ -1,13 +1,41 @@
 package com.twitter.teruteru128.study;
 
-import java.math.BigInteger;
 import java.util.Random;
 
 /**
  * Main
- * 
+ * Slime miner(作りかけ)
  */
 public class Main {
+
+    static boolean isSlimeChunk(Random random, long seed, int x, int z) {
+        random.setSeed(seed + memoX[x + 625] + memoZ[z + 625]);
+        return random.nextInt(10) == 0;
+    }
+
+    private static final int[] memoX = new int[1250];
+    private static final int[] memoZ = new int[1250];
+
+    static {
+        for (int i = 0, offsetI, i2; i < 1250; i++) {
+            offsetI = i - 625;
+            i2 = offsetI * offsetI;
+            memoX[i] = i2 * 0x4c1906 + offsetI * 0x5ac0db;
+            memoZ[i] = (int) (i2 * 0x4307a7L) + (offsetI * 0x5f24f) ^ 0x3ad8025f;
+        }
+    }
+
+    /**
+     * @param random
+     * @param seed
+     * @param x
+     * @param z
+     * @param sign -1 -> north, 1 -> south
+     */
+    private static void searchBranch(Random random, long seed, int x, int z, int sign) {
+        int spawn_floor_x;
+        int spawn_floor_z;
+    }
 
     /**
      * 
@@ -15,82 +43,28 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        /** -626 ~ 625 */
+        int world_cursol_x;
+        /** -626 ~ 625 */
+        int world_cursol_z;
+        // 0 ~ 0xFFFFFFFFFFFF;
+        long seed = 0;
+        int count = 0;
         Random random = new Random();
+        // ブランチマイニング
+        for (world_cursol_z = -625; world_cursol_z < 625; world_cursol_z += 5) {
+            for (world_cursol_x = -625; world_cursol_x < 625; world_cursol_x++) {
 
-        // 107038380838084L
-        random.setSeed(0x6159D0AACCC4L);
-        System.out.println(random.nextLong() == 0);
-        System.out.println(random.nextLong() == 0);
-        System.out.println(random.nextLong() == 0);
-        System.out.println("--");
-
-        // 164311266871034
-        random.setSeed(0x9570B2B1C6FAL);
-        System.out.println(random.nextLong() == 0);
-        System.out.println(random.nextLong() == 0);
-        System.out.println(random.nextLong() == 0);
-        System.out.println("--");
-
-        // 240144965573432
-        random.setSeed(0xda691b5e1b38L);
-        System.out.println(random.nextLong() == 0);
-        System.out.println(random.nextLong() == 0);
-        System.out.println(random.nextLong() == 0);
-        System.out.println("--");
-
-        // 388513357548740
-        random.setSeed(0x16159D0AACCC4L);
-        System.out.println(random.nextLong() == 0);
-        System.out.println(random.nextLong() == 0);
-        System.out.println(random.nextLong() == 0);
-        System.out.println("--");
-
-        BigInteger a = BigInteger.valueOf(0x615C0E462AA9L);
-        BigInteger b = BigInteger.valueOf(0x5DEECE66DL);
-        System.out.printf("%x%n", a.multiply(b));
-        long seed = 0x123456789abcL;
-        int c = (int) (seed >>> (48 - 32));
-        System.out.printf("c : %x%n", c);
-        random = new Random();
-        long head = 0;
-        BigInteger shifthead = BigInteger.valueOf(0);
-        BigInteger mod = BigInteger.valueOf(0x1000000000000L);
-        BigInteger mask1 = BigInteger.valueOf(0xffffffffffffL);
-        BigInteger mask2 = BigInteger.valueOf(0xffffffff0000L);
-        BigInteger tail = BigInteger.valueOf(0xfffffffffff5L);
-        BigInteger one = BigInteger.valueOf(1);
-        BigInteger zero = BigInteger.valueOf(0);
-        BigInteger n = BigInteger.valueOf(0);
-        BigInteger mult = BigInteger.valueOf(0x5DEECE66DL);
-        BigInteger[] rem;
-        long t = 0;
-        System.out.printf("%x%n", BigInteger.valueOf(0x2B9BL).multiply(mult));
-        System.out.printf("%x%n", BigInteger.valueOf(0x2B9CL).multiply(mult).mod(mod));
-        System.out.printf("%x%n", BigInteger.valueOf(0x5736L).multiply(mult));
-        System.out.printf("%x%n", BigInteger.valueOf(0x5737L).multiply(mult).mod(mod));
-        System.out.printf("%x%n", BigInteger.valueOf(0x2000000000000L).divide(mult));
-        seed = 0x000000000000L;
-        System.out.printf("innerseed : %012x%n", ((0x00000000000BL - 0xBL) * 0xDFE05BCB1365L) & 0xFFFFFFFFFFFFL);
-        System.out.printf("%d%n", (((0x00000000000BL - 0xBL) * 0xDFE05BCB1365L) ^ 0x5DEECE66DL) & 0xFFFFFFFFFFFFL);
-        /*
-        System.out.println("--");
-        for (;; head++) {
-            shifthead = BigInteger.valueOf(head).shiftLeft(48);
-            for (t = 0x0L; t <= 0xFFF4L; t++) {
-                n = shifthead.add(BigInteger.valueOf(t));
-                rem = n.divideAndRemainder(mult);
-                if (rem[1].equals(zero)) {
-                    System.out.printf("%x\n", rem[0]);
-                }
-            }
-            for (t = 0xFFFFFFFFFFF5L; t <= 0xFFFFFFFFFFFFL; t++) {
-                n = shifthead.add(BigInteger.valueOf(t));
-                rem = n.divideAndRemainder(mult);
-                if (rem[1].equals(zero)) {
-                    System.out.printf("%x\n", rem[0]);
+                if (isSlimeChunk(random, seed, world_cursol_x, world_cursol_z)) {
+                    count++;
+                    if (count == 5) {
+                        searchBranch(random, seed, world_cursol_x, world_cursol_z, 1);
+                        searchBranch(random, seed, world_cursol_x, world_cursol_z, -1);
+                    }
+                } else {
+                    count = 0;
                 }
             }
         }
-        */
     }
 }
