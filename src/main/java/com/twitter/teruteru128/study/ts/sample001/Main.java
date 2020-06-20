@@ -111,22 +111,15 @@ public class Main {
             MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
             byte[] hash = sha1.digest(String.format("%s%s", string,
                     Long.toUnsignedString(l, 10)).getBytes());
-            while (zerobytes < 20 && hash[zerobytes] == 0) {
-                zerobytes++;
+            for (;hash[zerobytes] == 0 && zerobytes < 20;zerobytes++) {
             }
             if (zerobytes < 20) {
-                byte lastbyte = hash[zerobytes];
-                while ((lastbyte & 1) != 1) {
-                    zerobits++;
-                    lastbyte >>= 1;
-                }
+                zerobits = Integer.numberOfTrailingZeros(hash[zerobytes] & 0xff);
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        System.out.printf("bytes : %d%n", zerobytes);
-        System.out.printf("bits : %d%n", zerobits);
-        return 8 * zerobytes + zerobits;
+        return (zerobytes << 3) + zerobits;
     }
 
     /**
