@@ -71,11 +71,11 @@ public class Main {
         System.out.printf("0x4498 -> %012x%n", seed ^ 0x5DEECE66DL);
         Random random = new Random();
         random.setSeed(246345201500483L);
-        System.out.printf("%x%n", random.nextLong());
-        System.out.printf("%x%n", random.nextLong());
+        System.out.printf("246345201500483 : %x%n", random.nextLong());
+        System.out.printf("246345201500483 : %x%n", random.nextLong());
         random.setSeed(164311266871034L);
-        System.out.printf("%a%n", random.nextDouble());
-        System.out.printf("%a%n", random.nextDouble());
+        System.out.printf("164311266871034 : %a%n", random.nextDouble());
+        System.out.printf("164311266871034 : %a%n", random.nextDouble());
         random.setSeed(74803317123181L);
         System.out.printf("74803317123181: %012x%n", random.nextLong());
         System.out.printf("74803317123181: %012x%n", random.nextLong());
@@ -84,7 +84,7 @@ public class Main {
         System.out.printf("74803317123181: %f%n", random.nextDouble());
 
         for (long i = 0x0000_0000_0000L; i < 0x0000_0001_0000L; i++) {
-            seed = 0xffff_ffff_0000L + i;
+            seed = 0x0000_0000_0000L + i;
             prevseed1 = (seed - 0xBL) * 0xDFE05BCB1365L & 0xFFFFFFFFFFFFL;
             if ((prevseed1 & 0x0000_ffff_0000L) == 0x0000_0000_0000L) {
                 prevseed2 = (prevseed1 - 0xBL) * 0xDFE05BCB1365L & 0xFFFFFFFFFFFFL;
@@ -103,6 +103,7 @@ public class Main {
         int world_cursol_z;
         int count = 0;
         // ブランチマイニング
+        /*
         for (world_cursol_z = -625; world_cursol_z < 625; world_cursol_z += 5) {
             for (world_cursol_x = -625; world_cursol_x < 625; world_cursol_x++) {
 
@@ -117,5 +118,6 @@ public class Main {
                 }
             }
         }
+        */
     }
 }
