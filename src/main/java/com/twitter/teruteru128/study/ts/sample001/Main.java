@@ -187,12 +187,12 @@ public class Main {
             AlgorithmParameters parameters = AlgorithmParameters
                     .getInstance("EC");
             parameters.init(new ECGenParameterSpec("secp256r1"));
-            ECParameterSpec para = parameters
+            ECParameterSpec parameterSpec = parameters
                     .getParameterSpec(ECParameterSpec.class);
             ECPrivateKeySpec privateKeySpec = new ECPrivateKeySpec(privateKey,
-                    para);
+                    parameterSpec);
             ECPublicKeySpec publicKeySpec = new ECPublicKeySpec(new ECPoint(
-                    publicKeyX, publicKeyY), para);
+                    publicKeyX, publicKeyY), parameterSpec);
             KeyFactory factory = KeyFactory.getInstance("EC");
             pair[0] = new ECKeyPair(
                     (ECPrivateKey) factory.generatePrivate(privateKeySpec),
