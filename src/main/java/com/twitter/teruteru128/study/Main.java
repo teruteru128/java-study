@@ -89,7 +89,6 @@ public class Main {
         System.out.println(isSlimeChunk(random, 1613738097659009556L, -196+0, -150+1));
         System.out.println(isSlimeChunk(random, 1613738097659009556L, -196+0, -150+2));
         System.out.println(isSlimeChunk(random, 1613738097659009556L, -196+0, -150+3));
-        System.out.println(isSlimeChunk(random, 127287216738988L, -7264/16, -9680/16));
         System.out.printf("%x016x%n", memoX[-196 + 625]);
 
         for (long i = 0x0000_0000_0000L; i < 0x0000_0001_0000L; i++) {
@@ -97,13 +96,16 @@ public class Main {
             prevseed1 = (seed - 0xBL) * 0xDFE05BCB1365L & 0xFFFFFFFFFFFFL;
             if ((prevseed1 & 0x0000_ffff_0000L) == 0x0000_0000_0000L) {
                 prevseed2 = (prevseed1 - 0xBL) * 0xDFE05BCB1365L & 0xFFFFFFFFFFFFL;
+                System.out.printf("x : %x%n", prevseed1);
+                System.out.printf("x : %x%n", prevseed2);
+                System.out.printf("x : %x%n", prevseed2 ^ 0x5DEECE66DL);
                 System.out.printf("d : %d%n", prevseed2 ^ 0x5DEECE66DL);
                 random.setSeed(prevseed2 ^ 0x5DEECE66DL);
-                System.out.printf("d : %012x%n", random.nextLong());
-                System.out.printf("d : %012x%n", random.nextLong());
+                System.out.printf("x : %012x%n", random.nextLong());
+                System.out.printf("x : %012x%n", random.nextLong());
                 random.setSeed(prevseed2 ^ 0x5DEECE66DL);
-                System.out.printf("d : %a%n", random.nextDouble());
-                System.out.printf("d : %a%n", random.nextDouble());
+                System.out.printf("a : %a%n", random.nextDouble());
+                System.out.printf("a : %a%n", random.nextDouble());
             }
         }
         /** -626 ~ 625 */
