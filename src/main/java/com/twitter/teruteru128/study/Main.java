@@ -92,20 +92,25 @@ public class Main {
         System.out.printf("%x016x%n", memoX[-196 + 625]);
 
         for (long i = 0x0000_0000_0000L; i < 0x0000_0001_0000L; i++) {
-            seed = 0x0000_0000_0000L + i;
+            seed = 0xffff_ffff_0000L + i;
             prevseed1 = (seed - 0xBL) * 0xDFE05BCB1365L & 0xFFFFFFFFFFFFL;
             if ((prevseed1 & 0x0000_ffff_0000L) == 0x0000_0000_0000L) {
                 prevseed2 = (prevseed1 - 0xBL) * 0xDFE05BCB1365L & 0xFFFFFFFFFFFFL;
-                System.out.printf("x : %x%n", prevseed1);
-                System.out.printf("x : %x%n", prevseed2);
-                System.out.printf("x : %x%n", prevseed2 ^ 0x5DEECE66DL);
+                System.out.printf("x : %012x%n", seed);
+                System.out.printf("x : %012x%n", prevseed1);
+                System.out.printf("x : %012x%n", prevseed2);
+                System.out.printf("x : %012x%n", prevseed2 ^ 0x5DEECE66DL);
                 System.out.printf("d : %d%n", prevseed2 ^ 0x5DEECE66DL);
                 random.setSeed(prevseed2 ^ 0x5DEECE66DL);
                 System.out.printf("x : %012x%n", random.nextLong());
                 System.out.printf("x : %012x%n", random.nextLong());
                 random.setSeed(prevseed2 ^ 0x5DEECE66DL);
+                System.out.printf("x : %08x%n", random.nextInt());
+                System.out.printf("x : %08x%n", random.nextInt());
+                random.setSeed(prevseed2 ^ 0x5DEECE66DL);
                 System.out.printf("a : %a%n", random.nextDouble());
                 System.out.printf("a : %a%n", random.nextDouble());
+                System.out.println("--");
             }
         }
         /** -626 ~ 625 */
