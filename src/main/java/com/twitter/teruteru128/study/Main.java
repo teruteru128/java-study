@@ -112,6 +112,7 @@ public class Main {
         int world_cursol_z;
         int count = 0;
         // ブランチマイニング
+        /*
         seed = random.nextLong() & 0xffffffffffffL;
         long max = seed - 1;
         for(; seed != max; seed = (seed + 1) & 0xffffffffffffL)
@@ -133,5 +134,6 @@ public class Main {
                 }
             }
         }
+        */
     }
 }
