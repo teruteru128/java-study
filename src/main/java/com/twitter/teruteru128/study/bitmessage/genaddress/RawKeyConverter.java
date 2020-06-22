@@ -21,11 +21,11 @@ class RawKeyConverter {
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
-        final byte[] inputRipe = DatatypeConverter.parseHexBinary("000000003ea1a3d7bdaae62832fc367ed4fb5284");
+        final byte[] inputRipe = DatatypeConverter.parseHexBinary("0000006FC4393057B704A7FD278C33D95DE3E9B0");
         final byte[] privateSigningKey = DatatypeConverter
-                .parseHexBinary("c904ba4d973b94b3dd3c38a70f6c898745502df4cef1017b2b9544f6a171d63b");
+                .parseHexBinary("8e2dd1c3a8c7740c5140d4d641bf191df606092a672fe4e32c138f12df14b7bc");
         final byte[] privateEncrytionKey = DatatypeConverter
-                .parseHexBinary("fc061ce82e9b49141e6fe7fdf37c7aa21de8c054be89ef44f2076a5b3321462c");
+                .parseHexBinary("92f5045ff8e43afbafcc56b063c0a34c856c6f67e0dab6e605aa7901529d09c9");
 
         final byte[] pubSigningKey = Const.G.multiply(new BigInteger(1, privateSigningKey)).normalize().getEncoded(false);
         final byte[] pubEncryptionKey = Const.G.multiply(new BigInteger(1, privateEncrytionKey)).normalize()
