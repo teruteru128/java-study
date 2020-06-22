@@ -142,5 +142,10 @@ public class Main {
             }
         }
         */
+        long head = 0;
+        long tail = 164311266871034L;
+        for (; head < 21; head++) {
+            System.out.println((head << 48) + tail);
+        }
     }
 }
