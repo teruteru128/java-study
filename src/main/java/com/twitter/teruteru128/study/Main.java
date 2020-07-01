@@ -8,13 +8,21 @@ import java.util.Random;
  */
 public class Main {
 
+    private static long s(long seed, int x, int z) {
+        return seed + (int) (x * x * 0x4c1906) + (int) (x * 0x5ac0db) + (int) (z * z) * 0x4307a7L + (int) (z * 0x5f24f) ^ 0x3ad8025f;
+    }
+
+    private static long s1(long seed, int x, int z) {
+        return (seed + memoX[x + 625] + memoZ[z + 625]) ^ 0x3ad8025f;
+    }
+
     private static boolean isSlimeChunk(Random random, long seed, int x, int z) {
-        random.setSeed((seed + memoX[x + 625] + memoZ[z + 625]) ^ 0x3ad8025f);
+        random.setSeed(s1(seed, x, z));
         //random.setSeed(seed + (int) (x * x * 0x4c1906) + (int) (x * 0x5ac0db) + (int) (z * z) * 0x4307a7L + (int) (z * 0x5f24f) ^ 0x3ad8025f);
         return random.nextInt(10) == 0;
     }
 
-    private static final long[] memoX = new long[1250];
+    private static final int[] memoX = new int[1250];
     private static final long[] memoZ = new long[1250];
 
     static {
@@ -46,10 +54,21 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+
         // 0 ~ 0xFFFFFFFFFFFF;
         long seed = 0;
+        int x, z;
         long prevseed1 = 0;
         long prevseed2 = 0;
+        for(seed = 0; seed  < 1; seed++) {
+            for(z = -625; z  < 625; z++) {
+                for(x = -625; x < 625; x++) {
+                    if(s(seed, x, z) != s1(seed, x, z))
+                    System.out.printf("false : %d, %d\n", x, z);
+                }
+            }
+        }
+        /*
         seed = (seed * 0x5DEECE66DL + 0xBL) & 0xFFFFFFFFFFFFL;
         System.out.printf("%d%n", seed);
         seed = 246345201500483L ^ 0x5DEECE66DL;
@@ -90,7 +109,8 @@ public class Main {
         System.out.println(isSlimeChunk(random, 1613738097659009556L, -196+0, -150+2));
         System.out.println(isSlimeChunk(random, 1613738097659009556L, -196+0, -150+3));
         System.out.printf("%x016x%n", memoX[-196 + 625]);
-
+        */
+        /*
         for (long i = 0x0000_0000_0000L; i < 0x0000_0001_0000L; i++) {
             seed = 0xffff_ffff_0000L + i;
             prevseed1 = (seed - 0xBL) * 0xDFE05BCB1365L & 0xFFFFFFFFFFFFL;
@@ -113,6 +133,7 @@ public class Main {
                 System.out.println("--");
             }
         }
+        */
         /** -626 ~ 625 */
         int world_cursol_x;
         /** -626 ~ 625 */
@@ -141,11 +162,11 @@ public class Main {
                 }
             }
         }
-        */
         long head = 0;
         long tail = 164311266871034L;
         for (; head < 21; head++) {
             System.out.println((head << 48) + tail);
         }
+        */
     }
 }
