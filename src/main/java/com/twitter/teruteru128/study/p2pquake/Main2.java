@@ -28,10 +28,10 @@ public class Main2 {
             SecureRandom random = new SecureRandom();
             Collections.shuffle(serverList, random);
         }
-        
+
         Socket socket = null;
         Charset charset = Charset.forName("SJIS");
-        int tempPeerID = 10;
+        int tempPeerID = 469;
         int peerID = 0;
         try {
             for (String server : serverList) {

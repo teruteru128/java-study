@@ -1,57 +1,11 @@
 package com.twitter.teruteru128.study;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.LinkedList;
-import java.util.Random;
+import java.math.BigInteger;
 
 /**
- * Main Slime miner(作りかけ)
+ * Main
  */
 public class Main {
-
-    private static long s(long seed, int x, int z) {
-        return seed + (int) (x * x * 0x4c1906) + (int) (x * 0x5ac0db) + (int) (z * z) * 0x4307a7L + (int) (z * 0x5f24f)
-                ^ 0x3ad8025f;
-    }
-
-    private static long s1(long seed, int x, int z) {
-        return (seed + memoX[x + 625] + memoZ[z + 625]) ^ 0x3ad8025f;
-    }
-
-    private static boolean isSlimeChunk(Random random, long seed, int x, int z) {
-        random.setSeed(s1(seed, x, z));
-        // random.setSeed(seed + (int) (x * x * 0x4c1906) + (int) (x * 0x5ac0db) + (int)
-        // (z * z) * 0x4307a7L + (int) (z * 0x5f24f) ^ 0x3ad8025f);
-        return random.nextInt(10) == 0;
-    }
-
-    private static final int[] memoX = new int[1250];
-    private static final long[] memoZ = new long[1250];
-
-    static {
-        int offsetI, i2;
-        for (int i = 0; i < 1250; i++) {
-            offsetI = i - 625;
-            i2 = offsetI * offsetI;
-            memoX[i] = i2 * 0x4c1906;
-            memoX[i] += offsetI * 0x5ac0db;
-            memoZ[i] = i2 * 0x4307a7L + offsetI * 0x5f24f;
-        }
-    }
-
-    /**
-     * @param random
-     * @param seed
-     * @param x      湧き層の北西チャンクのxチャンク座標
-     * @param z      湧き層の北西チャンクのzチャンク座標
-     * @param sign   -1 -> north, 1 -> south
-     */
-    private static void searchBranch(Random random, long seed, int x, int z, int sign) {
-        int spawn_floor_x;
-        int spawn_floor_z;
-    }
 
     /**
      * 
@@ -59,21 +13,7 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-
-        // 0 ~ 0xFFFFFFFFFFFF;
-        long seed = 0;
-        int x, z;
-        long prevseed1 = 0;
-        long prevseed2 = 0;
-        Path out = Paths.get("out.txt");
-        LinkedList<String> list = new LinkedList<>();
-        for (seed = 0; seed < 1; seed++) {
-            for (z = -625; z < 625; z++) {
-                for (x = -625; x < 625; x++) {
-                    list.add(Long.toString(s(seed, x, z)));
-                }
-            }
-        }
-        Files.write(out, list);
+        BigInteger p = new BigInteger("0111011101011100010010111001001000110110001111111110101110001011000010101100010110101111001010111000111101111111100101011111000011111110010100100101111000000000010000010010000111110110001001011000100101101111111010111001100010101100111001101100001111111011100100010111110000111111011100011010110011100001110111001110101111110101100010010001001011110100001000101001000010000010111001110011100110110010001000111101010110010010010111000001000010101011100101000010001010010110010100011010110001010000100001100011000100011100101110010000100010010000111000111010111011010010001000001100001001000011111010110010011011010111000011010010010000100100111100000101001100001000111110111001111000100101011111100101011000000011011000101011000111100101101101011011110111110010100101101001110011111101000010000101011110010100011011011100010101010100010010010000000010100110100001101011101011010010011110011110001001110001101101010010100101101010100000101101010110010100111111111100100011111010100010110110111100001001011100110001000100011111", 2);
+        System.out.printf("%x%n", p);
     }
 }
