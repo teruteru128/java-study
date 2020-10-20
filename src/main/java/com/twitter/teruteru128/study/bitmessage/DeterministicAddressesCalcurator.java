@@ -86,7 +86,7 @@ public class DeterministicAddressesCalcurator implements Callable<String> {
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
-        var calcurator = new DeterministicAddressesCalcurator("Twitter", 3);
+        var calcurator = new DeterministicAddressesCalcurator("Japan", 3);
         String address = calcurator.call();
         System.out.println(address);
     }
