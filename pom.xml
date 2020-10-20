@@ -65,6 +65,14 @@
         <version>3.2.0</version>
         <configuration>
           <encoding>${project.build.sourceEncoding}</encoding>
+          <nonFilteredFileExtensions>
+            <nonFilteredFileExtension>bin</nonFilteredFileExtension>
+            <nonFilteredFileExtension>cer</nonFilteredFileExtension>
+            <nonFilteredFileExtension>der</nonFilteredFileExtension>
+            <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
+            <nonFilteredFileExtension>swf</nonFilteredFileExtension>
+            <nonFilteredFileExtension>ttf</nonFilteredFileExtension>
+          </nonFilteredFileExtensions>
         </configuration>
       </plugin>
       <plugin>
