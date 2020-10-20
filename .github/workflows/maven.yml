@@ -27,7 +27,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Build with Maven
-        run: mvn -B verify --file pom.xml
+        run: mvn -B verify --file pom.xml -e
       - name: run it
         run: |
           java -jar target/study-1.0.0-SNAPSHOT-jar-with-dependencies.jar
