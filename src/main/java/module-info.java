@@ -5,7 +5,7 @@
  */
 module com.twitter.teruteru128.study {
     requires java.desktop;
-    requires java.json;
+    requires jakarta.json;
     requires java.logging;
     requires java.management;
     requires java.naming;
