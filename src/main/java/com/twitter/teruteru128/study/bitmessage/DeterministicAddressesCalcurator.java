@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study.bitmessage;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.System.Logger;
 import java.math.BigInteger;
 import java.security.DigestException;
 import java.security.MessageDigest;
@@ -16,15 +17,13 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
  * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/class_addressGenerator.py
+ * TODO: Functionにする
+ * 1変数関数だったり2変数関数だったりどうするんですかね？
  */
 public class DeterministicAddressesCalcurator implements Callable<String> {
 
     private String passphrase;
     private int adderssVersionNumber = 4;
-
-    public DeterministicAddressesCalcurator() {
-        this("Bit_Message_JA");
-    }
 
     public DeterministicAddressesCalcurator(String passphrase) {
         this(passphrase, 4);
@@ -84,10 +83,11 @@ public class DeterministicAddressesCalcurator implements Callable<String> {
     public static void main(String[] args) throws Exception {
         Provider provider = Security.getProvider("BC");
         if (provider == null) {
-            Security.addProvider(provider = new BouncyCastleProvider());
+            provider = new BouncyCastleProvider();
+            Security.addProvider(provider);
         }
-        var calcurator = new DeterministicAddressesCalcurator("Japan", 3);
+        var calcurator = new DeterministicAddressesCalcurator("COVID-1984", 3);
         String address = calcurator.call();
-        System.out.println(address);
+        System.getLogger("").log(Logger.Level.INFO, address);
     }
 }
