@@ -1,26 +1,19 @@
 package com.twitter.teruteru128.study;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.lang.System.Logger;
+import java.math.BigInteger;
+import java.nio.file.Files;
 
 /**
  * Main
  */
 public class Main {
-    public static void main(String[] args) {
-        if (args.length < 1) {
-            return;
-        }
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File(args[0])))) {
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                System.getLogger("main").log(Logger.Level.INFO, line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void main(String[] args) throws IOException {
+        var file = new File("/home/teruteru128/git/study/src/262144bit-initialValue2.txt");
+        var lines = Files.readAllLines(file.toPath());
+        var base = new BigInteger(lines.get(0), 16).add(BigInteger.valueOf(52269));
+        System.out.println(base.bitLength());
+        System.out.println(base.isProbablePrime(1));
     }
 }
