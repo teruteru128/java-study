@@ -25,6 +25,7 @@ public final class Arrays {
      * @deprecated Use {@link jakarta.xml.bind.DatatypeConverter#printHexBinary(byte[])}
      * @see jakarta.xml.bind.DatatypeConverter#printHexBinary(byte[])
      * */
+    @Deprecated
     public static String toHexString(byte[] array) {
         StringBuilder r = new StringBuilder(array.length * 2);
         for (byte b : array) {

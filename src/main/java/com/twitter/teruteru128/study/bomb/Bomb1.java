@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bomb;
+package com.twitter.teruteru128.study.bomb;
 
 import java.util.concurrent.ExecutorService;
 
@@ -6,11 +6,11 @@ import java.util.concurrent.ExecutorService;
  * @author Teruteru
  *
  */
-public class Bomb4 implements Bomb {
+public class Bomb1 implements Bomb {
 
     private final ExecutorService service;
 
-    public Bomb4(ExecutorService service) {
+    public Bomb1(ExecutorService service) {
         this.service = service;
     }
 
@@ -21,9 +21,9 @@ public class Bomb4 implements Bomb {
      */
     @Override
     public void run() {
-        service.submit(new Bomb1(service));
         service.submit(new Bomb2(service));
         service.submit(new Bomb3(service));
+        service.submit(new Bomb4(service));
     }
 
 }

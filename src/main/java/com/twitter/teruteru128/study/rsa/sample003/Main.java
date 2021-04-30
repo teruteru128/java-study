@@ -2,7 +2,7 @@ package com.twitter.teruteru128.study.rsa.sample003;
 
 import java.math.BigInteger;
 
-import com.twitter.teruteru128.holders.SecureRandomHolder;
+import com.twitter.teruteru128.study.holders.SecureRandomHolder;
 import com.twitter.teruteru128.study.rsa.util.Const;
 
 /**

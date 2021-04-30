@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bomb;
+package com.twitter.teruteru128.study.bomb;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.holders;
+package com.twitter.teruteru128.study.holders;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

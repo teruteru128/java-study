@@ -9,8 +9,8 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.interfaces.PBEKey;
 import javax.crypto.spec.PBEKeySpec;
 
-import com.twitter.teruteru128.holders.SecureRandomHolder;
 import com.twitter.teruteru128.study.crypto.DataPrinter;
+import com.twitter.teruteru128.study.holders.SecureRandomHolder;
 
 /**
  * @author Teruteru

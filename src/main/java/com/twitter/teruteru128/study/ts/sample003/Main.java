@@ -6,7 +6,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.twitter.teruteru128.holders.SecureRandomHolder;
+import com.twitter.teruteru128.study.holders.SecureRandomHolder;
 
 /**
  * @author Teruteru

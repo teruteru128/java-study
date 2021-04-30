@@ -1,14 +1,8 @@
-package com.twitter.teruteru128.dragon;
+package com.twitter.teruteru128.study.dragon;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.LinkedList;
-
-import javax.imageio.ImageIO;
 
 /**
  * @author teruteru128

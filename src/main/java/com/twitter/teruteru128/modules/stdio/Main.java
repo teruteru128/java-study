@@ -21,14 +21,13 @@ public class Main {
             return;
         }
         File file = new File(args[0]);
-        byte[] buf= new byte[2000];
-        int read_length=-1;
+        byte[] buf = new byte[2000];
+        int read_length = -1;
         try {
-            BufferedInputStream bin = new BufferedInputStream(
-                    new FileInputStream(file));
+            BufferedInputStream bin = new BufferedInputStream(new FileInputStream(file));
             BufferedOutputStream bout = new BufferedOutputStream(System.out);
             try {
-                while((read_length = bin.read(buf)) != -1){
+                while ((read_length = bin.read(buf)) != -1) {
                     bout.write(buf, 0, read_length);
                 }
             } finally {

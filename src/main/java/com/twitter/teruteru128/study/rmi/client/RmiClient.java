@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.rmi.client;
+package com.twitter.teruteru128.study.rmi.client;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -6,8 +6,7 @@ import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-import com.twitter.teruteru128.rmi.MessageObject;
-import com.twitter.teruteru128.rmi.RmiSample;
+import com.twitter.teruteru128.study.rmi.RmiSample;
 
 /**
  * @author Teruteru

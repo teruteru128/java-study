@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.rmi;
+package com.twitter.teruteru128.study.rmi;
 
 import java.io.Serializable;
 

@@ -7,8 +7,8 @@ import java.security.Provider;
 import java.security.SecureRandom;
 import java.security.Security;
 
-import com.twitter.teruteru128.holders.SecureRandomHolder;
 import com.twitter.teruteru128.study.crypto.DataPrinter;
+import com.twitter.teruteru128.study.holders.SecureRandomHolder;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 

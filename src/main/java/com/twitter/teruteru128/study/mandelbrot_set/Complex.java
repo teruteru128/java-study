@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.mandelbrot_set;
+package com.twitter.teruteru128.study.mandelbrot_set;
 
 /**
  * @author Teruteru

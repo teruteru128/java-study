@@ -1,10 +1,10 @@
 package com.twitter.teruteru128.study;
 
-public class A {
+public class HashBean {
     private byte[] input;
     private byte[] hash;
 
-    public A(byte[] input, byte[] hash) {
+    public HashBean(byte[] input, byte[] hash) {
         this.input = input.clone();
         this.hash = hash.clone();
     }

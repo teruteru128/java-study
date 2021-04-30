@@ -14,13 +14,10 @@ import com.twitter.teruteru128.study.tcp.Status;
 
 import jakarta.xml.bind.DatatypeConverter;
 
-public class HashMiningSample implements Callable<A> {
-
-    public HashMiningSample() {
-    }
+public class HashMiningSample implements Callable<HashBean> {
 
     @Override
-    public A call() throws NoSuchAlgorithmException, DigestException {
+    public HashBean call() throws NoSuchAlgorithmException, DigestException {
         System.out.println("スタートしました ${project.version}");
         SecureRandom random = new SecureRandom();
         byte[] input = new byte[64];
@@ -30,7 +27,7 @@ public class HashMiningSample implements Callable<A> {
         int nlzbytes = 0;
         int nlzbits = 0;
         MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
-        A a = null;
+        HashBean a = null;
         while (Status.shutdown == 0) {
             random.nextBytes(input);
             sha512.update(input, 0, 64);
@@ -42,7 +39,7 @@ public class HashMiningSample implements Callable<A> {
             if (nlz > bestnlz) {
                 bestnlz = nlz;
                 System.out.printf("更新しました。現在のベストNLZ : %d%n", bestnlz);
-                a = new A(input, buf);
+                a = new HashBean(input, buf);
             }
         }
         return a;
@@ -50,10 +47,10 @@ public class HashMiningSample implements Callable<A> {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         ExecutorService service = Executors.newFixedThreadPool(2);
-        Future<A> future = service.submit(new HashMiningSample());
+        Future<HashBean> future = service.submit(new HashMiningSample());
         Thread.sleep(10 * 60 * 1000);
         Status.shutdown = 1;
-        A a = future.get();
+        HashBean a = future.get();
         System.out.printf("input : %s%n", DatatypeConverter.printHexBinary(a.getInput()));
         System.out.printf("hash : %s%n", DatatypeConverter.printHexBinary(a.getHash()));
         service.shutdown();
