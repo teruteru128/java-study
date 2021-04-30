@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.io.PrintStream;
+import java.lang.System.Logger;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
@@ -22,6 +23,9 @@ import com.twitter.teruteru128.study.bitmessage.Const;
  * Producer-Consumerパターンを使い、プロデューサースレッドで鍵ペアを生成、コンシューマースレッドでサーバーへ送信
  */
 public class BMAddressGenerator implements Runnable {
+
+    private static Object lock = new Object();
+    private Logger logger = System.getLogger("BM");
 
     private String[] args;
     private Args args2;
@@ -74,7 +78,7 @@ public class BMAddressGenerator implements Runnable {
         }
         ExecutorService service1 = Executors.newCachedThreadPool();
         // ScheduledExecutorService service2 = Executors.newScheduledThreadPool(1);
-        System.err.printf("start : %s%n", LocalDateTime.now());
+        logger.log(System.Logger.Level.INFO, "start : %s%n", LocalDateTime.now());
         try {
             service1.invokeAny(tasks);
         } catch (ExecutionException e) {
@@ -82,12 +86,13 @@ public class BMAddressGenerator implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            System.err.println("タスクの終了を待機しています。しばらくお待ち下さい...");
+            logger.log(System.Logger.Level.INFO, "タスクの終了を待機しています。しばらくお待ち下さい...");
+
             if (!service1.isShutdown()) {
                 service1.shutdown();
             }
             // service2.shutdown();
-            System.err.println("タスクの終了が完了しました。シャットダウンします。");
+            logger.log(System.Logger.Level.INFO, "タスクの終了が完了しました。シャットダウンします。");
         }
     }
 
@@ -106,9 +111,12 @@ public class BMAddressGenerator implements Runnable {
         byte[] publicKeys = new byte[(1 << 24) * Const.PUBLIC_KEY_LENGTH];
         ByteBuffer buffer = ByteBuffer.allocateDirect((1 << 24) * Const.PUBLIC_KEY_LENGTH);
         for (int i = 0; i < 16777216; i++) {
-            potentialPublicEncryptionKey = Const.G.multiply(new BigInteger(1, privateKeys, i * Const.PRIVATE_KEY_LENGTH, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
+            potentialPublicEncryptionKey = Const.G
+                    .multiply(new BigInteger(1, privateKeys, i * Const.PRIVATE_KEY_LENGTH, Const.PRIVATE_KEY_LENGTH))
+                    .normalize().getEncoded(false);
             buffer.put(potentialPublicEncryptionKey, 0, Const.PUBLIC_KEY_LENGTH);
-            System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * Const.PUBLIC_KEY_LENGTH, Const.PUBLIC_KEY_LENGTH);
+            System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * Const.PUBLIC_KEY_LENGTH,
+                    Const.PUBLIC_KEY_LENGTH);
         }
         Files.write(publicKeyPath, publicKeys);
     }
@@ -126,12 +134,14 @@ public class BMAddressGenerator implements Runnable {
                 "]\nlabel = relpace this label\nenabled = true\ndecoy = false\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nprivsigningkey = ")
                 .append(privSigningKeyWIF).append("\nprivencryptionkey = ").append(privEncryptionKeyWIF).append("\n")
                 .toString();
-        synchronized (out) {
+        synchronized (lock) {
             out.println(key);
         }
     }
 
-    /** TODO: Split to new class */
+    /**
+     * TODO: Split to new class
+    */
     public static String encodeWIF(byte[] key) {
         byte[] wrappedKey = new byte[37];
         byte[] checksum = new byte[Const.SHA256_DIGEST_LENGTH];
@@ -145,7 +155,9 @@ public class BMAddressGenerator implements Runnable {
             sha256.update(checksum, 0, Const.SHA256_DIGEST_LENGTH);
             sha256.digest(checksum, 0, Const.SHA256_DIGEST_LENGTH);
         } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         } catch (DigestException e) {
+            e.printStackTrace();
         }
         System.arraycopy(checksum, 0, wrappedKey, 33, 4);
         return Base58.encode(wrappedKey);
