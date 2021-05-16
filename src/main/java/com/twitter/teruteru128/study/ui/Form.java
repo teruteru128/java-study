@@ -175,7 +175,7 @@ public class Form extends JFrame implements DocumentListener {
      */
     @Override
     public void changedUpdate(DocumentEvent e) {
-
+        // NONE
     }
 
     public void textChanged() {

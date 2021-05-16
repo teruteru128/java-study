@@ -1,6 +1,5 @@
 package com.twitter.teruteru128.study.openpgp.sample001;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.security.Provider;
 import java.security.Security;
@@ -14,6 +13,8 @@ import org.bouncycastle.openpgp.PGPUtil;
 import org.bouncycastle.openpgp.operator.jcajce.JcaKeyFingerprintCalculator;
 import org.bouncycastle.util.encoders.Hex;
 
+import jakarta.xml.bind.DatatypeConverter;
+
 /**
  * @author Teruteru
  * @see https://github.com/bcgit/bc-java/blob/0ddd7b28418d64af06a1ccee85a916e97a73e866/pg/src/main/java/org/bouncycastle/openpgp/examples/PubringDump.java
@@ -21,41 +22,39 @@ import org.bouncycastle.util.encoders.Hex;
 public class Main {
     public static String getAlgorithm(int algId) {
         switch (algId) {
-        case PublicKeyAlgorithmTags.RSA_GENERAL:
-            return "RSA_GENERAL";
-        case PublicKeyAlgorithmTags.RSA_ENCRYPT:
-            return "RSA_ENCRYPT";
-        case PublicKeyAlgorithmTags.RSA_SIGN:
-            return "RSA_SIGN";
-        case PublicKeyAlgorithmTags.ELGAMAL_ENCRYPT:
-            return "ELGAMAL_ENCRYPT";
-        case PublicKeyAlgorithmTags.DSA:
-            return "DSA";
-        case PublicKeyAlgorithmTags.ECDH:
-            return "ECDH";
-        case PublicKeyAlgorithmTags.ECDSA:
-            return "ECDSA";
-        case PublicKeyAlgorithmTags.ELGAMAL_GENERAL:
-            return "ELGAMAL_GENERAL";
-        case PublicKeyAlgorithmTags.DIFFIE_HELLMAN:
-            return "DIFFIE_HELLMAN";
+            case PublicKeyAlgorithmTags.RSA_GENERAL:
+                return "RSA_GENERAL";
+            case PublicKeyAlgorithmTags.RSA_ENCRYPT:
+                return "RSA_ENCRYPT";
+            case PublicKeyAlgorithmTags.RSA_SIGN:
+                return "RSA_SIGN";
+            case PublicKeyAlgorithmTags.ELGAMAL_ENCRYPT:
+                return "ELGAMAL_ENCRYPT";
+            case PublicKeyAlgorithmTags.DSA:
+                return "DSA";
+            case PublicKeyAlgorithmTags.ECDH:
+                return "ECDH";
+            case PublicKeyAlgorithmTags.ECDSA:
+                return "ECDSA";
+            case PublicKeyAlgorithmTags.ELGAMAL_GENERAL:
+                return "ELGAMAL_GENERAL";
+            case PublicKeyAlgorithmTags.DIFFIE_HELLMAN:
+                return "DIFFIE_HELLMAN";
+            default:
+                return "unknown";
         }
-
-        return "unknown";
     }
 
     /**
      * @param args
      */
     public static void main(String[] args) throws Exception {
-        Provider provider = Security.getProvider("bc");
-        if (provider == null) {
-            Security.addProvider(provider = new BouncyCastleProvider());
+        if (Security.getProvider("bc") == null) {
+            Security.addProvider(new BouncyCastleProvider());
         }
 
         PGPPublicKeyRingCollection collection = new PGPPublicKeyRingCollection(
-                PGPUtil.getDecoderStream(new FileInputStream(args[0])),
-                new JcaKeyFingerprintCalculator());
+                PGPUtil.getDecoderStream(new FileInputStream(args[0])), new JcaKeyFingerprintCalculator());
         for (PGPPublicKeyRing ring : collection) {
             try {
                 ring.getPublicKey();
@@ -64,23 +63,16 @@ public class Main {
                 continue;
             }
 
-            boolean first = true;
+            var first = true;
             for (PGPPublicKey pgpPublicKey : ring) {
                 if (first) {
-                    System.out.println("Key ID: "
-                            + Long.toHexString(pgpPublicKey.getKeyID()));
+                    System.out.printf("Key ID: %s%n", Long.toHexString(pgpPublicKey.getKeyID()));
                     first = false;
                 } else {
-                    System.out.println("Key ID: "
-                            + Long.toHexString(pgpPublicKey.getKeyID())
-                            + " (subkey)");
+                    System.out.printf("Key ID: %s%n", Long.toHexString(pgpPublicKey.getKeyID()) + " (subkey)");
                 }
-                System.out.println("            Algorithm: "
-                        + getAlgorithm(pgpPublicKey.getAlgorithm()));
-                System.out
-                        .println("            Fingerprint: "
-                                + new String(Hex.encode(pgpPublicKey
-                                        .getFingerprint())));
+                System.out.printf("            Algorithm: %s%n", getAlgorithm(pgpPublicKey.getAlgorithm()));
+                System.out.printf("            Fingerprint: %s%n", DatatypeConverter.printHexBinary(pgpPublicKey.getFingerprint()));
             }
         }
     }

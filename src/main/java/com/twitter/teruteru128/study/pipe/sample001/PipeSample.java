@@ -26,26 +26,20 @@ public class PipeSample implements Runnable {
 
     @Override
     public void run() {
-        PipedInputStream pis = new PipedInputStream();
-        PipedOutputStream pos = new PipedOutputStream();
-        try {
-            pos.connect(pis);
+        try (PipedInputStream pis = new PipedInputStream(); PipedOutputStream pos = new PipedOutputStream(pis)) {
+            CountDownLatch latch = new CountDownLatch(2);
+            Runnable producer = () -> produceData(pos, latch);
+            Runnable consumer = () -> consumeData(pis, latch);
+            ExecutorService service = Executors.newCachedThreadPool();
+            service.execute(producer);
+            service.execute(consumer);
+            latch.await();
+            service.shutdown();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
-        CountDownLatch latch = new CountDownLatch(2);
-        Runnable producer = () -> produceData(pos, latch);
-        Runnable consumer = () -> consumeData(pis, latch);
-        ExecutorService service = Executors.newCachedThreadPool();
-        service.execute(producer);
-        service.execute(consumer);
-        try {
-            latch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        service.shutdown();
     }
 
     /**
@@ -55,10 +49,10 @@ public class PipeSample implements Runnable {
         try (PrintStream p = new PrintStream(pos)) {
             for (int i = 0; i < 50; i++) {
                 p.printf("%s%n", (i % 3) == 0 ? "アッー！" : i);
-                //System.out.printf("Writing : %d%n", i);
+                // System.out.printf("Writing : %d%n", i);
                 Thread.sleep(500);
             }
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
             latch.countDown();
