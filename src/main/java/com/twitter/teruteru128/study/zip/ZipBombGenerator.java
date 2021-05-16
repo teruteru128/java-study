@@ -14,7 +14,7 @@ import java.util.zip.ZipOutputStream;
  * @see {@link java.io.ByteArrayOutputStream }
  * @see {@link java.io.ObjectOutputStream }
 */
-public class Main {
+public class ZipBombGenerator {
 
     public static void main(String[] args) {
         File outfile = new File("out.zip");
