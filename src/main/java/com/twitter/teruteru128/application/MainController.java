@@ -1,13 +1,15 @@
 package com.twitter.teruteru128.application;
 
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.Stage;
 
 public class MainController {
 
-    public MainController() {
-    }
+    private Logger logger = System.getLogger(MainController.class.getName());
 
     private Stage stage;
 
@@ -19,8 +21,8 @@ public class MainController {
     }
 
     @FXML
-    void close(ActionEvent event) throws Exception {
-        //stage.hide();
-        System.out.println("hello!");
+    void close(ActionEvent event) {
+        stage.hide();
+        logger.log(Level.INFO, "hello!");
     }
 }
