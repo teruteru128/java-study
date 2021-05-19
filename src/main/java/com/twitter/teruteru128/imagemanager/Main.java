@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
@@ -24,41 +25,45 @@ import com.twitter.teruteru128.imagemanager.model.ImageModel;
 import com.twitter.teruteru128.imagemanager.view.ImageView;
 import com.twitter.teruteru128.util.Page;
 
+import static javax.swing.JFrame.MAXIMIZED_BOTH;
+import static javax.swing.JFrame.DISPOSE_ON_CLOSE;
+
 /**
  * @author Teruteru
  *
  */
 public class Main {
+
+    private static final String PIXIV = "pixiv";
+
     /**
      * @param args
      * @throws IOException
      */
     public static void main(String[] args) throws IOException,
-            NoSuchAlgorithmException {
+            NoSuchAlgorithmException, SQLException{
         int debug = 5;
         ImageH2DAO dao = new ImageH2DAO();
         ImageFileDAO fileDao = new ImageFileDAO();
         JLabel l;
         JFrame jf;
-        Random r = null;
-        r = SecureRandom.getInstance("SHA1PRNG");
-        // r=new Random();
+        Random r = SecureRandom.getInstance("SHA1PRNG");
         BufferedImage image;
         String id;
         Optional<BufferedImage> opt;
         ImageView view = null;
         switch (debug) {
         case 0:
-            int c = (int) dao.getItemCount();
-            Optional<BufferedImage> img = dao.getImageByOffset(r.nextInt(c));
+            long c = dao.getItemCount();
+            Optional<BufferedImage> img = dao.getImageByOffset(r.nextInt((int)c));
             jf = new JFrame("jframe");
             jf.setSize(800, 600);
             jf.setLocationRelativeTo(null);
-            jf.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            jf.setExtendedState(MAXIMIZED_BOTH);
+            jf.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             if (img.isPresent()) {
                 image = img.get();
-                l = new JLabel(new ImageIcon(img.get()));
+                l = new JLabel(new ImageIcon(image));
                 jf.add(l);
             } else {
                 System.err.println("image not found");
@@ -74,7 +79,7 @@ public class Main {
             }
             break;/* case 1 */
         case 2:
-            File base = new File("pixiv");
+            File base = new File(PIXIV);
             File imageF;
             File[] listf = base.listFiles();
             imageF = listf[new Random().nextInt(listf.length)];
@@ -86,14 +91,14 @@ public class Main {
             jf = new JFrame("jframe");
             jf.setSize(800, 600);
             jf.setLocationRelativeTo(null);
-            jf.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            jf.setExtendedState(MAXIMIZED_BOTH);
+            jf.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             l = new JLabel(new ImageIcon(image));
             jf.add(l);
             jf.setVisible(true);
             break;
         case 3:
-            base = new File("pixiv");
+            base = new File(PIXIV);
             listf = base.listFiles();
             imageF = listf[new Random().nextInt(listf.length)];
             image = ImageIO.read(imageF.toURI().toURL());
@@ -101,8 +106,8 @@ public class Main {
             jf.setSize(800, 600);
             l = new JLabel();
             jf.setLocationRelativeTo(null);
-            jf.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            jf.setExtendedState(MAXIMIZED_BOTH);
+            jf.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             ImageIcon icon = new ImageIcon(image);
             l.setIcon(icon);
             l.setHorizontalAlignment(SwingConstants.CENTER);
@@ -111,28 +116,28 @@ public class Main {
             jf.setVisible(true);
             break;
         case 4:
-            base = new File("pixiv");
+            base = new File(PIXIV);
             listf = base.listFiles();
             imageF = listf[new Random().nextInt(listf.length)];
             image = ImageIO.read(imageF.toURI().toURL());
             view = new ImageView(image);
             view.setSize(800, 600);
             view.setLocationRelativeTo(null);
-            view.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            view.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            view.setExtendedState(MAXIMIZED_BOTH);
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             view.setVisible(true);
             break;
         case 5:
-            base = new File("pixiv");
+            base = new File(PIXIV);
             view = new ImageView(new ImageFileDAO(base));
             view.setSize(800, 600);
             view.setLocationRelativeTo(null);
-            view.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            view.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            view.setExtendedState(MAXIMIZED_BOTH);
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             view.setVisible(true);
             break;
         case 6:
-            base = new File("pixiv");
+            base = new File(PIXIV);
             listf = base.listFiles();
             for (File file : listf) {
                 System.out.print(file);
