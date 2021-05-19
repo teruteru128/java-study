@@ -1,17 +1,25 @@
 package com.twitter.teruteru128;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 public class DatatypeConverterTest {
 
+    private static String MODULE_NAME = "jakarta.xml.bind";
+
+    private static String CLASS_NAME = "jakarta.xml.bind.DatatypeConverter";
+
     @Test
     public void classFoundTest() throws Exception {
-        Optional<Module> optional = ModuleLayer.boot().findModule("jakarta.xml.bind");
+        var moduleLayer = ModuleLayer.boot();
+        var optional = moduleLayer.findModule(MODULE_NAME);
         assertTrue(optional.isPresent());
-        assertNotNull(Class.forName(optional.get(), "jakarta.xml.bind.DatatypeConverter"));
+        var module = optional.get();
+        var clazz = Class.forName(module, CLASS_NAME);
+        assertNotNull(clazz);
+        assertEquals(CLASS_NAME, clazz.getName());
     }
 }
