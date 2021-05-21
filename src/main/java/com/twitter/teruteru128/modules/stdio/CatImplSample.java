@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author
  *
  */
-public class Main {
+public class CatImplSample {
 
     /**
      * @param args
@@ -20,20 +20,13 @@ public class Main {
         if (args.length < 1) {
             return;
         }
-        File file = new File(args[0]);
-        byte[] buf = new byte[2000];
-        int read_length = -1;
-        try {
-            BufferedInputStream bin = new BufferedInputStream(new FileInputStream(file));
-            BufferedOutputStream bout = new BufferedOutputStream(System.out);
-            try {
-                while ((read_length = bin.read(buf)) != -1) {
-                    bout.write(buf, 0, read_length);
-                }
-            } finally {
-                System.err.println(read_length);
-                bout.close();
-                bin.close();
+        var file = new File(args[0]);
+        var buf = new byte[2000];
+        int readLength = -1;
+        try (var bin = new BufferedInputStream(new FileInputStream(file));
+                var bout = new BufferedOutputStream(System.out)) {
+            while ((readLength = bin.read(buf)) != -1) {
+                bout.write(buf, 0, readLength);
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -41,6 +34,8 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("入出力例外");
+        } finally {
+            System.err.println(readLength);
         }
     }
 
