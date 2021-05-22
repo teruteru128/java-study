@@ -2,6 +2,7 @@ package com.twitter.teruteru128.study.bouyomichan;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UncheckedIOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.Socket;
@@ -102,7 +103,7 @@ public class BouyomiChanClient {
      * @param text
      * @throws UnknownHostException
      */
-    public void doTalk(String text) throws UnknownHostException {
+    public void doTalk(String text) throws UnknownHostException, IOException {
         byte[] messageData = text.getBytes();
         short command = 1;
         short speed = -1;
@@ -143,8 +144,6 @@ public class BouyomiChanClient {
         try (Socket socket = new Socket(proxy)) {
             socket.connect(new InetSocketAddress(hostname, hostport));
             socket.getOutputStream().write(array);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -238,7 +237,7 @@ public class BouyomiChanClient {
         return in[0];
     }
 
-    public int getTaskCount() {
+    public int getTaskCount() throws IOException {
         var buf = ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN);
         short command = 0x0130;
         buf.putShort(command);
@@ -248,9 +247,11 @@ public class BouyomiChanClient {
         try (var socket = new Socket(proxy)) {
             socket.connect(new InetSocketAddress(hostname, hostport));
             socket.getOutputStream().write(array);
-            socket.getInputStream().read(in);
-        } catch (IOException e) {
-            e.printStackTrace();
+            int length = socket.getInputStream().read(in);
+            if(length != in.length)
+            {
+                throw new IOException("responce recv failed!");
+            }
         }
         ByteBuffer inbuf = ByteBuffer.wrap(in).order(ByteOrder.LITTLE_ENDIAN);
         return inbuf.getInt();

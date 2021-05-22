@@ -1,24 +1,45 @@
 package com.twitter.teruteru128.study;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyAgreement;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import jakarta.xml.bind.DatatypeConverter;
 
-class DecodeKeys {
-    public static void decode() throws Exception {
+public class DecodeKeys {
+
+    private DecodeKeys() {
+        // NONE
+    }
+
+    public static void decode() throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException,
+            NoSuchPaddingException, InvalidAlgorithmParameterException, IOException, IllegalBlockSizeException, BadPaddingException {
         var factory = KeyFactory.getInstance("X25519");
-        var privateKey = factory.generatePrivate(new PKCS8EncodedKeySpec(DatatypeConverter.parseHexBinary("")));
-        var publicKey = factory.generatePublic(new X509EncodedKeySpec(DatatypeConverter.parseHexBinary("302C300706032B656E0500032100C3635BB5DDC5EFDEAE9C1791659AAB97AA265B05D184945AF28C8FA813C3933F")));
+        var prikey = System.getenv("x25519prikey");
+        if(prikey == null)
+        {
+            System.err.println("prikey is not found!");
+            return;
+        }
+        var privateKey = factory.generatePrivate(new PKCS8EncodedKeySpec(DatatypeConverter.parseHexBinary(prikey)));
+        var publicKey = factory.generatePublic(new X509EncodedKeySpec(DatatypeConverter.parseHexBinary(
+                "302C300706032B656E0500032100C3635BB5DDC5EFDEAE9C1791659AAB97AA265B05D184945AF28C8FA813C3933F")));
 
         var agreement = KeyAgreement.getInstance("X25519");
         agreement.init(privateKey);
