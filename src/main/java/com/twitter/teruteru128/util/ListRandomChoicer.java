@@ -9,7 +9,7 @@ import java.util.Random;
  * 
  * @author
  */
-public class ListWrapper<E> {
+public class ListRandomChoicer<E> {
     private List<E> list;
     private Random random;
     /**
@@ -18,19 +18,19 @@ public class ListWrapper<E> {
     private boolean collision;
     private E element = null;
 
-    public ListWrapper(List<E> list) {
+    public ListRandomChoicer(List<E> list) {
         this(list, new Random(), false);
     }
 
-    public ListWrapper(List<E> list, Random r) {
+    public ListRandomChoicer(List<E> list, Random r) {
         this(list, r, false);
     }
 
-    public ListWrapper(List<E> list, boolean collision) {
+    public ListRandomChoicer(List<E> list, boolean collision) {
         this(list, new Random(), collision);
     }
 
-    public ListWrapper(List<E> list, Random r, boolean collision) {
+    public ListRandomChoicer(List<E> list, Random r, boolean collision) {
         Collections.shuffle(list, r);
         this.list = list;
         this.random = r;
@@ -47,7 +47,7 @@ public class ListWrapper<E> {
     }
 
     public E randamRemove() {
-        E e = this.list.remove(0);
+        var e = this.list.remove(0);
         element = e;
         return e;
     }
