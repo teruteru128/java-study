@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.twitter.teruteru128</groupId>
@@ -35,9 +35,10 @@
         </configuration>
       </plugin>
       <plugin>
-        <!-- NOTE: We don't need a groupId specification because the group is
-             org.apache.maven.plugins ...which is assumed by default.
-         -->
+        <!--
+          NOTE: We don't need a groupId specification because the group is org.apache.maven.plugins ...which is assumed by default.
+        -->
+        <!-- maven-assembly-pluginはmodule-info.classを正常にインポートできずにどこからか別のmodule-info.classを持ってくる -->
         <artifactId>maven-assembly-plugin</artifactId>
         <version>3.3.0</version>
         <configuration>
