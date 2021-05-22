@@ -1,7 +1,7 @@
 package com.twitter.teruteru128.study.bouyomichan;
 
 import java.io.IOException;
-import java.net.InetAddress;
+import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.Socket;
@@ -15,22 +15,25 @@ import java.time.LocalTime;
 import java.time.chrono.JapaneseDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.StringJoiner;
 
 /**
  * 
  */
-public class BouyomiChan {
+public class BouyomiChanClient {
 
-    public BouyomiChan() {
-        this("localhost", 50001, Proxy.NO_PROXY);
+    private static final String LOCALHOST = "localhost";
+
+    public BouyomiChanClient() {
+        this(LOCALHOST, 50001, Proxy.NO_PROXY);
     }
 
-    public BouyomiChan(String host, int port) {
+    public BouyomiChanClient(String host, int port) {
         this(host, port, Proxy.NO_PROXY);
     }
 
-    public BouyomiChan(String host, int port, Proxy proxy) {
+    public BouyomiChanClient(String host, int port, Proxy proxy) {
         super();
         this.hostname = host;
         this.hostport = port;
@@ -48,18 +51,24 @@ public class BouyomiChan {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        var p = new Properties();
+        try(InputStream in = BouyomiChanClient.class.getResourceAsStream("config.properties"))
+        {
+            p.load(in);
+        }
         // TCP281
-        URI uri = new URI("bouyomi://localhost:50001/str?volume=100");
+        var uri = new URI(p.getProperty("bouyomi.uri"));
         System.out.println(uri.getScheme());
         System.out.println(uri.getHost());
         System.out.println(uri.getPort());
-        final int arglen = args.length;
-        boolean useTor = false;
-        int argi = 0;
-        StringJoiner readtextJ = new StringJoiner("\n");
+        final var arglen = args.length;
+        var useTor = false;
+        var argi = 0;
+        var readtextJ = new StringJoiner("\n");
         readtextJ.setEmptyValue("やったぜ。");
+        var hasmoreargs = true;
         while (argi < arglen) {
-            boolean hasmoreargs = true;
+            hasmoreargs = true;
             String arg = args[argi];
             if (arg.equals("--use-tor")) {
                 useTor = true;
@@ -69,18 +78,18 @@ public class BouyomiChan {
             }
             argi += hasmoreargs ? 2 : 1;
         }
-        String readText = readtextJ.toString();
-        LocalDateTime dateTime = LocalDateTime.now(Clock.systemDefaultZone());
+        var readText = readtextJ.toString();
+        var dateTime = LocalDateTime.now(Clock.systemDefaultZone());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日 ah時m分s秒", Locale.JAPAN);
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("Gy年M月d日", Locale.JAPAN);
         DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("ah時m分s秒", Locale.JAPAN);
         JapaneseDate date = JapaneseDate.from(dateTime);
         LocalTime time = LocalTime.from(dateTime);
         // TODO host port proxy の設定を動的に設定できるようにする 2020-05-01T09:13:33.071237200+09:00
-        String host = useTor ? "2ayu6gqru3xzfzbvud64ezocamykp56kunmkzveqmuxvout2yubeeuad.onion" : "localhost";
-        int port = 50001;
-        var proxy = useTor ? new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9050)) : Proxy.NO_PROXY;
-        var client = new BouyomiChan(host, port, proxy);
+        String host = useTor ? "2ayu6gqru3xzfzbvud64ezocamykp56kunmkzveqmuxvout2yubeeuad.onion" : LOCALHOST;
+        var port = 50001;
+        var proxy = useTor ? new Proxy(Proxy.Type.SOCKS, new InetSocketAddress(LOCALHOST, 9050)) : Proxy.NO_PROXY;
+        var client = new BouyomiChanClient(host, port, proxy);
         if (readText.length() > 0) {
             client.doTalk(readText);
             System.out.println("読み上げました");
@@ -230,13 +239,13 @@ public class BouyomiChan {
     }
 
     public int getTaskCount() {
-        ByteBuffer buf = ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN);
+        var buf = ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN);
         short command = 0x0130;
         buf.putShort(command);
         buf.flip();
-        byte[] array = buf.array();
-        byte[] in = new byte[4];
-        try (Socket socket = new Socket(proxy)) {
+        var array = buf.array();
+        var in = new byte[4];
+        try (var socket = new Socket(proxy)) {
             socket.connect(new InetSocketAddress(hostname, hostport));
             socket.getOutputStream().write(array);
             socket.getInputStream().read(in);
