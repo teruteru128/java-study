@@ -6,15 +6,15 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.Test;
 
-class ArraysTest {
+public class ArraysTest {
 
     @Test
-    void toHexStringTestByteArray() {
+    public void toHexStringTestByteArray() {
         assertEquals("e4bcafe696b9e381aee5a1a9", Arrays.toHexString("伯方の塩".getBytes(StandardCharsets.UTF_8)));
     }
 
     @Test
-    void toHexStringTestCharArray() {
+    public void toHexStringTestCharArray() {
         assertEquals("4f2f65b9306e5869", Arrays.toHexString("伯方の塩".toCharArray()));
     }
 }
