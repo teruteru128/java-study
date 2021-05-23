@@ -4,7 +4,7 @@ package com.twitter.teruteru128.study.collatz;
  * @author Teruteru
  *
  */
-public class Collatz4 {
+public class Collatz4 implements Collatz {
     public int collatz(long n) {
         int result = 0;
         long tmp = n;
