@@ -1,10 +1,11 @@
 package com.twitter.teruteru128.study.browser;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import com.twitter.teruteru128.util.New;
 import com.twitter.teruteru128.util.Utils;
 
 import org.h2.engine.SysProperties;
@@ -18,97 +19,104 @@ public class Main2 {
     /**
      * @param args
      */
-    public static void main(String[] args) {
-        
+    public static void main(String[] args) throws URISyntaxException {
+        openBrowser("https://www.nicovideo.jp/");
     }
 
-    public static void openBrowser(URI uri) throws Exception {
+    private static String getBrowserEnv() {
         try {
-            String osName = toLowerEnglish(
-                            getProperty("os.name", "linux"));
-                    Runtime rt = Runtime.getRuntime();
-                    String browser = getProperty(SysProperties.H2_BROWSER, null);
-                    if (browser == null) {
-                        // under Linux, this will point to the default system browser
-                        try {
-                            browser = System.getenv("BROWSER");
-                        } catch (SecurityException se) {
-                            // ignore
-                        }
+            return System.getenv("BROWSER");
+        } catch (SecurityException se) {
+            return null;
+        }
+    }
+
+    private static boolean browseWithDesktop(URI uri) {
+        try {
+            var moduleLayer = ModuleLayer.boot();
+            var module = moduleLayer.findModule("java.desktop");
+            Class<?> desktopClass = Class.forName(module.isPresent() ? module.get() : null, "java.awt.Desktop");
+            // Desktop.isDesktopSupported()
+            var supported = ((Boolean) desktopClass.getMethod("isDesktopSupported").invoke(null, (Object[]) null))
+                    .booleanValue();
+            if (supported) {
+                // Desktop.getDesktop()
+                Object desktop = desktopClass.getMethod("getDesktop").invoke(null, (Object[]) null);
+                // desktop.browse(uri)
+                desktopClass.getMethod("browse", URI.class).invoke(desktop, uri);
+            }
+        } catch (NullPointerException | NoSuchMethodException | SecurityException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static void openBrowser(URI uri) throws URISyntaxException {
+        try {
+            String osName = getProperty("os.name", "linux").toLowerCase(Locale.ENGLISH);
+            var rt = Runtime.getRuntime();
+            String browser = getProperty(SysProperties.H2_BROWSER, null);
+            if (browser == null) {
+                // under Linux, this will point to the default system browser
+                browser = getBrowserEnv();
+            }
+            if (browser != null) {
+                if (browser.startsWith("call:")) {
+                    browser = browser.substring("call:".length());
+                    Utils.callStaticMethod(browser, uri.toString());
+                } else if (browser.indexOf("%url") >= 0) {
+                    String[] args = browser.split(",");
+                    for (var i = 0; i < args.length; i++) {
+                        args[i] = replaceAll(args[i], "%url", uri.toString());
                     }
-                    if (browser != null) {
-                        if (browser.startsWith("call:")) {
-                            browser = browser.substring("call:".length());
-                            Utils.callStaticMethod(browser, uri.toString());
-                        } else if (browser.indexOf("%url") >= 0) {
-                            String[] args = arraySplit(browser, ',', false);
-                            for (int i = 0; i < args.length; i++) {
-                                args[i] = replaceAll(args[i], "%url", uri.toString());
-                            }
-                            rt.exec(args);
-                        } else if (osName.indexOf("windows") >= 0) {
-                            rt.exec(new String[] { "cmd.exe", "/C",  browser, uri.toString() });
-                        } else {
-                            rt.exec(new String[] { browser, uri.toString() });
-                        }
-                        return;
-                    }
+                    rt.exec(args);
+                } else if (osName.indexOf("windows") >= 0) {
+                    rt.exec(new String[] { "cmd.exe", "/C", browser, uri.toString() });
+                } else {
+                    rt.exec(new String[] { browser, uri.toString() });
+                }
+                return;
+            }
+            if(browseWithDesktop(uri))
+            {
+                return;
+            }
+            if (osName.indexOf("windows") >= 0) {
+                rt.exec(new String[] { "rundll32", "url.dll,FileProtocolHandler", uri.toString() });
+            } else if (osName.indexOf("mac") >= 0 || osName.indexOf("darwin") >= 0) {
+                // Mac OS: to open a page with Safari, use "open -a Safari"
+                Runtime.getRuntime().exec(new String[] { "open", uri.toString() });
+            } else {
+                String[] browsers = { "chromium", "google-chrome", "firefox", "mozilla-firefox", "mozilla", "konqueror",
+                        "netscape", "opera", "midori", "vivaldi" };
+                boolean ok = false;
+                for (String b : browsers) {
                     try {
-                        Class<?> desktopClass = Class.forName("java.awt.Desktop");
-                        // Desktop.isDesktopSupported()
-                        Boolean supported = (Boolean) desktopClass.
-                            getMethod("isDesktopSupported").
-                            invoke(null, new Object[0]);
-                        if (supported) {
-                            // Desktop.getDesktop();
-                            Object desktop = desktopClass.getMethod("getDesktop").
-                                invoke(null, new Object[0]);
-                            // desktop.browse(uri);
-                            desktopClass.getMethod("browse", URI.class).
-                                invoke(desktop, uri);
-                            return;
-                        }
+                        rt.exec(new String[] { b, uri.toString() });
+                        ok = true;
+                        break;
                     } catch (Exception e) {
-                        // ignore
+                        // ignore and try the next
                     }
-                    if (osName.indexOf("windows") >= 0) {
-                        rt.exec(new String[] { "rundll32", "url.dll,FileProtocolHandler", uri.toString() });
-                    } else if (osName.indexOf("mac") >= 0 || osName.indexOf("darwin") >= 0) {
-                        // Mac OS: to open a page with Safari, use "open -a Safari"
-                        Runtime.getRuntime().exec(new String[] { "open", uri.toString() });
-                    } else {
-                        String[] browsers = { "chromium", "google-chrome", "firefox",
-                                "mozilla-firefox", "mozilla", "konqueror", "netscape",
-                                "opera", "midori" };
-                        boolean ok = false;
-                        for (String b : browsers) {
-                            try {
-                                rt.exec(new String[] { b, uri.toString() });
-                                ok = true;
-                                break;
-                            } catch (Exception e) {
-                                // ignore and try the next
-                            }
-                        }
-                        if (!ok) {
-                            // No success in detection.
-                            throw new Exception(
-                                    "Browser detection failed and system property " +
-                                    SysProperties.H2_BROWSER + " not set");
-                        }
-                    }
+                }
+                if (!ok) {
+                    // No success in detection.
+                    throw new RuntimeException(
+                            "Browser detection failed and system property " + SysProperties.H2_BROWSER + " not set");
+                }
+            }
         } catch (Exception e) {
-            throw new Exception("Failed to start a browser to open the URL "
-                    + uri + ": " + e.getMessage());
+            throw new RuntimeException("Failed to start a browser to open the URL " + uri + ": " + e.getMessage());
         }
     }
 
     /**
      * Replace all occurrences of the before string with the after string.
      *
-     * @param s the string
+     * @param s      the string
      * @param before the old text
-     * @param after the new text
+     * @param after  the new text
      * @return the string with the before string replaced
      */
     public static String replaceAll(String s, String before, String after) {
@@ -116,8 +124,7 @@ public class Main2 {
         if (next < 0) {
             return s;
         }
-        StringBuilder buff = new StringBuilder(
-                s.length() - before.length() + after.length());
+        StringBuilder buff = new StringBuilder(s.length() - before.length() + after.length());
         int index = 0;
         while (true) {
             buff.append(s.substring(index, next)).append(after);
@@ -130,18 +137,16 @@ public class Main2 {
         }
         return buff.toString();
     }
-    public static void openBrowser(String uri) throws Exception {
 
+    public static void openBrowser(String uri) throws URISyntaxException {
+        openBrowser(new URI(uri));
     }
 
-    public static String toLowerEnglish(String s) {
-        return s.toLowerCase(Locale.ENGLISH);
-    }
     /**
-     * Get the system property. If the system property is not set, or if a
-     * security exception occurs, the default value is returned.
+     * Get the system property. If the system property is not set, or if a security
+     * exception occurs, the default value is returned.
      *
-     * @param key the key
+     * @param key          the key
      * @param defaultValue the default value
      * @return the value
      */
@@ -152,34 +157,40 @@ public class Main2 {
             return defaultValue;
         }
     }
+
     /**
      * Split a string into an array of strings using the given separator. A null
      * string will result in a null array, and an empty string in a zero element
      * array.
      *
-     * @param s the string to split
+     * @param s             the string to split
      * @param separatorChar the separator character
-     * @param trim whether each element should be trimmed
+     * @param trim          whether each element should be trimmed
      * @return the array list
      */
-    public static String[] arraySplit(String s, char separatorChar, boolean trim) {
+    public static String[] splitAsArray(String s, char separatorChar, boolean trim) {
         if (s == null) {
-            return null;
+            return new String[0];
         }
-        int length = s.length();
+        final var length = s.length();
         if (length == 0) {
             return new String[0];
         }
-        ArrayList<String> list = New.arrayList();
-        StringBuilder buff = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
-            char c = s.charAt(i);
-            if (c == separatorChar) {
-                String e = buff.toString();
+        var list = new ArrayList<String>();
+        var buff = new StringBuilder(length);
+        char c;
+        var escape = 0;
+        for (var i = 0; i < length; i++) {
+            c = s.charAt(i);
+            if (escape != 0) {
+                buff.append(s.charAt(c));
+                escape = 0;
+            } else if (c == separatorChar) {
+                var e = buff.toString();
                 list.add(trim ? e.trim() : e);
                 buff.setLength(0);
-            } else if (c == '\\' && i < length - 1) {
-                buff.append(s.charAt(++i));
+            } else if (c == '\\' && i < length - 1 && s.charAt(i + 1) == separatorChar) {
+                escape = 1;
             } else {
                 buff.append(c);
             }

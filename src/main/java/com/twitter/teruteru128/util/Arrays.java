@@ -5,15 +5,15 @@ import jakarta.xml.bind.DatatypeConverter;
 /**
  * プリミティブ型配列を16進数文字列に変換します。
  * 
- * @see <a
- *      href="http://blog.repy.info/article/309433098.html">Javaでbyte配列を16進文字列にする時の速度比較</a>
+ * @see <a href=
+ *      "http://blog.repy.info/article/309433098.html">Javaでbyte配列を16進文字列にする時の速度比較</a>
  *      実装における参照元
- * @see <a
- *      href="http://weblabo.oscasierra.net/java-hex-convert-1/">Javaにおけるbyte配列⇔16進数文字列の変換方法</a>
- *      16進数文字列からbyte愛列に戻す際について
+ * @see <a href=
+ *      "http://weblabo.oscasierra.net/java-hex-convert-1/">Javaにおけるbyte配列⇔16進数文字列の変換方法</a>
+ *      16進数文字列からbyte配列に戻す際について
  * @see jakarta.xml.bind.DatatypeConverter#parseHexBinary(String)
  *      DatatypeConverter#parseHexBinary(String)
- * */
+ */
 public final class Arrays {
     private Arrays() {
     }
@@ -21,18 +21,21 @@ public final class Arrays {
     private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
 
     /**
+     * Call {@link jakarta.xml.bind.DatatypeConverter#printHexBinary(byte[])}
      * 
-     * @deprecated Use {@link jakarta.xml.bind.DatatypeConverter#printHexBinary(byte[])}
      * @see jakarta.xml.bind.DatatypeConverter#printHexBinary(byte[])
-     * */
-    @Deprecated
+     * @param array
+     * @return
+     */
     public static String toHexString(byte[] array) {
-        StringBuilder r = new StringBuilder(array.length * 2);
-        for (byte b : array) {
-            r.append(hexCode[(b >> 4) & 0xF]);
-            r.append(hexCode[(b & 0xF)]);
+        var r2 = new char[array.length * 2];
+        var index = 0;
+        for (byte c : array) {
+            r2[index] = Character.forDigit((c >>> 4) & 0xf, 16);
+            r2[index + 1] = Character.forDigit((c >>> 0) & 0xf, 16);
+            index += 2;
         }
-        return r.toString();
+        return String.valueOf(r2);
     }
 
     public static byte[] parseHexBinary(String hexString) {
@@ -40,7 +43,7 @@ public final class Arrays {
     }
 
     public static String toHexString(short[] array) {
-        StringBuilder r = new StringBuilder(array.length * 4);
+        var r = new StringBuilder(array.length * 4);
         for (short b : array) {
             r.append(hexCode[(b >> 12) & 0xF]);
             r.append(hexCode[(b >> 8) & 0xF]);
@@ -51,7 +54,7 @@ public final class Arrays {
     }
 
     public static String toHexString(int[] array) {
-        StringBuilder r = new StringBuilder(array.length * 8);
+        var r = new StringBuilder(array.length * 8);
         for (int b : array) {
             r.append(hexCode[(b >> 28) & 0xF]);
             r.append(hexCode[(b >> 24) & 0xF]);
@@ -129,18 +132,18 @@ public final class Arrays {
     }
 
     /**
-     * @deprecated この実装は不完全で、使用されるべきではありません。
-     * */
-    @Deprecated
+     */
     public static String toHexString(char[] array) {
-        StringBuilder r = new StringBuilder(array.length * 4);
+        var r = new char[array.length * 4];
+        var index = 0;
         for (char b : array) {
-            r.append(Character.forDigit(b >> 12 & 0xF, 16));
-            r.append(Character.forDigit(b >> 8 & 0xF, 16));
-            r.append(Character.forDigit(b >> 4 & 0xF, 16));
-            r.append(Character.forDigit(b & 0xF, 16));
+            r[index + 0] = Character.forDigit((b >>> 12) & 0xf, 16);
+            r[index + 1] = Character.forDigit((b >>> 8) & 0xf, 16);
+            r[index + 2] = Character.forDigit((b >>> 4) & 0xf, 16);
+            r[index + 3] = Character.forDigit((b >>> 0) & 0xf, 16);
+            index += 4;
         }
-        return r.toString();
+        return String.valueOf(r);
     }
 
 }

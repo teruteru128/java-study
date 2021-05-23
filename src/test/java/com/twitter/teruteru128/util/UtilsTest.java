@@ -11,11 +11,11 @@ public class UtilsTest {
 
     @Test
     public void toBinStringTest() {
-        assertEquals(Utils.toBinString((byte) 0x5A), "01011010");
-        assertEquals(Utils.toBinString((short) 0x5A), "0000000001011010");
-        assertEquals(Utils.toBinString((int) 0x5A), "00000000000000000000000001011010");
-        assertEquals(Utils.toBinString((long) 0x5A), "0000000000000000000000000000000000000000000000000000000001011010");
-        assertEquals(Utils.toBinString(0x1p0f), "00111111100000000000000000000000");
-        assertEquals(Utils.toBinString(0x1p0), "0011111111110000000000000000000000000000000000000000000000000000");
+        assertEquals("01011010", Utils.toBinString((byte) 0x5A));
+        assertEquals("0000000001011010", Utils.toBinString((short) 0x5A));
+        assertEquals("00000000000000000000000001011010", Utils.toBinString((int) 0x5A));
+        assertEquals("0000000000000000000000000000000000000000000000000000000001011010", Utils.toBinString((long) 0x5A));
+        assertEquals("00111111100000000000000000000000", Utils.toBinString(0x1p0f));
+        assertEquals("0011111111110000000000000000000000000000000000000000000000000000", Utils.toBinString(0x1p0));
     }
 }
