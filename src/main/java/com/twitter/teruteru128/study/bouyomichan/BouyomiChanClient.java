@@ -48,6 +48,12 @@ public class BouyomiChanClient {
     /**
      * ←優先度高 コマンドライン引数 ユーザー設定ファイル システム設定ファイル →優先度低
      * 
+     * --host ホスト名(default: localhost) --port ポート番号(default: 50001)
+     * 
+     * サブコマンド talk getpause setpause resume skip clear getnowplaying gettaskcount
+     * 
+     * --command --speed --tone --volume --voice --encode
+     * 
      * @param args
      * @throws Exception
      */
@@ -101,7 +107,7 @@ public class BouyomiChanClient {
      * @param text
      * @throws UnknownHostException
      */
-    public void doTalk(String text) throws UnknownHostException, IOException {
+    public void doTalk(String text) throws IOException {
         byte[] messageData = text.getBytes();
         short command = 1;
         short speed = -1;
@@ -110,7 +116,7 @@ public class BouyomiChanClient {
         short voice = 0;
         byte encode = 0;
         int length = messageData.length;
-        int capacity = 15 + length;
+        var capacity = 15;
         ByteBuffer buffer = ByteBuffer.allocate(capacity).order(ByteOrder.LITTLE_ENDIAN);
         buffer.putShort(command);
         buffer.putShort(speed);
@@ -119,29 +125,17 @@ public class BouyomiChanClient {
         buffer.putShort(voice);
         buffer.put(encode);
         buffer.putInt(length);
-        buffer.put(messageData);
-        /*
-         * System.out.printf("command : %d\n", buffer.getShort(0));
-         * System.out.printf("speed : %d\n", buffer.getShort(2));
-         * System.out.printf("tone : %d\n", buffer.getShort(4));
-         * System.out.printf("volume : %d\n", buffer.getShort(6));
-         * System.out.printf("voice : %d\n", buffer.getShort(8));
-         * System.out.printf("encode : %d\n", buffer.get(10));
-         * System.out.printf("length : %d\n", buffer.getInt(11)); buffer.flip();
-         */
         byte[] array = buffer.array();
-        /*
-         * for (int i = 0; i < 15; i++) { System.out.printf("%02x", array[i]); }
-         * System.out.println(); for (int i = 15; i < array.length; i++) {
-         * System.out.printf("%02x", array[i]); if (i % 16 == 14) {
-         * System.out.println(); } } System.out.println();
-         * System.out.printf("fulllength : %dbytes\n", buffer.capacity());
-         * System.out.printf("datalength : %dbytes\n", messageData.length);
-         */
-        assert (messageData.length + 15) == buffer.capacity();
-        try (Socket socket = new Socket(proxy)) {
+
+        System.out.printf("fulllength : %dbytes%n", buffer.capacity());
+        System.out.printf("datalength : %dbytes%n", messageData.length);
+
+        try (var socket = new Socket(proxy)) {
             socket.connect(new InetSocketAddress(hostname, hostport));
-            socket.getOutputStream().write(array);
+            try (var o = socket.getOutputStream()) {
+                o.write(array);
+                o.write(messageData);
+            }
         }
     }
 
@@ -151,8 +145,8 @@ public class BouyomiChanClient {
         buf.putShort(command);
         buf.flip();
         byte[] array = buf.array();
-        byte[] in = new byte[1];
-        try (Socket socket = new Socket(proxy)) {
+        var in = new byte[1];
+        try (var socket = new Socket(proxy)) {
             socket.connect(new InetSocketAddress(hostname, hostport));
             socket.getOutputStream().write(array);
             socket.getInputStream().read(in);
@@ -168,7 +162,7 @@ public class BouyomiChanClient {
         buf.putShort(command);
         buf.flip();
         byte[] array = buf.array();
-        try (Socket socket = new Socket(proxy)) {
+        try (var socket = new Socket(proxy)) {
             socket.connect(new InetSocketAddress(hostname, hostport));
             socket.getOutputStream().write(array);
         } catch (IOException e) {
@@ -182,7 +176,7 @@ public class BouyomiChanClient {
         buf.putShort(command);
         buf.flip();
         byte[] array = buf.array();
-        try (Socket socket = new Socket(proxy)) {
+        try (var socket = new Socket(proxy)) {
             socket.connect(new InetSocketAddress(hostname, hostport));
             socket.getOutputStream().write(array);
         } catch (IOException e) {
@@ -196,7 +190,7 @@ public class BouyomiChanClient {
         buf.putShort(command);
         buf.flip();
         byte[] array = buf.array();
-        try (Socket socket = new Socket(proxy)) {
+        try (var socket = new Socket(proxy)) {
             socket.connect(new InetSocketAddress(hostname, hostport));
             socket.getOutputStream().write(array);
         } catch (IOException e) {
@@ -210,7 +204,7 @@ public class BouyomiChanClient {
         buf.putShort(command);
         buf.flip();
         byte[] array = buf.array();
-        try (Socket socket = new Socket(proxy)) {
+        try (var socket = new Socket(proxy)) {
             socket.connect(new InetSocketAddress(hostname, hostport));
             socket.getOutputStream().write(array);
         } catch (IOException e) {
@@ -224,8 +218,8 @@ public class BouyomiChanClient {
         buf.putShort(command);
         buf.flip();
         byte[] array = buf.array();
-        byte[] in = new byte[1];
-        try (Socket socket = new Socket(proxy)) {
+        var in = new byte[1];
+        try (var socket = new Socket(proxy)) {
             socket.connect(new InetSocketAddress(hostname, hostport));
             socket.getOutputStream().write(array);
             socket.getInputStream().read(in);
