@@ -2,7 +2,6 @@ package com.twitter.teruteru128.study.bouyomichan;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UncheckedIOException;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.Socket;
@@ -24,10 +23,11 @@ import java.util.StringJoiner;
  */
 public class BouyomiChanClient {
 
-    private static final String LOCALHOST = "localhost";
+    private static final String DEFAULT_HOSTNAME = "localhost";
+    private static final int DEFALUT_PORT = 50001;
 
     public BouyomiChanClient() {
-        this(LOCALHOST, 50001, Proxy.NO_PROXY);
+        this(DEFAULT_HOSTNAME, DEFALUT_PORT, Proxy.NO_PROXY);
     }
 
     public BouyomiChanClient(String host, int port) {
@@ -53,43 +53,41 @@ public class BouyomiChanClient {
      */
     public static void main(String[] args) throws Exception {
         var p = new Properties();
-        try(InputStream in = BouyomiChanClient.class.getResourceAsStream("config.properties"))
-        {
+        try (InputStream in = BouyomiChanClient.class.getResourceAsStream("config.properties")) {
             p.load(in);
         }
         // TCP281
         var uri = new URI(p.getProperty("bouyomi.uri"));
-        System.out.println(uri.getScheme());
-        System.out.println(uri.getHost());
-        System.out.println(uri.getPort());
         final var arglen = args.length;
         var useTor = false;
         var argi = 0;
         var readtextJ = new StringJoiner("\n");
         readtextJ.setEmptyValue("やったぜ。");
         var hasmoreargs = true;
+        String arg;
         while (argi < arglen) {
             hasmoreargs = true;
-            String arg = args[argi];
-            if (arg.equals("--use-tor")) {
+            arg = args[argi];
+            if (arg.equals("--proxy")) {
+                // TODO
+            } else if (arg.equals("--use-tor")) {
                 useTor = true;
                 hasmoreargs = false;
+            } else if (arg.equals("--host")) {
+                //
+            } else if (arg.equals("--port")) {
+                //
             } else {
                 readtextJ.add(arg);
             }
             argi += hasmoreargs ? 2 : 1;
         }
         var readText = readtextJ.toString();
-        var dateTime = LocalDateTime.now(Clock.systemDefaultZone());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年M月d日 ah時m分s秒", Locale.JAPAN);
-        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("Gy年M月d日", Locale.JAPAN);
-        DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("ah時m分s秒", Locale.JAPAN);
-        JapaneseDate date = JapaneseDate.from(dateTime);
-        LocalTime time = LocalTime.from(dateTime);
         // TODO host port proxy の設定を動的に設定できるようにする 2020-05-01T09:13:33.071237200+09:00
-        String host = useTor ? "2ayu6gqru3xzfzbvud64ezocamykp56kunmkzveqmuxvout2yubeeuad.onion" : LOCALHOST;
-        var port = 50001;
-        var proxy = useTor ? new Proxy(Proxy.Type.SOCKS, new InetSocketAddress(LOCALHOST, 9050)) : Proxy.NO_PROXY;
+        String host = useTor ? "2ayu6gqru3xzfzbvud64ezocamykp56kunmkzveqmuxvout2yubeeuad.onion" : DEFAULT_HOSTNAME;
+        var port = DEFALUT_PORT;
+        var proxy = useTor ? new Proxy(Proxy.Type.SOCKS, new InetSocketAddress(DEFAULT_HOSTNAME, 9050))
+                : Proxy.NO_PROXY;
         var client = new BouyomiChanClient(host, port, proxy);
         if (readText.length() > 0) {
             client.doTalk(readText);
@@ -248,8 +246,7 @@ public class BouyomiChanClient {
             socket.connect(new InetSocketAddress(hostname, hostport));
             socket.getOutputStream().write(array);
             int length = socket.getInputStream().read(in);
-            if(length != in.length)
-            {
+            if (length != in.length) {
                 throw new IOException("responce recv failed!");
             }
         }
