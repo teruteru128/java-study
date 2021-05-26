@@ -36,7 +36,7 @@ public class NetWork {
         //cursor=1515050489896100203L;
         /** 一時的にIDを格納するオブジェクト */
         PagableResponseList<User> ids;
-        long page = 1L;
+        var page = 1L;
         // フォロワーが多いユーザだと無反応で寂しい＆不安なので状況表示
         System.out.println(String.format("%dページ目取得中。。(%d <= %d)", page,
                 ID_COUNT_PER_REQUEST * (page - 1), ID_COUNT_PER_REQUEST

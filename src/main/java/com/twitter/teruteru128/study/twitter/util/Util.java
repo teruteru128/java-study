@@ -32,24 +32,16 @@ public final class Util {
     }
 
     public static Configuration buildConfiguration() {
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setOAuthConsumerKey("gcuJV4HNAhbk1FfxoDcLUha8j");
-        cb.setOAuthConsumerSecret("IxGTRgCgSW26rxS4MhCEK5jnEp18NjLHPpiAsHaZhetWUkdDNg");
-        Configuration conf = cb.build();
-        return conf;
+        return new ConfigurationBuilder().setOAuthConsumerKey("gcuJV4HNAhbk1FfxoDcLUha8j")
+                .setOAuthConsumerSecret("IxGTRgCgSW26rxS4MhCEK5jnEp18NjLHPpiAsHaZhetWUkdDNg").build();
     }
 
     public static Twitter createTwitter() {
-        Twitter tw = createTwitter(
-                "533912006-2jVKx5NtsfgohUVj6jXh8m1FJWiJPlgQS3iOiaWp",
+        return createTwitter("533912006-2jVKx5NtsfgohUVj6jXh8m1FJWiJPlgQS3iOiaWp",
                 "XSNc4KBY582beZG9dYB9rNmqKKCqCNstUPavvT2PYlagw");
-        return tw;
     }
 
     public static Twitter createTwitter(String token, String tokenSecret) {
-        Configuration conf = buildConfiguration();
-        TwitterFactory tf = new TwitterFactory(conf);
-        Twitter tw = tf.getInstance(new AccessToken(token, tokenSecret));
-        return tw;
+        return new TwitterFactory(buildConfiguration()).getInstance(new AccessToken(token, tokenSecret));
     }
 }

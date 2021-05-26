@@ -26,8 +26,8 @@ public class Falcon {
         var tweetText = falcon.stream().collect(StringBuilder::new, (a, b) -> a.append(b), (a, b) -> a.append(b))
                 .toString();
         System.out.println(tweetText);
-        Properties systemProperties = System.getProperties();
-        Properties properties = new Properties(systemProperties);
+        final var systemProperties = System.getProperties();
+        final var properties = new Properties(systemProperties);
         try (var in = ClassLoader.getSystemResourceAsStream("twitter4j.properties")) {
             properties.load(in);
         }
