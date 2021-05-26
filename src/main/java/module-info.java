@@ -15,6 +15,7 @@ module com.twitter.teruteru128.study {
     requires transitive jakarta.xml.bind;
     requires com.google.gson;
     requires jcuda;
+    requires org.apache.commons.codec;
     requires org.bouncycastle.pg;
     requires org.bouncycastle.provider;
     requires org.bukkit;
