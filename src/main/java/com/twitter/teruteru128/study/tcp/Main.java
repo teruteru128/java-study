@@ -22,7 +22,7 @@ public class Main implements Runnable {
      */
     public Main(int port) {
         super();
-        this.server_port = port;
+        this.serverPort = port;
     }
 
     volatile boolean stop;
@@ -32,7 +32,7 @@ public class Main implements Runnable {
      */
     @Override
     public void run() {
-        try (ServerSocket server = new ServerSocket(server_port)) {
+        try (ServerSocket server = new ServerSocket(serverPort)) {
             while (Status.shutdown == 0) {
                 Socket socket = server.accept();
                 service.submit(new AcceptedTask(socket));
@@ -45,11 +45,11 @@ public class Main implements Runnable {
     }
 
     private static final int DEFAULT_SERVER_PORT = 20007;
-    private int server_port;
+    private int serverPort;
 
     public static void main(String[] args) {
         service = Executors.newCachedThreadPool();
-        var future = service.submit(new Main());
+        service.submit(new Main());
     }
 
 }

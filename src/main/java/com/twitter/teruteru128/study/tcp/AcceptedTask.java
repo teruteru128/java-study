@@ -1,8 +1,7 @@
 package com.twitter.teruteru128.study.tcp;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.UncheckedIOException;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.security.SecureRandom;
@@ -18,14 +17,27 @@ public class AcceptedTask implements Runnable {
 
     @Override
     public void run() {
-        SecureRandom random = new SecureRandom();
-        try (Socket socket = this.socket; InputStream is = socket.getInputStream(); OutputStream os = socket.getOutputStream()) {
-            ByteBuffer buffer = ByteBuffer.allocate(32);
+        var random = new SecureRandom();
+        try (var s = this.socket; var is = s.getInputStream(); var os = s.getOutputStream()) {
+            var buffer = ByteBuffer.allocate(32);
             byte[] array = buffer.array();
             int len = is.read(array, 0, 32);
-            int command = buffer.getInt(0);
-            byte[] largeBuffer = new byte[8192];
+            if (len < 32) {
+                throw new IOException(String.format("データ量不足 : %d", len));
+            }
+            var command = buffer.getInt(0);
+            var largeBuffer = new byte[8192];
+            var requestedLength = buffer.getLong();
+            var sent = 0;
+            if (command == 1) {
+                while (sent < requestedLength) {
+                    random.nextBytes(largeBuffer);
+                    os.write(largeBuffer);
+                    sent += 8192;
+                }
+            }
         } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
     }
 }
