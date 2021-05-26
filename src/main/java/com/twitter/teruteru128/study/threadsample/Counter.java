@@ -1,10 +1,7 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.study.threadsample;
 
 // カウンター
 public class Counter {
-
-    public Counter() {
-    }
 
     private int count;
 

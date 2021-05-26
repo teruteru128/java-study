@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.study.threadsample;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,31 +8,36 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class SyncTest {
+public class SyncSample {
+
+    private static void get(Future<Void> future) throws InterruptedException {
+        try {
+            future.get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         Counter counter = new Counter();
 
         // スレッドを1000個作成する
-        List<Callable<Void>> threads = new ArrayList<Callable<Void>>(1000);
-        for (int i = 0; i < 1000; i++) {
-            threads.add(Executors.<Void>callable(new MyThread(counter), null));
+        var threads = new ArrayList<Callable<Void>>(1000);
+        for (var i = 0; i < 1000; i++) {
+            threads.add(Executors.<Void>callable(counter::countUp, null));
         }
 
-        ExecutorService service = Executors.newCachedThreadPool();
+        ExecutorService service = Executors.newFixedThreadPool(16);
         try {
             List<Future<Void>> futures = service.invokeAll(threads);
 
             // スレッドがすべて終了するのを待つ
-            for (int i = 0; i < 1000; i++) {
-                try {
-                    futures.get(i).get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
+            for (Future<Void> future : futures) {
+                get(future);
             }
         } catch (InterruptedException e1) {
             e1.printStackTrace();
+            Thread.currentThread().interrupt();
         } finally {
             service.shutdown();
         }
