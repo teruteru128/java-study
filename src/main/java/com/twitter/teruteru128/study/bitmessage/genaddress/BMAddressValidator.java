@@ -6,8 +6,8 @@ import java.security.Provider;
 import java.security.Security;
 import java.util.Arrays;
 
-import com.twitter.teruteru128.study.Base58;
 import com.twitter.teruteru128.study.bitmessage.Const;
+import com.twitter.teruteru128.study.encode.Base58;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.ECPoint;

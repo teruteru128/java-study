@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.stream.Stream;
 
+import com.twitter.teruteru128.study.encode.Base58;
+
 import jakarta.xml.bind.DatatypeConverter;
 
 import org.junit.jupiter.params.ParameterizedTest;

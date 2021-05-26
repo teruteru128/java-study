@@ -16,8 +16,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.twitter.teruteru128.study.Base58;
 import com.twitter.teruteru128.study.bitmessage.Const;
+import com.twitter.teruteru128.study.encode.Base58;
 
 /**
  * Producer-Consumerパターンを使い、プロデューサースレッドで鍵ペアを生成、コンシューマースレッドでサーバーへ送信

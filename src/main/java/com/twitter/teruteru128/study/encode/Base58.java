@@ -1,5 +1,5 @@
 
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.study.encode;
 
 import java.util.Arrays;
 
@@ -7,6 +7,10 @@ import java.util.Arrays;
  * @author https://gist.github.com/vrotaru/1753908
  */
 public class Base58 {
+
+  private Base58() {
+    // NONE
+  }
 
   private static final char[] ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".toCharArray();
   private static final int BASE_58 = ALPHABET.length;
