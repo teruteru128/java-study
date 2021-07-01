@@ -12,8 +12,9 @@ package com.twitter.teruteru128.study;
  *や（ゆ）よ＊＃　　　
  *らりるれろ１２３４５
  *わをん゛゜６７８９０
- *</pre>
+ * </pre>
  */
 public class TwoTouch {
-    
+    private TwoTouch() {
+    }
 }

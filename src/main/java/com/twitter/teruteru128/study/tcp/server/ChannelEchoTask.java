@@ -21,6 +21,7 @@ public class ChannelEchoTask implements Callable<Void> {
 
     @Override
     public Void call() throws Exception {
+        config.getHostname();
         byte[] b = new byte[8];
         socket.getInputStream().read(b);
         var buffer = ByteBuffer.wrap(b);

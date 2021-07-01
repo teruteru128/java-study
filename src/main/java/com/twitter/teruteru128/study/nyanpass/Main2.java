@@ -11,7 +11,6 @@ import java.util.Locale;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -31,13 +30,12 @@ public class Main2 implements Runnable {
                 connection.addRequestProperty("Connection", "close");
                 connection.connect();
                 if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    try (BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(connection.getInputStream()))) {
+                    try (var reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
                         String a = reader.readLine();
                         var obj = gson.fromJson(a, JsonObject.class);
                         var time = LocalDateTime.parse(obj.get("time").getAsString(), FORMATTER);
                         var count = Long.parseLong(obj.get("count").getAsString());
-                        System.out.printf("%s : %s\n", time, count);
+                        System.out.printf("%s : %s%n", time, count);
                     }
                 }
             } catch (Exception e) {
@@ -48,11 +46,11 @@ public class Main2 implements Runnable {
 
     @Override
     public void run() {
-        URL NYANPASS_URL = null;
+        URL nyanpassUrl;
         try {
-            NYANPASS_URL = new URL("https://nyanpass.com/api/get_count");
-            service.scheduleAtFixedRate(get(NYANPASS_URL), 0, 5, TimeUnit.SECONDS);
-            Thread.sleep(1000 * 60);
+            nyanpassUrl = new URL("https://nyanpass.com/api/get_count");
+            service.scheduleAtFixedRate(get(nyanpassUrl), 0, 5, TimeUnit.SECONDS);
+            Thread.sleep(1000L * 60);
         } catch (MalformedURLException e1) {
             e1.printStackTrace();
             System.exit(1);
@@ -67,7 +65,7 @@ public class Main2 implements Runnable {
 
     private static final ScheduledExecutorService service = new ScheduledThreadPoolExecutor(2);
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         System.out.println("にゃんぱすー。定期クロールを開始したのん！");
         service.execute(new Main2());
     }
