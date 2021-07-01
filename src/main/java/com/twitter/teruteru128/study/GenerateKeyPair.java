@@ -1,21 +1,28 @@
 package com.twitter.teruteru128.study;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.LinkedList;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyAgreement;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -25,6 +32,9 @@ import jakarta.xml.bind.DatatypeConverter;
 
 public class GenerateKeyPair implements Runnable {
 
+  private static final String KEX_DEFAULT_ALGORITHM = "X25519";
+  private static final String ENC_DEFAULT_ALGORITHM = "ChaCha20";
+  private static final String STATIC_PUBLIC_KEY = "302C300706032B656E05000321002CD3C20389E56A1D94238940D1B1F3FD19C72A23105F5167773225B35BC36244";
   private byte[] privateKeys;
   private byte[] publicKeys;
   private int offset;
@@ -44,57 +54,76 @@ public class GenerateKeyPair implements Runnable {
     byte[] potentialPublicEncryptionKey = null;
     for (int from = offset, to = offset + length; from < to; from++) {
       potentialPublicEncryptionKey = Const.G
-          .multiply(new BigInteger(1, privateKeys, from * Const.PRIVATE_KEY_LENGTH, Const.PRIVATE_KEY_LENGTH)).normalize()
-          .getEncoded(false);
-      System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, from * Const.PUBLIC_KEY_LENGTH, Const.PUBLIC_KEY_LENGTH);
+          .multiply(new BigInteger(1, privateKeys, from * Const.PRIVATE_KEY_LENGTH, Const.PRIVATE_KEY_LENGTH))
+          .normalize().getEncoded(false);
+      System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, from * Const.PUBLIC_KEY_LENGTH,
+          Const.PUBLIC_KEY_LENGTH);
     }
   }
 
   private static final int KEY_NUM = 1 << 24;
 
-  public static void gen() throws Exception {
+  private static void initPrivateKeys(byte[] privateKeys) {
+    SecureRandom random = null;
+    try {
+      random = SecureRandom.getInstanceStrong();
+    } catch (NoSuchAlgorithmException e) {
+      // none
+    }
+    if (random == null) {
+      try {
+        random = SecureRandom.getInstance("NativePRNGBlocking");
+      } catch (NoSuchAlgorithmException e1) {
+        // none
+      }
+    }
+    if (random == null) {
+      try {
+        random = SecureRandom.getInstance("Windows-PRNG");
+      } catch (NoSuchAlgorithmException e2) {
+        // none
+      }
+    }
+    if (random == null) {
+      try {
+        random = SecureRandom.getInstance("SHA1PRNG");
+      } catch (NoSuchAlgorithmException e3) {
+        // none
+      }
+    }
+    if (random == null) {
+      random = new SecureRandom();
+    }
+    System.out.printf("乱数ソースのアルゴリズムは%sんご！%n", random.getAlgorithm());
+    random.nextBytes(privateKeys);
+  }
+
+  public static void gen(boolean doEncrypt) throws NoSuchAlgorithmException, InvalidKeyException,
+      InvalidKeySpecException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException,
+      BadPaddingException, IOException, InterruptedException {
     var privateKeyPath = Paths.get("privateKeys.bin");
     var publicKeyPath = Paths.get("publicKeys.bin");
 
     final var privateKeys = new byte[KEY_NUM * Const.PRIVATE_KEY_LENGTH];
     System.out.println("秘密鍵を集めるんご！");
-    {
-      SecureRandom random = null;
-      try {
-        random = SecureRandom.getInstanceStrong();
-      } catch (NoSuchAlgorithmException e) {
-        try {
-          random = SecureRandom.getInstance("NativePRNGBlocking");
-        } catch (NoSuchAlgorithmException e1) {
-          try {
-            random = SecureRandom.getInstance("Windows-PRNG");
-          } catch (NoSuchAlgorithmException e2) {
-            random = SecureRandom.getInstance("SHA1PRNG");
-          }
-        }
-      }
-      System.out.printf("乱数ソースのアルゴリズムは%sんご！\n", random.getAlgorithm());
-      random.nextBytes(privateKeys);
-    }
+    initPrivateKeys(privateKeys);
     System.out.println("秘密鍵を集め終わったんご！");
-    boolean encrypt = false;
-    if (encrypt) {
+    if (doEncrypt) {
       System.out.println("暗号化するんご！");
-      var encodedKeySpec = new X509EncodedKeySpec(DatatypeConverter.parseHexBinary(
-          "302C300706032B656E05000321002CD3C20389E56A1D94238940D1B1F3FD19C72A23105F5167773225B35BC36244"));
-      var factory = KeyFactory.getInstance("X25519");
+      var encodedKeySpec = new X509EncodedKeySpec(DatatypeConverter.parseHexBinary(STATIC_PUBLIC_KEY));
+      var factory = KeyFactory.getInstance(KEX_DEFAULT_ALGORITHM);
       var publicKey = factory.generatePublic(encodedKeySpec);
 
-      var generator = KeyPairGenerator.getInstance("X25519");
+      var generator = KeyPairGenerator.getInstance(KEX_DEFAULT_ALGORITHM);
       var keyPair = generator.generateKeyPair();
 
-      var agreement = KeyAgreement.getInstance("X25519");
+      var agreement = KeyAgreement.getInstance(KEX_DEFAULT_ALGORITHM);
       agreement.init(keyPair.getPrivate());
       agreement.doPhase(publicKey, true);
-      var sha3_512 = MessageDigest.getInstance("sha3-512");
-      sha3_512.update(agreement.generateSecret());
-      var hashedSecret = sha3_512.digest();
-      var secretKey = new SecretKeySpec(hashedSecret, 0, 32, "ChaCha20");
+      var sha3512 = MessageDigest.getInstance("sha3-512");
+      sha3512.update(agreement.generateSecret());
+      var hashedSecret = sha3512.digest();
+      var secretKey = new SecretKeySpec(hashedSecret, 0, 32, ENC_DEFAULT_ALGORITHM);
       var parameterSpec = new IvParameterSpec(hashedSecret, 32, 12);
       var cipher = Cipher.getInstance("ChaCha20-Poly1305/NONE/NoPadding");
       cipher.init(Cipher.ENCRYPT_MODE, secretKey, parameterSpec);
@@ -117,7 +146,7 @@ public class GenerateKeyPair implements Runnable {
     System.out.printf("公開鍵を生成するんご！%dスレッドでぶん回すんごー！", core);
 
     // https://relearn-java.com/multithread/
-    for (int i = 0; i < core; i++) {
+    for (var i = 0; i < core; i++) {
       var thread = new Thread(new GenerateKeyPair(privateKeys, publicKeys, (KEY_NUM * i) / core, KEY_NUM / core));
       thread.start();
       threads.add(thread);
