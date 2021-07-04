@@ -11,6 +11,7 @@ public class WinAdapter extends WindowAdapter {
         this.w = w;
     }
 
+    @Override
     public void windowClosing(WindowEvent e) {
         w.dispose();
     }

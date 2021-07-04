@@ -1,47 +1,27 @@
 package com.twitter.teruteru128.study.awt;
 
-import java.awt.Frame;
-import java.awt.GraphicsConfiguration;
-
 /**
  * @author
  *
  */
-public class Main extends Frame {
-    /**
-     * */
-    private static final long serialVersionUID = 0;
-
-    public Main() {
-        super();
-    }
-
-    public Main(String title) {
-        super(title);
-    }
-
-    public Main(GraphicsConfiguration gc) {
-        super(gc);
-    }
-
-    public Main(String title, GraphicsConfiguration gc) {
-        super(title, gc);
-    }
+public class Main {
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-        Frame f = new Main("frame");
-        int width = 600;
-        int height = 400;
-        f.setBounds(660, 50, width, height);
-        WinAdapter adapter = new WinAdapter(f);
+        var f = new MainFrame("frame");
+        var x = 660;
+        var y = 50;
+        var width = 600;
+        var height = 400;
+        f.setBounds(x, y, width, height);
+        var adapter = new WinAdapter(f);
         f.addWindowFocusListener(adapter);
         f.addWindowStateListener(adapter);
         f.addWindowListener(adapter);
-        CoAdapter adapter2 = new CoAdapter();
-        f.addComponentListener(adapter2);
+        var coadapter = new CoAdapter();
+        f.addComponentListener(coadapter);
         f.setVisible(true);
     }
 
