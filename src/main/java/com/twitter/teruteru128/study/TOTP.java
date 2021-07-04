@@ -15,13 +15,11 @@ import java.security.GeneralSecurityException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.time.Instant;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.math.BigInteger;
 import java.util.TimeZone;
 
-import jakarta.xml.bind.DatatypeConverter;
 
 /**
  * This is an example implementation of the OATH
@@ -97,7 +95,9 @@ public class TOTP {
      *              {@link truncationDigits} digits
      */
 
-    public static String generateTOTP(String key, String time, int returnDigits){
+    public static String generateTOTP(String key,
+            String time,
+            String returnDigits){
         return generateTOTP(key, time, returnDigits, "HmacSHA1");
     }
 
@@ -112,7 +112,10 @@ public class TOTP {
      * @return: a numeric String in base 10 that includes
      *              {@link truncationDigits} digits
      */
-    public static String generateTOTP256(String key, String time, int returnDigits){
+
+    public static String generateTOTP256(String key,
+            String time,
+            String returnDigits){
         return generateTOTP(key, time, returnDigits, "HmacSHA256");
     }
 
@@ -128,7 +131,9 @@ public class TOTP {
      *              {@link truncationDigits} digits
      */
 
-    public static String generateTOTP512(String key, String time, int returnDigits){
+    public static String generateTOTP512(String key,
+            String time,
+            String returnDigits){
         return generateTOTP(key, time, returnDigits, "HmacSHA512");
     }
 
@@ -145,8 +150,12 @@ public class TOTP {
      *              {@link truncationDigits} digits
      */
 
-    public static String generateTOTP(String key, String time, int returnDigits, String crypto){
-        int codeDigits = returnDigits;
+    public static String generateTOTP(String key,
+            String time,
+            String returnDigits,
+            String crypto){
+        int codeDigits = Integer.decode(returnDigits).intValue();
+        String result = null;
 
         // Using the counter
         // First 8 bytes are for the movingFactor
@@ -172,8 +181,10 @@ public class TOTP {
 
         int otp = binary % DIGITS_POWER[codeDigits];
 
-        String format = String.format("%%0%dd", codeDigits);
-        String result = String.format(format, otp);
+        result = Integer.toString(otp);
+        while (result.length() < codeDigits) {
+            result = "0" + result;
+        }
         return result;
     }
 
@@ -188,44 +199,51 @@ public class TOTP {
         "3132333435363738393031323334353637383930" +
         "3132333435363738393031323334353637383930" +
         "31323334";
-        String seed1 = "75656d657a643374706d356872356f6c63326e723766326d7833747578627734";
         long T0 = 0;
         long X = 30;
         long testTime[] = {59L, 1111111109L, 1111111111L,
-                1234567890L, 2000000000L, 20000000000L, Instant.now().getEpochSecond()};
-
-        System.out.println(new String(DatatypeConverter.parseHexBinary(seed)));
+                1234567890L, 2000000000L, 20000000000L};
 
         String steps = "0";
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         try {
-            System.out.println("+---------------+-----------------------+------------------+--------+--------+");
-            System.out.println("|  Time(sec)    |   Time (UTC format)   | Value of T(Hex)  |  TOTP  | Mode   |");
-            System.out.println("+---------------+-----------------------+------------------+--------+--------+");
+            System.out.println(
+                    "+---------------+-----------------------+" +
+            "------------------+--------+--------+");
+            System.out.println(
+                    "|  Time(sec)    |   Time (UTC format)   " +
+            "| Value of T(Hex)  |  TOTP  | Mode   |");
+            System.out.println(
+                    "+---------------+-----------------------+" +
+            "------------------+--------+--------+");
 
             for (int i=0; i<testTime.length; i++) {
                 long T = (testTime[i] - T0)/X;
                 steps = Long.toHexString(T).toUpperCase();
                 while (steps.length() < 16) steps = "0" + steps;
-                String fmtTime = String.format("%-11s", testTime[i]);
+                String fmtTime = String.format("%1$-11s", testTime[i]);
                 String utcTime = df.format(new Date(testTime[i]*1000));
-                System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
-                System.out.println(generateTOTP(seed, steps, 8, "HmacSHA1") + "| SHA1   |");
-                System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
-                System.out.printf("%8s| SHA1   |\n", generateTOTP(seed, steps, 6, "HmacSHA1"));
-                System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
-                System.out.printf("%8s| SHA1   |\n", generateTOTP(seed1, steps, 6, "HmacSHA1"));
-                System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
-                System.out.println(generateTOTP(seed32, steps, 8, "HmacSHA256") + "| SHA256 |");
-                System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
-                System.out.println(generateTOTP(seed64, steps, 8, "HmacSHA512") + "| SHA512 |");
-                System.out.println("+---------------+-----------------------+------------------+--------+--------+");
+                System.out.print("|  " + fmtTime + "  |  " + utcTime +
+                        "  | " + steps + " |");
+                System.out.println(generateTOTP(seed, steps, "8",
+                "HmacSHA1") + "| SHA1   |");
+                System.out.print("|  " + fmtTime + "  |  " + utcTime +
+                        "  | " + steps + " |");
+                System.out.println(generateTOTP(seed32, steps, "8",
+                "HmacSHA256") + "| SHA256 |");
+                System.out.print("|  " + fmtTime + "  |  " + utcTime +
+                        "  | " + steps + " |");
+                System.out.println(generateTOTP(seed64, steps, "8",
+                "HmacSHA512") + "| SHA512 |");
+
+                System.out.println(
+                        "+---------------+-----------------------+" +
+                "------------------+--------+--------+");
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        }catch (final Exception e){
+            System.out.println("Error : " + e);
         }
     }
 }
-
