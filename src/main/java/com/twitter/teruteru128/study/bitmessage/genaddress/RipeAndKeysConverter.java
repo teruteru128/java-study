@@ -1,9 +1,7 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -14,7 +12,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 import java.security.Security;
 import java.util.regex.Pattern;
+
 import com.twitter.teruteru128.study.bitmessage.Const;
+import com.twitter.teruteru128.study.bitmessage.KeyPair;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 

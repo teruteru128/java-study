@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.bitmessage.genaddress;
+package com.twitter.teruteru128.study.bitmessage;
 
 import java.io.Serializable;
 

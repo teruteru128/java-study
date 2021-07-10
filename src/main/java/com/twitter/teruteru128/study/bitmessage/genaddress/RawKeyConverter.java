@@ -9,6 +9,7 @@ import java.security.Security;
 import java.util.Arrays;
 
 import com.twitter.teruteru128.study.bitmessage.Const;
+import com.twitter.teruteru128.study.bitmessage.KeyPair;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 

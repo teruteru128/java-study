@@ -31,7 +31,7 @@ public class BMAddressTest {
     }
 
     @Test
-    public void encodeAddressTest() throws Exception {
+    void encodeAddressTest() throws Exception {
         String address = "BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM";
         String privSigningKeyWIF = "5KSKK9tJfuMrkUfwBqGS3ktfPix5zZBtgxAao2GtKeUgJNpEo6R";
         String privEncryptionKeyWIF = "5KUoQKDmcmAKpjaas3k9U6bGFN5Nz937zqLqDDo1sNUqeJCiMZn";

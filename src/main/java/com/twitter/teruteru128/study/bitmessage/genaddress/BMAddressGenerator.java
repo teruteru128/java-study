@@ -121,6 +121,7 @@ public class BMAddressGenerator implements Runnable {
         Files.write(publicKeyPath, publicKeys);
     }
 
+    // TODO: 秘密鍵２個渡せばbitmessageエクスポート形式まで一発になるようになりませんか？
     public static void exportAddress(Response component) {
         exportAddressTo(component, System.out);
     }
