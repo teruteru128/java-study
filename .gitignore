@@ -97,3 +97,9 @@ local.properties
 .project
 
 src/main/resources/twitter4j.properties
+# Ignore Gradle project-specific cache directory
+.gradle
+!gradle-wrapper.jar
+
+# Ignore Gradle build output directory
+build
