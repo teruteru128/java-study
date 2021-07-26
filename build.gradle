@@ -9,16 +9,17 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     //id 'application'
-    id 'java'
-    id 'eclipse'
+    id 'java-library'
 }
 
-compileJava {
+//javaModule.name = 'com.teruteru128.study'
+
+compileJava{
     doFirst {
-        options.compilerArgs += [
-            '--module-path', classpath.asPath
+        options.compilerArgs = [
+            '--module-path', classpath.asPath,
         ]
-        classpath = files()
+            classpath = files()
     }
 }
 
@@ -29,7 +30,7 @@ repositories {
         url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots'
     }
 }
- 
+
 // Methods to determine the operating system (OS) and architecture (Arch) of the system.
 // These strings are used to determine the classifier of the artifact that contains the
 // native libaries. For example, when the operating system is "windows" and the 
@@ -207,7 +208,7 @@ dependencies {
     implementation 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
 
     //
-    implementation 'mysql:mysql-connector-java:8.0.25'
+    implementation 'mysql:mysql-connector-java:8.0.26'
 
     //
     implementation 'commons-codec:commons-codec:1.15'

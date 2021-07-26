@@ -20,8 +20,8 @@ public class GenSample {
     private static final int PRIVATE_KEY_SIZE = 32;
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-        long signindex = 2877;
-        long encindex = 27209151;
+        long signindex = 30089;
+        long encindex = 10413931;
         long signfileindex = signindex >> 24;
         long encfileindex = encindex >> 24;
         if (Security.getProvider("BC") == null)
@@ -34,12 +34,12 @@ public class GenSample {
 
         var file = new File(String.format("privateKeys%d.bin", signfileindex));
         try (var file2 = new RandomAccessFile(file, "r")) {
-            file2.seek((signindex % 16777216) * PRIVATE_KEY_SIZE);
+            file2.seek((signindex & 16777215L) << 5);
             file2.readFully(signprivatekey);
         }
         var file3 = new File(String.format("privateKeys%d.bin", encfileindex));
         try (var file2 = new RandomAccessFile(file3, "r")) {
-            file2.seek((encindex % 16777216) * PRIVATE_KEY_SIZE);
+            file2.seek((encindex & 16777215L) << 5);
             file2.readFully(encprivatekey);
         }
         var sk = Const.G.multiply(new BigInteger(1, signprivatekey)).normalize();

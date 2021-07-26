@@ -60,7 +60,7 @@ public class RipeAndKeysConverter {
                 ripemd160.digest(ripe, 0, Const.RIPEMD160_DIGEST_LENGTH);
                 Response response = new Response(new KeyPair(privatesigningkey, publicsigningkey),
                         new KeyPair(privateencryptkey, privateencryptkey), ripe);
-                BMAddressGenerator.exportAddressTo(response, ps);
+                BMAddressGenerator.exportAddress(response, ps);
             }
         }
     }

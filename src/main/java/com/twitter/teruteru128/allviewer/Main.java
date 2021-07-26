@@ -1,4 +1,4 @@
-package allviewer;
+package com.twitter.teruteru128.allviewer;
 
 import java.util.regex.Pattern;
 

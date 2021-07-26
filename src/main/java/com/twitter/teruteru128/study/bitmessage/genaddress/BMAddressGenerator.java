@@ -28,23 +28,13 @@ public class BMAddressGenerator implements Runnable {
     private Logger logger = System.getLogger("BM");
 
     private String[] args;
-    private Args args2;
 
     public BMAddressGenerator() {
-        this(new String[0], null);
+        this(new String[0]);
     }
 
     public BMAddressGenerator(String[] args) {
-        this(args, null);
-    }
-
-    public BMAddressGenerator(Args args) {
-        this(null, args);
-    }
-
-    public BMAddressGenerator(String[] args1, Args args2) {
-        this.args = args1;
-        this.args2 = args2;
+        this.args = args;
     }
 
     @Override
@@ -123,10 +113,10 @@ public class BMAddressGenerator implements Runnable {
 
     // TODO: 秘密鍵２個渡せばbitmessageエクスポート形式まで一発になるようになりませんか？
     public static void exportAddress(Response component) {
-        exportAddressTo(component, System.out);
+        exportAddress(component, System.out);
     }
 
-    public static void exportAddressTo(Response component, PrintStream out) {
+    public static void exportAddress(Response component, PrintStream out) {
         byte[] ripe = component.getRipe();
         var address4 = BMAddress.encodeAddress(4, 1, ripe);
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
@@ -142,7 +132,7 @@ public class BMAddressGenerator implements Runnable {
 
     /**
      * TODO: Split to new class
-    */
+     */
     public static String encodeWIF(byte[] key) {
         byte[] wrappedKey = new byte[37];
         byte[] checksum = new byte[Const.SHA256_DIGEST_LENGTH];
@@ -155,10 +145,8 @@ public class BMAddressGenerator implements Runnable {
             sha256.digest(checksum, 0, Const.SHA256_DIGEST_LENGTH);
             sha256.update(checksum, 0, Const.SHA256_DIGEST_LENGTH);
             sha256.digest(checksum, 0, Const.SHA256_DIGEST_LENGTH);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (DigestException e) {
-            e.printStackTrace();
+        } catch (NoSuchAlgorithmException | DigestException e) {
+            // NONE
         }
         System.arraycopy(checksum, 0, wrappedKey, 33, 4);
         return Base58.encode(wrappedKey);

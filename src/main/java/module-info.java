@@ -5,16 +5,19 @@
  */
 module com.twitter.teruteru128.study {
     requires java.desktop;
-    requires jakarta.json;
     requires java.logging;
     requires java.management;
     requires java.naming;
     requires java.rmi;
     requires java.scripting;
     requires java.sql;
-    requires transitive jakarta.xml.bind;
+    requires transitive javafx.controlsEmpty;
+    requires transitive javafx.fxmlEmpty;
     requires com.google.gson;
     requires jcuda;
+    requires jakarta.json;
+    requires jakarta.mail;
+    requires transitive jakarta.xml.bind;
     requires org.apache.commons.codec;
     requires org.bouncycastle.pg;
     requires org.bouncycastle.provider;
@@ -23,10 +26,7 @@ module com.twitter.teruteru128.study {
     requires transitive org.twitter4j.core;
     requires mysql.connector.java;
     requires commons.math3;
-    requires transitive javafx.controls;
-    requires transitive javafx.fxml;
     requires com.h2database;
-    requires jakarta.mail;
     requires twitter.text;
     requires transitive xmlrpc.common;
     requires transitive xmlrpc.client;
