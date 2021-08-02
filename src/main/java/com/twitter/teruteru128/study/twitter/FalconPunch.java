@@ -3,7 +3,6 @@ package com.twitter.teruteru128.study.twitter;
 import java.security.SecureRandom;
 
 import com.twitter.teruteru128.modules.twitter.util.Util;
-import com.twitter.teruteru128.twitter_bot.TwitterBotException;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -24,8 +23,7 @@ public class FalconPunch implements Runnable {
         try {
             tweet(msg);
         } catch (TwitterException e) {
-            e.printStackTrace();
-            throw new TwitterBotException(e);
+            throw new RuntimeException(e);
         }
     }
 

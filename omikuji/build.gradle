@@ -21,3 +21,8 @@ dependencies {
 application  {
     mainClass = 'com.twitter.teteruteru128.study.baku.Omikuji'
 }
+
+tasks.named('test') {
+    // Use JUnit Platform for unit tests.
+    useJUnitPlatform()
+}
