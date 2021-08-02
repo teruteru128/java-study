@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.baku;
+package com.twitter.teteruteru128.study.baku;
 
 import java.security.SecureRandom;
 
