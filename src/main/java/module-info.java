@@ -14,7 +14,6 @@ module com.twitter.teruteru128.study {
     requires transitive javafx.controlsEmpty;
     requires transitive javafx.fxmlEmpty;
     requires com.google.gson;
-    requires jcuda;
     requires jakarta.json;
     requires jakarta.mail;
     requires transitive jakarta.xml.bind;
