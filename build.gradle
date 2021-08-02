@@ -16,6 +16,7 @@ plugins {
 
 compileJava{
     doFirst {
+        // TODO: クラスパスとモジュールパスに振り分け
         options.compilerArgs = [
             '--module-path', classpath.asPath,
         ]
@@ -94,9 +95,6 @@ dependencies {
 
     //
     implementation 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
-
-    //
-    implementation 'mysql:mysql-connector-java:8.0.26'
 
     //
     implementation 'commons-codec:commons-codec:1.15'
