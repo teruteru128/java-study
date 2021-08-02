@@ -8,3 +8,6 @@
  */
 
 rootProject.name = 'java-study'
+include("bmclient")
+include("fx")
+include("omikuji")

@@ -21,7 +21,7 @@ public class BitMessageHelloWorld implements Callable<Void> {
         XmlRpcClient client = new XmlRpcClient();
         client.setConfig(config);
 
-        Object o = client.execute("clientStatus", (List<?>)null);
+        Object o = client.execute("clientStatus", (List<?>) null);
         System.out.println(o);
         return null;
     }
