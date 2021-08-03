@@ -1,6 +1,6 @@
 
 plugins{
-    id 'java-library'
+    id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
@@ -38,6 +38,10 @@ dependencies {
 
 javafx {
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics']
+}
+
+application {
+    mainClass = 'com.twitter.teruteru128.study.fx.Main'
 }
 
 tasks.named('test') {

@@ -26,6 +26,7 @@ public class Main extends Application {
         text1.setFill(Color.RED);
         Font font = null;
         var url = ClassLoader.getSystemResource("851tegaki_zatsu.ttf");
+        System.out.println(url.toString());
         try (InputStream in = url.openConnection().getInputStream()) {
             font = Font.loadFont(in, 40);
         }
