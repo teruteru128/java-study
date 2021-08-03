@@ -1,7 +1,6 @@
 package com.twitter.teruteru128.study.fx.sample2;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -24,12 +23,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
         Text text1 = new Text("Big italic red text");
         text1.setFill(Color.RED);
-        Font font = null;
         var url = ClassLoader.getSystemResource("851tegaki_zatsu.ttf");
-        System.out.println(url.toString());
-        try (InputStream in = url.openConnection().getInputStream()) {
-            font = Font.loadFont(in, 40);
-        }
+        Font font = Font.loadFont(url.toString(), 40);
         text1.setFont(font);
         Text text2 = new Text(" little bold blue text");
         text2.setFill(Color.BLUE);

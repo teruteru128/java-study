@@ -3,6 +3,8 @@ plugins{
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.10'
 }
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
 
 repositories {
     // Use Maven Central for resolving dependencies.
