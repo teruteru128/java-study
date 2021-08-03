@@ -3,7 +3,7 @@
  * @author teruteru
  * @moduleGraph
  */
-module com.twitter.teruteru128.study {
+module com.twitter.teruteru.study {
     requires java.desktop;
     requires java.logging;
     requires java.management;
@@ -16,10 +16,9 @@ module com.twitter.teruteru128.study {
     requires jakarta.mail;
     requires transitive jakarta.xml.bind;
     requires org.apache.commons.codec;
-    requires org.bouncycastle.pg;
     requires org.bouncycastle.provider;
     requires org.json;
-    requires transitive org.twitter4j.core;
+    requires org.twitter4j.core;
     requires com.h2database;
 
     opens com.twitter.teruteru128.study.jaxb to jakarta.xml.bind;

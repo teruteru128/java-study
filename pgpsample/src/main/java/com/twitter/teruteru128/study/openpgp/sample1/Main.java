@@ -1,7 +1,6 @@
-package com.twitter.teruteru128.study.openpgp.sample001;
+package com.twitter.teruteru128.study.openpgp.sample1;
 
 import java.io.FileInputStream;
-import java.security.Provider;
 import java.security.Security;
 
 import org.bouncycastle.bcpg.PublicKeyAlgorithmTags;
@@ -11,7 +10,6 @@ import org.bouncycastle.openpgp.PGPPublicKeyRing;
 import org.bouncycastle.openpgp.PGPPublicKeyRingCollection;
 import org.bouncycastle.openpgp.PGPUtil;
 import org.bouncycastle.openpgp.operator.jcajce.JcaKeyFingerprintCalculator;
-import org.bouncycastle.util.encoders.Hex;
 
 import jakarta.xml.bind.DatatypeConverter;
 
