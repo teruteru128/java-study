@@ -9,9 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class App4 extends Application {
 
-    public Main() {
+    public App4() {
     }
 
     @Override

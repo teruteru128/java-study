@@ -13,11 +13,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
-public class Main extends Application {
-
-    public static void main(String[] args) {
-        launch(args);
-    }
+public class App2 extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {

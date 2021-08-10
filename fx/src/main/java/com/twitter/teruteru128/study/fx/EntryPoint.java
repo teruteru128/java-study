@@ -2,7 +2,7 @@ package com.twitter.teruteru128.study.fx;
 
 import javafx.application.Application;
 
-public class Main {
+public class EntryPoint {
 
     public static void main(String[] args) throws ClassNotFoundException {
         int num = 1;

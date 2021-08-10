@@ -7,15 +7,16 @@ import twitter4j.Twitter;
 import twitter4j.User;
 
 /**
+ * なにかのリスナー？
  * @author Teruteru
  *
  */
-public class Main  {
+public class AnyListener  {
     private StringBuffer buf = new StringBuffer(160);
     /** 改行文字 */
     private static final Pattern NEW_LINE = Pattern.compile("\\R");
 
-    public Main() {
+    public AnyListener() {
         System.out.println("Test.Test()");
     }
 

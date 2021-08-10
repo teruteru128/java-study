@@ -9,7 +9,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
  * @author Teruteru
  *
  */
-public class Main {
+public class MySQLConnectSample {
 
     /**
      * @param args

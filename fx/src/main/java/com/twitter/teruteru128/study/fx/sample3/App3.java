@@ -11,7 +11,7 @@ import javafx.stage.Stage;
  * @author Teruteru
  *
  */
-public class Main extends Application {
+public class App3 extends Application {
     public static void main(String[] args) {
         launch(args);
     }

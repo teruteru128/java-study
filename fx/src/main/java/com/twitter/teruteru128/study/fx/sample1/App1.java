@@ -12,13 +12,13 @@ import javafx.stage.Stage;
  * 
  * @see https://openjfx.io/javadoc/14/
  */
-public class Main extends Application {
+public class App1 extends Application {
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    public Main() {
+    public App1() {
     }
 
     /**
