@@ -8,12 +8,16 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
-    //id 'application'
+    id 'java'
+    id 'eclipse'
+    id 'application'
     id 'java-library'
+    //id 'java'
 }
 
 //javaModule.name = 'com.teruteru128.study'
 
+/* 
 compileJava{
     doFirst {
         // TODO: クラスパスとモジュールパスに振り分け
@@ -23,6 +27,13 @@ compileJava{
             classpath = files()
     }
 }
+ */
+
+
+application{
+    mainClass = 'com.twitter.teruteru128.App'
+}
+
 
 repositories {
     // Use Maven Central for resolving dependencies.
