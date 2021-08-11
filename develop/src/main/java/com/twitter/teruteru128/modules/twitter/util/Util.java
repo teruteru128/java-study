@@ -1,8 +1,5 @@
 package com.twitter.teruteru128.modules.twitter.util;
 
-import twitter4j.Twitter;
-import twitter4j.TwitterFactory;
-
 /**
  * 
  * */
@@ -30,9 +27,5 @@ public final class Util {
 
     public static String getAccessSecret() {
         return ACCESS_SECRET;
-    }
-
-    public static Twitter getTwitter() {
-        return TwitterFactory.getSingleton();
     }
 }

@@ -2,14 +2,13 @@ package com.twitter.teruteru128.study.twitter;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 import twitter4j.User;
-
-import com.twitter.teruteru128.modules.twitter.util.Util;
 
 public class Sample1 {
 
     public static void main(String[] args) {
-        Twitter twitter = Util.getTwitter();
+        Twitter twitter = TwitterFactory.getSingleton();
         try {
             User user = twitter.verifyCredentials();
             System.out.println(user);

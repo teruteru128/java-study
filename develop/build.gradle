@@ -12,13 +12,17 @@ plugins {
     id 'eclipse'
     id 'application'
     id 'java-library'
-    //id 'java'
 }
 
 //javaModule.name = 'com.teruteru128.study'
 
-/* 
-compileJava{
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+/*
+compileJava {
     doFirst {
         // TODO: クラスパスとモジュールパスに振り分け
         options.compilerArgs = [
@@ -27,13 +31,12 @@ compileJava{
             classpath = files()
     }
 }
- */
+*/
 
-
-application{
-    mainClass = 'com.twitter.teruteru128.App'
+application {
+    mainModule = 'com.twitter.teruteru128.study'
+    mainClass = 'com.twitter.teruteru128.study.Main'
 }
-
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -53,62 +56,60 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:30.1-jre'
 
-    //
+    // https://mvnrepository.com/artifact/commons-codec/commons-codec
     implementation 'commons-codec:commons-codec:1.15'
 
-    //
+    // https://mvnrepository.com/artifact/com.h2database/h2
     implementation 'com.h2database:h2:1.4.200'
 
-    //
+    // https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core
     implementation 'org.twitter4j:twitter4j-core:4.0.7';
 
-    //
-    implementation 'org.apache.hbase:hbase:2.4.2'
+    // https://mvnrepository.com/artifact/org.apache.hbase/hbase
+    api 'org.apache.hbase:hbase:2.4.2'
 
-    //
+    // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
     implementation 'org.bouncycastle:bcprov-jdk15on:1.68'
 
-    //
+    // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk15on
     implementation 'org.bouncycastle:bcmail-jdk15on:1.68'
 
-    //
-    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    // https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305
+    api 'com.google.code.findbugs:jsr305:3.0.2'
 
-    //
+    // https://mvnrepository.com/artifact/org.jetbrains/annotations
+    api 'org.jetbrains:annotations:16.0.1'
+
+    // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
     implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
 
-    //
+    // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
     implementation 'org.glassfish.jaxb:jaxb-runtime:3.0.1'
 
-    //
+    // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'
 
-    //
+    // https://mvnrepository.com/artifact/org.json/json
     implementation 'org.json:json:20210307'
 
-    //
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation 'com.google.code.gson:gson:2.8.6'
 
-    //
+    // https://mvnrepository.com/artifact/jakarta.json/jakarta.json-api
     implementation 'jakarta.json:jakarta.json-api:2.0.1'
 
-    //
+    // https://mvnrepository.com/artifact/org.spigotmc/spigot-api
     implementation 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
 
-    //
+    // https://mvnrepository.com/artifact/commons-codec/commons-codec
     implementation 'commons-codec:commons-codec:1.15'
 
-    //
+    // https://mvnrepository.com/artifact/com.twitter.twittertext/twitter-text
     implementation 'com.twitter.twittertext:twitter-text:3.1.0'
 
-    //
+    // https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail
     implementation 'com.sun.mail:jakarta.mail:2.0.1'
 }
-
-/* application {
-    // Define the main class for the application.
-    mainClass = 'com.twitter.teruteru128.App'
-} */
 
 tasks.named('test') {
     // Use JUnit Platform for unit tests.

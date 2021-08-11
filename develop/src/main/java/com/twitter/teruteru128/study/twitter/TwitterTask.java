@@ -2,10 +2,9 @@ package com.twitter.teruteru128.study.twitter;
 
 import java.util.TimerTask;
 
-import com.twitter.teruteru128.modules.twitter.util.Util;
-
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 
 public class TwitterTask extends TimerTask {
     private Twitter twitter = null;
@@ -20,7 +19,7 @@ public class TwitterTask extends TimerTask {
     @Override
     public void run() {
         if (twitter == null) {
-            twitter = Util.getTwitter();
+            twitter = TwitterFactory.getSingleton();
         }
         try {
             twitter.updateStatus("@konton_freedom 混沌ガチャbot:" + count);

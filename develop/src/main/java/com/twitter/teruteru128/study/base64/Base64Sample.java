@@ -9,7 +9,7 @@ import java.util.Base64;
  * @author
  *
  */
-public class Test {
+public class Base64Sample {
 
     /**
      * @param args

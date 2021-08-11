@@ -2,10 +2,9 @@ package com.twitter.teruteru128.study.twitter;
 
 import java.security.SecureRandom;
 
-import com.twitter.teruteru128.modules.twitter.util.Util;
-
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
 
 public class FalconPunch implements Runnable {
 
@@ -13,7 +12,7 @@ public class FalconPunch implements Runnable {
     private Twitter twitter;
 
     public FalconPunch() {
-        twitter = Util.getTwitter();
+        twitter = TwitterFactory.getSingleton();
         rnd = new SecureRandom();
     }
 
