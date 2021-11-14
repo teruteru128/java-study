@@ -24,10 +24,7 @@ public class BombMoreLayer {
                 if (!out.exists()) {
                     out.createNewFile();
                 }
-                ZipOutputStream zos = new ZipOutputStream(
-                        new BufferedOutputStream(new BufferedOutputStream(
-                                new BufferedOutputStream(new FileOutputStream(
-                                        out)))));
+                ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(out));
                 try {
                     zos.setLevel(9);
                     BufferedInputStream bin;
@@ -35,9 +32,7 @@ public class BombMoreLayer {
                         String filename = String.format("%x.zip", i);
                         zos.putNextEntry(new ZipEntry(filename));
                         // zos.putNextEntry(new ZipEntry("49304296_p0.jpg"));
-                        bin = new BufferedInputStream(new BufferedInputStream(
-                                new BufferedInputStream(
-                                        new FileInputStream(src))));
+                        bin = new BufferedInputStream(new FileInputStream(src));
                         try {
                             int readedsize = -1;
                             while ((readedsize = bin.read(buf)) != -1) {

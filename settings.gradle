@@ -10,6 +10,7 @@
 rootProject.name = 'java-study'
 include("app")
 include("bmclient")
+include("bouyomi")
 include("fx")
 include("graaljssample")
 include("library")
