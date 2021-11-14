@@ -1,3 +1,4 @@
+@set DEFAULT_JVM_OPTS="-Dfile.encoding=UTF-8"
 @rem
 @rem Copyright 2015 the original author or authors.
 @rem
