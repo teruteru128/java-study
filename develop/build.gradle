@@ -72,7 +72,7 @@ dependencies {
     implementation 'org.bouncycastle:bcprov-jdk15on:1.69'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk15on
-    implementation 'org.bouncycastle:bcmail-jdk15on:1.68'
+    implementation 'org.bouncycastle:bcmail-jdk15on:1.69'
 
     // https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305
     api 'com.google.code.findbugs:jsr305:3.0.2'
