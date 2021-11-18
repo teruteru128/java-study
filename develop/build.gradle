@@ -66,7 +66,7 @@ dependencies {
     implementation 'org.twitter4j:twitter4j-core:4.0.7';
 
     // https://mvnrepository.com/artifact/org.apache.hbase/hbase
-    api 'org.apache.hbase:hbase:2.4.2'
+    api 'org.apache.hbase:hbase:2.4.8'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
     implementation 'org.bouncycastle:bcprov-jdk15on:1.69'
