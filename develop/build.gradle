@@ -69,7 +69,7 @@ dependencies {
     api 'org.apache.hbase:hbase:2.4.2'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
-    implementation 'org.bouncycastle:bcprov-jdk15on:1.68'
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.69'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk15on
     implementation 'org.bouncycastle:bcmail-jdk15on:1.68'
