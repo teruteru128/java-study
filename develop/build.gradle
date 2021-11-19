@@ -78,7 +78,7 @@ dependencies {
     api 'com.google.code.findbugs:jsr305:3.0.2'
 
     // https://mvnrepository.com/artifact/org.jetbrains/annotations
-    api 'org.jetbrains:annotations:16.0.1'
+    api 'org.jetbrains:annotations:23.0.0'
 
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
     implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
