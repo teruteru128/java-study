@@ -4,6 +4,7 @@ import javafx.application.Application;
 
 public class EntryPoint {
 
+    @SuppressWarnings("unchecked")
     public static void main(String[] args) throws ClassNotFoundException {
         int num = 1;
 
