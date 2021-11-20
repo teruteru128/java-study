@@ -9,11 +9,11 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     // https://docs.gradle.org/current/userguide/application_plugin.html
-    id 'application'
+    //id 'application'
     // https://docs.gradle.org/current/userguide/eclipse_plugin.html
-    id 'eclipse'
+    //id 'eclipse'
     // https://docs.gradle.org/current/userguide/java_plugin.html
-    id 'java'
+    //id 'java'
     // https://docs.gradle.org/current/userguide/java_library_plugin.html
     id 'java-library'
 }
@@ -37,10 +37,12 @@ compileJava {
 }
 */
 
+/*
 application {
     mainModule = 'com.twitter.teruteru128.study'
     mainClass = 'com.twitter.teruteru128.study.Main'
 }
+*/
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -67,7 +69,7 @@ dependencies {
     implementation 'org.twitter4j:twitter4j-core:4.0.7';
 
     // https://mvnrepository.com/artifact/org.apache.hbase/hbase
-    api 'org.apache.hbase:hbase:2.4.8'
+    implementation group: 'org.apache.hbase', name: 'hbase', version: '2.4.8', ext: 'pom'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
     implementation 'org.bouncycastle:bcprov-jdk15on:1.69'
@@ -76,10 +78,10 @@ dependencies {
     implementation 'org.bouncycastle:bcmail-jdk15on:1.69'
 
     // https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305
-    api 'com.google.code.findbugs:jsr305:3.0.2'
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
 
     // https://mvnrepository.com/artifact/org.jetbrains/annotations
-    api 'org.jetbrains:annotations:23.0.0'
+    implementation group: 'org.jetbrains', name: 'annotations', version: '23.0.0'
 
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
     implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
