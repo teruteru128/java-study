@@ -8,9 +8,13 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
-    id 'java'
-    id 'eclipse'
+    // https://docs.gradle.org/current/userguide/application_plugin.html
     id 'application'
+    // https://docs.gradle.org/current/userguide/eclipse_plugin.html
+    id 'eclipse'
+    // https://docs.gradle.org/current/userguide/java_plugin.html
+    id 'java'
+    // https://docs.gradle.org/current/userguide/java_library_plugin.html
     id 'java-library'
 }
 
@@ -111,4 +115,8 @@ dependencies {
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }

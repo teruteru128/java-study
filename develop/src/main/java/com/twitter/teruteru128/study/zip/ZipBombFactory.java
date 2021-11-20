@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class ZipBombCreater {
+public class ZipBombFactory {
 
     public static void main(String[] args) {
         File bomb = new File("0.zip");
