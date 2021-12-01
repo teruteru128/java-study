@@ -18,7 +18,7 @@ repositories {
 
 dependencies {
     // Use JUnit Jupiter for testing.
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     implementation 'org.apache.commons:commons-math3:3.6.1'
