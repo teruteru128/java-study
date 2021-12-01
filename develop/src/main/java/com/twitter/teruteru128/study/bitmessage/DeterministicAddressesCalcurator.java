@@ -1,6 +1,5 @@
 package com.twitter.teruteru128.study.bitmessage;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.System.Logger;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -10,7 +9,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 import java.security.Security;
 import java.util.Arrays;
-import java.util.concurrent.Callable;
 import java.util.function.BiFunction;
 
 import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddress;
