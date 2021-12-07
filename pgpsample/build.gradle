@@ -21,7 +21,7 @@ dependencies {
     implementation 'org.bouncycastle:bcprov-jdk15on:1.69'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcpg-jdk15on
-    implementation 'org.bouncycastle:bcpg-jdk15on:1.69'
+    implementation 'org.bouncycastle:bcpg-jdk15on:1.70'
 
     // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'
