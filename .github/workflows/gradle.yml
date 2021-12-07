@@ -5,13 +5,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches:
-      - master
-      - develop
+    branches: [ master, develop ]
   pull_request:
-    branches:
-      - master
-      - develop
+    branches: [ master, develop ]
 
 jobs:
   build:
@@ -28,4 +24,6 @@ jobs:
         cache: 'gradle'
     - uses: gradle/wrapper-validation-action@v1
     - name: Build with Gradle
-      run: ./gradlew build --no-daemon
+      uses: gradle/gradle-build-action@2
+      with:
+        arguments: build
