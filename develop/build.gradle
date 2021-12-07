@@ -75,7 +75,7 @@ dependencies {
     implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk15on
-    implementation 'org.bouncycastle:bcmail-jdk15on:1.69'
+    implementation 'org.bouncycastle:bcmail-jdk15on:1.70'
 
     // https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
