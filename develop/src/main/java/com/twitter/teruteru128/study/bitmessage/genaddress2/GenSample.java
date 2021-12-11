@@ -15,13 +15,21 @@ import com.twitter.teruteru128.study.bitmessage.genaddress.Response;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import jakarta.xml.bind.DatatypeConverter;
+
 public class GenSample {
 
     private static final int PRIVATE_KEY_SIZE = 32;
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-        long signindex = 1635801310 / 65;
-        long encindex = 156729950 / 65;
+
+        if (args.length < 2) {
+            System.out.println("<signindex> <encindex>");
+            return;
+        }
+
+        long signindex = Long.parseLong(args[0], 10);
+        long encindex = Long.parseLong(args[1], 10);
         long signfileindex = signindex >> 24;
         long encfileindex = encindex >> 24;
         if (Security.getProvider("BC") == null)
@@ -34,18 +42,20 @@ public class GenSample {
 
         var file = new File(String.format("privateKeys%d.bin", signfileindex));
         try (var file2 = new RandomAccessFile(file, "r")) {
-            file2.seek((signindex % 16777216L) * 32);
+            file2.seek((signindex & 16777215L) * 32);
             file2.readFully(signprivatekey);
         }
         var file3 = new File(String.format("privateKeys%d.bin", encfileindex));
         try (var file2 = new RandomAccessFile(file3, "r")) {
-            file2.seek((encindex % 16777216L) << 5);
+            file2.seek((encindex & 16777215L) << 5);
             file2.readFully(encprivatekey);
         }
         var sk = Const.G.multiply(new BigInteger(1, signprivatekey)).normalize();
         byte[] potentialPubSigningKey = sk.getEncoded(false);
         var ek = Const.G.multiply(new BigInteger(1, encprivatekey)).normalize();
         byte[] potentialPubEncryptionKey = ek.getEncoded(false);
+        System.out.println(DatatypeConverter.printHexBinary(potentialPubSigningKey));
+        System.out.println(DatatypeConverter.printHexBinary(potentialPubEncryptionKey));
 
         sha512.update(potentialPubSigningKey);
         sha512.update(potentialPubEncryptionKey);
@@ -54,7 +64,8 @@ public class GenSample {
             System.out.printf("%02x", b & 0xff);
         }
         System.out.println();
-        BMAddressGenerator.exportAddress(new Response(new KeyPair(signprivatekey, potentialPubSigningKey),
-                new KeyPair(encprivatekey, potentialPubEncryptionKey), hash));
+        System.out.println(
+                BMAddressGenerator.exportAddress(new Response(new KeyPair(signprivatekey, potentialPubSigningKey),
+                        new KeyPair(encprivatekey, potentialPubEncryptionKey), hash)));
     }
 }

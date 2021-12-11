@@ -114,6 +114,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail
     implementation 'com.sun.mail:jakarta.mail:2.0.1'
+
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation('org.apache.logging.log4j:log4j-core:2.14.1')
 }
 
 tasks.named('test') {

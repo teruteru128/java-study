@@ -112,11 +112,11 @@ public class BMAddressGenerator implements Runnable {
     }
 
     // TODO: 秘密鍵２個渡せばbitmessageエクスポート形式まで一発になるようになりませんか？
-    public static void exportAddress(Response component) {
-        exportAddress(component, System.out);
+    public static String exportAddress(Response component) {
+        return exportAddress(component, System.out);
     }
 
-    public static void exportAddress(Response component, PrintStream out) {
+    public static String exportAddress(Response component, PrintStream out) {
         byte[] ripe = component.getRipe();
         var address4 = BMAddress.encodeAddress(4, 1, ripe);
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
@@ -125,9 +125,7 @@ public class BMAddressGenerator implements Runnable {
                 "]\nlabel = relpace this label\nenabled = true\ndecoy = false\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nprivsigningkey = ")
                 .append(privSigningKeyWIF).append("\nprivencryptionkey = ").append(privEncryptionKeyWIF).append("\n")
                 .toString();
-        synchronized (lock) {
-            out.println(key);
-        }
+        return key;
     }
 
     /**

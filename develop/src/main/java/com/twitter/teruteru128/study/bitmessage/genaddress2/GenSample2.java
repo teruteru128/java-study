@@ -3,7 +3,6 @@ package com.twitter.teruteru128.study.bitmessage.genaddress2;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
@@ -37,7 +36,7 @@ public class GenSample2 {
                     sha512.update(signprivatekey);
                     sha512.update(encprivatekey);
                     var hash = ripemd160.digest(sha512.digest());
-                    System.out.printf("%d, %d : ", 1635800400L + 65 * i, 156729040L + 65 * j);
+                    System.out.printf("%d, %d : ", (1635800400L + 65 * i)/65, (156729040L + 65 * j)/65);
                     for (byte b : hash) {
                         System.out.printf("%02x", b & 0xff);
                     }
