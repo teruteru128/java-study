@@ -102,7 +102,7 @@ dependencies {
     implementation 'jakarta.json:jakarta.json-api:2.0.1'
 
     // https://mvnrepository.com/artifact/org.spigotmc/spigot-api
-    implementation 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    implementation 'org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT'
 
     // https://mvnrepository.com/artifact/commons-codec/commons-codec
     implementation 'commons-codec:commons-codec:1.15'
