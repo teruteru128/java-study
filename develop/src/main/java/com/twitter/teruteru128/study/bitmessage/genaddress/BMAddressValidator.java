@@ -24,6 +24,12 @@ public class BMAddressValidator {
     }
 
     // validateメソッドの引数は何型にすべき？String？byte[]？
+    /**
+     * 
+     * @param address
+     * @param privSigningKeyWIF
+     * @param privEncryptionKeyWIF
+     */
     public void validate(String address, String privSigningKeyWIF, String privEncryptionKeyWIF) {
 
         // 鍵をデコード
@@ -80,10 +86,22 @@ public class BMAddressValidator {
         return result;
     }
 
+    // この秘密鍵を公開鍵に変換する処理、別のクラスにくくりだしたほうがいい気がするんだよな……
+    /**
+     * 
+     * @param privateKey
+     * @return
+     */
     protected byte[] generatePublicKey(byte[] privateKey) {
         return Const.G.multiply(new BigInteger(1, privateKey)).normalize().getEncoded(false);
     }
 
+    /**
+     * 
+     * @param pubSigningKey
+     * @param pubEncryptionKey
+     * @return
+     */
     protected byte[] generateRipe(byte[] pubSigningKey, byte[] pubEncryptionKey) {
         final byte[] sha512hash = new byte[64];
         final byte[] ripe = new byte[20];
@@ -110,9 +128,9 @@ public class BMAddressValidator {
      */
     public static void main(String[] args) {
         // アドレスと鍵
-        final String address = "BM-2cSriduZG4eQTe1FfppHMzcVoGrXdBWjBe";
-        final String privSigningKeyWIF = "5J4aJNR1xrRgGAn1mEAnLF4vqLx7bg9SbRc9omK4JBPYcFfYi3W";
-        final String privEncryptionKeyWIF = "5KHmbgwqv8qH9tZHoRKvswHeZkeXiDLj6m8cCxkUKGEtZcxiKoH";
+        final String address = "BM-2cTHbtQErfVNPCtbzrBNnJ2ofy8698dNAB";
+        final String privSigningKeyWIF = "5JZxCfJ9kbmphTeWuXxbju3U14tNWwdjhj9wMrBZcfMYWU7PNZ4";
+        final String privEncryptionKeyWIF = "5KFrkub7w2zPMsXhRUp2ozKVdTSaheri8zutq5XP5ysRbidodSv";
 
         var validator = new BMAddressValidator();
         validator.validate(address, privSigningKeyWIF, privEncryptionKeyWIF);
