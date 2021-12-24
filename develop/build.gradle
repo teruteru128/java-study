@@ -49,9 +49,8 @@ application {
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
-    maven {
-        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots'
-    }
+    maven {url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots'}
+    maven {url 'https://papermc.io/repo/repository/maven-public/'}
 }
 
 dependencies {
@@ -105,6 +104,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.spigotmc/spigot-api
     implementation 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+
+    // https://mvnrepository.com/artifact/io.papermc.paper/paper-api
+    implementation 'io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT'
 
     // https://mvnrepository.com/artifact/commons-codec/commons-codec
     implementation 'commons-codec:commons-codec:1.15'
