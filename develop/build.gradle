@@ -70,7 +70,7 @@ dependencies {
     implementation 'org.twitter4j:twitter4j-core:4.0.7';
 
     // https://mvnrepository.com/artifact/org.apache.hbase/hbase
-    implementation group: 'org.apache.hbase', name: 'hbase', version: '2.4.8', ext: 'pom'
+    implementation group: 'org.apache.hbase', name: 'hbase', version: '2.4.9', ext: 'pom'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
     implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
