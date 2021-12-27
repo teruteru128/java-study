@@ -7,6 +7,16 @@ image: openjdk:17
 
 pipelines:
   default:
-    - step:
-        script: # Modify the commands below to build your repository.
-          - bash ./gradlew build
+    - parallel:
+        - step:
+            name: Build and Test
+            script:
+              - bash ./gradlew build
+            after-script:
+              - pipe: atlassian/checkstyle-report:0.3.0
+        - step:
+            name: Security Scan
+            script:
+              # Run a security scan for sensitive data.
+              # See more security tools at https://bitbucket.org/product/features/pipelines/integrations?&category=security
+              - pipe: atlassian/git-secrets-scan:0.5.1
