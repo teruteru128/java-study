@@ -4,6 +4,10 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.List;
 
+/**
+ * x^3 + y^3 + z^3 = a
+ * z^3 -a = x^3+y^3
+ */
 public class SumOfThreeCubes {
 
   public static void main(String args[]) {
