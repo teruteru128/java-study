@@ -1,11 +1,16 @@
 package com.twitter.teruteru128.study.threadsample;
 
+import java.io.Serializable;
+import java.util.concurrent.Callable;
+
 // カウンター
-public class Counter {
+public class Counter implements Callable<Void>, Serializable {
+
+    private static final long serialVersionUID = 0;
 
     private int count;
 
-    void countUp() {
+    public Void call() {
         synchronized (this) {
             System.out.print("[");
             int n = count; // カウンターを読み出して
@@ -13,6 +18,7 @@ public class Counter {
             count = n + 1; // 加算して書き戻す
             System.out.print("]");
         }
+        return null;
     }
 
     /**

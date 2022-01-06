@@ -10,21 +10,13 @@ import java.util.concurrent.Future;
 
 public class SyncSample {
 
-    private static void get(Future<Void> future) throws InterruptedException {
-        try {
-            future.get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        Counter counter = new Counter();
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
+        var counter = new Counter();
 
         // スレッドを1000個作成する
         var threads = new ArrayList<Callable<Void>>(1000);
         for (var i = 0; i < 1000; i++) {
-            threads.add(Executors.<Void>callable(counter::countUp, null));
+            threads.add(counter);
         }
 
         ExecutorService service = Executors.newFixedThreadPool(16);
@@ -33,11 +25,8 @@ public class SyncSample {
 
             // スレッドがすべて終了するのを待つ
             for (Future<Void> future : futures) {
-                get(future);
+                future.get();
             }
-        } catch (InterruptedException e1) {
-            e1.printStackTrace();
-            Thread.currentThread().interrupt();
         } finally {
             service.shutdown();
         }
