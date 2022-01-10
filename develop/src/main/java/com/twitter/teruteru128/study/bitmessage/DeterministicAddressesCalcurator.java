@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.function.BiFunction;
 
 import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddress;
+import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddressGenerator;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -81,16 +82,10 @@ public class DeterministicAddressesCalcurator implements BiFunction<String, Inte
             for (nlz = 0; cache64[nlz] == 0 && nlz < Const.RIPEMD160_DIGEST_LENGTH; nlz++) {
             }
         }
+        System.out.println(BMAddressGenerator.encodeWIF(Arrays.copyOf(potentialPrivSigningKey, 32)));
+        System.out.println(BMAddressGenerator.encodeWIF(Arrays.copyOf(potentialPrivEncryptionKey, 32)));
         String address = BMAddress.encodeAddress(addressVersionNumber, streamNumber,
                 Arrays.copyOf(cache64, Const.RIPEMD160_DIGEST_LENGTH));
-        /*
-         * BMAddressGenerator.exportAddress(new Response( new
-         * KeyPair(Arrays.copyOf(potentialPrivSigningKey, Const.PRIVATE_KEY_LENGTH),
-         * potentialPubSigningKey), new
-         * KeyPair(Arrays.copyOf(potentialPrivEncryptionKey, Const.PRIVATE_KEY_LENGTH),
-         * potentialPubEncryptionKey), Arrays.copyOf(cache64,
-         * Const.RIPEMD160_DIGEST_LENGTH)));
-         */
         return address;
     }
 
@@ -101,10 +96,11 @@ public class DeterministicAddressesCalcurator implements BiFunction<String, Inte
             Security.addProvider(provider);
         }
         var calcurator = new DeterministicAddressesCalcurator();
-        var passphrase = "110101195306153019";
+        var passphrase = "  ";
         String address3 = calcurator.apply(passphrase, 3);
         String address4 = calcurator.apply(passphrase, 4);
-        System.getLogger("BM").log(Logger.Level.INFO, address3);
-        System.getLogger("BM").log(Logger.Level.INFO, address4);
+        var logger = System.getLogger("BM");
+        logger.log(Logger.Level.INFO, address3);
+        logger.log(Logger.Level.INFO, address4);
     }
 }

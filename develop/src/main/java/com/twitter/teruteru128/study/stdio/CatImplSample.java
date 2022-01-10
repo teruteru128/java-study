@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.modules.stdio;
+package com.twitter.teruteru128.study.stdio;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
