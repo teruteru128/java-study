@@ -12,6 +12,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -132,7 +133,11 @@ public class BMAddressGenerator implements Runnable {
      * TODO: Split to new class
      */
     public static String encodeWIF(byte[] key) {
-        byte[] wrappedKey = new byte[37];
+        Objects.requireNonNull(key);
+        // XXX: support other key length?
+        if (key.length != 32)
+            throw new IllegalArgumentException("key length is not 32");
+        byte[] wrappedKey = new byte[37]; // 37 = 1 + 32 + 4
         byte[] checksum = new byte[Const.SHA256_DIGEST_LENGTH];
 
         wrappedKey[0] = (byte) 0x80;

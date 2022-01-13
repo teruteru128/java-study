@@ -30,6 +30,9 @@ import com.twitter.teruteru128.study.bitmessage.Const;
 
 import jakarta.xml.bind.DatatypeConverter;
 
+/**
+ * GitHub ActionsでBitMessage用のsecp256k1鍵を大量生産しようとしたときの実装
+*/
 public class GenerateKeyPair implements Runnable {
 
   private static final String KEX_DEFAULT_ALGORITHM = "X25519";
