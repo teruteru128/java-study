@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.study.keygenerator;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -56,6 +56,7 @@ public class GenerateKeyPair implements Runnable {
     byte[] publicKeys = this.publicKeys;
     byte[] potentialPublicEncryptionKey = null;
     for (int from = offset, to = offset + length; from < to; from++) {
+      // TODO ここらへんの計算は別のライブラリでやらせたいね、 秘密鍵から公開鍵を導出する処理を簡便化する
       potentialPublicEncryptionKey = Const.G
           .multiply(new BigInteger(1, privateKeys, from * Const.PRIVATE_KEY_LENGTH, Const.PRIVATE_KEY_LENGTH))
           .normalize().getEncoded(false);

@@ -77,17 +77,11 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.hbase/hbase
     implementation group: 'org.apache.hbase', name: 'hbase', version: '2.4.9', ext: 'pom'
 
-    // https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on
-    implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
-
     // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk15on
     implementation 'org.bouncycastle:bcmail-jdk15on:1.70'
 
     // https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
-
-    // https://mvnrepository.com/artifact/org.jetbrains/annotations
-    implementation group: 'org.jetbrains', name: 'annotations', version: '23.0.0'
 
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
     implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'

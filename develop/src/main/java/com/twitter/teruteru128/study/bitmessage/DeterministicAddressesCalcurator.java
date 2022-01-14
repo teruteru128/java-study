@@ -96,7 +96,7 @@ public class DeterministicAddressesCalcurator implements BiFunction<String, Inte
             Security.addProvider(provider);
         }
         var calcurator = new DeterministicAddressesCalcurator();
-        var passphrase = "  ";
+        var passphrase = "bitchan";
         String address3 = calcurator.apply(passphrase, 3);
         String address4 = calcurator.apply(passphrase, 4);
         var logger = System.getLogger("BM");

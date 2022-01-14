@@ -28,30 +28,32 @@ public class Main {
                 "9g2VHWumoigKOwieEB8gV4QGtyFHjdtwG4WmJMcDHQ8");
         RequestToken requestToken = twitter.getOAuthRequestToken();
         AccessToken accessToken = null;
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        System.out
-                .println("Open the following URL and grant access to your account:");
-        System.out.println(requestToken.getAuthorizationURL());
-        // com.twitter.teruteru128.test.browser.Main.openBrowser(requestToken.getAuthorizationURL());
+        // XXX これScannerでもいいのでは？
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            System.out
+                    .println("Open the following URL and grant access to your account:");
+            System.out.println(requestToken.getAuthorizationURL());
+            // com.twitter.teruteru128.test.browser.Main.openBrowser(requestToken.getAuthorizationURL());
 
-        System.out
-                .print("Enter the PIN(if aviailable) or just hit enter.[PIN]:");
-        String pin = br.readLine();
-        try {
-            if (pin.length() > 0) {
-                accessToken = twitter.getOAuthAccessToken(requestToken, pin);
-            } else {
-                accessToken = twitter.getOAuthAccessToken();
+            System.out
+                    .print("Enter the PIN(if aviailable) or just hit enter.[PIN]:");
+            String pin = br.readLine();
+            try {
+                if (pin.length() > 0) {
+                    accessToken = twitter.getOAuthAccessToken(requestToken, pin);
+                } else {
+                    accessToken = twitter.getOAuthAccessToken();
+                }
+                br.close();
+            } catch (TwitterException te) {
+                if (401 == te.getStatusCode()) {
+                    System.out.println("Unable to get the access token.");
+                } else {
+                    te.printStackTrace();
+                }
             }
-            br.close();
-        } catch (TwitterException te) {
-            if (401 == te.getStatusCode()) {
-                System.out.println("Unable to get the access token.");
-            } else {
-                te.printStackTrace();
-            }
+            JAXB.marshal(accessToken, System.out);
         }
-        JAXB.marshal(accessToken, System.out);
     }
 
 }
