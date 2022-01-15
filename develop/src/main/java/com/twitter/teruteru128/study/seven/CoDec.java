@@ -15,6 +15,8 @@ public class CoDec {
         return c.toString();
     }
 
+    private static Charset SHIFT_JIS = Charset.forName("SJIS");
+
     public static String decode(String a) {
         int length = a.length();
         byte[] b = new byte[length / 8];
@@ -22,7 +24,7 @@ public class CoDec {
             char d = a.charAt(i);
             b[i / 8] |= (d & 0x01) << (i % 8);
         }
-        return new String(b, Charset.forName("SJIS"));
+        return new String(b, SHIFT_JIS);
     }
 
 }

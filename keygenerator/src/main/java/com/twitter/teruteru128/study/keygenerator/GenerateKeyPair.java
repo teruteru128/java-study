@@ -16,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 import java.util.LinkedList;
 
 import javax.crypto.BadPaddingException;
@@ -26,18 +27,27 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import com.twitter.teruteru128.study.bitmessage.Const;
-
-import jakarta.xml.bind.DatatypeConverter;
+import org.bouncycastle.asn1.x9.X9ECParameters;
+import org.bouncycastle.crypto.ec.CustomNamedCurves;
+import org.bouncycastle.math.ec.ECPoint;
 
 /**
  * GitHub ActionsでBitMessage用のsecp256k1鍵を大量生産しようとしたときの実装
 */
 public class GenerateKeyPair implements Runnable {
 
+  // TODO: 公開鍵導出を簡素化する
+  public static final X9ECParameters SECP256K1 = CustomNamedCurves.getByName("secp256k1");
+  public static final ECPoint G = SECP256K1.getG();
+  public static final int PRIVATE_KEY_LENGTH = 32;
+  public static final int PUBLIC_KEY_LENGTH = 65;
+  public static final int RIPEMD160_DIGEST_LENGTH = 20;
+  public static final int SHA256_DIGEST_LENGTH = 32;
+  public static final int SHA512_DIGEST_LENGTH = 64;
+
   private static final String KEX_DEFAULT_ALGORITHM = "X25519";
   private static final String ENC_DEFAULT_ALGORITHM = "ChaCha20";
-  private static final String STATIC_PUBLIC_KEY = "302C300706032B656E05000321002CD3C20389E56A1D94238940D1B1F3FD19C72A23105F5167773225B35BC36244";
+  private static final String STATIC_PUBLIC_KEY = "MCwwBwYDK2VuBQADIQAs08IDieVqHZQjiUDRsfP9GccqIxBfUWd3MiWzW8NiRA==";
   private byte[] privateKeys;
   private byte[] publicKeys;
   private int offset;
@@ -57,11 +67,11 @@ public class GenerateKeyPair implements Runnable {
     byte[] potentialPublicEncryptionKey = null;
     for (int from = offset, to = offset + length; from < to; from++) {
       // TODO ここらへんの計算は別のライブラリでやらせたいね、 秘密鍵から公開鍵を導出する処理を簡便化する
-      potentialPublicEncryptionKey = Const.G
-          .multiply(new BigInteger(1, privateKeys, from * Const.PRIVATE_KEY_LENGTH, Const.PRIVATE_KEY_LENGTH))
+      potentialPublicEncryptionKey = G
+          .multiply(new BigInteger(1, privateKeys, from * PRIVATE_KEY_LENGTH, PRIVATE_KEY_LENGTH))
           .normalize().getEncoded(false);
-      System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, from * Const.PUBLIC_KEY_LENGTH,
-          Const.PUBLIC_KEY_LENGTH);
+      System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, from * PUBLIC_KEY_LENGTH,
+          PUBLIC_KEY_LENGTH);
     }
   }
 
@@ -98,9 +108,11 @@ public class GenerateKeyPair implements Runnable {
     if (random == null) {
       random = new SecureRandom();
     }
-    System.out.printf("乱数ソースのアルゴリズムは%sんご！%n", random.getAlgorithm());
+    System.out.printf("乱数ソースのアルゴリズムは%sんご\uff01%n", random.getAlgorithm());
     random.nextBytes(privateKeys);
   }
+
+  private static String TRANSFORMATION_DEFAULT_ALGORITHM = "ChaCha20-Poly1305/NONE/NoPadding";
 
   public static void gen(boolean doEncrypt) throws NoSuchAlgorithmException, InvalidKeyException,
       InvalidKeySpecException, NoSuchPaddingException, InvalidAlgorithmParameterException, IllegalBlockSizeException,
@@ -108,13 +120,13 @@ public class GenerateKeyPair implements Runnable {
     var privateKeyPath = Paths.get("privateKeys.bin");
     var publicKeyPath = Paths.get("publicKeys.bin");
 
-    final var privateKeys = new byte[KEY_NUM * Const.PRIVATE_KEY_LENGTH];
+    final var privateKeys = new byte[KEY_NUM * PRIVATE_KEY_LENGTH];
     System.out.println("秘密鍵を集めるんご！");
     initPrivateKeys(privateKeys);
     System.out.println("秘密鍵を集め終わったんご！");
     if (doEncrypt) {
       System.out.println("暗号化するんご！");
-      var encodedKeySpec = new X509EncodedKeySpec(DatatypeConverter.parseHexBinary(STATIC_PUBLIC_KEY));
+      var encodedKeySpec = new X509EncodedKeySpec(Base64.getDecoder().decode(STATIC_PUBLIC_KEY));
       var factory = KeyFactory.getInstance(KEX_DEFAULT_ALGORITHM);
       var publicKey = factory.generatePublic(encodedKeySpec);
 
@@ -129,10 +141,10 @@ public class GenerateKeyPair implements Runnable {
       var hashedSecret = sha3512.digest();
       var secretKey = new SecretKeySpec(hashedSecret, 0, 32, ENC_DEFAULT_ALGORITHM);
       var parameterSpec = new IvParameterSpec(hashedSecret, 32, 12);
-      var cipher = Cipher.getInstance("ChaCha20-Poly1305/NONE/NoPadding");
+      var cipher = Cipher.getInstance(TRANSFORMATION_DEFAULT_ALGORITHM);
       cipher.init(Cipher.ENCRYPT_MODE, secretKey, parameterSpec);
       Files.write(privateKeyPath, cipher.doFinal(privateKeys));
-      System.out.printf("public key : %s%n", DatatypeConverter.printHexBinary(keyPair.getPublic().getEncoded()));
+      System.out.printf("public key : %s%n", Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded()));
     } else {
       System.out.println("暗号化しないんご！");
       Files.write(privateKeyPath, privateKeys);
@@ -141,7 +153,7 @@ public class GenerateKeyPair implements Runnable {
     System.out.println("秘密鍵をファイルに書き込んだんご！");
 
     //
-    final var publicKeys = new byte[KEY_NUM * Const.PUBLIC_KEY_LENGTH];
+    final var publicKeys = new byte[KEY_NUM * PUBLIC_KEY_LENGTH];
 
     // Use three quarters of all processors
     int core = Runtime.getRuntime().availableProcessors() * 3 / 4;
