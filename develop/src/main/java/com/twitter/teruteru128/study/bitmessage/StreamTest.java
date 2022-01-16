@@ -11,14 +11,14 @@ import java.util.ArrayList;
 public class StreamTest {
 
     public static void main(String[] args) throws IOException {
-        ArrayList<byte[]> list = new ArrayList<>();
+        ArrayList<byte[]> list = new ArrayList<>(67108864);
         try (RandomAccessFile file = new RandomAccessFile(new File("publicKeys.bin"), "r")) {
             byte[] buf = new byte[65];
             while (file.read(buf) != -1) {
                 list.add(buf.clone());
             }
         }
-        list.stream().map(PublicKey::new);
+        //list.stream().map(PublicKey::new);
         System.out.println(list.size());
     }
 

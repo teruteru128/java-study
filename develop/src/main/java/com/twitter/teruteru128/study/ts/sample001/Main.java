@@ -111,7 +111,7 @@ public class Main {
             MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
             byte[] hash = sha1.digest(String.format("%s%s", string,
                     Long.toUnsignedString(l, 10)).getBytes());
-            for (;hash[zerobytes] == 0 && zerobytes < 20;zerobytes++) {
+            for (; hash[zerobytes] == 0 && zerobytes < 20; zerobytes++) {
             }
             if (zerobytes < 20) {
                 zerobits = Integer.numberOfTrailingZeros(hash[zerobytes] & 0xff);
@@ -169,6 +169,14 @@ public class Main {
         System.out.printf("%s%n", new String(actualIdentity));
         eccKeyString = decoder.decode(actualIdentity);
         try (ASN1InputStream in = new ASN1InputStream(eccKeyString)) {
+            // get ec parameter spec
+            AlgorithmParameters parameters = AlgorithmParameters
+                    .getInstance("EC");
+            parameters.init(new ECGenParameterSpec("secp256r1"));
+            ECParameterSpec parameterSpec = parameters
+                    .getParameterSpec(ECParameterSpec.class);
+            // get key factory
+            KeyFactory factory = KeyFactory.getInstance("EC");
 
             ASN1Sequence sequence = (ASN1Sequence) in.readObject();
             BigInteger publicKeyX = ((ASN1Integer) sequence.getObjectAt(2))
@@ -177,16 +185,10 @@ public class Main {
                     .getPositiveValue();
             BigInteger privateKey = ((ASN1Integer) sequence.getObjectAt(4))
                     .getPositiveValue();
-            AlgorithmParameters parameters = AlgorithmParameters
-                    .getInstance("EC");
-            parameters.init(new ECGenParameterSpec("secp256r1"));
-            ECParameterSpec parameterSpec = parameters
-                    .getParameterSpec(ECParameterSpec.class);
-            ECPrivateKeySpec privateKeySpec = new ECPrivateKeySpec(privateKey,
-                    parameterSpec);
-            ECPublicKeySpec publicKeySpec = new ECPublicKeySpec(new ECPoint(
-                    publicKeyX, publicKeyY), parameterSpec);
-            KeyFactory factory = KeyFactory.getInstance("EC");
+
+            ECPrivateKeySpec privateKeySpec = new ECPrivateKeySpec(privateKey, parameterSpec);
+            ECPublicKeySpec publicKeySpec = new ECPublicKeySpec(new ECPoint(publicKeyX, publicKeyY), parameterSpec);
+
             pair[0] = new ECKeyPair(
                     (ECPrivateKey) factory.generatePrivate(privateKeySpec),
                     (ECPublicKey) factory.generatePublic(publicKeySpec));
