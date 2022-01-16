@@ -1,0 +1,12 @@
+
+plugins{
+    id 'application'
+}
+
+repositories{
+    mavenCentral()
+}
+
+application{
+    mainClass = 'com.twitter.teruteru128.poop.Poop'
+}

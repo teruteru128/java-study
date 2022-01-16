@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.poop;
 
 import java.io.IOException;
 import java.util.Properties;

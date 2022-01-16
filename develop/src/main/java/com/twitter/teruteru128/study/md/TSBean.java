@@ -15,7 +15,7 @@ public class TSBean implements Serializable {
      * @param pri
      * @param pubX
      * @param pubY
-    */
+     */
     public TSBean(long salt, BigInteger pri, BigInteger pubX, BigInteger pubY) {
     }
 }

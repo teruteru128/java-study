@@ -24,23 +24,26 @@ public class Main {
         connection.connect();
         int responseCode = connection.getResponseCode();
         System.out.println(responseCode);
-        var fields = connection.getHeaderFields();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            try (BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream(), Charset.forName("SJIS")))) {
-                reader.lines().forEach(System.out::println);
-            }
-        } else {
-            System.out.printf("%d : %s\n", responseCode, connection.getResponseMessage());
-            for (var e : fields.entrySet()) {
-                var key = e.getKey();
-                var val = e.getValue();
-                if(key == null){
-                    System.out.printf("<%s> : %s%n", key, val);
-                }else{
-                    System.out.printf("%s : %s%n", key, val);
+        switch (responseCode) {
+            case HttpURLConnection.HTTP_OK:
+                try (BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(connection.getInputStream(), Charset.forName("SJIS")))) {
+                    reader.lines().forEach(System.out::println);
                 }
-            }
+                break;
+
+            default:
+                System.out.printf("%d : %s\n", responseCode, connection.getResponseMessage());
+                for (var e : connection.getHeaderFields().entrySet()) {
+                    var key = e.getKey();
+                    var val = e.getValue();
+                    if (key == null) {
+                        System.out.printf("<%s> : %s%n", key, val);
+                    } else {
+                        System.out.printf("%s : %s%n", key, val);
+                    }
+                }
+                break;
         }
     }
 
