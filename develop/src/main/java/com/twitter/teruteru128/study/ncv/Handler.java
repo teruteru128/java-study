@@ -7,17 +7,20 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class Handler extends DefaultHandler {
-    private final HashSet<UserB> set;
-    public Handler(final HashSet<UserB> set){
+    protected final HashSet<UserB> set;
+
+    public Handler(final HashSet<UserB> set) {
         this.set = set;
     }
+
     @Override
     public void startDocument() throws SAXException {
         super.startDocument();
     }
 
     @Override
-    public void startElement(final String uri, final String localName, final String qName, final Attributes attributes) throws SAXException {
+    public void startElement(final String uri, final String localName, final String qName, final Attributes attributes)
+            throws SAXException {
         System.out.println(localName);
     }
 

@@ -159,29 +159,21 @@ public class UserA implements Comparable<UserA>, Serializable {
         StringBuilder builder = new StringBuilder();
         builder.append("<user");
         if (!community.isEmpty()) {
-            builder.append(" community=\"");
-            builder.append(community);
-            builder.append("\"");
+            builder.append(" community=\"").append(community).append("\"");
         }
         if (!bgcolor.isEmpty()) {
             builder.append(" bgcolor=\"");
             builder.append(bgcolor);
             builder.append("\"");
         }
-        builder.append(" name=\"");
-        builder.append(name);
-        builder.append("\"");
-        builder.append(" time=\"");
-        builder.append(time);
-        builder.append("\"");
+        builder.append(" name=\"").append(name).append("\"");
+        builder.append(" time=\"").append(time).append("\"");
         if (!readout) {
             builder.append(" readout=\"");
             builder.append(readout);
             builder.append("\"");
         }
-        builder.append(">");
-        builder.append(id);
-        builder.append("</user>");
+        builder.append(">").append(id).append("</user>");
         return builder.toString();
     }
 

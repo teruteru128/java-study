@@ -37,7 +37,6 @@ public class Main2 {
             MessageDigest sha256 = null;
             int mode = 1;
             Date date = GregorianCalendar.getInstance(Locale.JAPAN).getTime();
-            DateFormat df = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL, Locale.JAPAN);
             DateFormat df2 = new SimpleDateFormat("y年M月d日 k時m分s秒", Locale.JAPAN);
             switch (mode) {
                 case 1:

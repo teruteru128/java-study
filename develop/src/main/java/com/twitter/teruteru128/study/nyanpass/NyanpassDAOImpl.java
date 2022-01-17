@@ -1,7 +1,11 @@
 package com.twitter.teruteru128.study.nyanpass;
 
 public class NyanpassDAOImpl implements NyanpassDAO {
-    public NyanpassDAOImpl() {
+
+    protected NyanpassConfig config;
+
+    public NyanpassDAOImpl(NyanpassConfig config) {
+        this.config = config;
     }
 
     @Override

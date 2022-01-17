@@ -3,27 +3,22 @@ package com.twitter.teruteru128.study.ncv;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.HashSet;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.EntityReference;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
-public class UserSettingParseTest2 extends DefaultHandler {
+public class UserSettingParseTest2 extends Handler {
 
     public static void main(String[] args) throws Exception {
-        Path path = Paths.get("C:\\Users\\terut\\AppData\\Roaming\\posite-c\\NiconamaCommentViewer\\UserSetting.xml");
+        Path path = Paths.get("/mnt/c/Users/terut/AppData/Roaming/posite-c/NiconamaCommentViewer/UserSetting.xml");
         String uri = path.toUri().toString();
 
         /*
@@ -39,7 +34,7 @@ public class UserSettingParseTest2 extends DefaultHandler {
         Document document = builder.parse(uri);
         Element root = document.getDocumentElement();
         String uri1 = "http://posite-c.jp/niconamacommentviewer/usersetting/";
-        String uri2 = "http://posite-c.jp/niconamacommentviewer/common/";
+        // String uri2 = "http://posite-c.jp/niconamacommentviewer/common/";
         NodeList list = root.getElementsByTagNameNS(uri1, "user");
         int length = list.getLength();
         ArrayList<UserA> users = new ArrayList<>(length);
@@ -69,7 +64,8 @@ public class UserSettingParseTest2 extends DefaultHandler {
         users.stream().distinct().sorted().forEach(System.out::println);
     }
 
-    public UserSettingParseTest2() {
+    public UserSettingParseTest2(HashSet<UserB> set) {
+        super(set);
     }
 
     @Override

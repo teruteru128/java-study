@@ -32,6 +32,7 @@ public class NyanpassButtonPoller implements Runnable {
     @Override
     public void run() {
         try {
+            dao.getNyanpassBean();
             try (InputStream in = NYANPASS_URI.toURL().openStream();
                     BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
                 JSONObject object = new JSONObject(new JSONTokener(reader));
@@ -39,8 +40,10 @@ public class NyanpassButtonPoller implements Runnable {
                 long count = object.getLong("count");
                 config.getQueue().put(new NyanpassBean(time, count));
             }
-        } catch (InterruptedException e) {
+        } catch (NyanpassException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

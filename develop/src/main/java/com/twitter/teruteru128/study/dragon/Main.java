@@ -1,8 +1,14 @@
 package com.twitter.teruteru128.study.dragon;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
+
+import javax.imageio.ImageIO;
 
 /**
  * @author teruteru128
@@ -16,8 +22,8 @@ public class Main {
 
     public static void main(String[] args) {
         String src = build(26);
-        System.out.printf("%d%n",src.length());
-        /*
+        System.out.printf("%d%n", src.length());
+
         char[] array = src.toCharArray();
         char tmp;
         int length = array.length;
@@ -39,16 +45,16 @@ public class Main {
         for (int i = 0; i < length; i++) {
             tmp = array[i];
             switch (tmp) {
-            case '+':
-                lt(RIGHT_ANGLE);
-                fd(g2, l);
-                break;
-            case '-':
-                rt(RIGHT_ANGLE);
-                fd(g2, l);
-                break;
-            default:
-                break;
+                case '+':
+                    lt(RIGHT_ANGLE);
+                    fd(g2, l);
+                    break;
+                case '-':
+                    rt(RIGHT_ANGLE);
+                    fd(g2, l);
+                    break;
+                default:
+                    break;
             }
         }
         try {
@@ -56,7 +62,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-*/
+
     }
 
     public static void stackDragon(LinkedList<Direction> stack, int length) {
@@ -65,15 +71,15 @@ public class Main {
         for (int i = 0; i < length; i++) {
             for (char c : d.toCharArray()) {
                 switch (c) {
-                case 'X':
-                    b.append("X+YF");
-                    break;
-                case 'Y':
-                    b.append("FX-Y");
-                    break;
-                default:
-                    b.append(c);
-                    break;
+                    case 'X':
+                        b.append("X+YF");
+                        break;
+                    case 'Y':
+                        b.append("FX-Y");
+                        break;
+                    default:
+                        b.append(c);
+                        break;
                 }
             }
             d = b.toString();
@@ -81,14 +87,14 @@ public class Main {
         }
         for (char c : d.toCharArray()) {
             switch (c) {
-            case '+':
-                stack.add(Direction.LEFT);
-                break;
-            case '-':
-                stack.add(Direction.RIGHT);
-                break;
-            default:
-                break;
+                case '+':
+                    stack.add(Direction.LEFT);
+                    break;
+                case '-':
+                    stack.add(Direction.RIGHT);
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -105,15 +111,15 @@ public class Main {
             for (int j = 0; j < tmpl; j++) {
                 tmpChar = tmp1[j];
                 switch (tmpChar) {
-                case 'X':
-                    b.append("X+YF");
-                    break;
-                case 'Y':
-                    b.append("FX-Y");
-                    break;
-                default:
-                    b.append(tmpChar);
-                    break;
+                    case 'X':
+                        b.append("X+YF");
+                        break;
+                    case 'Y':
+                        b.append("FX-Y");
+                        break;
+                    default:
+                        b.append(tmpChar);
+                        break;
                 }
             }
             d = b.toString();
@@ -127,7 +133,7 @@ public class Main {
      * 
      * @param g2
      * @param length
-     * */
+     */
     public static void fd(Graphics2D g2, int length) {
         int current_x = x;
         int current_y = y;
