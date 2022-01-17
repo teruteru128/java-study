@@ -170,8 +170,6 @@ public class ECIESSample implements Callable<Void> {
         var privateKey4 = factory1.generatePrivate(privateKeySpec4);
 
         // BC API を使って鍵インポート・暗号化/復号テスト
-        var cipher1 = Cipher.getInstance("ECIESwithSHA512/NONE/NOPADDING", bcProvider);
-
         var factory2 = KeyFactory.getInstance("EC", bcProvider);
 
         // ドメイン設定
