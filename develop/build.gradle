@@ -9,9 +9,9 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     // https://docs.gradle.org/current/userguide/application_plugin.html
-    //id 'application'
+    id 'application'
     // https://docs.gradle.org/current/userguide/eclipse_plugin.html
-    //id 'eclipse'
+    id 'eclipse'
     // https://docs.gradle.org/current/userguide/java_plugin.html
     id 'java'
     // https://docs.gradle.org/current/userguide/java_library_plugin.html
@@ -40,12 +40,11 @@ compileJava {
 }
 */
 
-/*
+
 application {
-    mainModule = 'com.twitter.teruteru.study'
-    mainClass = 'com.twitter.teruteru128.study.bitmessage.genaddress2.GenSample'
+//    mainModule = 'com.twitter.teruteru.study'
+    mainClass = 'com.twitter.teruteru128.study.crypto.ECIESSample'
 }
-*/
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -75,7 +74,7 @@ dependencies {
     implementation 'org.twitter4j:twitter4j-core:4.0.7';
 
     // https://mvnrepository.com/artifact/org.apache.hbase/hbase
-    implementation group: 'org.apache.hbase', name: 'hbase', version: '2.4.9', ext: 'pom'
+    // implementation group: 'org.apache.hbase', name: 'hbase', version: '2.4.9', ext: 'pom'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk15on
     implementation 'org.bouncycastle:bcmail-jdk15on:1.70'

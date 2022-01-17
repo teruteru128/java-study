@@ -1,5 +1,8 @@
 package com.twitter.teruteru128.study.crypto;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -9,6 +12,9 @@ import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.Provider;
+import java.security.PublicKey;
 import java.security.Security;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.ECParameterSpec;
@@ -17,6 +23,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.concurrent.Callable;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -28,27 +35,94 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
 import org.bouncycastle.jce.spec.ECPublicKeySpec;
 
-public class ECIESSample {
+public class ECIESSample implements Callable<Void> {
 
-    public static void main(String[] args)
+    private void encTest(String message, Charset charset, byte[] privateKeyData, byte[] publicKeyData,
+            ECParameterSpec parameterSpec, Provider provider)
             throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidKeySpecException,
             NoSuchProviderException, InvalidParameterSpecException,
             IllegalBlockSizeException, BadPaddingException {
+        // 秘密鍵をインポート
+        ECPrivateKeySpec privateKeySpec = new ECPrivateKeySpec(new BigInteger(1, privateKeyData), parameterSpec);
+        // 非圧縮鍵表現鍵から鍵をインポートする
+        var x = new BigInteger(1, Arrays.copyOfRange(publicKeyData, 1, 33));
+        var y = new BigInteger(1, Arrays.copyOfRange(publicKeyData, 33, 65));
+        var w = new java.security.spec.ECPoint(x, y);
+        var publicKeySpec = new java.security.spec.ECPublicKeySpec(w, parameterSpec);
+        var factory1 = KeyFactory.getInstance("EC");
+
+        // 鍵スペックから鍵に変換する
+        var publicKey = factory1.generatePublic(publicKeySpec);
+        var privateKey = factory1.generatePrivate(privateKeySpec);
+
+        // 暗号化/復号テスト
+        var cipher = Cipher.getInstance("ECIES/None/NoPadding", provider);
+
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+        var ciphertext = cipher.doFinal(message.getBytes(charset));
+        System.out.printf("length : %d bytes%n", ciphertext.length);
+        for (int i = 0; i < ciphertext.length; i++) {
+            System.out.printf("%02x", ciphertext[i]);
+            if (i % 16 == 15) {
+                System.out.println();
+            }
+        }
+        System.out.println();
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        var cleartext = new String(cipher.doFinal(ciphertext), charset);
+        System.out.printf("cleartext : %s(charset:%s)%n", cleartext, charset.displayName());
+    }
+
+    private void anotherProviderTest(String message, Charset charset, PrivateKey privateKey, PublicKey publicKey,
+            ECParameterSpec parameterSpec, Provider provider)
+            throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidKeySpecException,
+            NoSuchProviderException, InvalidParameterSpecException,
+            IllegalBlockSizeException, BadPaddingException {
+        var cipher = Cipher.getInstance("ECIESwithSHA512/NONE/NOPADDING", provider);
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+        var ciphertext = cipher.doFinal(message.getBytes(charset));
+        System.out.printf("length : %d bytes%n", ciphertext.length);
+        for (int i = 0; i < ciphertext.length; i++) {
+            System.out.printf("%02x", ciphertext[i]);
+            if (i % 16 == 15) {
+                System.out.println();
+            }
+        }
+        System.out.println();
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        var cleartext = new String(cipher.doFinal(ciphertext), charset);
+        System.out.printf("cleartext : %s(charset:%s)%n", cleartext, charset.displayName());
+    }
+
+    @Override
+    public Void call()
+            throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidKeySpecException,
+            NoSuchProviderException, InvalidParameterSpecException,
+            IllegalBlockSizeException, BadPaddingException, IOException {
         /** base64 decoder */
         Base64.Decoder decoder = Base64.getDecoder();
+
+        String stringkeydata1 = null;
+        String stringkeydata2 = null;
+        try (var stream = new BufferedReader(
+                new InputStreamReader(this.getClass().getResourceAsStream("privatekey.txt")))) {
+            stringkeydata1 = stream.readLine();
+            stringkeydata2 = stream.readLine();
+        }
+
         // static keys
-        var privateKeyData1 = decoder.decode("");
-        var privateKeyData2 = decoder.decode("");
+        var privateKeyData1 = decoder.decode(stringkeydata1);
+        var privateKeyData2 = decoder.decode(stringkeydata2);
         var publicKeyData1 = decoder
                 .decode("BHaW7iAHcG2h49xLy8oBS25GwZUCIxUr84q/TwDbI0rMiG7XMFp49lGomisFKE2TA5s7O5mSbmR5yq+2EzE61pc=");
         var publicKeyData2 = decoder
                 .decode("BABfHBsh6Fo8BJpWgi6fWDtfoS4BkPODxUOOsUMhQk0MVo/Q2bNKsZ5GmKcbl6ncbJG9eAThWmOXzUoHDBptqOo=");
 
         var bcProvider = new BouncyCastleProvider();
-        Security.addProvider(bcProvider);
+        // Security.addProvider(bcProvider);
 
         MessageDigest sha512 = MessageDigest.getInstance("sha512");
-        MessageDigest ripemd160 = MessageDigest.getInstance("ripemd160");
+        MessageDigest ripemd160 = MessageDigest.getInstance("ripemd160", bcProvider);
 
         sha512.update(publicKeyData1);
         sha512.update(publicKeyData2);
@@ -68,9 +142,12 @@ public class ECIESSample {
         parameters.init(new ECGenParameterSpec(name));
         var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
 
+        encTest(message, StandardCharsets.UTF_8, privateKeyData1, publicKeyData1, parameterSpec, bcProvider);
+        encTest(message, Charset.forName("sjis"), privateKeyData2, publicKeyData2, parameterSpec, bcProvider);
+
         // 秘密鍵をインポート
-        ECPrivateKeySpec privateKeySpec5 = new ECPrivateKeySpec(new BigInteger(1, privateKeyData1), parameterSpec);
-        ECPrivateKeySpec privateKeySpec6 = new ECPrivateKeySpec(new BigInteger(1, privateKeyData2), parameterSpec);
+        ECPrivateKeySpec privateKeySpec3 = new ECPrivateKeySpec(new BigInteger(1, privateKeyData1), parameterSpec);
+        ECPrivateKeySpec privateKeySpec4 = new ECPrivateKeySpec(new BigInteger(1, privateKeyData2), parameterSpec);
 
         // 非圧縮鍵表現鍵から鍵をインポートする
         var x3 = new BigInteger(1, Arrays.copyOfRange(publicKeyData1, 1, 33));
@@ -89,27 +166,8 @@ public class ECIESSample {
         // 鍵スペックから鍵に変換する
         var publicKey3 = factory1.generatePublic(publicKeySpec3);
         var publicKey4 = factory1.generatePublic(publicKeySpec4);
-        var privateKey5 = factory1.generatePrivate(privateKeySpec5);
-        var privateKey6 = factory1.generatePrivate(privateKeySpec6);
-
-        // 暗号化/復号テスト
-        // 暗号化テスト
-        var cipher2 = Cipher.getInstance("ECIES/None/NoPadding", bcProvider);
-
-        cipher2.init(Cipher.ENCRYPT_MODE, publicKey3);
-        var ciphertext1 = cipher2.doFinal(message.getBytes(StandardCharsets.UTF_8));
-
-        Charset SJIS = Charset.forName("sjis");
-        cipher2.init(Cipher.ENCRYPT_MODE, publicKey4);
-        var ciphertext2 = cipher2.doFinal(message.getBytes(SJIS));
-
-        // 復号テスト
-        cipher2.init(Cipher.DECRYPT_MODE, privateKey5);
-        var cleartext1 = new String(cipher2.doFinal(ciphertext1), StandardCharsets.UTF_8);
-        System.out.printf("cleartext1 : %s%n", cleartext1);
-        cipher2.init(Cipher.DECRYPT_MODE, privateKey6);
-        var cleartext2 = new String(cipher2.doFinal(ciphertext2), SJIS);
-        System.out.printf("cleartext2 : %s%n", cleartext2);
+        var privateKey3 = factory1.generatePrivate(privateKeySpec3);
+        var privateKey4 = factory1.generatePrivate(privateKeySpec4);
 
         // BC API を使って鍵インポート・暗号化/復号テスト
         var cipher1 = Cipher.getInstance("ECIESwithSHA512/NONE/NOPADDING", bcProvider);
@@ -129,15 +187,23 @@ public class ECIESSample {
         var pubkeySpec2 = new ECPublicKeySpec(ecPoint2, dParams);
         var publicKey2 = factory2.generatePublic(pubkeySpec2);
 
-        // 暗号化テスト
-        cipher1.init(Cipher.ENCRYPT_MODE, publicKey1);
-        cipher1.init(Cipher.ENCRYPT_MODE, publicKey2);
+        for (int i = 0; i < 32; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
 
-        // BC 暗号プロバイダ + SunEC 暗号鍵でも動く
-        cipher1.init(Cipher.ENCRYPT_MODE, publicKey3);
-        cipher1.init(Cipher.ENCRYPT_MODE, publicKey4);
+        // publicKey1とprivateKey3、publicKey3とprivateKey3の組み合わせのいずれでも動くはず
+        anotherProviderTest(message, StandardCharsets.UTF_8, privateKey3, publicKey1, parameterSpec, bcProvider);
+        anotherProviderTest(message, StandardCharsets.UTF_8, privateKey3, publicKey3, parameterSpec, bcProvider);
+        anotherProviderTest(message, StandardCharsets.UTF_8, privateKey4, publicKey2, parameterSpec, bcProvider);
+        anotherProviderTest(message, StandardCharsets.UTF_8, privateKey4, publicKey4, parameterSpec, bcProvider);
+        return null;
+    }
 
-        cipher1.init(Cipher.DECRYPT_MODE, privateKey5);
-        cipher1.init(Cipher.DECRYPT_MODE, privateKey6);
+    public static void main(String[] args)
+            throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidKeySpecException,
+            NoSuchProviderException, InvalidParameterSpecException,
+            IllegalBlockSizeException, BadPaddingException, IOException {
+        new ECIESSample().call();
     }
 }
