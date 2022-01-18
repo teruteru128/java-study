@@ -82,9 +82,9 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (osName.indexOf("windows") >= 0) {
+        if (osName.contains("windows")) {
             rt.exec(new String[] { "rundll32", "url.dll,FileProtocolHandler", url });
-        } else if (osName.indexOf("mac") >= 0 || osName.indexOf("darwin") >= 0) {
+        } else if (osName.contains("mac") || osName.contains("darwin")) {
             // Mac OS: to open a page with Safari, use "open -a Safari"
             Runtime.getRuntime().exec(new String[] { "open", url });
         } else {
