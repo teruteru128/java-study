@@ -88,13 +88,14 @@ public class Main {
             // Mac OS: to open a page with Safari, use "open -a Safari"
             Runtime.getRuntime().exec(new String[] { "open", url });
         } else {
-            String[] browsers = { "chromium", "google-chrome", "firefox", "mozilla-firefox", "mozilla", "konqueror",
-                    "netscape", "opera", "midori" };
+            String[] browsers = { "google-chrome", "firefox", "chromium", "konqueror",
+                    "netscape", "opera", "midori", "chromium-browser", "wslview" };
             boolean ok = false;
             for (String b : browsers) {
                 try {
                     rt.exec(new String[] { b, url });
                     ok = true;
+                    System.out.printf("%s has selected.%n", b);
                     break;
                 } catch (Exception e) {
                     // ignore and try the next
