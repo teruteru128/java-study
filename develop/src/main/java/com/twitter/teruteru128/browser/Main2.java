@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.browser;
+package com.twitter.teruteru128.browser;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import com.twitter.teruteru128.util.Utils;
-
-import org.h2.engine.SysProperties;
 
 /**
  * @author Teruteru
@@ -54,9 +52,9 @@ public class Main2 {
 
     public static void openBrowser(URI uri) throws URISyntaxException {
         try {
-            String osName = getProperty("os.name", "linux").toLowerCase(Locale.ENGLISH);
+            String osName = Utils.getProperty("os.name", "linux").toLowerCase(Locale.ENGLISH);
             var rt = Runtime.getRuntime();
-            String browser = getProperty(SysProperties.H2_BROWSER, null);
+            String browser = null;
             if (browser == null) {
                 // under Linux, this will point to the default system browser
                 browser = getBrowserEnv();
@@ -103,7 +101,7 @@ public class Main2 {
                 if (!ok) {
                     // No success in detection.
                     throw new RuntimeException(
-                            "Browser detection failed and system property " + SysProperties.H2_BROWSER + " not set");
+                            "Browser detection failed");
                 }
             }
         } catch (Exception e) {
@@ -140,22 +138,6 @@ public class Main2 {
 
     public static void openBrowser(String uri) throws URISyntaxException {
         openBrowser(new URI(uri));
-    }
-
-    /**
-     * Get the system property. If the system property is not set, or if a security
-     * exception occurs, the default value is returned.
-     *
-     * @param key          the key
-     * @param defaultValue the default value
-     * @return the value
-     */
-    public static String getProperty(String key, String defaultValue) {
-        try {
-            return System.getProperty(key, defaultValue);
-        } catch (SecurityException se) {
-            return defaultValue;
-        }
     }
 
     /**

@@ -1,12 +1,11 @@
-package com.twitter.teruteru128.study.browser;
+package com.twitter.teruteru128.browser;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.net.URI;
+import java.util.Locale;
 
 import com.twitter.teruteru128.util.Utils;
-
-import org.h2.engine.SysProperties;
-import org.h2.util.StringUtils;
 
 /**
  * @author Teruteru
@@ -14,7 +13,7 @@ import org.h2.util.StringUtils;
  */
 public class Main {
     public static void main(String[] args) {
-        String url = "http://abehiroshi.la.coocan.jp/";
+        String url = "https://html.duckduckgo.com/html/";
         try {
             Main.openBrowser(url);
         } catch (Exception e) {
@@ -24,7 +23,7 @@ public class Main {
 
     public static void openBrowser(String url) throws Exception {
         try {
-            String osName = StringUtils.toLowerEnglish(Utils.getProperty("os.name", "linux"));
+            String osName = Utils.getProperty("os.name", "linux").toLowerCase(Locale.ENGLISH);
             Runtime rt = Runtime.getRuntime();
             String browser = null;
             // under Linux, this will point to the default system browser
@@ -38,9 +37,9 @@ public class Main {
                     browser = browser.substring("call:".length());
                     Utils.callStaticMethod(browser, url);
                 } else if (browser.indexOf("%url") >= 0) {
-                    String[] args = StringUtils.arraySplit(browser, ',', false);
+                    String[] args = browser.split(",");
                     for (int i = 0; i < args.length; i++) {
-                        args[i] = StringUtils.replaceAll(args[i], "%url", url);
+                        args[i] = args[i].replaceAll("%url", url);
                     }
                     rt.exec(args);
                 } else if (osName.indexOf("windows") >= 0) {
@@ -51,22 +50,37 @@ public class Main {
                 return;
             }
             try {
-                Class<?> desktopClass = Class.forName("java.awt.Desktop");
+                Class<?> desktopClazz = Class.forName("java.awt.Desktop");
+                Class<?> actionClazz = Class.forName("java.awt.Desktop$Action");
+                // java.awt.Desktop$Action.values();
+                Method valuesMethod = actionClazz.getMethod("values");
+                Object values = valuesMethod.invoke(null);
                 // Desktop.isDesktopSupported()
-                Method isDesktopSupported = desktopClass.getMethod("isDesktopSupported");
-                boolean supported = (boolean) isDesktopSupported.invoke(null);
+                Method isDesktopSupported = desktopClazz.getMethod("isDesktopSupported");
+                Object desktopSupportedObject = isDesktopSupported.invoke(null);
+                System.out.printf("supportedObject is %s%n", desktopSupportedObject);
+                boolean supported = (boolean) desktopSupportedObject;
                 URI uri = new URI(url);
                 if (supported) {
                     // Desktop.getDesktop();
-                    Method getDesktop = desktopClass.getMethod("getDesktop");
+                    Method getDesktop = desktopClazz.getMethod("getDesktop");
                     Object desktop = getDesktop.invoke(null);
+                    System.out.printf("Desktop : %s%n", desktop);
+                    int length = Array.getLength(values);
+                    Method isSupported = desktopClazz.getMethod("isSupported", actionClazz);
+                    for (int i = 0; i < length; i++) {
+                        Object actionObject = Array.get(values, i);
+                        Object supportedObject = isSupported.invoke(desktop, actionObject);
+                        if ((boolean) supportedObject) {
+                            System.out.printf("%s : %s%n", actionObject, supportedObject);
+                        }
+                    }
                     // desktop.browse(uri);
-                    Method browse = desktopClass.getMethod("browse", URI.class);
+                    Method browse = desktopClazz.getMethod("browse", URI.class);
                     browse.invoke(desktop, uri);
                     return;
                 }
             } catch (Exception e) {
-                // ignore
             }
             if (osName.indexOf("windows") >= 0) {
                 rt.exec(new String[] { "rundll32", "url.dll,FileProtocolHandler", url });
@@ -89,7 +103,7 @@ public class Main {
                 if (!ok) {
                     // No success in detection.
                     throw new Exception(
-                            "Browser detection failed and system property " + SysProperties.H2_BROWSER + " not set");
+                            "Browser detection failed");
                 }
             }
         } catch (Exception e) {
