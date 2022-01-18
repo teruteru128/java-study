@@ -25,5 +25,5 @@ dependencies {
     implementation 'com.google.guava:guava:31.0.1-jre'
 
     // https://mvnrepository.com/artifact/com.h2database/h2
-    implementation 'com.h2database:h2:2.0.206'
+    implementation 'com.h2database:h2:2.1.210'
 }
