@@ -11,6 +11,7 @@ rootProject.name = 'java-study'
 include("app")
 include("bmclient")
 include("bouyomi")
+include("browser")
 include("dao")
 include("develop")
 include("encode")
