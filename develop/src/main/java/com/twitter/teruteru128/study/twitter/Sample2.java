@@ -1,7 +1,5 @@
 package com.twitter.teruteru128.study.twitter;
 
-import com.twitter.teruteru128.util.Printer;
-
 import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
@@ -14,9 +12,9 @@ public class Sample2 {
         Twitter twitter = TwitterFactory.getSingleton();
         try {
             ResponseList<Status> statuses = twitter.getHomeTimeline();
-            Printer.println("Showing home timeline.");
+            System.out.println("Showing home timeline.");
             for (Status status : statuses) {
-                Printer.println(status.getUser().getName() + ":"
+                System.out.println(status.getUser().getName() + ":"
                         + status.getText());
             }
         } catch (TwitterException e) {

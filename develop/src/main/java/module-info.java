@@ -18,9 +18,9 @@ module com.twitter.teruteru.study {
     requires org.json;
     requires org.twitter4j.core;
     requires com.h2database;
-    requires com.twitter.teruteru.encode;
-    requires com.twitter.teruteru.dao;
-    requires com.twitter.teruteru.util;
+    requires transitive com.twitter.teruteru.encode;
+    requires transitive com.twitter.teruteru.dao;
+    requires transitive com.twitter.teruteru.util;
 
     opens com.twitter.teruteru128.study.jaxb to jakarta.xml.bind;
 }

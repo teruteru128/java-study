@@ -52,18 +52,6 @@ public class ShadowSeed {
         return solveRoot(-nextSeed, ~worldSeed & 1);
     }
 
-    private static long MULTIPLIER = 0x5DEECE66DL;
-    private static long ADDEND = 0xBL;
-    private static long MASK = 0xFFFFFFFFFFFFL;
-
-    private static long init(long seed) {
-        return (seed ^ MULTIPLIER) & MASK;
-    }
-
-    private static long lcg(long seed) {
-        return (seed * MULTIPLIER + ADDEND) & MASK;
-    }
-
     /**
      * 
      * @param args

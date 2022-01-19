@@ -1,7 +1,6 @@
 package com.twitter.teruteru128.study.hash;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,17 +9,22 @@ import java.util.ArrayList;
 
 import com.twitter.teruteru128.dao.AbstractH2DAO;
 
+import org.h2.jdbcx.JdbcDataSource;
+
 /**
  * キーワード : コネクションプーリング
- * */
+ */
 public class SHA256H2DAO extends AbstractH2DAO {
     /**
      * @return {@inheritDoc}
-     * */
+     */
     @Override
     public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:h2:tcp://localhost/hash",
-                "sa", "");
+        JdbcDataSource source = new JdbcDataSource();
+        source.setURL("jdbc:h2:tcp://localhost/hash");
+        source.setUser("sa");
+        source.setPassword("");
+        return source.getConnection();
     }
 
     public void createSHA256(SHA256 hash) {
