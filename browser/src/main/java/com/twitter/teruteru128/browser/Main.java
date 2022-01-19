@@ -89,7 +89,7 @@ public class Main {
             Runtime.getRuntime().exec(new String[] { "open", url });
         } else {
             String[] browsers = { "google-chrome", "firefox", "chromium", "konqueror",
-                    "netscape", "opera", "midori", "chromium-browser", "wslview" };
+                    "netscape", "opera", "midori", "chromium-browser", "wslview", "vivaldi" };
             boolean ok = false;
             for (String b : browsers) {
                 try {

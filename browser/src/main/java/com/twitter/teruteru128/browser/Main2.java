@@ -86,7 +86,7 @@ public class Main2 {
                 // Mac OS: to open a page with Safari, use "open -a Safari"
                 Runtime.getRuntime().exec(new String[] { "open", uri.toString() });
             } else {
-                String[] browsers = { "chromium", "google-chrome", "firefox", "mozilla-firefox", "mozilla", "konqueror",
+                String[] browsers = { "firefox", "chromium", "google-chrome", "konqueror",
                         "netscape", "opera", "midori", "vivaldi" };
                 boolean ok = false;
                 for (String b : browsers) {
