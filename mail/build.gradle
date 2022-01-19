@@ -1,0 +1,20 @@
+
+plugins {
+    id 'java'
+    id 'application'
+}
+
+application {
+//    mainModule = 'com.twitter.teruteru.study'
+    mainClass = 'com.twitter.teruteru128.mail.Test'
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail
+    implementation 'com.sun.mail:jakarta.mail:2.0.1'
+}

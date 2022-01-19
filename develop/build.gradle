@@ -98,32 +98,26 @@ dependencies {
     implementation 'jakarta.json:jakarta.json-api:2.0.1'
 
     // https://mvnrepository.com/artifact/org.spigotmc/spigot-api
-    implementation 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    //implementation 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
 
     // https://mvnrepository.com/artifact/io.papermc.paper/paper-api
-    implementation 'io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT'
-
-    // https://mvnrepository.com/artifact/commons-codec/commons-codec
-    implementation 'commons-codec:commons-codec:1.15'
+    //implementation 'io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT'
 
     // https://mvnrepository.com/artifact/com.twitter.twittertext/twitter-text
     implementation 'com.twitter.twittertext:twitter-text:3.1.0'
 
-    // https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail
-    implementation 'com.sun.mail:jakarta.mail:2.0.1'
-
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    implementation 'org.slf4j:slf4j-api:1.7.33'
+    //implementation 'org.slf4j:slf4j-api:1.7.33'
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl
-    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.1'
+    //implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.1'
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
-    implementation('org.apache.logging.log4j:log4j-core:2.17.1')
+    //implementation('org.apache.logging.log4j:log4j-core:2.17.1')
 
     // https://github.com/greymd/CVE-2021-44228
     // https://mvnrepository.com/artifact/com.unboundid/unboundid-ldapsdk
-    implementation 'com.unboundid:unboundid-ldapsdk:3.1.1'
+    //implementation 'com.unboundid:unboundid-ldapsdk:3.1.1'
 }
 
 tasks.named('test') {

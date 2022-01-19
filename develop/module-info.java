@@ -15,7 +15,6 @@ module com.twitter.teruteru.study {
     requires jakarta.json;
     requires jakarta.mail;
     requires transitive jakarta.xml.bind;
-    //requires org.apache.commons.codec;
     requires org.bouncycastle.provider;
     requires org.json;
     requires org.twitter4j.core;
