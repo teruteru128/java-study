@@ -1,5 +1,7 @@
 package com.twitter.teruteru128.study.jaxb;
 
+import java.util.Optional;
+
 import jakarta.xml.bind.JAXB;
 
 /**
@@ -14,7 +16,14 @@ public class Main {
     public static void main(String[] args) throws Exception {
         User user = new User();
         JAXB.marshal(user, System.out);
-        System.out.println(Class.forName("com.sun.xml.bind.v2.ContextFactory"));
+        // org.glassfish.jaxb.runtime
+        ModuleLayer layer = ModuleLayer.boot();
+        Optional<Module> optional = layer.findModule("org.glassfish.jaxb.runtime");
+        if (optional.isPresent()) {
+            System.out.println(Class.forName(optional.get(), "com.sun.xml.bind.v2.ContextFactory"));
+        } else {
+            System.out.println("ないです。");
+        }
     }
 
 }
