@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.fractal;
+package com.twitter.teruteru128.fractal;
 
 import java.awt.Color;
 import java.awt.Graphics;

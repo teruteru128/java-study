@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.dragon;
+package com.twitter.teruteru128.fractal.dragon;
 
 import java.util.concurrent.RecursiveAction;
 

@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.dragon;
+package com.twitter.teruteru128.fractal;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
+
+import com.twitter.teruteru128.fractal.dragon.Direction;
 
 /**
  * @author teruteru128
