@@ -1,12 +1,13 @@
 
-plugins{
+plugins {
+    id 'java'
     id 'application'
 }
 
-repositories{
+repositories {
     mavenCentral()
 }
 
-application{
+application {
     mainClass = 'com.twitter.teruteru128.poop.Poop'
 }

@@ -7,13 +7,13 @@
  */
 
 plugins {
+    // https://docs.gradle.org/current/userguide/java_plugin.html
+    id 'java'
     // Apply the application plugin to add support for building a CLI application in Java.
     // https://docs.gradle.org/current/userguide/application_plugin.html
     id 'application'
     // https://docs.gradle.org/current/userguide/eclipse_plugin.html
     id 'eclipse'
-    // https://docs.gradle.org/current/userguide/java_plugin.html
-    id 'java'
     // https://docs.gradle.org/current/userguide/java_library_plugin.html
     //id 'java-library'
     // https://github.com/java9-modularity/gradle-modules-plugin
@@ -120,6 +120,10 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
     implementation('org.apache.logging.log4j:log4j-core:2.17.1')
+
+    // https://github.com/greymd/CVE-2021-44228
+    // https://mvnrepository.com/artifact/com.unboundid/unboundid-ldapsdk
+    implementation 'com.unboundid:unboundid-ldapsdk:3.1.1'
 }
 
 tasks.named('test') {
