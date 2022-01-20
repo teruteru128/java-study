@@ -14,6 +14,7 @@ public class JSSample {
 
     /**
      * @see https://www.hos.co.jp/blog/20211101/
+     * @see https://web.archive.org/web/20220119131858/https%3A%2F%2Fwww.hos.co.jp%2Fblog%2F20211101%2F
     */
     public static void main(String[] args) throws ScriptException {
         System.setProperty("polyglot.js.nashorn-compat", "true");

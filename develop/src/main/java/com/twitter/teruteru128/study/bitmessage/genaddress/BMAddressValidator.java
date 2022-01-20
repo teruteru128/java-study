@@ -7,8 +7,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.util.Arrays;
 
+import com.twitter.teruteru128.encode.Base58;
 import com.twitter.teruteru128.study.bitmessage.Const;
-import com.twitter.teruteru128.study.encode.Base58;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 

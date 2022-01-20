@@ -1,5 +1,5 @@
 
-package com.twitter.teruteru128.study.encode;
+package com.twitter.teruteru128.encode;
 
 import java.util.Arrays;
 

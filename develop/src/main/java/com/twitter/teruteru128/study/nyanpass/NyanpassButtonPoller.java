@@ -2,15 +2,14 @@ package com.twitter.teruteru128.study.nyanpass;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-import org.json.JSONObject;
-import org.json.JSONTokener;
+import jakarta.json.Json;
+import jakarta.json.JsonReader;
 
 /**
  * nyanpass.com からカウントを取得して標準出力へ表示します.
@@ -33,11 +32,10 @@ public class NyanpassButtonPoller implements Runnable {
     public void run() {
         try {
             dao.getNyanpassBean();
-            try (InputStream in = NYANPASS_URI.toURL().openStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
-                JSONObject object = new JSONObject(new JSONTokener(reader));
+            try (JsonReader reader = Json.createReader( new BufferedReader(new InputStreamReader(NYANPASS_URI.toURL().openStream())))) {
+                var object = reader.readObject();
                 LocalDateTime time = LocalDateTime.parse(object.getString("time"), FORMATTER);
-                long count = object.getLong("count");
+                long count = object.getJsonNumber("count").longValue();
                 config.getQueue().put(new NyanpassBean(time, count));
             }
         } catch (NyanpassException e) {

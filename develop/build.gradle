@@ -18,7 +18,7 @@ plugins {
     //id 'java-library'
     // https://github.com/java9-modularity/gradle-modules-plugin
     id 'org.javamodularity.moduleplugin' version '1.8.10' apply false
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    //id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 //javaModule.name = 'com.teruteru128.study'
@@ -28,21 +28,8 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-/*
-compileJava {
-    doFirst {
-        // TODO: クラスパスとモジュールパスに振り分け
-        options.compilerArgs = [
-            '--module-path', classpath.asPath,
-        ]
-            classpath = files()
-    }
-}
-*/
-
-
 application {
-//    mainModule = 'com.twitter.teruteru.study'
+    mainModule = 'com.twitter.teruteru.study'
     mainClass = 'com.twitter.teruteru128.study.crypto.ECIESSample'
 }
 
@@ -82,8 +69,13 @@ dependencies {
     // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk15on
     implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
 
+    // https://mvnrepository.com/artifact/com.github.spotbugs/spotbugs
+    // compile 'com.github.spotbugs:spotbugs:4.5.3'
+
+    // https://spotbugs.readthedocs.io/ja/latest/migration.html#com-google-code-findbugs-jsr305
+    // JSR305 is already Dormant status, so SpotBugs does not release jsr305 jar file. Please continue using findbugs’ one.
     // https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.2'
+    // implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
     implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
@@ -91,14 +83,20 @@ dependencies {
     // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
     implementation 'org.glassfish.jaxb:jaxb-runtime:3.0.2'
 
+    // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
+    // implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'
+
     // https://mvnrepository.com/artifact/org.json/json
-    implementation 'org.json:json:20211205'
+    //implementation 'org.json:json:20211205'
 
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation 'com.google.code.gson:gson:2.8.9'
 
     // https://mvnrepository.com/artifact/jakarta.json/jakarta.json-api
     implementation 'jakarta.json:jakarta.json-api:2.0.1'
+
+    // https://mvnrepository.com/artifact/org.glassfish/jakarta.json
+    implementation 'org.glassfish:jakarta.json:2.0.1'
 
     // https://mvnrepository.com/artifact/org.spigotmc/spigot-api
     //implementation 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'

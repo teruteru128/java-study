@@ -1,5 +1,6 @@
 
 /**
+ * Teruteru's Test Repository
  * @author teruteru
  * @moduleGraph
  */
@@ -12,15 +13,17 @@ module com.twitter.teruteru.study {
     requires java.scripting;
     requires java.sql;
     requires com.google.gson;
+    requires com.google.common;
     requires jakarta.json;
-    requires transitive jakarta.xml.bind;
+    requires jakarta.xml.bind;
     requires org.bouncycastle.provider;
-    requires org.json;
     requires org.twitter4j.core;
     requires com.h2database;
-    requires transitive com.twitter.teruteru.encode;
-    requires transitive com.twitter.teruteru.dao;
-    requires transitive com.twitter.teruteru.util;
+    requires com.twitter.teruteru.encode;
+    requires com.twitter.teruteru.dao;
+    requires com.twitter.teruteru.util;
+    requires org.glassfish.jaxb.runtime;
 
     opens com.twitter.teruteru128.study.jaxb to jakarta.xml.bind;
+    uses jakarta.xml.bind.JAXBContext;
 }

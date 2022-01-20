@@ -1,20 +1,13 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.study.fourcube;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.List;
 
 /**
- * x^3 + y^3 + z^3 = a
- * z^3 -a = x^3+y^3
+ * InnerSumOfThreeCubes
  */
-public class SumOfThreeCubes {
-
-  public static void main(String args[]) {
-    final var terms = List.of(new BigInteger("569936821221962380720"), new BigInteger("-569936821113563493509"),
-        new BigInteger("-472715493453327032"));
-    var sum = terms.stream().map(a -> a.pow(3)).reduce(BigInteger.valueOf(0), (a, b) -> a.add(b));
-    System.out.println(sum);
+public class InnerSumOfThreeCubes {
+  public static void main(String[] args) {
     final BigInteger positive1000 = BigInteger.valueOf(1000);
     final BigInteger negative1000 = positive1000.negate();
     SecureRandom rnd = new SecureRandom();
@@ -24,6 +17,7 @@ public class SumOfThreeCubes {
     BigInteger x3 = x.pow(3);
     BigInteger y3;
     BigInteger z3;
+    BigInteger sum;
     while (true) {
       y = new BigInteger(72, rnd).negate();
       z = new BigInteger(72, rnd);
@@ -44,5 +38,7 @@ public class SumOfThreeCubes {
         System.out.printf("\tz : %d%n", z.negate());
       }
     }
+
   }
+
 }
