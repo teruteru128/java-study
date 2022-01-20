@@ -1,0 +1,45 @@
+
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    mainClass = 'com.twitter.teruteru128.tomcat.launch.Main'
+    applicationDefaultJvmArgs = ['-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses']
+}
+
+dependencies {
+    // Use JUnit Jupiter for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+
+    // This dependency is exported to consumers, that is to say found on their compile classpath.
+    implementation 'org.apache.commons:commons-math3:3.6.1'
+
+    // This dependency is used by the application.
+    implementation 'com.google.guava:guava:31.0.1-jre'
+
+    def tomcatversion = '10.0.14'
+
+    // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    implementation "org.apache.tomcat.embed:tomcat-embed-core:$tomcatversion"
+
+    // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    implementation "org.apache.tomcat.embed:tomcat-embed-jasper:$tomcatversion"
+
+    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jasper
+    implementation "org.apache.tomcat:tomcat-jasper:$tomcatversion"
+
+    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jasper-el
+    implementation "org.apache.tomcat:tomcat-jasper-el:$tomcatversion"
+
+    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jsp-api
+    implementation "org.apache.tomcat:tomcat-jsp-api:$tomcatversion"
+
+    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jsp-api
+    implementation "org.apache.tomcat:tomcat-jsp-api:$tomcatversion"
+}
