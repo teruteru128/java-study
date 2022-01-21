@@ -1,5 +1,7 @@
 package com.twitter.teruteru128.tomcat.launch;
 
+import java.time.LocalDateTime;
+
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.core.StandardWrapper;
@@ -39,6 +41,7 @@ public class Main {
         var wrapper = new StandardWrapper();
         wrapper.setServletClass("com.twitter.teruteru128.tomcat.servlet.HelloWorldServlet");
         wrapper.setName("MyServlet");
+        wrapper.addInitParameter("time", LocalDateTime.now().toString());
         ctx.addChild(wrapper);
         //Tomcat.addServlet(ctx, "MyServlet", new HelloWorldServlet());
         ctx.addServletMappingDecoded("/hello", "MyServlet");
