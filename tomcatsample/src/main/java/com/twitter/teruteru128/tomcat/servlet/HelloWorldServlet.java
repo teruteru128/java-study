@@ -12,6 +12,10 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "MyServlet", urlPatterns = { "/hello" })
 public class HelloWorldServlet extends HttpServlet {
 
+    static {
+        System.out.println("hello servlet world!");
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

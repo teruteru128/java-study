@@ -1,18 +1,10 @@
 package com.twitter.teruteru128.tomcat.launch;
 
-import java.io.File;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import org.apache.catalina.WebResourceRoot;
-import org.apache.catalina.WebResourceSet;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.core.StandardContext;
+import org.apache.catalina.core.StandardWrapper;
 import org.apache.catalina.startup.ContextConfig;
 import org.apache.catalina.startup.Tomcat;
-import org.apache.catalina.webresources.DirResourceSet;
-import org.apache.catalina.webresources.StandardRoot;
 import org.apache.coyote.http11.Http11NioProtocol;
 
 public class Main {
@@ -26,33 +18,33 @@ public class Main {
         service.addConnector(connector);
         tomcat.setConnector(connector);
         tomcat.setBaseDir(null);
-        File tempBase = new File(System.getProperty("tomcat.test.temp", "output/tmp"));
-        if (!tempBase.mkdirs() && !tempBase.isDirectory()){
-            return;
-        }
-        Path tempBasePath = FileSystems.getDefault().getPath(tempBase.getAbsolutePath());
-        File tempDir = Files.createTempDirectory(tempBasePath, "test").toFile();
-        File appBase = new File(tempDir, "webapps");
-        tomcat.getHost().setAppBase(appBase.getAbsolutePath());
-        // The port that we should run on can be set into an environment variable
-        // Look for that variable and default to 8080 if it isn't there.
+        tomcat.getHost().setAppBase("work/Tomcat/localhost/");
         var ctx = (StandardContext) tomcat.addContext("", null);
+        // JSPを有効にしないので使わない
         // ctx.addLifecycleListener(tomcat.getDefaultWebXmlListener());
         var config = new ContextConfig();
         config.setDefaultWebXml(tomcat.noDefaultWebXmlPath());
         ctx.addLifecycleListener(config);
-/* 
+        /*
         ctx.setResources(new StandardRoot(ctx));
-        var currentPath = new File("./build/classes/java/main").getAbsolutePath();
-        ctx.getResources().createWebResourceSet(WebResourceRoot.ResourceSetType.POST, "/WEB-INF/classes", currentPath, null, "/");
-        ctx.setAddWebinfClassesResources(true); */
+        // ./gradlew tomcatsample:run の場合は build/classes/java/main
+        // java -jar tomcatsample/build/libs/tomcatsample-shade.jar の場合は tomcatsample/build/classes/java/main
+        // カレントディレクトリの都合で変わっちゃ駄目だろ、ボツ
+        ctx.getResources().createWebResourceSet(WebResourceRoot.ResourceSetType.POST, 
+        "/WEB-INF/classes", new File("tomcatsample/build/classes/java/main").getAbsolutePath(), null, "/");
+        ctx.setAddWebinfClassesResources(true);
+        */
 
         // TODO 手動で読み込ませずに、アノテーションでサーブレットを読ませるにはどうしたらいいんだ？
+        var wrapper = new StandardWrapper();
+        wrapper.setServletClass("com.twitter.teruteru128.tomcat.servlet.HelloWorldServlet");
+        wrapper.setName("MyServlet");
+        ctx.addChild(wrapper);
         //Tomcat.addServlet(ctx, "MyServlet", new HelloWorldServlet());
-        //ctx.addServletMappingDecoded("/hello", "MyServlet");
+        ctx.addServletMappingDecoded("/hello", "MyServlet");
 
         tomcat.start();
-        System.out.printf("http://localhost:%d/hello", connector.getLocalPort());
+        System.out.printf("http://localhost:%d/hello%n", connector.getLocalPort());
         tomcat.getServer().await();
     }
 }

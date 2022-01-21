@@ -2,6 +2,7 @@
 plugins {
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 repositories {
@@ -11,6 +12,10 @@ repositories {
 application {
     mainClass = 'com.twitter.teruteru128.tomcat.launch.Main'
     applicationDefaultJvmArgs = ['-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses']
+}
+
+shadowJar {
+    archiveClassifier = 'shade'
 }
 
 dependencies {
@@ -29,17 +34,14 @@ dependencies {
     implementation "org.apache.tomcat.embed:tomcat-embed-core:$tomcatversion"
 
     // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
-    implementation "org.apache.tomcat.embed:tomcat-embed-jasper:$tomcatversion"
+    //implementation "org.apache.tomcat.embed:tomcat-embed-jasper:$tomcatversion"
 
     // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jasper
-    implementation "org.apache.tomcat:tomcat-jasper:$tomcatversion"
+    //implementation "org.apache.tomcat:tomcat-jasper:$tomcatversion"
 
     // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jasper-el
-    implementation "org.apache.tomcat:tomcat-jasper-el:$tomcatversion"
+    //implementation "org.apache.tomcat:tomcat-jasper-el:$tomcatversion"
 
     // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jsp-api
-    implementation "org.apache.tomcat:tomcat-jsp-api:$tomcatversion"
-
-    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jsp-api
-    implementation "org.apache.tomcat:tomcat-jsp-api:$tomcatversion"
+    //implementation "org.apache.tomcat:tomcat-jsp-api:$tomcatversion"
 }
