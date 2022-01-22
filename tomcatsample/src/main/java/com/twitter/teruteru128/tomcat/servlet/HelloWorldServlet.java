@@ -2,7 +2,10 @@ package com.twitter.teruteru128.tomcat.servlet;
 
 import java.io.IOException;
 
-import jakarta.servlet.ServletConfig;
+import org.apache.catalina.core.StandardWrapperFacade;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,8 +16,14 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "MyServlet", urlPatterns = { "/hello" })
 public class HelloWorldServlet extends HttpServlet {
 
+    private static Log log = LogFactory.getLog(HelloWorldServlet.class);
+
     static {
-        System.out.println("hello servlet world!");
+        log.info("hello servlet world!");
+    }
+
+    public HelloWorldServlet() {
+        // NOOP
     }
 
     @Override
@@ -26,33 +35,12 @@ public class HelloWorldServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-    }
-
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
-    }
-
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doDelete(req, resp);
-    }
-
-    @Override
     public void init() throws ServletException {
-        super.init();
-        System.out.println("servlet init");
+        var facade = (StandardWrapperFacade) getServletConfig();
+        // ここにクラス名とか入れてClass.forNameしてもいいんだよな……
+        log.info(facade.getInitParameter("name"));
+        var context = facade.getServletContext();
+        log.info(context.getClass());
     }
 
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-    }
 }

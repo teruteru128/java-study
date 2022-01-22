@@ -1,32 +1,56 @@
 package com.twitter.teruteru128.tomcat.launch;
 
-import java.time.LocalDateTime;
-
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.core.StandardContext;
+import org.apache.catalina.core.StandardHost;
+import org.apache.catalina.core.StandardServer;
 import org.apache.catalina.core.StandardWrapper;
 import org.apache.catalina.startup.ContextConfig;
 import org.apache.catalina.startup.Tomcat;
-import org.apache.coyote.http11.Http11NioProtocol;
+import org.apache.juli.logging.Log;
+import org.apache.juli.logging.LogFactory;
 
+/**
+ * 
+*/
 public class Main {
+
+    private static Log log = LogFactory.getLog(Main.class);
+
+    /**
+     * 
+     * @param args
+     * @throws Exception
+    */
     public static void main(String[] args) throws Exception {
         Tomcat tomcat = new Tomcat();
-        var protocol = Http11NioProtocol.class.getName();
-        var connector = new Connector(protocol);
+        // tomcat.setPort(0); を呼び出すかどうかでbaseDirまわりで挙動が変わる
+        tomcat.setPort(0);
+
+        // HTTPコネクタを定義
+        var connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
+        // tomcat.setPort(); と connector.setPort(); は両方呼び出すべき
         connector.setPort(0);
         connector.setThrowOnFailure(true);
-        var service = tomcat.getService();
-        service.addConnector(connector);
-        tomcat.setConnector(connector);
+
+        // tomcatにhttpコネクタを追加
+        var server = (StandardServer)tomcat.getServer();
+        var tomcatService = server.findService("Tomcat");
+        tomcatService.addConnector(connector);
+        // 追加済みなのでいらない
+        //tomcat.setConnector(connector);
+
         tomcat.setBaseDir(null);
-        tomcat.getHost().setAppBase("work/Tomcat/localhost/");
+        ((StandardHost)tomcat.getHost()).setAppBase("work/Tomcat/localhost/");
+        tomcat.enableNaming();
+
         var ctx = (StandardContext) tomcat.addContext("", null);
         // JSPを有効にしないので使わない
         // ctx.addLifecycleListener(tomcat.getDefaultWebXmlListener());
         var config = new ContextConfig();
         config.setDefaultWebXml(tomcat.noDefaultWebXmlPath());
         ctx.addLifecycleListener(config);
+
         /*
         ctx.setResources(new StandardRoot(ctx));
         // ./gradlew tomcatsample:run の場合は build/classes/java/main
@@ -41,13 +65,20 @@ public class Main {
         var wrapper = new StandardWrapper();
         wrapper.setServletClass("com.twitter.teruteru128.tomcat.servlet.HelloWorldServlet");
         wrapper.setName("MyServlet");
-        wrapper.addInitParameter("time", LocalDateTime.now().toString());
+        wrapper.addInitParameter("name", "ここに何かしらの名前を入れる");
+        //wrapper.addInitParameter("time", LocalDateTime.now().toString());
         ctx.addChild(wrapper);
         //Tomcat.addServlet(ctx, "MyServlet", new HelloWorldServlet());
         ctx.addServletMappingDecoded("/hello", "MyServlet");
 
+        // TODO org.h2.jdbcx.JdbcDataSource とかをJNDIでルックアップできるように設定しておけないかな？
+        //var serverNamingToken = server.getNamingToken();
+        //var contextNamingToken = ctx.getNamingToken();
+        //ContextBindings.bindClassLoader(server, serverNamingToken, server.getClass().getClassLoader());
+        //ContextBindings.bindClassLoader(ctx, contextNamingToken, ctx.getClass().getClassLoader());
+
         tomcat.start();
-        System.out.printf("http://localhost:%d/hello%n", connector.getLocalPort());
+        log.info(String.format("http://localhost:%d/hello", connector.getLocalPort()));
         tomcat.getServer().await();
     }
 }
