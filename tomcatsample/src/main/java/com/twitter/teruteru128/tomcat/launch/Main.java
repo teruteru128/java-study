@@ -1,5 +1,7 @@
 package com.twitter.teruteru128.tomcat.launch;
 
+import java.util.logging.Logger;
+
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.core.StandardHost;
@@ -15,7 +17,7 @@ import org.apache.juli.logging.LogFactory;
 */
 public class Main {
 
-    private static Log log = LogFactory.getLog(Main.class);
+    private static Log log = LogFactory.getFactory().getInstance(Main.class);
 
     /**
      * 
@@ -23,9 +25,16 @@ public class Main {
      * @throws Exception
     */
     public static void main(String[] args) throws Exception {
-        Tomcat tomcat = new Tomcat();
+        var tomcat = new Tomcat();
         // tomcat.setPort(0); を呼び出すかどうかでbaseDirまわりで挙動が変わる
         tomcat.setPort(0);
+        tomcat.setBaseDir(null);
+
+        log.info(log.getClass());
+        Logger logger = Logger.getLogger("name");
+        log.info(logger.getClass());
+        System.Logger logger2 = System.getLogger("name");
+        log.info(logger2.getClass());
 
         // HTTPコネクタを定義
         var connector = new Connector("org.apache.coyote.http11.Http11NioProtocol");
@@ -40,7 +49,6 @@ public class Main {
         // 追加済みなのでいらない
         //tomcat.setConnector(connector);
 
-        tomcat.setBaseDir(null);
         ((StandardHost)tomcat.getHost()).setAppBase("work/Tomcat/localhost/");
         tomcat.enableNaming();
 

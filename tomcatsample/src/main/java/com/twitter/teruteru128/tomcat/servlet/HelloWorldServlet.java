@@ -29,8 +29,29 @@ public class HelloWorldServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        //resp.setContentType("plain/text;charset=UTF-8");
+        //resp.addHeader("Content-Disposition", "inline");
+        //resp.addHeader("Content-Disposition", "attachment");
+        //resp.addHeader("Content-Disposition", "attachment; filename=\"filename.txt\"");
         try (ServletOutputStream out = resp.getOutputStream()) {
             out.println("hello world!");
+            var className = req.getParameter("className");
+            if (className != null) {
+                if (!className.isEmpty()) {
+                    out.println(String.format("param : %s", className));
+                    /* 
+                    try {
+                        Class.forName(className);
+                    } catch (ClassNotFoundException e) {
+                        out.println(String.format("Failed to load class %s.", className));
+                    }
+                    */
+                } else {
+                    out.println("className is empty");
+                }
+            } else {
+                out.println("className is not found");
+            }
         }
     }
 

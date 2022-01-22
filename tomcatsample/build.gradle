@@ -11,7 +11,7 @@ repositories {
 
 application {
     mainClass = 'com.twitter.teruteru128.tomcat.launch.Main'
-    applicationDefaultJvmArgs = ['-Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses']
+    applicationDefaultJvmArgs = ['-Xms16G -Xmx16G -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Addresses']
 }
 
 shadowJar {
