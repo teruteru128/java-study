@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.hash;
+package com.twitter.teruteru128.hash;
 
 import java.security.DigestException;
 import java.security.MessageDigest;
@@ -12,9 +12,6 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-
-import com.twitter.teruteru128.study.password.SecureRandomCache;
-import com.twitter.teruteru128.study.twitter.util.Util;
 
 import jakarta.xml.bind.DatatypeConverter;
 
@@ -33,7 +30,7 @@ public class Main2 {
             byte[] input = new byte[32];
             // input = new byte[0];
             byte[] hash = new byte[32];
-            SecureRandom sr = SecureRandomCache.getInstance();
+            SecureRandom sr = SecureRandom.getInstanceStrong();
             MessageDigest sha256 = null;
             int mode = 1;
             Date date = GregorianCalendar.getInstance(Locale.JAPAN).getTime();
@@ -66,11 +63,11 @@ public class Main2 {
                     System.out.printf("input: %d, hash: %d%n", strinput.length(), strhash.length());
                     break;
                 case 2:
-                    Util.tweet("ねくろいど");
+                    // Util.tweet("ねくろいど");
                     break;
                 case 3:
                     String dateformat = df2.format(date);
-                    Util.tweet(String.format("【BOT試験中】アップデート: %s", dateformat));
+                    // Util.tweet(String.format("【BOT試験中】アップデート: %s", dateformat));
                     break;
                 case 4:
 
@@ -78,6 +75,8 @@ public class Main2 {
                 default:
                     break;
             }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         } finally {
             ses.shutdown();
         }

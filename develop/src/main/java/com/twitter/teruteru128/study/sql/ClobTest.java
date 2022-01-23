@@ -8,11 +8,16 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Random;
 
+import org.h2.jdbcx.JdbcDataSource;
+
 public class ClobTest {
 
     public static void main(String[] args) {
-        SimpleH2DAO dao = new SimpleH2DAO();
-        try (Connection db = dao.getConnection()) {
+        JdbcDataSource source = new JdbcDataSource();
+        source.setUrl("jdbc:h2:tcp://localhost/test");
+        source.setUser("sa");
+        source.setPassword("");
+        try (Connection db = source.getConnection()) {
             try (PreparedStatement ps = db
                     .prepareStatement("UPDATE TEST SET TEXT = ? WHERE ID = ?")) {
                 Blob clob = db.createBlob();

@@ -1,9 +1,10 @@
 package com.twitter.teruteru128.study.rsa.sample004;
 
 import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Random;
 
-import com.twitter.teruteru128.study.holders.SecureRandomHolder;
 import com.twitter.teruteru128.study.rsa.util.Const;
 
 /**
@@ -17,7 +18,12 @@ public class Main {
      */
     public static void main(String[] args) {
         final BigInteger n = Const.N;
-        Random rand = SecureRandomHolder.getInstance();
+        Random rand;
+        try {
+            rand = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         BigInteger p = new BigInteger(1365, rand).setBit(1364);
         BigInteger mod = n.mod(p);
         BigInteger minmodu = new BigInteger(

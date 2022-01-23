@@ -1,0 +1,14 @@
+
+plugins {
+    id 'java'
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':dao')
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'
+}

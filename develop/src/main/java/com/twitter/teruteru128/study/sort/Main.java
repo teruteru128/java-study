@@ -1,5 +1,7 @@
 package com.twitter.teruteru128.study.sort;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -25,8 +27,11 @@ public class Main implements AbstractIntSort{
         }
         System.out.println("初期化終了");
         shuffles=System.nanoTime();
-        //shuffle(table, SecureRandomCache.getInstance());
-        shuffle(table, new Random());
+        try {
+            shuffle(table, SecureRandom.getInstanceStrong());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         shufflee=System.nanoTime();
         System.out.println("シャッフル終了");
         System.out.println("シャッフル"+((shufflee-shuffles)/1e9)+"ミリ秒");

@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.hash;
+package com.twitter.teruteru128.hash;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,10 +15,10 @@ import org.h2.jdbcx.JdbcDataSource;
  * キーワード : コネクションプーリング
  */
 public class SHA256H2DAO extends AbstractH2DAO {
+
     /**
      * @return {@inheritDoc}
      */
-    @Override
     public Connection getConnection() throws SQLException {
         JdbcDataSource source = new JdbcDataSource();
         source.setURL("jdbc:h2:tcp://localhost/hash");

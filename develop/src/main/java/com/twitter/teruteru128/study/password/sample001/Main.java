@@ -10,7 +10,8 @@ import javax.crypto.interfaces.PBEKey;
 import javax.crypto.spec.PBEKeySpec;
 
 import com.twitter.teruteru128.study.crypto.DataPrinter;
-import com.twitter.teruteru128.study.holders.SecureRandomHolder;
+
+import jakarta.xml.bind.DatatypeConverter;
 
 /**
  * @author Teruteru
@@ -24,7 +25,7 @@ public class Main {
      * @throws InvalidKeySpecException
      */
     public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        SecureRandom random = SecureRandomHolder.getInstance();
+        SecureRandom random = SecureRandom.getInstanceStrong();
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHMACSHA512");
 
         char[] password = "In cryptographic salt, uniqueness is more important than unpredictability.".toCharArray();
@@ -42,9 +43,9 @@ public class Main {
             PBEKey key = (PBEKey) factory.generateSecret(spec);
             byte[] hashedPassword = key.getEncoded();
             System.out.print("$1$");
-            System.out.print(DataPrinter.printHexBinary(salt));
+            System.out.print(DatatypeConverter.printHexBinary(salt));
             System.out.print("$");
-            System.out.print(DataPrinter.printHexBinary(hashedPassword));
+            System.out.print(DatatypeConverter.printHexBinary(hashedPassword));
             System.out.println();
         }
     }

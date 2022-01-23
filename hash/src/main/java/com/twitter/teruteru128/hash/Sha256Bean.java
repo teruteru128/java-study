@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.hash;
+package com.twitter.teruteru128.hash;
 
 import java.io.Serializable;
 

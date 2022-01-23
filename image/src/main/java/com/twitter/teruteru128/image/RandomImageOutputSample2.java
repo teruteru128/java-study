@@ -1,10 +1,12 @@
-package com.twitter.teruteru128.study.image;
+package com.twitter.teruteru128.image;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Random;
 
 import javax.imageio.IIOImage;
@@ -12,8 +14,6 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
-
-import com.twitter.teruteru128.study.holders.SecureRandomHolder;
 
 /**
  * @author Teruteru
@@ -27,7 +27,13 @@ public class RandomImageOutputSample2 {
     public static void main(String[] args) {
         int width = 1320;
         int height = 1320;
-        Random random = SecureRandomHolder.getInstanceStrong();
+        Random random = null;
+        try {
+            random = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
         BufferedImage image = new BufferedImage(width, height,
                 BufferedImage.TYPE_INT_RGB);
 

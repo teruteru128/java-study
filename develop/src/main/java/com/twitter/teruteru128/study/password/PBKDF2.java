@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study.password;
 
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Arrays;
@@ -56,13 +57,8 @@ public class PBKDF2 {
         if (saltlength < 1) {
             throw new IllegalArgumentException();
         }
-        byte[] salt = new byte[saltlength];
-        createSalt(salt);
+        byte[] salt = SecureRandom.getSeed(saltlength);
         return salt;
-    }
-
-    public static void createSalt(byte[] salt) {
-        SecureRandomCache.getInstance().nextBytes(salt);
     }
 
     static byte[] pbkdf2(char[] password, byte[] salt) throws InvalidKeySpecException {

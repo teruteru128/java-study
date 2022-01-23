@@ -17,7 +17,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.twitter.teruteru128.encode.Base58;
 import com.twitter.teruteru128.study.bitmessage.Const;
 
 /**
@@ -152,6 +151,6 @@ public class BMAddressGenerator implements Runnable {
             // NONE
         }
         System.arraycopy(checksum, 0, wrappedKey, 33, 4);
-        return Base58.encode(wrappedKey);
+        return BMAddress.encode(wrappedKey);
     }
 }

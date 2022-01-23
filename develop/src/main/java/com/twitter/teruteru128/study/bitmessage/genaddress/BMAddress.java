@@ -1,18 +1,52 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import com.twitter.teruteru128.encode.Base58;
 import com.twitter.teruteru128.study.bitmessage.Structs;
 
 /**
  * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/addresses.py
  */
 public final class BMAddress {
+
+    private static final Class<?> BASE58_CLASS;
+    private static final Method ENCODE_METHOD;
+    private static final Method DECODE_METHOD;
+
+    static {
+        try {
+            BASE58_CLASS = Class.forName("com.twitter.teruteru128.encode.Base58");
+            ENCODE_METHOD = BASE58_CLASS.getMethod("encode", byte[].class);
+            DECODE_METHOD = BASE58_CLASS.getMethod("decode", String.class);
+        } catch (ClassNotFoundException|NoSuchMethodException | SecurityException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private BMAddress() {
+    }
+
+    public static String encode(byte[] encode){
+        try {
+            return (String) ENCODE_METHOD.invoke(null, encode);
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static byte[] decode(String decode){
+        try {
+            return (byte[]) DECODE_METHOD.invoke(null, decode);
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static final String encodeAddress(int version, int stream, byte[] ripe, int max) {
@@ -52,7 +86,7 @@ public final class BMAddress {
             sha512.update(cache64, 0, 64);
             sha512.digest(cache64, 0, 64);
             System.arraycopy(cache64, 0, storedBinaryData, storedBinaryData.length - 4, 4);
-            return "BM-" + Base58.encode(storedBinaryData);
+            return "BM-" + encode(storedBinaryData);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (DigestException e) {

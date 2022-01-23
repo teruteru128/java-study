@@ -2,6 +2,7 @@ package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -41,11 +42,11 @@ public class RipeAndKeysConverter {
         final MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
         final byte[] cache64 = new byte[Const.SHA512_DIGEST_LENGTH];
         final byte[] ripe = new byte[Const.RIPEMD160_DIGEST_LENGTH];
-        String address4;
         try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(ClassLoader.getSystemResourceAsStream("ripeandkeys.txt")));
+                new InputStreamReader(new FileInputStream(new File("ripeandkeys.txt"))));
                 PrintStream ps = new PrintStream(new File("keys.txt"))) {
-            String header = reader.readLine();
+            // 最初の一行は捨てる
+            reader.readLine();
             String line = null;
             while ((line = reader.readLine()) != null) {
                 a = pattern.split(line);

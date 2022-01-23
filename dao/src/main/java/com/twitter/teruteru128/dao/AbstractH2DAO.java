@@ -14,11 +14,11 @@ import org.h2.jdbcx.JdbcDataSource;
 public abstract class AbstractH2DAO extends AbstractDBDAO {
 
     @Override
-    protected Connection getConnection(String a, String b, String c) throws SQLException {
+    protected Connection getConnection(String url, String user, String password) throws SQLException {
         JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL(a);
-        ds.setUser(b);
-        ds.setPassword(c);
+        ds.setURL(url);
+        ds.setUser(user);
+        ds.setPassword(password);
         Connection db = ds.getConnection();
         return db;
     }

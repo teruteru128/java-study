@@ -7,10 +7,9 @@ import java.security.Provider;
 import java.security.SecureRandom;
 import java.security.Security;
 
-import com.twitter.teruteru128.study.crypto.DataPrinter;
-import com.twitter.teruteru128.study.holders.SecureRandomHolder;
-
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import jakarta.xml.bind.DatatypeConverter;
 
 /**
  * @author Teruteru
@@ -30,7 +29,7 @@ public class Main {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
 
-        SecureRandom random = SecureRandomHolder.getInstance();
+        SecureRandom random = SecureRandom.getInstanceStrong();
 
         MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
         MessageDigest sha3_512 = MessageDigest.getInstance("SHA3-512");
@@ -42,14 +41,14 @@ public class Main {
 
         byte[] seed = new byte[mdSumLen];
         random.nextBytes(seed);
-        System.out.printf("%s%n", DataPrinter.printHexBinary(seed));
+        System.out.printf("%s%n", DatatypeConverter.printHexBinary(seed));
         for (int i = 0; i < 1024; i++) {
             sha512.update(seed);
             sha3_512.update(seed);
             sha512.digest(seed, 0, md1Len);
             sha3_512.digest(seed, md1Len, md2Len);
         }
-        System.out.printf("%s%n", DataPrinter.printHexBinary(seed));
+        System.out.printf("%s%n", DatatypeConverter.printHexBinary(seed));
     }
 
 }

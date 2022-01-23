@@ -1,8 +1,9 @@
 package com.twitter.teruteru128.study.rsa.sample003;
 
 import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
-import com.twitter.teruteru128.study.holders.SecureRandomHolder;
 import com.twitter.teruteru128.study.rsa.util.Const;
 
 /**
@@ -16,20 +17,20 @@ public class Main {
     /**
      * @param args
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchAlgorithmException {
+        SecureRandom random = SecureRandom.getInstanceStrong();
         final BigInteger n = Const.N;
         final BigInteger sqrt_n = Const.SQRT_N;
         final BigInteger zero = BigInteger.valueOf(0L);
         final BigInteger one = BigInteger.valueOf(1L);
         final BigInteger two = BigInteger.valueOf(2L);
-        final BigInteger p = BigInteger.probablePrime(1365,
-                SecureRandomHolder.getInstance());
+        final BigInteger p = BigInteger.probablePrime(1365, random);
         BigInteger[] ds = n.divideAndRemainder(p);
         final BigInteger a = ds[0];
         final BigInteger b = ds[1];
         final BigInteger c = p;
         BigInteger mod = c;
-        BigInteger x = new BigInteger(1300, SecureRandomHolder.getInstance());
+        BigInteger x = new BigInteger(1300, random);
         BigInteger d = c.divide(a).add(one).multiply(a).mod(c);
 
         int maxModBitLength = mod.bitLength();

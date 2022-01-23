@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.image;
+package com.twitter.teruteru128.image;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

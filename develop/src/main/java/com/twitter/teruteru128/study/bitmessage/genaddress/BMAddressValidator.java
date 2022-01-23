@@ -7,7 +7,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.util.Arrays;
 
-import com.twitter.teruteru128.encode.Base58;
 import com.twitter.teruteru128.study.bitmessage.Const;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -33,8 +32,8 @@ public class BMAddressValidator {
     public void validate(String address, String privSigningKeyWIF, String privEncryptionKeyWIF) {
 
         // 鍵をデコード
-        final byte[] privSigningKey = Base58.decode(privSigningKeyWIF);
-        final byte[] privEncryptionKey = Base58.decode(privEncryptionKeyWIF);
+        final byte[] privSigningKey = BMAddress.decode(privSigningKeyWIF);
+        final byte[] privEncryptionKey = BMAddress.decode(privEncryptionKeyWIF);
 
         // 鍵のチェックサムを検証
         // validate wif checksum

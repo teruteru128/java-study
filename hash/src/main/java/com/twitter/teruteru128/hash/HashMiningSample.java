@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.hash;
+package com.twitter.teruteru128.hash;
 
 import java.io.IOException;
 import java.lang.System.Logger.Level;

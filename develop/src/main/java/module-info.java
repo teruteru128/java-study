@@ -20,7 +20,6 @@ module com.twitter.teruteru.study {
     requires org.twitter4j.core;
     requires com.h2database;
     requires com.twitter.teruteru.encode;
-    requires com.twitter.teruteru.dao;
     requires com.twitter.teruteru.util;
     requires org.glassfish.jaxb.runtime;
 
