@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.nyanpass;
+package com.twitter.teruteru128.nyanpass;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.nyanpass;
+package com.twitter.teruteru128.nyanpass;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -12,16 +12,21 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+import jakarta.json.Json;
 
 /**
  *
  * */
 public class Main2 implements Runnable {
 
+    public Main2(ScheduledExecutorService service) {
+        super();
+        this.service = service;
+    }
+
+    private ScheduledExecutorService service;
+
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.JAPAN);
-    private static final Gson gson = new Gson();
 
     private Runnable get(final URL url) {
         return () -> {
@@ -30,11 +35,10 @@ public class Main2 implements Runnable {
                 connection.addRequestProperty("Connection", "close");
                 connection.connect();
                 if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    try (var reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                        String a = reader.readLine();
-                        var obj = gson.fromJson(a, JsonObject.class);
-                        var time = LocalDateTime.parse(obj.get("time").getAsString(), FORMATTER);
-                        var count = Long.parseLong(obj.get("count").getAsString());
+                    try (var reader = Json.createReader(new BufferedReader(new InputStreamReader(connection.getInputStream())))) {
+                        var object = reader.readObject();
+                        var time = LocalDateTime.parse(object.getString("time"), FORMATTER);
+                        var count = Long.parseLong(object.getString("count"), 10);
                         System.out.printf("%s : %s%n", time, count);
                     }
                 }
@@ -63,11 +67,10 @@ public class Main2 implements Runnable {
         }
     }
 
-    private static final ScheduledExecutorService service = new ScheduledThreadPoolExecutor(2);
-
     public static void main(String[] args) {
+        final ScheduledThreadPoolExecutor service = new ScheduledThreadPoolExecutor(2);
         System.out.println("にゃんぱすー。定期クロールを開始したのん！");
-        service.execute(new Main2());
+        service.schedule(new Main2(service), 0, TimeUnit.NANOSECONDS);
     }
 
 }

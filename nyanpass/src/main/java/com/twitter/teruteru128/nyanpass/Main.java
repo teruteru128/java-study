@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.nyanpass;
+package com.twitter.teruteru128.nyanpass;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

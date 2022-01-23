@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.seven;
+package com.twitter.teruteru128.seven;
 
 import java.nio.charset.Charset;
 

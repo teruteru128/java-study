@@ -1,17 +1,27 @@
 
-plugins{
-    id'application'
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-repositories{
+repositories {
     mavenCentral()
 }
 
-application{
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+}
+
+application {
     mainClass = 'com.twitter.teruteru128.study.keygenerator.GenerateKeyPair'
 }
 
-dependencies{
+shadowJar {
+    archiveClassifier = 'shade'
+}
+
+dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 

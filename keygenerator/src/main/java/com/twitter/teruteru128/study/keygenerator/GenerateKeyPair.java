@@ -33,17 +33,14 @@ import org.bouncycastle.math.ec.ECPoint;
 
 /**
  * GitHub ActionsでBitMessage用のsecp256k1鍵を大量生産しようとしたときの実装
-*/
+ */
 public class GenerateKeyPair implements Runnable {
 
   // TODO: 公開鍵導出を簡素化する
-  public static final X9ECParameters SECP256K1 = CustomNamedCurves.getByName("secp256k1");
-  public static final ECPoint G = SECP256K1.getG();
-  public static final int PRIVATE_KEY_LENGTH = 32;
-  public static final int PUBLIC_KEY_LENGTH = 65;
-  public static final int RIPEMD160_DIGEST_LENGTH = 20;
-  public static final int SHA256_DIGEST_LENGTH = 32;
-  public static final int SHA512_DIGEST_LENGTH = 64;
+  private static final X9ECParameters SECP256K1 = CustomNamedCurves.getByName("secp256k1");
+  private static final ECPoint G = SECP256K1.getG();
+  private static final int PRIVATE_KEY_LENGTH = 32;
+  private static final int PUBLIC_KEY_LENGTH = 65;
 
   private static final String KEX_DEFAULT_ALGORITHM = "X25519";
   private static final String ENC_DEFAULT_ALGORITHM = "ChaCha20";
@@ -76,9 +73,21 @@ public class GenerateKeyPair implements Runnable {
   }
 
   private static final int KEY_NUM = 1 << 24;
+  private static SecureRandom random;
 
-  private static void initPrivateKeys(byte[] privateKeys) {
+  static {
+    initPrivateKeys();
+  }
+
+  private static void initPrivateKeys() {
     SecureRandom random = null;
+    if (random == null) {
+      try {
+        random = SecureRandom.getInstance("Windows-PRNG");
+      } catch (NoSuchAlgorithmException e2) {
+        // none
+      }
+    }
     try {
       random = SecureRandom.getInstanceStrong();
     } catch (NoSuchAlgorithmException e) {
@@ -93,13 +102,6 @@ public class GenerateKeyPair implements Runnable {
     }
     if (random == null) {
       try {
-        random = SecureRandom.getInstance("Windows-PRNG");
-      } catch (NoSuchAlgorithmException e2) {
-        // none
-      }
-    }
-    if (random == null) {
-      try {
         random = SecureRandom.getInstance("SHA1PRNG");
       } catch (NoSuchAlgorithmException e3) {
         // none
@@ -109,7 +111,7 @@ public class GenerateKeyPair implements Runnable {
       random = new SecureRandom();
     }
     System.out.printf("乱数ソースのアルゴリズムは%sんご\uff01%n", random.getAlgorithm());
-    random.nextBytes(privateKeys);
+    GenerateKeyPair.random = random;
   }
 
   private static String TRANSFORMATION_DEFAULT_ALGORITHM = "ChaCha20-Poly1305/NONE/NoPadding";
@@ -122,9 +124,11 @@ public class GenerateKeyPair implements Runnable {
 
     final var privateKeys = new byte[KEY_NUM * PRIVATE_KEY_LENGTH];
     System.out.println("秘密鍵を集めるんご！");
-    initPrivateKeys(privateKeys);
+    random.nextBytes(privateKeys);
     System.out.println("秘密鍵を集め終わったんご！");
+    // 単一責任の原則から言えば暗号化は別のクラスにすべき
     if (doEncrypt) {
+      // こんなめんどくさいことせずにECIESを使うべきだったのでは？
       System.out.println("暗号化するんご！");
       var encodedKeySpec = new X509EncodedKeySpec(Base64.getDecoder().decode(STATIC_PUBLIC_KEY));
       var factory = KeyFactory.getInstance(KEX_DEFAULT_ALGORITHM);
