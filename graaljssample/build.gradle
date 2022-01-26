@@ -19,7 +19,7 @@ dependencies {
     implementation 'com.google.guava:guava:31.0.1-jre'
 
     // https://mvnrepository.com/artifact/org.graalvm.js/js
-    implementation 'org.graalvm.js:js:22.0.0'
+    implementation 'org.graalvm.js:js:22.0.0.2'
 
     // https://mvnrepository.com/artifact/org.graalvm.js/js-scriptengine
     implementation 'org.graalvm.js:js-scriptengine:22.0.0.2'
