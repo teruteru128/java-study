@@ -129,10 +129,14 @@ public class GenerateKeyPair implements Runnable {
     // 単一責任の原則から言えば暗号化は別のクラスにすべき
     if (doEncrypt) {
       // こんなめんどくさいことせずにECIESを使うべきだったのでは？
+      // X25519の鍵でECIESを使うことができるんだろうか？
       System.out.println("暗号化するんご！");
       var encodedKeySpec = new X509EncodedKeySpec(Base64.getDecoder().decode(STATIC_PUBLIC_KEY));
       var factory = KeyFactory.getInstance(KEX_DEFAULT_ALGORITHM);
       var publicKey = factory.generatePublic(encodedKeySpec);
+
+      var cipher1 = Cipher.getInstance("ECIES");
+      cipher1.init(Cipher.ENCRYPT_MODE, publicKey);
 
       var generator = KeyPairGenerator.getInstance(KEX_DEFAULT_ALGORITHM);
       var keyPair = generator.generateKeyPair();

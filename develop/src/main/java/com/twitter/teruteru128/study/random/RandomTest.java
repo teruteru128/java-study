@@ -6,7 +6,7 @@ import java.security.SecureRandom;
  * @author Teruteru
  *
  */
-public class RandTest {
+public class RandomTest {
     public static void main(String[] args) {
         SecureRandom r = new SecureRandom();
         System.out.println(r.getAlgorithm());

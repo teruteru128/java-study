@@ -18,7 +18,7 @@ plugins {
     //id 'java-library'
     // https://github.com/java9-modularity/gradle-modules-plugin
     //id 'org.javamodularity.moduleplugin' version '1.8.10' apply false
-    //id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 //javaModule.name = 'com.teruteru128.study'
@@ -30,7 +30,12 @@ java {
 
 application {
     mainModule = 'com.twitter.teruteru.study'
-    mainClass = 'com.twitter.teruteru128.study.crypto.ECIESSample'
+    mainClass = 'com.twitter.teruteru128.study.Main'
+    applicationDefaultJvmArgs = ['-Djava.lang.Integer.IntegerCache.high=114514']
+}
+
+shadowJar {
+    archiveClassifier = 'shade'
 }
 
 repositories {

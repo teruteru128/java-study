@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 import java.security.Security;
 import java.util.Arrays;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddress;
 import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddressGenerator;
@@ -18,13 +18,19 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
  * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/class_addressGenerator.py
- *      TODO: Functionにする 1変数関数だったり2変数関数だったりどうするんですかね？
  */
-public class DeterministicAddressesCalcurator implements BiFunction<String, Integer, String> {
+public class DeterministicAddressesCalcurator implements Function<String, byte[]> {
+
+    static {
+        Provider provider = Security.getProvider("BC");
+        if (provider == null) {
+            provider = new BouncyCastleProvider();
+            Security.addProvider(provider);
+        }
+    }
 
     @Override
-    public String apply(String passphrase, Integer addressVersionNumber) {
-        int streamNumber = 1;
+    public byte[] apply(String passphrase) {
         int numberOfNullBytesDemandedOnFrontOfRipeHash = 1;
         int signingKeyNonce = 0;
         int encryptionKeyNonce = 1;
@@ -84,21 +90,15 @@ public class DeterministicAddressesCalcurator implements BiFunction<String, Inte
         }
         System.out.println(BMAddressGenerator.encodeWIF(Arrays.copyOf(potentialPrivSigningKey, 32)));
         System.out.println(BMAddressGenerator.encodeWIF(Arrays.copyOf(potentialPrivEncryptionKey, 32)));
-        String address = BMAddress.encodeAddress(addressVersionNumber, streamNumber,
-                Arrays.copyOf(cache64, Const.RIPEMD160_DIGEST_LENGTH));
-        return address;
+        return Arrays.copyOf(cache64, Const.RIPEMD160_DIGEST_LENGTH);
     }
 
     public static void main(String[] args) throws Exception {
-        Provider provider = Security.getProvider("BC");
-        if (provider == null) {
-            provider = new BouncyCastleProvider();
-            Security.addProvider(provider);
-        }
         var calcurator = new DeterministicAddressesCalcurator();
-        var passphrase = "bitchan";
-        String address3 = calcurator.apply(passphrase, 3);
-        String address4 = calcurator.apply(passphrase, 4);
+        var passphrase = "UVB-76";
+        var ripe = calcurator.apply(passphrase);
+        var address3 = BMAddress.encodeAddress(3, 1, ripe);
+        var address4 = BMAddress.encodeAddress(4, 1, ripe);
         var logger = System.getLogger("BM");
         logger.log(Logger.Level.INFO, address3);
         logger.log(Logger.Level.INFO, address4);
