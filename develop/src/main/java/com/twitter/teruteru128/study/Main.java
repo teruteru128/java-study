@@ -1,18 +1,17 @@
 package com.twitter.teruteru128.study;
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.MulticastSocket;
 
 /**
  * Main
  */
 public class Main {
 
-    public static void main(String[] args)
-            throws IOException, NoSuchAlgorithmException {
-        SecureRandom random = SecureRandom.getInstance("Windows-PRNG");
-        byte[] seedBuf = random.generateSeed(536870912);
-        System.out.write(seedBuf);
+    public static void main(String[] args) throws Exception {
+        try (MulticastSocket socket = new MulticastSocket(new InetSocketAddress(InetAddress.getByName("172.18.125.138"), 0))) {
+            System.out.println(socket.getLocalPort());
+        }
     }
 }
