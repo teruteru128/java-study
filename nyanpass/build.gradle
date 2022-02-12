@@ -25,5 +25,5 @@ dependencies {
     implementation 'org.glassfish:jakarta.json:2.0.1'
 
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
-    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.google.code.gson:gson:2.9.0'
 }
