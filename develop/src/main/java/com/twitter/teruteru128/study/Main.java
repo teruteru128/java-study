@@ -1,8 +1,7 @@
 package com.twitter.teruteru128.study;
 
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.MulticastSocket;
+import java.io.RandomAccessFile;
+import java.util.Base64;
 
 /**
  * Main
@@ -10,8 +9,15 @@ import java.net.MulticastSocket;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        try (MulticastSocket socket = new MulticastSocket(new InetSocketAddress(InetAddress.getByName("172.18.125.138"), 0))) {
-            System.out.println(socket.getLocalPort());
+        long index = 86285626;
+        long fileindex = index / 16777216;
+        long keyindex = index % 16777216;
+        try (RandomAccessFile file = new RandomAccessFile(String.format("publicKeys%d.bin", fileindex), "r")) {
+            file.seek(keyindex * 65);
+            byte[] publicKey = new byte[65];
+            file.read(publicKey);
+            System.out.println(Base64.getEncoder().encodeToString(publicKey));
         }
+        System.out.println(index);
     }
 }

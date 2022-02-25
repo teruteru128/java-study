@@ -104,3 +104,6 @@ src/main/resources/twitter4j.properties
 # Ignore Gradle build output directory
 build
 tomcat.*/
+*.bin
+*.obj
+*.db
