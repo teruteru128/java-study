@@ -94,6 +94,9 @@ public class ECIESSample implements Callable<Void> {
         System.out.printf("cleartext : %s(charset:%s)%n", cleartext, charset.displayName());
     }
 
+    private static final String STATIC_PUBLIC_KEY1 = "BHaW7iAHcG2h49xLy8oBS25GwZUCIxUr84q/TwDbI0rMiG7XMFp49lGomisFKE2TA5s7O5mSbmR5yq+2EzE61pc=";
+    private static final String STATIC_PUBLIC_KEY2 = "BABfHBsh6Fo8BJpWgi6fWDtfoS4BkPODxUOOsUMhQk0MVo/Q2bNKsZ5GmKcbl6ncbJG9eAThWmOXzUoHDBptqOo=";
+
     @Override
     public Void call()
             throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidKeySpecException,
@@ -113,10 +116,8 @@ public class ECIESSample implements Callable<Void> {
         // static keys
         var privateKeyData1 = decoder.decode(stringkeydata1);
         var privateKeyData2 = decoder.decode(stringkeydata2);
-        var publicKeyData1 = decoder
-                .decode("BHaW7iAHcG2h49xLy8oBS25GwZUCIxUr84q/TwDbI0rMiG7XMFp49lGomisFKE2TA5s7O5mSbmR5yq+2EzE61pc=");
-        var publicKeyData2 = decoder
-                .decode("BABfHBsh6Fo8BJpWgi6fWDtfoS4BkPODxUOOsUMhQk0MVo/Q2bNKsZ5GmKcbl6ncbJG9eAThWmOXzUoHDBptqOo=");
+        var publicKeyData1 = decoder.decode(STATIC_PUBLIC_KEY1);
+        var publicKeyData2 = decoder.decode(STATIC_PUBLIC_KEY2);
 
         var bcProvider = new BouncyCastleProvider();
         // Security.addProvider(bcProvider);
@@ -136,6 +137,8 @@ public class ECIESSample implements Callable<Void> {
         String name = "secp256k1";
 
         String message = "イワシがつちからはえてくるんだ";
+        System.out.printf("original message UTF-8 : %dbytes%n", message.getBytes(StandardCharsets.UTF_8).length);
+        System.out.printf("original message Shift-JIS : %dbytes%n", message.getBytes(Charset.forName("sjis")).length);
 
         // secp256k1 鍵パラメータ取得
         var parameters = AlgorithmParameters.getInstance("EC", "SunEC");
