@@ -17,7 +17,7 @@ plugins {
     // https://docs.gradle.org/current/userguide/java_library_plugin.html
     //id 'java-library'
     // https://github.com/java9-modularity/gradle-modules-plugin
-    //id 'org.javamodularity.moduleplugin' version '1.8.10' apply false
+    id 'org.javamodularity.moduleplugin' version '1.8.10' apply false
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -88,10 +88,10 @@ dependencies {
     implementation 'org.glassfish.jaxb:jaxb-runtime:3.0.2'
 
     // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
-    // implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'
 
     // https://mvnrepository.com/artifact/org.json/json
-    //implementation 'org.json:json:20211205'
+    implementation 'org.json:json:20211205'
 
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation 'com.google.code.gson:gson:2.9.0'
@@ -103,7 +103,7 @@ dependencies {
     implementation 'org.glassfish:jakarta.json:2.0.1'
 
     // https://mvnrepository.com/artifact/org.spigotmc/spigot-api
-    //implementation 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    implementation 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
 
     // https://mvnrepository.com/artifact/io.papermc.paper/paper-api
     //implementation 'io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT'
@@ -112,17 +112,17 @@ dependencies {
     implementation 'com.twitter.twittertext:twitter-text:3.1.0'
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    //implementation 'org.slf4j:slf4j-api:1.7.33'
+    implementation 'org.slf4j:slf4j-api:1.7.33'
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl
-    //implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.1'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.1'
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
-    //implementation('org.apache.logging.log4j:log4j-core:2.17.1')
+    implementation('org.apache.logging.log4j:log4j-core:2.17.1')
 
     // https://github.com/greymd/CVE-2021-44228
     // https://mvnrepository.com/artifact/com.unboundid/unboundid-ldapsdk
-    //implementation 'com.unboundid:unboundid-ldapsdk:3.1.1'
+    implementation 'com.unboundid:unboundid-ldapsdk:3.1.1'
 }
 
 tasks.named('test') {
@@ -132,4 +132,37 @@ tasks.named('test') {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+// thanks for https://github.com/eclipse/eclipse.jdt.ls/issues/957
+eclipse {
+    classpath {
+        containers 'org.eclipse.buildship.core.gradleclasspathcontainer'
+        file {
+            whenMerged {
+                entries.findAll { it.properties.kind.equals('lib') && !it.properties.path.contains("junit") }.each {
+                    it.entryAttributes['module'] = 'true'
+                }
+                entries.findAll { it.properties.path.startsWith('org.eclipse.jdt.launching.JRE_CONTAINER') }.each {
+                    it.entryAttributes['module'] = 'true'
+                }
+                entries.find { it.path == 'src/main/java' }.output = 'bin/main'
+
+                def testSrc = entries.find { it.path == 'src/test/java' }
+                testSrc.output = 'bin/test'
+                testSrc.entryAttributes['test'] = 'true'
+                testSrc.entryAttributes['optional'] = 'true'
+                testSrc.entryAttributes['ignore_optional_problems'] = 'true'
+
+                entries.forEach { entry ->
+                    def entryIn = { it.find { file(entry.path).equals(it) } }
+                    if (entry.kind == 'lib') {
+                        entry.entryAttributes['test'] =
+                            entryIn(configurations.testRuntimeClasspath) &&
+                            !entryIn(configurations.runtimeClasspath)
+                    }
+                }
+            }
+        }
+    }
 }
