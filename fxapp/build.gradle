@@ -40,6 +40,11 @@ javafx {
     modules = ['javafx.fxml', 'javafx.graphics']
 }
 
+application {
+    mainModule = 'com.twitter.teruteru.fxapp'
+    mainClass = 'com.twitter.teruteru128.study.fxapp.Main'
+}
+
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()

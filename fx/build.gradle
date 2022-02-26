@@ -53,6 +53,7 @@ javafx {
 }
 
 application {
+    mainModule = 'com.twitter.teruteru.fx'
     mainClass = 'com.twitter.teruteru128.study.fx.Main'
 }
 
