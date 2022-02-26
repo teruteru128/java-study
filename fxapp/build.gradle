@@ -42,7 +42,7 @@ javafx {
 
 application {
     mainModule = 'com.twitter.teruteru.fxapp'
-    mainClass = 'com.twitter.teruteru128.study.fxapp.Main'
+    mainClass = 'com.twitter.teruteru128.application.Main'
 }
 
 tasks.named('test') {
