@@ -1,7 +1,7 @@
 package com.twitter.teruteru128.study;
 
-import java.io.RandomAccessFile;
-import java.util.Base64;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 
 /**
  * Main
@@ -9,15 +9,25 @@ import java.util.Base64;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        long index = 86285626;
-        long fileindex = index / 16777216;
-        long keyindex = index % 16777216;
-        try (RandomAccessFile file = new RandomAccessFile(String.format("publicKeys%d.bin", fileindex), "r")) {
-            file.seek(keyindex * 65);
-            byte[] publicKey = new byte[65];
-            file.read(publicKey);
-            System.out.println(Base64.getEncoder().encodeToString(publicKey));
+        int year = 2022;
+        int month = 1;
+        // y年m月1日が月曜日？
+        LocalDate localDate = null;
+        for (month = 1; month <= 12; month++) {
+            for (year = 2022; ; year++) {
+                localDate = LocalDate.of(year, month, 1);
+                if (localDate.getDayOfWeek() == DayOfWeek.MONDAY) {
+                    break;
+                }
+            }
+            System.out.printf("%s : %s%n", DayOfWeek.MONDAY, localDate);
         }
-        System.out.println(index);
+        for (year = 2022; ; year++) {
+            localDate = LocalDate.of(year, 11, 20);
+            if (localDate.getDayOfWeek() == DayOfWeek.MONDAY) {
+                System.out.printf("%s : %s%n", DayOfWeek.MONDAY, localDate);
+                break;
+            }
+        }
     }
 }

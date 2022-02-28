@@ -31,7 +31,7 @@ java {
 application {
     mainModule = 'com.twitter.teruteru.study'
     mainClass = 'com.twitter.teruteru128.study.Main'
-    applicationDefaultJvmArgs = ['-Djava.lang.Integer.IntegerCache.high=114514']
+    // applicationDefaultJvmArgs = ['-Djava.lang.Integer.IntegerCache.high=114514']
 }
 
 shadowJar {
