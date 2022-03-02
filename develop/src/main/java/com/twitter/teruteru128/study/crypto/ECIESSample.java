@@ -42,25 +42,30 @@ public class ECIESSample implements Callable<Void> {
             throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, InvalidKeySpecException,
             NoSuchProviderException, InvalidParameterSpecException,
             IllegalBlockSizeException, BadPaddingException {
-        // 秘密鍵をインポート
-        ECPrivateKeySpec privateKeySpec = new ECPrivateKeySpec(new BigInteger(1, privateKeyData), parameterSpec);
-        // 非圧縮鍵表現鍵から鍵をインポートする
+        // 秘密鍵を鍵スペックに変換
+        var privateKeySpec = new ECPrivateKeySpec(new BigInteger(1, privateKeyData), parameterSpec);
+        // 非圧縮鍵表現鍵から公開鍵を鍵スペックに変換
         var x = new BigInteger(1, Arrays.copyOfRange(publicKeyData, 1, 33));
         var y = new BigInteger(1, Arrays.copyOfRange(publicKeyData, 33, 65));
         var w = new java.security.spec.ECPoint(x, y);
         var publicKeySpec = new java.security.spec.ECPublicKeySpec(w, parameterSpec);
+
+        //
         var factory1 = KeyFactory.getInstance("EC");
 
         // 鍵スペックから鍵に変換する
         var publicKey = factory1.generatePublic(publicKeySpec);
         var privateKey = factory1.generatePrivate(privateKeySpec);
 
-        // 暗号化/復号テスト
+        /**
+         * 暗号化/復号テスト
+         * デフォルトの ECIES は ECIESwithSHA1 と等価
+         */
         var cipher = Cipher.getInstance("ECIES/None/NoPadding", provider);
 
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
         var ciphertext = cipher.doFinal(message.getBytes(charset));
-        System.out.printf("length : %d bytes%n", ciphertext.length);
+        System.out.printf("length : %d bytes(charset:%s)%n", ciphertext.length, charset);
         for (int i = 0; i < ciphertext.length; i++) {
             System.out.printf("%02x", ciphertext[i]);
             if (i % 16 == 15) {
@@ -81,7 +86,7 @@ public class ECIESSample implements Callable<Void> {
         var cipher = Cipher.getInstance("ECIESwithSHA512/NONE/NOPADDING", provider);
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
         var ciphertext = cipher.doFinal(message.getBytes(charset));
-        System.out.printf("length : %d bytes%n", ciphertext.length);
+        System.out.printf("length : %d bytes(charset:%s)%n", ciphertext.length, charset);
         for (int i = 0; i < ciphertext.length; i++) {
             System.out.printf("%02x", ciphertext[i]);
             if (i % 16 == 15) {
@@ -94,8 +99,11 @@ public class ECIESSample implements Callable<Void> {
         System.out.printf("cleartext : %s(charset:%s)%n", cleartext, charset.displayName());
     }
 
-    private static final String STATIC_PUBLIC_KEY1 = "BHaW7iAHcG2h49xLy8oBS25GwZUCIxUr84q/TwDbI0rMiG7XMFp49lGomisFKE2TA5s7O5mSbmR5yq+2EzE61pc=";
+    /* package */ static final String STATIC_PUBLIC_KEY1 = "BHaW7iAHcG2h49xLy8oBS25GwZUCIxUr84q/TwDbI0rMiG7XMFp49lGomisFKE2TA5s7O5mSbmR5yq+2EzE61pc=";
     private static final String STATIC_PUBLIC_KEY2 = "BABfHBsh6Fo8BJpWgi6fWDtfoS4BkPODxUOOsUMhQk0MVo/Q2bNKsZ5GmKcbl6ncbJG9eAThWmOXzUoHDBptqOo=";
+
+    // 曲線名
+    /* package */ static final String CURVE_NAME = "secp256k1";
 
     @Override
     public Void call()
@@ -105,17 +113,18 @@ public class ECIESSample implements Callable<Void> {
         /** base64 decoder */
         Base64.Decoder decoder = Base64.getDecoder();
 
-        String stringkeydata1 = null;
-        String stringkeydata2 = null;
+        // 秘密鍵をリソースから読み込み
+        String stringPrivateKeyData1 = null;
+        String stringPrivateKeyData2 = null;
         try (var stream = new BufferedReader(
                 new InputStreamReader(this.getClass().getResourceAsStream("privatekey.txt")))) {
-            stringkeydata1 = stream.readLine();
-            stringkeydata2 = stream.readLine();
+            stringPrivateKeyData1 = stream.readLine();
+            stringPrivateKeyData2 = stream.readLine();
         }
 
         // static keys
-        var privateKeyData1 = decoder.decode(stringkeydata1);
-        var privateKeyData2 = decoder.decode(stringkeydata2);
+        var privateKeyData1 = decoder.decode(stringPrivateKeyData1);
+        var privateKeyData2 = decoder.decode(stringPrivateKeyData2);
         var publicKeyData1 = decoder.decode(STATIC_PUBLIC_KEY1);
         var publicKeyData2 = decoder.decode(STATIC_PUBLIC_KEY2);
 
@@ -128,13 +137,13 @@ public class ECIESSample implements Callable<Void> {
         sha512.update(publicKeyData1);
         sha512.update(publicKeyData2);
         System.out.print("ripe : ");
-        for (byte b : ripemd160.digest(sha512.digest())) {
-            System.out.printf("%02x", b & 0xff);
+        var ripe = ripemd160.digest(sha512.digest());
+        for (int i = 0; i < ripe.length; i++) {
+            System.out.printf("%02x", ripe[i] & 0xff);
+            if (i % 2 == 1)
+                System.out.print(" ");
         }
         System.out.println();
-
-        // 曲線名
-        String name = "secp256k1";
 
         String message = "イワシがつちからはえてくるんだ";
         System.out.printf("original message UTF-8 : %dbytes%n", message.getBytes(StandardCharsets.UTF_8).length);
@@ -142,11 +151,12 @@ public class ECIESSample implements Callable<Void> {
 
         // secp256k1 鍵パラメータ取得
         var parameters = AlgorithmParameters.getInstance("EC", "SunEC");
-        parameters.init(new ECGenParameterSpec(name));
+        parameters.init(new ECGenParameterSpec(CURVE_NAME));
         var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
 
         encTest(message, StandardCharsets.UTF_8, privateKeyData1, publicKeyData1, parameterSpec, bcProvider);
         encTest(message, Charset.forName("sjis"), privateKeyData2, publicKeyData2, parameterSpec, bcProvider);
+        System.out.println("-".repeat(32));
 
         // 秘密鍵をインポート
         ECPrivateKeySpec privateKeySpec3 = new ECPrivateKeySpec(new BigInteger(1, privateKeyData1), parameterSpec);
@@ -176,9 +186,9 @@ public class ECIESSample implements Callable<Void> {
         var factory2 = KeyFactory.getInstance("EC", bcProvider);
 
         // ドメイン設定
-        var x9 = ECNamedCurveTable.getByName(name);
+        var x9 = ECNamedCurveTable.getByName(CURVE_NAME);
         var curve = x9.getCurve();
-        var dParams = new ECNamedCurveParameterSpec(name, curve, x9.getG(), x9.getN());
+        var dParams = new ECNamedCurveParameterSpec(CURVE_NAME, curve, x9.getG(), x9.getN());
 
         var ecPoint1 = curve.decodePoint(publicKeyData1);
         var pubkeySpec1 = new ECPublicKeySpec(ecPoint1, dParams);
@@ -187,11 +197,6 @@ public class ECIESSample implements Callable<Void> {
         var ecPoint2 = curve.decodePoint(publicKeyData2);
         var pubkeySpec2 = new ECPublicKeySpec(ecPoint2, dParams);
         var publicKey2 = factory2.generatePublic(pubkeySpec2);
-
-        for (int i = 0; i < 32; i++) {
-            System.out.print("-");
-        }
-        System.out.println();
 
         // publicKey1とprivateKey3、publicKey3とprivateKey3の組み合わせのいずれでも動くはず
         anotherProviderTest(message, StandardCharsets.UTF_8, privateKey3, publicKey1, parameterSpec, bcProvider);
