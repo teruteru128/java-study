@@ -57,7 +57,13 @@ public class ShadowSeed {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.printf("%d%n", getShadowSeed(74803317123181L));
+        long shadowSeed =getShadowSeed(74803317123181L);
+        System.out.printf("%d%n", shadowSeed=getShadowSeed(shadowSeed));
+        System.out.printf("%d%n", shadowSeed=getShadowSeed(shadowSeed));
+        System.out.printf("%d%n", shadowSeed=getShadowSeed(shadowSeed));
+        System.out.printf("%d%n", shadowSeed=getShadowSeed(shadowSeed));
+        System.out.printf("%d%n", shadowSeed=getShadowSeed(shadowSeed));
+        System.out.println("--");
         Random random = new Random(74803317123181L);
         System.out.println(random.nextInt());
         System.out.println(random.nextInt());
