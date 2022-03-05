@@ -127,8 +127,7 @@ public class BMAddressGenerator implements Runnable {
                 .append("decoy = false\n")
                 .append("noncetrialsperbyte = 1000\n")
                 .append("payloadlengthextrabytes = 1000\n")
-                .append("privsigningkey = ")
-                .append(privSigningKeyWIF).append("\n")
+                .append("privsigningkey = ").append(privSigningKeyWIF).append("\n")
                 .append("privencryptionkey = ").append(privEncryptionKeyWIF).append("\n")
                 .toString();
         return key;
