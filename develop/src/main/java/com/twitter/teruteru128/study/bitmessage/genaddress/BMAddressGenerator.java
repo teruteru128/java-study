@@ -121,9 +121,15 @@ public class BMAddressGenerator implements Runnable {
         var address4 = BMAddress.encodeAddress(4, 1, ripe);
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
         var privEncryptionKeyWIF = encodeWIF(component.getPrivateEncryptionKey());
-        String key = new StringBuilder(305).append('[').append(address4).append(
-                "]\nlabel = relpace this label\nenabled = true\ndecoy = false\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nprivsigningkey = ")
-                .append(privSigningKeyWIF).append("\nprivencryptionkey = ").append(privEncryptionKeyWIF).append("\n")
+        String key = new StringBuilder(305).append('[').append(address4).append("]\n")
+                .append("label = ").append(address4.substring(3, 9)).append("\n")
+                .append("enabled = true\n")
+                .append("decoy = false\n")
+                .append("noncetrialsperbyte = 1000\n")
+                .append("payloadlengthextrabytes = 1000\n")
+                .append("privsigningkey = ")
+                .append(privSigningKeyWIF).append("\n")
+                .append("privencryptionkey = ").append(privEncryptionKeyWIF).append("\n")
                 .toString();
         return key;
     }
