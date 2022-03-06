@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.rsa.signtest001;
+package com.twitter.teruteru128.study.rsa;
 
 import java.lang.reflect.Constructor;
 import java.nio.file.Files;
@@ -19,7 +19,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.OAEPParameterSpec;
 import javax.crypto.spec.PSource;
 
-public class Main {
+public class SignTest001 {
 
     public static void main(String[] args) throws Exception {
         Provider provider = Security.getProvider("BC");
