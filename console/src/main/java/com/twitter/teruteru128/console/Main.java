@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.console;
+package com.twitter.teruteru128.console;
 
 import java.io.Console;
 import java.security.SecureRandom;

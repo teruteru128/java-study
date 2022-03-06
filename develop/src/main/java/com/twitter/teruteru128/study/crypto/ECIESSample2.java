@@ -6,6 +6,8 @@ import java.math.BigInteger;
 import java.security.AlgorithmParameters;
 import java.security.KeyFactory;
 import java.security.Security;
+import java.security.interfaces.ECPrivateKey;
+import java.security.interfaces.ECPublicKey;
 import java.security.spec.ECGenParameterSpec;
 import java.security.spec.ECParameterSpec;
 import java.security.spec.ECPrivateKeySpec;
@@ -41,9 +43,13 @@ public class ECIESSample2 implements Callable<Void> {
     }
   }
 
+  public ECIESSample2() {
+  }
+
+  /** base64 decoder */
+  private Base64.Decoder decoder = Base64.getDecoder();
+
   public Void call() throws Exception {
-    /** base64 decoder */
-    Base64.Decoder decoder = Base64.getDecoder();
     // 秘密鍵をリソースから読み込み
     String stringPrivateKeyData1 = null;
     try (var stream = new BufferedReader(
@@ -69,18 +75,38 @@ public class ECIESSample2 implements Callable<Void> {
     var factory1 = KeyFactory.getInstance("EC");
 
     // 鍵スペックから鍵に変換する
-    var publicKey = factory1.generatePublic(publicKeySpec);
+    var publicKey = (ECPublicKey) factory1.generatePublic(publicKeySpec);
+    // 暗号インスタンス作成
     var cipher = Cipher.getInstance("ECIESwithSHA512");
+    // 暗号化モードで初期化
     cipher.init(Cipher.ENCRYPT_MODE, publicKey);
     byte[] ciphertext = null;
     long start = 0;
     long finish = 0;
+    // 暗号化するデータ 1GB
     var messagetext = new byte[1024 * 1024 * 1024];
+
     start = System.nanoTime();
+    // 暗号化
     ciphertext = cipher.doFinal(messagetext);
     finish = System.nanoTime();
+
     var diff = Duration.ofNanos(finish - start);
     System.out.printf("%s, %dbytes, %dbytes%n", diff, ciphertext.length, ciphertext.length - messagetext.length);
+
+    // 秘密鍵生成
+    var privateKey = (ECPrivateKey) factory1.generatePrivate(privateKeySpec);
+    // 復号モードで初期化
+    cipher.init(Cipher.DECRYPT_MODE, privateKey);
+    byte[] cleartext = null;
+
+    start = System.nanoTime();
+    // 復号
+    cleartext = cipher.doFinal(ciphertext);
+    finish = System.nanoTime();
+    
+    diff = Duration.ofNanos(finish - start);
+    System.out.printf("%s, %dbytes, %s%n", diff, cleartext.length, Arrays.equals(messagetext, cleartext));
     return null;
   }
 }

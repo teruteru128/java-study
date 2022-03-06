@@ -24,7 +24,6 @@ import com.twitter.teruteru128.study.bitmessage.Const;
  */
 public class BMAddressGenerator implements Runnable {
 
-    private static Object lock = new Object();
     private Logger logger = System.getLogger("BM");
 
     private String[] args;

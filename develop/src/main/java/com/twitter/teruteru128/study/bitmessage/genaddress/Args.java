@@ -22,7 +22,4 @@ public abstract class Args implements Cloneable {
         return clone;
     }
 
-    public static enum Command {
-        GENERATE, VALIDATE, VERSION
-    }
 }

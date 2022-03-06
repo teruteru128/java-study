@@ -28,9 +28,9 @@ public class GenSample2 {
         try (var file2 = new RandomAccessFile(file, "r")) {
             for (long i = 0; i < 16; i++) {
                 for (long j = 0; j < 16; j++) {
-                    file2.seek(1635800400L + 65 * i);
+                    file2.seek(signindex + 65 * i);
                     file2.readFully(signprivatekey);
-                    file2.seek(156729040L + 65 * j);
+                    file2.seek(encindex + 65 * j);
                     file2.readFully(encprivatekey);
 
                     sha512.update(signprivatekey);

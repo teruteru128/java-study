@@ -82,7 +82,7 @@ dependencies {
     // implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
-    implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
 
     // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
     implementation 'org.glassfish.jaxb:jaxb-runtime:3.0.2'
@@ -123,6 +123,9 @@ dependencies {
     // https://github.com/greymd/CVE-2021-44228
     // https://mvnrepository.com/artifact/com.unboundid/unboundid-ldapsdk
     implementation 'com.unboundid:unboundid-ldapsdk:3.1.1'
+
+    // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    implementation "org.apache.tomcat.embed:tomcat-embed-core:10.0.17"
 }
 
 tasks.named('test') {

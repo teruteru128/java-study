@@ -6,6 +6,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -23,6 +24,9 @@ public class Producer implements Callable<Void> {
         this.request = request;
         string = "Task-" + request.getTaskID();
     }
+
+    /* random source */
+    private final SecureRandom random = new SecureRandom();
 
     /**
      * 
@@ -51,8 +55,6 @@ public class Producer implements Callable<Void> {
      */
     @Override
     public Void call() throws NoSuchAlgorithmException, DigestException {
-        /* random source */
-        final SecureRandom random = new SecureRandom();
 
 
         /* instance const */
@@ -90,16 +92,22 @@ public class Producer implements Callable<Void> {
         while (true) {
             privateKeyCacheGenStart = LocalDateTime.now();
             // 秘密鍵を生成する
-            // System.err.printf("hoge (%d) %s%n", request.getTaskID(), LocalDateTime.now());
+            // System.err.printf("hoge (%d) %s%n", taskId, LocalDateTime.now());
             random.nextBytes(privateKeys);
-            // System.err.printf("huga (%d) %s%n", request.getTaskID(), LocalDateTime.now());
+            privateKeyCacheGenFinish = LocalDateTime.now();
+            // System.err.printf("huga (%d) %s%n", taskId, LocalDateTime.now());
             // 秘密鍵から対応する公開鍵を導出する
             for (int i = 0; i < keyCacheSize; i++) {
                 // 公開鍵の導出は重い処理のため、予め大量に導出しておいて組み合わせたほうが早い
                 potentialPublicEncryptionKey = Const.G.multiply(new BigInteger(1, privateKeys, i * Const.PRIVATE_KEY_LENGTH, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
                 System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * Const.PUBLIC_KEY_LENGTH, Const.PUBLIC_KEY_LENGTH);
             }
-            // System.err.printf("piyo (%d) %s%n", request.getTaskID(), LocalDateTime.now());
+            publicKeyCacheGenFinish = LocalDateTime.now();
+            cacheFinish = LocalDateTime.now();
+            privateKeyCacheGenStart.until(privateKeyCacheGenFinish, ChronoUnit.SECONDS);
+            privateKeyCacheGenFinish.until(publicKeyCacheGenFinish, ChronoUnit.SECONDS);
+            publicKeyCacheGenFinish.until(cacheFinish, ChronoUnit.SECONDS);
+            // System.err.printf("piyo (%d) %s%n", taskId, LocalDateTime.now());
             for (int i = 0; i < keyCacheSize; i++) {
                 System.arraycopy(publicKeys, i * Const.PUBLIC_KEY_LENGTH, iPublicKey, 0, Const.PUBLIC_KEY_LENGTH);
                 // ここから
@@ -122,7 +130,7 @@ public class Producer implements Callable<Void> {
                     byte[] encryptionPrivateKey = signingPrivateKey;
                     KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, Arrays.copyOf(iPublicKey, Const.PUBLIC_KEY_LENGTH));
                     var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, Const.RIPEMD160_DIGEST_LENGTH));
-                    //System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
+                    //System.err.printf("keypair found!(%d) %s%n", taskId, LocalDateTime.now());
                     try {
                         Queues.getResponseQueue().put(response);
                     } catch (InterruptedException e) {
@@ -157,7 +165,7 @@ public class Producer implements Callable<Void> {
                         byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, j * Const.PRIVATE_KEY_LENGTH, (j + 1) * Const.PRIVATE_KEY_LENGTH);
                         KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, Arrays.copyOf(jPublicKey, Const.PUBLIC_KEY_LENGTH));
                         var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, Const.RIPEMD160_DIGEST_LENGTH));
-                        //System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
+                        //System.err.printf("keypair found!(%d) %s%n", taskId, LocalDateTime.now());
                         try {
                             Queues.getResponseQueue().put(response);
                         } catch (InterruptedException e) {
@@ -188,7 +196,7 @@ public class Producer implements Callable<Void> {
                         byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, i * Const.PRIVATE_KEY_LENGTH, (i + 1) * Const.PRIVATE_KEY_LENGTH);
                         KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, Arrays.copyOf(iPublicKey, Const.PUBLIC_KEY_LENGTH));
                         var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, 20));
-                        //System.err.printf("keypair found!(%d) %s%n", request.getTaskID(), LocalDateTime.now());
+                        //System.err.printf("keypair found!(%d) %s%n", taskId, LocalDateTime.now());
                         try {
                             Queues.getResponseQueue().put(response);
                         } catch (InterruptedException e) {
@@ -213,7 +221,7 @@ public class Producer implements Callable<Void> {
                     }
                 }
             }
-            System.err.printf("hogera (%d) %s%n", request.getTaskID(), LocalDateTime.now());
+            System.err.printf("hogera (%d) %s%n", taskId, LocalDateTime.now());
         }
     }
 
