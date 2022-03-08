@@ -1,0 +1,20 @@
+
+plugins {
+    // https://docs.gradle.org/current/userguide/java_plugin.html
+    id 'java'
+    // Apply the application plugin to add support for building a CLI application in Java.
+    // https://docs.gradle.org/current/userguide/application_plugin.html
+    id 'application'
+    // https://docs.gradle.org/current/userguide/eclipse_plugin.html
+    id 'eclipse'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+application {
+    mainClass = 'com.twitter.teruteru128.awt.Main'
+    applicationDefaultJvmArgs = ['-Xms16G', '-Xmx16G']
+}

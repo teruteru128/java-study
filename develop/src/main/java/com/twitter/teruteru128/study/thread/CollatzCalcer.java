@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.twitter.teruteru128.study.collatz.Collatz3;
+import com.twitter.teruteru128.collatz.Collatz3;
 
 public class CollatzCalcer implements Runnable {
     private Collatz3 c3_i = null;

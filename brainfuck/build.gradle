@@ -1,0 +1,28 @@
+
+plugins {
+    // https://docs.gradle.org/current/userguide/java_plugin.html
+    id 'java'
+    // Apply the application plugin to add support for building a CLI application in Java.
+    // https://docs.gradle.org/current/userguide/application_plugin.html
+    id 'application'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+    // Use JUnit Jupiter for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+}
+
+test {
+    // Use JUnit Platform for unit tests.
+    useJUnitPlatform()
+}
