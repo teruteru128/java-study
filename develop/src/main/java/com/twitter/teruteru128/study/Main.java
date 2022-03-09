@@ -15,6 +15,7 @@ public class Main {
         // 73, TimeUnit.MINUTES);
         // https://docs.oracle.com/javase/jp/17/docs/api/java.base/java/util/concurrent/ScheduledExecutorService.html
         var countDownFuture = service.schedule(new Shangri_laFrontierCountDown(), 0, TimeUnit.NANOSECONDS);
+        service.schedule(new ServiceCallSample(), 0, TimeUnit.NANOSECONDS);
         service.schedule(() -> {
             System.out.println("シャットダウンします……");
             countDownFuture.cancel(false);

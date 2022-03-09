@@ -46,9 +46,10 @@ repositories {
 }
 
 dependencies {
-    implementation project(':encode')
-    implementation project(':util')
     implementation project(':collatz')
+    implementation project(':encode')
+    implementation project(':impl')
+    implementation project(':util')
 
     // Use JUnit Jupiter for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'

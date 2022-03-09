@@ -10,4 +10,9 @@ public class LibraryImpl implements Library {
     public boolean someLibraryMethod() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "うんちー！";
+    }
 }
