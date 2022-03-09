@@ -11,8 +11,10 @@ import java.net.Proxy;
 import java.net.Socket;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
@@ -32,26 +34,35 @@ import java.util.regex.Pattern;
  * client
  * server
  * clientrunner
- *  スレッド管理
- *  ピア接続受付サーバー起動処理
- *  ネットワーク参加処理
- *  サーバーハートビート送信処理
- *  ピアハートビート送信
+ * スレッド管理
+ * ピア接続受付サーバー起動処理
+ * ネットワーク参加処理
+ * サーバーハートビート送信処理
+ * ピアハートビート送信
  * 
- * クライアントの設定フォルダ : C:\Users\terut\AppData\Local\VirtualStore\Program Files (x86)\P2PQuake
+ * クライアントの設定フォルダ : C:\Users\terut\AppData\Local\VirtualStore\Program Files
+ * (x86)\P2PQuake
  * https://p2pquake.github.io/epsp-specifications/epsp-specifications.html
  */
 public class Main {
 
-    private static final DateTimeFormatter P2P_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH-mm-ss", Locale.JAPAN);
+    private static final DateTimeFormatter P2P_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH-mm-ss",
+            Locale.JAPAN);
 
     public static void main(String[] args) throws Exception {
-        ScheduledThreadPoolExecutor executor = (ScheduledThreadPoolExecutor)Executors.newScheduledThreadPool(2);
-        executor.execute(new ClientTask(6910));
-        executor.schedule(()->executor.shutdown(), 5, TimeUnit.MINUTES);
+        ScheduledThreadPoolExecutor executor = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(2);
+        // ピアマネージャー -> タスクマネージャー？
+        // ソケットを開いて受け付けたピアに向いたソケットをワーカースレッドに渡すタスク
+        // ピア向けハートビートタスク(ピア毎？)
+        // p2pネットワークに接続するワンショットタスク
+        // そういえばジョインタスクの中でピアに接続しに行かないといけないんだよな……
+        // サーバー向けハートビート
+        executor.execute(new ClientHeartbeat());
+        executor.schedule(() -> executor.shutdown(), 5, TimeUnit.MINUTES);
         // 設定ファイルから設定読み込み
         // サーバー立ち上げ
-        List<String> serverAddressList = Arrays.asList("p2pquake.dyndns.info", "www.p2pquake.net", "p2pquake.dnsalias.net",
+        List<String> serverAddressList = Arrays.asList("p2pquake.dyndns.info", "www.p2pquake.net",
+                "p2pquake.dnsalias.net",
                 "p2pquake.ddo.jp");
         SecureRandom random = new SecureRandom();
         Collections.shuffle(serverAddressList, random);
@@ -81,59 +92,80 @@ public class Main {
                     BufferedWriter writer = new BufferedWriter(
                             new OutputStreamWriter(socket.getOutputStream(), charset))) {
                 // プロトコルバージョンリクエスト
-                String a = reader.readLine();
-                System.out.println(a.equals("211 1"));
-                writer.write(String.format("131 1 0.34:%s:%s\r\n", Const.NAME, Const.VERSION));
+                String response = reader.readLine();
+                if (response.equals("211 1")) {
+                    System.out.println("211 ok");
+                } else {
+
+                }
+                writer.write(String.format("131 1 0.35:%s:%s\r\n", Const.NAME, Const.VERSION));
                 writer.flush();
-                a = reader.readLine();
-                if (!a.startsWith("212 1 ") && a.startsWith("292 1 ")) {
-                    System.err.println("Client protocol version is old");
+                response = reader.readLine();
+                if (!response.startsWith("212 1 ")) {
+                    System.err.printf("Client protocol version is old(%s)%n", response);
                     return;
                 }
-                System.out.println(a);
+                System.out.println(response);
                 // ピアIDの暫定割り当て・ポート開放のチェック
                 writer.write("113 1\r\n");
                 writer.flush();
-                a = reader.readLine();
-                System.out.println(a);
-                Pattern peerIdPattern = Pattern.compile("^(\\d+) (\\d+) (\\d+)$");
-                Matcher peerIdMatcher = peerIdPattern.matcher(a);
-                peerIdMatcher.matches();
-                tempPeerID = Integer.parseInt(peerIdMatcher.group(3));
+                response = reader.readLine();
+                System.out.println(response);
+                tempPeerID = Integer.parseInt(response.replaceAll("\r\n", "").split(" ")[2]);
                 System.out.printf("temp peer id : %d%n", tempPeerID);
+                // ポート開放する場合はここで114コマンドを送信
+                // ピアデータ取得
                 writer.write(String.format("115 1 %d\r\n", tempPeerID));
                 writer.flush();
-                a = reader.readLine();
-                System.out.println(a);
+                response = reader.readLine();
+                System.out.println(response);
                 // ピアへ接続
                 // 155 で接続したピアをサーバーへ通知する
-                /*
-                writer.write(String.format("116 1 %d:0:200:0:0\r\n"));
+
+                writer.write(String.format("116 1 %d:0:200:0:0\r\n", tempPeerID));
                 writer.flush();
-                a = reader.readLine();
-                System.out.println(a);
+                response = reader.readLine();
+                if (response.startsWith("236 1 ")) {
+
+                }
+                System.out.println(response);
+
+                // 各地域ピア数の取得
                 writer.write("127 1\r\n");
                 writer.flush();
-                a = reader.readLine();
-                System.out.println(a);
+                response = reader.readLine();
+                System.out.println(response);
+                for (String area : response.replaceAll("\r\n", "").split(";")) {
+                    var a = area.split(",");
+                    var areaCode = a[0];
+                    var peerNum = a[0];
+                }
+
+                // プロトコル時刻の取得
                 writer.write("118 1\r\n");
                 writer.flush();
                 Pattern timeFormatPattern = Pattern.compile("^(\\d+) (\\d+) (.+)$");
-                a = reader.readLine();
-                System.out.println(a);
-                Matcher timeMatcher = timeFormatPattern.matcher(a);
+                response = reader.readLine();
+                System.out.println(response);
+                var protocolTimeString = response.replaceAll("\r\n", "").replaceAll("238 1 ", "");
+                Matcher timeMatcher = timeFormatPattern.matcher(response);
                 timeMatcher.matches();
                 System.out.println(timeMatcher.group(3));
-                LocalDateTime localDateTime = LocalDateTime.parse(timeMatcher.group(3), formatter);
+                LocalDateTime localDateTime = LocalDateTime.parse(timeMatcher.group(3),
+                        P2P_DATE_FORMATTER);
                 ZonedDateTime time = localDateTime.atZone(tokyo);
                 System.out.println(time);
-                */
+
+                // サーバーとの接続終了
                 writer.write("119 1\r\n");
                 writer.flush();
-                a = reader.readLine();
-                System.out.println(a);
+                response = reader.readLine();
+                System.out.println(response);
             }
-            if(!socket.isClosed()){socket.close();System.out.println("closeされました1");}
+            if (!socket.isClosed()) {
+                socket.close();
+                System.out.println("closeされました1");
+            }
             socket = null;
             Thread.sleep(5000);
             Collections.shuffle(serverAddressList, random);
@@ -145,12 +177,13 @@ public class Main {
                     break;
                 } catch (IOException e) {
                     System.err.printf("%s : %sへの接続に失敗%n", LocalTime.now(), server);
-                    if(socket2 != null && !socket2.isClosed())socket2.close();
+                    if (socket2 != null && !socket2.isClosed())
+                        socket2.close();
                     socket2 = null;
                     continue;
                 }
             }
-            if(socket2 == null){
+            if (socket2 == null) {
                 System.err.println("socket2 is null");
                 return;
             }

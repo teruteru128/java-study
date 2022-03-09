@@ -17,11 +17,7 @@ public class DeepWebRadioPoller implements Runnable {
   public DeepWebRadioPoller() {
     try {
       url = new URL("http://anonyradixhkgh5myfrkarggfnmdzzhhcgoy2v66uf7sml27to5n2tid.onion/");
-      /*
-       * url = new
-       * URL("http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/")
-       * ;
-       */
+      // url = new URL("http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/");
       proxy = new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9050));
     } catch (MalformedURLException e) {
       throw new RuntimeException(e);

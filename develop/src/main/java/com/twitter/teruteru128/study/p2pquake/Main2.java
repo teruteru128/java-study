@@ -52,20 +52,24 @@ public class Main2 {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), charset));
                     BufferedWriter writer = new BufferedWriter(
                             new OutputStreamWriter(socket.getOutputStream(), charset))) {
-                String a = reader.readLine();
-                System.out.println(a.equals("211 1"));
-                writer.write(String.format("131 1 0.20:%s:%s\r\n", NAME, VERSION));
+                String response = reader.readLine();
+                if (response.equals("211 1")) {
+
+                }
+                writer.write(String.format("131 1 0.35:%s:%s\r\n", NAME, VERSION));
                 writer.flush();
-                a = reader.readLine();
-                System.out.println(a);
+                response = reader.readLine();
+                if (response.startsWith("212 1 ")) {
+
+                }
                 writer.write(String.format("128 1 %d:Unknown\r\n", tempPeerID));
                 writer.flush();
-                a = reader.readLine();
-                System.out.println(a);
+                response = reader.readLine();
+                System.out.println(response);
                 writer.write("119 1\r\n");
                 writer.flush();
-                a = reader.readLine();
-                System.out.println(a);
+                response = reader.readLine();
+                System.out.println(response);
             }
         } finally {
             if (socket != null) {

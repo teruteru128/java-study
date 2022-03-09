@@ -3,16 +3,28 @@
  */
 package com.twitter.teruteru128.impl;
 
+import java.util.UUID;
+
 import com.twitter.teruteru128.library.Library;
 
 public class LibraryImpl implements Library {
+
+    private static final UUID DEFAULT_SERVICE_UUID = UUID.fromString("063d4d7e-5bcf-48b2-8938-52bce1839be6");
+    private final UUID serviceUUID = DEFAULT_SERVICE_UUID;
+
+    public LibraryImpl() {
+    }
+
+    /**
+     * {@inheritDoc}
+    */
     @Override
     public boolean someLibraryMethod() {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "うんちー！";
+    /** {@inheritDoc} */
+    public UUID getServiceUUID() {
+        return serviceUUID;
     }
 }
