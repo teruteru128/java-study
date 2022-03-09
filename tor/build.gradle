@@ -1,0 +1,32 @@
+
+plugins {
+    // https://docs.gradle.org/current/userguide/java_plugin.html
+    id 'java'
+    // https://docs.gradle.org/current/userguide/eclipse_plugin.html
+    id 'eclipse'
+    // https://docs.gradle.org/current/userguide/java_library_plugin.html
+    id 'java-library'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+    // Use JUnit Jupiter for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
+
+    // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'
+}
+
+test {
+    // Use JUnit Platform for unit tests.
+    useJUnitPlatform()
+}
