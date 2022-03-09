@@ -11,15 +11,16 @@ import java.net.Proxy;
 import java.net.Socket;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,8 +43,12 @@ import java.util.regex.Pattern;
  */
 public class Main {
 
+    private static final DateTimeFormatter P2P_DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy/MM/dd HH-mm-ss", Locale.JAPAN);
+
     public static void main(String[] args) throws Exception {
-        Thread thread = new Thread(new ClientTask(6910));
+        ScheduledThreadPoolExecutor executor = (ScheduledThreadPoolExecutor)Executors.newScheduledThreadPool(2);
+        executor.execute(new ClientTask(6910));
+        executor.schedule(()->executor.shutdown(), 5, TimeUnit.MINUTES);
         // 設定ファイルから設定読み込み
         // サーバー立ち上げ
         List<String> serverAddressList = Arrays.asList("p2pquake.dyndns.info", "www.p2pquake.net", "p2pquake.dnsalias.net",
@@ -56,7 +61,6 @@ public class Main {
         int tempPeerID = 0;
         int peerID = 0;
         ZoneId tokyo = ZoneId.of("Asia/Tokyo");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH-mm-ss", Locale.JAPAN);
         try {
             for (String serverAddress : serverAddressList) {
                 try {

@@ -5,7 +5,9 @@ import java.util.ServiceLoader;
 import com.twitter.teruteru128.library.Library;
 
 /**
- * InnerMain
+ * ServiceCallSample
+ * 
+ * P2Pの基盤をライブラリとして作って、Bitmessage向け実装とかP2P地震情報向け実装をサービスで提供する……？
  */
 public class ServiceCallSample implements Runnable {
 
