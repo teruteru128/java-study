@@ -16,7 +16,7 @@ public class Shangri_laFrontierCountDown implements Runnable {
 
   @Override
   public void run() {
-    var lastUpdate = LocalDateTime.of(2022, 2, 7, 14, 4, 0);
+    var lastUpdate = LocalDateTime.of(2022, 3, 10, 7, 4, 0);
     var dateAndTimeWhenTheWarningIsPosted = lastUpdate.plus(8, ChronoUnit.WEEKS);
     var now = LocalDateTime.now();
     var unit = ChronoUnit.DAYS;
