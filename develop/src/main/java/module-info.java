@@ -32,4 +32,6 @@ module com.twitter.teruteru.study {
 
     opens com.twitter.teruteru128.study.jaxb to jakarta.xml.bind;
     // uses jakarta.xml.bind.JAXBContext;
+    uses com.twitter.teruteru128.library.Library;
+    uses com.twitter.teruteru128.library.LibraryFactory;
 }

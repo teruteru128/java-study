@@ -1,9 +1,12 @@
 package com.twitter.teruteru128.study;
 
+import java.util.ServiceLoader;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import com.twitter.teruteru128.library.Library;
+import com.twitter.teruteru128.library.LibraryFactory;
 import com.twitter.teruteru128.study.sf.Shangri_laFrontierCountDown;
 import com.twitter.teruteru128.study.swing.SwingStudy;
 
@@ -22,6 +25,6 @@ public class Main {
         service.schedule(() -> {
             System.out.println("シャットダウンします……");
             service.shutdown();
-        }, 1, TimeUnit.SECONDS);
+        }, 5, TimeUnit.SECONDS);
     }
 }

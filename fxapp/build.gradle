@@ -3,7 +3,7 @@ plugins {
     id 'java'
     // id 'java-library'
     id 'application'
-     id 'org.javamodularity.moduleplugin' version '1.8.10' apply false
+    id 'org.javamodularity.moduleplugin' version '1.8.10' apply false
     id 'org.openjfx.javafxplugin' version '0.0.12'
     // https://docs.gradle.org/current/userguide/eclipse_plugin.html
     id 'eclipse'
@@ -62,7 +62,7 @@ eclipse {
                 entries.findAll { it.properties.path.startsWith('org.eclipse.jdt.launching.JRE_CONTAINER') }.each {
                     it.entryAttributes['module'] = 'true'
                 }
-                entries.find { it.path == 'src/main/java' }.output = 'build/main'
+                entries.find { it.path == 'src/main/java' }.output = 'bin/main'
 
                 def testSrc = entries.find { it.path == 'src/test/java' }
                 testSrc.output = 'bin/test'
@@ -79,7 +79,7 @@ eclipse {
                     }
                 }
             }
-            defaultOutputDir = file('build')
+            defaultOutputDir = file('bin/main')
         }
     }
 }

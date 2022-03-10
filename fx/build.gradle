@@ -46,10 +46,13 @@ dependencies {
     // https://mvnrepository.com/artifact/org.openjfx/javafx-fxml
     implementation 'org.openjfx:javafx-fxml:17.0.2'
 
+    // https://mvnrepository.com/artifact/org.openjfx/javafx-graphics
+    implementation 'org.openjfx:javafx-graphics:17.0.2'
+
 }
 
 javafx {
-    version = "17"
+    version = "17.0.2"
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics']
 }
 
@@ -92,7 +95,7 @@ eclipse {
                     }
                 }
             }
-            defaultOutputDir = file('bin')
+            //defaultOutputDir = file('bin/main')
         }
     }
 }

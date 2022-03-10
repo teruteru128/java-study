@@ -1,12 +1,12 @@
 package com.twitter.teruteru128.study;
 
-import java.sql.Driver;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.UUID;
 
 import com.twitter.teruteru128.library.Library;
+import com.twitter.teruteru128.library.LibraryFactory;
 
 /**
  * ServiceCallSample
@@ -20,10 +20,15 @@ public class ServiceCallSample implements Runnable {
 
   @Override
   public void run() {
-    var loader = ServiceLoader.load(Library.class);
-    for (Library library : loader) {
-      System.out.printf("%s%n", library.someLibraryMethod());
-      libraryMap.put(library.getServiceUUID(), library);
+    try {
+      var loader = ServiceLoader.load(LibraryFactory.class);
+      for (LibraryFactory factory : loader) {
+        var instance = factory.getInstance();
+        System.out.printf("Hi! %s%n", instance.someLibraryMethod());
+        libraryMap.put(instance.getServiceUUID(), instance);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }

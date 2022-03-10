@@ -29,11 +29,11 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-/* application {
+application {
     mainModule = 'com.twitter.teruteru.study'
     mainClass = 'com.twitter.teruteru128.study.Main'
     applicationDefaultJvmArgs = ['-Xms16G', '-Xmx16G']
-} */
+}
 
 /* shadowJar {
     archiveClassifier = 'shade'
@@ -50,6 +50,7 @@ dependencies {
     implementation project(':collatz')
     implementation project(':encode')
     implementation project(':impl')
+    implementation project(':library')
     implementation project(':util')
 
     // Use JUnit Jupiter for testing.
@@ -59,7 +60,7 @@ dependencies {
     implementation 'org.apache.commons:commons-math3:3.6.1'
 
     // This dependency is used by the application.
-    // implementation 'com.google.guava:guava:31.1-jre'
+    implementation 'com.google.guava:guava:31.1-jre'
 
     // https://mvnrepository.com/artifact/com.h2database/h2
     implementation 'com.h2database:h2:2.1.210'
@@ -162,7 +163,11 @@ eclipse {
                 entries.findAll { it.properties.path.startsWith('org.eclipse.jdt.launching.JRE_CONTAINER') }.each {
                     it.entryAttributes['module'] = 'true'
                 }
-                entries.find { it.path == 'src/main/java' }.output = 'build/main'
+                entries.find { it.path == 'src/main/java' }.output = 'bin/main'
+
+                entries.findAll { it.path.startsWith('/') && !it.path.endsWith('.jar') }.each {
+                    it.entryAttributes['module'] = 'true'
+                }
 
                 def testSrc = entries.find { it.path == 'src/test/java' }
                 testSrc.output = 'bin/test'
@@ -179,7 +184,7 @@ eclipse {
                     }
                 }
             }
-            defaultOutputDir = file('build/main')
+            //defaultOutputDir = file('bin/main')
         }
     }
 }
