@@ -37,7 +37,7 @@ dependencies {
 }
 
 javafx {
-    modules = ['javafx.fxml', 'javafx.graphics']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics']
 }
 
 application {

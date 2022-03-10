@@ -1,4 +1,7 @@
 module com.twitter.teruteru.fxapp {
-    requires javafx.fxml;
-    requires javafx.graphics;
+    requires transitive javafx.controls;
+    requires transitive javafx.fxml;
+    requires transitive javafx.graphics;
+
+    opens com.twitter.teruteru128.application to javafx.graphics, javafx.fxml;
 }
