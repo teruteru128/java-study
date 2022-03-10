@@ -140,7 +140,7 @@ tasks.withType(JavaCompile) {
 }
 
 // thanks for https://github.com/eclipse/eclipse.jdt.ls/issues/957
-eclipse {
+/* eclipse {
     classpath {
         containers 'org.eclipse.buildship.core.gradleclasspathcontainer'
         file {
@@ -170,4 +170,4 @@ eclipse {
             }
         }
     }
-}
+} */
