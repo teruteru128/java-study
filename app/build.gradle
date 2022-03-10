@@ -11,6 +11,10 @@ repositories {
     mavenCentral()
 }
 
+java {
+    
+}
+
 application {
     mainClass = 'com.twitter.teruteru128.App'
 }

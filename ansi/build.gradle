@@ -6,7 +6,7 @@ plugins {
     // https://docs.gradle.org/current/userguide/application_plugin.html
     id 'application'
     // https://docs.gradle.org/current/userguide/eclipse_plugin.html
-    //id 'eclipse'
+    id 'eclipse'
 }
 
 //javaModule.name = 'com.teruteru128.study'
@@ -21,7 +21,7 @@ application {
     mainClass = 'com.twitter.teruteru128.ansi.EscapeCodeSample'
 }
 
-/* eclipse {
+eclipse {
     classpath {
         containers 'org.eclipse.buildship.core.gradleclasspathcontainer'
         file {
@@ -51,4 +51,4 @@ application {
             }
         }
     }
-} */
+}

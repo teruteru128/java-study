@@ -15,6 +15,11 @@ public class MainController {
     @FXML
     public void onHello(ActionEvent event) {
         Button button = (Button) event.getSource();
-        button.setText(button.getText() + "!");
+        String newText = button.getText() + "!";
+        if(newText.length() >= 16){
+            newText = newText.replaceAll("!+", "");
+            System.out.println(newText);
+        }
+        button.setText(newText);
     }
 }

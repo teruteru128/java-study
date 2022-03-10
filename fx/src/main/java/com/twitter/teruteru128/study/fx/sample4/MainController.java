@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
@@ -13,6 +14,8 @@ import twitter4j.TwitterFactory;
 
 public class MainController {
     @FXML
+    public GridPane rootPane;
+    @FXML
     public Button btnSend;
     @FXML
     public Button btnEnable;
@@ -20,8 +23,10 @@ public class MainController {
     public Button btnDisable;
     @FXML
     public Button btnAdmin;
-    public LinkedList<StatusUpdate> list1;
-    public LinkedList<StatusUpdate> list2;
+    @FXML
+    public Button btnJibaku;
+    public LinkedList<StatusUpdate> list1 = new LinkedList<StatusUpdate>();
+    public LinkedList<StatusUpdate> list2 = new LinkedList<StatusUpdate>();
     private Twitter twitter = null;
     private boolean adminMode = false;
     private Stage stage;
@@ -41,7 +46,6 @@ public class MainController {
     }
 
     public MainController() {
-        list1 = new LinkedList<StatusUpdate>();
         list1.add(new StatusUpdate("テスト"));
         list1.add(new StatusUpdate("で？"));
         list1.add(new StatusUpdate("てすてす"));
@@ -50,7 +54,6 @@ public class MainController {
         list1.add(new StatusUpdate("キワミ"));
         list1.add(new StatusUpdate("アッー！"));
         Collections.shuffle(list1);
-        list2 = new LinkedList<StatusUpdate>();
     }
 
     @FXML
@@ -69,6 +72,11 @@ public class MainController {
     @FXML
     public void disableSend() {
         setSendDisable(true);
+    }
+
+    @FXML
+    public void selfDestruct() {
+        btnJibaku.setDisable(true);
     }
 
     private StatusUpdate getStatusUpdate() {

@@ -1,11 +1,11 @@
 
 plugins {
+    //id 'com.twitter.teruteru128.java.study.java-conventions'
     id 'java'
     id 'application'
+    id 'eclipse'
     id 'org.javamodularity.moduleplugin' version '1.8.10' apply false
     id 'org.openjfx.javafxplugin' version '0.0.12'
-    // https://docs.gradle.org/current/userguide/eclipse_plugin.html
-    //id 'eclipse'
 }
 
 compileJava.options.encoding = 'UTF-8'
@@ -49,6 +49,7 @@ dependencies {
 }
 
 javafx {
+    version = "17"
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics']
 }
 
@@ -63,7 +64,7 @@ tasks.named('test') {
 }
 
 // thanks for https://github.com/eclipse/eclipse.jdt.ls/issues/957
-/* eclipse {
+eclipse {
     classpath {
         containers 'org.eclipse.buildship.core.gradleclasspathcontainer'
         file {
@@ -91,6 +92,7 @@ tasks.named('test') {
                     }
                 }
             }
+            defaultOutputDir = file('bin')
         }
     }
-} */
+}

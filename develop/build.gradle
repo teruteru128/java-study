@@ -7,14 +7,14 @@
  */
 
 plugins {
-    id 'com.twitter.teruteru128.java.study.java-conventions'
+    //id 'com.twitter.teruteru128.java.study.java-conventions'
     // https://docs.gradle.org/current/userguide/java_plugin.html
     id 'java'
     // Apply the application plugin to add support for building a CLI application in Java.
     // https://docs.gradle.org/current/userguide/application_plugin.html
     id 'application'
     // https://docs.gradle.org/current/userguide/eclipse_plugin.html
-    //id 'eclipse'
+    id 'eclipse'
     // https://docs.gradle.org/current/userguide/java_library_plugin.html
     //id 'java-library'
     // https://github.com/java9-modularity/gradle-modules-plugin
@@ -29,15 +29,15 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
-application {
+/* application {
     mainModule = 'com.twitter.teruteru.study'
     mainClass = 'com.twitter.teruteru128.study.Main'
     applicationDefaultJvmArgs = ['-Xms16G', '-Xmx16G']
-}
+} */
 
-shadowJar {
+/* shadowJar {
     archiveClassifier = 'shade'
-}
+} */
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -141,7 +141,17 @@ tasks.withType(JavaCompile) {
 }
 
 // thanks for https://github.com/eclipse/eclipse.jdt.ls/issues/957
-/* eclipse {
+eclipse {
+    /* 
+    doFirst {
+        File prefs = file("${project.projectDir}/.settings/org.eclipse.buildship.core.prefs")
+        if(!prefs.exists()) {
+            prefs.append('''
+                connection.project.dir=
+                eclipse.preferences.version=1
+                '''.stripIndent())
+        }
+    } */
     classpath {
         containers 'org.eclipse.buildship.core.gradleclasspathcontainer'
         file {
@@ -152,7 +162,7 @@ tasks.withType(JavaCompile) {
                 entries.findAll { it.properties.path.startsWith('org.eclipse.jdt.launching.JRE_CONTAINER') }.each {
                     it.entryAttributes['module'] = 'true'
                 }
-                entries.find { it.path == 'src/main/java' }.output = 'bin/main'
+                entries.find { it.path == 'src/main/java' }.output = 'build/main'
 
                 def testSrc = entries.find { it.path == 'src/test/java' }
                 testSrc.output = 'bin/test'
@@ -169,6 +179,7 @@ tasks.withType(JavaCompile) {
                     }
                 }
             }
+            defaultOutputDir = file('build/main')
         }
     }
-} */
+}

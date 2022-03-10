@@ -15,7 +15,7 @@ module com.twitter.teruteru.study {
     requires com.google.gson;
 
     // guava
-    // requires com.google.common;
+    requires com.google.common;
 
     //
     requires jakarta.json;
@@ -25,10 +25,9 @@ module com.twitter.teruteru.study {
     requires com.h2database;
     requires com.twitter.teruteru.encode;
     requires com.twitter.teruteru.util;
-
-    //
-    // requires org.glassfish.jaxb.runtime;
-    requires transitive com.twitter.teruteru.impl;
+    requires org.glassfish.jaxb.runtime;
+    requires com.twitter.teruteru.impl;
+    requires com.twitter.teruteru.library;
     requires com.twitter.teruteru.collatz;
 
     opens com.twitter.teruteru128.study.jaxb to jakarta.xml.bind;
