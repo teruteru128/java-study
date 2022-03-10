@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 
 import javax.crypto.Cipher;
 
-import com.twitter.teruteru128.study.crypto.DataPrinter;
+import jakarta.xml.bind.DatatypeConverter;
 
 public class RSA1024EncryptSample {
 
@@ -39,8 +39,8 @@ public class RSA1024EncryptSample {
         var ctext = new BigInteger(1, ciphertext);
         System.out.printf("%s$%s$%s%n", mod, pubexp, ctext);
         System.out.println(mod.toString(16));
-        System.out.println(DataPrinter.printHexBinary(mod.toByteArray()));
-        System.out.println(DataPrinter.printHexBinary(ciphertext));
+        System.out.println(DatatypeConverter.printHexBinary(mod.toByteArray()));
+        System.out.println(DatatypeConverter.printHexBinary(ciphertext));
         System.out.println(OffsetDateTime.now(ZoneId.of("UTC")).truncatedTo(ChronoUnit.SECONDS));
     }
 

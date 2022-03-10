@@ -3,7 +3,7 @@ plugins {
     // https://docs.gradle.org/current/userguide/java_plugin.html
     id 'java'
     // https://docs.gradle.org/current/userguide/eclipse_plugin.html
-    id 'eclipse'
+    //id 'eclipse'
     // https://docs.gradle.org/current/userguide/java_library_plugin.html
     id 'java-library'
 }

@@ -2,6 +2,7 @@ package com.twitter.teruteru128.study.swing;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.concurrent.Callable;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -12,12 +13,12 @@ import javax.swing.JLabel;
  * @author Teruteru
  *
  */
-public class Main {
+public class SwingStudy implements Callable<Void>{
     /**
      * @param args
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException {
+    public Void call() throws IOException {
         JFrame jf = new JFrame("jframe");
         jf.setSize(800, 600);
         jf.setLocationRelativeTo(null);
@@ -30,6 +31,7 @@ public class Main {
             jf.add(l);
         }
         jf.setVisible(true);
+        return null;
     }
 
 }

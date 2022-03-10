@@ -12,6 +12,7 @@ import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.ServiceLoader;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
@@ -26,7 +27,7 @@ import javax.swing.JTextField;
  * @author
  *
  */
-public class SamplePluginApp extends JFrame implements ActionListener {
+public class SamplePlugableApp extends JFrame implements ActionListener {
     private static final long serialVersionUID = 0L;
     private JTextField result;
     private JComboBox<? super SamplePluginAppPlugin> pluginsCombo;
@@ -40,10 +41,10 @@ public class SamplePluginApp extends JFrame implements ActionListener {
      * @param args
      */
     public static void main(String[] args) {
-        new SamplePluginApp().setVisible(true);
+        new SamplePlugableApp().setVisible(true);
     }
 
-    public SamplePluginApp() {
+    public SamplePlugableApp() {
         result = new JTextField();
         this.add(result, BorderLayout.NORTH);
         panel = new JPanel();
@@ -66,9 +67,10 @@ public class SamplePluginApp extends JFrame implements ActionListener {
         JComboBox<? super SamplePluginAppPlugin> combo = new JComboBox<>();
         plugins = getPlugins();
         // デフォルトプラグインの準備
-        selectedPlugin = new DefaultPlugin();
-        selectedPluginPanel = selectedPlugin.getPanel();
-        combo.addItem(selectedPlugin);
+        for (SamplePluginAppPlugin samplePluginAppPlugin : ServiceLoader.load(SamplePluginAppPlugin.class)) {
+            selectedPluginPanel = samplePluginAppPlugin.getPanel();
+            combo.addItem(samplePluginAppPlugin);
+        }
 
         for (int i = 0; i < plugins.size(); i++) {
             SamplePluginAppPlugin plugin = plugins.get(i);

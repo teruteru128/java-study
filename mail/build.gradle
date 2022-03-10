@@ -2,6 +2,8 @@
 plugins {
     id 'java'
     id 'application'
+    // https://docs.gradle.org/current/userguide/eclipse_plugin.html
+    //id 'eclipse'
 }
 
 application {

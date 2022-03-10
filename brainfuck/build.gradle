@@ -5,6 +5,8 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     // https://docs.gradle.org/current/userguide/application_plugin.html
     id 'application'
+    // https://docs.gradle.org/current/userguide/eclipse_plugin.html
+    //id 'eclipse'
 }
 
 java {

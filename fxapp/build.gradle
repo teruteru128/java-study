@@ -6,7 +6,7 @@ plugins {
      id 'org.javamodularity.moduleplugin' version '1.8.10' apply false
     id 'org.openjfx.javafxplugin' version '0.0.12'
     // https://docs.gradle.org/current/userguide/eclipse_plugin.html
-    id 'eclipse'
+    //id 'eclipse'
 }
 
 java {

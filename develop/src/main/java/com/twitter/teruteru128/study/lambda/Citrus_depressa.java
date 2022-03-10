@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
+ * シークワーサーの表記揺れを返す
  * @author Teruteru
  *
  */
@@ -14,10 +15,8 @@ public class Citrus_depressa {
      * @param args
      */
     public static void main(String[] args) {
-        Stream<String> hoge = createStream();
-        Stream<String> hoge2 = createStream();
-        hoge.forEach(System.out::println);
-        System.out.println(hoge2.count());
+        createStream().forEach(System.out::println);
+        System.out.println(createStream().count());
     }
 
     private static Stream<String> createStream() {

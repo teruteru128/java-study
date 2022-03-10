@@ -13,7 +13,11 @@ module com.twitter.teruteru.study {
     requires java.scripting;
     requires java.sql;
     requires com.google.gson;
-    requires com.google.common;
+
+    // guava
+    // requires com.google.common;
+
+    //
     requires jakarta.json;
     requires jakarta.xml.bind;
     requires org.bouncycastle.provider;
@@ -21,10 +25,12 @@ module com.twitter.teruteru.study {
     requires com.h2database;
     requires com.twitter.teruteru.encode;
     requires com.twitter.teruteru.util;
-    requires org.glassfish.jaxb.runtime;
+
+    //
+    // requires org.glassfish.jaxb.runtime;
     requires transitive com.twitter.teruteru.impl;
     requires com.twitter.teruteru.collatz;
 
     opens com.twitter.teruteru128.study.jaxb to jakarta.xml.bind;
-    uses jakarta.xml.bind.JAXBContext;
+    // uses jakarta.xml.bind.JAXBContext;
 }

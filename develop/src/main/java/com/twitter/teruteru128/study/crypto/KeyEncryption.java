@@ -68,16 +68,10 @@ public class KeyEncryption {
         cipher2.init(Cipher.WRAP_MODE, key2, spec2);
         byte[] encryptedkey = cipher2.wrap(key);
 
-        System.out.print("byte[] encryptedkey = DatatypeConverter.parseHexBinary(\"");
-        System.out.print(DataPrinter.printHexBinary(encryptedkey));
-        System.out.print("\");\nbyte[] salt = DatatypeConverter.parseHexBinary(\"");
-        System.out.print(DatatypeConverter.printHexBinary(salt));
-        System.out.print("\");\nbyte[] iv = DatatypeConverter.parseHexBinary(\"");
-        System.out.print(DatatypeConverter.printHexBinary(cipher2.getIV()));
-        System.out.print("\");\nbyte[] iv2 = DatatypeConverter.parseHexBinary(\"");
-        System.out.print(DatatypeConverter.printHexBinary(iv2));
-        System.out.print("\");\nbyte[] encryptedmessage = DatatypeConverter.parseHexBinary(\"");
-        System.out.print(DatatypeConverter.printHexBinary(encryptedmessage));
-        System.out.println("\");");
+        System.out.printf("byte[] encryptedkey = DatatypeConverter.parseHexBinary(\"%s\");%n", DatatypeConverter.printHexBinary(encryptedkey));
+        System.out.printf("byte[] salt = DatatypeConverter.parseHexBinary(\"%s\");%n", DatatypeConverter.printHexBinary(salt));
+        System.out.printf("byte[] iv = DatatypeConverter.parseHexBinary(\"%s\");%n", DatatypeConverter.printHexBinary(cipher2.getIV()));
+        System.out.printf("byte[] iv2 = DatatypeConverter.parseHexBinary(\"%s\");%n", DatatypeConverter.printHexBinary(iv2));
+        System.out.printf("byte[] encryptedmessage = DatatypeConverter.parseHexBinary(\"%s\");%n", DatatypeConverter.printHexBinary(encryptedmessage));
     }
 }
