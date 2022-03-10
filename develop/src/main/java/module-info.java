@@ -22,6 +22,8 @@ module com.twitter.teruteru.study {
     requires com.twitter.teruteru.encode;
     requires com.twitter.teruteru.util;
     requires org.glassfish.jaxb.runtime;
+    requires transitive com.twitter.teruteru.impl;
+    requires com.twitter.teruteru.collatz;
 
     opens com.twitter.teruteru128.study.jaxb to jakarta.xml.bind;
     uses jakarta.xml.bind.JAXBContext;

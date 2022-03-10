@@ -2,7 +2,7 @@ package com.twitter.teruteru128.study.bouyomichan;
 
 import java.net.Proxy;
 
-interface BouyomiChanController {
+public interface BouyomiChanController {
     void setServerInfo();
 
     Proxy getProxy();
