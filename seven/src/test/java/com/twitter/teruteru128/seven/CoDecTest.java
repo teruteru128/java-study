@@ -6,9 +6,6 @@ import org.junit.jupiter.api.Test;
 
 public class CoDecTest {
 
-    public CoDecTest() {
-    }
-
     @Test
     public void encodeTest() {
         assertEquals(CoDec.encode("テスト"), "110000011010011011000001000110101100000111100110");

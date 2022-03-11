@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * @author Teruteru
  *
  */
-public class Test {
+public class RegexSample {
     public static void main(String[] args) {
         Pattern p = Pattern.compile("^(\\+|-)?[\\d]+(\\.[\\d]*)?$");
         Matcher m = p.matcher("1.0");

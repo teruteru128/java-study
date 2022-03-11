@@ -8,7 +8,7 @@ import java.util.function.Consumer;
  */
 public class Collatz5 implements Consumer<BigInteger> {
 
-  public boolean isPowerOf2(BigInteger m) {
+  public static boolean isPowerOf2(BigInteger m) {
     return m.and(m.subtract(BigInteger.ONE)).equals(BigInteger.ZERO);
   }
 
