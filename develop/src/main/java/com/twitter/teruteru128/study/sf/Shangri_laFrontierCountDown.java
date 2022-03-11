@@ -22,7 +22,8 @@ public class Shangri_laFrontierCountDown implements Runnable {
 
   @Override
   public void run() {
-    var xPath = XPathFactory.newInstance().newXPath();
+    var xPathFactory = XPathFactory.newInstance();
+    var xPath = xPathFactory.newXPath();
     var expression = "/feed/entry[1]/published/text()";
     var dbf = DocumentBuilderFactory.newInstance();
     dbf.setNamespaceAware(true);
