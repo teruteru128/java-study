@@ -77,89 +77,105 @@ public class Main {
     public static void main(String[] args) throws Exception {
         ScheduledThreadPoolExecutor executor = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(2);
         // ピアマネージャー -> タスクマネージャー？
+        // ハートビート(エコー)を送信するピアのリスト
         // ソケットを開いて受け付けたピアに向いたソケットをワーカースレッドに渡すタスク
         // ピア向けハートビートタスク(ピア毎？)
         // p2pネットワークに接続するワンショットタスク
         // そういえばジョインタスクの中でピアに接続しに行かないといけないんだよな……
         // サーバー向けハートビート
-        executor.schedule(new ClientHeartbeat(), 0, TimeUnit.NANOSECONDS);
+        executor.scheduleAtFixedRate(new ClientHeartbeat(), 0, 3, TimeUnit.MINUTES);
         executor.schedule(() -> executor.shutdown(), 5, TimeUnit.MINUTES);
         // 設定ファイルから設定読み込み
         // サーバー立ち上げ
         Charset charset = Charset.forName("SJIS");
-        int tempPeerID = 0;
+        /** 本割当ピアID */
         int peerID = 0;
         ZoneId tokyo = ZoneId.of("Asia/Tokyo");
+        var factory = new PacketFactory();
         try (Socket socket = getServerSocket();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), charset));
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(socket.getOutputStream(), charset))) {
             // プロトコルバージョンリクエスト
-            String response = reader.readLine();
-            if (response.equals("211 1")) {
-                System.out.println("211 ok");
-            } else {
-
+            {
+                var packet = factory.getInstance(reader.readLine());
+                if (packet.getCode() == 211 && packet.getHop() == 1) {
+                    System.out.println("211 ok");
+                } else {
+                }
+                writer.write(String.format("131 1 0.35:%s:%s\r\n", Const.NAME, Const.VERSION));
+                writer.flush();
             }
-            writer.write(String.format("131 1 0.35:%s:%s\r\n", Const.NAME, Const.VERSION));
-            writer.flush();
-            response = reader.readLine();
-            if (!response.startsWith("212 1 ")) {
-                System.err.printf("Client protocol version is old(%s)%n", response);
-                return;
+            {
+                var packet = factory.getInstance(reader.readLine());
+                if (!(packet.getCode() == 212 && packet.getHop() == 1)) {
+                    System.err.printf("Client protocol version is old(%s)%n", packet.getData()[0]);
+                    return;
+                }
+                System.out.println(packet);
+                // ピアIDの暫定割り当て・ポート開放のチェック
+                writer.write("113 1\r\n");
+                writer.flush();
             }
-            System.out.println(response);
-            // ピアIDの暫定割り当て・ポート開放のチェック
-            writer.write("113 1\r\n");
-            writer.flush();
-            response = reader.readLine();
-            System.out.println(response);
-            tempPeerID = Integer.parseInt(response.replaceAll("\r\n", "").split(" ")[2]);
-            System.out.printf("temp peer id : %d%n", tempPeerID);
-            // ポート開放する場合はここで114コマンドを送信
-            // ピアデータ取得
-            writer.write(String.format("115 1 %d\r\n", tempPeerID));
-            writer.flush();
-            response = reader.readLine();
-            System.out.println(response);
-            // ピアへ接続
-            // 155 で接続したピアをサーバーへ通知する
+            {
+                var response = reader.readLine();
+                System.out.println(response);
+                var packet = factory.getInstance(response);
+                /** 仮割当ピアID */
+                int tempPeerID = Integer.parseInt(packet.getData()[0]);
+                System.out.printf("temp peer id : %d%n", tempPeerID);
+                // ポート開放する場合はここで114コマンドを送信
+                // ピアデータ取得
+                writer.write(String.format("115 1 %d\r\n", tempPeerID));
+                writer.flush();
+                response = reader.readLine();
+                System.out.println(response);
+                // ピアへ接続
+                // 155 で接続したピアをサーバーへ通知する
 
-            writer.write(String.format("116 1 %d:0:200:0:0\r\n", tempPeerID));
-            writer.flush();
-            response = reader.readLine();
-            if (response.startsWith("236 1 ")) {
-
+                writer.write(String.format("116 1 %d:0:200:0:0\r\n", tempPeerID));
+                writer.flush();
+                response = reader.readLine();
+                if (response.startsWith("236 1 ")) {
+                    peerID = tempPeerID;
+                }
+                System.out.println(response);
             }
-            System.out.println(response);
+
+            // RSA鍵取得
+            writer.write(String.format("117 1 %d\r\n", peerID));
+            writer.flush();
+            var packopt = factory.getInstance(reader.readLine());
+            if (packopt.getCode() == 117) {
+            } else if (packopt.getCode() == 295) {
+            }
+            System.out.println(packopt);
 
             // 各地域ピア数の取得
             writer.write("127 1\r\n");
             writer.flush();
-            response = reader.readLine();
-            System.out.println(response);
-            var factory = new PacketFactory();
-            var packet = factory.getInstance(response);
+            {
+                var response = reader.readLine();
+                System.out.println(response);
+                var packet = factory.getInstance(response);
+            }
 
             // プロトコル時刻の取得
             writer.write("118 1\r\n");
             writer.flush();
-            Pattern timeFormatPattern = Pattern.compile("^(\\d+) (\\d+) (.+)$");
-            response = reader.readLine();
-            System.out.println(response);
-            var protocolTimeString = response.replaceAll("\r\n", "").replaceAll("238 1 ", "");
-            Matcher timeMatcher = timeFormatPattern.matcher(response);
-            timeMatcher.matches();
-            System.out.println(timeMatcher.group(3));
-            LocalDateTime localDateTime = LocalDateTime.parse(timeMatcher.group(3),
-                    P2P_DATE_FORMATTER);
-            ZonedDateTime time = localDateTime.atZone(tokyo);
-            System.out.println(time);
+            {
+                var response = factory.getInstance(reader.readLine());
+                var protocolTimeString = response.getData()[0];
+                var localDateTime = LocalDateTime.parse(protocolTimeString,
+                        P2P_DATE_FORMATTER);
+                var time = localDateTime.atZone(tokyo);
+                System.out.println(time);
+            }
 
             // サーバーとの接続終了
             writer.write("119 1\r\n");
             writer.flush();
-            response = reader.readLine();
+            var response = reader.readLine();
             System.out.println(response);
         } catch (Exception e) {
             e.printStackTrace();
@@ -176,7 +192,7 @@ public class Main {
             writer.flush();
             a = reader.readLine();
             System.out.println(a);
-            writer.write(String.format("128 1 %d:Unknown\r\n", tempPeerID));
+            writer.write(String.format("128 1 %d:Unknown\r\n", peerID));
             writer.flush();
             a = reader.readLine();
             System.out.println(a);

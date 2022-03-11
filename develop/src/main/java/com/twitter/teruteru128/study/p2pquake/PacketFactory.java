@@ -1,11 +1,16 @@
 package com.twitter.teruteru128.study.p2pquake;
 
-import java.util.Optional;
+import java.util.regex.Pattern;
 
 class PacketFactory {
-  public Optional<Packet> getInstance(String packet) {
-    packet = packet.replaceAll("\r?\n", "");
-    String[] packetArray = packet.split(" ", 3);
+
+  protected Pattern replaceAllPattern = Pattern.compile("\r?\n");
+  protected Pattern splitPattern = Pattern.compile(" ");
+
+  public Packet getInstance(String packet) {
+    // 改行は削除(CRLF/LFを区別しない)
+    packet = replaceAllPattern.matcher(packet).replaceAll("");
+    String[] packetArray = splitPattern.split(packet, 3);
 
     // default values
     var code = -1;
@@ -14,24 +19,24 @@ class PacketFactory {
 
     // packet length check
     if (packetArray.length <= 0 || packetArray.length >= 4) {
-      return Optional.empty();
+      throw new IllegalArgumentException();
     }
     try {
       code = Integer.parseInt(packetArray[0], 10);
     } catch (NumberFormatException e) {
-      return Optional.empty();
+      throw new IllegalArgumentException();
     }
     if (packetArray.length < 2) {
-      return Optional.empty();
+      throw new IllegalArgumentException();
     }
     try {
       hop = Integer.parseInt(packetArray[1], 10);
     } catch (NumberFormatException e) {
-      return Optional.empty();
+      throw new IllegalArgumentException();
     }
     if (packetArray.length == 3) {
       data = packetArray[2].split(":");
     }
-    return Optional.of(new PacketImpl(code, hop, data));
+    return new PacketImpl(code, hop, data);
   }
 }
