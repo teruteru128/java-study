@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study.sf;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -10,15 +11,11 @@ import java.time.temporal.ChronoUnit;
  */
 public class Shangri_laFrontierCountDown implements Runnable {
 
-
-  public Shangri_laFrontierCountDown() {
-  }
-
   @Override
   public void run() {
-    var lastUpdate = LocalDateTime.of(2022, 3, 10, 7, 4, 0);
+    var lastUpdate = OffsetDateTime.parse("2022-03-11T06:32:58+09:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME);
     var dateAndTimeWhenTheWarningIsPosted = lastUpdate.plus(8, ChronoUnit.WEEKS);
-    var now = LocalDateTime.now();
+    var now = OffsetDateTime.now();
     var unit = ChronoUnit.DAYS;
     System.out.printf("%s%s%n", now.until(dateAndTimeWhenTheWarningIsPosted, unit), unit);
   }
