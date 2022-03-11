@@ -13,7 +13,7 @@ class AtomNamespaceContext implements NamespaceContext {
   @Override
   public String getNamespaceURI(String prefix) {
     System.out.println("AtomNamespaceContext.getNamespaceURI()");
-    if (prefix.equals(prefix)) {
+    if (AtomNamespaceContext.prefix.equals(prefix)) {
         return namespaceUri;
     }
     return "";
