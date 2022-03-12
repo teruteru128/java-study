@@ -8,9 +8,7 @@ import java.time.temporal.ChronoUnit;
 
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import javax.xml.xpath.XPathNodes;
 
-import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 
 /**
@@ -24,11 +22,11 @@ public class Shangri_laFrontierCountDown implements Runnable {
   public void run() {
     var xPathFactory = XPathFactory.newInstance();
     var xPath = xPathFactory.newXPath();
+    xPath.setNamespaceContext(new AtomNamespaceContext());
     var expression = "/atom:feed/atom:entry[1]/atom:published/text()";
     String lastPublished = null;
     try (var o = new URL("https://api.syosetu.com/writernovel/474038.Atom").openStream()) {
-      InputSource inputSource = new InputSource(o);
-      xPath.setNamespaceContext(new AtomNamespaceContext());
+      var inputSource = new InputSource(o);
       var exp = xPath.compile(expression);
       /* 
       var obj = exp.evaluateExpression(inputSource, String.class);
@@ -74,7 +72,10 @@ public class Shangri_laFrontierCountDown implements Runnable {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    System.out.printf("lastPublished : %s%n", lastPublished);
+    System.out.printf("lastPublished : %s(%d)%n", lastPublished, lastPublished.length());
+    if (lastPublished.length() == 0) {
+      return;
+    }
     // https://api.syosetu.com/writernovel/474038.Atom
     var lastUpdate = OffsetDateTime.parse(lastPublished, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
     var dateAndTimeWhenTheWarningIsPosted = lastUpdate.plus(8, ChronoUnit.WEEKS);
