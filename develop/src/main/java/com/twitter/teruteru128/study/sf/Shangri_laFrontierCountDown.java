@@ -1,11 +1,14 @@
 package com.twitter.teruteru128.study.sf;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
@@ -18,62 +21,36 @@ import org.xml.sax.InputSource;
  */
 public class Shangri_laFrontierCountDown implements Runnable {
 
-  @Override
-  public void run() {
-    var xPathFactory = XPathFactory.newInstance();
-    var xPath = xPathFactory.newXPath();
+  XPathFactory xPathFactory = XPathFactory.newInstance();
+  XPath xPath = xPathFactory.newXPath();
+
+  public Shangri_laFrontierCountDown() {
     xPath.setNamespaceContext(new AtomNamespaceContext());
-    var expression = "/atom:feed/atom:entry[1]/atom:published/text()";
-    String lastPublished = null;
-    try (var o = new URL("https://api.syosetu.com/writernovel/474038.Atom").openStream()) {
+  }
+
+  protected String getLastPublished(URL url, String expression) {
+    try (var o = url.openStream()) {
       var inputSource = new InputSource(o);
       var exp = xPath.compile(expression);
-      /* 
-      var obj = exp.evaluateExpression(inputSource, String.class);
-      switch (obj.type()) {
-        case NODE:
-          System.out.println("Node");
-          break;
-        case ANY:
-          System.out.println("any");
-
-          break;
-        case BOOLEAN:
-          System.out.println("boolean");
-
-          break;
-        case STRING:
-          System.out.println("string");
-
-          break;
-        case NUMBER:
-          System.out.println("number");
-
-          break;
-
-        case NODESET:
-          var nodes = (XPathNodes) obj.value();
-          System.out.printf("Nodeset size:%d%n", nodes.size());
-          for (Node node : nodes) {
-            System.out.println(node);
-            lastPublished = node.getTextContent();
-          }
-          break;
-        default:
-          System.out.println("default");
-          break;
-      }
-      */
-      lastPublished = exp.evaluateExpression(inputSource, String.class);
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (XPathExpressionException e) {
-      e.printStackTrace();
+      return (String) exp.evaluate(inputSource, XPathConstants.STRING);
+    } catch (IOException | XPathExpressionException e) {
+      throw new RuntimeException(e);
     } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public void run() {
+    var expression = "/atom:feed/atom:entry[1]/atom:published/text()";
+    String lastPublished = null;
+    try {
+      lastPublished = getLastPublished(new URL("https://api.syosetu.com/writernovel/474038.Atom"), expression);
+    } catch (MalformedURLException e) {
       e.printStackTrace();
     }
-    System.out.printf("lastPublished : %s(%d)%n", lastPublished, lastPublished.length());
     if (lastPublished.length() == 0) {
+      System.out.println("lastPublished is null!!");
       return;
     }
     // https://api.syosetu.com/writernovel/474038.Atom

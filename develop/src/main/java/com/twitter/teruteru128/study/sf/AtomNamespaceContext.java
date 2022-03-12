@@ -7,30 +7,28 @@ import javax.xml.namespace.NamespaceContext;
 
 class AtomNamespaceContext implements NamespaceContext {
 
-  private static final String prefix = "atom";
-  private static final String namespaceUri = "http://www.w3.org/2005/Atom";
+  private static final String PREFIX = "atom";
+  private static final String NAMESPACE_URI = "http://www.w3.org/2005/Atom";
+  private static final String EMPTY = "";
 
   @Override
   public String getNamespaceURI(String prefix) {
-    System.out.println("AtomNamespaceContext.getNamespaceURI()");
-    if (AtomNamespaceContext.prefix.equals(prefix)) {
-        return namespaceUri;
+    if (AtomNamespaceContext.PREFIX.equals(prefix)) {
+        return NAMESPACE_URI;
     }
-    return "";
+    return EMPTY;
   }
 
   @Override
   public String getPrefix(String namespaceURI) {
-    System.out.println("AtomNamespaceContext.getPrefix()");
-    if (namespaceUri.equals(namespaceURI)) {
-        return prefix;
+    if (NAMESPACE_URI.equals(namespaceURI)) {
+        return PREFIX;
     }
-    return "";
+    return EMPTY;
   }
 
   @Override
   public Iterator<String> getPrefixes(String namespaceURI) {
-    System.out.println("AtomNamespaceContext.getPrefixes()");
-    return List.of(prefix).iterator();
+    return List.of(PREFIX).iterator();
   }
 }
