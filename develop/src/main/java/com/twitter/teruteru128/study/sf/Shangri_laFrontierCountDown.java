@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
@@ -28,11 +27,12 @@ public class Shangri_laFrontierCountDown implements Runnable {
     xPath.setNamespaceContext(new AtomNamespaceContext());
   }
 
-  protected String getLastPublished(URL url, String expression) {
+  @SuppressWarnings("unchecked")
+  protected <T> T getLastPublished(URL url, String expression, Class<?> clazz) {
     try (var o = url.openStream()) {
       var inputSource = new InputSource(o);
       var exp = xPath.compile(expression);
-      return (String) exp.evaluate(inputSource, XPathConstants.STRING);
+      return (T) exp.evaluateExpression(inputSource, clazz);
     } catch (IOException | XPathExpressionException e) {
       throw new RuntimeException(e);
     } catch (Exception e) {
@@ -45,7 +45,7 @@ public class Shangri_laFrontierCountDown implements Runnable {
     var expression = "/atom:feed/atom:entry[1]/atom:published/text()";
     String lastPublished = null;
     try {
-      lastPublished = getLastPublished(new URL("https://api.syosetu.com/writernovel/474038.Atom"), expression);
+      lastPublished = this.<String>getLastPublished(new URL("https://api.syosetu.com/writernovel/474038.Atom"), expression, String.class);
     } catch (MalformedURLException e) {
       e.printStackTrace();
     }
