@@ -2,6 +2,7 @@ package com.twitter.teruteru128.hash;
 
 import java.io.IOException;
 import java.lang.System.Logger.Level;
+import java.nio.ByteBuffer;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -33,21 +34,18 @@ public class HashMiningSample implements Callable<HashBean> {
         logger.log(System.Logger.Level.INFO, "スタートしました %s", version);
         SecureRandom random = new SecureRandom();
         byte[] input = new byte[64];
-        byte[] buf = new byte[64];
+        var buffer = ByteBuffer.allocate(64);
+        var longView = buffer.asLongBuffer();
+        byte[] buf = buffer.array();
         int bestnlz = 0;
         int nlz = 0;
-        int nlzbytes = 0;
-        int nlzbits = 0;
         MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
         HashBean a = null;
         while (shutdown == 0) {
             random.nextBytes(input);
             sha512.update(input, 0, 64);
             sha512.digest(buf, 0, 64);
-            for (nlzbytes = 0; buf[nlzbytes] == 0 && nlzbytes < 64; nlzbytes++) {
-            }
-            nlzbits = Integer.numberOfLeadingZeros(buf[nlzbytes] & 0xff) - 24;
-            nlz = nlzbytes * 8 + nlzbits;
+            nlz = Long.numberOfLeadingZeros(longView.get(0));
             if (nlz > bestnlz) {
                 bestnlz = nlz;
                 logger.log(Level.INFO, "更新しました。現在のベストNLZ : %d%n", bestnlz);

@@ -1,12 +1,14 @@
 package com.twitter.teruteru128.study.bitmessage;
 
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.function.Function;
 
 import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddress;
@@ -25,68 +27,91 @@ public class DeterministicAddressesGenerator implements Function<String, byte[]>
         }
     }
 
+    /**
+     * private key = sha512(passphraseBytes || nonce)
+     * 
+     * @param privateKey
+     * @param passphraseBytes
+     * @param nonce
+     */
+    public void deriviedPrivateKey(byte[] privateKey, byte[] passphraseBytes, int nonce) {
+        Objects.requireNonNull(privateKey);
+        if (privateKey.length < Const.SHA512_DIGEST_LENGTH) {
+            throw new IllegalArgumentException("private key is too short");
+        }
+        try {
+            MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
+            sha512.update(passphraseBytes);
+            sha512.update(Structs.encodeVarint(nonce));
+            sha512.digest(privateKey, 0, Const.SHA512_DIGEST_LENGTH);
+        } catch (NoSuchAlgorithmException | DigestException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 
+     * @param privateKey
+     * @return
+     */
+    public byte[] deriviedPublicKey(byte[] privateKey) {
+        Objects.requireNonNull(privateKey);
+        if (privateKey.length < Const.PRIVATE_KEY_LENGTH) {
+            throw new IllegalArgumentException("public key is too short");
+        }
+        return Const.G.multiply(new BigInteger(1, privateKey, 0, Const.PRIVATE_KEY_LENGTH)).normalize()
+                .getEncoded(false);
+    }
+
+    public void deriviedRipeHash(byte[] ripe, byte[] signPubKey, byte[] encPubKey) {
+        Objects.requireNonNull(ripe);
+        if (ripe.length < 20) {
+            throw new IllegalArgumentException("ripe is too short");
+        }
+        Objects.requireNonNull(signPubKey);
+        Objects.requireNonNull(encPubKey);
+        try {
+            // FIXME: 毎回getInstanceするの遅くなりそう
+            MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
+            MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
+            sha512.update(signPubKey);
+            sha512.update(encPubKey);
+
+            byte[] cache64 = new byte[Const.SHA512_DIGEST_LENGTH];
+            sha512.digest(cache64, 0, Const.SHA512_DIGEST_LENGTH);
+            ripemd160.update(cache64);
+            ripemd160.digest(ripe, 0, Const.RIPEMD160_DIGEST_LENGTH);
+        } catch (NoSuchAlgorithmException | DigestException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public byte[] apply(String passphrase) {
-        int numberOfNullBytesDemandedOnFrontOfRipeHash = 1;
+        int numberOfNullBytesDemandedOnFrontOfRipeHash = 3;
         int signingKeyNonce = 0;
         int encryptionKeyNonce = 1;
-        MessageDigest sha512 = null;
-        MessageDigest ripemd160 = null;
-        try {
-            sha512 = MessageDigest.getInstance("sha-512");
-            ripemd160 = MessageDigest.getInstance("RIPEMD160");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
         final byte[] potentialPrivSigningKey = new byte[64];
         byte[] potentialPubSigningKey = null;
         final byte[] potentialPrivEncryptionKey = new byte[64];
         byte[] potentialPubEncryptionKey = null;
 
         int nlz = 0;
-        final byte[] cache64 = new byte[Const.SHA512_DIGEST_LENGTH];
+        var buffer = ByteBuffer.allocate(20);
+        var longBuffer = buffer.asLongBuffer();
+        final byte[] ripe = buffer.array();
         final byte[] passphraseBytes = passphrase.getBytes(StandardCharsets.UTF_8);
         for (; nlz < numberOfNullBytesDemandedOnFrontOfRipeHash; signingKeyNonce += 2, encryptionKeyNonce += 2) {
-            sha512.update(passphraseBytes);
-            sha512.update(Structs.encodeVarint(signingKeyNonce));
-            try {
-                sha512.digest(potentialPrivSigningKey, 0, Const.SHA512_DIGEST_LENGTH);
-            } catch (DigestException e) {
-                e.printStackTrace();
-            }
-            sha512.update(passphraseBytes);
-            sha512.update(Structs.encodeVarint(encryptionKeyNonce));
-            try {
-                sha512.digest(potentialPrivEncryptionKey, 0, Const.SHA512_DIGEST_LENGTH);
-            } catch (DigestException e) {
-                e.printStackTrace();
-            }
-            potentialPubSigningKey = Const.G
-                    .multiply(new BigInteger(1, potentialPrivSigningKey, 0, Const.PRIVATE_KEY_LENGTH)).normalize()
-                    .getEncoded(false);
-            potentialPubEncryptionKey = Const.G
-                    .multiply(new BigInteger(1, potentialPrivEncryptionKey, 0, Const.PRIVATE_KEY_LENGTH)).normalize()
-                    .getEncoded(false);
-            sha512.update(potentialPubSigningKey);
-            sha512.update(potentialPubEncryptionKey);
-            try {
-                sha512.digest(cache64, 0, Const.SHA512_DIGEST_LENGTH);
-            } catch (DigestException e) {
-                e.printStackTrace();
-            }
-            ripemd160.update(cache64);
-            try {
-                ripemd160.digest(cache64, 0, Const.RIPEMD160_DIGEST_LENGTH);
-            } catch (DigestException e) {
-                e.printStackTrace();
-            }
-            for (nlz = 0; cache64[nlz] == 0 && nlz < Const.RIPEMD160_DIGEST_LENGTH; nlz++) {
-            }
+            deriviedPrivateKey(potentialPrivSigningKey, passphraseBytes, signingKeyNonce);
+            deriviedPrivateKey(potentialPrivEncryptionKey, passphraseBytes, encryptionKeyNonce);
+            potentialPubSigningKey = deriviedPublicKey(potentialPrivSigningKey);
+            potentialPubEncryptionKey = deriviedPublicKey(potentialPrivEncryptionKey);
+            deriviedRipeHash(ripe, potentialPubSigningKey, potentialPubEncryptionKey);
+            nlz = Long.numberOfLeadingZeros(longBuffer.get(0)) >> 3;
         }
         System.out.println(BMAddressGenerator.encodeWIF(Arrays.copyOf(potentialPrivSigningKey, 32)));
         System.out.println(BMAddressGenerator.encodeWIF(Arrays.copyOf(potentialPrivEncryptionKey, 32)));
-        return Arrays.copyOf(cache64, Const.RIPEMD160_DIGEST_LENGTH);
+        return ripe;
     }
 
     public static void main(String[] args) throws Exception {
