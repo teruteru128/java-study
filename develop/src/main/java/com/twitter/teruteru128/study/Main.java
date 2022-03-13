@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import com.twitter.teruteru128.study.bitmessage.DeterministicAddressesCalcurator;
+import com.twitter.teruteru128.study.bitmessage.DeterministicAddressesGenerator;
 import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddress;
 import com.twitter.teruteru128.study.image.ImageLoadTest;
 import com.twitter.teruteru128.study.sf.Shangri_laFrontierCountDown;
@@ -43,7 +43,7 @@ public class Main {
         var p = future.get();
         System.out.println(p); */
         // http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/tor/#9
-        var calcurator = new DeterministicAddressesCalcurator();
+        var calcurator = new DeterministicAddressesGenerator();
         var passphrase = "jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd";
         var ripe = calcurator.apply(passphrase);
         var address3 = BMAddress.encodeAddress(3, 1, ripe);
