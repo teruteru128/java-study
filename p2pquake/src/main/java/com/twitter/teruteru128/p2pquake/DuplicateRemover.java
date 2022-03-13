@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.p2pquake;
+package com.twitter.teruteru128.p2pquake;
 
 import java.util.LinkedList;
 

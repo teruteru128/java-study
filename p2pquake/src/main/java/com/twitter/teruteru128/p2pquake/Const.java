@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.p2pquake;
+package com.twitter.teruteru128.p2pquake;
 
 public final class Const {
     public static final String NAME = "P2PQ_Java";

@@ -58,7 +58,7 @@ public class Shangri_laFrontierCountDown implements Runnable {
     var dateAndTimeWhenTheWarningIsPosted = lastUpdate.plus(8, ChronoUnit.WEEKS);
     var now = OffsetDateTime.now();
     var unit = ChronoUnit.DAYS;
-    System.out.printf("%s%s%n", now.until(dateAndTimeWhenTheWarningIsPosted, unit), unit);
+    System.out.printf("警告表示まであと%s%s%n", now.until(dateAndTimeWhenTheWarningIsPosted, unit), unit);
   }
 
 }

@@ -37,7 +37,7 @@ public class SwingStudy implements Callable<Void> {
 
         BufferedImage img = null;
         if (imagePath == null) {
-            img = ImageIO.read(ClassLoader.getSystemResource("167887.jpg"));
+            img = ImageIO.read(ClassLoader.getSystemResource("167887_p0.jpg"));
         } else {
             img = ImageIO.read(imagePath.toUri().toURL());
         }

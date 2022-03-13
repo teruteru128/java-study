@@ -1,12 +1,10 @@
 package com.twitter.teruteru128.study.bitmessage;
 
-import java.lang.System.Logger;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.Provider;
 import java.security.Security;
 import java.util.Arrays;
 import java.util.function.Function;
@@ -17,15 +15,13 @@ import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddressGenerator;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
- * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/class_addressGenerator.py
+ * @see https://github.com/Bitmessage/PyBitmessage/blob/a5773999fe1d6791bfc0cbb830527a5b29b84f5d/src/class_addressGenerator.py
  */
-public class DeterministicAddressesCalcurator implements Function<String, byte[]> {
+public class DeterministicAddressesGenerator implements Function<String, byte[]> {
 
     static {
-        Provider provider = Security.getProvider("BC");
-        if (provider == null) {
-            provider = new BouncyCastleProvider();
-            Security.addProvider(provider);
+        if (Security.getProvider("BC") == null) {
+            Security.addProvider(new BouncyCastleProvider());
         }
     }
 
@@ -94,13 +90,12 @@ public class DeterministicAddressesCalcurator implements Function<String, byte[]
     }
 
     public static void main(String[] args) throws Exception {
-        var calcurator = new DeterministicAddressesCalcurator();
+        var calcurator = new DeterministicAddressesGenerator();
         var passphrase = "UVB-76";
         var ripe = calcurator.apply(passphrase);
         var address3 = BMAddress.encodeAddress(3, 1, ripe);
         var address4 = BMAddress.encodeAddress(4, 1, ripe);
-        var logger = System.getLogger("BM");
-        logger.log(Logger.Level.INFO, address3);
-        logger.log(Logger.Level.INFO, address4);
+        System.out.println(address3);
+        System.out.println(address4);
     }
 }

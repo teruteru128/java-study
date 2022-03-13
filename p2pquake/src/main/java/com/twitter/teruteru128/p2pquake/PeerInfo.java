@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.p2pquake;
+package com.twitter.teruteru128.p2pquake;
 
 class PeerInfo {
   private String address;
