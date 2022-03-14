@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 
 import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddress;
@@ -19,7 +20,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 /**
  * @see https://github.com/Bitmessage/PyBitmessage/blob/a5773999fe1d6791bfc0cbb830527a5b29b84f5d/src/class_addressGenerator.py
  */
-public class DeterministicAddressesGenerator implements Function<String, byte[]> {
+public class DeterministicAddressesGenerator implements Function<String, Optional<byte[]>> {
 
     private static final class SearchRangeFactoryImplementation implements SearchRangeFactory {
         private SearchRange range = new SearchRange(0, Integer.MAX_VALUE);
@@ -130,7 +131,7 @@ public class DeterministicAddressesGenerator implements Function<String, byte[]>
     }
 
     @Override
-    public byte[] apply(String passphrase) {
+    public Optional<byte[]> apply(String passphrase) {
         int numberOfNullBytesDemandedOnFrontOfRipeHash = 32;
         long signingKeyNonce = 0;
         long signingKeyNonceMax = 0;
@@ -169,24 +170,29 @@ public class DeterministicAddressesGenerator implements Function<String, byte[]>
             throw new InternalError(e);
         }
         if (nlz < numberOfNullBytesDemandedOnFrontOfRipeHash) {
-            System.out.println("ぐえー");
+            throw new NoSuchResultException("結果が見つからなかったのだ");
+        } else {
+            var signPrivateKeyWIF = BMAddressGenerator.encodeWIF(Arrays.copyOf(potentialPrivSigningKey, 32));
+            var encPrivateKeyWIF = BMAddressGenerator.encodeWIF(Arrays.copyOf(potentialPrivEncryptionKey, 32));
+            System.out.printf(
+                    "{\"signingKeyNonce\" : %d, \"encryptionKeyNonce\" : %d, \"privsigningkey\" :\"%s\", \"privencryptionkey\" : \"%s\"}%n",
+                    signingKeyNonce, encryptionKeyNonce, signPrivateKeyWIF, encPrivateKeyWIF);
+            return Optional.of(ripe);
         }
-        var signPrivateKeyWIF = BMAddressGenerator.encodeWIF(Arrays.copyOf(potentialPrivSigningKey, 32));
-        var encPrivateKeyWIF = BMAddressGenerator.encodeWIF(Arrays.copyOf(potentialPrivEncryptionKey, 32));
-        System.out.printf(
-                "{\"signingKeyNonce\" : %d, \"encryptionKeyNonce\" : %d, \"privsigningkey\" :\"%s\", \"privencryptionkey\" : \"%s\"}%n",
-                signingKeyNonce, encryptionKeyNonce, signPrivateKeyWIF, encPrivateKeyWIF);
-        return ripe;
     }
 
     public static void main(String[] args) throws Exception {
         var calcurator = new DeterministicAddressesGenerator();
         var passphrase = "UVB-76";
         var ripe = calcurator.apply(passphrase);
-        var address3 = BMAddress.encodeAddress(3, 1, ripe);
-        var address4 = BMAddress.encodeAddress(4, 1, ripe);
-        System.out.println(address3);
-        System.out.println(address4);
+        ripe.ifPresentOrElse(t -> {
+            var address3 = BMAddress.encodeAddress(3, 1, t);
+            var address4 = BMAddress.encodeAddress(4, 1, t);
+            System.out.println(address3);
+            System.out.println(address4);
+        }, () -> {
+            System.out.println("ぐえー");
+        });
     }
 
 }

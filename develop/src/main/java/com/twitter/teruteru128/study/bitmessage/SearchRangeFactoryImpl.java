@@ -6,24 +6,37 @@ package com.twitter.teruteru128.study.bitmessage;
 public class SearchRangeFactoryImpl implements SearchRangeFactory {
 
   private long min = 0;
+  private long max = 0;
+  private long diff = 0;
+  private long diffMinus1 = 0;
   private boolean finish = false;
 
   public SearchRangeFactoryImpl() {
-    this(0);
+    this(0, -1, 16777216);
   }
 
   public SearchRangeFactoryImpl(long min) {
+    this(min, -1, 16777216);
+  }
+
+  public SearchRangeFactoryImpl(long min, long max) {
+    this(min, max, 16777216);
+  }
+
+  public SearchRangeFactoryImpl(long min, long max, long diff) {
     this.min = min;
+    this.max = max;
+    this.diff = diff;
+    this.diffMinus1 = diff - 1L;
   }
 
   public synchronized SearchRange getInstance() {
     if (finish)
       return null;
-    SearchRange range = new SearchRange(min, min + 16777215);
-    min += 16777216;
+    SearchRange range = new SearchRange(min, min + diffMinus1);
+    min += diff;
     // オーバーフローが前提
-    // Long.compareUnsigned(min + 16777215L, -1L) == 0
-    if ((min + 16777215L) == -1L) {
+    if (Long.compareUnsigned(min + diffMinus1, max) >= 0) {
       finish = true;
     }
     return range;
