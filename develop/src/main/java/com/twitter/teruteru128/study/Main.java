@@ -2,12 +2,14 @@ package com.twitter.teruteru128.study;
 
 import java.nio.file.Path;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import com.twitter.teruteru128.study.bitmessage.DeterministicAddressesGenerator;
+import com.twitter.teruteru128.study.bitmessage.SearchRangeFactory;
 import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddress;
 import com.twitter.teruteru128.study.image.ImageLoadTest;
 import com.twitter.teruteru128.study.sf.Shangri_laFrontierCountDown;
@@ -20,8 +22,8 @@ import com.twitter.teruteru128.study.utf8.UTF8DecodeSample;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        var service = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(12);
         /* 
-        var service = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(6);
         //service.scheduleAtFixedRate(new DeepWebRadioPoller(), 0, 73, TimeUnit.MINUTES);
         // https://docs.oracle.com/javase/jp/17/docs/api/java.base/java/util/concurrent/ScheduledExecutorService.html
         var future=service.schedule(new ImageLoadTest(), 0, TimeUnit.NANOSECONDS);
@@ -36,19 +38,24 @@ public class Main {
             System.out.printf("#%06x%n", random.nextInt(0x1000000));
             return null;
         }, 0, TimeUnit.NANOSECONDS);
-        service.schedule(() -> {
-            System.out.println("シャットダウンします……");
-            service.shutdown();
-        }, 5, TimeUnit.SECONDS);
         var p = future.get();
         System.out.println(p); */
         // http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/tor/#9
-        var calcurator = new DeterministicAddressesGenerator();
+        var factory = new SearchRangeFactory();
+        var calcurators = new ArrayList<Callable<byte[]>>(12);
         var passphrase = "jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd";
-        var ripe = calcurator.apply(passphrase);
+        for (int i = 0; i < 16; i++) {
+            var calcurator = new DeterministicAddressesGenerator(factory);
+            calcurators.add((Callable<byte[]>)()->calcurator.apply(passphrase));
+        }
+        var ripe = service.invokeAny(calcurators);;
         var address3 = BMAddress.encodeAddress(3, 1, ripe);
         var address4 = BMAddress.encodeAddress(4, 1, ripe);
         System.out.println(address3);
         System.out.println(address4);
+        service.schedule(() -> {
+            System.out.println("シャットダウンします……");
+            service.shutdown();
+        }, 5, TimeUnit.SECONDS);
     }
 }
