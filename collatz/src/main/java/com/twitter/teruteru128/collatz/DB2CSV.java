@@ -23,93 +23,42 @@ public class DB2CSV {
      * @param args
      */
     public static void main(String[] args) {
-        FileOutputStream fos = null;
-        BufferedWriter outfile = null;
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        String n = null;
-        String count = null;
-        String next = null;
+        long n = 0;
+        long count = 0;
+        long next = 0;
         int linecounter = 0;
         long maxn = 99999999L;
-        long middlen = (long) Math.pow(10, Math.log10(maxn) - (long)(Math.log10(maxn)/2));
-        long minn = 1;
+        long middlen = (long) Math.pow(10, Math.log10(maxn) - (long) (Math.log10(maxn) / 2));
         long newfilelinecount = 200000;
-        long filecount = 2;
         try {
-            
-            File f = new File("../../collatz/out.001.csv");
-            f.createNewFile();
-            fos = new FileOutputStream(f);
-            try {
-                outfile = new BufferedWriter(new OutputStreamWriter(fos));
-                try {
-
-                    con = getConnection();
-                    try {
-                        ps = con.prepareStatement("select n,count,next from COLLATZ limit ? offset ?");
-                        try {
-                            ps.setLong(1, maxn);
-                            ps.setLong(2, minn - 1);
-                            rs = ps.executeQuery();
-                            try {
+            try (Connection con = getConnection()) {
+                try (PreparedStatement ps = con.prepareStatement("select n, count, next from COLLATZ")) {
+                    try (ResultSet rs = ps.executeQuery()) {
+                        for (long filecount = 1; !rs.isAfterLast(); filecount++) {
+                            try (BufferedWriter outfile = new BufferedWriter(
+                                    new OutputStreamWriter(new FileOutputStream(new File(String.format(
+                                            "../../collatz/out.%03d.csv",
+                                            filecount)))))) {
                                 while (rs.next()) {
-                                    n = Long.toString(rs.getLong("n"));
-                                    count = Long.toString(rs.getLong("count"));
-                                    next = Long.toString(rs.getLong("next"));
+                                    n = rs.getLong("n");
+                                    count = rs.getLong("count");
+                                    next = rs.getLong("next");
 
-                                    outfile.write(n);
-                                    outfile.write(",");
-                                    outfile.write(count);
-                                    outfile.write(",");
-                                    outfile.write(next);
-                                    outfile.write("\r\n");
+                                    outfile.write(String.format("%d,%d,%d\r\n", n, count, next));
                                     linecounter = linecounter + 1;
                                     if ((linecounter % middlen) == (middlen - 1)) {
                                         outfile.flush();
                                     }
-                                    if ((linecounter % newfilelinecount) == 0 && linecounter > 0) {
-                                        outfile.close();
-                                        f = new File(String.format(
-                                                "../../collatz/out.%03d.csv",
-                                                filecount));
-                                        filecount = filecount + 1;
-                                        f.createNewFile();
-                                        fos = new FileOutputStream(f);
-                                        outfile = new BufferedWriter(new OutputStreamWriter(fos));
+                                    if ((linecounter % newfilelinecount) == 199999) {
+                                        break;
                                     }
                                 }
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            } finally {
-                                if (rs != null) {
-                                    rs.close();
-                                }
                             }
-                        } catch (SQLException e) {
-                            if (ps != null) {
-                                ps.close();
-                            }
-                        }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (con != null) {
-                            con.close();
                         }
                     }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if (outfile != null) {
-                    outfile.close();
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }
