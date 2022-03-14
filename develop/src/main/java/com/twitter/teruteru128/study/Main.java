@@ -9,7 +9,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import com.twitter.teruteru128.study.bitmessage.DeterministicAddressesGenerator;
-import com.twitter.teruteru128.study.bitmessage.SearchRangeFactory;
+import com.twitter.teruteru128.study.bitmessage.SearchRangeFactoryImpl;
 import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddress;
 import com.twitter.teruteru128.study.image.ImageLoadTest;
 import com.twitter.teruteru128.study.sf.Shangri_laFrontierCountDown;
@@ -41,7 +41,7 @@ public class Main {
         var p = future.get();
         System.out.println(p); */
         // http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/tor/#9
-        var factory = new SearchRangeFactory();
+        var factory = new SearchRangeFactoryImpl(Long.sum(Integer.MAX_VALUE, 1));
         var calcurators = new ArrayList<Callable<byte[]>>(12);
         var passphrase = "jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd";
         for (int i = 0; i < 16; i++) {
