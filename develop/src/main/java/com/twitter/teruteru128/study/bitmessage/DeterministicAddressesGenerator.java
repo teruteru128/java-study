@@ -145,12 +145,11 @@ public class DeterministicAddressesGenerator implements Function<String, byte[]>
         var longBuffer = buffer.asLongBuffer();
         final byte[] ripe = buffer.array();
         final byte[] passphraseBytes = passphrase.getBytes(StandardCharsets.UTF_8);
-        SearchRange range = factory.getInstance();
+        SearchRange range = null;
         try {
             MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
             MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
-            for (; nlz < numberOfNullBytesDemandedOnFrontOfRipeHash && range != null
-                    && range.getMax() <= Integer.MAX_VALUE; range = factory.getInstance()) {
+            while (nlz < numberOfNullBytesDemandedOnFrontOfRipeHash && (range = factory.getInstance()) != null) {
                 System.out.printf("%12d以上%12d以下の探索を始めるのだ！%n", range.getMin(), range.getMax());
                 signingKeyNonce = range.getMin();
                 encryptionKeyNonce = range.getMin() + 1;
