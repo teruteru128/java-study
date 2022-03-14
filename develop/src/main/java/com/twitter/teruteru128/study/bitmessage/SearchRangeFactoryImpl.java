@@ -19,6 +19,11 @@ public class SearchRangeFactoryImpl implements SearchRangeFactory {
     this(min, -1, 16777216);
   }
 
+  /**
+   * 
+   * @param min unsigned long
+   * @param max unsigned long
+   */
   public SearchRangeFactoryImpl(long min, long max) {
     this(min, max, 16777216);
   }
