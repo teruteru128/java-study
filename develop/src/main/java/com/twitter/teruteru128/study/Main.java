@@ -37,31 +37,35 @@ public class Main {
         // service.schedule(study, 0, TimeUnit.NANOSECONDS);
         // service.schedule(new NativePRNGSample(), 0, TimeUnit.NANOSECONDS);
         // service.schedule(new UTF8DecodeSample(), 0, TimeUnit.NANOSECONDS);
-        /* var colorFuture = service.schedule((Callable<String>) () -> {
+        var colorFuture = service.schedule((Callable<String>) () -> {
             var random = SecureRandom.getInstanceStrong();
             return String.format("#%06x%n", random.nextInt(0x1000000));
         }, 0, TimeUnit.NANOSECONDS);
-        System.out.println(colorFuture.get()); */
+        System.out.println(colorFuture.get());
         // http://jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion/tor/154/l50
-        var factory = new SearchRangeFactoryImpl(2147483648L, 4294967295L);
+        var factory = new SearchRangeFactoryImpl(2147483648L * 3L, 2147483648L * 4 - 1L);
         var calcurators = new ArrayList<Callable<Optional<byte[]>>>(12);
         var passphrase = "jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd";
-        for (int i = 0; i < 16; i++) {
-            var calcurator = new DeterministicAddressesGenerator(factory);
-            calcurators.add((Callable<Optional<byte[]>>) () -> calcurator.apply(passphrase));
+        for (int i = 0; i < 12; i++) {
+            calcurators.add(
+                    (Callable<Optional<byte[]>>) () -> new DeterministicAddressesGenerator(factory).apply(passphrase));
         }
-        var ripe = service.invokeAny(calcurators);
-        ripe.ifPresentOrElse(t -> {
-            var address3 = BMAddress.encodeAddress(3, 1, t);
-            var address4 = BMAddress.encodeAddress(4, 1, t);
-            System.out.println(address3);
-            System.out.println(address4);
-        }, () -> {
-            System.out.println("ぐえー！");
-        });
         service.schedule(() -> {
             System.out.println("シャットダウンします……");
             service.shutdown();
         }, 5, TimeUnit.SECONDS);
+        try {
+            var ripe = service.invokeAny(calcurators);
+            ripe.ifPresentOrElse(t -> {
+                var address3 = BMAddress.encodeAddress(3, 1, t);
+                var address4 = BMAddress.encodeAddress(4, 1, t);
+                System.out.println(address3);
+                System.out.println(address4);
+            }, () -> {
+                System.out.println("ぐえー！");
+            });
+        } catch (RuntimeException e) {
+            throw e;
+        }
     }
 }

@@ -38,7 +38,7 @@ public class DeterministicAddressesGenerator implements Function<String, Optiona
             Security.addProvider(new BouncyCastleProvider());
         }
     }
-    SearchRangeFactory factory;
+    protected SearchRangeFactory factory;
 
     public DeterministicAddressesGenerator(SearchRangeFactory factory) {
         this.factory = factory;
