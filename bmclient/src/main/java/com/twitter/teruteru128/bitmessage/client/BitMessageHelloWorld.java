@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.bitmessage.client;
+package com.twitter.teruteru128.bitmessage.client;
 
 import java.net.URL;
 import java.util.List;
