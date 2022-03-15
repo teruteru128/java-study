@@ -20,8 +20,8 @@ import org.xml.sax.InputSource;
  */
 public class Shangri_laFrontierCountDown implements Runnable {
 
-  XPathFactory xPathFactory = XPathFactory.newInstance();
-  XPath xPath = xPathFactory.newXPath();
+  private static final XPathFactory xPathFactory = XPathFactory.newInstance();
+  private XPath xPath = xPathFactory.newXPath();
 
   public Shangri_laFrontierCountDown() {
     xPath.setNamespaceContext(new AtomNamespaceContext());
@@ -40,12 +40,17 @@ public class Shangri_laFrontierCountDown implements Runnable {
     }
   }
 
+  private static final String EXPRESSION = "/atom:feed/atom:entry[1]/atom:published/text()";
+  private static final String URL_SPEC = "https://api.syosetu.com/writernovel/474038.Atom";
+
+  /**
+   * 呼び出すたびに WEB リクエストが発生するので注意！！
+   */
   @Override
   public void run() {
-    var expression = "/atom:feed/atom:entry[1]/atom:published/text()";
     String lastPublished = null;
     try {
-      lastPublished = this.<String>getLastPublished(new URL("https://api.syosetu.com/writernovel/474038.Atom"), expression, String.class);
+      lastPublished = this.<String>getLastPublished(new URL(URL_SPEC), EXPRESSION, String.class);
     } catch (MalformedURLException e) {
       e.printStackTrace();
     }

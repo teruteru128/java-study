@@ -31,12 +31,10 @@ public class Main {
         // service.schedule(study, 0, TimeUnit.NANOSECONDS);
         var randomFuture = service.schedule(() -> SecureRandom.getInstance("NativePRNG"), 0, TimeUnit.NANOSECONDS);
         // service.schedule(new UTF8DecodeSample(), 0, TimeUnit.NANOSECONDS);
-        var a = service.schedule(() -> {
-            var random = randomFuture.get();
-            return new StringBuilder(4).append((char) random.nextInt('A', 'Z')).append((char) random.nextInt('A', 'Z'))
-                    .append((char) random.nextInt('A', 'Z')).append((char) random.nextInt('A', 'Z')).toString();
-        }, 0, TimeUnit.NANOSECONDS);
-        System.out.println(a.get());
+        var random = randomFuture.get();
+        var a = new StringBuilder(4).append((char) random.nextInt('A', 'Z')).append((char) random.nextInt('A', 'Z'))
+        .append((char) random.nextInt('A', 'Z')).append((char) random.nextInt('A', 'Z')).toString();
+        System.out.println(a);
         service.schedule(() -> {
             System.out.println("シャットダウンします……");
             service.shutdown();
