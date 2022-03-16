@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.nyanpass;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.concurrent.BlockingQueue;
@@ -46,6 +47,16 @@ public class NyanpassConfigImpl implements Cloneable, NyanpassConfig {
         NyanpassConfigImpl base = null;
         try {
             base = (NyanpassConfigImpl) super.clone();
+            try {
+                base.endpointURI = new URI(endpointURI.toString());
+            } catch (URISyntaxException e) {
+                throw new InternalError(e);
+            }
+            base.formatter = formatter.withLocale(formatter.getLocale());
+            base.queue = new LinkedBlockingQueue<>();
+            for (NyanpassBean nyanpassBean : queue) {
+                base.queue.add(nyanpassBean.clone());
+            }
         } catch (CloneNotSupportedException e) {
         }
         return base;

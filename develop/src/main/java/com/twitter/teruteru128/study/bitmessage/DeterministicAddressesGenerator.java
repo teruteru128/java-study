@@ -34,9 +34,9 @@ public class DeterministicAddressesGenerator implements Function<String, List<De
 
         public DeterministicAddressesImplementation(byte[] ripe, byte[] a, byte[] b, long signingKeyNonce,
                 long encryptionKeyNonce) {
-            this.ripe = ripe;
-            this.signingPrivateKey = a;
-            this.encryptionPrivateKey = b;
+            this.ripe = ripe.clone();
+            this.signingPrivateKey = a.clone();
+            this.encryptionPrivateKey = b.clone();
             this.signingKeyNonce = signingKeyNonce;
             this.encryptionKeyNonce = encryptionKeyNonce;
         }
@@ -210,8 +210,8 @@ public class DeterministicAddressesGenerator implements Function<String, List<De
                     nlz = Long.numberOfLeadingZeros(longBuffer.get(0));
                     if (nlz >= numberOfNullBytesDemandedOnFrontOfRipeHash) {
                         deriviedPrivateKey(potentialPrivSigningKey, passphraseBytes, signingKeyNonce, sha512);
-                        list.add(new DeterministicAddressesImplementation(ripe.clone(), potentialPrivSigningKey.clone(),
-                                potentialPrivEncryptionKey.clone(), signingKeyNonce, encryptionKeyNonce));
+                        list.add(new DeterministicAddressesImplementation(ripe, potentialPrivSigningKey,
+                                potentialPrivEncryptionKey, signingKeyNonce, encryptionKeyNonce));
                     }
                 }
                 System.out.printf("%12d以上%12d以下の探索が終わったのだ！%n", range.getMin(), range.getMax());

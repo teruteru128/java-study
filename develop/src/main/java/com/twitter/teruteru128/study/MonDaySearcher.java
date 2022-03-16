@@ -12,6 +12,7 @@ public class MonDaySearcher implements Callable<Void> {
     int month = 1;
     // y年m月1日が月曜日？
     LocalDate localDate = null;
+    // 1月から12月において2022年以降の毎月1日で最初の月曜日を探す
     for (month = 1; month <= 12; month++) {
       for (year = 2022;; year++) {
         localDate = LocalDate.of(year, month, 1);
@@ -21,6 +22,7 @@ public class MonDaySearcher implements Callable<Void> {
       }
       System.out.printf("%s : %s%n", DayOfWeek.MONDAY, localDate);
     }
+    // 2022年以降の11月20日で最初の月曜日を探す
     for (year = 2022;; year++) {
       localDate = LocalDate.of(year, 11, 20);
       if (localDate.getDayOfWeek() == DayOfWeek.MONDAY) {
