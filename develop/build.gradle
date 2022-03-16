@@ -32,7 +32,7 @@ java {
 application {
     mainModule = 'com.twitter.teruteru.study'
     mainClass = 'com.twitter.teruteru128.study.Main'
-    applicationDefaultJvmArgs = ['-Xms16G', '-Xmx16G']
+    applicationDefaultJvmArgs = ['-Xms64G', '-Xmx64G']
 }
 
 /* shadowJar {
