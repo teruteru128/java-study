@@ -1,21 +1,9 @@
 package com.twitter.teruteru128.study;
 
-import java.nio.file.Path;
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import com.twitter.teruteru128.study.bitmessage.DeterministicAddressesGenerator;
-import com.twitter.teruteru128.study.bitmessage.SearchRangeFactoryImpl;
-import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddress;
-import com.twitter.teruteru128.study.image.ImageLoadTest;
-import com.twitter.teruteru128.study.sf.Shangri_laFrontierCountDown;
-import com.twitter.teruteru128.study.swing.SwingStudy;
-import com.twitter.teruteru128.study.utf8.UTF8DecodeSample;
 
 /**
  * Main
@@ -29,16 +17,18 @@ public class Main {
         // var study = args.length >= 1 ? new SwingStudy(Path.of(args[0])) : new
         // SwingStudy();
         // service.schedule(study, 0, TimeUnit.NANOSECONDS);
-        var randomFuture = service.schedule(() -> SecureRandom.getInstance("NativePRNG"), 0, TimeUnit.NANOSECONDS);
+        // 普通こうやって時間のかかる処理を裏でやらせるための機能だよね……？
+        var randomFuture = service.schedule(() -> {
+            var random = SecureRandom.getInstance("NativePRNG");
+            return new StringBuilder(4).append((char) random.nextInt('A', 'Z' + 1))
+                    .append((char) random.nextInt('A', 'Z' + 1))
+                    .append((char) random.nextInt('A', 'Z' + 1)).append((char) random.nextInt('A', 'Z' + 1)).toString();
+        }, 0, TimeUnit.NANOSECONDS);
         // service.schedule(new UTF8DecodeSample(), 0, TimeUnit.NANOSECONDS);
-        var random = randomFuture.get();
-        var a = new StringBuilder(4).append((char) random.nextInt('A', 'Z')).append((char) random.nextInt('A', 'Z'))
-        .append((char) random.nextInt('A', 'Z')).append((char) random.nextInt('A', 'Z')).toString();
-        System.out.println(a);
+        System.out.println(randomFuture.get());
         service.schedule(() -> {
             System.out.println("シャットダウンします……");
             service.shutdown();
-            return null;
         }, 0, TimeUnit.SECONDS);
     }
 }
