@@ -2,100 +2,96 @@ package com.twitter.teruteru128.study;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.File;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.file.Files;
+import java.io.Serializable;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.function.IntFunction;
 
-import com.twitter.teruteru128.study.bitmessage.KeyPair;
+import com.google.common.base.Supplier;
+import com.twitter.teruteru128.study.sf.Shangri_laFrontierCountDown;
+import com.twitter.teruteru128.study.utf8.UTF8DecodeSample;
 
 /**
  * Main
  */
 public class Main {
 
-    private static final class CallableImplementation implements Callable<List<KeyPair>> {
-        private int i;
-
-        public CallableImplementation(int i) {
-            this.i = i;
-        }
-
-        @Override
-        public List<KeyPair> call() throws Exception {
-            var list = new ArrayList<KeyPair>(16777216 * 8);
-            byte[] pubkeysallbyte = Files.readAllBytes(new File(String.format("../publicKeys%d.bin", i)).toPath());
-            byte[] prikeysallbyte = Files.readAllBytes(new File(String.format("../privateKeys%d.bin", i)).toPath());
-            int pubkeyoffset = 0;
-            int prikeyoffset = 0;
-            for (var i = 0; i < 16777216; i++, pubkeyoffset += 65, prikeyoffset += 32) {
-                list.add(new KeyPair(prikeysallbyte, prikeyoffset, 32, pubkeysallbyte, pubkeyoffset, 65));
-            }
-            Runtime.getRuntime().gc();
-            return list;
-        }
-    }
 
     public static void main(String[] args) throws Exception {
         var service = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(12);
-        // service.schedule(new Shangri_laFrontierCountDown(), 0, TimeUnit.NANOSECONDS);
+        service.schedule(new Shangri_laFrontierCountDown(), 0, TimeUnit.NANOSECONDS);
         // service.schedule(new ServiceCallSample(), 0, TimeUnit.NANOSECONDS);
         // var study = args.length >= 1 ? new SwingStudy(Path.of(args[0])) : new
         // SwingStudy();
         // service.schedule(study, 0, TimeUnit.NANOSECONDS);
         // 普通こうやって時間のかかる処理を裏でやらせるための機能だよね……？
-        /* var randomFuture = service.schedule(() -> {
+        var start = LocalDateTime.now();
+        var randomFuture = service.schedule(() -> {
             var random = SecureRandom.getInstance("NativePRNG");
             return new StringBuilder(4).append((char) random.nextInt('A', 'Z' + 1))
                     .append((char) random.nextInt('A', 'Z' + 1))
                     .append((char) random.nextInt('A', 'Z' + 1)).append((char) random.nextInt('A', 'Z' + 1)).toString();
         }, 0, TimeUnit.NANOSECONDS);
-        System.out.println(randomFuture.get()); */
-        List<KeyPair> keyPairList = null;
-        var start = LocalDateTime.now();
-        /* List<Callable<List<KeyPair>>> cList = new ArrayList<>();
-        for (int k = 0; k < 8; k++) {
-            cList.add(new CallableImplementation(k));
+        var token = randomFuture.get();
+        var finish = LocalDateTime.now();
+        System.out.printf("%s, %s%n", token, start.until(finish, ChronoUnit.MILLIS));
+        service.schedule(new UTF8DecodeSample(), 0, TimeUnit.NANOSECONDS);
+        List<Callable<String>> list = new ArrayList<>(16);
+        // 1つのint値引数を受け取って「結果を返し、例外をスローすることがあるシリアライズ可能なタスク」を生成する関数
+        var intfunction = (IntFunction<Callable<String>>) i -> (Callable<String> & Serializable) () -> Integer.toString(i);
+        // Listにタスクを詰める
+        for (int i = 0; i < 16; i++) {
+            var callable = intfunction.apply(i);
+            list.add(callable);
         }
-        System.out.println("p");
-        var keysFuture = service.invokeAll(cList);
-        System.out.println("q");
-        keyPairList = new ArrayList<KeyPair>();new ArrayList<KeyPair>();
+        // listごとシリアライズ&デシリアライズ
+        var serializedList = serialize(list);
+        var deserializedList = deserialize(serializedList);
+        // そのままスレッドプールに渡す
+        var a = service.invokeAll(deserializedList);
+        // 結果を出力する
+        for (Future<String> future : a) {
+            System.out.println(future.get());
+        }
         service.schedule(() -> {
             System.out.println("シャットダウンします……");
             service.shutdown();
         }, 0, TimeUnit.SECONDS);
-        for (Future<List<KeyPair>> f : keysFuture) {
-            keyPairList.addAll(f.get());
-        } */
-        var finish = LocalDateTime.now();
-        try (ObjectInputStream oos = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File("/mnt/g/Downloads/ooskeypairlist.bin")), 1024*1024*1024))) {
-            keyPairList=(List<KeyPair>)oos.readObject();
-        }
-        try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("/mnt/g/Downloads/ooskeypairarray.bin")), 1024*1024*1024))) {
-            for (KeyPair keyPair : keyPairList) {
-                oos.writeObject(keyPair);
+    }
+
+    // シリアライズ
+    static byte[] serialize(List<Callable<String>> object) throws IOException {
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(bos)) {
+                oos.writeObject(object);
             }
+            return bos.toByteArray();
         }
-        System.out.printf("%d, %s%n", keyPairList.size(), start.until(finish, ChronoUnit.MILLIS));
-        // 2の27乗件(1億3000万件)のsecp256k1鍵があるので1京8000兆件ぐらいのアドレスが生成されて70兆件ぐらいのアドレスがフィルターを通過するはず
-        /*
-         * keyPairList.parallelStream().flatMap(s -> keyPairList.stream().map(e -> new
-         * AddressKeyPairs(s, e)))
-         * .map(new MultiThreadRipeGenerator()).filter(a -> a.getRipe()[0] == 0);
-         */
-        // service.schedule(new UTF8DecodeSample(), 0, TimeUnit.NANOSECONDS);
+    }
+
+    // デシリアライズ
+    static List<Callable<String>> deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+                ObjectInputStream ois = new ObjectInputStream(bis)) {
+            @SuppressWarnings("unchecked")
+            List<Callable<String>> supplier = (List<Callable<String>>) ois.readObject();
+            return supplier;
+        }
     }
 }

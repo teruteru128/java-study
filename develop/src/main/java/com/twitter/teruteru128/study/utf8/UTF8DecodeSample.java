@@ -1,11 +1,13 @@
 package com.twitter.teruteru128.study.utf8;
 
+import java.util.concurrent.Callable;
+
 import jakarta.xml.bind.DatatypeConverter;
 
-public class UTF8DecodeSample implements Runnable {
+public class UTF8DecodeSample implements Callable<String> {
 
-    public void run() {
+    public String call() {
         String code ="e381ab e38198 e38288 e38281 e381a1 e38283 e38293";
-        System.out.println(new String(DatatypeConverter.parseHexBinary(code.replaceAll(" ", ""))));
+        return new String(DatatypeConverter.parseHexBinary(code.replaceAll(" ", "")));
     }
 }

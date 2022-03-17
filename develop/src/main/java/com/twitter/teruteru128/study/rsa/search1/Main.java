@@ -5,7 +5,6 @@ import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class Main {
@@ -37,8 +36,8 @@ public class Main {
         System.out.printf("system : %fseconds\n", (finish - start) / (1e9));
     }
 
-    private static final BigInteger ONE = BigInteger.valueOf(1L);
-    private static final BigInteger TWO = BigInteger.valueOf(2L);
+    private static final BigInteger ONE = BigInteger.ONE;
+    private static final BigInteger TWO = BigInteger.TWO;
 
     private static boolean isProbablePrime(BigInteger n, int certainty) {
         if (certainty <= 0)
@@ -87,8 +86,7 @@ public class Main {
         final int a = o.getLowestSetBit();
         final BigInteger m = o.shiftRight(a);
 
-        final Supplier<Random> supplier = rnd != null ? () -> rnd : ThreadLocalRandom::current;
-        var stream = Stream.<Random>generate(supplier).map(r -> new BigInteger(n.bitLength(), r));
+        var stream = Stream.generate(() -> new BigInteger(n.bitLength(),  rnd != null ? rnd : ThreadLocalRandom.current()));
         stream = stream.filter(b -> b.compareTo(ONE) > 0);
         stream = stream.filter(b -> b.compareTo(n) < 0);
         stream = stream.map(z -> z.modPow(m, n));// <- bottleneck
@@ -99,6 +97,6 @@ public class Main {
         // すべてtrueであることを確認して素数とするのではなく、1件でもfalseがあれば素数でないとみなす
         stream = stream.filter(i -> !(i.equals(ONE) || i.equals(o)));
         Optional<BigInteger> optional = stream.findAny();
-        return !optional.isPresent();
+        return optional.isEmpty();
     }
 }
