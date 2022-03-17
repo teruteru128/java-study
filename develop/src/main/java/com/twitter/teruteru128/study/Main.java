@@ -84,7 +84,7 @@ public class Main {
         try (ObjectInputStream oos = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File("/mnt/g/Downloads/ooskeypairlist.bin")), 1024*1024*1024))) {
             keyPairList=(List<KeyPair>)oos.readObject();
         }
-        try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("/mnt/g/Downloads/ooskeypairlist2.bin")), 1024*1024*1024))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File("/mnt/g/Downloads/ooskeypairarray.bin")), 1024*1024*1024))) {
             for (KeyPair keyPair : keyPairList) {
                 oos.writeObject(keyPair);
             }
