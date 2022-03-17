@@ -2,7 +2,6 @@ package com.twitter.teruteru128.study.base64;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 /**
@@ -16,7 +15,7 @@ public class Base64Sample {
      */
     public static void main(String[] args) {
         var buffer = new byte[2048];
-        var encoder = Base64.getMimeEncoder(76, System.lineSeparator().getBytes(StandardCharsets.UTF_8));
+        var encoder = Base64.getMimeEncoder(76, System.lineSeparator().getBytes());
         int length;
         try (var bin = new BufferedInputStream(System.in);
                 var bout = new BufferedOutputStream(encoder.wrap(System.out))) {

@@ -125,11 +125,8 @@ public class Producer implements Callable<Void> {
                 // 計算したnlz結果が要求値より良好なら
                 if (nlz >= requireNlz) {
                     // responseインスタンスを生成してエンキュー
-                    byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, i * Const.PRIVATE_KEY_LENGTH, (i + 1) * Const.PRIVATE_KEY_LENGTH);
-                    KeyPair signingKeyPair = new KeyPair(signingPrivateKey, Arrays.copyOf(iPublicKey, Const.PUBLIC_KEY_LENGTH));
-                    byte[] encryptionPrivateKey = signingPrivateKey;
-                    KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, Arrays.copyOf(iPublicKey, Const.PUBLIC_KEY_LENGTH));
-                    var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, Const.RIPEMD160_DIGEST_LENGTH));
+                    KeyPair signingKeyPair = new KeyPair(privateKeys, i * Const.PRIVATE_KEY_LENGTH, (i + 1) * Const.PRIVATE_KEY_LENGTH, iPublicKey, 0, 65);
+                    var response = new Response(signingKeyPair, signingKeyPair, Arrays.copyOf(cache64, Const.RIPEMD160_DIGEST_LENGTH));
                     //System.err.printf("keypair found!(%d) %s%n", taskId, LocalDateTime.now());
                     try {
                         Queues.getResponseQueue().put(response);

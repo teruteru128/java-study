@@ -15,6 +15,11 @@ public class KeyPair implements Cloneable, Serializable {
         this.publicKey = publicKey.clone();
     }
 
+    public KeyPair(byte[] privateKey, int privatekeyoffset, int privatekeylength, byte[] publicKey, int publickeyoffset, int publickeylength) {
+        this.privateKey = Arrays.copyOfRange(privateKey, privatekeyoffset, privatekeyoffset + privatekeylength);
+        this.publicKey = Arrays.copyOfRange(publicKey, publickeyoffset, publickeyoffset + publickeylength);
+    }
+
     /**
      * @return the privateKey
      */
