@@ -21,7 +21,6 @@ import java.security.spec.ECParameterSpec;
 import java.security.spec.ECPrivateKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.concurrent.Callable;
 
@@ -35,6 +34,8 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
 import org.bouncycastle.jce.spec.ECPublicKeySpec;
 
+import jakarta.xml.bind.DatatypeConverter;
+
 public class ECIESSample implements Callable<Void> {
 
     private void encTest(String message, Charset charset, byte[] privateKeyData, byte[] publicKeyData,
@@ -45,8 +46,8 @@ public class ECIESSample implements Callable<Void> {
         // 秘密鍵を鍵スペックに変換
         var privateKeySpec = new ECPrivateKeySpec(new BigInteger(1, privateKeyData), parameterSpec);
         // 非圧縮鍵表現鍵から公開鍵を鍵スペックに変換
-        var x = new BigInteger(1, Arrays.copyOfRange(publicKeyData, 1, 33));
-        var y = new BigInteger(1, Arrays.copyOfRange(publicKeyData, 33, 65));
+        var x = new BigInteger(1, publicKeyData, 1, 32);
+        var y = new BigInteger(1, publicKeyData, 33, 32);
         var w = new java.security.spec.ECPoint(x, y);
         var publicKeySpec = new java.security.spec.ECPublicKeySpec(w, parameterSpec);
 
@@ -66,13 +67,8 @@ public class ECIESSample implements Callable<Void> {
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
         var ciphertext = cipher.doFinal(message.getBytes(charset));
         System.out.printf("length : %d bytes(charset:%s)%n", ciphertext.length, charset);
-        for (int i = 0; i < ciphertext.length; i++) {
-            System.out.printf("%02x", ciphertext[i]);
-            if (i % 16 == 15) {
-                System.out.println();
-            }
-        }
-        System.out.println();
+        System.out.println(DatatypeConverter.printHexBinary(ciphertext).toLowerCase().replaceAll(".{32}",
+                "$0" + System.lineSeparator()));
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         var cleartext = new String(cipher.doFinal(ciphertext), charset);
         System.out.printf("cleartext : %s(charset:%s)%n", cleartext, charset.displayName());
@@ -87,13 +83,8 @@ public class ECIESSample implements Callable<Void> {
         cipher.init(Cipher.ENCRYPT_MODE, publicKey);
         var ciphertext = cipher.doFinal(message.getBytes(charset));
         System.out.printf("length : %d bytes(charset:%s)%n", ciphertext.length, charset);
-        for (int i = 0; i < ciphertext.length; i++) {
-            System.out.printf("%02x", ciphertext[i]);
-            if (i % 16 == 15) {
-                System.out.println();
-            }
-        }
-        System.out.println();
+        System.out.println(DatatypeConverter.printHexBinary(ciphertext).toLowerCase().replaceAll(".{32}",
+                "$0" + System.lineSeparator()));
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         var cleartext = new String(cipher.doFinal(ciphertext), charset);
         System.out.printf("cleartext : %s(charset:%s)%n", cleartext, charset.displayName());
@@ -128,34 +119,35 @@ public class ECIESSample implements Callable<Void> {
         var publicKeyData1 = decoder.decode(STATIC_PUBLIC_KEY1);
         var publicKeyData2 = decoder.decode(STATIC_PUBLIC_KEY2);
 
-        var bcProvider = new BouncyCastleProvider();
-        // Security.addProvider(bcProvider);
+        var bouncyCastle = Security.getProvider("BC");
+        if (bouncyCastle == null) {
+            bouncyCastle = new BouncyCastleProvider();
+        } else {
+            Security.removeProvider("BC");
+        }
+        var sunEC = Security.getProvider("SunEC");
 
         MessageDigest sha512 = MessageDigest.getInstance("sha512");
-        MessageDigest ripemd160 = MessageDigest.getInstance("ripemd160", bcProvider);
+        MessageDigest ripemd160 = MessageDigest.getInstance("ripemd160", bouncyCastle);
 
         sha512.update(publicKeyData1);
         sha512.update(publicKeyData2);
         System.out.print("ripe : ");
         var ripe = ripemd160.digest(sha512.digest());
-        for (int i = 0; i < ripe.length; i++) {
-            System.out.printf("%02x", ripe[i] & 0xff);
-            if (i % 2 == 1)
-                System.out.print(" ");
-        }
-        System.out.println();
+        System.out.println(
+                DatatypeConverter.printHexBinary(ripe).toLowerCase().replace(".{32}", "$0" + System.lineSeparator()));
 
         String message = "イワシがつちからはえてくるんだ";
         System.out.printf("original message UTF-8 : %dbytes%n", message.getBytes(StandardCharsets.UTF_8).length);
         System.out.printf("original message Shift-JIS : %dbytes%n", message.getBytes(Charset.forName("sjis")).length);
 
         // secp256k1 鍵パラメータ取得
-        var parameters = AlgorithmParameters.getInstance("EC", "SunEC");
+        var parameters = AlgorithmParameters.getInstance("EC", sunEC);
         parameters.init(new ECGenParameterSpec(CURVE_NAME));
         var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
 
-        encTest(message, StandardCharsets.UTF_8, privateKeyData1, publicKeyData1, parameterSpec, bcProvider);
-        encTest(message, Charset.forName("sjis"), privateKeyData2, publicKeyData2, parameterSpec, bcProvider);
+        encTest(message, StandardCharsets.UTF_8, privateKeyData1, publicKeyData1, parameterSpec, bouncyCastle);
+        encTest(message, Charset.forName("sjis"), privateKeyData2, publicKeyData2, parameterSpec, bouncyCastle);
         System.out.println("-".repeat(32));
 
         // 秘密鍵をインポート
@@ -163,18 +155,17 @@ public class ECIESSample implements Callable<Void> {
         ECPrivateKeySpec privateKeySpec4 = new ECPrivateKeySpec(new BigInteger(1, privateKeyData2), parameterSpec);
 
         // 非圧縮鍵表現鍵から鍵をインポートする
-        var x3 = new BigInteger(1, Arrays.copyOfRange(publicKeyData1, 1, 33));
-        var y3 = new BigInteger(1, Arrays.copyOfRange(publicKeyData1, 33, 65));
+        var x3 = new BigInteger(1, publicKeyData1, 1, 32);
+        var y3 = new BigInteger(1, publicKeyData1, 33, 32);
         var w3 = new java.security.spec.ECPoint(x3, y3);
         var publicKeySpec3 = new java.security.spec.ECPublicKeySpec(w3, parameterSpec);
 
-        var x4 = new BigInteger(1, Arrays.copyOfRange(publicKeyData2, 1, 33));
-        var y4 = new BigInteger(1, Arrays.copyOfRange(publicKeyData2, 33, 65));
+        var x4 = new BigInteger(1, publicKeyData2, 1,32);
+        var y4 = new BigInteger(1, publicKeyData2, 33, 32);
         var w4 = new java.security.spec.ECPoint(x4, y4);
         var publicKeySpec4 = new java.security.spec.ECPublicKeySpec(w4, parameterSpec);
 
-        var sunECProvider = Security.getProvider("SunEC");
-        var factory1 = KeyFactory.getInstance("EC", sunECProvider);
+        var factory1 = KeyFactory.getInstance("EC", sunEC);
 
         // 鍵スペックから鍵に変換する
         var publicKey3 = factory1.generatePublic(publicKeySpec3);
@@ -183,7 +174,7 @@ public class ECIESSample implements Callable<Void> {
         var privateKey4 = factory1.generatePrivate(privateKeySpec4);
 
         // BC API を使って鍵インポート・暗号化/復号テスト
-        var factory2 = KeyFactory.getInstance("EC", bcProvider);
+        var factory2 = KeyFactory.getInstance("EC", bouncyCastle);
 
         // ドメイン設定
         var x9 = ECNamedCurveTable.getByName(CURVE_NAME);
@@ -199,10 +190,10 @@ public class ECIESSample implements Callable<Void> {
         var publicKey2 = factory2.generatePublic(pubkeySpec2);
 
         // publicKey1とprivateKey3、publicKey3とprivateKey3の組み合わせのいずれでも動くはず
-        anotherProviderTest(message, StandardCharsets.UTF_8, privateKey3, publicKey1, parameterSpec, bcProvider);
-        anotherProviderTest(message, StandardCharsets.UTF_8, privateKey3, publicKey3, parameterSpec, bcProvider);
-        anotherProviderTest(message, StandardCharsets.UTF_8, privateKey4, publicKey2, parameterSpec, bcProvider);
-        anotherProviderTest(message, StandardCharsets.UTF_8, privateKey4, publicKey4, parameterSpec, bcProvider);
+        anotherProviderTest(message, StandardCharsets.UTF_8, privateKey3, publicKey1, parameterSpec, bouncyCastle);
+        anotherProviderTest(message, StandardCharsets.UTF_8, privateKey3, publicKey3, parameterSpec, bouncyCastle);
+        anotherProviderTest(message, StandardCharsets.UTF_8, privateKey4, publicKey2, parameterSpec, bouncyCastle);
+        anotherProviderTest(message, StandardCharsets.UTF_8, privateKey4, publicKey4, parameterSpec, bouncyCastle);
         return null;
     }
 
