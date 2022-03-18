@@ -1,8 +1,9 @@
 package com.twitter.teruteru128.study;
 
 import java.util.Random;
+import java.util.concurrent.Callable;
 
-public class ShadowSeed {
+public class ShadowSeed implements Callable<Void> {
     public static long pow2(int bits) {
         return 1L << bits;
     }
@@ -56,16 +57,19 @@ public class ShadowSeed {
      * 
      * @param args
      */
-    public static void main(String[] args) {
-        long shadowSeed =getShadowSeed(74803317123181L);
-        System.out.printf("%d%n", shadowSeed=getShadowSeed(shadowSeed));
-        System.out.printf("%d%n", shadowSeed=getShadowSeed(shadowSeed));
-        System.out.printf("%d%n", shadowSeed=getShadowSeed(shadowSeed));
-        System.out.printf("%d%n", shadowSeed=getShadowSeed(shadowSeed));
-        System.out.printf("%d%n", shadowSeed=getShadowSeed(shadowSeed));
+    public Void call() {
+        long shadowSeed = getShadowSeed(74803317123181L);
+        System.out.printf("%d%n", shadowSeed = getShadowSeed(shadowSeed));
+        System.out.printf("%d%n", shadowSeed = getShadowSeed(shadowSeed));
+        System.out.printf("%d%n", shadowSeed = getShadowSeed(shadowSeed));
+        System.out.printf("%d%n", shadowSeed = getShadowSeed(shadowSeed));
+        System.out.printf("%d%n", shadowSeed = getShadowSeed(shadowSeed));
         System.out.println("--");
+        shadowSeed = getShadowSeed(shadowSeed);
+        System.out.printf("%d%n", shadowSeed);
         Random random = new Random(74803317123181L);
-        System.out.println(random.nextInt());
-        System.out.println(random.nextInt());
+        System.out.println(random.nextLong());
+        System.out.println(random.nextLong());
+        return null;
     }
 }
