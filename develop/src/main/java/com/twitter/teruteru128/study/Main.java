@@ -25,7 +25,6 @@ import com.twitter.teruteru128.study.utf8.UTF8DecodeSample;
  */
 public class Main {
 
-
     public static void main(String[] args) throws Exception {
         var service = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(12);
         // 普通こうやって時間のかかる処理を裏でやらせるための機能だよね……？
@@ -38,12 +37,16 @@ public class Main {
         }, 0, TimeUnit.NANOSECONDS);
         var token = randomFuture.get();
         var finish = LocalDateTime.now();
-        System.out.printf("%s, %s%n", token, start.until(finish, ChronoUnit.MILLIS));
+        var nanos = start.until(finish, ChronoUnit.NANOS);
+        var seconds = nanos / 1000000000L;
+        nanos = nanos % 1000000000L;
+        System.out.printf("%s, %d.%09d%n", token, seconds, nanos);
         service.schedule(new UTF8DecodeSample(), 0, TimeUnit.NANOSECONDS);
         List<Callable<String>> list = new ArrayList<>(16);
         // 1つのint値引数を受け取って「結果を返し、例外をスローすることがあるシリアライズ可能なタスク」を生成する関数
         @SuppressWarnings("unchecked")
-        var intfunction = (IntFunction<Callable<String>>) i -> (Callable<String> & Serializable) () -> Integer.toString(i);
+        var intfunction = (IntFunction<Callable<String>>) i -> (Callable<String> & Serializable) () -> Integer
+                .toString(i);
         // Listにタスクを詰める
         for (int i = 0; i < 16; i++) {
             var callable = intfunction.apply(i);
@@ -53,9 +56,9 @@ public class Main {
         var serializedList = serialize(list);
         var deserializedList = deserialize(serializedList);
         // そのままスレッドプールに渡す
-        var a = service.invokeAll(deserializedList);
+        var futures = service.invokeAll(deserializedList);
         // 結果を出力する
-        for (Future<String> future : a) {
+        for (Future<String> future : futures) {
             System.out.println(future.get());
         }
         service.schedule(() -> {
