@@ -57,7 +57,7 @@ public class ECIESSample2 implements Callable<Void> {
       stringPrivateKeyData1 = stream.readLine();
     }
     var privateKeyData1 = decoder.decode(stringPrivateKeyData1);
-    var publicKeyData1 = decoder.decode(ECIESSample.STATIC_PUBLIC_KEY1);
+    var publicKeyData1 = decoder.decode(ECIESSample.PUBLIC_STATIC_SIGNING_KEY);
     var parameters = AlgorithmParameters.getInstance("EC");
     parameters.init(new ECGenParameterSpec(ECIESSample.CURVE_NAME));
     var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
@@ -66,8 +66,8 @@ public class ECIESSample2 implements Callable<Void> {
     var privateKeySpec = new ECPrivateKeySpec(new BigInteger(1, privateKeyData1), parameterSpec);
 
     // 非圧縮鍵表現鍵から公開鍵を鍵スペックに変換
-    var x = new BigInteger(1, Arrays.copyOfRange(publicKeyData1, 1, 33));
-    var y = new BigInteger(1, Arrays.copyOfRange(publicKeyData1, 33, 65));
+    var x = new BigInteger(1, publicKeyData1, 1, 32);
+    var y = new BigInteger(1, publicKeyData1, 33, 32);
     var w = new java.security.spec.ECPoint(x, y);
     var publicKeySpec = new ECPublicKeySpec(w, parameterSpec);
 

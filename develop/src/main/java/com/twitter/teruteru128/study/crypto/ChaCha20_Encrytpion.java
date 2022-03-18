@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study.crypto;
 
 import java.util.Base64;
+import java.util.concurrent.Callable;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -8,11 +9,11 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.ChaCha20ParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-public class ChaCha20_Encrytpion
+public class ChaCha20_Encrytpion implements Callable<Void>
 {
     static String plainText = "This is a plain text which will be encrypted by ChaCha20 Algorithm";
 
-    public static void main(String[] args) throws Exception
+    public Void call() throws Exception
     {
         KeyGenerator keyGenerator = KeyGenerator.getInstance("ChaCha20");
         keyGenerator.init(256);
@@ -27,6 +28,7 @@ public class ChaCha20_Encrytpion
 
         String decryptedText = decrypt(cipherText, key);
         System.out.println("DeCrypted Text : " + decryptedText);
+        return null;
     }
 
     public static byte[] encrypt(byte[] plaintext, SecretKey key) throws Exception

@@ -7,13 +7,14 @@ import java.security.Provider;
 import java.security.Security;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.concurrent.Callable;
 import java.util.regex.Pattern;
 
 /**
  * @author Teruteru
  *
  */
-public class ECReflectionSample {
+public class ECReflectionSample implements Callable<Void> {
 
     /**
      * @param args
@@ -25,7 +26,7 @@ public class ECReflectionSample {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
+    public Void call() throws ClassNotFoundException, NoSuchMethodException, SecurityException,
             InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
         Provider provider = Security.getProvider("BC");
         if (provider == null) {
@@ -36,7 +37,7 @@ public class ECReflectionSample {
                 Security.addProvider(provider = (Provider) o);
             }
         }
-        Pattern pattern = Pattern.compile("256|5[27]1");
+        Pattern pattern = Pattern.compile("[2-9]\\d{2}");
         Class<?> class2 = Class.forName("org.bouncycastle.jce.ECNamedCurveTable");
         Method method = class2.getMethod("getNames");
         Object object1 = method.invoke(null);
@@ -56,6 +57,7 @@ public class ECReflectionSample {
             System.out.println("--");
             System.out.println(namesList.size());
         }
+        return null;
     }
 
 }

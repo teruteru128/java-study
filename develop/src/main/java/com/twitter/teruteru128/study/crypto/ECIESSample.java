@@ -90,8 +90,8 @@ public class ECIESSample implements Callable<Void> {
         System.out.printf("cleartext : %s(charset:%s)%n", cleartext, charset.displayName());
     }
 
-    /* package */ static final String STATIC_PUBLIC_KEY1 = "BHaW7iAHcG2h49xLy8oBS25GwZUCIxUr84q/TwDbI0rMiG7XMFp49lGomisFKE2TA5s7O5mSbmR5yq+2EzE61pc=";
-    private static final String STATIC_PUBLIC_KEY2 = "BABfHBsh6Fo8BJpWgi6fWDtfoS4BkPODxUOOsUMhQk0MVo/Q2bNKsZ5GmKcbl6ncbJG9eAThWmOXzUoHDBptqOo=";
+    /* package */ static final String PUBLIC_STATIC_SIGNING_KEY = "BHaW7iAHcG2h49xLy8oBS25GwZUCIxUr84q/TwDbI0rMiG7XMFp49lGomisFKE2TA5s7O5mSbmR5yq+2EzE61pc=";
+    /* package */ static final String PUBLIC_STATIC_ENCRYPTING_KEY = "BABfHBsh6Fo8BJpWgi6fWDtfoS4BkPODxUOOsUMhQk0MVo/Q2bNKsZ5GmKcbl6ncbJG9eAThWmOXzUoHDBptqOo=";
 
     // 曲線名
     /* package */ static final String CURVE_NAME = "secp256k1";
@@ -116,8 +116,8 @@ public class ECIESSample implements Callable<Void> {
         // static keys
         var privateKeyData1 = decoder.decode(stringPrivateKeyData1);
         var privateKeyData2 = decoder.decode(stringPrivateKeyData2);
-        var publicKeyData1 = decoder.decode(STATIC_PUBLIC_KEY1);
-        var publicKeyData2 = decoder.decode(STATIC_PUBLIC_KEY2);
+        var publicKeyData1 = decoder.decode(PUBLIC_STATIC_SIGNING_KEY);
+        var publicKeyData2 = decoder.decode(PUBLIC_STATIC_ENCRYPTING_KEY);
 
         var bouncyCastle = Security.getProvider("BC");
         if (bouncyCastle == null) {
