@@ -6,8 +6,6 @@ import java.security.PublicKey;
 import java.security.spec.NamedParameterSpec;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Exchanger;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import javax.crypto.KeyAgreement;
 
@@ -15,12 +13,12 @@ import jakarta.xml.bind.DatatypeConverter;
 
 /**
  * Multi...何？
-*/
-public class Multi implements Callable<Void> {
+ */
+public class ExchangerSample implements Callable<Void> {
     private String name;
     private Exchanger<PublicKey> exchanger;
 
-    public Multi(String name, Exchanger<PublicKey> exchanger) {
+    public ExchangerSample(String name, Exchanger<PublicKey> exchanger) {
         this.name = name;
         this.exchanger = exchanger;
     }
@@ -40,6 +38,7 @@ public class Multi implements Callable<Void> {
             var himPublicKey = exchanger.exchange(publicKey);
 
             // 鍵共有
+            // わざわざ自前で共有鍵を生成せずにECIESを使うべきだと思う
             var agreement = KeyAgreement.getInstance("XDH");
             agreement.init(privateKey);
             agreement.doPhase(himPublicKey, true);
@@ -55,17 +54,6 @@ public class Multi implements Callable<Void> {
             throw e;
         }
         return null;
-    }
-
-    public static void main(String[] args) throws Exception {
-        var executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(2);
-        var exchanger = new Exchanger<PublicKey>();
-        var futureAlice = executor.submit(new Multi("Alice", exchanger));
-        var futureBoB = executor.submit(new Multi("BoB", exchanger));
-        Thread.sleep(500);
-        futureAlice.get();
-        futureBoB.get();
-        executor.shutdown();
     }
 
 }
