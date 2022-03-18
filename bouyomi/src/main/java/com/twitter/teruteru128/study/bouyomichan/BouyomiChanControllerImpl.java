@@ -16,6 +16,7 @@ public class BouyomiChanControllerImpl implements BouyomiChanController {
         this.host = host;
         this.port = port;
         this.proxy = proxy;
+        System.out.printf("%s %d %s%n", this.host, this.port, this.proxy);
     }
 
     @Override

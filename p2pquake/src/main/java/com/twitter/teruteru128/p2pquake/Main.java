@@ -155,6 +155,7 @@ public class Main {
                 var response = reader.readLine();
                 System.out.println(response);
                 var packet = factory.getInstance(response);
+                System.out.println(packet);
             }
 
             // プロトコル時刻の取得

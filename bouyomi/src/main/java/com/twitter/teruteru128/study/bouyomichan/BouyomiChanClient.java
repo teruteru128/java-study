@@ -58,6 +58,7 @@ public class BouyomiChanClient {
         }
         // TCP281
         var uri = new URI(p.getProperty("bouyomi.uri"));
+        System.out.println(uri);
         final var arglen = args.length;
         var useTor = false;
         var argi = 0;

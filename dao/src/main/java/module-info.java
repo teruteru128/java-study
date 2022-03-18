@@ -3,7 +3,7 @@
  * 
 */
 module com.twitter.teruteru.dao {
-    requires java.sql;
+    requires transitive java.sql;
     requires java.naming;
     requires transitive com.h2database;
 

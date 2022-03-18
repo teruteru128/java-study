@@ -76,5 +76,6 @@ public class Main2 {
                 socket.close();
             }
         }
+        System.out.println(peerID);
     }
 }

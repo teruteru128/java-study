@@ -39,8 +39,8 @@ public class DBMain {
         try {
             var source = new JdbcDataSource();
             source.setUrl("jdbc:h2:mem:collatz");
-            //source.setUser("sa");
-            //source.setPassword("");
+            // source.setUser("sa");
+            // source.setPassword("");
             pool = source.getPooledConnection();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -81,9 +81,10 @@ public class DBMain {
     }
 
     static boolean isPow(long a, long b) {
-        int i;
-        for (i = 1; a > (long) Math.pow(b, i); i++)
-            ;
-        return a == Math.pow(b, i);
+        long i = 1;
+        while (a > i) {
+            i *= b;
+        }
+        return a == i;
     }
 }
