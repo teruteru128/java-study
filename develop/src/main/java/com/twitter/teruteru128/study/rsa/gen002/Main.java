@@ -10,10 +10,11 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.concurrent.Callable;
 
-public class Main {
+public class Main implements Callable<Void> {
 
-    public static void main(String[] args) {
+    public Void call() {
         File in = new File("out.asc");
         File out = new File("out2.txt");
         List<BigInteger> list = new ArrayList<BigInteger>(2);
@@ -42,7 +43,7 @@ public class Main {
             System.out.println(p.bitLength());
         }
         // pが2ビット短い
-        /*
+        
         try (PrintStream stream = new PrintStream(out)) {
             for (BigInteger p : list) {
                 stream.println(p);
@@ -50,7 +51,8 @@ public class Main {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
+        return null;
     }
 
 }

@@ -3,10 +3,19 @@ package com.twitter.teruteru128.study.random.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-public class Server implements Runnable {
+public class Server implements Callable<Void> {
+
+    protected ExecutorService service;
+
+    public Server(ExecutorService service) {
+        super();
+        this.service = service;
+    }
+
+    ServerSocket server;
 
     /**
      * 
@@ -14,15 +23,16 @@ public class Server implements Runnable {
      * windows-prngから乱数を指定された容量取得して返す。 0x000000ff:切断要求
      */
     @Override
-    public void run() {
-        ExecutorService service = Executors.newCachedThreadPool();
+    public Void call() {
         try {
-            ServerSocket server = new ServerSocket(8123);
-            while(true){
+            server = new ServerSocket(8123);
+            while (true) {
                 Socket socket = server.accept();
+                service.submit(new ServerTask(socket));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
