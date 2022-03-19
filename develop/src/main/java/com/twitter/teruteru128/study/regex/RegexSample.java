@@ -9,13 +9,10 @@ import java.util.regex.Pattern;
  *
  */
 public class RegexSample implements Callable<String> {
+    private static final Pattern PATTERN = Pattern.compile("^(\\+|-)?[\\d]+(\\.[\\d]*)?$");
+
     public String call() {
-        Pattern p = Pattern.compile("^(\\+|-)?[\\d]+(\\.[\\d]*)?$");
-        Matcher m = p.matcher("1.0");
-        if (m.matches()) {
-            return m.group();
-        } else {
-            return null;
-        }
+        Matcher m = PATTERN.matcher("1.0");
+        return m.matches() ? m.group() : null;
     }
 }
