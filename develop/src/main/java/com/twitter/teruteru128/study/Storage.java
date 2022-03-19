@@ -2,16 +2,21 @@ package com.twitter.teruteru128.study;
 
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
 
 /**
- * { * Storage
+ * Storage
  */
-public class Storage {
+public class Storage implements Callable<List<Path>> {
 
-    public static void main(String[] args) {
+    public List<Path> call() {
+        List<Path> list = new ArrayList<>();
         var fileSystem = FileSystems.getDefault();
         for (Path path : fileSystem.getRootDirectories()) {
-            System.out.println(path);
+            list.add(path);
         }
+        return list;
     }
 }
