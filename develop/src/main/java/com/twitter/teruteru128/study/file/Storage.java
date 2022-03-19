@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.study.file;
 
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
