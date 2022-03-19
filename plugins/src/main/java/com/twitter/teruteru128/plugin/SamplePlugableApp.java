@@ -5,17 +5,14 @@ import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.lang.reflect.Constructor;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ServiceLoader;
-import java.util.jar.Attributes;
-import java.util.jar.JarFile;
-import java.util.jar.Manifest;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -30,11 +27,11 @@ import javax.swing.JTextField;
 public class SamplePlugableApp extends JFrame implements ActionListener {
     private static final long serialVersionUID = 0L;
     private JTextField result;
-    private JComboBox<? super SamplePluginAppPlugin> pluginsCombo;
+    private JComboBox<? super AppPlugin> pluginsCombo;
     private JPanel panel;
 
-    private ArrayList<SamplePluginAppPlugin> plugins;
-    private SamplePluginAppPlugin selectedPlugin;
+    private List<AppPlugin> plugins;
+    private AppPlugin selectedPlugin;
     private JPanel selectedPluginPanel;
 
     /**
@@ -63,73 +60,37 @@ public class SamplePlugableApp extends JFrame implements ActionListener {
     }
 
     // JComboBoxの作成
-    public JComboBox<? super SamplePluginAppPlugin> getPluginComboBox() {
-        JComboBox<? super SamplePluginAppPlugin> combo = new JComboBox<>();
+    public JComboBox<? super AppPlugin> getPluginComboBox() {
+        JComboBox<? super AppPlugin> combo = new JComboBox<>();
         plugins = getPlugins();
         // デフォルトプラグインの準備
-        for (SamplePluginAppPlugin samplePluginAppPlugin : ServiceLoader.load(SamplePluginAppPlugin.class)) {
+        for (AppPlugin samplePluginAppPlugin : ServiceLoader.load(AppPlugin.class)) {
             selectedPluginPanel = samplePluginAppPlugin.getPanel();
             combo.addItem(samplePluginAppPlugin);
         }
 
         for (int i = 0; i < plugins.size(); i++) {
-            SamplePluginAppPlugin plugin = plugins.get(i);
+            AppPlugin plugin = plugins.get(i);
             combo.addItem(plugin);
         }
         return combo;
     }
 
-    /** プラグインクラスのインスタンスをArrayListにまとめて返す */
-    public ArrayList<SamplePluginAppPlugin> getPlugins() {
-        ArrayList<SamplePluginAppPlugin> plugins = new ArrayList<SamplePluginAppPlugin>();
+    /**
+     * プラグインクラスのインスタンスをArrayListにまとめて返す
+     */
+    public List<AppPlugin> getPlugins() {
+        ArrayList<AppPlugin> plugins = new ArrayList<AppPlugin>();
         /* プラグインフォルダのパスを取得 */
         Path path = Paths.get(System.getProperty("user.dir"), "plugins");
-        try {
-            File f = path.toFile();
-            // プラグインフォルダの全ファイル取得
-            String[] files = f.list((dir, name) -> name.endsWith(".jar"));
-            if (files == null) {
-            } else {
-                for (int i = 0; i < files.length; i++) {
-                    // jarファイルを抽出
-                    if (files[i].endsWith(".jar")) {
-                        //
-                        File file = new File(f, files[i]);
-                        //
-                        JarFile jar = new JarFile(file);
-                        // マニフェスト取得
-                        Manifest mf = jar.getManifest();
-                        // Jarファイルクローズ（リソースを閉じる）
-                        jar.close();
-                        // アトリビュート（属性）取得
-                        Attributes att = mf.getMainAttributes();
-                        // プラグインクラスを取得
-                        String cname = att.getValue("Plugin-Class");
-                        // ファイルからURLを生成
-                        URL url = file.getCanonicalFile().toURI().toURL();
-                        // クラスローダー作成
-                        URLClassLoader loader = new URLClassLoader(new URL[] { url });
-                        // クラス読み込み
-                        Class<?> cobj = loader.loadClass(cname);
-                        loader.close();
-                        // クラスローダーを閉じる
-                        Class<?>[] ifnames = cobj.getInterfaces();
-                        for (int j = 0; j < ifnames.length; j++) {
-                            /* implementsされたクラスの中にSamplePluginAppPluginが含まれていないかチェック */
-                            if (ifnames[j].equals(SamplePluginAppPlugin.class)) {
-                                System.out.println("load..... " + cname);
-                                // 含まれている場合はインスタンスを生成してArrayListに追加
-                                Constructor<?> con = cobj.getConstructor();
-                                SamplePluginAppPlugin plugin = (SamplePluginAppPlugin) con.newInstance();
-                                plugins.add(plugin);
-                                break;
-                            }
-                        }
-                    }
-                }
+        try (var loader2 = new URLClassLoader(new URL[] { path.toUri().toURL() },
+                getClass().getClassLoader().getParent())) {
+            var serviceLoader = ServiceLoader.load(AppPlugin.class, loader2);
+            for (AppPlugin appPlugin : serviceLoader) {
+                plugins.add(appPlugin);
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return plugins;
     }
@@ -137,10 +98,10 @@ public class SamplePlugableApp extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        if(source instanceof JButton){
-            //JButton button = (JButton) source;
+        if (source instanceof JButton) {
+            // JButton button = (JButton) source;
             result.setText(selectedPlugin.getResult());
-        } else if(source instanceof JComboBox){
+        } else if (source instanceof JComboBox) {
             // パネルからすべてのコンポーネントを取り除く
             panel.removeAll();
             // コンボボックスを追加
@@ -149,7 +110,7 @@ public class SamplePlugableApp extends JFrame implements ActionListener {
              * 選択されているプラグインを保管するselectedPluginと、
              * そのGUI用パネルを保管するselectedPluginPanelにそれぞれインスタンスを設定する。
              */
-            selectedPlugin = (SamplePluginAppPlugin) pluginsCombo.getSelectedItem();
+            selectedPlugin = (AppPlugin) pluginsCombo.getSelectedItem();
             selectedPluginPanel = selectedPlugin.getPanel();
             panel.add(selectedPluginPanel);
             panel.updateUI();

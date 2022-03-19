@@ -6,7 +6,7 @@ import javax.swing.JPanel;
  * @author Teruteru
  *
  */
-public interface SamplePluginAppPlugin {
+public interface AppPlugin {
     /***/
     String getResult(); // 計算結果の取得
 

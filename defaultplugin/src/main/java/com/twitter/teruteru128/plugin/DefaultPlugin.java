@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /** サンプルプラグインのクラス */
-public class DefaultPlugin implements SamplePluginAppPlugin {
+public class DefaultPlugin implements AppPlugin {
     private JTextField input;
     private JPanel currentPanel;
 
