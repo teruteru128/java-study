@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
-class ArgsFactory {
+public class ArgsFactory {
     public ArgsFactory() {
     }
 

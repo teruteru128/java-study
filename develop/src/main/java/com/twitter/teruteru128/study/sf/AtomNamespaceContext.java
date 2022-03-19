@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.xml.namespace.NamespaceContext;
 
-class AtomNamespaceContext implements NamespaceContext {
+public class AtomNamespaceContext implements NamespaceContext {
 
   private static final String PREFIX = "atom";
   private static final String NAMESPACE_URI = "http://www.w3.org/2005/Atom";

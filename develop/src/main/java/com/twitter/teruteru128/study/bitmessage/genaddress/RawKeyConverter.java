@@ -15,7 +15,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import jakarta.xml.bind.DatatypeConverter;
 
-class RawKeyConverter {
+public class RawKeyConverter {
     public static void main(String[] args) throws NoSuchAlgorithmException, DigestException {
         // RIPEMD160のためにプロバイダを追加
         Provider provider = Security.getProvider("BC");

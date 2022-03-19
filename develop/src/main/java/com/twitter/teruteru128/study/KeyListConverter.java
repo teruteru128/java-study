@@ -11,7 +11,7 @@ import com.twitter.teruteru128.study.bitmessage.KeyPair;
 /**
  * 公開鍵と秘密鍵をファイルから読み出して鍵ペアのリストに変換するコンバーター。
  * */
-class KeyListConverter implements Callable<List<KeyPair>> {
+public class KeyListConverter implements Callable<List<KeyPair>> {
     private int i;
 
     public KeyListConverter(int i) {

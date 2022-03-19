@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study.bitmessage;
 
-class NoSuchResultException extends RuntimeException {
+public class NoSuchResultException extends RuntimeException {
 
   protected NoSuchResultException() {
   }

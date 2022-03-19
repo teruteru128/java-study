@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
-class ValidateArgs extends Args {
+public class ValidateArgs extends Args {
     public ValidateArgs() {
         super(Command.VALIDATE);
     }

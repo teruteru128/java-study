@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
-class GenerateArgs extends Args {
+public class GenerateArgs extends Args {
 
     public GenerateArgs() {
         super(Command.GENERATE);
