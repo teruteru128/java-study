@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class Main {
+public class LambdaSample {
 
     public static void main(String[] args) {
         List<String> list = Arrays.asList("list1", "list2", "list3", "list4", "list5");
