@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.study.minecraft;
 
 import java.util.Random;
 import java.util.concurrent.Callable;

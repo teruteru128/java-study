@@ -8,33 +8,29 @@ import java.io.PipedOutputStream;
 import java.io.PrintStream;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
+ * {@link java.io.PipedInputStream}と{@link java.io.PipedOutputStream}を使って見るサンプル。
  * @author Teruteru
- *
+ * @see java.io.PipedInputStream
+ * @see java.io.PipedOutputStream
  */
 public class PipeSample implements Runnable {
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) throws Exception {
-        Thread thread = new Thread(new PipeSample());
-        thread.start();
+    ExecutorService service;
+
+    public PipeSample(ExecutorService service) {
+        this.service = service;
     }
 
     @Override
     public void run() {
-        try (PipedInputStream pis = new PipedInputStream(); PipedOutputStream pos = new PipedOutputStream(pis)) {
+        try (PipedInputStream pis = new PipedInputStream(1024 * 1024);
+                PipedOutputStream pos = new PipedOutputStream(pis)) {
             CountDownLatch latch = new CountDownLatch(2);
-            Runnable producer = () -> produceData(pos, latch);
-            Runnable consumer = () -> consumeData(pis, latch);
-            ExecutorService service = Executors.newCachedThreadPool();
-            service.execute(producer);
-            service.execute(consumer);
+            service.execute(() -> produceData(pos, latch));
+            service.execute(() -> consumeData(pis, latch));
             latch.await();
-            service.shutdown();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -47,13 +43,15 @@ public class PipeSample implements Runnable {
      */
     private void produceData(PipedOutputStream pos, CountDownLatch latch) {
         try (PrintStream p = new PrintStream(pos)) {
-            for (int i = 0; i < 50; i++) {
-                p.printf("%s%n", (i % 3) == 0 ? "アッー！" : i);
+            for (int i = 29999; i < 40001; i++) {
+                p.printf("%s%n", ((i % 3) == 0 || Integer.toString(i).contains("3")) ? "アッー！" : i);
+                p.flush();
                 // System.out.printf("Writing : %d%n", i);
                 Thread.sleep(500);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         } finally {
             latch.countDown();
         }
@@ -63,7 +61,7 @@ public class PipeSample implements Runnable {
      * 
      */
     private void consumeData(PipedInputStream pis, CountDownLatch latch) {
-        try (BufferedReader p = new BufferedReader(new InputStreamReader(pis))) {
+        try (BufferedReader p = new BufferedReader(new InputStreamReader(pis), 8192)) {
             String l = null;
             while ((l = p.readLine()) != null) {
                 System.out.printf("Reading : %s%n", l);

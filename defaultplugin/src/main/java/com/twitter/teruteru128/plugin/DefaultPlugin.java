@@ -5,7 +5,9 @@ import java.awt.Rectangle;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/** サンプルプラグインのクラス */
+/**
+ * サンプルプラグインのデフォルト実装クラス
+ */
 public class DefaultPlugin implements AppPlugin {
     private JTextField input;
     private JPanel currentPanel;
