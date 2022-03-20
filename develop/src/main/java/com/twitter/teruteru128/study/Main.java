@@ -11,6 +11,11 @@ import com.twitter.teruteru128.study.pipe.sample001.PipeSample;
  */
 public class Main {
 
+    /**
+     * 
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         var service = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(12);
         var future = service.schedule(new PipeSample(service), 0, TimeUnit.NANOSECONDS);

@@ -1,6 +1,9 @@
-package com.twitter.teruteru128.study.jaxb;
+package com.twitter.teruteru128.jaxb;
 
 import java.util.Optional;
+import java.util.ServiceLoader;
+
+import jakarta.xml.bind.JAXBContext;
 
 /**
  * @author Teruteru
@@ -22,6 +25,10 @@ public class Main {
             System.out.println("ないです。");
         }
         System.out.println(Class.forName("org.glassfish.jaxb.runtime.v2.ContextFactory"));
+        var loader = ServiceLoader.load(JAXBContext.class);
+        for (JAXBContext jaxbContext : loader) {
+            System.out.printf("loader : %s%n", jaxbContext.getClass());
+        }
     }
 
 }

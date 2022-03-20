@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.jaxb;
+package com.twitter.teruteru128.jaxb;
 
 import java.io.Serializable;
 
