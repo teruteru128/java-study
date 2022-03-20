@@ -8,9 +8,13 @@ public class TestBean implements Serializable {
      * 
      */
     private static final long serialVersionUID = 3371877869507568723L;
-    /***/
+    /**
+     * 
+    */
     private long id;
-    /***/
+    /**
+     * 
+    */
     private String name;
 
     public TestBean() {

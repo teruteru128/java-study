@@ -26,9 +26,9 @@ public class DBMain2 implements Callable<Void> {
 
     /**
      * 
-     * */
+     */
     public DBMain2(Connection db, int start, int end) {
-        this.db = Objects.<Connection> requireNonNull(db);
+        this.db = Objects.<Connection>requireNonNull(db);
         if ((end - start) < 0) {
             throw new IllegalArgumentException();
         }

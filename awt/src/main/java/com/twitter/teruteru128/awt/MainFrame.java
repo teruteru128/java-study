@@ -3,10 +3,11 @@ package com.twitter.teruteru128.awt;
 import java.awt.Frame;
 import java.awt.GraphicsConfiguration;
 
-class MainFrame extends Frame
-{
+class MainFrame extends Frame {
+
     /**
-     * */
+     * 
+     */
     private static final long serialVersionUID = 0;
 
     public MainFrame(String title) {

@@ -8,39 +8,43 @@ import java.io.Serializable;
  * unique,display_name nvarchar(64) not null default '',email varchar(128) not
  * null unique,iteratins int not not null default 65535,salt char(128) not null,
  * hash char(512) ,primary key(id))
- * */
+ */
 public class UserBean implements Serializable {
     /**
-     * */
+     * 
+    */
     private static final long serialVersionUID = 0;
     /**
      * long(bigint(19)) primary key(not null, unique)
-     * */
+     */
     private long user_id;
     /**
      * varchar(32) unique
-     * */
+     */
     private String user_name;
     /**
      * 
-     * */
+     */
     private String display_name;
+    /**
+     * 
+     */
     private String email;
     /**
      * ログイン済みフラグtrueでログイン済み
-     * */
+     */
     private boolean logged;
     /**
      * ハッシュ計算繰り返し回数
-     * */
+     */
     private int iteratins;
     /**
      * ソルト 16進数文字列
-     * */
+     */
     private String salt;
     /**
      * パスワードハッシュ 16進数文字列
-     * */
+     */
     private String hash;
 
     public UserBean() {

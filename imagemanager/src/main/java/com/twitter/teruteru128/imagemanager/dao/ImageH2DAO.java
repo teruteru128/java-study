@@ -29,6 +29,13 @@ import com.twitter.teruteru128.util.Page;
 public class ImageH2DAO extends AbstractH2DAO implements ImageDAO {
     private ArrayList<String> idList = new ArrayList<>(4);
 
+    /**
+     * 
+     * @param p
+     * @return
+     * @throws IOException
+     * @throws SQLException
+     */
     public Optional<BufferedImage> getImageByOffset(int p) throws IOException, SQLException {
         Optional<BufferedImage> b = Optional.empty();
         try (var db = this.getConnection();
@@ -46,6 +53,13 @@ public class ImageH2DAO extends AbstractH2DAO implements ImageDAO {
         return b;
     }
 
+    /**
+     * 
+     * @param id
+     * @return
+     * @throws IOException
+     * @throws SQLException
+     */
     public Optional<BufferedImage> getImageById(String id) throws IOException, SQLException {
         Optional<BufferedImage> b = Optional.empty();
         try (var db = this.getConnection();
@@ -62,6 +76,11 @@ public class ImageH2DAO extends AbstractH2DAO implements ImageDAO {
         return b;
     }
 
+    /**
+     * 
+     * @param page
+     * @return
+     */
     public ArrayList<ImageModel> getIdList(Page page) {
         ArrayList<ImageModel> b = new ArrayList<ImageModel>();
         try (var db = this.getConnection()) {
@@ -86,6 +105,10 @@ public class ImageH2DAO extends AbstractH2DAO implements ImageDAO {
         return b;
     }
 
+    /**
+     * 
+     * @return
+     */
     public List<ImageModel> getAllImageModelList() {
         ArrayList<ImageModel> b = new ArrayList<>();
         try (var db = this.getConnection()) {
@@ -106,6 +129,10 @@ public class ImageH2DAO extends AbstractH2DAO implements ImageDAO {
         return b;
     }
 
+    /**
+     * 
+     * @return
+     */
     public long getItemCount() {
         long rrc = -1;
 
@@ -127,8 +154,14 @@ public class ImageH2DAO extends AbstractH2DAO implements ImageDAO {
         return rrc;
     }
 
+    /**
+     * 
+     */
     private Random random = new Random();
 
+    /**
+     * 
+     */
     public Optional<BufferedImage> getRandomImage() {
         Optional<BufferedImage> rtc = Optional.<BufferedImage>empty();
         try (var db = this.getConnection()) {
@@ -172,6 +205,9 @@ public class ImageH2DAO extends AbstractH2DAO implements ImageDAO {
         return rtc;
     }
 
+    /**
+     * 
+     */
     public Optional<BufferedImage> getNextImage() {
         Optional<BufferedImage> rtc = Optional.<BufferedImage>empty();
         try (var db = this.getConnection()) {
@@ -207,14 +243,16 @@ public class ImageH2DAO extends AbstractH2DAO implements ImageDAO {
     }
 
     /**
-     * */
+     * 
+     */
     public void uploadImage(File f) {
         String id = new ImageFileDAO().getId(f);
         uploadImage(id, f);
     }
 
     /**
-     * */
+     * 
+     */
     public void uploadImage(String id, File f) {
         try (var db = this.getConnection()) {
             try (PreparedStatement ps = db.prepareStatement("INSERT INTO IMAGE(id, name, data) values(?, ?, ?);")) {

@@ -2,9 +2,11 @@ package com.twitter.teruteru128.jaxb;
 
 import java.util.Optional;
 
+import jakarta.xml.bind.JAXB;
+
 /**
  * @author Teruteru
- *
+ * @see {@link https://qiita.com/opengl-8080/items/f7112240c72d61d4cdf4 JAXB使い方メモ}
  */
 public class Main {
 
@@ -25,6 +27,7 @@ public class Main {
             clazz = Class.forName("org.glassfish.jaxb.runtime.v2.ContextFactory");
         }
         System.out.println(clazz);
+        JAXB.marshal(new User(), System.out);
     }
 
 }

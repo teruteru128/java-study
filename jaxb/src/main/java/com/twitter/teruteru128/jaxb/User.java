@@ -17,6 +17,15 @@ public class User implements Serializable {
         this("", "", 0, null, null, true);
     }
 
+    /**
+     * 
+     * @param id
+     * @param name
+     * @param time
+     * @param community
+     * @param bgcolor
+     * @param readout
+     */
     public User(String id, String name, long time, String community, String bgcolor, boolean readout) {
         this.id = id;
         this.name = name;

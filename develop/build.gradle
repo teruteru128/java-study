@@ -91,8 +91,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
     implementation 'org.glassfish.jaxb:jaxb-runtime:3.0.2'
 
+    // jaxb-runtime -> jaxb-core -> jakarta.xml.bind-api
     // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'
+    // implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'
 
     // https://mvnrepository.com/artifact/org.json/json
     implementation 'org.json:json:20211205'
@@ -121,8 +122,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl
     implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.17.2'
 
+    // log4j-slf4j-impl から依存されるので不要
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
-    implementation('org.apache.logging.log4j:log4j-core:2.17.2')
+    // implementation 'org.apache.logging.log4j:log4j-core:2.17.2'
 
     // https://github.com/greymd/CVE-2021-44228
     // https://mvnrepository.com/artifact/com.unboundid/unboundid-ldapsdk

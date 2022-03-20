@@ -1,7 +1,8 @@
 package com.twitter.teruteru128.nyanpass;
 
 /**
- * */
+ * 
+ */
 public class NyanpassDAOFactory {
     protected NyanpassConfig config;
 

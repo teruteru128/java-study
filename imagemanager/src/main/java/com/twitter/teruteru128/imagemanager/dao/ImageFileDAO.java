@@ -135,12 +135,12 @@ public class ImageFileDAO extends AbstractFileDAO implements ImageDAO {
         return rtc;
     }
 
+    /**
+     * 
+     */
     public String getId(File f) {
         MessageDigest sha256 = null;
         // System.out.println("");
-        /*
-         * 
-         * */
         try {
             sha256 = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e1) {

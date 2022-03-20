@@ -20,7 +20,7 @@ import jakarta.xml.bind.DatatypeConverter;
 /**
  * create table image (id char(64) not null,name varchar(128)not null default
  * 'default',extension varchar(16) not null ,primary key(id))
- * */
+ */
 public class ImageH2DAO extends AbstractH2DAO implements ImageDAO {
     @Override
     public Connection getConnection() throws SQLException {
@@ -38,26 +38,27 @@ public class ImageH2DAO extends AbstractH2DAO implements ImageDAO {
                 db.createStatement()
                         .execute(
                                 "create table IF NOT EXISTS image (id char(64) not null,name varchar(128)not null default 'default',data blob not null,primary key(id))");
-                PreparedStatement ps = db
-                        .prepareStatement("insert into image(id,name,data)values(?,?,?)");
-                try (ZipInputStream zin = new ZipInputStream(
-                        new FileInputStream("pixiv-2015-03-22.zip"))) {
+                try (PreparedStatement ps = db.prepareStatement("insert into image(id,name,data)values(?,?,?)");
+                        ZipInputStream zin = new ZipInputStream(new FileInputStream("pixiv-2015-03-22.zip"))) {
                     MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
                     while ((entry = zin.getNextEntry()) != null) {
                         ps.setString(2, entry.getName());
                         Blob blob = db.createBlob();
-                        try (DigestOutputStream dos = new DigestOutputStream(
-                                blob.setBinaryStream(1), sha256)) {
-                            while ((readedsize = zin.read(buf)) != -1) {
-                                dos.write(buf, 0, readedsize);
+                        try {
+                            try (DigestOutputStream dos = new DigestOutputStream(
+                                    blob.setBinaryStream(1), sha256)) {
+                                while ((readedsize = zin.read(buf)) != -1) {
+                                    dos.write(buf, 0, readedsize);
+                                }
+                                dos.flush();
+                                ps.setString(1, DatatypeConverter.printHexBinary(dos
+                                        .getMessageDigest().digest()));
                             }
-                            dos.flush();
-                            ps.setString(1, DatatypeConverter.printHexBinary(dos
-                                    .getMessageDigest().digest()));
+                            ps.setBlob(3, blob);
+                            ps.execute();
+                        } finally {
+                            blob.free();
                         }
-                        ps.setBlob(3, blob);
-                        ps.execute();
-                        blob.free();
                     }
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();

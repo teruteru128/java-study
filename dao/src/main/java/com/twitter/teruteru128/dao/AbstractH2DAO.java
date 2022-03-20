@@ -8,11 +8,13 @@ import javax.sql.DataSource;
 import org.h2.jdbcx.JdbcDataSource;
 
 /**
- * @author Teruteru
- *
+ * 
  */
 public abstract class AbstractH2DAO extends AbstractDBDAO {
 
+    /**
+     * 
+     */
     @Override
     protected Connection getConnection(String url, String user, String password) throws SQLException {
         JdbcDataSource ds = new JdbcDataSource();
@@ -23,7 +25,7 @@ public abstract class AbstractH2DAO extends AbstractDBDAO {
         return db;
     }
 
-    public Connection getConnection() throws SQLException{
+    public Connection getConnection() throws SQLException {
         JdbcDataSource ds = new JdbcDataSource();
         ds.setURL("jdbc:h2:tcp://localhost/image");
         ds.setUser("sa");
@@ -31,9 +33,8 @@ public abstract class AbstractH2DAO extends AbstractDBDAO {
         Connection db = ds.getConnection();
         return db;
     }
-    /**
-     * 
-     * */
+
+    /***/
     @Override
     protected DataSource getDataSource() {
         return new JdbcDataSource();

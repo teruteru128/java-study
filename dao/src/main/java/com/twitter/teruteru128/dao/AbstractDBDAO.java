@@ -11,16 +11,25 @@ import javax.sql.DataSource;
  */
 public abstract class AbstractDBDAO extends AbstractDAO {
     public abstract Connection getConnection() throws SQLException;
-    
+
     protected abstract DataSource getDataSource();
 
-    /***/
+    /**
+     * 
+     * @param url
+     * @return
+    */
     protected abstract DataSource getDataSource(String url);
 
     /**
      * 必要なConnectionを取得します
-     * @return Connection
-     * */
+     * 
+     * @param url
+     * @param user
+     * @param password
+     * @return
+     * @throws SQLException
+    */
     protected Connection getConnection(String url, String user, String password)
             throws SQLException {
         Connection db = null;

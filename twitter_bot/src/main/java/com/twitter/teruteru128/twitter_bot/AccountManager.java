@@ -68,7 +68,8 @@ public class AccountManager {
     }
 
     /**
-     * */
+     * 
+     */
     public void fallback() {
         limited += 1;
         limited = limited > getAccounts().size() ? 0 : limited;

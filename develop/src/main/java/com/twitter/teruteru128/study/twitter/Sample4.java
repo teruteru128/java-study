@@ -36,7 +36,7 @@ public class Sample4 extends JFrame implements Runnable {
 
     /**
      * @param args
-     * */
+     */
     public Sample4(String[] args) {
         super();
         setLayout(new BorderLayout());
@@ -61,18 +61,18 @@ public class Sample4 extends JFrame implements Runnable {
         initMenuBar();
 
         this._tweetf = new JTextArea();
-        this.add(_tweetf,BorderLayout.CENTER);
+        this.add(_tweetf, BorderLayout.CENTER);
         _tweetf.setVisible(true);
-        this._tweetbutton=new JButton("送信");
+        this._tweetbutton = new JButton("送信");
         JPanel p = new JPanel(new BorderLayout());
         p.add(_tweetbutton, BorderLayout.EAST);
-        this.add(p,BorderLayout.SOUTH);
+        this.add(p, BorderLayout.SOUTH);
     }
 
     /**
      * メニューバーの初期設定を行います。<br>
      * . オーバーライドの際は<code>super.initMenuBar()</code>を実行してください。
-     * */
+     */
     protected void initMenuBar() {
 
         this.menuBar = new JMenuBar();

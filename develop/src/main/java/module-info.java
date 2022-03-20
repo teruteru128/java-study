@@ -19,7 +19,6 @@ module com.twitter.teruteru.study {
 
     //
     requires jakarta.json;
-    requires jakarta.xml.bind;
     requires org.bouncycastle.provider;
     requires org.twitter4j.core;
     requires com.h2database;
@@ -30,8 +29,6 @@ module com.twitter.teruteru.study {
     requires com.twitter.teruteru.library;
     requires com.twitter.teruteru.collatz;
 
-    opens com.twitter.teruteru128.study.jaxb to jakarta.xml.bind;
-    // uses jakarta.xml.bind.JAXBContext;
     uses com.twitter.teruteru128.library.Library;
     uses com.twitter.teruteru128.library.LibraryFactory;
 }
