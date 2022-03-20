@@ -1,9 +1,6 @@
 package com.twitter.teruteru128.jaxb;
 
 import java.util.Optional;
-import java.util.ServiceLoader;
-
-import jakarta.xml.bind.JAXBContext;
 
 /**
  * @author Teruteru
@@ -19,16 +16,15 @@ public class Main {
         // org.glassfish.jaxb.runtime
         ModuleLayer layer = ModuleLayer.boot();
         Optional<Module> optional = layer.findModule("org.glassfish.jaxb.runtime");
+        Class<?> clazz = null;
         if (optional.isPresent()) {
-            System.out.println(Class.forName(optional.get(), "org.glassfish.jaxb.runtime.v2.ContextFactory"));
+            System.out.println("module is found");
+            clazz = Class.forName(optional.get(), "org.glassfish.jaxb.runtime.v2.ContextFactory");
         } else {
             System.out.println("ないです。");
+            clazz = Class.forName("org.glassfish.jaxb.runtime.v2.ContextFactory");
         }
-        System.out.println(Class.forName("org.glassfish.jaxb.runtime.v2.ContextFactory"));
-        var loader = ServiceLoader.load(JAXBContext.class);
-        for (JAXBContext jaxbContext : loader) {
-            System.out.printf("loader : %s%n", jaxbContext.getClass());
-        }
+        System.out.println(clazz);
     }
 
 }
