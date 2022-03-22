@@ -48,22 +48,20 @@ public class Shangri_laFrontierCountDown implements Runnable {
    */
   @Override
   public void run() {
-    String lastPublished = null;
+    String lastPublishedString = null;
     try {
-      lastPublished = this.<String>getLastPublished(new URL(URL_SPEC), EXPRESSION, String.class);
+      lastPublishedString = this.<String>getLastPublished(new URL(URL_SPEC), EXPRESSION, String.class);
     } catch (MalformedURLException e) {
       e.printStackTrace();
     }
-    if (lastPublished.length() == 0) {
+    if (lastPublishedString==null || lastPublishedString.length() == 0) {
       System.out.println("lastPublished is null!!");
       return;
     }
     // https://api.syosetu.com/writernovel/474038.Atom
-    var lastUpdate = OffsetDateTime.parse(lastPublished, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-    var dateAndTimeWhenTheWarningIsPosted = lastUpdate.plus(8, ChronoUnit.WEEKS);
-    var now = OffsetDateTime.now();
-    var unit = ChronoUnit.DAYS;
-    System.out.printf("警告表示まであと%s%s%n", now.until(dateAndTimeWhenTheWarningIsPosted, unit), unit);
+    var lastPublished = OffsetDateTime.parse(lastPublishedString, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+    System.out.printf("最終更新日時: %s%n", lastPublished);
+    System.out.printf("警告表示まであと%s%s%n", OffsetDateTime.now().until(lastPublished.plus(8, ChronoUnit.WEEKS), ChronoUnit.DAYS), ChronoUnit.DAYS);
   }
 
 }
