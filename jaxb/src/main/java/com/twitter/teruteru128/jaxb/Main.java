@@ -1,12 +1,16 @@
 package com.twitter.teruteru128.jaxb;
 
-import java.util.Optional;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import jakarta.xml.bind.JAXB;
 
 /**
+ * NiconamaCommnetViewerのUserSetting.xml読み込みテスト
+ * 
  * @author Teruteru
- * @see {@link https://qiita.com/opengl-8080/items/f7112240c72d61d4cdf4 JAXB使い方メモ}
+ * @see {@link https://qiita.com/opengl-8080/items/f7112240c72d61d4cdf4
+ *      JAXB使い方メモ}
  */
 public class Main {
 
@@ -14,20 +18,28 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) throws Exception {
-        // そもそもモジュールが有効になってないとダメ
-        // org.glassfish.jaxb.runtime
-        ModuleLayer layer = ModuleLayer.boot();
-        Optional<Module> optional = layer.findModule("org.glassfish.jaxb.runtime");
-        Class<?> clazz = null;
-        if (optional.isPresent()) {
-            System.out.println("module is found");
-            clazz = Class.forName(optional.get(), "org.glassfish.jaxb.runtime.v2.ContextFactory");
-        } else {
-            System.out.println("ないです。");
-            clazz = Class.forName("org.glassfish.jaxb.runtime.v2.ContextFactory");
+        var setting = new UserSetting();
+        var users = new ArrayList<User>();
+        for (int i = 0; i < 10; i++) {
+            users.add(new User());
         }
-        System.out.println(clazz);
-        JAXB.marshal(new User(), System.out);
+        setting.setUser(users);
+        JAXB.marshal(setting, System.out);
+        System.out.println("--");
+        setting = JAXB.unmarshal(
+                Paths.get("/mnt/c/Users/terut/AppData/Roaming/posite-c/NiconamaCommentViewer/UserSetting.xml").toFile(),
+                UserSetting.class);
+        setting.getUser().stream().sorted((u1, u2) -> {
+            var a = u1.getId();
+            var b = u2.getId();
+            try {
+                var id1 = Long.parseLong(a, 10);
+                var id2 = Long.parseLong(b, 10);
+                return Long.compare(id1, id2);
+            } catch (NumberFormatException e) {
+                return a.compareTo(b);
+            }
+        }).forEach(System.out::println);
     }
 
 }
