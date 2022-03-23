@@ -29,17 +29,7 @@ public class Main {
         setting = JAXB.unmarshal(
                 Paths.get("/mnt/c/Users/terut/AppData/Roaming/posite-c/NiconamaCommentViewer/UserSetting.xml").toFile(),
                 UserSetting.class);
-        setting.getUser().stream().sorted((u1, u2) -> {
-            var a = u1.getId();
-            var b = u2.getId();
-            try {
-                var id1 = Long.parseLong(a, 10);
-                var id2 = Long.parseLong(b, 10);
-                return Long.compare(id1, id2);
-            } catch (NumberFormatException e) {
-                return a.compareTo(b);
-            }
-        }).forEach(System.out::println);
+        setting.getUser().forEach(System.out::println);
     }
 
 }
