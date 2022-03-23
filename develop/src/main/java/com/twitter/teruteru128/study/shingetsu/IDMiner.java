@@ -18,16 +18,14 @@ public class IDMiner implements Runnable {
     private static final Pattern pattern2 = Pattern.compile("&amp;(#\\d+|#[Xx][0-9A-Fa-f]+|[A-Za-z0-9]+);");
     private static final Pattern pattern3 = Pattern.compile("<");
     private static final Pattern pattern4 = Pattern.compile(">");
-    private static final Pattern pattern5 = Pattern.compile("\r");
-    private static final Pattern pattern6 = Pattern.compile("\n");
+    private static final Pattern pattern5 = Pattern.compile("\r?\n");
 
     private static String escape(String a) {
         String msg = pattern1.matcher(a).replaceAll("&amp;");
         msg = pattern2.matcher(msg).replaceAll("&$1;");
         msg = pattern3.matcher(msg).replaceAll("&lt;");
         msg = pattern4.matcher(msg).replaceAll("&gt;");
-        msg = pattern5.matcher(msg).replaceAll("");
-        msg = pattern6.matcher(msg).replaceAll("<br>");
+        msg = pattern5.matcher(msg).replaceAll("<br>");
         return msg;
     }
 
@@ -59,13 +57,11 @@ public class IDMiner implements Runnable {
             final byte[] id = new byte[16];
             final byte[] target = ByteBuffer.allocate(4).putInt(0x19191919).array();
             final long start = System.nanoTime();
-            byte[] bytes = null;
             for (long i = s; i < en; i++) {
                 md5.update(prefix);
                 bodystr = Long.toString(i);
                 escapedStr = escape(bodystr);
-                bytes = escapedStr.getBytes();
-                md5.update(bytes, 0, bytes.length);
+                md5.update(escapedStr.getBytes());
                 md5.digest(id, 0, 16);
                 if (Arrays.equals(id, 0, 4, target, 0, 4)) {
                     String binarystr = DatatypeConverter.printHexBinary(id);
