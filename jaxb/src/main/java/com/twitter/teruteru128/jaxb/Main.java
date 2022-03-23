@@ -18,18 +18,28 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) throws Exception {
-        var setting = new UserSetting();
-        var users = new ArrayList<User>();
-        for (int i = 0; i < 10; i++) {
-            users.add(new User());
+        if (args.length < 1) {
+            System.out.println("コマンド(output|input)とUserSetting.xmlのパスを指定してください");
+            Runtime.getRuntime().exit(1);
         }
-        setting.setUser(users);
-        JAXB.marshal(setting, System.out);
-        System.out.println("--");
-        setting = JAXB.unmarshal(
-                Paths.get("/mnt/c/Users/terut/AppData/Roaming/posite-c/NiconamaCommentViewer/UserSetting.xml").toFile(),
-                UserSetting.class);
-        setting.getUser().forEach(System.out::println);
+        if (args[0].equals("output")) {
+            var setting = new UserSetting();
+            var users = new ArrayList<User>();
+            for (int i = 0; i < 10; i++) {
+                users.add(new User());
+            }
+            setting.setUser(users);
+            JAXB.marshal(setting, System.out);
+        } else if (args[0].equals("input")) {
+            if (args.length < 2) {
+                System.out.println("コマンドinputとUserSetting.xmlのパスを指定してください");
+                Runtime.getRuntime().exit(1);
+            }
+            var setting = JAXB.unmarshal(Paths.get(args[1]).toFile(), UserSetting.class);
+            setting.getUser().forEach(System.out::println);
+        } else {
+            System.out.println("不明なコマンドです");
+        }
     }
 
 }
