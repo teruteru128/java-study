@@ -7,7 +7,7 @@ import java.io.BufferedReader;
  *  Interpreter for the BrainFuck programming language
  *
  *@author     david moss
- *@created    02 January 2002
+ *@since    02 January 2002
  */
 
 public class BF {

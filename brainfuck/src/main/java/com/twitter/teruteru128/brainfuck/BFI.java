@@ -40,7 +40,7 @@ public class BFI {
     /**
      * Constructor
      * 
-     * @param String
+     * @param s String
      *            - Brainfuck program to interpret.
      * @since 1.0
      */
@@ -111,7 +111,7 @@ public class BFI {
     }
 
 /**
-   *  '<' Decrement pointer.
+   *  '&lt;' Decrement pointer.
    *  @since 1.0
    */
     public void decrementPointer() {
@@ -177,7 +177,7 @@ public class BFI {
     }
 
     /**
-     * '.' converts current byte to ascii & prints it to STDOUT
+     * '.' converts current byte to ascii &amp; prints it to STDOUT
      * 
      * @since 1.0
      */
@@ -208,7 +208,7 @@ public class BFI {
     /**
      * Error Handler
      * 
-     * @param String
+     * @param str String
      *            - error message
      * @since 1.0
      */

@@ -10,6 +10,9 @@ import org.h2.jdbcx.JdbcDataSource;
 
 /**
  * <table>
+ * <caption>SQL文</caption>
+ * <thead></thead>
+ * <tbody>
  * <tr>
  * <th>create文</th>
  * <td>create table collatz(n bigint not null, count int not null, primary
@@ -24,6 +27,7 @@ import org.h2.jdbcx.JdbcDataSource;
  * <th>index</th>
  * <td>create index collatz_index_count on collatz(count)</td>
  * </tr>
+ * </tbody>
  * </table>
  * select * from collatz order by count desc limit 200; call csvwrite
  * ('count30000000.csv','SELECT count,count(count) as cc FROM (select n,count
