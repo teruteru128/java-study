@@ -1,5 +1,8 @@
 package com.twitter.teruteru128.study;
 
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.ZoneOffset;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -25,5 +28,12 @@ public class Main {
         }, 500, TimeUnit.MILLISECONDS);
         future.get();
         shutdownFuture.get();
+        var date = LocalDateTime.of(2007, Month.AUGUST, 31, 0, 0, 0, 0);
+        var d = date.plusYears(39);
+        System.out.println(d);
+        var i = d.toInstant(ZoneOffset.ofHours(9));
+        var epoch = i.getEpochSecond();
+        System.out.printf("%1$016x, %1$d%n", epoch);
+        System.out.printf("%1$016x, %1$d%n", 0x7fffffffL);
     }
 }

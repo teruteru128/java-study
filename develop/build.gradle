@@ -71,6 +71,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.hbase/hbase
     // implementation group: 'org.apache.hbase', name: 'hbase', version: '2.4.9', ext: 'pom'
 
+    // https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-common
+    implementation 'org.apache.hadoop:hadoop-common:3.3.2'
+
     // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk15on
     // implementation 'org.bouncycastle:bcmail-jdk15on:1.70'
 
