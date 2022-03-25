@@ -12,7 +12,7 @@ import jakarta.xml.bind.JAXB;
  * @see {@link https://qiita.com/opengl-8080/items/f7112240c72d61d4cdf4
  *      JAXB使い方メモ}
  */
-public class Main {
+public class UserSettingLoadSample {
 
     /**
      * @param args

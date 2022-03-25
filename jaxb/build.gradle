@@ -12,7 +12,9 @@ plugins {
     id 'java'
     // Apply the application plugin to add support for building a CLI application in Java.
     // https://docs.gradle.org/current/userguide/application_plugin.html
-    id 'application'
+    //id 'application'
+    // https://docs.gradle.org/current/userguide/java_library_plugin.html
+    id 'java-library'
     // https://docs.gradle.org/current/userguide/eclipse_plugin.html
     id 'eclipse'
     // https://github.com/java9-modularity/gradle-modules-plugin
@@ -25,11 +27,13 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+/* 
 application {
     mainModule = 'com.twitter.teruteru.jaxb'
     mainClass = 'com.twitter.teruteru128.jaxb.Main'
     applicationDefaultJvmArgs = ['-Xms64G', '-Xmx64G']
 }
+*/
 
 repositories {
     // Use Maven Central for resolving dependencies.
