@@ -1,12 +1,13 @@
 package com.twitter.teruteru128.study;
 
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-import java.util.function.BiFunction;
-import java.util.function.IntFunction;
+
+import com.twitter.teruteru128.study.ncv.UserSettingLoadSample;
 
 /**
  * Main
@@ -19,14 +20,26 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        if (args.length < 1) {
+            System.err.println("UserSetting.xml のパスを指定してください");
+            Runtime.getRuntime().exit(1);
+        }
         var service = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(12);
-        var future = service.schedule(()->OffsetDateTime.of(2006, 8, 16, 7, 14, 22, 9, ZoneOffset.ofHours(9)), 0, TimeUnit.NANOSECONDS);
+        var future = service.schedule(new UserSettingLoadSample(Paths.get(args[0]).toFile()), 0, TimeUnit.NANOSECONDS);
         var shutdownFuture = service.schedule(() -> {
             System.out.println("シャットダウンします……");
             service.shutdown();
         }, 500, TimeUnit.MILLISECONDS);
         var f = future.get();
-        System.out.printf("%s%n", f.getDayOfWeek());
+        var users = f.getUser();
+        var list = new ArrayList<>(new LinkedHashSet<>(users));
+        for (var user : list) {
+            users.remove(user);
+        }
+        for (var user : users) {
+            System.out.println(user);
+        }
+        System.out.printf("%s%n", users.size());
         shutdownFuture.get();
     }
 }
