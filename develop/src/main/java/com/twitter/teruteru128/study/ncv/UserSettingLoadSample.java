@@ -1,7 +1,11 @@
-package com.twitter.teruteru128.jaxb;
+package com.twitter.teruteru128.study.ncv;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+
+import com.twitter.teruteru128.ncv.User;
+import com.twitter.teruteru128.ncv.UserSetting;
 
 import jakarta.xml.bind.JAXB;
 
@@ -12,7 +16,12 @@ import jakarta.xml.bind.JAXB;
  * @see {@link https://qiita.com/opengl-8080/items/f7112240c72d61d4cdf4
  *      JAXB使い方メモ}
  */
-public class UserSettingLoadSample {
+public class UserSettingLoadSample implements Callable<Void> {
+
+    @Override
+    public Void call() throws Exception {
+        return null;
+    }
 
     /**
      * @param args
