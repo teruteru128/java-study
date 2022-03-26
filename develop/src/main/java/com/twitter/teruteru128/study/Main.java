@@ -1,6 +1,8 @@
 package com.twitter.teruteru128.study;
 
+import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -28,7 +30,8 @@ public class Main {
         }
         var service = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(12);
         // JAXB.unmarshal(Paths.get(args[0]).toFile(), UserSetting.class)
-        var future = service.schedule(()->JAXB.unmarshal(Paths.get(args[0]).toFile(), UserSetting.class), 0, TimeUnit.NANOSECONDS);
+        var future = service.schedule(() -> JAXB.unmarshal(Paths.get(args[0]).toFile(), UserSetting.class), 0,
+                TimeUnit.NANOSECONDS);
         var shutdownFuture = service.schedule(() -> {
             System.out.println("シャットダウンします……");
             service.shutdown();
@@ -36,15 +39,17 @@ public class Main {
         var f = future.get();
         var users = f.getUser();
         var set = new LinkedHashSet<User>();
+        var list = new ArrayList<User>();
         for (User user : users) {
             var u = user.clone();
             u.setName("");
             u.setTime(Long.valueOf(0));
-            if (!set.add(u)) {
-                System.out.println(user);
+            if (set.add(u)) {
+                list.add(user);
             }
         }
-        System.out.printf("%s, %s%n", users.size(), set.size());
+        File xml = new File("UserSetting.xml");
+        JAXB.marshal(new UserSetting(list), xml);
         shutdownFuture.get();
     }
 }

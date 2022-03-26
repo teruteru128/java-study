@@ -15,6 +15,13 @@ public class UserSetting implements Serializable {
    */
   private List<User> user;
 
+  public UserSetting() {
+  }
+
+  public UserSetting(List<User> user) {
+    this.user = user;
+  }
+
   @XmlElement(name = "user")
   public List<User> getUser() {
     return user;
@@ -22,9 +29,6 @@ public class UserSetting implements Serializable {
 
   public void setUser(List<User> users) {
     this.user = users;
-  }
-
-  public UserSetting() {
   }
 
 }
