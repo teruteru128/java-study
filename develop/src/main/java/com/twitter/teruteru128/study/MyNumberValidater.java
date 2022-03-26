@@ -1,5 +1,8 @@
 package com.twitter.teruteru128.study;
 
+/**
+ * マイナンバー検証
+ */
 public class MyNumberValidater {
 
   private static int calcCheckDigit(char[] digits) {

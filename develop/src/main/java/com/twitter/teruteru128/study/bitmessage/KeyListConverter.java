@@ -1,12 +1,10 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.study.bitmessage;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
-
-import com.twitter.teruteru128.study.bitmessage.KeyPair;
 
 /**
  * 公開鍵と秘密鍵をファイルから読み出して鍵ペアのリストに変換するコンバーター。

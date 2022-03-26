@@ -4,7 +4,14 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.concurrent.Callable;
 
+/**
+ * 
+ */
 public class LitresPerGallonSample implements Callable<Void> {
+
+    /**
+     * 
+     */
     public Void call() throws NoSuchAlgorithmException {
         // litres par gallon
         double lpg = 3.785412;

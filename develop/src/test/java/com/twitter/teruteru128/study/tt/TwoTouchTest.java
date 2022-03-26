@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.study.tt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

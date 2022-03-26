@@ -4,6 +4,9 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.concurrent.Callable;
 
+/**
+ * 月曜日探索機
+ */
 public class MonDaySearcher implements Callable<Void> {
 
   @Override

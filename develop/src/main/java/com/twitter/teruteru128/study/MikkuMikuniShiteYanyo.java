@@ -5,6 +5,9 @@ import java.time.Month;
 import java.time.ZoneOffset;
 import java.util.concurrent.Callable;
 
+/**
+ * 初音ミク39周年のepochtimeは何秒ですか？
+ */
 public class MikkuMikuniShiteYanyo implements Callable<Long> {
     @Override
     public Long call() throws Exception {
