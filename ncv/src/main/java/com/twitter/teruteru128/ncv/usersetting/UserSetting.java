@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.ncv;
+package com.twitter.teruteru128.ncv.usersetting;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "UserSetting")
+@XmlRootElement(name = "UserSetting", namespace = "http://posite-c.jp/niconamacommentviewer/usersetting/")
 public class UserSetting implements Serializable {
   private static final long serialVersionUID = 0;
 

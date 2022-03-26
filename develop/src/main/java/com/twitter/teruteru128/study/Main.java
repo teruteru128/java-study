@@ -1,17 +1,10 @@
 package com.twitter.teruteru128.study;
 
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import com.twitter.teruteru128.ncv.User;
-import com.twitter.teruteru128.ncv.UserSetting;
-
-import jakarta.xml.bind.JAXB;
+import com.twitter.teruteru128.study.sf.Shangri_laFrontierCountDown;
 
 /**
  * Main
@@ -24,32 +17,15 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        if (args.length < 1) {
-            System.err.println("UserSetting.xml のパスを指定してください");
-            Runtime.getRuntime().exit(1);
-        }
         var service = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(12);
         // JAXB.unmarshal(Paths.get(args[0]).toFile(), UserSetting.class)
-        var future = service.schedule(() -> JAXB.unmarshal(Paths.get(args[0]).toFile(), UserSetting.class), 0,
+        var future = service.schedule(new Shangri_laFrontierCountDown(), 0,
                 TimeUnit.NANOSECONDS);
         var shutdownFuture = service.schedule(() -> {
             System.out.println("シャットダウンします……");
             service.shutdown();
         }, 500, TimeUnit.MILLISECONDS);
-        var f = future.get();
-        var users = f.getUser();
-        var set = new LinkedHashSet<User>();
-        var list = new ArrayList<User>();
-        for (User user : users) {
-            var u = user.clone();
-            u.setName("");
-            u.setTime(Long.valueOf(0));
-            if (set.add(u)) {
-                list.add(user);
-            }
-        }
-        File xml = new File("UserSetting.xml");
-        JAXB.marshal(new UserSetting(list), xml);
+        future.get();
         shutdownFuture.get();
     }
 }

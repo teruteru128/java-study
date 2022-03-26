@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.ncv;
+package com.twitter.teruteru128.ncv.usersetting;
 
 import java.io.IOException;
 import java.util.HashSet;

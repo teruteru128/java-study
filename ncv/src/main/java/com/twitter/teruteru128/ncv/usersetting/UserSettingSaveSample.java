@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.ncv;
+package com.twitter.teruteru128.ncv.usersetting;
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;

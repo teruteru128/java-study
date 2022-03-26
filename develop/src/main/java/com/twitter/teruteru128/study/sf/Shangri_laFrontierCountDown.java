@@ -60,11 +60,11 @@ public class Shangri_laFrontierCountDown implements Runnable {
     }
     // https://api.syosetu.com/writernovel/474038.Atom
     var lastPublished = OffsetDateTime.parse(lastPublishedString, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-    System.out.printf("最終更新日時: %s%n", lastPublished);
+    System.out.printf("シャンフロ最終更新日時: %s%n", lastPublished);
     var deadlineDateTime = lastPublished.plus(8, ChronoUnit.WEEKS);
     var currentDateTime = OffsetDateTime.now();
     var untilDeadlineDays = currentDateTime.until(deadlineDateTime, ChronoUnit.DAYS);
-    System.out.printf("警告表示まであと%s%s%n", untilDeadlineDays, ChronoUnit.DAYS);
+    System.out.printf("警告表示まであと%s%s #シャンフロ #最シ更遅%n", untilDeadlineDays, ChronoUnit.DAYS);
   }
 
 }

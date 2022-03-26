@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.ncv;
+package com.twitter.teruteru128.ncv.usersetting;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
