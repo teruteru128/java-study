@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.ncv;
+package com.twitter.teruteru128.ncv;
 
 import java.io.Serializable;
 

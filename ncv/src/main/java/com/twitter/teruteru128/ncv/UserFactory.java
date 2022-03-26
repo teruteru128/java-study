@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.ncv;
+package com.twitter.teruteru128.ncv;
 
 public class UserFactory {
     private static UserFactory INSTANCE = new UserFactory();

@@ -7,7 +7,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlValue;
 
 @XmlRootElement(name = "user")
-public class User implements Serializable {
+public class User implements Cloneable, Serializable {
 
     private static final long serialVersionUID = 0;
 
@@ -211,5 +211,15 @@ public class User implements Serializable {
         } else if (!time.equals(other.time))
             return false;
         return true;
+    }
+
+    @Override
+    public User clone() {
+        try {
+            return (User) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

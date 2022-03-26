@@ -1,12 +1,12 @@
 package com.twitter.teruteru128.study;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import com.twitter.teruteru128.ncv.User;
 import com.twitter.teruteru128.study.ncv.UserSettingLoadSample;
 
 /**
@@ -32,14 +32,15 @@ public class Main {
         }, 500, TimeUnit.MILLISECONDS);
         var f = future.get();
         var users = f.getUser();
-        var list = new ArrayList<>(new LinkedHashSet<>(users));
-        for (var user : list) {
-            users.remove(user);
+        var set = new LinkedHashSet<User>();
+        for (User user : users) {
+            var u = user.clone();
+            u.setName("");
+            if (!set.add(u)) {
+                System.out.println(user);
+            }
         }
-        for (var user : users) {
-            System.out.println(user);
-        }
-        System.out.printf("%s%n", users.size());
+        System.out.printf("%s, %s%n", users.size(), set.size());
         shutdownFuture.get();
     }
 }

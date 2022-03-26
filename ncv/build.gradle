@@ -45,10 +45,10 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
-    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    api 'javax.xml.bind:jaxb-api:2.3.1'
 
     // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
-    implementation 'org.glassfish.jaxb:jaxb-runtime:3.0.2'
+    api 'org.glassfish.jaxb:jaxb-runtime:3.0.2'
 }
 
 test {
