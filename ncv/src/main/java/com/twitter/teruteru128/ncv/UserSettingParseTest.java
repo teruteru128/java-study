@@ -11,22 +11,19 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 
 public class UserSettingParseTest {
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws ParserConfigurationException, SAXException, IOException {
+        if (args.length < 1) {
+            System.err.println("");
+            Runtime.getRuntime().exit(1);
+        }
 
         final SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setNamespaceAware(true);
         try {
             final SAXParser parser = factory.newSAXParser();
             final HashSet<UserB> set = new HashSet<>();
-            parser.parse(
-                    new File("C:\\Users\\terut\\AppData\\Roaming\\posite-c\\NiconamaCommentViewer", "UserSetting.xml"),
-                    new Handler(set));
-        } catch (final ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (final SAXException e) {
-            e.printStackTrace();
-        } catch (final IOException e) {
-            e.printStackTrace();
+            parser.parse(new File(args[0]), new Handler(set));
+        } finally {
         }
     }
 }

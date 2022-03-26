@@ -1,10 +1,7 @@
-package com.twitter.teruteru128.study.ncv;
+package com.twitter.teruteru128.ncv;
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
-
-import com.twitter.teruteru128.ncv.User;
-import com.twitter.teruteru128.ncv.UserSetting;
 
 import jakarta.xml.bind.JAXB;
 

@@ -215,11 +215,12 @@ public class User implements Cloneable, Serializable {
 
     @Override
     public User clone() {
+        User user = null;
         try {
-            return (User) super.clone();
+            user = (User) super.clone();
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-        return null;
+        return user;
     }
 }

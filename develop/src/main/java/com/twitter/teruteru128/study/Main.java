@@ -7,7 +7,9 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import com.twitter.teruteru128.ncv.User;
-import com.twitter.teruteru128.study.ncv.UserSettingLoadSample;
+import com.twitter.teruteru128.ncv.UserSetting;
+
+import jakarta.xml.bind.JAXB;
 
 /**
  * Main
@@ -25,7 +27,8 @@ public class Main {
             Runtime.getRuntime().exit(1);
         }
         var service = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(12);
-        var future = service.schedule(new UserSettingLoadSample(Paths.get(args[0]).toFile()), 0, TimeUnit.NANOSECONDS);
+        // JAXB.unmarshal(Paths.get(args[0]).toFile(), UserSetting.class)
+        var future = service.schedule(()->JAXB.unmarshal(Paths.get(args[0]).toFile(), UserSetting.class), 0, TimeUnit.NANOSECONDS);
         var shutdownFuture = service.schedule(() -> {
             System.out.println("シャットダウンします……");
             service.shutdown();
@@ -36,6 +39,7 @@ public class Main {
         for (User user : users) {
             var u = user.clone();
             u.setName("");
+            u.setTime(Long.valueOf(0));
             if (!set.add(u)) {
                 System.out.println(user);
             }
