@@ -1,25 +1,52 @@
 package com.twitter.teruteru128.ncv.usersetting;
 
 import java.io.Serializable;
+import java.time.Instant;
+
+import com.twitter.teruteru128.ncv.adapter.InstantAdapter;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "user")
 public class User implements Cloneable, Serializable {
 
     private static final long serialVersionUID = 0;
 
+    /**
+     * ユーザーID
+     */
     private String id;
+
+    /**
+     * ユーザー名 たまにnullのやつがいる
+     */
     private String name;
-    private Long time;
+
+    /**
+     * 登録時刻
+     */
+    private Instant time;
+
+    /**
+     * 依存コミュニティ たいていnull
+     */
     private String community;
+
+    /**
+     * 背景色 たいていnull
+     */
     private Integer bgcolor;
+
+    /**
+     * 読み飛ばし たいていnull
+     */
     private Boolean readout;
 
     public User() {
-        this("", "", Long.valueOf(0), null, null, null);
+        this("", "", Instant.EPOCH, null, null, null);
     }
 
     /**
@@ -31,7 +58,7 @@ public class User implements Cloneable, Serializable {
      * @param bgcolor
      * @param readout
      */
-    public User(String id, String name, Long time, String community, Integer bgcolor, Boolean readout) {
+    public User(String id, String name, Instant time, String community, Integer bgcolor, Boolean readout) {
         this.id = id;
         this.name = name;
         this.time = time;
@@ -78,8 +105,9 @@ public class User implements Cloneable, Serializable {
      * 
      * @return the time
      */
+    @XmlJavaTypeAdapter(InstantAdapter.class)
     @XmlAttribute(required = true)
-    public Long getTime() {
+    public Instant getTime() {
         return time;
     }
 
@@ -87,7 +115,7 @@ public class User implements Cloneable, Serializable {
      * 
      * @param time the time to set
      */
-    public void setTime(Long time) {
+    public void setTime(Instant time) {
         this.time = time;
     }
 
