@@ -25,12 +25,8 @@ public class SNTPTest {
         InetSocketAddress dest = new InetSocketAddress(SERVER_NAME, 123);
         byte[] sendBuf = new byte[48];
         sendBuf[0] = 0x0b;
-        System.out.print("send : LI : ");
-        System.out.print((sendBuf[0] >> 6) & 0x03);
-        System.out.print(", VN : ");
-        System.out.print((sendBuf[0] >> 3) & 0x07);
-        System.out.print(", Mode : ");
-        System.out.println((sendBuf[0] >> 0) & 0x07);
+        System.out.printf("send : LI : %d, VN : %d, Mode : %d%n", (sendBuf[0] >> 6) & 0x03, (sendBuf[0] >> 3) & 0x07,
+                (sendBuf[0] >> 0) & 0x07);
         DatagramPacket send = new DatagramPacket(sendBuf, 0, 48, dest);
         byte[] recvBuf = new byte[48];
         DatagramPacket recv = new DatagramPacket(recvBuf, 0, 48, dest);
@@ -38,7 +34,9 @@ public class SNTPTest {
             socket.send(send);
             socket.receive(recv);
         }
-        ByteBuffer a = ByteBuffer.wrap(recv.getData());
+        ByteBuffer a = ByteBuffer.wrap(recvBuf, 0, 48);
+        a.slice();
+        a.duplicate();
         byte first = a.get();
         byte stratum = a.get();
         byte poll = a.get();
