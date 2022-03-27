@@ -5,7 +5,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import com.twitter.teruteru128.ncv.usersetting.User;
 import com.twitter.teruteru128.ncv.usersetting.UserSettingLoadSample;
 
 /**
@@ -23,7 +22,6 @@ public class Main {
             return;
         }
         var service = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(12);
-        // JAXB.unmarshal(Paths.get(args[0]).toFile(), UserSetting.class)
         var future = service.schedule(new UserSettingLoadSample(new File(args[0])), 0,
                 TimeUnit.NANOSECONDS);
         var shutdownFuture = service.schedule(() -> {
@@ -32,7 +30,7 @@ public class Main {
         }, 500, TimeUnit.MILLISECONDS);
         var se = future.get();
         int i = 0;
-        for (User user : se.getUser()) {
+        for (var user : se.getUser()) {
             System.out.println(user);
             if (i >= 10) {
                 break;
