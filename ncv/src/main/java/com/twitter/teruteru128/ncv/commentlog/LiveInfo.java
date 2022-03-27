@@ -3,7 +3,7 @@ package com.twitter.teruteru128.ncv.commentlog;
 import java.io.Serializable;
 import java.time.Instant;
 
-import com.twitter.teruteru128.ncv.adapter.InstantAdapter;
+import com.twitter.teruteru128.ncv.adapter.InstantEpochSecondAdapter;
 
 import jakarta.xml.bind.annotation.XmlValue;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -71,7 +71,7 @@ public class LiveInfo implements Serializable {
     this.productStream = productStream;
   }
 
-  @XmlJavaTypeAdapter(InstantAdapter.class)
+  @XmlJavaTypeAdapter(InstantEpochSecondAdapter.class)
   @XmlValue
   public Instant getOpenTime() {
     return openTime;
@@ -81,24 +81,24 @@ public class LiveInfo implements Serializable {
     this.openTime = openTime;
   }
 
-  @XmlJavaTypeAdapter(InstantAdapter.class)
+  @XmlJavaTypeAdapter(InstantEpochSecondAdapter.class)
   @XmlValue
   public Instant getStartTime() {
     return startTime;
   }
 
   public void setStartTime(Instant startTime) {
-    startTime = startTime;
+    this.startTime = startTime;
   }
 
-  @XmlJavaTypeAdapter(InstantAdapter.class)
+  @XmlJavaTypeAdapter(InstantEpochSecondAdapter.class)
   @XmlValue
   public Instant getEndTime() {
     return endTime;
   }
 
   public void setEndTime(Instant endTime) {
-    endTime = endTime;
+    this.endTime = endTime;
   }
 
   public Integer getProviderType() {
@@ -106,7 +106,7 @@ public class LiveInfo implements Serializable {
   }
 
   public void setProviderType(Integer providerType) {
-    providerType = providerType;
+    this.providerType = providerType;
   }
 
 }
