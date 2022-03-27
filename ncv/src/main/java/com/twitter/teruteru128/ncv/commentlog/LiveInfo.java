@@ -3,7 +3,7 @@ package com.twitter.teruteru128.ncv.commentlog;
 import java.io.Serializable;
 import java.time.Instant;
 
-import com.twitter.teruteru128.ncv.adapter.InstantEpochSecondAdapter;
+import com.twitter.teruteru128.ncv.adapters.InstantEpochSecondAdapter;
 
 import jakarta.xml.bind.annotation.XmlValue;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;

@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.ncv.adapter;
+package com.twitter.teruteru128.ncv.adapters;
 
 import java.time.Instant;
 

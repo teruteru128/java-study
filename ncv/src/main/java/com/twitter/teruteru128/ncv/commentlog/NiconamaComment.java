@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.util.List;
 
-import com.twitter.teruteru128.ncv.adapter.DurationAdapter;
+import com.twitter.teruteru128.ncv.adapters.DurationAdapter;
 
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
