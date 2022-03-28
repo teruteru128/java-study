@@ -17,9 +17,9 @@ import jakarta.json.Json;
 /**
  * 
  */
-public class Main2 implements Runnable {
+public class NyanpassCrawler2 implements Runnable {
 
-    public Main2(ScheduledExecutorService service) {
+    public NyanpassCrawler2(ScheduledExecutorService service) {
         super();
         this.service = service;
     }
@@ -70,7 +70,7 @@ public class Main2 implements Runnable {
     public static void main(String[] args) {
         final ScheduledThreadPoolExecutor service = new ScheduledThreadPoolExecutor(2);
         System.out.println("にゃんぱすー。定期クロールを開始したのん！");
-        service.schedule(new Main2(service), 0, TimeUnit.NANOSECONDS);
+        service.schedule(new NyanpassCrawler2(service), 0, TimeUnit.NANOSECONDS);
     }
 
 }
