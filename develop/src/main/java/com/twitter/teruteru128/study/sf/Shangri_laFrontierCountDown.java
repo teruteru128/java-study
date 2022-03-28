@@ -6,6 +6,7 @@ import java.net.URL;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.concurrent.Callable;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
@@ -18,7 +19,7 @@ import org.xml.sax.InputSource;
  * 
  * @see https://twitter.com/nemnem4935/status/1498230943701606401
  */
-public class Shangri_laFrontierCountDown implements Runnable {
+public class Shangri_laFrontierCountDown implements Callable<Void> {
 
   private static final XPathFactory xPathFactory = XPathFactory.newInstance();
   private XPath xPath = xPathFactory.newXPath();
@@ -47,7 +48,7 @@ public class Shangri_laFrontierCountDown implements Runnable {
    * 呼び出すたびに WEB リクエストが発生するので注意！！
    */
   @Override
-  public void run() {
+  public Void call() {
     String lastPublishedString = null;
     try {
       lastPublishedString = this.<String>getLastPublished(new URL(URL_SPEC), EXPRESSION, String.class);
@@ -56,7 +57,7 @@ public class Shangri_laFrontierCountDown implements Runnable {
     }
     if (lastPublishedString == null || lastPublishedString.length() == 0) {
       System.out.println("lastPublished is null!!");
-      return;
+      return null;
     }
     // https://api.syosetu.com/writernovel/474038.Atom
     var lastPublished = OffsetDateTime.parse(lastPublishedString, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
@@ -65,6 +66,7 @@ public class Shangri_laFrontierCountDown implements Runnable {
     var currentDateTime = OffsetDateTime.now();
     var untilDeadlineDays = currentDateTime.until(deadlineDateTime, ChronoUnit.DAYS);
     System.out.printf("警告表示まであと%s%s #シャンフロ #最シ更遅%n", untilDeadlineDays, ChronoUnit.DAYS);
+    return null;
   }
 
 }
