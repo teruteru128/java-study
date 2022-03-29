@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.nyanpass;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -45,7 +46,7 @@ public class NyanpassCrawler2 implements Runnable {
                     System.out.printf("%s : %s%n", time, count);
                 }
             }
-        } catch (Exception e) {
+        } catch (IOException | NumberFormatException e) {
             throw new RuntimeException(e);
         }
     }
