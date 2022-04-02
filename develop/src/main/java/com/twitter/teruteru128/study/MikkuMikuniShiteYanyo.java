@@ -10,7 +10,8 @@ import java.util.concurrent.Callable;
  */
 public class MikkuMikuniShiteYanyo implements Callable<Long> {
     @Override
-    public Long call() throws Exception {
+    public Long call() {
+      // 初音ミクの発売日は2007年8月31日
       var date = LocalDateTime.of(2007, Month.AUGUST, 31, 0, 0, 0, 0);
       var d = date.plusYears(39);
       System.out.println(d);

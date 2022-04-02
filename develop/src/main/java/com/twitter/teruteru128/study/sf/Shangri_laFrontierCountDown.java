@@ -29,15 +29,11 @@ public class Shangri_laFrontierCountDown implements Callable<Void> {
   }
 
   @SuppressWarnings("unchecked")
-  protected <T> T getLastPublished(URL url, String expression, Class<?> clazz) {
+  protected <T> T getLastPublished(URL url, String expression, Class<?> clazz) throws IOException, XPathExpressionException {
     try (var o = url.openStream()) {
       var inputSource = new InputSource(o);
       var exp = xPath.compile(expression);
       return (T) exp.evaluateExpression(inputSource, clazz);
-    } catch (IOException | XPathExpressionException e) {
-      throw new RuntimeException(e);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
     }
   }
 
@@ -48,7 +44,7 @@ public class Shangri_laFrontierCountDown implements Callable<Void> {
    * 呼び出すたびに WEB リクエストが発生するので注意！！
    */
   @Override
-  public Void call() {
+  public Void call() throws IOException, XPathExpressionException {
     String lastPublishedString = null;
     try {
       lastPublishedString = this.<String>getLastPublished(new URL(URL_SPEC), EXPRESSION, String.class);

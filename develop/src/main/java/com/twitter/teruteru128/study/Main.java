@@ -18,7 +18,8 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
         if (args.length < 1) {
-            return;
+            System.err.println("引数忘れてない？");
+            Runtime.getRuntime().exit(1);
         }
         var service = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(12);
         var future = service.schedule(new Shangri_laFrontierCountDown(), 0,
