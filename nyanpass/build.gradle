@@ -21,7 +21,7 @@ dependencies {
     implementation 'com.google.guava:guava:31.1-jre'
 
     // https://mvnrepository.com/artifact/jakarta.json/jakarta.json-api
-    implementation 'jakarta.json:jakarta.json-api:2.0.1'
+    implementation 'jakarta.json:jakarta.json-api:2.1.0'
 
     // https://mvnrepository.com/artifact/org.glassfish/jakarta.json
     implementation 'org.glassfish:jakarta.json:2.0.1'
