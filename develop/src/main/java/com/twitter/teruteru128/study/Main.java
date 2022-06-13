@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study;
 
-import com.twitter.teruteru128.study.bitmessage.DeterministicAddressesGenerator;
+import com.twitter.teruteru128.study.image.CreateSample;
 
 /**
  * Main
@@ -13,6 +13,7 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        DeterministicAddressesGenerator.main(args);
+        var c = new CreateSample();
+        c.call();
     }
 }

@@ -16,13 +16,13 @@ public class CreateSample implements Callable<Void> {
     var g = img.createGraphics();
     g.setColor(Color.BLACK);
     g.fillRect(0, 0, 1920, 1080);
-    g.setColor(Color.WHITE);
     var random = new SecureRandom();
+    g.setColor(Color.WHITE);
     for (int i = 0; i < 16; i++) {
       g.fillRect(random.nextInt(1919), random.nextInt(1079), 2, 2);
     }
     g.dispose();
-    ImageIO.write(img, "png", new File("out" + new Random().nextInt(16777216) + ".png"));
+    ImageIO.write(img, "png", new File("out_207360_" + new Random().nextInt(16777216) + ".png"));
     return null;
   }
 }
