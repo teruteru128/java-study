@@ -177,7 +177,7 @@ public class DeterministicAddressesGenerator implements Function<String, List<De
 
     @Override
     public List<DeterministicAddresses> apply(String passphrase) {
-        int numberOfNullBytesDemandedOnFrontOfRipeHash = 32;
+        int numberOfNullBytesDemandedOnFrontOfRipeHash = 8;
         long signingKeyNonce = 0;
         long signingKeyNonceMax = 0;
         long encryptionKeyNonce = 1;
@@ -197,17 +197,18 @@ public class DeterministicAddressesGenerator implements Function<String, List<De
             MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
             MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
             while (nlz < numberOfNullBytesDemandedOnFrontOfRipeHash && (range = factory.getInstance()) != null) {
-                System.out.printf("%12d以上%12d以下の探索を始めるのだ！%n", range.getMin(), range.getMax());
                 signingKeyNonce = range.getMin();
                 encryptionKeyNonce = range.getMin() + 1;
                 signingKeyNonceMax = range.getMax();
-                for (; signingKeyNonce <= signingKeyNonceMax; signingKeyNonce += 2, encryptionKeyNonce += 2) {
+                for (; nlz < numberOfNullBytesDemandedOnFrontOfRipeHash
+                        && signingKeyNonce <= signingKeyNonceMax; signingKeyNonce += 2, encryptionKeyNonce += 2) {
                     deriviedPrivateKey(potentialPrivSigningKey, passphraseBytes, signingKeyNonce, sha512);
                     deriviedPrivateKey(potentialPrivEncryptionKey, passphraseBytes, encryptionKeyNonce, sha512);
                     potentialPubSigningKey = deriviedPublicKey(potentialPrivSigningKey);
                     potentialPubEncryptionKey = deriviedPublicKey(potentialPrivEncryptionKey);
                     deriviedRipeHash(ripe, potentialPubSigningKey, potentialPubEncryptionKey, sha512, ripemd160);
                     nlz = Long.numberOfLeadingZeros(longBuffer.get(0));
+                    System.out.printf("%d%n", nlz);
                     if (nlz >= numberOfNullBytesDemandedOnFrontOfRipeHash) {
                         deriviedPrivateKey(potentialPrivSigningKey, passphraseBytes, signingKeyNonce, sha512);
                         list.add(new DeterministicAddressesImplementation(ripe, potentialPrivSigningKey,
@@ -223,22 +224,34 @@ public class DeterministicAddressesGenerator implements Function<String, List<De
             var signPrivateKeyWIF = BMAddressGenerator.encodeWIF(Arrays.copyOf(address.getSigningPrivateKey(), 32));
             var encPrivateKeyWIF = BMAddressGenerator.encodeWIF(Arrays.copyOf(address.getEncryptionPrivateKey(), 32));
             System.out.printf(
-                    "{\"signingKeyNonce\" : %d, \"encryptionKeyNonce\" : %d, \"privsigningkey\" :\"%s\", \"privencryptionkey\" : \"%s\"}%n",
+                    "signingKeyNonce = %d%nencryptionKeyNonce = %d%nprivsigningkey = %s%nprivencryptionkey = %s%n%n",
                     address.getSigningKeyNonce(), address.getEncryptionKeyNonce(), signPrivateKeyWIF, encPrivateKeyWIF);
         }
         return list;
     }
 
     public static void main(String[] args) throws Exception {
+        if (args.length < 1) {
+            System.err.println("チャンネル名を指定してください。");
+            System.exit(1);
+        }
         var calcurator = new DeterministicAddressesGenerator();
-        var passphrase = "UVB-76";
-        var ripe = calcurator.apply(passphrase);
-        if (ripe.size() != 0) {
-            for (DeterministicAddresses t : ripe) {
-                var address3 = BMAddress.encodeAddress(3, 1, t.getRipe());
-                var address4 = BMAddress.encodeAddress(4, 1, t.getRipe());
-                System.out.println(address3);
-                System.out.println(address4);
+        var passphrase = args[0];
+        var addressList = calcurator.apply(passphrase);
+        if (addressList.size() != 0) {
+            for (DeterministicAddresses address : addressList) {
+                for (int version = 3; version < 5; version++) {
+                    var encodedAddress = BMAddress.encodeAddress(version, 1, address.getRipe());
+                    var signPrivateKeyWIF = BMAddressGenerator
+                            .encodeWIF(Arrays.copyOf(address.getSigningPrivateKey(), 32));
+                    var encPrivateKeyWIF = BMAddressGenerator
+                            .encodeWIF(Arrays.copyOf(address.getEncryptionPrivateKey(), 32));
+                    System.out.printf(
+                            "[%s]%nlabel = [chan] %s%nenabled = true%ndecoy = false%nchan = true%nnoncetrialsperbyte = 1000%npayloadlengthextrabytes = 1000%nsigningKeyNonce = %d%nencryptionKeyNonce = %d%nprivsigningkey = %s%nprivencryptionkey = %s%n%n",
+                            encodedAddress,
+                            passphrase, address.getSigningKeyNonce(), address.getEncryptionKeyNonce(),
+                            signPrivateKeyWIF, encPrivateKeyWIF);
+                }
             }
         } else {
             System.out.println("ぐえー");

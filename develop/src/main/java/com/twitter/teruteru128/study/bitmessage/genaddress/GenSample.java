@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.bitmessage.genaddress2;
+package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,8 +10,6 @@ import java.security.Security;
 
 import com.twitter.teruteru128.study.bitmessage.Const;
 import com.twitter.teruteru128.study.bitmessage.KeyPair;
-import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddressGenerator;
-import com.twitter.teruteru128.study.bitmessage.genaddress.Response;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 

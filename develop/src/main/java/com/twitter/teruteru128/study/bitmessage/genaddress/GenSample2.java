@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.bitmessage.genaddress2;
+package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.io.File;
 import java.io.IOException;

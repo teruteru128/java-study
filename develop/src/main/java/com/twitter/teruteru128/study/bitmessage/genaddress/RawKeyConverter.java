@@ -16,21 +16,29 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import jakarta.xml.bind.DatatypeConverter;
 
 public class RawKeyConverter {
-    public static void main(String[] args) throws NoSuchAlgorithmException, DigestException {
+
+    static {
         // RIPEMD160のためにプロバイダを追加
         Provider provider = Security.getProvider("BC");
         if (provider == null) {
             Security.addProvider(provider = new BouncyCastleProvider());
         }
+    }
+
+    private static byte[] convertPublicKey(byte[] privateKey) {
+        return Const.G.multiply(new BigInteger(1, privateKey)).normalize()
+        .getEncoded(false);
+    }
+
+    public static void main(String[] args) throws NoSuchAlgorithmException, DigestException {
         final byte[] inputRipe = DatatypeConverter.parseHexBinary("0000006FC4393057B704A7FD278C33D95DE3E9B0");
         final byte[] privateSigningKey = DatatypeConverter
                 .parseHexBinary("8e2dd1c3a8c7740c5140d4d641bf191df606092a672fe4e32c138f12df14b7bc");
         final byte[] privateEncrytionKey = DatatypeConverter
                 .parseHexBinary("92f5045ff8e43afbafcc56b063c0a34c856c6f67e0dab6e605aa7901529d09c9");
 
-        final byte[] pubSigningKey = Const.G.multiply(new BigInteger(1, privateSigningKey)).normalize().getEncoded(false);
-        final byte[] pubEncryptionKey = Const.G.multiply(new BigInteger(1, privateEncrytionKey)).normalize()
-                .getEncoded(false);
+        final byte[] pubSigningKey = convertPublicKey(privateSigningKey);
+        final byte[] pubEncryptionKey = convertPublicKey(privateEncrytionKey);
         final MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
         final MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
         final byte[] sha512hash = new byte[Const.SHA512_DIGEST_LENGTH];
