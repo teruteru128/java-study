@@ -5,7 +5,7 @@ plugins {
     // https://docs.gradle.org/current/userguide/eclipse_plugin.html
     id 'eclipse'
     // https://github.com/java9-modularity/gradle-modules-plugin
-    id 'org.javamodularity.moduleplugin' version '1.8.10' apply true
+    id 'org.javamodularity.moduleplugin' version '1.8.12' apply true
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
