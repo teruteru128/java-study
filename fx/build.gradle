@@ -41,13 +41,13 @@ dependencies {
     //implementation 'org.twitter4j:twitter4j-stream:4.0.7'
 
     // https://mvnrepository.com/artifact/org.openjfx/javafx-controls
-    implementation 'org.openjfx:javafx-controls:18.0.1'
+    implementation 'org.openjfx:javafx-controls:18.0.2'
 
     // https://mvnrepository.com/artifact/org.openjfx/javafx-fxml
     implementation 'org.openjfx:javafx-fxml:18.0.2'
 
     // https://mvnrepository.com/artifact/org.openjfx/javafx-graphics
-    implementation 'org.openjfx:javafx-graphics:18.0.1'
+    implementation 'org.openjfx:javafx-graphics:18.0.2'
 
 }
 
