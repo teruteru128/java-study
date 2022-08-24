@@ -19,7 +19,7 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        ArrayList<KeyPair> keyPairs = new ArrayList<>(16777216*8);
+        ArrayList<KeyPair> keyPairs = new ArrayList<>(16777216 * 8);
         byte[] publicKey = new byte[65];
         byte[] privateKey = new byte[65];
         for (int i = 0; i < 8; i++) {
@@ -36,9 +36,10 @@ public class Main {
             System.out.printf("%d完%n", i);
         }
         keyPairs.sort(new KeyPairComparator());
-        /* 
-        for (KeyPair p : keyPairs) {
-
-        } */
+        /*
+         * for (KeyPair p : keyPairs) {
+         * 
+         * }
+         */
     }
 }
