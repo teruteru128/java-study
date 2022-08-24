@@ -3,7 +3,13 @@ package com.twitter.teruteru128.study;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+
+import org.bouncycastle.pqc.math.linearalgebra.BigIntUtils;
 
 import com.twitter.teruteru128.study.bitmessage.KeyPair;
 import com.twitter.teruteru128.study.bitmessage.KeyPairComparator;
@@ -19,27 +25,20 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        ArrayList<KeyPair> keyPairs = new ArrayList<>(16777216 * 8);
-        byte[] publicKey = new byte[65];
-        byte[] privateKey = new byte[65];
-        for (int i = 0; i < 8; i++) {
-            try (BufferedInputStream pubStream = new BufferedInputStream(
-                    new FileInputStream(new File("../publicKeys" + i + ".bin")), 1048576);
-                    BufferedInputStream priStream = new BufferedInputStream(
-                            new FileInputStream(new File("../privateKeys" + i + ".bin")), 1048576)) {
-                for (int j = 0; j < 16777216; j++) {
-                    pubStream.read(publicKey);
-                    priStream.read(privateKey);
-                    keyPairs.add(new KeyPair(privateKey, publicKey));
+        List<BigInteger> list = new ArrayList<>(2);
+        try (ObjectInputStream oin = new ObjectInputStream(Base64.getDecoder()
+                .wrap(new BufferedInputStream(new FileInputStream(new File("../../memo/out.asc")))))) {
+            Object o = oin.readObject();
+            if (o instanceof List<?>) {
+                List<?> l = (List<?>) o;
+                for (Object object : l) {
+                    if (object instanceof BigInteger) {
+                        BigInteger i = (BigInteger) object;
+                        list.add(i);
+                    }
                 }
             }
-            System.out.printf("%d完%n", i);
         }
-        keyPairs.sort(new KeyPairComparator());
-        /*
-         * for (KeyPair p : keyPairs) {
-         * 
-         * }
-         */
+        System.out.printf("%x%n", list.get(0).multiply(list.get(1)).bitLength());
     }
 }
