@@ -1,9 +1,6 @@
 package com.twitter.teruteru128.study;
 
 import java.math.BigInteger;
-import java.util.Random;
-
-import com.twitter.teruteru128.study.bitmessage.DeterministicAddressesGenerator;
 
 /**
  * Main
