@@ -236,7 +236,7 @@ public class DeterministicAddressesGenerator implements Function<String, List<De
             System.exit(1);
         }
         var calcurator = new DeterministicAddressesGenerator();
-        var passphrase = args[0];
+        var passphrase = "habrahabra";
         var addressList = calcurator.apply(passphrase);
         if (addressList.size() != 0) {
             for (DeterministicAddresses address : addressList) {
