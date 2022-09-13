@@ -44,7 +44,7 @@ dependencies {
     implementation 'org.openjfx:javafx-controls:18.0.2'
 
     // https://mvnrepository.com/artifact/org.openjfx/javafx-fxml
-    implementation 'org.openjfx:javafx-fxml:18.0.2'
+    implementation 'org.openjfx:javafx-fxml:19'
 
     // https://mvnrepository.com/artifact/org.openjfx/javafx-graphics
     implementation 'org.openjfx:javafx-graphics:18.0.2'
