@@ -1,15 +1,12 @@
 package com.twitter.teruteru128.study;
 
-import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.random.RandomGeneratorFactory;
 
 /**
  * Main
  */
 public class Main {
-
-    static private BigInteger a(BigInteger b, int c, int d) {
-        return new BigInteger(b.toString(c), d);
-    }
 
     /**
      * 
@@ -17,14 +14,13 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        BigInteger i = BigInteger.valueOf(55);
-        BigInteger b = BigInteger.valueOf(0xb);
-        BigInteger n = BigInteger.ONE.shiftLeft(48).subtract(BigInteger.ONE);
-        System.out.printf("%d%n", i);
-        BigInteger o = i;
-        for (int j = 0; j < 25; j++) {
-            o = a(o.add(b), 10, 16).and(n);
-            System.out.printf("%012x%n", o);
-        }
+        var stream = RandomGeneratorFactory.all();
+        stream.map(f->String.format("%s, %s, %b, %d", f.name(), f.group(), f.isSplittable(), f.stateBits())).forEach(System.out::println);
+        System.out.println("--");
+        System.out.println(RandomGeneratorFactory.getDefault().name());
+        System.out.println("--");
+        var factory = RandomGeneratorFactory.<SecureRandom>of("SecureRandom");
+        var securerandom = factory.create();
+        System.out.println(securerandom.getClass());
     }
 }
