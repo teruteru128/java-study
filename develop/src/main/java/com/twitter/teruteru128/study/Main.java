@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study;
 
-import java.security.SecureRandom;
+import java.util.Random;
 import java.util.random.RandomGeneratorFactory;
 
 /**
@@ -14,9 +14,10 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var factory = RandomGeneratorFactory.<SecureRandom>of("SecureRandom");
+        var factory = RandomGeneratorFactory.<Random>of("Random");
         var random = factory.create();
-        double penissize = 120 + random.nextDouble(10);
-        System.out.printf("%f cm%n", penissize);
+        random.setSeed(155239116123415L);
+        System.out.printf("%.17a%n", random.nextFloat());
+        System.out.printf("%.17a%n", random.nextFloat());
     }
 }
