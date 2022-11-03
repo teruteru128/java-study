@@ -67,7 +67,7 @@ public class BMAddressValidator {
     }
 
     public final boolean validateWifChecksum(byte[] privateKey) {
-        if (privateKey == null | privateKey.length != 37) {
+        if (privateKey == null || privateKey.length != 37) {
             return false;
         }
         final byte[] sha256hash = new byte[Const.SHA256_DIGEST_LENGTH];

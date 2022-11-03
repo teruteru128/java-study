@@ -1,7 +1,6 @@
 package com.twitter.teruteru128.study;
 
-import java.util.Random;
-import java.util.random.RandomGeneratorFactory;
+import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddressValidator;
 
 /**
  * Main
@@ -14,10 +13,12 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var factory = RandomGeneratorFactory.<Random>of("Random");
-        var random = factory.create();
-        random.setSeed(155239116123415L);
-        System.out.printf("%.17a%n", random.nextFloat());
-        System.out.printf("%.17a%n", random.nextFloat());
+        if (args.length < 3) {
+            System.err.println("address sigwif encwif");
+            System.exit(1);
+        }
+        // アドレスと鍵
+        var validator = new BMAddressValidator();
+        validator.validate(args[0], args[1], args[2]);
     }
 }

@@ -27,15 +27,15 @@ public class RawKeyConverter {
 
     private static byte[] convertPublicKey(byte[] privateKey) {
         return Const.G.multiply(new BigInteger(1, privateKey)).normalize()
-        .getEncoded(false);
+                .getEncoded(false);
     }
 
     public static void main(String[] args) throws NoSuchAlgorithmException, DigestException {
-        final byte[] inputRipe = DatatypeConverter.parseHexBinary("0000006FC4393057B704A7FD278C33D95DE3E9B0");
+        final byte[] inputRipe = DatatypeConverter.parseHexBinary("00AEA57C192EA1A7E71FCCD70EBD219F5CF5D11A");
         final byte[] privateSigningKey = DatatypeConverter
-                .parseHexBinary("8e2dd1c3a8c7740c5140d4d641bf191df606092a672fe4e32c138f12df14b7bc");
+                .parseHexBinary("78245a8b9d8fd679d567368537e5e079ea21dd7855a53baba54c69b70a8dc0a6");
         final byte[] privateEncrytionKey = DatatypeConverter
-                .parseHexBinary("92f5045ff8e43afbafcc56b063c0a34c856c6f67e0dab6e605aa7901529d09c9");
+                .parseHexBinary("ae6819a4de5ee0bccfe99263b1987972b8b059d289d54657d80822507a0fc72c");
 
         final byte[] pubSigningKey = convertPublicKey(privateSigningKey);
         final byte[] pubEncryptionKey = convertPublicKey(privateEncrytionKey);
@@ -63,6 +63,8 @@ public class RawKeyConverter {
             final Response response = new Response(new KeyPair(privateSigningKey, pubSigningKey),
                     new KeyPair(privateEncrytionKey, pubEncryptionKey), ripe);
             BMAddressGenerator.exportAddress(response);
+            System.out.println(BMAddressGenerator.encodeWIF(privateSigningKey));
+            System.out.println(BMAddressGenerator.encodeWIF(privateEncrytionKey));
         }
     }
 }
