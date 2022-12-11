@@ -8,11 +8,5 @@
  */
 
 rootProject.name = 'java.study'
-include("bouyomi")
 include("develop")
-include("encode")
-include("impl")
-include("library")
-include("mysql")
-include("ncv")
 include("util")

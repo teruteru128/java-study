@@ -24,10 +24,4 @@ module com.twitter.teruteru.study {
     requires com.twitter.teruteru.encode;
     requires com.twitter.teruteru.util;
     requires org.glassfish.jaxb.runtime;
-    requires com.twitter.teruteru.impl;
-    requires com.twitter.teruteru.library;
-    requires com.twitter.teruteru.ncv;
-
-    uses com.twitter.teruteru128.library.Library;
-    uses com.twitter.teruteru128.library.LibraryFactory;
 }

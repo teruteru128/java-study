@@ -47,10 +47,6 @@ repositories {
 }
 
 dependencies {
-    implementation project(':encode')
-    implementation project(':impl')
-    implementation project(':library')
-    implementation project(':ncv')
     implementation project(':util')
 
     // Use JUnit Jupiter for testing.
