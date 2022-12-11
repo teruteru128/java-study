@@ -1,5 +1,6 @@
 package com.twitter.teruteru128.study.bitmessage.genaddress;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,6 +13,8 @@ import java.util.Arrays;
 import com.twitter.teruteru128.encode.Base58;
 import com.twitter.teruteru128.study.bitmessage.Const;
 import com.twitter.teruteru128.study.bitmessage.spec.BMAddress;
+
+import jakarta.xml.bind.DatatypeConverter;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.junit.jupiter.api.AfterAll;
@@ -38,19 +41,15 @@ public class BMAddressTest {
         String privEncryptionKeyWIF = "5KUoQKDmcmAKpjaas3k9U6bGFN5Nz937zqLqDDo1sNUqeJCiMZn";
         byte[] wrapedPrivSigningKey = Base58.decode(privSigningKeyWIF);
         byte[] wrapedPrivEncryptionKey = Base58.decode(privEncryptionKeyWIF);
-        byte[] privSigningKey = new byte[Const.PRIVATE_KEY_LENGTH];
-        byte[] privEncryptionKey = new byte[Const.PRIVATE_KEY_LENGTH];
-        System.arraycopy(wrapedPrivEncryptionKey, 1, privEncryptionKey, 0, Const.PRIVATE_KEY_LENGTH);
-        System.arraycopy(wrapedPrivSigningKey, 1, privSigningKey, 0, Const.PRIVATE_KEY_LENGTH);
-        byte[] pubSigningKey = Const.G.multiply(new BigInteger(1, privSigningKey)).normalize().getEncoded(false);
-        byte[] pubEncryptionKey = Const.G.multiply(new BigInteger(1, privEncryptionKey)).normalize().getEncoded(false);
+        byte[] pubSigningKey = Const.G.multiply(new BigInteger(1, wrapedPrivSigningKey, 1, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
+        byte[] pubEncryptionKey = Const.G.multiply(new BigInteger(1, wrapedPrivEncryptionKey, 1, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
         MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
         MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
         sha512.update(pubSigningKey);
         sha512.update(pubEncryptionKey);
         byte[] ripe = ripemd160.digest(sha512.digest());
-        byte[] nullbytes = new byte[]{0, 0};
-        assertTrue(Arrays.equals(nullbytes, 0, 2, ripe, 0, 2));
+        byte[] actualbytes = DatatypeConverter.parseHexBinary("00005757482ea4aa7c4e243da76ac4cc977f3204");
+        assertArrayEquals(actualbytes, ripe);
         assertEquals(BMAddress.encodeAddress(4, 1, ripe), address);
     }
 

@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 
 import com.twitter.teruteru128.encode.Base58;
+import com.twitter.teruteru128.study.bitmessage.KeyValidator;
 
 /**
  * Main
@@ -38,7 +39,7 @@ public class Main {
         for(int i = 0; i < b.length; i++){
             System.out.printf("%02x", b[i] & 0xff);
         }
-        System.out.printf("\n%d\n", b.length);
+        System.out.printf("%n%d%n", b.length);
         MessageDigest sha512 = MessageDigest.getInstance("sha-512");
         sha512.update(b, 0, b.length - 4);
         byte[] cache64 = new byte[64];
@@ -50,7 +51,7 @@ public class Main {
         } else {
             System.out.println("NG");
         }
-        System.arraycopy(cache64, 0, b, 21, 4);
+        System.arraycopy(cache64, 0, b, b.length - 4, 4);
         var ad = Base58.encode(b);
         System.out.printf("%s\n", ad);
     }
