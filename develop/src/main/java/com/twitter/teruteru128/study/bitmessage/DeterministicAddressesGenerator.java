@@ -230,13 +230,11 @@ public class DeterministicAddressesGenerator implements Function<String, List<De
         return list;
     }
 
-    public static void main(String[] args) throws Exception {
-        if (args.length < 1) {
-            System.err.println("チャンネル名を指定してください。");
-            System.exit(1);
-        }
+    public static void main(String args) throws Exception {
+        Objects.requireNonNull(args, "チャンネル名を指定してください。");
         var calcurator = new DeterministicAddressesGenerator();
-        var passphrase = "habrahabra";
+        var passphrase = args;
+        // XXX findFirstで探せるようにSteamでやるべき……？
         var addressList = calcurator.apply(passphrase);
         if (addressList.size() != 0) {
             for (DeterministicAddresses address : addressList) {
