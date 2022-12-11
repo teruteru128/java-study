@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study.random;
 
 import java.security.SecureRandom;
+import java.util.random.RandomGenerator;
 
 /**
  * @author Teruteru
@@ -8,12 +9,11 @@ import java.security.SecureRandom;
  */
 public class RandomTest {
     public static void main(String[] args) {
-        SecureRandom r = new SecureRandom();
+        SecureRandom r = (SecureRandom) RandomGenerator.of("SecureRandom");
         System.out.println(r.getAlgorithm());
         System.out.println(r.getProvider());
         double x, Min = 1, Max = 0;
-        for (int i = 0; i < 0x1ff; i++) {
-            //r.setSeed(i);
+        for (int i = 0; i < 100; i++) {
             x = r.nextDouble();
             if (x > Max)
                 Max = x;
