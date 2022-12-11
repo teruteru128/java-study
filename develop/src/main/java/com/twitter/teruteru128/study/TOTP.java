@@ -19,6 +19,7 @@ import java.time.Instant;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.util.TimeZone;
 
 import jakarta.xml.bind.DatatypeConverter;
@@ -97,7 +98,7 @@ public class TOTP {
      *              {@link truncationDigits} digits
      */
 
-    public static String generateTOTP(String key, String time, int returnDigits){
+    public static String generateTOTP(String key, long time, int returnDigits){
         return generateTOTP(key, time, returnDigits, "HmacSHA1");
     }
 
@@ -112,7 +113,7 @@ public class TOTP {
      * @return: a numeric String in base 10 that includes
      *              {@link truncationDigits} digits
      */
-    public static String generateTOTP256(String key, String time, int returnDigits){
+    public static String generateTOTP256(String key, long time, int returnDigits){
         return generateTOTP(key, time, returnDigits, "HmacSHA256");
     }
 
@@ -128,7 +129,7 @@ public class TOTP {
      *              {@link truncationDigits} digits
      */
 
-    public static String generateTOTP512(String key, String time, int returnDigits){
+    public static String generateTOTP512(String key, long time, int returnDigits){
         return generateTOTP(key, time, returnDigits, "HmacSHA512");
     }
 
@@ -145,17 +146,11 @@ public class TOTP {
      *              {@link truncationDigits} digits
      */
 
-    public static String generateTOTP(String key, String time, int returnDigits, String crypto){
+    public static String generateTOTP(String key, long time, int returnDigits, String crypto){
         int codeDigits = returnDigits;
 
-        // Using the counter
-        // First 8 bytes are for the movingFactor
-        // Compliant with base RFC 4226 (HOTP)
-        while (time.length() < 16 )
-            time = "0" + time;
-
         // Get the HEX in a Byte[]
-        byte[] msg = hexStr2Bytes(time);
+        byte[] msg = ByteBuffer.allocate(8).putLong(time).array();
         byte[] k = hexStr2Bytes(key);
 
 
@@ -196,7 +191,6 @@ public class TOTP {
 
         System.out.println(new String(DatatypeConverter.parseHexBinary(seed)));
 
-        String steps = "0";
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
 
@@ -207,20 +201,17 @@ public class TOTP {
 
             for (int i=0; i<testTime.length; i++) {
                 long T = (testTime[i] - T0)/X;
-                steps = Long.toHexString(T).toUpperCase();
-                while (steps.length() < 16) steps = "0" + steps;
-                String fmtTime = String.format("%-11s", testTime[i]);
                 String utcTime = df.format(new Date(testTime[i]*1000));
-                System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
-                System.out.println(generateTOTP(seed, steps, 8, "HmacSHA1") + "| SHA1   |");
-                System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
-                System.out.printf("%8s| SHA1   |\n", generateTOTP(seed, steps, 6, "HmacSHA1"));
-                System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
-                System.out.printf("%8s| SHA1   |\n", generateTOTP(seed1, steps, 6, "HmacSHA1"));
-                System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
-                System.out.println(generateTOTP(seed32, steps, 8, "HmacSHA256") + "| SHA256 |");
-                System.out.print("|  " + fmtTime + "  |  " + utcTime + "  | " + steps + " |");
-                System.out.println(generateTOTP(seed64, steps, 8, "HmacSHA512") + "| SHA512 |");
+                System.out.printf("|  %-11s  |  %s  | %016X |", testTime[i], utcTime, T);
+                System.out.println(generateTOTP(seed, T, 8, "HmacSHA1") + "| SHA1   |");
+                System.out.printf("|  %-11s  |  %s  | %016X |", testTime[i], utcTime, T);
+                System.out.printf("%8s| SHA1   |%n", generateTOTP(seed, T, 6, "HmacSHA1"));
+                System.out.printf("|  %-11s  |  %s  | %016X |", testTime[i], utcTime, T);
+                System.out.printf("%8s| SHA1   |%n", generateTOTP(seed1, T, 6, "HmacSHA1"));
+                System.out.printf("|  %-11s  |  %s  | %016X |", testTime[i], utcTime, T);
+                System.out.println(generateTOTP(seed32, T, 8, "HmacSHA256") + "| SHA256 |");
+                System.out.printf("|  %-11s  |  %s  | %016X |", testTime[i], utcTime, T);
+                System.out.println(generateTOTP(seed64, T, 8, "HmacSHA512") + "| SHA512 |");
                 System.out.println("+---------------+-----------------------+------------------+--------+--------+");
             }
         }catch (Exception e){
