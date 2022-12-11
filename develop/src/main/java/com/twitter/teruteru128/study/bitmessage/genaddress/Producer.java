@@ -14,7 +14,7 @@ import java.util.ListIterator;
 import java.util.concurrent.Callable;
 
 import com.twitter.teruteru128.study.bitmessage.Const;
-import com.twitter.teruteru128.study.bitmessage.KeyPair;
+import com.twitter.teruteru128.study.bitmessage.spec.KeyPair;
 
 public class Producer implements Callable<Void> {
 

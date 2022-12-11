@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.bitmessage.genaddress;
+package com.twitter.teruteru128.study.bitmessage;
 
 import java.math.BigInteger;
 import java.security.DigestException;
@@ -7,13 +7,13 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.util.Arrays;
 
-import com.twitter.teruteru128.study.bitmessage.Const;
-
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import com.twitter.teruteru128.study.bitmessage.spec.BMAddress;
 
 import jakarta.xml.bind.DatatypeConverter;
 
-public class BMAddressValidator {
+public class KeyValidator {
 
     static {
         // RIPEMD160のためにプロバイダを追加
@@ -29,7 +29,7 @@ public class BMAddressValidator {
      * @param privSigningKeyWIF
      * @param privEncryptionKeyWIF
      */
-    public void validate(String address, String privSigningKeyWIF, String privEncryptionKeyWIF) {
+    public boolean validate(String address, String privSigningKeyWIF, String privEncryptionKeyWIF) {
 
         // 鍵をデコード
         final byte[] privSigningKey = BMAddress.decode(privSigningKeyWIF);
@@ -54,7 +54,7 @@ public class BMAddressValidator {
         final String address3 = BMAddress.encodeAddress(3, 1, ripe);
         final String address3_2 = BMAddress.encodeAddress(3, 1, ripe, 2);
 
-        System.out.printf("%41s : %s%n", "ripe",DatatypeConverter.printHexBinary(ripe));
+        System.out.printf("%41s : %s%n", "ripe", DatatypeConverter.printHexBinary(ripe));
 
         System.out.printf("%41s : %s (%smatched)%n", "v4 address calculated", address4,
                 address4.equals(address) ? "" : "not ");
@@ -64,6 +64,7 @@ public class BMAddressValidator {
 
         System.out.printf("%41s : %s (%smatched)%n", "limited v3 address calculated from ripe", address3_2,
                 address3_2.equals(address) ? "" : "not ");
+        return address4.equals(address) || address3.equals(address) || address3_2.equals(address);
     }
 
     public final boolean validateWifChecksum(byte[] privateKey) {
@@ -131,7 +132,7 @@ public class BMAddressValidator {
         final String privSigningKeyWIF = "5JZxCfJ9kbmphTeWuXxbju3U14tNWwdjhj9wMrBZcfMYWU7PNZ4";
         final String privEncryptionKeyWIF = "5KFrkub7w2zPMsXhRUp2ozKVdTSaheri8zutq5XP5ysRbidodSv";
 
-        var validator = new BMAddressValidator();
+        var validator = new KeyValidator();
         validator.validate(address, privSigningKeyWIF, privEncryptionKeyWIF);
     }
 

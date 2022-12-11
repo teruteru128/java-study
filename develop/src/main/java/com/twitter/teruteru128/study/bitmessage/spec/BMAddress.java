@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.bitmessage.genaddress;
+package com.twitter.teruteru128.study.bitmessage.spec;
 
 import java.security.DigestException;
 import java.security.MessageDigest;

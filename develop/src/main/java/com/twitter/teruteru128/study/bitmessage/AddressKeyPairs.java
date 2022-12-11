@@ -1,5 +1,7 @@
 package com.twitter.teruteru128.study.bitmessage;
 
+import com.twitter.teruteru128.study.bitmessage.spec.KeyPair;
+
 public class AddressKeyPairs {
   private byte[] ripe;
   private KeyPair signKeyPair;

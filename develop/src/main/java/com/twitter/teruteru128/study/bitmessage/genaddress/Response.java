@@ -2,7 +2,7 @@ package com.twitter.teruteru128.study.bitmessage.genaddress;
 
 import java.io.Serializable;
 
-import com.twitter.teruteru128.study.bitmessage.KeyPair;
+import com.twitter.teruteru128.study.bitmessage.spec.KeyPair;
 
 public class Response implements Cloneable, Serializable {
 

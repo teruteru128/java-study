@@ -11,6 +11,7 @@ import java.util.Arrays;
 
 import com.twitter.teruteru128.encode.Base58;
 import com.twitter.teruteru128.study.bitmessage.Const;
+import com.twitter.teruteru128.study.bitmessage.spec.BMAddress;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.junit.jupiter.api.AfterAll;

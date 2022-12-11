@@ -3,6 +3,8 @@ package com.twitter.teruteru128.study.bitmessage;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import com.twitter.teruteru128.study.bitmessage.spec.KeyPair;
+
 /**
  * KeyPairComparator
  */

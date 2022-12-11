@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import com.twitter.teruteru128.study.bitmessage.spec.KeyPair;
+
 /**
  * 公開鍵と秘密鍵をファイルから読み出して鍵ペアのリストに変換するコンバーター。
  */

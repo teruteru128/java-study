@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.util;
 /**
 Copyright (c) 2011 IETF Trust and the persons identified as
 authors of the code. All rights reserved.

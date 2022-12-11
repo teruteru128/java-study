@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
-import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddress;
 import com.twitter.teruteru128.study.bitmessage.genaddress.BMAddressGenerator;
+import com.twitter.teruteru128.study.bitmessage.spec.BMAddress;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 

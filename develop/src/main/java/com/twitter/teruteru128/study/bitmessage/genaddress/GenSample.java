@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 
 import com.twitter.teruteru128.study.bitmessage.Const;
-import com.twitter.teruteru128.study.bitmessage.KeyPair;
+import com.twitter.teruteru128.study.bitmessage.spec.KeyPair;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
