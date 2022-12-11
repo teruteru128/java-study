@@ -47,7 +47,6 @@ repositories {
 }
 
 dependencies {
-    implementation project(':collatz')
     implementation project(':encode')
     implementation project(':impl')
     implementation project(':library')
@@ -62,9 +61,6 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
-
-    // https://mvnrepository.com/artifact/com.h2database/h2
-    implementation 'com.h2database:h2:2.1.214'
 
     // https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core
     implementation 'org.twitter4j:twitter4j-core:4.0.7';
@@ -149,16 +145,6 @@ tasks.withType(JavaCompile) {
 
 // thanks for https://github.com/eclipse/eclipse.jdt.ls/issues/957
 eclipse {
-    /* 
-    doFirst {
-        File prefs = file("${project.projectDir}/.settings/org.eclipse.buildship.core.prefs")
-        if(!prefs.exists()) {
-            prefs.append('''
-                connection.project.dir=
-                eclipse.preferences.version=1
-                '''.stripIndent())
-        }
-    } */
     classpath {
         containers 'org.eclipse.buildship.core.gradleclasspathcontainer'
         file {
@@ -190,7 +176,6 @@ eclipse {
                     }
                 }
             }
-            //defaultOutputDir = file('bin/main')
         }
     }
 }

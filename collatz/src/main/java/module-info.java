@@ -1,7 +1,6 @@
 module com.twitter.teruteru.collatz {
   requires transitive java.sql;
   requires java.naming;
-  requires com.h2database;
 
   opens com.twitter.teruteru128.collatz;
   exports com.twitter.teruteru128.collatz;
