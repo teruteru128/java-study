@@ -124,7 +124,7 @@ dependencies {
 
     // https://github.com/greymd/CVE-2021-44228
     // https://mvnrepository.com/artifact/com.unboundid/unboundid-ldapsdk
-    implementation 'com.unboundid:unboundid-ldapsdk:6.0.6'
+    implementation 'com.unboundid:unboundid-ldapsdk:6.0.7'
 
     // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
     implementation "org.apache.tomcat.embed:tomcat-embed-core:10.0.23"
