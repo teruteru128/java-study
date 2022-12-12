@@ -85,7 +85,7 @@ dependencies {
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
 
     // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
-    implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.0'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.1'
 
     // jaxb-runtime -> jaxb-core -> jakarta.xml.bind-api
     // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
