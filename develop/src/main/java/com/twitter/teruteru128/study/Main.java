@@ -1,10 +1,12 @@
 package com.twitter.teruteru128.study;
 
-import java.security.MessageDigest;
-import java.util.Arrays;
-
-import com.twitter.teruteru128.encode.Base58;
-import com.twitter.teruteru128.study.bitmessage.KeyValidator;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+import java.util.StringJoiner;
+import java.util.TreeSet;
+import java.util.random.RandomGenerator;
 
 /**
  * Main
@@ -34,25 +36,33 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        // BM-jpchv3hju8oNsUyfLR3XTzPcOzLfDrmS
-        byte[] b = Base58.decode(args[0]);
-        for(int i = 0; i < b.length; i++){
-            System.out.printf("%02x", b[i] & 0xff);
+        HashMap<String, Set<String>> map = new HashMap<>();
+        var airina = Set.of("宮下愛", "天王寺璃奈");
+        map.put("あいりな", airina);
+        map.put("りなあい", airina);
+        map.put("かなしず", Set.of("近江彼方", "桜坂しずく"));
+        map.put("かりあい", Set.of("朝香果林", "宮下愛"));
+        map.put("しずかす", Set.of("桜坂しずく", "中須かすみ"));
+        map.put("せつかり", Set.of("朝香果林", "優木せつ菜"));
+        map.put("しおぽむ", Set.of("三船栞子", "上原歩夢"));
+        map.put("ゆうぽむ", Set.of("高咲侑", "上原歩夢"));
+        map.put("ゆうミア", Set.of("高咲侑", "ミア・テイラー"));
+        map.put("ゆうせつ", Set.of("高咲侑", "優木せつ菜"));
+        map.put("ゆうかな", Set.of("高咲侑", "近江彼方"));
+        map.put("ゆうしず", Set.of("高咲侑", "桜坂しずく"));
+        map.put("ランしお", Set.of("鐘嵐珠", "三船栞子"));
+        Set<String> tags = new TreeSet<>();
+        for (String couplename : args) {
+            if (map.containsKey(couplename)) {
+                tags.addAll(map.get(couplename));
+            } else {
+                System.err.printf("Not Fount: %s%n", couplename);
+            }
         }
-        System.out.printf("%n%d%n", b.length);
-        MessageDigest sha512 = MessageDigest.getInstance("sha-512");
-        sha512.update(b, 0, b.length - 4);
-        byte[] cache64 = new byte[64];
-        sha512.digest(cache64, 0, 64);
-        sha512.update(cache64, 0, 64);
-        sha512.digest(cache64, 0, 64);
-        if (Arrays.equals(cache64, 0, 4, b, b.length - 4, b.length)) {
-            System.out.println("OK");
-        } else {
-            System.out.println("NG");
+        StringJoiner joiner = new StringJoiner(" ");
+        for (String name : tags) {
+            joiner.add(name);
         }
-        System.arraycopy(cache64, 0, b, b.length - 4, 4);
-        var ad = Base58.encode(b);
-        System.out.printf("%s\n", ad);
+        System.out.println(joiner);
     }
 }
