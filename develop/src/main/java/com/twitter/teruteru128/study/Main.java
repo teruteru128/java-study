@@ -1,12 +1,7 @@
 package com.twitter.teruteru128.study;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.StringJoiner;
-import java.util.TreeSet;
-import java.util.random.RandomGenerator;
 
 /**
  * Main
@@ -36,31 +31,9 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        HashMap<String, Set<String>> map = new HashMap<>();
-        var airina = Set.of("宮下愛", "天王寺璃奈");
-        map.put("あいりな", airina);
-        map.put("りなあい", airina);
-        map.put("かなしず", Set.of("近江彼方", "桜坂しずく"));
-        map.put("かりあい", Set.of("朝香果林", "宮下愛"));
-        map.put("しずかす", Set.of("桜坂しずく", "中須かすみ"));
-        map.put("せつかり", Set.of("朝香果林", "優木せつ菜"));
-        map.put("しおぽむ", Set.of("三船栞子", "上原歩夢"));
-        map.put("ゆうぽむ", Set.of("高咲侑", "上原歩夢"));
-        map.put("ゆうミア", Set.of("高咲侑", "ミア・テイラー"));
-        map.put("ゆうせつ", Set.of("高咲侑", "優木せつ菜"));
-        map.put("ゆうかな", Set.of("高咲侑", "近江彼方"));
-        map.put("ゆうしず", Set.of("高咲侑", "桜坂しずく"));
-        map.put("ランしお", Set.of("鐘嵐珠", "三船栞子"));
-        Set<String> tags = new TreeSet<>();
-        for (String couplename : args) {
-            if (map.containsKey(couplename)) {
-                tags.addAll(map.get(couplename));
-            } else {
-                System.err.printf("Not Fount: %s%n", couplename);
-            }
-        }
-        StringJoiner joiner = new StringJoiner(" ");
-        for (String name : tags) {
+        var tags = CouplingResolver.resolve(List.of(args));
+        var joiner = new StringJoiner(" ");
+        for (var name : tags) {
             joiner.add(name);
         }
         System.out.println(joiner);
