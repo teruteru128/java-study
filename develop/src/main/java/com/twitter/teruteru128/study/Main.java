@@ -1,5 +1,6 @@
 package com.twitter.teruteru128.study;
 
+import java.math.BigInteger;
 import java.util.List;
 import java.util.StringJoiner;
 import java.util.random.RandomGenerator;
@@ -27,6 +28,20 @@ import com.twitter.teruteru128.lovelive.CouplingResolver;
  * cLJlMSoCYBgR0d/bg7zG1B77BBWy7f1KLiJG5b8mPmlD8dAJKCZSEFRdWLuxSyRjgFFeiMm4+l+2SNIhL/SBma7ABhg232DeJkbUcZJKqBfAI9taPQ5Y9bwIXrcjxqMx
  */
 public class Main {
+    private static final char[] Base32Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray();
+    private static final BigInteger BASE = BigInteger.valueOf(32);
+
+    private static String encodeBase32(byte[] a) {
+        // FIXME 本当はビット演算でやるんだろうな
+        StringBuilder sb = new StringBuilder();
+        BigInteger i = new BigInteger(1, a);
+        while (i.compareTo(BigInteger.ZERO) > 0) {
+            var dr = i.divideAndRemainder(BASE);
+            sb.append(Base32Alphabet[dr[1].intValue()]);
+            i = dr[0];
+        }
+        return sb.reverse().toString();
+    }
 
     /**
      * 
@@ -34,11 +49,17 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        byte[] data = new byte[20];
+        var r = RandomGenerator.of("SecureRandom");
+        r.nextBytes(data);
+        System.out.println(encodeBase32(data));
+        /* 
         var tags = CouplingResolver.resolve(List.of(args));
         var joiner = new StringJoiner(" ");
         for (var name : tags) {
             joiner.add(name);
         }
         System.out.println(joiner);
+         */
     }
 }
