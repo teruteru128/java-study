@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.lovelive;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -32,7 +32,7 @@ public class CouplingResolver {
         COUPLINGS = Collections.unmodifiableMap(map);
     }
 
-    static Set<String> resolve(Collection<String> couplings) {
+    public static Set<String> resolve(Collection<String> couplings) {
         var tags = new TreeSet<String>();
         for (var couplename : couplings) {
             if (COUPLINGS.containsKey(couplename)) {

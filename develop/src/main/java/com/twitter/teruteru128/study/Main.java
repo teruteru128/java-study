@@ -2,6 +2,9 @@ package com.twitter.teruteru128.study;
 
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.random.RandomGenerator;
+
+import com.twitter.teruteru128.lovelive.CouplingResolver;
 
 /**
  * Main
