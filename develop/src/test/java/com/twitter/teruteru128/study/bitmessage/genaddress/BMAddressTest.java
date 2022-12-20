@@ -10,9 +10,9 @@ import java.security.Provider;
 import java.security.Security;
 import java.util.Arrays;
 
+import com.twitter.teruteru128.bitmessage.Const;
+import com.twitter.teruteru128.bitmessage.spec.BMAddress;
 import com.twitter.teruteru128.encode.Base58;
-import com.twitter.teruteru128.study.bitmessage.Const;
-import com.twitter.teruteru128.study.bitmessage.spec.BMAddress;
 
 import jakarta.xml.bind.DatatypeConverter;
 

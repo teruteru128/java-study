@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.twitter.teruteru128.study.bitmessage.AddressValidator;
+import com.twitter.teruteru128.bitmessage.AddressValidator;
 
 class AddressValidatorTest {
 
