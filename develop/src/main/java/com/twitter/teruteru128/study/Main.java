@@ -53,13 +53,13 @@ public class Main {
         var r = RandomGenerator.of("SecureRandom");
         r.nextBytes(data);
         System.out.println(encodeBase32(data));
-        /* 
-        var tags = CouplingResolver.resolve(List.of(args));
-        var joiner = new StringJoiner(" ");
-        for (var name : tags) {
-            joiner.add(name);
+        if (args.length > 0) {
+            var tags = CouplingResolver.resolve(List.of(args));
+            var joiner = new StringJoiner(" ");
+            for (var name : tags) {
+                joiner.add(name);
+            }
+            System.out.println(joiner);
         }
-        System.out.println(joiner);
-         */
     }
 }

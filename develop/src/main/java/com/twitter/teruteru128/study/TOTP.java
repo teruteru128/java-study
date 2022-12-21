@@ -46,10 +46,13 @@ class TOTP {
         byte[] msg = ByteBuffer.allocate(8).putLong(time).array();
         byte[] mac = hmac(algorithm, key, msg);
         int offset = mac[mac.length - 1] & 0xf;
+        /* 
         int binary = ((mac[offset] & 0x7f) << 24) |
                 ((mac[offset + 1] & 0xff) << 16) |
                 ((mac[offset + 2] & 0xff) << 8) |
                 (mac[offset + 3] & 0xff);
+         */
+        int binary = ByteBuffer.wrap(mac).getInt(offset) & 0x7fffffff;
         int otp = binary % DIGITS_POWER[returnDigits];
         return String.format("%%0%dd", returnDigits).formatted(otp);
     }
