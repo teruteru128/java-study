@@ -2,7 +2,8 @@ package com.twitter.teruteru128.study;
 
 import java.lang.reflect.UndeclaredThrowableException;
 import java.nio.ByteBuffer;
-import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 
 import javax.crypto.Mac;
@@ -21,7 +22,7 @@ class TOTP {
             SecretKeySpec macKey = new SecretKeySpec(key, "RAW");
             hmac.init(macKey);
             return hmac.doFinal(text);
-        } catch (GeneralSecurityException gse) {
+        } catch (NoSuchAlgorithmException | InvalidKeyException gse) {
             throw new UndeclaredThrowableException(gse);
         }
     }
