@@ -48,7 +48,7 @@ public class Main {
      * @param args
      * @throws Exception
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         byte[] data = new byte[20];
         var r = RandomGenerator.of("SecureRandom");
         r.nextBytes(data);
