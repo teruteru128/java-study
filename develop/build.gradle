@@ -113,10 +113,10 @@ dependencies {
     implementation 'com.twitter.twittertext:twitter-text:3.1.0'
 
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    implementation 'org.slf4j:slf4j-api:2.0.5'
+    implementation 'org.slf4j:slf4j-api:2.0.6'
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl
-    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.18.0'
+    implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.19.0'
 
     // log4j-slf4j-impl から依存されるので不要
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
@@ -127,7 +127,7 @@ dependencies {
     implementation 'com.unboundid:unboundid-ldapsdk:6.0.7'
 
     // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
-    implementation "org.apache.tomcat.embed:tomcat-embed-core:10.0.23"
+    implementation "org.apache.tomcat.embed:tomcat-embed-core:10.1.4"
 }
 
 test {
