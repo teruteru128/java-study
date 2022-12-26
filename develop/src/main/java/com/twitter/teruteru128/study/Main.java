@@ -1,7 +1,9 @@
 package com.twitter.teruteru128.study;
 
 import java.math.BigInteger;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.StringJoiner;
 import java.util.random.RandomGenerator;
 
@@ -28,20 +30,6 @@ import com.twitter.teruteru128.lovelive.CouplingResolver;
  * cLJlMSoCYBgR0d/bg7zG1B77BBWy7f1KLiJG5b8mPmlD8dAJKCZSEFRdWLuxSyRjgFFeiMm4+l+2SNIhL/SBma7ABhg232DeJkbUcZJKqBfAI9taPQ5Y9bwIXrcjxqMx
  */
 public class Main {
-    private static final char[] Base32Alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray();
-    private static final BigInteger BASE = BigInteger.valueOf(32);
-
-    private static String encodeBase32(byte[] a) {
-        // FIXME 本当はビット演算でやるんだろうな
-        StringBuilder sb = new StringBuilder();
-        BigInteger i = new BigInteger(1, a);
-        while (i.compareTo(BigInteger.ZERO) > 0) {
-            var dr = i.divideAndRemainder(BASE);
-            sb.append(Base32Alphabet[dr[1].intValue()]);
-            i = dr[0];
-        }
-        return sb.reverse().toString();
-    }
 
     /**
      * 
@@ -52,7 +40,7 @@ public class Main {
         byte[] data = new byte[20];
         var r = RandomGenerator.of("SecureRandom");
         r.nextBytes(data);
-        System.out.println(encodeBase32(data));
+        System.out.println(Base32.encode(data));
         if (args.length > 0) {
             var tags = CouplingResolver.resolve(List.of(args));
             var joiner = new StringJoiner(" ");
@@ -61,5 +49,14 @@ public class Main {
             }
             System.out.println(joiner);
         }
+        var code = BigInteger.valueOf(r.nextInt(100000000));
+        var splitedcode = code.divideAndRemainder(BigInteger.valueOf(10000));
+        var codehead = splitedcode[0];
+        var codetail = splitedcode[1];
+        System.out.printf("%04d %04d%n", codehead, codetail);
+        var set1 = Set.<Void>of();
+        var set2 = Collections.<Void>emptySet();
+        System.out.println(set1.getClass());
+        System.out.println(set2.getClass());
     }
 }

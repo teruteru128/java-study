@@ -32,9 +32,17 @@ public class CouplingResolver {
         COUPLINGS = Collections.unmodifiableMap(map);
     }
 
+    public static Set<String> resolve(String couplename) {
+        if (COUPLINGS.containsKey(couplename)) {
+            return COUPLINGS.get(couplename);
+        } else {
+            return Set.of();
+        }
+    }
+
     public static Set<String> resolve(Collection<String> couplings) {
         var tags = new TreeSet<String>();
-        for (var couplename : couplings) {
+        for (Object couplename : couplings) {
             if (COUPLINGS.containsKey(couplename)) {
                 tags.addAll(COUPLINGS.get(couplename));
             } else {
