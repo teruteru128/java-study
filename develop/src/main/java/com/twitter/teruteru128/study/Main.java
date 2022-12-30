@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.StringJoiner;
 import java.util.random.RandomGenerator;
 
+import com.twitter.teruteru128.bitmessage.DeterministicAddressesGenerator;
 import com.twitter.teruteru128.lovelive.CouplingResolver;
 
 /**
@@ -36,27 +37,7 @@ public class Main {
      * @param args
      * @throws Exception
      */
-    public static void main(String[] args) {
-        byte[] data = new byte[20];
-        var r = RandomGenerator.of("SecureRandom");
-        r.nextBytes(data);
-        System.out.println(Base32.encode(data));
-        if (args.length > 0) {
-            var tags = CouplingResolver.resolve(List.of(args));
-            var joiner = new StringJoiner(" ");
-            for (var name : tags) {
-                joiner.add(name);
-            }
-            System.out.println(joiner);
-        }
-        var code = BigInteger.valueOf(r.nextInt(100000000));
-        var splitedcode = code.divideAndRemainder(BigInteger.valueOf(10000));
-        var codehead = splitedcode[0];
-        var codetail = splitedcode[1];
-        System.out.printf("%04d %04d%n", codehead, codetail);
-        var set1 = Set.<Void>of();
-        var set2 = Collections.<Void>emptySet();
-        System.out.println(set1.getClass());
-        System.out.println(set2.getClass());
+    public static void main(String[] args) throws Exception {
+        DeterministicAddressesGenerator.main(args[0]);
     }
 }

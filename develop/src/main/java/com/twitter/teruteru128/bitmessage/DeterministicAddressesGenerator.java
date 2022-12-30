@@ -244,11 +244,18 @@ public class DeterministicAddressesGenerator implements Function<String, List<De
                             .encodeWIF(Arrays.copyOf(address.getSigningPrivateKey(), 32));
                     var encPrivateKeyWIF = BMAddressGenerator
                             .encodeWIF(Arrays.copyOf(address.getEncryptionPrivateKey(), 32));
-                    System.out.printf(
-                            "[%s]%nlabel = [chan] %s%nenabled = true%ndecoy = false%nchan = true%nnoncetrialsperbyte = 1000%npayloadlengthextrabytes = 1000%nsigningKeyNonce = %d%nencryptionKeyNonce = %d%nprivsigningkey = %s%nprivencryptionkey = %s%n%n",
-                            encodedAddress,
-                            passphrase, address.getSigningKeyNonce(), address.getEncryptionKeyNonce(),
-                            signPrivateKeyWIF, encPrivateKeyWIF);
+                    System.out.printf("[%s]%n", encodedAddress);
+                    System.out.printf("label = [chan] %s%n", passphrase);
+                    System.out.println("enabled = true");
+                    System.out.println("decoy = false");
+                    System.out.println("chan = true");
+                    System.out.println("noncetrialsperbyte = 1000");
+                    System.out.println("payloadlengthextrabytes = 1000");
+                    System.out.printf("signingKeyNonce = %d%n", address.getSigningKeyNonce());
+                    System.out.printf("encryptionKeyNonce = %d%n", address.getEncryptionKeyNonce());
+                    System.out.printf("privsigningkey = %s%n", signPrivateKeyWIF);
+                    System.out.printf("privencryptionkey = %s%n", encPrivateKeyWIF);
+                    System.out.println();
                 }
             }
         } else {
