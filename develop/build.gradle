@@ -151,17 +151,25 @@ eclipse {
                 entries.findAll { it.properties.path.startsWith('org.eclipse.jdt.launching.JRE_CONTAINER') }.each {
                     it.entryAttributes['module'] = 'true'
                 }
-                entries.find { it.path == 'src/main/java' }.output = 'bin/main'
+                entries.find { it.path == 'src/main/java' }.output = 'build/classes/java/main'
+
+                entries.find { it.path == 'src/main/resources' }.output = 'build/resources/main'
 
                 entries.findAll { it.path.startsWith('/') && !it.path.endsWith('.jar') }.each {
                     it.entryAttributes['module'] = 'true'
                 }
+                entries.findAll { it.properties.kind.equals('lib') && it.properties.path.contains("junit") }.each {
+                    it.entryAttributes['module'] = 'false'
+                }
 
                 def testSrc = entries.find { it.path == 'src/test/java' }
-                testSrc.output = 'bin/test'
+                testSrc.output = 'build/classes/java/test'
                 testSrc.entryAttributes['test'] = 'true'
                 testSrc.entryAttributes['optional'] = 'true'
                 testSrc.entryAttributes['ignore_optional_problems'] = 'true'
+                testSrc.entryAttributes['module'] = 'true'
+
+                entries.find { it.path == 'src/test/resources' }.output = 'build/resources/test'
 
                 entries.forEach { entry ->
                     def entryIn = { it.find { file(entry.path).equals(it) } }

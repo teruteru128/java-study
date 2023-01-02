@@ -20,7 +20,7 @@ module com.twitter.teruteru.study {
     //
     requires jakarta.json;
     requires org.bouncycastle.provider;
-    requires org.twitter4j.core;
+    requires org.twitter4j;
     requires com.twitter.teruteru.util;
     requires org.glassfish.jaxb.runtime;
 }
