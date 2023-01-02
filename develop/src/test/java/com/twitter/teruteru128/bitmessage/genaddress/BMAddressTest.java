@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study.bitmessage.genaddress;
+package com.twitter.teruteru128.bitmessage.genaddress;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;

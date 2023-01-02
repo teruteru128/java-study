@@ -1,14 +1,10 @@
 package com.twitter.teruteru128.study;
 
-import java.math.BigInteger;
-import java.util.Collections;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.StringJoiner;
-import java.util.random.RandomGenerator;
 
-import com.twitter.teruteru128.bitmessage.DeterministicAddressesGenerator;
-import com.twitter.teruteru128.lovelive.CouplingResolver;
+import com.twitter.teruteru128.encode.Base58;
 
 /**
  * Main
@@ -38,6 +34,20 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        DeterministicAddressesGenerator.main(args[0]);
+        var addresses = List.<String>of("BM-FHmDQSDbdMPfupgfJRmwcrYxyXWW", "BM-FHhkCqEMdaDSfLp8NjpSXSA9H7Td",
+                "BM-FHTwVyDjLbgDre5o3zjyvYyUoayE", "BM-FHHruYby8RJpzbJpwittms4EN6os", "BM-FHn4t61WjLzP1uGQjDWnYf1Uc5yA",
+                "BM-FHPpyWS3v34iRzNSws6CcKJxkJyY", "BM-FJ1BVp5Xgp6AhnVrGfkRDAmZfa3R", "BM-FHjxHBupmdTJPnmPb6ttCQeRawEP",
+                "BM-FHYMSFoaWtTVyLqxKtQ5cag7Hsnq", "BM-FHvUT4jcqztsbVmg5cDhEMYM4jDM", "BM-FHf27n9tgNEUJmYLCf41tgfT5ziX",
+                "BM-FHx34itWM8V7VhGbxBHyRYzPGdva", "BM-FHFy9YmFaJx8KxzNprdpm2qTvj7p", "BM-FHc3RzehQ8pvHTsyhT1hACnkg7dM",
+                "BM-FHXtqFFNxYD52aQsNDubqdisCNn5", "BM-FHGhmwe8e2nsaSrzLpVSSUQSCkpx", "BM-FHKWBcYPc91UUBeaw7G9o7BZAneV",
+                "BM-FHSeteWKSQSUqMTJ4pQEZJ8uYxfG");
+        var buffer = ByteBuffer.allocate(20);
+        for (var address : addresses) {
+            var a = Base58.decode(address.replaceAll("BM-", ""));
+            var trimedripe = Arrays.copyOfRange(a, 2, a.length - 4);
+            System.arraycopy(trimedripe, 0, buffer.array(), 20 - trimedripe.length,
+                    trimedripe.length);
+            System.out.printf("%d,%s%n", Long.numberOfLeadingZeros(buffer.getLong(0)), address);
+        }
     }
 }
