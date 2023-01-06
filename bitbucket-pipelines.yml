@@ -11,6 +11,7 @@ pipelines:
         - step:
             name: Build and Test
             script:
+              - apt install xargs
               - bash ./gradlew --no-daemon build
             after-script:
               - pipe: atlassian/checkstyle-report:0.3.0
