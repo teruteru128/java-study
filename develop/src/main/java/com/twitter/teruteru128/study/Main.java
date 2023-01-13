@@ -1,6 +1,8 @@
 package com.twitter.teruteru128.study;
 
 import java.nio.ByteBuffer;
+import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.List;
 
 import com.twitter.teruteru128.encode.Base58;
@@ -45,8 +47,18 @@ public class Main {
         long head = 0;
         long sum = 0;
         long num = 0;
+        var sha512 = MessageDigest.getInstance("SHA-512");
+        byte[] hash = new byte[64];
         for (var address : addresses) {
             var a = Base58.decode(address.replaceAll("BM-", ""));
+            sha512.update(a, 0, a.length - 4);
+            sha512.digest(hash, 0, 64);
+            sha512.update(hash, 0, 64);
+            sha512.digest(hash, 0, 64);
+            if (!Arrays.equals(hash, 0, 4, a, a.length - 4, a.length)) {
+                System.err.printf("checksum error!: %s%n", address);
+                continue;
+            }
             System.arraycopy(a, 2, buffer.array(), 26 - a.length, a.length - 6);
             head = Long.numberOfLeadingZeros(buffer.getLong(0));
             num = 1 << (head - 40);
