@@ -1,7 +1,6 @@
 package com.twitter.teruteru128.study;
 
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 import java.util.List;
 
 import com.twitter.teruteru128.encode.Base58;
@@ -40,14 +39,21 @@ public class Main {
                 "BM-FHYMSFoaWtTVyLqxKtQ5cag7Hsnq", "BM-FHvUT4jcqztsbVmg5cDhEMYM4jDM", "BM-FHf27n9tgNEUJmYLCf41tgfT5ziX",
                 "BM-FHx34itWM8V7VhGbxBHyRYzPGdva", "BM-FHFy9YmFaJx8KxzNprdpm2qTvj7p", "BM-FHc3RzehQ8pvHTsyhT1hACnkg7dM",
                 "BM-FHXtqFFNxYD52aQsNDubqdisCNn5", "BM-FHGhmwe8e2nsaSrzLpVSSUQSCkpx", "BM-FHKWBcYPc91UUBeaw7G9o7BZAneV",
-                "BM-FHSeteWKSQSUqMTJ4pQEZJ8uYxfG");
+                "BM-FHSeteWKSQSUqMTJ4pQEZJ8uYxfG", "BM-FHRDAZ18VzhTEHMrxJDTS7FCwoaM", "BM-FHgQLX6t3DJfXmsKy1sqLTtUCftt",
+                "BM-FHS8nf1bdxvRSQC9svC9cpsBhcZa");
         var buffer = ByteBuffer.allocate(20);
+        long head = 0;
+        long sum = 0;
+        long num = 0;
         for (var address : addresses) {
             var a = Base58.decode(address.replaceAll("BM-", ""));
-            var trimedripe = Arrays.copyOfRange(a, 2, a.length - 4);
-            System.arraycopy(trimedripe, 0, buffer.array(), 20 - trimedripe.length,
-                    trimedripe.length);
-            System.out.printf("%d,%s%n", Long.numberOfLeadingZeros(buffer.getLong(0)), address);
+            System.arraycopy(a, 2, buffer.array(), 26 - a.length, a.length - 6);
+            head = Long.numberOfLeadingZeros(buffer.getLong(0));
+            num = 1 << (head - 40);
+            sum += num;
+            System.out.printf("%s,%d,%d%n", address, head, num);
+            buffer.clear();
         }
+        System.out.println(sum);
     }
 }
