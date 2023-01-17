@@ -95,7 +95,7 @@ dependencies {
     implementation 'org.json:json:20220924'
 
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
-    implementation 'com.google.code.gson:gson:2.10'
+    implementation 'com.google.code.gson:gson:2.10.1'
 
     // https://mvnrepository.com/artifact/jakarta.json/jakarta.json-api
     implementation 'jakarta.json:jakarta.json-api:2.1.1'
