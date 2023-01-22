@@ -1,11 +1,9 @@
 package com.twitter.teruteru128.study;
 
-import java.nio.ByteBuffer;
-import java.security.MessageDigest;
-import java.util.Arrays;
-import java.util.List;
-
-import com.twitter.teruteru128.encode.Base58;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.StringJoiner;
+import java.util.regex.Pattern;
 
 /**
  * Main
@@ -35,37 +33,22 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var addresses = List.<String>of("BM-FHmDQSDbdMPfupgfJRmwcrYxyXWW", "BM-FHhkCqEMdaDSfLp8NjpSXSA9H7Td",
-                "BM-FHTwVyDjLbgDre5o3zjyvYyUoayE", "BM-FHHruYby8RJpzbJpwittms4EN6os", "BM-FHn4t61WjLzP1uGQjDWnYf1Uc5yA",
-                "BM-FHPpyWS3v34iRzNSws6CcKJxkJyY", "BM-FJ1BVp5Xgp6AhnVrGfkRDAmZfa3R", "BM-FHjxHBupmdTJPnmPb6ttCQeRawEP",
-                "BM-FHYMSFoaWtTVyLqxKtQ5cag7Hsnq", "BM-FHvUT4jcqztsbVmg5cDhEMYM4jDM", "BM-FHf27n9tgNEUJmYLCf41tgfT5ziX",
-                "BM-FHx34itWM8V7VhGbxBHyRYzPGdva", "BM-FHFy9YmFaJx8KxzNprdpm2qTvj7p", "BM-FHc3RzehQ8pvHTsyhT1hACnkg7dM",
-                "BM-FHXtqFFNxYD52aQsNDubqdisCNn5", "BM-FHGhmwe8e2nsaSrzLpVSSUQSCkpx", "BM-FHKWBcYPc91UUBeaw7G9o7BZAneV",
-                "BM-FHSeteWKSQSUqMTJ4pQEZJ8uYxfG", "BM-FHRDAZ18VzhTEHMrxJDTS7FCwoaM", "BM-FHgQLX6t3DJfXmsKy1sqLTtUCftt",
-                "BM-FHS8nf1bdxvRSQC9svC9cpsBhcZa");
-        var buffer = ByteBuffer.allocate(20);
-        long head = 0;
-        long sum = 0;
-        long num = 0;
-        var sha512 = MessageDigest.getInstance("SHA-512");
-        byte[] hash = new byte[64];
-        for (var address : addresses) {
-            var a = Base58.decode(address.replaceAll("BM-", ""));
-            sha512.update(a, 0, a.length - 4);
-            sha512.digest(hash, 0, 64);
-            sha512.update(hash, 0, 64);
-            sha512.digest(hash, 0, 64);
-            if (!Arrays.equals(hash, 0, 4, a, a.length - 4, a.length)) {
-                System.err.printf("checksum error!: %s%n", address);
-                continue;
+        var path = Path.of("/mnt/c/Users/terut/AppData/Roaming/PyBitmessage/keys.dat");
+        String currentSection = "";
+        final var sectioPattern = Pattern.compile("^\\[(.+)\\]$");
+        final var separator = Pattern.compile("=");
+        var joiner = new StringJoiner(";");
+        for (String line : Files.readAllLines(path)) {
+            var matcher = sectioPattern.matcher(line);
+            if (matcher.find()) {
+                currentSection = matcher.group(1);
+            } else if (!line.isEmpty()) {
+                var keyandvalue = separator.split(line);
+                if (keyandvalue[0].trim().equals("chan") && Boolean.parseBoolean(keyandvalue[1].trim())) {
+                    joiner.add(currentSection);
+                }
             }
-            System.arraycopy(a, 2, buffer.array(), 26 - a.length, a.length - 6);
-            head = Long.numberOfLeadingZeros(buffer.getLong(0));
-            num = 1 << (head - 40);
-            sum += num;
-            System.out.printf("%s,%d,%d%n", address, head, num);
-            buffer.clear();
         }
-        System.out.println(sum);
+        System.out.println(joiner);
     }
 }
