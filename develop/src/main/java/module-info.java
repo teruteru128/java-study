@@ -13,6 +13,7 @@ module com.twitter.teruteru.study {
     requires java.scripting;
     requires java.sql;
     requires com.google.gson;
+    requires org.xerial.sqlitejdbc;
 
     // guava
     requires com.google.common;

@@ -128,6 +128,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
     implementation "org.apache.tomcat.embed:tomcat-embed-core:10.1.5"
+
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    implementation 'org.xerial:sqlite-jdbc:3.40.0.0'
 }
 
 test {

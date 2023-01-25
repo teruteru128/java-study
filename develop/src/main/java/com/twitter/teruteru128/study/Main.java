@@ -1,9 +1,14 @@
 package com.twitter.teruteru128.study;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.StringJoiner;
-import java.util.regex.Pattern;
+import java.math.BigInteger;
+import java.security.AlgorithmParameters;
+import java.security.KeyFactory;
+import java.security.spec.ECGenParameterSpec;
+import java.security.spec.ECParameterSpec;
+import java.security.spec.ECPoint;
+import java.security.spec.ECPublicKeySpec;
+
+import org.sqlite.SQLiteDataSource;
 
 /**
  * Main
@@ -33,22 +38,31 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var path = Path.of("/mnt/c/Users/terut/AppData/Roaming/PyBitmessage/keys.dat");
-        String currentSection = "";
-        final var sectioPattern = Pattern.compile("^\\[(.+)\\]$");
-        final var separator = Pattern.compile("=");
-        var joiner = new StringJoiner(";");
-        for (String line : Files.readAllLines(path)) {
-            var matcher = sectioPattern.matcher(line);
-            if (matcher.find()) {
-                currentSection = matcher.group(1);
-            } else if (!line.isEmpty()) {
-                var keyandvalue = separator.split(line);
-                if (keyandvalue[0].trim().equals("chan") && Boolean.parseBoolean(keyandvalue[1].trim())) {
-                    joiner.add(currentSection);
+        if (args.length < 1) {
+            return;
+        }
+        var parameters = AlgorithmParameters.getInstance("EC", "SunEC");
+        parameters.init(new ECGenParameterSpec("secp256k1"));
+        var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
+        var dataSource = new SQLiteDataSource();
+        dataSource.setUrl(args[0]);
+        var factory = KeyFactory.getInstance("EC", "SunEC");
+        try (var connection = dataSource.getConnection()) {
+            var s = connection.createStatement();
+            try (var set = s.executeQuery(
+                    "select address, transmitdata from pubkeys where addressversion in (3, 4) limit 100;")) {
+                while (set.next()) {
+                    var address = set.getString("address");
+                    var data = set.getBytes("transmitdata");
+                    var key1 = factory.generatePublic(
+                            new ECPublicKeySpec(new ECPoint(new BigInteger(1, data, 6, 32),
+                                    new BigInteger(1, data, 38, 32)), parameterSpec));
+                    var key2 = factory.generatePublic(
+                            new ECPublicKeySpec(new ECPoint(new BigInteger(1, data, 70, 32),
+                                    new BigInteger(1, data, 102, 32)), parameterSpec));
+                    System.out.printf("%s: %s, %s%n", address, key1, key2);
                 }
             }
         }
-        System.out.println(joiner);
     }
 }
