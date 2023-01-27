@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.security;
 
 import java.lang.reflect.UndeclaredThrowableException;
 import java.nio.ByteBuffer;
