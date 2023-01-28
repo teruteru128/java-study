@@ -51,13 +51,14 @@ public class Main {
 
     static double wanttocum3(RandomGenerator generator) {
         var milk = Math.fma(generator.nextGaussian(), 8192, 24576);
-        if (milk == 0) {
-            return 1 - generator.nextDouble();
+        if (milk > 0) {
+            return milk;
         }
         if (milk < 0) {
             return -milk;
         }
-        return milk;
+        // milk == 0
+        return 1 - generator.nextDouble();
     }
 
     /**
