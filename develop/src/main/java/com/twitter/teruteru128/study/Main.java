@@ -1,6 +1,10 @@
 package com.twitter.teruteru128.study;
 
+import java.time.Clock;
+import java.time.Instant;
 import java.util.Base64;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.random.RandomGenerator;
 
 import jakarta.xml.bind.DatatypeConverter;
@@ -29,23 +33,31 @@ import jakarta.xml.bind.DatatypeConverter;
  * b4Ohtcnd8QUZLUtfc4ebr83h9QknRVltgZWzx9vvAxc1SV1xhaO3y9/9ESU5V2t/k7HF2e0LHzNHW2+DobXJ3Q==
  * KEZaboKWqr7S5voYLEBUaHyQpLjM6v4SJjpOYnaUqLzQ5PgMIDRIZnqOorbK3vIGGjhMYHSInLDE2PYKHjJGWg==
  * hZmtwdXp/RElOVdrf5Onu8/j9wspPVFleY2htcnd8Q8jN0tfc4ebr8PX9QkdMUVZbYGVqcfb7wMXKz9TZ3uPrQ==
+ * btRLuN4FP1H9vF3/ES0LPL757PPmfNY5xuIJszbhRFbiyxC7ADqoNVFjFVFOvM5Qs+QUEUsVl5RywYzvFXE1og==
+ * 1bit右シフトしてみた。そのままだと1byteが奇数しか出ないっぽい
+ * pQicBD8LZAewO48VT8ZlBGwZcsaDIhDSZ+iCNL9jII1Y95v+deF7z0auNNddtiOBwR5y5H4TolDldaYh2UuVSA==
+ * Ya/piNyZ969sH/qUEPDazlnQVgRnbyLGN6RI+4YvGZoHGdbPw3tgQDktJs9pXYhF+KZoFo0T/bBjZuxUAmCqWA==
+ * mgbBWuOBHpn/wEm10SiPBZgiulzISK44ngU/m/14uzvTrIXrKlqeDnq5ONvwM6TyYsQwM2dP4wR5/shIxymU4g==
  */
 public class Main {
 
-    static void wanttocum1(RandomGenerator generator) {
-        var milk = generator.nextDouble(32768);
-        var milklong = Double.doubleToLongBits(milk);
-        System.out.printf("精液%fリットル射精してえ……%n", milk);
-        System.out.printf("0x%016x%n", milklong);
+    static double wanttocum1(RandomGenerator generator) {
+        return generator.nextDouble(32768);
     }
 
-    static void wanttocum2(RandomGenerator generator) {
-        var m = generator.nextLong(1l << 52);
-        System.out.printf("0x%016x%n", m);
-        m |= (14 + 1023L) << 52;
-        var milknext = Double.longBitsToDouble(m);
-        System.out.printf("精液%fリットル射精してえ……%n", milknext);
-        System.out.printf("0x%016x%n", m);
+    static double wanttocum2(RandomGenerator generator) {
+        return Double.longBitsToDouble(generator.nextLong(1l << 52) | (14 + 1023L) << 52);
+    }
+
+    static double wanttocum3(RandomGenerator generator) {
+        var milk = Math.fma(generator.nextGaussian(), 8192, 24576);
+        if (milk == 0) {
+            return 1 - generator.nextDouble();
+        }
+        if (milk < 0) {
+            return -milk;
+        }
+        return milk;
     }
 
     /**
@@ -54,9 +66,28 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        if (args.length >= 1) {
+            System.out.println(Base64.getEncoder().encodeToString(DatatypeConverter.parseHexBinary(args[0])));
+        }
+        var data = new byte[64];
+        for (int i = 0; i < 64; i++) {
+            data[i] = (byte) (Instant.now().getNano() & 0xff);
+        }
+        System.out.println(Base64.getEncoder().encodeToString(data));
+        for (int i = 0; i < 64; i++) {
+            data[i] = (byte) ((Instant.now().getNano() >> 1) & 0xff);
+        }
+        System.out.println(Base64.getEncoder().encodeToString(data));
         var generator = RandomGenerator.of("SecureRandom");
-        wanttocum1(generator);
-        wanttocum2(generator);
+        var list = List.<WantToCum>of(Main::wanttocum1, Main::wanttocum2, Main::wanttocum3);
+        double milk = 0;
+        long milklong = 0;
+        for (WantToCum wantToCum : list) {
+            milk = wantToCum.cum(generator);
+            System.out.printf("精液%fリットル射精してえ……%n", milk);
+            milklong = Double.doubleToLongBits(milk);
+            System.out.printf("0x%016x%n", milklong);
+        }
         System.out.printf("精液%fリットル射精してえ……%n", Double.longBitsToDouble(0x40e0000000000000l));
     }
 
