@@ -1,5 +1,10 @@
 package com.twitter.teruteru128.study;
 
+import java.util.Base64;
+import java.util.random.RandomGenerator;
+
+import jakarta.xml.bind.DatatypeConverter;
+
 /**
  * Main
  * 秘密鍵かな？
@@ -19,8 +24,29 @@ package com.twitter.teruteru128.study;
  * QUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQQ==
  * D8BH6DLNJekZ5jiiIVSnyS5ziE9XJSRG5bA9OdiFdjee6HTxHxFQXyEQdhfN+E69RKToLYXGDxK2X9v9eEcbUxdSp9tbptXegxkNQgIxg97BAq9gtmxPm4Ebngl/Q/I4
  * cLJlMSoCYBgR0d/bg7zG1B77BBWy7f1KLiJG5b8mPmlD8dAJKCZSEFRdWLuxSyRjgFFeiMm4+l+2SNIhL/SBma7ABhg232DeJkbUcZJKqBfAI9taPQ5Y9bwIXrcjxqMx
+ * clock_gettimeを使って取得した時刻からtv_nsecの下1バイトを集めたやつ
+ * ojHbK3vBB70XXaPfJWun7TNvtfs3fcP/RYvHDXvLB2Gn7SlvtfE3fbn/RYHHDV2j6SVrsfczebX7QX3DCWOf5Q==
+ * b4Ohtcnd8QUZLUtfc4ebr83h9QknRVltgZWzx9vvAxc1SV1xhaO3y9/9ESU5V2t/k7HF2e0LHzNHW2+DobXJ3Q==
+ * KEZaboKWqr7S5voYLEBUaHyQpLjM6v4SJjpOYnaUqLzQ5PgMIDRIZnqOorbK3vIGGjhMYHSInLDE2PYKHjJGWg==
+ * hZmtwdXp/RElOVdrf5Onu8/j9wspPVFleY2htcnd8Q8jN0tfc4ebr8PX9QkdMUVZbYGVqcfb7wMXKz9TZ3uPrQ==
  */
 public class Main {
+
+    static void wanttocum1(RandomGenerator generator) {
+        var milk = generator.nextDouble(32768);
+        var milklong = Double.doubleToLongBits(milk);
+        System.out.printf("精液%fリットル射精してえ……%n", milk);
+        System.out.printf("0x%016x%n", milklong);
+    }
+
+    static void wanttocum2(RandomGenerator generator) {
+        var m = generator.nextLong(1l << 52);
+        System.out.printf("0x%016x%n", m);
+        m |= (14 + 1023L) << 52;
+        var milknext = Double.longBitsToDouble(m);
+        System.out.printf("精液%fリットル射精してえ……%n", milknext);
+        System.out.printf("0x%016x%n", m);
+    }
 
     /**
      * 
@@ -28,6 +54,10 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        var generator = RandomGenerator.of("SecureRandom");
+        wanttocum1(generator);
+        wanttocum2(generator);
+        System.out.printf("精液%fリットル射精してえ……%n", Double.longBitsToDouble(0x40e0000000000000l));
     }
 
 }
