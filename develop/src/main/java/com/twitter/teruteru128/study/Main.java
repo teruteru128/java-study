@@ -1,7 +1,16 @@
 package com.twitter.teruteru128.study;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import java.nio.ByteBuffer;
+import java.security.AlgorithmParameters;
+import java.security.Security;
+import java.security.spec.ECGenParameterSpec;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.sqlite.SQLiteDataSource;
+
+import com.twitter.teruteru128.encode.Base58;
 
 /**
  * Main
@@ -41,11 +50,38 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var ISO_8859_1 = Charset.forName("ISO-8859-1");
-        System.out.println(ISO_8859_1.getClass());
-        var ISO_8859_1_2 = StandardCharsets.ISO_8859_1;
-        System.out.println(ISO_8859_1_2.getClass());
-        System.out.println(ISO_8859_1.equals(ISO_8859_1_2));
+        if (args.length < 1) {
+            return;
+        }
+        if (Security.getProvider("BC") == null) {
+            Security.addProvider(new BouncyCastleProvider());
+        }
+        var parameters = AlgorithmParameters.getInstance("EC", "SunEC");
+        parameters.init(new ECGenParameterSpec("secp256k1"));
+        var dataSource = new SQLiteDataSource();
+        dataSource.setUrl(args[0]);
+        int len[] = new int[65];
+        var bb = ByteBuffer.allocate(20);
+        var addresses = new ArrayList<String>(1500000);
+        try (var connection = dataSource.getConnection()) {
+            var s = connection.createStatement();
+            try (var set = s.executeQuery(
+                    "select address from pubkeys where addressversion in (3, 4);")) {
+                while (set.next()) {
+                    addresses.add(set.getString("address"));
+                }
+            }
+        }
+        for (String address : addresses) {
+            var a = Base58.decode(address.replaceAll("BM-", ""));
+            Arrays.fill(bb.array(), (byte) 0);
+            bb.put(20 - (a.length - 6), a, 2, a.length - 6);
+            var l = Long.numberOfLeadingZeros(bb.getLong(0));
+            len[l]++;
+        }
+        for (int i = 0; i < 65; i++) {
+            System.out.printf("%d: %d%n", i, len[i]);
+        }
     }
 
 }
