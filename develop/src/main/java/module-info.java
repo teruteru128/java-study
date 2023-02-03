@@ -9,6 +9,7 @@ module com.twitter.teruteru.study {
     requires java.logging;
     requires java.management;
     requires java.naming;
+    requires java.net.http;
     requires java.rmi;
     requires java.scripting;
     requires java.sql;

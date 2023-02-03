@@ -1,11 +1,7 @@
 package com.twitter.teruteru128.study;
 
-import java.time.Instant;
-import java.util.Base64;
-import java.util.List;
-import java.util.random.RandomGenerator;
-
-import jakarta.xml.bind.DatatypeConverter;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Main
@@ -39,55 +35,17 @@ import jakarta.xml.bind.DatatypeConverter;
  */
 public class Main {
 
-    static double wanttocum1(RandomGenerator generator) {
-        return generator.nextDouble(32768);
-    }
-
-    static double wanttocum2(RandomGenerator generator) {
-        return Double.longBitsToDouble(generator.nextLong(1l << 52) | (14 + 1023L) << 52);
-    }
-
-    static double wanttocum3(RandomGenerator generator) {
-        var milk = Math.fma(generator.nextGaussian(), 8192, 24576);
-        if (milk > 0) {
-            return milk;
-        }
-        if (milk < 0) {
-            return -milk;
-        }
-        // milk == 0
-        return 1 - generator.nextDouble();
-    }
-
     /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        if (args.length >= 1) {
-            System.out.println(Base64.getEncoder().encodeToString(DatatypeConverter.parseHexBinary(args[0])));
-        }
-        var data = new byte[64];
-        for (int i = 0; i < 64; i++) {
-            data[i] = (byte) (Instant.now().getNano() & 0xff);
-        }
-        System.out.println(Base64.getEncoder().encodeToString(data));
-        for (int i = 0; i < 64; i++) {
-            data[i] = (byte) ((Instant.now().getNano() >> 1) & 0xff);
-        }
-        System.out.println(Base64.getEncoder().encodeToString(data));
-        var generator = RandomGenerator.of("SecureRandom");
-        var list = List.<WantToCum>of(Main::wanttocum1, Main::wanttocum2, Main::wanttocum3);
-        double milk = 0;
-        long milklong = 0;
-        for (WantToCum wantToCum : list) {
-            milk = wantToCum.cum(generator);
-            System.out.printf("精液%fリットル射精してえ……%n", milk);
-            milklong = Double.doubleToLongBits(milk);
-            System.out.printf("0x%016x%n", milklong);
-        }
-        System.out.printf("精液%fリットル射精してえ……%n", Double.longBitsToDouble(0x40e0000000000000l));
+        var ISO_8859_1 = Charset.forName("ISO-8859-1");
+        System.out.println(ISO_8859_1.getClass());
+        var ISO_8859_1_2 = StandardCharsets.ISO_8859_1;
+        System.out.println(ISO_8859_1_2.getClass());
+        System.out.println(ISO_8859_1.equals(ISO_8859_1_2));
     }
 
 }
