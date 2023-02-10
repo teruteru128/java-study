@@ -1,14 +1,6 @@
 package com.twitter.teruteru128.study;
 
-import java.io.Console;
-import java.io.IOException;
-import java.io.Serializable;
-import java.nio.file.FileVisitOption;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Scanner;
 import java.util.random.RandomGenerator;
-import java.awt.Desktop;
 
 /**
  * Main
@@ -48,25 +40,27 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        if (!Desktop.isDesktopSupported()) {
-            System.err.println("Desktop is not supported!");
-            return;
+        double sum = 0;
+        double cum = 1;
+        var random = RandomGenerator.of("SecureRandom");
+        for (int i = 0; i < 4; i++) {
+            cum += random.nextDouble(0.125);
+            sum += cum;
+            System.out.printf("%f, %f%n", cum, sum);
         }
-        var l = Files.walk(Paths.get("G:\\iandm\\image\\pixiv.net")).filter(f -> !Files.isDirectory(f))
-                .filter(f -> {
-                    var fn = f.getFileName().toString();
-                    return fn.endsWith(".png") || fn.endsWith(".jpg") || fn.endsWith(".jpeg")
-                            || fn.endsWith(".gif");
-                })
-                .toList();
-        var desktop = Desktop.getDesktop();
-        var random = RandomGenerator.getDefault();
-
-        while (true) {
-            System.out.println("次のファイルを開きます……");
-            Thread.sleep(5000);
-            desktop.open(l.get(random.nextInt(l.size())).toFile());
+        cum = 8;
+        while (sum < 250) {
+            cum += random.nextDouble(0.8);
+            sum += cum;
+            System.out.printf("%f, %f%n", cum, sum);
         }
+        cum += random.nextDouble(0.8);
+        sum += cum;
+        System.out.printf("%f, %f%n", cum, sum);
+        cum += random.nextDouble(0.8);
+        sum += cum;
+        System.out.printf("%f, %f%n", cum, sum);
+        System.out.printf("%f%n", sum);
     }
 
 }
