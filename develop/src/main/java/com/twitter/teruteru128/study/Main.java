@@ -1,16 +1,14 @@
 package com.twitter.teruteru128.study;
 
-import java.nio.ByteBuffer;
-import java.security.AlgorithmParameters;
-import java.security.Security;
-import java.security.spec.ECGenParameterSpec;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.sqlite.SQLiteDataSource;
-
-import com.twitter.teruteru128.encode.Base58;
+import java.io.Console;
+import java.io.IOException;
+import java.io.Serializable;
+import java.nio.file.FileVisitOption;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Scanner;
+import java.util.random.RandomGenerator;
+import java.awt.Desktop;
 
 /**
  * Main
@@ -50,37 +48,24 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        if (args.length < 1) {
+        if (!Desktop.isDesktopSupported()) {
+            System.err.println("Desktop is not supported!");
             return;
         }
-        if (Security.getProvider("BC") == null) {
-            Security.addProvider(new BouncyCastleProvider());
-        }
-        var parameters = AlgorithmParameters.getInstance("EC", "SunEC");
-        parameters.init(new ECGenParameterSpec("secp256k1"));
-        var dataSource = new SQLiteDataSource();
-        dataSource.setUrl(args[0]);
-        int len[] = new int[65];
-        var bb = ByteBuffer.allocate(20);
-        var addresses = new ArrayList<String>(1500000);
-        try (var connection = dataSource.getConnection()) {
-            var s = connection.createStatement();
-            try (var set = s.executeQuery(
-                    "select address from pubkeys where addressversion in (3, 4);")) {
-                while (set.next()) {
-                    addresses.add(set.getString("address"));
-                }
-            }
-        }
-        for (String address : addresses) {
-            var a = Base58.decode(address.replaceAll("BM-", ""));
-            Arrays.fill(bb.array(), (byte) 0);
-            bb.put(20 - (a.length - 6), a, 2, a.length - 6);
-            var l = Long.numberOfLeadingZeros(bb.getLong(0));
-            len[l]++;
-        }
-        for (int i = 0; i < 65; i++) {
-            System.out.printf("%d: %d%n", i, len[i]);
+        var l = Files.walk(Paths.get("G:\\iandm\\image\\pixiv.net")).filter(f -> !Files.isDirectory(f))
+                .filter(f -> {
+                    var fn = f.getFileName().toString();
+                    return fn.endsWith(".png") || fn.endsWith(".jpg") || fn.endsWith(".jpeg")
+                            || fn.endsWith(".gif");
+                })
+                .toList();
+        var desktop = Desktop.getDesktop();
+        var random = RandomGenerator.getDefault();
+
+        while (true) {
+            System.out.println("次のファイルを開きます……");
+            Thread.sleep(5000);
+            desktop.open(l.get(random.nextInt(l.size())).toFile());
         }
     }
 
