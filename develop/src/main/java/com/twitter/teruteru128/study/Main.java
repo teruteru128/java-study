@@ -41,25 +41,20 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
         double sum = 0;
-        double cum = 1;
+        double cum = 113;
         var random = RandomGenerator.of("SecureRandom");
-        for (int i = 0; i < 4; i++) {
-            cum += random.nextDouble(0.125);
+        
+        while (sum < 7500) {
+            cum *= random.nextDouble(1.1, 1.1625);
             sum += cum;
-            System.out.printf("%f, %f%n", cum, sum);
+            System.out.printf("%f%n", cum);
         }
-        cum = 8;
-        while (sum < 250) {
-            cum += random.nextDouble(0.8);
-            sum += cum;
-            System.out.printf("%f, %f%n", cum, sum);
-        }
-        cum += random.nextDouble(0.8);
+        cum *= random.nextDouble(1.1, 1.1625);
         sum += cum;
-        System.out.printf("%f, %f%n", cum, sum);
-        cum += random.nextDouble(0.8);
+        System.out.printf("%f%n", cum);
+        cum *= random.nextDouble(1.1, 1.1625);
         sum += cum;
-        System.out.printf("%f, %f%n", cum, sum);
+        System.out.printf("%f%n", cum);
         System.out.printf("%f%n", sum);
     }
 
