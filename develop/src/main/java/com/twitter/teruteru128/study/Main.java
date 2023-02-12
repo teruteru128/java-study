@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.study;
 
-import java.util.random.RandomGenerator;
+import java.nio.charset.Charset;
 
 /**
  * Main
@@ -40,20 +40,11 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        double sum = 0;
-        double cum = 113;
-        var random = RandomGenerator.of("SecureRandom");
-        while (sum < 7500) {
-            cum *= random.nextDouble(1.03125, 1.225);
-            sum += cum;
-            System.out.printf("%f%n", cum);
-        }
-        for (int i = 0; i < 5; i++) {
-            cum *= random.nextDouble(1.03125, 1.225);
-            sum += cum;
-            System.out.printf("%f%n", cum);
-        }
-        System.out.printf("%f%n", sum);
+        var charset = Charset.forName("Shift-JIS");
+        System.out.println(charset);
+        var factory = new PacketFactory();
+        var packet = factory.create(101, 1);
+        System.out.write(packet.getBytes());
     }
 
 }
