@@ -43,18 +43,16 @@ public class Main {
         double sum = 0;
         double cum = 113;
         var random = RandomGenerator.of("SecureRandom");
-        
         while (sum < 7500) {
-            cum *= random.nextDouble(1.1, 1.1625);
+            cum *= random.nextDouble(1.03125, 1.225);
             sum += cum;
             System.out.printf("%f%n", cum);
         }
-        cum *= random.nextDouble(1.1, 1.1625);
-        sum += cum;
-        System.out.printf("%f%n", cum);
-        cum *= random.nextDouble(1.1, 1.1625);
-        sum += cum;
-        System.out.printf("%f%n", cum);
+        for (int i = 0; i < 5; i++) {
+            cum *= random.nextDouble(1.03125, 1.225);
+            sum += cum;
+            System.out.printf("%f%n", cum);
+        }
         System.out.printf("%f%n", sum);
     }
 
