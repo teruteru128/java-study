@@ -12,6 +12,8 @@ import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.util.Arrays;
 
+import org.apache.commons.codec.binary.Base32;
+
 import com.twitter.teruteru128.bitmessage.Structs;
 
 /**
@@ -130,29 +132,52 @@ public class Main {
 
     private static final byte[] ONION_DOMAIN_PREFIX = new byte[] { -3, -121, -40, 126, -21, 67 };
 
+    private static final Base32 base32 = new Base32();
+
     public static byte[] encodeHost(InetSocketAddress host) {
         var hostname = host.getHostString();
         if (hostname.endsWith(".onion")) {
-            // base32.decode(host)
-            return ONION_DOMAIN_PREFIX;
+            // second level domain
+            var decodedsld = base32.decode(hostname.split(".")[0]);
+            var ret = new byte[ONION_DOMAIN_PREFIX.length + decodedsld.length];
+            System.arraycopy(ONION_DOMAIN_PREFIX, 0, ret, 0, ONION_DOMAIN_PREFIX.length);
+            System.arraycopy(decodedsld, 0, ret, ONION_DOMAIN_PREFIX.length, decodedsld.length);
+            return ret;
         }
-        if (hostname.indexOf(":") == -1) {
+        if (host.getAddress() instanceof Inet4Address) {
             var b = new byte[16];
             System.arraycopy(IPV4_MAPPED_IPV6_ADDRESS_PREFIX, 0, b, 0, 12);
             System.arraycopy(host.getAddress().getAddress(), 0, b, 12, 4);
             return b;
         }
+        // host.getAddress() instanceof Inet6Address
         return host.getAddress().getAddress();
     }
 
-    public static byte[] assembleVersionMessage(InetSocketAddress remote) {
+    public static boolean checkSocksIP(InetSocketAddress remote) {
+        return false;
+    }
+
+    public static byte[] assembleVersionMessage(InetSocketAddress remote, boolean server) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(0);
         try (DataOutputStream dos = new DataOutputStream(baos)) {
             dos.writeInt(3);
             dos.writeLong(3);
             dos.writeLong(Instant.now().getEpochSecond());
             dos.writeLong(1);
-            dos.write(encodeHost(remote));
+            if (checkSocksIP(remote) && server) {
+                var localhost = InetSocketAddress.createUnresolved("127.0.0.1", 8444);
+                dos.write(encodeHost(localhost));
+                dos.writeShort(localhost.getPort());
+            } else {
+                try {
+                    dos.write(Arrays.copyOf(encodeHost(remote), 16));
+                } catch (Exception e) {
+                    var localhost = InetSocketAddress.createUnresolved("127.0.0.1", 8444);
+                    dos.write(encodeHost(localhost));
+                }
+                dos.writeShort(remote.getPort());
+            }
         } catch (IOException e) {
         }
         return baos.toByteArray();
@@ -164,6 +189,9 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        var address = InetSocketAddress
+                .createUnresolved("jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion", 80);
+        System.out.println(address.getAddress());
         /*
          * var address = InetSocketAddress.createUnresolved("localhost", 8444);
          * var socket = new Socket();
