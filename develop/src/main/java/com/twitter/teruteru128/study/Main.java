@@ -1,18 +1,28 @@
 package com.twitter.teruteru128.study;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.security.AlgorithmParameters;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.ECGenParameterSpec;
+import java.security.spec.ECParameterSpec;
 import java.time.Instant;
 import java.util.Arrays;
 
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+
 import org.apache.commons.codec.binary.Base32;
+import org.bouncycastle.crypto.ec.CustomNamedCurves;
 
 import com.twitter.teruteru128.bitmessage.Structs;
 
@@ -189,48 +199,65 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var address = InetSocketAddress
-                .createUnresolved("jpchv3cnhonxxtzxiami4jojfnq3xvhccob5x3rchrmftrpbjjlh77qd.onion", 80);
-        System.out.println(address.getAddress());
-        /*
-         * var address = InetSocketAddress.createUnresolved("localhost", 8444);
-         * var socket = new Socket();
-         * socket.connect(address);
-         * int protocolVersion = 3;
-         * int services = 0x3;
-         * long timestamp = Instant.now().getEpochSecond();
-         * var recvaddr = networkAddress(services, (InetSocketAddress)
-         * socket.getRemoteSocketAddress());
-         * var fromaddr = networkAddress(services, (InetSocketAddress)
-         * socket.getLocalSocketAddress());
-         * long nonce = ThreadLocalRandom.current().nextLong();
-         * byte[] userAgent = encodeVarStr("/Sample-lib:1.0.0/");
-         * byte[] streamNumbers = encodeVarIntList(new long[] { 1 });
-         * var messagePayload = ByteBuffer.allocate(72 + userAgent.length +
-         * streamNumbers.length).putInt(protocolVersion)
-         * .putLong(0x3)
-         * .putLong(timestamp).put(recvaddr).put(fromaddr).putLong(nonce).put(userAgent)
-         * .put(streamNumbers)
-         * .array();
-         * MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
-         * var hash = sha512.digest(messagePayload);
-         * byte[] command = new byte[12];
-         * var v = "version".getBytes();
-         * System.arraycopy(command, 0, v, 0, v.length);
-         * var msg = ByteBuffer.allocate(24 +
-         * messagePayload.length).put(PREFIX_MAGIC_NUMBER).put(v).put(hash, 0, 4)
-         * .put(messagePayload).array();
-         * var out = socket.getOutputStream();
-         * out.write(msg);
-         * byte[] buf = new byte[8192];
-         * var in = new BufferedInputStream(socket.getInputStream());
-         * var r = in.read(buf);
-         * var factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
-         * var sslSocket = (SSLSocket) factory.createSocket(socket,
-         * socket.getInetAddress().getHostAddress(),
-         * socket.getPort(), true);
-         * sslSocket.startHandshake();
-         */
+        var named = new ECGenParameterSpec("secp256k1");
+        var parameters = AlgorithmParameters.getInstance("EC", "SunEC");
+        parameters.init(named);
+        var spec = parameters.getParameterSpec(ECParameterSpec.class);
+        System.out.println(spec);
+        var secp256k1 = CustomNamedCurves.getByName("secp256k1");
+        var g = secp256k1.getG();
+        System.out.printf("g: %s%n", g);
+        var seconds = g.multiply(BigInteger.TWO);
+        System.out.printf("seconds: %s%n", seconds);
+        System.out.printf("seconds: %s%n", seconds.getZCoords().length);
+        System.out.printf("seconds: %s%n", seconds.normalize());
+        System.out.printf("seconds: %s%n", seconds.normalize().getZCoords().length);
+        var nsub1 = g.multiply(secp256k1.getN().subtract(BigInteger.ONE));
+        System.out.printf("nsub1: %s%n", nsub1);
+        var nsub1bie = nsub1.multiply(BigInteger.TWO);
+        System.out.printf("nsub1bie: %s%n", nsub1bie);
+        System.out.printf("nsub1bie: %s%n", nsub1bie.normalize());
+        var doubledN = seconds.normalize().add(nsub1bie);
+        System.out.printf("2N: %s%n", doubledN);
+        System.out.printf("n: %064x%n", secp256k1.getN());
+        /* 
+        var address = InetSocketAddress.createUnresolved("localhost", 8444);
+        var socket = new Socket();
+        socket.connect(address);
+        int protocolVersion = 3;
+        int services = 0x3;
+        long timestamp = Instant.now().getEpochSecond();
+        var recvaddr = networkAddress(services, (InetSocketAddress) socket.getRemoteSocketAddress());
+        var fromaddr = networkAddress(services, (InetSocketAddress) socket.getLocalSocketAddress());
+        long nonce = java.util.concurrent.ThreadLocalRandom.current().nextLong();
+        byte[] userAgent = encodeVarStr("/Sample-lib:1.0.0/");
+        byte[] streamNumbers = encodeVarIntList(new long[] { 1 });
+        var messagePayload = ByteBuffer.allocate(72 + userAgent.length +
+                streamNumbers.length).putInt(protocolVersion)
+                .putLong(0x3)
+                .putLong(timestamp).put(recvaddr).put(fromaddr).putLong(nonce).put(userAgent)
+                .put(streamNumbers)
+                .array();
+        var sha512 = MessageDigest.getInstance("SHA-512");
+        var hash = sha512.digest(messagePayload);
+        byte[] command = new byte[12];
+        var v = "version".getBytes();
+        System.arraycopy(command, 0, v, 0, v.length);
+        var msg = ByteBuffer.allocate(24 +
+                messagePayload.length).put(PREFIX_MAGIC_NUMBER).put(v).put(hash, 0, 4)
+                .put(messagePayload).array();
+        var out = socket.getOutputStream();
+        out.write(msg);
+        byte[] buf = new byte[8192];
+        var in = new BufferedInputStream(socket.getInputStream());
+        var r = in.read(buf);
+        var factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+        var sslSocket = (SSLSocket) factory.createSocket(socket,
+                socket.getInetAddress().getHostAddress(),
+                socket.getPort(), true);
+        sslSocket.startHandshake();
+        */
+
     }
 
 }
