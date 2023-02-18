@@ -10,20 +10,16 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.security.KeyFactory;
-import java.security.KeyStore;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateFactory;
-import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.SecureRandom;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
-import javax.net.ssl.TrustManagerFactory;
 
 import org.apache.commons.codec.binary.Base32;
 
@@ -104,8 +100,10 @@ public class Protocol {
         } catch (NoSuchAlgorithmException e) {
             throw new InternalError(e);
         }
+        var c = new byte[12];
+        System.arraycopy(command, 0, c, 0, command.length);
         checksum = Arrays.copyOf(sha512.digest(payload), 4);
-        var b = ByteBuffer.allocate(24 + payloadLength).putInt(0xE9BEB4D9).put(command).position(16)
+        var b = ByteBuffer.allocate(24 + payloadLength).putInt(0xE9BEB4D9).put(c)
                 .putInt(payloadLength).put(checksum).put(payload).array();
 
         return b;
@@ -142,10 +140,15 @@ public class Protocol {
             long nodeid) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(0);
         try (DataOutputStream dos = new DataOutputStream(baos)) {
+            // version
             dos.writeInt(3);
+            // service
             dos.writeLong(3);
+            // timestamp
             dos.writeLong(Instant.now().getEpochSecond());
+            // network service
             dos.writeLong(1);
+            // network ip
             if (checkSocksIP(remote) && server) {
                 var localhost = InetSocketAddress.createUnresolved("127.0.0.1", 8444);
                 dos.write(encodeHost(localhost));
@@ -159,11 +162,14 @@ public class Protocol {
                 }
                 dos.writeShort(remote.getPort());
             }
+            // network service
+            dos.writeLong(1);
+            // network ip
             dos.write(IPV4_MAPPED_IPV6_ADDRESS_PREFIX);
-            dos.write(new byte[] { 127, 0, 0, 1 });
-            dos.writeInt(8444);
+            dos.write(new byte[] { 127, 0, 0, 3 });
+            dos.writeShort(8444);
             dos.writeLong(nodeid);
-            var userAgent = "/Sample-lib:1.0.0/".getBytes(StandardCharsets.UTF_8);
+            var userAgent = "/SampleLib:1.0.0.0/".getBytes(StandardCharsets.UTF_8);
             dos.write(Structs.encodeVarint(userAgent.length));
             dos.write(userAgent);
             dos.write(Structs.encodeVarint(participatingStreams.length));
@@ -181,6 +187,9 @@ public class Protocol {
     }
 
     public static void connect() throws Exception {
+        var ctx = SSLContext.getDefault();
+        var factory = ctx.getSocketFactory();
+
         var address = new InetSocketAddress("localhost", 8444);
         var socket = new Socket();
         socket.connect(address);
@@ -188,22 +197,25 @@ public class Protocol {
         var out = socket.getOutputStream();
         out.write(assembleVersionMessage((InetSocketAddress) socket.getRemoteSocketAddress(), new int[] { 1 }, false,
                 nonce));
-        byte[] buf = new byte[8192];
+        var buffer = ByteBuffer.allocate(8192);
         var in = new BufferedInputStream(socket.getInputStream());
-        var r = in.read(buf);
-        var b = ByteBuffer.wrap(buf, 0, r);
+        {
+            byte[] buf = buffer.array();
+            var r = in.read(buf);
+            buffer.limit(r);
+        }
         var m = MessageDigest.getInstance("SHA-512");
+        var command = new byte[12];
+        var checksum = new byte[4];
         for (int i = 0; i < 2; i++) {
-            var magic = b.getInt();
+            var magic = buffer.getInt();
             System.out.printf("%08x%n", magic);
-            var command = new byte[12];
-            b.get(command, 0, 12);
+            buffer.get(command, 0, 12);
             System.out.println(new String(command));
-            var length = b.getInt();
-            var checksum = new byte[4];
-            b.get(checksum, 0, 4);
+            var length = buffer.getInt();
+            buffer.get(checksum, 0, 4);
             var payload = new byte[length];
-            b.get(payload);
+            buffer.get(payload);
             m.update(payload);
             var hash = m.digest();
             if (Arrays.equals(checksum, 0, 4, hash, 0, 4)) {
@@ -214,32 +226,135 @@ public class Protocol {
         }
         out.write(createPacket("verack".getBytes()));
 
-        var cf = CertificateFactory.getInstance("X.509");
-        var kf = KeyFactory.getInstance("RSA", "BC");
-        var ks = KeyStore.getInstance("PKCS12");
-        ks.load(null, null);
-        var ts = KeyStore.getInstance("JKS");
-        ts.load(null, null);
-
-        try (var d = new BufferedInputStream(Protocol.class.getResourceAsStream("cert.pem"));
-                var e = new BufferedInputStream(Protocol.class.getResourceAsStream("key.der"))) {
-            var cert = cf.generateCertificate(d);
-            var key = kf.generatePrivate(new PKCS8EncodedKeySpec(e.readAllBytes()));
-            ks.setKeyEntry("A", key, new char[0], new Certificate[] { cert });
-        }
-
-        var kmf = KeyManagerFactory.getInstance("SunX509");
-        kmf.init(ks, null);
-        var tmf = TrustManagerFactory.getInstance("SunX509");
-        tmf.init(ts);
-
-        var ctx = SSLContext.getInstance("TLS");
-        ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
-        var factory = ctx.getSocketFactory();
+        var remote = (InetSocketAddress) socket.getRemoteSocketAddress();
         var sslSocket = (SSLSocket) factory.createSocket(socket,
-                socket.getInetAddress().getHostAddress(),
-                socket.getPort(), true);
+                remote.getHostName(),
+                remote.getPort(), true);
+        var parameters = sslSocket.getSSLParameters();
+        var suites = new ArrayList<>(Arrays.asList(parameters.getCipherSuites()));
+        // TLS_ECDH_anon_WITH_AES_256_CBC_SHA is usually disabled, so you need to change
+        // your system settings.
+        if (!suites.contains("TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
+            suites.add("TLS_ECDH_anon_WITH_AES_256_CBC_SHA");
+        }
+        parameters.setCipherSuites(suites.toArray(String[]::new));
+        sslSocket.setSSLParameters(parameters);
         sslSocket.startHandshake();
+        out = sslSocket.getOutputStream();
+        in = new BufferedInputStream(sslSocket.getInputStream());
+        buffer.clear();
+        int r = in.read(buffer.array());
+        buffer.limit(r);
+        buffer.getInt();
+        buffer.get(command);
+        System.out.println(new String(command));
+        int length = buffer.getInt();
+        System.out.printf("length: %d%n", length);
+        buffer.get(checksum);
+        var sha512 = MessageDigest.getInstance("sha512");
+        var hash = new byte[64];
+        {
+            var payloadBuffer = ByteBuffer.allocate(length);
+            var payload = payloadBuffer.array();
+            var re = buffer.remaining();
+            if (re < length) {
+                buffer.get(payload, 0, re);
+                in.read(payload, 0, length - re);
+            } else {
+                buffer.get(payload, 0, length);
+            }
+            sha512.update(payloadBuffer);
+            sha512.digest(hash, 0, 64);
+            if (Arrays.equals(checksum, 0, 4, hash, 0, 4)) {
+                System.out.println("checksum ok!");
+            } else {
+                System.out.println("checksum NG!");
+            }
+            payloadBuffer.rewind();
+            int count = payloadBuffer.get() & 0xff;
+            if (count == 254) {
+                count = payloadBuffer.getInt();
+            }
+            if (count == 253) {
+                count = payloadBuffer.getShort();
+            }
+            System.out.printf("count: %d%n", count);
+            var ad = new byte[38];
+            NetworkAddress address2;
+            var list = new ArrayList<NetworkAddress>(count);
+            for (int i = 0; i < count; i++) {
+                payloadBuffer.get(ad);
+                for (int j = 0; j < 38; j++) {
+                    System.out.printf("%02x", ad[j]);
+                }
+                System.out.println();
+                address2 = new NetworkAddress(ad);
+                list.add(address2);
+                System.out.printf("%s:%d%n", address2.address.getHostString(), address2.address.getPort());
+            }
+        }
+        // memmove
+        {
+            int pos = buffer.position();
+            int ddddd = buffer.remaining() - buffer.position();
+            var work = new byte[ddddd];
+            System.arraycopy(buffer.array(), pos, work, 0, ddddd);
+            System.arraycopy(work, 0, buffer.array(), 0, ddddd);
+            in.read(buffer.array(), ddddd, buffer.capacity() - ddddd);
+        }
+        buffer.rewind();
+        buffer.getInt();
+        buffer.get(command);
+        System.out.println(new String(command));
+        length = buffer.getInt();
+        System.out.printf("length: %d%n", length);
+        buffer.get(checksum);
+        buffer.mark();
+        int count = buffer.get() & 0xff;
+        if (count == 254) {
+            count = buffer.getInt();
+        }
+        if (count == 253) {
+            count = buffer.getShort();
+        }
+        buffer.reset();
+        var payloadBuffer = ByteBuffer.allocate(length);
+        var payload = payloadBuffer.array();
+        int re = buffer.remaining();
+        if (re < length) {
+            buffer.get(payload, 0, re);
+            int readlen = 0;
+            int offset = re;
+            int want = length - re;
+            var buf = buffer.array();
+            int w = 0;
+            while (want > 0) {
+                w = 8192;
+                if(want < 8192){
+                    w = want;
+                }
+                readlen = in.read(buf, 0, w);
+                System.arraycopy(buf, 0, payload, offset, readlen);
+                want -= readlen;
+                offset += readlen;
+                System.out.printf("loading... readlen: %d, want:%d%n", readlen, want);
+            }
+        } else {
+            buffer.get(payload, 0, length);
+        }
+        sha512.update(payload);
+        sha512.digest(hash, 0, 64);
+        if (Arrays.equals(checksum, 0, 4, hash, 0, 4)) {
+            System.out.println("checksum ok!");
+        } else {
+            System.out.println("checksum NG!");
+        }
+        for (int i = 0; i < count; i++) {
+            for (int j = 0; j < 32; j++) {
+                System.out.printf("%02x", payload[i * 32 + j]);
+            }
+            System.out.println();
+        }
         sslSocket.close();
     }
 
