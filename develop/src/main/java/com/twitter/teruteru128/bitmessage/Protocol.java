@@ -6,24 +6,24 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.security.KeyFactory;
 import java.security.KeyStore;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateFactory;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.time.Instant;
 import java.util.Arrays;
 
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
 
 import org.apache.commons.codec.binary.Base32;
 
@@ -214,12 +214,22 @@ public class Protocol {
         }
         out.write(createPacket("verack".getBytes()));
 
+        var cf = CertificateFactory.getInstance("X.509");
+        var kf = KeyFactory.getInstance("RSA", "BC");
         var ks = KeyStore.getInstance("PKCS12");
-        //ks.setKeyEntry(null, null, null, null);
+        ks.load(null, null);
+        var ts = KeyStore.getInstance("JKS");
+        ts.load(null, null);
+
+        try (var d = new BufferedInputStream(Protocol.class.getResourceAsStream("cert.pem"));
+                var e = new BufferedInputStream(Protocol.class.getResourceAsStream("key.der"))) {
+            var cert = cf.generateCertificate(d);
+            var key = kf.generatePrivate(new PKCS8EncodedKeySpec(e.readAllBytes()));
+            ks.setKeyEntry("A", key, new char[0], new Certificate[] { cert });
+        }
+
         var kmf = KeyManagerFactory.getInstance("SunX509");
         kmf.init(ks, null);
-
-        var ts = KeyStore.getInstance("JKS");
         var tmf = TrustManagerFactory.getInstance("SunX509");
         tmf.init(ts);
 

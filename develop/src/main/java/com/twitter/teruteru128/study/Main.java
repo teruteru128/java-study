@@ -1,5 +1,9 @@
 package com.twitter.teruteru128.study;
 
+import java.security.Security;
+
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
 import com.twitter.teruteru128.bitmessage.Protocol;
 
 /**
@@ -40,6 +44,9 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        if (Security.getProvider("BC") == null) {
+            Security.addProvider(new BouncyCastleProvider());
+        }
         Protocol.connect();
     }
 
