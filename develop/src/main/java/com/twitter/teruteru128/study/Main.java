@@ -1,5 +1,7 @@
 package com.twitter.teruteru128.study;
 
+import com.twitter.teruteru128.bitmessage.Protocol;
+
 /**
  * Main
  * 秘密鍵かな？
@@ -38,6 +40,7 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        Protocol.connect();
     }
 
 }

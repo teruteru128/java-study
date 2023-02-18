@@ -11,13 +11,19 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.security.KeyStore;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.util.Arrays;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 
 import org.apache.commons.codec.binary.Base32;
 
@@ -175,41 +181,56 @@ public class Protocol {
     }
 
     public static void connect() throws Exception {
-        var address = InetSocketAddress.createUnresolved("localhost", 8444);
+        var address = new InetSocketAddress("localhost", 8444);
         var socket = new Socket();
         socket.connect(address);
-        int protocolVersion = 3;
-        int services = 0x3;
-        long timestamp = Instant.now().getEpochSecond();
-        var recvaddr = Protocol.networkAddress(services, (InetSocketAddress) socket.getRemoteSocketAddress());
-        var fromaddr = Protocol.networkAddress(services, (InetSocketAddress) socket.getLocalSocketAddress());
         long nonce = java.util.concurrent.ThreadLocalRandom.current().nextLong();
-        byte[] userAgent = Protocol.encodeVarStr("/Sample-lib:1.0.0/");
-        byte[] streamNumbers = Protocol.encodeVarIntList(new long[] { 1 });
-        var messagePayload = ByteBuffer.allocate(72 + userAgent.length +
-                streamNumbers.length).putInt(protocolVersion)
-                .putLong(0x3)
-                .putLong(timestamp).put(recvaddr).put(fromaddr).putLong(nonce).put(userAgent)
-                .put(streamNumbers)
-                .array();
-        var sha512 = MessageDigest.getInstance("SHA-512");
-        var hash = sha512.digest(messagePayload);
-        byte[] command = new byte[12];
-        var v = "version".getBytes();
-        System.arraycopy(command, 0, v, 0, v.length);
-        var msg = ByteBuffer.allocate(24 +
-                messagePayload.length).put(Protocol.PREFIX_MAGIC_NUMBER).put(v).put(hash, 0, 4)
-                .put(messagePayload).array();
         var out = socket.getOutputStream();
-        out.write(msg);
+        out.write(assembleVersionMessage((InetSocketAddress) socket.getRemoteSocketAddress(), new int[] { 1 }, false,
+                nonce));
         byte[] buf = new byte[8192];
         var in = new BufferedInputStream(socket.getInputStream());
         var r = in.read(buf);
-        var factory = (SSLSocketFactory) SSLSocketFactory.getDefault();
+        var b = ByteBuffer.wrap(buf, 0, r);
+        var m = MessageDigest.getInstance("SHA-512");
+        for (int i = 0; i < 2; i++) {
+            var magic = b.getInt();
+            System.out.printf("%08x%n", magic);
+            var command = new byte[12];
+            b.get(command, 0, 12);
+            System.out.println(new String(command));
+            var length = b.getInt();
+            var checksum = new byte[4];
+            b.get(checksum, 0, 4);
+            var payload = new byte[length];
+            b.get(payload);
+            m.update(payload);
+            var hash = m.digest();
+            if (Arrays.equals(checksum, 0, 4, hash, 0, 4)) {
+                System.out.println("checksum ok");
+            } else {
+                System.out.println("checksum ng");
+            }
+        }
+        out.write(createPacket("verack".getBytes()));
+
+        var ks = KeyStore.getInstance("PKCS12");
+        //ks.setKeyEntry(null, null, null, null);
+        var kmf = KeyManagerFactory.getInstance("SunX509");
+        kmf.init(ks, null);
+
+        var ts = KeyStore.getInstance("JKS");
+        var tmf = TrustManagerFactory.getInstance("SunX509");
+        tmf.init(ts);
+
+        var ctx = SSLContext.getInstance("TLS");
+        ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+        var factory = ctx.getSocketFactory();
         var sslSocket = (SSLSocket) factory.createSocket(socket,
                 socket.getInetAddress().getHostAddress(),
                 socket.getPort(), true);
         sslSocket.startHandshake();
+        sslSocket.close();
     }
 
 }
