@@ -1,6 +1,6 @@
 package com.twitter.teruteru128.bitmessage;
 
-interface Address {
+public interface Address {
   byte[] getRipe();
 
   byte[] getSigningPrivateKey();
