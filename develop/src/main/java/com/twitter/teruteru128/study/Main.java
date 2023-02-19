@@ -1,13 +1,11 @@
 package com.twitter.teruteru128.study;
 
-import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.security.Security;
-import java.util.random.RandomGenerator;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
-import com.twitter.teruteru128.bitmessage.DeterministicAddressesGenerator;
-import com.twitter.teruteru128.bitmessage.Protocol;
 
 /**
  * Main
@@ -39,7 +37,7 @@ import com.twitter.teruteru128.bitmessage.Protocol;
  * Ya/piNyZ969sH/qUEPDazlnQVgRnbyLGN6RI+4YvGZoHGdbPw3tgQDktJs9pXYhF+KZoFo0T/bBjZuxUAmCqWA==
  * mgbBWuOBHpn/wEm10SiPBZgiulzISK44ngU/m/14uzvTrIXrKlqeDnq5ONvwM6TyYsQwM2dP4wR5/shIxymU4g==
  */
-public class Main {
+public class Main implements Callable<Void> {
 
     static {
         if (Security.getProvider("BC") == null) {
@@ -59,17 +57,18 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        if (args.length < 1) {
-            Runtime.getRuntime().exit(1);
-        }
-        var generator = new DeterministicAddressesGenerator();
-        var list = generator.apply(args[0]);
-        for (var deterministicAddress : list) {
-            for (int addressVersion = 3; addressVersion < 5; addressVersion++) {
-                System.out.println(
-                        DeterministicAddressesGenerator.encodeAddress(deterministicAddress, addressVersion, args[0]));
-            }
-        }
+        var service = Executors.newWorkStealingPool();
+        var future = service.submit(main);
+        future.get();
+        service.shutdown();
+    }
+
+    @Override
+    public Void call() throws Exception {
+        var md = MessageDigest.getInstance("RIPEMD160");
+        var md2 = (MessageDigest) md.clone();
+        System.out.println(md2.getClass());
+        return null;
     }
 
 }
