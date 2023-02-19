@@ -1,5 +1,10 @@
 package com.twitter.teruteru128.study;
 
+import java.io.BufferedInputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
 import java.security.Security;
 import java.util.concurrent.Callable;
@@ -68,6 +73,24 @@ public class Main implements Callable<Void> {
         var md = MessageDigest.getInstance("RIPEMD160");
         var md2 = (MessageDigest) md.clone();
         System.out.println(md2.getClass());
+        Path p;
+        byte[][][] data = new byte[4][][];
+        var fs = FileSystems.getDefault();
+        System.out.println("読み込み開始！");
+        var dir = fs.getPath("D:", "keys","public","trimmed");
+        var d = new byte[64];
+        for (int i = 0; i < 4; i++) {
+            p = dir.resolve(fs.getPath(String.format("publicKeys%d.bin", i)));
+            data[i] = new byte[16777216][];
+            try (var fin = new BufferedInputStream(Files.newInputStream(p, StandardOpenOption.READ), 1073741824)) {
+                for (int j = 0; j < 16777216; j++) {
+                    fin.read(d);
+                    data[i][j] = d.clone();
+                }
+            }
+        }
+        System.out.println("読み込み終わり！");
+        Thread.sleep(1000 * 30);
         return null;
     }
 
