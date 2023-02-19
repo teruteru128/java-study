@@ -6,6 +6,7 @@ import java.util.random.RandomGenerator;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import com.twitter.teruteru128.bitmessage.DeterministicAddressesGenerator;
 import com.twitter.teruteru128.bitmessage.Protocol;
 
 /**
@@ -58,24 +59,17 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var random = RandomGenerator.of("SecureRandom");
-        var messagesize = random.nextInt(200, 2200);
-        var sb = new StringBuilder(messagesize * 2);
-        for (int i = 0; i < messagesize; i++) {
-            sb.append((char) random.nextInt('0', '0' + 10));
-            if ((i % 5) == 4 && (i % 50) != 49) {
-                sb.append(' ');
-            } else if ((i % 50) == 49) {
-                sb.append('\n');
+        if (args.length < 1) {
+            Runtime.getRuntime().exit(1);
+        }
+        var generator = new DeterministicAddressesGenerator();
+        var list = generator.apply(args[0]);
+        for (var deterministicAddress : list) {
+            for (int addressVersion = 3; addressVersion < 5; addressVersion++) {
+                System.out.println(
+                        DeterministicAddressesGenerator.encodeAddress(deterministicAddress, addressVersion, args[0]));
             }
         }
-        var title = new byte[16];
-        random.nextBytes(title);
-        for (byte b : title) {
-            System.out.printf("%02X", b);
-        }
-        System.out.println();
-        System.out.println(sb);
     }
 
 }

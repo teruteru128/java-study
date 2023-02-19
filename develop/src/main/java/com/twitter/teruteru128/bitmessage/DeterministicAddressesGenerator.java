@@ -197,8 +197,8 @@ public class DeterministicAddressesGenerator implements Function<String, List<De
     }
 
     public static String encodeAddress(DeterministicAddress address, int addressVersion, String passphrase) {
-        return new StringBuilder(48).append('[').append(BMAddress.encodeAddress(addressVersion, 1, address.getRipe()))
-                .append("]\nlabel = [chan] \n").append(passphrase)
+        return new StringBuilder(351 + passphrase.length()).append('[').append(BMAddress.encodeAddress(addressVersion, 1, address.getRipe()))
+                .append("]\nlabel = [chan] ").append(passphrase)
                 .append("\nenabled = true\ndecoy = false\nchan = true\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nsigningKeyNonce = ")
                 .append(address.getSigningKeyNonce()).append("\nencryptionKeyNonce = ")
                 .append(address.getEncryptionKeyNonce()).append("\nprivsigningkey = ").append(BMAddressGenerator
