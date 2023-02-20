@@ -13,6 +13,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -197,125 +198,134 @@ public class Protocol {
         var command = new byte[12];
         var checksum = new byte[4];
         var hash = new byte[64];
-        var out = socket.getOutputStream();
-        var in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-        out.write(
-                assembleVersionMessage((InetSocketAddress) socket.getRemoteSocketAddress(), new int[] { 1 }, false,
-                        nonce));
+        {
+            var out = socket.getOutputStream();
+            var in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            out.write(
+                    assembleVersionMessage((InetSocketAddress) socket.getRemoteSocketAddress(), new int[] { 1 }, false,
+                            nonce));
 
-        for (int i = 0; i < 2; i++) {
-            var magic = in.readInt();
-            System.out.printf("%08x%n", magic);
+            for (int i = 0; i < 2; i++) {
+                var magic = in.readInt();
+                System.out.printf("%08x%n", magic);
+                in.read(command, 0, 12);
+                System.out.println(new String(command));
+                var length = in.readInt();
+                in.read(checksum, 0, 4);
+                var payload = new byte[length];
+                in.readNBytes(payload, 0, length);
+                m.update(payload);
+                m.digest(hash, 0, 64);
+                if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
+                    System.out.println("checksum ok");
+                } else {
+                    System.out.println("checksum ng");
+                }
+            }
+            // verack送信
+            out.write(createPacket("verack".getBytes()));
+        }
+        {
+            var remote = (InetSocketAddress) socket.getRemoteSocketAddress();
+            var sslSocket = (SSLSocket) factory.createSocket(socket,
+            remote.getHostName(),
+            remote.getPort(), true);
+            var parameters = sslSocket.getSSLParameters();
+            var suites = new ArrayList<>(Arrays.asList(parameters.getCipherSuites()));
+            // TLS_ECDH_anon_WITH_AES_256_CBC_SHA is usually disabled, so you need to change
+            // your system settings.
+            if (!suites.contains("TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
+                suites.add("TLS_ECDH_anon_WITH_AES_256_CBC_SHA");
+            }
+            parameters.setCipherSuites(suites.toArray(String[]::new));
+            sslSocket.setSSLParameters(parameters);
+            var start = Instant.now();
+            sslSocket.startHandshake();
+            var finish = Instant.now();
+            System.out.printf("ssl handshake: %s%n", Duration.between(start, finish));
+            socket = sslSocket;
+        }
+        {
+            var out = socket.getOutputStream();
+            var in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            //
+            in.readInt();
             in.read(command, 0, 12);
             System.out.println(new String(command));
-            var length = in.readInt();
-            in.read(checksum, 0, 4);
-            var payload = new byte[length];
-            in.readNBytes(payload, 0, length);
-            m.update(payload);
-            m.digest(hash, 0, 64);
-            if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
-                System.out.println("checksum ok");
-            } else {
-                System.out.println("checksum ng");
-            }
-        }
-        // verack送信
-        out.write(createPacket("verack".getBytes()));
-        var remote = (InetSocketAddress) socket.getRemoteSocketAddress();
-        var sslSocket = (SSLSocket) factory.createSocket(socket,
-                remote.getHostName(),
-                remote.getPort(), true);
-        var parameters = sslSocket.getSSLParameters();
-        var suites = new ArrayList<>(Arrays.asList(parameters.getCipherSuites()));
-        // TLS_ECDH_anon_WITH_AES_256_CBC_SHA is usually disabled, so you need to change
-        // your system settings.
-        if (!suites.contains("TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
-            suites.add("TLS_ECDH_anon_WITH_AES_256_CBC_SHA");
-        }
-        parameters.setCipherSuites(suites.toArray(String[]::new));
-        sslSocket.setSSLParameters(parameters);
-        sslSocket.startHandshake();
-        out = sslSocket.getOutputStream();
-        in = new DataInputStream(new BufferedInputStream(sslSocket.getInputStream()));
-        //
-        in.readInt();
-        in.read(command, 0, 12);
-        System.out.println(new String(command));
-        int length = in.readInt();
-        System.out.printf("length: %d%n", length);
-        in.read(checksum);
-        var sha512 = MessageDigest.getInstance("sha512");
-        {
-            var payloadBuffer = ByteBuffer.allocate(length);
-            var payload = payloadBuffer.array();
-            in.readNBytes(payload, 0, length);
-            sha512.update(payload);
-            sha512.digest(hash, 0, 64);
-            if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
-                System.out.println("checksum ok!");
-            } else {
-                System.out.println("checksum NG!");
-            }
-            payloadBuffer.rewind();
-            int count = payloadBuffer.get() & 0xff;
-            if (count == 254) {
-                count = payloadBuffer.getInt();
-            }
-            if (count == 253) {
-                count = payloadBuffer.getShort();
-            }
-            System.out.printf("count: %d%n", count);
-            var ad = new byte[38];
-            NetworkAddress address2;
-            var list = new ArrayList<NetworkAddress>(count);
-            for (int i = 0; i < count; i++) {
-                payloadBuffer.get(ad);
-                for (int j = 0; j < 38; j++) {
-                    System.out.printf("%02x", ad[j]);
+            int length = in.readInt();
+            System.out.printf("length: %d%n", length);
+            in.read(checksum);
+            var sha512 = MessageDigest.getInstance("sha512");
+            {
+                var payloadBuffer = ByteBuffer.allocate(length);
+                var payload = payloadBuffer.array();
+                in.readNBytes(payload, 0, length);
+                sha512.update(payload);
+                sha512.digest(hash, 0, 64);
+                if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
+                    System.out.println("checksum ok!");
+                } else {
+                    System.out.println("checksum NG!");
                 }
-                System.out.println();
-                address2 = new NetworkAddress(ad);
-                list.add(address2);
-                System.out.printf("%s:%d%n", address2.address.getHostString(), address2.address.getPort());
+                payloadBuffer.rewind();
+                int count = payloadBuffer.get() & 0xff;
+                if (count == 254) {
+                    count = payloadBuffer.getInt();
+                }
+                if (count == 253) {
+                    count = payloadBuffer.getShort();
+                }
+                System.out.printf("count: %d%n", count);
+                var ad = new byte[38];
+                NetworkAddress address2;
+                var list = new ArrayList<NetworkAddress>(count);
+                for (int i = 0; i < count; i++) {
+                    payloadBuffer.get(ad);
+                    address2 = new NetworkAddress(ad);
+                    list.add(address2);
+                }
+                int size = list.size();
+                System.out.printf("count: %d, list size: %d, %s%n", count, size, count == size ? "OK" : "NG");
+            }
+            in.readInt();
+            in.read(command);
+            System.out.println(new String(command));
+            length = in.readInt();
+            System.out.printf("length: %d%n", length);
+            in.read(checksum);
+            {
+                var payloadBuffer = ByteBuffer.allocate(length);
+                var payload = payloadBuffer.array();
+                in.readNBytes(payload, 0, length);
+                sha512.update(payload);
+                sha512.digest(hash, 0, 64);
+                if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
+                    System.out.println("checksum ok!");
+                } else {
+                    System.out.println("checksum NG!");
+                }
+                int count = payloadBuffer.get() & 0xff;
+                int offset = 1;
+                if (count == 254) {
+                    count = payloadBuffer.getInt();
+                    offset += 4;
+                }
+                if (count == 253) {
+                    count = payloadBuffer.getShort();
+                    offset += 2;
+                }
+                System.out.printf("count: %d%n", count);
+                byte[] inv_vect = new byte[32];
+                var list = new ArrayList<byte[]>(count);
+                for (int i = 0; i < count; i++) {
+                    System.arraycopy(payload, offset + i * 32, inv_vect, 0, 32);
+                    list.add(inv_vect.clone());
+                }
+                int size = list.size();
+                System.out.printf("count: %d, list size: %d, %s%n", count, size, count == size ? "OK" : "NG");
             }
         }
-        in.readInt();
-        in.read(command);
-        System.out.println(new String(command));
-        length = in.readInt();
-        System.out.printf("length: %d%n", length);
-        in.read(checksum);
-        var payloadBuffer = ByteBuffer.allocate(length);
-        var payload = payloadBuffer.array();
-        in.readNBytes(payload, 0, length);
-        sha512.update(payload);
-        sha512.digest(hash, 0, 64);
-        if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
-            System.out.println("checksum ok!");
-        } else {
-            System.out.println("checksum NG!");
-        }
-        int count = payloadBuffer.get() & 0xff;
-        int offset = 1;
-        if (count == 254) {
-            count = payloadBuffer.getInt();
-            offset += 4;
-        }
-        if (count == 253) {
-            count = payloadBuffer.getShort();
-            offset += 2;
-        }
-        System.out.printf("count: %d%n", count);
-        byte[] inv_vect = new byte[32];
-        var list = new ArrayList<byte[]>(count);
-        for (int i = 0; i < count; i++) {
-            System.arraycopy(payload, offset + i * 32, inv_vect, 0, 32);
-            list.add(inv_vect.clone());
-        }
-        int size = list.size();
-        System.out.printf("count: %d, list size: %d, %s%n", count, size, count == size ? "OK" : "NG");
-        sslSocket.close();
+        socket.close();
     }
 
 }
