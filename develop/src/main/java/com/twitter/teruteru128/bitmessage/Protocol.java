@@ -2,6 +2,7 @@ package com.twitter.teruteru128.bitmessage;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Inet4Address;
@@ -192,38 +193,35 @@ public class Protocol {
         var socket = new Socket();
         socket.connect(address);
         long nonce = java.util.concurrent.ThreadLocalRandom.current().nextLong();
-        var out = socket.getOutputStream();
-        out.write(assembleVersionMessage((InetSocketAddress) socket.getRemoteSocketAddress(), new int[] { 1 }, false,
-                nonce));
-        var buffer = ByteBuffer.allocate(8192);
-        var in = new BufferedInputStream(socket.getInputStream());
-        {
-            byte[] buf = buffer.array();
-            var r = in.read(buf);
-            buffer.limit(r);
-        }
         var m = MessageDigest.getInstance("SHA-512");
         var command = new byte[12];
         var checksum = new byte[4];
+        var hash = new byte[64];
+        var out = socket.getOutputStream();
+        var in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+        out.write(
+                assembleVersionMessage((InetSocketAddress) socket.getRemoteSocketAddress(), new int[] { 1 }, false,
+                        nonce));
+
         for (int i = 0; i < 2; i++) {
-            var magic = buffer.getInt();
+            var magic = in.readInt();
             System.out.printf("%08x%n", magic);
-            buffer.get(command, 0, 12);
+            in.read(command, 0, 12);
             System.out.println(new String(command));
-            var length = buffer.getInt();
-            buffer.get(checksum, 0, 4);
+            var length = in.readInt();
+            in.read(checksum, 0, 4);
             var payload = new byte[length];
-            buffer.get(payload);
+            in.readNBytes(payload, 0, length);
             m.update(payload);
-            var hash = m.digest();
-            if (Arrays.equals(checksum, 0, 4, hash, 0, 4)) {
+            m.digest(hash, 0, 64);
+            if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
                 System.out.println("checksum ok");
             } else {
                 System.out.println("checksum ng");
             }
         }
+        // verack送信
         out.write(createPacket("verack".getBytes()));
-
         var remote = (InetSocketAddress) socket.getRemoteSocketAddress();
         var sslSocket = (SSLSocket) factory.createSocket(socket,
                 remote.getHostName(),
@@ -239,31 +237,22 @@ public class Protocol {
         sslSocket.setSSLParameters(parameters);
         sslSocket.startHandshake();
         out = sslSocket.getOutputStream();
-        in = new BufferedInputStream(sslSocket.getInputStream());
-        buffer.clear();
-        int r = in.read(buffer.array());
-        buffer.limit(r);
-        buffer.getInt();
-        buffer.get(command);
+        in = new DataInputStream(new BufferedInputStream(sslSocket.getInputStream()));
+        //
+        in.readInt();
+        in.read(command, 0, 12);
         System.out.println(new String(command));
-        int length = buffer.getInt();
+        int length = in.readInt();
         System.out.printf("length: %d%n", length);
-        buffer.get(checksum);
+        in.read(checksum);
         var sha512 = MessageDigest.getInstance("sha512");
-        var hash = new byte[64];
         {
             var payloadBuffer = ByteBuffer.allocate(length);
             var payload = payloadBuffer.array();
-            var re = buffer.remaining();
-            if (re < length) {
-                buffer.get(payload, 0, re);
-                in.read(payload, 0, length - re);
-            } else {
-                buffer.get(payload, 0, length);
-            }
-            sha512.update(payloadBuffer);
+            in.readNBytes(payload, 0, length);
+            sha512.update(payload);
             sha512.digest(hash, 0, 64);
-            if (Arrays.equals(checksum, 0, 4, hash, 0, 4)) {
+            if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
                 System.out.println("checksum ok!");
             } else {
                 System.out.println("checksum NG!");
@@ -291,68 +280,41 @@ public class Protocol {
                 System.out.printf("%s:%d%n", address2.address.getHostString(), address2.address.getPort());
             }
         }
-        // memmove
-        {
-            int pos = buffer.position();
-            int ddddd = buffer.remaining() - buffer.position();
-            var work = new byte[ddddd];
-            System.arraycopy(buffer.array(), pos, work, 0, ddddd);
-            System.arraycopy(work, 0, buffer.array(), 0, ddddd);
-            in.read(buffer.array(), ddddd, buffer.capacity() - ddddd);
-        }
-        buffer.rewind();
-        buffer.getInt();
-        buffer.get(command);
+        in.readInt();
+        in.read(command);
         System.out.println(new String(command));
-        length = buffer.getInt();
+        length = in.readInt();
         System.out.printf("length: %d%n", length);
-        buffer.get(checksum);
-        buffer.mark();
-        int count = buffer.get() & 0xff;
-        if (count == 254) {
-            count = buffer.getInt();
-        }
-        if (count == 253) {
-            count = buffer.getShort();
-        }
-        buffer.reset();
+        in.read(checksum);
         var payloadBuffer = ByteBuffer.allocate(length);
         var payload = payloadBuffer.array();
-        int re = buffer.remaining();
-        if (re < length) {
-            buffer.get(payload, 0, re);
-            int readlen = 0;
-            int offset = re;
-            int want = length - re;
-            var buf = buffer.array();
-            int w = 0;
-            while (want > 0) {
-                w = 8192;
-                if(want < 8192){
-                    w = want;
-                }
-                readlen = in.read(buf, 0, w);
-                System.arraycopy(buf, 0, payload, offset, readlen);
-                want -= readlen;
-                offset += readlen;
-                System.out.printf("loading... readlen: %d, want:%d%n", readlen, want);
-            }
-        } else {
-            buffer.get(payload, 0, length);
-        }
+        in.readNBytes(payload, 0, length);
         sha512.update(payload);
         sha512.digest(hash, 0, 64);
-        if (Arrays.equals(checksum, 0, 4, hash, 0, 4)) {
+        if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
             System.out.println("checksum ok!");
         } else {
             System.out.println("checksum NG!");
         }
-        for (int i = 0; i < count; i++) {
-            for (int j = 0; j < 32; j++) {
-                System.out.printf("%02x", payload[i * 32 + j]);
-            }
-            System.out.println();
+        int count = payloadBuffer.get() & 0xff;
+        int offset = 1;
+        if (count == 254) {
+            count = payloadBuffer.getInt();
+            offset += 4;
         }
+        if (count == 253) {
+            count = payloadBuffer.getShort();
+            offset += 2;
+        }
+        System.out.printf("count: %d%n", count);
+        byte[] inv_vect = new byte[32];
+        var list = new ArrayList<byte[]>(count);
+        for (int i = 0; i < count; i++) {
+            System.arraycopy(payload, offset + i * 32, inv_vect, 0, 32);
+            list.add(inv_vect.clone());
+        }
+        int size = list.size();
+        System.out.printf("count: %d, list size: %d, %s%n", count, size, count == size ? "OK" : "NG");
         sslSocket.close();
     }
 
