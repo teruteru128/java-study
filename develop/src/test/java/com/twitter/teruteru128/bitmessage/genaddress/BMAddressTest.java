@@ -2,24 +2,21 @@ package com.twitter.teruteru128.bitmessage.genaddress;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.Provider;
 import java.security.Security;
-import java.util.Arrays;
-
-import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.bitmessage.spec.BMAddress;
-import com.twitter.teruteru128.encode.Base58;
-
-import jakarta.xml.bind.DatatypeConverter;
+import java.util.HexFormat;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import com.twitter.teruteru128.bitmessage.Const;
+import com.twitter.teruteru128.bitmessage.spec.BMAddress;
+import com.twitter.teruteru128.encode.Base58;
 
 public class BMAddressTest {
 
@@ -48,7 +45,7 @@ public class BMAddressTest {
         sha512.update(pubSigningKey);
         sha512.update(pubEncryptionKey);
         byte[] ripe = ripemd160.digest(sha512.digest());
-        byte[] actualbytes = DatatypeConverter.parseHexBinary("00005757482ea4aa7c4e243da76ac4cc977f3204");
+        byte[] actualbytes = HexFormat.of().parseHex("00005757482ea4aa7c4e243da76ac4cc977f3204");
         assertArrayEquals(actualbytes, ripe);
         assertEquals(BMAddress.encodeAddress(4, 1, ripe), address);
     }

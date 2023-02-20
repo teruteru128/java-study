@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study;
 
 import java.security.Security;
+import java.util.HexFormat;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 
@@ -67,6 +68,15 @@ public class Main implements Callable<Void> {
     @Override
     public Void call() throws Exception {
         Protocol.connect();
+        var msg = new byte[12];
+        msg[0] = 0x69;
+        msg[1] = 0x6e;
+        msg[2] = 0x76;
+        var c = new String(msg);
+        var format = HexFormat.of();
+        System.out.println(format.formatHex(c.getBytes()));
+        System.out.println(format.formatHex(c.strip().getBytes()));
+        System.out.println(format.formatHex(c.trim().getBytes()));
         return null;
     }
 

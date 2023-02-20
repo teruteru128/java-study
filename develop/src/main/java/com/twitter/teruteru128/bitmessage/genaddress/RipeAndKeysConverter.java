@@ -12,14 +12,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 import java.security.Security;
+import java.util.HexFormat;
 import java.util.regex.Pattern;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import com.twitter.teruteru128.bitmessage.Const;
 import com.twitter.teruteru128.bitmessage.spec.KeyPair;
-
-import jakarta.xml.bind.DatatypeConverter;
 
 public class RipeAndKeysConverter {
 
@@ -48,10 +47,11 @@ public class RipeAndKeysConverter {
             // 最初の一行は捨てる
             reader.readLine();
             String line = null;
+            var format = HexFormat.of();
             while ((line = reader.readLine()) != null) {
                 a = pattern.split(line);
-                privatesigningkey = DatatypeConverter.parseHexBinary(a[1]);
-                privateencryptkey = DatatypeConverter.parseHexBinary(a[2]);
+                privatesigningkey = format.parseHex(a[1]);
+                privateencryptkey = format.parseHex(a[2]);
                 publicsigningkey = derivePublicKey(privatesigningkey);
                 publicencryptkey = derivePublicKey(privateencryptkey);
                 sha512.update(publicsigningkey, 0, Const.PUBLIC_KEY_LENGTH);

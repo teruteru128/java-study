@@ -11,18 +11,18 @@ terms contained in, the Simplified BSD License set forth in Section
 */
 
 import java.lang.reflect.UndeclaredThrowableException;
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
 import java.security.GeneralSecurityException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.time.Instant;
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
+import java.util.Date;
+import java.util.HexFormat;
 import java.util.TimeZone;
 
-import jakarta.xml.bind.DatatypeConverter;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  * This is an example implementation of the OATH
@@ -189,7 +189,7 @@ public class TOTP {
         long testTime[] = {59L, 1111111109L, 1111111111L,
                 1234567890L, 2000000000L, 20000000000L, Instant.now().getEpochSecond()};
 
-        System.out.println(new String(DatatypeConverter.parseHexBinary(seed)));
+        System.out.println(new String(HexFormat.of().parseHex(seed)));
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         df.setTimeZone(TimeZone.getTimeZone("UTC"));

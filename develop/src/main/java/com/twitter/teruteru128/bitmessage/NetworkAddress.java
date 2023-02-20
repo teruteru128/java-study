@@ -9,21 +9,22 @@ import java.util.Arrays;
 
 import org.apache.commons.codec.binary.Base32;
 
-public class NetworkAddress {
+public record NetworkAddress(Instant time, int stream, long services, InetSocketAddress address) {
 
-    Instant time;
-    int stream;
-    long services;
-    InetSocketAddress address;
-
-    public NetworkAddress(byte[] a) {
+    /**
+     * 
+     * @param a
+     * @return
+     */
+    public static NetworkAddress newInstance(byte[] a) {
         var work = ByteBuffer.wrap(a);
-        this.time = Instant.ofEpochSecond(work.getLong());
-        this.stream = work.getInt();
-        this.services = work.getLong();
+        var time = Instant.ofEpochSecond(work.getLong());
+        var stream = work.getInt();
+        var services = work.getLong();
         work.mark();
         var prefix = new byte[6];
         work.get(prefix);
+        InetSocketAddress address = null;
         if (Arrays.equals(prefix, 0, 6, Protocol.ONION_DOMAIN_PREFIX, 0, 6)) {
             var host = new byte[10];
             work.get(host);
@@ -40,6 +41,7 @@ public class NetworkAddress {
                 e.printStackTrace();
             }
         }
+        return new NetworkAddress(time, stream, services, address);
     }
 
 }

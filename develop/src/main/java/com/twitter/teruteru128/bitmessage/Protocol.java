@@ -195,6 +195,7 @@ public class Protocol {
         socket.connect(address);
         long nonce = java.util.concurrent.ThreadLocalRandom.current().nextLong();
         var m = MessageDigest.getInstance("SHA-512");
+        // C言語の場合だと13バイト確保しておかないと危険ってことか？
         var command = new byte[12];
         var checksum = new byte[4];
         var hash = new byte[64];
@@ -209,7 +210,7 @@ public class Protocol {
                 var magic = in.readInt();
                 System.out.printf("%08x%n", magic);
                 in.read(command, 0, 12);
-                System.out.println(new String(command));
+                System.out.println(new String(command).trim());
                 var length = in.readInt();
                 in.read(checksum, 0, 4);
                 var payload = new byte[length];
@@ -228,8 +229,8 @@ public class Protocol {
         {
             var remote = (InetSocketAddress) socket.getRemoteSocketAddress();
             var sslSocket = (SSLSocket) factory.createSocket(socket,
-            remote.getHostName(),
-            remote.getPort(), true);
+                    remote.getHostName(),
+                    remote.getPort(), true);
             var parameters = sslSocket.getSSLParameters();
             var suites = new ArrayList<>(Arrays.asList(parameters.getCipherSuites()));
             // TLS_ECDH_anon_WITH_AES_256_CBC_SHA is usually disabled, so you need to change
@@ -248,20 +249,19 @@ public class Protocol {
         {
             var out = socket.getOutputStream();
             var in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-            //
+            // addr
             in.readInt();
             in.read(command, 0, 12);
-            System.out.println(new String(command));
+            System.out.println(new String(command).trim());
             int length = in.readInt();
             System.out.printf("length: %d%n", length);
             in.read(checksum);
-            var sha512 = MessageDigest.getInstance("sha512");
             {
                 var payloadBuffer = ByteBuffer.allocate(length);
                 var payload = payloadBuffer.array();
                 in.readNBytes(payload, 0, length);
-                sha512.update(payload);
-                sha512.digest(hash, 0, 64);
+                m.update(payload);
+                m.digest(hash, 0, 64);
                 if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
                     System.out.println("checksum ok!");
                 } else {
@@ -281,15 +281,19 @@ public class Protocol {
                 var list = new ArrayList<NetworkAddress>(count);
                 for (int i = 0; i < count; i++) {
                     payloadBuffer.get(ad);
-                    address2 = new NetworkAddress(ad);
+                    address2 = NetworkAddress.newInstance(ad);
                     list.add(address2);
                 }
                 int size = list.size();
                 System.out.printf("count: %d, list size: %d, %s%n", count, size, count == size ? "OK" : "NG");
             }
+            // inv
             in.readInt();
             in.read(command);
-            System.out.println(new String(command));
+            {
+                var c = new String(command).trim();
+                System.out.println(com.twitter.teruteru128.util.Arrays.toHexString(c.toCharArray()));
+            }
             length = in.readInt();
             System.out.printf("length: %d%n", length);
             in.read(checksum);
@@ -297,8 +301,8 @@ public class Protocol {
                 var payloadBuffer = ByteBuffer.allocate(length);
                 var payload = payloadBuffer.array();
                 in.readNBytes(payload, 0, length);
-                sha512.update(payload);
-                sha512.digest(hash, 0, 64);
+                m.update(payload);
+                m.digest(hash, 0, 64);
                 if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
                     System.out.println("checksum ok!");
                 } else {

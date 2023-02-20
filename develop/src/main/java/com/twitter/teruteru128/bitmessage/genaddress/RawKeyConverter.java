@@ -7,14 +7,13 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 import java.security.Security;
 import java.util.Arrays;
+import java.util.HexFormat;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import com.twitter.teruteru128.bitmessage.Const;
 import com.twitter.teruteru128.bitmessage.spec.BMAddress;
 import com.twitter.teruteru128.bitmessage.spec.KeyPair;
-
-import jakarta.xml.bind.DatatypeConverter;
 
 public class RawKeyConverter {
 
@@ -32,11 +31,12 @@ public class RawKeyConverter {
     }
 
     public static void main(String[] args) throws NoSuchAlgorithmException, DigestException {
-        final byte[] inputRipe = DatatypeConverter.parseHexBinary("00AEA57C192EA1A7E71FCCD70EBD219F5CF5D11A");
-        final byte[] privateSigningKey = DatatypeConverter
-                .parseHexBinary("78245a8b9d8fd679d567368537e5e079ea21dd7855a53baba54c69b70a8dc0a6");
-        final byte[] privateEncrytionKey = DatatypeConverter
-                .parseHexBinary("ae6819a4de5ee0bccfe99263b1987972b8b059d289d54657d80822507a0fc72c");
+        var format = HexFormat.of();
+        final byte[] inputRipe = format.parseHex("00AEA57C192EA1A7E71FCCD70EBD219F5CF5D11A");
+        final byte[] privateSigningKey = format
+                .parseHex("78245a8b9d8fd679d567368537e5e079ea21dd7855a53baba54c69b70a8dc0a6");
+        final byte[] privateEncrytionKey = format
+                .parseHex("ae6819a4de5ee0bccfe99263b1987972b8b059d289d54657d80822507a0fc72c");
 
         final byte[] pubSigningKey = convertPublicKey(privateSigningKey);
         final byte[] pubEncryptionKey = convertPublicKey(privateEncrytionKey);
@@ -52,7 +52,7 @@ public class RawKeyConverter {
 
         final String address4 = BMAddress.encodeAddress(4, 1, ripe);
         System.out.print("ripe : ");
-        System.out.print(DatatypeConverter.printHexBinary(ripe));
+        System.out.print(format.formatHex(ripe));
         boolean isMatch = Arrays.equals(ripe, inputRipe);
         System.out.print(" (");
         System.out.print(isMatch ? "match" : "not match");

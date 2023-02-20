@@ -6,12 +6,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.util.Arrays;
+import java.util.HexFormat;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import com.twitter.teruteru128.bitmessage.spec.BMAddress;
-
-import jakarta.xml.bind.DatatypeConverter;
 
 public class KeyValidator {
 
@@ -54,7 +53,7 @@ public class KeyValidator {
         final String address3 = BMAddress.encodeAddress(3, 1, ripe);
         final String address3_2 = BMAddress.encodeAddress(3, 1, ripe, 2);
 
-        System.out.printf("%41s : %s%n", "ripe", DatatypeConverter.printHexBinary(ripe));
+        System.out.printf("%41s : %s%n", "ripe", HexFormat.of().formatHex(ripe));
 
         System.out.printf("%41s : %s (%smatched)%n", "v4 address calculated", address4,
                 address4.equals(address) ? "" : "not ");

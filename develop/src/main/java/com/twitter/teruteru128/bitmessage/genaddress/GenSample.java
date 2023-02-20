@@ -7,13 +7,12 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
+import java.util.HexFormat;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import com.twitter.teruteru128.bitmessage.Const;
 import com.twitter.teruteru128.bitmessage.spec.KeyPair;
-
-import jakarta.xml.bind.DatatypeConverter;
 
 public class GenSample {
 
@@ -52,8 +51,9 @@ public class GenSample {
         byte[] potentialPubSigningKey = sk.getEncoded(false);
         var ek = Const.G.multiply(new BigInteger(1, encprivatekey)).normalize();
         byte[] potentialPubEncryptionKey = ek.getEncoded(false);
-        System.out.println(DatatypeConverter.printHexBinary(potentialPubSigningKey));
-        System.out.println(DatatypeConverter.printHexBinary(potentialPubEncryptionKey));
+        var format = HexFormat.of();
+        System.out.println(format.formatHex(potentialPubSigningKey));
+        System.out.println(format.formatHex(potentialPubEncryptionKey));
 
         sha512.update(potentialPubSigningKey);
         sha512.update(potentialPubEncryptionKey);

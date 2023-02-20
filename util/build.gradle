@@ -27,3 +27,7 @@ dependencies {
     // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
     implementation('jakarta.xml.bind:jakarta.xml.bind-api:4.0.0')
 }
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

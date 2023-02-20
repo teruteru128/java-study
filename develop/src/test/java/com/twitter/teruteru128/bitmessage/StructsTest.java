@@ -4,15 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.math.BigInteger;
+import java.util.HexFormat;
 import java.util.stream.Stream;
-
-import jakarta.xml.bind.DatatypeConverter;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import com.twitter.teruteru128.bitmessage.Structs;
 
 public class StructsTest {
 
@@ -26,32 +23,34 @@ public class StructsTest {
         assertArrayEquals(Structs.encodeVarint(n), b);
     }
 
+    private static final HexFormat format = HexFormat.of();
+
+    private static final Arguments of(Object... arguments) {
+        return Arguments.of(arguments);
+    }
+
+    private static BigInteger valueOf(long val) {
+        return BigInteger.valueOf(val);
+    }
+
+    private static byte[] parseHex(String string) {
+        return format.parseHex(string);
+    }
+
     public static Stream<Arguments> encodeVarintTest_Parameters1() throws Throwable {
-        return Stream.of(Arguments.of(BigInteger.valueOf(0x0), DatatypeConverter.parseHexBinary("00")),
-                Arguments.of(BigInteger.valueOf(0x1), DatatypeConverter.parseHexBinary("01")),
-                Arguments.of(BigInteger.valueOf(0x10), DatatypeConverter.parseHexBinary("10")),
-                Arguments.of(BigInteger.valueOf(0xFC), DatatypeConverter.parseHexBinary("FC")),
-                Arguments.of(BigInteger.valueOf(0xFD), DatatypeConverter.parseHexBinary("FD00FD")),
-                Arguments.of(BigInteger.valueOf(0xFE), DatatypeConverter.parseHexBinary("FD00FE")),
-                Arguments.of(BigInteger.valueOf(0xFF), DatatypeConverter.parseHexBinary("FD00FF")),
-                Arguments.of(BigInteger.valueOf(0x100), DatatypeConverter.parseHexBinary("FD0100")),
-                Arguments.of(BigInteger.valueOf(0x1000), DatatypeConverter.parseHexBinary("FD1000")),
-                Arguments.of(BigInteger.valueOf(0x010000), DatatypeConverter.parseHexBinary("FE00010000")),
-                Arguments.of(BigInteger.valueOf(0x100000), DatatypeConverter.parseHexBinary("FE00100000")),
-                Arguments.of(BigInteger.valueOf(0x10000000), DatatypeConverter.parseHexBinary("FE10000000")),
-                Arguments.of(BigInteger.valueOf(0x1000000000L), DatatypeConverter.parseHexBinary("FF0000001000000000")),
-                Arguments.of(BigInteger.valueOf(0x100000000000L),
-                        DatatypeConverter.parseHexBinary("FF0000100000000000")),
-                Arguments.of(BigInteger.valueOf(0x10000000000000L),
-                        DatatypeConverter.parseHexBinary("FF0010000000000000")),
-                Arguments.of(BigInteger.valueOf(0x1000000000000000L),
-                        DatatypeConverter.parseHexBinary("FF1000000000000000")),
-                Arguments.of(BigInteger.valueOf(9223372036854775807L),
-                        DatatypeConverter.parseHexBinary("FF7FFFFFFFFFFFFFFF")),
-                Arguments.of(new BigInteger("8000000000000000", 16),
-                        DatatypeConverter.parseHexBinary("FF8000000000000000")),
-                Arguments.of(new BigInteger("18446744073709551615", 10),
-                        DatatypeConverter.parseHexBinary("FFFFFFFFFFFFFFFFFF")));
+        return Stream.of(of(valueOf(0x0), parseHex("00")), of(valueOf(0x1), parseHex("01")),
+                of(valueOf(0x10), parseHex("10")), of(valueOf(0xFC), parseHex("FC")),
+                of(valueOf(0xFD), parseHex("FD00FD")), of(valueOf(0xFE), parseHex("FD00FE")),
+                of(valueOf(0xFF), parseHex("FD00FF")), of(valueOf(0x100), parseHex("FD0100")),
+                of(valueOf(0x1000), parseHex("FD1000")), of(valueOf(0x010000), parseHex("FE00010000")),
+                of(valueOf(0x100000), parseHex("FE00100000")), of(valueOf(0x10000000), parseHex("FE10000000")),
+                of(valueOf(0x1000000000L), parseHex("FF0000001000000000")),
+                of(valueOf(0x100000000000L), parseHex("FF0000100000000000")),
+                of(valueOf(0x10000000000000L), parseHex("FF0010000000000000")),
+                of(valueOf(0x1000000000000000L), parseHex("FF1000000000000000")),
+                of(valueOf(9223372036854775807L), parseHex("FF7FFFFFFFFFFFFFFF")),
+                of(new BigInteger("8000000000000000", 16), parseHex("FF8000000000000000")),
+                of(new BigInteger("18446744073709551615", 10), parseHex("FFFFFFFFFFFFFFFFFF")));
     }
 
     @ParameterizedTest
@@ -61,7 +60,7 @@ public class StructsTest {
     }
 
     public static Stream<Arguments> encodeVarintTest_Parameters2() throws Throwable {
-        return Stream.of(Arguments.of(BigInteger.valueOf(-1)), Arguments.of(new BigInteger("18446744073709551616", 10)));
+        return Stream.of(of(valueOf(-1)), of(new BigInteger("18446744073709551616", 10)));
     }
 
     @ParameterizedTest
@@ -71,19 +70,13 @@ public class StructsTest {
     }
 
     public static Stream<Arguments> encodeVarintTest_Parameters3() throws Throwable {
-        return Stream.of(Arguments.of(0x0, DatatypeConverter.parseHexBinary("00")),
-                Arguments.of(0x1, DatatypeConverter.parseHexBinary("01")),
-                Arguments.of(0x10, DatatypeConverter.parseHexBinary("10")),
-                Arguments.of(0x100, DatatypeConverter.parseHexBinary("FD0100")),
-                Arguments.of(0x1000, DatatypeConverter.parseHexBinary("FD1000")),
-                Arguments.of(0x010000, DatatypeConverter.parseHexBinary("FE00010000")),
-                Arguments.of(0x100000, DatatypeConverter.parseHexBinary("FE00100000")),
-                Arguments.of(0x10000000, DatatypeConverter.parseHexBinary("FE10000000")),
-                Arguments.of(0x1000000000L, DatatypeConverter.parseHexBinary("FF0000001000000000")),
-                Arguments.of(0x100000000000L, DatatypeConverter.parseHexBinary("FF0000100000000000")),
-                Arguments.of(0x10000000000000L, DatatypeConverter.parseHexBinary("FF0010000000000000")),
-                Arguments.of(0x1000000000000000L, DatatypeConverter.parseHexBinary("FF1000000000000000")),
-                Arguments.of(0x7FFFFFFFFFFFFFFFL, DatatypeConverter.parseHexBinary("FF7FFFFFFFFFFFFFFF")));
+        return Stream.of(of(0x0, parseHex("00")), of(0x1, parseHex("01")), of(0x10, parseHex("10")),
+                of(0x100, parseHex("FD0100")), of(0x1000, parseHex("FD1000")), of(0x010000, parseHex("FE00010000")),
+                of(0x100000, parseHex("FE00100000")), of(0x10000000, parseHex("FE10000000")),
+                of(0x1000000000L, parseHex("FF0000001000000000")), of(0x100000000000L, parseHex("FF0000100000000000")),
+                of(0x10000000000000L, parseHex("FF0010000000000000")),
+                of(0x1000000000000000L, parseHex("FF1000000000000000")),
+                of(0x7FFFFFFFFFFFFFFFL, parseHex("FF7FFFFFFFFFFFFFFF")));
     }
 
     @ParameterizedTest
@@ -93,35 +86,25 @@ public class StructsTest {
     }
 
     public static Stream<Arguments> encodeVarintTest_Parameters4() throws Throwable {
-        return Stream.of(Arguments.of(-1), Arguments.of(0x8000000000000000L));
+        return Stream.of(of(-1), of(0x8000000000000000L));
     }
 
     @ParameterizedTest
     @MethodSource("encodeUnsignedVarintTest_Parameters")
     public void encodeUnsignedVarintTest(long n, byte[] b) throws Throwable {
-        assertArrayEquals(Structs.encodeUnsignedVarint(n), b, String.format("%x, %s%n", n, DatatypeConverter.printHexBinary(b)));
+        assertArrayEquals(Structs.encodeUnsignedVarint(n), b, String.format("%x, %s%n", n, format.formatHex(b)));
     }
 
     public static Stream<Arguments> encodeUnsignedVarintTest_Parameters() throws Throwable {
-        return Stream.of(Arguments.of(0x0, DatatypeConverter.parseHexBinary("00")),
-                Arguments.of(0x01, DatatypeConverter.parseHexBinary("01")),
-                Arguments.of(0x10, DatatypeConverter.parseHexBinary("10")),
-                Arguments.of(0xFC, DatatypeConverter.parseHexBinary("FC")),
-                Arguments.of(0xFD, DatatypeConverter.parseHexBinary("FD00FD")),
-                Arguments.of(0xFE, DatatypeConverter.parseHexBinary("FD00FE")),
-                Arguments.of(0xFF, DatatypeConverter.parseHexBinary("FD00FF")),
-                Arguments.of(0x0100, DatatypeConverter.parseHexBinary("FD0100")),
-                Arguments.of(0x1000, DatatypeConverter.parseHexBinary("FD1000")),
-                Arguments.of(0x00FFFF, DatatypeConverter.parseHexBinary("FDFFFF")),
-                Arguments.of(0x010000, DatatypeConverter.parseHexBinary("FE00010000")),
-                Arguments.of(0x100000, DatatypeConverter.parseHexBinary("FE00100000")),
-                Arguments.of(0x10000000, DatatypeConverter.parseHexBinary("FE10000000")),
-                Arguments.of(0x1000000000L, DatatypeConverter.parseHexBinary("FF0000001000000000")),
-                Arguments.of(0x100000000000L, DatatypeConverter.parseHexBinary("FF0000100000000000")),
-                Arguments.of(0x10000000000000L, DatatypeConverter.parseHexBinary("FF0010000000000000")),
-                Arguments.of(0x1000000000000000L, DatatypeConverter.parseHexBinary("FF1000000000000000")),
-                Arguments.of(0x7FFFFFFFFFFFFFFFL, DatatypeConverter.parseHexBinary("FF7FFFFFFFFFFFFFFF")),
-                Arguments.of(0x8000000000000000L, DatatypeConverter.parseHexBinary("FF8000000000000000")),
-                Arguments.of(-1L, DatatypeConverter.parseHexBinary("FFFFFFFFFFFFFFFFFF")));
+        return Stream.of(of(0x0, parseHex("00")), of(0x01, parseHex("01")), of(0x10, parseHex("10")),
+                of(0xFC, parseHex("FC")), of(0xFD, parseHex("FD00FD")), of(0xFE, parseHex("FD00FE")),
+                of(0xFF, parseHex("FD00FF")), of(0x0100, parseHex("FD0100")), of(0x1000, parseHex("FD1000")),
+                of(0x00FFFF, parseHex("FDFFFF")), of(0x010000, parseHex("FE00010000")),
+                of(0x100000, parseHex("FE00100000")), of(0x10000000, parseHex("FE10000000")),
+                of(0x1000000000L, parseHex("FF0000001000000000")), of(0x100000000000L, parseHex("FF0000100000000000")),
+                of(0x10000000000000L, parseHex("FF0010000000000000")),
+                of(0x1000000000000000L, parseHex("FF1000000000000000")),
+                of(0x7FFFFFFFFFFFFFFFL, parseHex("FF7FFFFFFFFFFFFFFF")),
+                of(0x8000000000000000L, parseHex("FF8000000000000000")), of(-1L, parseHex("FFFFFFFFFFFFFFFFFF")));
     }
 }
