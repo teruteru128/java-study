@@ -1,8 +1,9 @@
 package com.twitter.teruteru128.bitmessage;
 
+import java.io.Serializable;
 import java.nio.ByteBuffer;
 
-public record PacketHeader(int magic, byte[] command, int length, byte[] checksum) {
+public record PacketHeader(int magic, byte[] command, int length, byte[] checksum) implements Serializable {
 
     public static PacketHeader newInstance(byte[] b) {
         if (b == null || b.length != 24) {

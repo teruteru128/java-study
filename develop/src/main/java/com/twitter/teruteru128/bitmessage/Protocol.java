@@ -136,6 +136,11 @@ public class Protocol {
         return false;
     }
 
+    public static final long NODE_NETWORK = 1 << 0;
+    public static final long NODE_SSL = 1 << 1;
+    public static final long NODE_POW = 1 << 2;
+    public static final long NODE_DANDELION = 1 << 3;
+
     public static byte[] assembleVersionMessage(InetSocketAddress remote, int[] participatingStreams, boolean server,
             long nodeid) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(0);
@@ -143,7 +148,7 @@ public class Protocol {
             // version
             dos.writeInt(3);
             // service
-            dos.writeLong(3);
+            dos.writeLong(NODE_NETWORK | NODE_SSL);
             // timestamp
             dos.writeLong(Instant.now().getEpochSecond());
             // network service
@@ -166,7 +171,7 @@ public class Protocol {
             dos.writeLong(1);
             // network ip
             dos.write(IPV4_MAPPED_IPV6_ADDRESS_PREFIX);
-            dos.write(new byte[] { 127, 0, 0, 3 });
+            dos.write(new byte[] { 127, 0, 0, 1 });
             dos.writeShort(8444);
             dos.writeLong(nodeid);
             var userAgent = "/SampleLib:1.0.0.0/".getBytes(StandardCharsets.UTF_8);
@@ -209,8 +214,13 @@ public class Protocol {
             for (int i = 0; i < 2; i++) {
                 var magic = in.readInt();
                 System.out.printf("%08x%n", magic);
+                Arrays.fill(command, (byte) 0);
                 in.read(command, 0, 12);
-                System.out.println(new String(command).trim());
+                var len = command.length;
+                while ((0 < len) && (command[len - 1] & 0xff) < ' ') {
+                    len--;
+                }
+                System.out.println(new String(command, 0, len).trim());
                 var length = in.readInt();
                 in.read(checksum, 0, 4);
                 var payload = new byte[length];
@@ -247,7 +257,7 @@ public class Protocol {
             socket = sslSocket;
         }
         {
-            var out = socket.getOutputStream();
+            //var out = socket.getOutputStream();
             var in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             // addr
             in.readInt();
@@ -330,6 +340,10 @@ public class Protocol {
             }
         }
         socket.close();
+    }
+
+    public static boolean verify(byte[] data, byte[] sign, byte[] pubkey) {
+        return false;
     }
 
 }
