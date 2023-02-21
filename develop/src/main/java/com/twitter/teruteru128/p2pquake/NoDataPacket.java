@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.p2pquake;
 
 public class NoDataPacket extends Packet {
     public NoDataPacket(int code, int hop) {

@@ -1,12 +1,12 @@
 package com.twitter.teruteru128.study;
 
 import java.security.Security;
-import java.util.HexFormat;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import com.twitter.teruteru128.bitmessage.InventoryVector;
 import com.twitter.teruteru128.bitmessage.Protocol;
 
 /**
@@ -68,15 +68,18 @@ public class Main implements Callable<Void> {
     @Override
     public Void call() throws Exception {
         Protocol.connect();
-        var msg = new byte[12];
-        msg[0] = 0x69;
-        msg[1] = 0x6e;
-        msg[2] = 0x76;
-        var c = new String(msg);
-        var format = HexFormat.of();
-        System.out.println(format.formatHex(c.getBytes()));
-        System.out.println(format.formatHex(c.strip().getBytes()));
-        System.out.println(format.formatHex(c.trim().getBytes()));
+        var b1 = new byte[32];
+        var v1 = new InventoryVector(b1);
+        var v2 = new InventoryVector(b1);
+        var v3 = new InventoryVector(b1.clone());
+        b1[0] = 1;
+        var v4 = new InventoryVector(b1.clone());
+        System.out.println(v1.equals(v2));
+        System.out.println(v1.equals(v3));
+        System.out.println(v1.equals(v4));
+        System.out.println(v2.equals(v3));
+        System.out.println(v2.equals(v4));
+        System.out.println(v3.equals(v4));
         return null;
     }
 

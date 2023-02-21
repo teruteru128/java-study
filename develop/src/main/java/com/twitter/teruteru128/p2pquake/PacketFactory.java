@@ -1,8 +1,11 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.p2pquake;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
+
+import com.twitter.teruteru128.study.ArrayDataPacket;
+import com.twitter.teruteru128.study.ListedDataPacket;
 
 /**
  * {@link Packet}を作成するファクトリクラス

@@ -17,7 +17,11 @@ public record NetworkAddress(Instant time, int stream, long services, InetSocket
      * @return
      */
     public static NetworkAddress newInstance(byte[] a) {
-        var work = ByteBuffer.wrap(a);
+        return newInstance(a, 0, a.length);
+    }
+
+    public static NetworkAddress newInstance(byte[] a, int offset, int length) {
+        var work = ByteBuffer.wrap(a, offset, length);
         var time = Instant.ofEpochSecond(work.getLong());
         var stream = work.getInt();
         var services = work.getLong();

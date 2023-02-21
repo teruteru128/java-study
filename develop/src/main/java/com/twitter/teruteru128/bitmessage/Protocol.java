@@ -17,6 +17,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
@@ -257,15 +258,16 @@ public class Protocol {
             socket = sslSocket;
         }
         {
-            //var out = socket.getOutputStream();
+            // var out = socket.getOutputStream();
             var in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             // addr
-            in.readInt();
+            int magic = in.readInt();
             in.read(command, 0, 12);
             System.out.println(new String(command).trim());
             int length = in.readInt();
             System.out.printf("length: %d%n", length);
             in.read(checksum);
+            ArrayList<NetworkAddress> addresses = new ArrayList<NetworkAddress>();
             {
                 var payloadBuffer = ByteBuffer.allocate(length);
                 var payload = payloadBuffer.array();
@@ -278,35 +280,34 @@ public class Protocol {
                     System.out.println("checksum NG!");
                 }
                 payloadBuffer.rewind();
+                int offset = 1;
                 int count = payloadBuffer.get() & 0xff;
                 if (count == 254) {
                     count = payloadBuffer.getInt();
+                    offset += 4;
                 }
                 if (count == 253) {
                     count = payloadBuffer.getShort();
+                    offset += 2;
                 }
                 System.out.printf("count: %d%n", count);
-                var ad = new byte[38];
                 NetworkAddress address2;
-                var list = new ArrayList<NetworkAddress>(count);
+                addresses.ensureCapacity(count);
                 for (int i = 0; i < count; i++) {
-                    payloadBuffer.get(ad);
-                    address2 = NetworkAddress.newInstance(ad);
-                    list.add(address2);
+                    address2 = NetworkAddress.newInstance(payload, offset + i * 38, 38);
+                    addresses.add(address2);
                 }
-                int size = list.size();
+                int size = addresses.size();
                 System.out.printf("count: %d, list size: %d, %s%n", count, size, count == size ? "OK" : "NG");
             }
+            var addrp = new Packet(new PacketHeader(magic, command.clone(), length, checksum.clone()), Optional.of(new Addr(addresses)));
             // inv
-            in.readInt();
+            magic = in.readInt();
             in.read(command);
-            {
-                var c = new String(command).trim();
-                System.out.println(com.twitter.teruteru128.util.Arrays.toHexString(c.toCharArray()));
-            }
             length = in.readInt();
             System.out.printf("length: %d%n", length);
             in.read(checksum);
+            var vectors = new ArrayList<InventoryVector>();
             {
                 var payloadBuffer = ByteBuffer.allocate(length);
                 var payload = payloadBuffer.array();
@@ -330,14 +331,15 @@ public class Protocol {
                 }
                 System.out.printf("count: %d%n", count);
                 byte[] inv_vect = new byte[32];
-                var list = new ArrayList<byte[]>(count);
+                vectors.ensureCapacity(count);
                 for (int i = 0; i < count; i++) {
                     System.arraycopy(payload, offset + i * 32, inv_vect, 0, 32);
-                    list.add(inv_vect.clone());
+                    vectors.add(new InventoryVector(inv_vect.clone()));
                 }
-                int size = list.size();
+                int size = vectors.size();
                 System.out.printf("count: %d, list size: %d, %s%n", count, size, count == size ? "OK" : "NG");
             }
+            var invp = new Packet(new PacketHeader(magic, command, length, checksum), Optional.of(new Inv(vectors)));
         }
         socket.close();
     }
