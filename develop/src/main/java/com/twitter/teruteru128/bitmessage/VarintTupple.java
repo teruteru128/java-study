@@ -22,7 +22,7 @@ public class VarintTupple {
         int firstByte = a.get() & 0xff;
         long value;
         switch (firstByte) {
-            case -3:
+            case 253:
                 if (length < 3) {
                     throw new VarintDecodeException();
                 }
@@ -31,7 +31,7 @@ public class VarintTupple {
                     throw new VarintDecodeException();
                 }
                 return new VarintTupple(value, 3);
-            case -2:
+            case 254:
                 if (length < 5) {
                     throw new VarintDecodeException();
                 }
@@ -40,7 +40,7 @@ public class VarintTupple {
                     throw new VarintDecodeException();
                 }
                 return new VarintTupple(value, 5);
-            case -1:
+            case 255:
                 if (length < 9) {
                     throw new VarintDecodeException();
                 }
