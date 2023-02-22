@@ -1,10 +1,6 @@
 package com.twitter.teruteru128.study;
 
 import java.math.BigInteger;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.security.AlgorithmParameters;
 import java.security.KeyFactory;
 import java.security.Security;
@@ -13,7 +9,6 @@ import java.security.spec.ECGenParameterSpec;
 import java.security.spec.ECParameterSpec;
 import java.security.spec.ECPoint;
 import java.security.spec.ECPublicKeySpec;
-import java.util.Base64;
 import java.util.HexFormat;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
@@ -110,37 +105,6 @@ public class Main implements Callable<Void> {
         // kex.init(encPublicKey);
         System.out.println(sig);
         System.out.println(kex);
-        /*
-         * for (String algo : Security.getAlgorithms("Cipher")) {
-         * System.out.println(algo);
-         * }
-         */
-
-        var client = HttpClient.newBuilder()/* .authenticator(new Authenticator() {
-            @Override
-            public PasswordAuthentication requestPasswordAuthenticationInstance(String host, InetAddress addr, int port,
-                    String protocol, String prompt, String scheme, URL url, RequestorType reqType) {
-                System.out.println("Main.call().new Authenticator() {...}.getPasswordAuthentication()");
-                return super.requestPasswordAuthenticationInstance(host, addr, port, protocol, prompt, scheme, url,
-                        reqType);
-            }
-
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("teruteru128", "analbeads".toCharArray());
-            }
-        }) */.build();
-
-        var request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8442/"))
-                .header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers
-                        .ofString("{\"jsonrpc\": 2.0, \"method\": \"statusBar\", \"params\":[\"AAAAA\"], \"id\": 1}"))
-                .header("Authorization", "Basic" + Base64.getEncoder().encodeToString("teruteru128:analbeads".getBytes()))
-                .build();
-
-        var response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        System.out.println(response.statusCode());
-        System.out.println(response.body());
 
         return null;
     }
