@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.semen;
 
 import java.util.List;
 import java.util.random.RandomGenerator;

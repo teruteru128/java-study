@@ -1,12 +1,8 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.p2pquake;
 
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import com.twitter.teruteru128.p2pquake.NoDataPacket;
-import com.twitter.teruteru128.p2pquake.Packet;
-import com.twitter.teruteru128.p2pquake.SingleDatumPacket;
 
 public class ArrayDataPacket extends Packet {
     private String[] dataArray;

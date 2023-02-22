@@ -4,9 +4,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-import com.twitter.teruteru128.study.ArrayDataPacket;
-import com.twitter.teruteru128.study.ListedDataPacket;
-
 /**
  * {@link Packet}を作成するファクトリクラス
  * NOTE: 一応状態を持てるように各種{@code create}メソッドはインスタンスメソッドにしておく
