@@ -1,13 +1,27 @@
 package com.twitter.teruteru128.study;
 
+import java.math.BigInteger;
+import java.security.AlgorithmParameters;
+import java.security.KeyFactory;
+import java.security.Provider;
 import java.security.Security;
+import java.security.Signature;
+import java.security.spec.ECGenParameterSpec;
+import java.security.spec.ECParameterSpec;
+import java.security.spec.ECPoint;
+import java.security.spec.ECPublicKeySpec;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.HexFormat;
+import java.util.Locale;
+import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import javax.crypto.Cipher;
+import javax.crypto.KeyAgreement;
 
-import com.twitter.teruteru128.bitmessage.InventoryVector;
-import com.twitter.teruteru128.bitmessage.Protocol;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 /**
  * Main
@@ -67,19 +81,95 @@ public class Main implements Callable<Void> {
 
     @Override
     public Void call() throws Exception {
-        Protocol.connect();
-        var b1 = new byte[32];
-        var v1 = new InventoryVector(b1);
-        var v2 = new InventoryVector(b1);
-        var v3 = new InventoryVector(b1.clone());
-        b1[0] = 1;
-        var v4 = new InventoryVector(b1.clone());
-        System.out.println(v1.equals(v2));
-        System.out.println(v1.equals(v3));
-        System.out.println(v1.equals(v4));
-        System.out.println(v2.equals(v3));
-        System.out.println(v2.equals(v4));
-        System.out.println(v3.equals(v4));
+        // Protocol.connect();
+        var parameters = AlgorithmParameters.getInstance("EC");
+        parameters.init(new ECGenParameterSpec("secp256k1"));
+        var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
+
+        var hexFormat = HexFormat.of();
+
+        var s = hexFormat.parseHex(
+                "094C02B90C53CF627A5DF9C6C9961E9476A905C782601C5CBBD546510C66834417572FE987A4C1D036B18E6F1DD00B9213F8D568B09642BFA91E0F4E3BFD0E24");
+        var sx = new BigInteger(s, 0, 32);
+        var sy = new BigInteger(s, 32, 32);
+        var edata = hexFormat.parseHex(
+                "47001D7B44C49BB75369AAB880BF547E86AE21384657B1C8F67E4ED05856E6CDBBFEF225D297426E6AEDCF50605F127F68F14BB23CA21B161F77C1D67277C11B");
+        var ex = new BigInteger(edata, 0, 32);
+        var ey = new BigInteger(edata, 32, 32);
+
+        var signPublicKeySpec = new ECPublicKeySpec(new ECPoint(sx, sy), parameterSpec);
+        var encPublicKeySpec = new ECPublicKeySpec(new ECPoint(ex, ey), parameterSpec);
+
+        var keyFactory = KeyFactory.getInstance("EC");
+
+        var signPublicKey = keyFactory.generatePublic(signPublicKeySpec);
+        var encPublicKey = keyFactory.generatePublic(encPublicKeySpec);
+
+        var sig = Signature.getInstance("SHA256withECDSA");
+        sig.initVerify(signPublicKey);
+        var kex = KeyAgreement.getInstance("ECDH");
+        // kex.init(encPublicKey);
+        System.out.println(sig);
+        System.out.println(kex);
+
+        for (String algo : Security.getAlgorithms("Cipher")) {
+            System.out.println(algo);
+        }
+
+        System.out.println("--");
+        var algos = new String[] { "AES", "AESWrap", "AESWrapPad", "Blowfish", "Twofish", "ChaCha20",
+                "ChaCha20-Poly1305", "DES", "DESede",
+                "DESedeWrap", "ECIES" };
+        var modes = new String[] { "None", "CBC", "CCM", "CFB", "CFBx", "CTR", "CTS", "ECB", "GCM", "KW", "KWP", "OFB",
+                "OFBx", "PCBC" };
+        var paddings = new String[] { "NoPadding", "ISO10126Padding", "OAEPPadding", "PKCS1Padding", "PKCS5Padding",
+                "SSL3Padding" };
+
+        var providers = Security.getProviders();
+
+        for (int i = 0; i < providers.length; i++) {
+            for (Enumeration<Object> e = providers[i].keys(); e.hasMoreElements();) {
+                String currentKey = (String) e.nextElement();
+                if (currentKey.startsWith("PBE")) {
+                    System.out.println();
+                }
+            }
+        }
+
+        for (String algo : algos) {
+            for (String mode : modes) {
+                for (String padding : paddings) {
+                    try {
+                        var cipher = Cipher.getInstance(String.format("%s/%s/%s", algo, mode, padding), "SunJCE");
+                        System.out.printf("%s(%s)%n", cipher.getAlgorithm(), cipher.getProvider());
+                    } catch (Exception e) {
+                        // none
+                    }
+                }
+            }
+        }
+        var digests = new String[] { "MD2", "MD5", "SHA1", "SHA224", "SHA256", "SHA384", "SHA512",
+                "SHA512/224", "SHA512/256", "SHA3-224", "SHA3-256", "SHA3-384", "SHA3-512", "HmacMD5", "HmacSHA1",
+                "HmacSHA224", "HmacSHA256", "HmacSHA384",
+                "HmacSHA512", "HmacSHA3-224", "HmacSHA3-256", "HmacSHA3-384", "HmacSHA3-512" };
+        var encryptions = new String[] { "AES", "AESWrap", "AESWrapPad", "Blowfish", "Twofish", "ChaCha20",
+                "ChaCha20-Poly1305", "DES", "DESede",
+                "DESedeWrap", "ECIES", "AES_128", "AES_256" };
+        for (String digest : digests) {
+            for (String encryption : encryptions) {
+                for (String mode : modes)
+                    for (String padding : paddings) {
+
+                        try {
+                            var cipher = Cipher.getInstance(
+                                    String.format("PBEWith%sand%s/%s/%s", digest, encryption, mode, padding), "SunJCE");
+                            System.out.printf("%s(%s)%n", cipher.getAlgorithm(), cipher.getProvider());
+                        } catch (Exception e) {
+                            // none
+                        }
+                    }
+            }
+        }
         return null;
     }
 
