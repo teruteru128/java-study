@@ -1,17 +1,12 @@
 package com.twitter.teruteru128.study;
 
 import java.math.BigInteger;
-import java.net.Authenticator;
-import java.net.InetAddress;
-import java.net.PasswordAuthentication;
 import java.net.URI;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.security.AlgorithmParameters;
 import java.security.KeyFactory;
-import java.security.Provider;
 import java.security.Security;
 import java.security.Signature;
 import java.security.spec.ECGenParameterSpec;
@@ -19,15 +14,10 @@ import java.security.spec.ECParameterSpec;
 import java.security.spec.ECPoint;
 import java.security.spec.ECPublicKeySpec;
 import java.util.Base64;
-import java.util.Enumeration;
-import java.util.HashSet;
 import java.util.HexFormat;
-import java.util.Locale;
-import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 
-import javax.crypto.Cipher;
 import javax.crypto.KeyAgreement;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -142,7 +132,7 @@ public class Main implements Callable<Void> {
         }) */.build();
 
         var request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8442/"))
-                .header("Content-Type", "application/json-rpc").POST(HttpRequest.BodyPublishers
+                .header("Content-Type", "application/json").POST(HttpRequest.BodyPublishers
                         .ofString("{\"jsonrpc\": 2.0, \"method\": \"statusBar\", \"params\":[\"AAAAA\"], \"id\": 1}"))
                 .header("Authorization", "Basic" + Base64.getEncoder().encodeToString("teruteru128:analbeads".getBytes()))
                 .build();
