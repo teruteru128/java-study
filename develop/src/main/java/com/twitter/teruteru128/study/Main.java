@@ -12,6 +12,8 @@ import java.security.spec.ECPublicKeySpec;
 import java.util.HexFormat;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Stream;
 
 import javax.crypto.KeyAgreement;
 
@@ -71,6 +73,15 @@ public class Main implements Callable<Void> {
         var future = service.submit(main);
         future.get();
         service.shutdown();
+        Stream.generate(() -> {
+            double xx1 = ThreadLocalRandom.current().nextDouble();
+            double yy1 = ThreadLocalRandom.current().nextDouble();
+            double xx2 = ThreadLocalRandom.current().nextDouble();
+            double yy2 = ThreadLocalRandom.current().nextDouble();
+            return new Val(xx1, yy1, xx2, yy2);
+        }).parallel().map(Val::calcD).map(Val::calcX0).filter(v -> Math.abs(v.getX0()) >= (1L << 48)).findFirst()
+                .ifPresentOrElse(System.out::println, () -> System.out.println("Not Found..."));
+
     }
 
     @Override
@@ -105,6 +116,32 @@ public class Main implements Callable<Void> {
         // kex.init(encPublicKey);
         System.out.println(sig);
         System.out.println(kex);
+
+        double x1 = 0;
+        double y1 = 0;
+        double x2 = 0;
+        double y2 = 0;
+        double d = 0;
+        double x0 = 0;
+        double absx0 = 0;
+        long count = 0;
+        do {
+            x1 = ThreadLocalRandom.current().nextDouble();
+            y1 = ThreadLocalRandom.current().nextDouble();
+            x2 = ThreadLocalRandom.current().nextDouble();
+            y2 = ThreadLocalRandom.current().nextDouble();
+            d = (y2 - y1) / (x2 - x1);
+            x0 = (d * x1 - y1) / d;
+            absx0 = Math.abs(x0);
+            if (absx0 >= (1L << 30)) {
+                System.out.printf("(%f(%016x), %f(%016x)), (%f(%016x), %f(%016x)) -> %f(%016x), %f(%016x)%n", x1,
+                        Double.doubleToLongBits(x1), y1,
+                        Double.doubleToLongBits(y1), x2, Double.doubleToLongBits(x2), y2, Double.doubleToLongBits(y2),
+                        d, Double.doubleToLongBits(d), x0, Double.doubleToLongBits(x0));
+            }
+            count++;
+        } while (absx0 < (1L << 32));
+        System.out.printf("count: %d%n", count);
 
         return null;
     }
