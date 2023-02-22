@@ -1,6 +1,14 @@
 package com.twitter.teruteru128.study;
 
 import java.math.BigInteger;
+import java.net.Authenticator;
+import java.net.InetAddress;
+import java.net.PasswordAuthentication;
+import java.net.URI;
+import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.security.AlgorithmParameters;
 import java.security.KeyFactory;
 import java.security.Provider;
@@ -10,6 +18,7 @@ import java.security.spec.ECGenParameterSpec;
 import java.security.spec.ECParameterSpec;
 import java.security.spec.ECPoint;
 import java.security.spec.ECPublicKeySpec;
+import java.util.Base64;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.HexFormat;
@@ -111,65 +120,38 @@ public class Main implements Callable<Void> {
         // kex.init(encPublicKey);
         System.out.println(sig);
         System.out.println(kex);
+        /*
+         * for (String algo : Security.getAlgorithms("Cipher")) {
+         * System.out.println(algo);
+         * }
+         */
 
-        for (String algo : Security.getAlgorithms("Cipher")) {
-            System.out.println(algo);
-        }
-
-        System.out.println("--");
-        var algos = new String[] { "AES", "AESWrap", "AESWrapPad", "Blowfish", "Twofish", "ChaCha20",
-                "ChaCha20-Poly1305", "DES", "DESede",
-                "DESedeWrap", "ECIES" };
-        var modes = new String[] { "None", "CBC", "CCM", "CFB", "CFBx", "CTR", "CTS", "ECB", "GCM", "KW", "KWP", "OFB",
-                "OFBx", "PCBC" };
-        var paddings = new String[] { "NoPadding", "ISO10126Padding", "OAEPPadding", "PKCS1Padding", "PKCS5Padding",
-                "SSL3Padding" };
-
-        var providers = Security.getProviders();
-
-        for (int i = 0; i < providers.length; i++) {
-            for (Enumeration<Object> e = providers[i].keys(); e.hasMoreElements();) {
-                String currentKey = (String) e.nextElement();
-                if (currentKey.startsWith("PBE")) {
-                    System.out.println();
-                }
+        var client = HttpClient.newBuilder()/* .authenticator(new Authenticator() {
+            @Override
+            public PasswordAuthentication requestPasswordAuthenticationInstance(String host, InetAddress addr, int port,
+                    String protocol, String prompt, String scheme, URL url, RequestorType reqType) {
+                System.out.println("Main.call().new Authenticator() {...}.getPasswordAuthentication()");
+                return super.requestPasswordAuthenticationInstance(host, addr, port, protocol, prompt, scheme, url,
+                        reqType);
             }
-        }
 
-        for (String algo : algos) {
-            for (String mode : modes) {
-                for (String padding : paddings) {
-                    try {
-                        var cipher = Cipher.getInstance(String.format("%s/%s/%s", algo, mode, padding), "SunJCE");
-                        System.out.printf("%s(%s)%n", cipher.getAlgorithm(), cipher.getProvider());
-                    } catch (Exception e) {
-                        // none
-                    }
-                }
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("teruteru128", "analbeads".toCharArray());
             }
-        }
-        var digests = new String[] { "MD2", "MD5", "SHA1", "SHA224", "SHA256", "SHA384", "SHA512",
-                "SHA512/224", "SHA512/256", "SHA3-224", "SHA3-256", "SHA3-384", "SHA3-512", "HmacMD5", "HmacSHA1",
-                "HmacSHA224", "HmacSHA256", "HmacSHA384",
-                "HmacSHA512", "HmacSHA3-224", "HmacSHA3-256", "HmacSHA3-384", "HmacSHA3-512" };
-        var encryptions = new String[] { "AES", "AESWrap", "AESWrapPad", "Blowfish", "Twofish", "ChaCha20",
-                "ChaCha20-Poly1305", "DES", "DESede",
-                "DESedeWrap", "ECIES", "AES_128", "AES_256" };
-        for (String digest : digests) {
-            for (String encryption : encryptions) {
-                for (String mode : modes)
-                    for (String padding : paddings) {
+        }) */.build();
 
-                        try {
-                            var cipher = Cipher.getInstance(
-                                    String.format("PBEWith%sand%s/%s/%s", digest, encryption, mode, padding), "SunJCE");
-                            System.out.printf("%s(%s)%n", cipher.getAlgorithm(), cipher.getProvider());
-                        } catch (Exception e) {
-                            // none
-                        }
-                    }
-            }
-        }
+        var request = HttpRequest.newBuilder().uri(URI.create("http://localhost:8442/"))
+                .header("Content-Type", "application/json-rpc").POST(HttpRequest.BodyPublishers
+                        .ofString("{\"jsonrpc\": 2.0, \"method\": \"statusBar\", \"params\":[\"AAAAA\"], \"id\": 1}"))
+                .header("Authorization", "Basic" + Base64.getEncoder().encodeToString("teruteru128:analbeads".getBytes()))
+                .build();
+
+        var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        System.out.println(response.statusCode());
+        System.out.println(response.body());
+
         return null;
     }
 
