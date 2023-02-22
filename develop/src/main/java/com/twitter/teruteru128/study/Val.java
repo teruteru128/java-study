@@ -13,16 +13,8 @@ public class Val {
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
-    }
-
-    public Val calcD() {
         d = (y2 - y1) / (x2 - x1);
-        return this;
-    }
-
-    public Val calcX0() {
         x0 = x1 - y1 / d;
-        return this;
     }
 
     public double getX0() {

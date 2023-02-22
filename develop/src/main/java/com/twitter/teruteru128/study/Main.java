@@ -79,7 +79,7 @@ public class Main implements Callable<Void> {
             double xx2 = ThreadLocalRandom.current().nextDouble();
             double yy2 = ThreadLocalRandom.current().nextDouble();
             return new Val(xx1, yy1, xx2, yy2);
-        }).parallel().map(Val::calcD).map(Val::calcX0).filter(v -> Math.abs(v.getX0()) >= (1L << 48)).findFirst()
+        }).parallel().filter(v -> Math.abs(v.getX0()) < 1./(1L << 48)).findFirst()
                 .ifPresentOrElse(System.out::println, () -> System.out.println("Not Found..."));
 
     }
