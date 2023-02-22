@@ -21,7 +21,7 @@ public class Val {
     }
 
     public Val calcX0() {
-        x0 = (d * x1 - y1) / d;
+        x0 = x1 - y1 / d;
         return this;
     }
 

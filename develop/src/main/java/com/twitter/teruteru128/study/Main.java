@@ -131,7 +131,7 @@ public class Main implements Callable<Void> {
             x2 = ThreadLocalRandom.current().nextDouble();
             y2 = ThreadLocalRandom.current().nextDouble();
             d = (y2 - y1) / (x2 - x1);
-            x0 = (d * x1 - y1) / d;
+            x0 = x1 - y1 / d;
             absx0 = Math.abs(x0);
             if (absx0 >= (1L << 30)) {
                 System.out.printf("(%f(%016x), %f(%016x)), (%f(%016x), %f(%016x)) -> %f(%016x), %f(%016x)%n", x1,
