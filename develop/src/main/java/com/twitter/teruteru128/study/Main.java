@@ -73,7 +73,7 @@ public class Main implements Callable<Void> {
         var future = service.submit(main);
         future.get();
         service.shutdown();
-
+        /* 
         double penisSize1 = 0;
         double penisSize2 = 0;
         for (int i = 0; i < 10; i++) {
@@ -82,6 +82,10 @@ public class Main implements Callable<Void> {
             System.out.printf("%s, %s%n", Double.toString(penisSize1), Double.toString(penisSize2));
         }
         System.out.println(ThreadLocalRandom.current().nextInt(-256, 256));
+        */
+        for (int i = 0; i < 10; i++) {
+            System.out.println(-Math.log(ThreadLocalRandom.current().nextDouble()) * 600);
+        }
         // 原点を通る一次関数とガウス関数をxについて解いてなんかできねえかな……
         // 1次関数 y = ax の a を乱数tan(pi * (1-randomReal())/2)にして y = e^(-x^2) とxに付いて解くとか
     }
