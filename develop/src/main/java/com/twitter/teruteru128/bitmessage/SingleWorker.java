@@ -14,7 +14,7 @@ public class SingleWorker {
         } else {
             ttl = 28 * 24 * 60 * 60;
         }
-        ttl = ttl + ThreadLocalRandom.current().nextInt(-256, 256);
+        ttl = ttl + ThreadLocalRandom.current().nextInt(-300, 300);
         ByteBuffer.allocate(8 + ackData.length).putLong(Instant.now().getEpochSecond() + ttl).put(ackData).array();
 
         return Protocol.createPacket("object".getBytes(), ackData);

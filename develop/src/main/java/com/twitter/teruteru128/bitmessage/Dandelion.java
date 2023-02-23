@@ -45,11 +45,21 @@ public class Dandelion {
         return refresh;
     }
 
+    private static long poisson(long average) {
+        double xp = 1. / (1 - ThreadLocalRandom.current().nextDouble());
+        long count = 0;
+        double exp_average = Math.exp(average);
+        while (xp < exp_average) {
+            xp /= (1 - ThreadLocalRandom.current().nextDouble());
+            count++;
+        }
+        return count;
+    }
+
     private static long poissonTimeout() {
         long start = Instant.now().getEpochSecond();
         long average = FLUFF_TRIGGER_MEAN_DELAY;
-        return (long) (start - Math.log(ThreadLocalRandom.current().nextDouble()) * average
-                + FLUFF_TRIGGER_FIXED_DELAY);
+        return start + poisson(average) + FLUFF_TRIGGER_FIXED_DELAY;
     }
 
     public void addHash(InventoryVector hashId, Object source, int stream) {

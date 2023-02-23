@@ -13,7 +13,6 @@ import java.util.HexFormat;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Stream;
 
 import javax.crypto.KeyAgreement;
 
@@ -63,6 +62,17 @@ public class Main implements Callable<Void> {
 
     private static Main main = new Main();
 
+    private static long poisson(long average) {
+        double xp = 1. / (1 - ThreadLocalRandom.current().nextDouble());
+        long count = 0;
+        double exp_average = Math.exp(average);
+        while (xp < exp_average) {
+            xp /= (1 - ThreadLocalRandom.current().nextDouble());
+            count++;
+        }
+        return count;
+    }
+
     /**
      * 
      * @param args
@@ -73,7 +83,7 @@ public class Main implements Callable<Void> {
         var future = service.submit(main);
         future.get();
         service.shutdown();
-        /* 
+        
         double penisSize1 = 0;
         double penisSize2 = 0;
         for (int i = 0; i < 10; i++) {
@@ -81,13 +91,26 @@ public class Main implements Callable<Void> {
             penisSize2 = ThreadLocalRandom.current().nextDouble(18, 24);
             System.out.printf("%s, %s%n", Double.toString(penisSize1), Double.toString(penisSize2));
         }
+       
         System.out.println(ThreadLocalRandom.current().nextInt(-256, 256));
-        */
-        for (int i = 0; i < 10; i++) {
-            System.out.println(-Math.log(ThreadLocalRandom.current().nextDouble()) * 600);
+        for(int i = 0; i < 10; i++) {
+            System.out.println(poisson(30));
         }
+        System.out.println("--");
+        
+        double r = 0;
+        double s = 0;
+        for (int i = 0; i < 10; i++) {
+            // ここ指数分布
+            r = -Math.log(1 - ThreadLocalRandom.current().nextDouble());
+            s = Math.sqrt(r);
+            System.out.printf("%f, %f%n", r * 600, s * 600);
+        }
+        
         // 原点を通る一次関数とガウス関数をxについて解いてなんかできねえかな……
         // 1次関数 y = ax の a を乱数tan(pi * (1-randomReal())/2)にして y = e^(-x^2) とxに付いて解くとか
+        // y = sqrt(-log(x))
+        // y = sqrt(-log(tan(pi * (1-randomReal())/2)))
     }
 
     @Override
