@@ -1,5 +1,6 @@
 package com.twitter.teruteru128.bitmessage.spec;
 
+import java.nio.ByteBuffer;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -49,25 +50,20 @@ public final class BMAddress {
         }
         byte[] variantVersion = Structs.encodeVarint(version);
         byte[] variantStream = Structs.encodeVarint(stream);
-        byte[] storedBinaryData = new byte[variantVersion.length + variantStream.length + ripe.length + 4];
-        System.arraycopy(variantVersion, 0, storedBinaryData, 0, variantVersion.length);
-        System.arraycopy(variantStream, 0, storedBinaryData, variantVersion.length, variantStream.length);
-        System.arraycopy(ripe, 0, storedBinaryData, variantVersion.length + variantStream.length, ripe.length);
+        var buffer = ByteBuffer.allocate(variantVersion.length + variantStream.length + ripe.length + 4)
+                .put(variantVersion).put(variantStream).put(ripe);
         try {
             MessageDigest sha512 = MessageDigest.getInstance("sha-512");
-            byte[] cache64 = new byte[64];
-            sha512.update(storedBinaryData, 0, storedBinaryData.length - 4);
-            sha512.digest(cache64, 0, 64);
-            sha512.update(cache64, 0, 64);
-            sha512.digest(cache64, 0, 64);
-            System.arraycopy(cache64, 0, storedBinaryData, storedBinaryData.length - 4, 4);
-            return "BM-" + encode(storedBinaryData);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (DigestException e) {
-            e.printStackTrace();
+            byte[] hash = new byte[64];
+            sha512.update(buffer.array(), 0, buffer.capacity() - 4);
+            sha512.digest(hash, 0, 64);
+            sha512.update(hash, 0, 64);
+            sha512.digest(hash, 0, 64);
+            buffer.put(hash, 0, 4);
+            return "BM-" + encode(buffer.array());
+        } catch (NoSuchAlgorithmException | DigestException e) {
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     /**

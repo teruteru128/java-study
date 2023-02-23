@@ -37,17 +37,17 @@ public class Producer implements Callable<Void> {
      * version
      * 
      * generate
-     *  コマンドラインオプション
-     *  スレッド数
-     *  要求する短さ
-     *  キャッシュサイズ(鍵)
-     *  出力先
-     *   標準出力
-     *   ファイル
+     * コマンドラインオプション
+     * スレッド数
+     * 要求する短さ
+     * キャッシュサイズ(鍵)
+     * 出力先
+     * 標準出力
+     * ファイル
      * validate
-     *  address
-     *  signingPrivateKeyWIF
-     *  encryptionPrivateKeyWIF
+     * address
+     * signingPrivateKeyWIF
+     * encryptionPrivateKeyWIF
      *
      * @return
      * @throws NoSuchAlgorithmException
@@ -56,7 +56,6 @@ public class Producer implements Callable<Void> {
      */
     @Override
     public Void call() throws NoSuchAlgorithmException, DigestException {
-
 
         /* instance const */
         final int taskId = request.getTaskID();
@@ -67,8 +66,8 @@ public class Producer implements Callable<Void> {
         byte[] potentialPublicEncryptionKey = null;
         // XXX 生の鍵データを一つの配列に詰め込むのは本当に早いのか？
         final byte[] privateKeys = new byte[keyCacheSize * Const.PRIVATE_KEY_LENGTH];
-        final byte[] iPublicKey = new byte[Const.PUBLIC_KEY_LENGTH];
-        final byte[] jPublicKey = new byte[Const.PUBLIC_KEY_LENGTH];
+        var iPublicKeyBuffer = ByteBuffer.allocate(Const.PUBLIC_KEY_LENGTH);
+        var jPublicKeyBuffer = ByteBuffer.allocate(Const.PUBLIC_KEY_LENGTH);
         final byte[] publicKeys = new byte[keyCacheSize * Const.PUBLIC_KEY_LENGTH];
         var buffer = ByteBuffer.allocate(Const.SHA512_DIGEST_LENGTH);
         var longView = buffer.asLongBuffer();
@@ -102,8 +101,12 @@ public class Producer implements Callable<Void> {
             // 秘密鍵から対応する公開鍵を導出する
             for (int i = 0; i < keyCacheSize; i++) {
                 // 公開鍵の導出は重い処理のため、予め大量に導出しておいて組み合わせたほうが早い
-                potentialPublicEncryptionKey = Const.G.multiply(new BigInteger(1, privateKeys, i * Const.PRIVATE_KEY_LENGTH, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
-                System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * Const.PUBLIC_KEY_LENGTH, Const.PUBLIC_KEY_LENGTH);
+                potentialPublicEncryptionKey = Const.G
+                        .multiply(
+                                new BigInteger(1, privateKeys, i * Const.PRIVATE_KEY_LENGTH, Const.PRIVATE_KEY_LENGTH))
+                        .normalize().getEncoded(false);
+                System.arraycopy(potentialPublicEncryptionKey, 0, publicKeys, i * Const.PUBLIC_KEY_LENGTH,
+                        Const.PUBLIC_KEY_LENGTH);
             }
             publicKeyCacheGenFinish = LocalDateTime.now();
             cacheFinish = LocalDateTime.now();
@@ -112,11 +115,13 @@ public class Producer implements Callable<Void> {
             publicKeyCacheGenFinish.until(cacheFinish, ChronoUnit.SECONDS);
             // System.err.printf("piyo (%d) %s%n", taskId, LocalDateTime.now());
             for (int i = 0; i < keyCacheSize; i++) {
-                System.arraycopy(publicKeys, i * Const.PUBLIC_KEY_LENGTH, iPublicKey, 0, Const.PUBLIC_KEY_LENGTH);
+                iPublicKeyBuffer.put(publicKeys, i * Const.PUBLIC_KEY_LENGTH, Const.PUBLIC_KEY_LENGTH);
+                iPublicKeyBuffer.flip();
                 // ここから
                 // ripeを計算する
-                sha512.update(iPublicKey, 0, Const.PUBLIC_KEY_LENGTH);
-                sha512.update(iPublicKey, 0, Const.PUBLIC_KEY_LENGTH);
+                sha512.update(iPublicKeyBuffer);
+                iPublicKeyBuffer.rewind();
+                sha512.update(iPublicKeyBuffer);
                 sha512.digest(cache64, 0, Const.SHA512_DIGEST_LENGTH);
                 ripemd160.update(cache64, 0, Const.SHA512_DIGEST_LENGTH);
                 ripemd160.digest(cache64, 0, Const.RIPEMD160_DIGEST_LENGTH);
@@ -125,9 +130,11 @@ public class Producer implements Callable<Void> {
                 // 計算したnlz結果が要求値より良好なら
                 if (nlz >= requireNlz) {
                     // responseインスタンスを生成してエンキュー
-                    KeyPair signingKeyPair = new KeyPair(privateKeys, i * Const.PRIVATE_KEY_LENGTH, (i + 1) * Const.PRIVATE_KEY_LENGTH, iPublicKey, 0, 65);
-                    var response = new Response(signingKeyPair, signingKeyPair, Arrays.copyOf(cache64, Const.RIPEMD160_DIGEST_LENGTH));
-                    //System.err.printf("keypair found!(%d) %s%n", taskId, LocalDateTime.now());
+                    KeyPair signingKeyPair = new KeyPair(privateKeys, i * Const.PRIVATE_KEY_LENGTH,
+                            (i + 1) * Const.PRIVATE_KEY_LENGTH, iPublicKeyBuffer.array(), 0, 65);
+                    var response = new Response(signingKeyPair, signingKeyPair,
+                            Arrays.copyOf(cache64, Const.RIPEMD160_DIGEST_LENGTH));
+                    // System.err.printf("keypair found!(%d) %s%n", taskId, LocalDateTime.now());
                     try {
                         Queues.getResponseQueue().put(response);
                     } catch (InterruptedException e) {
@@ -139,13 +146,15 @@ public class Producer implements Callable<Void> {
                 }
                 // ここまで
                 for (int j = 0; j <= i; j++) {
-                    System.arraycopy(publicKeys, j * Const.PUBLIC_KEY_LENGTH, jPublicKey, 0, Const.PUBLIC_KEY_LENGTH);
+                    jPublicKeyBuffer.put(publicKeys, j * Const.PUBLIC_KEY_LENGTH, Const.PUBLIC_KEY_LENGTH);
                     // XXX 変数生成処理をやらせないために1メソッドにベタ打ちしてるんだが、スタック領域に変数を生成/削除するのってそれなりに重い処理なのか？
                     // staticメソッドはメソッドをインライン展開してくれるらしい
                     // ここから
                     // ripeを計算する
-                    sha512.update(iPublicKey, 0, Const.PUBLIC_KEY_LENGTH);
-                    sha512.update(jPublicKey, 0, Const.PUBLIC_KEY_LENGTH);
+                    iPublicKeyBuffer.rewind();
+                    jPublicKeyBuffer.flip();
+                    sha512.update(iPublicKeyBuffer);
+                    sha512.update(jPublicKeyBuffer);
                     sha512.digest(cache64, 0, Const.SHA512_DIGEST_LENGTH);
                     ripemd160.update(cache64, 0, Const.SHA512_DIGEST_LENGTH);
                     ripemd160.digest(cache64, 0, Const.RIPEMD160_DIGEST_LENGTH);
@@ -154,12 +163,15 @@ public class Producer implements Callable<Void> {
                     // 計算したnlz結果が要求値より良好なら
                     if (nlz >= requireNlz) {
                         // responseインスタンスを生成してエンキュー
-                        byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, i * Const.PRIVATE_KEY_LENGTH, (i + 1) * Const.PRIVATE_KEY_LENGTH);
-                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, Arrays.copyOf(iPublicKey, Const.PUBLIC_KEY_LENGTH));
-                        byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, j * Const.PRIVATE_KEY_LENGTH, (j + 1) * Const.PRIVATE_KEY_LENGTH);
-                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, Arrays.copyOf(jPublicKey, Const.PUBLIC_KEY_LENGTH));
-                        var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, Const.RIPEMD160_DIGEST_LENGTH));
-                        //System.err.printf("keypair found!(%d) %s%n", taskId, LocalDateTime.now());
+                        byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, i * Const.PRIVATE_KEY_LENGTH,
+                                (i + 1) * Const.PRIVATE_KEY_LENGTH);
+                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, iPublicKeyBuffer.array());
+                        byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, j * Const.PRIVATE_KEY_LENGTH,
+                                (j + 1) * Const.PRIVATE_KEY_LENGTH);
+                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, jPublicKeyBuffer.array());
+                        var response = new Response(signingKeyPair, encryptionKeyPair,
+                                Arrays.copyOf(cache64, Const.RIPEMD160_DIGEST_LENGTH));
+                        // System.err.printf("keypair found!(%d) %s%n", taskId, LocalDateTime.now());
                         try {
                             Queues.getResponseQueue().put(response);
                         } catch (InterruptedException e) {
@@ -171,9 +183,11 @@ public class Producer implements Callable<Void> {
                     }
                     // ここまで
                     // ここから
+                    iPublicKeyBuffer.rewind();
+                    jPublicKeyBuffer.rewind();
                     // ripeを計算する
-                    sha512.update(jPublicKey, 0, Const.PUBLIC_KEY_LENGTH);
-                    sha512.update(iPublicKey, 0, Const.PUBLIC_KEY_LENGTH);
+                    sha512.update(jPublicKeyBuffer);
+                    sha512.update(iPublicKeyBuffer);
                     sha512.digest(cache64, 0, Const.SHA512_DIGEST_LENGTH);
                     ripemd160.update(cache64, 0, Const.SHA512_DIGEST_LENGTH);
                     ripemd160.digest(cache64, 0, Const.RIPEMD160_DIGEST_LENGTH);
@@ -184,12 +198,14 @@ public class Producer implements Callable<Void> {
                     // 計算したnlz結果が要求値より良好なら
                     if (nlz >= requireNlz) {
                         // responseインスタンスを生成してエンキュー
-                        byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, j * Const.PRIVATE_KEY_LENGTH, (j + 1) * Const.PRIVATE_KEY_LENGTH);
-                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, Arrays.copyOf(jPublicKey, Const.PUBLIC_KEY_LENGTH));
-                        byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, i * Const.PRIVATE_KEY_LENGTH, (i + 1) * Const.PRIVATE_KEY_LENGTH);
-                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, Arrays.copyOf(iPublicKey, Const.PUBLIC_KEY_LENGTH));
+                        byte[] signingPrivateKey = Arrays.copyOfRange(privateKeys, j * Const.PRIVATE_KEY_LENGTH,
+                                (j + 1) * Const.PRIVATE_KEY_LENGTH);
+                        KeyPair signingKeyPair = new KeyPair(signingPrivateKey, jPublicKeyBuffer.array());
+                        byte[] encryptionPrivateKey = Arrays.copyOfRange(privateKeys, i * Const.PRIVATE_KEY_LENGTH,
+                                (i + 1) * Const.PRIVATE_KEY_LENGTH);
+                        KeyPair encryptionKeyPair = new KeyPair(encryptionPrivateKey, iPublicKeyBuffer.array());
                         var response = new Response(signingKeyPair, encryptionKeyPair, Arrays.copyOf(cache64, 20));
-                        //System.err.printf("keypair found!(%d) %s%n", taskId, LocalDateTime.now());
+                        // System.err.printf("keypair found!(%d) %s%n", taskId, LocalDateTime.now());
                         try {
                             Queues.getResponseQueue().put(response);
                         } catch (InterruptedException e) {

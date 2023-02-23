@@ -138,24 +138,23 @@ public class BMAddressGenerator implements Runnable {
      */
     public static String encodeWIF(byte[] key) {
         Objects.requireNonNull(key);
-        // XXX: support other key length?
+        // ???: support other key length?
         if (key.length != 32)
-            throw new IllegalArgumentException("key length is not 32");
-        byte[] wrappedKey = new byte[37]; // 37 = 1 + 32 + 4
+            throw new IllegalArgumentException("key length must be 32 bytes");
         byte[] checksum = new byte[Const.SHA256_DIGEST_LENGTH];
+        // 37 = 1 + 32 + 4
+        var buffer = ByteBuffer.allocate(37).put((byte)0x80).put(key);
 
-        wrappedKey[0] = (byte) 0x80;
-        System.arraycopy(key, 0, wrappedKey, 1, key.length);
         try {
             MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
-            sha256.update(wrappedKey, 0, 33);
+            sha256.update(buffer.array(), 0, 33);
             sha256.digest(checksum, 0, Const.SHA256_DIGEST_LENGTH);
             sha256.update(checksum, 0, Const.SHA256_DIGEST_LENGTH);
             sha256.digest(checksum, 0, Const.SHA256_DIGEST_LENGTH);
         } catch (NoSuchAlgorithmException | DigestException e) {
             // NONE
         }
-        System.arraycopy(checksum, 0, wrappedKey, 33, 4);
-        return BMAddress.encode(wrappedKey);
+        buffer.put(checksum, 0, 4);
+        return BMAddress.encode(buffer.array());
     }
 }

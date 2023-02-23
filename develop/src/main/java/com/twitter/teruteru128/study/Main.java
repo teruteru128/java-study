@@ -73,15 +73,17 @@ public class Main implements Callable<Void> {
         var future = service.submit(main);
         future.get();
         service.shutdown();
-        Stream.generate(() -> {
-            double xx1 = ThreadLocalRandom.current().nextDouble();
-            double yy1 = ThreadLocalRandom.current().nextDouble();
-            double xx2 = ThreadLocalRandom.current().nextDouble();
-            double yy2 = ThreadLocalRandom.current().nextDouble();
-            return new Val(xx1, yy1, xx2, yy2);
-        }).parallel().filter(v -> Math.abs(v.getX0()) < 1./(1L << 48)).findFirst()
-                .ifPresentOrElse(System.out::println, () -> System.out.println("Not Found..."));
 
+        double penisSize1 = 0;
+        double penisSize2 = 0;
+        for (int i = 0; i < 10; i++) {
+            penisSize1 = ThreadLocalRandom.current().nextGaussian(21, 9);
+            penisSize2 = ThreadLocalRandom.current().nextDouble(18, 24);
+            System.out.printf("%s, %s%n", Double.toString(penisSize1), Double.toString(penisSize2));
+        }
+        System.out.println(ThreadLocalRandom.current().nextInt(-256, 256));
+        // 原点を通る一次関数とガウス関数をxについて解いてなんかできねえかな……
+        // 1次関数 y = ax の a を乱数tan(pi * (1-randomReal())/2)にして y = e^(-x^2) とxに付いて解くとか
     }
 
     @Override
@@ -110,38 +112,15 @@ public class Main implements Callable<Void> {
         var signPublicKey = keyFactory.generatePublic(signPublicKeySpec);
         var encPublicKey = keyFactory.generatePublic(encPublicKeySpec);
 
+        System.out.println(signPublicKey);
+        System.out.println(encPublicKey);
+
         var sig = Signature.getInstance("SHA256withECDSA");
         sig.initVerify(signPublicKey);
         var kex = KeyAgreement.getInstance("ECDH");
         // kex.init(encPublicKey);
         System.out.println(sig);
         System.out.println(kex);
-
-        double x1 = 0;
-        double y1 = 0;
-        double x2 = 0;
-        double y2 = 0;
-        double d = 0;
-        double x0 = 0;
-        double absx0 = 0;
-        long count = 0;
-        do {
-            x1 = ThreadLocalRandom.current().nextDouble();
-            y1 = ThreadLocalRandom.current().nextDouble();
-            x2 = ThreadLocalRandom.current().nextDouble();
-            y2 = ThreadLocalRandom.current().nextDouble();
-            d = (y2 - y1) / (x2 - x1);
-            x0 = x1 - y1 / d;
-            absx0 = Math.abs(x0);
-            if (absx0 >= (1L << 30)) {
-                System.out.printf("(%f(%016x), %f(%016x)), (%f(%016x), %f(%016x)) -> %f(%016x), %f(%016x)%n", x1,
-                        Double.doubleToLongBits(x1), y1,
-                        Double.doubleToLongBits(y1), x2, Double.doubleToLongBits(x2), y2, Double.doubleToLongBits(y2),
-                        d, Double.doubleToLongBits(d), x0, Double.doubleToLongBits(x0));
-            }
-            count++;
-        } while (absx0 < (1L << 32));
-        System.out.printf("count: %d%n", count);
 
         return null;
     }

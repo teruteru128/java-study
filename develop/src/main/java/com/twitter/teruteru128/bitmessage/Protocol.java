@@ -55,11 +55,8 @@ public class Protocol {
 
     public static byte[] encodeVarStr(String string) {
         var s = string.getBytes();
-        var length = Structs.encodeVarint(s.length);
-        var ret = new byte[s.length + length.length];
-        System.arraycopy(length, 0, ret, 0, length.length);
-        System.arraycopy(s, 0, ret, length.length, s.length);
-        return ret;
+        var varintLength = Structs.encodeVarint(s.length);
+        return ByteBuffer.allocate(s.length + varintLength.length).put(varintLength).put(s).array();
     }
 
     public static byte[] encodeVarIntList(int[] entries) {
@@ -72,20 +69,17 @@ public class Protocol {
 
     public static byte[] encodeVarIntList(long[] entries) {
         var count = Structs.encodeVarint(entries.length);
-        var e = new byte[entries.length][];
+        var entriesArray = new byte[entries.length][];
         int sumoflength = count.length;
         for (int i = 0; i < entries.length; i++) {
-            e[i] = Structs.encodeVarint(entries[i]);
-            sumoflength += e[i].length;
+            entriesArray[i] = Structs.encodeVarint(entries[i]);
+            sumoflength += entriesArray[i].length;
         }
-        var ret = new byte[sumoflength];
-        System.arraycopy(count, 0, ret, 0, e.length);
-        int subtotal = e.length;
-        for (int i = 0; i < entries.length; i++) {
-            System.arraycopy(e[i], 0, ret, subtotal, e[i].length);
-            subtotal += e[i].length;
+        var buffer = ByteBuffer.allocate(sumoflength).put(count);
+        for (var entry : entriesArray) {
+            buffer.put(entry);
         }
-        return ret;
+        return buffer.array();
     }
 
     public static byte[] createPacket(byte[] command) {
@@ -101,8 +95,7 @@ public class Protocol {
         } catch (NoSuchAlgorithmException e) {
             throw new InternalError(e);
         }
-        var c = new byte[12];
-        System.arraycopy(command, 0, c, 0, command.length);
+        var c = Arrays.copyOf(command, 12);
         checksum = Arrays.copyOf(sha512.digest(payload), 4);
         var b = ByteBuffer.allocate(24 + payloadLength).putInt(0xE9BEB4D9).put(c)
                 .putInt(payloadLength).put(checksum).put(payload).array();
@@ -118,16 +111,11 @@ public class Protocol {
         if (hostname.endsWith(".onion")) {
             // second level domain
             var decodedsld = base32.decode(hostname.split(".")[0]);
-            var ret = new byte[ONION_DOMAIN_PREFIX.length + decodedsld.length];
-            System.arraycopy(ONION_DOMAIN_PREFIX, 0, ret, 0, ONION_DOMAIN_PREFIX.length);
-            System.arraycopy(decodedsld, 0, ret, ONION_DOMAIN_PREFIX.length, decodedsld.length);
-            return ret;
+            return ByteBuffer.allocate(ONION_DOMAIN_PREFIX.length + decodedsld.length).put(ONION_DOMAIN_PREFIX).put(decodedsld).array();
         }
         if (host.getAddress() instanceof Inet4Address) {
-            var b = new byte[16];
-            System.arraycopy(IPV4_MAPPED_IPV6_ADDRESS_PREFIX, 0, b, 0, 12);
-            System.arraycopy(host.getAddress().getAddress(), 0, b, 12, 4);
-            return b;
+            return ByteBuffer.allocate(16).put(IPV4_MAPPED_IPV6_ADDRESS_PREFIX).put(host.getAddress().getAddress())
+                    .array();
         }
         // host.getAddress() instanceof Inet6Address
         return host.getAddress().getAddress();
@@ -137,10 +125,10 @@ public class Protocol {
         return false;
     }
 
-    public static final long NODE_NETWORK = 1 << 0;
-    public static final long NODE_SSL = 1 << 1;
-    public static final long NODE_POW = 1 << 2;
-    public static final long NODE_DANDELION = 1 << 3;
+    public static final long NODE_NETWORK = 1;
+    public static final long NODE_SSL = 2;
+    public static final long NODE_POW = 4;
+    public static final long NODE_DANDELION = 8;
 
     public static byte[] assembleVersionMessage(InetSocketAddress remote, int[] participatingStreams, boolean server,
             long nodeid) {
@@ -300,7 +288,8 @@ public class Protocol {
                 int size = addresses.size();
                 System.out.printf("count: %d, list size: %d, %s%n", count, size, count == size ? "OK" : "NG");
             }
-            var addrp = new Packet(new PacketHeader(magic, command.clone(), length, checksum.clone()), Optional.of(new Addr(addresses)));
+            var addrp = new Packet(new PacketHeader(magic, command.clone(), length, checksum.clone()),
+                    Optional.of(new Addr(addresses)));
             // inv
             magic = in.readInt();
             in.read(command);
@@ -347,5 +336,13 @@ public class Protocol {
     public static boolean verify(byte[] data, byte[] sign, byte[] pubkey) {
         return false;
     }
+
+    public static final int OBJECT_GETPUBKEY = 0;
+    public static final int OBJECT_PUBKEY = 1;
+    public static final int OBJECT_MSG = 2;
+    public static final int OBJECT_BROADCAST = 3;
+    public static final int OBJECT_ONIONPEER = 0x746f72;
+    public static final int OBJECT_I2P = 0x493250;
+    public static final int OBJECT_ADDR = 0x61646472;
 
 }
