@@ -28,7 +28,7 @@ dependencies {
     implementation 'com.google.guava:guava:31.1-jre'
 
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
-    implementation 'org.xerial:sqlite-jdbc:3.40.0.0'
+    implementation 'org.xerial:sqlite-jdbc:3.41.0.0'
 }
 
 test {
