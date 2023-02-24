@@ -1,20 +1,8 @@
 package com.twitter.teruteru128.study;
 
-import java.math.BigInteger;
-import java.security.AlgorithmParameters;
-import java.security.KeyFactory;
 import java.security.Security;
-import java.security.Signature;
-import java.security.spec.ECGenParameterSpec;
-import java.security.spec.ECParameterSpec;
-import java.security.spec.ECPoint;
-import java.security.spec.ECPublicKeySpec;
-import java.util.HexFormat;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadLocalRandom;
-
-import javax.crypto.KeyAgreement;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -62,17 +50,6 @@ public class Main implements Callable<Void> {
 
     private static Main main = new Main();
 
-    private static long poisson(long average) {
-        double xp = 1. / (1 - ThreadLocalRandom.current().nextDouble());
-        long count = 0;
-        double exp_average = Math.exp(average);
-        while (xp < exp_average) {
-            xp /= (1 - ThreadLocalRandom.current().nextDouble());
-            count++;
-        }
-        return count;
-    }
-
     /**
      * 
      * @param args
@@ -83,71 +60,104 @@ public class Main implements Callable<Void> {
         var future = service.submit(main);
         future.get();
         service.shutdown();
-        
-        double penisSize1 = 0;
-        double penisSize2 = 0;
-        for (int i = 0; i < 10; i++) {
-            penisSize1 = ThreadLocalRandom.current().nextGaussian(21, 9);
-            penisSize2 = ThreadLocalRandom.current().nextDouble(18, 24);
-            System.out.printf("%s, %s%n", Double.toString(penisSize1), Double.toString(penisSize2));
-        }
-       
-        System.out.println(ThreadLocalRandom.current().nextInt(-256, 256));
-        for(int i = 0; i < 10; i++) {
-            System.out.println(poisson(30));
-        }
-        System.out.println("--");
-        
-        double r = 0;
-        double s = 0;
-        for (int i = 0; i < 10; i++) {
-            // ここ指数分布
-            r = -Math.log(1 - ThreadLocalRandom.current().nextDouble());
-            s = Math.sqrt(r);
-            System.out.printf("%f, %f%n", r * 600, s * 600);
-        }
-        
+        /*
+         * double penisSize1 = 0;
+         * double penisSize2 = 0;
+         * for (int i = 0; i < 10; i++) {
+         * penisSize1 = ThreadLocalRandom.current().nextGaussian(21, 9);
+         * penisSize2 = ThreadLocalRandom.current().nextDouble(18, 24);
+         * System.out.printf("%s, %s%n", Double.toString(penisSize1),
+         * Double.toString(penisSize2));
+         * }
+         * 
+         * System.out.println(ThreadLocalRandom.current().nextInt(-256, 256));
+         * for(int i = 0; i < 10; i++) {
+         * System.out.println(poisson(30));
+         * }
+         * System.out.println("--");
+         * 
+         * double r = 0;
+         * double s = 0;
+         * for (int i = 0; i < 10; i++) {
+         * // ここ指数分布
+         * r = -Math.log(1 - ThreadLocalRandom.current().nextDouble());
+         * s = Math.sqrt(r);
+         * System.out.printf("%f, %f%n", r * 600, s * 600);
+         * }
+         */
         // 原点を通る一次関数とガウス関数をxについて解いてなんかできねえかな……
         // 1次関数 y = ax の a を乱数tan(pi * (1-randomReal())/2)にして y = e^(-x^2) とxに付いて解くとか
         // y = sqrt(-log(x))
         // y = sqrt(-log(tan(pi * (1-randomReal())/2)))
+        /*
+         * var client = HttpClient.newBuilder().build();
+         * var request = HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/"))
+         * .header("Content-Type", "application/json-rpc")
+         * .header("Authorization", "Basic dGVydXRlcnUxMjg6YW5hbGJlYWRz")
+         * .POST(HttpRequest.BodyPublishers.ofString(
+         * "{\"jsonrpc\": \"2.0\", \"method\": \"helloWorld\", \"params\": [\"33\", \"4\"], \"id\": 1}"
+         * ))
+         * .build();
+         * var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+         * System.out.println(response.statusCode());
+         * System.out.println(response.body());
+         */
+        /* 
+        var generator1 = KeyPairGenerator.getInstance("EC", "BC");
+        // secp256k1はJDK 16で削除されました。
+        generator1.initialize(new ECGenParameterSpec("secp256k1"));
+        var pubKey = (ECPublicKey)generator1.generateKeyPair().getPublic();
+        System.out.println(pubKey.getAlgorithm());
+        System.out.println();
+        System.out.println(pubKey.getFormat());
+        var q = pubKey.getQ();
+        System.out.println(q.getXCoord().getClass());
+        System.out.println(HexFormat.of().formatHex(pubKey.getQ().getEncoded(false)));
+        System.out.println(HexFormat.of().formatHex(pubKey.getEncoded()));
+        */
     }
 
     @Override
     public Void call() throws Exception {
         // Protocol.connect();
-        var parameters = AlgorithmParameters.getInstance("EC");
-        parameters.init(new ECGenParameterSpec("secp256k1"));
-        var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
-
-        var hexFormat = HexFormat.of();
-
-        var s = hexFormat.parseHex(
-                "094C02B90C53CF627A5DF9C6C9961E9476A905C782601C5CBBD546510C66834417572FE987A4C1D036B18E6F1DD00B9213F8D568B09642BFA91E0F4E3BFD0E24");
-        var sx = new BigInteger(s, 0, 32);
-        var sy = new BigInteger(s, 32, 32);
-        var edata = hexFormat.parseHex(
-                "47001D7B44C49BB75369AAB880BF547E86AE21384657B1C8F67E4ED05856E6CDBBFEF225D297426E6AEDCF50605F127F68F14BB23CA21B161F77C1D67277C11B");
-        var ex = new BigInteger(edata, 0, 32);
-        var ey = new BigInteger(edata, 32, 32);
-
-        var signPublicKeySpec = new ECPublicKeySpec(new ECPoint(sx, sy), parameterSpec);
-        var encPublicKeySpec = new ECPublicKeySpec(new ECPoint(ex, ey), parameterSpec);
-
-        var keyFactory = KeyFactory.getInstance("EC");
-
-        var signPublicKey = keyFactory.generatePublic(signPublicKeySpec);
-        var encPublicKey = keyFactory.generatePublic(encPublicKeySpec);
-
-        System.out.println(signPublicKey);
-        System.out.println(encPublicKey);
-
-        var sig = Signature.getInstance("SHA256withECDSA");
-        sig.initVerify(signPublicKey);
-        var kex = KeyAgreement.getInstance("ECDH");
-        // kex.init(encPublicKey);
-        System.out.println(sig);
-        System.out.println(kex);
+        /*
+         * var parameters = AlgorithmParameters.getInstance("EC");
+         * parameters.init(new ECGenParameterSpec("secp256k1"));
+         * var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
+         * 
+         * var hexFormat = HexFormat.of();
+         * 
+         * var s = hexFormat.parseHex(
+         * "094C02B90C53CF627A5DF9C6C9961E9476A905C782601C5CBBD546510C66834417572FE987A4C1D036B18E6F1DD00B9213F8D568B09642BFA91E0F4E3BFD0E24"
+         * );
+         * var sx = new BigInteger(s, 0, 32);
+         * var sy = new BigInteger(s, 32, 32);
+         * var edata = hexFormat.parseHex(
+         * "47001D7B44C49BB75369AAB880BF547E86AE21384657B1C8F67E4ED05856E6CDBBFEF225D297426E6AEDCF50605F127F68F14BB23CA21B161F77C1D67277C11B"
+         * );
+         * var ex = new BigInteger(edata, 0, 32);
+         * var ey = new BigInteger(edata, 32, 32);
+         * 
+         * var signPublicKeySpec = new ECPublicKeySpec(new ECPoint(sx, sy),
+         * parameterSpec);
+         * var encPublicKeySpec = new ECPublicKeySpec(new ECPoint(ex, ey),
+         * parameterSpec);
+         * 
+         * var keyFactory = KeyFactory.getInstance("EC");
+         * 
+         * var signPublicKey = keyFactory.generatePublic(signPublicKeySpec);
+         * var encPublicKey = keyFactory.generatePublic(encPublicKeySpec);
+         * 
+         * System.out.println(signPublicKey);
+         * System.out.println(encPublicKey);
+         * 
+         * var sig = Signature.getInstance("SHA256withECDSA");
+         * sig.initVerify(signPublicKey);
+         * var kex = KeyAgreement.getInstance("ECDH");
+         * // kex.init(encPublicKey);
+         * System.out.println(sig);
+         * System.out.println(kex);
+         */
 
         return null;
     }
