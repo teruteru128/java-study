@@ -3,8 +3,11 @@ package com.twitter.teruteru128.study;
 import java.security.Security;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import com.twitter.teruteru128.bitmessage.Spammer;
 
 /**
  * Main
@@ -56,10 +59,13 @@ public class Main implements Callable<Void> {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var service = Executors.newWorkStealingPool();
-        var future = service.submit(main);
-        future.get();
-        service.shutdown();
+        var service = Executors.newScheduledThreadPool(1);
+        var spammer = new Spammer();
+        var future = service.scheduleAtFixedRate(() -> spammer.doSpam(1000), 0, 5, TimeUnit.MINUTES);
+        service.schedule(() -> {
+            future.cancel(false);
+            service.shutdown();
+        }, 1, TimeUnit.DAYS);
         /*
          * double penisSize1 = 0;
          * double penisSize2 = 0;
@@ -102,20 +108,23 @@ public class Main implements Callable<Void> {
          * System.out.println(response.statusCode());
          * System.out.println(response.body());
          */
-        /* 
-        var generator1 = KeyPairGenerator.getInstance("EC", "BC");
-        // secp256k1はJDK 16で削除されました。
-        generator1.initialize(new ECGenParameterSpec("secp256k1"));
-        var pubKey = (ECPublicKey)generator1.generateKeyPair().getPublic();
-        System.out.println(pubKey.getAlgorithm());
-        System.out.println();
-        System.out.println(pubKey.getFormat());
-        var q = pubKey.getQ();
-        System.out.println(q.getXCoord().getClass());
-        System.out.println(HexFormat.of().formatHex(pubKey.getQ().getEncoded(false)));
-        System.out.println(HexFormat.of().formatHex(pubKey.getEncoded()));
-        */
+        /*
+         * var generator1 = KeyPairGenerator.getInstance("EC", "BC");
+         * // secp256k1はJDK 16で削除されました。
+         * generator1.initialize(new ECGenParameterSpec("secp256k1"));
+         * var pubKey = (ECPublicKey)generator1.generateKeyPair().getPublic();
+         * System.out.println(pubKey.getAlgorithm());
+         * System.out.println();
+         * System.out.println(pubKey.getFormat());
+         * var q = pubKey.getQ();
+         * System.out.println(q.getXCoord().getClass());
+         * System.out.println(HexFormat.of().formatHex(pubKey.getQ().getEncoded(false)))
+         * ;
+         * System.out.println(HexFormat.of().formatHex(pubKey.getEncoded()));
+         */
     }
+
+    private Spammer spammer = new Spammer();
 
     @Override
     public Void call() throws Exception {
@@ -158,7 +167,6 @@ public class Main implements Callable<Void> {
          * System.out.println(sig);
          * System.out.println(kex);
          */
-
         return null;
     }
 
