@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study;
 
 import java.security.Security;
+import java.time.Instant;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -60,8 +61,11 @@ public class Main implements Callable<Void> {
      */
     public static void main(String[] args) throws Exception {
         var service = Executors.newScheduledThreadPool(1);
-        var spammer = new Spammer();
-        var future = service.scheduleAtFixedRate(() -> spammer.doSpam(1000), 0, 5, TimeUnit.MINUTES);
+        var s = Instant.now().getEpochSecond();
+        var s2 = ((s + 299) / 300) * 300;
+        var diff = s2 - s;
+        System.out.printf("%d秒待機します……%n", diff);
+        var future = service.scheduleAtFixedRate(() -> new Spammer().doSpam(1000), diff, 300, TimeUnit.SECONDS);
         service.schedule(() -> {
             future.cancel(false);
             service.shutdown();
