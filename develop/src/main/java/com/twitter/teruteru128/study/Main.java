@@ -64,7 +64,8 @@ public class Main implements Callable<Void> {
     public static void main(String[] args) throws Exception {
         var service = Executors.newScheduledThreadPool(1);
         var now = Instant.now();
-        var target = now.plus(5, ChronoUnit.MINUTES).truncatedTo(ChronoUnit.MINUTES);
+        var fiveMinutes = new DetailedChronoUnit("FIVE_MINUTES", Duration.ofSeconds(300));
+        var target = now.plus(5, ChronoUnit.MINUTES).truncatedTo(fiveMinutes);
         var diff = Duration.between(now, target);
         System.out.printf("%d分%d.%03d秒待機します……%n", diff.toMinutesPart(), diff.toSecondsPart(), diff.toMillisPart());
         var future = service.scheduleAtFixedRate(() -> new Spammer().doSpam(1000), diff.toMillis(), 300000, TimeUnit.MILLISECONDS);
