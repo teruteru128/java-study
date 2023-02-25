@@ -9,6 +9,9 @@ public class DetailedChronoUnit implements TemporalUnit {
     private final String name;
     private final Duration duration;
 
+    public static final DetailedChronoUnit FIVE_MINUTES = new DetailedChronoUnit("FiveMinutes", Duration.ofSeconds(300));
+    public static final DetailedChronoUnit TEN_MINUTES = new DetailedChronoUnit("TenMinutes", Duration.ofSeconds(600));
+
     public DetailedChronoUnit(String name, Duration estimatedDuration) {
         this.name = name;
         this.duration = estimatedDuration;

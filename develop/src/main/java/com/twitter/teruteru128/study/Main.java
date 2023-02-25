@@ -3,7 +3,6 @@ package com.twitter.teruteru128.study;
 import java.security.Security;
 import java.time.Duration;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -64,11 +63,17 @@ public class Main implements Callable<Void> {
     public static void main(String[] args) throws Exception {
         var service = Executors.newScheduledThreadPool(1);
         var now = Instant.now();
-        var fiveMinutes = new DetailedChronoUnit("FIVE_MINUTES", Duration.ofSeconds(300));
-        var target = now.plus(5, ChronoUnit.MINUTES).truncatedTo(fiveMinutes);
+        // durUnit 単位で切り上げ
+        var durUnit = DetailedChronoUnit.TEN_MINUTES.getDuration();
+        var dur = durUnit.toNanos();
+        var nod = (now.getEpochSecond() % 86400) * 1000_000_000L + now.getNano();
+        // TODO replace to ceilDiv on JDK 18
+        var result = (long) Math.ceil((double) nod / dur) * dur;
+        var target = now.plusNanos(result - nod);
         var diff = Duration.between(now, target);
-        System.out.printf("%d分%d.%03d秒待機します……%n", diff.toMinutesPart(), diff.toSecondsPart(), diff.toMillisPart());
-        var future = service.scheduleAtFixedRate(() -> new Spammer().doSpam(1000), diff.toMillis(), 300000, TimeUnit.MILLISECONDS);
+        System.out.printf("%d分%d秒%09d待機します……%n", diff.toMinutesPart(), diff.toSecondsPart(), diff.toNanosPart());
+        var future = service.scheduleAtFixedRate(() -> new Spammer().doSpam(1000), diff.toMillis(), durUnit.toMillis(),
+                TimeUnit.MILLISECONDS);
         service.schedule(() -> {
             future.cancel(false);
             service.shutdown();
@@ -130,8 +135,6 @@ public class Main implements Callable<Void> {
          * System.out.println(HexFormat.of().formatHex(pubKey.getEncoded()));
          */
     }
-
-    private Spammer spammer = new Spammer();
 
     @Override
     public Void call() throws Exception {
