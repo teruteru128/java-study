@@ -1,12 +1,33 @@
 package com.twitter.teruteru128.study;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SecureRandom;
 import java.security.Security;
+import java.security.spec.ECGenParameterSpec;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.HexFormat;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
+
+import org.bouncycastle.jce.interfaces.ECPublicKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import com.twitter.teruteru128.bitmessage.Spammer;
@@ -55,16 +76,96 @@ public class Main implements Callable<Void> {
 
     private static Main main = new Main();
 
+    public static void aesSample() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
+            IllegalBlockSizeException, BadPaddingException {
+        var cipher = Cipher.getInstance("AES/ECB/NoPadding");
+        var key = new byte[96];
+        new SecureRandom().nextBytes(key);
+        var keySpec1 = new SecretKeySpec(key, 0, 32, "AES");
+        var keySpec2 = new SecretKeySpec(key, 32, 32, "AES");
+        var keySpec3 = new SecretKeySpec(key, 64, 32, "AES");
+        var message = new byte[16];
+        var format = HexFormat.of();
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec1);
+        var work = cipher.doFinal(message);
+        cipher.init(Cipher.DECRYPT_MODE, keySpec2);
+        work = cipher.doFinal(work);
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec3);
+        work = cipher.doFinal(work);
+        System.out.println(format.formatHex(work));
+    }
+
+    public static void secp256k1GenerateSample()
+            throws NoSuchAlgorithmException, NoSuchProviderException, InvalidAlgorithmParameterException {
+        var generator1 = KeyPairGenerator.getInstance("EC", "BC");
+        // secp256k1はJDK 16で削除されました。
+        generator1.initialize(new ECGenParameterSpec("secp256k1"));
+        var pubKey = (ECPublicKey) generator1.generateKeyPair().getPublic();
+        System.out.println(pubKey.getAlgorithm());
+        System.out.println(pubKey.getFormat());
+        var q = pubKey.getQ();
+        System.out.println(q.getXCoord().getClass());
+        System.out.println(HexFormat.of().formatHex(pubKey.getQ().getEncoded(false)));
+        System.out.println(HexFormat.of().formatHex(pubKey.getEncoded()));
+
+    }
+
+    private static final HttpClient CLIENT = HttpClient.newBuilder().build();
+
+    public static void jsonRPCRequestSample() throws IOException, InterruptedException {
+        var request = HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/"))
+                .header("Content-Type", "application/json-rpc")
+                .header("Authorization", "Basic dGVydXRlcnUxMjg6YW5hbGJlYWRz")
+                .POST(HttpRequest.BodyPublishers.ofString(
+                        "{\"jsonrpc\": \"2.0\", \"method\": \"helloWorld\", \"params\": [\"33\", \"4\"], \"id\": 1}"))
+                .build();
+        var response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.statusCode());
+        System.out.println(response.body());
+
+    }
+
+    public static double triangularDistribution(double min, double max, double mean, double x) {
+        if (min >= mean || mean >= max || min >= max) {
+            throw new IllegalArgumentException();
+        }
+        double frac = (mean - min) / (max - min);
+        if (x < frac) {
+            return Math.sqrt(x * (mean - min) * (max - min)) + min;
+        }
+        return -Math.sqrt((1 - x) * (max - mean) * (max - min)) + max;
+    }
+
+    public static void chinpo() {
+        System.out.println();
+        double penisSize1 = 0;
+        double penisSize2 = 0;
+        double penisSize3 = 0;
+        double penisSize4 = 0;
+        
+        for (int i = 0; i < 10; i++) {
+            penisSize1 = ThreadLocalRandom.current().nextGaussian(21, 9);
+            penisSize2 = ThreadLocalRandom.current().nextDouble(18, 24);
+            System.out.printf("%s, %s%n", Double.toString(penisSize1), Double.toString(penisSize2));
+        }
+        for (int i = 0; i < 10; i++) {
+            penisSize3 = triangularDistribution(18, 30, 24, ThreadLocalRandom.current().nextDouble());
+            penisSize4 = triangularDistribution(9, 17, 15, ThreadLocalRandom.current().nextDouble());
+            System.out.printf("%s, %s%n", Double.toString(penisSize3), Double.toString(penisSize4));
+        }
+    }
+
     /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        /* 
         var service = Executors.newScheduledThreadPool(1);
         var now = Instant.now();
         // durUnit 単位で切り上げ
-        var durUnit = DetailedChronoUnit.TEN_MINUTES.getDuration();
+        var durUnit = DetailedChronoUnit.FIVE_MINUTES.getDuration();
         var dur = durUnit.toNanos();
         var nod = (now.getEpochSecond() % 86400) * 1000_000_000L + now.getNano();
         // TODO replace to ceilDiv on JDK 18
@@ -78,16 +179,9 @@ public class Main implements Callable<Void> {
             future.cancel(false);
             service.shutdown();
         }, 1, TimeUnit.DAYS);
+         */
+        chinpo();
         /*
-         * double penisSize1 = 0;
-         * double penisSize2 = 0;
-         * for (int i = 0; i < 10; i++) {
-         * penisSize1 = ThreadLocalRandom.current().nextGaussian(21, 9);
-         * penisSize2 = ThreadLocalRandom.current().nextDouble(18, 24);
-         * System.out.printf("%s, %s%n", Double.toString(penisSize1),
-         * Double.toString(penisSize2));
-         * }
-         * 
          * System.out.println(ThreadLocalRandom.current().nextInt(-256, 256));
          * for(int i = 0; i < 10; i++) {
          * System.out.println(poisson(30));
