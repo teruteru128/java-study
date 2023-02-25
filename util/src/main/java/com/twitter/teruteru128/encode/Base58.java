@@ -1,6 +1,9 @@
 
 package com.twitter.teruteru128.encode;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.CharBuffer;
 import java.util.Arrays;
 
 /**
@@ -26,10 +29,9 @@ public class Base58 {
     }
   }
 
-  public static String encode(byte[] input) {
+  public static <A extends Appendable> A encode(A out, byte[] input) {
     if (input.length == 0) {
-      // paying with the same coin
-      return "";
+      return out;
     }
 
     //
@@ -75,8 +77,18 @@ public class Base58 {
       temp[--j] = (byte) ALPHABET[0];
     }
 
-    byte[] output = Arrays.copyOfRange(temp, j, temp.length);
-    return new String(output);
+    try {
+    for (int i = j; i < temp.length; i++) {
+        out.append((char) temp[i]);
+      }
+    } catch (IOException e) {
+      throw new UncheckedIOException(e.getMessage(), e);
+    }
+    return out;
+  }
+
+  public static String encode(byte[] input) {
+    return encode(CharBuffer.allocate((int)(input.length * 1.366)), input).toString();
   }
 
   public static byte[] decode(String input) {
