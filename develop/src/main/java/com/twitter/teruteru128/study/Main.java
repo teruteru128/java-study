@@ -5,9 +5,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyPairGenerator;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
@@ -16,6 +21,7 @@ import java.security.spec.ECGenParameterSpec;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.HexFormat;
+import java.util.LinkedList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
@@ -27,10 +33,12 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.commons.math3.distribution.TriangularDistribution;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import com.twitter.teruteru128.bitmessage.Spammer;
+import com.twitter.teruteru128.bitmessage.Dandelion;
+import com.twitter.teruteru128.bitmessage.app.Spammer;
 
 /**
  * Main
@@ -76,6 +84,12 @@ public class Main implements Callable<Void> {
 
     private static Main main = new Main();
 
+    /**
+     * {@link Dandelion#poissonTimeout()}のサンプル
+     * 
+     * @param average
+     * @return
+     */
     private static long poisson(long average) {
         double xp = 1. / (1 - ThreadLocalRandom.current().nextDouble());
         long count = 0;
@@ -136,6 +150,14 @@ public class Main implements Callable<Void> {
 
     }
 
+    /**
+     * @see org.apache.commons.math3.distribution.TriangularDistribution
+     * @param min
+     * @param max
+     * @param mean
+     * @param x
+     * @return
+     */
     public static double triangularDistribution(double min, double max, double mean, double x) {
         if (min >= mean || mean >= max || min >= max) {
             throw new IllegalArgumentException();
@@ -147,6 +169,7 @@ public class Main implements Callable<Void> {
         return -Math.sqrt((1 - x) * (max - mean) * (max - min)) + max;
     }
 
+    /***/
     public static void chinpo() {
         System.out.println();
         double penisSize1 = 0;
@@ -167,17 +190,40 @@ public class Main implements Callable<Void> {
     }
 
     /**
+     * @see org.apache.commons.math3.distribution.ExponentialDistribution
+    */
+    public static void anyDistributionSample() {
+        double r = 0;
+        double s = 0;
+        for (int i = 0; i < 10; i++) {
+            // ここ指数分布
+            r = -Math.log(1 - ThreadLocalRandom.current().nextDouble());
+            s = Math.sqrt(r);
+            System.out.printf("%f, %f%n", r * 600, s * 600);
+        }
+    }
+
+    /**
+     * 
+     * @param length
+     * @param ttl
+     * @param proofOfWorkNonceTrialsPerByte
+     * @param payloadLengthExtraBytes
+     * @return
+     */
+    static long calcTarget(int length, int ttl, int proofOfWorkNonceTrialsPerByte, int payloadLengthExtraBytes) {
+        return (long) (0x1p64 / (proofOfWorkNonceTrialsPerByte * (length + 8 + payloadLengthExtraBytes + ((ttl * (length + 8 + payloadLengthExtraBytes)) / 0x1p16))));
+    }
+
+    /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        /* 
         var spammer = new Spammer();
-        System.out.println(spammer.createBody(0).length());
-        var b = spammer.createBody(1);
-        System.out.println(b);
-        System.out.println(b.length());
-        System.out.println(spammer.createBody(1000).length());
+        spammer.doSpam(10000);
 
         var service = Executors.newScheduledThreadPool(1);
         var now = Instant.now();
@@ -189,28 +235,27 @@ public class Main implements Callable<Void> {
         var result = (long) Math.ceil((double) nod / dur) * dur;
         var target = now.plusNanos(result - nod);
         var diff = Duration.between(now, target);
-        System.out.printf("%d分%d秒%09d待機します……%n", diff.toMinutesPart(), diff.toSecondsPart(), diff.toNanosPart());
-        var future = service.scheduleAtFixedRate(() -> spammer.doSpam(1000), diff.toMillis(), durUnit.toMillis(),
-                TimeUnit.MILLISECONDS);
+        System.out.printf("%d分%d秒%09d待機します……%n", diff.toMinutesPart(),
+        diff.toSecondsPart(), diff.toNanosPart());
+        var future = service.scheduleAtFixedRate(() -> spammer.doSpam(1000),
+        diff.toMillis(), durUnit.toMillis(),
+        TimeUnit.MILLISECONDS);
         service.schedule(() -> {
-            future.cancel(false);
-            service.shutdown();
+        future.cancel(false);
+        service.shutdown();
         }, 1, TimeUnit.DAYS);
+         */
+        var d = new TriangularDistribution(24, 25, 30);
+        for(int i = 0; i< 10;i++){
+            System.out.println(d.sample());
+        }
 
-        System.out.println(ThreadLocalRandom.current().nextInt(-256, 256));
+        // 28 days from now plus or minus five minutes
+        // System.out.println(ThreadLocalRandom.current().nextInt(-256, 256));
+        /* 
         for (int i = 0; i < 10; i++) {
             System.out.println(poisson(30));
-        }
-        System.out.println("--");
-
-        double r = 0;
-        double s = 0;
-        for (int i = 0; i < 10; i++) {
-            // ここ指数分布
-            r = -Math.log(1 - ThreadLocalRandom.current().nextDouble());
-            s = Math.sqrt(r);
-            System.out.printf("%f, %f%n", r * 600, s * 600);
-        }
+        } */
 
         // 原点を通る一次関数とガウス関数をxについて解いてなんかできねえかな……
         // 1次関数 y = ax の a を乱数tan(pi * (1-randomReal())/2)にして y = e^(-x^2) とxに付いて解くとか

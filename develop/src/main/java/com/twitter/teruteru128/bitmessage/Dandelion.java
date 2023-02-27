@@ -56,6 +56,13 @@ public class Dandelion {
         return count;
     }
 
+    /**
+     * ポアソン分布に基づくタイムアウト時間選定。
+     * 
+     * なんかアルゴリズム間違ってるらしいよ？
+     * @see org.apache.commons.math3.distribution.PoissonDistribution
+     * @return
+    */
     private static long poissonTimeout() {
         long start = Instant.now().getEpochSecond();
         long average = FLUFF_TRIGGER_MEAN_DELAY;

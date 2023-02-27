@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage;
+package com.twitter.teruteru128.bitmessage.app;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;

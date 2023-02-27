@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage;
+package com.twitter.teruteru128.bitmessage.app;
 
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -16,6 +16,9 @@ import java.util.function.Function;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import com.twitter.teruteru128.bitmessage.Const;
+import com.twitter.teruteru128.bitmessage.DeterministicAddress;
+import com.twitter.teruteru128.bitmessage.Structs;
 import com.twitter.teruteru128.bitmessage.genaddress.BMAddressGenerator;
 import com.twitter.teruteru128.bitmessage.spec.BMAddress;
 
