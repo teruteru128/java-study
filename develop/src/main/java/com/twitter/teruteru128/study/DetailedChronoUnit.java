@@ -11,6 +11,7 @@ public class DetailedChronoUnit implements TemporalUnit {
 
     public static final DetailedChronoUnit FIVE_MINUTES = new DetailedChronoUnit("FiveMinutes", Duration.ofSeconds(300));
     public static final DetailedChronoUnit TEN_MINUTES = new DetailedChronoUnit("TenMinutes", Duration.ofSeconds(600));
+    public static final DetailedChronoUnit HALF_AN_HOUR = new DetailedChronoUnit("halfAnHour", Duration.ofSeconds(1800));
 
     public DetailedChronoUnit(String name, Duration estimatedDuration) {
         this.name = name;

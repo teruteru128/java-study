@@ -5,27 +5,23 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyPairGenerator;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.security.spec.ECGenParameterSpec;
-import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HexFormat;
-import java.util.LinkedList;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -33,12 +29,11 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.apache.commons.math3.distribution.TriangularDistribution;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.sqlite.SQLiteDataSource;
 
 import com.twitter.teruteru128.bitmessage.Dandelion;
-import com.twitter.teruteru128.bitmessage.app.Spammer;
 
 /**
  * Main
@@ -70,7 +65,7 @@ import com.twitter.teruteru128.bitmessage.app.Spammer;
  * Ya/piNyZ969sH/qUEPDazlnQVgRnbyLGN6RI+4YvGZoHGdbPw3tgQDktJs9pXYhF+KZoFo0T/bBjZuxUAmCqWA==
  * mgbBWuOBHpn/wEm10SiPBZgiulzISK44ngU/m/14uzvTrIXrKlqeDnq5ONvwM6TyYsQwM2dP4wR5/shIxymU4g==
  */
-public class Main implements Callable<Void> {
+public class Main implements Callable<Map<Instant, Integer>> {
 
     static {
         if (Security.getProvider("BC") == null) {
@@ -90,7 +85,7 @@ public class Main implements Callable<Void> {
      * @param average
      * @return
      */
-    private static long poisson(long average) {
+    public static long poisson(long average) {
         double xp = 1. / (1 - ThreadLocalRandom.current().nextDouble());
         long count = 0;
         double exp_average = Math.exp(average);
@@ -191,7 +186,7 @@ public class Main implements Callable<Void> {
 
     /**
      * @see org.apache.commons.math3.distribution.ExponentialDistribution
-    */
+     */
     public static void anyDistributionSample() {
         double r = 0;
         double s = 0;
@@ -212,7 +207,8 @@ public class Main implements Callable<Void> {
      * @return
      */
     static long calcTarget(int length, int ttl, int proofOfWorkNonceTrialsPerByte, int payloadLengthExtraBytes) {
-        return (long) (0x1p64 / (proofOfWorkNonceTrialsPerByte * (length + 8 + payloadLengthExtraBytes + ((ttl * (length + 8 + payloadLengthExtraBytes)) / 0x1p16))));
+        return (long) (0x1p64 / (proofOfWorkNonceTrialsPerByte
+                * (length + 8 + payloadLengthExtraBytes + ((ttl * (length + 8 + payloadLengthExtraBytes)) / 0x1p16))));
     }
 
     /**
@@ -221,90 +217,49 @@ public class Main implements Callable<Void> {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        /* 
-        var spammer = new Spammer();
-        spammer.doSpam(10000);
-
-        var service = Executors.newScheduledThreadPool(1);
-        var now = Instant.now();
-        // durUnit 単位で切り上げ
-        var durUnit = DetailedChronoUnit.FIVE_MINUTES.getDuration();
-        var dur = durUnit.toNanos();
-        var nod = (now.getEpochSecond() % 86400) * 1000_000_000L + now.getNano();
-        // TODO replace to ceilDiv on JDK 18
-        var result = (long) Math.ceil((double) nod / dur) * dur;
-        var target = now.plusNanos(result - nod);
-        var diff = Duration.between(now, target);
-        System.out.printf("%d分%d秒%09d待機します……%n", diff.toMinutesPart(),
-        diff.toSecondsPart(), diff.toNanosPart());
-        var future = service.scheduleAtFixedRate(() -> spammer.doSpam(1000),
-        diff.toMillis(), durUnit.toMillis(),
-        TimeUnit.MILLISECONDS);
-        service.schedule(() -> {
-        future.cancel(false);
-        service.shutdown();
-        }, 1, TimeUnit.DAYS);
-         */
-        var d = new TriangularDistribution(24, 25, 30);
-        for(int i = 0; i< 10;i++){
-            System.out.println(d.sample());
+        if (args.length < 1) {
+            return;
         }
-
-        // 28 days from now plus or minus five minutes
-        // System.out.println(ThreadLocalRandom.current().nextInt(-256, 256));
-        /* 
-        for (int i = 0; i < 10; i++) {
-            System.out.println(poisson(30));
-        } */
-
-        // 原点を通る一次関数とガウス関数をxについて解いてなんかできねえかな……
-        // 1次関数 y = ax の a を乱数tan(pi * (1-randomReal())/2)にして y = e^(-x^2) とxに付いて解くとか
-        // y = sqrt(-log(x))
-        // y = sqrt(-log(tan(pi * (1-randomReal())/2)))
+        main.setUrl(args[0]);
+        var service = Executors.newWorkStealingPool();
+        var future = service.submit(main);
+        var result = future.get();
+        var id = ZoneId.systemDefault();
+        for (Map.Entry<Instant, Integer> entry : result.entrySet()) {
+            System.out.printf("%s: %d%n", LocalDateTime.ofInstant(entry.getKey(), id), entry.getValue());
+        }
+        service.shutdown();
     }
 
+    private void setUrl(String url) {
+        this.url = url;
+    }
+
+    private String url = "";
+
     @Override
-    public Void call() throws Exception {
-        // Protocol.connect();
-        /*
-         * var parameters = AlgorithmParameters.getInstance("EC");
-         * parameters.init(new ECGenParameterSpec("secp256k1"));
-         * var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
-         * 
-         * var hexFormat = HexFormat.of();
-         * 
-         * var s = hexFormat.parseHex(
-         * "094C02B90C53CF627A5DF9C6C9961E9476A905C782601C5CBBD546510C66834417572FE987A4C1D036B18E6F1DD00B9213F8D568B09642BFA91E0F4E3BFD0E24"
-         * );
-         * var sx = new BigInteger(s, 0, 32);
-         * var sy = new BigInteger(s, 32, 32);
-         * var edata = hexFormat.parseHex(
-         * "47001D7B44C49BB75369AAB880BF547E86AE21384657B1C8F67E4ED05856E6CDBBFEF225D297426E6AEDCF50605F127F68F14BB23CA21B161F77C1D67277C11B"
-         * );
-         * var ex = new BigInteger(edata, 0, 32);
-         * var ey = new BigInteger(edata, 32, 32);
-         * 
-         * var signPublicKeySpec = new ECPublicKeySpec(new ECPoint(sx, sy),
-         * parameterSpec);
-         * var encPublicKeySpec = new ECPublicKeySpec(new ECPoint(ex, ey),
-         * parameterSpec);
-         * 
-         * var keyFactory = KeyFactory.getInstance("EC");
-         * 
-         * var signPublicKey = keyFactory.generatePublic(signPublicKeySpec);
-         * var encPublicKey = keyFactory.generatePublic(encPublicKeySpec);
-         * 
-         * System.out.println(signPublicKey);
-         * System.out.println(encPublicKey);
-         * 
-         * var sig = Signature.getInstance("SHA256withECDSA");
-         * sig.initVerify(signPublicKey);
-         * var kex = KeyAgreement.getInstance("ECDH");
-         * // kex.init(encPublicKey);
-         * System.out.println(sig);
-         * System.out.println(kex);
-         */
-        return null;
+    public Map<Instant, Integer> call() throws Exception {
+        if(url == null || url.isEmpty()) {
+            return Map.of();
+        }
+        var dataSource = new SQLiteDataSource();
+        dataSource.setUrl(url);
+        var map = new TreeMap<Instant, Integer>();
+        try (var connection = dataSource.getConnection();
+                var statement = connection.createStatement();
+                var set = statement.executeQuery(
+                        "SELECT sleeptill from sent where folder = 'sent' and fromaddress = 'BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM' and toaddress like 'BM-%' and datetime(sleeptill, 'unixepoch', 'localtime') < datetime('now', 'localtime', '+1 hour')")) {
+            while (set.next()) {
+                var instant = Instant.ofEpochSecond(set.getLong("sleeptill"))
+                        .truncatedTo(DetailedChronoUnit.FIVE_MINUTES);
+                if (map.containsKey(instant)) {
+                    map.put(instant, Math.incrementExact(map.get(instant)));
+                } else {
+                    map.put(instant, Integer.valueOf(1));
+                }
+            }
+        }
+        return map;
     }
 
 }
