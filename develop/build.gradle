@@ -19,7 +19,7 @@ plugins {
     //id 'java-library'
     // https://github.com/java9-modularity/gradle-modules-plugin
     id 'org.javamodularity.moduleplugin' version '1.8.12' apply true
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'com.github.johnrengelman.shadow' version '8.0.0'
 }
 
 //javaModule.name = 'com.teruteru128.study'
