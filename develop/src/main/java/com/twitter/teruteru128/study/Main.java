@@ -5,31 +5,16 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
-import java.security.SecureRandom;
 import java.security.Security;
-import java.security.spec.ECGenParameterSpec;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.HexFormat;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.SecretKeySpec;
-
-import org.bouncycastle.jce.interfaces.ECPublicKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.sqlite.SQLiteDataSource;
 
@@ -94,40 +79,6 @@ public class Main implements Callable<Map<Instant, Integer>> {
             count++;
         }
         return count;
-    }
-
-    public static void aesSample() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
-            IllegalBlockSizeException, BadPaddingException {
-        var cipher = Cipher.getInstance("AES/ECB/NoPadding");
-        var key = new byte[96];
-        new SecureRandom().nextBytes(key);
-        var keySpec1 = new SecretKeySpec(key, 0, 32, "AES");
-        var keySpec2 = new SecretKeySpec(key, 32, 32, "AES");
-        var keySpec3 = new SecretKeySpec(key, 64, 32, "AES");
-        var message = new byte[16];
-        var format = HexFormat.of();
-        cipher.init(Cipher.ENCRYPT_MODE, keySpec1);
-        var work = cipher.doFinal(message);
-        cipher.init(Cipher.DECRYPT_MODE, keySpec2);
-        work = cipher.doFinal(work);
-        cipher.init(Cipher.ENCRYPT_MODE, keySpec3);
-        work = cipher.doFinal(work);
-        System.out.println(format.formatHex(work));
-    }
-
-    public static void secp256k1GenerateSample()
-            throws NoSuchAlgorithmException, NoSuchProviderException, InvalidAlgorithmParameterException {
-        var generator1 = KeyPairGenerator.getInstance("EC", "BC");
-        // secp256k1はJDK 16で削除されました。
-        generator1.initialize(new ECGenParameterSpec("secp256k1"));
-        var pubKey = (ECPublicKey) generator1.generateKeyPair().getPublic();
-        System.out.println(pubKey.getAlgorithm());
-        System.out.println(pubKey.getFormat());
-        var q = pubKey.getQ();
-        System.out.println(q.getXCoord().getClass());
-        System.out.println(HexFormat.of().formatHex(pubKey.getQ().getEncoded(false)));
-        System.out.println(HexFormat.of().formatHex(pubKey.getEncoded()));
-
     }
 
     private static final HttpClient CLIENT = HttpClient.newBuilder().build();
