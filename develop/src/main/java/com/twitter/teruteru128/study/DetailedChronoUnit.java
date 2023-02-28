@@ -5,15 +5,15 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalUnit;
 
-public class DetailedChronoUnit implements TemporalUnit {
+public enum DetailedChronoUnit implements TemporalUnit {
+    FIVE_MINUTES("FiveMinutes", Duration.ofSeconds(300)),
+    TEN_MINUTES("TenMinutes", Duration.ofSeconds(600)),
+    HALF_AN_HOUR("halfAnHour", Duration.ofSeconds(1800));
+
     private final String name;
     private final Duration duration;
 
-    public static final DetailedChronoUnit FIVE_MINUTES = new DetailedChronoUnit("FiveMinutes", Duration.ofSeconds(300));
-    public static final DetailedChronoUnit TEN_MINUTES = new DetailedChronoUnit("TenMinutes", Duration.ofSeconds(600));
-    public static final DetailedChronoUnit HALF_AN_HOUR = new DetailedChronoUnit("halfAnHour", Duration.ofSeconds(1800));
-
-    public DetailedChronoUnit(String name, Duration estimatedDuration) {
+    private DetailedChronoUnit(String name, Duration estimatedDuration) {
         this.name = name;
         this.duration = estimatedDuration;
     }

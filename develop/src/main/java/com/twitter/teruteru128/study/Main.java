@@ -218,7 +218,8 @@ public class Main implements Callable<Map<Instant, Integer>> {
      */
     public static void main(String[] args) throws Exception {
         if (args.length < 1) {
-            return;
+            System.err.println("what is path?");
+            Runtime.getRuntime().exit(1);
         }
         main.setUrl(args[0]);
         var service = Executors.newWorkStealingPool();
@@ -239,23 +240,27 @@ public class Main implements Callable<Map<Instant, Integer>> {
 
     @Override
     public Map<Instant, Integer> call() throws Exception {
-        if(url == null || url.isEmpty()) {
+        if (url == null || url.isEmpty()) {
             return Map.of();
         }
         var dataSource = new SQLiteDataSource();
         dataSource.setUrl(url);
         var map = new TreeMap<Instant, Integer>();
+        long currentTime = Instant.now().getEpochSecond();
         try (var connection = dataSource.getConnection();
-                var statement = connection.createStatement();
-                var set = statement.executeQuery(
-                        "SELECT sleeptill from sent where folder = 'sent' and fromaddress = 'BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM' and toaddress like 'BM-%' and datetime(sleeptill, 'unixepoch', 'localtime') < datetime('now', 'localtime', '+1 hour')")) {
-            while (set.next()) {
-                var instant = Instant.ofEpochSecond(set.getLong("sleeptill"))
-                        .truncatedTo(DetailedChronoUnit.FIVE_MINUTES);
-                if (map.containsKey(instant)) {
-                    map.put(instant, Math.incrementExact(map.get(instant)));
-                } else {
-                    map.put(instant, Integer.valueOf(1));
+                var statement = connection.prepareStatement(
+                        "SELECT sleeptill from sent where folder = 'sent' and fromaddress = ? and toaddress like 'BM-%' and sleeptill < ?");) {
+            statement.setString(1, "BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM");
+            statement.setLong(2, currentTime);
+            try (var set = statement.executeQuery()) {
+                while (set.next()) {
+                    var instant = Instant.ofEpochSecond(set.getLong("sleeptill"))
+                            .truncatedTo(DetailedChronoUnit.FIVE_MINUTES);
+                    if (map.containsKey(instant)) {
+                        map.put(instant, Math.incrementExact(map.get(instant)));
+                    } else {
+                        map.put(instant, Integer.valueOf(1));
+                    }
                 }
             }
         }
