@@ -1,19 +1,22 @@
 package com.twitter.teruteru128.study;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.security.Security;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.Future;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import com.twitter.teruteru128.bitmessage.ConnectionPool;
 import com.twitter.teruteru128.bitmessage.Dandelion;
 
 /**
@@ -46,7 +49,7 @@ import com.twitter.teruteru128.bitmessage.Dandelion;
  * Ya/piNyZ969sH/qUEPDazlnQVgRnbyLGN6RI+4YvGZoHGdbPw3tgQDktJs9pXYhF+KZoFo0T/bBjZuxUAmCqWA==
  * mgbBWuOBHpn/wEm10SiPBZgiulzISK44ngU/m/14uzvTrIXrKlqeDnq5ONvwM6TyYsQwM2dP4wR5/shIxymU4g==
  */
-public class Main implements Callable<Void> {
+public class Main implements Callable<Long> {
 
     static {
         if (Security.getProvider("BC") == null) {
@@ -113,7 +116,6 @@ public class Main implements Callable<Void> {
 
     /***/
     public static void chinpo() {
-        System.out.println();
         double penisSize1 = 0;
         double penisSize2 = 0;
         double penisSize3 = 0;
@@ -158,28 +160,33 @@ public class Main implements Callable<Void> {
                 * (length + 8 + payloadLengthExtraBytes + ((ttl * (length + 8 + payloadLengthExtraBytes)) / 0x1p16))));
     }
 
+    private static ForkJoinPool service = (ForkJoinPool) Executors.newWorkStealingPool();
+    private static List<Future<Void>> tasks;
+
     /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var service = Executors.newWorkStealingPool();
-        var list = new ArrayList<Callable<Long>>(16);
-        var r = new R();
-        for(int i = 0; i < 16; i++){
-            list.add(r);
+        ArrayList<Callable<Void>> list = new ArrayList<>(40000000);
+        for (int i = 0; i < 40000000; i++) {
+            list.add((Callable<Void> & Serializable) () -> null);
         }
-        var futures = service.invokeAll(list);
-        for (var future : futures) {
-            System.out.println(future.get().longValue());
-        }
+        tasks = service.invokeAll(list);
+        var s = service.submit(main);
         service.shutdown();
+        System.out.println(s.get().longValue());
     }
 
     @Override
-    public Void call() throws Exception {
-        return null;
+    public Long call() throws Exception {
+        long count = 0;
+        for (var task : tasks) {
+            task.get();
+            count++;
+        }
+        return count;
     }
 
 }
