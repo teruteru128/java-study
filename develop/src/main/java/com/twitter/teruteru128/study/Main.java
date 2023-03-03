@@ -6,18 +6,14 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.security.Security;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.ArrayList;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.sqlite.SQLiteDataSource;
 
+import com.twitter.teruteru128.bitmessage.ConnectionPool;
 import com.twitter.teruteru128.bitmessage.Dandelion;
 
 /**
@@ -50,7 +46,7 @@ import com.twitter.teruteru128.bitmessage.Dandelion;
  * Ya/piNyZ969sH/qUEPDazlnQVgRnbyLGN6RI+4YvGZoHGdbPw3tgQDktJs9pXYhF+KZoFo0T/bBjZuxUAmCqWA==
  * mgbBWuOBHpn/wEm10SiPBZgiulzISK44ngU/m/14uzvTrIXrKlqeDnq5ONvwM6TyYsQwM2dP4wR5/shIxymU4g==
  */
-public class Main implements Callable<Map<Instant, Integer>> {
+public class Main implements Callable<Void> {
 
     static {
         if (Security.getProvider("BC") == null) {
@@ -168,54 +164,22 @@ public class Main implements Callable<Map<Instant, Integer>> {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        if (args.length < 1) {
-            System.err.println("what is path?");
-            Runtime.getRuntime().exit(1);
-        }
-        main.setUrl(args[0]);
         var service = Executors.newWorkStealingPool();
-        var future = service.submit(main);
-        var result = future.get();
-        var id = ZoneId.systemDefault();
-        for (Map.Entry<Instant, Integer> entry : result.entrySet()) {
-            System.out.printf("%s: %d%n", LocalDateTime.ofInstant(entry.getKey(), id), entry.getValue());
+        var list = new ArrayList<Callable<Long>>(16);
+        var r = new R();
+        for(int i = 0; i < 16; i++){
+            list.add(r);
+        }
+        var futures = service.invokeAll(list);
+        for (var future : futures) {
+            System.out.println(future.get().longValue());
         }
         service.shutdown();
     }
 
-    private void setUrl(String url) {
-        this.url = url;
-    }
-
-    private String url = "";
-
     @Override
-    public Map<Instant, Integer> call() throws Exception {
-        if (url == null || url.isEmpty()) {
-            return Map.of();
-        }
-        var dataSource = new SQLiteDataSource();
-        dataSource.setUrl(url);
-        var map = new TreeMap<Instant, Integer>();
-        long currentTime = Instant.now().getEpochSecond();
-        try (var connection = dataSource.getConnection();
-                var statement = connection.prepareStatement(
-                        "SELECT sleeptill from sent where folder = 'sent' and fromaddress = ? and toaddress like 'BM-%' and sleeptill < ?");) {
-            statement.setString(1, "BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM");
-            statement.setLong(2, currentTime);
-            try (var set = statement.executeQuery()) {
-                while (set.next()) {
-                    var instant = Instant.ofEpochSecond(set.getLong("sleeptill"))
-                            .truncatedTo(DetailedChronoUnit.FIVE_MINUTES);
-                    if (map.containsKey(instant)) {
-                        map.put(instant, Math.incrementExact(map.get(instant)));
-                    } else {
-                        map.put(instant, Integer.valueOf(1));
-                    }
-                }
-            }
-        }
-        return map;
+    public Void call() throws Exception {
+        return null;
     }
 
 }

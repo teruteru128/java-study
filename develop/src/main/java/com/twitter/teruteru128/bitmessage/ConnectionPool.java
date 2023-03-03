@@ -18,9 +18,9 @@ public class ConnectionPool {
     private ConcurrentHashMap<Object, Object> listeningSockets = new ConcurrentHashMap<>();
     private ConcurrentHashMap<Object, Object> udpSockets = new ConcurrentHashMap<>();
     private CopyOnWriteArrayList<Integer> streams = new CopyOnWriteArrayList<>();
-    private int _lastSpawned = 0;
-    private int _spawnWait = 2;
-    private boolean _bootstrapped = false;
+    private int lastSpawned = 0;
+    private int spawnWait = 2;
+    private boolean bootstrapped = false;
 
     public ConcurrentHashMap<Object, Object> getOutboundConnections() {
         return outboundConnections;
@@ -40,5 +40,12 @@ public class ConnectionPool {
 
     public CopyOnWriteArrayList<Integer> getStreams() {
         return streams;
+    }
+
+    /**
+     * このメソッドを{@link java.util.concurrent.ScheduledExecutorService#scheduleWithFixedDelay(Runnable, long, long, java.util.concurrent.TimeUnit)}に渡す
+     */
+    public void loop() {
+
     }
 }
