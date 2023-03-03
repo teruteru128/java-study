@@ -2,7 +2,7 @@ package com.twitter.teruteru128.bitmessage;
 
 import java.util.Arrays;
 
-public record InventoryVector(byte[] hash) {
+public record InventoryVector(byte[] hash) implements Comparable<InventoryVector> {
 
     @Override
     public int hashCode() {
@@ -24,6 +24,11 @@ public record InventoryVector(byte[] hash) {
         if (!Arrays.equals(hash, other.hash))
             return false;
         return true;
+    }
+
+    @Override
+    public int compareTo(InventoryVector o) {
+        return Arrays.compare(hash, o.hash);
     }
 
 }
