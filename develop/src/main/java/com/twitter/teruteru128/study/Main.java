@@ -1,19 +1,16 @@
 package com.twitter.teruteru128.study;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.security.Security;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.Future;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.random.RandomGenerator;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -49,7 +46,7 @@ import com.twitter.teruteru128.bitmessage.Dandelion;
  * Ya/piNyZ969sH/qUEPDazlnQVgRnbyLGN6RI+4YvGZoHGdbPw3tgQDktJs9pXYhF+KZoFo0T/bBjZuxUAmCqWA==
  * mgbBWuOBHpn/wEm10SiPBZgiulzISK44ngU/m/14uzvTrIXrKlqeDnq5ONvwM6TyYsQwM2dP4wR5/shIxymU4g==
  */
-public class Main implements Callable<Long> {
+public class Main implements Callable<String> {
 
     static {
         if (Security.getProvider("BC") == null) {
@@ -161,7 +158,6 @@ public class Main implements Callable<Long> {
     }
 
     private static ForkJoinPool service = (ForkJoinPool) Executors.newWorkStealingPool();
-    private static List<Future<Void>> tasks;
 
     /**
      * 
@@ -169,24 +165,25 @@ public class Main implements Callable<Long> {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        ArrayList<Callable<Void>> list = new ArrayList<>(40000000);
-        for (int i = 0; i < 40000000; i++) {
-            list.add((Callable<Void> & Serializable) () -> null);
-        }
-        tasks = service.invokeAll(list);
         var s = service.submit(main);
         service.shutdown();
-        System.out.println(s.get().longValue());
+        System.out.println(s.get());
     }
 
     @Override
-    public Long call() throws Exception {
-        long count = 0;
-        for (var task : tasks) {
-            task.get();
-            count++;
+    public String call() throws Exception {
+        char[] l = "ファルコン・パンチ".toCharArray();
+        var s = RandomGenerator.of("SecureRandom");
+        int length = l.length;
+        char w = '\0';
+        int j = 0;
+        for (int i = 0; i < length - 2; i++) {
+            j = s.nextInt(i, length);
+            w = l[i];
+            l[i] = l[j];
+            l[j] = w;
         }
-        return count;
+        return new String(l);
     }
 
 }
