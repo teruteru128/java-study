@@ -5,7 +5,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.ByteBuffer;
+import java.security.DigestException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.Security;
+import java.util.Arrays;
+import java.util.HexFormat;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
@@ -18,6 +25,9 @@ import org.sqlite.jdbc4.JDBC4PreparedStatement;
 import org.sqlite.jdbc4.JDBC4Statement;
 
 import com.twitter.teruteru128.bitmessage.Dandelion;
+import com.twitter.teruteru128.bitmessage.VarintDecodeException;
+import com.twitter.teruteru128.bitmessage.VarintTupple;
+import com.twitter.teruteru128.encode.Base58;
 
 /**
  * Main
@@ -168,12 +178,87 @@ public class Main implements Callable<Long> {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        /* 
         var s = service.submit(main);
         System.out.println(s.get());
         service.shutdown();
+        */
+        var uuid = UUID.fromString("c61c9854-2913-4024-bde6-f141745d1712");
+        System.out.println(uuid);
+        System.out.println(HexFormat.of().formatHex(uuidToBytes(uuid)));
     }
 
-    private SQLiteDataSource dataSource = new SQLiteDataSource();;
+    private SQLiteDataSource dataSource = new SQLiteDataSource();
+
+    private static byte[] uuidToBytes(UUID uuid) {
+        return ByteBuffer.allocate(16).putLong(uuid.getMostSignificantBits()).putLong(uuid.getLeastSignificantBits())
+                .array();
+    }
+
+    private DecodedAddress decodeAddress(String address) {
+        address = address.strip();
+        byte[] data = null;
+        if (address.substring(0, 3).equals("BM-")) {
+            data = Base58.decode(address.substring(3));
+        } else {
+            data = Base58.decode(address);
+        }
+        byte[] checksum = Arrays.copyOfRange(data, data.length - 4, data.length);
+        byte[] hash = new byte[64];
+        try {
+            MessageDigest sha512 = MessageDigest.getInstance("sha-512");
+            sha512.update(data, 0, data.length - 4);
+            sha512.digest(hash, 0, 64);
+            sha512.update(hash, 0, 64);
+            sha512.digest(hash, 0, 64);
+        } catch (NoSuchAlgorithmException | DigestException e) {
+            throw new InternalError(e);
+        }
+        if (!MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
+            return null;
+        }
+        VarintTupple addressVersionNumnerTupple = null;
+        try {
+            addressVersionNumnerTupple = VarintTupple.newInstance(data, 0, 9);
+        } catch (VarintDecodeException e) {
+            return null;
+        }
+        int addressVersionNumner = (int) addressVersionNumnerTupple.getValue();
+        if (addressVersionNumner > 4) {
+            return null;
+        } else if (addressVersionNumner == 0) {
+            return null;
+        }
+        VarintTupple streamNumberTupple = null;
+        try {
+            streamNumberTupple = VarintTupple.newInstance(data, addressVersionNumnerTupple.getLength(), 9);
+        } catch (VarintDecodeException e) {
+            return null;
+        }
+        int streamNumber = (int) streamNumberTupple.getValue();
+        if (addressVersionNumner == 1) {
+        } else if (addressVersionNumner == 2 || addressVersionNumner == 3) {
+        } else if (addressVersionNumner == 4) {
+            var trimedripe = Arrays.copyOfRange(data,
+                    addressVersionNumnerTupple.getLength() + streamNumberTupple.getLength(),
+                    data.length - 4);
+            var ripe = new byte[20];
+            System.arraycopy(trimedripe, 0, ripe, 20 - trimedripe.length, trimedripe.length);
+            return new DecodedAddress(addressVersionNumner, streamNumber, ripe);
+        }
+        return null;
+    }
+
+    public void send(byte[] msgid, String toAddress, String fromAddress, String subject, String message, String status,
+            byte[] ripe, byte[] ackdata, long sentTime, long lastActionTime, long sleeptill, int retryNumber,
+            int encoding, long ttl, String folder) {
+        boolean validAddr = true;
+
+        if (ripe == null || ackdata == null) {
+            String addr = toAddress.equals("[Broadcast subscribers]") ? fromAddress : toAddress;
+
+        }
+    }
 
     @Override
     public Long call() throws Exception {
