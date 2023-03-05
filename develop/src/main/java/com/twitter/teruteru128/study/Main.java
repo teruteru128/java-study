@@ -10,9 +10,12 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.random.RandomGenerator;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.sqlite.SQLiteDataSource;
+import org.sqlite.jdbc4.JDBC4Connection;
+import org.sqlite.jdbc4.JDBC4PreparedStatement;
+import org.sqlite.jdbc4.JDBC4Statement;
 
 import com.twitter.teruteru128.bitmessage.Dandelion;
 
@@ -46,7 +49,7 @@ import com.twitter.teruteru128.bitmessage.Dandelion;
  * Ya/piNyZ969sH/qUEPDazlnQVgRnbyLGN6RI+4YvGZoHGdbPw3tgQDktJs9pXYhF+KZoFo0T/bBjZuxUAmCqWA==
  * mgbBWuOBHpn/wEm10SiPBZgiulzISK44ngU/m/14uzvTrIXrKlqeDnq5ONvwM6TyYsQwM2dP4wR5/shIxymU4g==
  */
-public class Main implements Callable<String> {
+public class Main implements Callable<Long> {
 
     static {
         if (Security.getProvider("BC") == null) {
@@ -166,24 +169,37 @@ public class Main implements Callable<String> {
      */
     public static void main(String[] args) throws Exception {
         var s = service.submit(main);
-        service.shutdown();
         System.out.println(s.get());
+        service.shutdown();
     }
 
+    private SQLiteDataSource dataSource = new SQLiteDataSource();;
+
     @Override
-    public String call() throws Exception {
-        char[] l = "ファルコン・パンチ".toCharArray();
-        var s = RandomGenerator.of("SecureRandom");
-        int length = l.length;
-        char w = '\0';
-        int j = 0;
-        for (int i = 0; i < length - 2; i++) {
-            j = s.nextInt(i, length);
-            w = l[i];
-            l[i] = l[j];
-            l[j] = w;
+    public Long call() throws Exception {
+        dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
+        long sumofdone = 0;
+        try (var connection = (JDBC4Connection) dataSource.getConnection();
+                var statement = (JDBC4Statement) connection.createStatement();
+                var statement1 = (JDBC4PreparedStatement) connection.prepareStatement(
+                        "update sent set retrynumber = ?, sleeptill = ? where toaddress = ?;");) {
+            try (var set = statement.executeQuery(
+                    "SELECT sleeptill, toaddress from sent where folder = 'sent' and fromaddress = 'BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM' and toaddress like 'BM-%' and date(sleeptill, 'unixepoch', 'localtime') < '2023-03-14';")) {
+                while (set.next()) {
+                    var toaddress = set.getString("toaddress");
+                    var sleeptill = set.getLong("sleeptill");
+                    statement1.setInt(1, 4);
+                    statement1.setLong(2, sleeptill + 864000);
+                    statement1.setString(3, toaddress);
+                    statement1.addBatch();
+                }
+                var b = statement1.executeBatch();
+                for (int i : b) {
+                    sumofdone += i;
+                }
+            }
         }
-        return new String(l);
+        return sumofdone;
     }
 
 }
