@@ -10,8 +10,13 @@ import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
+import java.sql.PreparedStatement;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
-import java.util.HexFormat;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
@@ -178,14 +183,36 @@ public class Main implements Callable<Long> {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        /* 
         var s = service.submit(main);
-        System.out.println(s.get());
+        System.out.println(s.get().longValue());
         service.shutdown();
-        */
-        var uuid = UUID.fromString("c61c9854-2913-4024-bde6-f141745d1712");
-        System.out.println(uuid);
-        System.out.println(HexFormat.of().formatHex(uuidToBytes(uuid)));
+        /*
+         * var uuid = UUID.fromString("c61c9854-2913-4024-bde6-f141745d1712");
+         * System.out.println(uuid);
+         * System.out.println(HexFormat.of().withUpperCase().formatHex(uuidToBytes(uuid)
+         * ));
+         */
+        /*
+         * var today = Instant.now();
+         * var tomorrow = LocalDateTime.ofInstant(today, ZoneId.systemDefault()).plus(1,
+         * ChronoUnit.DAYS)
+         * .truncatedTo(ChronoUnit.DAYS).toInstant(ZoneOffset.ofHours(9));
+         * var twoweekslater = LocalDateTime.ofInstant(today,
+         * ZoneId.systemDefault()).plus(2, ChronoUnit.WEEKS)
+         * .truncatedTo(ChronoUnit.DAYS).toInstant(ZoneOffset.ofHours(9));
+         * var fiveweekslater = LocalDateTime.ofInstant(today,
+         * ZoneId.systemDefault()).plus(5, ChronoUnit.WEEKS)
+         * .truncatedTo(ChronoUnit.DAYS).toInstant(ZoneOffset.ofHours(9));
+         * var nextYear = LocalDateTime.ofInstant(today, ZoneId.systemDefault()).plus(1,
+         * ChronoUnit.YEARS)
+         * .truncatedTo(ChronoUnit.DAYS).toInstant(ZoneOffset.ofHours(9));
+         * System.out.printf("%s, %d%n", today, today.getEpochSecond());
+         * System.out.printf("%s, %d%n", tomorrow, tomorrow.getEpochSecond());
+         * System.out.printf("%s, %d%n", twoweekslater, twoweekslater.getEpochSecond());
+         * System.out.printf("%s, %d%n", fiveweekslater,
+         * fiveweekslater.getEpochSecond());
+         * System.out.printf("%s, %d%n", nextYear, nextYear.getEpochSecond());
+         */
     }
 
     private SQLiteDataSource dataSource = new SQLiteDataSource();
@@ -262,25 +289,30 @@ public class Main implements Callable<Long> {
 
     @Override
     public Long call() throws Exception {
+        var today = Instant.now();
+        var offset = ZoneOffset.ofHours(9);
+        var min = (int) LocalDateTime.ofInstant(today, ZoneId.systemDefault()).plus(1, ChronoUnit.DAYS)
+                .truncatedTo(ChronoUnit.DAYS).toInstant(offset).getEpochSecond();
+        var max = (int) LocalDateTime.ofInstant(today, ZoneId.systemDefault()).plus(3, ChronoUnit.WEEKS)
+                .truncatedTo(ChronoUnit.DAYS).toInstant(offset).getEpochSecond();
         dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
         long sumofdone = 0;
         try (var connection = (JDBC4Connection) dataSource.getConnection();
                 var statement = (JDBC4Statement) connection.createStatement();
                 var statement1 = (JDBC4PreparedStatement) connection.prepareStatement(
-                        "update sent set retrynumber = ?, sleeptill = ? where toaddress = ?;");) {
+                        "update sent set sleeptill = ? where toaddress = ?;");) {
             try (var set = statement.executeQuery(
-                    "SELECT sleeptill, toaddress from sent where folder = 'sent' and fromaddress = 'BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM' and toaddress like 'BM-%' and date(sleeptill, 'unixepoch', 'localtime') < '2023-03-14';")) {
+                    "select toaddress from sent where folder = 'sent' and fromaddress = 'BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM' and toaddress like 'BM-%' and date(sleeptill, 'unixepoch', 'localtime') < '2023-04-05' order by random() limit 2000;")) {
                 while (set.next()) {
-                    var toaddress = set.getString("toaddress");
-                    var sleeptill = set.getLong("sleeptill");
-                    statement1.setInt(1, 4);
-                    statement1.setLong(2, sleeptill + 864000);
-                    statement1.setString(3, toaddress);
+                    statement1.setInt(1, ThreadLocalRandom.current().nextInt(min, max));
+                    statement1.setString(2, set.getString("toaddress"));
                     statement1.addBatch();
                 }
                 var b = statement1.executeBatch();
                 for (int i : b) {
-                    sumofdone += i;
+                    if (i != PreparedStatement.SUCCESS_NO_INFO && i != PreparedStatement.EXECUTE_FAILED) {
+                        sumofdone += i;
+                    }
                 }
             }
         }
