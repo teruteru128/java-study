@@ -2,6 +2,8 @@ package com.twitter.teruteru128.bitmessage;
 
 import java.util.concurrent.ExecutorService;
 
+import org.bouncycastle.util.Arrays;
+
 public class ObjectProcessTask implements Runnable {
 
     private ExecutorService service;
@@ -81,6 +83,12 @@ public class ObjectProcessTask implements Runnable {
     private static void checkackdata(byte[] payload) {
         if (payload.length < 32) {
             return;
+        }
+        var ackdata = new AckData(Arrays.copyOfRange(payload, 16, payload.length));
+        if (State.ackdataForWhichImWatching.containsKey(ackdata)) {
+            State.ackdataForWhichImWatching.remove(ackdata);
+            // sql update
+        } else {
         }
     }
 }
