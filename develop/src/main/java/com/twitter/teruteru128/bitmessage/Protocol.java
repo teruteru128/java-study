@@ -18,6 +18,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
@@ -187,7 +188,7 @@ public class Protocol {
         var address = new InetSocketAddress("localhost", 8444);
         var socket = new Socket();
         socket.connect(address);
-        long nonce = java.util.concurrent.ThreadLocalRandom.current().nextLong();
+        long nonce = ThreadLocalRandom.current().nextLong();
         var m = MessageDigest.getInstance("SHA-512");
         // C言語の場合だと13バイト確保しておかないと危険ってことか？
         var command = new byte[12];

@@ -61,7 +61,7 @@ public class Structs {
         if (65536 <= u && u < 4294967296L) {
             return ByteBuffer.allocate(5).put((byte) 254).putInt((int) u).array();
         }
-        if (4294967296L <= u && Long.compareUnsigned(u, Long.MIN_VALUE) < 0) {
+        if (4294967296L <= u && Long.compareUnsigned(u, Long.MIN_VALUE) <= 0) {
             // 9223372036854775808以上18446744073709551616未満は符号付き64ビットでは0未満になるため意図した結果にならない。
             return ByteBuffer.allocate(9).put((byte) 255).putLong(u).array();
         }

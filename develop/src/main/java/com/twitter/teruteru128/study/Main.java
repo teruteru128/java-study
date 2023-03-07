@@ -1,5 +1,7 @@
 package com.twitter.teruteru128.study;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -9,6 +11,7 @@ import java.nio.ByteBuffer;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.Security;
 import java.sql.PreparedStatement;
 import java.time.Instant;
@@ -17,19 +20,25 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.bouncycastle.jce.interfaces.ECPublicKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.sqlite.SQLiteDataSource;
 import org.sqlite.jdbc4.JDBC4Connection;
 import org.sqlite.jdbc4.JDBC4PreparedStatement;
 import org.sqlite.jdbc4.JDBC4Statement;
+import java.awt.Color;
 
 import com.twitter.teruteru128.bitmessage.Dandelion;
+import com.twitter.teruteru128.bitmessage.ECIES;
+import com.twitter.teruteru128.bitmessage.Peer;
+import com.twitter.teruteru128.bitmessage.Structs;
 import com.twitter.teruteru128.bitmessage.VarintDecodeException;
 import com.twitter.teruteru128.bitmessage.VarintTupple;
 import com.twitter.teruteru128.encode.Base58;
@@ -183,9 +192,11 @@ public class Main implements Callable<Long> {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        /* 
         var s = service.submit(main);
         System.out.println(s.get().longValue());
         service.shutdown();
+         */
         /*
          * var uuid = UUID.fromString("c61c9854-2913-4024-bde6-f141745d1712");
          * System.out.println(uuid);
@@ -287,26 +298,111 @@ public class Main implements Callable<Long> {
         }
     }
 
+    private SecureRandom random = new SecureRandom();
+    private ECIES ecies = new ECIES();
+
+    private byte[] genAckPayload(int streamNumber, int stealthLevel) {
+        byte[] ackdata = null;
+        int acktype = 0;
+        int version = 0;
+        switch (stealthLevel) {
+            case 1:
+                ackdata = new byte[32];
+                random.nextBytes(ackdata);
+                acktype = 0;
+                version = 4;
+                break;
+
+            case 2:
+                ECPublicKey key = ECIES.generateEcPublicKey();
+                int len = ThreadLocalRandom.current().nextInt(234, 801);
+                byte[] dummyMessage = new byte[len];
+                random.nextBytes(dummyMessage);
+                ackdata = ecies.encrypt(dummyMessage, key);
+                acktype = 2;
+                version = 1;
+                break;
+
+            default:
+                ackdata = new byte[32];
+                random.nextBytes(ackdata);
+                acktype = 2;
+                version = 1;
+                break;
+        }
+        var o = new ByteArrayOutputStream(6 + ackdata.length);
+        try (DataOutputStream dos = new DataOutputStream(o)) {
+            dos.writeInt(acktype);
+            dos.write(Structs.encodeVarint(version));
+            dos.write(Structs.encodeVarint(streamNumber));
+            dos.write(ackdata);
+        } catch (IOException e) {
+        }
+        byte[] ackobject = o.toByteArray();
+        return ackobject;
+    }
+
     @Override
     public Long call() throws Exception {
-        var today = Instant.now();
+        var uuid = UUID.randomUUID();
+        byte[] msgid = ByteBuffer.allocate(16).putLong(uuid.getMostSignificantBits())
+                .putLong(uuid.getLeastSignificantBits()).array();
+        String toAddress = null;
+        String fromAddress = null;
+        String subject = "";
+        String message = "";
+        String status = "msgqueued";
+        // toAddress.equals("[Broadcast subscribers]") ? fromaddress: toaddress;
+        var ad = decodeAddress(fromAddress);
+        byte[] ripe = ad.ripe();
+        byte[] ackdata = genAckPayload(ad.streamNumber(), 2);
+        long sentTime = System.currentTimeMillis() / 1000;
+        long lastActionTime = sentTime;
+        // TODO 現在以上1ヶ月後未満？
+        // var now = LocalDateTime.now();
+        // var max = now.plusMonths(1);
+        long sleeptill = 0;
+        // long sleeptill =
+        // ThreadLocalRandom.current().nextLong(now.toInstant(offset).getEpochSecond(),
+        // max.toInstant(offset).getEpochSecond());
+        int retryNumber = 0;
+        int encoding = 2;
+        int ttl = 2424835;
+        String folder = "draft";
+        long count = 0;
+        var today = LocalDateTime.now();
         var offset = ZoneOffset.ofHours(9);
-        var min = (int) LocalDateTime.ofInstant(today, ZoneId.systemDefault()).plus(1, ChronoUnit.DAYS)
-                .truncatedTo(ChronoUnit.DAYS).toInstant(offset).getEpochSecond();
-        var max = (int) LocalDateTime.ofInstant(today, ZoneId.systemDefault()).plus(3, ChronoUnit.WEEKS)
-                .truncatedTo(ChronoUnit.DAYS).toInstant(offset).getEpochSecond();
         dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
         long sumofdone = 0;
-        try (var connection = (JDBC4Connection) dataSource.getConnection();
-                var statement = (JDBC4Statement) connection.createStatement();
-                var statement1 = (JDBC4PreparedStatement) connection.prepareStatement(
-                        "update sent set sleeptill = ? where toaddress = ?;");) {
-            try (var set = statement.executeQuery(
-                    "select toaddress from sent where folder = 'sent' and fromaddress = 'BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM' and toaddress like 'BM-%' and date(sleeptill, 'unixepoch', 'localtime') < '2023-04-05' order by random() limit 2000;")) {
+        try (var connection = (JDBC4Connection) dataSource.getConnection()) {
+            var map = new HashMap<String, Integer>();
+            try (var statement = (JDBC4Statement) connection.createStatement();
+                    var set = statement.executeQuery(
+                            "select toaddress from sent where folder = 'sent' and fromaddress = 'BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM' and toaddress like 'BM-%' and date(sleeptill, 'unixepoch', 'localtime') < '2023-04-05' order by random();")) {
+                var min = (int) today.plus(10, ChronoUnit.DAYS).truncatedTo(ChronoUnit.DAYS).toInstant(offset)
+                        .getEpochSecond();
+                var max = (int) today.plus(4, ChronoUnit.WEEKS).truncatedTo(ChronoUnit.DAYS).toInstant(offset)
+                        .getEpochSecond();
                 while (set.next()) {
-                    statement1.setInt(1, ThreadLocalRandom.current().nextInt(min, max));
-                    statement1.setString(2, set.getString("toaddress"));
+                    map.put(set.getString("toaddress"), Integer.valueOf(ThreadLocalRandom.current().nextInt(min, max)));
+                }
+            }
+            try (var statement1 = (JDBC4PreparedStatement) connection
+                    .prepareStatement("update sent set sleeptill = ? where toaddress = ?;")) {
+                for (var entry : map.entrySet()) {
+                    statement1.setInt(1, entry.getValue());
+                    statement1.setString(2, entry.getKey());
                     statement1.addBatch();
+                    if (count >= 1000) {
+                        var b = statement1.executeBatch();
+                        for (int i : b) {
+                            if (i != PreparedStatement.SUCCESS_NO_INFO && i != PreparedStatement.EXECUTE_FAILED) {
+                                sumofdone += i;
+                            }
+                        }
+                        count = 0;
+                        statement1.clearBatch();
+                    }
                 }
                 var b = statement1.executeBatch();
                 for (int i : b) {
@@ -314,6 +410,7 @@ public class Main implements Callable<Long> {
                         sumofdone += i;
                     }
                 }
+                statement1.clearBatch();
             }
         }
         return sumofdone;
