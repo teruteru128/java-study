@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.bitmessage;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Queues {
     private Queues() {
@@ -15,7 +16,7 @@ public class Queues {
 
     private ConcurrentLinkedQueue<Object> workerQueue = new ConcurrentLinkedQueue<>();
     private ConcurrentLinkedQueue<Object> addressGeneratorQueue = new ConcurrentLinkedQueue<>();
-    private ConcurrentLinkedQueue<Object> objectProcessorQueue = new ConcurrentLinkedQueue<>();
+    private LinkedBlockingQueue<BitmessageObject<?>> objectProcessorQueue = new LinkedBlockingQueue<>();
     private ConcurrentLinkedQueue<Inventory> invQueue = new ConcurrentLinkedQueue<>();
     private ConcurrentLinkedQueue<Object> addrQueue = new ConcurrentLinkedQueue<>();
     private ConcurrentLinkedQueue<Object> portCheckerQueue = new ConcurrentLinkedQueue<>();
@@ -31,7 +32,7 @@ public class Queues {
         return addressGeneratorQueue;
     }
 
-    public ConcurrentLinkedQueue<Object> getObjectProcessorQueue() {
+    public LinkedBlockingQueue<BitmessageObject<?>> getObjectProcessorQueue() {
         return objectProcessorQueue;
     }
 

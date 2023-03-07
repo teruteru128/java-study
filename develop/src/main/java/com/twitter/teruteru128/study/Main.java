@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ThreadLocalRandom;
@@ -38,6 +39,7 @@ import java.awt.Color;
 import com.twitter.teruteru128.bitmessage.Dandelion;
 import com.twitter.teruteru128.bitmessage.ECIES;
 import com.twitter.teruteru128.bitmessage.Peer;
+import com.twitter.teruteru128.bitmessage.Protocol;
 import com.twitter.teruteru128.bitmessage.Structs;
 import com.twitter.teruteru128.bitmessage.VarintDecodeException;
 import com.twitter.teruteru128.bitmessage.VarintTupple;
@@ -184,7 +186,7 @@ public class Main implements Callable<Long> {
                 * (length + 8 + payloadLengthExtraBytes + ((ttl * (length + 8 + payloadLengthExtraBytes)) / 0x1p16))));
     }
 
-    private static ForkJoinPool service = (ForkJoinPool) Executors.newWorkStealingPool();
+    private static ForkJoinPool pool = (ForkJoinPool) Executors.newWorkStealingPool();
 
     /**
      * 
@@ -193,9 +195,9 @@ public class Main implements Callable<Long> {
      */
     public static void main(String[] args) throws Exception {
         /* 
-        var s = service.submit(main);
+        var s = pool.submit(main);
         System.out.println(s.get().longValue());
-        service.shutdown();
+        pool.shutdown();
          */
         /*
          * var uuid = UUID.fromString("c61c9854-2913-4024-bde6-f141745d1712");

@@ -112,7 +112,8 @@ public class Protocol {
         if (hostname.endsWith(".onion")) {
             // second level domain
             var decodedsld = base32.decode(hostname.split(".")[0]);
-            return ByteBuffer.allocate(ONION_DOMAIN_PREFIX.length + decodedsld.length).put(ONION_DOMAIN_PREFIX).put(decodedsld).array();
+            return ByteBuffer.allocate(ONION_DOMAIN_PREFIX.length + decodedsld.length).put(ONION_DOMAIN_PREFIX)
+                    .put(decodedsld).array();
         }
         if (host.getAddress() instanceof Inet4Address) {
             return ByteBuffer.allocate(16).put(IPV4_MAPPED_IPV6_ADDRESS_PREFIX).put(host.getAddress().getAddress())
