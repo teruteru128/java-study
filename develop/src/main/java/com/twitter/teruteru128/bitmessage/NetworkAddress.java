@@ -32,8 +32,9 @@ public record NetworkAddress(Instant time, int stream, long services, InetSocket
         if (Arrays.equals(prefix, 0, 6, Protocol.ONION_DOMAIN_PREFIX, 0, 6)) {
             var host = new byte[10];
             work.get(host);
+            int port = work.getShort() & 0xffff;
             address = InetSocketAddress.createUnresolved(
-                    new Base32().encodeAsString(host).toLowerCase() + ".onion", stream);
+                    new Base32().encodeAsString(host).toLowerCase() + ".onion", port);
         } else {
             work.reset();
             var addr = new byte[16];

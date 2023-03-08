@@ -3,6 +3,8 @@ package com.twitter.teruteru128.study;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -194,10 +196,10 @@ public class Main implements Callable<Long> {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        /* 
-        var s = pool.submit(main);
-        System.out.println(s.get().longValue());
-        pool.shutdown();
+        /*
+         * var s = pool.submit(main);
+         * System.out.println(s.get().longValue());
+         * pool.shutdown();
          */
         /*
          * var uuid = UUID.fromString("c61c9854-2913-4024-bde6-f141745d1712");
@@ -226,6 +228,12 @@ public class Main implements Callable<Long> {
          * fiveweekslater.getEpochSecond());
          * System.out.printf("%s, %d%n", nextYear, nextYear.getEpochSecond());
          */
+        BigDecimal size = new BigDecimal("45.00");
+        System.out.println(size);
+        for (int i = 0; i < 20; i++) {
+            size = size.add(BigDecimal.valueOf(ThreadLocalRandom.current().nextDouble(0.5, 1.0)));
+            System.out.println(size.setScale(2, RoundingMode.HALF_EVEN));
+        }
     }
 
     private SQLiteDataSource dataSource = new SQLiteDataSource();
@@ -340,8 +348,7 @@ public class Main implements Callable<Long> {
             dos.write(ackdata);
         } catch (IOException e) {
         }
-        byte[] ackobject = o.toByteArray();
-        return ackobject;
+        return o.toByteArray();
     }
 
     @Override

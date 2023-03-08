@@ -192,22 +192,26 @@ public class Protocol {
         long nonce = ThreadLocalRandom.current().nextLong();
         var m = MessageDigest.getInstance("SHA-512");
         // C言語の場合だと13バイト確保しておかないと危険ってことか？
+        int magic = 0;
         var command = new byte[12];
         var checksum = new byte[4];
         var hash = new byte[64];
         {
             var out = socket.getOutputStream();
             var in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            // addr送信
             out.write(
                     assembleVersionMessage((InetSocketAddress) socket.getRemoteSocketAddress(), new int[] { 1 }, false,
                             nonce));
 
             for (int i = 0; i < 2; i++) {
-                var magic = in.readInt();
+                // verackとaddr受信
+                magic = in.readInt();
                 System.out.printf("%08x%n", magic);
                 Arrays.fill(command, (byte) 0);
                 in.read(command, 0, 12);
                 var len = command.length;
+                // 手動trim
                 while ((0 < len) && (command[len - 1] & 0xff) < ' ') {
                     len--;
                 }
@@ -251,14 +255,15 @@ public class Protocol {
             // var out = socket.getOutputStream();
             var in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             // addr
-            int magic = in.readInt();
+            magic = in.readInt();
+            Arrays.fill(command, (byte) 0);
             in.read(command, 0, 12);
             System.out.println(new String(command).trim());
             int length = in.readInt();
             System.out.printf("length: %d%n", length);
             in.read(checksum);
             ArrayList<NetworkAddress> addresses = new ArrayList<NetworkAddress>();
-            {
+            addrprocess: {
                 var payloadBuffer = ByteBuffer.allocate(length);
                 var payload = payloadBuffer.array();
                 in.readNBytes(payload, 0, length);
@@ -267,9 +272,11 @@ public class Protocol {
                 if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
                     System.out.println("checksum ok!");
                 } else {
-                    System.out.println("checksum NG!");
+                    System.out.println("checksum NG! skippning...");
+                    break addrprocess;
                 }
                 payloadBuffer.rewind();
+                // decode varint
                 int offset = 1;
                 int count = payloadBuffer.get() & 0xff;
                 if (count == 254) {
@@ -281,11 +288,9 @@ public class Protocol {
                     offset += 2;
                 }
                 System.out.printf("count: %d%n", count);
-                NetworkAddress address2;
                 addresses.ensureCapacity(count);
                 for (int i = 0; i < count; i++) {
-                    address2 = NetworkAddress.newInstance(payload, offset + i * 38, 38);
-                    addresses.add(address2);
+                    addresses.add(NetworkAddress.newInstance(payload, offset + i * 38, 38));
                 }
                 int size = addresses.size();
                 System.out.printf("count: %d, list size: %d, %s%n", count, size, count == size ? "OK" : "NG");
@@ -299,7 +304,7 @@ public class Protocol {
             System.out.printf("length: %d%n", length);
             in.read(checksum);
             var vectors = new ArrayList<InventoryVector>();
-            {
+            invprocess: {
                 var payloadBuffer = ByteBuffer.allocate(length);
                 var payload = payloadBuffer.array();
                 in.readNBytes(payload, 0, length);
@@ -308,7 +313,8 @@ public class Protocol {
                 if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
                     System.out.println("checksum ok!");
                 } else {
-                    System.out.println("checksum NG!");
+                    System.out.println("checksum NG! skippning...");
+                    break invprocess;
                 }
                 int count = payloadBuffer.get() & 0xff;
                 int offset = 1;
