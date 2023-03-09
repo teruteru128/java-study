@@ -40,7 +40,7 @@ public class ECIES {
             var ephem = generateEcKeyPair();
 
             // generate shared keys
-            var agreement = KeyAgreement.getInstance("EC", "BC");
+            var agreement = KeyAgreement.getInstance("ECDH", "BC");
             agreement.init(ephem.getPrivate());
             agreement.doPhase(publicKey, true);
             var sha512 = MessageDigest.getInstance("SHA-512");
@@ -56,26 +56,29 @@ public class ECIES {
 
             // encode iv and pubkey
             var pubKey = getPubkey((ECPublicKey) ephem.getPublic());
-            var ciphertext = new byte[iv.length + pubKey.length + aes.getOutputSize(message.length)];
-            System.arraycopy(iv, 0, ciphertext, 0, iv.length);
+            int prefixlength = 0;
+            var ciphertext = new byte[prefixlength + aes.getOutputSize(message.length)];
+            System.arraycopy(iv, 0, ciphertext, prefixlength, iv.length);
+            prefixlength += iv.length;
             System.arraycopy(pubKey, 0, ciphertext, iv.length, pubKey.length);
+            prefixlength += pubKey.length;
 
             // encrypt
-            aes.doFinal(message, 0, 0, ciphertext, iv.length + pubKey.length);
+            int len = aes.doFinal(message, 0, message.length, ciphertext, prefixlength);
 
             // generate mac code
             var mac = Mac.getInstance("HmacSHA256");
             mac.init(new SecretKeySpec(key_m, "MAC"));
             mac.update(ciphertext);
-            var ciphertextlength = ciphertext.length;
+            var ciphertextlength = len + prefixlength;
             var ciphertextwithmac = Arrays.copyOf(ciphertext, ciphertextlength + mac.getMacLength());
             mac.doFinal(ciphertextwithmac, ciphertextlength);
             return ciphertextwithmac;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException | InvalidKeyException
                 | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException
                 | ShortBufferException e) {
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     private byte[] getPubkey(ECPublicKey key) {
@@ -88,10 +91,10 @@ public class ECIES {
 
     public static KeyPair generateEcKeyPair() {
         try {
-            var generator = KeyPairGenerator.getInstance("EC");
+            var generator = KeyPairGenerator.getInstance("EC", "BC");
             generator.initialize(new ECGenParameterSpec("secp256k1"));
             return generator.generateKeyPair();
-        } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException e) {
+        } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException | NoSuchProviderException e) {
             throw new RuntimeException(e);
         }
     }

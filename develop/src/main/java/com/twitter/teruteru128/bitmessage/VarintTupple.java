@@ -2,20 +2,7 @@ package com.twitter.teruteru128.bitmessage;
 
 import java.nio.ByteBuffer;
 
-public class VarintTupple {
-    private long value;
-    private int length;
-
-    public VarintTupple(long value, int length) {
-    }
-
-    public long getValue() {
-        return value;
-    }
-
-    public int getLength() {
-        return length;
-    }
+public record VarintTupple(long value, int length) {
 
     public static VarintTupple newInstance(byte[] data, int offset, int length) throws VarintDecodeException {
         var a = ByteBuffer.wrap(data, offset, length);

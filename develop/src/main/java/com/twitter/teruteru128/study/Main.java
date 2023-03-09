@@ -3,9 +3,6 @@ package com.twitter.teruteru128.study;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -17,11 +14,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
@@ -29,7 +23,6 @@ import java.util.HashMap;
 import java.util.HexFormat;
 import java.util.UUID;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ThreadLocalRandom;
@@ -40,12 +33,9 @@ import org.sqlite.SQLiteDataSource;
 import org.sqlite.jdbc4.JDBC4Connection;
 import org.sqlite.jdbc4.JDBC4PreparedStatement;
 import org.sqlite.jdbc4.JDBC4Statement;
-import java.awt.Color;
 
 import com.twitter.teruteru128.bitmessage.Dandelion;
 import com.twitter.teruteru128.bitmessage.ECIES;
-import com.twitter.teruteru128.bitmessage.Peer;
-import com.twitter.teruteru128.bitmessage.Protocol;
 import com.twitter.teruteru128.bitmessage.Structs;
 import com.twitter.teruteru128.bitmessage.VarintDecodeException;
 import com.twitter.teruteru128.bitmessage.VarintTupple;
@@ -200,16 +190,19 @@ public class Main implements Callable<Long> {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+
+        var s = pool.submit(main);
+        System.out.println(s.get().longValue());
+        pool.shutdown();
+
+        //var ackdata = main.genAckPayload(4, 2);
+        //System.out.println(HexFormat.of().formatHex(ackdata));
         /*
-         * var s = pool.submit(main);
-         * System.out.println(s.get().longValue());
-         * pool.shutdown();
+         * var uuid = UUID.fromString("c61c9854-2913-4024-bde6-f141745d1712");
+         * System.out.println(uuid);
+         * System.out.println(HexFormat.of().withUpperCase().formatHex(uuidToBytes(uuid)
+         * ));
          */
-
-        var uuid = UUID.fromString("c61c9854-2913-4024-bde6-f141745d1712");
-        System.out.println(uuid);
-        System.out.println(HexFormat.of().withUpperCase().formatHex(uuidToBytes(uuid)));
-
         /*
          * var today = Instant.now();
          * var tomorrow = LocalDateTime.ofInstant(today, ZoneId.systemDefault()).plus(1,
@@ -268,7 +261,7 @@ public class Main implements Callable<Long> {
         } catch (VarintDecodeException e) {
             return null;
         }
-        int addressVersionNumner = (int) addressVersionNumnerTupple.getValue();
+        int addressVersionNumner = (int) addressVersionNumnerTupple.value();
         if (addressVersionNumner > 4) {
             return null;
         } else if (addressVersionNumner == 0) {
@@ -276,16 +269,16 @@ public class Main implements Callable<Long> {
         }
         VarintTupple streamNumberTupple = null;
         try {
-            streamNumberTupple = VarintTupple.newInstance(data, addressVersionNumnerTupple.getLength(), 9);
+            streamNumberTupple = VarintTupple.newInstance(data, addressVersionNumnerTupple.length(), 9);
         } catch (VarintDecodeException e) {
             return null;
         }
-        int streamNumber = (int) streamNumberTupple.getValue();
+        int streamNumber = (int) streamNumberTupple.value();
         if (addressVersionNumner == 1) {
         } else if (addressVersionNumner == 2 || addressVersionNumner == 3) {
         } else if (addressVersionNumner == 4) {
             var trimedripe = Arrays.copyOfRange(data,
-                    addressVersionNumnerTupple.getLength() + streamNumberTupple.getLength(),
+                    addressVersionNumnerTupple.length() + streamNumberTupple.length(),
                     data.length - 4);
             var ripe = new byte[20];
             System.arraycopy(trimedripe, 0, ripe, 20 - trimedripe.length, trimedripe.length);
@@ -351,34 +344,45 @@ public class Main implements Callable<Long> {
     @Override
     public Long call() throws Exception {
         long a = 0;
-
+        var uuid = UUID.randomUUID();
+        byte[] msgid = uuidToBytes(uuid);
+        byte[] pubkeys = HexFormat.of().parseHex(
+                "046A2606A03ECBA4CAB310D7809B0F345515DEB504DB1A5AD2D973E11DAB461B850638B888784623AB4F7A634F3BF44A2AF584CD9D099CA0F65573CEBB635FB78E04A42740C69DB8A7DFB3723E9DC14CDC8E1FA743DB70CDD607699C44E2C1221DA8B8297D67C4158A372C82F2BED5573AB6158D8E0250A706A093D83B90C835EFEE");
+        MessageDigest sha512 = MessageDigest.getInstance("sha-512");
+        MessageDigest ripemd160 = MessageDigest.getInstance("ripemd160");
+        byte[] ripe = ripemd160.digest(sha512.digest(pubkeys));
+        String toAddress = "BM-2cTfWJVFkcEsFdob8UYKXyNWAAnM2ien2X";
+        String fromAddress = "BM-NBE7nyLWzdDKkwRmWSNfkyWvMUxQpFTg";
+        String subject = "test";
+        String message = "test";
+        String status = "msgqueued";
+        byte[] ackdata = null;
+        LocalDateTime sentTime = LocalDateTime.now();
+        LocalDateTime lastActionTime = sentTime;
+        LocalDateTime sleeptill = sentTime.plusDays(14);
+        ZoneOffset offset = ZoneOffset.ofHours(9);
+        int retryNumber = 0;
+        int encoding = 2;
+        int ttl = 86400 * 4;
+        String folder = "sent";
+        a = insert(msgid, toAddress, fromAddress, subject, message, status, ripe, ackdata,
+                sentTime.toInstant(offset).getEpochSecond(), lastActionTime.toInstant(offset).getEpochSecond(),
+                sleeptill.toInstant(offset).getEpochSecond(), retryNumber,
+                encoding, ttl, folder);
         return a;
     }
 
-    public long insert() {
-        var uuid = UUID.randomUUID();
-        byte[] msgid = uuidToBytes(uuid);
-        String toAddress = null;
-        String fromAddress = null;
-        String subject = "";
-        String message = "";
-        String status = "msgqueued";
+    public long insert(byte[] msgid, String toAddress, String fromAddress, String subject, String message,
+            String status,
+            byte[] ripe, byte[] ackdata, long sentTime, long lastActionTime, long sleeptill, int retryNumber,
+            int encoding, int ttl, String folder) throws SQLException {
         // toAddress.equals("[Broadcast subscribers]") ? fromaddress: toaddress;
         var ad = decodeAddress(fromAddress);
-        byte[] ripe = ad.ripe();
-        byte[] ackdata = genAckPayload(ad.streamNumber(), 2);
-        long sentTime = System.currentTimeMillis() / 1000;
-        long lastActionTime = sentTime;
-        // TODO 現在以上1ヶ月後未満？
-        var now = LocalDateTime.now();
-        var max = now.plusMonths(1);
-        var offset = ZoneOffset.ofHours(9);
-        long sleeptill = ThreadLocalRandom.current().nextLong(now.toInstant(offset).getEpochSecond(),
-                max.toInstant(offset).getEpochSecond());
-        int retryNumber = 0;
-        int encoding = 2;
-        int ttl = 2424835;
-        String folder = "draft";
+        if (ad == null) {
+            return -1;
+        }
+        if (ackdata == null)
+            ackdata = genAckPayload(ad.streamNumber(), 2);
         dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
         try (var connection = (JDBC4Connection) dataSource.getConnection()) {
             try (var s = connection.prepareStatement("insert into sent values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
@@ -397,11 +401,9 @@ public class Main implements Callable<Long> {
                 s.setString(13, folder);
                 s.setInt(14, encoding);
                 s.setInt(15, ttl);
-                s.executeUpdate();
+                return s.executeUpdate();
             }
-        } catch (SQLException e) {
         }
-        return 0L;
     }
 
     private long name() throws SQLException {
