@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -16,6 +17,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -23,6 +26,7 @@ import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HexFormat;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -201,12 +205,11 @@ public class Main implements Callable<Long> {
          * System.out.println(s.get().longValue());
          * pool.shutdown();
          */
-        /*
-         * var uuid = UUID.fromString("c61c9854-2913-4024-bde6-f141745d1712");
-         * System.out.println(uuid);
-         * System.out.println(HexFormat.of().withUpperCase().formatHex(uuidToBytes(uuid)
-         * ));
-         */
+
+        var uuid = UUID.fromString("c61c9854-2913-4024-bde6-f141745d1712");
+        System.out.println(uuid);
+        System.out.println(HexFormat.of().withUpperCase().formatHex(uuidToBytes(uuid)));
+
         /*
          * var today = Instant.now();
          * var tomorrow = LocalDateTime.ofInstant(today, ZoneId.systemDefault()).plus(1,
@@ -228,12 +231,6 @@ public class Main implements Callable<Long> {
          * fiveweekslater.getEpochSecond());
          * System.out.printf("%s, %d%n", nextYear, nextYear.getEpochSecond());
          */
-        BigDecimal size = new BigDecimal("45.00");
-        System.out.println(size);
-        for (int i = 0; i < 20; i++) {
-            size = size.add(BigDecimal.valueOf(ThreadLocalRandom.current().nextDouble(0.5, 1.0)));
-            System.out.println(size.setScale(2, RoundingMode.HALF_EVEN));
-        }
     }
 
     private SQLiteDataSource dataSource = new SQLiteDataSource();
@@ -353,9 +350,14 @@ public class Main implements Callable<Long> {
 
     @Override
     public Long call() throws Exception {
+        long a = 0;
+
+        return a;
+    }
+
+    public long insert() {
         var uuid = UUID.randomUUID();
-        byte[] msgid = ByteBuffer.allocate(16).putLong(uuid.getMostSignificantBits())
-                .putLong(uuid.getLeastSignificantBits()).array();
+        byte[] msgid = uuidToBytes(uuid);
         String toAddress = null;
         String fromAddress = null;
         String subject = "";
@@ -368,16 +370,41 @@ public class Main implements Callable<Long> {
         long sentTime = System.currentTimeMillis() / 1000;
         long lastActionTime = sentTime;
         // TODO 現在以上1ヶ月後未満？
-        // var now = LocalDateTime.now();
-        // var max = now.plusMonths(1);
-        long sleeptill = 0;
-        // long sleeptill =
-        // ThreadLocalRandom.current().nextLong(now.toInstant(offset).getEpochSecond(),
-        // max.toInstant(offset).getEpochSecond());
+        var now = LocalDateTime.now();
+        var max = now.plusMonths(1);
+        var offset = ZoneOffset.ofHours(9);
+        long sleeptill = ThreadLocalRandom.current().nextLong(now.toInstant(offset).getEpochSecond(),
+                max.toInstant(offset).getEpochSecond());
         int retryNumber = 0;
         int encoding = 2;
         int ttl = 2424835;
         String folder = "draft";
+        dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
+        try (var connection = (JDBC4Connection) dataSource.getConnection()) {
+            try (var s = connection.prepareStatement("insert into sent values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
+                s.setBytes(1, msgid);
+                s.setString(2, toAddress);
+                s.setBytes(3, ripe);
+                s.setString(4, fromAddress);
+                s.setString(5, subject);
+                s.setString(6, message);
+                s.setBytes(7, ackdata);
+                s.setLong(8, sentTime);
+                s.setLong(9, lastActionTime);
+                s.setLong(10, sleeptill);
+                s.setString(11, status);
+                s.setInt(12, retryNumber);
+                s.setString(13, folder);
+                s.setInt(14, encoding);
+                s.setInt(15, ttl);
+                s.executeUpdate();
+            }
+        } catch (SQLException e) {
+        }
+        return 0L;
+    }
+
+    private long name() throws SQLException {
         long count = 0;
         var today = LocalDateTime.now();
         var offset = ZoneOffset.ofHours(9);

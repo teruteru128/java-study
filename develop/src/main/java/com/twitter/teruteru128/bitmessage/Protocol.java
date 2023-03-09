@@ -182,6 +182,20 @@ public class Protocol {
         return createPacket("version".getBytes(), baos.toByteArray());
     }
 
+    /**
+     * 「コマンドを1件受信してチェックサムをチェックして処理キューに追加するタスク」とそれを発行するタスク？
+     * 
+     * run() {
+     * コネクションオブジェクトからdatainputstreamを取得
+     * パケットのヘッダーを読み取り
+     * ペイロード読み取り
+     * チェックサムチェック
+     * パケット処理キューに追加
+     * 自分自身をexecutorservice(newworkstealingpool)に追加
+     * }
+     * 
+     * @throws Exception
+     */
     public static void connect() throws Exception {
         var ctx = SSLContext.getDefault();
         var factory = ctx.getSocketFactory();
@@ -258,6 +272,7 @@ public class Protocol {
             magic = in.readInt();
             Arrays.fill(command, (byte) 0);
             in.read(command, 0, 12);
+            var cv = new String(command).trim();
             System.out.println(new String(command).trim());
             int length = in.readInt();
             System.out.printf("length: %d%n", length);
@@ -295,11 +310,12 @@ public class Protocol {
                 int size = addresses.size();
                 System.out.printf("count: %d, list size: %d, %s%n", count, size, count == size ? "OK" : "NG");
             }
-            var addrp = new Packet(new PacketHeader(magic, command.clone(), length, checksum.clone()),
+            var addrp = new Packet(new PacketHeader(magic, cv, length, checksum.clone()),
                     Optional.of(new Addr(addresses)));
             // inv
             magic = in.readInt();
             in.read(command);
+            cv = new String(command).trim();
             length = in.readInt();
             System.out.printf("length: %d%n", length);
             in.read(checksum);
@@ -336,7 +352,7 @@ public class Protocol {
                 int size = vectors.size();
                 System.out.printf("count: %d, list size: %d, %s%n", count, size, count == size ? "OK" : "NG");
             }
-            var invp = new Packet(new PacketHeader(magic, command, length, checksum), Optional.of(new Inv(vectors)));
+            var invp = new Packet(new PacketHeader(magic, cv, length, checksum), Optional.of(new Inv(vectors)));
         }
         socket.close();
     }

@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Arrays;
 
@@ -25,21 +26,15 @@ public record NetworkAddress(Instant time, int stream, long services, InetSocket
         var time = Instant.ofEpochSecond(work.getLong());
         var stream = work.getInt();
         var services = work.getLong();
-        work.mark();
-        var prefix = new byte[6];
-        work.get(prefix);
+        var addr = new byte[16];
+        work.get(addr);
         InetSocketAddress address = null;
-        if (Arrays.equals(prefix, 0, 6, Protocol.ONION_DOMAIN_PREFIX, 0, 6)) {
-            var host = new byte[10];
-            work.get(host);
-            int port = work.getShort() & 0xffff;
-            address = InetSocketAddress.createUnresolved(
-                    new Base32().encodeAsString(host).toLowerCase() + ".onion", port);
+        int port = work.getShort() & 0xffff;
+        if (Arrays.equals(addr, 0, 6, Protocol.ONION_DOMAIN_PREFIX, 0, 6)) {
+            String onionAddress = new String(new Base32().encode(addr, 6, 10), StandardCharsets.UTF_8).toLowerCase()
+                    + ".onion";
+            address = InetSocketAddress.createUnresolved(onionAddress, port);
         } else {
-            work.reset();
-            var addr = new byte[16];
-            work.get(addr);
-            int port = work.getShort() & 0xffff;
             try {
                 address = new InetSocketAddress(InetAddress.getByAddress(addr), port);
             } catch (UnknownHostException e) {
