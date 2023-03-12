@@ -9,6 +9,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.ByteBuffer;
 import java.security.DigestException;
+import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -27,6 +28,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.bouncycastle.jce.interfaces.ECPrivateKey;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.sqlite.SQLiteDataSource;
@@ -39,6 +41,7 @@ import com.twitter.teruteru128.bitmessage.ECIES;
 import com.twitter.teruteru128.bitmessage.Structs;
 import com.twitter.teruteru128.bitmessage.VarintDecodeException;
 import com.twitter.teruteru128.bitmessage.VarintTupple;
+import com.twitter.teruteru128.bitmessage.app.Spammer;
 import com.twitter.teruteru128.encode.Base58;
 
 /**
@@ -184,19 +187,37 @@ public class Main implements Callable<Long> {
 
     private static ForkJoinPool pool = (ForkJoinPool) Executors.newWorkStealingPool();
 
+    public void eciesSample() {
+        var pair = ECIES.generateEcKeyPair();
+        var message = Arrays.copyOf(
+                "ｳｧｧ!!ｵﾚﾓｲｯﾁｬｳｩｩｩ!!!ｳｳｳｳｳｳｳｳｳｩｩｩｩｩｩｩｩｳｳｳｳｳｳｳｳ!ｲｨｨｲｨｨｨｲｲｲｨｲｲｲｲｲｲｲｲｲｲｲｲ!!".getBytes(), 800);
+        var ciphertext = ECIES.encrypt(message, (ECPublicKey) pair.getPublic());
+        var cleartext = ECIES.decrypt(ciphertext, (ECPrivateKey) pair.getPrivate());
+        if (Arrays.equals(message, cleartext)) {
+            System.out.println("OK");
+        } else {
+            System.out.println("NG");
+            var format = HexFormat.of();
+            System.out.println(format.formatHex(message));
+            System.out.println(cleartext == null ? "null" : format.formatHex(cleartext));
+        }
+    }
+
     /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-
-        var s = pool.submit(main);
-        System.out.println(s.get().longValue());
-        pool.shutdown();
-
-        //var ackdata = main.genAckPayload(4, 2);
-        //System.out.println(HexFormat.of().formatHex(ackdata));
+        /*
+         * var s = pool.submit(main);
+         * System.out.println(s.get().longValue());
+         * pool.shutdown();
+         */
+        System.out.println(ThreadLocalRandom.current().nextInt(1310682));
+        // BM-2cXde9jCYY658eZ7Lv4FEZkjf2vRXgx47f
+        new Spammer().send("BM-2cXde9jCYY658eZ7Lv4FEZkjf2vRXgx47f", "BM-5oFytgcgzmQnytTfuLSR9wXAZAqNUD4", "ad",
+                "vvvvv");
         /*
          * var uuid = UUID.fromString("c61c9854-2913-4024-bde6-f141745d1712");
          * System.out.println(uuid);
@@ -276,6 +297,12 @@ public class Main implements Callable<Long> {
         int streamNumber = (int) streamNumberTupple.value();
         if (addressVersionNumner == 1) {
         } else if (addressVersionNumner == 2 || addressVersionNumner == 3) {
+            var trimedripe = Arrays.copyOfRange(data,
+                    addressVersionNumnerTupple.length() + streamNumberTupple.length(),
+                    data.length - 4);
+            var ripe = new byte[20];
+            System.arraycopy(trimedripe, 0, ripe, 20 - trimedripe.length, trimedripe.length);
+            return new DecodedAddress(addressVersionNumner, streamNumber, ripe);
         } else if (addressVersionNumner == 4) {
             var trimedripe = Arrays.copyOfRange(data,
                     addressVersionNumnerTupple.length() + streamNumberTupple.length(),
@@ -299,8 +326,13 @@ public class Main implements Callable<Long> {
     }
 
     private SecureRandom random = new SecureRandom();
-    private ECIES ecies = new ECIES();
 
+    /**
+     * @see {@link https://github.com/Bitmessage/PyBitmessage/blob/3d19c3f23fad2c7a26e8606cd95c6b3df417cfbc/src/helper_ackPayload.py#L13}
+     * @param streamNumber
+     * @param stealthLevel
+     * @return
+     */
     private byte[] genAckPayload(int streamNumber, int stealthLevel) {
         byte[] ackdata = null;
         int acktype = 0;
@@ -309,7 +341,7 @@ public class Main implements Callable<Long> {
             case 1:
                 ackdata = new byte[32];
                 random.nextBytes(ackdata);
-                acktype = 0;
+                acktype = 0; // getpubkey
                 version = 4;
                 break;
 
@@ -318,15 +350,15 @@ public class Main implements Callable<Long> {
                 int len = ThreadLocalRandom.current().nextInt(234, 801);
                 byte[] dummyMessage = new byte[len];
                 random.nextBytes(dummyMessage);
-                ackdata = ecies.encrypt(dummyMessage, key);
-                acktype = 2;
+                ackdata = ECIES.encrypt(dummyMessage, key);
+                acktype = 2; // message
                 version = 1;
                 break;
 
             default:
                 ackdata = new byte[32];
                 random.nextBytes(ackdata);
-                acktype = 2;
+                acktype = 2; // message
                 version = 1;
                 break;
         }
@@ -346,35 +378,33 @@ public class Main implements Callable<Long> {
         long a = 0;
         var uuid = UUID.randomUUID();
         byte[] msgid = uuidToBytes(uuid);
-        byte[] pubkeys = HexFormat.of().parseHex(
-                "046A2606A03ECBA4CAB310D7809B0F345515DEB504DB1A5AD2D973E11DAB461B850638B888784623AB4F7A634F3BF44A2AF584CD9D099CA0F65573CEBB635FB78E04A42740C69DB8A7DFB3723E9DC14CDC8E1FA743DB70CDD607699C44E2C1221DA8B8297D67C4158A372C82F2BED5573AB6158D8E0250A706A093D83B90C835EFEE");
-        MessageDigest sha512 = MessageDigest.getInstance("sha-512");
-        MessageDigest ripemd160 = MessageDigest.getInstance("ripemd160");
-        byte[] ripe = ripemd160.digest(sha512.digest(pubkeys));
-        String toAddress = "BM-2cTfWJVFkcEsFdob8UYKXyNWAAnM2ien2X";
-        String fromAddress = "BM-NBE7nyLWzdDKkwRmWSNfkyWvMUxQpFTg";
+        String toAddress = "BM-2cXrRXWPR3TdbnmdRdggCXmZjf34vEQHBK";
+        var d = decodeAddress(toAddress);
+        byte[] toripe = d.ripe();
+        String fromAddress = "BM-5oSNKUHN6pgfQ8GetUHJJhzXpBYSRET";
         String subject = "test";
-        String message = "test";
+        String message = uuid.toString();
         String status = "msgqueued";
-        byte[] ackdata = null;
+        byte[] ackdata = genAckPayload(d.streamNumber(), 2);
+        System.out.printf("ackdata length: %d%n", ackdata.length);
         LocalDateTime sentTime = LocalDateTime.now();
         LocalDateTime lastActionTime = sentTime;
-        LocalDateTime sleeptill = sentTime.plusDays(14);
+        long sleeptill = 0;
         ZoneOffset offset = ZoneOffset.ofHours(9);
         int retryNumber = 0;
         int encoding = 2;
-        int ttl = 86400 * 4;
+        int ttl = 86400 * 4 + ThreadLocalRandom.current().nextInt(-300, 300);
         String folder = "sent";
-        a = insert(msgid, toAddress, fromAddress, subject, message, status, ripe, ackdata,
+        a = insert(msgid, toAddress, fromAddress, subject, message, status, toripe, ackdata,
                 sentTime.toInstant(offset).getEpochSecond(), lastActionTime.toInstant(offset).getEpochSecond(),
-                sleeptill.toInstant(offset).getEpochSecond(), retryNumber,
+                sleeptill, retryNumber,
                 encoding, ttl, folder);
         return a;
     }
 
     public long insert(byte[] msgid, String toAddress, String fromAddress, String subject, String message,
             String status,
-            byte[] ripe, byte[] ackdata, long sentTime, long lastActionTime, long sleeptill, int retryNumber,
+            byte[] toripe, byte[] ackdata, long sentTime, long lastActionTime, long sleeptill, int retryNumber,
             int encoding, int ttl, String folder) throws SQLException {
         // toAddress.equals("[Broadcast subscribers]") ? fromaddress: toaddress;
         var ad = decodeAddress(fromAddress);
@@ -385,10 +415,10 @@ public class Main implements Callable<Long> {
             ackdata = genAckPayload(ad.streamNumber(), 2);
         dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
         try (var connection = (JDBC4Connection) dataSource.getConnection()) {
-            try (var s = connection.prepareStatement("insert into sent values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")) {
+            try (var s = connection.prepareStatement("insert into sent values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);")) {
                 s.setBytes(1, msgid);
                 s.setString(2, toAddress);
-                s.setBytes(3, ripe);
+                s.setBytes(3, toripe);
                 s.setString(4, fromAddress);
                 s.setString(5, subject);
                 s.setString(6, message);

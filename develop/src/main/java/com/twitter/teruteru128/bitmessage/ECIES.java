@@ -28,13 +28,15 @@ import javax.crypto.spec.SecretKeySpec;
 import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.interfaces.ECPrivateKey;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
+import org.bouncycastle.jce.spec.ECParameterSpec;
 import org.bouncycastle.jce.spec.ECPublicKeySpec;
+import org.bouncycastle.math.ec.ECCurve;
 
 public class ECIES {
     public ECIES() {
     }
 
-    public byte[] encrypt(byte[] message, ECPublicKey publicKey) {
+    public static byte[] encrypt(byte[] message, ECPublicKey publicKey) {
         try {
             // generate ephemeral ec key
             var ephem = generateEcKeyPair();
@@ -43,8 +45,7 @@ public class ECIES {
             var agreement = KeyAgreement.getInstance("ECDH", "BC");
             agreement.init(ephem.getPrivate());
             agreement.doPhase(publicKey, true);
-            var sha512 = MessageDigest.getInstance("SHA-512");
-            var key = sha512.digest(agreement.generateSecret());
+            var key = MessageDigest.getInstance("SHA-512").digest(agreement.generateSecret());
             var key_e = Arrays.copyOfRange(key, 0, 32);
             var key_m = Arrays.copyOfRange(key, 32, 64);
 
@@ -56,12 +57,10 @@ public class ECIES {
 
             // encode iv and pubkey
             var pubKey = getPubkey((ECPublicKey) ephem.getPublic());
-            int prefixlength = 0;
-            var ciphertext = new byte[prefixlength + aes.getOutputSize(message.length)];
-            System.arraycopy(iv, 0, ciphertext, prefixlength, iv.length);
-            prefixlength += iv.length;
+            var ciphertext = new byte[iv.length + pubKey.length + aes.getOutputSize(message.length)];
+            System.arraycopy(iv, 0, ciphertext, 0, iv.length);
             System.arraycopy(pubKey, 0, ciphertext, iv.length, pubKey.length);
-            prefixlength += pubKey.length;
+            int prefixlength = iv.length + pubKey.length;
 
             // encrypt
             int len = aes.doFinal(message, 0, message.length, ciphertext, prefixlength);
@@ -81,22 +80,27 @@ public class ECIES {
         }
     }
 
-    private byte[] getPubkey(ECPublicKey key) {
-        var q = key.getQ().normalize();
+    private  static byte[] getPubkey(ECPublicKey key) {
+        var q = key.getQ();
         var x = q.getXCoord().getEncoded();
         var y = q.getYCoord().getEncoded();
         return ByteBuffer.allocate(6 + x.length + y.length).putShort((short) 0x02CA).putShort((short) x.length).put(x)
                 .putShort((short) y.length).put(y).array();
     }
 
-    public static KeyPair generateEcKeyPair() {
+    private static final KeyPairGenerator generator;
+
+    static {
         try {
-            var generator = KeyPairGenerator.getInstance("EC", "BC");
+            generator = KeyPairGenerator.getInstance("EC", "BC");
             generator.initialize(new ECGenParameterSpec("secp256k1"));
-            return generator.generateKeyPair();
-        } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException | NoSuchProviderException e) {
-            throw new RuntimeException(e);
+        } catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidAlgorithmParameterException e) {
+            throw new InternalError(e);
         }
+    }
+
+    public static KeyPair generateEcKeyPair() {
+        return generator.generateKeyPair();
     }
 
     public static ECPublicKey generateEcPublicKey() {
@@ -106,7 +110,7 @@ public class ECIES {
     private static record DecodedPubKey(short curve, byte[] x, byte[] y, int usedLength) {
     }
 
-    private DecodedPubKey decodePubKey(byte[] pubkey, int offset) {
+    private  static DecodedPubKey decodePubKey(byte[] pubkey, int offset) {
         var buf = ByteBuffer.wrap(pubkey, offset, pubkey.length - offset);
         short curve = buf.getShort();
         short xLength = buf.getShort();
@@ -115,39 +119,48 @@ public class ECIES {
         short yLength = buf.getShort();
         byte[] y = new byte[yLength];
         buf.get(y);
-        return new DecodedPubKey(curve, x, y, buf.position());
+        return new DecodedPubKey(curve, x, y, buf.position() - offset);
     }
 
-    public byte[] decrypt(byte[] message, ECPrivateKey privKey) {
+    private static final ECParameterSpec spec = ECNamedCurveTable.getParameterSpec("secp256k1");
+    private static final ECCurve curve = spec.getCurve();
+
+    private static final KeyFactory factory;
+
+    static {
+        try {
+            factory = KeyFactory.getInstance("EC", "BC");
+        } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+            throw new InternalError(e);
+        }
+    }
+
+    public  static byte[] decrypt(byte[] message, ECPrivateKey privKey) {
         try {
             var aes = Cipher.getInstance("AES/CBC/PKCS7Padding");
             var blockSize = aes.getBlockSize();
             var iv = Arrays.copyOf(message, blockSize);
-            var i = blockSize;
-            var decoded = decodePubKey(message, iv.length);
-            i += decoded.usedLength();
-            var ciphertext = Arrays.copyOfRange(message, i, message.length - 32);
-            i = ciphertext.length;
-            var mac = Arrays.copyOfRange(message, i, message.length);
+            var offset = blockSize;
+            var decoded = decodePubKey(message, offset);
+            offset += decoded.usedLength();
+            var ciphertext = Arrays.copyOfRange(message, offset, message.length - 32);
+            offset += ciphertext.length;
+            var mac = Arrays.copyOfRange(message, offset, message.length);
 
-            var spec = ECNamedCurveTable.getParameterSpec("secp256k1");
-            var curve = spec.getCurve();
             var keySpec = new ECPublicKeySpec(
-                    curve.createPoint(new BigInteger(0, decoded.x()), new BigInteger(0, decoded.y())), spec);
+                    curve.createPoint(new BigInteger(1, decoded.x()), new BigInteger(1, decoded.y())), spec);
 
-            var factory = KeyFactory.getInstance("EC", "BC");
             var pubKey = factory.generatePublic(keySpec);
 
-            var agreement = KeyAgreement.getInstance("EC", "BC");
+            var agreement = KeyAgreement.getInstance("ECDH", "BC");
             agreement.init(privKey);
             agreement.doPhase(pubKey, true);
-            var sha512 = MessageDigest.getInstance("SHA-512");
-            var key = sha512.digest(agreement.generateSecret());
+            var key = MessageDigest.getInstance("SHA-512").digest(agreement.generateSecret());
             var key_e = Arrays.copyOfRange(key, 0, 32);
             var key_m = Arrays.copyOfRange(key, 32, 64);
             var hmacSHA256 = Mac.getInstance("HmacSHA256");
             hmacSHA256.init(new SecretKeySpec(key_m, "MAC"));
-            hmacSHA256.update(message, 0, message.length - 32);
+            hmacSHA256.update(message, 0, message.length - hmacSHA256.getMacLength());
             if (!MessageDigest.isEqual(mac, hmacSHA256.doFinal())) {
                 return null;
             }
@@ -156,7 +169,7 @@ public class ECIES {
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException
                 | InvalidKeySpecException | InvalidKeyException | InvalidAlgorithmParameterException
                 | IllegalBlockSizeException | BadPaddingException e) {
+            throw new RuntimeException(e);
         }
-        return null;
     }
 }
