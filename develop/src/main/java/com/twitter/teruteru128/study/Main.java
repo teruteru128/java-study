@@ -1,32 +1,40 @@
 package com.twitter.teruteru128.study;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.security.DigestException;
-import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.Security;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HexFormat;
+import java.util.LinkedList;
+import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
+import java.util.random.RandomGenerator;
 
 import org.bouncycastle.jce.interfaces.ECPrivateKey;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
@@ -74,7 +82,7 @@ import com.twitter.teruteru128.encode.Base58;
  * Ya/piNyZ969sH/qUEPDazlnQVgRnbyLGN6RI+4YvGZoHGdbPw3tgQDktJs9pXYhF+KZoFo0T/bBjZuxUAmCqWA==
  * mgbBWuOBHpn/wEm10SiPBZgiulzISK44ngU/m/14uzvTrIXrKlqeDnq5ONvwM6TyYsQwM2dP4wR5/shIxymU4g==
  */
-public class Main implements Callable<Long> {
+public class Main implements Callable<Long>, Runnable {
 
     static {
         if (Security.getProvider("BC") == null) {
@@ -187,10 +195,20 @@ public class Main implements Callable<Long> {
 
     private static ForkJoinPool pool = (ForkJoinPool) Executors.newWorkStealingPool();
 
+    public static ForkJoinPool getPool() {
+        return pool;
+    }
+
     public void eciesSample() {
         var pair = ECIES.generateEcKeyPair();
-        var message = Arrays.copyOf(
-                "ｳｧｧ!!ｵﾚﾓｲｯﾁｬｳｩｩｩ!!!ｳｳｳｳｳｳｳｳｳｩｩｩｩｩｩｩｩｳｳｳｳｳｳｳｳ!ｲｨｨｲｨｨｨｲｲｲｨｲｲｲｲｲｲｲｲｲｲｲｲ!!".getBytes(), 800);
+        var prefix = "ｳｧｧ!!ｵﾚﾓｲｯﾁｬｳｩｩｩ!!!ｳｳｳｳｳｳｳｳｳｩｩｩｩｩｩｩｩｳｳｳｳｳｳｳｳ!ｲｨｨｲｨｨｨｲｲｲｨｲｲｲｲｲｲｲｲｲｲｲｲ!!".getBytes(StandardCharsets.UTF_8);
+        var length = ThreadLocalRandom.current().nextInt(234, 801);
+        var suffixlength = length - prefix.length;
+        var suffix = new byte[suffixlength];
+        random.nextBytes(suffix);
+        var message = new byte[length];
+        System.arraycopy(prefix, 0, message, 0, prefix.length);
+        System.arraycopy(suffix, 0, message, prefix.length, suffix.length);
         var ciphertext = ECIES.encrypt(message, (ECPublicKey) pair.getPublic());
         var cleartext = ECIES.decrypt(ciphertext, (ECPrivateKey) pair.getPrivate());
         if (Arrays.equals(message, cleartext)) {
@@ -203,48 +221,38 @@ public class Main implements Callable<Long> {
         }
     }
 
+    public void uuidEncodeSample() {
+        var uuid = UUID.fromString("c61c9854-2913-4024-bde6-f141745d1712");
+        System.out.println(uuid);
+        System.out.println(HexFormat.of().withUpperCase().formatHex(uuidToBytes(uuid)));
+    }
+
+    private LinkedList<String> addressList = null;
+
     /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        /*
-         * var s = pool.submit(main);
-         * System.out.println(s.get().longValue());
-         * pool.shutdown();
-         */
-        System.out.println(ThreadLocalRandom.current().nextInt(1310682));
-        // BM-2cXde9jCYY658eZ7Lv4FEZkjf2vRXgx47f
-        new Spammer().send("BM-2cXde9jCYY658eZ7Lv4FEZkjf2vRXgx47f", "BM-5oFytgcgzmQnytTfuLSR9wXAZAqNUD4", "ad",
-                "vvvvv");
-        /*
-         * var uuid = UUID.fromString("c61c9854-2913-4024-bde6-f141745d1712");
-         * System.out.println(uuid);
-         * System.out.println(HexFormat.of().withUpperCase().formatHex(uuidToBytes(uuid)
-         * ));
-         */
-        /*
-         * var today = Instant.now();
-         * var tomorrow = LocalDateTime.ofInstant(today, ZoneId.systemDefault()).plus(1,
-         * ChronoUnit.DAYS)
-         * .truncatedTo(ChronoUnit.DAYS).toInstant(ZoneOffset.ofHours(9));
-         * var twoweekslater = LocalDateTime.ofInstant(today,
-         * ZoneId.systemDefault()).plus(2, ChronoUnit.WEEKS)
-         * .truncatedTo(ChronoUnit.DAYS).toInstant(ZoneOffset.ofHours(9));
-         * var fiveweekslater = LocalDateTime.ofInstant(today,
-         * ZoneId.systemDefault()).plus(5, ChronoUnit.WEEKS)
-         * .truncatedTo(ChronoUnit.DAYS).toInstant(ZoneOffset.ofHours(9));
-         * var nextYear = LocalDateTime.ofInstant(today, ZoneId.systemDefault()).plus(1,
-         * ChronoUnit.YEARS)
-         * .truncatedTo(ChronoUnit.DAYS).toInstant(ZoneOffset.ofHours(9));
-         * System.out.printf("%s, %d%n", today, today.getEpochSecond());
-         * System.out.printf("%s, %d%n", tomorrow, tomorrow.getEpochSecond());
-         * System.out.printf("%s, %d%n", twoweekslater, twoweekslater.getEpochSecond());
-         * System.out.printf("%s, %d%n", fiveweekslater,
-         * fiveweekslater.getEpochSecond());
-         * System.out.printf("%s, %d%n", nextYear, nextYear.getEpochSecond());
-         */
+
+        LinkedList<String> lista = new LinkedList<>();
+        try (var r = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("out.txt")))) {
+            String line = null;
+            while ((line = r.readLine()) != null) {
+                lista.add(line.trim());
+            }
+        }
+        ArrayList<String> listb = new ArrayList<>(lista);
+        System.out.printf("address list size: %d%n", listb.size());
+        lista = null;
+        Collections.shuffle(listb, main.random);
+        main.addressList = new LinkedList<>(listb);
+        listb = null;
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+        System.out.printf("[%s]: start%n", LocalDateTime.now());
+        service.scheduleAtFixedRate(main, 0, 86, TimeUnit.SECONDS);
+
     }
 
     private SQLiteDataSource dataSource = new SQLiteDataSource();
@@ -314,18 +322,22 @@ public class Main implements Callable<Long> {
         return null;
     }
 
-    public void send(byte[] msgid, String toAddress, String fromAddress, String subject, String message, String status,
-            byte[] ripe, byte[] ackdata, long sentTime, long lastActionTime, long sleeptill, int retryNumber,
-            int encoding, long ttl, String folder) {
-        boolean validAddr = true;
-
-        if (ripe == null || ackdata == null) {
-            String addr = toAddress.equals("[Broadcast subscribers]") ? fromAddress : toAddress;
-
+    public long send(byte[] msgid, String toAddress, String fromAddress, String subject, String message, String status,
+            byte[] toripe, byte[] ackdata, long sentTime, long lastActionTime, long sleeptill, int retryNumber,
+            int encoding, int ttl, String folder) {
+        long a = 0;
+        try {
+            a = insert(msgid, toAddress, fromAddress, subject, message, status, toripe, ackdata,
+                    sentTime, lastActionTime,
+                    sleeptill, retryNumber,
+                    encoding, ttl, folder);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return a;
     }
 
-    private SecureRandom random = new SecureRandom();
+    private Random random = (Random) RandomGenerator.of("SecureRandom");
 
     /**
      * @see {@link https://github.com/Bitmessage/PyBitmessage/blob/3d19c3f23fad2c7a26e8606cd95c6b3df417cfbc/src/helper_ackPayload.py#L13}
@@ -373,9 +385,7 @@ public class Main implements Callable<Long> {
         return o.toByteArray();
     }
 
-    @Override
-    public Long call() throws Exception {
-        long a = 0;
+    public long send() {
         var uuid = UUID.randomUUID();
         byte[] msgid = uuidToBytes(uuid);
         String toAddress = "BM-2cXrRXWPR3TdbnmdRdggCXmZjf34vEQHBK";
@@ -395,11 +405,47 @@ public class Main implements Callable<Long> {
         int encoding = 2;
         int ttl = 86400 * 4 + ThreadLocalRandom.current().nextInt(-300, 300);
         String folder = "sent";
-        a = insert(msgid, toAddress, fromAddress, subject, message, status, toripe, ackdata,
+        return send(msgid, toAddress, fromAddress, subject, message, status, toripe, ackdata,
                 sentTime.toInstant(offset).getEpochSecond(), lastActionTime.toInstant(offset).getEpochSecond(),
-                sleeptill, retryNumber,
-                encoding, ttl, folder);
+                sleeptill, retryNumber, encoding, ttl, folder);
+    }
+
+    @Override
+    public Long call() throws Exception {
+        long a = 0;
         return a;
+    }
+
+    private Spammer spammer = new Spammer();
+
+    private String generateMessage(int length) {
+        char[] msg = new char[length];
+        for (int i = 0; i < length; i++) {
+            if ((i % 60) == 59) {
+                msg[i] = '\n';
+            } else if ((i % 6) == 5) {
+                msg[i] = ' ';
+            } else {
+                msg[i] = (char) random.nextInt('0', 0x3a);
+            }
+        }
+        while ((0 < length) && (msg[length - 1] & 0xff) <= ' ') {
+            length--;
+        }
+        return new String(msg, 0, length);
+    }
+
+    @Override
+    public void run() {
+        String toaddress = addressList.poll();
+        if (toaddress == null) {
+            return;
+        }
+        String fromaddress = "BM-5oMd1Hz6m118w9Qyx9e6d7QkVRm2Fcf";
+        String subject = "hi!";
+        String message = generateMessage(ThreadLocalRandom.current().nextInt(4, 1800));
+        spammer.send(toaddress, fromaddress, subject, message);
+        System.err.printf("[%s]: %s done.%n", LocalDateTime.now(), toaddress);
     }
 
     public long insert(byte[] msgid, String toAddress, String fromAddress, String subject, String message,
@@ -415,13 +461,14 @@ public class Main implements Callable<Long> {
             ackdata = genAckPayload(ad.streamNumber(), 2);
         dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
         try (var connection = (JDBC4Connection) dataSource.getConnection()) {
-            try (var s = connection.prepareStatement("insert into sent values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);")) {
+            try (var s = connection.prepareStatement(
+                    "insert into sent(msgid, toaddress, toripe, fromaddress, subject, message, ackdata, senttime, lastactiontime, sleeptill, status, retrynumber, folder, ttl) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);")) {
                 s.setBytes(1, msgid);
                 s.setString(2, toAddress);
                 s.setBytes(3, toripe);
                 s.setString(4, fromAddress);
-                s.setString(5, subject);
-                s.setString(6, message);
+                s.setBytes(5, subject.getBytes(StandardCharsets.UTF_8));
+                s.setBytes(6, message.getBytes(StandardCharsets.UTF_8));
                 s.setBytes(7, ackdata);
                 s.setLong(8, sentTime);
                 s.setLong(9, lastActionTime);
@@ -436,7 +483,7 @@ public class Main implements Callable<Long> {
         }
     }
 
-    private long name() throws SQLException {
+    public long name() throws SQLException {
         long count = 0;
         var today = LocalDateTime.now();
         var offset = ZoneOffset.ofHours(9);

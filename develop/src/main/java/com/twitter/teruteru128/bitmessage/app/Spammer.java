@@ -8,6 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublisher;
 import java.nio.CharBuffer;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Base64;
@@ -67,9 +68,9 @@ public class Spammer {
             BMAddress.encodeAddress(view, ripe);
             view.put("\",\"BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM\",\"dGVzdA==\",\"");
             view.put(uuid);
-            view.put("\",2,\"");
+            view.put("\",2,");
             view.put(Integer.toString(RANDOM.nextInt(3600, 3900)));
-            view.put("\"],\"id\":");
+            view.put("],\"id\":");
             view.put(Long.toString(i));
             view.put('}');
         }
@@ -79,7 +80,7 @@ public class Spammer {
     }
 
     public HttpResponse<String> post(BodyPublisher publisher) {
-        System.err.printf("start!: %s%n", LocalDateTime.now());
+        // System.err.printf("start!: %s%n", LocalDateTime.now());
         try {
             var request = HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/"))
                     .header("Content-Type", "application/json")
@@ -87,7 +88,7 @@ public class Spammer {
                     .POST(publisher)
                     .build();
             var response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
-            System.err.printf("done!: %s%n", LocalDateTime.now());
+            // System.err.printf("done!: %s%n", LocalDateTime.now());
             return response;
         } catch (IOException e) {
             System.err.printf("error!: %s%n", LocalDateTime.now());
@@ -107,14 +108,14 @@ public class Spammer {
                 ThreadLocalRandom.current().nextInt(345300, 345900));
     }
 
+    private static Base64.Encoder base64 = Base64.getEncoder();
+
     public HttpResponse<String> send(String toaddress, String fromaddress, String subject, String message, int ttl) {
-        var base64 = Base64.getEncoder();
         return post(HttpRequest.BodyPublishers
-                .ofString("{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"" + toaddress
-                        + "\",\"" + fromaddress + "\",\""
-                        + base64.encodeToString(subject.getBytes()) + "\",\""
-                        + base64.encodeToString(message.getBytes()) + "\",2,\"" + Integer.toString(ttl)
-                        + "\"], \"id\": 1}"));
+                .ofString(String.format(
+                        "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"%s\",\"%s\",\"%s\",\"%s\",2,%d], \"id\": 1}",
+                        toaddress, fromaddress, base64.encodeToString(subject.getBytes(StandardCharsets.UTF_8)),
+                        base64.encodeToString(message.getBytes(StandardCharsets.UTF_8)), ttl)));
     }
 
 }
