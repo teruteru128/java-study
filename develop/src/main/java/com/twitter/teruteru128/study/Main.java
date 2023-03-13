@@ -1,17 +1,9 @@
 package com.twitter.teruteru128.study;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.File;
 import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URL;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.DigestException;
 import java.security.MessageDigest;
@@ -27,29 +19,23 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HexFormat;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.random.RandomGenerator;
 
-import org.bouncycastle.jce.interfaces.ECPrivateKey;
-import org.bouncycastle.jce.interfaces.ECPublicKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.sqlite.SQLiteDataSource;
 import org.sqlite.jdbc4.JDBC4Connection;
 import org.sqlite.jdbc4.JDBC4PreparedStatement;
 import org.sqlite.jdbc4.JDBC4Statement;
 
-import com.twitter.teruteru128.bitmessage.Dandelion;
-import com.twitter.teruteru128.bitmessage.ECIES;
-import com.twitter.teruteru128.bitmessage.Structs;
+import com.twitter.teruteru128.bitmessage.Protocol;
 import com.twitter.teruteru128.bitmessage.VarintDecodeException;
 import com.twitter.teruteru128.bitmessage.VarintTupple;
 import com.twitter.teruteru128.bitmessage.app.Spammer;
@@ -99,138 +85,6 @@ public class Main implements Callable<Long>, Runnable {
 
     private static Main main = new Main();
 
-    /**
-     * {@link Dandelion#poissonTimeout()}のサンプル
-     * 
-     * @param average
-     * @return
-     */
-    public static long poisson(long average) {
-        double xp = 1. / (1 - ThreadLocalRandom.current().nextDouble());
-        long count = 0;
-        double exp_average = Math.exp(average);
-        while (xp < exp_average) {
-            xp /= (1 - ThreadLocalRandom.current().nextDouble());
-            count++;
-        }
-        return count;
-    }
-
-    private static final HttpClient CLIENT = HttpClient.newBuilder().build();
-
-    public static void jsonRPCRequestSample() throws IOException, InterruptedException {
-        var request = HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/"))
-                .header("Content-Type", "application/json-rpc")
-                .header("Authorization", "Basic dGVydXRlcnUxMjg6YW5hbGJlYWRz")
-                .POST(HttpRequest.BodyPublishers.ofString(
-                        "{\"jsonrpc\": \"2.0\", \"method\": \"helloWorld\", \"params\": [\"33\", \"4\"], \"id\": 1}"))
-                .build();
-        var response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.statusCode());
-        System.out.println(response.body());
-
-    }
-
-    /**
-     * @see org.apache.commons.math3.distribution.TriangularDistribution
-     * @param min
-     * @param max
-     * @param mean
-     * @param x
-     * @return
-     */
-    public static double triangularDistribution(double min, double max, double mean, double x) {
-        if (min >= mean || mean >= max || min >= max) {
-            throw new IllegalArgumentException();
-        }
-        double frac = (mean - min) / (max - min);
-        if (x < frac) {
-            return Math.sqrt(x * (mean - min) * (max - min)) + min;
-        }
-        return -Math.sqrt((1 - x) * (max - mean) * (max - min)) + max;
-    }
-
-    /***/
-    public static void chinpo() {
-        double penisSize1 = 0;
-        double penisSize2 = 0;
-        double penisSize3 = 0;
-        double penisSize4 = 0;
-
-        for (int i = 0; i < 10; i++) {
-            penisSize1 = ThreadLocalRandom.current().nextGaussian(21, 9);
-            penisSize2 = ThreadLocalRandom.current().nextDouble(9, 17);
-            System.out.printf("%s, %s%n", Double.toString(penisSize1), Double.toString(penisSize2));
-        }
-        for (int i = 0; i < 10; i++) {
-            penisSize3 = triangularDistribution(18, 30, 24, ThreadLocalRandom.current().nextDouble());
-            penisSize4 = triangularDistribution(9, 17, 15, ThreadLocalRandom.current().nextDouble());
-            System.out.printf("%s, %s%n", Double.toString(penisSize3), Double.toString(penisSize4));
-        }
-    }
-
-    /**
-     * @see org.apache.commons.math3.distribution.ExponentialDistribution
-     */
-    public static void anyDistributionSample() {
-        double r = 0;
-        double s = 0;
-        for (int i = 0; i < 10; i++) {
-            // ここ指数分布
-            r = -Math.log(1 - ThreadLocalRandom.current().nextDouble());
-            s = Math.sqrt(r);
-            System.out.printf("%f, %f%n", r * 600, s * 600);
-        }
-    }
-
-    /**
-     * 
-     * @param length
-     * @param ttl
-     * @param proofOfWorkNonceTrialsPerByte
-     * @param payloadLengthExtraBytes
-     * @return
-     */
-    static long calcTarget(int length, int ttl, int proofOfWorkNonceTrialsPerByte, int payloadLengthExtraBytes) {
-        return (long) (0x1p64 / (proofOfWorkNonceTrialsPerByte
-                * (length + 8 + payloadLengthExtraBytes + ((ttl * (length + 8 + payloadLengthExtraBytes)) / 0x1p16))));
-    }
-
-    private static ForkJoinPool pool = (ForkJoinPool) Executors.newWorkStealingPool();
-
-    public static ForkJoinPool getPool() {
-        return pool;
-    }
-
-    public void eciesSample() {
-        var pair = ECIES.generateEcKeyPair();
-        var prefix = "ｳｧｧ!!ｵﾚﾓｲｯﾁｬｳｩｩｩ!!!ｳｳｳｳｳｳｳｳｳｩｩｩｩｩｩｩｩｳｳｳｳｳｳｳｳ!ｲｨｨｲｨｨｨｲｲｲｨｲｲｲｲｲｲｲｲｲｲｲｲ!!"
-                .getBytes(StandardCharsets.UTF_8);
-        var length = ThreadLocalRandom.current().nextInt(234, 801);
-        var suffixlength = length - prefix.length;
-        var suffix = new byte[suffixlength];
-        random.nextBytes(suffix);
-        var message = new byte[length];
-        System.arraycopy(prefix, 0, message, 0, prefix.length);
-        System.arraycopy(suffix, 0, message, prefix.length, suffix.length);
-        var ciphertext = ECIES.encrypt(message, (ECPublicKey) pair.getPublic());
-        var cleartext = ECIES.decrypt(ciphertext, (ECPrivateKey) pair.getPrivate());
-        if (Arrays.equals(message, cleartext)) {
-            System.out.println("OK");
-        } else {
-            System.out.println("NG");
-            var format = HexFormat.of();
-            System.out.println(format.formatHex(message));
-            System.out.println(cleartext == null ? "null" : format.formatHex(cleartext));
-        }
-    }
-
-    public void uuidEncodeSample() {
-        var uuid = UUID.fromString("c61c9854-2913-4024-bde6-f141745d1712");
-        System.out.println(uuid);
-        System.out.println(HexFormat.of().withUpperCase().formatHex(uuidToBytes(uuid)));
-    }
-
     private LinkedList<String> addressList = null;
 
     /**
@@ -240,31 +94,56 @@ public class Main implements Callable<Long>, Runnable {
      */
     public static void main(String[] args) throws Exception {
 
-        LinkedList<String> lista = new LinkedList<>();
-        try (var r = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("out.txt")))) {
-            String line = null;
-            while ((line = r.readLine()) != null) {
-                lista.add(line.trim());
+        var dataSource = new SQLiteDataSource();
+        Random random = (Random) RandomGenerator.of("SecureRandom");
+        dataSource.setUrl("jdbc:sqlite:address.db");
+        if (!new File("address.db").exists()) {
+            LinkedList<String> lista = new LinkedList<>();
+            try (var r = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("out.txt")))) {
+                String line = null;
+                while ((line = r.readLine()) != null) {
+                    lista.add(line.trim());
+                }
+            }
+            ArrayList<String> listb = new ArrayList<>(lista);
+            System.out.printf("address list size: %d%n", listb.size());
+            lista = null;
+            Collections.shuffle(listb, random);
+            main.addressList = new LinkedList<>(listb);
+            listb = null;
+            try (var c = dataSource.getConnection()) {
+                try (var s = c.createStatement();) {
+                    s.execute("create table address(address text, primary key(address))");
+                }
+                try (var ps = c.prepareStatement("insert into address(address) values (?)")) {
+                    for (String address : main.addressList) {
+                        ps.setString(1, address);
+                        ps.addBatch();
+                    }
+                    ps.executeBatch();
+                }
+            }
+        } else {
+            try (var c = dataSource.getConnection()) {
+                main.addressList = new LinkedList<>();
+                try (var s = c.createStatement()) {
+                    try (var r = s.executeQuery("select address from address;")) {
+                        while (r.next()) {
+                            main.addressList.add(r.getString("address"));
+                        }
+                    }
+                }
+                var work = new ArrayList<>(main.addressList);
+                Collections.shuffle(work, (Random) RandomGenerator.of("SecureRandom"));
             }
         }
-        ArrayList<String> listb = new ArrayList<>(lista);
-        System.out.printf("address list size: %d%n", listb.size());
-        lista = null;
-        Collections.shuffle(listb, main.random);
-        main.addressList = new LinkedList<>(listb);
-        listb = null;
-        var t = pool.submit((Callable<Long>)main);
-        t.get();
+        //main.service = Executors.newScheduledThreadPool(2);
+        //main.service.scheduleAtFixedRate(main, 0, 86, TimeUnit.SECONDS);
     }
 
-    private SQLiteDataSource dataSource = new SQLiteDataSource();
+    private ScheduledExecutorService service;
 
-    private static byte[] uuidToBytes(UUID uuid) {
-        return ByteBuffer.allocate(16).putLong(uuid.getMostSignificantBits()).putLong(uuid.getLeastSignificantBits())
-                .array();
-    }
-
-    private DecodedAddress decodeAddress(String address) {
+    private static DecodedAddress decodeAddress(String address) {
         address = address.strip();
         byte[] data = null;
         if (address.substring(0, 3).equals("BM-")) {
@@ -339,57 +218,9 @@ public class Main implements Callable<Long>, Runnable {
         return a;
     }
 
-    private Random random = (Random) RandomGenerator.of("SecureRandom");
-
-    /**
-     * @see {@link https://github.com/Bitmessage/PyBitmessage/blob/3d19c3f23fad2c7a26e8606cd95c6b3df417cfbc/src/helper_ackPayload.py#L13}
-     * @param streamNumber
-     * @param stealthLevel
-     * @return
-     */
-    private byte[] genAckPayload(int streamNumber, int stealthLevel) {
-        byte[] ackdata = null;
-        int acktype = 0;
-        int version = 0;
-        switch (stealthLevel) {
-            case 1:
-                ackdata = new byte[32];
-                random.nextBytes(ackdata);
-                acktype = 0; // getpubkey
-                version = 4;
-                break;
-
-            case 2:
-                ECPublicKey key = ECIES.generateEcPublicKey();
-                int len = ThreadLocalRandom.current().nextInt(234, 801);
-                byte[] dummyMessage = new byte[len];
-                random.nextBytes(dummyMessage);
-                ackdata = ECIES.encrypt(dummyMessage, key);
-                acktype = 2; // message
-                version = 1;
-                break;
-
-            default:
-                ackdata = new byte[32];
-                random.nextBytes(ackdata);
-                acktype = 2; // message
-                version = 1;
-                break;
-        }
-        var o = new ByteArrayOutputStream(6 + ackdata.length);
-        try (DataOutputStream dos = new DataOutputStream(o)) {
-            dos.writeInt(acktype);
-            dos.write(Structs.encodeVarint(version));
-            dos.write(Structs.encodeVarint(streamNumber));
-            dos.write(ackdata);
-        } catch (IOException e) {
-        }
-        return o.toByteArray();
-    }
-
     public long send() {
         var uuid = UUID.randomUUID();
-        byte[] msgid = uuidToBytes(uuid);
+        byte[] msgid = Encode.uuidToBytes(uuid);
         String toAddress = "BM-2cXrRXWPR3TdbnmdRdggCXmZjf34vEQHBK";
         var d = decodeAddress(toAddress);
         byte[] toripe = d.ripe();
@@ -397,7 +228,7 @@ public class Main implements Callable<Long>, Runnable {
         String subject = "test";
         String message = uuid.toString();
         String status = "msgqueued";
-        byte[] ackdata = genAckPayload(d.streamNumber(), 2);
+        byte[] ackdata = Protocol.genAckPayload(d.streamNumber(), 2);
         System.out.printf("ackdata length: %d%n", ackdata.length);
         LocalDateTime sentTime = LocalDateTime.now();
         LocalDateTime lastActionTime = sentTime;
@@ -421,7 +252,7 @@ public class Main implements Callable<Long>, Runnable {
         String message = "";
         UUID uuid = null;
         int capacity = 2;
-        int size =  addressList.size();
+        int size = addressList.size();
         // method body
         capacity += size * 1200;
         if (size >= 1) {
@@ -432,40 +263,16 @@ public class Main implements Callable<Long>, Runnable {
             // ids
             capacity += Spammer.s(i);
         }
-        var view = CharBuffer.allocate(capacity).put('[');
         Base64.Encoder encoder = Base64.getEncoder();
         for (String toAddress : addressList) {
-            if (count != 0) {
-                view.put(',');
-            }
-            uuid = UUID.randomUUID();
-            subject = encoder.encodeToString(uuid.toString().getBytes(StandardCharsets.UTF_8));
-            message = encoder.encodeToString(generateMessage(ThreadLocalRandom.current().nextInt(16, 801)).getBytes(StandardCharsets.UTF_8));
-            view.put("{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"");
-            view.put(toAddress);
-            view.put("\",\"");
-            view.put(fromAddress);
-            view.put("\",\"");
-            view.put(subject);
-            view.put("\",\"");
-            view.put(message);
-            view.put("\",2,");
-            view.put(Integer.toString(random.nextInt(345300, 345900)));
-            view.put("],\"id\":");
-            view.put(Long.toString(count + 1));
-            view.put('}');
-            count++;
+            Spammer.send(toAddress, fromAddress, subject, message);
         }
-        view.put(']');
-        view.flip();
-        spammer.post(HttpRequest.BodyPublishers.ofString(view.toString()));
         return a;
     }
 
-    private Spammer spammer = new Spammer();
-
     private String generateMessage(int length) {
         char[] msg = new char[length];
+        Random random = (Random) RandomGenerator.of("SecureRandom");
         for (int i = 0; i < length; i++) {
             if ((i % 60) == 59) {
                 msg[i] = '\n';
@@ -483,9 +290,26 @@ public class Main implements Callable<Long>, Runnable {
 
     @Override
     public void run() {
+        var toAddress = addressList.poll();
+        if (toAddress == null) {
+            service.shutdown();
+            return;
+        }
+        var fromAddress = "BM-5oGHd345R1y5zaHCQFwLXQ36NzjT1XG";
+        var subject = UUID.randomUUID().toString();
+        var message = generateMessage(ThreadLocalRandom.current().nextInt(4, 801));
+        Spammer.send(toAddress, fromAddress, subject, message);
+        var dataSource = new SQLiteDataSource();
+        dataSource.setUrl("jdbc:sqlite:address.db");
+        try (var c = dataSource.getConnection();
+                var ps = c.prepareStatement("delete from address where address = ?;")) {
+            ps.setString(1, toAddress);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public long insert(byte[] msgid, String toAddress, String fromAddress, String subject, String message,
+    public static long insert(byte[] msgid, String toAddress, String fromAddress, String subject, String message,
             String status,
             byte[] toripe, byte[] ackdata, long sentTime, long lastActionTime, long sleeptill, int retryNumber,
             int encoding, int ttl, String folder) throws SQLException {
@@ -495,7 +319,8 @@ public class Main implements Callable<Long>, Runnable {
             return -1;
         }
         if (ackdata == null)
-            ackdata = genAckPayload(ad.streamNumber(), 2);
+            ackdata = Protocol.genAckPayload(ad.streamNumber(), 2);
+        var dataSource = new SQLiteDataSource();
         dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
         try (var connection = (JDBC4Connection) dataSource.getConnection()) {
             try (var s = connection.prepareStatement(
@@ -524,6 +349,7 @@ public class Main implements Callable<Long>, Runnable {
         long count = 0;
         var today = LocalDateTime.now();
         var offset = ZoneOffset.ofHours(9);
+        var dataSource = new SQLiteDataSource();
         dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
         long sumofdone = 0;
         try (var connection = (JDBC4Connection) dataSource.getConnection()) {

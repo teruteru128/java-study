@@ -18,12 +18,15 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.random.RandomGenerator;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
 
 import org.apache.commons.codec.binary.Base32;
+import org.bouncycastle.jce.interfaces.ECPublicKey;
 
 public class Protocol {
 
@@ -368,5 +371,65 @@ public class Protocol {
     public static final int OBJECT_ONIONPEER = 0x746f72;
     public static final int OBJECT_I2P = 0x493250;
     public static final int OBJECT_ADDR = 0x61646472;
+
+    /**
+     * BMのPoWで使う
+     * @param length
+     * @param ttl
+     * @param proofOfWorkNonceTrialsPerByte
+     * @param payloadLengthExtraBytes
+     * @return
+     */
+    private static long calcTarget(int length, int ttl, int proofOfWorkNonceTrialsPerByte, int payloadLengthExtraBytes) {
+        return (long) (0x1p64 / (proofOfWorkNonceTrialsPerByte
+                * (length + 8 + payloadLengthExtraBytes + ((ttl * (length + 8 + payloadLengthExtraBytes)) / 0x1p16))));
+    }
+
+    /**
+     * @see {@link https://github.com/Bitmessage/PyBitmessage/blob/3d19c3f23fad2c7a26e8606cd95c6b3df417cfbc/src/helper_ackPayload.py#L13}
+     * @param streamNumber
+     * @param stealthLevel
+     * @return
+     */
+    public static byte[] genAckPayload(int streamNumber, int stealthLevel) {
+        byte[] ackdata = null;
+        int acktype = 0;
+        int version = 0;
+        Random random = (Random) RandomGenerator.of("SecureRandom");
+        switch (stealthLevel) {
+            case 1:
+                ackdata = new byte[32];
+                random.nextBytes(ackdata);
+                acktype = 0; // getpubkey
+                version = 4;
+                break;
+    
+            case 2:
+                ECPublicKey key = ECIES.generateEcPublicKey();
+                int len = ThreadLocalRandom.current().nextInt(234, 801);
+                byte[] dummyMessage = new byte[len];
+                random.nextBytes(dummyMessage);
+                ackdata = ECIES.encrypt(dummyMessage, key);
+                acktype = 2; // message
+                version = 1;
+                break;
+    
+            default:
+                ackdata = new byte[32];
+                random.nextBytes(ackdata);
+                acktype = 2; // message
+                version = 1;
+                break;
+        }
+        var o = new ByteArrayOutputStream(6 + ackdata.length);
+        try (DataOutputStream dos = new DataOutputStream(o)) {
+            dos.writeInt(acktype);
+            dos.write(Structs.encodeVarint(version));
+            dos.write(Structs.encodeVarint(streamNumber));
+            dos.write(ackdata);
+        } catch (IOException e) {
+        }
+        return o.toByteArray();
+    }
 
 }

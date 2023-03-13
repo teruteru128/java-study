@@ -46,7 +46,7 @@ public class Spammer {
         return stringSize(x);
     }
 
-    public String createBody(long count) {
+    public static String createBody(long count) {
         int capacity = 2;
         // method body
         capacity += count * 206;
@@ -83,7 +83,7 @@ public class Spammer {
         return view.toString();
     }
 
-    public HttpResponse<String> post(BodyPublisher publisher) {
+    public static HttpResponse<String> post(BodyPublisher publisher) {
         // System.err.printf("start!: %s%n", LocalDateTime.now());
         try {
             var request = HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/"))
@@ -103,18 +103,18 @@ public class Spammer {
         }
     }
 
-    public HttpResponse<String> doSpam(long count) {
+    public static HttpResponse<String> doSpam(long count) {
         return post(HttpRequest.BodyPublishers.ofString(createBody(count)));
     }
 
-    public HttpResponse<String> send(String toaddress, String fromaddress, String subject, String message) {
+    public static HttpResponse<String> send(String toaddress, String fromaddress, String subject, String message) {
         return send(toaddress, fromaddress, subject, message,
                 ThreadLocalRandom.current().nextInt(345300, 345900));
     }
 
     private static Base64.Encoder base64 = Base64.getEncoder();
 
-    public HttpResponse<String> send(String toaddress, String fromaddress, String subject, String message, int ttl) {
+    public static HttpResponse<String> send(String toaddress, String fromaddress, String subject, String message, int ttl) {
         return post(HttpRequest.BodyPublishers
                 .ofString(String.format(
                         "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"%s\",\"%s\",\"%s\",\"%s\",2,%d], \"id\": 1}",
