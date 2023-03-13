@@ -6,10 +6,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.DigestException;
 import java.security.MessageDigest;
@@ -22,6 +24,7 @@ import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HexFormat;
@@ -201,7 +204,8 @@ public class Main implements Callable<Long>, Runnable {
 
     public void eciesSample() {
         var pair = ECIES.generateEcKeyPair();
-        var prefix = "ｳｧｧ!!ｵﾚﾓｲｯﾁｬｳｩｩｩ!!!ｳｳｳｳｳｳｳｳｳｩｩｩｩｩｩｩｩｳｳｳｳｳｳｳｳ!ｲｨｨｲｨｨｨｲｲｲｨｲｲｲｲｲｲｲｲｲｲｲｲ!!".getBytes(StandardCharsets.UTF_8);
+        var prefix = "ｳｧｧ!!ｵﾚﾓｲｯﾁｬｳｩｩｩ!!!ｳｳｳｳｳｳｳｳｳｩｩｩｩｩｩｩｩｳｳｳｳｳｳｳｳ!ｲｨｨｲｨｨｨｲｲｲｨｲｲｲｲｲｲｲｲｲｲｲｲ!!"
+                .getBytes(StandardCharsets.UTF_8);
         var length = ThreadLocalRandom.current().nextInt(234, 801);
         var suffixlength = length - prefix.length;
         var suffix = new byte[suffixlength];
@@ -249,10 +253,8 @@ public class Main implements Callable<Long>, Runnable {
         Collections.shuffle(listb, main.random);
         main.addressList = new LinkedList<>(listb);
         listb = null;
-        ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
-        System.out.printf("[%s]: start%n", LocalDateTime.now());
-        service.scheduleAtFixedRate(main, 0, 86, TimeUnit.SECONDS);
-
+        var t = pool.submit((Callable<Long>)main);
+        t.get();
     }
 
     private SQLiteDataSource dataSource = new SQLiteDataSource();
@@ -403,7 +405,7 @@ public class Main implements Callable<Long>, Runnable {
         ZoneOffset offset = ZoneOffset.ofHours(9);
         int retryNumber = 0;
         int encoding = 2;
-        int ttl = 86400 * 4 + ThreadLocalRandom.current().nextInt(-300, 300);
+        int ttl = ThreadLocalRandom.current().nextInt(345300, 345900);
         String folder = "sent";
         return send(msgid, toAddress, fromAddress, subject, message, status, toripe, ackdata,
                 sentTime.toInstant(offset).getEpochSecond(), lastActionTime.toInstant(offset).getEpochSecond(),
@@ -413,6 +415,50 @@ public class Main implements Callable<Long>, Runnable {
     @Override
     public Long call() throws Exception {
         long a = 0;
+        long count = 0;
+        var fromAddress = "BM-5oGHd345R1y5zaHCQFwLXQ36NzjT1XG";
+        String subject = "";
+        String message = "";
+        UUID uuid = null;
+        int capacity = 2;
+        int size =  addressList.size();
+        // method body
+        capacity += size * 1200;
+        if (size >= 1) {
+            // num of delimiter
+            capacity += size - 1;
+        }
+        for (long i = 1; i <= size; i++) {
+            // ids
+            capacity += Spammer.s(i);
+        }
+        var view = CharBuffer.allocate(capacity).put('[');
+        Base64.Encoder encoder = Base64.getEncoder();
+        for (String toAddress : addressList) {
+            if (count != 0) {
+                view.put(',');
+            }
+            uuid = UUID.randomUUID();
+            subject = encoder.encodeToString(uuid.toString().getBytes(StandardCharsets.UTF_8));
+            message = encoder.encodeToString(generateMessage(ThreadLocalRandom.current().nextInt(16, 801)).getBytes(StandardCharsets.UTF_8));
+            view.put("{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"");
+            view.put(toAddress);
+            view.put("\",\"");
+            view.put(fromAddress);
+            view.put("\",\"");
+            view.put(subject);
+            view.put("\",\"");
+            view.put(message);
+            view.put("\",2,");
+            view.put(Integer.toString(random.nextInt(345300, 345900)));
+            view.put("],\"id\":");
+            view.put(Long.toString(count + 1));
+            view.put('}');
+            count++;
+        }
+        view.put(']');
+        view.flip();
+        spammer.post(HttpRequest.BodyPublishers.ofString(view.toString()));
         return a;
     }
 
@@ -437,15 +483,6 @@ public class Main implements Callable<Long>, Runnable {
 
     @Override
     public void run() {
-        String toaddress = addressList.poll();
-        if (toaddress == null) {
-            return;
-        }
-        String fromaddress = "BM-5oMd1Hz6m118w9Qyx9e6d7QkVRm2Fcf";
-        String subject = "hi!";
-        String message = generateMessage(ThreadLocalRandom.current().nextInt(4, 1800));
-        spammer.send(toaddress, fromaddress, subject, message);
-        System.err.printf("[%s]: %s done.%n", LocalDateTime.now(), toaddress);
     }
 
     public long insert(byte[] msgid, String toAddress, String fromAddress, String subject, String message,
@@ -462,7 +499,7 @@ public class Main implements Callable<Long>, Runnable {
         dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
         try (var connection = (JDBC4Connection) dataSource.getConnection()) {
             try (var s = connection.prepareStatement(
-                    "insert into sent(msgid, toaddress, toripe, fromaddress, subject, message, ackdata, senttime, lastactiontime, sleeptill, status, retrynumber, folder, ttl) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);")) {
+                    "insert into sent(msgid, toaddress, toripe, fromaddress, subject, message, ackdata, senttime, lastactiontime, sleeptill, status, retrynumber, folder, encodingtype, ttl) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);")) {
                 s.setBytes(1, msgid);
                 s.setString(2, toAddress);
                 s.setBytes(3, toripe);

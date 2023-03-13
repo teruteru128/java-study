@@ -42,6 +42,10 @@ public class Spammer {
         return 19 + d;
     }
 
+    public static int s(long x) {
+        return stringSize(x);
+    }
+
     public String createBody(long count) {
         int capacity = 2;
         // method body
