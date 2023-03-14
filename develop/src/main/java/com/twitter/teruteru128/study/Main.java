@@ -95,7 +95,6 @@ public class Main implements Callable<Long>, Runnable {
     public static void main(String[] args) throws Exception {
 
         var dataSource = new SQLiteDataSource();
-        Random random = (Random) RandomGenerator.of("SecureRandom");
         dataSource.setUrl("jdbc:sqlite:address.db");
         if (!new File("address.db").exists()) {
             LinkedList<String> lista = new LinkedList<>();
@@ -108,7 +107,7 @@ public class Main implements Callable<Long>, Runnable {
             ArrayList<String> listb = new ArrayList<>(lista);
             System.out.printf("address list size: %d%n", listb.size());
             lista = null;
-            Collections.shuffle(listb, random);
+            Collections.sort(listb);
             main.addressList = new LinkedList<>(listb);
             listb = null;
             try (var c = dataSource.getConnection()) {
@@ -124,17 +123,19 @@ public class Main implements Callable<Long>, Runnable {
                 }
             }
         } else {
+            Random random = (Random) RandomGenerator.of("SecureRandom");
             try (var c = dataSource.getConnection()) {
-                main.addressList = new LinkedList<>();
+                var tmp = new LinkedList<String>();
                 try (var s = c.createStatement()) {
                     try (var r = s.executeQuery("select address from address;")) {
                         while (r.next()) {
-                            main.addressList.add(r.getString("address"));
+                            tmp.add(r.getString("address"));
                         }
                     }
                 }
-                var work = new ArrayList<>(main.addressList);
-                Collections.shuffle(work, (Random) RandomGenerator.of("SecureRandom"));
+                var work = new ArrayList<>(tmp);
+                Collections.shuffle(work, random);
+                main.addressList = new LinkedList<>(work);
             }
         }
         //main.service = Executors.newScheduledThreadPool(2);
