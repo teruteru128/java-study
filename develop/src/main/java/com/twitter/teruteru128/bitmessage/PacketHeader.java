@@ -1,9 +1,8 @@
 package com.twitter.teruteru128.bitmessage;
 
-import java.io.Serializable;
 import java.nio.ByteBuffer;
 
-public record PacketHeader(int magic, String command, int length, byte[] checksum) implements Serializable {
+public record PacketHeader(int magic, String command, int length, byte[] checksum) {
 
     public static PacketHeader newInstance(byte[] b) {
         if (b == null || b.length != 24) {
@@ -11,18 +10,20 @@ public record PacketHeader(int magic, String command, int length, byte[] checksu
         }
         var buffer = ByteBuffer.wrap(b);
         var magic = buffer.getInt();
-        var commandbuffer = new byte[12];
-        buffer.get(commandbuffer);
-        int len = commandbuffer.length;
+        int offset = 4;
+        int commandLength = 12;
         // 手動trim
-        while ((0 < len) && (commandbuffer[len - 1] & 0xff) < ' ') {
-            len--;
+        while ((0 < commandLength) && (b[offset + commandLength - 1] & 0xff) <= ' ') {
+            commandLength--;
         }
-        var command = new String(commandbuffer, 0, len);
-        var length = buffer.getInt();
+        var command = new String(b, offset, commandLength);
+        offset += 12;
+        buffer.position(offset);
+        var payloadLength = buffer.getInt();
+        offset += 4;
         var checksum = new byte[4];
-        buffer.get(checksum);
-        return new PacketHeader(magic, command, length, checksum);
+        System.arraycopy(b, offset, checksum, 0, 4);
+        return new PacketHeader(magic, command, payloadLength, checksum);
     }
 
     boolean isValid() {

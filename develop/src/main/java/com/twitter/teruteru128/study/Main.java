@@ -3,7 +3,6 @@ package com.twitter.teruteru128.study;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
-import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
 import java.security.DigestException;
 import java.security.MessageDigest;
@@ -23,16 +22,15 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 import java.util.random.RandomGenerator;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.sqlite.SQLiteDataSource;
 import org.sqlite.jdbc4.JDBC4Connection;
 import org.sqlite.jdbc4.JDBC4PreparedStatement;
+import org.sqlite.jdbc4.JDBC4ResultSet;
 import org.sqlite.jdbc4.JDBC4Statement;
 
 import com.twitter.teruteru128.bitmessage.Protocol;
@@ -87,59 +85,152 @@ public class Main implements Callable<Long>, Runnable {
 
     private LinkedList<String> addressList = null;
 
+    private static void a() throws Exception {
+        var dataSource = new SQLiteDataSource();
+        dataSource.setUrl("jdbc:sqlite:D:\\address.db");
+        if (!new File("D:\\address.db").exists()) {
+            {
+                LinkedList<String> lista = new LinkedList<>();
+                try (var r = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("out.txt")))) {
+                    String line = null;
+                    while ((line = r.readLine()) != null) {
+                        lista.add(line.trim());
+                    }
+                }
+                ArrayList<String> listb = new ArrayList<>(lista);
+                System.out.printf("address list size: %d%n", listb.size());
+                lista = null;
+                Collections.sort(listb);
+                main.addressList = new LinkedList<>(listb);
+                listb = null;
+            }
+            try (var c = dataSource.getConnection()) {
+                int count = 0;
+                int p = 0;
+                try (var s = c.createStatement()) {
+                    s.execute("create table address(address text, count integer default 0, primary key(address))");
+                }
+                try (var ps = c.prepareStatement("insert into address(address) values (?)")) {
+                    for (String address : main.addressList) {
+                        ps.setString(1, address);
+                        ps.addBatch();
+                        count++;
+                        if(count >= 1000) {
+                            ps.executeBatch();
+                            System.err.printf("batch: %d%n", p);
+                            count = 0;
+                            p++;
+                        }
+                    }
+                    if(count > 0) {
+                        ps.executeBatch();
+                        count = 0;
+                    }
+                }
+            }
+        } else {
+            Random random = (Random) RandomGenerator.of("SecureRandom");
+            try (JDBC4Connection c = (JDBC4Connection)dataSource.getConnection()) {
+                var insertedAddresses = new LinkedList<String>();
+                try (JDBC4Statement s = (JDBC4Statement)c.createStatement()) {
+                    try (JDBC4ResultSet r = (JDBC4ResultSet)s.executeQuery("select address from address;")) {
+                        while (r.next()) {
+                            insertedAddresses.add(r.getString("address"));
+                        }
+                    }
+                }
+                var work = new ArrayList<>(insertedAddresses);
+                Collections.shuffle(work, random);
+                main.addressList = new LinkedList<>(work);
+                /* 
+                LinkedList<String> lista = new LinkedList<>();
+                try (var r = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("out.txt")))) {
+                    String line = null;
+                    while ((line = r.readLine()) != null) {
+                        lista.add(line.trim());
+                    }
+                }
+                var listb = new ArrayList<String>(lista);
+                System.out.printf("address list size: %d%n", listb.size());
+                lista = null;
+                Collections.sort(listb);
+                main.addressList = new LinkedList<>(listb);
+                int count = 0;
+                int p = 0;
+                try (JDBC4PreparedStatement s = (JDBC4PreparedStatement)c.prepareStatement("insert into address(address) values(?);")) {
+                    for (var address : main.addressList) {
+                        if(Collections.binarySearch(d, address) < 0) {
+                            s.setString(1, address);
+                            s.addBatch();
+                            count++;
+                            if(count >= 1000) {
+                                System.err.printf("バッチ実行: %d%n", p);
+                                s.executeLargeBatch();
+                                count = 0;
+                                p++;
+                            }
+                        }
+                    }
+                    System.err.println("検索完了");
+                    if(count > 0) {
+                        s.executeBatch();
+                        count = 0;
+                    }
+                    s.executeBatch();
+                } */
+            }
+        }
+        //main.service = Executors.newScheduledThreadPool(2);
+        //main.service.scheduleAtFixedRate(main, 0, 86, TimeUnit.SECONDS);
+    }
+
     /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-
+        //a();
         var dataSource = new SQLiteDataSource();
-        dataSource.setUrl("jdbc:sqlite:address.db");
-        if (!new File("address.db").exists()) {
-            LinkedList<String> lista = new LinkedList<>();
-            try (var r = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("out.txt")))) {
-                String line = null;
-                while ((line = r.readLine()) != null) {
-                    lista.add(line.trim());
-                }
+        dataSource.setUrl("jdbc:sqlite:D:\\uuid.db");
+        try (var c = dataSource.getConnection()) {
+            /* 
+            try(var s = c.createStatement()){
+                s.execute("create table if not exists uuid(leastSigBits integer, mostSigBits integer, primary key(leastSigBits, mostSigBits));");
             }
-            ArrayList<String> listb = new ArrayList<>(lista);
-            System.out.printf("address list size: %d%n", listb.size());
-            lista = null;
-            Collections.sort(listb);
-            main.addressList = new LinkedList<>(listb);
-            listb = null;
-            try (var c = dataSource.getConnection()) {
-                try (var s = c.createStatement();) {
-                    s.execute("create table address(address text, primary key(address))");
-                }
-                try (var ps = c.prepareStatement("insert into address(address) values (?)")) {
-                    for (String address : main.addressList) {
-                        ps.setString(1, address);
-                        ps.addBatch();
-                    }
-                    ps.executeBatch();
-                }
-            }
-        } else {
-            Random random = (Random) RandomGenerator.of("SecureRandom");
-            try (var c = dataSource.getConnection()) {
-                var tmp = new LinkedList<String>();
-                try (var s = c.createStatement()) {
-                    try (var r = s.executeQuery("select address from address;")) {
-                        while (r.next()) {
-                            tmp.add(r.getString("address"));
-                        }
+            */
+            try(var ps = c.prepareStatement("insert into uuid values(?, ?);")) {
+                /* 
+                var u = UUID.fromString("7dbfdb35-b816-4014-ab5a-a7aea0becaf7");
+                ps.setLong(1, u.getLeastSignificantBits());
+                ps.setLong(2, u.getMostSignificantBits());
+                ps.execute();
+                */
+                
+                long least;
+                long most;
+                int count = 0;
+                for(long i = 0; i < 0xffffffffL; i++) {
+                    least = ThreadLocalRandom.current().nextLong();
+                    least &= 0xffffffffffff0fffL;
+                    least |= 0x0000000000004000L;
+                    ps.setLong(1, least);
+                    most = ThreadLocalRandom.current().nextLong();
+                    most &= 0x3fffffffffffffffL;
+                    most |= 0x8000000000000000L;
+                    ps.setLong(2, most);
+                    ps.addBatch();
+                    count++;
+                    if(count >= 1024) {
+                        ps.executeLargeBatch();
+                        count = 0;
                     }
                 }
-                var work = new ArrayList<>(tmp);
-                Collections.shuffle(work, random);
-                main.addressList = new LinkedList<>(work);
+                if(count > 0) {
+                    ps.executeLargeBatch();
+                }
             }
         }
-        //main.service = Executors.newScheduledThreadPool(2);
-        //main.service.scheduleAtFixedRate(main, 0, 86, TimeUnit.SECONDS);
     }
 
     private ScheduledExecutorService service;
@@ -301,7 +392,7 @@ public class Main implements Callable<Long>, Runnable {
         var message = generateMessage(ThreadLocalRandom.current().nextInt(4, 801));
         Spammer.send(toAddress, fromAddress, subject, message);
         var dataSource = new SQLiteDataSource();
-        dataSource.setUrl("jdbc:sqlite:address.db");
+        dataSource.setUrl("jdbc:sqlite:D:\\address.db");
         try (var c = dataSource.getConnection();
                 var ps = c.prepareStatement("delete from address where address = ?;")) {
             ps.setString(1, toAddress);
