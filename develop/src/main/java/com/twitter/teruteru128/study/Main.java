@@ -199,29 +199,24 @@ public class Main implements Callable<Long>, Runnable {
                 s.execute("create table if not exists uuid(leastSigBits integer, mostSigBits integer, primary key(leastSigBits, mostSigBits));");
             }
             */
-            try(var ps = c.prepareStatement("insert into uuid values(?, ?);")) {
-                /* 
-                var u = UUID.fromString("7dbfdb35-b816-4014-ab5a-a7aea0becaf7");
-                ps.setLong(1, u.getLeastSignificantBits());
-                ps.setLong(2, u.getMostSignificantBits());
-                ps.execute();
-                */
-                
-                long least;
+            
+            try(var ps = c.prepareStatement("insert into temp(most, least) values(?, ?);")) {
                 long most;
+                long least;
                 int count = 0;
-                for(long i = 0; i < 0xffffffffL; i++) {
-                    least = ThreadLocalRandom.current().nextLong();
-                    least &= 0xffffffffffff0fffL;
-                    least |= 0x0000000000004000L;
-                    ps.setLong(1, least);
+                long num = 0xffffffffL - 6819868;
+                for(long i = 0; i < num; i++) {
                     most = ThreadLocalRandom.current().nextLong();
-                    most &= 0x3fffffffffffffffL;
-                    most |= 0x8000000000000000L;
-                    ps.setLong(2, most);
+                    most &= 0xffffffffffff0fffL;
+                    most |= 0x0000000000004000L;
+                    ps.setLong(1, most);
+                    least = ThreadLocalRandom.current().nextLong();
+                    least &= 0x3fffffffffffffffL;
+                    least |= 0x8000000000000000L;
+                    ps.setLong(2, least);
                     ps.addBatch();
                     count++;
-                    if(count >= 1024) {
+                    if(count >= 8192) {
                         ps.executeLargeBatch();
                         count = 0;
                     }
@@ -230,6 +225,36 @@ public class Main implements Callable<Long>, Runnable {
                     ps.executeLargeBatch();
                 }
             }
+           
+            /* 
+            try(var s = c.createStatement()){
+                try(var rs = s.executeQuery("select leastSigBits, mostSigBits from uuid limit 1000;")){
+                    long least;
+                    long most;
+                    UUID uuid;
+                    while (rs.next()) {
+                        least = rs.getLong("leastSigBits");
+                        most = rs.getLong("mostSigBits");
+                        uuid = new UUID(least, most);
+                        System.out.printf("%d %d: %016x%016x%n", uuid.variant(), uuid.version(), least, most);
+                    }
+                }
+            }
+            try(var s = c.prepareStatement("select leastSigBits, mostSigBits from uuid where leastSigBits = ? and mostSigBits = ?;")){
+                s.setLong(1, -6099378376856909065L);
+                s.setLong(2, 9061201999060942868L);
+                try(var rs = s.executeQuery()){
+                    long least;
+                    long most;
+                    UUID uuid;
+                    while (rs.next()) {
+                        least = rs.getLong("leastSigBits");
+                        most = rs.getLong("mostSigBits");
+                        uuid = new UUID(most, least);
+                        System.out.printf("!%d %d: %016x%016x%n", uuid.variant(), uuid.version(), least, most);
+                    }
+                }
+            } */
         }
     }
 
@@ -295,21 +320,6 @@ public class Main implements Callable<Long>, Runnable {
         return null;
     }
 
-    public long send(byte[] msgid, String toAddress, String fromAddress, String subject, String message, String status,
-            byte[] toripe, byte[] ackdata, long sentTime, long lastActionTime, long sleeptill, int retryNumber,
-            int encoding, int ttl, String folder) {
-        long a = 0;
-        try {
-            a = insert(msgid, toAddress, fromAddress, subject, message, status, toripe, ackdata,
-                    sentTime, lastActionTime,
-                    sleeptill, retryNumber,
-                    encoding, ttl, folder);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return a;
-    }
-
     public long send() {
         var uuid = UUID.randomUUID();
         byte[] msgid = Encode.uuidToBytes(uuid);
@@ -330,9 +340,7 @@ public class Main implements Callable<Long>, Runnable {
         int encoding = 2;
         int ttl = ThreadLocalRandom.current().nextInt(345300, 345900);
         String folder = "sent";
-        return send(msgid, toAddress, fromAddress, subject, message, status, toripe, ackdata,
-                sentTime.toInstant(offset).getEpochSecond(), lastActionTime.toInstant(offset).getEpochSecond(),
-                sleeptill, retryNumber, encoding, ttl, folder);
+        return 0;
     }
 
     @Override
@@ -374,6 +382,7 @@ public class Main implements Callable<Long>, Runnable {
                 msg[i] = (char) random.nextInt('0', 0x3a);
             }
         }
+        // trim
         while ((0 < length) && (msg[length - 1] & 0xff) <= ' ') {
             length--;
         }
@@ -399,91 +408,6 @@ public class Main implements Callable<Long>, Runnable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static long insert(byte[] msgid, String toAddress, String fromAddress, String subject, String message,
-            String status,
-            byte[] toripe, byte[] ackdata, long sentTime, long lastActionTime, long sleeptill, int retryNumber,
-            int encoding, int ttl, String folder) throws SQLException {
-        // toAddress.equals("[Broadcast subscribers]") ? fromaddress: toaddress;
-        var ad = decodeAddress(fromAddress);
-        if (ad == null) {
-            return -1;
-        }
-        if (ackdata == null)
-            ackdata = Protocol.genAckPayload(ad.streamNumber(), 2);
-        var dataSource = new SQLiteDataSource();
-        dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
-        try (var connection = (JDBC4Connection) dataSource.getConnection()) {
-            try (var s = connection.prepareStatement(
-                    "insert into sent(msgid, toaddress, toripe, fromaddress, subject, message, ackdata, senttime, lastactiontime, sleeptill, status, retrynumber, folder, encodingtype, ttl) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);")) {
-                s.setBytes(1, msgid);
-                s.setString(2, toAddress);
-                s.setBytes(3, toripe);
-                s.setString(4, fromAddress);
-                s.setBytes(5, subject.getBytes(StandardCharsets.UTF_8));
-                s.setBytes(6, message.getBytes(StandardCharsets.UTF_8));
-                s.setBytes(7, ackdata);
-                s.setLong(8, sentTime);
-                s.setLong(9, lastActionTime);
-                s.setLong(10, sleeptill);
-                s.setString(11, status);
-                s.setInt(12, retryNumber);
-                s.setString(13, folder);
-                s.setInt(14, encoding);
-                s.setInt(15, ttl);
-                return s.executeUpdate();
-            }
-        }
-    }
-
-    public long name() throws SQLException {
-        long count = 0;
-        var today = LocalDateTime.now();
-        var offset = ZoneOffset.ofHours(9);
-        var dataSource = new SQLiteDataSource();
-        dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
-        long sumofdone = 0;
-        try (var connection = (JDBC4Connection) dataSource.getConnection()) {
-            var map = new HashMap<String, Integer>();
-            try (var statement = (JDBC4Statement) connection.createStatement();
-                    var set = statement.executeQuery(
-                            "select toaddress from sent where folder = 'sent' and fromaddress = 'BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM' and toaddress like 'BM-%' and date(sleeptill, 'unixepoch', 'localtime') < '2023-04-05' order by random();")) {
-                var min = (int) today.plus(10, ChronoUnit.DAYS).truncatedTo(ChronoUnit.DAYS).toInstant(offset)
-                        .getEpochSecond();
-                var max = (int) today.plus(4, ChronoUnit.WEEKS).truncatedTo(ChronoUnit.DAYS).toInstant(offset)
-                        .getEpochSecond();
-                while (set.next()) {
-                    map.put(set.getString("toaddress"), Integer.valueOf(ThreadLocalRandom.current().nextInt(min, max)));
-                }
-            }
-            try (var statement1 = (JDBC4PreparedStatement) connection
-                    .prepareStatement("update sent set sleeptill = ? where toaddress = ?;")) {
-                for (var entry : map.entrySet()) {
-                    statement1.setInt(1, entry.getValue());
-                    statement1.setString(2, entry.getKey());
-                    statement1.addBatch();
-                    if (count >= 1000) {
-                        var b = statement1.executeBatch();
-                        for (int i : b) {
-                            if (i != PreparedStatement.SUCCESS_NO_INFO && i != PreparedStatement.EXECUTE_FAILED) {
-                                sumofdone += i;
-                            }
-                        }
-                        count = 0;
-                        statement1.clearBatch();
-                    }
-                }
-                var b = statement1.executeBatch();
-                for (int i : b) {
-                    if (i != PreparedStatement.SUCCESS_NO_INFO && i != PreparedStatement.EXECUTE_FAILED) {
-                        sumofdone += i;
-                    }
-                }
-                statement1.clearBatch();
-            }
-        }
-        return sumofdone;
     }
 
 }

@@ -41,8 +41,8 @@ public enum DetailedChronoUnit implements TemporalUnit {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <R extends Temporal> R addTo(R temporal, long amount) {
-        return (R) temporal.plus(amount, this);
+    public <T extends Temporal> T addTo(T temporal, long amount) {
+        return (T) temporal.plus(amount, this);
     }
 
     @Override
