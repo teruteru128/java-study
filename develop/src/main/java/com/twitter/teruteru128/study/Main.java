@@ -171,10 +171,14 @@ public class Main implements Callable<Long> {
     }
 
     public static byte[] generateMessage(int length) {
+        // FIXME Should I use RandomGenerator.getDefault() ?
+        return generateMessage(length, RandomGenerator.of("SecureRandom"));
+    }
+
+    public static byte[] generateMessage(int length, RandomGenerator random) {
         // capacity = (length * 6) / 5;
         int capacity = length + (length / 5);
         byte[] msg = new byte[capacity];
-        Random random = (Random) RandomGenerator.of("SecureRandom");
         for (int i = 0; i < capacity; i++) {
             if ((i % 60) == 59) {
                 msg[i] = '\n';
