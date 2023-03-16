@@ -3,7 +3,7 @@ package com.twitter.teruteru128.study;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class R implements Callable<Long> {
+public class FrequencySurveyTask implements Callable<Long> {
     @Override
     public Long call() throws Exception {
         int r = 0;

@@ -1,42 +1,27 @@
 package com.twitter.teruteru128.study;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import java.util.random.RandomGenerator;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.sqlite.SQLiteDataSource;
-import org.sqlite.jdbc4.JDBC4Connection;
-import org.sqlite.jdbc4.JDBC4PreparedStatement;
-import org.sqlite.jdbc4.JDBC4ResultSet;
-import org.sqlite.jdbc4.JDBC4Statement;
 
 import com.twitter.teruteru128.bitmessage.Protocol;
+import com.twitter.teruteru128.bitmessage.ScheduledPostTask;
 import com.twitter.teruteru128.bitmessage.VarintDecodeException;
 import com.twitter.teruteru128.bitmessage.VarintTupple;
-import com.twitter.teruteru128.bitmessage.app.Spammer;
 import com.twitter.teruteru128.encode.Base58;
 
 /**
@@ -69,7 +54,7 @@ import com.twitter.teruteru128.encode.Base58;
  * Ya/piNyZ969sH/qUEPDazlnQVgRnbyLGN6RI+4YvGZoHGdbPw3tgQDktJs9pXYhF+KZoFo0T/bBjZuxUAmCqWA==
  * mgbBWuOBHpn/wEm10SiPBZgiulzISK44ngU/m/14uzvTrIXrKlqeDnq5ONvwM6TyYsQwM2dP4wR5/shIxymU4g==
  */
-public class Main implements Callable<Long>, Runnable {
+public class Main implements Callable<Long> {
 
     static {
         if (Security.getProvider("BC") == null) {
@@ -83,179 +68,15 @@ public class Main implements Callable<Long>, Runnable {
 
     private static Main main = new Main();
 
-    private LinkedList<String> addressList = null;
-
-    private static void a() throws Exception {
-        var dataSource = new SQLiteDataSource();
-        dataSource.setUrl("jdbc:sqlite:D:\\address.db");
-        if (!new File("D:\\address.db").exists()) {
-            {
-                LinkedList<String> lista = new LinkedList<>();
-                try (var r = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("out.txt")))) {
-                    String line = null;
-                    while ((line = r.readLine()) != null) {
-                        lista.add(line.trim());
-                    }
-                }
-                ArrayList<String> listb = new ArrayList<>(lista);
-                System.out.printf("address list size: %d%n", listb.size());
-                lista = null;
-                Collections.sort(listb);
-                main.addressList = new LinkedList<>(listb);
-                listb = null;
-            }
-            try (var c = dataSource.getConnection()) {
-                int count = 0;
-                int p = 0;
-                try (var s = c.createStatement()) {
-                    s.execute("create table address(address text, count integer default 0, primary key(address))");
-                }
-                try (var ps = c.prepareStatement("insert into address(address) values (?)")) {
-                    for (String address : main.addressList) {
-                        ps.setString(1, address);
-                        ps.addBatch();
-                        count++;
-                        if(count >= 1000) {
-                            ps.executeBatch();
-                            System.err.printf("batch: %d%n", p);
-                            count = 0;
-                            p++;
-                        }
-                    }
-                    if(count > 0) {
-                        ps.executeBatch();
-                        count = 0;
-                    }
-                }
-            }
-        } else {
-            Random random = (Random) RandomGenerator.of("SecureRandom");
-            try (JDBC4Connection c = (JDBC4Connection)dataSource.getConnection()) {
-                var insertedAddresses = new LinkedList<String>();
-                try (JDBC4Statement s = (JDBC4Statement)c.createStatement()) {
-                    try (JDBC4ResultSet r = (JDBC4ResultSet)s.executeQuery("select address from address;")) {
-                        while (r.next()) {
-                            insertedAddresses.add(r.getString("address"));
-                        }
-                    }
-                }
-                var work = new ArrayList<>(insertedAddresses);
-                Collections.shuffle(work, random);
-                main.addressList = new LinkedList<>(work);
-                /* 
-                LinkedList<String> lista = new LinkedList<>();
-                try (var r = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("out.txt")))) {
-                    String line = null;
-                    while ((line = r.readLine()) != null) {
-                        lista.add(line.trim());
-                    }
-                }
-                var listb = new ArrayList<String>(lista);
-                System.out.printf("address list size: %d%n", listb.size());
-                lista = null;
-                Collections.sort(listb);
-                main.addressList = new LinkedList<>(listb);
-                int count = 0;
-                int p = 0;
-                try (JDBC4PreparedStatement s = (JDBC4PreparedStatement)c.prepareStatement("insert into address(address) values(?);")) {
-                    for (var address : main.addressList) {
-                        if(Collections.binarySearch(d, address) < 0) {
-                            s.setString(1, address);
-                            s.addBatch();
-                            count++;
-                            if(count >= 1000) {
-                                System.err.printf("バッチ実行: %d%n", p);
-                                s.executeLargeBatch();
-                                count = 0;
-                                p++;
-                            }
-                        }
-                    }
-                    System.err.println("検索完了");
-                    if(count > 0) {
-                        s.executeBatch();
-                        count = 0;
-                    }
-                    s.executeBatch();
-                } */
-            }
-        }
-        //main.service = Executors.newScheduledThreadPool(2);
-        //main.service.scheduleAtFixedRate(main, 0, 86, TimeUnit.SECONDS);
-    }
-
     /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        //a();
-        var dataSource = new SQLiteDataSource();
-        dataSource.setUrl("jdbc:sqlite:D:\\uuid.db");
-        try (var c = dataSource.getConnection()) {
-            /* 
-            try(var s = c.createStatement()){
-                s.execute("create table if not exists uuid(leastSigBits integer, mostSigBits integer, primary key(leastSigBits, mostSigBits));");
-            }
-            */
-            
-            try(var ps = c.prepareStatement("insert into temp(most, least) values(?, ?);")) {
-                long most;
-                long least;
-                int count = 0;
-                long num = 0xffffffffL - 6819868;
-                for(long i = 0; i < num; i++) {
-                    most = ThreadLocalRandom.current().nextLong();
-                    most &= 0xffffffffffff0fffL;
-                    most |= 0x0000000000004000L;
-                    ps.setLong(1, most);
-                    least = ThreadLocalRandom.current().nextLong();
-                    least &= 0x3fffffffffffffffL;
-                    least |= 0x8000000000000000L;
-                    ps.setLong(2, least);
-                    ps.addBatch();
-                    count++;
-                    if(count >= 8192) {
-                        ps.executeLargeBatch();
-                        count = 0;
-                    }
-                }
-                if(count > 0) {
-                    ps.executeLargeBatch();
-                }
-            }
-           
-            /* 
-            try(var s = c.createStatement()){
-                try(var rs = s.executeQuery("select leastSigBits, mostSigBits from uuid limit 1000;")){
-                    long least;
-                    long most;
-                    UUID uuid;
-                    while (rs.next()) {
-                        least = rs.getLong("leastSigBits");
-                        most = rs.getLong("mostSigBits");
-                        uuid = new UUID(least, most);
-                        System.out.printf("%d %d: %016x%016x%n", uuid.variant(), uuid.version(), least, most);
-                    }
-                }
-            }
-            try(var s = c.prepareStatement("select leastSigBits, mostSigBits from uuid where leastSigBits = ? and mostSigBits = ?;")){
-                s.setLong(1, -6099378376856909065L);
-                s.setLong(2, 9061201999060942868L);
-                try(var rs = s.executeQuery()){
-                    long least;
-                    long most;
-                    UUID uuid;
-                    while (rs.next()) {
-                        least = rs.getLong("leastSigBits");
-                        most = rs.getLong("mostSigBits");
-                        uuid = new UUID(most, least);
-                        System.out.printf("!%d %d: %016x%016x%n", uuid.variant(), uuid.version(), least, most);
-                    }
-                }
-            } */
-        }
+        main.service = Executors.newScheduledThreadPool(2);
+        var task = new ScheduledPostTask();
+        main.service.scheduleAtFixedRate(task, 0, 86, TimeUnit.SECONDS);
     }
 
     private ScheduledExecutorService service;
@@ -346,68 +167,28 @@ public class Main implements Callable<Long>, Runnable {
     @Override
     public Long call() throws Exception {
         long a = 0;
-        long count = 0;
-        var fromAddress = "BM-5oGHd345R1y5zaHCQFwLXQ36NzjT1XG";
-        String subject = "";
-        String message = "";
-        UUID uuid = null;
-        int capacity = 2;
-        int size = addressList.size();
-        // method body
-        capacity += size * 1200;
-        if (size >= 1) {
-            // num of delimiter
-            capacity += size - 1;
-        }
-        for (long i = 1; i <= size; i++) {
-            // ids
-            capacity += Spammer.s(i);
-        }
-        Base64.Encoder encoder = Base64.getEncoder();
-        for (String toAddress : addressList) {
-            Spammer.send(toAddress, fromAddress, subject, message);
-        }
         return a;
     }
 
-    private String generateMessage(int length) {
-        char[] msg = new char[length];
+    public static byte[] generateMessage(int length) {
+        // capacity = (length * 6) / 5;
+        int capacity = length + (length / 5);
+        byte[] msg = new byte[capacity];
         Random random = (Random) RandomGenerator.of("SecureRandom");
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < capacity; i++) {
             if ((i % 60) == 59) {
                 msg[i] = '\n';
             } else if ((i % 6) == 5) {
                 msg[i] = ' ';
             } else {
-                msg[i] = (char) random.nextInt('0', 0x3a);
+                msg[i] = (byte) random.nextInt('0', 0x3a);
             }
         }
         // trim
         while ((0 < length) && (msg[length - 1] & 0xff) <= ' ') {
             length--;
         }
-        return new String(msg, 0, length);
-    }
-
-    @Override
-    public void run() {
-        var toAddress = addressList.poll();
-        if (toAddress == null) {
-            service.shutdown();
-            return;
-        }
-        var fromAddress = "BM-5oGHd345R1y5zaHCQFwLXQ36NzjT1XG";
-        var subject = UUID.randomUUID().toString();
-        var message = generateMessage(ThreadLocalRandom.current().nextInt(4, 801));
-        Spammer.send(toAddress, fromAddress, subject, message);
-        var dataSource = new SQLiteDataSource();
-        dataSource.setUrl("jdbc:sqlite:D:\\address.db");
-        try (var c = dataSource.getConnection();
-                var ps = c.prepareStatement("delete from address where address = ?;")) {
-            ps.setString(1, toAddress);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return Arrays.copyOf(msg, length);
     }
 
 }

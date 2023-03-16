@@ -112,6 +112,11 @@ public class Spammer {
                 ThreadLocalRandom.current().nextInt(345300, 345900));
     }
 
+    public static HttpResponse<String> send(String toaddress, String fromaddress, String subject, byte[] message) {
+        return send(toaddress, fromaddress, subject, message,
+                ThreadLocalRandom.current().nextInt(345300, 345900));
+    }
+
     private static Base64.Encoder base64 = Base64.getEncoder();
 
     public static HttpResponse<String> send(String toaddress, String fromaddress, String subject, String message, int ttl) {
@@ -120,6 +125,14 @@ public class Spammer {
                         "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"%s\",\"%s\",\"%s\",\"%s\",2,%d], \"id\": 1}",
                         toaddress, fromaddress, base64.encodeToString(subject.getBytes(StandardCharsets.UTF_8)),
                         base64.encodeToString(message.getBytes(StandardCharsets.UTF_8)), ttl)));
+    }
+
+    public static HttpResponse<String> send(String toaddress, String fromaddress, String subject, byte[] message, int ttl) {
+        return post(HttpRequest.BodyPublishers
+                .ofString(String.format(
+                        "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"%s\",\"%s\",\"%s\",\"%s\",2,%d], \"id\": 1}",
+                        toaddress, fromaddress, base64.encodeToString(subject.getBytes(StandardCharsets.UTF_8)),
+                        base64.encodeToString(message), ttl)));
     }
 
 }
