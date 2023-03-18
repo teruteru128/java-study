@@ -1,12 +1,17 @@
 package com.twitter.teruteru128.study;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Callable;
@@ -15,6 +20,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.random.RandomGenerator;
+import java.util.stream.Collectors;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -74,9 +80,17 @@ public class Main implements Callable<Long> {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        var a = Files.readAllLines(Paths.get("out.txt"));
+        System.err.printf("ロードしました: %d件%n", a.size());
+        var b = a.parallelStream().map(String::trim).collect(Collectors.toCollection(ArrayList::new));
+        var random = (Random)RandomGenerator.of("SecureRandom");
+        Collections.shuffle(b, random);
+        System.err.println("シャッフルしました");
+        var task = new ScheduledPostTask(new LinkedList<>(b));
         main.service = Executors.newScheduledThreadPool(2);
-        var task = new ScheduledPostTask();
-        main.service.scheduleAtFixedRate(task, 0, 86, TimeUnit.SECONDS);
+        var f = main.service.scheduleAtFixedRate(task, 0, 8, TimeUnit.SECONDS);
+        System.err.println("起動しました");
+        f.get();
     }
 
     private ScheduledExecutorService service;
@@ -189,10 +203,10 @@ public class Main implements Callable<Long> {
             }
         }
         // trim
-        while ((0 < length) && (msg[length - 1] & 0xff) <= ' ') {
-            length--;
+        while ((0 < capacity) && (msg[capacity - 1] & 0xff) <= ' ') {
+            capacity--;
         }
-        return Arrays.copyOf(msg, length);
+        return Arrays.copyOf(msg, capacity);
     }
 
 }
