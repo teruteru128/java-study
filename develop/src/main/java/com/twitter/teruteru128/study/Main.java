@@ -1,31 +1,23 @@
 package com.twitter.teruteru128.study;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 import java.util.random.RandomGenerator;
-import java.util.stream.Collectors;
+
+import javax.net.ssl.SSLContext;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import com.twitter.teruteru128.bitmessage.Protocol;
-import com.twitter.teruteru128.bitmessage.ScheduledPostTask;
 import com.twitter.teruteru128.bitmessage.VarintDecodeException;
 import com.twitter.teruteru128.bitmessage.VarintTupple;
 import com.twitter.teruteru128.encode.Base58;
@@ -80,6 +72,7 @@ public class Main implements Callable<Long> {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        /* 
         var a = Files.readAllLines(Paths.get("out.txt"));
         System.err.printf("ロードしました: %d件%n", a.size());
         var b = a.parallelStream().map(String::trim).collect(Collectors.toCollection(ArrayList::new));
@@ -91,6 +84,18 @@ public class Main implements Callable<Long> {
         var f = main.service.scheduleAtFixedRate(task, 0, 8, TimeUnit.SECONDS);
         System.err.println("起動しました");
         f.get();
+        */
+        var context = SSLContext.getDefault();
+        var parameters = context.getDefaultSSLParameters();
+        var cipherSuites = parameters.getCipherSuites();
+        if (!com.twitter.teruteru128.util.Arrays.contains(cipherSuites, "TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
+            cipherSuites = Arrays.copyOf(cipherSuites, cipherSuites.length + 1);
+            cipherSuites[cipherSuites.length - 1] = "TLS_ECDH_anon_WITH_AES_256_CBC_SHA";
+            parameters.setCipherSuites(cipherSuites);
+        }
+        var engine = context.createSSLEngine();
+        engine.setSSLParameters(parameters);
+        engine.setUseClientMode(true);
     }
 
     private ScheduledExecutorService service;

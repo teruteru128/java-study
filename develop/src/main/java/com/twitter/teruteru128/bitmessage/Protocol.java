@@ -130,11 +130,6 @@ public class Protocol {
         return false;
     }
 
-    public static final long NODE_NETWORK = 1;
-    public static final long NODE_SSL = 2;
-    public static final long NODE_POW = 4;
-    public static final long NODE_DANDELION = 8;
-
     public static byte[] assembleVersionMessage(InetSocketAddress remote, int[] participatingStreams, boolean server,
             long nodeid) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(0);
@@ -142,7 +137,7 @@ public class Protocol {
             // version
             dos.writeInt(3);
             // service
-            dos.writeLong(NODE_NETWORK | NODE_SSL);
+            dos.writeLong(Service.NODE_NETWORK | Service.NODE_SSL);
             // timestamp
             dos.writeLong(Instant.now().getEpochSecond());
             // network service
@@ -254,7 +249,7 @@ public class Protocol {
                     remote.getHostName(),
                     remote.getPort(), true);
             var parameters = sslSocket.getSSLParameters();
-            var suites = new ArrayList<>(Arrays.asList(parameters.getCipherSuites()));
+            var suites = Arrays.asList(parameters.getCipherSuites());
             // TLS_ECDH_anon_WITH_AES_256_CBC_SHA is usually disabled, so you need to change
             // your system settings.
             if (!suites.contains("TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
@@ -262,10 +257,10 @@ public class Protocol {
             }
             parameters.setCipherSuites(suites.toArray(String[]::new));
             sslSocket.setSSLParameters(parameters);
-            var start = Instant.now();
+            var start = System.currentTimeMillis();
             sslSocket.startHandshake();
-            var finish = Instant.now();
-            System.out.printf("ssl handshake: %s%n", Duration.between(start, finish));
+            var finish = System.currentTimeMillis();
+            System.out.printf("ssl handshake: %s%n", Duration.ofMillis(finish - start));
             socket = sslSocket;
         }
         {
