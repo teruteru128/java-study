@@ -1,26 +1,17 @@
 package com.twitter.teruteru128.study;
 
-import java.security.DigestException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Arrays;
-import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.random.RandomGenerator;
 
 import javax.net.ssl.SSLContext;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import com.twitter.teruteru128.bitmessage.Protocol;
-import com.twitter.teruteru128.bitmessage.VarintDecodeException;
-import com.twitter.teruteru128.bitmessage.VarintTupple;
-import com.twitter.teruteru128.encode.Base58;
 
 /**
  * Main
@@ -86,132 +77,25 @@ public class Main implements Callable<Long> {
         f.get();
         */
         var context = SSLContext.getDefault();
-        var parameters = context.getDefaultSSLParameters();
+        var engine = context.createSSLEngine();
+        var parameters = engine.getSSLParameters();
         var cipherSuites = parameters.getCipherSuites();
         if (!com.twitter.teruteru128.util.Arrays.contains(cipherSuites, "TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
-            cipherSuites = Arrays.copyOf(cipherSuites, cipherSuites.length + 1);
-            cipherSuites[cipherSuites.length - 1] = "TLS_ECDH_anon_WITH_AES_256_CBC_SHA";
+            int newLength = cipherSuites.length + 1;
+            cipherSuites = Arrays.copyOf(cipherSuites, newLength);
+            cipherSuites[newLength - 1] = "TLS_ECDH_anon_WITH_AES_256_CBC_SHA";
             parameters.setCipherSuites(cipherSuites);
+            engine.setSSLParameters(parameters);
         }
-        var engine = context.createSSLEngine();
-        engine.setSSLParameters(parameters);
         engine.setUseClientMode(true);
     }
 
     private ScheduledExecutorService service;
 
-    private static DecodedAddress decodeAddress(String address) {
-        address = address.strip();
-        byte[] data = null;
-        if (address.substring(0, 3).equals("BM-")) {
-            data = Base58.decode(address.substring(3));
-        } else {
-            data = Base58.decode(address);
-        }
-        byte[] checksum = Arrays.copyOfRange(data, data.length - 4, data.length);
-        byte[] hash = new byte[64];
-        try {
-            MessageDigest sha512 = MessageDigest.getInstance("sha-512");
-            sha512.update(data, 0, data.length - 4);
-            sha512.digest(hash, 0, 64);
-            sha512.update(hash, 0, 64);
-            sha512.digest(hash, 0, 64);
-        } catch (NoSuchAlgorithmException | DigestException e) {
-            throw new InternalError(e);
-        }
-        if (!MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
-            return null;
-        }
-        VarintTupple addressVersionNumnerTupple = null;
-        try {
-            addressVersionNumnerTupple = VarintTupple.newInstance(data, 0, 9);
-        } catch (VarintDecodeException e) {
-            return null;
-        }
-        int addressVersionNumner = (int) addressVersionNumnerTupple.value();
-        if (addressVersionNumner > 4) {
-            return null;
-        } else if (addressVersionNumner == 0) {
-            return null;
-        }
-        VarintTupple streamNumberTupple = null;
-        try {
-            streamNumberTupple = VarintTupple.newInstance(data, addressVersionNumnerTupple.length(), 9);
-        } catch (VarintDecodeException e) {
-            return null;
-        }
-        int streamNumber = (int) streamNumberTupple.value();
-        if (addressVersionNumner == 1) {
-        } else if (addressVersionNumner == 2 || addressVersionNumner == 3) {
-            var trimedripe = Arrays.copyOfRange(data,
-                    addressVersionNumnerTupple.length() + streamNumberTupple.length(),
-                    data.length - 4);
-            var ripe = new byte[20];
-            System.arraycopy(trimedripe, 0, ripe, 20 - trimedripe.length, trimedripe.length);
-            return new DecodedAddress(addressVersionNumner, streamNumber, ripe);
-        } else if (addressVersionNumner == 4) {
-            var trimedripe = Arrays.copyOfRange(data,
-                    addressVersionNumnerTupple.length() + streamNumberTupple.length(),
-                    data.length - 4);
-            var ripe = new byte[20];
-            System.arraycopy(trimedripe, 0, ripe, 20 - trimedripe.length, trimedripe.length);
-            return new DecodedAddress(addressVersionNumner, streamNumber, ripe);
-        }
-        return null;
-    }
-
-    public long send() {
-        var uuid = UUID.randomUUID();
-        byte[] msgid = Encode.uuidToBytes(uuid);
-        String toAddress = "BM-2cXrRXWPR3TdbnmdRdggCXmZjf34vEQHBK";
-        var d = decodeAddress(toAddress);
-        byte[] toripe = d.ripe();
-        String fromAddress = "BM-5oSNKUHN6pgfQ8GetUHJJhzXpBYSRET";
-        String subject = "test";
-        String message = uuid.toString();
-        String status = "msgqueued";
-        byte[] ackdata = Protocol.genAckPayload(d.streamNumber(), 2);
-        System.out.printf("ackdata length: %d%n", ackdata.length);
-        LocalDateTime sentTime = LocalDateTime.now();
-        LocalDateTime lastActionTime = sentTime;
-        long sleeptill = 0;
-        ZoneOffset offset = ZoneOffset.ofHours(9);
-        int retryNumber = 0;
-        int encoding = 2;
-        int ttl = ThreadLocalRandom.current().nextInt(345300, 345900);
-        String folder = "sent";
-        return 0;
-    }
-
     @Override
     public Long call() throws Exception {
         long a = 0;
         return a;
-    }
-
-    public static byte[] generateMessage(int length) {
-        // FIXME Should I use RandomGenerator.getDefault() ?
-        return generateMessage(length, RandomGenerator.of("SecureRandom"));
-    }
-
-    public static byte[] generateMessage(int length, RandomGenerator random) {
-        // capacity = (length * 6) / 5;
-        int capacity = length + (length / 5);
-        byte[] msg = new byte[capacity];
-        for (int i = 0; i < capacity; i++) {
-            if ((i % 60) == 59) {
-                msg[i] = '\n';
-            } else if ((i % 6) == 5) {
-                msg[i] = ' ';
-            } else {
-                msg[i] = (byte) random.nextInt('0', 0x3a);
-            }
-        }
-        // trim
-        while ((0 < capacity) && (msg[capacity - 1] & 0xff) <= ' ') {
-            capacity--;
-        }
-        return Arrays.copyOf(msg, capacity);
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.twitter.teruteru128.study.Main;
+import com.twitter.teruteru128.bitmessage.app.Spammer;
 
 public class ScheduledPostTask implements Runnable {
 
@@ -25,7 +25,7 @@ public class ScheduledPostTask implements Runnable {
         var toAddress = addressList.poll();
         var fromAddress = "BM-5oGHd345R1y5zaHCQFwLXQ36NzjT1XG";
         var subject = UUID.randomUUID().toString();
-        var message = Main.generateMessage(ThreadLocalRandom.current().nextInt(200, 2200));
+        var message = Spammer.generateMessage(ThreadLocalRandom.current().nextInt(200, 2200));
         try {
             Sender.send(toAddress, fromAddress, subject, message);
         } catch (InterruptedException | IOException e) {

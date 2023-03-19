@@ -11,6 +11,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
@@ -27,6 +28,9 @@ import javax.net.ssl.SSLSocket;
 
 import org.apache.commons.codec.binary.Base32;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
+
+import com.twitter.teruteru128.encode.Base58;
+import com.twitter.teruteru128.study.DecodedAddress;
 
 public class Protocol {
 
@@ -249,14 +253,16 @@ public class Protocol {
                     remote.getHostName(),
                     remote.getPort(), true);
             var parameters = sslSocket.getSSLParameters();
-            var suites = Arrays.asList(parameters.getCipherSuites());
+            var suites = parameters.getCipherSuites();
             // TLS_ECDH_anon_WITH_AES_256_CBC_SHA is usually disabled, so you need to change
             // your system settings.
-            if (!suites.contains("TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
-                suites.add("TLS_ECDH_anon_WITH_AES_256_CBC_SHA");
+            if (!com.twitter.teruteru128.util.Arrays.contains(suites, "TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
+                int newLength = suites.length + 1;
+                suites = Arrays.copyOf(suites, newLength);
+                suites[newLength - 1] = "TLS_ECDH_anon_WITH_AES_256_CBC_SHA";
+                parameters.setCipherSuites(suites);
+                sslSocket.setSSLParameters(parameters);
             }
-            parameters.setCipherSuites(suites.toArray(String[]::new));
-            sslSocket.setSSLParameters(parameters);
             var start = System.currentTimeMillis();
             sslSocket.startHandshake();
             var finish = System.currentTimeMillis();
@@ -425,6 +431,66 @@ public class Protocol {
         } catch (IOException e) {
         }
         return o.toByteArray();
+    }
+
+    public static DecodedAddress decodeAddress(String address) {
+        address = address.strip();
+        byte[] data = null;
+        if (address.substring(0, 3).equals("BM-")) {
+            data = Base58.decode(address.substring(3));
+        } else {
+            data = Base58.decode(address);
+        }
+        byte[] checksum = Arrays.copyOfRange(data, data.length - 4, data.length);
+        byte[] hash = new byte[64];
+        try {
+            MessageDigest sha512 = MessageDigest.getInstance("sha-512");
+            sha512.update(data, 0, data.length - 4);
+            sha512.digest(hash, 0, 64);
+            sha512.update(hash, 0, 64);
+            sha512.digest(hash, 0, 64);
+        } catch (NoSuchAlgorithmException | DigestException e) {
+            throw new InternalError(e);
+        }
+        if (!MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
+            return null;
+        }
+        VarintTupple addressVersionNumnerTupple = null;
+        try {
+            addressVersionNumnerTupple = VarintTupple.newInstance(data, 0, 9);
+        } catch (VarintDecodeException e) {
+            return null;
+        }
+        int addressVersionNumner = (int) addressVersionNumnerTupple.value();
+        if (addressVersionNumner > 4) {
+            return null;
+        } else if (addressVersionNumner == 0) {
+            return null;
+        }
+        VarintTupple streamNumberTupple = null;
+        try {
+            streamNumberTupple = VarintTupple.newInstance(data, addressVersionNumnerTupple.length(), 9);
+        } catch (VarintDecodeException e) {
+            return null;
+        }
+        int streamNumber = (int) streamNumberTupple.value();
+        if (addressVersionNumner == 1) {
+        } else if (addressVersionNumner == 2 || addressVersionNumner == 3) {
+            var trimedripe = Arrays.copyOfRange(data,
+                    addressVersionNumnerTupple.length() + streamNumberTupple.length(),
+                    data.length - 4);
+            var ripe = new byte[20];
+            System.arraycopy(trimedripe, 0, ripe, 20 - trimedripe.length, trimedripe.length);
+            return new DecodedAddress(addressVersionNumner, streamNumber, ripe);
+        } else if (addressVersionNumner == 4) {
+            var trimedripe = Arrays.copyOfRange(data,
+                    addressVersionNumnerTupple.length() + streamNumberTupple.length(),
+                    data.length - 4);
+            var ripe = new byte[20];
+            System.arraycopy(trimedripe, 0, ripe, 20 - trimedripe.length, trimedripe.length);
+            return new DecodedAddress(addressVersionNumner, streamNumber, ripe);
+        }
+        return null;
     }
 
 }
