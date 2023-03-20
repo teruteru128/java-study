@@ -2,7 +2,6 @@ package com.twitter.teruteru128.bitmessage.app;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -10,21 +9,29 @@ import com.twitter.teruteru128.bitmessage.Sender;
 
 public class ScheduledPostTask implements Runnable {
 
-    public ScheduledPostTask(LinkedList<String> addressList) {
+    public ScheduledPostTask(ArrayList<String> toAddressList, ArrayList<String> fromAddressList) {
         super();
-        this.addressList = addressList;
+        this.toAddressList = toAddressList;
+        this.fromAddressList = fromAddressList;
     }
 
-    private LinkedList<String> addressList = null;
+    private ArrayList<String> toAddressList;
+    private ArrayList<String> fromAddressList;
 
     @Override
     public void run() {
-        if (addressList.size() == 0) {
+        int toAddressListSize = toAddressList.size();
+        int fromAddressListSize = fromAddressList.size();
+        if (toAddressListSize == 0) {
             System.err.println("toAddress list is empty");
             return;
         }
-        var toAddress = addressList.poll();
-        var fromAddress = "BM-5oGHd345R1y5zaHCQFwLXQ36NzjT1XG";
+        if (fromAddressListSize == 0) {
+            System.err.println("fromAddress list is empty");
+            return;
+        }
+        var toAddress = toAddressList.get(ThreadLocalRandom.current().nextInt(toAddressListSize));
+        var fromAddress = fromAddressList.get(ThreadLocalRandom.current().nextInt(fromAddressListSize));
         var subject = UUID.randomUUID().toString();
         var message = Spammer.generateMessage(ThreadLocalRandom.current().nextInt(200, 2200));
         try {
@@ -32,6 +39,6 @@ public class ScheduledPostTask implements Runnable {
         } catch (InterruptedException | IOException e) {
             throw new RuntimeException(e);
         }
-        System.err.println(toAddress);
+        System.err.printf("%s, %s%n", toAddress, fromAddress);
     }
 }

@@ -1,17 +1,22 @@
 package com.twitter.teruteru128.study;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.security.Security;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Random;
 import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-
-import javax.net.ssl.SSLContext;
+import java.util.concurrent.TimeUnit;
+import java.util.random.RandomGenerator;
+import java.util.stream.Collectors;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import com.twitter.teruteru128.bitmessage.Protocol;
+import com.twitter.teruteru128.bitmessage.app.ScheduledPostTask;
 
 /**
  * Main
@@ -63,19 +68,19 @@ public class Main implements Callable<Long> {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        /* 
-        var a = Files.readAllLines(Paths.get("out.txt"));
-        System.err.printf("ロードしました: %d件%n", a.size());
-        var b = a.parallelStream().map(String::trim).collect(Collectors.toCollection(ArrayList::new));
+        var toAddresses = new ArrayList<>(java.nio.file.Files.readAllLines(Paths.get("out.txt"), StandardCharsets.UTF_8));
+        var fromAddresses = new ArrayList<>(java.nio.file.Files.readAllLines(Paths.get("notchannels.txt"), StandardCharsets.UTF_8));
+        System.err.printf("ロードしました: %d件%n", toAddresses.size());
         var random = (Random)RandomGenerator.of("SecureRandom");
-        Collections.shuffle(b, random);
+        Collections.shuffle(toAddresses, random);
         System.err.println("シャッフルしました");
-        var task = new ScheduledPostTask(new LinkedList<>(b));
+        var task = new ScheduledPostTask(toAddresses, fromAddresses);
         main.service = Executors.newScheduledThreadPool(2);
         var f = main.service.scheduleAtFixedRate(task, 0, 8, TimeUnit.SECONDS);
         System.err.println("起動しました");
         f.get();
-        */
+        
+        /* 
         var context = SSLContext.getDefault();
         var engine = context.createSSLEngine();
         var parameters = engine.getSSLParameters();
@@ -88,6 +93,7 @@ public class Main implements Callable<Long> {
             engine.setSSLParameters(parameters);
         }
         engine.setUseClientMode(true);
+        */
     }
 
     private ScheduledExecutorService service;
