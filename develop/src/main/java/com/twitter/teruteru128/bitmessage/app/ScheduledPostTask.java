@@ -1,11 +1,12 @@
-package com.twitter.teruteru128.bitmessage;
+package com.twitter.teruteru128.bitmessage.app;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.twitter.teruteru128.bitmessage.app.Spammer;
+import com.twitter.teruteru128.bitmessage.Sender;
 
 public class ScheduledPostTask implements Runnable {
 
