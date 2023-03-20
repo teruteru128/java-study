@@ -56,11 +56,11 @@ public class Sender {
      * @param messages
      */
     public static HttpResponse<String> send(List<Message> messages) throws InterruptedException, IOException {
-        var sj = new StringJoiner(",", "{", "}");
+        var sj = new StringJoiner(",", "[", "]");
         int index = 1;
         for (Message message : messages) {
             sj.add(String.format(
-                    "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"%s\",\"%s\",\"%s\",\"%s\",2,%d],\"id\":%d}",
+                    "{\"jsonrpc\":\"2.0\",\"method\":\"sendMessage\",\"params\":[\"%s\",\"%s\",\"%s\",\"%s\",2,%d],\"id\":\"%d\"}",
                     message.toAddress(), message.fromAddress(), ENCODER.encodeToString(message.utf8EncodedSubject()),
                     ENCODER.encodeToString(message.utf8EncodedMessage()), message.ttl(), index++));
         }

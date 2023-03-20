@@ -10,16 +10,27 @@ import com.twitter.teruteru128.bitmessage.Sender;
 public class ScheduledPostTask implements Runnable {
 
     public ScheduledPostTask(ArrayList<String> toAddressList, ArrayList<String> fromAddressList) {
+        this(toAddressList, fromAddressList, -1);
+    }
+
+    public ScheduledPostTask(ArrayList<String> toAddressList, ArrayList<String> fromAddressList, long limit) {
         super();
         this.toAddressList = toAddressList;
         this.fromAddressList = fromAddressList;
+        this.limit = limit;
     }
 
     private ArrayList<String> toAddressList;
     private ArrayList<String> fromAddressList;
+    private final long limit;
+    private long count = 0;
 
     @Override
     public void run() {
+        if (Long.compareUnsigned(limit, count) <= 0) {
+            System.err.println("This task has already been completed.");
+            return;
+        }
         int toAddressListSize = toAddressList.size();
         int fromAddressListSize = fromAddressList.size();
         if (toAddressListSize == 0) {
@@ -40,5 +51,6 @@ public class ScheduledPostTask implements Runnable {
             throw new RuntimeException(e);
         }
         System.err.printf("%s, %s%n", toAddress, fromAddress);
+        count++;
     }
 }

@@ -4,19 +4,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.security.Security;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.random.RandomGenerator;
-import java.util.stream.Collectors;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
-import com.twitter.teruteru128.bitmessage.app.ScheduledPostTask;
 
 /**
  * Main
@@ -68,18 +61,25 @@ public class Main implements Callable<Long> {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var toAddresses = new ArrayList<>(java.nio.file.Files.readAllLines(Paths.get("out.txt"), StandardCharsets.UTF_8));
-        var fromAddresses = new ArrayList<>(java.nio.file.Files.readAllLines(Paths.get("notchannels.txt"), StandardCharsets.UTF_8));
-        System.err.printf("ロードしました: %d件%n", toAddresses.size());
-        var random = (Random)RandomGenerator.of("SecureRandom");
-        Collections.shuffle(toAddresses, random);
-        System.err.println("シャッフルしました");
-        var task = new ScheduledPostTask(toAddresses, fromAddresses);
-        main.service = Executors.newScheduledThreadPool(2);
-        var f = main.service.scheduleAtFixedRate(task, 0, 8, TimeUnit.SECONDS);
+        System.err.println("address list loading...");
+        
+        var future1 = main.forkJoinPool.submit(()->java.nio.file.Files.readAllLines(Paths.get("out.txt"), StandardCharsets.UTF_8));
+        var future2 = main.forkJoinPool.submit(()->java.nio.file.Files.readAllLines(Paths.get("notchannels.txt"), StandardCharsets.UTF_8));
+        
+        var toAddresses = new ArrayList<>(future1.get());
+        int toAddressesSize = toAddresses.size();
+        System.err.printf("toAddressListをロードしました: %d件%n", toAddressesSize);
+
+        var fromAddresses = new ArrayList<>(future2.get());
+        int fromAddressesSize = fromAddresses.size();
+        System.err.printf("fromAddressListをロードしました: %d件%n", fromAddressesSize);
+
+        /* 
+        var task = new ScheduledPostTask(toAddresses, fromAddresses, 10000);
+        var f = main.scheduledExecutorService.scheduleAtFixedRate(task, 0, (long) (86400D / 10000), TimeUnit.SECONDS);
         System.err.println("起動しました");
         f.get();
-        
+         */
         /* 
         var context = SSLContext.getDefault();
         var engine = context.createSSLEngine();
@@ -96,7 +96,8 @@ public class Main implements Callable<Long> {
         */
     }
 
-    private ScheduledExecutorService service;
+    private ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(2);
+    private ForkJoinPool forkJoinPool = (ForkJoinPool) Executors.newWorkStealingPool();
 
     @Override
     public Long call() throws Exception {
