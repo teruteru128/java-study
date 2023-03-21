@@ -375,13 +375,15 @@ public class Protocol {
 
     /**
      * BMのPoWで使う
+     * 
      * @param length
      * @param ttl
      * @param proofOfWorkNonceTrialsPerByte
      * @param payloadLengthExtraBytes
      * @return
      */
-    private static long calcTarget(int length, int ttl, int proofOfWorkNonceTrialsPerByte, int payloadLengthExtraBytes) {
+    private static long calcTarget(int length, int ttl, int proofOfWorkNonceTrialsPerByte,
+            int payloadLengthExtraBytes) {
         return (long) (0x1p64 / (proofOfWorkNonceTrialsPerByte
                 * (length + 8 + payloadLengthExtraBytes + ((ttl * (length + 8 + payloadLengthExtraBytes)) / 0x1p16))));
     }
@@ -404,7 +406,7 @@ public class Protocol {
                 acktype = 0; // getpubkey
                 version = 4;
                 break;
-    
+
             case 2:
                 ECPublicKey key = ECIES.generateEcPublicKey();
                 int len = ThreadLocalRandom.current().nextInt(234, 801);
@@ -414,7 +416,7 @@ public class Protocol {
                 acktype = 2; // message
                 version = 1;
                 break;
-    
+
             default:
                 ackdata = new byte[32];
                 random.nextBytes(ackdata);
@@ -422,15 +424,25 @@ public class Protocol {
                 version = 1;
                 break;
         }
-        var o = new ByteArrayOutputStream(6 + ackdata.length);
-        try (DataOutputStream dos = new DataOutputStream(o)) {
-            dos.writeInt(acktype);
-            dos.write(Structs.encodeVarint(version));
-            dos.write(Structs.encodeVarint(streamNumber));
-            dos.write(ackdata);
-        } catch (IOException e) {
-        }
-        return o.toByteArray();
+        byte[] ackTypeBuffer = new byte[4];
+        ackTypeBuffer[0] = (byte) (acktype >>> 24);
+        ackTypeBuffer[1] = (byte) (acktype >>> 16);
+        ackTypeBuffer[2] = (byte) (acktype >>> 8);
+        ackTypeBuffer[3] = (byte) (acktype >>> 0);
+        byte[] versionBuffer = Structs.encodeVarint(version);
+        byte[] streamNumberBuffer = Structs.encodeVarint(streamNumber);
+        byte[] result = new byte[ackTypeBuffer.length + versionBuffer.length + streamNumberBuffer.length
+                + ackdata.length];
+        int resultOffset = 0;
+        System.arraycopy(ackTypeBuffer, 0, result, resultOffset, ackTypeBuffer.length);
+        resultOffset += ackTypeBuffer.length;
+        System.arraycopy(versionBuffer, 0, result, resultOffset, versionBuffer.length);
+        resultOffset += versionBuffer.length;
+        System.arraycopy(streamNumberBuffer, 0, result, resultOffset, streamNumberBuffer.length);
+        resultOffset += streamNumberBuffer.length;
+        System.arraycopy(ackdata, 0, result, resultOffset, ackdata.length);
+        resultOffset += ackdata.length;
+        return result;
     }
 
     public static DecodedAddress decodeAddress(String address) {
