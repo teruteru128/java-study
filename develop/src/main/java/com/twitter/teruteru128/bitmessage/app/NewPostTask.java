@@ -1,10 +1,8 @@
 package com.twitter.teruteru128.bitmessage.app;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.twitter.teruteru128.bitmessage.Message;
@@ -43,21 +41,24 @@ public class NewPostTask implements Runnable {
 
     @Override
     public void run() {
+        System.err.printf("[%s] task start%n", LocalDateTime.now());
         int toAddressesSize = toAddresses.size();
         int fromAddressesSize = fromAddresses.size();
         String toAddress;
         String fromAddress;
-        byte[] subject;
-        byte[] message;
-        int ttl = 86400 * 28;
+        byte[] empty = new byte[0];
+        byte[] subject = empty;
+        byte[] message = empty;
+        int ttl = 3600;
         int num = this.num != -1 ? this.num : ThreadLocalRandom.current().nextInt(this.min, this.max);
         var messages = new ArrayList<Message>(num);
         // toAddressが衝突すると面倒なことになるので回避策
         for (int i = 0; i < num; i++) {
             toAddress = toAddresses.get(nextToAddressIndex++);
             fromAddress = fromAddresses.get(nextFromAddressIndex++);
-            subject = UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8);
-            message = Spammer.generateMessage(ThreadLocalRandom.current().nextInt(200, 2201));
+            // subject = UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8);
+            // message = Spammer.generateMessage(ThreadLocalRandom.current().nextInt(200, 2201));
+            // ttl = ThreadLocalRandom.current().nextInt(3600, 86400 * 28 + 1);
             messages.add(new Message(toAddress, fromAddress, subject, message, ttl));
             if (nextToAddressIndex >= toAddressesSize) {
                 nextToAddressIndex = 0;
@@ -66,11 +67,13 @@ public class NewPostTask implements Runnable {
                 nextFromAddressIndex = 0;
             }
         }
-        System.err.printf("[%s] request build done, sending...%n", LocalDateTime.now());
+        // System.err.printf("[%s] request build done, sending...%n", LocalDateTime.now());
         try {
             Sender.send(messages);
         } catch (InterruptedException | IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            System.err.printf("[%s] task finish%n", LocalDateTime.now());
         }
     }
 }

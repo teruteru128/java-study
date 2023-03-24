@@ -2,20 +2,16 @@ package com.twitter.teruteru128.study;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
-import java.security.DrbgParameters;
 import java.security.SecureRandom;
 import java.security.Security;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HexFormat;
-import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
-import java.util.random.RandomGenerator;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -73,27 +69,29 @@ public class Main implements Callable<Long> {
     public static void main(String[] args) throws Exception {
         SecureRandom random = SecureRandom.getInstanceStrong();
 
-        System.err.println("address list loading...");
+        System.err.printf("[%s] address list loading...%n", LocalDateTime.now());
 
-        var toAddressesLoadTask = main.forkJoinPool.submit(()->java.nio.file.Files.readAllLines(Paths.get("out.txt"), StandardCharsets.UTF_8));
-        var fromAddressesLoadTask = main.forkJoinPool.submit(()->java.nio.file.Files.readAllLines(Paths.get("notchannels.txt"), StandardCharsets.UTF_8));
+        var toAddressesLoadTask = main.forkJoinPool
+                .submit(() -> java.nio.file.Files.readAllLines(Paths.get("out.txt"), StandardCharsets.UTF_8));
+        var fromAddressesLoadTask = main.forkJoinPool
+                .submit(() -> java.nio.file.Files.readAllLines(Paths.get("notchannels.txt"), StandardCharsets.UTF_8));
 
         var toAddresses = new ArrayList<>(toAddressesLoadTask.get());
         int toAddressesSize = toAddresses.size();
-        System.err.printf("toAddressListをロードしました: %d件%n", toAddressesSize);
+        System.err.printf("[%s] toAddressListをロードしました: %d件%n", LocalDateTime.now(), toAddressesSize);
         Collections.shuffle(toAddresses, random);
 
         var fromAddresses = new ArrayList<>(fromAddressesLoadTask.get());
         int fromAddressesSize = fromAddresses.size();
-        System.err.printf("fromAddressListをロードしました: %d件%n", fromAddressesSize);
+        System.err.printf("[%s] fromAddressListをロードしました: %d件%n", LocalDateTime.now(), fromAddressesSize);
         // 128bit乱数では35個のシャッフルまでしか耐えられない
         // 1152bit乱数では187個のシャッフルまでしか耐えられない
         Collections.shuffle(fromAddresses, random);
 
-        var task = new NewPostTask(toAddresses, fromAddresses, 10000);
+        var task = new NewPostTask(toAddresses, fromAddresses, 1000);
 
-        var f = main.scheduledExecutorService.scheduleAtFixedRate(task, 0, 23, TimeUnit.HOURS);
-        System.err.println("起動しました");
+        var f = main.scheduledExecutorService.scheduleAtFixedRate(task, 0, 1, TimeUnit.HOURS);
+        System.err.printf("[%s] 起動しました%n", LocalDateTime.now());
         f.get();
 
         /* 
