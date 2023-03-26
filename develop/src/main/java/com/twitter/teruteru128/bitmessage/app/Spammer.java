@@ -70,7 +70,7 @@ public class Spammer {
         String subject = uuid.toString();
         var message = generateMessage(ThreadLocalRandom.current().nextInt(200, 2200));
         int ttl = ThreadLocalRandom.current().nextInt(345300, 345900);
-        Sender.send(toAddress, fromAddress, subject, message);
+        Sender.send(toAddress, fromAddress, subject, message, ttl);
         return 1;
     }
 

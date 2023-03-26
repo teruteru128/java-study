@@ -4,7 +4,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.security.SecureRandom;
 import java.security.Security;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.Callable;
@@ -90,7 +92,11 @@ public class Main implements Callable<Long> {
 
         var task = new NewPostTask(toAddresses, fromAddresses, 1000);
 
-        var f = main.scheduledExecutorService.scheduleAtFixedRate(task, 0, 1, TimeUnit.HOURS);
+        var current = LocalDateTime.now();
+        var target = current.plusHours(1).truncatedTo(ChronoUnit.HOURS);
+        var diff = Duration.between(current, target);
+
+        var f = main.scheduledExecutorService.scheduleAtFixedRate(task, diff.toNanos(), 3600000000000L, TimeUnit.NANOSECONDS);
         System.err.printf("[%s] 起動しました%n", LocalDateTime.now());
         f.get();
 
