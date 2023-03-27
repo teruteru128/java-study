@@ -49,7 +49,7 @@ public class NewPostTask implements Runnable {
         byte[] empty = new byte[0];
         byte[] subject = empty;
         byte[] message = empty;
-        int ttl = 3600;
+        int ttl = 86400 * 4;
         int num = this.num != -1 ? this.num : ThreadLocalRandom.current().nextInt(this.min, this.max);
         var messages = new ArrayList<Message>(num);
         // toAddressが衝突すると面倒なことになるので回避策

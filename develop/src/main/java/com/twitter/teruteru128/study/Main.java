@@ -1,5 +1,8 @@
 package com.twitter.teruteru128.study;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.security.SecureRandom;
@@ -9,10 +12,12 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -63,12 +68,57 @@ public class Main implements Callable<Long> {
 
     private static Main main = new Main();
 
+    private static Callable<List<BigInteger>> ddddd(String name) {
+        return () -> {
+            try (var s = java.nio.file.Files.lines(Paths.get(name), StandardCharsets.UTF_8)) {
+                return s.map(BigInteger::new).toList();
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
+        };
+    }
+
     /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        var f = main.forkJoinPool.submit(() -> new BigInteger(
+                java.nio.file.Files.readAllLines(Paths.get("rsa1024.txt"), StandardCharsets.UTF_8).get(0), 10));
+        var g = main.forkJoinPool.submit(ddddd("in1.txt"));
+        var h = main.forkJoinPool.submit(ddddd("in2.txt"));
+        var rsa1024 = f.get();
+        ArrayList<BigInteger> p1 = new ArrayList<>();
+        p1.addAll(g.get());
+        var subtotal = BigInteger.ZERO;
+        int signum = 1;
+        System.out.println(rsa1024);
+        System.out.println("---");
+        for (BigInteger d : p1) {
+            var tmp = d.pow(2);
+            if (signum == 1) {
+                subtotal = subtotal.add(tmp);
+                System.out.println(subtotal.subtract(rsa1024));
+            } else if (signum == -1) {
+                subtotal = subtotal.subtract(tmp);
+                System.out.println(rsa1024.subtract(subtotal));
+            }
+            System.out.println("---");
+            signum = signum == -1 ? 1 : -1;
+        }
+        System.out.println(subtotal.equals(rsa1024));
+        ArrayList<BigInteger> p2 = new ArrayList<>();
+        p2.addAll(h.get());
+        subtotal = BigInteger.ZERO;
+        for (BigInteger d : p2) {
+            subtotal = subtotal.add(d.pow(2));
+        }
+        System.out.println("---");
+        var tmp = rsa1024.subtract(subtotal);
+        System.out.println(tmp);
+        System.out.println(tmp.sqrt());
+        /* 
         SecureRandom random = SecureRandom.getInstanceStrong();
 
         System.err.printf("[%s] address list loading...%n", LocalDateTime.now());
@@ -81,25 +131,28 @@ public class Main implements Callable<Long> {
         var toAddresses = new ArrayList<>(toAddressesLoadTask.get());
         int toAddressesSize = toAddresses.size();
         System.err.printf("[%s] toAddressListをロードしました: %d件%n", LocalDateTime.now(), toAddressesSize);
-        Collections.shuffle(toAddresses, random);
+        //Collections.shuffle(toAddresses, random);
 
         var fromAddresses = new ArrayList<>(fromAddressesLoadTask.get());
         int fromAddressesSize = fromAddresses.size();
         System.err.printf("[%s] fromAddressListをロードしました: %d件%n", LocalDateTime.now(), fromAddressesSize);
         // 128bit乱数では35個のシャッフルまでしか耐えられない
         // 1152bit乱数では187個のシャッフルまでしか耐えられない
-        Collections.shuffle(fromAddresses, random);
+        //Collections.shuffle(fromAddresses, random);
 
-        var task = new NewPostTask(toAddresses, fromAddresses, 1000);
+        var task = new NewPostTask(toAddresses, fromAddresses, 1310682);
 
         var current = LocalDateTime.now();
-        var target = current.plusHours(1).truncatedTo(ChronoUnit.HOURS);
+        // var target = current.plusHours(1).truncatedTo(ChronoUnit.HOURS);
+        var target = current;
         var diff = Duration.between(current, target);
 
-        var f = main.scheduledExecutorService.scheduleAtFixedRate(task, diff.toNanos(), 3600000000000L, TimeUnit.NANOSECONDS);
+        var f = main.scheduledExecutorService.schedule(task, diff.toNanos(), TimeUnit.NANOSECONDS);
         System.err.printf("[%s] 起動しました%n", LocalDateTime.now());
         f.get();
-
+        main.scheduledExecutorService.shutdown();
+        System.err.printf("[%s] しゃっとだうーん%n", LocalDateTime.now());
+        */
         /* 
         var task = new ScheduledPostTask(toAddresses, fromAddresses, 10000);
         var f = main.scheduledExecutorService.scheduleAtFixedRate(task, 0, (long) (86400D / 10000), TimeUnit.SECONDS);
@@ -122,7 +175,8 @@ public class Main implements Callable<Long> {
         */
     }
 
-    private ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(2);
+    private ScheduledThreadPoolExecutor scheduledExecutorService = (ScheduledThreadPoolExecutor) Executors
+            .newScheduledThreadPool(2);
     private ForkJoinPool forkJoinPool = (ForkJoinPool) Executors.newWorkStealingPool();
 
     @Override
