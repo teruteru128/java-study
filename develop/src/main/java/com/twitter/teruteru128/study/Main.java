@@ -13,8 +13,15 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.Security;
 import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.BitSet;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
@@ -24,6 +31,7 @@ import java.util.regex.Pattern;
 import javax.net.ssl.SSLContext;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.sqlite.SQLiteDataSource;
 
 /**
  * Main
@@ -75,59 +83,34 @@ public class Main implements Callable<Long> {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        /* 
-        var bitsetpath = Paths.get("\\\\wsl$\\Ubuntu\\home\\teruteru128\\git\\study\\82589934bit-791433f6-33ff-4282-90c8-6ad2e6e31447-initialValue.bs");
-        BitSet set = null;
-        if(Files.exists(bitsetpath)) {
-            try(var channel = FileChannel.open(bitsetpath, StandardOpenOption.READ)) {
-                var map = channel.map(FileChannel.MapMode.READ_ONLY, 8, channel.size()-8);
-                set = BitSet.valueOf(map.asLongBuffer());
-            }
-            long[] l = set.toLongArray();
-            for(int i = 0; i < 16; i ++) {
-                System.out.printf("%016x", l[i]);
-            }
-        }
-        */
-        Path path = Paths.get("82589935bit-791433f6-33ff-4282-90c8-6ad2e6e31447.bn");
-        if(Files.exists(path)) {
-            BigInteger b = BigInteger.valueOf(-1);
-            long start;
-            Duration d;
-            try(var ois = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(path, StandardOpenOption.READ)))) {
-                start = System.nanoTime();
-                b = (BigInteger) ois.readObject();
-                d = Duration.ofNanos(System.nanoTime() - start);
-            }
-            System.out.println(d);
-            if (b.equals(BigInteger.valueOf(-1))) {
-                System.out.println("-1");
-            } else {
-                System.out.printf("%dbit%n", b.bitLength());
-            }
-        } else {
-            var inpath = Paths.get("\\\\wsl$\\Ubuntu\\home\\teruteru128\\git\\study\\82589933bit-4bf524fe-f0fa-498d-a18e-2f5ee09df68e-initialValue.txt");
-            var b = new BigInteger(Files.readAllLines(inpath).get(0), 16);
-            System.out.println(b.bitLength());
-            try(var oos = new ObjectOutputStream(new BufferedOutputStream(Files.newOutputStream(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)))){
-                oos.writeObject(b);
+        var id = ZoneId.systemDefault();
+        var dataSource = new SQLiteDataSource();
+        dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
+        TreeMap<Instant, Integer> map = new TreeMap<>();
+        try (var connection = dataSource.getConnection(); var s = connection.createStatement();
+            var r = s.executeQuery("select senttime from sent where folder = 'trash' and status = 'msgqueued' and retrynumber = 0")) {
+            while(r.next()) {
+                var time = Instant.ofEpochSecond(r.getLong("senttime"));
+                time = time.truncatedTo(DetailedChronoUnit.FIVE_MINUTES);
+                if(map.containsKey(time)) {
+                    int count = map.get(time);
+                    map.put(time, count + 1);
+                }else{
+                    map.put(time, 1);
+                }
             }
         }
-
-        /* 
-        var context = SSLContext.getDefault();
-        var engine = context.createSSLEngine();
-        var parameters = engine.getSSLParameters();
-        var cipherSuites = parameters.getCipherSuites();
-        if (!com.twitter.teruteru128.util.Arrays.contains(cipherSuites, "TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
-            int newLength = cipherSuites.length + 1;
-            cipherSuites = Arrays.copyOf(cipherSuites, newLength);
-            cipherSuites[newLength - 1] = "TLS_ECDH_anon_WITH_AES_256_CBC_SHA";
-            parameters.setCipherSuites(cipherSuites);
-            engine.setSSLParameters(parameters);
+        Instant targetSleeptill = Instant.ofEpochSecond(1680534000);
+        Instant start = null;
+        Instant finish = null;
+        for (Map.Entry<Instant, Integer> entry: map.entrySet()) {
+            System.out.printf("-- [%s]: %d%n", entry.getKey(), entry.getValue());
+            start = entry.getKey();
+            finish = start.plusSeconds(300);
+            System.out.printf("update sent set status = 'msgqueued', folder = 'sent' where folder = 'trash' and status = 'msgqueued' and retrynumber = 0 and %d <= senttime and senttime < %d;%n",
+            start.getEpochSecond(), finish.getEpochSecond());
+            targetSleeptill = targetSleeptill.plusSeconds(86400);
         }
-        engine.setUseClientMode(true);
-        */
     }
 
     private ScheduledThreadPoolExecutor scheduledExecutorService = (ScheduledThreadPoolExecutor) Executors

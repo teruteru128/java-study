@@ -8,7 +8,7 @@ import java.time.temporal.TemporalUnit;
 public enum DetailedChronoUnit implements TemporalUnit {
     FIVE_MINUTES("FiveMinutes", Duration.ofSeconds(300)),
     TEN_MINUTES("TenMinutes", Duration.ofSeconds(600)),
-    HALF_AN_HOUR("halfAnHour", Duration.ofSeconds(1800));
+    HALF_HOURS("halfHours", Duration.ofSeconds(1800));
 
     private final String name;
     private final Duration duration;
