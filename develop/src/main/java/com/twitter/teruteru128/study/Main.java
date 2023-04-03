@@ -1,28 +1,29 @@
 package com.twitter.teruteru128.study;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
+import java.nio.channels.FileChannel;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.SecureRandom;
+import java.nio.file.StandardOpenOption;
 import java.security.Security;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
+import java.util.BitSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
+
+import javax.net.ssl.SSLContext;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
-import com.twitter.teruteru128.bitmessage.app.NewPostTask;
 
 /**
  * Main
@@ -68,97 +69,51 @@ public class Main implements Callable<Long> {
 
     private static Main main = new Main();
 
-    private static Callable<List<BigInteger>> ddddd(String name) {
-        return () -> {
-            try (var s = java.nio.file.Files.lines(Paths.get(name), StandardCharsets.UTF_8)) {
-                return s.map(BigInteger::new).toList();
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
-        };
-    }
-
     /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var f = main.forkJoinPool.submit(() -> new BigInteger(
-                java.nio.file.Files.readAllLines(Paths.get("rsa1024.txt"), StandardCharsets.UTF_8).get(0), 10));
-        var g = main.forkJoinPool.submit(ddddd("in1.txt"));
-        var h = main.forkJoinPool.submit(ddddd("in2.txt"));
-        var rsa1024 = f.get();
-        ArrayList<BigInteger> p1 = new ArrayList<>();
-        p1.addAll(g.get());
-        var subtotal = BigInteger.ZERO;
-        int signum = 1;
-        System.out.println(rsa1024);
-        System.out.println("---");
-        for (BigInteger d : p1) {
-            var tmp = d.pow(2);
-            if (signum == 1) {
-                subtotal = subtotal.add(tmp);
-                System.out.println(subtotal.subtract(rsa1024));
-            } else if (signum == -1) {
-                subtotal = subtotal.subtract(tmp);
-                System.out.println(rsa1024.subtract(subtotal));
+        /* 
+        var bitsetpath = Paths.get("\\\\wsl$\\Ubuntu\\home\\teruteru128\\git\\study\\82589934bit-791433f6-33ff-4282-90c8-6ad2e6e31447-initialValue.bs");
+        BitSet set = null;
+        if(Files.exists(bitsetpath)) {
+            try(var channel = FileChannel.open(bitsetpath, StandardOpenOption.READ)) {
+                var map = channel.map(FileChannel.MapMode.READ_ONLY, 8, channel.size()-8);
+                set = BitSet.valueOf(map.asLongBuffer());
             }
-            System.out.println("---");
-            signum = signum == -1 ? 1 : -1;
+            long[] l = set.toLongArray();
+            for(int i = 0; i < 16; i ++) {
+                System.out.printf("%016x", l[i]);
+            }
         }
-        System.out.println(subtotal.equals(rsa1024));
-        ArrayList<BigInteger> p2 = new ArrayList<>();
-        p2.addAll(h.get());
-        subtotal = BigInteger.ZERO;
-        for (BigInteger d : p2) {
-            subtotal = subtotal.add(d.pow(2));
-        }
-        System.out.println("---");
-        var tmp = rsa1024.subtract(subtotal);
-        System.out.println(tmp);
-        System.out.println(tmp.sqrt());
-        /* 
-        SecureRandom random = SecureRandom.getInstanceStrong();
-
-        System.err.printf("[%s] address list loading...%n", LocalDateTime.now());
-
-        var toAddressesLoadTask = main.forkJoinPool
-                .submit(() -> java.nio.file.Files.readAllLines(Paths.get("out.txt"), StandardCharsets.UTF_8));
-        var fromAddressesLoadTask = main.forkJoinPool
-                .submit(() -> java.nio.file.Files.readAllLines(Paths.get("notchannels.txt"), StandardCharsets.UTF_8));
-
-        var toAddresses = new ArrayList<>(toAddressesLoadTask.get());
-        int toAddressesSize = toAddresses.size();
-        System.err.printf("[%s] toAddressListをロードしました: %d件%n", LocalDateTime.now(), toAddressesSize);
-        //Collections.shuffle(toAddresses, random);
-
-        var fromAddresses = new ArrayList<>(fromAddressesLoadTask.get());
-        int fromAddressesSize = fromAddresses.size();
-        System.err.printf("[%s] fromAddressListをロードしました: %d件%n", LocalDateTime.now(), fromAddressesSize);
-        // 128bit乱数では35個のシャッフルまでしか耐えられない
-        // 1152bit乱数では187個のシャッフルまでしか耐えられない
-        //Collections.shuffle(fromAddresses, random);
-
-        var task = new NewPostTask(toAddresses, fromAddresses, 1310682);
-
-        var current = LocalDateTime.now();
-        // var target = current.plusHours(1).truncatedTo(ChronoUnit.HOURS);
-        var target = current;
-        var diff = Duration.between(current, target);
-
-        var f = main.scheduledExecutorService.schedule(task, diff.toNanos(), TimeUnit.NANOSECONDS);
-        System.err.printf("[%s] 起動しました%n", LocalDateTime.now());
-        f.get();
-        main.scheduledExecutorService.shutdown();
-        System.err.printf("[%s] しゃっとだうーん%n", LocalDateTime.now());
         */
-        /* 
-        var task = new ScheduledPostTask(toAddresses, fromAddresses, 10000);
-        var f = main.scheduledExecutorService.scheduleAtFixedRate(task, 0, (long) (86400D / 10000), TimeUnit.SECONDS);
-        System.err.println("起動しました");
-        f.get();
-         */
+        Path path = Paths.get("82589935bit-791433f6-33ff-4282-90c8-6ad2e6e31447.bn");
+        if(Files.exists(path)) {
+            BigInteger b = BigInteger.valueOf(-1);
+            long start;
+            Duration d;
+            try(var ois = new ObjectInputStream(new BufferedInputStream(Files.newInputStream(path, StandardOpenOption.READ)))) {
+                start = System.nanoTime();
+                b = (BigInteger) ois.readObject();
+                d = Duration.ofNanos(System.nanoTime() - start);
+            }
+            System.out.println(d);
+            if (b.equals(BigInteger.valueOf(-1))) {
+                System.out.println("-1");
+            } else {
+                System.out.printf("%dbit%n", b.bitLength());
+            }
+        } else {
+            var inpath = Paths.get("\\\\wsl$\\Ubuntu\\home\\teruteru128\\git\\study\\82589933bit-4bf524fe-f0fa-498d-a18e-2f5ee09df68e-initialValue.txt");
+            var b = new BigInteger(Files.readAllLines(inpath).get(0), 16);
+            System.out.println(b.bitLength());
+            try(var oos = new ObjectOutputStream(new BufferedOutputStream(Files.newOutputStream(path, StandardOpenOption.CREATE, StandardOpenOption.WRITE)))){
+                oos.writeObject(b);
+            }
+        }
+
         /* 
         var context = SSLContext.getDefault();
         var engine = context.createSSLEngine();
