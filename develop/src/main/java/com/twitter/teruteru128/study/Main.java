@@ -1,34 +1,14 @@
 package com.twitter.teruteru128.study;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.math.BigInteger;
-import java.nio.channels.FileChannel;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.security.Security;
-import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.BitSet;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.regex.Pattern;
-
-import javax.net.ssl.SSLContext;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.sqlite.SQLiteDataSource;
@@ -87,15 +67,17 @@ public class Main implements Callable<Long> {
         var dataSource = new SQLiteDataSource();
         dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
         TreeMap<Instant, Integer> map = new TreeMap<>();
-        try (var connection = dataSource.getConnection(); var s = connection.createStatement();
-            var r = s.executeQuery("select senttime from sent where folder = 'trash' and status = 'msgqueued' and retrynumber = 0")) {
-            while(r.next()) {
+        try (var connection = dataSource.getConnection();
+                var s = connection.createStatement();
+                var r = s.executeQuery(
+                        "select senttime from sent where folder = 'trash' and status = 'msgqueued' and retrynumber = 0")) {
+            while (r.next()) {
                 var time = Instant.ofEpochSecond(r.getLong("senttime"));
                 time = time.truncatedTo(DetailedChronoUnit.FIVE_MINUTES);
-                if(map.containsKey(time)) {
+                if (map.containsKey(time)) {
                     int count = map.get(time);
                     map.put(time, count + 1);
-                }else{
+                } else {
                     map.put(time, 1);
                 }
             }
@@ -103,12 +85,13 @@ public class Main implements Callable<Long> {
         Instant targetSleeptill = Instant.ofEpochSecond(1680534000);
         Instant start = null;
         Instant finish = null;
-        for (Map.Entry<Instant, Integer> entry: map.entrySet()) {
+        for (Map.Entry<Instant, Integer> entry : map.entrySet()) {
             System.out.printf("-- [%s]: %d%n", entry.getKey(), entry.getValue());
             start = entry.getKey();
             finish = start.plusSeconds(300);
-            System.out.printf("update sent set status = 'msgqueued', folder = 'sent' where folder = 'trash' and status = 'msgqueued' and retrynumber = 0 and %d <= senttime and senttime < %d;%n",
-            start.getEpochSecond(), finish.getEpochSecond());
+            System.out.printf(
+                    "update sent set status = 'msgqueued', folder = 'sent' where folder = 'trash' and status = 'msgqueued' and retrynumber = 0 and %d <= senttime and senttime < %d;%n",
+                    start.getEpochSecond(), finish.getEpochSecond());
             targetSleeptill = targetSleeptill.plusSeconds(86400);
         }
     }
