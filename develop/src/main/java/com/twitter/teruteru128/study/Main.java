@@ -1,10 +1,21 @@
 package com.twitter.teruteru128.study;
 
+import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.security.Security;
 import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.BitSet;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
@@ -12,6 +23,11 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.sqlite.SQLiteDataSource;
+
+import com.twitter.teruteru128.bitmessage.app.DeterministicAddressesGenerator;
+
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
 
 /**
  * Main
@@ -43,7 +59,7 @@ import org.sqlite.SQLiteDataSource;
  * Ya/piNyZ969sH/qUEPDazlnQVgRnbyLGN6RI+4YvGZoHGdbPw3tgQDktJs9pXYhF+KZoFo0T/bBjZuxUAmCqWA==
  * mgbBWuOBHpn/wEm10SiPBZgiulzISK44ngU/m/14uzvTrIXrKlqeDnq5ONvwM6TyYsQwM2dP4wR5/shIxymU4g==
  */
-public class Main implements Callable<Long> {
+public class Main {
 
     static {
         if (Security.getProvider("BC") == null) {
@@ -51,59 +67,18 @@ public class Main implements Callable<Long> {
         }
     }
 
-    public Main() {
-        super();
-    }
-
-    private static Main main = new Main();
-
     /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var id = ZoneId.systemDefault();
-        var dataSource = new SQLiteDataSource();
-        dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
-        TreeMap<Instant, Integer> map = new TreeMap<>();
-        try (var connection = dataSource.getConnection();
-                var s = connection.createStatement();
-                var r = s.executeQuery(
-                        "select senttime from sent where folder = 'trash' and status = 'msgqueued' and retrynumber = 0")) {
-            while (r.next()) {
-                var time = Instant.ofEpochSecond(r.getLong("senttime"));
-                time = time.truncatedTo(DetailedChronoUnit.FIVE_MINUTES);
-                if (map.containsKey(time)) {
-                    int count = map.get(time);
-                    map.put(time, count + 1);
-                } else {
-                    map.put(time, 1);
-                }
-            }
-        }
-        Instant targetSleeptill = Instant.ofEpochSecond(1680534000);
-        Instant start = null;
-        Instant finish = null;
-        for (Map.Entry<Instant, Integer> entry : map.entrySet()) {
-            System.out.printf("-- [%s]: %d%n", entry.getKey(), entry.getValue());
-            start = entry.getKey();
-            finish = start.plusSeconds(300);
-            System.out.printf(
-                    "update sent set status = 'msgqueued', folder = 'sent' where folder = 'trash' and status = 'msgqueued' and retrynumber = 0 and %d <= senttime and senttime < %d;%n",
-                    start.getEpochSecond(), finish.getEpochSecond());
-            targetSleeptill = targetSleeptill.plusSeconds(86400);
-        }
-    }
-
-    private ScheduledThreadPoolExecutor scheduledExecutorService = (ScheduledThreadPoolExecutor) Executors
-            .newScheduledThreadPool(2);
-    private ForkJoinPool forkJoinPool = (ForkJoinPool) Executors.newWorkStealingPool();
-
-    @Override
-    public Long call() throws Exception {
-        long a = 0;
-        return a;
+        var channel = FileChannel.open(Paths.get(args[0]), StandardOpenOption.READ);
+        var buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
+        System.out.println(buffer.getClass());
+        System.out.println(buffer.getLong());
+        var longBuffer = buffer.asLongBuffer();
+        System.out.println(longBuffer.remaining());
     }
 
 }
