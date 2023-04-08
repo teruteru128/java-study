@@ -1,30 +1,10 @@
 package com.twitter.teruteru128.study;
 
-import java.nio.ByteBuffer;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.security.Security;
-import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.util.BitSet;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.UUID;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.sqlite.SQLiteDataSource;
-
-import com.twitter.teruteru128.bitmessage.app.DeterministicAddressesGenerator;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
@@ -73,12 +53,27 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var channel = FileChannel.open(Paths.get(args[0]), StandardOpenOption.READ);
-        var buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
-        System.out.println(buffer.getClass());
-        System.out.println(buffer.getLong());
-        var longBuffer = buffer.asLongBuffer();
-        System.out.println(longBuffer.remaining());
+        if (args.length == 0) {
+            return;
+        }
+        long maxLastseen = Long.MIN_VALUE;
+        long lastseen = 0;
+        Class.forName("org.glassfish.json.JsonProviderImpl");
+        try (var reader = Files.newBufferedReader(Paths.get(args[0])); var jsonReader = Json.createReader(reader)) {
+            var array = jsonReader.readArray();
+            for (var jsonValue : array) {
+                if(jsonValue instanceof JsonObject jsonObject) {
+                    var peer = jsonObject.getJsonObject("peer");
+                    var info = jsonObject.getJsonObject("info");
+                    var stream = jsonObject.getString("stream");
+                    lastseen = info.getJsonNumber("lastseen").longValue();
+                    if(lastseen > maxLastseen){
+                        maxLastseen = lastseen;
+                    }
+                }
+            }
+        }
+        System.out.println(maxLastseen);
     }
 
 }
