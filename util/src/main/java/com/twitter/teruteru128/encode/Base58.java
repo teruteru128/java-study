@@ -88,7 +88,7 @@ public class Base58 {
   }
 
   public static String encode(byte[] input) {
-    return encode(CharBuffer.allocate((int)(input.length * 1.366)), input).toString();
+    return encode(CharBuffer.allocate(input.length * 2), input).flip().toString();
   }
 
   public static byte[] decode(String input) {
