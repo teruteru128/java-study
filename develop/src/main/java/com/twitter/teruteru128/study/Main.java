@@ -1,10 +1,13 @@
 package com.twitter.teruteru128.study;
 
+import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.MessageDigest;
 import java.security.Security;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.sqlite.SQLiteDataSource;
 
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
@@ -56,24 +59,47 @@ public class Main {
         if (args.length == 0) {
             return;
         }
-        long maxLastseen = Long.MIN_VALUE;
-        long lastseen = 0;
-        Class.forName("org.glassfish.json.JsonProviderImpl");
-        try (var reader = Files.newBufferedReader(Paths.get(args[0])); var jsonReader = Json.createReader(reader)) {
-            var array = jsonReader.readArray();
-            for (var jsonValue : array) {
-                if(jsonValue instanceof JsonObject jsonObject) {
-                    var peer = jsonObject.getJsonObject("peer");
-                    var info = jsonObject.getJsonObject("info");
-                    var stream = jsonObject.getString("stream");
-                    lastseen = info.getJsonNumber("lastseen").longValue();
-                    if(lastseen > maxLastseen){
-                        maxLastseen = lastseen;
-                    }
+        var dataSource = new SQLiteDataSource();
+        dataSource.setUrl(args[0]);
+        try (var connection = dataSource.getConnection();
+                var statement = connection.createStatement();
+                var resultSet = statement
+                        .executeQuery("select address, transmitdata from pubkeys where addressversion in (3, 4)")) {
+            while (resultSet.next()) {
+                var address = resultSet.getString("address");
+                var transmitdata = ByteBuffer.wrap(resultSet.getBytes("transmitdata"));
+                transmitdata.get();
+                transmitdata.get();
+                transmitdata.getInt();
+                byte[] signx = new byte[32];
+                byte[] signy = new byte[32];
+                byte[] encx = new byte[32];
+                byte[] ency = new byte[32];
+                transmitdata.get(signx);
+                transmitdata.get(signy);
+                transmitdata.get(encx);
+                transmitdata.get(ency);
+                long noncetrialsperbyte = transmitdata.get() & 0xff;
+                if (noncetrialsperbyte == 0xfd) {
+                    noncetrialsperbyte = transmitdata.getShort() & 0xffff;
+                } else if (noncetrialsperbyte == 0xfe) {
+                    noncetrialsperbyte = transmitdata.getInt() & 0xffffffffL;
+                } else if (noncetrialsperbyte == 0xff) {
+                    noncetrialsperbyte = transmitdata.getLong() & 0xffffffffffffffffL;
+                }
+                long payloadlengthextrabytes = transmitdata.get() & 0xff;
+                if (payloadlengthextrabytes == 0xfd) {
+                    payloadlengthextrabytes = transmitdata.getShort() & 0xffff;
+                } else if (payloadlengthextrabytes == 0xfe) {
+                    payloadlengthextrabytes = transmitdata.getInt() & 0xffffffffL;
+                } else if (payloadlengthextrabytes == 0xff) {
+                    payloadlengthextrabytes = transmitdata.getLong() & 0xffffffffffffffffL;
+                }
+                if (noncetrialsperbyte != 1000 || payloadlengthextrabytes != 1000) {
+                    System.out.printf("%s: %d, %d%n", address, noncetrialsperbyte, payloadlengthextrabytes);
                 }
             }
         }
-        System.out.println(maxLastseen);
     }
 
 }
