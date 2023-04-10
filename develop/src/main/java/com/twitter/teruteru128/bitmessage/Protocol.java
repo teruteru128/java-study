@@ -9,7 +9,9 @@ import java.net.Inet4Address;
 import java.net.Inet6Address;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.security.DigestException;
 import java.security.MessageDigest;
@@ -34,6 +36,7 @@ import com.twitter.teruteru128.study.DecodedAddress;
 
 public class Protocol {
 
+    private static final int PACKET_MAGIC_NUMBER = 0xE9BEB4D9;
     public final static byte[] PREFIX_MAGIC_NUMBER = { -23, -66, -76, -39 };
     public static byte[] IPV4_MAPPED_IPV6_ADDRESS_PREFIX = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -128, -128 };
 
@@ -90,12 +93,13 @@ public class Protocol {
         return buffer.array();
     }
 
-    public static byte[] createPacket(byte[] command) {
-        return Protocol.createPacket(command, new byte[0]);
+    public static ByteBuffer createPacket(byte[] command) {
+        return Protocol.createPacket(command, ByteBuffer.allocate(0));
     }
 
-    public static byte[] createPacket(byte[] command, byte[] payload) {
-        int payloadLength = payload.length;
+    public static ByteBuffer createPacket(byte[] command, ByteBuffer payload) {
+        var sliced = payload.slice();
+        int payloadLength = sliced.limit() - sliced.position();
         byte[] checksum = null;
         MessageDigest sha512 = null;
         try {
@@ -104,9 +108,11 @@ public class Protocol {
             throw new InternalError(e);
         }
         var c = Arrays.copyOf(command, 12);
-        checksum = Arrays.copyOf(sha512.digest(payload), 4);
-        var b = ByteBuffer.allocate(24 + payloadLength).putInt(0xE9BEB4D9).put(c)
-                .putInt(payloadLength).put(checksum).put(payload).array();
+        sha512.update(sliced);
+        sliced.flip();
+        checksum = Arrays.copyOf(sha512.digest(), 4);
+        var b = ByteBuffer.allocate(24 + payloadLength).putInt(PACKET_MAGIC_NUMBER).put(c)
+                .putInt(payloadLength).put(checksum).put(sliced).flip();
 
         return b;
     }
@@ -134,7 +140,8 @@ public class Protocol {
         return false;
     }
 
-    public static byte[] assembleVersionMessage(InetSocketAddress remote, int[] participatingStreams, boolean server,
+    public static ByteBuffer assembleVersionMessage(InetSocketAddress remote, int[] participatingStreams,
+            boolean server,
             long nodeid) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(0);
         try (DataOutputStream dos = new DataOutputStream(baos)) {
@@ -144,22 +151,26 @@ public class Protocol {
             dos.writeLong(Service.NODE_NETWORK | Service.NODE_SSL);
             // timestamp
             dos.writeLong(Instant.now().getEpochSecond());
+
+            // addr_recv
             // network service
             dos.writeLong(1);
             // network ip
             if (checkSocksIP(remote) && server) {
                 var localhost = InetSocketAddress.createUnresolved("127.0.0.1", 8444);
                 dos.write(encodeHost(localhost));
-                dos.writeShort(localhost.getPort());
+                dos.writeShort(8444);
             } else {
                 try {
-                    dos.write(Arrays.copyOf(encodeHost(remote), 16));
+                    dos.write(encodeHost(remote));
                 } catch (Exception e) {
                     var localhost = InetSocketAddress.createUnresolved("127.0.0.1", 8444);
                     dos.write(encodeHost(localhost));
                 }
                 dos.writeShort(remote.getPort());
             }
+
+            // addr_from
             // network service
             dos.writeLong(1);
             // network ip
@@ -181,7 +192,7 @@ public class Protocol {
             }
         } catch (IOException e) {
         }
-        return createPacket("version".getBytes(), baos.toByteArray());
+        return createPacket("version".getBytes(), ByteBuffer.wrap(baos.toByteArray()));
     }
 
     /**
@@ -198,15 +209,14 @@ public class Protocol {
      * 
      * @throws Exception
      */
-    public static void connect() throws Exception {
+    public static void connect(SocketAddress address) throws Exception {
         var ctx = SSLContext.getDefault();
         var factory = ctx.getSocketFactory();
 
-        var address = new InetSocketAddress("localhost", 8444);
         var socket = new Socket();
         socket.connect(address);
         long nonce = ThreadLocalRandom.current().nextLong();
-        var m = MessageDigest.getInstance("SHA-512");
+        var sha512 = MessageDigest.getInstance("SHA-512");
         // C言語の場合だと13バイト確保しておかないと危険ってことか？
         int magic = 0;
         var command = new byte[12];
@@ -218,7 +228,7 @@ public class Protocol {
             // addr送信
             out.write(
                     assembleVersionMessage((InetSocketAddress) socket.getRemoteSocketAddress(), new int[] { 1 }, false,
-                            nonce));
+                            nonce).array());
 
             for (int i = 0; i < 2; i++) {
                 // verackとaddr受信
@@ -236,8 +246,8 @@ public class Protocol {
                 in.read(checksum, 0, 4);
                 var payload = new byte[length];
                 in.readNBytes(payload, 0, length);
-                m.update(payload);
-                m.digest(hash, 0, 64);
+                sha512.update(payload);
+                sha512.digest(hash, 0, 64);
                 if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
                     System.out.println("checksum ok");
                 } else {
@@ -245,7 +255,7 @@ public class Protocol {
                 }
             }
             // verack送信
-            out.write(createPacket("verack".getBytes()));
+            out.write(createPacket("verack".getBytes()).array());
         }
         {
             var remote = (InetSocketAddress) socket.getRemoteSocketAddress();
@@ -286,8 +296,8 @@ public class Protocol {
                 var payloadBuffer = ByteBuffer.allocate(length);
                 var payload = payloadBuffer.array();
                 in.readNBytes(payload, 0, length);
-                m.update(payload);
-                m.digest(hash, 0, 64);
+                sha512.update(payload);
+                sha512.digest(hash, 0, 64);
                 if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
                     System.out.println("checksum ok!");
                 } else {
@@ -328,8 +338,8 @@ public class Protocol {
                 var payloadBuffer = ByteBuffer.allocate(length);
                 var payload = payloadBuffer.array();
                 in.readNBytes(payload, 0, length);
-                m.update(payload);
-                m.digest(hash, 0, 64);
+                sha512.update(payload);
+                sha512.digest(hash, 0, 64);
                 if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
                     System.out.println("checksum ok!");
                 } else {
@@ -359,6 +369,60 @@ public class Protocol {
             var invp = new Packet(new PacketHeader(magic, cv, length, checksum), Optional.of(new Inv(vectors)));
         }
         socket.close();
+    }
+
+    public static void connect2(SocketAddress address) throws NoSuchAlgorithmException, IOException {
+        var context = SSLContext.getDefault();
+        var channel = SocketChannel.open(address);
+        final long nonce = ThreadLocalRandom.current().nextLong();
+        var sha512 = MessageDigest.getInstance("SHA-512");
+        // C言語の場合だと13バイト確保しておかないと危険ってことか？
+        int magic = 0;
+        var command = new byte[12];
+        var hash = new byte[64];
+        boolean server = false;
+        var buffer = ByteBuffer.allocate(8192);
+        // version
+        buffer.putInt(3);
+        // service
+        buffer.putLong(Service.NODE_NETWORK | Service.NODE_SSL);
+        // timestamp
+        buffer.putLong(Instant.now().getEpochSecond());
+
+        // addr_recv
+        // service
+        buffer.putLong(1);
+        // ipv6/4
+        var remoteAddress = (InetSocketAddress) channel.getRemoteAddress();
+        if (checkSocksIP(remoteAddress) && server) {
+            var localhost = InetSocketAddress.createUnresolved("127.0.0.1", 8444);
+            buffer.put(encodeHost(localhost));
+            buffer.putShort((short) 8444);
+        } else {
+            buffer.put(encodeHost(remoteAddress));
+            buffer.putShort((short) remoteAddress.getPort());
+        }
+
+        // addr_from
+        // service
+        buffer.putLong(1);
+        // ipv6/4
+        buffer.put(IPV4_MAPPED_IPV6_ADDRESS_PREFIX);
+        buffer.putInt(0x7f000001);
+        buffer.putShort((short) 8444);
+
+        // nodeid
+        buffer.putLong(nonce);
+        var userAgent = "/SampleLib with SocketChannel:0.0.0.1/".getBytes(StandardCharsets.UTF_8);
+        buffer.put(Structs.encodeVarint(userAgent.length));
+        buffer.put(userAgent);
+        // stream numbers
+        buffer.put(Structs.encodeVarint(1));
+        buffer.put(Structs.encodeVarint(1));
+        buffer.flip();
+        var versionBuffer = createPacket("version".getBytes(StandardCharsets.UTF_8), buffer.flip());
+        channel.write(versionBuffer);
+        buffer.clear();
     }
 
     public static boolean verify(byte[] data, byte[] sign, byte[] pubkey) {

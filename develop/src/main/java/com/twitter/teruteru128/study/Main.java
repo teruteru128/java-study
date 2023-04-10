@@ -56,14 +56,6 @@ public class Main {
         if (args.length == 0) {
             return;
         }
-        var service = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(8);
-        var future = service.scheduleAtFixedRate(() -> {
-            var now = LocalDateTime.now();
-            long s = now.get(ChronoField.SECOND_OF_DAY);
-            long nano = now.get(ChronoField.NANO_OF_SECOND);
-            System.out.printf("%f%n", ((double) (s * 1000000000L + nano) / 86400000000000L) * 100);
-        }, 0, 800, TimeUnit.MILLISECONDS);
-
     }
 
 }
