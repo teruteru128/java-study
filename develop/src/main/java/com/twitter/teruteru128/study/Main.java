@@ -1,16 +1,13 @@
 package com.twitter.teruteru128.study;
 
-import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.security.MessageDigest;
 import java.security.Security;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.sqlite.SQLiteDataSource;
-
-import jakarta.json.Json;
-import jakarta.json.JsonObject;
 
 /**
  * Main
@@ -59,47 +56,14 @@ public class Main {
         if (args.length == 0) {
             return;
         }
-        var dataSource = new SQLiteDataSource();
-        dataSource.setUrl(args[0]);
-        try (var connection = dataSource.getConnection();
-                var statement = connection.createStatement();
-                var resultSet = statement
-                        .executeQuery("select address, transmitdata from pubkeys where addressversion in (3, 4)")) {
-            while (resultSet.next()) {
-                var address = resultSet.getString("address");
-                var transmitdata = ByteBuffer.wrap(resultSet.getBytes("transmitdata"));
-                transmitdata.get();
-                transmitdata.get();
-                transmitdata.getInt();
-                byte[] signx = new byte[32];
-                byte[] signy = new byte[32];
-                byte[] encx = new byte[32];
-                byte[] ency = new byte[32];
-                transmitdata.get(signx);
-                transmitdata.get(signy);
-                transmitdata.get(encx);
-                transmitdata.get(ency);
-                long noncetrialsperbyte = transmitdata.get() & 0xff;
-                if (noncetrialsperbyte == 0xfd) {
-                    noncetrialsperbyte = transmitdata.getShort() & 0xffff;
-                } else if (noncetrialsperbyte == 0xfe) {
-                    noncetrialsperbyte = transmitdata.getInt() & 0xffffffffL;
-                } else if (noncetrialsperbyte == 0xff) {
-                    noncetrialsperbyte = transmitdata.getLong() & 0xffffffffffffffffL;
-                }
-                long payloadlengthextrabytes = transmitdata.get() & 0xff;
-                if (payloadlengthextrabytes == 0xfd) {
-                    payloadlengthextrabytes = transmitdata.getShort() & 0xffff;
-                } else if (payloadlengthextrabytes == 0xfe) {
-                    payloadlengthextrabytes = transmitdata.getInt() & 0xffffffffL;
-                } else if (payloadlengthextrabytes == 0xff) {
-                    payloadlengthextrabytes = transmitdata.getLong() & 0xffffffffffffffffL;
-                }
-                if (noncetrialsperbyte != 1000 || payloadlengthextrabytes != 1000) {
-                    System.out.printf("%s: %d, %d%n", address, noncetrialsperbyte, payloadlengthextrabytes);
-                }
-            }
-        }
+        var service = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(8);
+        var future = service.scheduleAtFixedRate(() -> {
+            var now = LocalDateTime.now();
+            long s = now.get(ChronoField.SECOND_OF_DAY);
+            long nano = now.get(ChronoField.NANO_OF_SECOND);
+            System.out.printf("%f%n", ((double) (s * 1000000000L + nano) / 86400000000000L) * 100);
+        }, 0, 800, TimeUnit.MILLISECONDS);
+
     }
 
 }
