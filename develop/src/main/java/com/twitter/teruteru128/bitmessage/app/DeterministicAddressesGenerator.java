@@ -170,28 +170,42 @@ public class DeterministicAddressesGenerator implements Function<String, Determi
         byte[] potentialPubEncryptionKey = null;
 
         int nlz = 0;
-        var buffer = ByteBuffer.allocate(20);
-        var longBuffer = buffer.asLongBuffer();
-        final byte[] ripe = buffer.array();
+        var hashBuffer = ByteBuffer.allocate(20);
+        var hashLongBuffer = hashBuffer.asLongBuffer();
+        final byte[] ripe = hashBuffer.array();
         final byte[] passphraseBytes = passphrase.getBytes(StandardCharsets.UTF_8);
+        ByteBuffer nonceBuffer = ByteBuffer.allocate(9);
+
         try {
             MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
+            MessageDigest sha512work = null;
             MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
+            sha512.update(passphraseBytes);
             while (true) {
-                deriviedPrivateKey(potentialPrivSigningKey, passphraseBytes, signingKeyNonce, sha512);
-                deriviedPrivateKey(potentialPrivEncryptionKey, passphraseBytes, encryptionKeyNonce, sha512);
+                sha512work = (MessageDigest) sha512.clone();
+                Structs.encodeVarint(nonceBuffer, signingKeyNonce);
+                nonceBuffer.flip();
+                sha512work.update(nonceBuffer);
+                sha512work.digest(potentialPrivSigningKey, 0, 64);
+                sha512work = (MessageDigest) sha512.clone();
+                nonceBuffer.clear();
+                Structs.encodeVarint(nonceBuffer, encryptionKeyNonce);
+                nonceBuffer.flip();
+                sha512work.update(nonceBuffer);
+                sha512work.digest(potentialPrivEncryptionKey, 0, 64);
                 potentialPubSigningKey = deriviedPublicKey(potentialPrivSigningKey);
                 potentialPubEncryptionKey = deriviedPublicKey(potentialPrivEncryptionKey);
-                deriviedRipeHash(ripe, potentialPubSigningKey, potentialPubEncryptionKey, sha512, ripemd160);
-                nlz = Long.numberOfLeadingZeros(longBuffer.get(0));
+                deriviedRipeHash(ripe, potentialPubSigningKey, potentialPubEncryptionKey, sha512work, ripemd160);
+                nlz = Long.numberOfLeadingZeros(hashLongBuffer.get(0));
                 if (nlz >= numberOfNullBytesDemandedOnFrontOfRipeHash) {
                     return new DeterministicAddressesImplementation(ripe, potentialPrivSigningKey,
                             potentialPrivEncryptionKey, signingKeyNonce, encryptionKeyNonce);
                 }
                 signingKeyNonce += 2;
                 encryptionKeyNonce += 2;
+                nonceBuffer.clear();
             }
-        } catch (NoSuchAlgorithmException e) {
+        } catch (CloneNotSupportedException | DigestException | NoSuchAlgorithmException e) {
             throw new InternalError(e);
         }
     }

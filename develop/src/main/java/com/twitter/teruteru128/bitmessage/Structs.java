@@ -41,8 +41,30 @@ public class Structs {
         throw new IllegalArgumentException("varint cannot be >= 18446744073709551616");
     }
 
+    public static ByteBuffer encodeVarint(ByteBuffer buf, long u) {
+        if (u < 0) {
+            throw new IllegalArgumentException("varint cannot be < 0");
+        }
+        // buf.limit() - buf.limit();
+        if (u < 253) {
+            return buf.put((byte) u);
+        }
+        if (253 <= u && u < 65536) {
+            return buf.put((byte) 253).putShort((short) u);
+        }
+        if (65536 <= u && u < 4294967296L) {
+            return buf.put((byte) 254).putInt((int) u);
+        }
+        if (4294967296L <= u && Long.compareUnsigned(u, Long.MIN_VALUE) <= 0) {
+            // 9223372036854775808以上18446744073709551616未満は符号付き64ビットでは0未満になるため意図した結果にならない。
+            return buf.put((byte) 255).putLong(u);
+        }
+        // dead code
+        throw new IllegalArgumentException("varint cannot be >= 9223372036854775808");
+    }
+
     /**
-     * 9223372036854775808以上の整数をエンコードする場合は{@link #encodeVarint(BigInteger)}か{@link #encodeUnsignedVarint(long)}を使用してください。
+     * 
      * 
      * @param u
      * @return
@@ -61,8 +83,7 @@ public class Structs {
         if (65536 <= u && u < 4294967296L) {
             return ByteBuffer.allocate(5).put((byte) 254).putInt((int) u).array();
         }
-        if (4294967296L <= u && Long.compareUnsigned(u, Long.MIN_VALUE) <= 0) {
-            // 9223372036854775808以上18446744073709551616未満は符号付き64ビットでは0未満になるため意図した結果にならない。
+        if (4294967296L <= u && Long.compareUnsigned(u, -1) <= 0) {
             return ByteBuffer.allocate(9).put((byte) 255).putLong(u).array();
         }
         // dead code
@@ -70,6 +91,7 @@ public class Structs {
     }
 
     /**
+     * 
      * 
      * @param u
      * @return
@@ -90,6 +112,62 @@ public class Structs {
         }
         // dead code
         throw new IllegalArgumentException("varint cannot be >= 18446744073709551616");
+    }
+
+    public static ByteBuffer encodeVarintList(long[] u) {
+        int capacity = 0;
+        int length = u.length;
+        if (length < 253) {
+            capacity = 1;
+        } else if (length <= 65535) {
+            capacity = 3;
+        } else if (Integer.compareUnsigned(length, -1) <= 0) {
+            capacity = 5;
+        }
+        for (long l : u) {
+            if (l < 253) {
+                capacity += 1;
+            } else if (l <= 65535) {
+                capacity += 3;
+            } else if (l <= 0xffffffffL) {
+                capacity += 5;
+            } else if (Long.compareUnsigned(length, 0xffffffffffffffffL) <= 0) {
+                capacity += 9;
+            }
+        }
+        var buffer = ByteBuffer.allocate(capacity);
+        if (length < 253) {
+            buffer.put((byte) length);
+        } else if (length <= 65535) {
+            buffer.put((byte) 0xfd);
+            buffer.putShort((short) length);
+        } else if (Integer.compareUnsigned(length, -1) <= 0) {
+            buffer.put((byte) 0xfe);
+            buffer.putInt(length);
+        }
+        for (long l : u) {
+            if (l < 253) {
+                buffer.put((byte) l);
+            } else if (l <= 65535) {
+                buffer.put((byte) 0xfd);
+                buffer.putShort((short) l);
+            } else if (l <= 0xffffffffL) {
+                buffer.put((byte) 0xfe);
+                buffer.putInt((int) l);
+            } else if (Long.compareUnsigned(length, 0xffffffffffffffffL) <= 0) {
+                buffer.put((byte) 0xff);
+                buffer.putLong(l);
+            }
+        }
+        return buffer.flip();
+    }
+
+    public static ByteBuffer encodeVarintList(int[] entries) {
+        long[] e = new long[entries.length];
+        for (int i = 0; i < e.length; i++) {
+            e[i] = (long) entries[i];
+        }
+        return encodeVarintList(e);
     }
 
     private Structs() {
