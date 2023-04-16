@@ -366,7 +366,6 @@ public class Protocol {
         // register to selector
         final long nodeid = ThreadLocalRandom.current().nextLong();
         var sha512 = MessageDigest.getInstance("SHA-512");
-        // C言語の場合だと13バイト確保しておかないと危険ってことか？
         boolean server = false;
         var remoteAddress = (InetSocketAddress) channel.getRemoteAddress();
         var userAgent = "/SampleLib with SocketChannel:0.0.0.1/".getBytes(StandardCharsets.UTF_8);

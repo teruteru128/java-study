@@ -1,7 +1,10 @@
 package com.twitter.teruteru128.study;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.security.Security;
+import java.util.HashMap;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -53,11 +56,13 @@ public class Main {
     public static void main(String[] args) throws Exception {
         if (args.length == 0) {
             return;
-        }/* 
+        }
+        /* 
         var a = new DeterministicAddressesGenerator();
         var add = a.apply(args[0]);
         System.out.println(DeterministicAddressesGenerator.encodeAddress(add, 3, args[0]));
-        System.out.println(DeterministicAddressesGenerator.encodeAddress(add, 4, args[0])); */
+        System.out.println(DeterministicAddressesGenerator.encodeAddress(add, 4, args[0]));
+        */
     }
 
 }
