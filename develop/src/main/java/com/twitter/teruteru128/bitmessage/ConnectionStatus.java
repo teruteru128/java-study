@@ -17,23 +17,23 @@ public class ConnectionStatus {
     boolean verackReceived = false;
     long services = 0;
 
-    boolean a(long mask) {
+    boolean isServiceSupported(long mask) {
         return (services & mask) == mask;
     }
 
     public boolean supportNetwork() {
-        return a(Service.NODE_NETWORK);
+        return isServiceSupported(Service.NODE_NETWORK);
     }
 
     public boolean supportSSL() {
-        return a(Service.NODE_SSL);
+        return isServiceSupported(Service.NODE_SSL);
     }
 
     public boolean supportPOW() {
-        return a(Service.NODE_POW);
+        return isServiceSupported(Service.NODE_POW);
     }
 
     public boolean supportDandelion() {
-        return a(Service.NODE_DANDELION);
+        return isServiceSupported(Service.NODE_DANDELION);
     }
 }

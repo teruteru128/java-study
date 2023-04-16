@@ -1,14 +1,8 @@
 package com.twitter.teruteru128.study;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.nio.ByteBuffer;
 import java.security.Security;
-import java.util.HashMap;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
-import com.twitter.teruteru128.bitmessage.app.DeterministicAddressesGenerator;
 
 /**
  * Main
