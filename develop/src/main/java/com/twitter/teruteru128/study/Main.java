@@ -1,6 +1,12 @@
 package com.twitter.teruteru128.study;
 
+import java.security.MessageDigest;
+import java.security.SecureRandom;
 import java.security.Security;
+import java.util.Base64;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -49,14 +55,36 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
         if (args.length == 0) {
-            return;
+            System.err.println("password [salt hash]");
+            Runtime.getRuntime().exit(1);
         }
-        /* 
-        var a = new DeterministicAddressesGenerator();
-        var add = a.apply(args[0]);
-        System.out.println(DeterministicAddressesGenerator.encodeAddress(add, 3, args[0]));
-        System.out.println(DeterministicAddressesGenerator.encodeAddress(add, 4, args[0]));
-        */
+        var factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+        var decoder = Base64.getDecoder();
+
+        var verifymode = args.length == 3;
+
+        var password = args[0].toCharArray();
+        var salt = verifymode ? decoder.decode(args[1]) : new byte[16];
+        if (!verifymode) {
+            new SecureRandom().nextBytes(salt);
+        }
+        var spec = new PBEKeySpec(password, salt, 131072, 512);
+        long start = System.nanoTime();
+        var key = factory.generateSecret(spec);
+        System.out.printf("%f%n", (double) (System.nanoTime() - start) / 1000000000);
+        var hash1 = key.getEncoded();
+        if (verifymode) {
+            var inputhash = decoder.decode(args[2]);
+            if (MessageDigest.isEqual(hash1, inputhash)) {
+                System.out.println("success!");
+            } else {
+                System.out.println("fail!");
+            }
+        } else {
+            var encoder = Base64.getEncoder();
+            System.out.printf("%s%n", encoder.encodeToString(salt));
+            System.out.printf("%s%n", encoder.encodeToString(hash1));
+        }
     }
 
 }
