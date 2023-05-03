@@ -1,12 +1,12 @@
 package com.twitter.teruteru128.study;
 
-import java.security.MessageDigest;
-import java.security.SecureRandom;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.security.Security;
-import java.util.Base64;
-
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -54,37 +54,17 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        if (args.length == 0) {
-            System.err.println("password [salt hash]");
-            Runtime.getRuntime().exit(1);
-        }
-        var factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
-        var decoder = Base64.getDecoder();
 
-        var verifymode = args.length == 3;
+        var client = HttpClient.newBuilder().build();
+        var requestBuilder = HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/"))
+                .header("Content-Type", "application/json-rpc")
+                .header("Authorization", "Basic dGVydXRlcnUxMjg6YW5hbGJlYWRz");
+        var requestBody = HttpRequest.BodyPublishers.ofString(
+                "[{\"jsonrpc\": \"2.0\", \"method\": \"add\", \"params\": [33, 4], \"id\": 334}]");
+        var request = client.send(requestBuilder.copy().POST(requestBody).build(),
+                HttpResponse.BodyHandlers.ofString());
+        System.out.println(request.body());
 
-        var password = args[0].toCharArray();
-        var salt = verifymode ? decoder.decode(args[1]) : new byte[16];
-        if (!verifymode) {
-            new SecureRandom().nextBytes(salt);
-        }
-        var spec = new PBEKeySpec(password, salt, 131072, 512);
-        long start = System.nanoTime();
-        var key = factory.generateSecret(spec);
-        System.out.printf("%f%n", (double) (System.nanoTime() - start) / 1000000000);
-        var hash1 = key.getEncoded();
-        if (verifymode) {
-            var inputhash = decoder.decode(args[2]);
-            if (MessageDigest.isEqual(hash1, inputhash)) {
-                System.out.println("success!");
-            } else {
-                System.out.println("fail!");
-            }
-        } else {
-            var encoder = Base64.getEncoder();
-            System.out.printf("%s%n", encoder.encodeToString(salt));
-            System.out.printf("%s%n", encoder.encodeToString(hash1));
-        }
     }
 
 }
