@@ -1,5 +1,7 @@
 package com.twitter.teruteru128.study;
 
+import java.awt.SystemTray;
+import java.io.IOException;
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
 import java.net.URI;
@@ -7,6 +9,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.security.Security;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -48,12 +53,7 @@ public class Main {
         }
     }
 
-    /**
-     * 
-     * @param args
-     * @throws Exception
-     */
-    public static void main(String[] args) throws Exception {
+    public static void sample() throws IOException, InterruptedException {
 
         var client = HttpClient.newBuilder().build();
         var requestBuilder = HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/"))
@@ -65,6 +65,37 @@ public class Main {
                 HttpResponse.BodyHandlers.ofString());
         System.out.println(request.body());
 
+    }
+
+    /**
+     * 
+     * @param args
+     * @throws Exception
+     */
+    public static void main(String[] args) throws Exception {
+        if (SystemTray.isSupported()) {
+            var executor = Executors.newFixedThreadPool(1);
+            var future = executor.submit((Callable<Void>) new TrayIconDemo()::displayTray);
+            future.get();
+            System.err.println("確認");
+            executor.shutdown();
+            System.err.println("シャットダウン");
+            try {
+                if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                    System.err.println("待ちました");
+                    executor.shutdownNow();
+                    if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                        System.err.println("Pool did not terminate");
+                    }
+                }
+            } catch (InterruptedException e) {
+                executor.shutdownNow();
+                Thread.currentThread().interrupt();
+            }
+            System.err.println("シャットダウン");
+        } else {
+            System.err.println("system tray not supported!");
+        }
     }
 
 }
