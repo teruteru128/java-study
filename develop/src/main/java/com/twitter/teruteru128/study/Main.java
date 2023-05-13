@@ -1,19 +1,18 @@
 package com.twitter.teruteru128.study;
 
-import java.awt.SystemTray;
 import java.io.IOException;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
+import java.math.BigInteger;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.security.SecureRandom;
 import java.security.Security;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.HexFormat;
 
+import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.math.ec.ECPoint;
 
 /**
  * Main
@@ -53,18 +52,29 @@ public class Main {
         }
     }
 
-    public static void sample() throws IOException, InterruptedException {
+    public static void sample(String a) throws IOException, InterruptedException {
 
         var client = HttpClient.newBuilder().build();
-        var requestBuilder = HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/"))
+        var requestBuilder = HttpRequest.newBuilder(URI.create("http://localhost:8442/"))
                 .header("Content-Type", "application/json-rpc")
                 .header("Authorization", "Basic dGVydXRlcnUxMjg6YW5hbGJlYWRz");
-        var requestBody = HttpRequest.BodyPublishers.ofString(
-                "[{\"jsonrpc\": \"2.0\", \"method\": \"add\", \"params\": [33, 4], \"id\": 334}]");
+        var requestBody = HttpRequest.BodyPublishers.ofString(a);
         var request = client.send(requestBuilder.copy().POST(requestBody).build(),
                 HttpResponse.BodyHandlers.ofString());
         System.out.println(request.body());
 
+    }
+    static final HexFormat format = HexFormat.of();
+
+    private static void printPoint(ECPoint point1) {
+        System.out.println(point1);
+        System.out.println(format.formatHex(point1.getEncoded(false)));
+        System.out.println(format.formatHex(point1.getEncoded(true)));
+        System.out.println(point1.getClass());
+        System.out.println(point1 instanceof ECPoint.AbstractF2m);
+        System.out.println(point1 instanceof ECPoint.AbstractFp);
+        System.out.println(point1 instanceof ECPoint.F2m);
+        System.out.println(point1 instanceof ECPoint.Fp);
     }
 
     /**
@@ -73,29 +83,12 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        if (SystemTray.isSupported()) {
-            var executor = Executors.newFixedThreadPool(1);
-            var future = executor.submit((Callable<Void>) new TrayIconDemo()::displayTray);
-            future.get();
-            System.err.println("確認");
-            executor.shutdown();
-            System.err.println("シャットダウン");
-            try {
-                if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
-                    System.err.println("待ちました");
-                    executor.shutdownNow();
-                    if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
-                        System.err.println("Pool did not terminate");
-                    }
-                }
-            } catch (InterruptedException e) {
-                executor.shutdownNow();
-                Thread.currentThread().interrupt();
-            }
-            System.err.println("シャットダウン");
-        } else {
-            System.err.println("system tray not supported!");
-        }
+        var a = CustomNamedCurves.getByName("secp256k1");
+        var random = new SecureRandom();
+        var p = new BigInteger(256, random);
+        var point1 = a.getG().multiply(p).normalize();
+        System.out.printf("%064x%n", p);
+        printPoint(point1);
     }
 
 }
