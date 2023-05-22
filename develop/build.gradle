@@ -130,7 +130,7 @@ dependencies {
     implementation 'com.unboundid:unboundid-ldapsdk:6.0.8'
 
     // https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
-    implementation "org.apache.tomcat.embed:tomcat-embed-core:10.1.7"
+    implementation "org.apache.tomcat.embed:tomcat-embed-core:10.1.9"
 
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
     implementation 'org.xerial:sqlite-jdbc:3.41.2.1'
