@@ -6,10 +6,13 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.util.HexFormat;
 
+import org.apache.commons.math3.distribution.TriangularDistribution;
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.ECPoint;
@@ -64,6 +67,7 @@ public class Main {
         System.out.println(request.body());
 
     }
+
     static final HexFormat format = HexFormat.of();
 
     private static void printPoint(ECPoint point1) {
@@ -83,12 +87,18 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+
         var a = CustomNamedCurves.getByName("secp256k1");
         var random = new SecureRandom();
         var p = new BigInteger(256, random);
         var point1 = a.getG().multiply(p).normalize();
         System.out.printf("%064x%n", p);
         printPoint(point1);
+
+        var md = MessageDigest.getInstance("SHA256");
+        System.out.println(HexFormat.of().formatHex(md.digest("千束 太もも".getBytes(StandardCharsets.UTF_8))));
+        System.out.println(0x1p512);
+        System.out.println(BigInteger.ONE.shiftLeft(512));
     }
 
 }
