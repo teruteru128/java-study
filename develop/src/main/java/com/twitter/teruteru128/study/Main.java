@@ -7,6 +7,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.security.Security;
@@ -87,18 +89,24 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-
-        var a = CustomNamedCurves.getByName("secp256k1");
-        var random = new SecureRandom();
-        var p = new BigInteger(256, random);
-        var point1 = a.getG().multiply(p).normalize();
-        System.out.printf("%064x%n", p);
-        printPoint(point1);
-
-        var md = MessageDigest.getInstance("SHA256");
-        System.out.println(HexFormat.of().formatHex(md.digest("千束 太もも".getBytes(StandardCharsets.UTF_8))));
-        System.out.println(0x1p512);
-        System.out.println(BigInteger.ONE.shiftLeft(512));
+        if (args.length < 1) {
+            return;
+        }
+        // the n of RSA-1024 https://en.wikipedia.org/wiki/RSA_numbers#RSA-1024
+        var n = new BigInteger(Files.readAllLines(Paths.get(args[0]), StandardCharsets.UTF_8).get(0), 10);
+        // largest prime number p less than n
+        var p = n.subtract(BigInteger.valueOf(2126));
+        if (p.isProbablePrime(1024)) {
+            System.out.println("ok");
+        }
+        // prime q congruent to p modulo n
+        var q = p.add(n.multiply(BigInteger.valueOf(2138)));
+        if (q.isProbablePrime(1024)) {
+            System.out.println("ok");
+        }
+        var pmodn = p.mod(n);
+        var qmodn = q.mod(n);
+        System.out.println(pmodn.equals(qmodn));
     }
 
 }
