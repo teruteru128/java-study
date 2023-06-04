@@ -89,6 +89,7 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        /* 
         if (args.length < 1) {
             return;
         }
@@ -106,7 +107,12 @@ public class Main {
         }
         var pmodn = p.mod(n);
         var qmodn = q.mod(n);
-        System.out.println(pmodn.equals(qmodn));
+        if (pmodn.equals(qmodn)) {
+            System.out.println("ok");
+        }
+        */
+        var l = LocalDateTime.now();
+        System.out.println(l.plusHours(2).plusMinutes(10));
     }
 
 }
