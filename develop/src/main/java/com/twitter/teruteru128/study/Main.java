@@ -1,21 +1,19 @@
 package com.twitter.teruteru128.study;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.security.MessageDigest;
-import java.security.SecureRandom;
 import java.security.Security;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HexFormat;
 
-import org.apache.commons.math3.distribution.TriangularDistribution;
-import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.ECPoint;
 
@@ -89,30 +87,15 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        /* 
-        if (args.length < 1) {
-            return;
+        var shortid = ZoneId.of("Asia/Tokyo");
+        var end = ZonedDateTime.ofInstant(Instant.ofEpochSecond(0x7fffffffL), shortid);
+        ZonedDateTime now = ZonedDateTime.now(shortid);
+        while(end.compareTo(now) >= 0) {
+            System.out.printf("%s%n", Duration.between(now, end));
+            Thread.sleep(1000);
+            now = ZonedDateTime.now(shortid);
         }
-        // the n of RSA-1024 https://en.wikipedia.org/wiki/RSA_numbers#RSA-1024
-        var n = new BigInteger(Files.readAllLines(Paths.get(args[0]), StandardCharsets.UTF_8).get(0), 10);
-        // largest prime number p less than n
-        var p = n.subtract(BigInteger.valueOf(2126));
-        if (p.isProbablePrime(1024)) {
-            System.out.println("ok");
-        }
-        // prime q congruent to p modulo n
-        var q = p.add(n.multiply(BigInteger.valueOf(2138)));
-        if (q.isProbablePrime(1024)) {
-            System.out.println("ok");
-        }
-        var pmodn = p.mod(n);
-        var qmodn = q.mod(n);
-        if (pmodn.equals(qmodn)) {
-            System.out.println("ok");
-        }
-        */
-        var l = LocalDateTime.now();
-        System.out.println(l.plusHours(2).plusMinutes(10));
+        System.out.println("done");
     }
 
 }
