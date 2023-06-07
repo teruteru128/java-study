@@ -1,21 +1,19 @@
 package com.twitter.teruteru128.study;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.security.SecureRandom;
 import java.security.Security;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.HexFormat;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.ECPoint;
+
+import com.twitter.teruteru128.bitmessage.Const;
 
 /**
  * Main
@@ -70,7 +68,7 @@ public class Main {
 
     static final HexFormat format = HexFormat.of();
 
-    private static void printPoint(ECPoint point1) {
+    public static void printPoint(ECPoint point1) {
         System.out.println(point1);
         System.out.println(format.formatHex(point1.getEncoded(false)));
         System.out.println(format.formatHex(point1.getEncoded(true)));
@@ -87,15 +85,29 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var shortid = ZoneId.of("Asia/Tokyo");
-        var end = ZonedDateTime.ofInstant(Instant.ofEpochSecond(0x7fffffffL), shortid);
-        ZonedDateTime now = ZonedDateTime.now(shortid);
-        while(end.compareTo(now) >= 0) {
-            System.out.printf("%s%n", Duration.between(now, end));
-            Thread.sleep(1000);
-            now = ZonedDateTime.now(shortid);
+
+        var encoded = new byte[33];
+        encoded[0] = 0x03;
+        byte[] x = null;
+        var random = SecureRandom.getInstanceStrong();
+        var s = new BigInteger(256, random);
+        var p = s;
+        ECPoint point = null;
+        long i = 0;
+        long start = System.nanoTime();
+        var format = HexFormat.of();
+        for (; point == null; i++, p = p.add(BigInteger.ONE)) {
+            x = p.toByteArray();
+            System.out.println(format.formatHex(x));
+            System.arraycopy(x, x[0] == 0 ? 1 : 0, encoded, 1, 32);
+            try {
+                point = Const.SECP256K1.getCurve().decodePoint(encoded);
+            } catch (Exception e) {
+            }
         }
-        System.out.println("done");
+        System.out.println(point);
+        System.out.printf("count: %d%n", i);
+        System.out.printf("time: %f%n", (System.nanoTime() - start) / 1e9);
     }
 
 }
