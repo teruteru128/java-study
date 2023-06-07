@@ -133,7 +133,7 @@ dependencies {
     implementation "org.apache.tomcat.embed:tomcat-embed-core:10.1.9"
 
     // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
-    implementation 'org.xerial:sqlite-jdbc:3.41.2.1'
+    implementation 'org.xerial:sqlite-jdbc:3.42.0.0'
 }
 
 test {
