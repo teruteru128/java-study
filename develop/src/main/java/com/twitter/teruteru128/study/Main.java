@@ -1,19 +1,20 @@
 package com.twitter.teruteru128.study;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.security.SecureRandom;
+import java.security.MessageDigest;
 import java.security.Security;
+import java.util.Arrays;
 import java.util.HexFormat;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.ECPoint;
 
 import com.twitter.teruteru128.bitmessage.Const;
+import com.twitter.teruteru128.bitmessage.spec.BMAddress;
 
 /**
  * Main
@@ -86,28 +87,33 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
 
-        var encoded = new byte[33];
-        encoded[0] = 0x03;
-        byte[] x = null;
+        /* 
+        var generator = new PhantomPublicKeyGenerator(Const.SECP256K1.getCurve());
         var random = SecureRandom.getInstanceStrong();
-        var s = new BigInteger(256, random);
-        var p = s;
         ECPoint point = null;
-        long i = 0;
-        long start = System.nanoTime();
+        for (int i = 0; i < 15; i++) {
+            long start = System.nanoTime();
+            point = generator.generate(random);
+            System.out.printf(", \"%s\"", format.formatHex(point.getEncoded(false)));
+        }
+        */
         var format = HexFormat.of();
-        for (; point == null; i++, p = p.add(BigInteger.ONE)) {
-            x = p.toByteArray();
-            System.out.println(format.formatHex(x));
-            System.arraycopy(x, x[0] == 0 ? 1 : 0, encoded, 1, 32);
-            try {
-                point = Const.SECP256K1.getCurve().decodePoint(encoded);
-            } catch (Exception e) {
+        var list = Arrays.stream(new String[] {}).map(format::parseHex).map(Const.SECP256K1.getCurve()::decodePoint)
+                .map(p -> p.getEncoded(false))
+                .toList();
+        var sha512 = MessageDigest.getInstance("SHA-512");
+        var ripemd160 = MessageDigest.getInstance("ripemd160");
+        byte[] ripe = null;
+        for (byte[] bs : list) {
+            for (byte[] bs2 : list) {
+                sha512.update(bs);
+                sha512.update(bs2);
+                ripe = ripemd160.digest(sha512.digest());
+                if (ripe[0] == 0)
+                    System.out.printf("%s, %s: %s%n", format.formatHex(bs), format.formatHex(bs2),
+                            BMAddress.encodeAddress(ripe));
             }
         }
-        System.out.println(point);
-        System.out.printf("count: %d%n", i);
-        System.out.printf("time: %f%n", (System.nanoTime() - start) / 1e9);
     }
 
 }
