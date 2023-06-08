@@ -1,20 +1,19 @@
 package com.twitter.teruteru128.study;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.security.MessageDigest;
 import java.security.Security;
-import java.util.Arrays;
 import java.util.HexFormat;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.ECPoint;
 
 import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.bitmessage.spec.BMAddress;
+import com.twitter.teruteru128.encode.Base58;
 
 /**
  * Main
@@ -86,33 +85,20 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-
-        /* 
-        var generator = new PhantomPublicKeyGenerator(Const.SECP256K1.getCurve());
-        var random = SecureRandom.getInstanceStrong();
-        ECPoint point = null;
-        for (int i = 0; i < 15; i++) {
-            long start = System.nanoTime();
-            point = generator.generate(random);
-            System.out.printf(", \"%s\"", format.formatHex(point.getEncoded(false)));
+        if (args.length < 1) {
+            return;
         }
-        */
         var format = HexFormat.of();
-        var list = Arrays.stream(new String[] {}).map(format::parseHex).map(Const.SECP256K1.getCurve()::decodePoint)
-                .map(p -> p.getEncoded(false))
-                .toList();
-        var sha512 = MessageDigest.getInstance("SHA-512");
-        var ripemd160 = MessageDigest.getInstance("ripemd160");
-        byte[] ripe = null;
-        for (byte[] bs : list) {
-            for (byte[] bs2 : list) {
-                sha512.update(bs);
-                sha512.update(bs2);
-                ripe = ripemd160.digest(sha512.digest());
-                if (ripe[0] == 0)
-                    System.out.printf("%s, %s: %s%n", format.formatHex(bs), format.formatHex(bs2),
-                            BMAddress.encodeAddress(ripe));
+        var key = new byte[33];
+        for (String line : args) {
+            var b = Base58.decode(line);
+            if (b.length != 37) {
+                continue;
             }
+            System.arraycopy(b, 1, key, 1, 32);
+            var point = Const.G.multiply(new BigInteger(key, 0, 33));
+            format.formatHex(System.out, point.getEncoded(false));
+            System.out.println();
         }
     }
 
