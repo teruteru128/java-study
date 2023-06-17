@@ -6,14 +6,25 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.LongBuffer;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.security.KeyFactory;
 import java.security.Security;
+import java.security.Signature;
+import java.security.spec.EdECPoint;
+import java.security.spec.EdECPrivateKeySpec;
+import java.security.spec.EdECPublicKeySpec;
+import java.security.spec.NamedParameterSpec;
+import java.util.BitSet;
 import java.util.HexFormat;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.ECPoint;
-
-import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.encode.Base58;
 
 /**
  * Main
@@ -79,26 +90,72 @@ public class Main {
         System.out.println(point1 instanceof ECPoint.Fp);
     }
 
+    public static void a() throws Exception {
+        var format = HexFormat.of();
+        var factory = KeyFactory.getInstance("Ed25519");
+        var s0 = new EdECPrivateKeySpec(NamedParameterSpec.ED25519, format.parseHex(
+                "86575b7afeb80e1d8ba7b295e06edc0de9fc53fb90981daebbecef93c6ff1a8c"));
+        var s1 = new EdECPublicKeySpec(NamedParameterSpec.ED25519, new EdECPoint(false, new BigInteger(
+                "1e6d78bf292bae807135fe2385c72ac353151a6cfed6bf573edb45278053558f", 16)));
+        var sig = Signature.getInstance("Ed25519");
+
+        var prik = factory.generatePrivate(s0);
+        var pubk = factory.generatePublic(s1);
+
+        var prispec = factory.getKeySpec(prik, EdECPrivateKeySpec.class);
+        var pubspec = factory.getKeySpec(pubk, EdECPublicKeySpec.class);
+
+        System.out.printf("private key: %s%n", format.formatHex(prispec.getBytes()));
+        var point = pubspec.getPoint();
+        System.out.printf("public key: %b, %x%n", point.isXOdd(), point.getY());
+
+        sig.initSign(prik);
+
+        var msg = "brown fox jumps over the lazy dog".getBytes(StandardCharsets.UTF_8);
+        sig.update(msg);
+
+        var hash = sig.sign();
+        System.out.printf("%s%n", format.formatHex(hash));
+
+        sig.initVerify(pubk);
+
+        sig.update(msg);
+
+        var b = sig.verify(hash);
+        System.out.println(b);
+    }
+
     /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        if (args.length < 1) {
-            return;
-        }
-        var format = HexFormat.of();
-        var key = new byte[33];
-        for (String line : args) {
-            var b = Base58.decode(line);
-            if (b.length != 37) {
-                continue;
+        var p = Path.of("H:\\Data\\0x1000000000smallsieve.bs");
+        try (FileChannel ch = (FileChannel) Files.newByteChannel(p, StandardOpenOption.READ)) {
+            long filesize = ch.size();
+            MappedByteBuffer buf = null;
+            long mapedsize = 0;
+            BitSet set;
+            LongBuffer lo;
+            long offset = 0;
+            int card = 0;
+            int size = 0;
+            int length = 0;
+            while (offset < filesize) {
+                mapedsize = Math.min(filesize - offset, Integer.MAX_VALUE);
+                buf = ch.map(FileChannel.MapMode.READ_ONLY, offset, mapedsize);
+                lo = buf.asLongBuffer();
+                if (offset == 0) {
+                    lo.get();
+                }
+                set = BitSet.valueOf(lo);
+                card += set.cardinality();
+                size += set.size();
+                length += set.length();
+                offset = mapedsize;
             }
-            System.arraycopy(b, 1, key, 1, 32);
-            var point = Const.G.multiply(new BigInteger(key, 0, 33));
-            format.formatHex(System.out, point.getEncoded(false));
-            System.out.println();
+            System.out.printf("%d, %d, %d%n", card, size, length);
         }
     }
 

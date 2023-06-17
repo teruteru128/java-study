@@ -2,7 +2,19 @@ package com.twitter.teruteru128.bitmessage;
 
 import java.util.Arrays;
 
+/**
+ * 
+ */
 public record InventoryVector(byte[] hash) implements Comparable<InventoryVector> {
+
+    public InventoryVector(byte[] hash) {
+        this.hash = hash.clone();
+    }
+
+    @Override
+    public byte[] hash() {
+        return hash.clone();
+    }
 
     @Override
     public int hashCode() {
