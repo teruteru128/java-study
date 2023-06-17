@@ -14,15 +14,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.KeyFactory;
+import java.security.SecureRandom;
 import java.security.Security;
 import java.security.Signature;
 import java.security.spec.EdECPoint;
 import java.security.spec.EdECPrivateKeySpec;
 import java.security.spec.EdECPublicKeySpec;
 import java.security.spec.NamedParameterSpec;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.HexFormat;
 
+import org.bouncycastle.crypto.ec.CustomNamedCurves;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.ECPoint;
 
@@ -131,32 +134,18 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var p = Path.of("H:\\Data\\0x1000000000smallsieve.bs");
-        try (FileChannel ch = (FileChannel) Files.newByteChannel(p, StandardOpenOption.READ)) {
-            long filesize = ch.size();
-            MappedByteBuffer buf = null;
-            long mapedsize = 0;
-            BitSet set;
-            LongBuffer lo;
-            long offset = 0;
-            int card = 0;
-            int size = 0;
-            int length = 0;
-            while (offset < filesize) {
-                mapedsize = Math.min(filesize - offset, Integer.MAX_VALUE);
-                buf = ch.map(FileChannel.MapMode.READ_ONLY, offset, mapedsize);
-                lo = buf.asLongBuffer();
-                if (offset == 0) {
-                    lo.get();
-                }
-                set = BitSet.valueOf(lo);
-                card += set.cardinality();
-                size += set.size();
-                length += set.length();
-                offset = mapedsize;
-            }
-            System.out.printf("%d, %d, %d%n", card, size, length);
-        }
+        var buf = new char[3];
+        final var matcher = "SEX".toCharArray();
+        var random = SecureRandom.getInstanceStrong();
+        int count = 0;
+        do {
+            buf[0] = (char) ('A' + random.nextInt(26));
+            buf[1] = (char) ('A' + random.nextInt(26));
+            buf[2] = (char) ('A' + random.nextInt(26));
+            System.out.println(buf);
+            count++;
+        } while (!Arrays.equals(buf, 0, 3, matcher, 0, 3));
+        System.out.printf(":kakapo: %d%n", count);
     }
 
 }
