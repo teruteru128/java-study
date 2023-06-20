@@ -6,26 +6,24 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.LongBuffer;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
+import java.security.InvalidKeyException;
 import java.security.KeyFactory;
-import java.security.SecureRandom;
+import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.security.Signature;
+import java.security.SignatureException;
 import java.security.spec.EdECPoint;
 import java.security.spec.EdECPrivateKeySpec;
 import java.security.spec.EdECPublicKeySpec;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.NamedParameterSpec;
-import java.util.Arrays;
-import java.util.BitSet;
+import java.security.spec.XECPrivateKeySpec;
+import java.security.spec.XECPublicKeySpec;
 import java.util.HexFormat;
 
-import org.bouncycastle.crypto.ec.CustomNamedCurves;
+import javax.crypto.KeyAgreement;
+
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.math.ec.ECPoint;
 
@@ -67,22 +65,21 @@ public class Main {
         }
     }
 
-    public static void sample(String a) throws IOException, InterruptedException {
+    private static final HttpRequest.Builder requestBuilder = HttpRequest
+            .newBuilder(URI.create("http://localhost:8442/"))
+            .header("Content-Type", "application/json-rpc")
+            .header("Authorization", "Basic dGVydXRlcnUxMjg6YW5hbGJlYWRz");
 
+    public static void sample(String a) throws IOException, InterruptedException {
         var client = HttpClient.newBuilder().build();
-        var requestBuilder = HttpRequest.newBuilder(URI.create("http://localhost:8442/"))
-                .header("Content-Type", "application/json-rpc")
-                .header("Authorization", "Basic dGVydXRlcnUxMjg6YW5hbGJlYWRz");
         var requestBody = HttpRequest.BodyPublishers.ofString(a);
         var request = client.send(requestBuilder.copy().POST(requestBody).build(),
                 HttpResponse.BodyHandlers.ofString());
         System.out.println(request.body());
-
     }
 
-    static final HexFormat format = HexFormat.of();
-
     public static void printPoint(ECPoint point1) {
+        HexFormat format = HexFormat.of();
         System.out.println(point1);
         System.out.println(format.formatHex(point1.getEncoded(false)));
         System.out.println(format.formatHex(point1.getEncoded(true)));
@@ -93,13 +90,37 @@ public class Main {
         System.out.println(point1 instanceof ECPoint.Fp);
     }
 
-    public static void a() throws Exception {
+    public static void x(byte[] pri, byte[] pub) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException {
+        var format = HexFormat.of();
+        var factory = KeyFactory.getInstance("X25519");
+        var s0 = new XECPrivateKeySpec(NamedParameterSpec.X25519, pri);
+        var s1 = new XECPublicKeySpec(NamedParameterSpec.X25519, new BigInteger(pub));
+
+        var ag = KeyAgreement.getInstance("X25519");
+
+        var prik = factory.generatePrivate(s0);
+        var pubk = factory.generatePublic(s1);
+
+        var prispec = factory.getKeySpec(prik, XECPrivateKeySpec.class);
+        var pubspec = factory.getKeySpec(pubk, XECPublicKeySpec.class);
+
+        System.out.printf("private key: %s%n", format.formatHex(prispec.getScalar()));
+        System.out.printf("public key: %x%n", pubspec.getU());
+
+        ag.init(prik);
+
+        ag.doPhase(pubk, true);
+
+        var sec = ag.generateSecret();
+        System.out.printf("%s%n", format.formatHex(sec));
+    }
+
+    public static void ed(byte[] pri, byte[] pub)
+            throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
         var format = HexFormat.of();
         var factory = KeyFactory.getInstance("Ed25519");
-        var s0 = new EdECPrivateKeySpec(NamedParameterSpec.ED25519, format.parseHex(
-                "86575b7afeb80e1d8ba7b295e06edc0de9fc53fb90981daebbecef93c6ff1a8c"));
-        var s1 = new EdECPublicKeySpec(NamedParameterSpec.ED25519, new EdECPoint(false, new BigInteger(
-                "1e6d78bf292bae807135fe2385c72ac353151a6cfed6bf573edb45278053558f", 16)));
+        var s0 = new EdECPrivateKeySpec(NamedParameterSpec.ED25519, pri);
+        var s1 = new EdECPublicKeySpec(NamedParameterSpec.ED25519, new EdECPoint(false, new BigInteger(pub)));
         var sig = Signature.getInstance("Ed25519");
 
         var prik = factory.generatePrivate(s0);
@@ -128,24 +149,22 @@ public class Main {
         System.out.println(b);
     }
 
+    public static void curve25519test()
+            throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
+        var format = HexFormat.of();
+        var pri = format.parseHex(
+                "86575b7afeb80e1d8ba7b295e06edc0de9fc53fb90981daebbecef93c6ff1a8c");
+        var pub = format.parseHex("1e6d78bf292bae807135fe2385c72ac353151a6cfed6bf573edb45278053558f");
+        ed(pri, pub);
+        x(pri, pub);
+    }
+
     /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var buf = new char[3];
-        final var matcher = "SEX".toCharArray();
-        var random = SecureRandom.getInstanceStrong();
-        int count = 0;
-        do {
-            buf[0] = (char) ('A' + random.nextInt(26));
-            buf[1] = (char) ('A' + random.nextInt(26));
-            buf[2] = (char) ('A' + random.nextInt(26));
-            System.out.println(buf);
-            count++;
-        } while (!Arrays.equals(buf, 0, 3, matcher, 0, 3));
-        System.out.printf(":kakapo: %d%n", count);
     }
 
 }
