@@ -1,18 +1,26 @@
 package com.twitter.teruteru128.study;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.security.Signature;
 import java.security.SignatureException;
+import java.security.interfaces.EdECPrivateKey;
+import java.security.interfaces.EdECPublicKey;
+import java.security.interfaces.XECPrivateKey;
+import java.security.interfaces.XECPublicKey;
 import java.security.spec.EdECPoint;
 import java.security.spec.EdECPrivateKeySpec;
 import java.security.spec.EdECPublicKeySpec;
@@ -90,7 +98,8 @@ public class Main {
         System.out.println(point1 instanceof ECPoint.Fp);
     }
 
-    public static void x(byte[] pri, byte[] pub) throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException {
+    public static void x(byte[] pri, byte[] pub)
+            throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException {
         var format = HexFormat.of();
         var factory = KeyFactory.getInstance("X25519");
         var s0 = new XECPrivateKeySpec(NamedParameterSpec.X25519, pri);
@@ -98,8 +107,8 @@ public class Main {
 
         var ag = KeyAgreement.getInstance("X25519");
 
-        var prik = factory.generatePrivate(s0);
-        var pubk = factory.generatePublic(s1);
+        var prik = (XECPrivateKey) factory.generatePrivate(s0);
+        var pubk = (XECPublicKey) factory.generatePublic(s1);
 
         var prispec = factory.getKeySpec(prik, XECPrivateKeySpec.class);
         var pubspec = factory.getKeySpec(pubk, XECPublicKeySpec.class);
@@ -123,8 +132,8 @@ public class Main {
         var s1 = new EdECPublicKeySpec(NamedParameterSpec.ED25519, new EdECPoint(false, new BigInteger(pub)));
         var sig = Signature.getInstance("Ed25519");
 
-        var prik = factory.generatePrivate(s0);
-        var pubk = factory.generatePublic(s1);
+        var prik = (EdECPrivateKey) factory.generatePrivate(s0);
+        var pubk = (EdECPublicKey) factory.generatePublic(s1);
 
         var prispec = factory.getKeySpec(prik, EdECPrivateKeySpec.class);
         var pubspec = factory.getKeySpec(pubk, EdECPublicKeySpec.class);
@@ -165,6 +174,23 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        var opt = Files.lines(Paths.get("rsa1024.txt")).map(l -> new BigInteger(l, 10)).findFirst();
+        var n = opt.get();
+        var sqrt_n = n.sqrt();
+        var o = new BigInteger(
+                "12486047039953572581488248544408228644907880179134936245046016595825252961097695018523149569477902053761261354868316196730635032976201843551550235210356609");
+        var dandr = n.divideAndRemainder(o);
+        System.out.println(sqrt_n.compareTo(dandr[1]) >= 0);
+        // o * (dandr[0]) + dandr[1] = n
+        var a = n.subtract(o.add(BigInteger.ONE).multiply(dandr[1]));
+        var b = a.divide(o);
+        // b * o + (o + 1) * dandr[1]
+        System.out.printf("%d%n", b);
+        var shita = new BigDecimal(o.add(BigInteger.ONE).multiply(dandr[1]));
+        var ue = new BigDecimal(b.multiply(o));
+        var dn = new BigDecimal(n);
+        System.out.printf("%f%n", shita.divide(dn, MathContext.DECIMAL64));
+        System.out.printf("%f%n", ue.divide(shita, MathContext.DECIMAL64));
     }
 
 }
