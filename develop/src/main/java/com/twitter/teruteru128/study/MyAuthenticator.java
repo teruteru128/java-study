@@ -28,6 +28,7 @@ public class MyAuthenticator extends Authenticator implements Destroyable, Seria
         getRequestingScheme();
         getRequestingSite();
         getRequestingURL();
+        getRequestorType();
         return new PasswordAuthentication(username, password);
     }
 

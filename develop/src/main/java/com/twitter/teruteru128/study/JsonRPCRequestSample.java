@@ -23,4 +23,16 @@ public class JsonRPCRequestSample {
     
     }
     
+    private static HttpClient client = HttpClient.newBuilder().build();
+    private static final HttpRequest.Builder requestBuilder = HttpRequest
+            .newBuilder(URI.create("http://localhost:8442/"))
+            .header("Content-Type", "application/json-rpc")
+            .header("Authorization", "Basic dGVydXRlcnUxMjg6YW5hbGJlYWRz");
+
+    public static void sample(String a) throws IOException, InterruptedException {
+        var requestBody = HttpRequest.BodyPublishers.ofString(a);
+        var request = client.send(requestBuilder.copy().POST(requestBody).build(),
+                HttpResponse.BodyHandlers.ofString());
+        System.out.println(request.body());
+    }
 }
