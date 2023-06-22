@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.security.Signature;
@@ -191,6 +192,17 @@ public class Main {
         var dn = new BigDecimal(n);
         System.out.printf("%f%n", shita.divide(dn, MathContext.DECIMAL64));
         System.out.printf("%f%n", ue.divide(shita, MathContext.DECIMAL64));
+        var msg = "".getBytes(StandardCharsets.UTF_8);
+        var s1 = MessageDigest.getInstance("SHA-512");
+        var s2 = MessageDigest.getInstance("SHA3-512");
+        s1.update(msg);
+        s2.update(msg);
+        var hash = new byte[64];
+        var format = HexFormat.of();
+        s1.digest(hash, 0, 64);
+        System.out.println(format.formatHex(hash));
+        s2.digest(hash, 0, 64);
+        System.out.println(format.formatHex(hash));
     }
 
 }
