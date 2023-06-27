@@ -2,7 +2,7 @@ package com.twitter.teruteru128.study;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.twitter.teruteru128.bitmessage.Dandelion;
+import com.twitter.teruteru128.bitmessage.dandelion.Dandelion;
 
 public class PoissonDistributionSample {
 

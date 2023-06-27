@@ -1,9 +1,9 @@
-package com.twitter.teruteru128.bitmessage;
+package com.twitter.teruteru128.bitmessage.inventory;
 
 import java.util.Arrays;
 
 /**
- * 
+ * Hash of inventory objects to use in inv/getdata messages.
  */
 public record InventoryVector(byte[] hash) implements Comparable<InventoryVector> {
 

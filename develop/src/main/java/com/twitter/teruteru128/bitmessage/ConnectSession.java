@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.bitmessage;
 
 import java.nio.channels.SocketChannel;
+import java.util.Optional;
 
 import javax.net.ssl.SSLEngine;
 
@@ -10,18 +11,19 @@ import javax.net.ssl.SSLEngine;
  */
 public class ConnectSession {
     private SocketChannel channel;
-    private SSLEngine sslEngine = null;
+    private Optional<SSLEngine> sslEngine = Optional.empty();
+    private ConnectionType type;
     private boolean verackReceived = false;
     private boolean verackSent = false;
 
-    public ConnectSession(SocketChannel channel) {
-        this(channel, null);
+    public ConnectSession(SocketChannel channel, ConnectionType type) {
+        this(channel, null, type);
     }
 
-    public ConnectSession(SocketChannel channel, SSLEngine engine) {
+    public ConnectSession(SocketChannel channel, SSLEngine engine, ConnectionType type) {
         super();
         this.channel = channel;
-        this.sslEngine = engine;
+        this.sslEngine = Optional.ofNullable(engine);
     }
 
     public boolean isVerackReceived() {
@@ -41,14 +43,18 @@ public class ConnectSession {
     }
 
     public void setSSLEngine(SSLEngine engine) {
-        this.sslEngine = engine;
+        this.sslEngine = Optional.ofNullable(engine);
     }
 
-    public SSLEngine getSSLEngine() {
+    public Optional<SSLEngine> getSSLEngine() {
         return sslEngine;
     }
 
     public boolean isSSL() {
-        return sslEngine != null;
+        return sslEngine.isPresent();
+    }
+
+    public ConnectionType getType() {
+        return type;
     }
 }

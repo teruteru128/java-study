@@ -27,5 +27,5 @@ module com.twitter.teruteru.study {
     requires org.bouncycastle.provider;
     requires org.twitter4j;
     requires com.twitter.teruteru.util;
-    requires org.glassfish.jaxb.runtime;
+    //requires org.glassfish.jaxb.runtime;
 }

@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.twitter.teruteru128.bitmessage.Message;
 import com.twitter.teruteru128.bitmessage.Sender;
+import com.twitter.teruteru128.bitmessage.p2p.Message;
 
 public class NewPostTask implements Runnable {
 

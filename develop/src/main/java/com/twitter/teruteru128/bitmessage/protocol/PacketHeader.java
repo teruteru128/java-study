@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage;
+package com.twitter.teruteru128.bitmessage.protocol;
 
 import java.nio.ByteBuffer;
 

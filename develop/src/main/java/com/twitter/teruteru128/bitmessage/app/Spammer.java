@@ -10,8 +10,8 @@ import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 
-import com.twitter.teruteru128.bitmessage.Message;
 import com.twitter.teruteru128.bitmessage.Sender;
+import com.twitter.teruteru128.bitmessage.p2p.Message;
 import com.twitter.teruteru128.bitmessage.spec.BMAddress;
 
 public class Spammer {

@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.twitter.teruteru128.bitmessage.p2p.Message;
+
 public class Sender {
 
     public static HttpResponse<String> send(String toaddress, String fromaddress, String subject, String message)

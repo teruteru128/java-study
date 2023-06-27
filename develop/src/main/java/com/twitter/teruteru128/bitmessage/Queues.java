@@ -3,6 +3,8 @@ package com.twitter.teruteru128.bitmessage;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import com.twitter.teruteru128.bitmessage.dandelion.Inventory;
+
 public class Queues {
     private Queues() {
         super();

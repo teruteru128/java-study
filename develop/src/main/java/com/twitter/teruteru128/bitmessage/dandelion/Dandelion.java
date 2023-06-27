@@ -1,6 +1,7 @@
-package com.twitter.teruteru128.bitmessage;
+package com.twitter.teruteru128.bitmessage.dandelion;
 
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,15 +11,23 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.ReentrantLock;
 
+import com.twitter.teruteru128.bitmessage.ConnectionPool;
+import com.twitter.teruteru128.bitmessage.Queues;
+import com.twitter.teruteru128.bitmessage.Stem;
+import com.twitter.teruteru128.bitmessage.inventory.InventoryVector;
+
+/**
+ * Dandelion class for tracking stem/fluff stages.
+ */
 public class Dandelion {
 
     /**
      * randomise routes after 600 seconds
      */
-    public static final int REASSIGN_INTERVAL = 600;
+    private static final int REASSIGN_INTERVAL = 600;
     /** trigger fluff due to expiration */
-    public static final int FLUFF_TRIGGER_FIXED_DELAY = 10;
-    public static final int FLUFF_TRIGGER_MEAN_DELAY = 30;
+    private static final int FLUFF_TRIGGER_FIXED_DELAY = 10;
+    private static final int FLUFF_TRIGGER_MEAN_DELAY = 30;
 
     private static final int MAX_STEMS = 2;
 
@@ -29,7 +38,7 @@ public class Dandelion {
     /** currently existing objects in stem mode */
     private HashMap<InventoryVector, Stem> hashMap = new HashMap<>();
     /** when to rerandomise routes */
-    private long refresh = Instant.now().getEpochSecond() + REASSIGN_INTERVAL;
+    private ZonedDateTime refresh = ZonedDateTime.now().plusSeconds(REASSIGN_INTERVAL);
     private ReentrantLock lock = new ReentrantLock();
 
     private Dandelion() {
@@ -41,8 +50,12 @@ public class Dandelion {
         return INSTANCE;
     }
 
-    public long getRefresh() {
+    public ZonedDateTime getRefresh() {
         return refresh;
+    }
+
+    public boolean isStemsExpired() {
+        return refresh.compareTo(ZonedDateTime.now()) < 0;
     }
 
     private static long poisson(long average) {
@@ -60,9 +73,10 @@ public class Dandelion {
      * ポアソン分布に基づくタイムアウト時間選定。
      * 
      * なんかアルゴリズム間違ってるらしいよ？
+     * 
      * @see org.apache.commons.math3.distribution.PoissonDistribution
      * @return
-    */
+     */
     private static long poissonTimeout() {
         long start = Instant.now().getEpochSecond();
         long average = FLUFF_TRIGGER_MEAN_DELAY;
@@ -94,6 +108,7 @@ public class Dandelion {
     }
 
     public void removeHash(InventoryVector hashId, String reason) {
+        // TODO insert debug message here
         lock.lock();
         try {
             hashMap.remove(hashId);
@@ -187,7 +202,7 @@ public class Dandelion {
                 }
             }
             for (Inventory inventory : toDelete) {
-                removeHash(inventory.hashId(), "");
+                removeHash(inventory.hashId(), "expired");
                 Queues.getInstance().getInvQueue().add(inventory);
             }
         } finally {
@@ -196,17 +211,23 @@ public class Dandelion {
         return toDelete;
     }
 
+    /**
+     * resellect child stems from connection pool
+     */
     public void reRandomiseStems() {
         var l = new ArrayList<>(ConnectionPool.getInstance().getOutboundConnections().values());
-        Collections.shuffle(l);
-        int length = Math.min(l.size(), 2);
         lock.lock();
         try {
             stem.clear();
-            stem.addAll(l.subList(0, length));
+            if (l.size() < MAX_STEMS) {
+                stem.addAll(l);
+            } else {
+                Collections.shuffle(l);
+                stem.addAll(l.subList(0, MAX_STEMS));
+            }
         } finally {
             lock.unlock();
         }
-        refresh = Instant.now().getEpochSecond() + REASSIGN_INTERVAL;
+        refresh = ZonedDateTime.now().plusSeconds(REASSIGN_INTERVAL);
     }
 }

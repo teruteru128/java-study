@@ -1,9 +1,7 @@
 package com.twitter.teruteru128.bitmessage;
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Inet4Address;
 import java.net.Inet6Address;
@@ -22,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 
@@ -31,14 +30,22 @@ import javax.net.ssl.SSLSocket;
 import org.apache.commons.codec.binary.Base32;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
 
+import com.twitter.teruteru128.bitmessage.inventory.InventoryVector;
+import com.twitter.teruteru128.bitmessage.protocol.Packet;
+import com.twitter.teruteru128.bitmessage.protocol.PacketHeader;
+import com.twitter.teruteru128.bitmessage.protocol.payload.Addr;
+import com.twitter.teruteru128.bitmessage.protocol.payload.Inv;
 import com.twitter.teruteru128.encode.Base58;
 import com.twitter.teruteru128.study.DecodedAddress;
 
+/**
+ * TODO もう接続の管理はSelectorでよくねえ……？
+ */
 public class Protocol {
 
     private static final int PACKET_MAGIC_NUMBER = 0xE9BEB4D9;
-    public final static byte[] PREFIX_MAGIC_NUMBER = { -23, -66, -76, -39 };
-    public static byte[] IPV4_MAPPED_IPV6_ADDRESS_PREFIX = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -128, -128 };
+    private static final byte[] PREFIX_MAGIC_NUMBER = { -23, -66, -76, -39 };
+    private static final byte[] IPV4_MAPPED_IPV6_ADDRESS_PREFIX = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -128, -128 };
 
     public static byte[] networkAddress(long services, InetSocketAddress address) {
         var ad = address.getAddress();
@@ -193,9 +200,11 @@ public class Protocol {
     public static void connect(SocketAddress address) throws Exception {
         var ctx = SSLContext.getDefault();
         var factory = ctx.getSocketFactory();
+        var engine = ctx.createSSLEngine();
 
         var socket = new Socket();
         socket.connect(address);
+        var channel = SocketChannel.open(address);
         long nonce = ThreadLocalRandom.current().nextLong();
         var sha512 = MessageDigest.getInstance("SHA-512");
         // C言語の場合だと13バイト確保しておかないと危険ってことか？
@@ -207,28 +216,58 @@ public class Protocol {
             var out = socket.getOutputStream();
             var in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             var userAgent = "/SampleLib:1.0.0.0/".getBytes(StandardCharsets.UTF_8);
-            // addr送信
+            // version送信
             out.write(
                     assembleVersionMessage((InetSocketAddress) socket.getRemoteSocketAddress(), new int[] { 1 }, false,
                             nonce, userAgent).array());
-
+            channel.write(
+                    assembleVersionMessage((InetSocketAddress) socket.getRemoteSocketAddress(), new int[] { 1 }, false,
+                            nonce, userAgent));
+            var buffer = ByteBuffer.allocate(24);
+            int commandlen = 0;
+            int payloadLength = 0;
+            byte[] payload = null;
+            ByteBuffer payloadBuffer = null;
             for (int i = 0; i < 2; i++) {
-                // verackとaddr受信
+                // verackとversion受信
                 magic = in.readInt();
                 System.out.printf("%08x%n", magic);
                 Arrays.fill(command, (byte) 0);
                 in.read(command, 0, 12);
-                var len = command.length;
+                commandlen = command.length;
                 // 手動trim
-                while ((0 < len) && (command[len - 1] & 0xff) < ' ') {
-                    len--;
+                while ((0 < commandlen) && (command[commandlen - 1] & 0xff) < ' ') {
+                    commandlen--;
                 }
-                System.out.println(new String(command, 0, len).trim());
-                var length = in.readInt();
+                System.out.println(new String(command, 0, commandlen).trim());
+                payloadLength = in.readInt();
                 in.read(checksum, 0, 4);
-                var payload = new byte[length];
-                in.readNBytes(payload, 0, length);
+                payload = new byte[payloadLength];
+                in.readNBytes(payload, 0, payloadLength);
                 sha512.update(payload);
+                sha512.digest(hash, 0, 64);
+                if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
+                    System.out.println("checksum ok");
+                } else {
+                    System.out.println("checksum ng");
+                }
+                ////////////////////////////////////////////////////////////////////
+                channel.read(buffer);
+                magic = buffer.getInt();
+                Arrays.fill(command, (byte) 0);
+                buffer.get(command);
+                commandlen = command.length;
+                // 手動trim
+                while ((0 < commandlen) && (command[commandlen - 1] & 0xff) < ' ') {
+                    commandlen--;
+                }
+                System.out.println(new String(command, 0, commandlen).trim());
+                payloadLength = buffer.getInt();
+                buffer.get(checksum);
+                payloadBuffer = ByteBuffer.allocate(payloadLength);
+                channel.read(payloadBuffer);
+                payloadBuffer.flip();
+                sha512.update(payloadBuffer);
                 sha512.digest(hash, 0, 64);
                 if (MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4))) {
                     System.out.println("checksum ok");
@@ -244,14 +283,12 @@ public class Protocol {
             var sslSocket = (SSLSocket) factory.createSocket(socket,
                     remote.getHostName(),
                     remote.getPort(), true);
-            var suites = sslSocket.getEnabledCipherSuites();
+            var suites = Set.of(sslSocket.getEnabledCipherSuites());
             // TLS_ECDH_anon_WITH_AES_256_CBC_SHA is usually disabled, so you need to change
             // your system settings.
-            if (!com.twitter.teruteru128.util.Arrays.contains(suites, "TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
-                int newLength = suites.length + 1;
-                suites = Arrays.copyOf(suites, newLength);
-                suites[newLength - 1] = "TLS_ECDH_anon_WITH_AES_256_CBC_SHA";
-                sslSocket.setEnabledCipherSuites(suites);
+            if (!suites.contains("TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
+                suites.add("TLS_ECDH_anon_WITH_AES_256_CBC_SHA");
+                sslSocket.setEnabledCipherSuites(suites.toArray(String[]::new));
             }
             var start = System.currentTimeMillis();
             sslSocket.startHandshake();
@@ -354,24 +391,33 @@ public class Protocol {
     public static void connect2(SocketAddress address) throws NoSuchAlgorithmException, IOException {
         var context = SSLContext.getDefault();
         var engine = context.createSSLEngine();
-        var suites = engine.getEnabledCipherSuites();
+        var suites = Set.of(engine.getEnabledCipherSuites());
         // TODO CipherSuitesの設定は毎回しなくてもいいようにしたい
-        if (!com.twitter.teruteru128.util.Arrays.contains(suites, "TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
-            int newLength = suites.length + 1;
-            suites = Arrays.copyOf(suites, newLength);
-            suites[newLength - 1] = "TLS_ECDH_anon_WITH_AES_256_CBC_SHA";
-            engine.setEnabledCipherSuites(suites);
+        if (!suites.contains("TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
+            suites.add("TLS_ECDH_anon_WITH_AES_256_CBC_SHA");
+            engine.setEnabledCipherSuites(suites.toArray(String[]::new));
         }
         var channel = SocketChannel.open(address);
         // register to selector
         final long nodeid = ThreadLocalRandom.current().nextLong();
-        var sha512 = MessageDigest.getInstance("SHA-512");
         boolean server = false;
         var remoteAddress = (InetSocketAddress) channel.getRemoteAddress();
         var userAgent = "/SampleLib with SocketChannel:0.0.0.1/".getBytes(StandardCharsets.UTF_8);
         // TODO 送信と受信を完全に別スレッドに分ける、受信したデータを処理するスレッドも分ける
+        // TODO listen socketからacceptするスレッドと外部へconnectするスレッドとデータをやり取りするスレッドを別にしたい
         // ホントのこと言うと受信の度に仮想スレッドを立ち上げたい
         channel.write(assembleVersionMessage(remoteAddress, new int[] { 1 }, server, nodeid, userAgent));
+        var header = ByteBuffer.allocate(24);
+        channel.read(header);
+        header.flip();
+        header.getInt();
+        byte[] command = new byte[12];
+        header.get(command);
+        int length = header.getInt();
+        byte[] checksum = new byte[4];
+        header.get(checksum);
+        var payload = ByteBuffer.allocate(length);
+        channel.read(payload);
     }
 
     public static boolean verify(byte[] data, byte[] sign, byte[] pubkey) {
@@ -382,8 +428,17 @@ public class Protocol {
     public static final int OBJECT_PUBKEY = 1;
     public static final int OBJECT_MSG = 2;
     public static final int OBJECT_BROADCAST = 3;
+    /**
+     * "tor"
+     */
     public static final int OBJECT_ONIONPEER = 0x746f72;
+    /**
+     * "I2P"
+     */
     public static final int OBJECT_I2P = 0x493250;
+    /**
+     * "ADDR"
+     */
     public static final int OBJECT_ADDR = 0x61646472;
 
     /**
@@ -395,7 +450,7 @@ public class Protocol {
      * @param payloadLengthExtraBytes
      * @return
      */
-    private static long calcTarget(int length, int ttl, int proofOfWorkNonceTrialsPerByte,
+    public static long calcTarget(int length, int ttl, int proofOfWorkNonceTrialsPerByte,
             int payloadLengthExtraBytes) {
         return (long) (0x1p64 / (proofOfWorkNonceTrialsPerByte
                 * (length + 8 + payloadLengthExtraBytes + ((ttl * (length + 8 + payloadLengthExtraBytes)) / 0x1p16))));

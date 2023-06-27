@@ -9,6 +9,10 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.concurrent.ForkJoinPool;
 
+import com.twitter.teruteru128.bitmessage.protocol.Packet;
+import com.twitter.teruteru128.bitmessage.protocol.PacketHeader;
+import com.twitter.teruteru128.bitmessage.protocol.payload.UnknownPacketPayload;
+
 public class PacketReceiveTask implements Runnable {
 
     private ForkJoinPool service;

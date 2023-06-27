@@ -1,10 +1,21 @@
 package com.twitter.teruteru128.bitmessage;
 
+import java.io.IOException;
+import java.nio.channels.Selector;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class ConnectionPool {
+/**
+ * Selector持たせて終わりでいいんじゃね……？ConnectSessionを添付オブジェクトにしてさ
+*/
+public class ConnectionPool implements AutoCloseable {
+    private Selector selector;
     private ConnectionPool() {
+        try {
+            selector = Selector.open();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static final ConnectionPool INSTANCE = new ConnectionPool();
@@ -47,5 +58,10 @@ public class ConnectionPool {
      */
     public void loop() {
 
+    }
+
+    @Override
+    public void close() throws IOException {
+        selector.close();
     }
 }
