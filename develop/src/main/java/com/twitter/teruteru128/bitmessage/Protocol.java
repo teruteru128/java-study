@@ -25,6 +25,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 
 import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLSocket;
 
 import org.apache.commons.codec.binary.Base32;
@@ -200,7 +201,7 @@ public class Protocol {
     public static void connect(SocketAddress address) throws Exception {
         var ctx = SSLContext.getDefault();
         var factory = ctx.getSocketFactory();
-        var engine = ctx.createSSLEngine();
+        SSLEngine engine = null;
 
         var socket = new Socket();
         socket.connect(address);
@@ -212,6 +213,7 @@ public class Protocol {
         var command = new byte[12];
         var checksum = new byte[4];
         var hash = new byte[64];
+        int him_service = 0;
         {
             var out = socket.getOutputStream();
             var in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
@@ -279,6 +281,8 @@ public class Protocol {
             out.write(createPacket("verack".getBytes()).array());
         }
         {
+            long start = 0;
+            long finish = 0;
             var remote = (InetSocketAddress) socket.getRemoteSocketAddress();
             var sslSocket = (SSLSocket) factory.createSocket(socket,
                     remote.getHostName(),
@@ -290,11 +294,19 @@ public class Protocol {
                 suites.add("TLS_ECDH_anon_WITH_AES_256_CBC_SHA");
                 sslSocket.setEnabledCipherSuites(suites.toArray(String[]::new));
             }
-            var start = System.currentTimeMillis();
+            start = System.nanoTime();
             sslSocket.startHandshake();
-            var finish = System.currentTimeMillis();
-            System.out.printf("ssl handshake: %s%n", Duration.ofMillis(finish - start));
+            finish = System.nanoTime();
+            System.out.printf("ssl handshake: %s%n", Duration.ofNanos(finish - start));
             socket = sslSocket;
+            // if he supports ssl
+            engine = ctx.createSSLEngine();
+            var suites2 = Set.of(engine.getEnabledCipherSuites());
+            if (!suites.contains("TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
+                suites2.add("TLS_ECDH_anon_WITH_AES_256_CBC_SHA");
+                engine.setEnabledCipherSuites(suites.toArray(String[]::new));
+            }
+            engine.setUseClientMode(true);
         }
         {
             // var out = socket.getOutputStream();
