@@ -5,9 +5,10 @@ import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HexFormat;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Task implements Runnable {
+public class Task implements Callable<Void> {
     private ByteBuffer buffer;
     private Status status;
 
@@ -18,7 +19,7 @@ public class Task implements Runnable {
     }
 
     @Override
-    public void run() {
+    public Void call() {
         ByteBuffer[] buffers = new ByteBuffer[16777216];
         int buffersLength = buffers.length;
         for (int i = 0, o = 0; i < buffersLength; i++, o += 65) {
@@ -54,6 +55,7 @@ public class Task implements Runnable {
                         System.out.printf("%d: %s,%s,%s%n", Long.numberOfLeadingZeros(hashBuffer.getLong(0)),
                                 format.formatHex(hash, 0, 20),
                                 format.formatHex(work1), format.formatHex(work2));
+                        status.setRunning(false);
                     }
                 }
                 sha512src.reset();
@@ -61,5 +63,6 @@ public class Task implements Runnable {
         } catch (CloneNotSupportedException | DigestException | NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 }
