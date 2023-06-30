@@ -8,35 +8,33 @@ import java.util.HexFormat;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Task implements Callable<Void> {
+public class Task implements Callable<AddressPublicKeySet> {
+    private static final int MASK_LENGTH = 40;
+    private static final long MASK = ((1l << MASK_LENGTH) - 1) << (64 - MASK_LENGTH);
     private ByteBuffer buffer;
-    private Status status;
 
-    public Task(ByteBuffer buf, Status status) {
+    public Task(ByteBuffer buf) {
         super();
         this.buffer = buf;
-        this.status = status;
     }
 
     @Override
-    public Void call() {
+    public AddressPublicKeySet call() {
         ByteBuffer[] buffers = new ByteBuffer[16777216];
         int buffersLength = buffers.length;
         for (int i = 0, o = 0; i < buffersLength; i++, o += 65) {
             buffers[i] = buffer.slice(o, 65);
         }
         int index = 0;
+        long sectionStart = 0;
         try {
             var sha512src = MessageDigest.getInstance("sha512");
             MessageDigest sha512 = null;
             var ripemd160 = MessageDigest.getInstance("ripemd160");
-            var hash = new byte[64];
-            var hashBuffer = ByteBuffer.wrap(hash);
-            var format = HexFormat.of();
-            var work1 = new byte[65];
-            var work2 = new byte[65];
-
+            var hashBuffer = ByteBuffer.allocate(64);
+            var hash = hashBuffer.array();
             do {
+                sectionStart = System.nanoTime();
                 index = ThreadLocalRandom.current().nextInt(buffersLength);
                 sha512src.update(buffers[index]);
                 buffers[index].rewind();
@@ -47,22 +45,17 @@ public class Task implements Callable<Void> {
                     sha512.digest(hash, 0, 64);
                     ripemd160.update(hash, 0, 64);
                     ripemd160.digest(hash, 0, 20);
-                    if ((hashBuffer.getLong(0) & 0xffffffffffff0000L) == 0L) {
-                        buffers[index].get(work1);
-                        buffers[index].rewind();
-                        b.get(work2);
-                        b.rewind();
-                        System.out.printf("%d: %s,%s,%s%n", Long.numberOfLeadingZeros(hashBuffer.getLong(0)),
-                                format.formatHex(hash, 0, 20),
-                                format.formatHex(work1), format.formatHex(work2));
-                        status.setRunning(false);
+                    if ((hashBuffer.getLong(0) & MASK) == 0L) {
+                        return new AddressPublicKeySet(buffers[index], b);
                     }
                 }
                 sha512src.reset();
-            } while (status.isRunning());
+                System.err.printf("%d,%f%n", index, (System.nanoTime() - sectionStart) / 1e9);
+            } while (true);
         } catch (CloneNotSupportedException | DigestException | NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
+        } finally {
+            System.err.printf("%d,%f%n", index, (System.nanoTime() - sectionStart) / 1e9);
         }
-        return null;
     }
 }
