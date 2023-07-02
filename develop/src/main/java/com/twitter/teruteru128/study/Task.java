@@ -4,12 +4,11 @@ import java.nio.ByteBuffer;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.HexFormat;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Task implements Callable<AddressPublicKeySet> {
-    private static final int MASK_LENGTH = 40;
+    private static final int MASK_LENGTH = 48;
     private static final long MASK = ((1l << MASK_LENGTH) - 1) << (64 - MASK_LENGTH);
     private ByteBuffer buffer;
 
