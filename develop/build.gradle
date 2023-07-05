@@ -59,7 +59,7 @@ dependencies {
     implementation 'commons-codec:commons-codec:1.16.0'
 
     // This dependency is used by the application.
-    implementation 'com.google.guava:guava:32.0.1-jre'
+    implementation 'com.google.guava:guava:32.1.1-jre'
 
     // https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core
     implementation 'org.twitter4j:twitter4j-core:4.1.2';
