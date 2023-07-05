@@ -6,6 +6,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
 import java.security.Security;
+import java.time.Duration;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.HexFormat;
 import java.util.concurrent.Executors;
@@ -29,23 +31,31 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        int th = args.length >= 1 ? Integer.parseInt(args[0], 10): 16;
+        int th = args.length >= 1 ? Integer.parseInt(args[0], 10) : 16;
         System.err.printf("スレッド数: %d%n", th);
-        long loadstart = System.nanoTime();
-        var p = Paths.get("D:\\keys\\public\\publicKeys0.bin");
-        ByteBuffer direct = ByteBuffer.allocateDirect(1090519040);
-        try (var c = FileChannel.open(p, StandardOpenOption.READ)) {
-            long l = c.read(direct);
-            System.out.printf("read buffers: %d%n", l);
+        var loadstart = OffsetDateTime.now();
+        System.err.printf("[%s] 読み込み開始%n", loadstart);
+        var directs = new ByteBuffer[32];
+        for (int i = 0; i < 32; i++) {
+            var direct1 = ByteBuffer.allocateDirect(1090519040);
+            var p = Paths.get(String.format("D:\\keys\\public\\publicKeys%d.bin", i));
+            try (var c = FileChannel.open(p, StandardOpenOption.READ)) {
+                long l = c.read(direct1);
+                System.err.printf("read buffer%d: %d%n", i, l);
+            }
+            directs[i] = direct1;
         }
-        long loadDone = System.nanoTime();
-        System.err.printf("開幕 ここまで%f秒%n", (loadDone - loadstart) / 1e9);
+        var loadDone = OffsetDateTime.now();
+        System.err.printf("[%s, %s] 読み込み完了%n", loadDone, Duration.between(loadstart, loadDone));
         var tasks = new ArrayList<Task>(th);
+        var status = Status.getInstance();
         for (int i = 0; i < th; i++) {
-            tasks.add(new Task(direct));
+            tasks.add(new Task(directs, status));
         }
         var pool = Executors.newCachedThreadPool();
         var a = pool.invokeAny(tasks);
+        var calcDone = OffsetDateTime.now();
+        System.err.printf("[%s, %s] 計算終了%n", calcDone, Duration.between(loadDone, calcDone));
         pool.shutdown();
         var format = HexFormat.of();
         MessageDigest sha512 = MessageDigest.getInstance("sha512");
@@ -65,7 +75,6 @@ public class Main {
         System.out.printf("%d: %s,%s,%s%n", Long.numberOfLeadingZeros(hashBuffer.getLong(0)),
                 format.formatHex(hash, 0, 20),
                 format.formatHex(work1), format.formatHex(work2));
-        System.err.printf("開幕からここまで%f秒%n", (System.nanoTime() - loadDone) / 1e9);
     }
 
 }
