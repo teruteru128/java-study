@@ -23,20 +23,22 @@ public class Task implements Callable<AddressPublicKeySet> {
 
     @Override
     public AddressPublicKeySet call() {
+        var startTime = status.getStart();
+        OffsetDateTime d = OffsetDateTime.now();
+        System.err.printf("[%s, %s] バッファー分割開始なのね！%n", d, Duration.between(startTime, d));
         var counter = status.getCounter();
         ByteBuffer[] keys = new ByteBuffer[16777216 * buffers.length];
         int keysLength = keys.length;
         int largeoffset = 0;
-        for (int i = 0; i < 32; i++) {
+        for (int i = 0; i < buffers.length; i++) {
             largeoffset = i << 24;
             for (int j = 0, offset = 0; j < 16777216; j++, offset += 65) {
                 keys[largeoffset + j] = buffers[i].slice(offset, 65);
             }
         }
         int index = 0;
-        var startTime = status.getStart();
         try {
-            OffsetDateTime d = OffsetDateTime.now();
+            d = OffsetDateTime.now();
             System.err.printf("[%s, %s] %d件のキーでスレッドをスタートしますた%n", d, Duration.between(startTime, d), keysLength);
             var sha512src = MessageDigest.getInstance("sha512");
             MessageDigest sha512 = null;
