@@ -32,6 +32,11 @@ import org.bouncycastle.jce.spec.ECParameterSpec;
 import org.bouncycastle.jce.spec.ECPublicKeySpec;
 import org.bouncycastle.math.ec.ECCurve;
 
+/**
+ * 楕円曲線暗号統合暗号化スキーム
+ * 
+ * @see https://w.wiki/6yVA
+*/
 public class ECIES {
     public ECIES() {
     }

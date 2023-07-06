@@ -25,5 +25,5 @@ public class CHIPO {
             System.out.printf("%s, %s%n", Double.toString(penisSize3), Double.toString(penisSize4));
         }
     }
-    
+
 }
