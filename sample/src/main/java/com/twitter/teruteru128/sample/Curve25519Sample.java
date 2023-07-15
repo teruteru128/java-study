@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.sample;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
