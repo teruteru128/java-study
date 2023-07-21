@@ -3,6 +3,7 @@ package com.twitter.teruteru128.study;
 import java.lang.reflect.InvocationTargetException;
 import java.security.Provider;
 import java.security.Security;
+import java.util.random.RandomGenerator;
 
 /**
  * Main
@@ -20,7 +21,7 @@ public class Main {
             }
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException
                 | IllegalArgumentException | InvocationTargetException | SecurityException e) {
-            throw new RuntimeException(e);
+            throw new InternalError(e);
         }
     }
 
@@ -30,6 +31,10 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        var random = RandomGenerator.of("SecureRandom");
+        var s = random.nextInt() & 0xffffffffl;
+        var e = random.nextInt() & 0xffffffffl;
+        System.out.printf("%d, %d%n", s, e);
     }
 
 }
