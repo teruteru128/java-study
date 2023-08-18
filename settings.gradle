@@ -10,5 +10,4 @@
 rootProject.name = 'java.study'
 include("develop")
 include("sample")
-include("tool")
 include("util")

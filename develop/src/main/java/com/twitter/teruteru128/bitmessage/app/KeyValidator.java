@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage;
+package com.twitter.teruteru128.bitmessage.app;
 
 import java.math.BigInteger;
 import java.security.DigestException;
@@ -10,6 +10,7 @@ import java.util.HexFormat;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import com.twitter.teruteru128.bitmessage.Const;
 import com.twitter.teruteru128.bitmessage.spec.BMAddress;
 
 public class KeyValidator {
@@ -52,8 +53,11 @@ public class KeyValidator {
         final String address4 = BMAddress.encodeAddress(4, 1, ripe);
         final String address3 = BMAddress.encodeAddress(3, 1, ripe);
         final String address3_2 = BMAddress.encodeAddress(3, 1, ripe, 2);
+        var format = HexFormat.of();
 
-        System.out.printf("%41s : %s%n", "ripe", HexFormat.of().formatHex(ripe));
+        System.out.printf("%41s : %s%n", "sig", format.formatHex(pubSigningKey));
+        System.out.printf("%41s : %s%n", "enc", format.formatHex(pubEncryptionKey));
+        System.out.printf("%41s : %s%n", "ripe", format.formatHex(ripe));
 
         System.out.printf("%41s : %s (%smatched)%n", "v4 address calculated", address4,
                 address4.equals(address) ? "" : "not ");

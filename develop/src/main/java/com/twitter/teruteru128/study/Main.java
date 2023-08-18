@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigInteger;
 import java.security.Provider;
 import java.security.Security;
 import java.util.random.RandomGenerator;
@@ -31,10 +32,11 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var random = RandomGenerator.of("SecureRandom");
-        var s = random.nextInt() & 0xffffffffl;
-        var e = random.nextInt() & 0xffffffffl;
-        System.out.printf("%d, %d%n", s, e);
+        var generator = RandomGenerator.of("SecureRandom");
+        double takina_penis = generator.nextDouble(40, 60);
+        double chisato_penis = takina_penis + generator.nextDouble(20);
+        System.out.printf("takina: %f%n", takina_penis);
+        System.out.printf("chisato: %f%n", chisato_penis);
     }
 
 }

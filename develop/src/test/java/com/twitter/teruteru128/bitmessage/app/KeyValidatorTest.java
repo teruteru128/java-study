@@ -1,10 +1,10 @@
-package com.twitter.teruteru128.bitmessage;
+package com.twitter.teruteru128.bitmessage.app;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.twitter.teruteru128.bitmessage.KeyValidator;
+import com.twitter.teruteru128.bitmessage.app.KeyValidator;
 
 /**
  * KeyValidator

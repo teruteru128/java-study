@@ -1,16 +1,16 @@
-package com.twitter.teruteru128.bitmessage;
+package com.twitter.teruteru128.bitmessage.app;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.twitter.teruteru128.bitmessage.AddressValidator;
+import com.twitter.teruteru128.bitmessage.app.AddressValidator;
 
 class AddressValidatorTest {
 
     @Test
     void test1() {
-        String address = "BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM";
+        String address = "BM-2cW67GEKkHGonXKZLCzouLLxnLym3azS8r";
         assertTrue(AddressValidator.validate(address));
     }
 }

@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.bitmessage;
+package com.twitter.teruteru128.bitmessage.app;
 
 import java.security.DigestException;
 import java.security.MessageDigest;
@@ -30,4 +30,5 @@ public class AddressValidator {
         }
         return Arrays.equals(cache64, 0, 4, b, b.length - 4, b.length);
     }
+
 }
