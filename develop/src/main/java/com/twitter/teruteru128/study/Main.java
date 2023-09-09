@@ -1,21 +1,19 @@
 package com.twitter.teruteru128.study;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.security.Provider;
 import java.security.Security;
-import java.util.Base64;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Main
  */
 public class Main {
 
+    private static final byte[] BUF = new byte[] { 0x07 };
     private static final String ORG_BOUNCYCASTLE_JCE_PROVIDER_BOUNCY_CASTLE_PROVIDER = "org.bouncycastle.jce.provider.BouncyCastleProvider";
 
     static {
@@ -37,24 +35,15 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var proxyAddress = new InetSocketAddress("localhost", 9150);
-        var proxy = new Proxy(Proxy.Type.SOCKS, proxyAddress);
-        var endpoint = new InetSocketAddress("koukoku.shadan.open.ad.jp", 23);
-        try (var socket = new Socket(proxy)) {
-            socket.connect(endpoint, 5000);
-            var os = new BufferedOutputStream(socket.getOutputStream());
-            var nobody = "nobody\n".getBytes(StandardCharsets.US_ASCII);
-            os.write(nobody);
-            os.flush();
-            byte[] buffer = new byte[4096];
-            int len = 0;
-            try (var stream = new BufferedInputStream(socket.getInputStream())) {
-                while ((len = stream.read(buffer)) >= 0) {
-                    System.out.print(new String(buffer, 0, len));
-                    System.out.flush();
-                }
+        var service = Executors.newSingleThreadScheduledExecutor();
+        service.scheduleAtFixedRate(() -> {
+            try {
+                System.out.write(BUF);
+                System.out.flush();
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
             }
-        }
+        }, 180, 180, TimeUnit.SECONDS);
     }
 
 }
