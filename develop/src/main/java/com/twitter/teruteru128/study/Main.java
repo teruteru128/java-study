@@ -32,10 +32,12 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var url = "jdbc:postgresql://localhost/template1";
+        var url = "jdbc:postgresql://localhost/";
+        String user = "postgres";
+        String password = "postgres";
         var props = new Properties();
-        props.setProperty("user", "postgres");
-        props.setProperty("password", "postgres");
+        props.setProperty("user", user);
+        props.setProperty("password", password);
         try (var con = DriverManager.getConnection(url, props)) {
             System.out.println("Connected!");
         }
