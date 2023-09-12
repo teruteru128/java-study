@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.ssl;
 
 import java.io.IOException;
 import java.nio.channels.SocketChannel;

@@ -7,7 +7,7 @@ import java.util.concurrent.Callable;
 
 import org.sqlite.SQLiteDataSource;
 
-import com.twitter.teruteru128.study.DetailedChronoUnit;
+import com.twitter.teruteru128.time.DetailedChronoUnit;
 
 public class Query implements Callable<Map<Instant, Integer>> {
 
