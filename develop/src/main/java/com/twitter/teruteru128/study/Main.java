@@ -1,10 +1,14 @@
 package com.twitter.teruteru128.study;
 
 import java.lang.reflect.InvocationTargetException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.security.Provider;
 import java.security.Security;
-import java.sql.DriverManager;
-import java.util.Properties;
+
+import com.twitter.teruteru128.net.OnionProxySelector;
 
 /**
  * Main
@@ -32,15 +36,12 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var url = "jdbc:postgresql://localhost/";
-        String user = "postgres";
-        String password = "postgres";
-        var props = new Properties();
-        props.setProperty("user", user);
-        props.setProperty("password", password);
-        try (var con = DriverManager.getConnection(url, props)) {
-            System.out.println("Connected!");
-        }
+        var selector = OnionProxySelector.getInstance();
+        var client = HttpClient.newBuilder().proxy(selector).build();
+        var request = HttpRequest
+                .newBuilder(new URI("https://www.reddittorjg6rue252oqsxryoxengawnmo46qy4kyii5wtqnwfj4ooad.onion/r/armoredcore/")).build();
+        var response = client.send(request, BodyHandlers.ofString());
+        System.out.println(response.statusCode());
     }
 
 }
