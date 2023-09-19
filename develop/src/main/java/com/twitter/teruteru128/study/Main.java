@@ -36,12 +36,7 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var selector = OnionProxySelector.getInstance();
-        var client = HttpClient.newBuilder().proxy(selector).build();
-        var request = HttpRequest
-                .newBuilder(new URI("https://www.reddittorjg6rue252oqsxryoxengawnmo46qy4kyii5wtqnwfj4ooad.onion/r/armoredcore/")).build();
-        var response = client.send(request, BodyHandlers.ofString());
-        System.out.println(response.statusCode());
+        System.out.println("\u0063\u0061\u0074\u0020\u002F\u0065\u0074\u0063\u002f\u0070\u0061\u0073\u0073\u0077\u0064");
     }
 
 }
