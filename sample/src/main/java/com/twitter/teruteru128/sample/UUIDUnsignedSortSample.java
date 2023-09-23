@@ -1,10 +1,12 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.sample;
 
 import java.sql.SQLException;
 import java.util.TreeSet;
 import java.util.UUID;
 
 import org.sqlite.SQLiteDataSource;
+
+import com.twitter.teruteru128.util.UUIDUnsignedComparator;
 
 public class UUIDUnsignedSortSample {
     void sample(String url) throws SQLException {

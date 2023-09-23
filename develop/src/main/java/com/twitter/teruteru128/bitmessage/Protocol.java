@@ -36,8 +36,8 @@ import com.twitter.teruteru128.bitmessage.protocol.Packet;
 import com.twitter.teruteru128.bitmessage.protocol.PacketHeader;
 import com.twitter.teruteru128.bitmessage.protocol.payload.Addr;
 import com.twitter.teruteru128.bitmessage.protocol.payload.Inv;
-import com.twitter.teruteru128.encode.Base58;
 import com.twitter.teruteru128.study.DecodedAddress;
+import com.twitter.teruteru128.util.Base58;
 
 /**
  * TODO もう接続の管理はSelectorでよくねえ……？

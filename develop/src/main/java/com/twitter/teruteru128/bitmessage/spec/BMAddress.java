@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import com.twitter.teruteru128.bitmessage.Structs;
-import com.twitter.teruteru128.encode.Base58;
+import com.twitter.teruteru128.util.Base58;
 
 /**
  * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/addresses.py

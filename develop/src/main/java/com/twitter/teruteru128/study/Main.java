@@ -1,14 +1,10 @@
 package com.twitter.teruteru128.study;
 
 import java.lang.reflect.InvocationTargetException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse.BodyHandlers;
 import java.security.Provider;
 import java.security.Security;
 
-import com.twitter.teruteru128.net.OnionProxySelector;
+import org.sqlite.SQLiteDataSource;
 
 /**
  * Main
@@ -19,11 +15,8 @@ public class Main {
 
     static {
         try {
-            var bcpc = Class.forName(ORG_BOUNCYCASTLE_JCE_PROVIDER_BOUNCY_CASTLE_PROVIDER);
-            var p = Provider.class;
-            if (p.isAssignableFrom(bcpc) && Security.getProvider("BC") == null) {
-                Security.addProvider(bcpc.asSubclass(p).getConstructor().newInstance());
-            }
+            Security.addProvider(Class.forName(ORG_BOUNCYCASTLE_JCE_PROVIDER_BOUNCY_CASTLE_PROVIDER)
+                    .asSubclass(Provider.class).getConstructor().newInstance());
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException
                 | IllegalArgumentException | InvocationTargetException | SecurityException e) {
             throw new InternalError(e);
@@ -36,7 +29,31 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        System.out.println("\u0063\u0061\u0074\u0020\u002F\u0065\u0074\u0063\u002f\u0070\u0061\u0073\u0073\u0077\u0064");
+        if (args.length < 1) {
+            System.exit(1);
+        }
+        /*
+         * var buffers = new MappedByteBuffer[16777216];
+         * try (var channel =
+         * FileChannel.open(Paths.get(args[0]),
+         * StandardOpenOption.READ)) {
+         * var buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, 65 * 16777216L);
+         * int index = 0;
+         * for (int i = 0; i < 16777216; i++, index += 65) {
+         * buffers[i] = buffer.slice(index, 65);
+         * }
+         * }
+         */
+/* 
+        var dataSource = new SQLiteDataSource();
+        dataSource.setUrl(args[0]);
+        try (var con = dataSource.getConnection()) {
+            System.out.println("connected!");
+        } */
+
+        int length = Integer.parseInt(args[0], 10);
+        char[] cbuf = ToranoanaPasswordGenerator.generatePassword(length);
+        System.out.println(cbuf);
     }
 
 }

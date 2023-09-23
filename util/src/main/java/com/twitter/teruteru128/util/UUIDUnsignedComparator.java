@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.util;
 
 import java.io.Serializable;
 import java.util.Comparator;
