@@ -2,9 +2,12 @@ package com.twitter.teruteru128.study;
 
 import java.security.SecureRandom;
 
-public class ToranoanaPasswordGenerator {
+/**
+ * 
+ */
+public class ToranoanaPasswordGenerator implements PasswordGenerator {
 
-    public static char[] generatePassword(int length) {
+    public char[] generatePassword(int length) {
         byte[] buf = new byte[length];
         char[] cbuf = new char[length];
         new SecureRandom().nextBytes(buf);
@@ -23,5 +26,5 @@ public class ToranoanaPasswordGenerator {
         }
         return cbuf;
     }
-    
+
 }
