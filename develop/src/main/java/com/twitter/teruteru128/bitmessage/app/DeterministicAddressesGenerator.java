@@ -84,7 +84,7 @@ public class DeterministicAddressesGenerator implements Function<String, Determi
      * @param passphraseBytes
      * @param nonce
      */
-    public void deriviedPrivateKey(byte[] privateKey, byte[] passphraseBytes, int nonce) {
+    public static void deriviedPrivateKey(byte[] privateKey, byte[] passphraseBytes, int nonce) {
         try {
             MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
             deriviedPrivateKey(privateKey, passphraseBytes, nonce, sha512);
@@ -100,7 +100,7 @@ public class DeterministicAddressesGenerator implements Function<String, Determi
      * @param passphraseBytes
      * @param nonce
      */
-    public void deriviedPrivateKey(byte[] privateKey, byte[] passphraseBytes, long nonce, MessageDigest sha512) {
+    public static void deriviedPrivateKey(byte[] privateKey, byte[] passphraseBytes, long nonce, MessageDigest sha512) {
         Objects.requireNonNull(privateKey);
         if (privateKey.length < Const.SHA512_DIGEST_LENGTH) {
             throw new IllegalArgumentException("private key is too short");
@@ -119,7 +119,7 @@ public class DeterministicAddressesGenerator implements Function<String, Determi
      * @param privateKey
      * @return
      */
-    public byte[] deriviedPublicKey(byte[] privateKey) {
+    public static byte[] deriviedPublicKey(byte[] privateKey) {
         Objects.requireNonNull(privateKey);
         if (privateKey.length < Const.PRIVATE_KEY_LENGTH) {
             throw new IllegalArgumentException("public key is too short");
@@ -128,7 +128,7 @@ public class DeterministicAddressesGenerator implements Function<String, Determi
                 .getEncoded(false);
     }
 
-    public void deriviedRipeHash(byte[] ripe, byte[] signPubKey, byte[] encPubKey) {
+    public static void deriviedRipeHash(byte[] ripe, byte[] signPubKey, byte[] encPubKey) {
         try {
             MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
             MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
@@ -138,7 +138,7 @@ public class DeterministicAddressesGenerator implements Function<String, Determi
         }
     }
 
-    public void deriviedRipeHash(byte[] ripe, byte[] signPubKey, byte[] encPubKey, MessageDigest sha512,
+    public static void deriviedRipeHash(byte[] ripe, byte[] signPubKey, byte[] encPubKey, MessageDigest sha512,
             MessageDigest ripemd160) {
         Objects.requireNonNull(ripe);
         if (ripe.length < 20) {
