@@ -7,7 +7,7 @@ import java.security.MessageDigest;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 
-class A implements Callable<byte[]> {
+class A implements Callable<IndexPair> {
 
     private MappedByteBuffer[] buffers;
 
@@ -16,7 +16,7 @@ class A implements Callable<byte[]> {
     }
 
     @Override
-    public byte[] call() throws Exception {
+    public IndexPair call() throws Exception {
         var sha512 = MessageDigest.getInstance("SHA-512");
         var ripemd160 = MessageDigest.getInstance("RIPEMD160");
         var digest = new byte[64];
@@ -29,11 +29,11 @@ class A implements Callable<byte[]> {
                 // TODO Searching for better judgment methods
                 // 大小比較、もしくはビットマスク比較
                 if ((l & 0xffffffffffff0000L) == 0) {
-                    return null;
+                    return new IndexPair(sigIndex, j);
                 }
                 l = A.extracted(buffers, sha512, ripemd160, digest, wrappedBuffer, j, sigIndex);
                 if ((l & 0xffffffffffff0000L) == 0) {
-                    return null;
+                    return new IndexPair(j, sigIndex);
                 }
             }
         }
