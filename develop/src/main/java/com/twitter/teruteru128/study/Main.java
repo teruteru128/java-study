@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.security.Provider;
 import java.security.Security;
+import java.util.random.RandomGenerator;
 
 /**
  * Main
@@ -31,6 +32,15 @@ public class Main {
         if (args.length < 1) {
             System.exit(1);
         }
+        // 射精量
+        var random = RandomGenerator.of("SecureRandom");
+        // 100ml - 10000ml
+        double expo = random.nextDouble(3, 5);
+        double delta = random.nextDouble(-0.05, 0.05);
+        double cum = Math.pow(10, expo + delta);
+        System.out.printf("%1$f, %1$a%n", expo);
+        System.out.printf("%1$f, %1$a%n", delta);
+        System.out.printf("%1$f, %1$a%n", cum);
     }
 
 }
