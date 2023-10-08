@@ -6,6 +6,9 @@ import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.security.Provider;
 import java.security.Security;
+import java.util.BitSet;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 
 import org.apache.commons.math3.distribution.NormalDistribution;
@@ -36,8 +39,6 @@ public class Main {
         if (args.length < 1) {
             System.exit(1);
         }
-        // getCum1();
-        getCum2(Integer.parseInt(args[0]));
     }
 
     private static void getCum2(int size) throws FileNotFoundException {
