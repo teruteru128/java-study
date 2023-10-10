@@ -10,4 +10,5 @@
 rootProject.name = 'java.study'
 include("develop")
 include("sample")
+include("slime")
 include("util")
