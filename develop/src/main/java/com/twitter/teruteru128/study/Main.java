@@ -21,6 +21,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
 import java.util.ArrayList;
 import java.util.HexFormat;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.random.RandomGenerator;
@@ -63,7 +64,72 @@ public class Main {
             System.exit(1);
         }
         // getOptionaledResult(Integer.parseInt(args[0], 10));
-        sampleECSignature(args[0]);
+        // sampleECSignature(args[0]);
+        // getOutput();
+    }
+
+    private static void getOutput() {
+        var a = 74803317123181L;
+        getRandom(a);
+        getRandom(867677604900324654L);
+        getRandom(164311266871034L);
+        getRandom(102496288339266L);
+
+        getSeed();
+
+        int first = 0x80000000;
+        int second = 0x00000001;
+        long output = (((long)second) << 32) + (long) first;
+        System.out.printf("%016x%n", output);
+    }
+
+    private static void getRandom(long a) {
+        System.out.printf("seed is: %d%n", a);
+        var random = new Random();
+        random.setSeed(a);
+        System.out.printf("%1$f, %1$a%n", random.nextDouble());
+        System.out.printf("%1$f, %1$a%n", random.nextDouble());
+        System.out.printf("%1$f, %1$a%n", random.nextDouble());
+        System.out.printf("%1$f, %1$a%n", random.nextDouble());
+        random.setSeed(a);
+        System.out.printf("%1$f, %1$a%n", random.nextFloat());
+        System.out.printf("%1$f, %1$a%n", random.nextFloat());
+        System.out.printf("%1$f, %1$a%n", random.nextFloat());
+        System.out.printf("%1$f, %1$a%n", random.nextFloat());
+        random.setSeed(a);
+        System.out.printf("%1$d, %1$016x%n", random.nextLong());
+        System.out.printf("%1$d, %1$016x%n", random.nextLong());
+        System.out.printf("%1$d, %1$016x%n", random.nextLong());
+        System.out.printf("%1$d, %1$016x%n", random.nextLong());
+        random.setSeed(a);
+        System.out.printf("%1$d, %1$08x%n", random.nextInt());
+        System.out.printf("%1$d, %1$08x%n", random.nextInt());
+        System.out.printf("%1$d, %1$08x%n", random.nextInt());
+        System.out.printf("%1$d, %1$08x%n", random.nextInt());
+        random.setSeed(a);
+        System.out.printf("%b%n", random.nextBoolean());
+        System.out.printf("%b%n", random.nextBoolean());
+        System.out.printf("%b%n", random.nextBoolean());
+        System.out.printf("%b%n", random.nextBoolean());
+        random.setSeed(a);
+        System.out.printf("%1$f, %1$a%n", random.nextGaussian());
+        System.out.printf("%1$f, %1$a%n", random.nextGaussian());
+        System.out.printf("%1$f, %1$a%n", random.nextGaussian());
+        System.out.printf("%1$f, %1$a%n", random.nextGaussian());
+        System.out.println();
+    }
+
+    private static void getSeed() {
+        long start = 0;
+        long second = 0;
+        long seed = 0;
+        for(start = 0xffffffff0000L; start < 0x1000000000000L; start++) {
+            second = (start - 0x0b) * 0xDFE05BCB1365L & 0xffffffffffffL;
+            seed = ((second - 0x0b) * 0xDFE05BCB1365L & 0xffffffffffffL) ^ 0x5DEECE66DL;
+            if((second & 0x0000ffff0000L) == 0) {
+                System.out.printf("start: %016x, second: %016x, seed: %016x%n", start, second, seed);
+            }
+        }
     }
 
     private static void sampleECSignature(String message)
@@ -88,7 +154,7 @@ public class Main {
         // お前毎度毎度分かりにくいんだよ生データを鍵まで持ってくのがよぉ！
         var pri = factory.generatePrivate(spec);
         var messageBytes = message.getBytes(StandardCharsets.UTF_8);
-        var signature = Signature.getInstance("ECDSA");
+        var signature = Signature.getInstance("SHA256withECDSA");
         signature.initSign(pri);
         signature.update(messageBytes);
         var s = signature.sign();
