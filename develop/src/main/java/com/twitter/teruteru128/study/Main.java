@@ -1,7 +1,6 @@
 package com.twitter.teruteru128.study;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
@@ -48,18 +47,9 @@ public class Main {
     /**
      * 
      * @param args
-     * @throws ExecutionException
-     * @throws InterruptedException
-     * @throws InvalidKeyException
-     * @throws SignatureException
-     * @throws InvalidParameterSpecException
-     * @throws InvalidKeySpecException
-     * @throws DestroyFailedException
      * @throws Exception
      */
-    public static void main(String[] args) throws IOException, InterruptedException, ExecutionException,
-            NoSuchAlgorithmException, InvalidKeyException, SignatureException, InvalidParameterSpecException,
-            InvalidKeySpecException, DestroyFailedException {
+    public static void main(String[] args) throws Exception {
         if (args.length < 1) {
             System.exit(1);
         }
