@@ -215,8 +215,6 @@ public class Protocol {
         var command = new byte[12];
         var checksum = new byte[4];
         var hash = new byte[64];
-        int them_version = 0;
-        long them_services = 0;
         Version themVersion;
         // handshake(send version, recieve verack and version, send verack)
         {
@@ -239,39 +237,55 @@ public class Protocol {
             out.write(createPacket("verack".getBytes()).array());
         }
         // Use SSL if supported
-        if ((them_services & 0x02) == 0x02) {
+        if ((themVersion.services() & 0x02) == 0x02) {
             socket = getSuites2(ctx, factory, socket);
         }
         {
             // var out = socket.getOutputStream();
             var in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-            // addr
-            magic = in.readInt();
-            Arrays.fill(command, (byte) 0);
-            in.read(command, 0, 12);
-            var cv = new String(command).trim();
-            System.out.println(new String(command).trim());
-            int length = in.readInt();
-            System.out.printf("length: %d%n", length);
-            in.read(checksum);
-            ArrayList<NetworkAddress> addresses = new ArrayList<NetworkAddress>();
-            getSize(sha512, checksum, hash, in, length, addresses);
-            var addrp = new Packet(new PacketHeader(magic, cv, length, checksum.clone()),
-                    Optional.of(new Addr(addresses)));
-            // inv
-            magic = in.readInt();
-            in.read(command);
-            cv = new String(command).trim();
-            length = in.readInt();
-            System.out.printf("length: %d%n", length);
-            in.read(checksum);
-            var vectors = new ArrayList<InventoryVector>();
-            {
-                getSize2(sha512, checksum, hash, in, length, vectors);
-            }
-            var invp = new Packet(new PacketHeader(magic, cv, length, checksum), Optional.of(new Inv(vectors)));
+            String cv;
+            int length;
+            getAddrp(sha512, command, checksum, hash, in);
+            getInvp(sha512, command, checksum, hash, in);
         }
         socket.close();
+    }
+
+    private static void getInvp(MessageDigest sha512, byte[] command, byte[] checksum, byte[] hash, DataInputStream in)
+            throws IOException, DigestException {
+        int magic;
+        String cv;
+        int length;
+        // inv
+        magic = in.readInt();
+        in.read(command);
+        cv = new String(command).trim();
+        length = in.readInt();
+        System.out.printf("length: %d%n", length);
+        in.read(checksum);
+        var vectors = new ArrayList<InventoryVector>();
+        {
+            getSize2(sha512, checksum, hash, in, length, vectors);
+        }
+        var invp = new Packet(new PacketHeader(magic, cv, length, checksum), Optional.of(new Inv(vectors)));
+    }
+
+    private static Packet getAddrp(MessageDigest sha512, byte[] command, byte[] checksum, byte[] hash, DataInputStream in)
+            throws IOException, DigestException {
+        int magic;
+        // addr
+        magic = in.readInt();
+        Arrays.fill(command, (byte) 0);
+        in.read(command, 0, 12);
+        var cv = new String(command).trim();
+        System.out.println(new String(command).trim());
+        int length = in.readInt();
+        System.out.printf("length: %d%n", length);
+        in.read(checksum);
+        ArrayList<NetworkAddress> addresses = new ArrayList<NetworkAddress>();
+        getSize(sha512, checksum, hash, in, length, addresses);
+        return new Packet(new PacketHeader(magic, cv, length, checksum.clone()),
+                Optional.of(new Addr(addresses)));
     }
 
     private static void getSize2(MessageDigest sha512, byte[] checksum, byte[] hash, DataInputStream in, int length,

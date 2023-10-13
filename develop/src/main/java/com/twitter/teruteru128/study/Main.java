@@ -24,6 +24,7 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.random.RandomGenerator;
+import java.util.regex.Pattern;
 
 import javax.security.auth.DestroyFailedException;
 
@@ -50,26 +51,37 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        if (args.length < 1) {
+        if (args.length < 2) {
             System.exit(1);
         }
         // getOptionaledResult(Integer.parseInt(args[0], 10));
         // sampleECSignature(args[0]);
-        // getOutput();
+        long maskA = Long.parseLong(args[0], 16);
+        long maskB = Long.parseLong(args[1], 16);
+        getOutput(maskA, maskB);
+        long p = 0;
+        long seed = 0;
+        for (long s = 0xffffffff0000L; s < 0x1000000000000L; s++) {
+            p = ((s - 0x0b) * 0xDFE05BCB1365L) & 0xffffffffffffL;
+            seed = ((p - 0x0b) * 0xDFE05BCB1365L & 0xffffffffffffL) ^ 0x5DEECE66DL;
+            if ((p & maskA) == maskB) {
+                System.out.printf("%d%n", seed);
+            }
+        }
     }
 
-    private static void getOutput() {
+    private static void getOutput(long mask, long b) {
         var a = 74803317123181L;
         getRandom(a);
         getRandom(867677604900324654L);
         getRandom(164311266871034L);
         getRandom(102496288339266L);
 
-        getSeed();
+        getSeed(mask, b);
 
         int first = 0x80000000;
         int second = 0x00000001;
-        long output = (((long)second) << 32) + (long) first;
+        long output = (((long) second) << 32) + (long) first;
         System.out.printf("%016x%n", output);
     }
 
@@ -109,14 +121,14 @@ public class Main {
         System.out.println();
     }
 
-    private static void getSeed() {
+    private static void getSeed(long mask, long a) {
         long start = 0;
         long second = 0;
         long seed = 0;
-        for(start = 0xffffffff0000L; start < 0x1000000000000L; start++) {
+        for (start = 0xffffffff0000L; start < 0x1000000000000L; start++) {
             second = (start - 0x0b) * 0xDFE05BCB1365L & 0xffffffffffffL;
             seed = ((second - 0x0b) * 0xDFE05BCB1365L & 0xffffffffffffL) ^ 0x5DEECE66DL;
-            if((second & 0x0000ffff0000L) == 0) {
+            if ((second & mask) == a) {
                 System.out.printf("start: %016x, second: %016x, seed: %016x%n", start, second, seed);
             }
         }
