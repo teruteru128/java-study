@@ -3,6 +3,7 @@ package com.twitter.teruteru128.study;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.AlgorithmParameters;
@@ -23,8 +24,9 @@ import java.util.HexFormat;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.random.RandomGenerator;
-import java.util.regex.Pattern;
 
 import javax.security.auth.DestroyFailedException;
 
@@ -56,9 +58,17 @@ public class Main {
         }
         // getOptionaledResult(Integer.parseInt(args[0], 10));
         // sampleECSignature(args[0]);
+        // getMaskB(args);
+    }
+
+    private static void getMaskB(String[] args) {
         long maskA = Long.parseLong(args[0], 16);
         long maskB = Long.parseLong(args[1], 16);
         getOutput(maskA, maskB);
+        getSeed2(maskA, maskB);
+    }
+
+    private static void getSeed2(long maskA, long maskB) {
         long p = 0;
         long seed = 0;
         for (long s = 0xffffffff0000L; s < 0x1000000000000L; s++) {
@@ -85,39 +95,74 @@ public class Main {
         System.out.printf("%016x%n", output);
     }
 
+    private static void printA(Random random, long a, String format, Supplier<?> c) {
+        random.setSeed(a);
+        for (int i = 0; i < 4; i++) {
+            System.out.printf(format, c.get());
+        }
+    }
+
+    private static void printB(Random random, long a, String format, Method m) {
+        random.setSeed(a);
+        try {
+            for (int i = 0; i < 4; i++) {
+                System.out.printf(format, m.invoke(random));
+            }
+        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void getRandom(long a) {
         System.out.printf("seed is: %d%n", a);
         var random = new Random();
+        printA(random, a, "%1$f, %1$a%n", random::nextDouble);
+        printA(random, a, "%1$f, %1$a%n", random::nextFloat);
+        printA(random, a, "%1$d, %1$016x%n", random::nextLong);
+        printA(random, a, "%1$d, %1$08x%n", random::nextInt);
+        printA(random, a, "%b%n", random::nextBoolean);
+        printA(random, a, "%1$f, %1$a%n", random::nextGaussian);
+        var randomClass = random.getClass();
+        try {
+            var nextDoubleMethod = randomClass.getMethod("nextDouble");
+            var nextFloatMethod = randomClass.getMethod("nextFloat");
+            var nextLongMethod = randomClass.getMethod("nextLong");
+            var nextIntMethod = randomClass.getMethod("nextInt");
+            var nextBooleanMethod = randomClass.getMethod("nextBoolean");
+            var nextGaussianMethod = randomClass.getMethod("nextGaussian");
+            printB(random, a, "%1$f, %1$a%n", nextDoubleMethod);
+            printB(random, a, "%1$f, %1$a%n", nextFloatMethod);
+            printB(random, a, "%1$d, %1$016x%n", nextLongMethod);
+            printB(random, a, "%1$d, %1$08x%n", nextIntMethod);
+            printB(random, a, "%b%n", nextBooleanMethod);
+            printB(random, a, "%1$f, %1$a%n", nextGaussianMethod);
+        } catch (NoSuchMethodException | SecurityException e) {
+            e.printStackTrace();
+        }
         random.setSeed(a);
-        System.out.printf("%1$f, %1$a%n", random.nextDouble());
-        System.out.printf("%1$f, %1$a%n", random.nextDouble());
-        System.out.printf("%1$f, %1$a%n", random.nextDouble());
-        System.out.printf("%1$f, %1$a%n", random.nextDouble());
+        for (int i = 0; i < 4; i++) {
+            System.out.printf("%1$f, %1$a%n", random.nextDouble());
+        }
         random.setSeed(a);
-        System.out.printf("%1$f, %1$a%n", random.nextFloat());
-        System.out.printf("%1$f, %1$a%n", random.nextFloat());
-        System.out.printf("%1$f, %1$a%n", random.nextFloat());
-        System.out.printf("%1$f, %1$a%n", random.nextFloat());
+        for (int i = 0; i < 4; i++) {
+            System.out.printf("%1$f, %1$a%n", random.nextFloat());
+        }
         random.setSeed(a);
-        System.out.printf("%1$d, %1$016x%n", random.nextLong());
-        System.out.printf("%1$d, %1$016x%n", random.nextLong());
-        System.out.printf("%1$d, %1$016x%n", random.nextLong());
-        System.out.printf("%1$d, %1$016x%n", random.nextLong());
+        for (int i = 0; i < 4; i++) {
+            System.out.printf("%1$d, %1$016x%n", random.nextLong());
+        }
         random.setSeed(a);
-        System.out.printf("%1$d, %1$08x%n", random.nextInt());
-        System.out.printf("%1$d, %1$08x%n", random.nextInt());
-        System.out.printf("%1$d, %1$08x%n", random.nextInt());
-        System.out.printf("%1$d, %1$08x%n", random.nextInt());
+        for (int i = 0; i < 4; i++) {
+            System.out.printf("%1$d, %1$08x%n", random.nextInt());
+        }
         random.setSeed(a);
-        System.out.printf("%b%n", random.nextBoolean());
-        System.out.printf("%b%n", random.nextBoolean());
-        System.out.printf("%b%n", random.nextBoolean());
-        System.out.printf("%b%n", random.nextBoolean());
+        for (int i = 0; i < 4; i++) {
+            System.out.printf("%b%n", random.nextBoolean());
+        }
         random.setSeed(a);
-        System.out.printf("%1$f, %1$a%n", random.nextGaussian());
-        System.out.printf("%1$f, %1$a%n", random.nextGaussian());
-        System.out.printf("%1$f, %1$a%n", random.nextGaussian());
-        System.out.printf("%1$f, %1$a%n", random.nextGaussian());
+        for (int i = 0; i < 4; i++) {
+            System.out.printf("%1$f, %1$a%n", random.nextGaussian());
+        }
         System.out.println();
     }
 
