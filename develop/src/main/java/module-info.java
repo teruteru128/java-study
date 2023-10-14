@@ -28,4 +28,6 @@ module com.twitter.teruteru.study {
     requires org.twitter4j;
     requires com.twitter.teruteru.util;
     //requires org.glassfish.jaxb.runtime;
+
+    exports com.twitter.teruteru128.net;
 }

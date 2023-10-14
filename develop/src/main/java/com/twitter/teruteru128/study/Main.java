@@ -24,7 +24,6 @@ import java.util.HexFormat;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.random.RandomGenerator;
 
@@ -116,29 +115,13 @@ public class Main {
     private static void getRandom(long a) {
         System.out.printf("seed is: %d%n", a);
         var random = new Random();
-        printA(random, a, "%1$f, %1$a%n", random::nextDouble);
-        printA(random, a, "%1$f, %1$a%n", random::nextFloat);
-        printA(random, a, "%1$d, %1$016x%n", random::nextLong);
-        printA(random, a, "%1$d, %1$08x%n", random::nextInt);
-        printA(random, a, "%b%n", random::nextBoolean);
-        printA(random, a, "%1$f, %1$a%n", random::nextGaussian);
-        var randomClass = random.getClass();
-        try {
-            var nextDoubleMethod = randomClass.getMethod("nextDouble");
-            var nextFloatMethod = randomClass.getMethod("nextFloat");
-            var nextLongMethod = randomClass.getMethod("nextLong");
-            var nextIntMethod = randomClass.getMethod("nextInt");
-            var nextBooleanMethod = randomClass.getMethod("nextBoolean");
-            var nextGaussianMethod = randomClass.getMethod("nextGaussian");
-            printB(random, a, "%1$f, %1$a%n", nextDoubleMethod);
-            printB(random, a, "%1$f, %1$a%n", nextFloatMethod);
-            printB(random, a, "%1$d, %1$016x%n", nextLongMethod);
-            printB(random, a, "%1$d, %1$08x%n", nextIntMethod);
-            printB(random, a, "%b%n", nextBooleanMethod);
-            printB(random, a, "%1$f, %1$a%n", nextGaussianMethod);
-        } catch (NoSuchMethodException | SecurityException e) {
-            e.printStackTrace();
-        }
+        extracted(a, random);
+        getRandomClass(a, random);
+        extracted2(a, random);
+        System.out.println();
+    }
+
+    private static void extracted2(long a, Random random) {
         random.setSeed(a);
         for (int i = 0; i < 4; i++) {
             System.out.printf("%1$f, %1$a%n", random.nextDouble());
@@ -163,7 +146,35 @@ public class Main {
         for (int i = 0; i < 4; i++) {
             System.out.printf("%1$f, %1$a%n", random.nextGaussian());
         }
-        System.out.println();
+    }
+
+    private static void getRandomClass(long a, Random random) {
+        var randomClass = random.getClass();
+        try {
+            var nextDoubleMethod = randomClass.getMethod("nextDouble");
+            var nextFloatMethod = randomClass.getMethod("nextFloat");
+            var nextLongMethod = randomClass.getMethod("nextLong");
+            var nextIntMethod = randomClass.getMethod("nextInt");
+            var nextBooleanMethod = randomClass.getMethod("nextBoolean");
+            var nextGaussianMethod = randomClass.getMethod("nextGaussian");
+            printB(random, a, "%1$f, %1$a%n", nextDoubleMethod);
+            printB(random, a, "%1$f, %1$a%n", nextFloatMethod);
+            printB(random, a, "%1$d, %1$016x%n", nextLongMethod);
+            printB(random, a, "%1$d, %1$08x%n", nextIntMethod);
+            printB(random, a, "%b%n", nextBooleanMethod);
+            printB(random, a, "%1$f, %1$a%n", nextGaussianMethod);
+        } catch (NoSuchMethodException | SecurityException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void extracted(long a, Random random) {
+        printA(random, a, "%1$f, %1$a%n", random::nextDouble);
+        printA(random, a, "%1$f, %1$a%n", random::nextFloat);
+        printA(random, a, "%1$d, %1$016x%n", random::nextLong);
+        printA(random, a, "%1$d, %1$08x%n", random::nextInt);
+        printA(random, a, "%b%n", random::nextBoolean);
+        printA(random, a, "%1$f, %1$a%n", random::nextGaussian);
     }
 
     private static void getSeed(long mask, long a) {
