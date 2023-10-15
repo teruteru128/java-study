@@ -28,6 +28,7 @@ import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
 import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
 import org.bouncycastle.jce.spec.ECPublicKeySpec;
+import org.bouncycastle.jce.spec.IESParameterSpec;
 
 import com.twitter.teruteru128.bitmessage.Const;
 import com.twitter.teruteru128.bitmessage.ECIES;
@@ -65,15 +66,16 @@ public class Main {
         var ecp = Const.G.multiply(((ECPrivateKey) p).getS());
         var pubspec = new ECPublicKeySpec(ecp, parameterSpec);
         var factory = KeyFactory.getInstance("EC", "BC");
-        var publicKey = (ECPublicKey)factory.generatePublic(pubspec);
-        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+        var publicKey = (ECPublicKey) factory.generatePublic(pubspec);
+        var spec2 = new IESParameterSpec(null, null, 256, 256, null, false);
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey, spec2);
         byte[] message = "やったぜ。".getBytes();
         cipher.update(message);
         var b = cipher.doFinal();
         System.out.printf("BC's ecies: %s%n", format.formatHex(b));
         var ppppppp = ECIES.encrypt(message, publicKey);
         System.out.printf("teruteru's ecies: %s%n", format.formatHex(ppppppp));
-        var s = ECIES.decrypt(b, (org.bouncycastle.jce.interfaces.ECPrivateKey)factory.generatePrivate(p2spec));
+        var s = ECIES.decrypt(b, (org.bouncycastle.jce.interfaces.ECPrivateKey) factory.generatePrivate(p2spec));
         System.out.println(new String(s));
     }
 
@@ -111,6 +113,6 @@ public class Main {
         // お前毎度毎度分かりにくいんだよ生データを鍵まで持ってくのがよぉ！
         var pri = factory.generatePrivate(spec);
 
-        return (ECPrivateKey)pri;
+        return (ECPrivateKey) pri;
     }
 }
