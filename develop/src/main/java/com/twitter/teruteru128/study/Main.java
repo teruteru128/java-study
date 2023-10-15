@@ -57,17 +57,23 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
         // 面倒くせえ
-        var cipher = Cipher.getInstance("ECIESwithAES-CBC", "BC");
-        System.out.println(cipher.getProvider());
-        var p = getPrivateKey();
-        ECNamedCurveParameterSpec parameterSpec = ECNamedCurveTable.getParameterSpec("secp256k1");
-        var p2spec = new org.bouncycastle.jce.spec.ECPrivateKeySpec(p.getS(), parameterSpec);
+        var privateKey = getPrivateKey();
+
+        var parameterSpec = ECNamedCurveTable.getParameterSpec("secp256k1");
+        var p2spec = new org.bouncycastle.jce.spec.ECPrivateKeySpec(privateKey.getS(), parameterSpec);
+
         // sampleECSignature("");
-        var ecp = Const.G.multiply(((ECPrivateKey) p).getS());
+
+        var ecp = Const.G.multiply(((ECPrivateKey) privateKey).getS());
         var pubspec = new ECPublicKeySpec(ecp, parameterSpec);
+
         var factory = KeyFactory.getInstance("EC", "BC");
+
         var publicKey = (ECPublicKey) factory.generatePublic(pubspec);
         var spec2 = new IESParameterSpec(null, null, 256, 256, null, false);
+
+        var cipher = Cipher.getInstance("ECIESwithAES-CBC", "BC");
+        System.out.println(cipher.getProvider());
         cipher.init(Cipher.ENCRYPT_MODE, publicKey, spec2);
         byte[] message = "やったぜ。".getBytes();
         cipher.update(message);
