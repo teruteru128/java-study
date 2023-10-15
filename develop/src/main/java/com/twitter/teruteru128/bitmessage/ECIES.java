@@ -34,9 +34,10 @@ import org.bouncycastle.math.ec.ECCurve;
 
 /**
  * 楕円曲線暗号統合暗号化スキーム
+ * MAC付きじゃねえかお前んちぃ！
  * 
  * @see https://w.wiki/6yVA
-*/
+ */
 public class ECIES {
     public ECIES() {
     }
@@ -46,11 +47,8 @@ public class ECIES {
             // generate ephemeral ec key
             var ephem = generateEcKeyPair();
 
-            // generate shared keys
-            var agreement = KeyAgreement.getInstance("ECDH", "BC");
-            agreement.init(ephem.getPrivate());
-            agreement.doPhase(publicKey, true);
-            var key = MessageDigest.getInstance("SHA-512").digest(agreement.generateSecret());
+            var secret = generateSecret(publicKey, ephem);
+            var key = MessageDigest.getInstance("SHA-512").digest(secret);
             var key_e = Arrays.copyOfRange(key, 0, 32);
             var key_m = Arrays.copyOfRange(key, 32, 64);
 
@@ -85,7 +83,16 @@ public class ECIES {
         }
     }
 
-    private  static byte[] getPubkey(ECPublicKey key) {
+    /** generate shared keys */
+    private static byte[] generateSecret(ECPublicKey publicKey, KeyPair ephem)
+            throws NoSuchAlgorithmException, NoSuchProviderException, InvalidKeyException {
+        var agreement = KeyAgreement.getInstance("ECDH", "BC");
+        agreement.init(ephem.getPrivate());
+        agreement.doPhase(publicKey, true);
+        return agreement.generateSecret();
+    }
+
+    private static byte[] getPubkey(ECPublicKey key) {
         var q = key.getQ();
         var x = q.getXCoord().getEncoded();
         var y = q.getYCoord().getEncoded();
@@ -115,7 +122,7 @@ public class ECIES {
     private static record DecodedPubKey(short curve, byte[] x, byte[] y, int usedLength) {
     }
 
-    private  static DecodedPubKey decodePubKey(byte[] pubkey, int offset) {
+    private static DecodedPubKey decodePubKey(byte[] pubkey, int offset) {
         var buf = ByteBuffer.wrap(pubkey, offset, pubkey.length - offset);
         short curve = buf.getShort();
         short xLength = buf.getShort();
@@ -140,7 +147,7 @@ public class ECIES {
         }
     }
 
-    public  static byte[] decrypt(byte[] message, ECPrivateKey privKey) {
+    public static byte[] decrypt(byte[] message, ECPrivateKey privKey) {
         try {
             var aes = Cipher.getInstance("AES/CBC/PKCS7Padding");
             var blockSize = aes.getBlockSize();
@@ -152,8 +159,9 @@ public class ECIES {
             offset += ciphertext.length;
             var mac = Arrays.copyOfRange(message, offset, message.length);
 
-            var keySpec = new ECPublicKeySpec(
-                    curve.createPoint(new BigInteger(1, decoded.x()), new BigInteger(1, decoded.y())), spec);
+            var x = new BigInteger(1, decoded.x());
+            var y = new BigInteger(1, decoded.y());
+            var keySpec = new ECPublicKeySpec(curve.createPoint(x, y), spec);
 
             var pubKey = factory.generatePublic(keySpec);
 
