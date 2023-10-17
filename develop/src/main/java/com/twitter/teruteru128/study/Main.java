@@ -4,9 +4,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.AlgorithmParameters;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.Provider;
 import java.security.PublicKey;
@@ -19,9 +21,14 @@ import java.security.spec.ECParameterSpec;
 import java.security.spec.ECPrivateKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.InvalidParameterSpecException;
+import java.util.Base64;
 import java.util.HexFormat;
+import java.util.regex.Pattern;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.security.auth.DestroyFailedException;
 
 import org.bouncycastle.jce.ECNamedCurveTable;
@@ -56,6 +63,18 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
+        // getS();
+        if (args.length < 1) {
+            return;
+        }
+        var format = HexFormat.of();
+        var decoder = Base64.getUrlDecoder();
+        System.out.println(format.formatHex(decoder.decode(args[0])));
+    }
+
+    private static void getS() throws NoSuchAlgorithmException, InvalidParameterSpecException, InvalidKeySpecException,
+            NoSuchProviderException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException,
+            IllegalBlockSizeException, BadPaddingException {
         // 面倒くせえ
         var privateKey = getPrivateKey();
 
