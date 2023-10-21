@@ -216,7 +216,7 @@ public class Protocol {
         var checksum = new byte[4];
         var hash = new byte[64];
         Version themVersion;
-        // handshake(send version, recieve verack and version, send verack)
+        // handshake(send version, receive verack and version, send verack)
         {
             var out = socket.getOutputStream();
             var in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
