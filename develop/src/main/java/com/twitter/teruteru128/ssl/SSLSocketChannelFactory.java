@@ -21,7 +21,8 @@ public class SSLSocketChannelFactory {
             var engine = context.createSSLEngine();
             var parameters = engine.getSSLParameters();
             var cipherSuites = parameters.getCipherSuites();
-            if (!com.twitter.teruteru128.util.Arrays.contains(cipherSuites, "TLS_ECDH_anon_WITH_AES_256_CBC_SHA")) {
+            Arrays.sort(cipherSuites);
+            if (Arrays.binarySearch(cipherSuites, "TLS_ECDH_anon_WITH_AES_256_CBC_SHA") < 0) {
                 int newLength = cipherSuites.length + 1;
                 cipherSuites = Arrays.copyOf(cipherSuites, newLength);
                 cipherSuites[newLength - 1] = "TLS_ECDH_anon_WITH_AES_256_CBC_SHA";

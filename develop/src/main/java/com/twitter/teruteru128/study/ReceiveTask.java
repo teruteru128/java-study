@@ -6,14 +6,20 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.StandardCharsets;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
 
+import com.twitter.teruteru128.bitmessage.ConnectSession;
+import com.twitter.teruteru128.bitmessage.ConnectionType;
+
 /**
- * データ受信/接続受け入れだけを担当するスレッド。ディスクIOとかは別スレッドの担当とする。
+ * データ受信/接続受け入れだけを担当するスレッド。
+ *
+ * ディスクIOとかは別スレッドの担当とする。
  */
 public class ReceiveTask implements Callable<Void> {
     private Selector selector;
@@ -25,35 +31,66 @@ public class ReceiveTask implements Callable<Void> {
     @Override
     public Void call() throws IOException {
         while (true) {
-            int numberOfKeys = selector.select(1000);
-            for (var key : selector.selectedKeys()) {
+            selector.select(1000);
+            for (var iterator = selector.selectedKeys().iterator(); iterator.hasNext();) {
+                var key = iterator.next();
+                iterator.remove();
                 var c = key.channel();
                 if (key.isAcceptable()) {
                     if (c instanceof ServerSocketChannel ssc) {
                         // 接続受け入れ
                         var newSocketChannel = ssc.accept();
                         // TODO セッションオブジェクトを登録
-                        newSocketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE, null);
+                        var remoteAddress = newSocketChannel.getRemoteAddress();
+                        var att = new ConnectSession(remoteAddress, ConnectionType.INBOUND);
+                        newSocketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE,
+                                att);
                     }
                 } else if (key.isReadable()) {
+                    var session = (ConnectSession) key.attachment();
                     // TODO unix domain socket対応もしたい
                     if (c instanceof SocketChannel sc) {
-                        var header = ByteBuffer.allocate(24);
-                        sc.read(header);
-                        var magic = header.getInt();
-                        var commandBuffer = new byte[12];
-                        header.get(commandBuffer);
-                        var length = header.getInt();
-                        var checksum = new byte[4];
-                        header.get(checksum);
+                        if (session.getSSLEngine().isPresent()) {
+                            var engine = session.getSSLEngine().get();
+                            var sslSession = engine.getSession();
+                            var appBufferMax = sslSession.getApplicationBufferSize();
+                            var netBufferMax = sslSession.getPacketBufferSize();
 
-                        var payload = ByteBuffer.allocate(length);
-                        sc.read(payload);
-                        payload.flip();
-                        validatePayload(checksum, payload);
-                        payload.rewind();
-                        var command = trim(commandBuffer);
-                        // そういえば受け取ったコマンドを他ノードに転送するってのがないのか？EPSPと違って？
+                            var serverIn = ByteBuffer.allocate(appBufferMax + 50);
+                        } else {
+                            var header = ByteBuffer.allocate(24);
+
+                            // チャンネルから読み取り
+                            sc.read(header);
+
+                            // このマジックナンバーを目印にシークするとかなんとか
+                            var magic = header.getInt();
+
+                            // コマンド
+                            var commandBuffer = new byte[12];
+                            header.get(commandBuffer);
+
+                            //
+                            var length = header.getInt();
+                            var checksum = new byte[4];
+                            header.get(checksum);
+
+                            //
+                            var payload = ByteBuffer.allocate(length);
+                            sc.read(payload);
+                            payload.flip();
+
+                            // validate
+                            if (!validatePayload(checksum, payload)) {
+                                // fail
+                                continue;
+                            }
+                            payload.rewind();
+
+                            var command = trim(commandBuffer);
+                            // そういえば受け取ったコマンドを他ノードに転送するってのがないのか？EPSPと違って？
+                            // TODO キューに追加
+                        }
                     }
                 }
             }
@@ -65,7 +102,7 @@ public class ReceiveTask implements Callable<Void> {
         while ((0 < commandLength) && (commandBuffer[commandLength - 1] & 0xff) < ' ') {
             commandLength--;
         }
-        return new String(commandBuffer, 0, commandLength);
+        return new String(commandBuffer, 0, commandLength, StandardCharsets.UTF_8);
     }
 
     /**

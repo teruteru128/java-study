@@ -1,5 +1,6 @@
 package com.twitter.teruteru128.bitmessage;
 
+import java.net.SocketAddress;
 import java.nio.channels.SocketChannel;
 import java.util.Optional;
 
@@ -10,19 +11,19 @@ import javax.net.ssl.SSLEngine;
  * socketchannelのregisterメソッドに添付する用途。
  */
 public class ConnectSession {
-    private SocketChannel channel;
+    private SocketAddress address;
     private Optional<SSLEngine> sslEngine = Optional.empty();
     private ConnectionType type;
     private boolean verackReceived = false;
     private boolean verackSent = false;
 
-    public ConnectSession(SocketChannel channel, ConnectionType type) {
+    public ConnectSession(SocketAddress channel, ConnectionType type) {
         this(channel, null, type);
     }
 
-    public ConnectSession(SocketChannel channel, SSLEngine engine, ConnectionType type) {
+    public ConnectSession(SocketAddress address, SSLEngine engine, ConnectionType type) {
         super();
-        this.channel = channel;
+        this.address = address;
         this.sslEngine = Optional.ofNullable(engine);
     }
 
@@ -34,12 +35,12 @@ public class ConnectSession {
         return verackSent;
     }
 
-    public void setChannel(SocketChannel channel) {
-        this.channel = channel;
+    public void setChannel(SocketAddress address) {
+        this.address = address;
     }
 
-    public SocketChannel getChannel() {
-        return channel;
+    public SocketAddress getAddress() {
+        return address;
     }
 
     public void setSSLEngine(SSLEngine engine) {

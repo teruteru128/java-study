@@ -1,5 +1,7 @@
 package com.twitter.teruteru128.bitmessage;
 
+import java.util.Optional;
+
 import javax.net.ssl.SSLEngine;
 
 /**
@@ -12,7 +14,7 @@ public class ConnectionStatus {
     }
 
     boolean ssl = false;
-    SSLEngine engine = null;
+    Optional<SSLEngine> engine = Optional.empty();
     boolean verackSent = false;
     boolean verackReceived = false;
     long services = 0;
