@@ -33,9 +33,9 @@ public class MyAuthenticator extends Authenticator implements Destroyable, Seria
     }
 
     @Override
-    public void destroy() throws DestroyFailedException {
+    public synchronized void destroy() throws DestroyFailedException {
         if (password != null) {
-            Arrays.fill(password, 0, password.length, '\0');
+            Arrays.fill(password, '\0');
             password = null;
         } else {
             throw new IllegalStateException("destroyed");
