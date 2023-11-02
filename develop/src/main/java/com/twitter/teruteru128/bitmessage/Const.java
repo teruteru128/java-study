@@ -2,6 +2,8 @@ package com.twitter.teruteru128.bitmessage;
 
 import org.bouncycastle.asn1.x9.X9ECParameters;
 import org.bouncycastle.crypto.ec.CustomNamedCurves;
+import org.bouncycastle.jce.ECNamedCurveTable;
+import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
 import org.bouncycastle.math.ec.ECPoint;
 
 /**
@@ -13,6 +15,7 @@ public class Const {
     }
 
     public static final X9ECParameters SECP256K1 = CustomNamedCurves.getByName("secp256k1");
+    public static final ECNamedCurveParameterSpec SECP256K1_PARAMETER_SPEC = ECNamedCurveTable.getParameterSpec("secp256k1");
     public static final ECPoint G = SECP256K1.getG();
     public static final int PRIVATE_KEY_LENGTH = 32;
     public static final int PUBLIC_KEY_LENGTH = 65;

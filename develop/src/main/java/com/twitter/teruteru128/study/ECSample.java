@@ -22,7 +22,6 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.security.auth.DestroyFailedException;
 
-import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
 import org.bouncycastle.jce.spec.ECPrivateKeySpec;
 import org.bouncycastle.jce.spec.ECPublicKeySpec;
@@ -36,13 +35,13 @@ import com.twitter.teruteru128.bitmessage.ECIES;
  */
 public class ECSample {
 
-    private static void getS() throws NoSuchAlgorithmException, InvalidParameterSpecException, InvalidKeySpecException,
+    public static void getS() throws NoSuchAlgorithmException, InvalidParameterSpecException, InvalidKeySpecException,
             NoSuchProviderException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException,
             IllegalBlockSizeException, BadPaddingException, SignatureException, DestroyFailedException {
         // 面倒くせえ
         var privateKey = ECSample.getPrivateKey();
 
-        var parameterSpec = ECNamedCurveTable.getParameterSpec("secp256k1");
+        var parameterSpec = Const.SECP256K1_PARAMETER_SPEC;
         var p2spec = new org.bouncycastle.jce.spec.ECPrivateKeySpec(privateKey.getS(), parameterSpec);
 
         sampleECSignature("");
