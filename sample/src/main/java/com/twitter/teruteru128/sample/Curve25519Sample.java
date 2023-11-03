@@ -24,62 +24,63 @@ import javax.crypto.KeyAgreement;
 
 public class Curve25519Sample {
 
+    private static final HexFormat format = HexFormat.of();
+
     public static void x(byte[] pri, byte[] pub)
             throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException {
-        var format = HexFormat.of();
         var factory = KeyFactory.getInstance("X25519");
         var s0 = new XECPrivateKeySpec(NamedParameterSpec.X25519, pri);
-        var s1 = new XECPublicKeySpec(NamedParameterSpec.X25519, new BigInteger(pub));
-    
+        var s1 = new XECPublicKeySpec(NamedParameterSpec.X25519, new BigInteger(1, pub));
+
         var ag = KeyAgreement.getInstance("X25519");
-    
+
         var prik = (XECPrivateKey) factory.generatePrivate(s0);
         var pubk = (XECPublicKey) factory.generatePublic(s1);
-    
+
         var prispec = factory.getKeySpec(prik, XECPrivateKeySpec.class);
         var pubspec = factory.getKeySpec(pubk, XECPublicKeySpec.class);
-    
+
         System.out.printf("private key: %s%n", format.formatHex(prispec.getScalar()));
         System.out.printf("public key: %x%n", pubspec.getU());
-    
+
         ag.init(prik);
-    
+
         ag.doPhase(pubk, true);
-    
+
         var sec = ag.generateSecret();
         System.out.printf("%s%n", format.formatHex(sec));
     }
 
     public static void ed(byte[] pri, byte[] pub)
             throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
-        var format = HexFormat.of();
         var factory = KeyFactory.getInstance("Ed25519");
-        var s0 = new EdECPrivateKeySpec(NamedParameterSpec.ED25519, pri);
-        var s1 = new EdECPublicKeySpec(NamedParameterSpec.ED25519, new EdECPoint(false, new BigInteger(pub)));
         var sig = Signature.getInstance("Ed25519");
-    
-        var prik = (EdECPrivateKey) factory.generatePrivate(s0);
-        var pubk = (EdECPublicKey) factory.generatePublic(s1);
-    
+
+        var privateKeySpec = new EdECPrivateKeySpec(NamedParameterSpec.ED25519, pri);
+        var prik = (EdECPrivateKey) factory.generatePrivate(privateKeySpec);
+        var point = new EdECPoint(false, new BigInteger(pub));
+        var publicKeySpec = new EdECPublicKeySpec(NamedParameterSpec.ED25519, point);
+        var pubk = (EdECPublicKey) factory.generatePublic(publicKeySpec);
+
         var prispec = factory.getKeySpec(prik, EdECPrivateKeySpec.class);
         var pubspec = factory.getKeySpec(pubk, EdECPublicKeySpec.class);
-    
+
         System.out.printf("private key: %s%n", format.formatHex(prispec.getBytes()));
-        var point = pubspec.getPoint();
-        System.out.printf("public key: %b, %x%n", point.isXOdd(), point.getY());
-    
+        var eDECpoint = pubspec.getPoint();
+        System.out.printf("public key: %b, %x%n", eDECpoint.isXOdd(), eDECpoint.getY());
+
         sig.initSign(prik);
-    
+
         var msg = "brown fox jumps over the lazy dog".getBytes(StandardCharsets.UTF_8);
         sig.update(msg);
-    
+
         var hash = sig.sign();
         System.out.printf("%s%n", format.formatHex(hash));
-    
+
         sig.initVerify(pubk);
-    
+
         sig.update(msg);
-    
+
         var b = sig.verify(hash);
         System.out.println(b);
     }
@@ -93,5 +94,5 @@ public class Curve25519Sample {
         ed(pri, pub);
         x(pri, pub);
     }
-    
+
 }

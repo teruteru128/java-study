@@ -8,7 +8,6 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -16,8 +15,6 @@ import java.util.HexFormat;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
-
-import com.twitter.teruteru128.util.Base58;
 
 /**
  * Main
@@ -80,11 +77,11 @@ public class Main {
         // typeflag
         header.put((byte) '0');
         // linkname is empty
-        header.position(257);
         // magic
+        header.position(257);
         header.put(getbytesutf8("ustar"));
-        header.position(263);
         // version
+        header.position(263);
         header.put(getbytesutf8("00"));
         // uname, gname is empty
         header.position(329);
