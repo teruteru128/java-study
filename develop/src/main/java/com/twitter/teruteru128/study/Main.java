@@ -17,6 +17,8 @@ import java.util.HexFormat;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+import com.twitter.teruteru128.util.Base58;
+
 /**
  * Main
  */
@@ -45,9 +47,9 @@ public class Main {
         // var salt = HEX_FORMATTER.parseHex("bde8d63e2c47380556a9f1b71d7a5388");
         // getFormatName(password, salt);
 
-        var path1 = Paths.get(args[0]);
-        var path2 = Paths.get(args[1]);
-        createTar(path1, path2);
+        //var path1 = Paths.get(args[0]);
+        //var path2 = Paths.get(args[1]);
+        //createTar(path1, path2);
     }
 
     private static void createTar(Path in, Path out) throws IOException {

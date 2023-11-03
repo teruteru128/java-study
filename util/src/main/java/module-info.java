@@ -2,5 +2,6 @@ module com.twitter.teruteru.util {
     requires jakarta.xml.bind;
 
     opens com.twitter.teruteru128.util;
+    exports com.twitter.teruteru128.net;
     exports com.twitter.teruteru128.util;
 }

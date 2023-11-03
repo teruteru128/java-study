@@ -15,11 +15,11 @@ module com.twitter.teruteru.study {
     requires java.sql;
 
     requires com.google.gson;
-    requires commons.math3;
     requires org.apache.commons.codec;
     requires org.xerial.sqlitejdbc;
 
     // guava
+    requires com.google.errorprone.annotations;
     requires com.google.common;
 
     //
@@ -28,6 +28,4 @@ module com.twitter.teruteru.study {
     requires org.twitter4j;
     requires com.twitter.teruteru.util;
     //requires org.glassfish.jaxb.runtime;
-
-    exports com.twitter.teruteru128.net;
 }

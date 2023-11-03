@@ -13,7 +13,6 @@ module com.twitter.teruteru.sample {
     requires commons.math3;
 
     requires org.bouncycastle.provider;
-    requires com.twitter.teruteru.study;
     requires com.twitter.teruteru.util;
     requires org.xerial.sqlitejdbc;
 }

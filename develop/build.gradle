@@ -7,50 +7,18 @@
  */
 
 plugins {
-    //id 'com.twitter.teruteru128.java.study.java-conventions'
-    // https://docs.gradle.org/current/userguide/java_plugin.html
-    id 'java'
-    // Apply the application plugin to add support for building a CLI application in Java.
-    // https://docs.gradle.org/current/userguide/application_plugin.html
-    id 'application'
-    // https://docs.gradle.org/current/userguide/eclipse_plugin.html
-    id 'eclipse'
-    // https://docs.gradle.org/current/userguide/java_library_plugin.html
-    //id 'java-library'
-    // https://github.com/java9-modularity/gradle-modules-plugin
+    id 'com.twitter.teruteru128.study.java-application-conventions'
     id 'org.javamodularity.moduleplugin' version '1.8.12' apply true
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
-}
-
-//javaModule.name = 'com.teruteru128.study'
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
 }
 
 application {
     mainModule = 'com.twitter.teruteru.study'
     mainClass = 'com.twitter.teruteru128.study.Main'
-    applicationDefaultJvmArgs = ['-Xms64G', '-Xmx64G']
-}
-
-/* shadowJar {
-    archiveClassifier = 'shade'
-} */
-
-repositories {
-    // Use Maven Central for resolving dependencies.
-    mavenCentral()
-    maven {url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots'}
-    maven {url 'https://papermc.io/repo/repository/maven-public/'}
+    //applicationDefaultJvmArgs = ['-Xms64G', '-Xmx64G']
 }
 
 dependencies {
     implementation project(':util')
-
-    // Use JUnit Jupiter for testing.
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     implementation 'org.apache.commons:commons-math3:3.6.1'
@@ -137,55 +105,4 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.postgresql/postgresql
     implementation 'org.postgresql:postgresql:42.6.0'
-}
-
-test {
-    // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
-// thanks for https://github.com/eclipse/eclipse.jdt.ls/issues/957
-eclipse {
-    classpath {
-        containers 'org.eclipse.buildship.core.gradleclasspathcontainer'
-        file {
-            whenMerged {
-                entries.findAll { it.properties.kind.equals('lib') && !it.properties.path.contains("junit") }.each {
-                    it.entryAttributes['module'] = 'true'
-                }
-                entries.findAll { it.properties.path.startsWith('org.eclipse.jdt.launching.JRE_CONTAINER') }.each {
-                    it.entryAttributes['module'] = 'true'
-                }
-                entries.find { it.path == 'src/main/java' }.output = 'build/classes/java/main'
-
-                entries.find { it.path == 'src/main/resources' }.output = 'build/resources/main'
-
-                entries.findAll { it.path.startsWith('/') && !it.path.endsWith('.jar') }.each {
-                    it.entryAttributes['module'] = 'true'
-                }
-
-                def testSrc = entries.find { it.path == 'src/test/java' }
-                testSrc.output = 'build/classes/java/test'
-                testSrc.entryAttributes['test'] = 'true'
-                testSrc.entryAttributes['optional'] = 'true'
-                testSrc.entryAttributes['ignore_optional_problems'] = 'true'
-                //testSrc.entryAttributes['module'] = 'true'
-
-                entries.find { it.path == 'src/test/resources' }.output = 'build/resources/test'
-
-                entries.forEach { entry ->
-                    def entryIn = { it.find { file(entry.path).equals(it) } }
-                    if (entry.kind == 'lib') {
-                        entry.entryAttributes['test'] =
-                            entryIn(configurations.testRuntimeClasspath) &&
-                            !entryIn(configurations.runtimeClasspath)
-                    }
-                }
-            }
-        }
-    }
 }
