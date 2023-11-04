@@ -13,4 +13,5 @@ plugins {
 }
 
 rootProject.name = 'java.study'
-include("util", "sample", "slime", "develop")
+include("util", "sample", "slime")
+include("develop")

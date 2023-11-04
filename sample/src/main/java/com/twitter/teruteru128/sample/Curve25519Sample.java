@@ -26,7 +26,7 @@ public class Curve25519Sample {
 
     private static final HexFormat format = HexFormat.of();
 
-    public static void x(byte[] pri, byte[] pub)
+    public static void xdh(byte[] pri, byte[] pub)
             throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException {
         var factory = KeyFactory.getInstance("X25519");
         var s0 = new XECPrivateKeySpec(NamedParameterSpec.X25519, pri);
@@ -51,13 +51,14 @@ public class Curve25519Sample {
         System.out.printf("%s%n", format.formatHex(sec));
     }
 
-    public static void ed(byte[] pri, byte[] pub)
+    public static void eddsa(byte[] pri, byte[] pub)
             throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
         var factory = KeyFactory.getInstance("Ed25519");
         var sig = Signature.getInstance("Ed25519");
 
         var privateKeySpec = new EdECPrivateKeySpec(NamedParameterSpec.ED25519, pri);
         var prik = (EdECPrivateKey) factory.generatePrivate(privateKeySpec);
+
         var point = new EdECPoint(false, new BigInteger(pub));
         var publicKeySpec = new EdECPublicKeySpec(NamedParameterSpec.ED25519, point);
         var pubk = (EdECPublicKey) factory.generatePublic(publicKeySpec);
@@ -87,12 +88,11 @@ public class Curve25519Sample {
 
     public static void sample()
             throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
-        var format = HexFormat.of();
         var pri = format.parseHex(
                 "86575b7afeb80e1d8ba7b295e06edc0de9fc53fb90981daebbecef93c6ff1a8c");
         var pub = format.parseHex("1e6d78bf292bae807135fe2385c72ac353151a6cfed6bf573edb45278053558f");
-        ed(pri, pub);
-        x(pri, pub);
+        eddsa(pri, pub);
+        xdh(pri, pub);
     }
 
 }

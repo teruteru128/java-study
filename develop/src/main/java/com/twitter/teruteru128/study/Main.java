@@ -3,18 +3,25 @@ package com.twitter.teruteru128.study;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 import java.util.HexFormat;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+
+import com.twitter.teruteru128.bitmessage.Const;
+// redhat-developer/vscode-java#1327
+import com.twitter.teruteru128.util.Base58;
 
 /**
  * Main
@@ -22,9 +29,7 @@ import javax.crypto.spec.PBEKeySpec;
 public class Main {
 
     private static final BigDecimal Round_Up_Width = new BigDecimal("512");
-    static final char[] HEAD_SUFFIX = "^o^)┐".toCharArray();
-    static final char[] TAIL_PREFIX = "┌(".toCharArray();
-    private static final HexFormat HEX_FORMATTER = HexFormat.of();
+    private static final HexFormat format = HexFormat.of();
 
     static {
         try {
@@ -40,13 +45,14 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        // var password = args[0].toCharArray();
-        // var salt = HEX_FORMATTER.parseHex("bde8d63e2c47380556a9f1b71d7a5388");
-        // getFormatName(password, salt);
-
-        //var path1 = Paths.get(args[0]);
-        //var path2 = Paths.get(args[1]);
-        //createTar(path1, path2);
+        var p = "5KSKK9tJfuMrkUfwBqGS3ktfPix5zZBtgxAao2GtKeUgJNpEo6R";
+        var b = (byte[])Base58.decode(p);
+        System.out.println(format.formatHex(b));
+        var sha512 = MessageDigest.getInstance("SHA256");
+        sha512.update(b, 0, 33);
+        var h = sha512.digest();
+        System.out.println(MessageDigest.isEqual(Arrays.copyOf(h, 4), Arrays.copyOfRange(b, 34, 37)));
+        Const.G.multiply(new BigInteger(1, b, 1, 32));
     }
 
     private static void createTar(Path in, Path out) throws IOException {
@@ -145,8 +151,8 @@ public class Main {
         var encoded = secret.getEncoded();
         var formatName = secret.getFormat();
         System.out.printf("Algorithm: %s%n", algorithm);
-        System.out.printf("Encoded: %s%n", HEX_FORMATTER.formatHex(encoded));
+        System.out.printf("Encoded: %s%n", format.formatHex(encoded));
         System.out.printf("Format: %s%n", formatName);
-        System.out.printf("Salt: %s%n", HEX_FORMATTER.formatHex(salt));
+        System.out.printf("Salt: %s%n", format.formatHex(salt));
     }
 }
