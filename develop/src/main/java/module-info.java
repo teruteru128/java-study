@@ -15,6 +15,7 @@ module com.twitter.teruteru.study {
     requires java.sql;
 
     requires com.google.gson;
+    requires commons.math3;
     requires org.apache.commons.codec;
     requires org.xerial.sqlitejdbc;
 
@@ -26,6 +27,4 @@ module com.twitter.teruteru.study {
     requires jakarta.json;
     requires org.bouncycastle.provider;
     requires org.twitter4j;
-    requires com.twitter.teruteru.util;
-    //requires org.glassfish.jaxb.runtime;
 }
