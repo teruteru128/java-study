@@ -6,18 +6,21 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.Arrays;
 import java.util.HexFormat;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+
+import org.bouncycastle.math.ec.ECPoint;
 
 import com.twitter.teruteru128.bitmessage.Const;
 // redhat-developer/vscode-java#1327
@@ -45,14 +48,54 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var p = "5KSKK9tJfuMrkUfwBqGS3ktfPix5zZBtgxAao2GtKeUgJNpEo6R";
-        var b = (byte[])Base58.decode(p);
-        System.out.println(format.formatHex(b));
-        var sha512 = MessageDigest.getInstance("SHA256");
-        sha512.update(b, 0, 33);
-        var h = sha512.digest();
-        System.out.println(MessageDigest.isEqual(Arrays.copyOf(h, 4), Arrays.copyOfRange(b, 34, 37)));
-        Const.G.multiply(new BigInteger(1, b, 1, 32));
+        // 00000000cf12c86a, 4178976631
+        var p1 = System.getenv("PK");
+        if (p1 == null || p1.isEmpty()) {
+            return;
+        }
+        var b1 = Base58.decode(p1);
+        var encoded1 = ByteBuffer.wrap(Const.G.multiply(new BigInteger(1, b1, 1, 32)).getEncoded(false));
+        var sha512 = MessageDigest.getInstance("SHA512");
+        var ripemd160 = MessageDigest.getInstance("ripemd160");
+        sha512.update(encoded1);
+        encoded1.rewind();
+        var hashBuffer = ByteBuffer.allocate(64);
+        var hash = hashBuffer.array();
+        sha512.digest(hash, 0, 64);
+        ripemd160.update(hash, 0, 64);
+        ripemd160.digest(hash, 0, 20);
+        var rootBuffer = ByteBuffer.allocateDirect(16777216 * 65);
+        var buffers = new ByteBuffer[16777216];
+        for (int i = 0; i < 16777216; i++) {
+            buffers[i] = rootBuffer.slice((i << 6) + i, 65);
+        }
+        long min = 0x00000000cf12c86aL;
+        long hashhead = 0;
+        long minindex = 4178976631L;
+
+        for (long i = 0; i < 256; i++) {
+            var path = Paths.get(String.format("D:\\keys\\public\\publicKeys%d.bin", i));
+            try (var channel = FileChannel.open(path)) {
+                channel.read(rootBuffer);
+                rootBuffer.flip();
+            }
+            for (int j = 0; j < 16777216; j++) {
+                sha512.update(encoded1);
+                encoded1.rewind();
+                sha512.update(buffers[j]);
+                buffers[j].rewind();
+                sha512.digest(hash, 0, 64);
+                ripemd160.update(hash, 0, 64);
+                ripemd160.digest(hash, 0, 20);
+                hashhead = hashBuffer.getLong(0);
+                if (Long.compareUnsigned(min, hashhead) > 0) {
+                    min = hashhead;
+                    minindex = (i << 24) | j;
+                    System.out.printf("%016x, %d%n", min, minindex);
+                }
+            }
+            rootBuffer.clear();
+        }
     }
 
     private static void createTar(Path in, Path out) throws IOException {
