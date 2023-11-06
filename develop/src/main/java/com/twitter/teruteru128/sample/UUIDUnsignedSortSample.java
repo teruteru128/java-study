@@ -8,7 +8,7 @@ import org.sqlite.SQLiteDataSource;
 
 import com.twitter.teruteru128.util.UUIDUnsignedComparator;
 
-public class UUIDUnsignedSortSample {
+public class UUIDUnsignedSortSample implements Sample {
     void sample(String url) throws SQLException {
         var set = new TreeSet<UUID>(new UUIDUnsignedComparator());
         var dataSource = new SQLiteDataSource();
@@ -34,5 +34,10 @@ public class UUIDUnsignedSortSample {
                 break;
             }
         }
+    }
+
+    @Override
+    public void sample() throws Exception {
+        sample("");
     }
 }

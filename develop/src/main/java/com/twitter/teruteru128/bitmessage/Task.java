@@ -14,13 +14,15 @@ import org.sqlite.jdbc4.JDBC4PreparedStatement;
 import org.sqlite.jdbc4.JDBC4Statement;
 
 public class Task implements Callable<Long> {
+    private static final String URL = "jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat";
+
     @Override
     public Long call() throws Exception {
         long count = 0;
         var today = LocalDateTime.now();
         var offset = ZoneOffset.ofHours(9);
         var dataSource = new SQLiteDataSource();
-        dataSource.setUrl("jdbc:sqlite:C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\messages.dat");
+        dataSource.setUrl(URL);
         long sumofdone = 0;
         try (var connection = (JDBC4Connection) dataSource.getConnection()) {
             var map = new HashMap<String, Integer>();

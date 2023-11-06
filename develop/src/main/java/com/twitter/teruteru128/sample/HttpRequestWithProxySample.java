@@ -9,8 +9,11 @@ import java.net.http.HttpResponse.BodyHandlers;
 
 import com.twitter.teruteru128.net.OnionProxySelector;
 
-public class HttpRequestWithProxySample {
-    void sample(URI name) throws URISyntaxException, IOException, InterruptedException {
+public class HttpRequestWithProxySample implements Sample {
+    public void sample() throws URISyntaxException, IOException, InterruptedException {
+        sample(URI.create(""));
+    }
+    public void sample(URI name) throws URISyntaxException, IOException, InterruptedException {
         var selector = OnionProxySelector.getInstance();
         var client = HttpClient.newBuilder().proxy(selector).build();
         var request = HttpRequest.newBuilder(name).build();

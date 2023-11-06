@@ -16,7 +16,7 @@ import org.apache.commons.math3.distribution.LogNormalDistribution;
  * 対数正規分布のサンプル
  * @see https://qiita.com/t_uehara/items/460e04ba7d2b19fdd497
  */
-public class LognormalDistributionSample {
+public class LognormalDistributionSample implements Sample {
 
     public void sample(File outFile) throws IOException {
         try (var os = new PrintStream(new BufferedOutputStream(new FileOutputStream(outFile)))) {
@@ -50,5 +50,10 @@ public class LognormalDistributionSample {
             os.printf("%d\t\uff5e\t%d\t%d%n", start, end, b[i]);
         }
         os.printf("%d\t\uff5e\t\t%d%n", max, overscale);
+    }
+
+    @Override
+    public void sample() throws IOException {
+        sample(new File(""));
     }
 }

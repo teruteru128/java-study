@@ -6,8 +6,8 @@ import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.TrayIcon.MessageType;
 
-public class TrayIconDemo {
-    public Void displayTray() throws AWTException {
+public class TrayIconDemo implements Sample {
+    public void sample() throws AWTException {
         //Obtain only one instance of the SystemTray object
         var tray = SystemTray.getSystemTray();
 
@@ -24,6 +24,5 @@ public class TrayIconDemo {
         tray.add(trayIcon);
 
         trayIcon.displayMessage("Hello, World", "notification demo", MessageType.INFO);
-        return null;
     }
 }

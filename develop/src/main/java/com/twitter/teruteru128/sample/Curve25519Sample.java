@@ -22,11 +22,11 @@ import java.util.HexFormat;
 
 import javax.crypto.KeyAgreement;
 
-public class Curve25519Sample {
+public class Curve25519Sample implements Sample {
 
     private static final HexFormat format = HexFormat.of();
 
-    public static void xdh(byte[] pri, byte[] pub)
+    public void xdh(byte[] pri, byte[] pub)
             throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException {
         var factory = KeyFactory.getInstance("X25519");
         var s0 = new XECPrivateKeySpec(NamedParameterSpec.X25519, pri);
@@ -51,7 +51,7 @@ public class Curve25519Sample {
         System.out.printf("%s%n", format.formatHex(sec));
     }
 
-    public static void eddsa(byte[] pri, byte[] pub)
+    public void eddsa(byte[] pri, byte[] pub)
             throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
         var factory = KeyFactory.getInstance("Ed25519");
         var sig = Signature.getInstance("Ed25519");
@@ -86,7 +86,8 @@ public class Curve25519Sample {
         System.out.println(b);
     }
 
-    public static void sample()
+    @Override
+    public void sample()
             throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
         var pri = format.parseHex(
                 "86575b7afeb80e1d8ba7b295e06edc0de9fc53fb90981daebbecef93c6ff1a8c");

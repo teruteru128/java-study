@@ -11,9 +11,10 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
-public class AESedeSample {
+public class AESEDESample implements Sample {
 
-    public static void doAESedeSample() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
+    @Override
+    public void sample() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
             IllegalBlockSizeException, BadPaddingException {
         var cipher = Cipher.getInstance("AES/ECB/NoPadding");
         var key = new byte[96];

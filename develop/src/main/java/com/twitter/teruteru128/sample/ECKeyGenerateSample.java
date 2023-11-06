@@ -11,7 +11,7 @@ import java.util.HexFormat;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-public class ECKeyGenerateSample {
+public class ECKeyGenerateSample implements Sample {
 
     static {
         if (Security.getProvider("BC") == null) {
@@ -19,7 +19,7 @@ public class ECKeyGenerateSample {
         }
     }
 
-    public static void dosecp256k1GenerateSample()
+    public void dosecp256k1GenerateSample()
             throws NoSuchAlgorithmException, NoSuchProviderException, InvalidAlgorithmParameterException {
         var generator1 = KeyPairGenerator.getInstance("EC", "BC");
         // secp256k1はJDK 16で削除されました。
@@ -31,7 +31,10 @@ public class ECKeyGenerateSample {
         System.out.println(q.getXCoord().getClass());
         System.out.println(HexFormat.of().formatHex(pubKey.getQ().getEncoded(false)));
         System.out.println(HexFormat.of().formatHex(pubKey.getEncoded()));
+    }
 
+    public void sample() throws NoSuchAlgorithmException, NoSuchProviderException, InvalidAlgorithmParameterException {
+        dosecp256k1GenerateSample();
     }
 
 }

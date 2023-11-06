@@ -15,7 +15,13 @@ import java.sql.SQLException;
 
 import org.sqlite.SQLiteDataSource;
 
-public class DBAndECSample {
+// TODO 引数ありのsampleってどうしようね -> 引数のないメソッドを増設してそこから呼び出すか？
+public class DBAndECSample implements Sample {
+
+    public void sample() throws InvalidKeySpecException, InvalidParameterSpecException, NoSuchAlgorithmException,
+            NoSuchProviderException, SQLException {
+        sample("jdbc:sqlite:./sample.db");
+    }
 
     public void sample(String url)
             throws InvalidKeySpecException, InvalidParameterSpecException, NoSuchAlgorithmException,

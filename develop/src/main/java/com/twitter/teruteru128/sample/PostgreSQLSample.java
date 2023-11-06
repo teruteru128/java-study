@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class PostgreSQLSample {
+public class PostgreSQLSample implements Sample {
     public void sample() throws SQLException {
         var url = "jdbc:postgresql://localhost/";
         String user = "postgres";

@@ -6,7 +6,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class JsonRPCRequestSample {
+public class JsonRPCRequestSample implements Sample {
 
     private static final HttpClient CLIENT = HttpClient.newBuilder().build();
 
@@ -20,9 +20,9 @@ public class JsonRPCRequestSample {
         var response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.statusCode());
         System.out.println(response.body());
-    
+
     }
-    
+
     private static HttpClient client = HttpClient.newBuilder().build();
     private static final HttpRequest.Builder requestBuilder = HttpRequest
             .newBuilder(URI.create("http://localhost:8442/"))
@@ -34,5 +34,9 @@ public class JsonRPCRequestSample {
         var request = client.send(requestBuilder.copy().POST(requestBody).build(),
                 HttpResponse.BodyHandlers.ofString());
         System.out.println(request.body());
+    }
+
+    public void sample() throws IOException, InterruptedException {
+        sample("");
     }
 }
