@@ -1,7 +1,6 @@
 package com.twitter.teruteru128.bitmessage;
 
 import java.net.SocketAddress;
-import java.nio.channels.SocketChannel;
 import java.util.Optional;
 
 import javax.net.ssl.SSLEngine;

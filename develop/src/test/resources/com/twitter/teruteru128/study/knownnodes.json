@@ -1,0 +1,50 @@
+[
+    {
+        "peer": {
+            "host": "8.167.14.22",
+            "port": 8444
+        },
+        "info": {
+            "rating": -0.3,
+            "self": false,
+            "lastseen": 1155680182
+        },
+        "stream": 1
+    },
+    {
+        "peer": {
+            "host": "dead:beef::1",
+            "port": 8444
+        },
+        "info": {
+            "rating": 0.3,
+            "self": true,
+            "lastseen": 1698248808
+        },
+        "stream": 1
+    },
+    {
+        "peer": {
+            "host": "deadbeefaaaaaaaa.onion",
+            "port": 8444
+        },
+        "info": {
+            "rating": 0.3,
+            "self": null,
+            "lastseen": 1698248808
+        },
+        "stream": 1
+    },
+    {
+        "peer": {
+            "host": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.onion",
+            "port": 8444
+        },
+        "info": {
+            "rating": 0.3,
+            "self": true,
+            "lastseen": 1698248808
+        },
+        "stream": 1
+    }
+]

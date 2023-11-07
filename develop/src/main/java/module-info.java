@@ -1,6 +1,7 @@
 
 /**
  * Teruteru's Test Repository
+ * 
  * @author teruteru
  * @moduleGraph
  */
@@ -18,6 +19,9 @@ module com.twitter.teruteru.study {
     requires commons.math3;
     requires org.apache.commons.codec;
     requires org.xerial.sqlitejdbc;
+    requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.annotation;
+    requires org.openapitools.jackson.nullable;
 
     // guava
     requires com.google.errorprone.annotations;
@@ -27,4 +31,6 @@ module com.twitter.teruteru.study {
     requires jakarta.json;
     requires org.bouncycastle.provider;
     requires org.twitter4j;
+
+    opens com.twitter.teruteru128.study;
 }

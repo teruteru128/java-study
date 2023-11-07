@@ -56,8 +56,8 @@ public class TarMaker {
         // move limit to tail
         header.position(512);
         header.flip();
-        var paddingsize = BigDecimal.valueOf(filesize).divide(Main.Round_Up_Width, RoundingMode.CEILING)
-                .multiply(Main.Round_Up_Width).longValue() - filesize;
+        var paddingsize = BigDecimal.valueOf(filesize).divide(TarMaker.Round_Up_Width, RoundingMode.CEILING)
+                .multiply(TarMaker.Round_Up_Width).longValue() - filesize;
         // Add 1024 bytes of null character as footer
         var filepad = new byte[(int) paddingsize];
         var chksummask = new byte[8];
@@ -97,5 +97,7 @@ public class TarMaker {
     static byte[] getbytesutf8(String a) {
         return a.getBytes(StandardCharsets.UTF_8);
     }
+
+    static final BigDecimal Round_Up_Width = new BigDecimal("512");
     
 }

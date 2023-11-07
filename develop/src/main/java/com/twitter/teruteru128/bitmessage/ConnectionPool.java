@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Selector持たせて終わりでいいんじゃね……？ConnectSessionを添付オブジェクトにしてさ
+ * Selector持たせて終わりでいいんじゃね……？{@link ConnectSession}を添付オブジェクトにしてさ
 */
 public class ConnectionPool implements AutoCloseable {
     private Selector selector;
