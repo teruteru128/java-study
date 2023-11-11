@@ -1,13 +1,17 @@
 package com.twitter.teruteru128.study;
 
-import java.io.File;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.charset.StandardCharsets;
+import java.time.Instant;
+import java.util.Base64;
 import java.util.HexFormat;
-import java.util.regex.Pattern;
-
-import org.openapitools.jackson.nullable.JsonNullableModule;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Main
@@ -30,15 +34,31 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var pattern = Pattern.compile("^[0-9a-z]{16}\\.onion$");
-        var nodes = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL)
-                .registerModule(new JsonNullableModule()).readerFor(Node[].class)
-                .<Node[]>readValue(new File("C:\\Users\\terut\\AppData\\Roaming\\PyBitmessage\\knownnodes.dat"));
-        for (Node node : nodes) {
-            var peer = node.getPeer();
-            var matcher = pattern.matcher(peer.getHostString());
-            if (matcher.matches()) {
-                System.out.printf("%s, %s, %s%n", peer, peer.getHostName(), peer.getHostString());
+        if (args.length < 2 || !args[0].equalsIgnoreCase("--in")) {
+            out();
+        } else {
+            in(args[1]);
+        }
+    }
+
+    private static void out() throws IOException {
+        var encoder = Base64.getEncoder();
+        try (var oos = new ObjectOutputStream(new BufferedOutputStream(encoder.wrap(System.out)))) {
+            oos.writeObject(new S(ThreadLocalRandom.current().nextLong(), UUID.randomUUID(), Instant.now()));
+        }
+    }
+
+    private static void in(String name) throws IOException, ClassNotFoundException {
+        var in = System.getenv(name);
+        if (in == null || in.isEmpty()) {
+            return;
+        }
+        var decoder = Base64.getDecoder();
+        try (var ois = new ObjectInputStream(
+                new BufferedInputStream(decoder.wrap(new ByteArrayInputStream(in.getBytes(StandardCharsets.UTF_8)))))) {
+            var obj = ois.readObject();
+            if (obj instanceof S s) {
+                System.out.printf("%d, %s, %s%n", s.seed(), s.uuid(), s.time());
             }
         }
     }
