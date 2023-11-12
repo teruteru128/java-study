@@ -35,9 +35,8 @@ public class ReceiveTask implements Callable<Void> {
             for (var iterator = selector.selectedKeys().iterator(); iterator.hasNext();) {
                 var key = iterator.next();
                 iterator.remove();
-                var c = key.channel();
                 if (key.isAcceptable()) {
-                    if (c instanceof ServerSocketChannel ssc) {
+                    if (key.channel() instanceof ServerSocketChannel ssc) {
                         // 接続受け入れ
                         var newSocketChannel = ssc.accept();
                         // TODO セッションオブジェクトを登録
@@ -49,7 +48,7 @@ public class ReceiveTask implements Callable<Void> {
                 } else if (key.isReadable()) {
                     var session = (ConnectSession) key.attachment();
                     // TODO unix domain socket対応もしたい
-                    if (c instanceof SocketChannel sc) {
+                    if (key.channel() instanceof SocketChannel sc) {
                         if (session.getSSLEngine().isPresent()) {
                             var engine = session.getSSLEngine().get();
                             var sslSession = engine.getSession();
