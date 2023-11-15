@@ -1,9 +1,7 @@
 package com.twitter.teruteru128.study;
 
-import java.net.InetSocketAddress;
-import java.net.StandardProtocolFamily;
-import java.nio.channels.ServerSocketChannel;
 import java.util.HexFormat;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Main
@@ -26,7 +24,15 @@ public class Main {
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var server = new Server();
-        server.run();
+        var p = ThreadLocalRandom.current().nextInt(216);
+        var array = new int[3];
+        var sum = 0;
+        for (int i = 0; i < 3; i++) {
+            array[i] = (p % 6) + 1;
+            p /= 6;
+            sum += array[i];
+        }
+        System.out.printf("[%d, %d, %d]%n", array[0], array[1], array[2]);
+        System.out.printf("%d%n", sum);
     }
 }
