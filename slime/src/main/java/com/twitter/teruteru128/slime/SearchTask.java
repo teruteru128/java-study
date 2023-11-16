@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.slime;
 
 import java.util.BitSet;
 import java.util.Random;
@@ -33,7 +33,8 @@ public class SearchTask implements Callable<Result> {
             for (z = 622; z >= 0; z--) {
                 for (x = 622; x >= 0; x--) {
                     if (extracted(bitSet, x, z)) {
-                        r = new Result(worldSeed, x, z);
+                        System.out.printf("found!: %d, %d, %d%n", worldSeed, (x - 312) * 16, (z - 312) * 16);
+                        r = new Result(worldSeed, x - 312, z - 312);
                     }
                 }
             }
@@ -44,6 +45,14 @@ public class SearchTask implements Callable<Result> {
         return r;
     }
 
+    /**
+     * Cだと long *とxとzなんだろうな
+     * 
+     * @param set
+     * @param x
+     * @param z
+     * @return
+     */
     private static boolean extracted(BitSet set, int x, int z) {
         return set.get((z + 3) * 625 + x + 3)
                 && set.get((z + 3) * 625 + x + 2)

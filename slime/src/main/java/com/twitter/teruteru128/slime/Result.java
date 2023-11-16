@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.slime;
 
 public record Result(long worldSeed, int x, int z) {
 
