@@ -29,10 +29,10 @@ public class Main {
             } else if ((args[i].equalsIgnoreCase("--start") || args[i].equalsIgnoreCase("-s")) && i + 1 < length) {
                 try {
                     long worldSeed = Long.parseLong(args[i + 1]);
-                    context.getWorldSeed().set(Long.parseLong(args[i + 1]));
+                    context.getWorldSeed().set(worldSeed);
                     System.err.printf("初期ワールドシードが%dに設定されました%n", worldSeed);
                 } catch (NumberFormatException e) {
-                    long worldSeed = ThreadLocalRandom.current().nextLong(1L << 32);
+                    long worldSeed = (long) ThreadLocalRandom.current().nextInt(1 << 16) << 32;
                     System.err.printf("startの設定に失敗したから%dにしておくゾ%n", worldSeed);
                     context.getWorldSeed().set(worldSeed);
                 }

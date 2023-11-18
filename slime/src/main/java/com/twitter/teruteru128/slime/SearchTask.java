@@ -22,6 +22,7 @@ public class SearchTask implements Callable<Result> {
         Result r = null;
         AtomicLong worldSeedGenerator = context.getWorldSeed();
         long worldSeed = 0;
+        boolean found = false;
         while (r == null) {
             worldSeed = worldSeedGenerator.getAndIncrement();
             for (z = 0; z < 625; z++) {
@@ -30,13 +31,14 @@ public class SearchTask implements Callable<Result> {
                     bitSet.set(z * 625 + x, random.nextInt(10) == 0);
                 }
             }
+            found = false;
             for (z = 622; z >= 0; z--) {
                 for (x = 622; x >= 0; x--) {
-                    if (extracted(bitSet, x, z)) {
-                        System.out.printf("found!: %d, %d, %d%n", worldSeed, (x - 312) * 16, (z - 312) * 16);
-                        r = new Result(worldSeed, x - 312, z - 312);
-                    }
+                    found |= extracted(bitSet, x, z);
                 }
+            }
+            if (found) {
+                r = new Result(worldSeed, 0, 0);
             }
             if ((worldSeed & 0xfffL) == 0xfffL) {
                 System.err.printf("done: %d%n", worldSeed);
