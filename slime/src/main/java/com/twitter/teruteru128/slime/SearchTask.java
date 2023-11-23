@@ -32,8 +32,8 @@ public class SearchTask implements Callable<Result> {
                 }
             }
             found = false;
-            for (z = 622; z >= 0; z--) {
-                for (x = 622; x >= 0; x--) {
+            for (z = 621; z >= 0; z--) {
+                for (x = 621; x >= 0; x--) {
                     found |= extracted(bitSet, x, z);
                 }
             }

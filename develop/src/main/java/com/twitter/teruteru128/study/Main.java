@@ -1,12 +1,8 @@
 package com.twitter.teruteru128.study;
 
-import static java.time.ZoneId.SHORT_IDS;
-
-import java.time.Duration;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.HexFormat;
+import java.util.Random;
 import java.util.StringJoiner;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -25,26 +21,30 @@ public class Main {
         }
     }
 
+    private static long calcSeed(long worldSeed, int x, int z) {
+        return worldSeed + (int) (x * x * 0x4c1906) + x * 0x5ac0db + (int) (z * z) * 0x4307a7L + (int) (z * 0x5f24f)
+                ^ 0x3ad8025fL;
+    }
+
     /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var cst = ZoneId.of("CST", SHORT_IDS);
-        var launchtime = ZonedDateTime.of(2023, 11, 18, 7, 0, 0, 0, cst);
-        var jst = ZoneId.of("JST", SHORT_IDS);
-        var launchinjst = launchtime.withZoneSameInstant(jst);
-        System.out.println(launchtime);
-        System.out.println(launchinjst);
-        var now = ZonedDateTime.now();
-        System.out.println(Duration.between(now, launchinjst));
-        choice();
+        var random = new Random();
+        for (int z = -48; z < -44; z++) {
+            for (int x = 129; x < 133; x++) {
+                long seed = calcSeed(263622805221400L, x, z);
+                random.setSeed(seed);
+                System.out.printf("%d, %d, %d, %b%n", x, z, seed, random.nextInt(10) == 0);
+            }
+        }
     }
 
     /**
      * スライムチャンク探索におけるシード開始位置抽選
-    */
+     */
     public static void choice() {
         for (long seed : choiceSeeds(16, 0x100000000L)) {
             System.out.println(seed);
