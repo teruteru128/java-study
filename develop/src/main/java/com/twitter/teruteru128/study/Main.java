@@ -1,17 +1,20 @@
 package com.twitter.teruteru128.study;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.HexFormat;
-import java.util.Random;
 import java.util.StringJoiner;
 import java.util.concurrent.ThreadLocalRandom;
+
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.interfaces.PBEKey;
+import javax.crypto.spec.PBEKeySpec;
 
 /**
  * Main
  */
 public class Main {
-
-    public static final HexFormat format = HexFormat.of();
 
     static {
         try {
@@ -21,25 +24,38 @@ public class Main {
         }
     }
 
-    private static long calcSeed(long worldSeed, int x, int z) {
-        return worldSeed + (int) (x * x * 0x4c1906) + x * 0x5ac0db + (int) (z * z) * 0x4307a7L + (int) (z * 0x5f24f)
-                ^ 0x3ad8025fL;
-    }
-
     /**
      * 
      * @param args
      * @throws Exception
      */
     public static void main(String[] args) throws Exception {
-        var random = new Random();
-        for (int z = -48; z < -44; z++) {
-            for (int x = 129; x < 133; x++) {
-                long seed = calcSeed(263622805221400L, x, z);
-                random.setSeed(seed);
-                System.out.printf("%d, %d, %d, %b%n", x, z, seed, random.nextInt(10) == 0);
-            }
+        if (args.length < 1) {
+            System.exit(1);
         }
+        char[] password = args[0].toCharArray();
+        var salt = HexFormat.of().parseHex(
+                "8e9104ca08a1b924f66adb294d643c265f2579d5d3cba781f65e4e50cba99841f657395e861c2896207662abb6a5c728366f8549ee368079e6f26c9a7cf124e7");
+        var key = getKey(password, salt);
+        showKey(key);
+    }
+
+    private static PBEKey getKey(char[] password, byte[] salt)
+            throws NoSuchAlgorithmException, InvalidKeySpecException {
+        var factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+        // どうしてビット単位なんですか
+        var inputSpec = new PBEKeySpec(password, salt, 16384, 512);
+        var key = (PBEKey) factory.generateSecret(inputSpec);
+        return key;
+    }
+
+    private static void showKey(PBEKey key) {
+        System.out.printf("password: %s%n", key.getAlgorithm());
+        System.out.printf("password: %s%n", key.getFormat());
+        System.out.printf("password: %s%n", key.getIterationCount());
+        System.out.printf("password: %s%n", new String(key.getPassword()));
+        System.out.printf("hash: %s%n", HexFormat.of().formatHex(key.getEncoded()));
+        System.out.printf("salt: %s%n", HexFormat.of().formatHex(key.getSalt()));
     }
 
     /**
