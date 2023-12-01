@@ -1,10 +1,15 @@
 package com.twitter.teruteru128.study;
 
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.HexFormat;
+import java.util.List;
 import java.util.StringJoiner;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.crypto.SecretKeyFactory;
@@ -33,11 +38,35 @@ public class Main {
         if (args.length < 1) {
             System.exit(1);
         }
-        char[] password = args[0].toCharArray();
-        var salt = HexFormat.of().parseHex(
-                "8e9104ca08a1b924f66adb294d643c265f2579d5d3cba781f65e4e50cba99841f657395e861c2896207662abb6a5c728366f8549ee368079e6f26c9a7cf124e7");
-        var key = getKey(password, salt);
-        showKey(key);
+        // コラッツ予想
+        final var ONE = BigInteger.valueOf(1);
+
+        final var random = SecureRandom.getInstanceStrong();
+        var poll = Executors.newWorkStealingPool();
+        var task = (Callable<R>) () -> {
+            long steps2 = 0;
+            BigInteger s = null;
+            do {
+                steps2 = 0;
+                s = new BigInteger(1 << 19, random);
+                var p = s;
+                while (p.compareTo(ONE) != 0) {
+                    if (p.testBit(0)) {
+                        p = p.shiftLeft(1).add(p).add(ONE).shiftRight(1);
+                    } else {
+                        p = p.shiftRight(1);
+                    }
+                    steps2++;
+                }
+                System.out.println("長すぎるッピ！");
+            } while (steps2 < 2560000);
+            return new R(s, steps2);
+        };
+        var r = poll.invokeAny(List.<Callable<R>>of(task, task, task, task, task,
+                task, task, task));
+        System.out.printf("seed: %d%n", r.seed());
+        System.out.printf("steps: %d%n", r.steps());
+
     }
 
     private static PBEKey getKey(char[] password, byte[] salt)
