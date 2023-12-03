@@ -13,5 +13,6 @@ plugins {
 }
 
 rootProject.name = 'java.study'
+include("christmas")
 include("develop")
 include("slime")

@@ -1,15 +1,28 @@
 package com.twitter.teruteru128.study;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.StringJoiner;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.crypto.SecretKeyFactory;
@@ -38,35 +51,147 @@ public class Main {
         if (args.length < 1) {
             System.exit(1);
         }
-        // コラッツ予想
-        final var ONE = BigInteger.valueOf(1);
+        /* int bitLength = 1048576;
+        BigInteger.probablePrime(bitLength, null);
+        Path path = Paths.get(".", "even-number-1048576.obj");
+        var s = createEvenNumber(bitLength);
+        outputObj(path, s); */
+        //BigInteger.probablePrime(0, null);
+        // 小さな既知素数ふるいを作成、もしくは読み込む
+        /* 
+        int length = 16777216;
+        var sieve = createSmallSieve(length);
+        outputObj(Paths.get(String.format("%dbit-smallsieve.obj", length)), sieve);
+        */
+        // 小さなふるいを使って大きなふるいから合成数を除外
+        // 大きな篩の長さ->1048576 / 20 * 64 = 3355444
+        //int searchLen = 3355444;
+        //long[] bis = new long[unitIndex(searchLen -1) + 1];
+        //int length = searchLen;
+        //int start = 0;
+        // 大きなふるいに残った素数候補を素数判定
+        //
+        // var f = new BigInteger("3" + "7".repeat(157826), 10);
+        // getQ(f);
+        // getMax(args[0]);
+        // randomSample();
+    }
 
-        final var random = SecureRandom.getInstanceStrong();
-        var poll = Executors.newWorkStealingPool();
-        var task = (Callable<R>) () -> {
-            long steps2 = 0;
-            BigInteger s = null;
-            do {
-                steps2 = 0;
-                s = new BigInteger(1 << 19, random);
-                var p = s;
-                while (p.compareTo(ONE) != 0) {
-                    if (p.testBit(0)) {
-                        p = p.shiftLeft(1).add(p).add(ONE).shiftRight(1);
-                    } else {
-                        p = p.shiftRight(1);
-                    }
-                    steps2++;
+    private static void randomSample() throws NoSuchAlgorithmException {
+        var start = new BigInteger(1024, SecureRandom.getInstanceStrong());
+        var startBitLength = start.bitLength();
+        var fixed = new BigInteger(new BigInteger(start.toString(13), 16).toString(15), 17);
+        var fixedBitLength = fixed.bitLength();
+        var done = fixed.shiftRight(fixedBitLength - startBitLength);
+        int doneBitLength = done.bitLength();
+        System.out.printf("%dbit: %0256x%n", startBitLength, start);
+        System.out.printf("%dbit: %0256x%n", fixedBitLength, fixed);
+        System.out.printf("%dbit: %0256x%n", doneBitLength, done);
+    }
+
+    private static long[] createSmallSieve(int length) {
+        var sieve = new long[(unitIndex(length -1) + 1)];
+        sieve[0] = 1;
+        int nextIndex = 1;
+        int nextPrime = 3;
+
+        do {
+            sieveSingle(sieve, length, nextIndex + nextPrime, nextPrime);
+            nextIndex = sieveSearch(sieve, length, nextIndex + 1);
+            nextPrime = 2 * nextIndex + 1;
+        } while ((nextIndex > 0) && (nextPrime < length));
+        return sieve;
+    }
+
+    private static int sieveSearch(long[] bits, int limit, int start){
+        if(start >= limit)
+            return -1;
+        int index = start;
+        do {
+            if(get(bits, index))
+            return index;
+            index++;
+        } while (index < limit -1);
+        return 0;
+    }
+
+    private static void sieveSingle(long[] bits, int limit, int start, int step) {
+        while(start < limit){
+            set(bits, start);
+            start += step;
+        }
+    }
+
+    private static boolean get(long[] bits, int bitIndex){
+        int unitIndex = unitIndex(bitIndex);
+        return ((bits[unitIndex] & bit(bitIndex)) != 0);
+    }
+
+    private static void set(long[] bits, int bitIndex) {
+        int unitIndex = unitIndex(bitIndex);
+        bits[unitIndex] |= bit(bitIndex);
+    }
+
+    private static int unitIndex(int bitIndex){
+        return bitIndex >>> 6;
+    }
+
+    private static long bit(int bitIndex) {
+        return 1L << (bitIndex & ((1<<6) - 1));
+    }
+
+    private static void outputObj(Path path, Serializable s) throws IOException {
+        var baos = new ByteArrayOutputStream();
+        try (var oos = new ObjectOutputStream(baos)) {
+            oos.writeObject(s);
+        }
+        Files.write(path, baos.toByteArray(), StandardOpenOption.WRITE,
+                StandardOpenOption.CREATE);
+    }
+
+    private static BigInteger createEvenNumber(int bitLength) throws NoSuchAlgorithmException {
+        return new BigInteger(bitLength, SecureRandom.getInstanceStrong()).setBit(bitLength - 1).clearBit(0);
+    }
+
+    private static void getMax(String first) throws IOException, ClassNotFoundException {
+        var list = new ArrayList<BigInteger>(20);
+        var max = BigInteger.ONE.shiftLeft(1048576);
+        for (int i = 1; i < 6; i++) {
+            try (var oos = new ObjectInputStream(
+                    new ByteArrayInputStream(
+                            Files.readAllBytes(Paths.get(first, String.format("524290bit-%d.obj", i)))))) {
+                var o = oos.readObject();
+                if (o instanceof BigInteger r) {
+                    list.add(r);
+                } else if (o instanceof BigInteger[] r) {
+                    list.addAll(List.of(r));
                 }
-                System.out.println("長すぎるッピ！");
-            } while (steps2 < 2560000);
-            return new R(s, steps2);
-        };
-        var r = poll.invokeAny(List.<Callable<R>>of(task, task, task, task, task,
-                task, task, task));
-        System.out.printf("seed: %d%n", r.seed());
-        System.out.printf("steps: %d%n", r.steps());
+            }
+        }
+        Collections.sort(list);
+        int size = list.size();
+        var baos = new ByteArrayOutputStream();
+        try (var oos = new ObjectOutputStream(baos)) {
+            oos.writeObject(list.get(size - 1));
+        }
+        Files.write(Paths.get(first, String.format("%dbit-6.obj", list.get(size - 1).bitLength())),
+                baos.toByteArray(), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+    }
 
+    private static void getQ(BigInteger p) throws NoSuchAlgorithmException, IOException, FileNotFoundException {
+        BigInteger[] q = new BigInteger[512];
+        for (int i = 0; i < 512; i++) {
+            do {
+                q[i] = new BigInteger(524289, SecureRandom.getInstanceStrong());
+            } while (q[i].bitLength() < 524288 || p.multiply(q[i]).bitLength() != 1048576);
+        }
+        Arrays.sort(q);
+        System.out.println(q[511].bitLength());
+        System.out.println(p.multiply(q[511]).bitLength());
+        try (ObjectOutputStream oos = new ObjectOutputStream(
+                new BufferedOutputStream(new FileOutputStream("524290bit-6.obj")))) {
+            oos.writeObject(q);
+        }
     }
 
     private static PBEKey getKey(char[] password, byte[] salt)

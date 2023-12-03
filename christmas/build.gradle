@@ -1,0 +1,10 @@
+
+plugins{
+    id 'com.twitter.teruteru128.study.java-application-conventions'
+}
+
+application {
+    mainModule = 'com.twitter.teruteru.christmas'
+    mainClass = 'com.twitter.teruteru128.christmas.Main'
+    //applicationDefaultJvmArgs = ['-Xms64G', '-Xmx64G']
+}
