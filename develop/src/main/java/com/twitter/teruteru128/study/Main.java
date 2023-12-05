@@ -14,6 +14,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -29,6 +30,9 @@ import java.util.concurrent.ThreadLocalRandom;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.interfaces.PBEKey;
 import javax.crypto.spec.PBEKeySpec;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
 
 /**
  * Main
@@ -61,9 +65,9 @@ public class Main {
         BitSet sieve = extracted3();
         int step = sieve.nextClearBit(0);
         int convertedStep = (step * 2) + 1;
-        while(true){
+        while (true) {
             var p = base.add(BigInteger.valueOf(convertedStep));
-            if(p.isProbablePrime(100)) {
+            if (p.isProbablePrime(100)) {
                 System.out.printf("prime: step is %d%n", step);
                 break;
             }
@@ -76,7 +80,7 @@ public class Main {
     private static void createBitSieve() throws IOException, ClassNotFoundException, FileNotFoundException {
         // 小さなふるいを使って大きなふるいから合成数を除外
         // 大きな篩の長さ->1048576 / 20 * 64 = 3355444
-        
+
         long[] smallSieve = extracted1();
         BigInteger base = extracted2();
         int searchLen = base.bitLength() / 20 * 64;
@@ -84,11 +88,12 @@ public class Main {
         long[] bis = getBits(smallSieve, base, searchLen);
         var set = BitSet.valueOf(bis);
         int nextClearBit = set.nextClearBit(0);
-        if(nextClearBit == searchLen || nextClearBit == -1) {
+        if (nextClearBit == searchLen || nextClearBit == -1) {
             System.out.println("失敗！");
             return;
         }
-        try (var oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(String.format("largesieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-%dbit-2.obj", searchLen))))) {
+        try (var oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(
+                String.format("largesieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-%dbit-2.obj", searchLen))))) {
             oos.writeInt(length);
             oos.writeObject(bis);
         }
@@ -110,31 +115,34 @@ public class Main {
 
     private static BitSet extracted3() throws IOException, ClassNotFoundException {
         long[] n = null;
-        try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(Paths.get("largesieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-2.obj"))))) {
+        try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(
+                Paths.get("largesieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-2.obj"))))) {
             ois.readInt();
-            n = (long[])ois.readObject();
+            n = (long[]) ois.readObject();
         }
         return BitSet.valueOf(n);
     }
 
     private static BigInteger extracted2() throws IOException, ClassNotFoundException {
         BigInteger base;
-        try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"))))) {
-            base = (BigInteger)ois.readObject();
+        try (var ois = new ObjectInputStream(new ByteArrayInputStream(
+                Files.readAllBytes(Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"))))) {
+            base = (BigInteger) ois.readObject();
         }
         return base;
     }
 
     private static long[] extracted1() throws IOException, ClassNotFoundException {
         long[] smallSieve;
-        try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(Paths.get("1073741824bit-smallsieve.obj"))))) {
-            smallSieve = (long[])ois.readObject();
+        try (var ois = new ObjectInputStream(
+                new ByteArrayInputStream(Files.readAllBytes(Paths.get("1073741824bit-smallsieve.obj"))))) {
+            smallSieve = (long[]) ois.readObject();
         }
         return smallSieve;
     }
 
     private static long[] getBits(long[] smallSieve, BigInteger base, int searchLen) {
-        long[] bis = new long[unitIndex(searchLen -1) + 1];
+        long[] bis = new long[unitIndex(searchLen - 1) + 1];
         int start = 0;
         int step = sieveSearch(smallSieve, smallSieve.length, start);
         int convertedStep = (step * 2) + 1;
@@ -143,12 +151,12 @@ public class Main {
             start = b.mod(BigInteger.valueOf(convertedStep)).intValue();
 
             start = convertedStep - start;
-            if(start % 2 == 0)
+            if (start % 2 == 0)
                 start += convertedStep;
             sieveSingle(bis, searchLen, (start - 1) / 2, convertedStep);
 
             step = sieveSearch(smallSieve, smallSieve.length, step + 1);
-            convertedStep = (step *2) + 1;
+            convertedStep = (step * 2) + 1;
         } while (step > 0);
         return bis;
     }
@@ -179,26 +187,26 @@ public class Main {
         return sieve;
     }
 
-    private static int sieveSearch(long[] bits, int limit, int start){
-        if(start >= limit)
+    private static int sieveSearch(long[] bits, int limit, int start) {
+        if (start >= limit)
             return -1;
         int index = start;
         do {
-            if(!get(bits, index))
+            if (!get(bits, index))
                 return index;
             index++;
-        } while (index < limit -1);
+        } while (index < limit - 1);
         return -1;
     }
 
     private static void sieveSingle(long[] bits, int limit, int start, int step) {
-        while(start < limit){
+        while (start < limit) {
             set(bits, start);
             start += step;
         }
     }
 
-    private static boolean get(long[] bits, int bitIndex){
+    private static boolean get(long[] bits, int bitIndex) {
         int unitIndex = unitIndex(bitIndex);
         return ((bits[unitIndex] & bit(bitIndex)) != 0);
     }
@@ -208,12 +216,12 @@ public class Main {
         bits[unitIndex] |= bit(bitIndex);
     }
 
-    private static int unitIndex(int bitIndex){
+    private static int unitIndex(int bitIndex) {
         return bitIndex >>> 6;
     }
 
     private static long bit(int bitIndex) {
-        return 1L << (bitIndex & ((1<<6) - 1));
+        return 1L << (bitIndex & ((1 << 6) - 1));
     }
 
     private static void outputObj(Path path, Serializable s) throws IOException {
