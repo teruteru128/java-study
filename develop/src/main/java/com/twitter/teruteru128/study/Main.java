@@ -19,6 +19,7 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.BitSet;
 import java.util.Collections;
 import java.util.HexFormat;
 import java.util.List;
@@ -33,6 +34,8 @@ import javax.crypto.spec.PBEKeySpec;
  * Main
  */
 public class Main {
+
+    private static BigInteger f = new BigInteger("3" + "7".repeat(157826), 10);
 
     static {
         try {
@@ -51,30 +54,103 @@ public class Main {
         if (args.length < 1) {
             System.exit(1);
         }
-        /* int bitLength = 1048576;
-        BigInteger.probablePrime(bitLength, null);
-        Path path = Paths.get(".", "even-number-1048576.obj");
-        var s = createEvenNumber(bitLength);
-        outputObj(path, s); */
-        //BigInteger.probablePrime(0, null);
-        // 小さな既知素数ふるいを作成、もしくは読み込む
-        /* 
-        int length = 16777216;
-        var sieve = createSmallSieve(length);
-        outputObj(Paths.get(String.format("%dbit-smallsieve.obj", length)), sieve);
-        */
+    }
+
+    private static void getConvertedStep() throws IOException, ClassNotFoundException {
+        BigInteger base = extracted2();
+        BitSet sieve = extracted3();
+        int step = sieve.nextClearBit(0);
+        int convertedStep = (step * 2) + 1;
+        while(true){
+            var p = base.add(BigInteger.valueOf(convertedStep));
+            if(p.isProbablePrime(100)) {
+                System.out.printf("prime: step is %d%n", step);
+                break;
+            }
+            System.out.printf("not prime: step %d is not prime%n", step);
+            step = sieve.nextClearBit(step + 1);
+            convertedStep = (step * 2) + 1;
+        }
+    }
+
+    private static void createBitSieve() throws IOException, ClassNotFoundException, FileNotFoundException {
         // 小さなふるいを使って大きなふるいから合成数を除外
         // 大きな篩の長さ->1048576 / 20 * 64 = 3355444
-        //int searchLen = 3355444;
-        //long[] bis = new long[unitIndex(searchLen -1) + 1];
-        //int length = searchLen;
-        //int start = 0;
-        // 大きなふるいに残った素数候補を素数判定
-        //
-        // var f = new BigInteger("3" + "7".repeat(157826), 10);
-        // getQ(f);
-        // getMax(args[0]);
-        // randomSample();
+        
+        long[] smallSieve = extracted1();
+        BigInteger base = extracted2();
+        int searchLen = base.bitLength() / 20 * 64;
+        int length = searchLen;
+        long[] bis = getBits(smallSieve, base, searchLen);
+        var set = BitSet.valueOf(bis);
+        int nextClearBit = set.nextClearBit(0);
+        if(nextClearBit == searchLen || nextClearBit == -1) {
+            System.out.println("失敗！");
+            return;
+        }
+        try (var oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(String.format("largesieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-%dbit-2.obj", searchLen))))) {
+            oos.writeInt(length);
+            oos.writeObject(bis);
+        }
+    }
+
+    private static void getSieve() throws IOException {
+        // 小さな既知素数ふるいを作成、もしくは読み込む
+        int length = 1 << 30;
+        var sieve = createSmallSieve(length);
+        outputObj(Paths.get(String.format("%dbit-smallsieve.obj", length)), sieve);
+    }
+
+    private static void getS() throws NoSuchAlgorithmException, IOException {
+        int bitLength = 1048576;
+        Path path = Paths.get(".", "even-number-1048576.obj");
+        var s = createEvenNumber(bitLength);
+        outputObj(path, s);
+    }
+
+    private static BitSet extracted3() throws IOException, ClassNotFoundException {
+        long[] n = null;
+        try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(Paths.get("largesieve-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd-3355392bit-2.obj"))))) {
+            ois.readInt();
+            n = (long[])ois.readObject();
+        }
+        return BitSet.valueOf(n);
+    }
+
+    private static BigInteger extracted2() throws IOException, ClassNotFoundException {
+        BigInteger base;
+        try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(Paths.get("even-number-1048576bit-32ec7597-040b-4f0c-a081-062d4fa72ecd.obj"))))) {
+            base = (BigInteger)ois.readObject();
+        }
+        return base;
+    }
+
+    private static long[] extracted1() throws IOException, ClassNotFoundException {
+        long[] smallSieve;
+        try (var ois = new ObjectInputStream(new ByteArrayInputStream(Files.readAllBytes(Paths.get("1073741824bit-smallsieve.obj"))))) {
+            smallSieve = (long[])ois.readObject();
+        }
+        return smallSieve;
+    }
+
+    private static long[] getBits(long[] smallSieve, BigInteger base, int searchLen) {
+        long[] bis = new long[unitIndex(searchLen -1) + 1];
+        int start = 0;
+        int step = sieveSearch(smallSieve, smallSieve.length, start);
+        int convertedStep = (step * 2) + 1;
+        BigInteger b = base;
+        do {
+            start = b.mod(BigInteger.valueOf(convertedStep)).intValue();
+
+            start = convertedStep - start;
+            if(start % 2 == 0)
+                start += convertedStep;
+            sieveSingle(bis, searchLen, (start - 1) / 2, convertedStep);
+
+            step = sieveSearch(smallSieve, smallSieve.length, step + 1);
+            convertedStep = (step *2) + 1;
+        } while (step > 0);
+        return bis;
     }
 
     private static void randomSample() throws NoSuchAlgorithmException {
@@ -90,7 +166,7 @@ public class Main {
     }
 
     private static long[] createSmallSieve(int length) {
-        var sieve = new long[(unitIndex(length -1) + 1)];
+        var sieve = new long[(unitIndex(length - 1) + 1)];
         sieve[0] = 1;
         int nextIndex = 1;
         int nextPrime = 3;
@@ -108,11 +184,11 @@ public class Main {
             return -1;
         int index = start;
         do {
-            if(get(bits, index))
-            return index;
+            if(!get(bits, index))
+                return index;
             index++;
         } while (index < limit -1);
-        return 0;
+        return -1;
     }
 
     private static void sieveSingle(long[] bits, int limit, int start, int step) {
