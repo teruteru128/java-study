@@ -14,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.security.KeyStore;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -22,17 +21,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.HexFormat;
 import java.util.List;
 import java.util.StringJoiner;
+import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.interfaces.PBEKey;
 import javax.crypto.spec.PBEKeySpec;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
 
 /**
  * Main
@@ -57,6 +59,29 @@ public class Main {
     public static void main(String[] args) throws Exception {
         if (args.length < 1) {
             System.exit(1);
+        }
+        getLoto7Numbers(args);
+    }
+
+    private static void getLoto7Numbers(String[] args) throws NoSuchAlgorithmException {
+        var strings = IntStream.rangeClosed(1, 37).mapToObj(l -> Integer.toString(l, 10))
+                .collect(Collectors.toCollection(ArrayList<String>::new));
+        int counts = Integer.parseInt(args[0]);
+        int j = 0;
+        var random = SecureRandom.getInstanceStrong();
+        StringJoiner joiner = null;
+        var set = new TreeSet<String>(Comparator.comparing(String::length).thenComparing(Function.identity()));
+        for (int i = 0; i < counts; i++) {
+            Collections.shuffle(strings, random);
+            for (j = 0; j < 7; j++) {
+                set.add(strings.get(j));
+            }
+            joiner = new StringJoiner(", ");
+            for (var n : set) {
+                joiner.add(n);
+            }
+            set.clear();
+            System.out.println(joiner);
         }
     }
 
