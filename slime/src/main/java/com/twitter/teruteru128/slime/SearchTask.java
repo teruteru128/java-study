@@ -27,8 +27,7 @@ public class SearchTask implements Callable<Result> {
             worldSeed = worldSeedGenerator.getAndIncrement();
             for (z = 0; z < 625; z++) {
                 for (x = 0; x < 625; x++) {
-                    random.setSeed(calcSeed(worldSeed, x - 312, z - 312));
-                    bitSet.set(z * 625 + x, random.nextInt(10) == 0);
+                    bitSet.set(z * 625 + x, isSlimeChunk(random, worldSeed, x - 312, z - 312));
                 }
             }
             found = false;
@@ -74,9 +73,15 @@ public class SearchTask implements Callable<Result> {
                 && set.get((z + 0) * 625 + x + 0);
     }
 
-    private static long calcSeed(long worldSeed, int x, int z) {
-        return worldSeed + (int) (x * x * 0x4c1906) + x * 0x5ac0db + (int) (z * z) * 0x4307a7L + (int) (z * 0x5f24f)
-                ^ 0x3ad8025fL;
+    private static boolean isSlimeChunk(Random random, long seed, int chunkX, int chunkZ) {
+        long rnd = seed;
+        rnd += (int) (chunkX * 0x5ac0db);
+        rnd += (int) (chunkX * chunkX * 0x4c1906);
+        rnd += (int) (chunkZ * 0x5f24f);
+        rnd += (int) (chunkZ * chunkZ) * 0x4307a7L;
+        rnd ^= 0x3ad8025fL;
+        random.setSeed(rnd);
+        return random.nextInt(10) == 0;
     }
 
 }
