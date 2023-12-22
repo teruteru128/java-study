@@ -11,7 +11,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
-public class AESEDESample implements Sample {
+public class AESSample implements Sample {
 
     @Override
     public void sample() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
