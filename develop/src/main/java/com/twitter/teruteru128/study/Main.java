@@ -33,7 +33,14 @@ import javax.crypto.spec.PBEKeySpec;
  */
 public class Main {
 
-    private static final BigInteger F = new BigInteger("3" + "7".repeat(157826), 10);
+    private static final BigInteger F;
+
+    static {
+        byte[] array = new byte[157827];
+        array[0] = (byte)'3';
+        Arrays.fill(array, 1, 157827, (byte)'7');
+        F = new BigInteger(new String(array), 10);
+    }
 
     static {
         try {
