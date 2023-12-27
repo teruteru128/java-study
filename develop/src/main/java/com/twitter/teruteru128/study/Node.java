@@ -29,7 +29,7 @@ public class Node {
     @JsonProperty("peer")
     private void unpackPeer(Map<String, Object> peer) {
         if (peer.get("host") instanceof String host && peer.get("port") instanceof Integer port) {
-            this.peer = InetSocketAddress.createUnresolved(host, port.intValue());
+            this.peer = InetSocketAddress.createUnresolved(host, port);
         }
     }
 
@@ -44,4 +44,11 @@ public class Node {
     public void setStream(int stream) {
         this.stream = stream;
     }
+
+    @Override
+    public String toString() {
+        return "Node [peer=" + peer + ", info=" + info + ", stream=" + stream + "]";
+    }
+
+
 }

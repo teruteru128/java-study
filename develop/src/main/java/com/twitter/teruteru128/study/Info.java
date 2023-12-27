@@ -34,4 +34,11 @@ public class Info {
     public void setLastseen(long lastseen) {
         this.lastseen = lastseen;
     }
+
+    @Override
+    public String toString() {
+        return "Info [rating=" + rating + ", self=" + self + ", lastseen=" + lastseen + "]";
+    }
+
+
 }

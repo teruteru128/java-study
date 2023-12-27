@@ -5,7 +5,6 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.StringJoiner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -27,11 +26,9 @@ public class Takarakuji {
                 selectedNumberArray[j] = numberOriginalList.get(j);
             }
             Arrays.sort(selectedNumberArray);
-            StringJoiner joiner = new StringJoiner(", ");
-            for (var n : selectedNumberArray) {
-                joiner.add(Integer.toString(n));
-            }
-            System.out.println(joiner);
+            System.out.printf("%d, %d, %d, %d, %d, %d, %d%n", selectedNumberArray[0], selectedNumberArray[1],
+                    selectedNumberArray[2], selectedNumberArray[3], selectedNumberArray[4], selectedNumberArray[5],
+                    selectedNumberArray[6]);
         }
     }
 

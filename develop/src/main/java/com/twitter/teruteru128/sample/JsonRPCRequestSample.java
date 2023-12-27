@@ -20,7 +20,6 @@ public class JsonRPCRequestSample implements Sample {
         var response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
         System.out.println(response.statusCode());
         System.out.println(response.body());
-
     }
 
     private static HttpClient client = HttpClient.newBuilder().build();

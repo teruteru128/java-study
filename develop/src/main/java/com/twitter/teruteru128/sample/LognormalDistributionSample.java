@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -17,13 +19,13 @@ import org.apache.commons.math3.distribution.LogNormalDistribution;
  * 対数正規分布のサンプル
  * @see https://qiita.com/t_uehara/items/460e04ba7d2b19fdd497
  */
-public class LognormalDistributionSample implements Sample {
+public class LogNormalDistributionSample implements Sample {
 
     public void sample(File outFile) throws IOException {
         try (var os = new PrintStream(new BufferedOutputStream(new FileOutputStream(outFile)))) {
-            double MU = Math.log(15); // ln(x)の平均μ 大きいほどグラフの右側が伸びる
-            double SIGMA = 1; // ln(x)の標準偏差σ 大きいほどグラフが横に広がる
-            var distribution = new LogNormalDistribution(MU, SIGMA);
+             // ln(x)の平均μ 大きいほどグラフの右側が伸びる
+             // ln(x)の標準偏差σ 大きいほどグラフが横に広がる
+            var distribution = new LogNormalDistribution(Math.log(21.0), 1.0);
 
             List<Double> results = IntStream.rangeClosed(1, 60000000).boxed()
                     .map(i -> distribution.sample())
@@ -56,6 +58,29 @@ public class LognormalDistributionSample implements Sample {
     @Override
     public void sample() throws IOException {
         sample(new File(""));
+    }
+
+    public static void getS() throws IOException {
+        var distribution = new LogNormalDistribution(Math.log(80.0), 1.);
+        var samples = distribution.sample(60000000);
+        var map = new TreeMap<Long, Long>();
+        long floor = 0;
+        Long key = null;
+        long value = 0;
+        double offset = 3.;
+        for (double sample : samples) {
+            floor = (long) Math.floor((sample + offset) * 2);
+            key = Long.valueOf(floor);
+            value = map.containsKey(key) ? map.get(key) + 1 : 1;
+            map.put(key, Long.valueOf(value));
+            // System.out.printf("%f: %f%n", floor / 2.0, sample);
+        }
+        try (var ps = new PrintStream(new File("s13.txt"), StandardCharsets.UTF_8)) {
+            ps.printf("μ: log(%f), \u03c3: %f, offset: %+f%n", Math.exp(distribution.getScale()), distribution.getShape(), offset);
+            for (var set : map.entrySet()) {
+                ps.printf("%.1f: %d%n", set.getKey() / 2.0, set.getValue());
+            }
+        }
     }
 
     public static void sample2() {
