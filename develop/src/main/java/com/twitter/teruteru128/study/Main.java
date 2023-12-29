@@ -39,6 +39,6 @@ public class Main {
             System.exit(1);
         }
         var executor = Executors.newSingleThreadScheduledExecutor();
-        executor.scheduleWithFixedDelay(new Task2(), 0, 16, TimeUnit.SECONDS);
+        executor.scheduleWithFixedDelay(new Task2(), 0, 6, TimeUnit.SECONDS);
     }
 }
