@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.bitmessage;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -12,9 +12,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.concurrent.Callable;
-
-import com.twitter.teruteru128.bitmessage.ConnectSession;
-import com.twitter.teruteru128.bitmessage.ConnectionType;
 
 /**
  * データ受信/接続受け入れだけを担当するスレッド。

@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import com.twitter.teruteru128.util.Base58;
+import com.twitter.teruteru128.encode.Base58;
 
 public class AddressValidator {
 

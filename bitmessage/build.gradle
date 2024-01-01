@@ -1,0 +1,18 @@
+
+plugins {
+    id 'com.twitter.teruteru128.study.java-library-conventions'
+}
+
+dependencies {
+    implementation project(':encode')
+    implementation project(':time')
+
+    // https://mvnrepository.com/artifact/commons-codec/commons-codec
+    implementation 'commons-codec:commons-codec:1.16.0'
+
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    implementation 'org.xerial:sqlite-jdbc:3.44.1.0'
+
+    // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk15on
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
+}

@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 
 import com.twitter.teruteru128.bitmessage.Const;
 import com.twitter.teruteru128.sample.Sample;
-import com.twitter.teruteru128.util.Base58;
+import com.twitter.teruteru128.encode.Base58;
 
 public class Search implements Sample {
 

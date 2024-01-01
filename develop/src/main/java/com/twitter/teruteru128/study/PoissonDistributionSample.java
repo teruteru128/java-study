@@ -2,12 +2,10 @@ package com.twitter.teruteru128.study;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.twitter.teruteru128.bitmessage.dandelion.Dandelion;
-
 public class PoissonDistributionSample {
 
     /**
-     * {@link Dandelion#poissonTimeout()}のサンプル
+     * {@link com.twitter.teruteru128.bitmessage.dandelion.Dandelion#poissonTimeout()}のサンプル
      * 
      * @param average
      * @return

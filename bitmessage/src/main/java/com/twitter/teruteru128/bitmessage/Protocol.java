@@ -29,8 +29,8 @@ import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
-import org.apache.commons.codec.binary.Base32;
 import org.bouncycastle.jce.interfaces.ECPublicKey;
+import org.bouncycastle.util.encoders.Base32;
 
 import com.twitter.teruteru128.bitmessage.inventory.InventoryVector;
 import com.twitter.teruteru128.bitmessage.protocol.Packet;
@@ -38,8 +38,7 @@ import com.twitter.teruteru128.bitmessage.protocol.PacketHeader;
 import com.twitter.teruteru128.bitmessage.protocol.payload.Addr;
 import com.twitter.teruteru128.bitmessage.protocol.payload.Inv;
 import com.twitter.teruteru128.bitmessage.protocol.payload.Version;
-import com.twitter.teruteru128.study.DecodedAddress;
-import com.twitter.teruteru128.util.Base58;
+import com.twitter.teruteru128.encode.Base58;
 
 /**
  * TODO もう接続の管理はSelectorでよくねえ……？

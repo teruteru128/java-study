@@ -18,6 +18,10 @@ application {
 }
 
 dependencies {
+    implementation project(':bitmessage')
+    implementation project(':encode')
+    implementation project(':time')
+
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     implementation 'org.apache.commons:commons-math3:3.6.1'
 

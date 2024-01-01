@@ -1,5 +1,5 @@
 
-plugins{
+plugins {
     id 'com.twitter.teruteru128.study.java-application-conventions'
 }
 

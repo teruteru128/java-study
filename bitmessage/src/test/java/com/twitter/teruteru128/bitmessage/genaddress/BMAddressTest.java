@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 import com.twitter.teruteru128.bitmessage.Const;
 import com.twitter.teruteru128.bitmessage.spec.BMAddress;
-import com.twitter.teruteru128.util.Base58;
+import com.twitter.teruteru128.encode.Base58;
 
 public class BMAddressTest {
 

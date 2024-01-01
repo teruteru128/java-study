@@ -8,6 +8,8 @@ import java.net.http.HttpRequest.Builder;
 import java.net.http.HttpResponse;
 import java.time.Instant;
 import java.util.Base64;
+import java.util.HexFormat;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 
 public class Task2 implements Runnable {
@@ -22,13 +24,18 @@ public class Task2 implements Runnable {
     private static final Base64.Encoder ENCODER = Base64.getEncoder();
     private static final Pattern PATTERN = Pattern
             .compile("\\{\"jsonrpc\": \"2.0\", \"result\": \"([0-9a-f]{76})\", \"id\": \\d+\\}");
+    private static final HexFormat FORMAT = HexFormat.of();
+    private final byte[] buf = new byte[64];
 
     @Override
     public void run() {
         try {
+            ThreadLocalRandom.current().nextBytes(buf);
             var responseBody = CLIENT.send(
                     BUILDER.POST(HttpRequest.BodyPublishers.ofString(String.format(REQUEST_BODY,
-                            ENCODER.encodeToString(Long.toString(Instant.now().getEpochSecond()).getBytes())))).build(),
+                            ENCODER.encodeToString(new StringBuilder(139).append(Instant.now().getEpochSecond())
+                                    .append('\n').append(FORMAT.formatHex(buf)).toString().getBytes()))))
+                            .build(),
                     HttpResponse.BodyHandlers.ofString()).body();
             var matcher = PATTERN.matcher(responseBody);
             System.out.println(matcher.matches() ? matcher.group(1) : responseBody);

@@ -1,0 +1,4 @@
+
+plugins {
+    id 'com.twitter.teruteru128.study.java-library-conventions'
+}
