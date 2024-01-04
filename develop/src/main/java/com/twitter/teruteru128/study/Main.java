@@ -38,5 +38,6 @@ public class Main {
         if (args.length < 1) {
             System.exit(1);
         }
+        System.out.println("うんち！");
     }
 }

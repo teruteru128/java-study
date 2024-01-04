@@ -1,9 +1,14 @@
 package com.twitter.teruteru128.preview;
 
+import java.lang.foreign.Arena;
+import java.lang.foreign.ValueLayout;
+
 public class Main {
     void main() {
-        System.out.printf("%s%n", System.getProperty("java.version"));
-        System.out.printf("%s%n", System.getProperty("file.encoding"));
-        System.out.println("うんち！");
+        var arena = Arena.ofAuto();
+        var seg = arena.allocate(200, 8);
+        for (long i = 0; i < 200; i += 8) {
+            seg.set(ValueLayout.JAVA_LONG, i, i);
+        }
     }
 }

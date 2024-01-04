@@ -6,7 +6,7 @@ plugins {
 application {
     mainModule = 'com.twitter.teruteru.slime'
     mainClass = 'com.twitter.teruteru128.slime.Main'
-    applicationDefaultJvmArgs = ['-Dfile.encoding=UTF-8']
+    applicationDefaultJvmArgs = []
 }
 
 repositories {

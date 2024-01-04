@@ -12,10 +12,8 @@ compileJava {
     options.compilerArgs += ["--enable-preview"]
 }
 
-tasks.withType(JavaExec) { jvmArgs += '--enable-preview' }
-
 application {
     mainModule = 'com.twitter.teruteru.preview'
     mainClass = 'com.twitter.teruteru128.preview.Main'
-    //applicationDefaultJvmArgs = ['-Xms64G', '-Xmx64G']
+    applicationDefaultJvmArgs = ['--enable-preview', '-Xms64G', '-Xmx64G']
 }
