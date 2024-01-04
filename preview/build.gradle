@@ -1,0 +1,21 @@
+
+plugins {
+    id 'com.twitter.teruteru128.study.java-application-conventions'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+compileJava {
+    options.compilerArgs += ["--enable-preview"]
+}
+
+tasks.withType(JavaExec) { jvmArgs += '--enable-preview' }
+
+application {
+    mainModule = 'com.twitter.teruteru.preview'
+    mainClass = 'com.twitter.teruteru128.preview.Main'
+    //applicationDefaultJvmArgs = ['-Xms64G', '-Xmx64G']
+}
