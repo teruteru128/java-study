@@ -9,7 +9,9 @@ java {
 }
 
 compileJava {
-    options.compilerArgs += ["--enable-preview"]
+    options.compilerArgs += ['--enable-preview'
+    //, '-Xlint:preview'
+    ]
 }
 
 application {
