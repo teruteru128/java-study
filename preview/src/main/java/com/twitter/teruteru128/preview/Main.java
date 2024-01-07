@@ -8,53 +8,72 @@ import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.Linker;
-import java.lang.foreign.SymbolLookup;
+
+import static com.twitter.teruteru128.preview.opencl.opencl_h.*;
+import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clGetDeviceIDs;
+import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clGetPlatformIDs;
+import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clReleaseDevice;
 
 public class Main {
-    void main(String[] args) throws Throwable {
+
+    public static void main(String[] args) throws Throwable {
+        var main = new Main();
+        main.call(args);
+    }
+
+    private void call(String[] args) throws Throwable {
         // でも本当にほしいのはSocketとかファイルとかMessageDigestとかの連携なんだよね……
         // もしかしてネイティブライブラリにアクセスできるならOpenSSLにアクセスもできる……？
         // OpenCLもアクセスできるっぽい
         var s = args.length >= 1 ? args[0] : "yattaze.";
+        int ret = 0;
         try (var arena = Arena.ofConfined()) {
             var linker = Linker.nativeLinker();
             callStrlen(s, arena, linker);
-            extracted(arena, linker);
+            ret = extracted(arena, linker);
+        }
+        if (ret != 0) {
+            System.out.printf("何かしらのエラーが発生しました: %d%n", ret);
+            System.exit(ret);
         }
     }
 
+    /**
+     * jextractさんマジでありがとう……！
+     * @see https://docs.oracle.com/javase/jp/21/core/call-native-functions-jextract.html#GUID-480A7E64-531A-4C88-800F-810FF87F24A1 jextract
+     * @param arena
+     * @param linker
+     * @return
+     * @throws Throwable
+     */
     private int extracted(Arena arena, Linker linker) throws Throwable {
         int err;
-        var openCL = SymbolLookup.libraryLookup("OpenCL", arena);
-        var clGetPlatformIDs = linker.downcallHandle(openCL.find("clGetPlatformIDs").get(),
-                of(JAVA_INT, JAVA_INT, ADDRESS, ADDRESS));
-        var numEntries = arena.allocate(JAVA_INT);
-        err = (int) clGetPlatformIDs.invoke(0, NULL, numEntries);
+        var numEntriesPtr = arena.allocate(JAVA_INT);
+        err = clGetPlatformIDs(0, NULL, numEntriesPtr);
         if (err != 0) {
             System.err.printf("err: %d%n", err);
             return err;
         }
-        var platformIds = arena.allocateArray(ADDRESS, numEntries.get(JAVA_INT, 0));
+        int platformCount = numEntriesPtr.get(JAVA_INT, 0);
+        var platformIds = arena.allocateArray(ADDRESS, platformCount);
 
-        err = (int) clGetPlatformIDs.invokeExact(8, platformIds, NULL);
+        err = clGetPlatformIDs(platformCount, platformIds, NULL);
         if (err != 0) {
             System.err.printf("err: %d%n", err);
             return err;
         }
-        var clGetDeviceIDs = linker.downcallHandle(openCL.find("clGetDeviceIDs").get(),
-                of(JAVA_INT, ADDRESS, JAVA_LONG, JAVA_INT, ADDRESS, ADDRESS));
         var deviceNumberPtr = arena.allocate(JAVA_INT);
         var platform = platformIds.get(ADDRESS, 0);
-        err = (int) clGetDeviceIDs.invokeExact(platform, 0xFFFFFFFFL, 0, NULL, deviceNumberPtr);
+        err = clGetDeviceIDs(platform, 0xFFFFFFFFL, 0, NULL, deviceNumberPtr);
         if (err != 0) {
             System.err.printf("err: %d%n", err);
             return err;
         }
         int deviceNumber = deviceNumberPtr.get(JAVA_INT, 0);
         var deviceIds = arena.allocateArray(ADDRESS, deviceNumber);
-        err = (int) clGetDeviceIDs.invokeExact(platform, 0xffffffffL, deviceNumber, deviceIds, NULL);
-        var clGetDeviceInfo = linker.downcallHandle(openCL.find("clGetDeviceInfo").get(),
-                of(JAVA_INT, ADDRESS, JAVA_INT, JAVA_INT, ADDRESS, ADDRESS));
+        err = clGetDeviceIDs(platform, 0xffffffffL, deviceNumber, deviceIds, NULL);
+        // device オブジェクトをリリースする
+        err = clReleaseDevice(deviceIds.get(ADDRESS, 0));
         return 0;
     }
 
