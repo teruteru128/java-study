@@ -8,5 +8,5 @@ module com.twitter.teruteru.bitmessage {
     requires com.twitter.teruteru.time;
 
     exports com.twitter.teruteru128.bitmessage;
-    opens com.twitter.teruteru128.bitmessage;
+    exports com.twitter.teruteru128.bitmessage.app;
 }

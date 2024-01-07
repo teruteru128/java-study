@@ -13,13 +13,10 @@ public class AddressValidator {
         if (!address.startsWith("BM-")) {
             return false;
         }
-        byte[] b = Base58.decode(address.replaceAll("^BM-", ""));
-        for (int i = 0; i < b.length; i++) {
-            System.out.printf("%02x", b[i] & 0xff);
-        }
-        MessageDigest sha512;
+        byte[] b = Base58.decode(address.substring(3));
         byte[] cache64 = new byte[64];
         try {
+            MessageDigest sha512;
             sha512 = MessageDigest.getInstance("sha-512");
             sha512.update(b, 0, b.length - 4);
             sha512.digest(cache64, 0, 64);
