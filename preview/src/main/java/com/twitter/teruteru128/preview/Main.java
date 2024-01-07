@@ -1,27 +1,6 @@
 package com.twitter.teruteru128.preview;
 
-import static com.twitter.teruteru128.preview.opencl.opencl_h.CL_TRUE;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.CL_DEVICE_TYPE_ALL;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.CL_MEM_READ_WRITE;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clBuildProgram;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clCreateBuffer;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clCreateCommandQueueWithProperties;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clCreateContext;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clCreateKernel;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clCreateProgramWithSource;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clEnqueueNDRangeKernel;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clEnqueueReadBuffer;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clEnqueueWriteBuffer;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clFinish;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clGetDeviceIDs;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clGetPlatformIDs;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clReleaseCommandQueue;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clReleaseContext;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clReleaseDevice;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clReleaseKernel;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clReleaseMemObject;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clReleaseProgram;
-import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clSetKernelArg;
+import static com.twitter.teruteru128.preview.opencl.opencl_h.*;
 import static java.lang.foreign.FunctionDescriptor.of;
 import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.ADDRESS;
@@ -100,6 +79,7 @@ public class Main {
             return 1;
         }
         var commandQueue = clCreateCommandQueueWithProperties(context, deviceIds.get(ADDRESS, 0), NULL, ret);
+        // 実際にやるならリソースとしてファイルに出すんかな
         var sourceString = arena.allocateUtf8String("""
                 __kernel void func(global char* a, global char* b) {
                     size_t x = get_global_id(0);
@@ -111,8 +91,7 @@ public class Main {
                     a[((z * sizey) + y) * sizex + x] = b[((z * sizey) + y) * sizex + x] << 2;
                 }
                 """);
-        var ss = arena.allocate(ADDRESS, sourceString);
-        var program = clCreateProgramWithSource(context, 1, ss, NULL, ret);
+        var program = clCreateProgramWithSource(context, 1, arena.allocate(ADDRESS, sourceString), NULL, ret);
         if (err != 0) {
             System.err.printf("clCreateProgramWithSource: %d%n", err);
             return 1;
@@ -134,7 +113,6 @@ public class Main {
             return 1;
         }
         var num = 1000;
-        var globalWorkSize = arena.allocateArray(JAVA_LONG, 10, 10, 10);
         var outBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE(), JAVA_BYTE.byteSize() * num, NULL, ret);
         if (ret.get(JAVA_INT, 0) != 0) {
             System.err.printf("clCreateBuffer outBuffer: %d%n", err);
@@ -145,9 +123,9 @@ public class Main {
             System.err.printf("clCreateBuffer inBuffer: %d%n", err);
             return 1;
         }
-        var in = arena.allocateArray(JAVA_INT, num);
+        var in = arena.allocateArray(JAVA_BYTE, num);
         for (int i = 0; i < num; i++) {
-            in.setAtIndex(JAVA_BYTE, i, (byte)ThreadLocalRandom.current().nextInt(16));
+            in.setAtIndex(JAVA_BYTE, i, (byte) ThreadLocalRandom.current().nextInt(16));
         }
         err = clEnqueueWriteBuffer(commandQueue, inBuffer, CL_TRUE(), 0, JAVA_BYTE.byteSize() * num, in,
                 0, NULL, NULL);
@@ -165,6 +143,7 @@ public class Main {
             System.err.printf("setkernelarg 1: %d%n", err);
             return 1;
         }
+        var globalWorkSize = arena.allocateArray(JAVA_LONG, 10, 10, 10);
         long start = System.nanoTime();
         err = clEnqueueNDRangeKernel(commandQueue, kernel, 3, NULL, globalWorkSize, NULL, 0, NULL,
                 NULL);
@@ -182,6 +161,7 @@ public class Main {
             return 1;
         }
         boolean eq = true;
+        // チェック
         for (int i = 0; i < num; i++) {
             eq &= (in.getAtIndex(JAVA_BYTE, i) << 2) == out.getAtIndex(JAVA_BYTE, i);
         }
