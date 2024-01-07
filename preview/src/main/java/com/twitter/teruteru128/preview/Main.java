@@ -25,6 +25,7 @@ import static com.twitter.teruteru128.preview.opencl.opencl_h_1.clSetKernelArg;
 import static java.lang.foreign.FunctionDescriptor.of;
 import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.ADDRESS;
+import static java.lang.foreign.ValueLayout.JAVA_BYTE;
 import static java.lang.foreign.ValueLayout.JAVA_INT;
 import static java.lang.foreign.ValueLayout.JAVA_LONG;
 
@@ -100,14 +101,14 @@ public class Main {
         }
         var commandQueue = clCreateCommandQueueWithProperties(context, deviceIds.get(ADDRESS, 0), NULL, ret);
         var sourceString = arena.allocateUtf8String("""
-                __kernel void func(global int* a, global int* b) {
+                __kernel void func(global char* a, global char* b) {
                     size_t x = get_global_id(0);
                     size_t sizex = get_global_size(0);
                     size_t y = get_global_id(1);
                     size_t sizey = get_global_size(1);
                     size_t z = get_global_id(2);
                     size_t sizez = get_global_size(2);
-                    a[((z * sizez) + y) * sizey + x] = b[((z * sizez) + y) * sizey + x] << 2;
+                    a[((z * sizey) + y) * sizex + x] = b[((z * sizey) + y) * sizex + x] << 2;
                 }
                 """);
         var ss = arena.allocate(ADDRESS, sourceString);
@@ -115,7 +116,6 @@ public class Main {
         if (err != 0) {
             System.err.printf("clCreateProgramWithSource: %d%n", err);
             return 1;
-
         }
         err = clBuildProgram(program, 1, deviceIds, NULL, NULL, NULL);
         if (err != 0) {
@@ -126,7 +126,6 @@ public class Main {
         if (ret.get(JAVA_INT, 0) != 0) {
             System.err.printf("clCreateKernel: %d%n", err);
             return 1;
-
         }
         // device オブジェクトをリリースする
         err = clReleaseDevice(deviceIds.get(ADDRESS, 0));
@@ -134,21 +133,23 @@ public class Main {
             System.err.printf("clReleaseDevice: %d%n", err);
             return 1;
         }
-        var outBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE(), 4000, NULL, ret);
+        var num = 1000;
+        var globalWorkSize = arena.allocateArray(JAVA_LONG, 10, 10, 10);
+        var outBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE(), JAVA_BYTE.byteSize() * num, NULL, ret);
         if (ret.get(JAVA_INT, 0) != 0) {
             System.err.printf("clCreateBuffer outBuffer: %d%n", err);
             return 1;
         }
-        var inBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE(), 4000, NULL, ret);
+        var inBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE(), JAVA_BYTE.byteSize() * num, NULL, ret);
         if (ret.get(JAVA_INT, 0) != 0) {
             System.err.printf("clCreateBuffer inBuffer: %d%n", err);
             return 1;
         }
-        var in = arena.allocateArray(JAVA_INT, 1000);
-        for (int i = 0; i < 1000; i++) {
-            in.setAtIndex(JAVA_INT, i, ThreadLocalRandom.current().nextInt(16));
+        var in = arena.allocateArray(JAVA_INT, num);
+        for (int i = 0; i < num; i++) {
+            in.setAtIndex(JAVA_BYTE, i, (byte)ThreadLocalRandom.current().nextInt(16));
         }
-        err = clEnqueueWriteBuffer(commandQueue, inBuffer, CL_TRUE(), 0, JAVA_INT.byteSize() * 1000, in,
+        err = clEnqueueWriteBuffer(commandQueue, inBuffer, CL_TRUE(), 0, JAVA_BYTE.byteSize() * num, in,
                 0, NULL, NULL);
         if (err != 0) {
             System.err.printf("clEnqueueWriteBuffer: %d%n", err);
@@ -164,26 +165,28 @@ public class Main {
             System.err.printf("setkernelarg 1: %d%n", err);
             return 1;
         }
-        var globalWorkSize = arena.allocateArray(JAVA_LONG, 10, 10, 10);
-        var localWorkSize = arena.allocateArray(JAVA_LONG, 5, 5, 5);
-        err = clEnqueueNDRangeKernel(commandQueue, kernel, 3, NULL, globalWorkSize, localWorkSize, 0, NULL,
+        long start = System.nanoTime();
+        err = clEnqueueNDRangeKernel(commandQueue, kernel, 3, NULL, globalWorkSize, NULL, 0, NULL,
                 NULL);
         if (err != 0) {
             System.err.printf("clEnqueueNDRangeKernel: %d%n", err);
             return 1;
         }
-        var out = arena.allocateArray(JAVA_INT, 1000);
-        err = clEnqueueReadBuffer(commandQueue, outBuffer, CL_TRUE(), 0, 4000, out, 0, NULL,
+        clFinish(commandQueue);
+        long end = System.nanoTime();
+        var out = arena.allocateArray(JAVA_BYTE, num);
+        err = clEnqueueReadBuffer(commandQueue, outBuffer, CL_TRUE(), 0, JAVA_BYTE.byteSize() * num, out, 0, NULL,
                 NULL);
         if (err != 0) {
             System.err.printf("clEnqueueReadBuffer: %d%n", err);
             return 1;
         }
         boolean eq = true;
-        for (int i = 0; i < 1000; i++) {
-            eq &= (in.getAtIndex(JAVA_INT, i) << 2) == out.getAtIndex(JAVA_INT, i);
+        for (int i = 0; i < num; i++) {
+            eq &= (in.getAtIndex(JAVA_BYTE, i) << 2) == out.getAtIndex(JAVA_BYTE, i);
         }
         System.out.printf("status: %s%n", eq ? "ok" : "ng");
+        System.out.printf("%f seconds%n", (end - start) / 1e9);
         clFinish(commandQueue);
         clReleaseMemObject(outBuffer);
         clReleaseMemObject(inBuffer);
