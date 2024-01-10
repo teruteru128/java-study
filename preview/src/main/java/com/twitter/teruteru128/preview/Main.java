@@ -2,14 +2,13 @@ package com.twitter.teruteru128.preview;
 
 import static com.twitter.teruteru128.preview.opencl.opencl_h.*;
 import static java.lang.foreign.FunctionDescriptor.of;
+import static java.lang.foreign.MemoryLayout.*;
 import static java.lang.foreign.MemorySegment.NULL;
-import static java.lang.foreign.ValueLayout.ADDRESS;
-import static java.lang.foreign.ValueLayout.JAVA_BYTE;
-import static java.lang.foreign.ValueLayout.JAVA_INT;
-import static java.lang.foreign.ValueLayout.JAVA_LONG;
+import static java.lang.foreign.ValueLayout.*;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.Linker;
+import java.lang.foreign.SymbolLookup;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
@@ -19,14 +18,20 @@ public class Main {
         main.call(args);
     }
 
-    private void call(String[] args) throws Throwable {
+    private static final Linker linker = Linker.nativeLinker();
+    private static final SymbolLookup defaultLookup = linker.defaultLookup();
+
+    public void call(String[] args) throws Throwable {
         // でも本当にほしいのはSocketとかファイルとかMessageDigestとかの連携なんだよね……
         // もしかしてネイティブライブラリにアクセスできるならOpenSSLにアクセスもできる……？
         // OpenCLもアクセスできるっぽい
         var s = args.length >= 1 ? args[0] : "yattaze.";
         int ret = 0;
+        var publicKeyLayout = unionLayout(sequenceLayout(65, JAVA_BYTE),
+                structLayout(JAVA_BYTE.withName("prefix"), sequenceLayout(32, JAVA_BYTE).withName("x"),
+                        sequenceLayout(32, JAVA_BYTE).withName("x")));
+        System.out.println(publicKeyLayout);
         try (var arena = Arena.ofConfined()) {
-            var linker = Linker.nativeLinker();
             callStrlen(s, arena, linker);
             ret = extracted(arena, linker);
         }
@@ -187,7 +192,7 @@ public class Main {
 
     private void callStrlen(String s, Arena arena, Linker linker) throws Throwable {
         var segment = arena.allocateUtf8String(s);
-        var strlen = linker.downcallHandle(linker.defaultLookup().find("strlen").get(), of(JAVA_LONG, ADDRESS));
+        var strlen = linker.downcallHandle(defaultLookup.find("strlen").get(), of(JAVA_LONG, ADDRESS));
 
         System.out.printf("strlen: %d%n", (long) strlen.invokeExact(segment));
     }
