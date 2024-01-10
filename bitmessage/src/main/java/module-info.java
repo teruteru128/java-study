@@ -9,4 +9,5 @@ module com.twitter.teruteru.bitmessage {
 
     exports com.twitter.teruteru128.bitmessage;
     exports com.twitter.teruteru128.bitmessage.app;
+    exports com.twitter.teruteru128.bitmessage.spec;
 }

@@ -106,6 +106,13 @@ public class Main {
             System.err.printf("clCreateKernel: %d%n", err);
             return 1;
         }
+        var wgsize = arena.allocate(JAVA_LONG);
+        err = clGetKernelWorkGroupInfo(kernel, deviceIds.get(ADDRESS, 0), CL_KERNEL_WORK_GROUP_SIZE(),
+                JAVA_LONG.byteSize(), wgsize, NULL);
+        if (err != 0) {
+            System.err.printf("clGetKernelWorkGroupInfo: %d%n", err);
+            return 1;
+        }
         // device オブジェクトをリリースする
         err = clReleaseDevice(deviceIds.get(ADDRESS, 0));
         if (err != 0) {
@@ -144,8 +151,9 @@ public class Main {
             return 1;
         }
         var globalWorkSize = arena.allocateArray(JAVA_LONG, 10, 10, 10);
+        var localWorkSize = arena.allocateArray(JAVA_LONG, wgsize.get(JAVA_LONG, 0), 1, 1);
         long start = System.nanoTime();
-        err = clEnqueueNDRangeKernel(commandQueue, kernel, 3, NULL, globalWorkSize, NULL, 0, NULL,
+        err = clEnqueueNDRangeKernel(commandQueue, kernel, 3, NULL, globalWorkSize, localWorkSize, 0, NULL,
                 NULL);
         if (err != 0) {
             System.err.printf("clEnqueueNDRangeKernel: %d%n", err);

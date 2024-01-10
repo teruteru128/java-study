@@ -16,7 +16,7 @@ final class constants$257 {
         "clSetContentSizeBufferPoCL",
         constants$9.const$3
     );
-    static final MemorySegment const$2 = MemorySegment.ofAddress(0L);
+    static final MemorySegment const$2 = MemorySegment.NULL;
     static final MemorySegment const$3 = RuntimeHelper.CONSTANT_ALLOCATOR.allocateUtf8String("C");
     static final MemorySegment const$4 = RuntimeHelper.CONSTANT_ALLOCATOR.allocateUtf8String("#line 668 \"C:\\Users\\terut\\AppData\\Local\\Temp\\jextract$14505263843986650252.h\" \n\n");
     static final MemorySegment const$5 = RuntimeHelper.CONSTANT_ALLOCATOR.allocateUtf8String("cl_khr_gl_sharing");
