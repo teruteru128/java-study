@@ -5,9 +5,11 @@ import static java.lang.foreign.FunctionDescriptor.of;
 import static java.lang.foreign.MemoryLayout.*;
 import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.*;
+import static com.twitter.teruteru128.preview.windows.Windows_h.*;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.Linker;
+import java.lang.foreign.MemorySegment;
 import java.lang.foreign.SymbolLookup;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -29,16 +31,32 @@ public class Main {
         int ret = 0;
         var publicKeyLayout = unionLayout(sequenceLayout(65, JAVA_BYTE),
                 structLayout(JAVA_BYTE.withName("prefix"), sequenceLayout(32, JAVA_BYTE).withName("x"),
-                        sequenceLayout(32, JAVA_BYTE).withName("x")));
+                        sequenceLayout(32, JAVA_BYTE).withName("y")));
         System.out.println(publicKeyLayout);
+        System.loadLibrary("BCrypt");
         try (var arena = Arena.ofConfined()) {
             callStrlen(s, arena, linker);
             ret = extracted(arena, linker);
+            extracted2(arena);
         }
         if (ret != 0) {
             System.out.printf("何かしらのエラーが発生しました: %d%n", ret);
             System.exit(ret);
         }
+    }
+
+    private void extracted2(Arena arena) {
+        var hAlg = arena.allocate(ADDRESS);
+        var algo = "SHA256".toCharArray();
+        var m = arena.allocateArray(JAVA_CHAR, algo.length + 1);
+        m.fill((byte)0);
+        MemorySegment.copy(algo, 0, m, JAVA_CHAR, 0, algo.length);
+        int status = 0;
+        if (!((status = BCryptOpenAlgorithmProvider(hAlg, m, NULL, 0)) >= 0)) {
+            System.err.printf("**** Error 0x%1$08x(%1$d) returned by BCryptOpenAlgorithmProvider%n", status);
+            return;
+        }
+        System.err.println("scuess!");
     }
 
     /**
