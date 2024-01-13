@@ -1,15 +1,15 @@
 package com.twitter.teruteru128.preview;
 
 import static com.twitter.teruteru128.preview.opencl.opencl_h.*;
+import static com.twitter.teruteru128.preview.windows.Windows_h.*;
 import static java.lang.foreign.FunctionDescriptor.of;
 import static java.lang.foreign.MemoryLayout.*;
-import static java.lang.foreign.MemorySegment.NULL;
+import static java.lang.foreign.MemorySegment.*;
 import static java.lang.foreign.ValueLayout.*;
-import static com.twitter.teruteru128.preview.windows.Windows_h.*;
+import static java.nio.charset.StandardCharsets.*;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.Linker;
-import java.lang.foreign.MemorySegment;
 import java.lang.foreign.SymbolLookup;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -37,26 +37,30 @@ public class Main {
         try (var arena = Arena.ofConfined()) {
             callStrlen(s, arena, linker);
             ret = extracted(arena, linker);
-            extracted2(arena);
-        }
-        if (ret != 0) {
-            System.out.printf("何かしらのエラーが発生しました: %d%n", ret);
-            System.exit(ret);
+            if (ret != 0) {
+                System.out.printf("何かしらのエラーが発生しました: %d%n", ret);
+            }
+            ret = extracted2(arena, linker);
+            if (ret != 0) {
+                System.out.printf("何かしらのエラーが発生しました: %d%n", ret);
+            }
         }
     }
 
-    private void extracted2(Arena arena) {
+    private int extracted2(Arena arena, Linker linker) {
         var hAlg = arena.allocate(ADDRESS);
-        var algo = "SHA256".toCharArray();
-        var m = arena.allocateArray(JAVA_CHAR, algo.length + 1);
-        m.fill((byte)0);
-        MemorySegment.copy(algo, 0, m, JAVA_CHAR, 0, algo.length);
+        var algo = "SHA256".getBytes(UTF_16LE);
+        var BCRYPT_SHA256_ALGORITHM = arena.allocateArray(JAVA_BYTE, algo.length + 2);
+        BCRYPT_SHA256_ALGORITHM.fill((byte) 0);
+        copy(algo, 0, BCRYPT_SHA256_ALGORITHM, JAVA_BYTE, 0, algo.length);
         int status = 0;
-        if (!((status = BCryptOpenAlgorithmProvider(hAlg, m, NULL, 0)) >= 0)) {
+        // wchar_tの中身がUTF-16だったりUNICODE CODEPOINTだったりSHIFT-JISだったりしろ
+        if (!((status = BCryptOpenAlgorithmProvider(hAlg, BCRYPT_SHA256_ALGORITHM, NULL, 0)) >= 0)) {
             System.err.printf("**** Error 0x%1$08x(%1$d) returned by BCryptOpenAlgorithmProvider%n", status);
-            return;
+            return status;
         }
-        System.err.println("scuess!");
+        status = BCryptCloseAlgorithmProvider(hAlg.get(ADDRESS, 0), 0);
+        return status;
     }
 
     /**
@@ -70,38 +74,38 @@ public class Main {
      * @throws Throwable
      */
     private int extracted(Arena arena, Linker linker) throws Throwable {
-        int err;
+        int errcode;
+        var errcode_ret = arena.allocate(JAVA_INT);
         var numEntriesPtr = arena.allocate(JAVA_INT);
-        err = clGetPlatformIDs(0, NULL, numEntriesPtr);
-        if (err != 0) {
-            System.err.printf("err: %d%n", err);
-            return err;
+        if ((errcode = clGetPlatformIDs(0, NULL, numEntriesPtr)) != 0) {
+            System.err.printf("err: %d%n", errcode);
+            return errcode;
         }
         int platformCount = numEntriesPtr.get(JAVA_INT, 0);
         var platformIds = arena.allocateArray(ADDRESS, platformCount);
 
-        err = clGetPlatformIDs(platformCount, platformIds, NULL);
-        if (err != 0) {
-            System.err.printf("err: %d%n", err);
-            return err;
+        if ((errcode = clGetPlatformIDs(platformCount, platformIds, NULL)) != 0) {
+            System.err.printf("err: %d%n", errcode);
+            return errcode;
         }
-        var deviceNumberPtr = arena.allocate(JAVA_INT);
+        var num_devices = arena.allocate(JAVA_INT);
         var platform = platformIds.get(ADDRESS, 0);
-        err = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), 0, NULL, deviceNumberPtr);
-        if (err != 0) {
-            System.err.printf("err: %d%n", err);
-            return err;
+        if ((errcode = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), 0, NULL, num_devices)) != 0) {
+            System.err.printf("err: %d%n", errcode);
+            return errcode;
         }
-        int deviceNumber = deviceNumberPtr.get(JAVA_INT, 0);
+        int deviceNumber = num_devices.get(JAVA_INT, 0);
         var deviceIds = arena.allocateArray(ADDRESS, deviceNumber);
-        var ret = arena.allocate(4);
-        err = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), deviceNumber, deviceIds, ret);
-        var context = clCreateContext(NULL, 1, deviceIds, NULL, NULL, ret);
-        if (ret.get(JAVA_INT, 0) != 0) {
-            System.out.printf("%d%n", ret.get(JAVA_INT, 0));
+        if ((errcode = clGetDeviceIDs(platform, CL_DEVICE_TYPE_ALL(), deviceNumber, deviceIds, NULL)) != 0) {
+            System.err.printf("err: %d%n", errcode);
+            return errcode;
+        }
+        var context = clCreateContext(NULL, deviceNumber, deviceIds, NULL, NULL, errcode_ret);
+        if (errcode_ret.get(JAVA_INT, 0) != 0) {
+            System.out.printf("%d%n", errcode_ret.get(JAVA_INT, 0));
             return 1;
         }
-        var commandQueue = clCreateCommandQueueWithProperties(context, deviceIds.get(ADDRESS, 0), NULL, ret);
+        var commandQueue = clCreateCommandQueueWithProperties(context, deviceIds.get(ADDRESS, 0), NULL, errcode_ret);
         // 実際にやるならリソースとしてファイルに出すんかな
         var sourceString = arena.allocateUtf8String("""
                 __kernel void func(global char* a, global char* b) {
@@ -114,81 +118,73 @@ public class Main {
                     a[((z * sizey) + y) * sizex + x] = b[((z * sizey) + y) * sizex + x] << 2;
                 }
                 """);
-        var program = clCreateProgramWithSource(context, 1, arena.allocate(ADDRESS, sourceString), NULL, ret);
-        if (err != 0) {
-            System.err.printf("clCreateProgramWithSource: %d%n", err);
+        var program = clCreateProgramWithSource(context, 1, arena.allocate(ADDRESS, sourceString), NULL, errcode_ret);
+        if (errcode_ret.get(JAVA_INT, 0) != 0) {
+            System.err.printf("clCreateProgramWithSource: %d%n", errcode);
             return 1;
         }
-        err = clBuildProgram(program, 1, deviceIds, NULL, NULL, NULL);
-        if (err != 0) {
-            System.err.printf("clBuildProgram: %d%n", err);
+        if ((errcode = clBuildProgram(program, 1, deviceIds, NULL, NULL, NULL)) != 0) {
+            System.err.printf("clBuildProgram: %d%n", errcode);
             return 1;
         }
-        var kernel = clCreateKernel(program, arena.allocateUtf8String("func"), ret);
-        if (ret.get(JAVA_INT, 0) != 0) {
-            System.err.printf("clCreateKernel: %d%n", err);
+        var kernel = clCreateKernel(program, arena.allocateUtf8String("func"), errcode_ret);
+        if (errcode_ret.get(JAVA_INT, 0) != 0) {
+            System.err.printf("clCreateKernel: %d%n", errcode);
             return 1;
         }
         var wgsize = arena.allocate(JAVA_LONG);
-        err = clGetKernelWorkGroupInfo(kernel, deviceIds.get(ADDRESS, 0), CL_KERNEL_WORK_GROUP_SIZE(),
-                JAVA_LONG.byteSize(), wgsize, NULL);
-        if (err != 0) {
-            System.err.printf("clGetKernelWorkGroupInfo: %d%n", err);
+        if ((errcode = clGetKernelWorkGroupInfo(kernel, deviceIds.get(ADDRESS, 0), CL_KERNEL_WORK_GROUP_SIZE(),
+                JAVA_LONG.byteSize(), wgsize, NULL)) != 0) {
+            System.err.printf("clGetKernelWorkGroupInfo: %d%n", errcode);
             return 1;
         }
         // device オブジェクトをリリースする
-        err = clReleaseDevice(deviceIds.get(ADDRESS, 0));
-        if (err != 0) {
-            System.err.printf("clReleaseDevice: %d%n", err);
+        if ((errcode = clReleaseDevice(deviceIds.get(ADDRESS, 0))) != 0) {
+            System.err.printf("clReleaseDevice: %d%n", errcode);
             return 1;
         }
         var num = 1000;
-        var outBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE(), JAVA_BYTE.byteSize() * num, NULL, ret);
-        if (ret.get(JAVA_INT, 0) != 0) {
-            System.err.printf("clCreateBuffer outBuffer: %d%n", err);
+        var outBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE(), JAVA_BYTE.byteSize() * num, NULL, errcode_ret);
+        if (errcode_ret.get(JAVA_INT, 0) != 0) {
+            System.err.printf("clCreateBuffer outBuffer: %d%n", errcode);
             return 1;
         }
-        var inBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE(), JAVA_BYTE.byteSize() * num, NULL, ret);
-        if (ret.get(JAVA_INT, 0) != 0) {
-            System.err.printf("clCreateBuffer inBuffer: %d%n", err);
+        var inBuffer = clCreateBuffer(context, CL_MEM_READ_WRITE(), JAVA_BYTE.byteSize() * num, NULL, errcode_ret);
+        if (errcode_ret.get(JAVA_INT, 0) != 0) {
+            System.err.printf("clCreateBuffer inBuffer: %d%n", errcode);
             return 1;
         }
         var in = arena.allocateArray(JAVA_BYTE, num);
         for (int i = 0; i < num; i++) {
             in.setAtIndex(JAVA_BYTE, i, (byte) ThreadLocalRandom.current().nextInt(16));
         }
-        err = clEnqueueWriteBuffer(commandQueue, inBuffer, CL_TRUE(), 0, JAVA_BYTE.byteSize() * num, in,
-                0, NULL, NULL);
-        if (err != 0) {
-            System.err.printf("clEnqueueWriteBuffer: %d%n", err);
+        if ((errcode = clEnqueueWriteBuffer(commandQueue, inBuffer, CL_TRUE(), 0, JAVA_BYTE.byteSize() * num, in,
+                0, NULL, NULL)) != 0) {
+            System.err.printf("clEnqueueWriteBuffer: %d%n", errcode);
             return 1;
         }
-        err = clSetKernelArg(kernel, 0, ADDRESS.byteSize(), arena.allocate(ADDRESS, outBuffer));
-        if (err != 0) {
-            System.err.printf("setkernelarg 0: %d%n", err);
+        if ((errcode = clSetKernelArg(kernel, 0, ADDRESS.byteSize(), arena.allocate(ADDRESS, outBuffer))) != 0) {
+            System.err.printf("setkernelarg 0: %d%n", errcode);
             return 1;
         }
-        err = clSetKernelArg(kernel, 1, ADDRESS.byteSize(), arena.allocate(ADDRESS, inBuffer));
-        if (err != 0) {
-            System.err.printf("setkernelarg 1: %d%n", err);
+        if ((errcode = clSetKernelArg(kernel, 1, ADDRESS.byteSize(), arena.allocate(ADDRESS, inBuffer))) != 0) {
+            System.err.printf("setkernelarg 1: %d%n", errcode);
             return 1;
         }
         var globalWorkSize = arena.allocateArray(JAVA_LONG, 10, 10, 10);
         var localWorkSize = arena.allocateArray(JAVA_LONG, wgsize.get(JAVA_LONG, 0), 1, 1);
         long start = System.nanoTime();
-        err = clEnqueueNDRangeKernel(commandQueue, kernel, 3, NULL, globalWorkSize, localWorkSize, 0, NULL,
-                NULL);
-        if (err != 0) {
-            System.err.printf("clEnqueueNDRangeKernel: %d%n", err);
+        if ((errcode = clEnqueueNDRangeKernel(commandQueue, kernel, 3, NULL, globalWorkSize, localWorkSize, 0, NULL,
+                NULL)) != 0) {
+            System.err.printf("clEnqueueNDRangeKernel: %d%n", errcode);
             return 1;
         }
         clFinish(commandQueue);
         long end = System.nanoTime();
         var out = arena.allocateArray(JAVA_BYTE, num);
-        err = clEnqueueReadBuffer(commandQueue, outBuffer, CL_TRUE(), 0, JAVA_BYTE.byteSize() * num, out, 0, NULL,
-                NULL);
-        if (err != 0) {
-            System.err.printf("clEnqueueReadBuffer: %d%n", err);
+        if ((errcode = clEnqueueReadBuffer(commandQueue, outBuffer, CL_TRUE(), 0, JAVA_BYTE.byteSize() * num, out, 0,
+                NULL, NULL)) != 0) {
+            System.err.printf("clEnqueueReadBuffer: %d%n", errcode);
             return 1;
         }
         boolean eq = true;
