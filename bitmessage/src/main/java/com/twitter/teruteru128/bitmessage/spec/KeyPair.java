@@ -11,8 +11,7 @@ public class KeyPair implements Cloneable, Serializable {
     private byte[] publicKey;
 
     public KeyPair(byte[] privateKey, byte[] publicKey) {
-        this.privateKey = privateKey.clone();
-        this.publicKey = publicKey.clone();
+        this(privateKey, 0, privateKey.length, publicKey, 0, publicKey.length);
     }
 
     public KeyPair(byte[] privateKey, int privatekeyoffset, int privatekeylength, byte[] publicKey, int publickeyoffset, int publickeylength) {

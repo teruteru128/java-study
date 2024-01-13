@@ -14,7 +14,7 @@ plugins {
 application {
     mainModule = 'com.twitter.teruteru.study'
     mainClass = 'com.twitter.teruteru128.study.Main'
-    //applicationDefaultJvmArgs = ['-Xms64G', '-Xmx64G']
+    applicationDefaultJvmArgs = ['-Xms64G', '-Xmx64G']
 }
 
 dependencies {

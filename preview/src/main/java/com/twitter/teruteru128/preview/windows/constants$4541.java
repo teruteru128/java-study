@@ -11,7 +11,7 @@ final class constants$4541 {
 
     // Suppresses default constructor, ensuring non-instantiability.
     private constants$4541() {}
-    static final MemorySegment const$0 = MemorySegment.ofAddress(0L);
+    static final MemorySegment const$0 = MemorySegment.NULL;
     static final MemorySegment const$1 = RuntimeHelper.CONSTANT_ALLOCATOR.allocateUtf8String("C");
     static final MemorySegment const$2 = RuntimeHelper.CONSTANT_ALLOCATOR.allocateUtf8String("OutOfProcessFunctionTableCallback");
     static final MemorySegment const$3 = RuntimeHelper.CONSTANT_ALLOCATOR.allocateUtf8String("DS");

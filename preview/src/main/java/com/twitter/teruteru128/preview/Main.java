@@ -54,7 +54,8 @@ public class Main {
         BCRYPT_SHA256_ALGORITHM.fill((byte) 0);
         copy(algo, 0, BCRYPT_SHA256_ALGORITHM, JAVA_BYTE, 0, algo.length);
         int status = 0;
-        // wchar_tの中身がUTF-16だったりUNICODE CODEPOINTだったりSHIFT-JISだったりしろ
+        // wchar_tの中身がUTF-16だったりUTF-32だったりSHIFT-JISだったりしろ
+        // FIXME Windows_h.BCRYPT_SHA256_ALGORITHM()は"S"しか返さないので注意
         if (!((status = BCryptOpenAlgorithmProvider(hAlg, BCRYPT_SHA256_ALGORITHM, NULL, 0)) >= 0)) {
             System.err.printf("**** Error 0x%1$08x(%1$d) returned by BCryptOpenAlgorithmProvider%n", status);
             return status;
