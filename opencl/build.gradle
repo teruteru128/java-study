@@ -1,0 +1,18 @@
+
+plugins {
+    id 'com.twitter.teruteru128.study.java-library-conventions'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+compileJava {
+    //options.fork = true
+    //options.forkOptions.setMemoryInitialSize('16G')
+    //options.forkOptions.setMemoryMaximumSize('16G')
+    options.compilerArgs += ['--enable-preview'
+    //, '-Xlint:preview'
+    ]
+}

@@ -22,3 +22,8 @@ application {
     mainClass = 'com.twitter.teruteru128.preview.Main'
     applicationDefaultJvmArgs = ['--enable-preview', '--enable-native-access=com.twitter.teruteru.preview', '-Xms64G', '-Xmx64G']
 }
+
+dependencies {
+    implementation project(":opencl")
+    implementation project(":windows")
+}
