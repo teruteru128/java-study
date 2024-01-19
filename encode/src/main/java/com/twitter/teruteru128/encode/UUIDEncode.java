@@ -1,16 +1,16 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.encode;
 
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
-public class Encode {
+public class UUIDEncode {
 
-    public static byte[] uuidToBytes(UUID uuid) {
-        return uuidToBuffer(uuid).array();
+    public static byte[] toBytes(UUID uuid) {
+        return toBuffer(uuid).array();
     }
 
     // FIXME 抽象化のやり方を間違ってる気がする
-    private static ByteBuffer uuidToBuffer(UUID uuid) {
+    private static ByteBuffer toBuffer(UUID uuid) {
         return ByteBuffer.allocate(16).putLong(uuid.getMostSignificantBits()).putLong(uuid.getLeastSignificantBits()).flip();
     }
 
