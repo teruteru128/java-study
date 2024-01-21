@@ -32,7 +32,9 @@ module com.twitter.teruteru.study {
     requires org.bouncycastle.provider;
     requires org.twitter4j;
 
-    requires transitive com.twitter.teruteru.bitmessage;
+    requires com.twitter.teruteru.bitmessage;
+    requires com.twitter.teruteru.encode;
+    requires com.twitter.teruteru.time;
 
     opens com.twitter.teruteru128.study;
 }
