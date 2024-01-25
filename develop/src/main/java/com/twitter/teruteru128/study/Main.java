@@ -39,8 +39,8 @@ public class Main {
 
     /**
      * 
-     * @param args
-     * @throws Exception
+     * @param args command line arguments
+     * @throws Exception 何か起こるかもしれない
      */
     public static void main(String[] args) throws Exception {
         int num = 60000;
@@ -68,7 +68,7 @@ public class Main {
         try (var c = HttpClient.newHttpClient()) {
             System.out.println(c.send(HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/"))
                             .header("Content-Type", "application/json-rpc")
-                            .header("Authorization", "Basic dGVydXRlcnUxMjg6YW5hbGJlYWRz")
+                            .header("Authorization", "Basic " + System.getenv("BM_TOKEN"))
                             .POST(HttpRequest.BodyPublishers.ofString(builder.toString())).build(),
                     HttpResponse.BodyHandlers.ofString()).body());
         }
