@@ -8,6 +8,7 @@ import java.security.Security;
 import java.util.Arrays;
 import java.util.HexFormat;
 
+import com.twitter.teruteru128.encode.Base58;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import com.twitter.teruteru128.bitmessage.Const;
@@ -26,26 +27,26 @@ public class KeyValidator {
     /**
      * 
      * @param address
-     * @param privSigningKeyWIF
-     * @param privEncryptionKeyWIF
+     * @param privateSigningKeyWIF
+     * @param privateEncryptionKeyWIF
      */
-    public boolean validate(String address, String privSigningKeyWIF, String privEncryptionKeyWIF) {
+    public boolean validate(String address, String privateSigningKeyWIF, String privateEncryptionKeyWIF) {
 
         // 鍵をデコード
-        final byte[] privSigningKey = BMAddress.decode(privSigningKeyWIF);
-        final byte[] privEncryptionKey = BMAddress.decode(privEncryptionKeyWIF);
+        final byte[] privateSigningKey = Base58.decode(privateSigningKeyWIF);
+        final byte[] privateEncryptionKey = Base58.decode(privateEncryptionKeyWIF);
 
         // 鍵のチェックサムを検証
         // validate wif checksum
         System.out.printf("%41s : checksum ", "private Signing Key");
-        System.out.println(validateWifChecksum(privSigningKey) ? "validated" : "not validated");
+        System.out.println(validateWifChecksum(privateSigningKey) ? "validated" : "not validated");
 
         System.out.printf("%41s : checksum ", "private Encryption Key");
-        System.out.println(validateWifChecksum(privEncryptionKey) ? "validated" : "not validated");
+        System.out.println(validateWifChecksum(privateEncryptionKey) ? "validated" : "not validated");
 
         // 公開鍵を導出
-        final byte[] pubSigningKey = generatePublicKey(Arrays.copyOfRange(privSigningKey, 1, 33));
-        final byte[] pubEncryptionKey = generatePublicKey(Arrays.copyOfRange(privEncryptionKey, 1, 33));
+        final byte[] pubSigningKey = generatePublicKey(Arrays.copyOfRange(privateSigningKey, 1, 33));
+        final byte[] pubEncryptionKey = generatePublicKey(Arrays.copyOfRange(privateEncryptionKey, 1, 33));
 
         // アドレスと鍵が一致することを検証
         final byte[] ripe = generateRipe(pubSigningKey, pubEncryptionKey);
@@ -59,13 +60,13 @@ public class KeyValidator {
         System.out.printf("%41s : %s%n", "enc", format.formatHex(pubEncryptionKey));
         System.out.printf("%41s : %s%n", "ripe", format.formatHex(ripe));
 
-        System.out.printf("%41s : %s (%smatched)%n", "v4 address calculated", address4,
+        System.out.printf("%41s : %s (%s matched)%n", "v4 address calculated", address4,
                 address4.equals(address) ? "" : "not ");
 
-        System.out.printf("%41s : %s (%smatched)%n", "unlimited v3 address calculated from ripe", address3,
+        System.out.printf("%41s : %s (%s matched)%n", "unlimited v3 address calculated from ripe", address3,
                 address3.equals(address) ? "" : "not ");
 
-        System.out.printf("%41s : %s (%smatched)%n", "limited v3 address calculated from ripe", address3_2,
+        System.out.printf("%41s : %s (%s matched)%n", "limited v3 address calculated from ripe", address3_2,
                 address3_2.equals(address) ? "" : "not ");
         return address4.equals(address) || address3.equals(address) || address3_2.equals(address);
     }
@@ -124,9 +125,9 @@ public class KeyValidator {
     }
 
     /**
-     * 
-     * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/class_addressGenerator.py#L131
-     * @see https://en.bitcoin.it/wiki/Wallet_import_format
+     *
+     * @see <a href="https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/class_addressGenerator.py#L131">class_addressGenerator.py</a>
+     * @see <a href="https://en.bitcoin.it/wiki/Wallet_import_format">Wallet import format</a>
      * @param args
      */
     public static void main(String[] args) {

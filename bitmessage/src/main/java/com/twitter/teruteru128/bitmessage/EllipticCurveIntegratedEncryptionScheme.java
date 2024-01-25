@@ -35,47 +35,47 @@ import org.bouncycastle.math.ec.ECCurve;
 /**
  * 楕円曲線暗号統合暗号化スキーム
  * MAC付きじゃねえかお前んちぃ！
- * 
- * @see https://w.wiki/6yVA
+ *
+ * @see <a href="https://w.wiki/6yVA">Integrated Encryption Scheme</a>
  */
-public class ECIES {
-    public ECIES() {
+public class EllipticCurveIntegratedEncryptionScheme {
+    public EllipticCurveIntegratedEncryptionScheme() {
     }
 
     public static byte[] encrypt(byte[] message, ECPublicKey publicKey) {
         try {
             // generate ephemeral ec key
-            var ephem = generateEcKeyPair();
+            var ephemeralKeyPair = generateEcKeyPair();
 
-            var secret = generateSecret(publicKey, ephem);
+            var secret = generateSecret(publicKey, ephemeralKeyPair);
             var key = MessageDigest.getInstance("SHA-512").digest(secret);
             var key_e = Arrays.copyOfRange(key, 0, 32);
             var key_m = Arrays.copyOfRange(key, 32, 64);
 
-            // init encrypto context
+            // init encrypt context
             var aes = Cipher.getInstance("AES/CBC/PKCS7Padding");
             var iv = new byte[aes.getBlockSize()];
             new SecureRandom().nextBytes(iv);
             aes.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(key_e, "AES"), new IvParameterSpec(iv));
 
             // encode iv and pubkey
-            var pubKey = getPubkey((ECPublicKey) ephem.getPublic());
+            var pubKey = getPubkey((ECPublicKey) ephemeralKeyPair.getPublic());
             var ciphertext = new byte[iv.length + pubKey.length + aes.getOutputSize(message.length)];
             System.arraycopy(iv, 0, ciphertext, 0, iv.length);
             System.arraycopy(pubKey, 0, ciphertext, iv.length, pubKey.length);
-            int prefixlength = iv.length + pubKey.length;
+            int prefixLength = iv.length + pubKey.length;
 
             // encrypt
-            int len = aes.doFinal(message, 0, message.length, ciphertext, prefixlength);
+            int len = aes.doFinal(message, 0, message.length, ciphertext, prefixLength);
 
             // generate mac code
             var mac = Mac.getInstance("HmacSHA256");
             mac.init(new SecretKeySpec(key_m, "MAC"));
             mac.update(ciphertext);
-            var ciphertextlength = len + prefixlength;
-            var ciphertextwithmac = Arrays.copyOf(ciphertext, ciphertextlength + mac.getMacLength());
-            mac.doFinal(ciphertextwithmac, ciphertextlength);
-            return ciphertextwithmac;
+            var cipherTextLength = len + prefixLength;
+            var cipherTextWithMAC = Arrays.copyOf(ciphertext, cipherTextLength + mac.getMacLength());
+            mac.doFinal(cipherTextWithMAC, cipherTextLength);
+            return cipherTextWithMAC;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | NoSuchProviderException | InvalidKeyException
                 | InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException
                 | ShortBufferException e) {

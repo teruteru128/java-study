@@ -27,9 +27,6 @@ import org.bouncycastle.jce.spec.ECPrivateKeySpec;
 import org.bouncycastle.jce.spec.ECPublicKeySpec;
 import org.bouncycastle.jce.spec.IESParameterSpec;
 
-import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.bitmessage.ECIES;
-
 /**
  * ECSample
  */
@@ -41,7 +38,7 @@ public class ECSample {
         // 面倒くせえ
         var privateKey = ECSample.getPrivateKey();
 
-        var parameterSpec = Const.SECP256K1_PARAMETER_SPEC;
+        var parameterSpec = Const.SEC_P256_K1_PARAMETER_SPEC;
         var p2spec = new org.bouncycastle.jce.spec.ECPrivateKeySpec(privateKey.getS(), parameterSpec);
 
         sampleECSignature("");
@@ -61,9 +58,9 @@ public class ECSample {
         cipher.update(message);
         var b = cipher.doFinal();
         System.out.printf("BC's ecies: %s%n", ECSample.format.formatHex(b));
-        var ppppppp = ECIES.encrypt(message, publicKey);
+        var ppppppp = EllipticCurveIntegratedEncryptionScheme.encrypt(message, publicKey);
         System.out.printf("teruteru's ecies: %s%n", ECSample.format.formatHex(ppppppp));
-        var s = ECIES.decrypt(b, (org.bouncycastle.jce.interfaces.ECPrivateKey) factory.generatePrivate(p2spec));
+        var s = EllipticCurveIntegratedEncryptionScheme.decrypt(b, (org.bouncycastle.jce.interfaces.ECPrivateKey) factory.generatePrivate(p2spec));
         System.out.println(new String(s));
     }
 

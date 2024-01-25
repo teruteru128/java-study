@@ -13,7 +13,7 @@ public class JsonRPCRequestSample implements Sample {
     public static void jsonRPCRequestSample() throws IOException, InterruptedException {
         var request = HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/"))
                 .header("Content-Type", "application/json-rpc")
-                .header("Authorization", "Basic dGVydXRlcnUxMjg6YW5hbGJlYWRz")
+                .header("Authorization", "Basic " + System.getenv("BM_TOKEN"))
                 .POST(HttpRequest.BodyPublishers.ofString(
                         "{\"jsonrpc\": \"2.0\", \"method\": \"helloWorld\", \"params\": [\"33\", \"4\"], \"id\": 1}"))
                 .build();
@@ -26,7 +26,7 @@ public class JsonRPCRequestSample implements Sample {
     private static final HttpRequest.Builder requestBuilder = HttpRequest
             .newBuilder(URI.create("http://localhost:8442/"))
             .header("Content-Type", "application/json-rpc")
-            .header("Authorization", "Basic dGVydXRlcnUxMjg6YW5hbGJlYWRz");
+            .header("Authorization", "Basic " + System.getenv("BM_TOKEN"));
 
     public static void sample(String a) throws IOException, InterruptedException {
         var requestBody = HttpRequest.BodyPublishers.ofString(a);

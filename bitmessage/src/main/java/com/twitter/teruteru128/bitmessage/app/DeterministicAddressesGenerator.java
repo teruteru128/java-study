@@ -1,5 +1,12 @@
 package com.twitter.teruteru128.bitmessage.app;
 
+import com.twitter.teruteru128.bitmessage.Const;
+import com.twitter.teruteru128.bitmessage.DeterministicAddress;
+import com.twitter.teruteru128.bitmessage.Structs;
+import com.twitter.teruteru128.bitmessage.genaddress.BMAddressGenerator;
+import com.twitter.teruteru128.bitmessage.spec.BMAddress;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
@@ -12,61 +19,10 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.Function;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
-import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.bitmessage.DeterministicAddress;
-import com.twitter.teruteru128.bitmessage.Structs;
-import com.twitter.teruteru128.bitmessage.genaddress.BMAddressGenerator;
-import com.twitter.teruteru128.bitmessage.spec.BMAddress;
-
 /**
- * @see https://github.com/Bitmessage/PyBitmessage/blob/a5773999fe1d6791bfc0cbb830527a5b29b84f5d/src/class_addressGenerator.py
+ * @see <a href="https://github.com/Bitmessage/PyBitmessage/blob/a5773999fe1d6791bfc0cbb830527a5b29b84f5d/src/class_addressGenerator.py">class_addressGenerator.py</a>
  */
 public class DeterministicAddressesGenerator implements Function<String, DeterministicAddress> {
-
-    private final class DeterministicAddressesImplementation implements DeterministicAddress, Serializable {
-        private static final long serialVersionUID = 0;
-        private byte[] ripe;
-        private byte[] signingPrivateKey;
-        private byte[] encryptionPrivateKey;
-        private long signingKeyNonce;
-        private long encryptionKeyNonce;
-
-        public DeterministicAddressesImplementation(byte[] ripe, byte[] a, byte[] b, long signingKeyNonce,
-                long encryptionKeyNonce) {
-            this.ripe = ripe.clone();
-            this.signingPrivateKey = a.clone();
-            this.encryptionPrivateKey = b.clone();
-            this.signingKeyNonce = signingKeyNonce;
-            this.encryptionKeyNonce = encryptionKeyNonce;
-        }
-
-        @Override
-        public byte[] getRipe() {
-            return ripe;
-        }
-
-        @Override
-        public byte[] getSigningPrivateKey() {
-            return signingPrivateKey;
-        }
-
-        @Override
-        public byte[] getEncryptionPrivateKey() {
-            return encryptionPrivateKey;
-        }
-
-        @Override
-        public long getSigningKeyNonce() {
-            return signingKeyNonce;
-        }
-
-        @Override
-        public long getEncryptionKeyNonce() {
-            return encryptionKeyNonce;
-        }
-    }
 
     static {
         if (Security.getProvider("BC") == null) {
@@ -79,7 +35,7 @@ public class DeterministicAddressesGenerator implements Function<String, Determi
 
     /**
      * private key = sha512(passphraseBytes || nonce)
-     * 
+     *
      * @param privateKey
      * @param passphraseBytes
      * @param nonce
@@ -95,7 +51,7 @@ public class DeterministicAddressesGenerator implements Function<String, Determi
 
     /**
      * private key = sha512(passphraseBytes || nonce)
-     * 
+     *
      * @param privateKey
      * @param passphraseBytes
      * @param nonce
@@ -115,7 +71,6 @@ public class DeterministicAddressesGenerator implements Function<String, Determi
     }
 
     /**
-     * 
      * @param privateKey
      * @return
      */
@@ -139,7 +94,7 @@ public class DeterministicAddressesGenerator implements Function<String, Determi
     }
 
     public static void deriviedRipeHash(byte[] ripe, byte[] signPubKey, byte[] encPubKey, MessageDigest sha512,
-            MessageDigest ripemd160) {
+                                        MessageDigest ripemd160) {
         Objects.requireNonNull(ripe);
         if (ripe.length < 20) {
             throw new IllegalArgumentException("ripe is too short");
@@ -156,6 +111,31 @@ public class DeterministicAddressesGenerator implements Function<String, Determi
             ripemd160.digest(ripe, 0, Const.RIPEMD160_DIGEST_LENGTH);
         } catch (DigestException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static String encodeAddress(DeterministicAddress address, int addressVersion, String passphrase) {
+        var encodedAddress = BMAddress.encodeAddress(addressVersion, 1, address.getRipe());
+        var privateSigningKey = BMAddressGenerator
+                .encodeWIF(Arrays.copyOf(address.getSigningPrivateKey(), 32));
+        var privateEncryptionKey = BMAddressGenerator
+                .encodeWIF(Arrays.copyOf(address.getEncryptionPrivateKey(), 32));
+        return '[' + encodedAddress +
+                "]\nlabel = [chan] " + passphrase +
+                "\nenabled = true\ndecoy = false\nchan = true\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nsigningKeyNonce = " +
+                address.getSigningKeyNonce() + "\nencryptionKeyNonce = " +
+                address.getEncryptionKeyNonce() + "\nprivsigningkey = " + privateSigningKey +
+                "\nprivencryptionkey = " + privateEncryptionKey +
+                "\n";
+    }
+
+    public static void main(String channelName) throws Exception {
+        Objects.requireNonNull(channelName, "チャンネル名を指定してください。");
+        var calcurator = new DeterministicAddressesGenerator();
+        // XXX findFirstで探せるようにSteamでやるべき……？
+        var address = calcurator.apply(channelName);
+        for (int addressVersion = 3; addressVersion < 5; addressVersion++) {
+            System.out.println(encodeAddress(address, addressVersion, channelName));
         }
     }
 
@@ -210,29 +190,46 @@ public class DeterministicAddressesGenerator implements Function<String, Determi
         }
     }
 
-    public static String encodeAddress(DeterministicAddress address, int addressVersion, String passphrase) {
-        var encodedAddress = BMAddress.encodeAddress(addressVersion, 1, address.getRipe());
-        var privsigningkey = BMAddressGenerator
-                .encodeWIF(Arrays.copyOf(address.getSigningPrivateKey(), 32));
-        var privencryptionkey = BMAddressGenerator
-                .encodeWIF(Arrays.copyOf(address.getEncryptionPrivateKey(), 32));
-        return new StringBuilder(353 + passphrase.length()).append('[').append(encodedAddress)
-                .append("]\nlabel = [chan] ").append(passphrase)
-                .append("\nenabled = true\ndecoy = false\nchan = true\nnoncetrialsperbyte = 1000\npayloadlengthextrabytes = 1000\nsigningKeyNonce = ")
-                .append(address.getSigningKeyNonce()).append("\nencryptionKeyNonce = ")
-                .append(address.getEncryptionKeyNonce()).append("\nprivsigningkey = ").append(privsigningkey)
-                .append("\nprivencryptionkey = ").append(privencryptionkey)
-                .append("\n").toString();
-    }
+    private final class DeterministicAddressesImplementation implements DeterministicAddress, Serializable {
+        private static final long serialVersionUID = 0;
+        private final byte[] ripe;
+        private final byte[] signingPrivateKey;
+        private final byte[] encryptionPrivateKey;
+        private final long signingKeyNonce;
+        private final long encryptionKeyNonce;
 
-    public static void main(String channelName) throws Exception {
-        Objects.requireNonNull(channelName, "チャンネル名を指定してください。");
-        var calcurator = new DeterministicAddressesGenerator();
-        var passphrase = channelName;
-        // XXX findFirstで探せるようにSteamでやるべき……？
-        var address = calcurator.apply(passphrase);
-        for (int addressVersion = 3; addressVersion < 5; addressVersion++) {
-            System.out.println(encodeAddress(address, addressVersion, passphrase));
+        public DeterministicAddressesImplementation(byte[] ripe, byte[] a, byte[] b, long signingKeyNonce,
+                                                    long encryptionKeyNonce) {
+            this.ripe = ripe.clone();
+            this.signingPrivateKey = a.clone();
+            this.encryptionPrivateKey = b.clone();
+            this.signingKeyNonce = signingKeyNonce;
+            this.encryptionKeyNonce = encryptionKeyNonce;
+        }
+
+        @Override
+        public byte[] getRipe() {
+            return ripe;
+        }
+
+        @Override
+        public byte[] getSigningPrivateKey() {
+            return signingPrivateKey;
+        }
+
+        @Override
+        public byte[] getEncryptionPrivateKey() {
+            return encryptionPrivateKey;
+        }
+
+        @Override
+        public long getSigningKeyNonce() {
+            return signingKeyNonce;
+        }
+
+        @Override
+        public long getEncryptionKeyNonce() {
+            return encryptionKeyNonce;
         }
     }
 

@@ -12,7 +12,6 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.util.Base64;
-import java.util.random.RandomGenerator;
 
 /**
  * Main
@@ -76,12 +75,12 @@ public class Main {
         System.out.println(Double.longBitsToDouble(bits));
     }
 
-    private static String encodeAddress(byte[] ripe) {
+    public static String encodeAddress(byte[] ripe) {
         return encodeAddress(4, 1, ripe, 0, ripe.length);
     }
 
-    private static String encodeAddress(int version, int stream, byte[] ripe) {
-        return encodeAddress(4, 1, ripe, 0, ripe.length);
+    public static String encodeAddress(int version, int stream, byte[] ripe) {
+        return encodeAddress(version, stream, ripe, 0, ripe.length);
     }
 
     public static String encodeAddress(int version, int stream, byte[] ripe, int offset, int length) {

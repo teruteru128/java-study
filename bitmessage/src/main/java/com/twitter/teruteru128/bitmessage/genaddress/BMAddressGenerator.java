@@ -19,6 +19,7 @@ import java.util.concurrent.Executors;
 
 import com.twitter.teruteru128.bitmessage.Const;
 import com.twitter.teruteru128.bitmessage.spec.BMAddress;
+import com.twitter.teruteru128.encode.Base58;
 
 /**
  * Producer-Consumerパターンを使い、プロデューサースレッドで鍵ペアを生成、コンシューマースレッドでサーバーへ送信
@@ -87,10 +88,10 @@ public class BMAddressGenerator implements Runnable {
     }
 
     /**
-     * 
-     * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/class_addressGenerator.py#L131
-     * @see https://en.bitcoin.it/wiki/Wallet_import_format
-     * @see https://stackoverflow.com/questions/49204787/deriving-ecdsa-public-key-from-private-key
+     *
+     * @see <a href="https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/class_addressGenerator.py#L131">class_addressGenerator.py</a>
+     * @see <a href="https://en.bitcoin.it/wiki/Wallet_import_format">Wallet import format</a>
+     * @see <a href="https://stackoverflow.com/questions/49204787/deriving-ecdsa-public-key-from-private-key">Deriving ECDSA Public Key from Private Key - stack overflow</a>
      * @param args
      */
     public static void main(String[] args) throws Exception {
@@ -155,6 +156,6 @@ public class BMAddressGenerator implements Runnable {
             // NONE
         }
         buffer.put(checksum, 0, 4);
-        return BMAddress.encode(buffer.array());
+        return Base58.encode(buffer.array());
     }
 }

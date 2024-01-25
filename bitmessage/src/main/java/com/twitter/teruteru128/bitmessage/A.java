@@ -19,7 +19,7 @@ import com.twitter.teruteru128.bitmessage.spec.BMAddress;
 
 public class A implements Callable<IndexPair> {
 
-    private MappedByteBuffer[] buffers;
+    private final MappedByteBuffer[] buffers;
 
     public A(MappedByteBuffer[] buffers) {
         this.buffers = buffers;
@@ -58,11 +58,9 @@ public class A implements Callable<IndexPair> {
         }
     }
 
-    public static void getWif2() throws IOException {
-        var path1 = Paths.get("");
+    public static void getWif2(Path path1, Path path2) throws IOException {
         var offset1 = 390319104;
-    
-        var path2 = Paths.get("");
+
         var offset2 = 523366656;
     
         var length = 32;

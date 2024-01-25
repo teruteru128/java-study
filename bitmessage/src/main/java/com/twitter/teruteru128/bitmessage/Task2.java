@@ -18,12 +18,12 @@ public class Task2 implements Runnable {
      */
     private static final Builder BUILDER = HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/"))
             .header("Content-Type", "application/json-rpc")
-            .header("Authorization", "Basic dGVydXRlcnUxMjg6YW5hbGJlYWRz");
+            .header("Authorization", "Basic " + System.getenv("BM_TOKEN"));
     private static final String REQUEST_BODY = "{\"jsonrpc\":\"2.0\",\"method\":\"sendBroadcast\",\"params\":[\"BM-5oEizuNC8bBDBwgG9wSTNEpgJ8iTYLW\",\"\",\"%s\",2,3600],\"id\":1}";
     private static final HttpClient CLIENT = HttpClient.newBuilder().build();
     private static final Base64.Encoder ENCODER = Base64.getEncoder();
     private static final Pattern PATTERN = Pattern
-            .compile("\\{\"jsonrpc\": \"2.0\", \"result\": \"([0-9a-f]{76})\", \"id\": \\d+\\}");
+            .compile("\\{\"jsonrpc\": \"2.0\", \"result\": \"([0-9a-f]{76})\", \"id\": \\d+}");
     private static final HexFormat FORMAT = HexFormat.of();
     private final byte[] buf = new byte[64];
 
@@ -33,8 +33,8 @@ public class Task2 implements Runnable {
             ThreadLocalRandom.current().nextBytes(buf);
             var responseBody = CLIENT.send(
                     BUILDER.POST(HttpRequest.BodyPublishers.ofString(String.format(REQUEST_BODY,
-                            ENCODER.encodeToString(new StringBuilder(139).append(Instant.now().getEpochSecond())
-                                    .append('\n').append(FORMAT.formatHex(buf)).toString().getBytes()))))
+                            ENCODER.encodeToString((String.valueOf(Instant.now().getEpochSecond()) +
+                                    '\n' + FORMAT.formatHex(buf)).getBytes()))))
                             .build(),
                     HttpResponse.BodyHandlers.ofString()).body();
             var matcher = PATTERN.matcher(responseBody);

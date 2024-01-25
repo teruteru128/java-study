@@ -591,11 +591,11 @@ public class Protocol {
                 break;
 
             case 2:
-                ECPublicKey key = ECIES.generateEcPublicKey();
+                ECPublicKey key = EllipticCurveIntegratedEncryptionScheme.generateEcPublicKey();
                 int len = ThreadLocalRandom.current().nextInt(234, 801);
                 byte[] dummyMessage = new byte[len];
                 random.nextBytes(dummyMessage);
-                ackdata = ECIES.encrypt(dummyMessage, key);
+                ackdata = EllipticCurveIntegratedEncryptionScheme.encrypt(dummyMessage, key);
                 acktype = 2; // message
                 version = 1;
                 break;
