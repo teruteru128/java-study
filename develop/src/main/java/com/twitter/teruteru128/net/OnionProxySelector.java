@@ -11,6 +11,7 @@ import java.util.List;
 
 public class OnionProxySelector extends ProxySelector {
 
+    // FIXME Port?
     private static final List<Proxy> LIST = Collections
             .singletonList(new Proxy(Proxy.Type.SOCKS, new InetSocketAddress("localhost", 9150)));
 

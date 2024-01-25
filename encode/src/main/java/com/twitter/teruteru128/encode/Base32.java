@@ -1,4 +1,4 @@
-package com.twitter.teruteru128.encoder;
+package com.twitter.teruteru128.encode;
 
 import java.math.BigInteger;
 

@@ -10,7 +10,7 @@ public class UUIDEncode {
     }
 
     // FIXME 抽象化のやり方を間違ってる気がする
-    private static ByteBuffer toBuffer(UUID uuid) {
+    public static ByteBuffer toBuffer(UUID uuid) {
         return ByteBuffer.allocate(16).putLong(uuid.getMostSignificantBits()).putLong(uuid.getLeastSignificantBits()).flip();
     }
 

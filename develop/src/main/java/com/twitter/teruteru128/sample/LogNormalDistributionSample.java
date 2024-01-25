@@ -17,7 +17,7 @@ import org.apache.commons.math3.distribution.LogNormalDistribution;
 
 /**
  * 対数正規分布のサンプル
- * @see https://qiita.com/t_uehara/items/460e04ba7d2b19fdd497
+ * @see <a href="https://qiita.com/t_uehara/items/460e04ba7d2b19fdd497">Javaで正規分布・対数正規分布の乱数を生成する</a>
  */
 public class LogNormalDistributionSample implements Sample {
 
@@ -50,9 +50,9 @@ public class LogNormalDistributionSample implements Sample {
         for (int i = 0; i < b.length; i++) {
             int start = i * 5;
             int end = (i + 1) * 5;
-            os.printf("%d\t\uff5e\t%d\t%d%n", start, end, b[i]);
+            os.printf("%d\t～\t%d\t%d%n", start, end, b[i]);
         }
-        os.printf("%d\t\uff5e\t\t%d%n", max, overscale);
+        os.printf("%d\t～\t\t%d%n", max, overscale);
     }
 
     @Override
@@ -64,19 +64,19 @@ public class LogNormalDistributionSample implements Sample {
         var distribution = new LogNormalDistribution(Math.log(80.0), 1.);
         var samples = distribution.sample(60000000);
         var map = new TreeMap<Long, Long>();
-        long floor = 0;
-        Long key = null;
-        long value = 0;
+        long floor;
+        Long key;
+        long value;
         double offset = 3.;
         for (double sample : samples) {
             floor = (long) Math.floor((sample + offset) * 2);
-            key = Long.valueOf(floor);
+            key = floor;
             value = map.containsKey(key) ? map.get(key) + 1 : 1;
-            map.put(key, Long.valueOf(value));
+            map.put(key, value);
             // System.out.printf("%f: %f%n", floor / 2.0, sample);
         }
-        try (var ps = new PrintStream(new File("s13.txt"), StandardCharsets.UTF_8)) {
-            ps.printf("μ: log(%f), \u03c3: %f, offset: %+f%n", Math.exp(distribution.getScale()), distribution.getShape(), offset);
+        try (var ps = new PrintStream("s13.txt", StandardCharsets.UTF_8)) {
+            ps.printf("μ: log(%f), σ: %f, offset: %+f%n", Math.exp(distribution.getScale()), distribution.getShape(), offset);
             for (var set : map.entrySet()) {
                 ps.printf("%.1f: %d%n", set.getKey() / 2.0, set.getValue());
             }
