@@ -65,12 +65,13 @@ public class Main {
             builder.append('}');
         }
         builder.append(']');
-        var c = HttpClient.newHttpClient();
-        System.out.println(c.send(HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/"))
-                .header("Content-Type", "application/json-rpc")
-                .header("Authorization", "Basic dGVydXRlcnUxMjg6YW5hbGJlYWRz")
-                .POST(HttpRequest.BodyPublishers.ofString(builder.toString())).build(),
-                HttpResponse.BodyHandlers.ofString()).body());
+        try (var c = HttpClient.newHttpClient()) {
+            System.out.println(c.send(HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/"))
+                            .header("Content-Type", "application/json-rpc")
+                            .header("Authorization", "Basic dGVydXRlcnUxMjg6YW5hbGJlYWRz")
+                            .POST(HttpRequest.BodyPublishers.ofString(builder.toString())).build(),
+                    HttpResponse.BodyHandlers.ofString()).body());
+        }
 
     }
 

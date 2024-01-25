@@ -32,10 +32,10 @@ dependencies {
     implementation 'com.google.guava:guava:33.0.0-jre'
 
     // https://mvnrepository.com/artifact/org.twitter4j/twitter4j-core
-    implementation 'org.twitter4j:twitter4j-core:4.1.2';
+    implementation 'org.twitter4j:twitter4j-core:4.1.2'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcmail-jdk15on
-    implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.77'
 
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
@@ -60,7 +60,7 @@ dependencies {
     implementation 'org.glassfish:jakarta.json:2.0.1'
 
     // https://mvnrepository.com/artifact/org.spigotmc/spigot-api
-    implementation 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    //implementation 'org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT'
 
     // https://mvnrepository.com/artifact/io.papermc.paper/paper-api
     //implementation 'io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT'
