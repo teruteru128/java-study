@@ -41,7 +41,7 @@ public class Main {
         }
         var random = SecureRandom.getInstanceStrong();
         if (args[0].equals("bomb")) {
-            generateAddressBook(random);
+            addAddressToAddressBook(random);
         }
         if (args[0].equals("random")) {
             doubleSample(random);
@@ -82,7 +82,7 @@ public class Main {
         return Double.longBitsToDouble(bits);
     }
 
-    private static void generateAddressBook(SecureRandom random) throws IOException, InterruptedException {
+    private static void addAddressToAddressBook(SecureRandom random) throws IOException, InterruptedException {
         int num = 10000;
         var hashes = new byte[19 * num];
         random.nextBytes(hashes);
@@ -112,14 +112,6 @@ public class Main {
                             .POST(HttpRequest.BodyPublishers.ofString(builder.toString())).build(),
                     HttpResponse.BodyHandlers.ofString()).body());
         }
-    }
-
-    public static String encodeAddress(byte[] ripe) {
-        return encodeAddress(4, 1, ripe, 0, ripe.length);
-    }
-
-    public static String encodeAddress(int version, int stream, byte[] ripe) {
-        return encodeAddress(version, stream, ripe, 0, ripe.length);
     }
 
     public static String encodeAddress(int version, int stream, byte[] ripe, int offset, int length) {

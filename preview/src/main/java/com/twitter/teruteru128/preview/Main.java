@@ -2,18 +2,18 @@ package com.twitter.teruteru128.preview;
 
 import java.lang.foreign.Arena;
 import java.lang.foreign.Linker;
+import java.lang.foreign.MemorySegment;
 import java.lang.foreign.SymbolLookup;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.twitter.teruteru128.preview.opencl.opencl_h.*;
-import static com.twitter.teruteru128.preview.windows.Windows_h.BCryptCloseAlgorithmProvider;
-import static com.twitter.teruteru128.preview.windows.Windows_h.BCryptOpenAlgorithmProvider;
+import static com.twitter.teruteru128.preview.windows.Windows_h.mbstowcs;
+import static com.twitter.teruteru128.preview.windows.Windows_h.*;
 import static java.lang.foreign.FunctionDescriptor.of;
 import static java.lang.foreign.MemoryLayout.*;
 import static java.lang.foreign.MemorySegment.NULL;
-import static java.lang.foreign.MemorySegment.copy;
 import static java.lang.foreign.ValueLayout.*;
-import static java.nio.charset.StandardCharsets.UTF_16LE;
 
 public class Main {
 
@@ -83,21 +83,20 @@ public class Main {
             , "CL_INVALID_MIP_LEVEL"                        //  -62
             , "CL_INVALID_GLOBAL_WORK_SIZE"                 //  -63
             , "CL_UNKNOWN_ERROR_CODE"};
+    private static final Linker linker = Linker.nativeLinker();
+    private static final SymbolLookup defaultLookup = linker.defaultLookup();
 
     private static String clGetErrorString(int error) {
         if (error >= -63 && error <= 0) return clMessageStrings[-error];
         else return clMessageStrings[64];
     }
 
-    public static void main(String[] args) throws Throwable {
+    public static void main(String[] args) {
         var main = new Main();
         main.call(args);
     }
 
-    private static final Linker linker = Linker.nativeLinker();
-    private static final SymbolLookup defaultLookup = linker.defaultLookup();
-
-    public void call(String[] args) throws Throwable {
+    public void call(String[] args) {
         // でも本当にほしいのはSocketとかファイルとかMessageDigestとかの連携なんだよね……
         // もしかしてネイティブライブラリにアクセスできるならOpenSSLにアクセスもできる……？
         // OpenCLもアクセスできるっぽい
@@ -107,7 +106,7 @@ public class Main {
         System.out.println(publicKeyLayout);
         System.loadLibrary("BCrypt");
         try (var arena = Arena.ofConfined()) {
-            callStrlen(s, arena);
+            System.out.println(strlen(arena.allocateUtf8String(s)));
             ret = extracted(arena);
             if (ret != 0) {
                 System.out.printf("何かしらのエラーが発生しました: %s%n", clGetErrorString(ret));
@@ -121,11 +120,17 @@ public class Main {
     }
 
     private int extracted2(Arena arena) {
+        var locale = setlocale(0, arena.allocateUtf8String(""));
+        locale = locale.reinterpret(strlen(locale) + 1);
+        System.out.printf("old locale: %s%n", locale.getUtf8String(0));
         var hAlg = arena.allocate(ADDRESS);
-        var algo = "SHA256".getBytes(UTF_16LE);
-        var BCRYPT_SHA256_ALGORITHM = arena.allocateArray(JAVA_BYTE, algo.length + 2);
-        BCRYPT_SHA256_ALGORITHM.fill((byte) 0);
-        copy(algo, 0, BCRYPT_SHA256_ALGORITHM, JAVA_BYTE, 0, algo.length);
+        // java stringをLPCWSTRに変換する
+        var sha256 = arena.allocateUtf8String("SHA256");
+        long count = strlen(sha256);
+        long length = mbstowcs(NULL, sha256, count);
+        var BCRYPT_SHA256_ALGORITHM = arena.allocateArray(JAVA_BYTE, (length + 1) * 2);
+        mbstowcs(BCRYPT_SHA256_ALGORITHM, sha256, count);
+
         int status;
         // wchar_tの中身がUTF-16だったりUTF-32だったりSHIFT-JISだったりしろ
         // FIXME Windows_h.BCRYPT_SHA256_ALGORITHM()は"S"しか返さないので注意
@@ -133,8 +138,7 @@ public class Main {
             System.err.printf("**** Error 0x%1$08x(%1$d) returned by BCryptOpenAlgorithmProvider%n", status);
             return status;
         }
-        status = BCryptCloseAlgorithmProvider(hAlg.get(ADDRESS, 0), 0);
-        return status;
+        return BCryptCloseAlgorithmProvider(hAlg.get(ADDRESS, 0), 0);
     }
 
     /**
@@ -275,15 +279,12 @@ public class Main {
         return 0;
     }
 
-    private void callStrlen(String s, Arena arena) throws Throwable {
-        var segment = arena.allocateUtf8String(s);
-        var opt = defaultLookup.find("strlen");
-        if (opt.isEmpty()) {
-            return;
+    private MemorySegment setlocale(int category, final MemorySegment locale) {
+        var setlocale = Objects.requireNonNull(defaultLookup.find("setlocale").map(addr -> linker.downcallHandle(addr, of(ADDRESS, JAVA_INT, ADDRESS))).orElse(null), "setlocale");
+        try {
+            return (MemorySegment) setlocale.invokeExact(category, locale);
+        } catch (Throwable e) {
+            throw new AssertionError("should not reach here", e);
         }
-        var strlen1 = opt.get();
-        var strlen = Main.linker.downcallHandle(strlen1, of(JAVA_LONG, ADDRESS));
-
-        System.out.printf("strlen: %d%n", (long) strlen.invokeExact(segment));
     }
 }
