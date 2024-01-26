@@ -84,8 +84,7 @@ public class KeyValidator {
             sha256.update(sha256hash, 0, Const.SHA256_DIGEST_LENGTH);
             sha256.digest(sha256hash, 0, Const.SHA256_DIGEST_LENGTH);
             result = Arrays.equals(privateKey, 33, 37, sha256hash, 0, 4);
-        } catch (NoSuchAlgorithmException | DigestException e) {
-            e.printStackTrace();
+        } catch (NoSuchAlgorithmException | DigestException ignored) {
         }
         return result;
     }
@@ -118,8 +117,7 @@ public class KeyValidator {
             sha512.digest(sha512hash, 0, Const.SHA512_DIGEST_LENGTH);
             ripemd160.update(sha512hash, 0, Const.SHA512_DIGEST_LENGTH);
             ripemd160.digest(ripe, 0, Const.RIPEMD160_DIGEST_LENGTH);
-        } catch (NoSuchAlgorithmException | DigestException e) {
-            e.printStackTrace();
+        } catch (NoSuchAlgorithmException | DigestException ignored) {
         }
         return ripe;
     }

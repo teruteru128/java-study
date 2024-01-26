@@ -1,9 +1,13 @@
 package com.twitter.teruteru128.bitmessage.genaddress;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.BlockingQueue;
 
 public class Consumer implements Runnable {
 
+    private final Logger logger = LoggerFactory.getLogger(Consumer.class);
 
     public Consumer() {
     }
@@ -15,7 +19,7 @@ public class Consumer implements Runnable {
             try {
                 BMAddressGenerator.exportAddress(responses.take());
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.error("", e);
             }
         }
     }

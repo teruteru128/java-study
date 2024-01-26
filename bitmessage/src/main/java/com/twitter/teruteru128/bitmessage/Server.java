@@ -1,5 +1,8 @@
 package com.twitter.teruteru128.bitmessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.StandardProtocolFamily;
@@ -8,6 +11,8 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 
 public class Server implements Runnable {
+
+    private Logger logger = LoggerFactory.getLogger(Server.class);
 
     private Selector selector;
 
@@ -24,7 +29,8 @@ public class Server implements Runnable {
             selector = Selector.open();
             serverChannel.register(selector, serverChannel.validOps(), new ServerContext());
             while (selector.select() > 0) {
-                for (var it = selector.selectedKeys().iterator(); it.hasNext();) {
+                var it = selector.selectedKeys().iterator();
+                while (it.hasNext()) {
                     var key = it.next();
                     it.remove();
                     if (key.isAcceptable()) {
@@ -35,19 +41,15 @@ public class Server implements Runnable {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("", e);
         }
     }
 
     private void doAccept(ServerSocketChannel server) throws IOException {
-        try {
-            var channel = server.accept();
-            System.err.printf("Accepted: %s%n", channel.getRemoteAddress());
-            channel.configureBlocking(false);
-            channel.register(selector, channel.validOps(), new ClientContext());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        var channel = server.accept();
+        System.err.printf("Accepted: %s%n", channel.getRemoteAddress());
+        channel.configureBlocking(false);
+        channel.register(selector, channel.validOps(), new ClientContext());
     }
 
     private void doRead(SocketChannel channel) throws IOException {

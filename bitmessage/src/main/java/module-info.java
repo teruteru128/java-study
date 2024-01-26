@@ -4,6 +4,7 @@ module com.twitter.teruteru.bitmessage {
     requires org.bouncycastle.provider;
     requires org.xerial.sqlitejdbc;
     requires org.apache.commons.codec;
+    requires org.slf4j;
     requires com.twitter.teruteru.encode;
     requires com.twitter.teruteru.time;
 

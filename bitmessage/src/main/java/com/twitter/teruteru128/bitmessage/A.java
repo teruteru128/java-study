@@ -1,5 +1,11 @@
 package com.twitter.teruteru128.bitmessage;
 
+import com.twitter.teruteru128.bitmessage.app.DeterministicAddressesGenerator;
+import com.twitter.teruteru128.bitmessage.genaddress.BMAddressGenerator;
+import com.twitter.teruteru128.bitmessage.spec.BMAddress;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
@@ -13,11 +19,9 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 
-import com.twitter.teruteru128.bitmessage.app.DeterministicAddressesGenerator;
-import com.twitter.teruteru128.bitmessage.genaddress.BMAddressGenerator;
-import com.twitter.teruteru128.bitmessage.spec.BMAddress;
-
 public class A implements Callable<IndexPair> {
+
+    private static final Logger logger = LoggerFactory.getLogger(A.class);
 
     private final MappedByteBuffer[] buffers;
 
@@ -118,7 +122,7 @@ public class A implements Callable<IndexPair> {
                 }
             }
         } catch (NoSuchAlgorithmException | DigestException e) {
-            e.printStackTrace();
+            logger.error("", e);
         }
     }
 

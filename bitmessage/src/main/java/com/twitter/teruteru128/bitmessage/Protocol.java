@@ -349,7 +349,7 @@ public class Protocol {
         System.out.printf("count: %d%n", count);
         addresses.ensureCapacity(count);
         for (int i = 0; i < count; i++) {
-            addresses.add(NetworkAddress.newInstance(payload, offset + i * 38, 38));
+            addresses.add(NetworkAddressFactory.newInstance(payload, offset + i * 38, 38));
         }
         int size = addresses.size();
         System.out.printf("count: %d, list size: %d, %s%n", count, size, count == size ? "OK" : "NG");
@@ -572,7 +572,7 @@ public class Protocol {
     }
 
     /**
-     * @see {@link https://github.com/Bitmessage/PyBitmessage/blob/3d19c3f23fad2c7a26e8606cd95c6b3df417cfbc/src/helper_ackPayload.py#L13}
+     * @see <a href="https://github.com/Bitmessage/PyBitmessage/blob/3d19c3f23fad2c7a26e8606cd95c6b3df417cfbc/src/helper_ackPayload.py#L13">helper_ackPayload.py</a>
      * @param streamNumber
      * @param stealthLevel
      * @return

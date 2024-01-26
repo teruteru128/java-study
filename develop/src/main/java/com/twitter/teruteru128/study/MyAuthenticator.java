@@ -38,7 +38,7 @@ public class MyAuthenticator extends Authenticator implements Destroyable, Seria
             Arrays.fill(password, '\0');
             password = null;
         } else {
-            throw new IllegalStateException("destroyed");
+            throw new DestroyFailedException("destroyed");
         }
     }
 

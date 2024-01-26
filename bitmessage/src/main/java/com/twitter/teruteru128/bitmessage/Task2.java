@@ -40,7 +40,7 @@ public class Task2 implements Runnable {
             var matcher = PATTERN.matcher(responseBody);
             System.out.println(matcher.matches() ? matcher.group(1) : responseBody);
         } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

@@ -5,10 +5,9 @@ import java.nio.ByteBuffer;
 
 /**
  * Encode variable integer.
- * 
  * 参照実装を見るに多倍長整数をエンコードすることを意図していると思われる。
- * 
- * @see https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/addresses.py#L63
+ *
+ * @see <a href="https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/addresses.py#L63">addresses.py</a>
  */
 public class Structs {
     private static final BigInteger _253 = BigInteger.valueOf(253);

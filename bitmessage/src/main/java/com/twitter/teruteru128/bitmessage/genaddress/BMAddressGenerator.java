@@ -1,5 +1,9 @@
 package com.twitter.teruteru128.bitmessage.genaddress;
 
+import com.twitter.teruteru128.bitmessage.Const;
+import com.twitter.teruteru128.bitmessage.spec.BMAddress;
+import com.twitter.teruteru128.encode.Base58;
+
 import java.io.PrintStream;
 import java.lang.System.Logger;
 import java.math.BigInteger;
@@ -16,10 +20,6 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.bitmessage.spec.BMAddress;
-import com.twitter.teruteru128.encode.Base58;
 
 /**
  * Producer-Consumerパターンを使い、プロデューサースレッドで鍵ペアを生成、コンシューマースレッドでサーバーへ送信
@@ -38,61 +38,11 @@ public class BMAddressGenerator implements Runnable {
         this.args = args;
     }
 
-    @Override
-    public void run() {
-        var tasks = new ArrayList<Producer>();
-        int requireNlz = 3;
-        Thread consumerThread1 = new Thread(new Consumer(), "consumerThread1");
-        consumerThread1.setDaemon(true);
-        consumerThread1.start();
-        Thread consumerThread2 = new Thread(new Consumer(), "consumerThread2");
-        consumerThread2.setDaemon(true);
-        consumerThread2.start();
-        {
-            int tasknum = 1;
-            int tmp = 2;
-            for (var arg : args) {
-                try {
-                    tmp = Integer.parseInt(arg, 10);
-                    if (tmp >= 1) {
-                        tasknum = tmp;
-                    }
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-            }
-            for (int i = 0; i < tasknum; i++) {
-                Request request = new Request(requireNlz, i);
-                request.setKeyCacheSize(65536);
-                tasks.add(new Producer(request));
-            }
-        }
-        ExecutorService service1 = Executors.newCachedThreadPool();
-        // ScheduledExecutorService service2 = Executors.newScheduledThreadPool(1);
-        logger.log(System.Logger.Level.INFO, "start : %s%n", LocalDateTime.now());
-        try {
-            service1.invokeAny(tasks);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            logger.log(System.Logger.Level.INFO, "タスクの終了を待機しています。しばらくお待ち下さい...");
-
-            if (!service1.isShutdown()) {
-                service1.shutdown();
-            }
-            // service2.shutdown();
-            logger.log(System.Logger.Level.INFO, "タスクの終了が完了しました。シャットダウンします。");
-        }
-    }
-
     /**
-     *
+     * @param args
      * @see <a href="https://github.com/Bitmessage/PyBitmessage/blob/6f35da4096770a668c4944c3024cd7ddb34be092/src/class_addressGenerator.py#L131">class_addressGenerator.py</a>
      * @see <a href="https://en.bitcoin.it/wiki/Wallet_import_format">Wallet import format</a>
      * @see <a href="https://stackoverflow.com/questions/49204787/deriving-ecdsa-public-key-from-private-key">Deriving ECDSA Public Key from Private Key - stack overflow</a>
-     * @param args
      */
     public static void main(String[] args) throws Exception {
         Path privateKeyPath = Paths.get("privateKeys.bin");
@@ -144,7 +94,7 @@ public class BMAddressGenerator implements Runnable {
             throw new IllegalArgumentException("key length must be 32 bytes");
         byte[] checksum = new byte[Const.SHA256_DIGEST_LENGTH];
         // 37 = 1 + 32 + 4
-        var buffer = ByteBuffer.allocate(37).put((byte)0x80).put(key);
+        var buffer = ByteBuffer.allocate(37).put((byte) 0x80).put(key);
 
         try {
             MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
@@ -157,5 +107,53 @@ public class BMAddressGenerator implements Runnable {
         }
         buffer.put(checksum, 0, 4);
         return Base58.encode(buffer.array());
+    }
+
+    @Override
+    public void run() {
+        var tasks = new ArrayList<Producer>();
+        int requireNlz = 3;
+        Thread consumerThread1 = new Thread(new Consumer(), "consumerThread1");
+        consumerThread1.setDaemon(true);
+        consumerThread1.start();
+        Thread consumerThread2 = new Thread(new Consumer(), "consumerThread2");
+        consumerThread2.setDaemon(true);
+        consumerThread2.start();
+        {
+            int tasknum = 1;
+            int tmp = 2;
+            for (var arg : args) {
+                try {
+                    tmp = Integer.parseInt(arg, 10);
+                } catch (NumberFormatException e) {
+                    tmp = Runtime.getRuntime().availableProcessors();
+                }
+            }
+            if (tmp >= 1) {
+                tasknum = tmp;
+            }
+            for (int i = 0; i < tasknum; i++) {
+                Request request = new Request(requireNlz, i);
+                request.setKeyCacheSize(65536);
+                tasks.add(new Producer(request));
+            }
+        }
+        try (ExecutorService service1 = Executors.newCachedThreadPool()) {
+            // ScheduledExecutorService service2 = Executors.newScheduledThreadPool(1);
+            logger.log(System.Logger.Level.INFO, "start : %s%n", LocalDateTime.now());
+            try {
+                service1.invokeAny(tasks);
+            } catch (ExecutionException | InterruptedException e) {
+                logger.log(System.Logger.Level.ERROR, "", e);
+            } finally {
+                logger.log(System.Logger.Level.INFO, "タスクの終了を待機しています。しばらくお待ち下さい...");
+
+                if (!service1.isShutdown()) {
+                    service1.shutdown();
+                }
+                // service2.shutdown();
+                logger.log(System.Logger.Level.INFO, "タスクの終了が完了しました。シャットダウンします。");
+            }
+        }
     }
 }

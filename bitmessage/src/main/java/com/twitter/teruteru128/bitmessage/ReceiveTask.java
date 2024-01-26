@@ -1,5 +1,8 @@
 package com.twitter.teruteru128.bitmessage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
@@ -19,6 +22,8 @@ import java.util.concurrent.Callable;
  * ディスクIOとかは別スレッドの担当とする。
  */
 public class ReceiveTask implements Callable<Void> {
+
+    private static final Logger logger = LoggerFactory.getLogger(ReceiveTask.class);
     private Selector selector;
 
     public ReceiveTask(Selector s) {
@@ -111,7 +116,7 @@ public class ReceiveTask implements Callable<Void> {
             sha512.update(payload);
             sha512.digest(hash, 0, 64);
         } catch (NoSuchAlgorithmException | DigestException e) {
-            e.printStackTrace();
+            logger.error("", e);
         }
         return MessageDigest.isEqual(checksum, Arrays.copyOf(hash, 4));
     }

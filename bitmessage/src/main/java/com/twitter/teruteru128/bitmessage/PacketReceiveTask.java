@@ -1,5 +1,11 @@
 package com.twitter.teruteru128.bitmessage;
 
+import com.twitter.teruteru128.bitmessage.protocol.Packet;
+import com.twitter.teruteru128.bitmessage.protocol.PacketHeader;
+import com.twitter.teruteru128.bitmessage.protocol.payload.UnknownPacketPayload;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.security.DigestException;
@@ -9,11 +15,9 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.concurrent.ForkJoinPool;
 
-import com.twitter.teruteru128.bitmessage.protocol.Packet;
-import com.twitter.teruteru128.bitmessage.protocol.PacketHeader;
-import com.twitter.teruteru128.bitmessage.protocol.payload.UnknownPacketPayload;
-
 public class PacketReceiveTask implements Runnable {
+
+    private final Logger logger = LoggerFactory.getLogger(PacketReceiveTask.class);
 
     private ForkJoinPool service;
     private TCPConnection connection;
@@ -29,14 +33,13 @@ public class PacketReceiveTask implements Runnable {
         try {
             DataInputStream din = new DataInputStream(connection.getSocket().getInputStream());
             int magic = din.readInt();
-            byte[] commandbuffer = new byte[12];
-            din.read(commandbuffer, 0, 12);
-            int len = commandbuffer.length;
+            byte[] commandBuffer = new byte[12];
+            int len = din.read(commandBuffer, 0, 12);
             // 手動trim
-            while ((0 < len) && (commandbuffer[len - 1] & 0xff) < ' ') {
+            while ((0 < len) && (commandBuffer[len - 1] & 0xff) < ' ') {
                 len--;
             }
-            String command = new String(commandbuffer, 0, len);
+            String command = new String(commandBuffer, 0, len);
             int length = din.readInt();
             byte[] checksum = new byte[4];
             din.read(checksum, 0, 4);
@@ -52,7 +55,7 @@ public class PacketReceiveTask implements Runnable {
                 // add command(packet) process queue
             }
         } catch (IOException | NoSuchAlgorithmException | DigestException e) {
-            e.printStackTrace();
+            logger.error("", e);
         }
         if (State.shutdown == 0) {
             service.execute(this);

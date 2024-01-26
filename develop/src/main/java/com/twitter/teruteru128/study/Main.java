@@ -3,6 +3,7 @@ package com.twitter.teruteru128.study;
 import com.twitter.teruteru128.bitmessage.Structs;
 import com.twitter.teruteru128.encode.Base58;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -12,6 +13,8 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.util.Base64;
+import java.util.random.RandomGenerator;
+import java.util.random.RandomGeneratorFactory;
 
 /**
  * Main
@@ -33,9 +36,55 @@ public class Main {
      * @throws Exception 何か起こるかもしれない
      */
     public static void main(String[] args) throws Exception {
-        int num = 2000;
-        var hashes = new byte[19 * num];
+        if (args.length < 1) {
+            return;
+        }
         var random = SecureRandom.getInstanceStrong();
+        if (args[0].equals("bomb")) {
+            generateAddressBook(random);
+        }
+        if (args[0].equals("random")) {
+            doubleSample(random);
+        }
+        if (args[0].equalsIgnoreCase("randomAlgorithms")) {
+            RandomGeneratorFactory.all().map(RandomGeneratorFactory::name).forEach(System.out::println);
+            System.out.println(RandomGenerator.getDefault());
+        }
+        if (args[0].equalsIgnoreCase("search")) {
+            Search.getExecutor(args.length >= 2 ? Integer.parseInt(args[1], 10) : Runtime.getRuntime().availableProcessors());
+        }
+    }
+
+    /**
+     * @param random 乱数生成源
+     * @see <a href="https://speakerdeck.com/hole/rand01">[0.0, 1.0) の乱数を得るための“本当の”方法 - speakerdeck</a>
+     */
+    private static void doubleSample(SecureRandom random) {
+        System.out.println(nextDouble(random));
+    }
+
+    private static double nextDouble(SecureRandom random) {
+        // random Double
+        long randomBits = random.nextLong();
+        long fraction = (randomBits >>> 12) & 0xFFFFFFFFFFFFFL;
+        int exp = 1022 - Long.numberOfTrailingZeros(~(randomBits & 0xfff));
+        // 1010 == 1022 - 12
+        if (exp == 1010) {
+            do {
+                randomBits = random.nextLong();
+                exp -= Long.numberOfTrailingZeros(~randomBits);
+            } while (randomBits == 0);
+        }
+        if (fraction == 0) {
+            exp++;
+        }
+        var bits = (((long) exp) << 52) + fraction;
+        return Double.longBitsToDouble(bits);
+    }
+
+    private static void generateAddressBook(SecureRandom random) throws IOException, InterruptedException {
+        int num = 10000;
+        var hashes = new byte[19 * num];
         random.nextBytes(hashes);
         var builder = new StringBuilder(114514);
         builder.append('[');
@@ -63,16 +112,6 @@ public class Main {
                             .POST(HttpRequest.BodyPublishers.ofString(builder.toString())).build(),
                     HttpResponse.BodyHandlers.ofString()).body());
         }
-        // random Double
-        long randomBits;
-        int exp = 1022;
-        do {
-            randomBits = random.nextLong();
-            exp -= Long.numberOfTrailingZeros(~randomBits);
-        } while (randomBits == 0);
-        long fraction = random.nextLong() >> (64 - 52);
-        var bits = (((long) exp) << 52) + fraction;
-        System.out.println(Double.longBitsToDouble(bits));
     }
 
     public static String encodeAddress(byte[] ripe) {

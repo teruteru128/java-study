@@ -21,7 +21,7 @@ import com.twitter.teruteru128.encode.Base58;
 public class BMAddressTest {
 
     /**
-     * @see https://qiita.com/tsukakei/items/7e48c84b96e3ebf34498 {@code @BeforeAll}についてはこのリンクを参照
+     * @see <a href="https://udzuki.jp/public/junit5-user-guide-ja/#writing-tests">JUnit 5 ユーザガイド 第3章 テストを書く - qiita</a>
      */
     @BeforeAll
     public static void initBeforeEach() {
@@ -36,17 +36,16 @@ public class BMAddressTest {
         String address = "BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM";
         String privSigningKeyWIF = "5KSKK9tJfuMrkUfwBqGS3ktfPix5zZBtgxAao2GtKeUgJNpEo6R";
         String privEncryptionKeyWIF = "5KUoQKDmcmAKpjaas3k9U6bGFN5Nz937zqLqDDo1sNUqeJCiMZn";
-        byte[] wrapedPrivSigningKey = Base58.decode(privSigningKeyWIF);
-        byte[] wrapedPrivEncryptionKey = Base58.decode(privEncryptionKeyWIF);
-        byte[] pubSigningKey = Const.G.multiply(new BigInteger(1, wrapedPrivSigningKey, 1, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
-        byte[] pubEncryptionKey = Const.G.multiply(new BigInteger(1, wrapedPrivEncryptionKey, 1, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
+        byte[] wrappedPrivSigningKey = Base58.decode(privSigningKeyWIF);
+        byte[] wrappedPrivEncryptionKey = Base58.decode(privEncryptionKeyWIF);
+        byte[] pubSigningKey = Const.G.multiply(new BigInteger(1, wrappedPrivSigningKey, 1, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
+        byte[] pubEncryptionKey = Const.G.multiply(new BigInteger(1, wrappedPrivEncryptionKey, 1, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
         MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
         MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
         sha512.update(pubSigningKey);
         sha512.update(pubEncryptionKey);
         byte[] ripe = ripemd160.digest(sha512.digest());
-        byte[] actualbytes = HexFormat.of().parseHex("00005757482ea4aa7c4e243da76ac4cc977f3204");
-        assertArrayEquals(actualbytes, ripe);
+        assertArrayEquals(HexFormat.of().parseHex("00005757482ea4aa7c4e243da76ac4cc977f3204"), ripe);
         assertEquals(BMAddress.encodeAddress(4, 1, ripe), address);
     }
 
