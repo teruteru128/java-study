@@ -1,6 +1,8 @@
 package com.twitter.teruteru128.preview;
 
 import java.lang.foreign.*;
+import java.nio.charset.StandardCharsets;
+import java.util.HexFormat;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -107,56 +109,125 @@ public class Main {
             System.out.println(strlen(arena.allocateUtf8String(s)));
             ret = cl(arena);
             if (ret != 0) {
-                System.out.printf("何かしらのエラーが発生しました: %s%n", clGetErrorString(ret));
+                System.err.printf("cl: %s%n", clGetErrorString(ret));
                 return;
             }
-            ret = BCryptSHA256(arena);
+            ret = BCryptSHA256(arena, s);
             if (ret != 0) {
-                System.out.printf("何かしらのエラーが発生しました: %d%n", ret);
+                System.err.printf("BCryptSHA256: %d%n", ret);
             }
             ret = mutexSample(arena);
             if (ret != 0) {
-                System.out.printf("何かしらのエラーが発生しました: %d%n", ret);
+                System.err.printf("mutexSample: %d%n", ret);
             }
         }
     }
 
     private int mutexSample(Arena arena) {
+        System.loadLibrary("Kernel32");
         var i = CreateMutexExA(NULL, NULL, 0, 0);
         CloseHandle(i);
         return 0;
     }
 
-    private int BCryptSHA256(Arena arena) {
-        var oldLocale = setlocale(0, arena.allocateUtf8String(""));
+    private MemorySegment allocateUTF16LEString(Arena arena, String str) {
+        var array = str.getBytes(StandardCharsets.UTF_16LE);
+        var objectLength = arena.allocateArray(JAVA_BYTE, array.length + 2);
+        MemorySegment.copy(array, 0, objectLength, JAVA_BYTE, 0, array.length);
+        objectLength.set(JAVA_BYTE, array.length, (byte) 0);
+        objectLength.set(JAVA_BYTE, array.length + 1, (byte) 0);
+        return objectLength;
+    }
+
+    private MemorySegment allocateWideCharacterString(Arena arena, String str) {
+        var sha256Utf8Str = arena.allocateUtf8String(str);
+        var count = strlen(sha256Utf8Str);
+        var length = mbstowcs(NULL, sha256Utf8Str, count);
+        // wchar_t の大きさは機種依存(Windows->16bit, Linux->32bit)
+        var wchar_tBuffer = arena.allocateArray(JAVA_BYTE, (length + 1) * 2);
+        mbstowcs(wchar_tBuffer, sha256Utf8Str, count);
+        return wchar_tBuffer;
+    }
+
+    private int BCryptSHA256(Arena arena, String str) {
+        var emptyString = arena.allocateUtf8String("");
+        var oldLocale = setlocale(0, emptyString);
         oldLocale = oldLocale.reinterpret(strlen(oldLocale) + 1);
         System.out.printf("old locale: %s%n", oldLocale.getUtf8String(0));
-        var hAlg = arena.allocate(ADDRESS);
-        // java stringをLPCWSTRに変換する
-        var sha256Utf8Str = arena.allocateUtf8String("SHA256");
-        long count = strlen(sha256Utf8Str);
-        long length = mbstowcs(NULL, sha256Utf8Str, count);
-        final var BCRYPT_SHA256_ALGORITHM = arena.allocateArray(JAVA_BYTE, (length + 1) * 2);
-        mbstowcs(BCRYPT_SHA256_ALGORITHM, sha256Utf8Str, count);
+        // BCryptOpenAlgorithmProviderを呼び出すためにjava stringをLPCWSTRに変換する
+        final var BCRYPT_SHA256_ALGORITHM = allocateWideCharacterString(arena, "SHA256");
 
+        //プロバイダーハンドルを作成
         int status;
         // wchar_tの中身がUTF-16だったりUTF-32だったりSHIFT-JISだったりしろ
         // FIXME Windows_h.BCRYPT_SHA256_ALGORITHM()は"S"しか返さないので注意
+        var hAlg = arena.allocate(ADDRESS);
         if (!((status = BCryptOpenAlgorithmProvider(hAlg, BCRYPT_SHA256_ALGORITHM, NULL, 0)) >= 0)) {
             System.err.printf("**** Error 0x%1$08x(%1$d) returned by BCryptOpenAlgorithmProvider%n", status);
             return status;
         }
+        var handle = hAlg.get(ADDRESS, 0);
         System.out.printf("hAlg is null: %s%n", hAlg.equals(NULL));
-        if (!hAlg.equals(NULL)) {
-            BCryptCreateHash(hAlg, NULL, NULL, 0, NULL, 0, 0);
-            BCryptHashData(hAlg, NULL, 0, 0);
-            BCryptFinishHash(hAlg, NULL, 0, 0);
-            BCryptDestroyHash(hAlg);
+        if (handle.equals(NULL)) {
+            System.err.println("handle is null");
+            return 1;
         }
-        var i = BCryptCloseAlgorithmProvider(hAlg.get(ADDRESS, 0), 0);
+        // オブジェクトの大きさを取得
+        var re = arena.allocate(JAVA_INT, 0);
+        // java string to LPCWSTR
+        var objectLength = allocateUTF16LEString(arena, "ObjectLength");
+        var i5 = BCryptGetProperty(handle, objectLength, NULL, 0, re, 0);
+        if (i5 != 0) {
+            System.err.printf("BCryptGetProperty 1: %d%n", i5);
+            return i5;
+        }
+        var bufferSize = arena.allocateArray(JAVA_BYTE, re.get(JAVA_INT, 0));
+        var i4 = BCryptGetProperty(handle, objectLength, bufferSize, re.get(JAVA_INT, 0), re, 0);
+        if (i4 != 0) {
+            System.err.printf("BCryptGetProperty 2: %d%n", i4);
+            return i4;
+        }
+        var size1 = bufferSize.get(JAVA_INT, 0);
+        System.err.printf("buffer size: %d%n", size1);
+        // hashオブジェクトを作成
+        var buffer = arena.allocateArray(JAVA_BYTE, size1);
+        var hash = arena.allocate(ADDRESS);
+        var i = BCryptCreateHash(handle, hash, buffer, size1, NULL, 0, BCRYPT_HASH_REUSABLE_FLAG());
         if (i != 0) {
-            System.err.printf("**** Error 0x%1$08x(%1$d) returned by BCryptCloseAlgorithmProvider%n", i);
+            System.err.printf("BCryptCreateHash %d%n", i);
             return i;
+        }
+        // hash開始
+        var rawStr = arena.allocateUtf8String(str);
+        var strLength = strlen(rawStr);
+        var hHash = hash.get(ADDRESS, 0);
+        System.err.printf("%016x, %016x%n", hHash.address(), buffer.address());
+        var i1 = BCryptHashData(hHash, rawStr, (int) strLength, 0);
+        if (i1 != 0) {
+            System.err.printf("BCryptHashData: %d%n", i1);
+            return i1;
+        }
+        // hash終了
+        var hashBuffer = arena.allocateArray(JAVA_BYTE, 32);
+        var i2 = BCryptFinishHash(hHash, hashBuffer, 32, 0);
+        if (i2 != 0) {
+            System.err.printf("BCryptFinishHash %d%n", i2);
+            return i1;
+        }
+        // javaのbyte配列にコピーして出力
+        var hashBuffer1 = new byte[32];
+        MemorySegment.copy(hashBuffer, JAVA_BYTE, 0, hashBuffer1, 0, 32);
+        System.out.printf("hash: %s%n", HexFormat.of().formatHex(hashBuffer1));
+        // hashオブジェクトを破棄
+        var i3 = BCryptDestroyHash(hHash);
+        if (i3 != 0) {
+            System.err.printf("BCryptDestroyHash: %d%n", i3);
+            return i1;
+        }
+        var j6 = BCryptCloseAlgorithmProvider(handle, 0);
+        if (j6 != 0) {
+            System.err.printf("**** Error 0x%1$08x(%1$d) returned by BCryptCloseAlgorithmProvider%n", j6);
+            return j6;
         }
         return 0;
     }
