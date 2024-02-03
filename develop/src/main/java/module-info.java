@@ -3,7 +3,6 @@
  * Teruteru's Test Repository
  * 
  * @author teruteru
- * @moduleGraph
  */
 module com.twitter.teruteru.study {
     requires java.desktop;

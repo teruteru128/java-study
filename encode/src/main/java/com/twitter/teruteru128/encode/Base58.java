@@ -7,7 +7,8 @@ import java.nio.CharBuffer;
 import java.util.Arrays;
 
 /**
- * @author https://gist.github.com/vrotaru/1753908
+ * TODO ライブラリに置き換える
+ * @author <a href="https://gist.github.com/vrotaru/1753908">Base58.java - vrotaru</a>
  */
 public class Base58 {
 
@@ -21,9 +22,7 @@ public class Base58 {
 
   private static final int[] INDEXES = new int[128];
   static {
-    for (int i = 0; i < INDEXES.length; i++) {
-      INDEXES[i] = -1;
-    }
+      Arrays.fill(INDEXES, -1);
     for (int i = 0; i < ALPHABET.length; i++) {
       INDEXES[ALPHABET[i]] = i;
     }
@@ -92,7 +91,7 @@ public class Base58 {
   }
 
   public static byte[] decode(String input) {
-    if (input.length() == 0) {
+    if (input.isEmpty()) {
       // paying with the same coin
       return new byte[0];
     }
@@ -105,7 +104,7 @@ public class Base58 {
       char c = input.charAt(i);
 
       int digit58 = -1;
-      if (c >= 0 && c < 128) {
+      if (c < 128) {
         digit58 = INDEXES[c];
       }
       if (digit58 < 0) {

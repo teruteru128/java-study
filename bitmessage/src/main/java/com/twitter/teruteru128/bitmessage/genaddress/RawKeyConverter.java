@@ -12,7 +12,7 @@ import java.util.HexFormat;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.bitmessage.spec.BMAddress;
+import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
 import com.twitter.teruteru128.bitmessage.spec.KeyPair;
 
 public class RawKeyConverter {
@@ -50,7 +50,7 @@ public class RawKeyConverter {
         ripemd160.update(sha512hash, 0, Const.SHA512_DIGEST_LENGTH);
         ripemd160.digest(ripe, 0, Const.RIPEMD160_DIGEST_LENGTH);
 
-        final String address4 = BMAddress.encodeAddress(4, 1, ripe);
+        final String address4 = AddressFactory.encodeAddress(4, 1, ripe);
         System.out.print("ripe : ");
         System.out.print(format.formatHex(ripe));
         boolean isMatch = Arrays.equals(ripe, inputRipe);

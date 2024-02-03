@@ -12,7 +12,7 @@ import com.twitter.teruteru128.encode.Base58;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.bitmessage.spec.BMAddress;
+import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
 
 public class KeyValidator {
 
@@ -51,9 +51,9 @@ public class KeyValidator {
         // アドレスと鍵が一致することを検証
         final byte[] ripe = generateRipe(pubSigningKey, pubEncryptionKey);
 
-        final String address4 = BMAddress.encodeAddress(4, 1, ripe);
-        final String address3 = BMAddress.encodeAddress(3, 1, ripe);
-        final String address3_2 = BMAddress.encodeAddress(3, 1, ripe, 2);
+        final String address4 = AddressFactory.encodeAddress(4, 1, ripe);
+        final String address3 = AddressFactory.encodeAddress(3, 1, ripe);
+        final String address3_2 = AddressFactory.encodeAddress(3, 1, ripe, 2);
         var format = HexFormat.of();
 
         System.out.printf("%41s : %s%n", "sig", format.formatHex(pubSigningKey));

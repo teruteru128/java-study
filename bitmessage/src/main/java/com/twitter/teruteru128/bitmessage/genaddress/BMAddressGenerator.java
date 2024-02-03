@@ -1,7 +1,7 @@
 package com.twitter.teruteru128.bitmessage.genaddress;
 
 import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.bitmessage.spec.BMAddress;
+import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
 import com.twitter.teruteru128.encode.Base58;
 
 import java.io.PrintStream;
@@ -69,7 +69,7 @@ public class BMAddressGenerator implements Runnable {
 
     public static String exportAddress(Response component, PrintStream out) {
         byte[] ripe = component.getRipe();
-        var address4 = BMAddress.encodeAddress(4, 1, ripe);
+        var address4 = AddressFactory.encodeAddress(4, 1, ripe);
         var privSigningKeyWIF = encodeWIF(component.getPrivateSigningKey());
         var privEncryptionKeyWIF = encodeWIF(component.getPrivateEncryptionKey());
         String key = new StringBuilder(305).append('[').append(address4).append("]\n")

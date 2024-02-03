@@ -12,7 +12,7 @@ import java.util.random.RandomGenerator;
 
 import com.twitter.teruteru128.bitmessage.Sender;
 import com.twitter.teruteru128.bitmessage.p2p.Message;
-import com.twitter.teruteru128.bitmessage.spec.BMAddress;
+import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
 
 public class Spammer {
 
@@ -30,7 +30,7 @@ public class Spammer {
         for (int i = 1; i <= count; i++) {
             RANDOM.nextBytes(shortripe);
             System.arraycopy(shortripe, 0, ripe, 1, 19);
-            list.add(new Message(BMAddress.encodeAddress(ripe), "BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM", subject, uuid,
+            list.add(new Message(AddressFactory.encodeAddress(ripe), "BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM", subject, uuid,
                     RANDOM.nextInt(3600, 3900)));
         }
         return list;

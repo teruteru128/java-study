@@ -15,10 +15,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.twitter.teruteru128.bitmessage.Const;
-import com.twitter.teruteru128.bitmessage.spec.BMAddress;
+import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
 import com.twitter.teruteru128.encode.Base58;
 
-public class BMAddressTest {
+public class AddressFactoryTest {
 
     /**
      * @see <a href="https://udzuki.jp/public/junit5-user-guide-ja/#writing-tests">JUnit 5 ユーザガイド 第3章 テストを書く - qiita</a>
@@ -46,7 +46,7 @@ public class BMAddressTest {
         sha512.update(pubEncryptionKey);
         byte[] ripe = ripemd160.digest(sha512.digest());
         assertArrayEquals(HexFormat.of().parseHex("00005757482ea4aa7c4e243da76ac4cc977f3204"), ripe);
-        assertEquals(BMAddress.encodeAddress(4, 1, ripe), address);
+        assertEquals(AddressFactory.encodeAddress(4, 1, ripe), address);
     }
 
     @AfterAll

@@ -9,9 +9,9 @@ java {
 }
 
 compileJava {
-    options.fork = true
-    options.forkOptions.setMemoryInitialSize('16G')
-    options.forkOptions.setMemoryMaximumSize('16G')
+    //options.fork = true
+    //options.forkOptions.setMemoryInitialSize('16G')
+    //options.forkOptions.setMemoryMaximumSize('16G')
     options.compilerArgs += ['--enable-preview'
     //, '-Xlint:preview'
     ]

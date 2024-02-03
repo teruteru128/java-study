@@ -2,7 +2,7 @@ package com.twitter.teruteru128.bitmessage;
 
 import com.twitter.teruteru128.bitmessage.app.DeterministicAddressesGenerator;
 import com.twitter.teruteru128.bitmessage.genaddress.BMAddressGenerator;
-import com.twitter.teruteru128.bitmessage.spec.BMAddress;
+import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,7 +80,7 @@ public class A implements Callable<IndexPair> {
         var ripe = new byte[20];
         DeterministicAddressesGenerator.deriviedRipeHash(ripe, public1, public2);
         // encode address
-        var address = BMAddress.encodeAddress(ripe);
+        var address = AddressFactory.encodeAddress(ripe);
         var wif1 = BMAddressGenerator.encodeWIF(buffer1.array());
         var wif2 = BMAddressGenerator.encodeWIF(buffer2.array());
         System.out.printf("[%s]%n%s%n%s%n", address, wif2, wif1);

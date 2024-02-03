@@ -1,18 +1,20 @@
 package com.twitter.teruteru128.study;
 
-import com.twitter.teruteru128.bitmessage.Structs;
-import com.twitter.teruteru128.encode.Base58;
+import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
 
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigInteger;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
+import java.security.spec.*;
 import java.util.Base64;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 import java.util.random.RandomGeneratorFactory;
 
@@ -21,12 +23,13 @@ import java.util.random.RandomGeneratorFactory;
  */
 public class Main {
 
+    private static final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/")).header("Content-Type", "application/json-rpc").header("Authorization", "Basic " + System.getenv("BM_TOKEN"));
+
     static {
         try {
-            Security.addProvider(Class.forName("org.bouncycastle.jce.provider.BouncyCastleProvider")
-                    .asSubclass(Provider.class).getConstructor().newInstance());
-        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException
-                 | IllegalArgumentException | InvocationTargetException | SecurityException e) {
+            Security.addProvider(Class.forName("org.bouncycastle.jce.provider.BouncyCastleProvider").asSubclass(Provider.class).getConstructor().newInstance());
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException |
+                 IllegalArgumentException | InvocationTargetException | SecurityException e) {
             throw new InternalError(e);
         }
     }
@@ -40,18 +43,28 @@ public class Main {
             return;
         }
         var random = SecureRandom.getInstanceStrong();
-        if (args[0].equals("bomb")) {
-            addAddressToAddressBook(random);
+        var command = args[0];
+        if (command.equalsIgnoreCase("getPubKeySpam")) {
+            getPubKeySpam(random, args.length >= 2 ? Integer.parseInt(args[1]) : 10000);
         }
-        if (args[0].equals("random")) {
-            doubleSample(random);
+        if (command.equalsIgnoreCase("random")) {
+            doubleSample(ThreadLocalRandom.current());
         }
-        if (args[0].equalsIgnoreCase("randomAlgorithms")) {
+        if (command.equalsIgnoreCase("random2")) {
+            var feats = ((165. / 64) - 1.0) * nextDouble(random) + 1;
+            System.out.printf("%f feats, %f cm%n", feats, feats * 30.48);
+            var milk = Math.pow(10, 4 + nextDouble(random));
+            System.out.printf("%f ml, %f L%n", milk, milk / 1000);
+        }
+        if (command.equalsIgnoreCase("randomAlgorithms")) {
             RandomGeneratorFactory.all().map(RandomGeneratorFactory::name).forEach(System.out::println);
             System.out.println(RandomGenerator.getDefault());
         }
-        if (args[0].equalsIgnoreCase("search")) {
+        if (command.equalsIgnoreCase("search")) {
             Search.getExecutor(args.length >= 2 ? Integer.parseInt(args[1], 10) : Runtime.getRuntime().availableProcessors());
+        }
+        if (command.equalsIgnoreCase("sample")) {
+            sample(random);
         }
     }
 
@@ -59,17 +72,22 @@ public class Main {
      * @param random 乱数生成源
      * @see <a href="https://speakerdeck.com/hole/rand01">[0.0, 1.0) の乱数を得るための“本当の”方法 - speakerdeck</a>
      */
-    private static void doubleSample(SecureRandom random) {
+    private static void doubleSample(RandomGenerator random) {
+        long start = System.nanoTime();
+        for (int i = 0; i < 100000000; i++)
+            nextDouble(random);
+        long finish = System.nanoTime();
+        System.out.printf("%f seconds%n", (finish - start) / 1e9);
         System.out.println(nextDouble(random));
     }
 
-    private static double nextDouble(SecureRandom random) {
+    private static double nextDouble(RandomGenerator random) {
         // random Double
-        long randomBits = random.nextLong();
-        long fraction = (randomBits >>> 12) & 0xFFFFFFFFFFFFFL;
-        int exp = 1022 - Long.numberOfTrailingZeros(~(randomBits & 0xfff));
-        // 1010 == 1022 - 12
+        long bits = random.nextLong();
+        long fraction = bits & 0xfffffffffffffL;
+        int exp = 1022 - Long.numberOfTrailingZeros(~(bits >>> 52));
         if (exp == 1010) {
+            long randomBits;
             do {
                 randomBits = random.nextLong();
                 exp -= Long.numberOfTrailingZeros(~randomBits);
@@ -78,12 +96,10 @@ public class Main {
         if (fraction == 0) {
             exp++;
         }
-        var bits = (((long) exp) << 52) + fraction;
-        return Double.longBitsToDouble(bits);
+        return Double.longBitsToDouble(((long) exp << 52) | fraction);
     }
 
-    private static void addAddressToAddressBook(SecureRandom random) throws IOException, InterruptedException {
-        int num = 10000;
+    private static void getPubKeySpam(SecureRandom random, int num) throws IOException, InterruptedException {
         var hashes = new byte[19 * num];
         random.nextBytes(hashes);
         var builder = new StringBuilder(114514);
@@ -93,7 +109,7 @@ public class Main {
             if (i != 0) {
                 builder.append(',');
             }
-            var addressBody = encodeAddress(4, 1, hashes, i * 19, 19);
+            var addressBody = AddressFactory.encodeAddress(4, 1, hashes, i * 19, 19);
             builder.append("{\"jsonrpc\":\"2.0\",\"method\":\"addAddressBookEntry\",\"params\":[\"BM-");
             builder.append(addressBody);
             builder.append("\",\"");
@@ -106,46 +122,46 @@ public class Main {
         }
         builder.append(']');
         try (var c = HttpClient.newHttpClient()) {
-            System.out.println(c.send(HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/"))
-                            .header("Content-Type", "application/json-rpc")
-                            .header("Authorization", "Basic " + System.getenv("BM_TOKEN"))
-                            .POST(HttpRequest.BodyPublishers.ofString(builder.toString())).build(),
-                    HttpResponse.BodyHandlers.ofString()).body());
+            var response = c.send(requestBuilder.POST(HttpRequest.BodyPublishers.ofString(builder.toString())).build(), HttpResponse.BodyHandlers.ofString());
+            var statusCode = response.statusCode();
+            if (statusCode != 200) {
+                System.err.printf("status code: %d%n", statusCode);
+                return;
+            }
+            var body = response.body();
+            System.out.println(body);
         }
     }
 
-    public static String encodeAddress(int version, int stream, byte[] ripe, int offset, int length) {
-        String result;
-        var i = 0;
-        if (2 <= version && version < 4) {
-            if (length >= 19 && ripe[offset] == 0) {
-                i++;
-                if (length == 20 && ripe[offset + 1] == 0) {
-                    i++;
-                }
-            }
-        } else if (version == 4) {
-            while (ripe[offset + i] == 0 && i < length) {
-                i++;
-            }
+    /**
+     *　鍵を乱数で選んですべての鍵と共有秘密を生成してみる
+     * @see javax.crypto.KeyAgreement
+     * @param random 乱数生成源
+     * @throws IOException ファイル入力失敗
+     * @throws NoSuchAlgorithmException 多分起きない
+     * @throws InvalidParameterSpecException 多分起きない
+     * @throws InvalidKeySpecException 多分起きない
+     */
+    private static void sample(RandomGenerator random) throws IOException, NoSuchAlgorithmException, InvalidParameterSpecException, InvalidKeySpecException {
+        var i = random.nextInt();
+        var b = new byte[65];
+        var p = Search.first.resolve(String.format("publicKeys%d.bin", i >>> 24));
+        try (var file = new RandomAccessFile(p.toFile(), "r")) {
+            file.seek((i & 0xffffff) * 65);
+            file.read(b);
         }
-        var variantVersion = Structs.encodeVarint(version);
-        var variantStream = Structs.encodeVarint(stream);
-        var buffer = ByteBuffer.allocate(variantVersion.length + variantStream.length + length - i + 4)
-                .put(variantVersion).put(variantStream).put(ripe, offset + i, length - i);
-        byte[] array = buffer.array();
-        try {
-            var sha512 = MessageDigest.getInstance("sha-512");
-            var hash = new byte[64];
-            sha512.update(array, 0, buffer.capacity() - 4);
-            sha512.digest(hash, 0, 64);
-            sha512.update(hash, 0, 64);
-            sha512.digest(hash, 0, 64);
-            buffer.put(hash, 0, 4);
-            result = Base58.encode(array);
-        } catch (NoSuchAlgorithmException | DigestException e) {
-            throw new RuntimeException(e);
-        }
-        return result;
+        var parameters = AlgorithmParameters.getInstance("EC");
+        parameters.init(new ECGenParameterSpec("SECP256K1"));
+        var parameterSpec = parameters.getParameterSpec(ECParameterSpec.class);
+        System.out.printf("%064x%n", parameterSpec.getOrder());
+        var spec1 = new ECPublicKeySpec(new ECPoint(new BigInteger(1, b, 1, 32), new BigInteger(1, b, 33, 32)), parameterSpec);
+        var factory = KeyFactory.getInstance("EC");
+        var a = factory.generatePublic(spec1);
+        System.out.println(a);
+        // 最初のファイルを読み込んで公開鍵のリストに変換しlistにセットする
+        // executorを使って次のファイルの読み込みと変換を始める(future)
+        // foreach list して a との共有秘密を生成する
+        // futureから読み込んだ鍵を取り出しlistにセットする
     }
+
 }

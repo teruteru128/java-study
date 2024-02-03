@@ -1,9 +1,6 @@
 package com.twitter.teruteru128.preview;
 
-import java.lang.foreign.Arena;
-import java.lang.foreign.Linker;
-import java.lang.foreign.MemorySegment;
-import java.lang.foreign.SymbolLookup;
+import java.lang.foreign.*;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -105,31 +102,42 @@ public class Main {
         var publicKeyLayout = unionLayout(sequenceLayout(65, JAVA_BYTE), structLayout(JAVA_BYTE.withName("prefix"), sequenceLayout(32, JAVA_BYTE).withName("x"), sequenceLayout(32, JAVA_BYTE).withName("y")));
         System.out.println(publicKeyLayout);
         System.loadLibrary("BCrypt");
+        ValueLayout.ADDRESS.targetLayout().ifPresent(memoryLayout -> System.out.printf("address value layout: %s%n", memoryLayout));
         try (var arena = Arena.ofConfined()) {
             System.out.println(strlen(arena.allocateUtf8String(s)));
-            ret = extracted(arena);
+            ret = cl(arena);
             if (ret != 0) {
                 System.out.printf("何かしらのエラーが発生しました: %s%n", clGetErrorString(ret));
                 return;
             }
-            ret = extracted2(arena);
+            ret = BCryptSHA256(arena);
+            if (ret != 0) {
+                System.out.printf("何かしらのエラーが発生しました: %d%n", ret);
+            }
+            ret = mutexSample(arena);
             if (ret != 0) {
                 System.out.printf("何かしらのエラーが発生しました: %d%n", ret);
             }
         }
     }
 
-    private int extracted2(Arena arena) {
-        var locale = setlocale(0, arena.allocateUtf8String(""));
-        locale = locale.reinterpret(strlen(locale) + 1);
-        System.out.printf("old locale: %s%n", locale.getUtf8String(0));
+    private int mutexSample(Arena arena) {
+        var i = CreateMutexExA(NULL, NULL, 0, 0);
+        CloseHandle(i);
+        return 0;
+    }
+
+    private int BCryptSHA256(Arena arena) {
+        var oldLocale = setlocale(0, arena.allocateUtf8String(""));
+        oldLocale = oldLocale.reinterpret(strlen(oldLocale) + 1);
+        System.out.printf("old locale: %s%n", oldLocale.getUtf8String(0));
         var hAlg = arena.allocate(ADDRESS);
         // java stringをLPCWSTRに変換する
-        var sha256 = arena.allocateUtf8String("SHA256");
-        long count = strlen(sha256);
-        long length = mbstowcs(NULL, sha256, count);
-        var BCRYPT_SHA256_ALGORITHM = arena.allocateArray(JAVA_BYTE, (length + 1) * 2);
-        mbstowcs(BCRYPT_SHA256_ALGORITHM, sha256, count);
+        var sha256Utf8Str = arena.allocateUtf8String("SHA256");
+        long count = strlen(sha256Utf8Str);
+        long length = mbstowcs(NULL, sha256Utf8Str, count);
+        final var BCRYPT_SHA256_ALGORITHM = arena.allocateArray(JAVA_BYTE, (length + 1) * 2);
+        mbstowcs(BCRYPT_SHA256_ALGORITHM, sha256Utf8Str, count);
 
         int status;
         // wchar_tの中身がUTF-16だったりUTF-32だったりSHIFT-JISだったりしろ
@@ -138,7 +146,19 @@ public class Main {
             System.err.printf("**** Error 0x%1$08x(%1$d) returned by BCryptOpenAlgorithmProvider%n", status);
             return status;
         }
-        return BCryptCloseAlgorithmProvider(hAlg.get(ADDRESS, 0), 0);
+        System.out.printf("hAlg is null: %s%n", hAlg.equals(NULL));
+        if (!hAlg.equals(NULL)) {
+            BCryptCreateHash(hAlg, NULL, NULL, 0, NULL, 0, 0);
+            BCryptHashData(hAlg, NULL, 0, 0);
+            BCryptFinishHash(hAlg, NULL, 0, 0);
+            BCryptDestroyHash(hAlg);
+        }
+        var i = BCryptCloseAlgorithmProvider(hAlg.get(ADDRESS, 0), 0);
+        if (i != 0) {
+            System.err.printf("**** Error 0x%1$08x(%1$d) returned by BCryptCloseAlgorithmProvider%n", i);
+            return i;
+        }
+        return 0;
     }
 
     /**
@@ -148,7 +168,7 @@ public class Main {
      * @return 正常に終了した場合0、異常時非ゼロ
      * @see <a href="https://docs.oracle.com/javase/jp/21/core/call-native-functions-jextract.html#GUID-480A7E64-531A-4C88-800F-810FF87F24A1">jextract</a>
      */
-    private int extracted(Arena arena) {
+    private int cl(Arena arena) {
         var ret_ptr = arena.allocate(JAVA_INT);
         var numEntriesPtr = arena.allocate(JAVA_INT);
         int ret;

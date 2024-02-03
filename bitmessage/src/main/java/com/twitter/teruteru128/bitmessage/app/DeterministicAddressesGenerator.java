@@ -4,7 +4,7 @@ import com.twitter.teruteru128.bitmessage.Const;
 import com.twitter.teruteru128.bitmessage.DeterministicAddress;
 import com.twitter.teruteru128.bitmessage.Structs;
 import com.twitter.teruteru128.bitmessage.genaddress.BMAddressGenerator;
-import com.twitter.teruteru128.bitmessage.spec.BMAddress;
+import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import java.io.Serializable;
@@ -115,7 +115,7 @@ public class DeterministicAddressesGenerator implements Function<String, Determi
     }
 
     public static String encodeAddress(DeterministicAddress address, int addressVersion, String passphrase) {
-        var encodedAddress = BMAddress.encodeAddress(addressVersion, 1, address.getRipe());
+        var encodedAddress = AddressFactory.encodeAddress(addressVersion, 1, address.getRipe());
         var privateSigningKey = BMAddressGenerator
                 .encodeWIF(Arrays.copyOf(address.getSigningPrivateKey(), 32));
         var privateEncryptionKey = BMAddressGenerator
