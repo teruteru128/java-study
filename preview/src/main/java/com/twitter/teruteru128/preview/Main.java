@@ -144,16 +144,17 @@ public class Main {
         var count = strlen(sha256Utf8Str);
         var length = mbstowcs(NULL, sha256Utf8Str, count);
         // wchar_t の大きさは機種依存(Windows->16bit, Linux->32bit)
+        // NULL文字が1バイトだけだった場合、おそらく壊れる
         var wchar_tBuffer = arena.allocateArray(JAVA_BYTE, (length + 1) * 2);
         mbstowcs(wchar_tBuffer, sha256Utf8Str, count);
+        wchar_tBuffer.set(JAVA_BYTE, length * 2, (byte) 0);
+        wchar_tBuffer.set(JAVA_BYTE, length * 2 + 1, (byte) 0);
         return wchar_tBuffer;
     }
 
     private int BCryptSHA256(Arena arena, String str) {
-        var emptyString = arena.allocateUtf8String("");
-        var oldLocale = setlocale(0, emptyString);
-        oldLocale = oldLocale.reinterpret(strlen(oldLocale) + 1);
-        System.out.printf("old locale: %s%n", oldLocale.getUtf8String(0));
+        var newLocale = arena.allocateUtf8String("");
+        setlocale(0, newLocale);
         // BCryptOpenAlgorithmProviderを呼び出すためにjava stringをLPCWSTRに変換する
         final var BCRYPT_SHA256_ALGORITHM = allocateWideCharacterString(arena, "SHA256");
 
@@ -167,7 +168,6 @@ public class Main {
             return status;
         }
         var handle = hAlg.get(ADDRESS, 0);
-        System.out.printf("hAlg is null: %s%n", hAlg.equals(NULL));
         if (handle.equals(NULL)) {
             System.err.println("handle is null");
             return 1;
@@ -188,7 +188,6 @@ public class Main {
             return i4;
         }
         var size1 = bufferSize.get(JAVA_INT, 0);
-        System.err.printf("buffer size: %d%n", size1);
         // hashオブジェクトを作成
         var buffer = arena.allocateArray(JAVA_BYTE, size1);
         var hash = arena.allocate(ADDRESS);
@@ -201,7 +200,6 @@ public class Main {
         var rawStr = arena.allocateUtf8String(str);
         var strLength = strlen(rawStr);
         var hHash = hash.get(ADDRESS, 0);
-        System.err.printf("%016x, %016x%n", hHash.address(), buffer.address());
         var i1 = BCryptHashData(hHash, rawStr, (int) strLength, 0);
         if (i1 != 0) {
             System.err.printf("BCryptHashData: %d%n", i1);
