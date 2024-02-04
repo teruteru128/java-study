@@ -112,10 +112,13 @@ public class Main {
                 System.err.printf("cl: %s%n", clGetErrorString(ret));
                 return;
             }
+            long s1 = System.nanoTime();
             ret = BCryptSHA256(arena, s);
+            long f1 = System.nanoTime();
             if (ret != 0) {
                 System.err.printf("BCryptSHA256: %d%n", ret);
             }
+            System.err.printf("BCryptSHA256: %f seconds%n", (f1 - s1) / 1e9);
             ret = mutexSample(arena);
             if (ret != 0) {
                 System.err.printf("mutexSample: %d%n", ret);
@@ -123,14 +126,18 @@ public class Main {
         }
     }
 
-    private int mutexSample(Arena arena) {
+    public int mutexSample(Arena arena) {
         System.loadLibrary("Kernel32");
-        var i = CreateMutexExA(NULL, NULL, 0, 0);
+        var name = arena.allocateUtf8String("munchie");
+        var i = CreateMutexExA(NULL, name, 0, 0);
+        if (i.equals(NULL)) {
+            System.err.printf("CreateMutexExA: %d%n", GetLastError());
+        }
         CloseHandle(i);
         return 0;
     }
 
-    private MemorySegment allocateUTF16LEString(Arena arena, String str) {
+    public MemorySegment allocateUTF16LEString(Arena arena, String str) {
         var array = str.getBytes(StandardCharsets.UTF_16LE);
         var objectLength = arena.allocateArray(JAVA_BYTE, array.length + 2);
         MemorySegment.copy(array, 0, objectLength, JAVA_BYTE, 0, array.length);
@@ -139,7 +146,7 @@ public class Main {
         return objectLength;
     }
 
-    private MemorySegment allocateWideCharacterString(Arena arena, String str) {
+    public MemorySegment allocateWideCharacterString(Arena arena, String str) {
         var sha256Utf8Str = arena.allocateUtf8String(str);
         var count = strlen(sha256Utf8Str);
         var length = mbstowcs(NULL, sha256Utf8Str, count);
@@ -154,7 +161,9 @@ public class Main {
 
     private int BCryptSHA256(Arena arena, String str) {
         var newLocale = arena.allocateUtf8String("");
-        setlocale(0, newLocale);
+        var locale = setlocale(0, newLocale);
+        System.out.printf("old locale: %s%n", locale.reinterpret(strlen(locale) + 1).getUtf8String(0));
+
         // BCryptOpenAlgorithmProviderを呼び出すためにjava stringをLPCWSTRに変換する
         final var BCRYPT_SHA256_ALGORITHM = allocateWideCharacterString(arena, "SHA256");
 
@@ -368,7 +377,7 @@ public class Main {
         return 0;
     }
 
-    private MemorySegment setlocale(int category, final MemorySegment locale) {
+    public MemorySegment setlocale(int category, final MemorySegment locale) {
         var setlocale = Objects.requireNonNull(defaultLookup.find("setlocale").map(addr -> linker.downcallHandle(addr, of(ADDRESS, JAVA_INT, ADDRESS))).orElse(null), "setlocale");
         try {
             return (MemorySegment) setlocale.invokeExact(category, locale);
