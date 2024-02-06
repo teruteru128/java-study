@@ -15,7 +15,8 @@ module com.twitter.teruteru.study {
     requires java.sql;
 
     requires com.google.gson;
-    requires commons.math3;
+    requires org.apache.commons.rng.simple;
+    requires org.apache.commons.statistics.distribution;
     requires org.apache.commons.codec;
     requires org.xerial.sqlitejdbc;
     requires com.fasterxml.jackson.databind;

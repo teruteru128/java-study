@@ -8,11 +8,11 @@
 
 plugins {
     id 'com.twitter.teruteru128.study.java-application-conventions'
-    //id 'org.javamodularity.moduleplugin' version '1.8.12' apply true
+    id 'org.javamodularity.moduleplugin' version '1.8.12' apply true
 }
 
 application {
-    //mainModule = 'com.twitter.teruteru.study'
+    mainModule = 'com.twitter.teruteru.study'
     mainClass = 'com.twitter.teruteru128.study.Main'
     applicationDefaultJvmArgs = ['-Xms32G', '-Xmx32G']
 }
@@ -22,9 +22,11 @@ dependencies {
     implementation project(':encode')
     implementation project(':time')
 
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-math3
-    implementation 'org.apache.commons:commons-math3:3.6.1'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-rng-simple
+    implementation 'org.apache.commons:commons-rng-simple:1.5'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-statistics-distribution
+    implementation 'org.apache.commons:commons-statistics-distribution:1.0'
 
     // https://mvnrepository.com/artifact/commons-codec/commons-codec
     implementation 'commons-codec:commons-codec:1.16.0'

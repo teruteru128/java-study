@@ -1,19 +1,15 @@
 package com.twitter.teruteru128.sample;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
+import org.apache.commons.rng.simple.JDKRandomWrapper;
+import org.apache.commons.statistics.distribution.LogNormalDistribution;
+
+import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import org.apache.commons.math3.distribution.LogNormalDistribution;
 
 /**
  * 対数正規分布のサンプル
@@ -25,11 +21,10 @@ public class LogNormalDistributionSample implements Sample {
         try (var os = new PrintStream(new BufferedOutputStream(new FileOutputStream(outFile)))) {
              // ln(x)の平均μ 大きいほどグラフの右側が伸びる
              // ln(x)の標準偏差σ 大きいほどグラフが横に広がる
-            var distribution = new LogNormalDistribution(Math.log(21.0), 1.0);
+            var distribution = LogNormalDistribution.of(Math.log(21.0), 1.0);
+            var sampler = distribution.createSampler(new JDKRandomWrapper(new SecureRandom()));
 
-            List<Double> results = IntStream.rangeClosed(1, 60000000).boxed()
-                    .map(i -> distribution.sample())
-                    .collect(Collectors.toList());
+            List<Double> results = sampler.samples(60000000).boxed().toList();
 
             printResults(results, os);
             results.stream().sorted(Comparator.reverseOrder()).limit(10).forEach(os::println);
@@ -61,22 +56,21 @@ public class LogNormalDistributionSample implements Sample {
     }
 
     public static void getS() throws IOException {
-        var distribution = new LogNormalDistribution(Math.log(80.0), 1.);
-        var samples = distribution.sample(60000000);
+        var distribution = LogNormalDistribution.of(Math.log(80.0), 1.);
+        var sampler = distribution.createSampler(new JDKRandomWrapper(new SecureRandom()));
+        var samples = sampler.samples(60000000).toArray();
         var map = new TreeMap<Long, Long>();
-        long floor;
         Long key;
         long value;
         double offset = 3.;
         for (double sample : samples) {
-            floor = (long) Math.floor((sample + offset) * 2);
-            key = floor;
+            key = (long) Math.floor((sample + offset) * 2);
             value = map.containsKey(key) ? map.get(key) + 1 : 1;
             map.put(key, value);
             // System.out.printf("%f: %f%n", floor / 2.0, sample);
         }
         try (var ps = new PrintStream("s13.txt", StandardCharsets.UTF_8)) {
-            ps.printf("μ: log(%f), σ: %f, offset: %+f%n", Math.exp(distribution.getScale()), distribution.getShape(), offset);
+            ps.printf("μ: log(%f), σ: %f, offset: %+f%n", Math.exp(distribution.getMu()), distribution.getSigma(), offset);
             for (var set : map.entrySet()) {
                 ps.printf("%.1f: %d%n", set.getKey() / 2.0, set.getValue());
             }
@@ -84,8 +78,9 @@ public class LogNormalDistributionSample implements Sample {
     }
 
     public static void sample2() {
-        var dist = new LogNormalDistribution(44. / 16, 44. / 64);
-        double[] samples = dist.sample(100000);
+        var dist = LogNormalDistribution.of(44. / 16, 44. / 64);
+        var sampler = dist.createSampler(new JDKRandomWrapper(new SecureRandom()));
+        double[] samples = sampler.samples(100000).toArray();
         int length = samples.length;
         int over150 = 0;
         int over200 = 0;

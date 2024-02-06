@@ -39,7 +39,6 @@ java {
         languageVersion = JavaLanguageVersion.of(21)
     }
     */
-    modularity.inferModulePath = false
 }
 
 tasks.named('test') {
