@@ -10,6 +10,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.*;
@@ -65,6 +66,11 @@ public class Main {
         }
         if (command.equalsIgnoreCase("sample")) {
             sample(random);
+        }
+        if(command.equalsIgnoreCase("homo")){
+            int num = args.length >= 2 ? Integer.parseInt(args[1]) : 10;
+            System.out.println(Homo.getHomo(num));
+            System.out.printf("%s%n", Charset.defaultCharset().displayName());
         }
     }
 

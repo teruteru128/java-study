@@ -4,5 +4,5 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
 
-public record S(long seed, UUID uuid, Instant time) implements Serializable {
+public record UniqueIdentity(long seed, UUID uuid, Instant time) implements Serializable {
 }

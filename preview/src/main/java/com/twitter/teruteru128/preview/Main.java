@@ -86,8 +86,11 @@ public class Main {
     private static final SymbolLookup defaultLookup = linker.defaultLookup();
 
     private static String clGetErrorString(int error) {
-        if (error >= -63 && error <= 0) return clMessageStrings[-error];
-        else return clMessageStrings[64];
+        if (error >= -63 && error <= 0) {
+            return clMessageStrings[-error];
+        } else {
+            return clMessageStrings[64];
+        }
     }
 
     public static void main(String[] args) {

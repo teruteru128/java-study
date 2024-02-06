@@ -4,18 +4,20 @@ import java.util.HexFormat;
 
 import org.bouncycastle.math.ec.ECPoint;
 
+import static java.lang.System.out;
+
 public class ECPeekTools {
 
     public static void printPoint(ECPoint point1) {
-        HexFormat format = HexFormat.of();
-        System.out.println(point1);
-        System.out.println(format.formatHex(point1.getEncoded(false)));
-        System.out.println(format.formatHex(point1.getEncoded(true)));
-        System.out.println(point1.getClass());
-        System.out.println(point1 instanceof ECPoint.AbstractF2m);
-        System.out.println(point1 instanceof ECPoint.AbstractFp);
-        System.out.println(point1 instanceof ECPoint.F2m);
-        System.out.println(point1 instanceof ECPoint.Fp);
+        var format = HexFormat.of();
+        out.println(point1);
+        out.println(format.formatHex(point1.getEncoded(false)));
+        out.println(format.formatHex(point1.getEncoded(true)));
+        out.println(point1.getClass());
+        out.println(point1 instanceof ECPoint.AbstractF2m);
+        out.println(point1 instanceof ECPoint.AbstractFp);
+        out.println(point1 instanceof ECPoint.F2m);
+        out.println(point1 instanceof ECPoint.Fp);
     }
     
 }

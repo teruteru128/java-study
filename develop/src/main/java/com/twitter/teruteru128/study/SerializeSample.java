@@ -1,16 +1,11 @@
 package com.twitter.teruteru128.study;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Base64;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.random.RandomGenerator;
 
 public class SerializeSample {
 
@@ -30,7 +25,7 @@ public class SerializeSample {
     static void out() throws IOException {
         var encoder = Base64.getEncoder();
         try (var oos = new ObjectOutputStream(new BufferedOutputStream(encoder.wrap(System.out)))) {
-            oos.writeObject(new S(ThreadLocalRandom.current().nextLong(), UUID.randomUUID(), Instant.now()));
+            oos.writeObject(new UniqueIdentity(RandomGenerator.of("SecureRandom").nextLong(), UUID.randomUUID(), Instant.now()));
         }
     }
 
@@ -43,8 +38,8 @@ public class SerializeSample {
         try (var ois = new ObjectInputStream(
                 new BufferedInputStream(decoder.wrap(new ByteArrayInputStream(in.getBytes(StandardCharsets.UTF_8)))))) {
             var obj = ois.readObject();
-            if (obj instanceof S s) {
-                System.out.printf("%d, %s, %s%n", s.seed(), s.uuid(), s.time());
+            if (obj instanceof UniqueIdentity uniqueIdentity) {
+                System.out.printf("%d, %s, %s%n", uniqueIdentity.seed(), uniqueIdentity.uuid(), uniqueIdentity.time());
             }
         }
     }

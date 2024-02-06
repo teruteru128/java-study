@@ -28,7 +28,7 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
@@ -39,7 +39,7 @@ java {
         languageVersion = JavaLanguageVersion.of(21)
     }
     */
-    modularity.inferModulePath = true
+    modularity.inferModulePath = false
 }
 
 tasks.named('test') {

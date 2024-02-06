@@ -3,7 +3,7 @@ package com.twitter.teruteru128.study;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
-public class FileChannelFixedLengthSpliterator implements Spliterator<byte[]> {
+public class FileChannelFixedLengthSpliterator implements AutoCloseable, Spliterator<byte[]> {
 
     @Override
     public boolean tryAdvance(Consumer<? super byte[]> action) {
@@ -25,7 +25,7 @@ public class FileChannelFixedLengthSpliterator implements Spliterator<byte[]> {
         return 0;
     }
 
-    void close() {
+    public void close() {
         
     }
 
