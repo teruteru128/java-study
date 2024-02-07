@@ -104,9 +104,3 @@ dependencies {
     implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
 
 }
-
-jar {
-    manifest{
-        attributes("Automatic-Module-Name": "com.twitter.teruteru.study")
-    }
-}

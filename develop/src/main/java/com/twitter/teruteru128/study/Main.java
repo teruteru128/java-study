@@ -1,6 +1,7 @@
 package com.twitter.teruteru128.study;
 
 import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
+import com.twitter.teruteru128.sample.PostgreSQLSample;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -75,6 +76,9 @@ public class Main {
         }
         if (command.equalsIgnoreCase("parallel")) {
             IntStream.range(0, 114514).parallel().mapToObj(i -> Thread.currentThread()).forEach(System.out::println);
+        }
+        if (command.equalsIgnoreCase("postgres")) {
+            new PostgreSQLSample().sample();
         }
     }
 

@@ -1,24 +1,17 @@
 package com.twitter.teruteru128.util;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.UUID;
 
 /**
  * 
 */
-public class UUIDUnsignedComparator implements Comparator<UUID>, Serializable {
+public class UUIDUnsignedComparator implements Comparator<UUID> {
 
     @Override
     public int compare(UUID o1, UUID o2) {
-        long most = o1.getMostSignificantBits();
-        long least = o1.getLeastSignificantBits();
-        long thatMost = o2.getMostSignificantBits();
-        long thatLeast = o2.getLeastSignificantBits();
-        return (Long.compareUnsigned(most, thatMost) < 0 ? -1
-                : (Long.compareUnsigned(most, thatMost) > 0 ? 1
-                        : (Long.compareUnsigned(least, thatLeast) < 0 ? -1
-                                : (Long.compareUnsigned(least, thatLeast) > 0 ? 1 : 0))));
+        int mostSigBits = Long.compareUnsigned(o1.getMostSignificantBits(), o2.getMostSignificantBits());
+        return mostSigBits != 0 ? mostSigBits : Long.compareUnsigned(o1.getLeastSignificantBits(), o2.getLeastSignificantBits());
     }
 
 }
