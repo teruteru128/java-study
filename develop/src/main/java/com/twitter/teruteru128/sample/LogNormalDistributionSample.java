@@ -8,52 +8,14 @@ import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 import java.util.TreeMap;
 
 /**
  * 対数正規分布のサンプル
+ *
  * @see <a href="https://qiita.com/t_uehara/items/460e04ba7d2b19fdd497">Javaで正規分布・対数正規分布の乱数を生成する</a>
  */
 public class LogNormalDistributionSample implements Sample {
-
-    public void sample(File outFile) throws IOException {
-        try (var os = new PrintStream(new BufferedOutputStream(new FileOutputStream(outFile)))) {
-             // ln(x)の平均μ 大きいほどグラフの右側が伸びる
-             // ln(x)の標準偏差σ 大きいほどグラフが横に広がる
-            var distribution = LogNormalDistribution.of(Math.log(21.0), 1.0);
-            var sampler = distribution.createSampler(new JDKRandomWrapper(new SecureRandom()));
-
-            List<Double> results = sampler.samples(60000000).boxed().toList();
-
-            printResults(results, os);
-            results.stream().sorted(Comparator.reverseOrder()).limit(10).forEach(os::println);
-        }
-    }
-
-    private void printResults(List<Double> results, PrintStream os) {
-        long[] b = new long[14000];
-        int max = b.length * 5;
-        long overscale = 0;
-        for (double d : results) {
-            if (d < max) {
-                b[(int) (d / 5)]++;
-            } else {
-                overscale++;
-            }
-        }
-        for (int i = 0; i < b.length; i++) {
-            int start = i * 5;
-            int end = (i + 1) * 5;
-            os.printf("%d\t～\t%d\t%d%n", start, end, b[i]);
-        }
-        os.printf("%d\t～\t\t%d%n", max, overscale);
-    }
-
-    @Override
-    public void sample() throws IOException {
-        sample(new File(""));
-    }
 
     public static void getS() throws IOException {
         var distribution = LogNormalDistribution.of(Math.log(80.0), 1.);
@@ -134,5 +96,42 @@ public class LogNormalDistributionSample implements Sample {
         System.out.printf("%d人中150overが%d人、200overが%d人、250overが%d人、300overが%d人、350overが%d人、400overが%d人%n", length,
                 over150, over200, over250, over300, over350, over400);
         System.out.printf("平均値: %f, 中央値: %f, 分散: %f, 標準偏差: %f%n", avg, middle, variance, sd);
+    }
+
+    public void sample(File outFile) throws IOException {
+        try (var os = new PrintStream(new BufferedOutputStream(new FileOutputStream(outFile)))) {
+            // ln(x)の平均μ 大きいほどグラフの右側が伸びる
+            // ln(x)の標準偏差σ 大きいほどグラフが横に広がる
+            var distribution = LogNormalDistribution.of(Math.log(21.0), 1.0);
+            var sampler = distribution.createSampler(new JDKRandomWrapper(new SecureRandom()));
+
+            var results = sampler.samples(60000000).toArray();
+
+            printResults(results, os);
+            Arrays.stream(results).boxed().sorted(Comparator.reverseOrder()).mapToDouble(i -> i).limit(10).forEach(os::println);
+        }
+    }
+
+    private void printResults(double[] results, PrintStream os) {
+        int entries = 14000;
+        int max = entries * 5;
+        var c = Arrays.stream(results).collect(() -> new long[entries + 1], (a, b) -> a[(b < max) ? (int) (b / 5): entries]++
+                , (a, b) -> {
+                    int allNum = entries + 1;
+                    for (int i = 0; i < allNum; i++) {
+                        a[i] += b[i];
+                    }
+                });
+        for (int i = 0; i < entries; i++) {
+            int start = i * 5;
+            int end = (i + 1) * 5;
+            os.printf("%d\t～\t%d\t%d%n", start, end, c[i]);
+        }
+        os.printf("%d\t～\t\t%d%n", max, c[entries]);
+    }
+
+    @Override
+    public void sample() throws IOException {
+        sample(new File(""));
     }
 }

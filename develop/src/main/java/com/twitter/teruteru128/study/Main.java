@@ -18,6 +18,7 @@ import java.util.Base64;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 import java.util.random.RandomGeneratorFactory;
+import java.util.stream.IntStream;
 
 /**
  * Main
@@ -67,10 +68,13 @@ public class Main {
         if (command.equalsIgnoreCase("sample")) {
             sample(random);
         }
-        if(command.equalsIgnoreCase("homo")){
+        if (command.equalsIgnoreCase("homo")) {
             int num = args.length >= 2 ? Integer.parseInt(args[1]) : 10;
             System.out.println(Homo.getHomo(num));
             System.out.printf("%s%n", Charset.defaultCharset().displayName());
+        }
+        if (command.equalsIgnoreCase("parallel")) {
+            IntStream.range(0, 114514).parallel().mapToObj(i -> Thread.currentThread()).forEach(System.out::println);
         }
     }
 
@@ -140,13 +144,14 @@ public class Main {
     }
 
     /**
-     *　鍵を乱数で選んですべての鍵と共有秘密を生成してみる
-     * @see javax.crypto.KeyAgreement
+     * 　鍵を乱数で選んですべての鍵と共有秘密を生成してみる
+     *
      * @param random 乱数生成源
-     * @throws IOException ファイル入力失敗
-     * @throws NoSuchAlgorithmException 多分起きない
+     * @throws IOException                   ファイル入力失敗
+     * @throws NoSuchAlgorithmException      多分起きない
      * @throws InvalidParameterSpecException 多分起きない
-     * @throws InvalidKeySpecException 多分起きない
+     * @throws InvalidKeySpecException       多分起きない
+     * @see javax.crypto.KeyAgreement
      */
     private static void sample(RandomGenerator random) throws IOException, NoSuchAlgorithmException, InvalidParameterSpecException, InvalidKeySpecException {
         var i = random.nextInt();
