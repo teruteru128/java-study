@@ -26,12 +26,12 @@ public class CheckSumCheck {
     private static final HexFormat format = HexFormat.of();
 
     public static void main(String[] args) throws NoSuchAlgorithmException, IOException, DigestException {
-        var pk0 = new byte[32];
-        reads(pk0, 0xC41A5F * 32, privateKeyRootPath.resolve(String.format("privateKeys%d.bin", 0x7E)).toFile());
-        var pk1 = new byte[32];
-        reads(pk1, 0xC220CD * 32, privateKeyRootPath.resolve(String.format("privateKeys%d.bin", 0x7d)).toFile());
-        var pk2 = new byte[32];
-        reads(pk2, 0x58CDF3 * 32, privateKeyRootPath.resolve(String.format("privateKeys%d.bin", 0x8B)).toFile());
+        var pk0 = new byte[65];
+        reads(pk0, 0xC41A5F * 65, publicKeyRootPath.resolve(String.format("publicKeys%d.bin", 0x7E)).toFile());
+        var pk1 = new byte[65];
+        reads(pk1, 0xC220CD * 65, publicKeyRootPath.resolve(String.format("publicKeys%d.bin", 0x7d)).toFile());
+        var pk2 = new byte[65];
+        reads(pk2, 0x58CDF3 * 65, publicKeyRootPath.resolve(String.format("publicKeys%d.bin", 0x8B)).toFile());
         var checksum0 = getChecksum(pk0);
         System.out.println(checksum0);
         var checksum1 = getChecksum(pk1);
