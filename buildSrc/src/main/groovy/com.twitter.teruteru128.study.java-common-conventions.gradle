@@ -26,8 +26,10 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.2')
 
     // Use JUnit Jupiter for testing.
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

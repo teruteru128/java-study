@@ -6,10 +6,17 @@ import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
 import org.bouncycastle.math.ec.ECPoint;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /**
  * Const
  */
 public class Const {
+
+    private static final Path keysRootPath = Paths.get("D:\\keys");
+    public static final Path publicKeyRootPath = keysRootPath.resolve("public");
+    public static final Path privateKeyRootPath = keysRootPath.resolve("private");
 
     private Const() {
     }

@@ -104,7 +104,9 @@ public class Main {
         // OpenCLもアクセスできるっぽい
         var s = args.length >= 1 ? args[0] : "\uD83D\uDCA9";
         int ret;
-        var publicKeyLayout = unionLayout(sequenceLayout(65, JAVA_BYTE), structLayout(JAVA_BYTE.withName("prefix"), sequenceLayout(32, JAVA_BYTE).withName("x"), sequenceLayout(32, JAVA_BYTE).withName("y")));
+        var sequenceLayout = sequenceLayout(32, JAVA_BYTE);
+        var structLayout = structLayout(JAVA_BYTE.withName("prefix"), sequenceLayout.withName("x"), sequenceLayout.withName("y")).withName("b");
+        var publicKeyLayout = unionLayout(sequenceLayout(65, JAVA_BYTE).withName("a"), structLayout);
         System.out.println(publicKeyLayout);
         System.loadLibrary("BCrypt");
         ValueLayout.ADDRESS.targetLayout().ifPresent(memoryLayout -> System.out.printf("address value layout: %s%n", memoryLayout));

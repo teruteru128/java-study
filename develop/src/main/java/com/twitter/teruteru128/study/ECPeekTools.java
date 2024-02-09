@@ -1,11 +1,14 @@
 package com.twitter.teruteru128.study;
 
-import java.util.HexFormat;
-
 import org.bouncycastle.math.ec.ECPoint;
+
+import java.util.HexFormat;
 
 import static java.lang.System.out;
 
+/**
+ * streamのpeekにでも突っ込んだらいいよ
+ */
 public class ECPeekTools {
 
     public static void printPoint(ECPoint point1) {
@@ -19,5 +22,5 @@ public class ECPeekTools {
         out.println(point1 instanceof ECPoint.F2m);
         out.println(point1 instanceof ECPoint.Fp);
     }
-    
+
 }

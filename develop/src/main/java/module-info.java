@@ -37,4 +37,5 @@ module com.twitter.teruteru.study {
     requires com.twitter.teruteru.time;
 
     opens com.twitter.teruteru128.study;
+    opens com.twitter.teruteru128.util;
 }

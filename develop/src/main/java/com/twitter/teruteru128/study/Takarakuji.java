@@ -8,16 +8,17 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+// FIXME
 public class Takarakuji {
 
-    public static void getLoto7Numbers(int counts) throws NoSuchAlgorithmException {
-        var numberOriginalList = IntStream.rangeClosed(1, 37).mapToObj(Integer::valueOf)
+    public static void getLoto7Numbers(int counts) {
+        var numberOriginalList = IntStream.rangeClosed(1, 37).boxed()
                 .collect(Collectors.toCollection(ArrayList<Integer>::new));
         var selectedNumberArray = new int[7];
         SecureRandom random;
         try {
             random = SecureRandom.getInstanceStrong();
-        } catch (Exception e) {
+        } catch (NoSuchAlgorithmException e) {
             random = new SecureRandom();
         }
         for (int i = 0; i < counts; i++) {

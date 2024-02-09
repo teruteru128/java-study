@@ -1,10 +1,13 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.bitmessage;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
+/**
+ * selectされたチャンネルから読み出す
+ */
 public class Handler implements Runnable {
     private SocketChannel channel;
 

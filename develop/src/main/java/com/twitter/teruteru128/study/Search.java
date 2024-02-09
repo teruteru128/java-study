@@ -13,28 +13,28 @@ import java.nio.file.Paths;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.random.RandomGenerator;
+import java.util.stream.IntStream;
 
 public class Search {
-
-    static final Path first = Paths.get("D:\\keys\\public");
 
     private static void a(Path a, byte[] buf, int offset, int length) throws IOException {
         var buf2 = Files.readAllBytes(a);
         System.arraycopy(buf2, 0, buf, offset, length);
     }
 
-    static void getExecutor(int n) throws IOException, InterruptedException, ExecutionException {
+    static void searchWithExecutor(int n) throws IOException, InterruptedException, ExecutionException {
         int processors = Runtime.getRuntime().availableProcessors();
         int taskNum = (0 < n) ? n : processors;
         // 1635778560 = 16777216 * 65 * 1.5
         final var buf = new byte[1635778560];
-        a(first.resolve("publicKeys0.bin"), buf, 0, 1090519040);
-        a(first.resolve("publicKeys1.bin"), buf, 1090519040, 545259520);
+        a(Const.publicKeyRootPath.resolve("publicKeys0.bin"), buf, 0, 1090519040);
+        a(Const.publicKeyRootPath.resolve("publicKeys1.bin"), buf, 1090519040, 545259520);
         try (var executor = Executors.newWorkStealingPool()) {
             System.out.println(executor.invokeAny(Collections.nCopies(taskNum, (Callable<Result>) () -> {
                 var sha512 = MessageDigest.getInstance("SHA-512");
@@ -70,6 +70,37 @@ public class Search {
                 }
             })));
         }
+    }
+
+    static void searchWithExecutor2() throws IOException {
+        final var buf = new byte[1635778560];
+        a(Const.publicKeyRootPath.resolve("publicKeys0.bin"), buf, 0, 1090519040);
+        a(Const.publicKeyRootPath.resolve("publicKeys1.bin"), buf, 1090519040, 545259520);
+        var list = new ArrayList<Result>();
+        var random = RandomGenerator.of("SecureRandom");
+        for (int i = 20626725; list.isEmpty(); i++) {
+            if (i >= 25165824) {
+                i = random.nextInt(25165824);
+            }
+            int finalI = i;
+            list.addAll(IntStream.range(0, 25165824).parallel().mapToObj(k -> {
+                try {
+                    var sha512 = MessageDigest.getInstance("SHA512");
+                    var ripemd160 = MessageDigest.getInstance("ripemd160");
+                    sha512.update(buf, finalI * 65, 65);
+                    sha512.update(buf, k * 65, 65);
+                    var buffer = ByteBuffer.allocate(64);
+                    sha512.digest(buffer.array(), 0, 64);
+                    ripemd160.update(buffer.array());
+                    ripemd160.digest(buffer.array(), 0, 20);
+                    return new Result(buffer.getLong(0), finalI, k);
+                } catch (NoSuchAlgorithmException | DigestException e) {
+                    throw new RuntimeException(e);
+                }
+            }).filter(s -> Long.compareUnsigned(s.ripe(), 0x10000L) < 0).toList());
+            System.err.printf("Done: %d%n", i);
+        }
+        list.forEach(System.out::println);
     }
 
     public void sample() throws DigestException, IOException, NoSuchAlgorithmException {
@@ -122,5 +153,4 @@ public class Search {
             rootBuffer.clear();
         }
     }
-
 }

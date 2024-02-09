@@ -1,10 +1,13 @@
-package com.twitter.teruteru128.study;
+package com.twitter.teruteru128.bitmessage;
 
 import java.net.InetSocketAddress;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * bitmessage node
+ */
 public class Node {
 
     private InetSocketAddress peer;

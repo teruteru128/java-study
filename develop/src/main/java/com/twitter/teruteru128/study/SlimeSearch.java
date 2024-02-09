@@ -1,5 +1,7 @@
 package com.twitter.teruteru128.study;
 
+import com.twitter.teruteru128.util.TriPredicate;
+
 import java.util.stream.LongStream;
 
 public class SlimeSearch {

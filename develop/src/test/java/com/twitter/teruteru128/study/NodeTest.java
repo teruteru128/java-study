@@ -2,6 +2,7 @@ package com.twitter.teruteru128.study;
 
 import java.io.IOException;
 
+import com.twitter.teruteru128.bitmessage.Node;
 import org.junit.jupiter.api.Test;
 import org.openapitools.jackson.nullable.JsonNullableModule;
 

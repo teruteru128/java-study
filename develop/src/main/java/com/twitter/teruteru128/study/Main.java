@@ -1,5 +1,6 @@
 package com.twitter.teruteru128.study;
 
+import com.twitter.teruteru128.bitmessage.Const;
 import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
 import com.twitter.teruteru128.sample.PostgreSQLSample;
 
@@ -16,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.*;
 import java.util.Base64;
+import java.util.HexFormat;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 import java.util.random.RandomGeneratorFactory;
@@ -64,7 +66,10 @@ public class Main {
             System.out.println(RandomGenerator.getDefault());
         }
         if (command.equalsIgnoreCase("search")) {
-            Search.getExecutor(args.length >= 2 ? Integer.parseInt(args[1], 10) : Runtime.getRuntime().availableProcessors());
+            Search.searchWithExecutor(args.length >= 2 ? Integer.parseInt(args[1], 10) : Runtime.getRuntime().availableProcessors());
+        }
+        if (command.equalsIgnoreCase("search2")) {
+            Search.searchWithExecutor2();
         }
         if (command.equalsIgnoreCase("sample")) {
             sample(random);
@@ -79,6 +84,21 @@ public class Main {
         }
         if (command.equalsIgnoreCase("postgres")) {
             new PostgreSQLSample().sample();
+        }
+        if (command.equalsIgnoreCase("wif") && args.length >= 3) {
+            var sha256 = MessageDigest.getInstance("SHA-256");
+            var fn = Integer.parseInt(args[1]);
+            var number = Integer.parseInt(args[2]);
+            var b = Const.privateKeyRootPath.resolve(String.format("privateKeys%d.bin", fn));
+            var buffer = new byte[32];
+            try (var file = new RandomAccessFile(b.toFile(), "r")) {
+                file.seek(number * 32L);
+                file.read(buffer);
+            }
+            sha256.update((byte) 0x80);
+            sha256.update(buffer);
+            var hash = sha256.digest(sha256.digest());
+            System.out.printf("%s%n", HexFormat.of().formatHex(hash));
         }
     }
 
@@ -160,7 +180,7 @@ public class Main {
     private static void sample(RandomGenerator random) throws IOException, NoSuchAlgorithmException, InvalidParameterSpecException, InvalidKeySpecException {
         var i = random.nextInt();
         var b = new byte[65];
-        var p = Search.first.resolve(String.format("publicKeys%d.bin", i >>> 24));
+        var p = Const.publicKeyRootPath.resolve(String.format("publicKeys%d.bin", i >>> 24));
         try (var file = new RandomAccessFile(p.toFile(), "r")) {
             file.seek((i & 0xffffff) * 65);
             file.read(b);

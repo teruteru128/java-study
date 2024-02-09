@@ -12,25 +12,27 @@ import java.nio.file.StandardOpenOption;
 
 public class TarMaker {
 
+    private static final BigDecimal ROUND_UP_WIDTH = new BigDecimal("512");
+
     private static void createTar(Path in, Path out) throws IOException {
         var body = Files.readAllBytes(in);
-        var filesize = Files.size(in);
+        var fileSize = Files.size(in);
         var header = ByteBuffer.allocate(512);
         // mode
         header.position(100);
-        header.put(getbytesutf8("000000 "));
+        header.put(getBytesUTF8("000000 "));
         // uid
         header.position(108);
-        header.put(getbytesutf8("000000 "));
+        header.put(getBytesUTF8("000000 "));
         // gid
         header.position(116);
-        header.put(getbytesutf8("000000 "));
+        header.put(getBytesUTF8("000000 "));
         // size
         header.position(124);
-        header.put(getbytesutf8(String.format("%011o ", filesize)));
+        header.put(getBytesUTF8(String.format("%011o ", fileSize)));
         // mtime
         header.position(136);
-        header.put(getbytesutf8(String.format("%011o ", 0)));
+        header.put(getBytesUTF8(String.format("%011o ", 0)));
         // chksum
         header.position(148);
         // header.put(getbytesutf8(String.format("%06o\0 ", 0)));
@@ -42,43 +44,43 @@ public class TarMaker {
         // linkname is empty
         // magic
         header.position(257);
-        header.put(getbytesutf8("ustar"));
+        header.put(getBytesUTF8("ustar"));
         // version
         header.position(263);
-        header.put(getbytesutf8("00"));
+        header.put(getBytesUTF8("00"));
         // uname, gname is empty
         header.position(329);
-        header.put(getbytesutf8("000000 "));
+        header.put(getBytesUTF8("000000 "));
         header.position(337);
-        header.put(getbytesutf8("000000 "));
+        header.put(getBytesUTF8("000000 "));
         // prefix is empty
         header.position(345);
         // move limit to tail
         header.position(512);
         header.flip();
-        var paddingsize = BigDecimal.valueOf(filesize).divide(TarMaker.Round_Up_Width, RoundingMode.CEILING)
-                .multiply(TarMaker.Round_Up_Width).longValue() - filesize;
+        var paddingSize = BigDecimal.valueOf(fileSize).divide(TarMaker.ROUND_UP_WIDTH, RoundingMode.CEILING)
+                .multiply(TarMaker.ROUND_UP_WIDTH).longValue() - fileSize;
         // Add 1024 bytes of null character as footer
-        var filepad = new byte[(int) paddingsize];
-        var chksummask = new byte[8];
+        var filePad = new byte[(int) paddingSize];
+        var checksumMask = new byte[8];
         try (var bos = new BufferedOutputStream(
                 Files.newOutputStream(out, StandardOpenOption.WRITE, StandardOpenOption.CREATE),
                 1024 * 1024 * 1024)) {
             for (int i = 0; i < 16; i++) {
                 header.position(0);
                 // name
-                header.put(getbytesutf8(String.format("%03x.tar.xz", i)));
-                // clear chksum
+                header.put(getBytesUTF8(String.format("%03x.tar.xz", i)));
+                // clear checksum
                 header.position(148);
-                header.put(chksummask);
-                // calc chksum
+                header.put(checksumMask);
+                // calc checksum
                 int chksum = 256;
                 for (var b : header.array()) {
                     chksum += b & 0xff;
                 }
-                // set chksum
+                // set checksum
                 header.position(148);
-                header.put(getbytesutf8(String.format("%06o\0 ", chksum)));
+                header.put(getBytesUTF8(String.format("%06o\0 ", chksum)));
                 header.rewind();
                 // write header
                 bos.write(header.array());
@@ -87,17 +89,15 @@ public class TarMaker {
                 // write file content
                 bos.write(body);
                 // write content block padding
-                bos.write(filepad);
+                bos.write(filePad);
             }
             // archive footer
             bos.write(new byte[1024]);
         }
     }
 
-    static byte[] getbytesutf8(String a) {
+    static byte[] getBytesUTF8(String a) {
         return a.getBytes(StandardCharsets.UTF_8);
     }
 
-    static final BigDecimal Round_Up_Width = new BigDecimal("512");
-    
 }
