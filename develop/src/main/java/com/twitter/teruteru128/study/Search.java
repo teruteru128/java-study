@@ -78,7 +78,7 @@ public class Search {
         a(Const.publicKeyRootPath.resolve("publicKeys1.bin"), buf, 1090519040, 545259520);
         var list = new ArrayList<Result>();
         var random = RandomGenerator.of("SecureRandom");
-        for (int i = 20626725; list.isEmpty(); i++) {
+        for (int i = random.nextInt(25165824); list.isEmpty(); i++) {
             if (i >= 25165824) {
                 i = random.nextInt(25165824);
             }

@@ -30,7 +30,7 @@ public class Node {
     }
 
     @JsonProperty("peer")
-    private void unpackPeer(Map<String, Object> peer) {
+    public void unpackPeer(Map<String, Object> peer) {
         if (peer.get("host") instanceof String host && peer.get("port") instanceof Integer port) {
             this.peer = InetSocketAddress.createUnresolved(host, port);
         }
