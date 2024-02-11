@@ -2,6 +2,8 @@ package com.twitter.teruteru128.study;
 
 import com.twitter.teruteru128.bitmessage.Const;
 import com.twitter.teruteru128.encode.Base58;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -22,6 +24,8 @@ import java.util.random.RandomGenerator;
 import java.util.stream.IntStream;
 
 public class Search {
+
+    private static final Logger logger = LoggerFactory.getLogger(Search.class);
 
     private static void a(Path a, byte[] buf, int offset, int length) throws IOException {
         var buf2 = Files.readAllBytes(a);
@@ -73,14 +77,20 @@ public class Search {
     }
 
     static void searchWithExecutor2() throws IOException {
+        var initialOffset = RandomGenerator.of("SecureRandom").nextInt(25165824);
+        searchWithExecutor2(initialOffset);
+    }
+
+    static void searchWithExecutor2(int initialOffset) throws IOException {
+        logger.info("データを読み込みます");
         final var buf = new byte[1635778560];
         a(Const.publicKeyRootPath.resolve("publicKeys0.bin"), buf, 0, 1090519040);
         a(Const.publicKeyRootPath.resolve("publicKeys1.bin"), buf, 1090519040, 545259520);
         var list = new ArrayList<Result>();
-        var random = RandomGenerator.of("SecureRandom");
-        for (int i = random.nextInt(25165824); list.isEmpty(); i++) {
+        logger.info("探索を開始します");
+        for (int i = initialOffset; list.isEmpty(); i++) {
             if (i >= 25165824) {
-                i = random.nextInt(25165824);
+                i = 0;
             }
             int finalI = i;
             list.addAll(IntStream.range(0, 25165824).parallel().mapToObj(k -> {
@@ -98,8 +108,9 @@ public class Search {
                     throw new RuntimeException(e);
                 }
             }).filter(s -> Long.compareUnsigned(s.ripe(), 0x10000L) < 0).toList());
-            System.err.printf("Done: %d%n", i);
+            logger.debug("Done: {}", i);
         }
+        logger.info("探索を完了しました");
         list.forEach(System.out::println);
     }
 

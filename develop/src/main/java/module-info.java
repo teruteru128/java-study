@@ -22,6 +22,7 @@ module com.twitter.teruteru.study {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.annotation;
     requires org.openapitools.jackson.nullable;
+    requires org.slf4j;
 
     // guava
     requires com.google.errorprone.annotations;

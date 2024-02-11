@@ -12,6 +12,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
@@ -69,15 +70,18 @@ public class Main {
             Search.searchWithExecutor(args.length >= 2 ? Integer.parseInt(args[1], 10) : Runtime.getRuntime().availableProcessors());
         }
         if (command.equalsIgnoreCase("search2")) {
-            Search.searchWithExecutor2();
+            if (args.length >= 2) {
+                int initialSeed = Integer.parseInt(args[1]);
+                Search.searchWithExecutor2(initialSeed);
+            } else {
+                Search.searchWithExecutor2();
+            }
         }
         if (command.equalsIgnoreCase("sample")) {
             sample(random);
         }
         if (command.equalsIgnoreCase("homo")) {
-            int num = args.length >= 2 ? Integer.parseInt(args[1]) : 10;
-            System.out.println(Homo.getHomo(num));
-            System.out.printf("%s%n", Charset.defaultCharset().displayName());
+            extracted1(args);
         }
         if (command.equalsIgnoreCase("parallel")) {
             IntStream.range(0, 114514).parallel().mapToObj(i -> Thread.currentThread()).forEach(System.out::println);
@@ -86,20 +90,37 @@ public class Main {
             new PostgreSQLSample().sample();
         }
         if (command.equalsIgnoreCase("wif") && args.length >= 3) {
-            var sha256 = MessageDigest.getInstance("SHA-256");
-            var fn = Integer.parseInt(args[1]);
-            var number = Integer.parseInt(args[2]);
-            var b = Const.privateKeyRootPath.resolve(String.format("privateKeys%d.bin", fn));
-            var buffer = new byte[32];
-            try (var file = new RandomAccessFile(b.toFile(), "r")) {
-                file.seek(number * 32L);
-                file.read(buffer);
-            }
-            sha256.update((byte) 0x80);
-            sha256.update(buffer);
-            var hash = sha256.digest(sha256.digest());
-            System.out.printf("%s%n", HexFormat.of().formatHex(hash));
+            extracted(args);
         }
+        if (command.equalsIgnoreCase("buffer")) {
+            var buffer = ByteBuffer.wrap(new byte[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15});
+            System.out.printf("%016x%n", buffer.getLong(0));
+            System.out.printf("%016x%n", buffer.getLong(1));
+        }
+    }
+
+    private static void extracted1(String[] args) {
+        int num;
+        if (args.length >= 2) num = Integer.parseInt(args[1]);
+        else num = 10;
+        System.out.println(Homo.getHomo(num));
+        System.out.printf("%s%n", Charset.defaultCharset().displayName());
+    }
+
+    private static void extracted(String[] args) throws NoSuchAlgorithmException, IOException {
+        var sha256 = MessageDigest.getInstance("SHA-256");
+        var fn = Integer.parseInt(args[1]);
+        var number = Integer.parseInt(args[2]);
+        var b = Const.privateKeyRootPath.resolve(String.format("privateKeys%d.bin", fn));
+        var buffer = new byte[32];
+        try (var file = new RandomAccessFile(b.toFile(), "r")) {
+            file.seek(number * 32L);
+            file.read(buffer);
+        }
+        sha256.update((byte) 0x80);
+        sha256.update(buffer);
+        var hash = sha256.digest(sha256.digest());
+        System.out.printf("%s%n", HexFormat.of().formatHex(hash));
     }
 
     /**
