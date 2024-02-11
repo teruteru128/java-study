@@ -7,7 +7,7 @@ public final class Utils {
     
     private Utils() {
     }
-    private static char[] BIN_CODE = {'0','1'};
+    private static final char[] BIN_CODE = {'0','1'};
     public static String toBinString(byte s) {
         StringBuilder builder = new StringBuilder(8);
         for (int j = 7; j >= 0; j--) {

@@ -10,11 +10,11 @@ import com.twitter.teruteru128.bitmessage.p2p.Message;
 
 public class NewPostTask implements Runnable {
 
-    private ArrayList<String> toAddresses;
-    private ArrayList<String> fromAddresses;
-    private int num;
-    private int min;
-    private int max;
+    private final ArrayList<String> toAddresses;
+    private final ArrayList<String> fromAddresses;
+    private final int num;
+    private final int min;
+    private final int max;
     private int nextToAddressIndex = 0;
     private int nextFromAddressIndex = 0;
 
@@ -47,10 +47,10 @@ public class NewPostTask implements Runnable {
         String toAddress;
         String fromAddress;
         byte[] empty = new byte[0];
-        byte[] subject = empty;
-        byte[] message = empty;
         int ttl = 86400 * 4;
-        int num = this.num != -1 ? this.num : ThreadLocalRandom.current().nextInt(this.min, this.max);
+        int num;
+        if (this.num != -1) num = this.num;
+        else num = ThreadLocalRandom.current().nextInt(this.min, this.max);
         var messages = new ArrayList<Message>(num);
         // toAddressが衝突すると面倒なことになるので回避策
         for (int i = 0; i < num; i++) {
@@ -59,7 +59,7 @@ public class NewPostTask implements Runnable {
             // subject = UUID.randomUUID().toString().getBytes(StandardCharsets.UTF_8);
             // message = Spammer.generateMessage(ThreadLocalRandom.current().nextInt(200, 2201));
             // ttl = ThreadLocalRandom.current().nextInt(3600, 86400 * 28 + 1);
-            messages.add(new Message(toAddress, fromAddress, subject, message, ttl));
+            messages.add(new Message(toAddress, fromAddress, empty, empty, ttl));
             if (nextToAddressIndex >= toAddressesSize) {
                 nextToAddressIndex = 0;
             }
