@@ -8,7 +8,7 @@
 
 plugins {
     id 'com.twitter.teruteru128.study.java-application-conventions'
-    id 'org.javamodularity.moduleplugin' version '1.8.12' apply true
+    id 'org.javamodularity.moduleplugin' version '1.8.13' apply true
 }
 
 application {
