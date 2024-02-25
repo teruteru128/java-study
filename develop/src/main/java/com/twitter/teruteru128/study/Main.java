@@ -1,6 +1,5 @@
 package com.twitter.teruteru128.study;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
@@ -16,10 +15,8 @@ import java.nio.charset.StandardCharsets;
 import java.security.Provider;
 import java.security.SecureRandom;
 import java.security.Security;
-import java.time.Duration;
 import java.util.Base64;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Predicate;
 import java.util.random.RandomGenerator;
 import java.util.stream.StreamSupport;
 
@@ -67,12 +64,22 @@ public class Main {
             // bm からaddress bookを取得する
             // 将来的にこれを使ってSPAMを投げられるようになったらいいね
             try (var client = HttpClient.newHttpClient()) {
-                var response = client.send(requestBuilder.POST(HttpRequest.BodyPublishers.ofString("{\"jsonrpc\":\"2.0\",\"method\":\"listAddressBookEntries\",\"id\":1}")).build(), HttpResponse.BodyHandlers.ofInputStream());
+                var r2 = client.sendAsync(requestBuilder.POST(HttpRequest.BodyPublishers.ofString("{\"jsonrpc\":\"2.0\",\"method\":\"listAddressBookEntries\",\"id\":1}")).build(), HttpResponse.BodyHandlers.ofByteArray());
+                Thread.sleep(1000);
+                System.out.println("君と夏の終わり");
+                Thread.sleep(1000);
+                System.out.println("将来終わり");
+                Thread.sleep(1000);
+                System.out.println("人生終わり");
+                Thread.sleep(1000);
+                System.out.println("うんちぶり");
                 var decoder = Base64.getDecoder();
-                if (new ObjectMapper().readTree(response.body()).get("result").get("addresses") instanceof ArrayNode arrayNode) {
+                // レスポンスボディが2GBを超える場合、InputStreamを使わないと例外が発生する
+                if (new ObjectMapper().readTree(r2.get().body()).get("result").get("addresses") instanceof ArrayNode arrayNode) {
                     StreamSupport.stream(arrayNode.spliterator(), false)
-                            .filter(n -> new String(decoder.decode(n.get("label").asText())).startsWith("fake-"))
-                            .filter(n1 -> !n1.get("address").asText().startsWith("BM-2c"))
+                            .map(n -> new AddressEntry(new String(decoder.decode(n.get("label").asText())), n.get("address").asText()))
+                            .filter(n -> n.label().startsWith("fake-"))
+                            .filter(n -> !n.address().startsWith("BM-2c"))
                             .forEach(System.out::println);
                 } else {
                     System.out.println("addresses is not list!");
@@ -83,7 +90,7 @@ public class Main {
             doubleSample(ThreadLocalRandom.current());
         }
         if (command.equalsIgnoreCase("random2")) {
-            var feats = ((165. / 64) - 1.0) * nextDouble(SECURE_RANDOM_GENERATOR) + 1;
+            var feats = (101. / 64) * nextDouble(SECURE_RANDOM_GENERATOR) + 1;
             System.out.printf("%f feats, %f cm%n", feats, feats * 30.48);
             var milk = Math.pow(10, 4 + nextDouble(SECURE_RANDOM_GENERATOR));
             System.out.printf("%f ml, %f L%n", milk, milk / 1000);

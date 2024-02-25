@@ -22,7 +22,7 @@ public class JsonRPCRequestSample implements Sample {
         System.out.println(response.body());
     }
 
-    private static HttpClient client = HttpClient.newBuilder().build();
+    private static final HttpClient client = HttpClient.newBuilder().build();
     private static final HttpRequest.Builder requestBuilder = HttpRequest
             .newBuilder(URI.create("http://localhost:8442/"))
             .header("Content-Type", "application/json-rpc")

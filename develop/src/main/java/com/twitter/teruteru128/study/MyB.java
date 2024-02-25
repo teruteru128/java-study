@@ -3,6 +3,9 @@ package com.twitter.teruteru128.study;
 import java.math.BigInteger;
 import java.util.Random;
 
+/**
+ * {@link java.math.BigInteger}は継承可能であることを示すクラス
+ */
 public final class MyB extends BigInteger implements Cloneable {
     public MyB(byte[] val, int off, int len) {
         super(val, off, len);
