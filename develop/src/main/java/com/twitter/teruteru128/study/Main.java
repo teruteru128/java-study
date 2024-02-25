@@ -7,6 +7,7 @@ import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigInteger;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -20,12 +21,14 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 import java.util.stream.StreamSupport;
 
+import static java.net.http.HttpRequest.BodyPublishers.ofString;
+import static java.net.http.HttpResponse.BodyHandlers.ofByteArray;
+
 /**
  * Main
  */
 public class Main {
 
-    public static final RandomGenerator RANDOM_GENERATOR = RandomGenerator.getDefault();
     public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
     private static final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(URI.create(System.getenv("BM_API_SERVER_URL"))).header("Content-Type", "application/json-rpc").header("Authorization", "Basic " + System.getenv("BM_TOKEN"));
 
@@ -64,7 +67,7 @@ public class Main {
             // bm からaddress bookを取得する
             // 将来的にこれを使ってSPAMを投げられるようになったらいいね
             try (var client = HttpClient.newHttpClient()) {
-                var r2 = client.sendAsync(requestBuilder.POST(HttpRequest.BodyPublishers.ofString("{\"jsonrpc\":\"2.0\",\"method\":\"listAddressBookEntries\",\"id\":1}")).build(), HttpResponse.BodyHandlers.ofByteArray());
+                var r2 = client.sendAsync(requestBuilder.POST(ofString("{\"jsonrpc\":\"2.0\",\"method\":\"listAddressBookEntries\",\"id\":1}")).build(), ofByteArray());
                 Thread.sleep(1000);
                 System.out.println("君と夏の終わり");
                 Thread.sleep(1000);
@@ -75,14 +78,24 @@ public class Main {
                 System.out.println("うんちぶり");
                 var decoder = Base64.getDecoder();
                 // レスポンスボディが2GBを超える場合、InputStreamを使わないと例外が発生する
-                if (new ObjectMapper().readTree(r2.get().body()).get("result").get("addresses") instanceof ArrayNode arrayNode) {
-                    StreamSupport.stream(arrayNode.spliterator(), false)
-                            .map(n -> new AddressEntry(new String(decoder.decode(n.get("label").asText())), n.get("address").asText()))
-                            .filter(n -> n.label().startsWith("fake-"))
-                            .filter(n -> !n.address().startsWith("BM-2c"))
-                            .forEach(System.out::println);
+                var objectMapper = new ObjectMapper();
+                var httpResponse = r2.get();
+                var statusCode = httpResponse.statusCode();
+                if (statusCode == HttpURLConnection.HTTP_OK) {
+                    var root = objectMapper.readTree(httpResponse.body());
+                    var result = root.get("result");
+                    var addresses = result.get("addresses");
+                    if (addresses instanceof ArrayNode arrayNode) {
+                        StreamSupport.stream(arrayNode.spliterator(), false)
+                                .map(n -> new AddressEntry(new String(decoder.decode(n.get("label").asText())), n.get("address").asText()))
+                                .filter(n -> n.label().startsWith("fake-"))
+                                .filter(n -> !n.address().startsWith("BM-2c"))
+                                .forEach(System.out::println);
+                    } else {
+                        System.err.printf("addresses is not list!%s%n", addresses);
+                    }
                 } else {
-                    System.out.println("addresses is not list!");
+                    System.err.printf("NG(%d)%n", statusCode);
                 }
             }
         }
@@ -111,9 +124,9 @@ public class Main {
             }
         }
         if (command.equalsIgnoreCase("clone")) {
-            var signum = 0;
-            var mag = new byte[0];
-            var myZero = new MyB(signum, mag);
+            var signNumber = 0;
+            var magnitude = new byte[0];
+            var myZero = new MyB(signNumber, magnitude);
             System.out.println(BigInteger.ZERO.equals(myZero));
             System.out.println(BigInteger.ZERO.getClass() == myZero.getClass());
         }
@@ -133,13 +146,6 @@ public class Main {
     }
 
     /**
-     * @return double
-     */
-    public static double nextDouble() {
-        return nextDouble(RANDOM_GENERATOR);
-    }
-
-    /**
      * FIXME 乱数系ユーティリティクラス的な？ものに移動する
      *
      * @param random 乱数生成源
@@ -150,8 +156,8 @@ public class Main {
         // random Double
         long bits = random.nextLong();
         long fraction = bits & 0xfffffffffffffL;
-        int exp = 1022 - Long.numberOfTrailingZeros(~(bits >>> 52));
-        if (exp == 1010) {
+        int exp = -Long.numberOfTrailingZeros(~(bits >>> 52));
+        if (exp == -12) {
             long randomBits;
             do {
                 randomBits = random.nextLong();
@@ -161,7 +167,7 @@ public class Main {
         if (fraction == 0 && random.nextBoolean()) {
             exp++;
         }
-        return Double.longBitsToDouble(((long) exp << 52) | fraction);
+        return Double.longBitsToDouble(((long) (exp + 1022) << 52) | fraction);
     }
 
     /**
@@ -193,7 +199,7 @@ public class Main {
         }
         builder.append(']');
         try (var c = HttpClient.newHttpClient()) {
-            var response = c.send(requestBuilder.POST(HttpRequest.BodyPublishers.ofString(builder.toString())).build(), HttpResponse.BodyHandlers.ofString());
+            var response = c.send(requestBuilder.POST(ofString(builder.toString())).build(), HttpResponse.BodyHandlers.ofString());
             var statusCode = response.statusCode();
             if (statusCode != 200) {
                 System.err.printf("status code: %d%n", statusCode);
