@@ -1,9 +1,13 @@
 package com.twitter.teruteru128.study;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigInteger;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -12,9 +16,12 @@ import java.nio.charset.StandardCharsets;
 import java.security.Provider;
 import java.security.SecureRandom;
 import java.security.Security;
+import java.time.Duration;
 import java.util.Base64;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Predicate;
 import java.util.random.RandomGenerator;
+import java.util.stream.StreamSupport;
 
 /**
  * Main
@@ -23,7 +30,7 @@ public class Main {
 
     public static final RandomGenerator RANDOM_GENERATOR = RandomGenerator.getDefault();
     public static final RandomGenerator SECURE_RANDOM_GENERATOR = RandomGenerator.of("SecureRandom");
-    private static final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(URI.create("http://192.168.12.8:8442/")).header("Content-Type", "application/json-rpc").header("Authorization", "Basic " + System.getenv("BM_TOKEN"));
+    private static final HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(URI.create(System.getenv("BM_API_SERVER_URL"))).header("Content-Type", "application/json-rpc").header("Authorization", "Basic " + System.getenv("BM_TOKEN"));
 
     static {
         try {
@@ -56,6 +63,22 @@ public class Main {
                 getPubKeySpam((SecureRandom) SECURE_RANDOM_GENERATOR, 10000);
             }
         }
+        if (command.equalsIgnoreCase("list")) {
+            // bm からaddress bookを取得する
+            // 将来的にこれを使ってSPAMを投げられるようになったらいいね
+            try (var client = HttpClient.newHttpClient()) {
+                var response = client.send(requestBuilder.POST(HttpRequest.BodyPublishers.ofString("{\"jsonrpc\":\"2.0\",\"method\":\"listAddressBookEntries\",\"id\":1}")).build(), HttpResponse.BodyHandlers.ofInputStream());
+                var decoder = Base64.getDecoder();
+                if (new ObjectMapper().readTree(response.body()).get("result").get("addresses") instanceof ArrayNode arrayNode) {
+                    StreamSupport.stream(arrayNode.spliterator(), false)
+                            .filter(n -> new String(decoder.decode(n.get("label").asText())).startsWith("fake-"))
+                            .filter(n1 -> !n1.get("address").asText().startsWith("BM-2c"))
+                            .forEach(System.out::println);
+                } else {
+                    System.out.println("addresses is not list!");
+                }
+            }
+        }
         if (command.equalsIgnoreCase("random")) {
             doubleSample(ThreadLocalRandom.current());
         }
@@ -79,6 +102,13 @@ public class Main {
             } else {
                 Search.searchWithExecutor2();
             }
+        }
+        if (command.equalsIgnoreCase("clone")) {
+            var signum = 0;
+            var mag = new byte[0];
+            var myZero = new MyB(signum, mag);
+            System.out.println(BigInteger.ZERO.equals(myZero));
+            System.out.println(BigInteger.ZERO.getClass() == myZero.getClass());
         }
     }
 

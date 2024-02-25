@@ -4,6 +4,7 @@ import java.lang.foreign.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HexFormat;
 import java.util.Objects;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.twitter.teruteru128.preview.opencl.opencl_h.*;
@@ -14,7 +15,7 @@ import static java.lang.foreign.MemoryLayout.*;
 import static java.lang.foreign.MemorySegment.NULL;
 import static java.lang.foreign.ValueLayout.*;
 
-public class Main {
+public class Main implements Callable<Void> {
 
     private static final String[] clMessageStrings = {      // Error Codes
             "CL_SUCCESS"                                  //   0
@@ -84,6 +85,11 @@ public class Main {
             , "CL_UNKNOWN_ERROR_CODE"};
     private static final Linker linker = Linker.nativeLinker();
     private static final SymbolLookup defaultLookup = linker.defaultLookup();
+    private final String[] args;
+
+    public Main(String[] args) {
+        this.args = args;
+    }
 
     private static String clGetErrorString(int error) {
         if (error >= -63 && error <= 0) {
@@ -94,11 +100,12 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        var main = new Main();
-        main.call(args);
+        var main = new Main(args);
+        main.call();
     }
 
-    public void call(String[] args) {
+    @Override
+    public Void call() {
         // でも本当にほしいのはSocketとかファイルとかMessageDigestとかの連携なんだよね……
         // もしかしてネイティブライブラリにアクセスできるならOpenSSLにアクセスもできる……？
         // OpenCLもアクセスできるっぽい
@@ -115,7 +122,6 @@ public class Main {
             ret = cl(arena);
             if (ret != 0) {
                 System.err.printf("cl: %s%n", clGetErrorString(ret));
-                return;
             }
             long s1 = System.nanoTime();
             ret = BCryptSHA256(arena, s);
@@ -129,6 +135,7 @@ public class Main {
                 System.err.printf("mutexSample: %d%n", ret);
             }
         }
+        return null;
     }
 
     public int mutexSample(Arena arena) {

@@ -107,7 +107,7 @@ public class Search {
                 } catch (NoSuchAlgorithmException | DigestException e) {
                     throw new RuntimeException(e);
                 }
-            }).filter(s -> Long.compareUnsigned(s.ripe(), 0x10000L) < 0).toList());
+            }).filter(s -> Long.compareUnsigned(s.ripe(), 0x100000000L) < 0).peek(s -> logger.debug("32bit: {}", s)).filter(s -> Long.compareUnsigned(s.ripe(), 0x100000L) < 0).peek(s -> logger.debug("48bit: {}", s)).filter(s -> Long.compareUnsigned(s.ripe(), 0x10000L) < 0).toList());
             logger.debug("Done: {}", i);
         }
         logger.info("探索を完了しました");
