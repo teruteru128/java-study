@@ -1,12 +1,13 @@
 package com.twitter.teruteru128.study;
 
-import com.twitter.teruteru128.util.TriPredicate;
+import com.twitter.teruteru128.util.function.TriPredicate;
 
+import java.io.Serializable;
 import java.util.stream.LongStream;
 
 public class SlimeSearch {
     public static void search() {
-        final var func1 = (TriPredicate) (seed, x, z) -> {
+        final var func1 = (TriPredicate & Serializable) (seed, x, z) -> {
             long a = seed + (int) (x * 0x5ac0db) + (int) (x * x * 0x4c1906) + (int) (z * 0x5f24f)
                     + (int) (z * z) * 0x4307a7L ^ 0x5E434E432L;
             int bits;

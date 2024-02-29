@@ -101,7 +101,7 @@ public class Producer implements Callable<Void> {
             // 秘密鍵から対応する公開鍵を導出する
             for (int i = 0; i < keyCacheSize; i++) {
                 // 公開鍵の導出は重い処理のため、予め大量に導出しておいて組み合わせたほうが早い
-                potentialPublicEncryptionKey = Const.G
+                potentialPublicEncryptionKey = Const.SEC_P256_K1_G
                         .multiply(
                                 new BigInteger(1, privateKeys, i * Const.PRIVATE_KEY_LENGTH, Const.PRIVATE_KEY_LENGTH))
                         .normalize().getEncoded(false);

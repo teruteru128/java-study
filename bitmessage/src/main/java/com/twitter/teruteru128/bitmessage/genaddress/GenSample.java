@@ -47,9 +47,9 @@ public class GenSample {
             file2.seek((encindex & 16777215L) << 5);
             file2.readFully(encprivatekey);
         }
-        var sk = Const.G.multiply(new BigInteger(1, signprivatekey)).normalize();
+        var sk = Const.SEC_P256_K1_G.multiply(new BigInteger(1, signprivatekey)).normalize();
         byte[] potentialPubSigningKey = sk.getEncoded(false);
-        var ek = Const.G.multiply(new BigInteger(1, encprivatekey)).normalize();
+        var ek = Const.SEC_P256_K1_G.multiply(new BigInteger(1, encprivatekey)).normalize();
         byte[] potentialPubEncryptionKey = ek.getEncoded(false);
         var format = HexFormat.of();
         System.out.println(format.formatHex(potentialPubSigningKey));

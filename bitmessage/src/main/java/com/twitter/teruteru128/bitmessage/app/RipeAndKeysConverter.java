@@ -25,7 +25,7 @@ import com.twitter.teruteru128.bitmessage.spec.KeyPair;
 public class RipeAndKeysConverter {
 
     private static byte[] derivePublicKey(byte[] b) {
-        return Const.G.multiply(new BigInteger(1, b)).normalize().getEncoded(false);
+        return Const.SEC_P256_K1_G.multiply(new BigInteger(1, b)).normalize().getEncoded(false);
     }
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException, DigestException {

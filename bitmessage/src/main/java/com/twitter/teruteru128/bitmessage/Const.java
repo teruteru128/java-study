@@ -6,24 +6,17 @@ import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
 import org.bouncycastle.math.ec.ECPoint;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 /**
  * Const
  */
-public class Const {
-
-    private static final Path keysRootPath = Paths.get("D:\\keys");
-    public static final Path publicKeyRootPath = keysRootPath.resolve("public");
-    public static final Path privateKeyRootPath = keysRootPath.resolve("private");
+public final class Const {
 
     private Const() {
     }
 
     public static final X9ECParameters SEC_P256_K1 = CustomNamedCurves.getByName("secp256k1");
     public static final ECNamedCurveParameterSpec SEC_P256_K1_PARAMETER_SPEC = ECNamedCurveTable.getParameterSpec("secp256k1");
-    public static final ECPoint G = SEC_P256_K1.getG();
+    public static final ECPoint SEC_P256_K1_G = SEC_P256_K1.getG();
     public static final int PRIVATE_KEY_LENGTH = 32;
     public static final int PUBLIC_KEY_LENGTH = 65;
     public static final int RIPEMD160_DIGEST_LENGTH = 20;

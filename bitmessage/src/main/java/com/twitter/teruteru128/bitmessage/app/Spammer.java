@@ -134,19 +134,21 @@ public class Spammer {
         var prefixLength = builder.length();
         int k = offset;
         try (var client = HttpClient.newHttpClient()) {
-            var joiner = new StringJoiner(",", "[", "]");
-            var list = addresses.subList(offset, Math.min(length, offset + unitSize));
-            for (var address : list) {
-                builder.append(address);
-                builder.append("\",\"BM-2cVPhC8Bdrx2ZemLw98oGUsgjDAfwsigyc\",\"\",\"\",2,3600],\"id\":");
-                builder.append(k++);
-                builder.append("}");
-                joiner.add(builder.toString());
-                builder.setLength(prefixLength);
+            for (int i = offset; i < length; i += unitSize) {
+                var joiner = new StringJoiner(",", "[", "]");
+                var list = addresses.subList(offset, Math.min(length, offset + unitSize));
+                for (var address : list) {
+                    builder.append(address);
+                    builder.append("\",\"BM-2cVPhC8Bdrx2ZemLw98oGUsgjDAfwsigyc\",\"\",\"\",2,3600],\"id\":");
+                    builder.append(k++);
+                    builder.append("}");
+                    joiner.add(builder.toString());
+                    builder.setLength(prefixLength);
+                }
+                var r = client.send(requestBuilder.POST(ofString(joiner.toString())).build(), HttpResponse.BodyHandlers.ofString());
+                System.out.println(r.body());
+                Thread.sleep(d);
             }
-            var r = client.send(requestBuilder.POST(ofString(joiner.toString())).build(), HttpResponse.BodyHandlers.ofString());
-            System.out.println(r.body());
-            Thread.sleep(d);
         }
     }
 }

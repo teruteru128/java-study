@@ -14,6 +14,7 @@ import java.security.Provider;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.time.Duration;
+import java.util.HexFormat;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
@@ -66,15 +67,12 @@ public class Main {
             case "list" -> BM.list();
             case "random" -> doubleSample(ThreadLocalRandom.current());
             case "random2" -> extracted();
-            case "search" ->
-                    Search.searchWithExecutor(args.length >= 2 ? Integer.parseInt(args[1], 10) : Runtime.getRuntime().availableProcessors());
-            case "search2" ->
-                    Search.searchWithExecutor2(args.length >= 2 ? Integer.parseInt(args[1]) : SECURE_RANDOM_GENERATOR.nextInt(25165824));
             case "unitSpam" -> {
                 if (args.length >= 2) {
-                    Spammer.unitSpam(Files.readAllLines(Path.of(args[1])), 925, Duration.ofMinutes(5), Integer.parseInt(args.length >= 3 ? args[2] : "0"));
+                    Spammer.unitSpam(Files.readAllLines(Path.of(args[1])), 1000, Duration.ofDays(1), Integer.parseInt(args.length >= 3 ? args[2] : "0"));
                 }
             }
+            case "hex?"->{System.out.println(new String(HexFormat.of().parseHex("3132333435363738393031323334353637383930")));}
             default -> System.err.println("unknown command");
         }
     }
@@ -118,7 +116,6 @@ public class Main {
     public static double nextDouble(RandomGenerator random) {
         // random Double
         long bits = random.nextLong();
-        long fraction = bits & 0xfffffffffffffL;
         int exp = -Long.numberOfTrailingZeros(~(bits >>> 52));
         if (exp == -12) {
             long randomBits;
@@ -127,10 +124,10 @@ public class Main {
                 exp -= Long.numberOfTrailingZeros(~randomBits);
             } while (randomBits == -1);
         }
-        if (fraction == 0 && random.nextBoolean()) {
+        if ((bits & 0xfffffffffffffL) == 0 && random.nextBoolean()) {
             exp++;
         }
-        return Double.longBitsToDouble(((long) (exp + 1022) << 52) | fraction);
+        return Double.longBitsToDouble(((long) (exp + 1022) << 52) | bits & 0xfffffffffffffL);
     }
 
 }

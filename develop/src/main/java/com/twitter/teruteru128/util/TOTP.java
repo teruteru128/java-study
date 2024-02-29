@@ -10,19 +10,16 @@ terms contained in, the Simplified BSD License set forth in Section
 (http://trustee.ietf.org/license-info).
 */
 
-import java.lang.reflect.UndeclaredThrowableException;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.security.GeneralSecurityException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
-import java.util.HexFormat;
-import java.util.TimeZone;
-
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
+import java.lang.reflect.UndeclaredThrowableException;
+import java.nio.ByteBuffer;
+import java.security.GeneralSecurityException;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.HexFormat;
 
 /**
  * This is an example implementation of the OATH
@@ -33,6 +30,8 @@ import javax.crypto.spec.SecretKeySpec;
  */
 
 public class TOTP {
+
+    public static final HexFormat OF = HexFormat.of();
 
     private TOTP() {}
 
@@ -61,26 +60,6 @@ public class TOTP {
         }
     }
 
-
-    /**
-     * This method converts a HEX string to Byte[]
-     *
-     * @param hex: the HEX string
-     *
-     * @return: a byte array
-     */
-
-    private static byte[] hexStr2Bytes(String hex){
-        // Adding one byte to get the right conversion
-        // Values starting with "0" can be converted
-        byte[] bArray = new BigInteger("10" + hex,16).toByteArray();
-
-        // Copy all the REAL bytes, not the "first"
-        byte[] ret = new byte[bArray.length - 1];
-        for (int i = 0; i < ret.length; i++)
-            ret[i] = bArray[i+1];
-        return ret;
-    }
 
     private static final int[] DIGITS_POWER
     // 0 1  2   3    4     5      6       7        8
@@ -133,6 +112,17 @@ public class TOTP {
         return generateTOTP(key, time, returnDigits, "HmacSHA512");
     }
 
+    private static String padding(String val, int length, char pad) {
+        int targetLength = val.length();
+        if(targetLength >= length)
+            return val;
+        var paddingLength = length - targetLength;
+        char[] array = new char[length];
+        Arrays.fill(array, 0, paddingLength, pad);
+        System.arraycopy(val.toCharArray(), 0, array, paddingLength, targetLength);
+        return new String(array);
+    }
+
     /**
      * This method generates a TOTP value for the given
      * set of parameters.
@@ -147,29 +137,22 @@ public class TOTP {
      */
 
     public static String generateTOTP(String key, long time, int returnDigits, String crypto){
-        int codeDigits = returnDigits;
 
-        // Get the HEX in a Byte[]
         byte[] msg = ByteBuffer.allocate(8).putLong(time).array();
-        byte[] k = hexStr2Bytes(key);
+        byte[] k = OF.parseHex(key);
 
-
+        // 共有秘密をキーに、時刻をメッセージとしてhash macを計算する
         byte[] hash = hmac_sha(crypto, k, msg);
 
         // put selected bytes into result int
         int offset = hash[hash.length - 1] & 0xf;
 
-        int binary =
-            ((hash[offset] & 0x7f) << 24) |
-            ((hash[offset + 1] & 0xff) << 16) |
-            ((hash[offset + 2] & 0xff) << 8) |
-            (hash[offset + 3] & 0xff);
+        int binary = ByteBuffer.wrap(hash).getInt(offset) & 0x7fffffff;
 
-        int otp = binary % DIGITS_POWER[codeDigits];
+        // otp = binary % (int) Math.pow(returnDigits)
+        int otp = binary % DIGITS_POWER[returnDigits];
 
-        String format = String.format("%%0%dd", codeDigits);
-        String result = String.format(format, otp);
-        return result;
+        return padding(Integer.toString(otp), returnDigits, '0');
     }
 
     public static void main(String[] args) {
@@ -186,33 +169,30 @@ public class TOTP {
         String seed1 = "75656d657a643374706d356872356f6c63326e723766326d7833747578627734";
         long T0 = 0;
         long X = 30;
-        long testTime[] = {59L, 1111111109L, 1111111111L,
+        long[] testTime = {59L, 1111111109L, 1111111111L,
                 1234567890L, 2000000000L, 20000000000L, Instant.now().getEpochSecond()};
 
-        System.out.println(new String(HexFormat.of().parseHex(seed)));
-
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        df.setTimeZone(TimeZone.getTimeZone("UTC"));
+        var df2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneOffset.UTC);
 
         try {
-            System.out.println("+---------------+-----------------------+------------------+--------+--------+");
-            System.out.println("|  Time(sec)    |   Time (UTC format)   | Value of T(Hex)  |  TOTP  | Mode   |");
-            System.out.println("+---------------+-----------------------+------------------+--------+--------+");
+            System.out.println("+---------------+-----------------------+------------------+----------+--------+");
+            System.out.println("|  Time(sec)    |   Time (UTC format)   | Value of T(Hex)  |   TOTP   | Mode   |");
+            System.out.println("+---------------+-----------------------+------------------+----------+--------+");
 
-            for (int i=0; i<testTime.length; i++) {
-                long T = (testTime[i] - T0)/X;
-                String utcTime = df.format(new Date(testTime[i]*1000));
-                System.out.printf("|  %-11s  |  %s  | %016X |", testTime[i], utcTime, T);
-                System.out.println(generateTOTP(seed, T, 8, "HmacSHA1") + "| SHA1   |");
-                System.out.printf("|  %-11s  |  %s  | %016X |", testTime[i], utcTime, T);
-                System.out.printf("%8s| SHA1   |%n", generateTOTP(seed, T, 6, "HmacSHA1"));
-                System.out.printf("|  %-11s  |  %s  | %016X |", testTime[i], utcTime, T);
-                System.out.printf("%8s| SHA1   |%n", generateTOTP(seed1, T, 6, "HmacSHA1"));
-                System.out.printf("|  %-11s  |  %s  | %016X |", testTime[i], utcTime, T);
-                System.out.println(generateTOTP(seed32, T, 8, "HmacSHA256") + "| SHA256 |");
-                System.out.printf("|  %-11s  |  %s  | %016X |", testTime[i], utcTime, T);
-                System.out.println(generateTOTP(seed64, T, 8, "HmacSHA512") + "| SHA512 |");
-                System.out.println("+---------------+-----------------------+------------------+--------+--------+");
+            for (long l : testTime) {
+                long T = (l - T0) / X;
+                String utcTime = df2.format(Instant.ofEpochSecond(l));
+                System.out.printf("|  %-11s  |  %s  | %016X | ", l, utcTime, T);
+                System.out.println(generateTOTP(seed, T, 8, "HmacSHA1") + " | SHA1   |");
+                System.out.printf("|  %-11s  |  %s  | %016X | ", l, utcTime, T);
+                System.out.printf("%8s | SHA1   |%n", generateTOTP(seed, T, 6, "HmacSHA1"));
+                System.out.printf("|  %-11s  |  %s  | %016X | ", l, utcTime, T);
+                System.out.printf("%8s | SHA1   |%n", generateTOTP(seed1, T, 6, "HmacSHA1"));
+                System.out.printf("|  %-11s  |  %s  | %016X | ", l, utcTime, T);
+                System.out.println(generateTOTP(seed32, T, 8, "HmacSHA256") + " | SHA256 |");
+                System.out.printf("|  %-11s  |  %s  | %016X | ", l, utcTime, T);
+                System.out.println(generateTOTP(seed64, T, 8, "HmacSHA512") + " | SHA512 |");
+                System.out.println("+---------------+-----------------------+------------------+----------+--------+");
             }
         }catch (Exception e){
             e.printStackTrace();

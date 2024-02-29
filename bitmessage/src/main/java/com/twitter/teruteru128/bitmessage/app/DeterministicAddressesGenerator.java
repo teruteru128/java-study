@@ -79,7 +79,7 @@ public class DeterministicAddressesGenerator implements Function<String, Determi
         if (privateKey.length < Const.PRIVATE_KEY_LENGTH) {
             throw new IllegalArgumentException("public key is too short");
         }
-        return Const.G.multiply(new BigInteger(1, privateKey, 0, Const.PRIVATE_KEY_LENGTH)).normalize()
+        return Const.SEC_P256_K1_G.multiply(new BigInteger(1, privateKey, 0, Const.PRIVATE_KEY_LENGTH)).normalize()
                 .getEncoded(false);
     }
 

@@ -39,4 +39,5 @@ module com.twitter.teruteru.study {
 
     opens com.twitter.teruteru128.study;
     opens com.twitter.teruteru128.util;
+    opens com.twitter.teruteru128.util.function;
 }

@@ -26,7 +26,7 @@ public class RawKeyConverter {
     }
 
     private static byte[] convertPublicKey(byte[] privateKey) {
-        return Const.G.multiply(new BigInteger(1, privateKey)).normalize()
+        return Const.SEC_P256_K1_G.multiply(new BigInteger(1, privateKey)).normalize()
                 .getEncoded(false);
     }
 

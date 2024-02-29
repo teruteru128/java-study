@@ -52,7 +52,7 @@ public class BMAddressGenerator implements Runnable {
         byte[] publicKeys = new byte[(1 << 24) * Const.PUBLIC_KEY_LENGTH];
         ByteBuffer buffer = ByteBuffer.allocateDirect((1 << 24) * Const.PUBLIC_KEY_LENGTH);
         for (int i = 0; i < 16777216; i++) {
-            potentialPublicEncryptionKey = Const.G
+            potentialPublicEncryptionKey = Const.SEC_P256_K1_G
                     .multiply(new BigInteger(1, privateKeys, i * Const.PRIVATE_KEY_LENGTH, Const.PRIVATE_KEY_LENGTH))
                     .normalize().getEncoded(false);
             buffer.put(potentialPublicEncryptionKey, 0, Const.PUBLIC_KEY_LENGTH);

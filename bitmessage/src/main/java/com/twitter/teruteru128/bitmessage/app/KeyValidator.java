@@ -96,7 +96,7 @@ public class KeyValidator {
      * @return
      */
     protected byte[] generatePublicKey(byte[] privateKey) {
-        return Const.G.multiply(new BigInteger(1, privateKey)).normalize().getEncoded(false);
+        return Const.SEC_P256_K1_G.multiply(new BigInteger(1, privateKey)).normalize().getEncoded(false);
     }
 
     /**

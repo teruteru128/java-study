@@ -38,8 +38,8 @@ public class AddressFactoryTest {
         String privEncryptionKeyWIF = "5KUoQKDmcmAKpjaas3k9U6bGFN5Nz937zqLqDDo1sNUqeJCiMZn";
         byte[] wrappedPrivSigningKey = Base58.decode(privSigningKeyWIF);
         byte[] wrappedPrivEncryptionKey = Base58.decode(privEncryptionKeyWIF);
-        byte[] pubSigningKey = Const.G.multiply(new BigInteger(1, wrappedPrivSigningKey, 1, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
-        byte[] pubEncryptionKey = Const.G.multiply(new BigInteger(1, wrappedPrivEncryptionKey, 1, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
+        byte[] pubSigningKey = Const.SEC_P256_K1_G.multiply(new BigInteger(1, wrappedPrivSigningKey, 1, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
+        byte[] pubEncryptionKey = Const.SEC_P256_K1_G.multiply(new BigInteger(1, wrappedPrivEncryptionKey, 1, Const.PRIVATE_KEY_LENGTH)).normalize().getEncoded(false);
         MessageDigest sha512 = MessageDigest.getInstance("SHA-512");
         MessageDigest ripemd160 = MessageDigest.getInstance("RIPEMD160");
         sha512.update(pubSigningKey);

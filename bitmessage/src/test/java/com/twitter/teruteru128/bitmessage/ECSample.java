@@ -43,7 +43,7 @@ public class ECSample {
 
         sampleECSignature("");
 
-        var ecp = Const.G.multiply(((ECPrivateKey) privateKey).getS());
+        var ecp = Const.SEC_P256_K1_G.multiply(((ECPrivateKey) privateKey).getS());
         var pubspec = new ECPublicKeySpec(ecp, parameterSpec);
 
         var factory = KeyFactory.getInstance("EC", "BC");

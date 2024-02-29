@@ -40,8 +40,6 @@ com.twitter.teruteru128.study.NetWorkService
 com.twitter.teruteru128.study.PasswordGenerator
 com.twitter.teruteru128.study.PoissonDistributionSample
 com.twitter.teruteru128.study.PrimeSearch
-com.twitter.teruteru128.study.Result
-com.twitter.teruteru128.study.Search
 com.twitter.teruteru128.study.SerializeSample
 com.twitter.teruteru128.study.SleeptillQueryGenerator
 com.twitter.teruteru128.study.SlimeSearch
@@ -50,13 +48,9 @@ com.twitter.teruteru128.study.TarMaker
 com.twitter.teruteru128.study.ToranoanaPasswordGenerator
 com.twitter.teruteru128.study.UniqueIdentity
 com.twitter.teruteru128.study.Val
-com.twitter.teruteru128.util.Arrays
-com.twitter.teruteru128.util.HappySet
-com.twitter.teruteru128.util.ListRandomChoicer
 com.twitter.teruteru128.util.Page
 com.twitter.teruteru128.util.Printer
 com.twitter.teruteru128.util.TOTP
-com.twitter.teruteru128.util.TriPredicate
+com.twitter.teruteru128.util.function.TriPredicate
 com.twitter.teruteru128.util.Utils
 com.twitter.teruteru128.util.UUIDUnsignedComparator
-みんな.こっち
