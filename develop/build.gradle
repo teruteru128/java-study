@@ -29,7 +29,7 @@ dependencies {
     implementation 'org.apache.commons:commons-statistics-distribution:1.0'
 
     // https://mvnrepository.com/artifact/commons-codec/commons-codec
-    implementation 'commons-codec:commons-codec:1.16.0'
+    implementation 'commons-codec:commons-codec:1.16.1'
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:33.0.0-jre'
