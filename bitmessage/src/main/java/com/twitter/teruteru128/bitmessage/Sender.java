@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Sender {
 
-    public static final HttpClient CLIENT = HttpClient.newBuilder().build();
+    public static final HttpClient CLIENT = HttpClient.newHttpClient();
     private static final Base64.Encoder ENCODER = Base64.getEncoder();
 
     public static HttpResponse<String> send(String toAddress, String fromAddress, String subject, String message)

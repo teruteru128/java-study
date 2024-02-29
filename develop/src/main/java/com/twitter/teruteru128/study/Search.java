@@ -26,6 +26,7 @@ import java.util.stream.IntStream;
 public class Search {
 
     private static final Logger logger = LoggerFactory.getLogger(Search.class);
+    private static final RandomGenerator random = RandomGenerator.of("SecureRandom");
 
     private static void a(Path a, byte[] buf, int offset, int length) throws IOException {
         var buf2 = Files.readAllBytes(a);
@@ -51,7 +52,6 @@ public class Search {
                 int signCacheIndex;
                 int encGlobalIndex;
                 int encCacheIndex;
-                var random = RandomGenerator.of("SecureRandom");
                 while (true) {
                     // pow(1.5 files, 2)
                     signGlobalIndex = random.nextInt(1572864) * 1040;
@@ -74,11 +74,6 @@ public class Search {
                 }
             })));
         }
-    }
-
-    static void searchWithExecutor2() throws IOException {
-        var initialOffset = RandomGenerator.of("SecureRandom").nextInt(25165824);
-        searchWithExecutor2(initialOffset);
     }
 
     static void searchWithExecutor2(int initialOffset) throws IOException {
