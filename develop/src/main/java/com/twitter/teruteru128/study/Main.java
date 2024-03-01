@@ -2,6 +2,7 @@ package com.twitter.teruteru128.study;
 
 import com.twitter.teruteru128.bitmessage.BM;
 import com.twitter.teruteru128.bitmessage.app.Spammer;
+import org.apache.catalina.startup.Tomcat;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -69,12 +70,15 @@ public class Main {
             case "random2" -> extracted();
             case "unitSpam" -> {
                 if (args.length >= 2) {
-                    Spammer.unitSpam(Files.readAllLines(Path.of(args[1])), 1000, Duration.ofDays(1), Integer.parseInt(args.length >= 3 ? args[2] : "0"));
+                    if (args.length >= 3)
+                        Spammer.unitSpam(Files.readAllLines(Path.of(args[1])), 2500, Duration.ofHours(12), Integer.parseInt(args[2]));
+                    else
+                        Spammer.unitSpam(Files.readAllLines(Path.of(args[1])), 2500, Duration.ofHours(12), 0);
                 }
             }
-            case "hex?"->{System.out.println(new String(HexFormat.of().parseHex("3132333435363738393031323334353637383930")));}
             default -> System.err.println("unknown command");
         }
+        var tomcat = new Tomcat();
     }
 
     private static void extracted1() {

@@ -15,8 +15,10 @@ public class Structs {
     private static final BigInteger _4294967296 = BigInteger.valueOf(4294967296L);
     private static final BigInteger _18446744073709551616 = new BigInteger("18446744073709551616", 10);
 
+    private Structs() {
+    }
+
     /**
-     * 
      * @param u
      * @return
      */
@@ -48,13 +50,13 @@ public class Structs {
         if (u < 253) {
             return buf.put((byte) u);
         }
-        if (253 <= u && u < 65536) {
+        if (u < 65536) {
             return buf.put((byte) 253).putShort((short) u);
         }
-        if (65536 <= u && u < 4294967296L) {
+        if (u < 4294967296L) {
             return buf.put((byte) 254).putInt((int) u);
         }
-        if (4294967296L <= u && Long.compareUnsigned(u, Long.MIN_VALUE) <= 0) {
+        if (Long.compareUnsigned(u, Long.MIN_VALUE) <= 0) {
             // 9223372036854775808以上18446744073709551616未満は符号付き64ビットでは0未満になるため意図した結果にならない。
             return buf.put((byte) 255).putLong(u);
         }
@@ -63,8 +65,6 @@ public class Structs {
     }
 
     /**
-     * 
-     * 
      * @param u
      * @return
      */
@@ -90,8 +90,6 @@ public class Structs {
     }
 
     /**
-     * 
-     * 
      * @param u
      * @return
      */
@@ -167,9 +165,6 @@ public class Structs {
             e[i] = (long) entries[i];
         }
         return encodeVarintList(e);
-    }
-
-    private Structs() {
     }
 
 }

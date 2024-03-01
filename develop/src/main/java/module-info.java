@@ -18,6 +18,7 @@ module com.twitter.teruteru.study {
     requires org.apache.commons.rng.simple;
     requires org.apache.commons.statistics.distribution;
     requires org.apache.commons.codec;
+    requires org.apache.tomcat.embed.core;
     requires org.xerial.sqlitejdbc;
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.annotation;

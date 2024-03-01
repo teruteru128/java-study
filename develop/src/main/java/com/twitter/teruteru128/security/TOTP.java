@@ -1,34 +1,22 @@
 package com.twitter.teruteru128.security;
 
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.nio.ByteBuffer;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
+import java.util.Arrays;
 
 class TOTP {
-    private byte[] key;
-    private int returnDigits;
-    private String algorithm;
-    private long t0 = 0;
-    private long x = 30;
-
-    private static byte[] hmac(String algorithm, byte[] key, byte[] text) {
-        try {
-            Mac hmac = Mac.getInstance(algorithm);
-            SecretKeySpec macKey = new SecretKeySpec(key, "RAW");
-            hmac.init(macKey);
-            return hmac.doFinal(text);
-        } catch (NoSuchAlgorithmException | InvalidKeyException gse) {
-            throw new UndeclaredThrowableException(gse);
-        }
-    }
-
-    private static final int[] DECIMAL_MASK = { 1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000,
-            1000000000 };
+    private static final int[] DECIMAL_MASK = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000,
+            1000000000};
+    private final byte[] key;
+    private final int returnDigits;
+    private final String algorithm;
+    private final long t0;
+    private final long x;
 
     public TOTP(byte[] key, int returnDigits, String algorithm, long t0, long x) {
         this.key = key.clone();
@@ -46,6 +34,28 @@ class TOTP {
         this(key, 6, "HmacSHA1");
     }
 
+    private static byte[] hmac(String algorithm, byte[] key, byte[] text) {
+        try {
+            Mac hmac = Mac.getInstance(algorithm);
+            SecretKeySpec macKey = new SecretKeySpec(key, "RAW");
+            hmac.init(macKey);
+            return hmac.doFinal(text);
+        } catch (NoSuchAlgorithmException | InvalidKeyException gse) {
+            throw new UndeclaredThrowableException(gse);
+        }
+    }
+
+    private static String padding(String val, int length, char pad) {
+        int targetLength = val.length();
+        if (targetLength >= length)
+            return val;
+        var paddingLength = length - targetLength;
+        char[] array = new char[length];
+        Arrays.fill(array, 0, paddingLength, pad);
+        System.arraycopy(val.toCharArray(), 0, array, paddingLength, targetLength);
+        return new String(array);
+    }
+
     public String generate(long time) {
         byte[] msg = ByteBuffer.allocate(8).putLong((time - t0) / x).array();
         byte[] mac = hmac(algorithm, key, msg);
@@ -58,10 +68,10 @@ class TOTP {
          */
         int binary = ByteBuffer.wrap(mac).getInt(offset) & 0x7fffffff;
         int otp = binary % DECIMAL_MASK[returnDigits];
-        return String.format("%%0%dd", returnDigits).formatted(otp);
+        return padding(Integer.toString(otp), returnDigits, '0');
     }
 
-    public String generate(Instant time){
+    public String generate(Instant time) {
         return generate(time.getEpochSecond());
     }
 
