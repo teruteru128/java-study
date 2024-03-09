@@ -15,7 +15,6 @@ public final class Const {
     }
 
     public static final X9ECParameters SEC_P256_K1 = CustomNamedCurves.getByName("secp256k1");
-    public static final ECNamedCurveParameterSpec SEC_P256_K1_PARAMETER_SPEC = ECNamedCurveTable.getParameterSpec("secp256k1");
     public static final ECPoint SEC_P256_K1_G = SEC_P256_K1.getG();
     public static final int PRIVATE_KEY_LENGTH = 32;
     public static final int PUBLIC_KEY_LENGTH = 65;

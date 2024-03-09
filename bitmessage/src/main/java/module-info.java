@@ -13,11 +13,7 @@ module com.twitter.teruteru.bitmessage {
 
     exports com.twitter.teruteru128.bitmessage;
     exports com.twitter.teruteru128.bitmessage.app;
-    exports com.twitter.teruteru128.bitmessage.dandelion;
+    // exports com.twitter.teruteru128.bitmessage.dandelion;
     exports com.twitter.teruteru128.bitmessage.genaddress;
-    exports com.twitter.teruteru128.bitmessage.inventory;
-    exports com.twitter.teruteru128.bitmessage.p2p;
-    exports com.twitter.teruteru128.bitmessage.protocol;
-    exports com.twitter.teruteru128.bitmessage.protocol.payload;
     exports com.twitter.teruteru128.bitmessage.spec;
 }

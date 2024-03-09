@@ -29,8 +29,6 @@ com.twitter.teruteru128.semen.CumShoot
 com.twitter.teruteru128.semen.WantToCum
 com.twitter.teruteru128.ssl.SSLSocketChannel
 com.twitter.teruteru128.ssl.SSLSocketChannelFactory
-com.twitter.teruteru128.bitmessage.AddressEntry
-com.twitter.teruteru128.bitmessage.BM
 com.twitter.teruteru128.study.ECPeekTools
 com.twitter.teruteru128.study.FileChannelFixedLengthSpliterator
 com.twitter.teruteru128.study.FrequencySurveyTask
@@ -38,7 +36,6 @@ com.twitter.teruteru128.study.Homo
 com.twitter.teruteru128.study.MyB
 com.twitter.teruteru128.study.NetWorkService
 com.twitter.teruteru128.study.PasswordGenerator
-com.twitter.teruteru128.study.PoissonDistributionSample
 com.twitter.teruteru128.study.PrimeSearch
 com.twitter.teruteru128.study.SerializeSample
 com.twitter.teruteru128.study.SleeptillQueryGenerator

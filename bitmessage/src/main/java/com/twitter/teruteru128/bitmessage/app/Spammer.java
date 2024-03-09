@@ -1,7 +1,5 @@
 package com.twitter.teruteru128.bitmessage.app;
 
-import com.twitter.teruteru128.bitmessage.Sender;
-import com.twitter.teruteru128.bitmessage.p2p.Message;
 import com.twitter.teruteru128.bitmessage.spec.AddressFactory;
 
 import java.io.IOException;
@@ -13,7 +11,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.random.RandomGenerator;
 
 import static java.net.http.HttpRequest.BodyPublishers.ofString;
@@ -33,25 +30,6 @@ public class Spammer {
 
 
     public Spammer() {
-    }
-
-    public static List<Message> createBody(int count) {
-        var ripe = new byte[20];
-        var shortRipe = new byte[19];
-        var uuid = UUID.randomUUID().toString().getBytes();
-        var subject = "test".getBytes();
-        var list = new ArrayList<Message>(count);
-        for (int i = 1; i <= count; i++) {
-            RANDOM.nextBytes(shortRipe);
-            System.arraycopy(shortRipe, 0, ripe, 1, 19);
-            list.add(new Message(AddressFactory.encodeAddress(ripe), "BM-NBJxKhQmidR2TBtD3H74yZhDHpzZ7TXM", subject, uuid,
-                    RANDOM.nextInt(3600, 3900)));
-        }
-        return list;
-    }
-
-    public static HttpResponse<String> doSpam(int count) throws InterruptedException, IOException {
-        return Sender.send(createBody(count));
     }
 
     public static byte[] generateMessage(int length) {
@@ -77,15 +55,6 @@ public class Spammer {
             capacity--;
         }
         return Arrays.copyOf(msg, capacity);
-    }
-
-    public static long send(String toAddress, String fromAddress) throws InterruptedException, IOException {
-        var uuid = UUID.randomUUID();
-        String subject = uuid.toString();
-        var message = generateMessage(ThreadLocalRandom.current().nextInt(200, 2200));
-        int ttl = ThreadLocalRandom.current().nextInt(345300, 345900);
-        Sender.send(toAddress, fromAddress, subject, message, ttl);
-        return 1;
     }
 
     /**

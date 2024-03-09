@@ -17,6 +17,10 @@ application {
     applicationDefaultJvmArgs = ['-Xms32G', '-Xmx32G']
 }
 
+run {
+    enableAssertions = true
+}
+
 dependencies {
     implementation project(':bitmessage')
     implementation project(':encode')
