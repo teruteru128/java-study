@@ -49,7 +49,7 @@ dependencies {
 
     // jaxb-runtime -> jaxb-core -> jakarta.xml.bind-api
     // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.1'
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
 
     // https://mvnrepository.com/artifact/org.json/json
     implementation 'org.json:json:20240303'
