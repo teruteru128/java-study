@@ -2,20 +2,33 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMENUBARINFO MENUBARINFO;
+ * {@snippet lang=c :
+ * typedef struct tagMENUBARINFO {
+ *     DWORD cbSize;
+ *     RECT rcBar;
+ *     HMENU hMenu;
+ *     HWND hwndMenu;
+ *     BOOL fBarFocused : 1;
+ *     BOOL fFocused : 1;
+ *     BOOL fUnused : 30;
+ * } MENUBARINFO
  * }
  */
-public final class MENUBARINFO extends tagMENUBARINFO {
+public class MENUBARINFO extends tagMENUBARINFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MENUBARINFO() {}
+    MENUBARINFO() {
+        // Should not be called directly
+    }
 }
-
 

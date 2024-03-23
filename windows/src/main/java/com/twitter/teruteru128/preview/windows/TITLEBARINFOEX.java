@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagTITLEBARINFOEX TITLEBARINFOEX;
+ * {@snippet lang=c :
+ * typedef struct tagTITLEBARINFOEX {
+ *     DWORD cbSize;
+ *     RECT rcTitleBar;
+ *     DWORD rgstate[6];
+ *     RECT rgrect[6];
+ * } TITLEBARINFOEX
  * }
  */
-public final class TITLEBARINFOEX extends tagTITLEBARINFOEX {
+public class TITLEBARINFOEX extends tagTITLEBARINFOEX {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private TITLEBARINFOEX() {}
+    TITLEBARINFOEX() {
+        // Should not be called directly
+    }
 }
-
 

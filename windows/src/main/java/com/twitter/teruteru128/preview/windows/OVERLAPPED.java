@@ -2,20 +2,36 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _OVERLAPPED OVERLAPPED;
+ * {@snippet lang=c :
+ * typedef struct _OVERLAPPED {
+ *     ULONG_PTR Internal;
+ *     ULONG_PTR InternalHigh;
+ *     union {
+ *         struct {
+ *             DWORD Offset;
+ *             DWORD OffsetHigh;
+ *         };
+ *         PVOID Pointer;
+ *     };
+ *     HANDLE hEvent;
+ * } OVERLAPPED
  * }
  */
-public final class OVERLAPPED extends _OVERLAPPED {
+public class OVERLAPPED extends _OVERLAPPED {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private OVERLAPPED() {}
+    OVERLAPPED() {
+        // Should not be called directly
+    }
 }
-
 

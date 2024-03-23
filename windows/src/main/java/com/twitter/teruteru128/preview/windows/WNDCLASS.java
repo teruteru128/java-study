@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagWNDCLASSA WNDCLASS;
+ * {@snippet lang=c :
+ * typedef WNDCLASSA WNDCLASS
  * }
  */
-public final class WNDCLASS extends tagWNDCLASSA {
+public class WNDCLASS extends tagWNDCLASSA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private WNDCLASS() {}
+    WNDCLASS() {
+        // Should not be called directly
+    }
 }
-
 

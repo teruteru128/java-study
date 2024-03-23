@@ -2,140 +2,264 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct __NCRYPT_SUPPORTED_LENGTHS {
  *     DWORD dwMinLength;
  *     DWORD dwMaxLength;
  *     DWORD dwIncrement;
  *     DWORD dwDefaultLength;
- * };
+ * }
  * }
  */
 public class __NCRYPT_SUPPORTED_LENGTHS {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1993.const$4;
+    __NCRYPT_SUPPORTED_LENGTHS() {
+        // Should not be called directly
     }
-    public static VarHandle dwMinLength$VH() {
-        return constants$1993.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwMinLength;
-     * }
-     */
-    public static int dwMinLength$get(MemorySegment seg) {
-        return (int)constants$1993.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwMinLength;
-     * }
-     */
-    public static void dwMinLength$set(MemorySegment seg, int x) {
-        constants$1993.const$5.set(seg, x);
-    }
-    public static int dwMinLength$get(MemorySegment seg, long index) {
-        return (int)constants$1993.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwMinLength$set(MemorySegment seg, long index, int x) {
-        constants$1993.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwMaxLength$VH() {
-        return constants$1994.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwMaxLength;
-     * }
-     */
-    public static int dwMaxLength$get(MemorySegment seg) {
-        return (int)constants$1994.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwMaxLength;
-     * }
-     */
-    public static void dwMaxLength$set(MemorySegment seg, int x) {
-        constants$1994.const$0.set(seg, x);
-    }
-    public static int dwMaxLength$get(MemorySegment seg, long index) {
-        return (int)constants$1994.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwMaxLength$set(MemorySegment seg, long index, int x) {
-        constants$1994.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwIncrement$VH() {
-        return constants$1994.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwIncrement;
-     * }
-     */
-    public static int dwIncrement$get(MemorySegment seg) {
-        return (int)constants$1994.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwIncrement;
-     * }
-     */
-    public static void dwIncrement$set(MemorySegment seg, int x) {
-        constants$1994.const$1.set(seg, x);
-    }
-    public static int dwIncrement$get(MemorySegment seg, long index) {
-        return (int)constants$1994.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwIncrement$set(MemorySegment seg, long index, int x) {
-        constants$1994.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwDefaultLength$VH() {
-        return constants$1994.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwDefaultLength;
-     * }
-     */
-    public static int dwDefaultLength$get(MemorySegment seg) {
-        return (int)constants$1994.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwDefaultLength;
-     * }
-     */
-    public static void dwDefaultLength$set(MemorySegment seg, int x) {
-        constants$1994.const$2.set(seg, x);
-    }
-    public static int dwDefaultLength$get(MemorySegment seg, long index) {
-        return (int)constants$1994.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwDefaultLength$set(MemorySegment seg, long index, int x) {
-        constants$1994.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("dwMinLength"),
+        Windows_h.C_LONG.withName("dwMaxLength"),
+        Windows_h.C_LONG.withName("dwIncrement"),
+        Windows_h.C_LONG.withName("dwDefaultLength")
+    ).withName("__NCRYPT_SUPPORTED_LENGTHS");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt dwMinLength$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwMinLength"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwMinLength
+     * }
+     */
+    public static final OfInt dwMinLength$layout() {
+        return dwMinLength$LAYOUT;
+    }
+
+    private static final long dwMinLength$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwMinLength
+     * }
+     */
+    public static final long dwMinLength$offset() {
+        return dwMinLength$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwMinLength
+     * }
+     */
+    public static int dwMinLength(MemorySegment struct) {
+        return struct.get(dwMinLength$LAYOUT, dwMinLength$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwMinLength
+     * }
+     */
+    public static void dwMinLength(MemorySegment struct, int fieldValue) {
+        struct.set(dwMinLength$LAYOUT, dwMinLength$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwMaxLength$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwMaxLength"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwMaxLength
+     * }
+     */
+    public static final OfInt dwMaxLength$layout() {
+        return dwMaxLength$LAYOUT;
+    }
+
+    private static final long dwMaxLength$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwMaxLength
+     * }
+     */
+    public static final long dwMaxLength$offset() {
+        return dwMaxLength$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwMaxLength
+     * }
+     */
+    public static int dwMaxLength(MemorySegment struct) {
+        return struct.get(dwMaxLength$LAYOUT, dwMaxLength$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwMaxLength
+     * }
+     */
+    public static void dwMaxLength(MemorySegment struct, int fieldValue) {
+        struct.set(dwMaxLength$LAYOUT, dwMaxLength$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwIncrement$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwIncrement"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwIncrement
+     * }
+     */
+    public static final OfInt dwIncrement$layout() {
+        return dwIncrement$LAYOUT;
+    }
+
+    private static final long dwIncrement$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwIncrement
+     * }
+     */
+    public static final long dwIncrement$offset() {
+        return dwIncrement$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwIncrement
+     * }
+     */
+    public static int dwIncrement(MemorySegment struct) {
+        return struct.get(dwIncrement$LAYOUT, dwIncrement$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwIncrement
+     * }
+     */
+    public static void dwIncrement(MemorySegment struct, int fieldValue) {
+        struct.set(dwIncrement$LAYOUT, dwIncrement$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwDefaultLength$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwDefaultLength"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwDefaultLength
+     * }
+     */
+    public static final OfInt dwDefaultLength$layout() {
+        return dwDefaultLength$LAYOUT;
+    }
+
+    private static final long dwDefaultLength$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwDefaultLength
+     * }
+     */
+    public static final long dwDefaultLength$offset() {
+        return dwDefaultLength$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwDefaultLength
+     * }
+     */
+    public static int dwDefaultLength(MemorySegment struct) {
+        return struct.get(dwDefaultLength$LAYOUT, dwDefaultLength$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwDefaultLength
+     * }
+     */
+    public static void dwDefaultLength(MemorySegment struct, int fieldValue) {
+        struct.set(dwDefaultLength$LAYOUT, dwDefaultLength$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

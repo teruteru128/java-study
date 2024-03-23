@@ -2,84 +2,173 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct {
  *     ULONG numberOfProperties;
- *     PrintNamedProperty* propertiesCollection;
- * };
+ *     PrintNamedProperty *propertiesCollection;
+ * }
  * }
  */
 public class PrintPropertiesCollection {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2948.const$0;
+    PrintPropertiesCollection() {
+        // Should not be called directly
     }
-    public static VarHandle numberOfProperties$VH() {
-        return constants$2948.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG numberOfProperties;
-     * }
-     */
-    public static int numberOfProperties$get(MemorySegment seg) {
-        return (int)constants$2948.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG numberOfProperties;
-     * }
-     */
-    public static void numberOfProperties$set(MemorySegment seg, int x) {
-        constants$2948.const$1.set(seg, x);
-    }
-    public static int numberOfProperties$get(MemorySegment seg, long index) {
-        return (int)constants$2948.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void numberOfProperties$set(MemorySegment seg, long index, int x) {
-        constants$2948.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle propertiesCollection$VH() {
-        return constants$2948.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PrintNamedProperty* propertiesCollection;
-     * }
-     */
-    public static MemorySegment propertiesCollection$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2948.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PrintNamedProperty* propertiesCollection;
-     * }
-     */
-    public static void propertiesCollection$set(MemorySegment seg, MemorySegment x) {
-        constants$2948.const$2.set(seg, x);
-    }
-    public static MemorySegment propertiesCollection$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2948.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void propertiesCollection$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2948.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("numberOfProperties"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("propertiesCollection")
+    ).withName("$anon$3736:13");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt numberOfProperties$LAYOUT = (OfInt)$LAYOUT.select(groupElement("numberOfProperties"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG numberOfProperties
+     * }
+     */
+    public static final OfInt numberOfProperties$layout() {
+        return numberOfProperties$LAYOUT;
+    }
+
+    private static final long numberOfProperties$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG numberOfProperties
+     * }
+     */
+    public static final long numberOfProperties$offset() {
+        return numberOfProperties$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG numberOfProperties
+     * }
+     */
+    public static int numberOfProperties(MemorySegment struct) {
+        return struct.get(numberOfProperties$LAYOUT, numberOfProperties$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG numberOfProperties
+     * }
+     */
+    public static void numberOfProperties(MemorySegment struct, int fieldValue) {
+        struct.set(numberOfProperties$LAYOUT, numberOfProperties$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout propertiesCollection$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("propertiesCollection"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PrintNamedProperty *propertiesCollection
+     * }
+     */
+    public static final AddressLayout propertiesCollection$layout() {
+        return propertiesCollection$LAYOUT;
+    }
+
+    private static final long propertiesCollection$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PrintNamedProperty *propertiesCollection
+     * }
+     */
+    public static final long propertiesCollection$offset() {
+        return propertiesCollection$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PrintNamedProperty *propertiesCollection
+     * }
+     */
+    public static MemorySegment propertiesCollection(MemorySegment struct) {
+        return struct.get(propertiesCollection$LAYOUT, propertiesCollection$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PrintNamedProperty *propertiesCollection
+     * }
+     */
+    public static void propertiesCollection(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(propertiesCollection$LAYOUT, propertiesCollection$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

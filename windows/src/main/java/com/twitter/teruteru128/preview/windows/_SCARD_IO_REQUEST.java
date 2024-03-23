@@ -2,84 +2,172 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _SCARD_IO_REQUEST {
  *     DWORD dwProtocol;
  *     DWORD cbPciLength;
- * };
+ * }
  * }
  */
 public class _SCARD_IO_REQUEST {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2744.const$0;
+    _SCARD_IO_REQUEST() {
+        // Should not be called directly
     }
-    public static VarHandle dwProtocol$VH() {
-        return constants$2744.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwProtocol;
-     * }
-     */
-    public static int dwProtocol$get(MemorySegment seg) {
-        return (int)constants$2744.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwProtocol;
-     * }
-     */
-    public static void dwProtocol$set(MemorySegment seg, int x) {
-        constants$2744.const$1.set(seg, x);
-    }
-    public static int dwProtocol$get(MemorySegment seg, long index) {
-        return (int)constants$2744.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwProtocol$set(MemorySegment seg, long index, int x) {
-        constants$2744.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cbPciLength$VH() {
-        return constants$2744.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cbPciLength;
-     * }
-     */
-    public static int cbPciLength$get(MemorySegment seg) {
-        return (int)constants$2744.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cbPciLength;
-     * }
-     */
-    public static void cbPciLength$set(MemorySegment seg, int x) {
-        constants$2744.const$2.set(seg, x);
-    }
-    public static int cbPciLength$get(MemorySegment seg, long index) {
-        return (int)constants$2744.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cbPciLength$set(MemorySegment seg, long index, int x) {
-        constants$2744.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("dwProtocol"),
+        Windows_h.C_LONG.withName("cbPciLength")
+    ).withName("_SCARD_IO_REQUEST");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt dwProtocol$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwProtocol"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwProtocol
+     * }
+     */
+    public static final OfInt dwProtocol$layout() {
+        return dwProtocol$LAYOUT;
+    }
+
+    private static final long dwProtocol$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwProtocol
+     * }
+     */
+    public static final long dwProtocol$offset() {
+        return dwProtocol$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwProtocol
+     * }
+     */
+    public static int dwProtocol(MemorySegment struct) {
+        return struct.get(dwProtocol$LAYOUT, dwProtocol$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwProtocol
+     * }
+     */
+    public static void dwProtocol(MemorySegment struct, int fieldValue) {
+        struct.set(dwProtocol$LAYOUT, dwProtocol$OFFSET, fieldValue);
+    }
+
+    private static final OfInt cbPciLength$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cbPciLength"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cbPciLength
+     * }
+     */
+    public static final OfInt cbPciLength$layout() {
+        return cbPciLength$LAYOUT;
+    }
+
+    private static final long cbPciLength$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cbPciLength
+     * }
+     */
+    public static final long cbPciLength$offset() {
+        return cbPciLength$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cbPciLength
+     * }
+     */
+    public static int cbPciLength(MemorySegment struct) {
+        return struct.get(cbPciLength$LAYOUT, cbPciLength$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cbPciLength
+     * }
+     */
+    public static void cbPciLength(MemorySegment struct, int fieldValue) {
+        struct.set(cbPciLength$LAYOUT, cbPciLength$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

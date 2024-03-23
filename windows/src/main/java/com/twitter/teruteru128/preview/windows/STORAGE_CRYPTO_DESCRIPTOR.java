@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _STORAGE_CRYPTO_DESCRIPTOR STORAGE_CRYPTO_DESCRIPTOR;
+ * {@snippet lang=c :
+ * typedef struct _STORAGE_CRYPTO_DESCRIPTOR {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     DWORD NumKeysSupported;
+ *     DWORD NumCryptoCapabilities;
+ *     STORAGE_CRYPTO_CAPABILITY CryptoCapabilities[1];
+ * } STORAGE_CRYPTO_DESCRIPTOR
  * }
  */
-public final class STORAGE_CRYPTO_DESCRIPTOR extends _STORAGE_CRYPTO_DESCRIPTOR {
+public class STORAGE_CRYPTO_DESCRIPTOR extends _STORAGE_CRYPTO_DESCRIPTOR {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private STORAGE_CRYPTO_DESCRIPTOR() {}
+    STORAGE_CRYPTO_DESCRIPTOR() {
+        // Should not be called directly
+    }
 }
-
 

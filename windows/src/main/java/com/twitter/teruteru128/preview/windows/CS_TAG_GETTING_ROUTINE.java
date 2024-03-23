@@ -2,32 +2,71 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void (*CS_TAG_GETTING_ROUTINE)(void* hBinding,int fServerSide,unsigned long* pulSendingTag,unsigned long* pulDesiredReceivingTag,unsigned long* pulReceivingTag,unsigned long* pStatus);
+ * {@snippet lang=c :
+ * typedef void (*CS_TAG_GETTING_ROUTINE)(RPC_BINDING_HANDLE, int, unsigned long *, unsigned long *, unsigned long *, error_status_t *) __attribute__((stdcall))
  * }
  */
-public interface CS_TAG_GETTING_ROUTINE {
+public class CS_TAG_GETTING_ROUTINE {
 
-    void apply(java.lang.foreign.MemorySegment hBinding, int fServerSide, java.lang.foreign.MemorySegment pulSendingTag, java.lang.foreign.MemorySegment pulDesiredReceivingTag, java.lang.foreign.MemorySegment pulReceivingTag, java.lang.foreign.MemorySegment pStatus);
-    static MemorySegment allocate(CS_TAG_GETTING_ROUTINE fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2285.const$3, fi, constants$2285.const$2, scope);
+    CS_TAG_GETTING_ROUTINE() {
+        // Should not be called directly
     }
-    static CS_TAG_GETTING_ROUTINE ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _hBinding, int _fServerSide, java.lang.foreign.MemorySegment _pulSendingTag, java.lang.foreign.MemorySegment _pulDesiredReceivingTag, java.lang.foreign.MemorySegment _pulReceivingTag, java.lang.foreign.MemorySegment _pStatus) -> {
-            try {
-                constants$2285.const$4.invokeExact(symbol, _hBinding, _fServerSide, _pulSendingTag, _pulDesiredReceivingTag, _pulReceivingTag, _pStatus);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        void apply(MemorySegment hBinding, int fServerSide, MemorySegment pulSendingTag, MemorySegment pulDesiredReceivingTag, MemorySegment pulReceivingTag, MemorySegment pStatus);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+        Windows_h.C_POINTER,
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(CS_TAG_GETTING_ROUTINE.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(CS_TAG_GETTING_ROUTINE.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static void invoke(MemorySegment funcPtr,MemorySegment hBinding, int fServerSide, MemorySegment pulSendingTag, MemorySegment pulDesiredReceivingTag, MemorySegment pulReceivingTag, MemorySegment pStatus) {
+        try {
+             DOWN$MH.invokeExact(funcPtr, hBinding, fServerSide, pulSendingTag, pulDesiredReceivingTag, pulReceivingTag, pStatus);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CERT_STORE_PROV_FIND_INFO CERT_STORE_PROV_FIND_INFO;
+ * {@snippet lang=c :
+ * typedef struct _CERT_STORE_PROV_FIND_INFO {
+ *     DWORD cbSize;
+ *     DWORD dwMsgAndCertEncodingType;
+ *     DWORD dwFindFlags;
+ *     DWORD dwFindType;
+ *     const void *pvFindPara;
+ * } CERT_STORE_PROV_FIND_INFO
  * }
  */
-public final class CERT_STORE_PROV_FIND_INFO extends _CERT_STORE_PROV_FIND_INFO {
+public class CERT_STORE_PROV_FIND_INFO extends _CERT_STORE_PROV_FIND_INFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CERT_STORE_PROV_FIND_INFO() {}
+    CERT_STORE_PROV_FIND_INFO() {
+        // Should not be called directly
+    }
 }
-
 

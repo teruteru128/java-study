@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _COMM_FAULT_OFFSETS COMM_FAULT_OFFSETS;
+ * {@snippet lang=c :
+ * typedef struct _COMM_FAULT_OFFSETS {
+ *     short CommOffset;
+ *     short FaultOffset;
+ * } COMM_FAULT_OFFSETS
  * }
  */
-public final class COMM_FAULT_OFFSETS extends _COMM_FAULT_OFFSETS {
+public class COMM_FAULT_OFFSETS extends _COMM_FAULT_OFFSETS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private COMM_FAULT_OFFSETS() {}
+    COMM_FAULT_OFFSETS() {
+        // Should not be called directly
+    }
 }
-
 

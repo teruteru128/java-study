@@ -2,32 +2,69 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * long (*I_RpcProxyIsValidMachineFn)(unsigned short* Machine,unsigned short* DotMachine,unsigned long PortNumber);
+ * {@snippet lang=c :
+ * typedef RPC_STATUS (*I_RpcProxyIsValidMachineFn)(RPC_WSTR, RPC_WSTR, unsigned long) __attribute__((stdcall))
  * }
  */
-public interface I_RpcProxyIsValidMachineFn {
+public class I_RpcProxyIsValidMachineFn {
 
-    int apply(java.lang.foreign.MemorySegment Machine, java.lang.foreign.MemorySegment DotMachine, int PortNumber);
-    static MemorySegment allocate(I_RpcProxyIsValidMachineFn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$1803.const$4, fi, constants$570.const$5, scope);
+    I_RpcProxyIsValidMachineFn() {
+        // Should not be called directly
     }
-    static I_RpcProxyIsValidMachineFn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _Machine, java.lang.foreign.MemorySegment _DotMachine, int _PortNumber) -> {
-            try {
-                return (int)constants$779.const$5.invokeExact(symbol, _Machine, _DotMachine, _PortNumber);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment Machine, MemorySegment DotMachine, int PortNumber);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(I_RpcProxyIsValidMachineFn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(I_RpcProxyIsValidMachineFn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment Machine, MemorySegment DotMachine, int PortNumber) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, Machine, DotMachine, PortNumber);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

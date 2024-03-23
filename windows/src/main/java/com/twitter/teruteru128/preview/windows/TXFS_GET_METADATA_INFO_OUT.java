@@ -2,20 +2,33 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _TXFS_GET_METADATA_INFO_OUT TXFS_GET_METADATA_INFO_OUT;
+ * {@snippet lang=c :
+ * typedef struct _TXFS_GET_METADATA_INFO_OUT {
+ *     struct {
+ *         LONGLONG LowPart;
+ *         LONGLONG HighPart;
+ *     } TxfFileId;
+ *     GUID LockingTransaction;
+ *     DWORDLONG LastLsn;
+ *     DWORD TransactionState;
+ * } TXFS_GET_METADATA_INFO_OUT
  * }
  */
-public final class TXFS_GET_METADATA_INFO_OUT extends _TXFS_GET_METADATA_INFO_OUT {
+public class TXFS_GET_METADATA_INFO_OUT extends _TXFS_GET_METADATA_INFO_OUT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private TXFS_GET_METADATA_INFO_OUT() {}
+    TXFS_GET_METADATA_INFO_OUT() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagCOLORADJUSTMENT {
  *     WORD caSize;
  *     WORD caFlags;
@@ -22,344 +27,607 @@ import static java.lang.foreign.ValueLayout.*;
  *     SHORT caBrightness;
  *     SHORT caColorfulness;
  *     SHORT caRedGreenTint;
- * };
+ * }
  * }
  */
 public class tagCOLORADJUSTMENT {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1051.const$4;
+    tagCOLORADJUSTMENT() {
+        // Should not be called directly
     }
-    public static VarHandle caSize$VH() {
-        return constants$1051.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD caSize;
-     * }
-     */
-    public static short caSize$get(MemorySegment seg) {
-        return (short)constants$1051.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD caSize;
-     * }
-     */
-    public static void caSize$set(MemorySegment seg, short x) {
-        constants$1051.const$5.set(seg, x);
-    }
-    public static short caSize$get(MemorySegment seg, long index) {
-        return (short)constants$1051.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void caSize$set(MemorySegment seg, long index, short x) {
-        constants$1051.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle caFlags$VH() {
-        return constants$1052.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD caFlags;
-     * }
-     */
-    public static short caFlags$get(MemorySegment seg) {
-        return (short)constants$1052.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD caFlags;
-     * }
-     */
-    public static void caFlags$set(MemorySegment seg, short x) {
-        constants$1052.const$0.set(seg, x);
-    }
-    public static short caFlags$get(MemorySegment seg, long index) {
-        return (short)constants$1052.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void caFlags$set(MemorySegment seg, long index, short x) {
-        constants$1052.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle caIlluminantIndex$VH() {
-        return constants$1052.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD caIlluminantIndex;
-     * }
-     */
-    public static short caIlluminantIndex$get(MemorySegment seg) {
-        return (short)constants$1052.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD caIlluminantIndex;
-     * }
-     */
-    public static void caIlluminantIndex$set(MemorySegment seg, short x) {
-        constants$1052.const$1.set(seg, x);
-    }
-    public static short caIlluminantIndex$get(MemorySegment seg, long index) {
-        return (short)constants$1052.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void caIlluminantIndex$set(MemorySegment seg, long index, short x) {
-        constants$1052.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle caRedGamma$VH() {
-        return constants$1052.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD caRedGamma;
-     * }
-     */
-    public static short caRedGamma$get(MemorySegment seg) {
-        return (short)constants$1052.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD caRedGamma;
-     * }
-     */
-    public static void caRedGamma$set(MemorySegment seg, short x) {
-        constants$1052.const$2.set(seg, x);
-    }
-    public static short caRedGamma$get(MemorySegment seg, long index) {
-        return (short)constants$1052.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void caRedGamma$set(MemorySegment seg, long index, short x) {
-        constants$1052.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle caGreenGamma$VH() {
-        return constants$1052.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD caGreenGamma;
-     * }
-     */
-    public static short caGreenGamma$get(MemorySegment seg) {
-        return (short)constants$1052.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD caGreenGamma;
-     * }
-     */
-    public static void caGreenGamma$set(MemorySegment seg, short x) {
-        constants$1052.const$3.set(seg, x);
-    }
-    public static short caGreenGamma$get(MemorySegment seg, long index) {
-        return (short)constants$1052.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void caGreenGamma$set(MemorySegment seg, long index, short x) {
-        constants$1052.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle caBlueGamma$VH() {
-        return constants$1052.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD caBlueGamma;
-     * }
-     */
-    public static short caBlueGamma$get(MemorySegment seg) {
-        return (short)constants$1052.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD caBlueGamma;
-     * }
-     */
-    public static void caBlueGamma$set(MemorySegment seg, short x) {
-        constants$1052.const$4.set(seg, x);
-    }
-    public static short caBlueGamma$get(MemorySegment seg, long index) {
-        return (short)constants$1052.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void caBlueGamma$set(MemorySegment seg, long index, short x) {
-        constants$1052.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle caReferenceBlack$VH() {
-        return constants$1052.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD caReferenceBlack;
-     * }
-     */
-    public static short caReferenceBlack$get(MemorySegment seg) {
-        return (short)constants$1052.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD caReferenceBlack;
-     * }
-     */
-    public static void caReferenceBlack$set(MemorySegment seg, short x) {
-        constants$1052.const$5.set(seg, x);
-    }
-    public static short caReferenceBlack$get(MemorySegment seg, long index) {
-        return (short)constants$1052.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void caReferenceBlack$set(MemorySegment seg, long index, short x) {
-        constants$1052.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle caReferenceWhite$VH() {
-        return constants$1053.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD caReferenceWhite;
-     * }
-     */
-    public static short caReferenceWhite$get(MemorySegment seg) {
-        return (short)constants$1053.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD caReferenceWhite;
-     * }
-     */
-    public static void caReferenceWhite$set(MemorySegment seg, short x) {
-        constants$1053.const$0.set(seg, x);
-    }
-    public static short caReferenceWhite$get(MemorySegment seg, long index) {
-        return (short)constants$1053.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void caReferenceWhite$set(MemorySegment seg, long index, short x) {
-        constants$1053.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle caContrast$VH() {
-        return constants$1053.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * SHORT caContrast;
-     * }
-     */
-    public static short caContrast$get(MemorySegment seg) {
-        return (short)constants$1053.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * SHORT caContrast;
-     * }
-     */
-    public static void caContrast$set(MemorySegment seg, short x) {
-        constants$1053.const$1.set(seg, x);
-    }
-    public static short caContrast$get(MemorySegment seg, long index) {
-        return (short)constants$1053.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void caContrast$set(MemorySegment seg, long index, short x) {
-        constants$1053.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle caBrightness$VH() {
-        return constants$1053.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * SHORT caBrightness;
-     * }
-     */
-    public static short caBrightness$get(MemorySegment seg) {
-        return (short)constants$1053.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * SHORT caBrightness;
-     * }
-     */
-    public static void caBrightness$set(MemorySegment seg, short x) {
-        constants$1053.const$2.set(seg, x);
-    }
-    public static short caBrightness$get(MemorySegment seg, long index) {
-        return (short)constants$1053.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void caBrightness$set(MemorySegment seg, long index, short x) {
-        constants$1053.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle caColorfulness$VH() {
-        return constants$1053.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * SHORT caColorfulness;
-     * }
-     */
-    public static short caColorfulness$get(MemorySegment seg) {
-        return (short)constants$1053.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * SHORT caColorfulness;
-     * }
-     */
-    public static void caColorfulness$set(MemorySegment seg, short x) {
-        constants$1053.const$3.set(seg, x);
-    }
-    public static short caColorfulness$get(MemorySegment seg, long index) {
-        return (short)constants$1053.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void caColorfulness$set(MemorySegment seg, long index, short x) {
-        constants$1053.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle caRedGreenTint$VH() {
-        return constants$1053.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * SHORT caRedGreenTint;
-     * }
-     */
-    public static short caRedGreenTint$get(MemorySegment seg) {
-        return (short)constants$1053.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * SHORT caRedGreenTint;
-     * }
-     */
-    public static void caRedGreenTint$set(MemorySegment seg, short x) {
-        constants$1053.const$4.set(seg, x);
-    }
-    public static short caRedGreenTint$get(MemorySegment seg, long index) {
-        return (short)constants$1053.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void caRedGreenTint$set(MemorySegment seg, long index, short x) {
-        constants$1053.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_SHORT.withName("caSize"),
+        Windows_h.C_SHORT.withName("caFlags"),
+        Windows_h.C_SHORT.withName("caIlluminantIndex"),
+        Windows_h.C_SHORT.withName("caRedGamma"),
+        Windows_h.C_SHORT.withName("caGreenGamma"),
+        Windows_h.C_SHORT.withName("caBlueGamma"),
+        Windows_h.C_SHORT.withName("caReferenceBlack"),
+        Windows_h.C_SHORT.withName("caReferenceWhite"),
+        Windows_h.C_SHORT.withName("caContrast"),
+        Windows_h.C_SHORT.withName("caBrightness"),
+        Windows_h.C_SHORT.withName("caColorfulness"),
+        Windows_h.C_SHORT.withName("caRedGreenTint")
+    ).withName("tagCOLORADJUSTMENT");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfShort caSize$LAYOUT = (OfShort)$LAYOUT.select(groupElement("caSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD caSize
+     * }
+     */
+    public static final OfShort caSize$layout() {
+        return caSize$LAYOUT;
+    }
+
+    private static final long caSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD caSize
+     * }
+     */
+    public static final long caSize$offset() {
+        return caSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD caSize
+     * }
+     */
+    public static short caSize(MemorySegment struct) {
+        return struct.get(caSize$LAYOUT, caSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD caSize
+     * }
+     */
+    public static void caSize(MemorySegment struct, short fieldValue) {
+        struct.set(caSize$LAYOUT, caSize$OFFSET, fieldValue);
+    }
+
+    private static final OfShort caFlags$LAYOUT = (OfShort)$LAYOUT.select(groupElement("caFlags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD caFlags
+     * }
+     */
+    public static final OfShort caFlags$layout() {
+        return caFlags$LAYOUT;
+    }
+
+    private static final long caFlags$OFFSET = 2;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD caFlags
+     * }
+     */
+    public static final long caFlags$offset() {
+        return caFlags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD caFlags
+     * }
+     */
+    public static short caFlags(MemorySegment struct) {
+        return struct.get(caFlags$LAYOUT, caFlags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD caFlags
+     * }
+     */
+    public static void caFlags(MemorySegment struct, short fieldValue) {
+        struct.set(caFlags$LAYOUT, caFlags$OFFSET, fieldValue);
+    }
+
+    private static final OfShort caIlluminantIndex$LAYOUT = (OfShort)$LAYOUT.select(groupElement("caIlluminantIndex"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD caIlluminantIndex
+     * }
+     */
+    public static final OfShort caIlluminantIndex$layout() {
+        return caIlluminantIndex$LAYOUT;
+    }
+
+    private static final long caIlluminantIndex$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD caIlluminantIndex
+     * }
+     */
+    public static final long caIlluminantIndex$offset() {
+        return caIlluminantIndex$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD caIlluminantIndex
+     * }
+     */
+    public static short caIlluminantIndex(MemorySegment struct) {
+        return struct.get(caIlluminantIndex$LAYOUT, caIlluminantIndex$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD caIlluminantIndex
+     * }
+     */
+    public static void caIlluminantIndex(MemorySegment struct, short fieldValue) {
+        struct.set(caIlluminantIndex$LAYOUT, caIlluminantIndex$OFFSET, fieldValue);
+    }
+
+    private static final OfShort caRedGamma$LAYOUT = (OfShort)$LAYOUT.select(groupElement("caRedGamma"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD caRedGamma
+     * }
+     */
+    public static final OfShort caRedGamma$layout() {
+        return caRedGamma$LAYOUT;
+    }
+
+    private static final long caRedGamma$OFFSET = 6;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD caRedGamma
+     * }
+     */
+    public static final long caRedGamma$offset() {
+        return caRedGamma$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD caRedGamma
+     * }
+     */
+    public static short caRedGamma(MemorySegment struct) {
+        return struct.get(caRedGamma$LAYOUT, caRedGamma$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD caRedGamma
+     * }
+     */
+    public static void caRedGamma(MemorySegment struct, short fieldValue) {
+        struct.set(caRedGamma$LAYOUT, caRedGamma$OFFSET, fieldValue);
+    }
+
+    private static final OfShort caGreenGamma$LAYOUT = (OfShort)$LAYOUT.select(groupElement("caGreenGamma"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD caGreenGamma
+     * }
+     */
+    public static final OfShort caGreenGamma$layout() {
+        return caGreenGamma$LAYOUT;
+    }
+
+    private static final long caGreenGamma$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD caGreenGamma
+     * }
+     */
+    public static final long caGreenGamma$offset() {
+        return caGreenGamma$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD caGreenGamma
+     * }
+     */
+    public static short caGreenGamma(MemorySegment struct) {
+        return struct.get(caGreenGamma$LAYOUT, caGreenGamma$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD caGreenGamma
+     * }
+     */
+    public static void caGreenGamma(MemorySegment struct, short fieldValue) {
+        struct.set(caGreenGamma$LAYOUT, caGreenGamma$OFFSET, fieldValue);
+    }
+
+    private static final OfShort caBlueGamma$LAYOUT = (OfShort)$LAYOUT.select(groupElement("caBlueGamma"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD caBlueGamma
+     * }
+     */
+    public static final OfShort caBlueGamma$layout() {
+        return caBlueGamma$LAYOUT;
+    }
+
+    private static final long caBlueGamma$OFFSET = 10;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD caBlueGamma
+     * }
+     */
+    public static final long caBlueGamma$offset() {
+        return caBlueGamma$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD caBlueGamma
+     * }
+     */
+    public static short caBlueGamma(MemorySegment struct) {
+        return struct.get(caBlueGamma$LAYOUT, caBlueGamma$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD caBlueGamma
+     * }
+     */
+    public static void caBlueGamma(MemorySegment struct, short fieldValue) {
+        struct.set(caBlueGamma$LAYOUT, caBlueGamma$OFFSET, fieldValue);
+    }
+
+    private static final OfShort caReferenceBlack$LAYOUT = (OfShort)$LAYOUT.select(groupElement("caReferenceBlack"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD caReferenceBlack
+     * }
+     */
+    public static final OfShort caReferenceBlack$layout() {
+        return caReferenceBlack$LAYOUT;
+    }
+
+    private static final long caReferenceBlack$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD caReferenceBlack
+     * }
+     */
+    public static final long caReferenceBlack$offset() {
+        return caReferenceBlack$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD caReferenceBlack
+     * }
+     */
+    public static short caReferenceBlack(MemorySegment struct) {
+        return struct.get(caReferenceBlack$LAYOUT, caReferenceBlack$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD caReferenceBlack
+     * }
+     */
+    public static void caReferenceBlack(MemorySegment struct, short fieldValue) {
+        struct.set(caReferenceBlack$LAYOUT, caReferenceBlack$OFFSET, fieldValue);
+    }
+
+    private static final OfShort caReferenceWhite$LAYOUT = (OfShort)$LAYOUT.select(groupElement("caReferenceWhite"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD caReferenceWhite
+     * }
+     */
+    public static final OfShort caReferenceWhite$layout() {
+        return caReferenceWhite$LAYOUT;
+    }
+
+    private static final long caReferenceWhite$OFFSET = 14;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD caReferenceWhite
+     * }
+     */
+    public static final long caReferenceWhite$offset() {
+        return caReferenceWhite$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD caReferenceWhite
+     * }
+     */
+    public static short caReferenceWhite(MemorySegment struct) {
+        return struct.get(caReferenceWhite$LAYOUT, caReferenceWhite$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD caReferenceWhite
+     * }
+     */
+    public static void caReferenceWhite(MemorySegment struct, short fieldValue) {
+        struct.set(caReferenceWhite$LAYOUT, caReferenceWhite$OFFSET, fieldValue);
+    }
+
+    private static final OfShort caContrast$LAYOUT = (OfShort)$LAYOUT.select(groupElement("caContrast"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SHORT caContrast
+     * }
+     */
+    public static final OfShort caContrast$layout() {
+        return caContrast$LAYOUT;
+    }
+
+    private static final long caContrast$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SHORT caContrast
+     * }
+     */
+    public static final long caContrast$offset() {
+        return caContrast$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SHORT caContrast
+     * }
+     */
+    public static short caContrast(MemorySegment struct) {
+        return struct.get(caContrast$LAYOUT, caContrast$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SHORT caContrast
+     * }
+     */
+    public static void caContrast(MemorySegment struct, short fieldValue) {
+        struct.set(caContrast$LAYOUT, caContrast$OFFSET, fieldValue);
+    }
+
+    private static final OfShort caBrightness$LAYOUT = (OfShort)$LAYOUT.select(groupElement("caBrightness"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SHORT caBrightness
+     * }
+     */
+    public static final OfShort caBrightness$layout() {
+        return caBrightness$LAYOUT;
+    }
+
+    private static final long caBrightness$OFFSET = 18;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SHORT caBrightness
+     * }
+     */
+    public static final long caBrightness$offset() {
+        return caBrightness$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SHORT caBrightness
+     * }
+     */
+    public static short caBrightness(MemorySegment struct) {
+        return struct.get(caBrightness$LAYOUT, caBrightness$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SHORT caBrightness
+     * }
+     */
+    public static void caBrightness(MemorySegment struct, short fieldValue) {
+        struct.set(caBrightness$LAYOUT, caBrightness$OFFSET, fieldValue);
+    }
+
+    private static final OfShort caColorfulness$LAYOUT = (OfShort)$LAYOUT.select(groupElement("caColorfulness"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SHORT caColorfulness
+     * }
+     */
+    public static final OfShort caColorfulness$layout() {
+        return caColorfulness$LAYOUT;
+    }
+
+    private static final long caColorfulness$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SHORT caColorfulness
+     * }
+     */
+    public static final long caColorfulness$offset() {
+        return caColorfulness$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SHORT caColorfulness
+     * }
+     */
+    public static short caColorfulness(MemorySegment struct) {
+        return struct.get(caColorfulness$LAYOUT, caColorfulness$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SHORT caColorfulness
+     * }
+     */
+    public static void caColorfulness(MemorySegment struct, short fieldValue) {
+        struct.set(caColorfulness$LAYOUT, caColorfulness$OFFSET, fieldValue);
+    }
+
+    private static final OfShort caRedGreenTint$LAYOUT = (OfShort)$LAYOUT.select(groupElement("caRedGreenTint"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SHORT caRedGreenTint
+     * }
+     */
+    public static final OfShort caRedGreenTint$layout() {
+        return caRedGreenTint$LAYOUT;
+    }
+
+    private static final long caRedGreenTint$OFFSET = 22;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SHORT caRedGreenTint
+     * }
+     */
+    public static final long caRedGreenTint$offset() {
+        return caRedGreenTint$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SHORT caRedGreenTint
+     * }
+     */
+    public static short caRedGreenTint(MemorySegment struct) {
+        return struct.get(caRedGreenTint$LAYOUT, caRedGreenTint$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SHORT caRedGreenTint
+     * }
+     */
+    public static void caRedGreenTint(MemorySegment struct, short fieldValue) {
+        struct.set(caRedGreenTint$LAYOUT, caRedGreenTint$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

@@ -2,20 +2,33 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tWAVEFORMATEX WAVEFORMATEX;
+ * {@snippet lang=c :
+ * typedef struct tWAVEFORMATEX {
+ *     WORD wFormatTag;
+ *     WORD nChannels;
+ *     DWORD nSamplesPerSec;
+ *     DWORD nAvgBytesPerSec;
+ *     WORD nBlockAlign;
+ *     WORD wBitsPerSample;
+ *     WORD cbSize;
+ * } WAVEFORMATEX
  * }
  */
-public final class WAVEFORMATEX extends tWAVEFORMATEX {
+public class WAVEFORMATEX extends tWAVEFORMATEX {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private WAVEFORMATEX() {}
+    WAVEFORMATEX() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,45 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagPDW PRINTDLGW;
+ * {@snippet lang=c :
+ * typedef struct tagPDW {
+ *     DWORD lStructSize;
+ *     HWND hwndOwner;
+ *     HGLOBAL hDevMode;
+ *     HGLOBAL hDevNames;
+ *     HDC hDC;
+ *     DWORD Flags;
+ *     WORD nFromPage;
+ *     WORD nToPage;
+ *     WORD nMinPage;
+ *     WORD nMaxPage;
+ *     WORD nCopies;
+ *     HINSTANCE hInstance;
+ *     LPARAM lCustData;
+ *     LPPRINTHOOKPROC lpfnPrintHook;
+ *     LPSETUPHOOKPROC lpfnSetupHook;
+ *     LPCWSTR lpPrintTemplateName;
+ *     LPCWSTR lpSetupTemplateName;
+ *     HGLOBAL hPrintTemplate;
+ *     HGLOBAL hSetupTemplate;
+ * } PRINTDLGW
  * }
  */
-public final class PRINTDLGW extends tagPDW {
+public class PRINTDLGW extends tagPDW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private PRINTDLGW() {}
+    PRINTDLGW() {
+        // Should not be called directly
+    }
 }
-
 

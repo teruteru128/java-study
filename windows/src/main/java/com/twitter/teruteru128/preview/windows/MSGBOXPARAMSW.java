@@ -2,20 +2,36 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMSGBOXPARAMSW MSGBOXPARAMSW;
+ * {@snippet lang=c :
+ * typedef struct tagMSGBOXPARAMSW {
+ *     UINT cbSize;
+ *     HWND hwndOwner;
+ *     HINSTANCE hInstance;
+ *     LPCWSTR lpszText;
+ *     LPCWSTR lpszCaption;
+ *     DWORD dwStyle;
+ *     LPCWSTR lpszIcon;
+ *     DWORD_PTR dwContextHelpId;
+ *     MSGBOXCALLBACK lpfnMsgBoxCallback;
+ *     DWORD dwLanguageId;
+ * } MSGBOXPARAMSW
  * }
  */
-public final class MSGBOXPARAMSW extends tagMSGBOXPARAMSW {
+public class MSGBOXPARAMSW extends tagMSGBOXPARAMSW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MSGBOXPARAMSW() {}
+    MSGBOXPARAMSW() {
+        // Should not be called directly
+    }
 }
-
 

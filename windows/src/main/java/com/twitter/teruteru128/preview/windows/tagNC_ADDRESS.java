@@ -2,112 +2,219 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagNC_ADDRESS {
- *     struct NET_ADDRESS_INFO_* pAddrInfo;
+ *     struct NET_ADDRESS_INFO_ *pAddrInfo;
  *     USHORT PortNumber;
  *     BYTE PrefixLength;
- * };
+ * }
  * }
  */
 public class tagNC_ADDRESS {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1888.const$2;
+    tagNC_ADDRESS() {
+        // Should not be called directly
     }
-    public static VarHandle pAddrInfo$VH() {
-        return constants$1888.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * struct NET_ADDRESS_INFO_* pAddrInfo;
-     * }
-     */
-    public static MemorySegment pAddrInfo$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$1888.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * struct NET_ADDRESS_INFO_* pAddrInfo;
-     * }
-     */
-    public static void pAddrInfo$set(MemorySegment seg, MemorySegment x) {
-        constants$1888.const$3.set(seg, x);
-    }
-    public static MemorySegment pAddrInfo$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$1888.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pAddrInfo$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$1888.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle PortNumber$VH() {
-        return constants$1888.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * USHORT PortNumber;
-     * }
-     */
-    public static short PortNumber$get(MemorySegment seg) {
-        return (short)constants$1888.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * USHORT PortNumber;
-     * }
-     */
-    public static void PortNumber$set(MemorySegment seg, short x) {
-        constants$1888.const$4.set(seg, x);
-    }
-    public static short PortNumber$get(MemorySegment seg, long index) {
-        return (short)constants$1888.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void PortNumber$set(MemorySegment seg, long index, short x) {
-        constants$1888.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle PrefixLength$VH() {
-        return constants$1888.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE PrefixLength;
-     * }
-     */
-    public static byte PrefixLength$get(MemorySegment seg) {
-        return (byte)constants$1888.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE PrefixLength;
-     * }
-     */
-    public static void PrefixLength$set(MemorySegment seg, byte x) {
-        constants$1888.const$5.set(seg, x);
-    }
-    public static byte PrefixLength$get(MemorySegment seg, long index) {
-        return (byte)constants$1888.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void PrefixLength$set(MemorySegment seg, long index, byte x) {
-        constants$1888.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("pAddrInfo"),
+        Windows_h.C_SHORT.withName("PortNumber"),
+        Windows_h.C_CHAR.withName("PrefixLength"),
+        MemoryLayout.paddingLayout(5)
+    ).withName("tagNC_ADDRESS");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final AddressLayout pAddrInfo$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pAddrInfo"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct NET_ADDRESS_INFO_ *pAddrInfo
+     * }
+     */
+    public static final AddressLayout pAddrInfo$layout() {
+        return pAddrInfo$LAYOUT;
+    }
+
+    private static final long pAddrInfo$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct NET_ADDRESS_INFO_ *pAddrInfo
+     * }
+     */
+    public static final long pAddrInfo$offset() {
+        return pAddrInfo$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct NET_ADDRESS_INFO_ *pAddrInfo
+     * }
+     */
+    public static MemorySegment pAddrInfo(MemorySegment struct) {
+        return struct.get(pAddrInfo$LAYOUT, pAddrInfo$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct NET_ADDRESS_INFO_ *pAddrInfo
+     * }
+     */
+    public static void pAddrInfo(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pAddrInfo$LAYOUT, pAddrInfo$OFFSET, fieldValue);
+    }
+
+    private static final OfShort PortNumber$LAYOUT = (OfShort)$LAYOUT.select(groupElement("PortNumber"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * USHORT PortNumber
+     * }
+     */
+    public static final OfShort PortNumber$layout() {
+        return PortNumber$LAYOUT;
+    }
+
+    private static final long PortNumber$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * USHORT PortNumber
+     * }
+     */
+    public static final long PortNumber$offset() {
+        return PortNumber$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * USHORT PortNumber
+     * }
+     */
+    public static short PortNumber(MemorySegment struct) {
+        return struct.get(PortNumber$LAYOUT, PortNumber$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * USHORT PortNumber
+     * }
+     */
+    public static void PortNumber(MemorySegment struct, short fieldValue) {
+        struct.set(PortNumber$LAYOUT, PortNumber$OFFSET, fieldValue);
+    }
+
+    private static final OfByte PrefixLength$LAYOUT = (OfByte)$LAYOUT.select(groupElement("PrefixLength"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE PrefixLength
+     * }
+     */
+    public static final OfByte PrefixLength$layout() {
+        return PrefixLength$LAYOUT;
+    }
+
+    private static final long PrefixLength$OFFSET = 10;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE PrefixLength
+     * }
+     */
+    public static final long PrefixLength$offset() {
+        return PrefixLength$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE PrefixLength
+     * }
+     */
+    public static byte PrefixLength(MemorySegment struct) {
+        return struct.get(PrefixLength$LAYOUT, PrefixLength$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE PrefixLength
+     * }
+     */
+    public static void PrefixLength(MemorySegment struct, byte fieldValue) {
+        struct.set(PrefixLength$LAYOUT, PrefixLength$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

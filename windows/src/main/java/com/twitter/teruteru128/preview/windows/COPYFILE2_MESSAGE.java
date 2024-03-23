@@ -2,100 +2,271 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct COPYFILE2_MESSAGE {
  *     COPYFILE2_MESSAGE_TYPE Type;
  *     DWORD dwPadding;
- *     union  Info;
- * };
+ *     union {
+ *         struct {
+ *             DWORD dwStreamNumber;
+ *             DWORD dwReserved;
+ *             HANDLE hSourceFile;
+ *             HANDLE hDestinationFile;
+ *             ULARGE_INTEGER uliChunkNumber;
+ *             ULARGE_INTEGER uliChunkSize;
+ *             ULARGE_INTEGER uliStreamSize;
+ *             ULARGE_INTEGER uliTotalFileSize;
+ *         } ChunkStarted;
+ *         struct {
+ *             DWORD dwStreamNumber;
+ *             DWORD dwFlags;
+ *             HANDLE hSourceFile;
+ *             HANDLE hDestinationFile;
+ *             ULARGE_INTEGER uliChunkNumber;
+ *             ULARGE_INTEGER uliChunkSize;
+ *             ULARGE_INTEGER uliStreamSize;
+ *             ULARGE_INTEGER uliStreamBytesTransferred;
+ *             ULARGE_INTEGER uliTotalFileSize;
+ *             ULARGE_INTEGER uliTotalBytesTransferred;
+ *         } ChunkFinished;
+ *         struct {
+ *             DWORD dwStreamNumber;
+ *             DWORD dwReserved;
+ *             HANDLE hSourceFile;
+ *             HANDLE hDestinationFile;
+ *             ULARGE_INTEGER uliStreamSize;
+ *             ULARGE_INTEGER uliTotalFileSize;
+ *         } StreamStarted;
+ *         struct {
+ *             DWORD dwStreamNumber;
+ *             DWORD dwReserved;
+ *             HANDLE hSourceFile;
+ *             HANDLE hDestinationFile;
+ *             ULARGE_INTEGER uliStreamSize;
+ *             ULARGE_INTEGER uliStreamBytesTransferred;
+ *             ULARGE_INTEGER uliTotalFileSize;
+ *             ULARGE_INTEGER uliTotalBytesTransferred;
+ *         } StreamFinished;
+ *         struct {
+ *             DWORD dwReserved;
+ *         } PollContinue;
+ *         struct {
+ *             COPYFILE2_COPY_PHASE CopyPhase;
+ *             DWORD dwStreamNumber;
+ *             HRESULT hrFailure;
+ *             DWORD dwReserved;
+ *             ULARGE_INTEGER uliChunkNumber;
+ *             ULARGE_INTEGER uliStreamSize;
+ *             ULARGE_INTEGER uliStreamBytesTransferred;
+ *             ULARGE_INTEGER uliTotalFileSize;
+ *             ULARGE_INTEGER uliTotalBytesTransferred;
+ *         } Error;
+ *     } Info;
+ * }
  * }
  */
 public class COPYFILE2_MESSAGE {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$808.const$1;
+    COPYFILE2_MESSAGE() {
+        // Should not be called directly
     }
-    public static VarHandle Type$VH() {
-        return constants$808.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * COPYFILE2_MESSAGE_TYPE Type;
-     * }
-     */
-    public static int Type$get(MemorySegment seg) {
-        return (int)constants$808.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * COPYFILE2_MESSAGE_TYPE Type;
-     * }
-     */
-    public static void Type$set(MemorySegment seg, int x) {
-        constants$808.const$2.set(seg, x);
-    }
-    public static int Type$get(MemorySegment seg, long index) {
-        return (int)constants$808.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Type$set(MemorySegment seg, long index, int x) {
-        constants$808.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwPadding$VH() {
-        return constants$808.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwPadding;
-     * }
-     */
-    public static int dwPadding$get(MemorySegment seg) {
-        return (int)constants$808.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwPadding;
-     * }
-     */
-    public static void dwPadding$set(MemorySegment seg, int x) {
-        constants$808.const$3.set(seg, x);
-    }
-    public static int dwPadding$get(MemorySegment seg, long index) {
-        return (int)constants$808.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwPadding$set(MemorySegment seg, long index, int x) {
-        constants$808.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    /**
-     * {@snippet :
-     * union {
-     *     struct  ChunkStarted;
-     *     struct  ChunkFinished;
-     *     struct  StreamStarted;
-     *     struct  StreamFinished;
-     *     struct  PollContinue;
-     *     struct  Error;
-     * };
-     * }
-     */
-    public static final class Info {
 
-        // Suppresses default constructor, ensuring non-instantiability.
-        private Info() {}
-        public static MemoryLayout $LAYOUT() {
-            return constants$808.const$4;
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_INT.withName("Type"),
+        Windows_h.C_LONG.withName("dwPadding"),
+        COPYFILE2_MESSAGE.Info.layout().withName("Info")
+    ).withName("COPYFILE2_MESSAGE");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt Type$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Type"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * COPYFILE2_MESSAGE_TYPE Type
+     * }
+     */
+    public static final OfInt Type$layout() {
+        return Type$LAYOUT;
+    }
+
+    private static final long Type$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * COPYFILE2_MESSAGE_TYPE Type
+     * }
+     */
+    public static final long Type$offset() {
+        return Type$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * COPYFILE2_MESSAGE_TYPE Type
+     * }
+     */
+    public static int Type(MemorySegment struct) {
+        return struct.get(Type$LAYOUT, Type$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * COPYFILE2_MESSAGE_TYPE Type
+     * }
+     */
+    public static void Type(MemorySegment struct, int fieldValue) {
+        struct.set(Type$LAYOUT, Type$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwPadding$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwPadding"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwPadding
+     * }
+     */
+    public static final OfInt dwPadding$layout() {
+        return dwPadding$LAYOUT;
+    }
+
+    private static final long dwPadding$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwPadding
+     * }
+     */
+    public static final long dwPadding$offset() {
+        return dwPadding$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwPadding
+     * }
+     */
+    public static int dwPadding(MemorySegment struct) {
+        return struct.get(dwPadding$LAYOUT, dwPadding$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwPadding
+     * }
+     */
+    public static void dwPadding(MemorySegment struct, int fieldValue) {
+        struct.set(dwPadding$LAYOUT, dwPadding$OFFSET, fieldValue);
+    }
+
+    /**
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliChunkSize;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *     } ChunkStarted;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwFlags;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliChunkSize;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } ChunkFinished;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *     } StreamStarted;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } StreamFinished;
+     *     struct {
+     *         DWORD dwReserved;
+     *     } PollContinue;
+     *     struct {
+     *         COPYFILE2_COPY_PHASE CopyPhase;
+     *         DWORD dwStreamNumber;
+     *         HRESULT hrFailure;
+     *         DWORD dwReserved;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } Error;
+     * }
+     * }
+     */
+    public static class Info {
+
+        Info() {
+            // Should not be called directly
         }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.unionLayout(
+            COPYFILE2_MESSAGE.Info.ChunkStarted.layout().withName("ChunkStarted"),
+            COPYFILE2_MESSAGE.Info.ChunkFinished.layout().withName("ChunkFinished"),
+            COPYFILE2_MESSAGE.Info.StreamStarted.layout().withName("StreamStarted"),
+            COPYFILE2_MESSAGE.Info.StreamFinished.layout().withName("StreamFinished"),
+            COPYFILE2_MESSAGE.Info.PollContinue.layout().withName("PollContinue"),
+            COPYFILE2_MESSAGE.Info.Error.layout().withName("Error")
+        ).withName("$anon$5735:5");
+
         /**
-         * {@snippet :
+         * The layout of this union
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
          * struct {
          *     DWORD dwStreamNumber;
          *     DWORD dwReserved;
@@ -105,149 +276,512 @@ public class COPYFILE2_MESSAGE {
          *     ULARGE_INTEGER uliChunkSize;
          *     ULARGE_INTEGER uliStreamSize;
          *     ULARGE_INTEGER uliTotalFileSize;
-         * };
+         * }
          * }
          */
-        public static final class ChunkStarted {
+        public static class ChunkStarted {
 
-            // Suppresses default constructor, ensuring non-instantiability.
-            private ChunkStarted() {}
-            public static MemoryLayout $LAYOUT() {
-                return constants$808.const$5;
+            ChunkStarted() {
+                // Should not be called directly
             }
-            public static VarHandle dwStreamNumber$VH() {
-                return constants$809.const$0;
+
+            private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+                Windows_h.C_LONG.withName("dwStreamNumber"),
+                Windows_h.C_LONG.withName("dwReserved"),
+                Windows_h.C_POINTER.withName("hSourceFile"),
+                Windows_h.C_POINTER.withName("hDestinationFile"),
+                _ULARGE_INTEGER.layout().withName("uliChunkNumber"),
+                _ULARGE_INTEGER.layout().withName("uliChunkSize"),
+                _ULARGE_INTEGER.layout().withName("uliStreamSize"),
+                _ULARGE_INTEGER.layout().withName("uliTotalFileSize")
+            ).withName("$anon$5737:9");
+
+            /**
+             * The layout of this struct
+             */
+            public static final GroupLayout layout() {
+                return $LAYOUT;
             }
+
+            private static final OfInt dwStreamNumber$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwStreamNumber"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
+             * }
+             */
+            public static final OfInt dwStreamNumber$layout() {
+                return dwStreamNumber$LAYOUT;
+            }
+
+            private static final long dwStreamNumber$OFFSET = 0;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
+             * }
+             */
+            public static final long dwStreamNumber$offset() {
+                return dwStreamNumber$OFFSET;
+            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD dwStreamNumber;
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
              * }
              */
-            public static int dwStreamNumber$get(MemorySegment seg) {
-                return (int)constants$809.const$0.get(seg);
+            public static int dwStreamNumber(MemorySegment struct) {
+                return struct.get(dwStreamNumber$LAYOUT, dwStreamNumber$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD dwStreamNumber;
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
              * }
              */
-            public static void dwStreamNumber$set(MemorySegment seg, int x) {
-                constants$809.const$0.set(seg, x);
+            public static void dwStreamNumber(MemorySegment struct, int fieldValue) {
+                struct.set(dwStreamNumber$LAYOUT, dwStreamNumber$OFFSET, fieldValue);
             }
-            public static int dwStreamNumber$get(MemorySegment seg, long index) {
-                return (int)constants$809.const$0.get(seg.asSlice(index*sizeof()));
+
+            private static final OfInt dwReserved$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwReserved"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD dwReserved
+             * }
+             */
+            public static final OfInt dwReserved$layout() {
+                return dwReserved$LAYOUT;
             }
-            public static void dwStreamNumber$set(MemorySegment seg, long index, int x) {
-                constants$809.const$0.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long dwReserved$OFFSET = 4;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD dwReserved
+             * }
+             */
+            public static final long dwReserved$offset() {
+                return dwReserved$OFFSET;
             }
-            public static VarHandle dwReserved$VH() {
-                return constants$809.const$1;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD dwReserved;
+             * {@snippet lang=c :
+             * DWORD dwReserved
              * }
              */
-            public static int dwReserved$get(MemorySegment seg) {
-                return (int)constants$809.const$1.get(seg);
+            public static int dwReserved(MemorySegment struct) {
+                return struct.get(dwReserved$LAYOUT, dwReserved$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD dwReserved;
+             * {@snippet lang=c :
+             * DWORD dwReserved
              * }
              */
-            public static void dwReserved$set(MemorySegment seg, int x) {
-                constants$809.const$1.set(seg, x);
+            public static void dwReserved(MemorySegment struct, int fieldValue) {
+                struct.set(dwReserved$LAYOUT, dwReserved$OFFSET, fieldValue);
             }
-            public static int dwReserved$get(MemorySegment seg, long index) {
-                return (int)constants$809.const$1.get(seg.asSlice(index*sizeof()));
+
+            private static final AddressLayout hSourceFile$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hSourceFile"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
+             * }
+             */
+            public static final AddressLayout hSourceFile$layout() {
+                return hSourceFile$LAYOUT;
             }
-            public static void dwReserved$set(MemorySegment seg, long index, int x) {
-                constants$809.const$1.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long hSourceFile$OFFSET = 8;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
+             * }
+             */
+            public static final long hSourceFile$offset() {
+                return hSourceFile$OFFSET;
             }
-            public static VarHandle hSourceFile$VH() {
-                return constants$809.const$2;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * HANDLE hSourceFile;
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
              * }
              */
-            public static MemorySegment hSourceFile$get(MemorySegment seg) {
-                return (java.lang.foreign.MemorySegment)constants$809.const$2.get(seg);
+            public static MemorySegment hSourceFile(MemorySegment struct) {
+                return struct.get(hSourceFile$LAYOUT, hSourceFile$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * HANDLE hSourceFile;
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
              * }
              */
-            public static void hSourceFile$set(MemorySegment seg, MemorySegment x) {
-                constants$809.const$2.set(seg, x);
+            public static void hSourceFile(MemorySegment struct, MemorySegment fieldValue) {
+                struct.set(hSourceFile$LAYOUT, hSourceFile$OFFSET, fieldValue);
             }
-            public static MemorySegment hSourceFile$get(MemorySegment seg, long index) {
-                return (java.lang.foreign.MemorySegment)constants$809.const$2.get(seg.asSlice(index*sizeof()));
+
+            private static final AddressLayout hDestinationFile$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hDestinationFile"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
+             * }
+             */
+            public static final AddressLayout hDestinationFile$layout() {
+                return hDestinationFile$LAYOUT;
             }
-            public static void hSourceFile$set(MemorySegment seg, long index, MemorySegment x) {
-                constants$809.const$2.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long hDestinationFile$OFFSET = 16;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
+             * }
+             */
+            public static final long hDestinationFile$offset() {
+                return hDestinationFile$OFFSET;
             }
-            public static VarHandle hDestinationFile$VH() {
-                return constants$809.const$3;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * HANDLE hDestinationFile;
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
              * }
              */
-            public static MemorySegment hDestinationFile$get(MemorySegment seg) {
-                return (java.lang.foreign.MemorySegment)constants$809.const$3.get(seg);
+            public static MemorySegment hDestinationFile(MemorySegment struct) {
+                return struct.get(hDestinationFile$LAYOUT, hDestinationFile$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * HANDLE hDestinationFile;
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
              * }
              */
-            public static void hDestinationFile$set(MemorySegment seg, MemorySegment x) {
-                constants$809.const$3.set(seg, x);
+            public static void hDestinationFile(MemorySegment struct, MemorySegment fieldValue) {
+                struct.set(hDestinationFile$LAYOUT, hDestinationFile$OFFSET, fieldValue);
             }
-            public static MemorySegment hDestinationFile$get(MemorySegment seg, long index) {
-                return (java.lang.foreign.MemorySegment)constants$809.const$3.get(seg.asSlice(index*sizeof()));
+
+            private static final GroupLayout uliChunkNumber$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliChunkNumber"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkNumber
+             * }
+             */
+            public static final GroupLayout uliChunkNumber$layout() {
+                return uliChunkNumber$LAYOUT;
             }
-            public static void hDestinationFile$set(MemorySegment seg, long index, MemorySegment x) {
-                constants$809.const$3.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long uliChunkNumber$OFFSET = 24;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkNumber
+             * }
+             */
+            public static final long uliChunkNumber$offset() {
+                return uliChunkNumber$OFFSET;
             }
-            public static MemorySegment uliChunkNumber$slice(MemorySegment seg) {
-                return seg.asSlice(24, 8);
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkNumber
+             * }
+             */
+            public static MemorySegment uliChunkNumber(MemorySegment struct) {
+                return struct.asSlice(uliChunkNumber$OFFSET, uliChunkNumber$LAYOUT.byteSize());
             }
-            public static MemorySegment uliChunkSize$slice(MemorySegment seg) {
-                return seg.asSlice(32, 8);
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkNumber
+             * }
+             */
+            public static void uliChunkNumber(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliChunkNumber$OFFSET, uliChunkNumber$LAYOUT.byteSize());
             }
-            public static MemorySegment uliStreamSize$slice(MemorySegment seg) {
-                return seg.asSlice(40, 8);
+
+            private static final GroupLayout uliChunkSize$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliChunkSize"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkSize
+             * }
+             */
+            public static final GroupLayout uliChunkSize$layout() {
+                return uliChunkSize$LAYOUT;
             }
-            public static MemorySegment uliTotalFileSize$slice(MemorySegment seg) {
-                return seg.asSlice(48, 8);
+
+            private static final long uliChunkSize$OFFSET = 32;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkSize
+             * }
+             */
+            public static final long uliChunkSize$offset() {
+                return uliChunkSize$OFFSET;
             }
-            public static long sizeof() { return $LAYOUT().byteSize(); }
-            public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-            public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-                return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkSize
+             * }
+             */
+            public static MemorySegment uliChunkSize(MemorySegment struct) {
+                return struct.asSlice(uliChunkSize$OFFSET, uliChunkSize$LAYOUT.byteSize());
             }
-            public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkSize
+             * }
+             */
+            public static void uliChunkSize(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliChunkSize$OFFSET, uliChunkSize$LAYOUT.byteSize());
+            }
+
+            private static final GroupLayout uliStreamSize$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliStreamSize"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static final GroupLayout uliStreamSize$layout() {
+                return uliStreamSize$LAYOUT;
+            }
+
+            private static final long uliStreamSize$OFFSET = 40;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static final long uliStreamSize$offset() {
+                return uliStreamSize$OFFSET;
+            }
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static MemorySegment uliStreamSize(MemorySegment struct) {
+                return struct.asSlice(uliStreamSize$OFFSET, uliStreamSize$LAYOUT.byteSize());
+            }
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static void uliStreamSize(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliStreamSize$OFFSET, uliStreamSize$LAYOUT.byteSize());
+            }
+
+            private static final GroupLayout uliTotalFileSize$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliTotalFileSize"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static final GroupLayout uliTotalFileSize$layout() {
+                return uliTotalFileSize$LAYOUT;
+            }
+
+            private static final long uliTotalFileSize$OFFSET = 48;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static final long uliTotalFileSize$offset() {
+                return uliTotalFileSize$OFFSET;
+            }
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static MemorySegment uliTotalFileSize(MemorySegment struct) {
+                return struct.asSlice(uliTotalFileSize$OFFSET, uliTotalFileSize$LAYOUT.byteSize());
+            }
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static void uliTotalFileSize(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliTotalFileSize$OFFSET, uliTotalFileSize$LAYOUT.byteSize());
+            }
+
+            /**
+             * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+             * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+             */
+            public static MemorySegment asSlice(MemorySegment array, long index) {
+                return array.asSlice(layout().byteSize() * index);
+            }
+
+            /**
+             * The size (in bytes) of this struct
+             */
+            public static long sizeof() { return layout().byteSize(); }
+
+            /**
+             * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+             */
+            public static MemorySegment allocate(SegmentAllocator allocator) {
+                return allocator.allocate(layout());
+            }
+
+            /**
+             * Allocate an array of size {@code elementCount} using {@code allocator}.
+             * The returned segment has size {@code elementCount * layout().byteSize()}.
+             */
+            public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+                return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+                return reinterpret(addr, 1, arena, cleanup);
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code elementCount * layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+                return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+            }
         }
 
-        public static MemorySegment ChunkStarted$slice(MemorySegment seg) {
-            return seg.asSlice(0, 56);
-        }
+        private static final GroupLayout ChunkStarted$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("ChunkStarted"));
+
         /**
-         * {@snippet :
+         * Layout for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwReserved;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliChunkNumber;
+         *     ULARGE_INTEGER uliChunkSize;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         * } ChunkStarted
+         * }
+         */
+        public static final GroupLayout ChunkStarted$layout() {
+            return ChunkStarted$LAYOUT;
+        }
+
+        private static final long ChunkStarted$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwReserved;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliChunkNumber;
+         *     ULARGE_INTEGER uliChunkSize;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         * } ChunkStarted
+         * }
+         */
+        public static final long ChunkStarted$offset() {
+            return ChunkStarted$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwReserved;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliChunkNumber;
+         *     ULARGE_INTEGER uliChunkSize;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         * } ChunkStarted
+         * }
+         */
+        public static MemorySegment ChunkStarted(MemorySegment union) {
+            return union.asSlice(ChunkStarted$OFFSET, ChunkStarted$LAYOUT.byteSize());
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwReserved;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliChunkNumber;
+         *     ULARGE_INTEGER uliChunkSize;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         * } ChunkStarted
+         * }
+         */
+        public static void ChunkStarted(MemorySegment union, MemorySegment fieldValue) {
+            MemorySegment.copy(fieldValue, 0L, union, ChunkStarted$OFFSET, ChunkStarted$LAYOUT.byteSize());
+        }
+
+        /**
+         * {@snippet lang=c :
          * struct {
          *     DWORD dwStreamNumber;
          *     DWORD dwFlags;
@@ -259,155 +793,610 @@ public class COPYFILE2_MESSAGE {
          *     ULARGE_INTEGER uliStreamBytesTransferred;
          *     ULARGE_INTEGER uliTotalFileSize;
          *     ULARGE_INTEGER uliTotalBytesTransferred;
-         * };
+         * }
          * }
          */
-        public static final class ChunkFinished {
+        public static class ChunkFinished {
 
-            // Suppresses default constructor, ensuring non-instantiability.
-            private ChunkFinished() {}
-            public static MemoryLayout $LAYOUT() {
-                return constants$809.const$4;
+            ChunkFinished() {
+                // Should not be called directly
             }
-            public static VarHandle dwStreamNumber$VH() {
-                return constants$809.const$5;
+
+            private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+                Windows_h.C_LONG.withName("dwStreamNumber"),
+                Windows_h.C_LONG.withName("dwFlags"),
+                Windows_h.C_POINTER.withName("hSourceFile"),
+                Windows_h.C_POINTER.withName("hDestinationFile"),
+                _ULARGE_INTEGER.layout().withName("uliChunkNumber"),
+                _ULARGE_INTEGER.layout().withName("uliChunkSize"),
+                _ULARGE_INTEGER.layout().withName("uliStreamSize"),
+                _ULARGE_INTEGER.layout().withName("uliStreamBytesTransferred"),
+                _ULARGE_INTEGER.layout().withName("uliTotalFileSize"),
+                _ULARGE_INTEGER.layout().withName("uliTotalBytesTransferred")
+            ).withName("$anon$5748:9");
+
+            /**
+             * The layout of this struct
+             */
+            public static final GroupLayout layout() {
+                return $LAYOUT;
             }
+
+            private static final OfInt dwStreamNumber$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwStreamNumber"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
+             * }
+             */
+            public static final OfInt dwStreamNumber$layout() {
+                return dwStreamNumber$LAYOUT;
+            }
+
+            private static final long dwStreamNumber$OFFSET = 0;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
+             * }
+             */
+            public static final long dwStreamNumber$offset() {
+                return dwStreamNumber$OFFSET;
+            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD dwStreamNumber;
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
              * }
              */
-            public static int dwStreamNumber$get(MemorySegment seg) {
-                return (int)constants$809.const$5.get(seg);
+            public static int dwStreamNumber(MemorySegment struct) {
+                return struct.get(dwStreamNumber$LAYOUT, dwStreamNumber$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD dwStreamNumber;
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
              * }
              */
-            public static void dwStreamNumber$set(MemorySegment seg, int x) {
-                constants$809.const$5.set(seg, x);
+            public static void dwStreamNumber(MemorySegment struct, int fieldValue) {
+                struct.set(dwStreamNumber$LAYOUT, dwStreamNumber$OFFSET, fieldValue);
             }
-            public static int dwStreamNumber$get(MemorySegment seg, long index) {
-                return (int)constants$809.const$5.get(seg.asSlice(index*sizeof()));
+
+            private static final OfInt dwFlags$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwFlags"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD dwFlags
+             * }
+             */
+            public static final OfInt dwFlags$layout() {
+                return dwFlags$LAYOUT;
             }
-            public static void dwStreamNumber$set(MemorySegment seg, long index, int x) {
-                constants$809.const$5.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long dwFlags$OFFSET = 4;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD dwFlags
+             * }
+             */
+            public static final long dwFlags$offset() {
+                return dwFlags$OFFSET;
             }
-            public static VarHandle dwFlags$VH() {
-                return constants$810.const$0;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD dwFlags;
+             * {@snippet lang=c :
+             * DWORD dwFlags
              * }
              */
-            public static int dwFlags$get(MemorySegment seg) {
-                return (int)constants$810.const$0.get(seg);
+            public static int dwFlags(MemorySegment struct) {
+                return struct.get(dwFlags$LAYOUT, dwFlags$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD dwFlags;
+             * {@snippet lang=c :
+             * DWORD dwFlags
              * }
              */
-            public static void dwFlags$set(MemorySegment seg, int x) {
-                constants$810.const$0.set(seg, x);
+            public static void dwFlags(MemorySegment struct, int fieldValue) {
+                struct.set(dwFlags$LAYOUT, dwFlags$OFFSET, fieldValue);
             }
-            public static int dwFlags$get(MemorySegment seg, long index) {
-                return (int)constants$810.const$0.get(seg.asSlice(index*sizeof()));
+
+            private static final AddressLayout hSourceFile$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hSourceFile"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
+             * }
+             */
+            public static final AddressLayout hSourceFile$layout() {
+                return hSourceFile$LAYOUT;
             }
-            public static void dwFlags$set(MemorySegment seg, long index, int x) {
-                constants$810.const$0.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long hSourceFile$OFFSET = 8;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
+             * }
+             */
+            public static final long hSourceFile$offset() {
+                return hSourceFile$OFFSET;
             }
-            public static VarHandle hSourceFile$VH() {
-                return constants$810.const$1;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * HANDLE hSourceFile;
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
              * }
              */
-            public static MemorySegment hSourceFile$get(MemorySegment seg) {
-                return (java.lang.foreign.MemorySegment)constants$810.const$1.get(seg);
+            public static MemorySegment hSourceFile(MemorySegment struct) {
+                return struct.get(hSourceFile$LAYOUT, hSourceFile$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * HANDLE hSourceFile;
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
              * }
              */
-            public static void hSourceFile$set(MemorySegment seg, MemorySegment x) {
-                constants$810.const$1.set(seg, x);
+            public static void hSourceFile(MemorySegment struct, MemorySegment fieldValue) {
+                struct.set(hSourceFile$LAYOUT, hSourceFile$OFFSET, fieldValue);
             }
-            public static MemorySegment hSourceFile$get(MemorySegment seg, long index) {
-                return (java.lang.foreign.MemorySegment)constants$810.const$1.get(seg.asSlice(index*sizeof()));
+
+            private static final AddressLayout hDestinationFile$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hDestinationFile"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
+             * }
+             */
+            public static final AddressLayout hDestinationFile$layout() {
+                return hDestinationFile$LAYOUT;
             }
-            public static void hSourceFile$set(MemorySegment seg, long index, MemorySegment x) {
-                constants$810.const$1.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long hDestinationFile$OFFSET = 16;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
+             * }
+             */
+            public static final long hDestinationFile$offset() {
+                return hDestinationFile$OFFSET;
             }
-            public static VarHandle hDestinationFile$VH() {
-                return constants$810.const$2;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * HANDLE hDestinationFile;
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
              * }
              */
-            public static MemorySegment hDestinationFile$get(MemorySegment seg) {
-                return (java.lang.foreign.MemorySegment)constants$810.const$2.get(seg);
+            public static MemorySegment hDestinationFile(MemorySegment struct) {
+                return struct.get(hDestinationFile$LAYOUT, hDestinationFile$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * HANDLE hDestinationFile;
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
              * }
              */
-            public static void hDestinationFile$set(MemorySegment seg, MemorySegment x) {
-                constants$810.const$2.set(seg, x);
+            public static void hDestinationFile(MemorySegment struct, MemorySegment fieldValue) {
+                struct.set(hDestinationFile$LAYOUT, hDestinationFile$OFFSET, fieldValue);
             }
-            public static MemorySegment hDestinationFile$get(MemorySegment seg, long index) {
-                return (java.lang.foreign.MemorySegment)constants$810.const$2.get(seg.asSlice(index*sizeof()));
+
+            private static final GroupLayout uliChunkNumber$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliChunkNumber"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkNumber
+             * }
+             */
+            public static final GroupLayout uliChunkNumber$layout() {
+                return uliChunkNumber$LAYOUT;
             }
-            public static void hDestinationFile$set(MemorySegment seg, long index, MemorySegment x) {
-                constants$810.const$2.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long uliChunkNumber$OFFSET = 24;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkNumber
+             * }
+             */
+            public static final long uliChunkNumber$offset() {
+                return uliChunkNumber$OFFSET;
             }
-            public static MemorySegment uliChunkNumber$slice(MemorySegment seg) {
-                return seg.asSlice(24, 8);
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkNumber
+             * }
+             */
+            public static MemorySegment uliChunkNumber(MemorySegment struct) {
+                return struct.asSlice(uliChunkNumber$OFFSET, uliChunkNumber$LAYOUT.byteSize());
             }
-            public static MemorySegment uliChunkSize$slice(MemorySegment seg) {
-                return seg.asSlice(32, 8);
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkNumber
+             * }
+             */
+            public static void uliChunkNumber(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliChunkNumber$OFFSET, uliChunkNumber$LAYOUT.byteSize());
             }
-            public static MemorySegment uliStreamSize$slice(MemorySegment seg) {
-                return seg.asSlice(40, 8);
+
+            private static final GroupLayout uliChunkSize$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliChunkSize"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkSize
+             * }
+             */
+            public static final GroupLayout uliChunkSize$layout() {
+                return uliChunkSize$LAYOUT;
             }
-            public static MemorySegment uliStreamBytesTransferred$slice(MemorySegment seg) {
-                return seg.asSlice(48, 8);
+
+            private static final long uliChunkSize$OFFSET = 32;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkSize
+             * }
+             */
+            public static final long uliChunkSize$offset() {
+                return uliChunkSize$OFFSET;
             }
-            public static MemorySegment uliTotalFileSize$slice(MemorySegment seg) {
-                return seg.asSlice(56, 8);
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkSize
+             * }
+             */
+            public static MemorySegment uliChunkSize(MemorySegment struct) {
+                return struct.asSlice(uliChunkSize$OFFSET, uliChunkSize$LAYOUT.byteSize());
             }
-            public static MemorySegment uliTotalBytesTransferred$slice(MemorySegment seg) {
-                return seg.asSlice(64, 8);
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkSize
+             * }
+             */
+            public static void uliChunkSize(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliChunkSize$OFFSET, uliChunkSize$LAYOUT.byteSize());
             }
-            public static long sizeof() { return $LAYOUT().byteSize(); }
-            public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-            public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-                return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+            private static final GroupLayout uliStreamSize$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliStreamSize"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static final GroupLayout uliStreamSize$layout() {
+                return uliStreamSize$LAYOUT;
             }
-            public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+            private static final long uliStreamSize$OFFSET = 40;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static final long uliStreamSize$offset() {
+                return uliStreamSize$OFFSET;
+            }
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static MemorySegment uliStreamSize(MemorySegment struct) {
+                return struct.asSlice(uliStreamSize$OFFSET, uliStreamSize$LAYOUT.byteSize());
+            }
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static void uliStreamSize(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliStreamSize$OFFSET, uliStreamSize$LAYOUT.byteSize());
+            }
+
+            private static final GroupLayout uliStreamBytesTransferred$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliStreamBytesTransferred"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamBytesTransferred
+             * }
+             */
+            public static final GroupLayout uliStreamBytesTransferred$layout() {
+                return uliStreamBytesTransferred$LAYOUT;
+            }
+
+            private static final long uliStreamBytesTransferred$OFFSET = 48;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamBytesTransferred
+             * }
+             */
+            public static final long uliStreamBytesTransferred$offset() {
+                return uliStreamBytesTransferred$OFFSET;
+            }
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamBytesTransferred
+             * }
+             */
+            public static MemorySegment uliStreamBytesTransferred(MemorySegment struct) {
+                return struct.asSlice(uliStreamBytesTransferred$OFFSET, uliStreamBytesTransferred$LAYOUT.byteSize());
+            }
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamBytesTransferred
+             * }
+             */
+            public static void uliStreamBytesTransferred(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliStreamBytesTransferred$OFFSET, uliStreamBytesTransferred$LAYOUT.byteSize());
+            }
+
+            private static final GroupLayout uliTotalFileSize$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliTotalFileSize"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static final GroupLayout uliTotalFileSize$layout() {
+                return uliTotalFileSize$LAYOUT;
+            }
+
+            private static final long uliTotalFileSize$OFFSET = 56;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static final long uliTotalFileSize$offset() {
+                return uliTotalFileSize$OFFSET;
+            }
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static MemorySegment uliTotalFileSize(MemorySegment struct) {
+                return struct.asSlice(uliTotalFileSize$OFFSET, uliTotalFileSize$LAYOUT.byteSize());
+            }
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static void uliTotalFileSize(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliTotalFileSize$OFFSET, uliTotalFileSize$LAYOUT.byteSize());
+            }
+
+            private static final GroupLayout uliTotalBytesTransferred$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliTotalBytesTransferred"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalBytesTransferred
+             * }
+             */
+            public static final GroupLayout uliTotalBytesTransferred$layout() {
+                return uliTotalBytesTransferred$LAYOUT;
+            }
+
+            private static final long uliTotalBytesTransferred$OFFSET = 64;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalBytesTransferred
+             * }
+             */
+            public static final long uliTotalBytesTransferred$offset() {
+                return uliTotalBytesTransferred$OFFSET;
+            }
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalBytesTransferred
+             * }
+             */
+            public static MemorySegment uliTotalBytesTransferred(MemorySegment struct) {
+                return struct.asSlice(uliTotalBytesTransferred$OFFSET, uliTotalBytesTransferred$LAYOUT.byteSize());
+            }
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalBytesTransferred
+             * }
+             */
+            public static void uliTotalBytesTransferred(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliTotalBytesTransferred$OFFSET, uliTotalBytesTransferred$LAYOUT.byteSize());
+            }
+
+            /**
+             * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+             * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+             */
+            public static MemorySegment asSlice(MemorySegment array, long index) {
+                return array.asSlice(layout().byteSize() * index);
+            }
+
+            /**
+             * The size (in bytes) of this struct
+             */
+            public static long sizeof() { return layout().byteSize(); }
+
+            /**
+             * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+             */
+            public static MemorySegment allocate(SegmentAllocator allocator) {
+                return allocator.allocate(layout());
+            }
+
+            /**
+             * Allocate an array of size {@code elementCount} using {@code allocator}.
+             * The returned segment has size {@code elementCount * layout().byteSize()}.
+             */
+            public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+                return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+                return reinterpret(addr, 1, arena, cleanup);
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code elementCount * layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+                return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+            }
         }
 
-        public static MemorySegment ChunkFinished$slice(MemorySegment seg) {
-            return seg.asSlice(0, 72);
-        }
+        private static final GroupLayout ChunkFinished$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("ChunkFinished"));
+
         /**
-         * {@snippet :
+         * Layout for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwFlags;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliChunkNumber;
+         *     ULARGE_INTEGER uliChunkSize;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliStreamBytesTransferred;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         *     ULARGE_INTEGER uliTotalBytesTransferred;
+         * } ChunkFinished
+         * }
+         */
+        public static final GroupLayout ChunkFinished$layout() {
+            return ChunkFinished$LAYOUT;
+        }
+
+        private static final long ChunkFinished$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwFlags;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliChunkNumber;
+         *     ULARGE_INTEGER uliChunkSize;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliStreamBytesTransferred;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         *     ULARGE_INTEGER uliTotalBytesTransferred;
+         * } ChunkFinished
+         * }
+         */
+        public static final long ChunkFinished$offset() {
+            return ChunkFinished$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwFlags;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliChunkNumber;
+         *     ULARGE_INTEGER uliChunkSize;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliStreamBytesTransferred;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         *     ULARGE_INTEGER uliTotalBytesTransferred;
+         * } ChunkFinished
+         * }
+         */
+        public static MemorySegment ChunkFinished(MemorySegment union) {
+            return union.asSlice(ChunkFinished$OFFSET, ChunkFinished$LAYOUT.byteSize());
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwFlags;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliChunkNumber;
+         *     ULARGE_INTEGER uliChunkSize;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliStreamBytesTransferred;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         *     ULARGE_INTEGER uliTotalBytesTransferred;
+         * } ChunkFinished
+         * }
+         */
+        public static void ChunkFinished(MemorySegment union, MemorySegment fieldValue) {
+            MemorySegment.copy(fieldValue, 0L, union, ChunkFinished$OFFSET, ChunkFinished$LAYOUT.byteSize());
+        }
+
+        /**
+         * {@snippet lang=c :
          * struct {
          *     DWORD dwStreamNumber;
          *     DWORD dwReserved;
@@ -415,143 +1404,414 @@ public class COPYFILE2_MESSAGE {
          *     HANDLE hDestinationFile;
          *     ULARGE_INTEGER uliStreamSize;
          *     ULARGE_INTEGER uliTotalFileSize;
-         * };
+         * }
          * }
          */
-        public static final class StreamStarted {
+        public static class StreamStarted {
 
-            // Suppresses default constructor, ensuring non-instantiability.
-            private StreamStarted() {}
-            public static MemoryLayout $LAYOUT() {
-                return constants$810.const$3;
+            StreamStarted() {
+                // Should not be called directly
             }
-            public static VarHandle dwStreamNumber$VH() {
-                return constants$810.const$4;
+
+            private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+                Windows_h.C_LONG.withName("dwStreamNumber"),
+                Windows_h.C_LONG.withName("dwReserved"),
+                Windows_h.C_POINTER.withName("hSourceFile"),
+                Windows_h.C_POINTER.withName("hDestinationFile"),
+                _ULARGE_INTEGER.layout().withName("uliStreamSize"),
+                _ULARGE_INTEGER.layout().withName("uliTotalFileSize")
+            ).withName("$anon$5761:9");
+
+            /**
+             * The layout of this struct
+             */
+            public static final GroupLayout layout() {
+                return $LAYOUT;
             }
+
+            private static final OfInt dwStreamNumber$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwStreamNumber"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
+             * }
+             */
+            public static final OfInt dwStreamNumber$layout() {
+                return dwStreamNumber$LAYOUT;
+            }
+
+            private static final long dwStreamNumber$OFFSET = 0;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
+             * }
+             */
+            public static final long dwStreamNumber$offset() {
+                return dwStreamNumber$OFFSET;
+            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD dwStreamNumber;
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
              * }
              */
-            public static int dwStreamNumber$get(MemorySegment seg) {
-                return (int)constants$810.const$4.get(seg);
+            public static int dwStreamNumber(MemorySegment struct) {
+                return struct.get(dwStreamNumber$LAYOUT, dwStreamNumber$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD dwStreamNumber;
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
              * }
              */
-            public static void dwStreamNumber$set(MemorySegment seg, int x) {
-                constants$810.const$4.set(seg, x);
+            public static void dwStreamNumber(MemorySegment struct, int fieldValue) {
+                struct.set(dwStreamNumber$LAYOUT, dwStreamNumber$OFFSET, fieldValue);
             }
-            public static int dwStreamNumber$get(MemorySegment seg, long index) {
-                return (int)constants$810.const$4.get(seg.asSlice(index*sizeof()));
+
+            private static final OfInt dwReserved$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwReserved"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD dwReserved
+             * }
+             */
+            public static final OfInt dwReserved$layout() {
+                return dwReserved$LAYOUT;
             }
-            public static void dwStreamNumber$set(MemorySegment seg, long index, int x) {
-                constants$810.const$4.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long dwReserved$OFFSET = 4;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD dwReserved
+             * }
+             */
+            public static final long dwReserved$offset() {
+                return dwReserved$OFFSET;
             }
-            public static VarHandle dwReserved$VH() {
-                return constants$810.const$5;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD dwReserved;
+             * {@snippet lang=c :
+             * DWORD dwReserved
              * }
              */
-            public static int dwReserved$get(MemorySegment seg) {
-                return (int)constants$810.const$5.get(seg);
+            public static int dwReserved(MemorySegment struct) {
+                return struct.get(dwReserved$LAYOUT, dwReserved$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD dwReserved;
+             * {@snippet lang=c :
+             * DWORD dwReserved
              * }
              */
-            public static void dwReserved$set(MemorySegment seg, int x) {
-                constants$810.const$5.set(seg, x);
+            public static void dwReserved(MemorySegment struct, int fieldValue) {
+                struct.set(dwReserved$LAYOUT, dwReserved$OFFSET, fieldValue);
             }
-            public static int dwReserved$get(MemorySegment seg, long index) {
-                return (int)constants$810.const$5.get(seg.asSlice(index*sizeof()));
+
+            private static final AddressLayout hSourceFile$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hSourceFile"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
+             * }
+             */
+            public static final AddressLayout hSourceFile$layout() {
+                return hSourceFile$LAYOUT;
             }
-            public static void dwReserved$set(MemorySegment seg, long index, int x) {
-                constants$810.const$5.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long hSourceFile$OFFSET = 8;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
+             * }
+             */
+            public static final long hSourceFile$offset() {
+                return hSourceFile$OFFSET;
             }
-            public static VarHandle hSourceFile$VH() {
-                return constants$811.const$0;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * HANDLE hSourceFile;
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
              * }
              */
-            public static MemorySegment hSourceFile$get(MemorySegment seg) {
-                return (java.lang.foreign.MemorySegment)constants$811.const$0.get(seg);
+            public static MemorySegment hSourceFile(MemorySegment struct) {
+                return struct.get(hSourceFile$LAYOUT, hSourceFile$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * HANDLE hSourceFile;
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
              * }
              */
-            public static void hSourceFile$set(MemorySegment seg, MemorySegment x) {
-                constants$811.const$0.set(seg, x);
+            public static void hSourceFile(MemorySegment struct, MemorySegment fieldValue) {
+                struct.set(hSourceFile$LAYOUT, hSourceFile$OFFSET, fieldValue);
             }
-            public static MemorySegment hSourceFile$get(MemorySegment seg, long index) {
-                return (java.lang.foreign.MemorySegment)constants$811.const$0.get(seg.asSlice(index*sizeof()));
+
+            private static final AddressLayout hDestinationFile$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hDestinationFile"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
+             * }
+             */
+            public static final AddressLayout hDestinationFile$layout() {
+                return hDestinationFile$LAYOUT;
             }
-            public static void hSourceFile$set(MemorySegment seg, long index, MemorySegment x) {
-                constants$811.const$0.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long hDestinationFile$OFFSET = 16;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
+             * }
+             */
+            public static final long hDestinationFile$offset() {
+                return hDestinationFile$OFFSET;
             }
-            public static VarHandle hDestinationFile$VH() {
-                return constants$811.const$1;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * HANDLE hDestinationFile;
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
              * }
              */
-            public static MemorySegment hDestinationFile$get(MemorySegment seg) {
-                return (java.lang.foreign.MemorySegment)constants$811.const$1.get(seg);
+            public static MemorySegment hDestinationFile(MemorySegment struct) {
+                return struct.get(hDestinationFile$LAYOUT, hDestinationFile$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * HANDLE hDestinationFile;
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
              * }
              */
-            public static void hDestinationFile$set(MemorySegment seg, MemorySegment x) {
-                constants$811.const$1.set(seg, x);
+            public static void hDestinationFile(MemorySegment struct, MemorySegment fieldValue) {
+                struct.set(hDestinationFile$LAYOUT, hDestinationFile$OFFSET, fieldValue);
             }
-            public static MemorySegment hDestinationFile$get(MemorySegment seg, long index) {
-                return (java.lang.foreign.MemorySegment)constants$811.const$1.get(seg.asSlice(index*sizeof()));
+
+            private static final GroupLayout uliStreamSize$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliStreamSize"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static final GroupLayout uliStreamSize$layout() {
+                return uliStreamSize$LAYOUT;
             }
-            public static void hDestinationFile$set(MemorySegment seg, long index, MemorySegment x) {
-                constants$811.const$1.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long uliStreamSize$OFFSET = 24;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static final long uliStreamSize$offset() {
+                return uliStreamSize$OFFSET;
             }
-            public static MemorySegment uliStreamSize$slice(MemorySegment seg) {
-                return seg.asSlice(24, 8);
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static MemorySegment uliStreamSize(MemorySegment struct) {
+                return struct.asSlice(uliStreamSize$OFFSET, uliStreamSize$LAYOUT.byteSize());
             }
-            public static MemorySegment uliTotalFileSize$slice(MemorySegment seg) {
-                return seg.asSlice(32, 8);
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static void uliStreamSize(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliStreamSize$OFFSET, uliStreamSize$LAYOUT.byteSize());
             }
-            public static long sizeof() { return $LAYOUT().byteSize(); }
-            public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-            public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-                return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+            private static final GroupLayout uliTotalFileSize$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliTotalFileSize"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static final GroupLayout uliTotalFileSize$layout() {
+                return uliTotalFileSize$LAYOUT;
             }
-            public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+            private static final long uliTotalFileSize$OFFSET = 32;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static final long uliTotalFileSize$offset() {
+                return uliTotalFileSize$OFFSET;
+            }
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static MemorySegment uliTotalFileSize(MemorySegment struct) {
+                return struct.asSlice(uliTotalFileSize$OFFSET, uliTotalFileSize$LAYOUT.byteSize());
+            }
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static void uliTotalFileSize(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliTotalFileSize$OFFSET, uliTotalFileSize$LAYOUT.byteSize());
+            }
+
+            /**
+             * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+             * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+             */
+            public static MemorySegment asSlice(MemorySegment array, long index) {
+                return array.asSlice(layout().byteSize() * index);
+            }
+
+            /**
+             * The size (in bytes) of this struct
+             */
+            public static long sizeof() { return layout().byteSize(); }
+
+            /**
+             * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+             */
+            public static MemorySegment allocate(SegmentAllocator allocator) {
+                return allocator.allocate(layout());
+            }
+
+            /**
+             * Allocate an array of size {@code elementCount} using {@code allocator}.
+             * The returned segment has size {@code elementCount * layout().byteSize()}.
+             */
+            public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+                return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+                return reinterpret(addr, 1, arena, cleanup);
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code elementCount * layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+                return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+            }
         }
 
-        public static MemorySegment StreamStarted$slice(MemorySegment seg) {
-            return seg.asSlice(0, 40);
-        }
+        private static final GroupLayout StreamStarted$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("StreamStarted"));
+
         /**
-         * {@snippet :
+         * Layout for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwReserved;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         * } StreamStarted
+         * }
+         */
+        public static final GroupLayout StreamStarted$layout() {
+            return StreamStarted$LAYOUT;
+        }
+
+        private static final long StreamStarted$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwReserved;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         * } StreamStarted
+         * }
+         */
+        public static final long StreamStarted$offset() {
+            return StreamStarted$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwReserved;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         * } StreamStarted
+         * }
+         */
+        public static MemorySegment StreamStarted(MemorySegment union) {
+            return union.asSlice(StreamStarted$OFFSET, StreamStarted$LAYOUT.byteSize());
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwReserved;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         * } StreamStarted
+         * }
+         */
+        public static void StreamStarted(MemorySegment union, MemorySegment fieldValue) {
+            MemorySegment.copy(fieldValue, 0L, union, StreamStarted$OFFSET, StreamStarted$LAYOUT.byteSize());
+        }
+
+        /**
+         * {@snippet lang=c :
          * struct {
          *     DWORD dwStreamNumber;
          *     DWORD dwReserved;
@@ -561,201 +1821,677 @@ public class COPYFILE2_MESSAGE {
          *     ULARGE_INTEGER uliStreamBytesTransferred;
          *     ULARGE_INTEGER uliTotalFileSize;
          *     ULARGE_INTEGER uliTotalBytesTransferred;
-         * };
+         * }
          * }
          */
-        public static final class StreamFinished {
+        public static class StreamFinished {
 
-            // Suppresses default constructor, ensuring non-instantiability.
-            private StreamFinished() {}
-            public static MemoryLayout $LAYOUT() {
-                return constants$811.const$2;
+            StreamFinished() {
+                // Should not be called directly
             }
-            public static VarHandle dwStreamNumber$VH() {
-                return constants$811.const$3;
+
+            private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+                Windows_h.C_LONG.withName("dwStreamNumber"),
+                Windows_h.C_LONG.withName("dwReserved"),
+                Windows_h.C_POINTER.withName("hSourceFile"),
+                Windows_h.C_POINTER.withName("hDestinationFile"),
+                _ULARGE_INTEGER.layout().withName("uliStreamSize"),
+                _ULARGE_INTEGER.layout().withName("uliStreamBytesTransferred"),
+                _ULARGE_INTEGER.layout().withName("uliTotalFileSize"),
+                _ULARGE_INTEGER.layout().withName("uliTotalBytesTransferred")
+            ).withName("$anon$5770:9");
+
+            /**
+             * The layout of this struct
+             */
+            public static final GroupLayout layout() {
+                return $LAYOUT;
             }
+
+            private static final OfInt dwStreamNumber$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwStreamNumber"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
+             * }
+             */
+            public static final OfInt dwStreamNumber$layout() {
+                return dwStreamNumber$LAYOUT;
+            }
+
+            private static final long dwStreamNumber$OFFSET = 0;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
+             * }
+             */
+            public static final long dwStreamNumber$offset() {
+                return dwStreamNumber$OFFSET;
+            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD dwStreamNumber;
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
              * }
              */
-            public static int dwStreamNumber$get(MemorySegment seg) {
-                return (int)constants$811.const$3.get(seg);
+            public static int dwStreamNumber(MemorySegment struct) {
+                return struct.get(dwStreamNumber$LAYOUT, dwStreamNumber$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD dwStreamNumber;
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
              * }
              */
-            public static void dwStreamNumber$set(MemorySegment seg, int x) {
-                constants$811.const$3.set(seg, x);
+            public static void dwStreamNumber(MemorySegment struct, int fieldValue) {
+                struct.set(dwStreamNumber$LAYOUT, dwStreamNumber$OFFSET, fieldValue);
             }
-            public static int dwStreamNumber$get(MemorySegment seg, long index) {
-                return (int)constants$811.const$3.get(seg.asSlice(index*sizeof()));
+
+            private static final OfInt dwReserved$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwReserved"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD dwReserved
+             * }
+             */
+            public static final OfInt dwReserved$layout() {
+                return dwReserved$LAYOUT;
             }
-            public static void dwStreamNumber$set(MemorySegment seg, long index, int x) {
-                constants$811.const$3.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long dwReserved$OFFSET = 4;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD dwReserved
+             * }
+             */
+            public static final long dwReserved$offset() {
+                return dwReserved$OFFSET;
             }
-            public static VarHandle dwReserved$VH() {
-                return constants$811.const$4;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD dwReserved;
+             * {@snippet lang=c :
+             * DWORD dwReserved
              * }
              */
-            public static int dwReserved$get(MemorySegment seg) {
-                return (int)constants$811.const$4.get(seg);
+            public static int dwReserved(MemorySegment struct) {
+                return struct.get(dwReserved$LAYOUT, dwReserved$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD dwReserved;
+             * {@snippet lang=c :
+             * DWORD dwReserved
              * }
              */
-            public static void dwReserved$set(MemorySegment seg, int x) {
-                constants$811.const$4.set(seg, x);
+            public static void dwReserved(MemorySegment struct, int fieldValue) {
+                struct.set(dwReserved$LAYOUT, dwReserved$OFFSET, fieldValue);
             }
-            public static int dwReserved$get(MemorySegment seg, long index) {
-                return (int)constants$811.const$4.get(seg.asSlice(index*sizeof()));
+
+            private static final AddressLayout hSourceFile$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hSourceFile"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
+             * }
+             */
+            public static final AddressLayout hSourceFile$layout() {
+                return hSourceFile$LAYOUT;
             }
-            public static void dwReserved$set(MemorySegment seg, long index, int x) {
-                constants$811.const$4.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long hSourceFile$OFFSET = 8;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
+             * }
+             */
+            public static final long hSourceFile$offset() {
+                return hSourceFile$OFFSET;
             }
-            public static VarHandle hSourceFile$VH() {
-                return constants$811.const$5;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * HANDLE hSourceFile;
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
              * }
              */
-            public static MemorySegment hSourceFile$get(MemorySegment seg) {
-                return (java.lang.foreign.MemorySegment)constants$811.const$5.get(seg);
+            public static MemorySegment hSourceFile(MemorySegment struct) {
+                return struct.get(hSourceFile$LAYOUT, hSourceFile$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * HANDLE hSourceFile;
+             * {@snippet lang=c :
+             * HANDLE hSourceFile
              * }
              */
-            public static void hSourceFile$set(MemorySegment seg, MemorySegment x) {
-                constants$811.const$5.set(seg, x);
+            public static void hSourceFile(MemorySegment struct, MemorySegment fieldValue) {
+                struct.set(hSourceFile$LAYOUT, hSourceFile$OFFSET, fieldValue);
             }
-            public static MemorySegment hSourceFile$get(MemorySegment seg, long index) {
-                return (java.lang.foreign.MemorySegment)constants$811.const$5.get(seg.asSlice(index*sizeof()));
+
+            private static final AddressLayout hDestinationFile$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hDestinationFile"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
+             * }
+             */
+            public static final AddressLayout hDestinationFile$layout() {
+                return hDestinationFile$LAYOUT;
             }
-            public static void hSourceFile$set(MemorySegment seg, long index, MemorySegment x) {
-                constants$811.const$5.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long hDestinationFile$OFFSET = 16;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
+             * }
+             */
+            public static final long hDestinationFile$offset() {
+                return hDestinationFile$OFFSET;
             }
-            public static VarHandle hDestinationFile$VH() {
-                return constants$812.const$0;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * HANDLE hDestinationFile;
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
              * }
              */
-            public static MemorySegment hDestinationFile$get(MemorySegment seg) {
-                return (java.lang.foreign.MemorySegment)constants$812.const$0.get(seg);
+            public static MemorySegment hDestinationFile(MemorySegment struct) {
+                return struct.get(hDestinationFile$LAYOUT, hDestinationFile$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * HANDLE hDestinationFile;
+             * {@snippet lang=c :
+             * HANDLE hDestinationFile
              * }
              */
-            public static void hDestinationFile$set(MemorySegment seg, MemorySegment x) {
-                constants$812.const$0.set(seg, x);
+            public static void hDestinationFile(MemorySegment struct, MemorySegment fieldValue) {
+                struct.set(hDestinationFile$LAYOUT, hDestinationFile$OFFSET, fieldValue);
             }
-            public static MemorySegment hDestinationFile$get(MemorySegment seg, long index) {
-                return (java.lang.foreign.MemorySegment)constants$812.const$0.get(seg.asSlice(index*sizeof()));
+
+            private static final GroupLayout uliStreamSize$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliStreamSize"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static final GroupLayout uliStreamSize$layout() {
+                return uliStreamSize$LAYOUT;
             }
-            public static void hDestinationFile$set(MemorySegment seg, long index, MemorySegment x) {
-                constants$812.const$0.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long uliStreamSize$OFFSET = 24;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static final long uliStreamSize$offset() {
+                return uliStreamSize$OFFSET;
             }
-            public static MemorySegment uliStreamSize$slice(MemorySegment seg) {
-                return seg.asSlice(24, 8);
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static MemorySegment uliStreamSize(MemorySegment struct) {
+                return struct.asSlice(uliStreamSize$OFFSET, uliStreamSize$LAYOUT.byteSize());
             }
-            public static MemorySegment uliStreamBytesTransferred$slice(MemorySegment seg) {
-                return seg.asSlice(32, 8);
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static void uliStreamSize(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliStreamSize$OFFSET, uliStreamSize$LAYOUT.byteSize());
             }
-            public static MemorySegment uliTotalFileSize$slice(MemorySegment seg) {
-                return seg.asSlice(40, 8);
+
+            private static final GroupLayout uliStreamBytesTransferred$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliStreamBytesTransferred"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamBytesTransferred
+             * }
+             */
+            public static final GroupLayout uliStreamBytesTransferred$layout() {
+                return uliStreamBytesTransferred$LAYOUT;
             }
-            public static MemorySegment uliTotalBytesTransferred$slice(MemorySegment seg) {
-                return seg.asSlice(48, 8);
+
+            private static final long uliStreamBytesTransferred$OFFSET = 32;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamBytesTransferred
+             * }
+             */
+            public static final long uliStreamBytesTransferred$offset() {
+                return uliStreamBytesTransferred$OFFSET;
             }
-            public static long sizeof() { return $LAYOUT().byteSize(); }
-            public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-            public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-                return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamBytesTransferred
+             * }
+             */
+            public static MemorySegment uliStreamBytesTransferred(MemorySegment struct) {
+                return struct.asSlice(uliStreamBytesTransferred$OFFSET, uliStreamBytesTransferred$LAYOUT.byteSize());
             }
-            public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamBytesTransferred
+             * }
+             */
+            public static void uliStreamBytesTransferred(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliStreamBytesTransferred$OFFSET, uliStreamBytesTransferred$LAYOUT.byteSize());
+            }
+
+            private static final GroupLayout uliTotalFileSize$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliTotalFileSize"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static final GroupLayout uliTotalFileSize$layout() {
+                return uliTotalFileSize$LAYOUT;
+            }
+
+            private static final long uliTotalFileSize$OFFSET = 40;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static final long uliTotalFileSize$offset() {
+                return uliTotalFileSize$OFFSET;
+            }
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static MemorySegment uliTotalFileSize(MemorySegment struct) {
+                return struct.asSlice(uliTotalFileSize$OFFSET, uliTotalFileSize$LAYOUT.byteSize());
+            }
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static void uliTotalFileSize(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliTotalFileSize$OFFSET, uliTotalFileSize$LAYOUT.byteSize());
+            }
+
+            private static final GroupLayout uliTotalBytesTransferred$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliTotalBytesTransferred"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalBytesTransferred
+             * }
+             */
+            public static final GroupLayout uliTotalBytesTransferred$layout() {
+                return uliTotalBytesTransferred$LAYOUT;
+            }
+
+            private static final long uliTotalBytesTransferred$OFFSET = 48;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalBytesTransferred
+             * }
+             */
+            public static final long uliTotalBytesTransferred$offset() {
+                return uliTotalBytesTransferred$OFFSET;
+            }
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalBytesTransferred
+             * }
+             */
+            public static MemorySegment uliTotalBytesTransferred(MemorySegment struct) {
+                return struct.asSlice(uliTotalBytesTransferred$OFFSET, uliTotalBytesTransferred$LAYOUT.byteSize());
+            }
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalBytesTransferred
+             * }
+             */
+            public static void uliTotalBytesTransferred(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliTotalBytesTransferred$OFFSET, uliTotalBytesTransferred$LAYOUT.byteSize());
+            }
+
+            /**
+             * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+             * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+             */
+            public static MemorySegment asSlice(MemorySegment array, long index) {
+                return array.asSlice(layout().byteSize() * index);
+            }
+
+            /**
+             * The size (in bytes) of this struct
+             */
+            public static long sizeof() { return layout().byteSize(); }
+
+            /**
+             * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+             */
+            public static MemorySegment allocate(SegmentAllocator allocator) {
+                return allocator.allocate(layout());
+            }
+
+            /**
+             * Allocate an array of size {@code elementCount} using {@code allocator}.
+             * The returned segment has size {@code elementCount * layout().byteSize()}.
+             */
+            public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+                return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+                return reinterpret(addr, 1, arena, cleanup);
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code elementCount * layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+                return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+            }
         }
 
-        public static MemorySegment StreamFinished$slice(MemorySegment seg) {
-            return seg.asSlice(0, 56);
-        }
+        private static final GroupLayout StreamFinished$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("StreamFinished"));
+
         /**
-         * {@snippet :
+         * Layout for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwReserved;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliStreamBytesTransferred;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         *     ULARGE_INTEGER uliTotalBytesTransferred;
+         * } StreamFinished
+         * }
+         */
+        public static final GroupLayout StreamFinished$layout() {
+            return StreamFinished$LAYOUT;
+        }
+
+        private static final long StreamFinished$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwReserved;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliStreamBytesTransferred;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         *     ULARGE_INTEGER uliTotalBytesTransferred;
+         * } StreamFinished
+         * }
+         */
+        public static final long StreamFinished$offset() {
+            return StreamFinished$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwReserved;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliStreamBytesTransferred;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         *     ULARGE_INTEGER uliTotalBytesTransferred;
+         * } StreamFinished
+         * }
+         */
+        public static MemorySegment StreamFinished(MemorySegment union) {
+            return union.asSlice(StreamFinished$OFFSET, StreamFinished$LAYOUT.byteSize());
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwStreamNumber;
+         *     DWORD dwReserved;
+         *     HANDLE hSourceFile;
+         *     HANDLE hDestinationFile;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliStreamBytesTransferred;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         *     ULARGE_INTEGER uliTotalBytesTransferred;
+         * } StreamFinished
+         * }
+         */
+        public static void StreamFinished(MemorySegment union, MemorySegment fieldValue) {
+            MemorySegment.copy(fieldValue, 0L, union, StreamFinished$OFFSET, StreamFinished$LAYOUT.byteSize());
+        }
+
+        /**
+         * {@snippet lang=c :
          * struct {
          *     DWORD dwReserved;
-         * };
+         * }
          * }
          */
-        public static final class PollContinue {
+        public static class PollContinue {
 
-            // Suppresses default constructor, ensuring non-instantiability.
-            private PollContinue() {}
-            public static MemoryLayout $LAYOUT() {
-                return constants$812.const$1;
+            PollContinue() {
+                // Should not be called directly
             }
-            public static VarHandle dwReserved$VH() {
-                return constants$812.const$2;
+
+            private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+                Windows_h.C_LONG.withName("dwReserved")
+            ).withName("$anon$5781:9");
+
+            /**
+             * The layout of this struct
+             */
+            public static final GroupLayout layout() {
+                return $LAYOUT;
             }
+
+            private static final OfInt dwReserved$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwReserved"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD dwReserved
+             * }
+             */
+            public static final OfInt dwReserved$layout() {
+                return dwReserved$LAYOUT;
+            }
+
+            private static final long dwReserved$OFFSET = 0;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD dwReserved
+             * }
+             */
+            public static final long dwReserved$offset() {
+                return dwReserved$OFFSET;
+            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD dwReserved;
+             * {@snippet lang=c :
+             * DWORD dwReserved
              * }
              */
-            public static int dwReserved$get(MemorySegment seg) {
-                return (int)constants$812.const$2.get(seg);
+            public static int dwReserved(MemorySegment struct) {
+                return struct.get(dwReserved$LAYOUT, dwReserved$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD dwReserved;
+             * {@snippet lang=c :
+             * DWORD dwReserved
              * }
              */
-            public static void dwReserved$set(MemorySegment seg, int x) {
-                constants$812.const$2.set(seg, x);
+            public static void dwReserved(MemorySegment struct, int fieldValue) {
+                struct.set(dwReserved$LAYOUT, dwReserved$OFFSET, fieldValue);
             }
-            public static int dwReserved$get(MemorySegment seg, long index) {
-                return (int)constants$812.const$2.get(seg.asSlice(index*sizeof()));
+
+            /**
+             * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+             * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+             */
+            public static MemorySegment asSlice(MemorySegment array, long index) {
+                return array.asSlice(layout().byteSize() * index);
             }
-            public static void dwReserved$set(MemorySegment seg, long index, int x) {
-                constants$812.const$2.set(seg.asSlice(index*sizeof()), x);
+
+            /**
+             * The size (in bytes) of this struct
+             */
+            public static long sizeof() { return layout().byteSize(); }
+
+            /**
+             * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+             */
+            public static MemorySegment allocate(SegmentAllocator allocator) {
+                return allocator.allocate(layout());
             }
-            public static long sizeof() { return $LAYOUT().byteSize(); }
-            public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-            public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-                return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+            /**
+             * Allocate an array of size {@code elementCount} using {@code allocator}.
+             * The returned segment has size {@code elementCount * layout().byteSize()}.
+             */
+            public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+                return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
             }
-            public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+                return reinterpret(addr, 1, arena, cleanup);
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code elementCount * layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+                return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+            }
         }
 
-        public static MemorySegment PollContinue$slice(MemorySegment seg) {
-            return seg.asSlice(0, 4);
-        }
+        private static final GroupLayout PollContinue$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("PollContinue"));
+
         /**
-         * {@snippet :
+         * Layout for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwReserved;
+         * } PollContinue
+         * }
+         */
+        public static final GroupLayout PollContinue$layout() {
+            return PollContinue$LAYOUT;
+        }
+
+        private static final long PollContinue$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwReserved;
+         * } PollContinue
+         * }
+         */
+        public static final long PollContinue$offset() {
+            return PollContinue$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwReserved;
+         * } PollContinue
+         * }
+         */
+        public static MemorySegment PollContinue(MemorySegment union) {
+            return union.asSlice(PollContinue$OFFSET, PollContinue$LAYOUT.byteSize());
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD dwReserved;
+         * } PollContinue
+         * }
+         */
+        public static void PollContinue(MemorySegment union, MemorySegment fieldValue) {
+            MemorySegment.copy(fieldValue, 0L, union, PollContinue$OFFSET, PollContinue$LAYOUT.byteSize());
+        }
+
+        /**
+         * {@snippet lang=c :
          * struct {
          *     COPYFILE2_COPY_PHASE CopyPhase;
          *     DWORD dwStreamNumber;
@@ -766,167 +2502,910 @@ public class COPYFILE2_MESSAGE {
          *     ULARGE_INTEGER uliStreamBytesTransferred;
          *     ULARGE_INTEGER uliTotalFileSize;
          *     ULARGE_INTEGER uliTotalBytesTransferred;
-         * };
+         * }
          * }
          */
-        public static final class Error {
+        public static class Error {
 
-            // Suppresses default constructor, ensuring non-instantiability.
-            private Error() {}
-            public static MemoryLayout $LAYOUT() {
-                return constants$812.const$3;
+            Error() {
+                // Should not be called directly
             }
-            public static VarHandle CopyPhase$VH() {
-                return constants$812.const$4;
+
+            private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+                Windows_h.C_INT.withName("CopyPhase"),
+                Windows_h.C_LONG.withName("dwStreamNumber"),
+                Windows_h.C_LONG.withName("hrFailure"),
+                Windows_h.C_LONG.withName("dwReserved"),
+                _ULARGE_INTEGER.layout().withName("uliChunkNumber"),
+                _ULARGE_INTEGER.layout().withName("uliStreamSize"),
+                _ULARGE_INTEGER.layout().withName("uliStreamBytesTransferred"),
+                _ULARGE_INTEGER.layout().withName("uliTotalFileSize"),
+                _ULARGE_INTEGER.layout().withName("uliTotalBytesTransferred")
+            ).withName("$anon$5785:9");
+
+            /**
+             * The layout of this struct
+             */
+            public static final GroupLayout layout() {
+                return $LAYOUT;
             }
+
+            private static final OfInt CopyPhase$LAYOUT = (OfInt)$LAYOUT.select(groupElement("CopyPhase"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * COPYFILE2_COPY_PHASE CopyPhase
+             * }
+             */
+            public static final OfInt CopyPhase$layout() {
+                return CopyPhase$LAYOUT;
+            }
+
+            private static final long CopyPhase$OFFSET = 0;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * COPYFILE2_COPY_PHASE CopyPhase
+             * }
+             */
+            public static final long CopyPhase$offset() {
+                return CopyPhase$OFFSET;
+            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * COPYFILE2_COPY_PHASE CopyPhase;
+             * {@snippet lang=c :
+             * COPYFILE2_COPY_PHASE CopyPhase
              * }
              */
-            public static int CopyPhase$get(MemorySegment seg) {
-                return (int)constants$812.const$4.get(seg);
+            public static int CopyPhase(MemorySegment struct) {
+                return struct.get(CopyPhase$LAYOUT, CopyPhase$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * COPYFILE2_COPY_PHASE CopyPhase;
+             * {@snippet lang=c :
+             * COPYFILE2_COPY_PHASE CopyPhase
              * }
              */
-            public static void CopyPhase$set(MemorySegment seg, int x) {
-                constants$812.const$4.set(seg, x);
+            public static void CopyPhase(MemorySegment struct, int fieldValue) {
+                struct.set(CopyPhase$LAYOUT, CopyPhase$OFFSET, fieldValue);
             }
-            public static int CopyPhase$get(MemorySegment seg, long index) {
-                return (int)constants$812.const$4.get(seg.asSlice(index*sizeof()));
+
+            private static final OfInt dwStreamNumber$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwStreamNumber"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
+             * }
+             */
+            public static final OfInt dwStreamNumber$layout() {
+                return dwStreamNumber$LAYOUT;
             }
-            public static void CopyPhase$set(MemorySegment seg, long index, int x) {
-                constants$812.const$4.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long dwStreamNumber$OFFSET = 4;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
+             * }
+             */
+            public static final long dwStreamNumber$offset() {
+                return dwStreamNumber$OFFSET;
             }
-            public static VarHandle dwStreamNumber$VH() {
-                return constants$812.const$5;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD dwStreamNumber;
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
              * }
              */
-            public static int dwStreamNumber$get(MemorySegment seg) {
-                return (int)constants$812.const$5.get(seg);
+            public static int dwStreamNumber(MemorySegment struct) {
+                return struct.get(dwStreamNumber$LAYOUT, dwStreamNumber$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD dwStreamNumber;
+             * {@snippet lang=c :
+             * DWORD dwStreamNumber
              * }
              */
-            public static void dwStreamNumber$set(MemorySegment seg, int x) {
-                constants$812.const$5.set(seg, x);
+            public static void dwStreamNumber(MemorySegment struct, int fieldValue) {
+                struct.set(dwStreamNumber$LAYOUT, dwStreamNumber$OFFSET, fieldValue);
             }
-            public static int dwStreamNumber$get(MemorySegment seg, long index) {
-                return (int)constants$812.const$5.get(seg.asSlice(index*sizeof()));
+
+            private static final OfInt hrFailure$LAYOUT = (OfInt)$LAYOUT.select(groupElement("hrFailure"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * HRESULT hrFailure
+             * }
+             */
+            public static final OfInt hrFailure$layout() {
+                return hrFailure$LAYOUT;
             }
-            public static void dwStreamNumber$set(MemorySegment seg, long index, int x) {
-                constants$812.const$5.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long hrFailure$OFFSET = 8;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * HRESULT hrFailure
+             * }
+             */
+            public static final long hrFailure$offset() {
+                return hrFailure$OFFSET;
             }
-            public static VarHandle hrFailure$VH() {
-                return constants$813.const$0;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * HRESULT hrFailure;
+             * {@snippet lang=c :
+             * HRESULT hrFailure
              * }
              */
-            public static int hrFailure$get(MemorySegment seg) {
-                return (int)constants$813.const$0.get(seg);
+            public static int hrFailure(MemorySegment struct) {
+                return struct.get(hrFailure$LAYOUT, hrFailure$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * HRESULT hrFailure;
+             * {@snippet lang=c :
+             * HRESULT hrFailure
              * }
              */
-            public static void hrFailure$set(MemorySegment seg, int x) {
-                constants$813.const$0.set(seg, x);
+            public static void hrFailure(MemorySegment struct, int fieldValue) {
+                struct.set(hrFailure$LAYOUT, hrFailure$OFFSET, fieldValue);
             }
-            public static int hrFailure$get(MemorySegment seg, long index) {
-                return (int)constants$813.const$0.get(seg.asSlice(index*sizeof()));
+
+            private static final OfInt dwReserved$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwReserved"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD dwReserved
+             * }
+             */
+            public static final OfInt dwReserved$layout() {
+                return dwReserved$LAYOUT;
             }
-            public static void hrFailure$set(MemorySegment seg, long index, int x) {
-                constants$813.const$0.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long dwReserved$OFFSET = 12;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD dwReserved
+             * }
+             */
+            public static final long dwReserved$offset() {
+                return dwReserved$OFFSET;
             }
-            public static VarHandle dwReserved$VH() {
-                return constants$813.const$1;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD dwReserved;
+             * {@snippet lang=c :
+             * DWORD dwReserved
              * }
              */
-            public static int dwReserved$get(MemorySegment seg) {
-                return (int)constants$813.const$1.get(seg);
+            public static int dwReserved(MemorySegment struct) {
+                return struct.get(dwReserved$LAYOUT, dwReserved$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD dwReserved;
+             * {@snippet lang=c :
+             * DWORD dwReserved
              * }
              */
-            public static void dwReserved$set(MemorySegment seg, int x) {
-                constants$813.const$1.set(seg, x);
+            public static void dwReserved(MemorySegment struct, int fieldValue) {
+                struct.set(dwReserved$LAYOUT, dwReserved$OFFSET, fieldValue);
             }
-            public static int dwReserved$get(MemorySegment seg, long index) {
-                return (int)constants$813.const$1.get(seg.asSlice(index*sizeof()));
+
+            private static final GroupLayout uliChunkNumber$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliChunkNumber"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkNumber
+             * }
+             */
+            public static final GroupLayout uliChunkNumber$layout() {
+                return uliChunkNumber$LAYOUT;
             }
-            public static void dwReserved$set(MemorySegment seg, long index, int x) {
-                constants$813.const$1.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long uliChunkNumber$OFFSET = 16;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkNumber
+             * }
+             */
+            public static final long uliChunkNumber$offset() {
+                return uliChunkNumber$OFFSET;
             }
-            public static MemorySegment uliChunkNumber$slice(MemorySegment seg) {
-                return seg.asSlice(16, 8);
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkNumber
+             * }
+             */
+            public static MemorySegment uliChunkNumber(MemorySegment struct) {
+                return struct.asSlice(uliChunkNumber$OFFSET, uliChunkNumber$LAYOUT.byteSize());
             }
-            public static MemorySegment uliStreamSize$slice(MemorySegment seg) {
-                return seg.asSlice(24, 8);
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliChunkNumber
+             * }
+             */
+            public static void uliChunkNumber(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliChunkNumber$OFFSET, uliChunkNumber$LAYOUT.byteSize());
             }
-            public static MemorySegment uliStreamBytesTransferred$slice(MemorySegment seg) {
-                return seg.asSlice(32, 8);
+
+            private static final GroupLayout uliStreamSize$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliStreamSize"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static final GroupLayout uliStreamSize$layout() {
+                return uliStreamSize$LAYOUT;
             }
-            public static MemorySegment uliTotalFileSize$slice(MemorySegment seg) {
-                return seg.asSlice(40, 8);
+
+            private static final long uliStreamSize$OFFSET = 24;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static final long uliStreamSize$offset() {
+                return uliStreamSize$OFFSET;
             }
-            public static MemorySegment uliTotalBytesTransferred$slice(MemorySegment seg) {
-                return seg.asSlice(48, 8);
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static MemorySegment uliStreamSize(MemorySegment struct) {
+                return struct.asSlice(uliStreamSize$OFFSET, uliStreamSize$LAYOUT.byteSize());
             }
-            public static long sizeof() { return $LAYOUT().byteSize(); }
-            public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-            public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-                return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamSize
+             * }
+             */
+            public static void uliStreamSize(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliStreamSize$OFFSET, uliStreamSize$LAYOUT.byteSize());
             }
-            public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+            private static final GroupLayout uliStreamBytesTransferred$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliStreamBytesTransferred"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamBytesTransferred
+             * }
+             */
+            public static final GroupLayout uliStreamBytesTransferred$layout() {
+                return uliStreamBytesTransferred$LAYOUT;
+            }
+
+            private static final long uliStreamBytesTransferred$OFFSET = 32;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamBytesTransferred
+             * }
+             */
+            public static final long uliStreamBytesTransferred$offset() {
+                return uliStreamBytesTransferred$OFFSET;
+            }
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamBytesTransferred
+             * }
+             */
+            public static MemorySegment uliStreamBytesTransferred(MemorySegment struct) {
+                return struct.asSlice(uliStreamBytesTransferred$OFFSET, uliStreamBytesTransferred$LAYOUT.byteSize());
+            }
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliStreamBytesTransferred
+             * }
+             */
+            public static void uliStreamBytesTransferred(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliStreamBytesTransferred$OFFSET, uliStreamBytesTransferred$LAYOUT.byteSize());
+            }
+
+            private static final GroupLayout uliTotalFileSize$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliTotalFileSize"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static final GroupLayout uliTotalFileSize$layout() {
+                return uliTotalFileSize$LAYOUT;
+            }
+
+            private static final long uliTotalFileSize$OFFSET = 40;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static final long uliTotalFileSize$offset() {
+                return uliTotalFileSize$OFFSET;
+            }
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static MemorySegment uliTotalFileSize(MemorySegment struct) {
+                return struct.asSlice(uliTotalFileSize$OFFSET, uliTotalFileSize$LAYOUT.byteSize());
+            }
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalFileSize
+             * }
+             */
+            public static void uliTotalFileSize(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliTotalFileSize$OFFSET, uliTotalFileSize$LAYOUT.byteSize());
+            }
+
+            private static final GroupLayout uliTotalBytesTransferred$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("uliTotalBytesTransferred"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalBytesTransferred
+             * }
+             */
+            public static final GroupLayout uliTotalBytesTransferred$layout() {
+                return uliTotalBytesTransferred$LAYOUT;
+            }
+
+            private static final long uliTotalBytesTransferred$OFFSET = 48;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalBytesTransferred
+             * }
+             */
+            public static final long uliTotalBytesTransferred$offset() {
+                return uliTotalBytesTransferred$OFFSET;
+            }
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalBytesTransferred
+             * }
+             */
+            public static MemorySegment uliTotalBytesTransferred(MemorySegment struct) {
+                return struct.asSlice(uliTotalBytesTransferred$OFFSET, uliTotalBytesTransferred$LAYOUT.byteSize());
+            }
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * ULARGE_INTEGER uliTotalBytesTransferred
+             * }
+             */
+            public static void uliTotalBytesTransferred(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, uliTotalBytesTransferred$OFFSET, uliTotalBytesTransferred$LAYOUT.byteSize());
+            }
+
+            /**
+             * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+             * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+             */
+            public static MemorySegment asSlice(MemorySegment array, long index) {
+                return array.asSlice(layout().byteSize() * index);
+            }
+
+            /**
+             * The size (in bytes) of this struct
+             */
+            public static long sizeof() { return layout().byteSize(); }
+
+            /**
+             * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+             */
+            public static MemorySegment allocate(SegmentAllocator allocator) {
+                return allocator.allocate(layout());
+            }
+
+            /**
+             * Allocate an array of size {@code elementCount} using {@code allocator}.
+             * The returned segment has size {@code elementCount * layout().byteSize()}.
+             */
+            public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+                return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+                return reinterpret(addr, 1, arena, cleanup);
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code elementCount * layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+                return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+            }
         }
 
-        public static MemorySegment Error$slice(MemorySegment seg) {
-            return seg.asSlice(0, 56);
+        private static final GroupLayout Error$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("Error"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * struct {
+         *     COPYFILE2_COPY_PHASE CopyPhase;
+         *     DWORD dwStreamNumber;
+         *     HRESULT hrFailure;
+         *     DWORD dwReserved;
+         *     ULARGE_INTEGER uliChunkNumber;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliStreamBytesTransferred;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         *     ULARGE_INTEGER uliTotalBytesTransferred;
+         * } Error
+         * }
+         */
+        public static final GroupLayout Error$layout() {
+            return Error$LAYOUT;
         }
-        public static long sizeof() { return $LAYOUT().byteSize(); }
-        public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-        public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-            return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+        private static final long Error$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * struct {
+         *     COPYFILE2_COPY_PHASE CopyPhase;
+         *     DWORD dwStreamNumber;
+         *     HRESULT hrFailure;
+         *     DWORD dwReserved;
+         *     ULARGE_INTEGER uliChunkNumber;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliStreamBytesTransferred;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         *     ULARGE_INTEGER uliTotalBytesTransferred;
+         * } Error
+         * }
+         */
+        public static final long Error$offset() {
+            return Error$OFFSET;
         }
-        public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     COPYFILE2_COPY_PHASE CopyPhase;
+         *     DWORD dwStreamNumber;
+         *     HRESULT hrFailure;
+         *     DWORD dwReserved;
+         *     ULARGE_INTEGER uliChunkNumber;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliStreamBytesTransferred;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         *     ULARGE_INTEGER uliTotalBytesTransferred;
+         * } Error
+         * }
+         */
+        public static MemorySegment Error(MemorySegment union) {
+            return union.asSlice(Error$OFFSET, Error$LAYOUT.byteSize());
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     COPYFILE2_COPY_PHASE CopyPhase;
+         *     DWORD dwStreamNumber;
+         *     HRESULT hrFailure;
+         *     DWORD dwReserved;
+         *     ULARGE_INTEGER uliChunkNumber;
+         *     ULARGE_INTEGER uliStreamSize;
+         *     ULARGE_INTEGER uliStreamBytesTransferred;
+         *     ULARGE_INTEGER uliTotalFileSize;
+         *     ULARGE_INTEGER uliTotalBytesTransferred;
+         * } Error
+         * }
+         */
+        public static void Error(MemorySegment union, MemorySegment fieldValue) {
+            MemorySegment.copy(fieldValue, 0L, union, Error$OFFSET, Error$LAYOUT.byteSize());
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this union
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
     }
 
-    public static MemorySegment Info$slice(MemorySegment seg) {
-        return seg.asSlice(8, 72);
+    private static final GroupLayout Info$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("Info"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliChunkSize;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *     } ChunkStarted;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwFlags;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliChunkSize;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } ChunkFinished;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *     } StreamStarted;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } StreamFinished;
+     *     struct {
+     *         DWORD dwReserved;
+     *     } PollContinue;
+     *     struct {
+     *         COPYFILE2_COPY_PHASE CopyPhase;
+     *         DWORD dwStreamNumber;
+     *         HRESULT hrFailure;
+     *         DWORD dwReserved;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } Error;
+     * } Info
+     * }
+     */
+    public static final GroupLayout Info$layout() {
+        return Info$LAYOUT;
     }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+    private static final long Info$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliChunkSize;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *     } ChunkStarted;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwFlags;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliChunkSize;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } ChunkFinished;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *     } StreamStarted;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } StreamFinished;
+     *     struct {
+     *         DWORD dwReserved;
+     *     } PollContinue;
+     *     struct {
+     *         COPYFILE2_COPY_PHASE CopyPhase;
+     *         DWORD dwStreamNumber;
+     *         HRESULT hrFailure;
+     *         DWORD dwReserved;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } Error;
+     * } Info
+     * }
+     */
+    public static final long Info$offset() {
+        return Info$OFFSET;
     }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliChunkSize;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *     } ChunkStarted;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwFlags;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliChunkSize;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } ChunkFinished;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *     } StreamStarted;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } StreamFinished;
+     *     struct {
+     *         DWORD dwReserved;
+     *     } PollContinue;
+     *     struct {
+     *         COPYFILE2_COPY_PHASE CopyPhase;
+     *         DWORD dwStreamNumber;
+     *         HRESULT hrFailure;
+     *         DWORD dwReserved;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } Error;
+     * } Info
+     * }
+     */
+    public static MemorySegment Info(MemorySegment struct) {
+        return struct.asSlice(Info$OFFSET, Info$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliChunkSize;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *     } ChunkStarted;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwFlags;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliChunkSize;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } ChunkFinished;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *     } StreamStarted;
+     *     struct {
+     *         DWORD dwStreamNumber;
+     *         DWORD dwReserved;
+     *         HANDLE hSourceFile;
+     *         HANDLE hDestinationFile;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } StreamFinished;
+     *     struct {
+     *         DWORD dwReserved;
+     *     } PollContinue;
+     *     struct {
+     *         COPYFILE2_COPY_PHASE CopyPhase;
+     *         DWORD dwStreamNumber;
+     *         HRESULT hrFailure;
+     *         DWORD dwReserved;
+     *         ULARGE_INTEGER uliChunkNumber;
+     *         ULARGE_INTEGER uliStreamSize;
+     *         ULARGE_INTEGER uliStreamBytesTransferred;
+     *         ULARGE_INTEGER uliTotalFileSize;
+     *         ULARGE_INTEGER uliTotalBytesTransferred;
+     *     } Error;
+     * } Info
+     * }
+     */
+    public static void Info(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, Info$OFFSET, Info$LAYOUT.byteSize());
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
 }
-
 

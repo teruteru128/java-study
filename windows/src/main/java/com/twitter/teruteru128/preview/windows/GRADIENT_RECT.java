@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _GRADIENT_RECT GRADIENT_RECT;
+ * {@snippet lang=c :
+ * typedef struct _GRADIENT_RECT {
+ *     ULONG UpperLeft;
+ *     ULONG LowerRight;
+ * } GRADIENT_RECT
  * }
  */
-public final class GRADIENT_RECT extends _GRADIENT_RECT {
+public class GRADIENT_RECT extends _GRADIENT_RECT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private GRADIENT_RECT() {}
+    GRADIENT_RECT() {
+        // Should not be called directly
+    }
 }
-
 

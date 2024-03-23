@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef union _FILE_SEGMENT_ELEMENT FILE_SEGMENT_ELEMENT;
+ * {@snippet lang=c :
+ * typedef union _FILE_SEGMENT_ELEMENT {
+ *     PVOID64 Buffer;
+ *     ULONGLONG Alignment;
+ * } FILE_SEGMENT_ELEMENT
  * }
  */
-public final class FILE_SEGMENT_ELEMENT extends _FILE_SEGMENT_ELEMENT {
+public class FILE_SEGMENT_ELEMENT extends _FILE_SEGMENT_ELEMENT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private FILE_SEGMENT_ELEMENT() {}
+    FILE_SEGMENT_ELEMENT() {
+        // Should not be called directly
+    }
 }
-
 

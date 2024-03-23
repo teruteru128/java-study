@@ -2,20 +2,42 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagCONVINFO CONVINFO;
+ * {@snippet lang=c :
+ * typedef struct tagCONVINFO {
+ *     DWORD cb;
+ *     DWORD_PTR hUser;
+ *     HCONV hConvPartner;
+ *     HSZ hszSvcPartner;
+ *     HSZ hszServiceReq;
+ *     HSZ hszTopic;
+ *     HSZ hszItem;
+ *     UINT wFmt;
+ *     UINT wType;
+ *     UINT wStatus;
+ *     UINT wConvst;
+ *     UINT wLastError;
+ *     HCONVLIST hConvList;
+ *     CONVCONTEXT ConvCtxt;
+ *     HWND hwnd;
+ *     HWND hwndPartner;
+ * } CONVINFO
  * }
  */
-public final class CONVINFO extends tagCONVINFO {
+public class CONVINFO extends tagCONVINFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CONVINFO() {}
+    CONVINFO() {
+        // Should not be called directly
+    }
 }
-
 

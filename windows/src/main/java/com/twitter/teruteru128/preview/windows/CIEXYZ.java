@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagCIEXYZ CIEXYZ;
+ * {@snippet lang=c :
+ * typedef struct tagCIEXYZ {
+ *     FXPT2DOT30 ciexyzX;
+ *     FXPT2DOT30 ciexyzY;
+ *     FXPT2DOT30 ciexyzZ;
+ * } CIEXYZ
  * }
  */
-public final class CIEXYZ extends tagCIEXYZ {
+public class CIEXYZ extends tagCIEXYZ {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CIEXYZ() {}
+    CIEXYZ() {
+        // Should not be called directly
+    }
 }
-
 

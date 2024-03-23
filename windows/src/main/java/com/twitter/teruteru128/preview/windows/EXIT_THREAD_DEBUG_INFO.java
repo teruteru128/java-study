@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _EXIT_THREAD_DEBUG_INFO EXIT_THREAD_DEBUG_INFO;
+ * {@snippet lang=c :
+ * typedef struct _EXIT_THREAD_DEBUG_INFO {
+ *     DWORD dwExitCode;
+ * } EXIT_THREAD_DEBUG_INFO
  * }
  */
-public final class EXIT_THREAD_DEBUG_INFO extends _EXIT_THREAD_DEBUG_INFO {
+public class EXIT_THREAD_DEBUG_INFO extends _EXIT_THREAD_DEBUG_INFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private EXIT_THREAD_DEBUG_INFO() {}
+    EXIT_THREAD_DEBUG_INFO() {
+        // Should not be called directly
+    }
 }
-
 

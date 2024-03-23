@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CERT_REGISTRY_STORE_ROAMING_PARA CERT_REGISTRY_STORE_ROAMING_PARA;
+ * {@snippet lang=c :
+ * typedef struct _CERT_REGISTRY_STORE_ROAMING_PARA {
+ *     HKEY hKey;
+ *     LPWSTR pwszStoreDirectory;
+ * } CERT_REGISTRY_STORE_ROAMING_PARA
  * }
  */
-public final class CERT_REGISTRY_STORE_ROAMING_PARA extends _CERT_REGISTRY_STORE_ROAMING_PARA {
+public class CERT_REGISTRY_STORE_ROAMING_PARA extends _CERT_REGISTRY_STORE_ROAMING_PARA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CERT_REGISTRY_STORE_ROAMING_PARA() {}
+    CERT_REGISTRY_STORE_ROAMING_PARA() {
+        // Should not be called directly
+    }
 }
-
 

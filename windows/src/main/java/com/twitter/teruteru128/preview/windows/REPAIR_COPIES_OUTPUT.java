@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _REPAIR_COPIES_OUTPUT REPAIR_COPIES_OUTPUT;
+ * {@snippet lang=c :
+ * typedef struct _REPAIR_COPIES_OUTPUT {
+ *     DWORD Size;
+ *     DWORD Status;
+ *     LARGE_INTEGER ResumeFileOffset;
+ * } REPAIR_COPIES_OUTPUT
  * }
  */
-public final class REPAIR_COPIES_OUTPUT extends _REPAIR_COPIES_OUTPUT {
+public class REPAIR_COPIES_OUTPUT extends _REPAIR_COPIES_OUTPUT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private REPAIR_COPIES_OUTPUT() {}
+    REPAIR_COPIES_OUTPUT() {
+        // Should not be called directly
+    }
 }
-
 

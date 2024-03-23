@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SERVICE_NOTIFY_2W SERVICE_NOTIFYW;
+ * {@snippet lang=c :
+ * typedef SERVICE_NOTIFY_2W SERVICE_NOTIFYW
  * }
  */
-public final class SERVICE_NOTIFYW extends _SERVICE_NOTIFY_2W {
+public class SERVICE_NOTIFYW extends _SERVICE_NOTIFY_2W {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SERVICE_NOTIFYW() {}
+    SERVICE_NOTIFYW() {
+        // Should not be called directly
+    }
 }
-
 

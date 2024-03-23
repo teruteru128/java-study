@@ -2,20 +2,33 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 DEVICE_DSM_ALLOCATION_OUTPUT2;
+ * {@snippet lang=c :
+ * typedef struct _DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 {
+ *     DWORD Size;
+ *     DWORD Version;
+ *     DWORDLONG SlabSizeInBytes;
+ *     DWORDLONG SlabOffsetDeltaInBytes;
+ *     DWORD SlabAllocationBitMapBitCount;
+ *     DWORD SlabAllocationBitMapLength;
+ *     DWORD SlabAllocationBitMap[1];
+ * } DEVICE_DSM_ALLOCATION_OUTPUT2
  * }
  */
-public final class DEVICE_DSM_ALLOCATION_OUTPUT2 extends _DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 {
+public class DEVICE_DSM_ALLOCATION_OUTPUT2 extends _DEVICE_DATA_SET_LB_PROVISIONING_STATE_V2 {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private DEVICE_DSM_ALLOCATION_OUTPUT2() {}
+    DEVICE_DSM_ALLOCATION_OUTPUT2() {
+        // Should not be called directly
+    }
 }
-
 

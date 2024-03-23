@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SMB_SHARE_FLUSH_AND_PURGE_OUTPUT SMB_SHARE_FLUSH_AND_PURGE_OUTPUT;
+ * {@snippet lang=c :
+ * typedef struct _SMB_SHARE_FLUSH_AND_PURGE_OUTPUT {
+ *     DWORD cEntriesPurged;
+ * } SMB_SHARE_FLUSH_AND_PURGE_OUTPUT
  * }
  */
-public final class SMB_SHARE_FLUSH_AND_PURGE_OUTPUT extends _SMB_SHARE_FLUSH_AND_PURGE_OUTPUT {
+public class SMB_SHARE_FLUSH_AND_PURGE_OUTPUT extends _SMB_SHARE_FLUSH_AND_PURGE_OUTPUT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SMB_SHARE_FLUSH_AND_PURGE_OUTPUT() {}
+    SMB_SHARE_FLUSH_AND_PURGE_OUTPUT() {
+        // Should not be called directly
+    }
 }
-
 

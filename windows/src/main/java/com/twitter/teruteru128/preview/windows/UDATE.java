@@ -2,60 +2,172 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct {
  *     SYSTEMTIME st;
  *     USHORT wDayOfYear;
- * };
+ * }
  * }
  */
 public class UDATE {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$4391.const$0;
+    UDATE() {
+        // Should not be called directly
     }
-    public static MemorySegment st$slice(MemorySegment seg) {
-        return seg.asSlice(0, 16);
+
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        _SYSTEMTIME.layout().withName("st"),
+        Windows_h.C_SHORT.withName("wDayOfYear")
+    ).withName("$anon$930:9");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
     }
-    public static VarHandle wDayOfYear$VH() {
-        return constants$4391.const$1;
+
+    private static final GroupLayout st$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("st"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SYSTEMTIME st
+     * }
+     */
+    public static final GroupLayout st$layout() {
+        return st$LAYOUT;
     }
+
+    private static final long st$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SYSTEMTIME st
+     * }
+     */
+    public static final long st$offset() {
+        return st$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * USHORT wDayOfYear;
+     * {@snippet lang=c :
+     * SYSTEMTIME st
      * }
      */
-    public static short wDayOfYear$get(MemorySegment seg) {
-        return (short)constants$4391.const$1.get(seg);
+    public static MemorySegment st(MemorySegment struct) {
+        return struct.asSlice(st$OFFSET, st$LAYOUT.byteSize());
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * USHORT wDayOfYear;
+     * {@snippet lang=c :
+     * SYSTEMTIME st
      * }
      */
-    public static void wDayOfYear$set(MemorySegment seg, short x) {
-        constants$4391.const$1.set(seg, x);
+    public static void st(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, st$OFFSET, st$LAYOUT.byteSize());
     }
-    public static short wDayOfYear$get(MemorySegment seg, long index) {
-        return (short)constants$4391.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wDayOfYear$set(MemorySegment seg, long index, short x) {
-        constants$4391.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final OfShort wDayOfYear$LAYOUT = (OfShort)$LAYOUT.select(groupElement("wDayOfYear"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * USHORT wDayOfYear
+     * }
+     */
+    public static final OfShort wDayOfYear$layout() {
+        return wDayOfYear$LAYOUT;
+    }
+
+    private static final long wDayOfYear$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * USHORT wDayOfYear
+     * }
+     */
+    public static final long wDayOfYear$offset() {
+        return wDayOfYear$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * USHORT wDayOfYear
+     * }
+     */
+    public static short wDayOfYear(MemorySegment struct) {
+        return struct.get(wDayOfYear$LAYOUT, wDayOfYear$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * USHORT wDayOfYear
+     * }
+     */
+    public static void wDayOfYear(MemorySegment struct, short fieldValue) {
+        struct.set(wDayOfYear$LAYOUT, wDayOfYear$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

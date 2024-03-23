@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _cpinfo CPINFO;
+ * {@snippet lang=c :
+ * typedef struct _cpinfo {
+ *     UINT MaxCharSize;
+ *     BYTE DefaultChar[2];
+ *     BYTE LeadByte[12];
+ * } CPINFO
  * }
  */
-public final class CPINFO extends _cpinfo {
+public class CPINFO extends _cpinfo {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CPINFO() {}
+    CPINFO() {
+        // Should not be called directly
+    }
 }
-
 

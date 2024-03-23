@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _UUID_VECTOR UUID_VECTOR;
+ * {@snippet lang=c :
+ * typedef struct _UUID_VECTOR {
+ *     unsigned long Count;
+ *     UUID *Uuid[1];
+ * } UUID_VECTOR
  * }
  */
-public final class UUID_VECTOR extends _UUID_VECTOR {
+public class UUID_VECTOR extends _UUID_VECTOR {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private UUID_VECTOR() {}
+    UUID_VECTOR() {
+        // Should not be called directly
+    }
 }
-
 

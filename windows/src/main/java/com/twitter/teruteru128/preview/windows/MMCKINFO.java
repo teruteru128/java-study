@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _MMCKINFO MMCKINFO;
+ * {@snippet lang=c :
+ * typedef struct _MMCKINFO {
+ *     FOURCC ckid;
+ *     DWORD cksize;
+ *     FOURCC fccType;
+ *     DWORD dwDataOffset;
+ *     DWORD dwFlags;
+ * } MMCKINFO
  * }
  */
-public final class MMCKINFO extends _MMCKINFO {
+public class MMCKINFO extends _MMCKINFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MMCKINFO() {}
+    MMCKINFO() {
+        // Should not be called directly
+    }
 }
-
 

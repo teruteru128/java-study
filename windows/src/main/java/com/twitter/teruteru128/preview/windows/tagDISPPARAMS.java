@@ -2,140 +2,264 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagDISPPARAMS {
- *     VARIANTARG* rgvarg;
- *     DISPID* rgdispidNamedArgs;
+ *     VARIANTARG *rgvarg;
+ *     DISPID *rgdispidNamedArgs;
  *     UINT cArgs;
  *     UINT cNamedArgs;
- * };
+ * }
  * }
  */
 public class tagDISPPARAMS {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$3437.const$5;
+    tagDISPPARAMS() {
+        // Should not be called directly
     }
-    public static VarHandle rgvarg$VH() {
-        return constants$3438.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * VARIANTARG* rgvarg;
-     * }
-     */
-    public static MemorySegment rgvarg$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3438.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * VARIANTARG* rgvarg;
-     * }
-     */
-    public static void rgvarg$set(MemorySegment seg, MemorySegment x) {
-        constants$3438.const$0.set(seg, x);
-    }
-    public static MemorySegment rgvarg$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3438.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void rgvarg$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3438.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle rgdispidNamedArgs$VH() {
-        return constants$3438.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DISPID* rgdispidNamedArgs;
-     * }
-     */
-    public static MemorySegment rgdispidNamedArgs$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3438.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DISPID* rgdispidNamedArgs;
-     * }
-     */
-    public static void rgdispidNamedArgs$set(MemorySegment seg, MemorySegment x) {
-        constants$3438.const$1.set(seg, x);
-    }
-    public static MemorySegment rgdispidNamedArgs$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3438.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void rgdispidNamedArgs$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3438.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cArgs$VH() {
-        return constants$3438.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * UINT cArgs;
-     * }
-     */
-    public static int cArgs$get(MemorySegment seg) {
-        return (int)constants$3438.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * UINT cArgs;
-     * }
-     */
-    public static void cArgs$set(MemorySegment seg, int x) {
-        constants$3438.const$2.set(seg, x);
-    }
-    public static int cArgs$get(MemorySegment seg, long index) {
-        return (int)constants$3438.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cArgs$set(MemorySegment seg, long index, int x) {
-        constants$3438.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cNamedArgs$VH() {
-        return constants$3438.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * UINT cNamedArgs;
-     * }
-     */
-    public static int cNamedArgs$get(MemorySegment seg) {
-        return (int)constants$3438.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * UINT cNamedArgs;
-     * }
-     */
-    public static void cNamedArgs$set(MemorySegment seg, int x) {
-        constants$3438.const$3.set(seg, x);
-    }
-    public static int cNamedArgs$get(MemorySegment seg, long index) {
-        return (int)constants$3438.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cNamedArgs$set(MemorySegment seg, long index, int x) {
-        constants$3438.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("rgvarg"),
+        Windows_h.C_POINTER.withName("rgdispidNamedArgs"),
+        Windows_h.C_INT.withName("cArgs"),
+        Windows_h.C_INT.withName("cNamedArgs")
+    ).withName("tagDISPPARAMS");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final AddressLayout rgvarg$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("rgvarg"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * VARIANTARG *rgvarg
+     * }
+     */
+    public static final AddressLayout rgvarg$layout() {
+        return rgvarg$LAYOUT;
+    }
+
+    private static final long rgvarg$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * VARIANTARG *rgvarg
+     * }
+     */
+    public static final long rgvarg$offset() {
+        return rgvarg$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * VARIANTARG *rgvarg
+     * }
+     */
+    public static MemorySegment rgvarg(MemorySegment struct) {
+        return struct.get(rgvarg$LAYOUT, rgvarg$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * VARIANTARG *rgvarg
+     * }
+     */
+    public static void rgvarg(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(rgvarg$LAYOUT, rgvarg$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout rgdispidNamedArgs$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("rgdispidNamedArgs"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DISPID *rgdispidNamedArgs
+     * }
+     */
+    public static final AddressLayout rgdispidNamedArgs$layout() {
+        return rgdispidNamedArgs$LAYOUT;
+    }
+
+    private static final long rgdispidNamedArgs$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DISPID *rgdispidNamedArgs
+     * }
+     */
+    public static final long rgdispidNamedArgs$offset() {
+        return rgdispidNamedArgs$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DISPID *rgdispidNamedArgs
+     * }
+     */
+    public static MemorySegment rgdispidNamedArgs(MemorySegment struct) {
+        return struct.get(rgdispidNamedArgs$LAYOUT, rgdispidNamedArgs$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DISPID *rgdispidNamedArgs
+     * }
+     */
+    public static void rgdispidNamedArgs(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(rgdispidNamedArgs$LAYOUT, rgdispidNamedArgs$OFFSET, fieldValue);
+    }
+
+    private static final OfInt cArgs$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cArgs"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * UINT cArgs
+     * }
+     */
+    public static final OfInt cArgs$layout() {
+        return cArgs$LAYOUT;
+    }
+
+    private static final long cArgs$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * UINT cArgs
+     * }
+     */
+    public static final long cArgs$offset() {
+        return cArgs$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * UINT cArgs
+     * }
+     */
+    public static int cArgs(MemorySegment struct) {
+        return struct.get(cArgs$LAYOUT, cArgs$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * UINT cArgs
+     * }
+     */
+    public static void cArgs(MemorySegment struct, int fieldValue) {
+        struct.set(cArgs$LAYOUT, cArgs$OFFSET, fieldValue);
+    }
+
+    private static final OfInt cNamedArgs$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cNamedArgs"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * UINT cNamedArgs
+     * }
+     */
+    public static final OfInt cNamedArgs$layout() {
+        return cNamedArgs$LAYOUT;
+    }
+
+    private static final long cNamedArgs$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * UINT cNamedArgs
+     * }
+     */
+    public static final long cNamedArgs$offset() {
+        return cNamedArgs$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * UINT cNamedArgs
+     * }
+     */
+    public static int cNamedArgs(MemorySegment struct) {
+        return struct.get(cNamedArgs$LAYOUT, cNamedArgs$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * UINT cNamedArgs
+     * }
+     */
+    public static void cNamedArgs(MemorySegment struct, int fieldValue) {
+        struct.set(cNamedArgs$LAYOUT, cNamedArgs$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

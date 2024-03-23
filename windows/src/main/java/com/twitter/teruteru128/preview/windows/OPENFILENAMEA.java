@@ -2,20 +2,49 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagOFNA OPENFILENAMEA;
+ * {@snippet lang=c :
+ * typedef struct tagOFNA {
+ *     DWORD lStructSize;
+ *     HWND hwndOwner;
+ *     HINSTANCE hInstance;
+ *     LPCSTR lpstrFilter;
+ *     LPSTR lpstrCustomFilter;
+ *     DWORD nMaxCustFilter;
+ *     DWORD nFilterIndex;
+ *     LPSTR lpstrFile;
+ *     DWORD nMaxFile;
+ *     LPSTR lpstrFileTitle;
+ *     DWORD nMaxFileTitle;
+ *     LPCSTR lpstrInitialDir;
+ *     LPCSTR lpstrTitle;
+ *     DWORD Flags;
+ *     WORD nFileOffset;
+ *     WORD nFileExtension;
+ *     LPCSTR lpstrDefExt;
+ *     LPARAM lCustData;
+ *     LPOFNHOOKPROC lpfnHook;
+ *     LPCSTR lpTemplateName;
+ *     void *pvReserved;
+ *     DWORD dwReserved;
+ *     DWORD FlagsEx;
+ * } OPENFILENAMEA
  * }
  */
-public final class OPENFILENAMEA extends tagOFNA {
+public class OPENFILENAMEA extends tagOFNA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private OPENFILENAMEA() {}
+    OPENFILENAMEA() {
+        // Should not be called directly
+    }
 }
-
 

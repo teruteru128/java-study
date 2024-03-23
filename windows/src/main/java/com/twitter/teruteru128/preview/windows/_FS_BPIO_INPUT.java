@@ -2,140 +2,264 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _FS_BPIO_INPUT {
  *     FS_BPIO_OPERATIONS Operation;
  *     FS_BPIO_INFLAGS InFlags;
  *     DWORDLONG Reserved1;
  *     DWORDLONG Reserved2;
- * };
+ * }
  * }
  */
 public class _FS_BPIO_INPUT {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2738.const$2;
+    _FS_BPIO_INPUT() {
+        // Should not be called directly
     }
-    public static VarHandle Operation$VH() {
-        return constants$2738.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * FS_BPIO_OPERATIONS Operation;
-     * }
-     */
-    public static int Operation$get(MemorySegment seg) {
-        return (int)constants$2738.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * FS_BPIO_OPERATIONS Operation;
-     * }
-     */
-    public static void Operation$set(MemorySegment seg, int x) {
-        constants$2738.const$3.set(seg, x);
-    }
-    public static int Operation$get(MemorySegment seg, long index) {
-        return (int)constants$2738.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Operation$set(MemorySegment seg, long index, int x) {
-        constants$2738.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle InFlags$VH() {
-        return constants$2738.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * FS_BPIO_INFLAGS InFlags;
-     * }
-     */
-    public static int InFlags$get(MemorySegment seg) {
-        return (int)constants$2738.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * FS_BPIO_INFLAGS InFlags;
-     * }
-     */
-    public static void InFlags$set(MemorySegment seg, int x) {
-        constants$2738.const$4.set(seg, x);
-    }
-    public static int InFlags$get(MemorySegment seg, long index) {
-        return (int)constants$2738.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void InFlags$set(MemorySegment seg, long index, int x) {
-        constants$2738.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Reserved1$VH() {
-        return constants$2738.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORDLONG Reserved1;
-     * }
-     */
-    public static long Reserved1$get(MemorySegment seg) {
-        return (long)constants$2738.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORDLONG Reserved1;
-     * }
-     */
-    public static void Reserved1$set(MemorySegment seg, long x) {
-        constants$2738.const$5.set(seg, x);
-    }
-    public static long Reserved1$get(MemorySegment seg, long index) {
-        return (long)constants$2738.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Reserved1$set(MemorySegment seg, long index, long x) {
-        constants$2738.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Reserved2$VH() {
-        return constants$2739.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORDLONG Reserved2;
-     * }
-     */
-    public static long Reserved2$get(MemorySegment seg) {
-        return (long)constants$2739.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORDLONG Reserved2;
-     * }
-     */
-    public static void Reserved2$set(MemorySegment seg, long x) {
-        constants$2739.const$0.set(seg, x);
-    }
-    public static long Reserved2$get(MemorySegment seg, long index) {
-        return (long)constants$2739.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Reserved2$set(MemorySegment seg, long index, long x) {
-        constants$2739.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_INT.withName("Operation"),
+        Windows_h.C_INT.withName("InFlags"),
+        Windows_h.C_LONG_LONG.withName("Reserved1"),
+        Windows_h.C_LONG_LONG.withName("Reserved2")
+    ).withName("_FS_BPIO_INPUT");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt Operation$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Operation"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * FS_BPIO_OPERATIONS Operation
+     * }
+     */
+    public static final OfInt Operation$layout() {
+        return Operation$LAYOUT;
+    }
+
+    private static final long Operation$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * FS_BPIO_OPERATIONS Operation
+     * }
+     */
+    public static final long Operation$offset() {
+        return Operation$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * FS_BPIO_OPERATIONS Operation
+     * }
+     */
+    public static int Operation(MemorySegment struct) {
+        return struct.get(Operation$LAYOUT, Operation$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * FS_BPIO_OPERATIONS Operation
+     * }
+     */
+    public static void Operation(MemorySegment struct, int fieldValue) {
+        struct.set(Operation$LAYOUT, Operation$OFFSET, fieldValue);
+    }
+
+    private static final OfInt InFlags$LAYOUT = (OfInt)$LAYOUT.select(groupElement("InFlags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * FS_BPIO_INFLAGS InFlags
+     * }
+     */
+    public static final OfInt InFlags$layout() {
+        return InFlags$LAYOUT;
+    }
+
+    private static final long InFlags$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * FS_BPIO_INFLAGS InFlags
+     * }
+     */
+    public static final long InFlags$offset() {
+        return InFlags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * FS_BPIO_INFLAGS InFlags
+     * }
+     */
+    public static int InFlags(MemorySegment struct) {
+        return struct.get(InFlags$LAYOUT, InFlags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * FS_BPIO_INFLAGS InFlags
+     * }
+     */
+    public static void InFlags(MemorySegment struct, int fieldValue) {
+        struct.set(InFlags$LAYOUT, InFlags$OFFSET, fieldValue);
+    }
+
+    private static final OfLong Reserved1$LAYOUT = (OfLong)$LAYOUT.select(groupElement("Reserved1"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORDLONG Reserved1
+     * }
+     */
+    public static final OfLong Reserved1$layout() {
+        return Reserved1$LAYOUT;
+    }
+
+    private static final long Reserved1$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORDLONG Reserved1
+     * }
+     */
+    public static final long Reserved1$offset() {
+        return Reserved1$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORDLONG Reserved1
+     * }
+     */
+    public static long Reserved1(MemorySegment struct) {
+        return struct.get(Reserved1$LAYOUT, Reserved1$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORDLONG Reserved1
+     * }
+     */
+    public static void Reserved1(MemorySegment struct, long fieldValue) {
+        struct.set(Reserved1$LAYOUT, Reserved1$OFFSET, fieldValue);
+    }
+
+    private static final OfLong Reserved2$LAYOUT = (OfLong)$LAYOUT.select(groupElement("Reserved2"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORDLONG Reserved2
+     * }
+     */
+    public static final OfLong Reserved2$layout() {
+        return Reserved2$LAYOUT;
+    }
+
+    private static final long Reserved2$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORDLONG Reserved2
+     * }
+     */
+    public static final long Reserved2$offset() {
+        return Reserved2$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORDLONG Reserved2
+     * }
+     */
+    public static long Reserved2(MemorySegment struct) {
+        return struct.get(Reserved2$LAYOUT, Reserved2$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORDLONG Reserved2
+     * }
+     */
+    public static void Reserved2(MemorySegment struct, long fieldValue) {
+        struct.set(Reserved2$LAYOUT, Reserved2$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

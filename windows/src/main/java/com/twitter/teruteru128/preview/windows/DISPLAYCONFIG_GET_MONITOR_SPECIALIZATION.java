@@ -2,20 +2,36 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION;
+ * {@snippet lang=c :
+ * typedef struct _DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION {
+ *     DISPLAYCONFIG_DEVICE_INFO_HEADER header;
+ *     union {
+ *         struct {
+ *             UINT32 isSpecializationEnabled : 1;
+ *             UINT32 isSpecializationAvailableForMonitor : 1;
+ *             UINT32 isSpecializationAvailableForSystem : 1;
+ *             UINT32 reserved : 29;
+ *         };
+ *         UINT32 value;
+ *     };
+ * } DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION
  * }
  */
-public final class DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION extends _DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION {
+public class DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION extends _DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION() {}
+    DISPLAYCONFIG_GET_MONITOR_SPECIALIZATION() {
+        // Should not be called directly
+    }
 }
-
 

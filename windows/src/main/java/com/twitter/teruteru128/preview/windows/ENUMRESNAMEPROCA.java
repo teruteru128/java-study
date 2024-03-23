@@ -2,32 +2,70 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*ENUMRESNAMEPROCA)(struct HINSTANCE__* hModule,char* lpType,char* lpName,long long lParam);
+ * {@snippet lang=c :
+ * typedef BOOL (*ENUMRESNAMEPROCA)(HMODULE, LPCSTR, LPSTR, LONG_PTR) __attribute__((stdcall))
  * }
  */
-public interface ENUMRESNAMEPROCA {
+public class ENUMRESNAMEPROCA {
 
-    int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1, java.lang.foreign.MemorySegment _x2, long _x3);
-    static MemorySegment allocate(ENUMRESNAMEPROCA fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$707.const$5, fi, constants$707.const$4, scope);
+    ENUMRESNAMEPROCA() {
+        // Should not be called directly
     }
-    static ENUMRESNAMEPROCA ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1, java.lang.foreign.MemorySegment __x2, long __x3) -> {
-            try {
-                return (int)constants$708.const$0.invokeExact(symbol, __x0, __x1, __x2, __x3);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment hModule, MemorySegment lpType, MemorySegment lpName, long lParam);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG_LONG
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(ENUMRESNAMEPROCA.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(ENUMRESNAMEPROCA.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment hModule, MemorySegment lpType, MemorySegment lpName, long lParam) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, hModule, lpType, lpName, lParam);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

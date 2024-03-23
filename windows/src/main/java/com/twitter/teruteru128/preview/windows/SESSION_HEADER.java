@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SESSION_HEADER SESSION_HEADER;
+ * {@snippet lang=c :
+ * typedef struct _SESSION_HEADER {
+ *     UCHAR sess_name;
+ *     UCHAR num_sess;
+ *     UCHAR rcv_dg_outstanding;
+ *     UCHAR rcv_any_outstanding;
+ * } SESSION_HEADER
  * }
  */
-public final class SESSION_HEADER extends _SESSION_HEADER {
+public class SESSION_HEADER extends _SESSION_HEADER {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SESSION_HEADER() {}
+    SESSION_HEADER() {
+        // Should not be called directly
+    }
 }
-
 

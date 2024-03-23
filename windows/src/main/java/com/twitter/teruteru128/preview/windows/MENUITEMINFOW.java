@@ -2,20 +2,38 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMENUITEMINFOW MENUITEMINFOW;
+ * {@snippet lang=c :
+ * typedef struct tagMENUITEMINFOW {
+ *     UINT cbSize;
+ *     UINT fMask;
+ *     UINT fType;
+ *     UINT fState;
+ *     UINT wID;
+ *     HMENU hSubMenu;
+ *     HBITMAP hbmpChecked;
+ *     HBITMAP hbmpUnchecked;
+ *     ULONG_PTR dwItemData;
+ *     LPWSTR dwTypeData;
+ *     UINT cch;
+ *     HBITMAP hbmpItem;
+ * } MENUITEMINFOW
  * }
  */
-public final class MENUITEMINFOW extends tagMENUITEMINFOW {
+public class MENUITEMINFOW extends tagMENUITEMINFOW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MENUITEMINFOW() {}
+    MENUITEMINFOW() {
+        // Should not be called directly
+    }
 }
-
 

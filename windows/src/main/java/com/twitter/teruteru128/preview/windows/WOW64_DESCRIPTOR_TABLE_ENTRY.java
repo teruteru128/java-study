@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _WOW64_DESCRIPTOR_TABLE_ENTRY WOW64_DESCRIPTOR_TABLE_ENTRY;
+ * {@snippet lang=c :
+ * typedef struct _WOW64_DESCRIPTOR_TABLE_ENTRY {
+ *     DWORD Selector;
+ *     WOW64_LDT_ENTRY Descriptor;
+ * } WOW64_DESCRIPTOR_TABLE_ENTRY
  * }
  */
-public final class WOW64_DESCRIPTOR_TABLE_ENTRY extends _WOW64_DESCRIPTOR_TABLE_ENTRY {
+public class WOW64_DESCRIPTOR_TABLE_ENTRY extends _WOW64_DESCRIPTOR_TABLE_ENTRY {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private WOW64_DESCRIPTOR_TABLE_ENTRY() {}
+    WOW64_DESCRIPTOR_TABLE_ENTRY() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _SCM_PD_FIRMWARE_INFO {
  *     DWORD Version;
  *     DWORD Size;
@@ -16,158 +21,375 @@ import static java.lang.foreign.ValueLayout.*;
  *     BYTE NextActiveSlot;
  *     BYTE SlotCount;
  *     SCM_PD_FIRMWARE_SLOT_INFO Slots[1];
- * };
+ * }
  * }
  */
 public class _SCM_PD_FIRMWARE_INFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2522.const$1;
+    _SCM_PD_FIRMWARE_INFO() {
+        // Should not be called directly
     }
-    public static VarHandle Version$VH() {
-        return constants$2522.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Version;
-     * }
-     */
-    public static int Version$get(MemorySegment seg) {
-        return (int)constants$2522.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Version;
-     * }
-     */
-    public static void Version$set(MemorySegment seg, int x) {
-        constants$2522.const$2.set(seg, x);
-    }
-    public static int Version$get(MemorySegment seg, long index) {
-        return (int)constants$2522.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Version$set(MemorySegment seg, long index, int x) {
-        constants$2522.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Size$VH() {
-        return constants$2522.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Size;
-     * }
-     */
-    public static int Size$get(MemorySegment seg) {
-        return (int)constants$2522.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Size;
-     * }
-     */
-    public static void Size$set(MemorySegment seg, int x) {
-        constants$2522.const$3.set(seg, x);
-    }
-    public static int Size$get(MemorySegment seg, long index) {
-        return (int)constants$2522.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Size$set(MemorySegment seg, long index, int x) {
-        constants$2522.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ActiveSlot$VH() {
-        return constants$2522.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE ActiveSlot;
-     * }
-     */
-    public static byte ActiveSlot$get(MemorySegment seg) {
-        return (byte)constants$2522.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE ActiveSlot;
-     * }
-     */
-    public static void ActiveSlot$set(MemorySegment seg, byte x) {
-        constants$2522.const$4.set(seg, x);
-    }
-    public static byte ActiveSlot$get(MemorySegment seg, long index) {
-        return (byte)constants$2522.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ActiveSlot$set(MemorySegment seg, long index, byte x) {
-        constants$2522.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle NextActiveSlot$VH() {
-        return constants$2522.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE NextActiveSlot;
-     * }
-     */
-    public static byte NextActiveSlot$get(MemorySegment seg) {
-        return (byte)constants$2522.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE NextActiveSlot;
-     * }
-     */
-    public static void NextActiveSlot$set(MemorySegment seg, byte x) {
-        constants$2522.const$5.set(seg, x);
-    }
-    public static byte NextActiveSlot$get(MemorySegment seg, long index) {
-        return (byte)constants$2522.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void NextActiveSlot$set(MemorySegment seg, long index, byte x) {
-        constants$2522.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle SlotCount$VH() {
-        return constants$2523.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE SlotCount;
-     * }
-     */
-    public static byte SlotCount$get(MemorySegment seg) {
-        return (byte)constants$2523.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE SlotCount;
-     * }
-     */
-    public static void SlotCount$set(MemorySegment seg, byte x) {
-        constants$2523.const$0.set(seg, x);
-    }
-    public static byte SlotCount$get(MemorySegment seg, long index) {
-        return (byte)constants$2523.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SlotCount$set(MemorySegment seg, long index, byte x) {
-        constants$2523.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment Slots$slice(MemorySegment seg) {
-        return seg.asSlice(12, 48);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("Version"),
+        Windows_h.C_LONG.withName("Size"),
+        Windows_h.C_CHAR.withName("ActiveSlot"),
+        Windows_h.C_CHAR.withName("NextActiveSlot"),
+        Windows_h.C_CHAR.withName("SlotCount"),
+        MemoryLayout.paddingLayout(1),
+        MemoryLayout.sequenceLayout(1, _SCM_PD_FIRMWARE_SLOT_INFO.layout()).withName("Slots")
+    ).withName("_SCM_PD_FIRMWARE_INFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt Version$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Version"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static final OfInt Version$layout() {
+        return Version$LAYOUT;
+    }
+
+    private static final long Version$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static final long Version$offset() {
+        return Version$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static int Version(MemorySegment struct) {
+        return struct.get(Version$LAYOUT, Version$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static void Version(MemorySegment struct, int fieldValue) {
+        struct.set(Version$LAYOUT, Version$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Size$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Size"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static final OfInt Size$layout() {
+        return Size$LAYOUT;
+    }
+
+    private static final long Size$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static final long Size$offset() {
+        return Size$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static int Size(MemorySegment struct) {
+        return struct.get(Size$LAYOUT, Size$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static void Size(MemorySegment struct, int fieldValue) {
+        struct.set(Size$LAYOUT, Size$OFFSET, fieldValue);
+    }
+
+    private static final OfByte ActiveSlot$LAYOUT = (OfByte)$LAYOUT.select(groupElement("ActiveSlot"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE ActiveSlot
+     * }
+     */
+    public static final OfByte ActiveSlot$layout() {
+        return ActiveSlot$LAYOUT;
+    }
+
+    private static final long ActiveSlot$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE ActiveSlot
+     * }
+     */
+    public static final long ActiveSlot$offset() {
+        return ActiveSlot$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE ActiveSlot
+     * }
+     */
+    public static byte ActiveSlot(MemorySegment struct) {
+        return struct.get(ActiveSlot$LAYOUT, ActiveSlot$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE ActiveSlot
+     * }
+     */
+    public static void ActiveSlot(MemorySegment struct, byte fieldValue) {
+        struct.set(ActiveSlot$LAYOUT, ActiveSlot$OFFSET, fieldValue);
+    }
+
+    private static final OfByte NextActiveSlot$LAYOUT = (OfByte)$LAYOUT.select(groupElement("NextActiveSlot"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE NextActiveSlot
+     * }
+     */
+    public static final OfByte NextActiveSlot$layout() {
+        return NextActiveSlot$LAYOUT;
+    }
+
+    private static final long NextActiveSlot$OFFSET = 9;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE NextActiveSlot
+     * }
+     */
+    public static final long NextActiveSlot$offset() {
+        return NextActiveSlot$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE NextActiveSlot
+     * }
+     */
+    public static byte NextActiveSlot(MemorySegment struct) {
+        return struct.get(NextActiveSlot$LAYOUT, NextActiveSlot$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE NextActiveSlot
+     * }
+     */
+    public static void NextActiveSlot(MemorySegment struct, byte fieldValue) {
+        struct.set(NextActiveSlot$LAYOUT, NextActiveSlot$OFFSET, fieldValue);
+    }
+
+    private static final OfByte SlotCount$LAYOUT = (OfByte)$LAYOUT.select(groupElement("SlotCount"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE SlotCount
+     * }
+     */
+    public static final OfByte SlotCount$layout() {
+        return SlotCount$LAYOUT;
+    }
+
+    private static final long SlotCount$OFFSET = 10;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE SlotCount
+     * }
+     */
+    public static final long SlotCount$offset() {
+        return SlotCount$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE SlotCount
+     * }
+     */
+    public static byte SlotCount(MemorySegment struct) {
+        return struct.get(SlotCount$LAYOUT, SlotCount$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE SlotCount
+     * }
+     */
+    public static void SlotCount(MemorySegment struct, byte fieldValue) {
+        struct.set(SlotCount$LAYOUT, SlotCount$OFFSET, fieldValue);
+    }
+
+    private static final SequenceLayout Slots$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("Slots"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SCM_PD_FIRMWARE_SLOT_INFO Slots[1]
+     * }
+     */
+    public static final SequenceLayout Slots$layout() {
+        return Slots$LAYOUT;
+    }
+
+    private static final long Slots$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SCM_PD_FIRMWARE_SLOT_INFO Slots[1]
+     * }
+     */
+    public static final long Slots$offset() {
+        return Slots$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SCM_PD_FIRMWARE_SLOT_INFO Slots[1]
+     * }
+     */
+    public static MemorySegment Slots(MemorySegment struct) {
+        return struct.asSlice(Slots$OFFSET, Slots$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SCM_PD_FIRMWARE_SLOT_INFO Slots[1]
+     * }
+     */
+    public static void Slots(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, Slots$OFFSET, Slots$LAYOUT.byteSize());
+    }
+
+    private static long[] Slots$DIMS = { 1 };
+
+    /**
+     * Dimensions for array field:
+     * {@snippet lang=c :
+     * SCM_PD_FIRMWARE_SLOT_INFO Slots[1]
+     * }
+     */
+    public static long[] Slots$dimensions() {
+        return Slots$DIMS;
+    }
+    private static final MethodHandle Slots$ELEM_HANDLE = Slots$LAYOUT.sliceHandle(sequenceElement());
+
+    /**
+     * Indexed getter for field:
+     * {@snippet lang=c :
+     * SCM_PD_FIRMWARE_SLOT_INFO Slots[1]
+     * }
+     */
+    public static MemorySegment Slots(MemorySegment struct, long index0) {
+        try {
+            return (MemorySegment)Slots$ELEM_HANDLE.invokeExact(struct, 0L, index0);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    /**
+     * Indexed setter for field:
+     * {@snippet lang=c :
+     * SCM_PD_FIRMWARE_SLOT_INFO Slots[1]
+     * }
+     */
+    public static void Slots(MemorySegment struct, long index0, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, Slots(struct, index0), 0L, _SCM_PD_FIRMWARE_SLOT_INFO.layout().byteSize());
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _DISK_RECORD {
  *     LARGE_INTEGER ByteOffset;
  *     LARGE_INTEGER StartTime;
@@ -17,137 +22,383 @@ import static java.lang.foreign.ValueLayout.*;
  *     DWORD NumberOfBytes;
  *     BYTE DeviceNumber;
  *     BOOLEAN ReadRequest;
- * };
+ * }
  * }
  */
 public class _DISK_RECORD {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2553.const$2;
+    _DISK_RECORD() {
+        // Should not be called directly
     }
-    public static MemorySegment ByteOffset$slice(MemorySegment seg) {
-        return seg.asSlice(0, 8);
-    }
-    public static MemorySegment StartTime$slice(MemorySegment seg) {
-        return seg.asSlice(8, 8);
-    }
-    public static MemorySegment EndTime$slice(MemorySegment seg) {
-        return seg.asSlice(16, 8);
-    }
-    public static VarHandle VirtualAddress$VH() {
-        return constants$2553.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PVOID VirtualAddress;
-     * }
-     */
-    public static MemorySegment VirtualAddress$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2553.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PVOID VirtualAddress;
-     * }
-     */
-    public static void VirtualAddress$set(MemorySegment seg, MemorySegment x) {
-        constants$2553.const$3.set(seg, x);
-    }
-    public static MemorySegment VirtualAddress$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2553.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void VirtualAddress$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2553.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle NumberOfBytes$VH() {
-        return constants$2553.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD NumberOfBytes;
-     * }
-     */
-    public static int NumberOfBytes$get(MemorySegment seg) {
-        return (int)constants$2553.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD NumberOfBytes;
-     * }
-     */
-    public static void NumberOfBytes$set(MemorySegment seg, int x) {
-        constants$2553.const$4.set(seg, x);
-    }
-    public static int NumberOfBytes$get(MemorySegment seg, long index) {
-        return (int)constants$2553.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void NumberOfBytes$set(MemorySegment seg, long index, int x) {
-        constants$2553.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle DeviceNumber$VH() {
-        return constants$2553.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE DeviceNumber;
-     * }
-     */
-    public static byte DeviceNumber$get(MemorySegment seg) {
-        return (byte)constants$2553.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE DeviceNumber;
-     * }
-     */
-    public static void DeviceNumber$set(MemorySegment seg, byte x) {
-        constants$2553.const$5.set(seg, x);
-    }
-    public static byte DeviceNumber$get(MemorySegment seg, long index) {
-        return (byte)constants$2553.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void DeviceNumber$set(MemorySegment seg, long index, byte x) {
-        constants$2553.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ReadRequest$VH() {
-        return constants$2554.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BOOLEAN ReadRequest;
-     * }
-     */
-    public static byte ReadRequest$get(MemorySegment seg) {
-        return (byte)constants$2554.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BOOLEAN ReadRequest;
-     * }
-     */
-    public static void ReadRequest$set(MemorySegment seg, byte x) {
-        constants$2554.const$0.set(seg, x);
-    }
-    public static byte ReadRequest$get(MemorySegment seg, long index) {
-        return (byte)constants$2554.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ReadRequest$set(MemorySegment seg, long index, byte x) {
-        constants$2554.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        _LARGE_INTEGER.layout().withName("ByteOffset"),
+        _LARGE_INTEGER.layout().withName("StartTime"),
+        _LARGE_INTEGER.layout().withName("EndTime"),
+        Windows_h.C_POINTER.withName("VirtualAddress"),
+        Windows_h.C_LONG.withName("NumberOfBytes"),
+        Windows_h.C_CHAR.withName("DeviceNumber"),
+        Windows_h.C_CHAR.withName("ReadRequest"),
+        MemoryLayout.paddingLayout(2)
+    ).withName("_DISK_RECORD");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final GroupLayout ByteOffset$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("ByteOffset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LARGE_INTEGER ByteOffset
+     * }
+     */
+    public static final GroupLayout ByteOffset$layout() {
+        return ByteOffset$LAYOUT;
+    }
+
+    private static final long ByteOffset$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LARGE_INTEGER ByteOffset
+     * }
+     */
+    public static final long ByteOffset$offset() {
+        return ByteOffset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LARGE_INTEGER ByteOffset
+     * }
+     */
+    public static MemorySegment ByteOffset(MemorySegment struct) {
+        return struct.asSlice(ByteOffset$OFFSET, ByteOffset$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LARGE_INTEGER ByteOffset
+     * }
+     */
+    public static void ByteOffset(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, ByteOffset$OFFSET, ByteOffset$LAYOUT.byteSize());
+    }
+
+    private static final GroupLayout StartTime$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("StartTime"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LARGE_INTEGER StartTime
+     * }
+     */
+    public static final GroupLayout StartTime$layout() {
+        return StartTime$LAYOUT;
+    }
+
+    private static final long StartTime$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LARGE_INTEGER StartTime
+     * }
+     */
+    public static final long StartTime$offset() {
+        return StartTime$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LARGE_INTEGER StartTime
+     * }
+     */
+    public static MemorySegment StartTime(MemorySegment struct) {
+        return struct.asSlice(StartTime$OFFSET, StartTime$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LARGE_INTEGER StartTime
+     * }
+     */
+    public static void StartTime(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, StartTime$OFFSET, StartTime$LAYOUT.byteSize());
+    }
+
+    private static final GroupLayout EndTime$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("EndTime"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LARGE_INTEGER EndTime
+     * }
+     */
+    public static final GroupLayout EndTime$layout() {
+        return EndTime$LAYOUT;
+    }
+
+    private static final long EndTime$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LARGE_INTEGER EndTime
+     * }
+     */
+    public static final long EndTime$offset() {
+        return EndTime$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LARGE_INTEGER EndTime
+     * }
+     */
+    public static MemorySegment EndTime(MemorySegment struct) {
+        return struct.asSlice(EndTime$OFFSET, EndTime$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LARGE_INTEGER EndTime
+     * }
+     */
+    public static void EndTime(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, EndTime$OFFSET, EndTime$LAYOUT.byteSize());
+    }
+
+    private static final AddressLayout VirtualAddress$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("VirtualAddress"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PVOID VirtualAddress
+     * }
+     */
+    public static final AddressLayout VirtualAddress$layout() {
+        return VirtualAddress$LAYOUT;
+    }
+
+    private static final long VirtualAddress$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PVOID VirtualAddress
+     * }
+     */
+    public static final long VirtualAddress$offset() {
+        return VirtualAddress$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PVOID VirtualAddress
+     * }
+     */
+    public static MemorySegment VirtualAddress(MemorySegment struct) {
+        return struct.get(VirtualAddress$LAYOUT, VirtualAddress$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PVOID VirtualAddress
+     * }
+     */
+    public static void VirtualAddress(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(VirtualAddress$LAYOUT, VirtualAddress$OFFSET, fieldValue);
+    }
+
+    private static final OfInt NumberOfBytes$LAYOUT = (OfInt)$LAYOUT.select(groupElement("NumberOfBytes"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD NumberOfBytes
+     * }
+     */
+    public static final OfInt NumberOfBytes$layout() {
+        return NumberOfBytes$LAYOUT;
+    }
+
+    private static final long NumberOfBytes$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD NumberOfBytes
+     * }
+     */
+    public static final long NumberOfBytes$offset() {
+        return NumberOfBytes$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD NumberOfBytes
+     * }
+     */
+    public static int NumberOfBytes(MemorySegment struct) {
+        return struct.get(NumberOfBytes$LAYOUT, NumberOfBytes$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD NumberOfBytes
+     * }
+     */
+    public static void NumberOfBytes(MemorySegment struct, int fieldValue) {
+        struct.set(NumberOfBytes$LAYOUT, NumberOfBytes$OFFSET, fieldValue);
+    }
+
+    private static final OfByte DeviceNumber$LAYOUT = (OfByte)$LAYOUT.select(groupElement("DeviceNumber"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE DeviceNumber
+     * }
+     */
+    public static final OfByte DeviceNumber$layout() {
+        return DeviceNumber$LAYOUT;
+    }
+
+    private static final long DeviceNumber$OFFSET = 36;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE DeviceNumber
+     * }
+     */
+    public static final long DeviceNumber$offset() {
+        return DeviceNumber$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE DeviceNumber
+     * }
+     */
+    public static byte DeviceNumber(MemorySegment struct) {
+        return struct.get(DeviceNumber$LAYOUT, DeviceNumber$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE DeviceNumber
+     * }
+     */
+    public static void DeviceNumber(MemorySegment struct, byte fieldValue) {
+        struct.set(DeviceNumber$LAYOUT, DeviceNumber$OFFSET, fieldValue);
+    }
+
+    private static final OfByte ReadRequest$LAYOUT = (OfByte)$LAYOUT.select(groupElement("ReadRequest"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BOOLEAN ReadRequest
+     * }
+     */
+    public static final OfByte ReadRequest$layout() {
+        return ReadRequest$LAYOUT;
+    }
+
+    private static final long ReadRequest$OFFSET = 37;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BOOLEAN ReadRequest
+     * }
+     */
+    public static final long ReadRequest$offset() {
+        return ReadRequest$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BOOLEAN ReadRequest
+     * }
+     */
+    public static byte ReadRequest(MemorySegment struct) {
+        return struct.get(ReadRequest$LAYOUT, ReadRequest$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BOOLEAN ReadRequest
+     * }
+     */
+    public static void ReadRequest(MemorySegment struct, byte fieldValue) {
+        struct.set(ReadRequest$LAYOUT, ReadRequest$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

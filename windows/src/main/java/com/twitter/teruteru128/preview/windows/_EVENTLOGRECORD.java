@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _EVENTLOGRECORD {
  *     DWORD Length;
  *     DWORD Reserved;
@@ -26,452 +31,787 @@ import static java.lang.foreign.ValueLayout.*;
  *     DWORD UserSidOffset;
  *     DWORD DataLength;
  *     DWORD DataOffset;
- * };
+ * }
  * }
  */
 public class _EVENTLOGRECORD {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$509.const$3;
+    _EVENTLOGRECORD() {
+        // Should not be called directly
     }
-    public static VarHandle Length$VH() {
-        return constants$509.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Length;
-     * }
-     */
-    public static int Length$get(MemorySegment seg) {
-        return (int)constants$509.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Length;
-     * }
-     */
-    public static void Length$set(MemorySegment seg, int x) {
-        constants$509.const$4.set(seg, x);
-    }
-    public static int Length$get(MemorySegment seg, long index) {
-        return (int)constants$509.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Length$set(MemorySegment seg, long index, int x) {
-        constants$509.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Reserved$VH() {
-        return constants$509.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Reserved;
-     * }
-     */
-    public static int Reserved$get(MemorySegment seg) {
-        return (int)constants$509.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Reserved;
-     * }
-     */
-    public static void Reserved$set(MemorySegment seg, int x) {
-        constants$509.const$5.set(seg, x);
-    }
-    public static int Reserved$get(MemorySegment seg, long index) {
-        return (int)constants$509.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Reserved$set(MemorySegment seg, long index, int x) {
-        constants$509.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle RecordNumber$VH() {
-        return constants$510.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD RecordNumber;
-     * }
-     */
-    public static int RecordNumber$get(MemorySegment seg) {
-        return (int)constants$510.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD RecordNumber;
-     * }
-     */
-    public static void RecordNumber$set(MemorySegment seg, int x) {
-        constants$510.const$0.set(seg, x);
-    }
-    public static int RecordNumber$get(MemorySegment seg, long index) {
-        return (int)constants$510.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void RecordNumber$set(MemorySegment seg, long index, int x) {
-        constants$510.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle TimeGenerated$VH() {
-        return constants$510.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD TimeGenerated;
-     * }
-     */
-    public static int TimeGenerated$get(MemorySegment seg) {
-        return (int)constants$510.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD TimeGenerated;
-     * }
-     */
-    public static void TimeGenerated$set(MemorySegment seg, int x) {
-        constants$510.const$1.set(seg, x);
-    }
-    public static int TimeGenerated$get(MemorySegment seg, long index) {
-        return (int)constants$510.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void TimeGenerated$set(MemorySegment seg, long index, int x) {
-        constants$510.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle TimeWritten$VH() {
-        return constants$510.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD TimeWritten;
-     * }
-     */
-    public static int TimeWritten$get(MemorySegment seg) {
-        return (int)constants$510.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD TimeWritten;
-     * }
-     */
-    public static void TimeWritten$set(MemorySegment seg, int x) {
-        constants$510.const$2.set(seg, x);
-    }
-    public static int TimeWritten$get(MemorySegment seg, long index) {
-        return (int)constants$510.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void TimeWritten$set(MemorySegment seg, long index, int x) {
-        constants$510.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle EventID$VH() {
-        return constants$510.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD EventID;
-     * }
-     */
-    public static int EventID$get(MemorySegment seg) {
-        return (int)constants$510.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD EventID;
-     * }
-     */
-    public static void EventID$set(MemorySegment seg, int x) {
-        constants$510.const$3.set(seg, x);
-    }
-    public static int EventID$get(MemorySegment seg, long index) {
-        return (int)constants$510.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void EventID$set(MemorySegment seg, long index, int x) {
-        constants$510.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle EventType$VH() {
-        return constants$510.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD EventType;
-     * }
-     */
-    public static short EventType$get(MemorySegment seg) {
-        return (short)constants$510.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD EventType;
-     * }
-     */
-    public static void EventType$set(MemorySegment seg, short x) {
-        constants$510.const$4.set(seg, x);
-    }
-    public static short EventType$get(MemorySegment seg, long index) {
-        return (short)constants$510.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void EventType$set(MemorySegment seg, long index, short x) {
-        constants$510.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle NumStrings$VH() {
-        return constants$510.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD NumStrings;
-     * }
-     */
-    public static short NumStrings$get(MemorySegment seg) {
-        return (short)constants$510.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD NumStrings;
-     * }
-     */
-    public static void NumStrings$set(MemorySegment seg, short x) {
-        constants$510.const$5.set(seg, x);
-    }
-    public static short NumStrings$get(MemorySegment seg, long index) {
-        return (short)constants$510.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void NumStrings$set(MemorySegment seg, long index, short x) {
-        constants$510.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle EventCategory$VH() {
-        return constants$511.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD EventCategory;
-     * }
-     */
-    public static short EventCategory$get(MemorySegment seg) {
-        return (short)constants$511.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD EventCategory;
-     * }
-     */
-    public static void EventCategory$set(MemorySegment seg, short x) {
-        constants$511.const$0.set(seg, x);
-    }
-    public static short EventCategory$get(MemorySegment seg, long index) {
-        return (short)constants$511.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void EventCategory$set(MemorySegment seg, long index, short x) {
-        constants$511.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ReservedFlags$VH() {
-        return constants$511.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD ReservedFlags;
-     * }
-     */
-    public static short ReservedFlags$get(MemorySegment seg) {
-        return (short)constants$511.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD ReservedFlags;
-     * }
-     */
-    public static void ReservedFlags$set(MemorySegment seg, short x) {
-        constants$511.const$1.set(seg, x);
-    }
-    public static short ReservedFlags$get(MemorySegment seg, long index) {
-        return (short)constants$511.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ReservedFlags$set(MemorySegment seg, long index, short x) {
-        constants$511.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ClosingRecordNumber$VH() {
-        return constants$511.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ClosingRecordNumber;
-     * }
-     */
-    public static int ClosingRecordNumber$get(MemorySegment seg) {
-        return (int)constants$511.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ClosingRecordNumber;
-     * }
-     */
-    public static void ClosingRecordNumber$set(MemorySegment seg, int x) {
-        constants$511.const$2.set(seg, x);
-    }
-    public static int ClosingRecordNumber$get(MemorySegment seg, long index) {
-        return (int)constants$511.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ClosingRecordNumber$set(MemorySegment seg, long index, int x) {
-        constants$511.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle StringOffset$VH() {
-        return constants$511.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD StringOffset;
-     * }
-     */
-    public static int StringOffset$get(MemorySegment seg) {
-        return (int)constants$511.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD StringOffset;
-     * }
-     */
-    public static void StringOffset$set(MemorySegment seg, int x) {
-        constants$511.const$3.set(seg, x);
-    }
-    public static int StringOffset$get(MemorySegment seg, long index) {
-        return (int)constants$511.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void StringOffset$set(MemorySegment seg, long index, int x) {
-        constants$511.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle UserSidLength$VH() {
-        return constants$511.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD UserSidLength;
-     * }
-     */
-    public static int UserSidLength$get(MemorySegment seg) {
-        return (int)constants$511.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD UserSidLength;
-     * }
-     */
-    public static void UserSidLength$set(MemorySegment seg, int x) {
-        constants$511.const$4.set(seg, x);
-    }
-    public static int UserSidLength$get(MemorySegment seg, long index) {
-        return (int)constants$511.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void UserSidLength$set(MemorySegment seg, long index, int x) {
-        constants$511.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle UserSidOffset$VH() {
-        return constants$511.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD UserSidOffset;
-     * }
-     */
-    public static int UserSidOffset$get(MemorySegment seg) {
-        return (int)constants$511.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD UserSidOffset;
-     * }
-     */
-    public static void UserSidOffset$set(MemorySegment seg, int x) {
-        constants$511.const$5.set(seg, x);
-    }
-    public static int UserSidOffset$get(MemorySegment seg, long index) {
-        return (int)constants$511.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void UserSidOffset$set(MemorySegment seg, long index, int x) {
-        constants$511.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle DataLength$VH() {
-        return constants$512.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD DataLength;
-     * }
-     */
-    public static int DataLength$get(MemorySegment seg) {
-        return (int)constants$512.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD DataLength;
-     * }
-     */
-    public static void DataLength$set(MemorySegment seg, int x) {
-        constants$512.const$0.set(seg, x);
-    }
-    public static int DataLength$get(MemorySegment seg, long index) {
-        return (int)constants$512.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void DataLength$set(MemorySegment seg, long index, int x) {
-        constants$512.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle DataOffset$VH() {
-        return constants$512.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD DataOffset;
-     * }
-     */
-    public static int DataOffset$get(MemorySegment seg) {
-        return (int)constants$512.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD DataOffset;
-     * }
-     */
-    public static void DataOffset$set(MemorySegment seg, int x) {
-        constants$512.const$1.set(seg, x);
-    }
-    public static int DataOffset$get(MemorySegment seg, long index) {
-        return (int)constants$512.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void DataOffset$set(MemorySegment seg, long index, int x) {
-        constants$512.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("Length"),
+        Windows_h.C_LONG.withName("Reserved"),
+        Windows_h.C_LONG.withName("RecordNumber"),
+        Windows_h.C_LONG.withName("TimeGenerated"),
+        Windows_h.C_LONG.withName("TimeWritten"),
+        Windows_h.C_LONG.withName("EventID"),
+        Windows_h.C_SHORT.withName("EventType"),
+        Windows_h.C_SHORT.withName("NumStrings"),
+        Windows_h.C_SHORT.withName("EventCategory"),
+        Windows_h.C_SHORT.withName("ReservedFlags"),
+        Windows_h.C_LONG.withName("ClosingRecordNumber"),
+        Windows_h.C_LONG.withName("StringOffset"),
+        Windows_h.C_LONG.withName("UserSidLength"),
+        Windows_h.C_LONG.withName("UserSidOffset"),
+        Windows_h.C_LONG.withName("DataLength"),
+        Windows_h.C_LONG.withName("DataOffset")
+    ).withName("_EVENTLOGRECORD");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt Length$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Length"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Length
+     * }
+     */
+    public static final OfInt Length$layout() {
+        return Length$LAYOUT;
+    }
+
+    private static final long Length$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Length
+     * }
+     */
+    public static final long Length$offset() {
+        return Length$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Length
+     * }
+     */
+    public static int Length(MemorySegment struct) {
+        return struct.get(Length$LAYOUT, Length$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Length
+     * }
+     */
+    public static void Length(MemorySegment struct, int fieldValue) {
+        struct.set(Length$LAYOUT, Length$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Reserved$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Reserved"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Reserved
+     * }
+     */
+    public static final OfInt Reserved$layout() {
+        return Reserved$LAYOUT;
+    }
+
+    private static final long Reserved$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Reserved
+     * }
+     */
+    public static final long Reserved$offset() {
+        return Reserved$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Reserved
+     * }
+     */
+    public static int Reserved(MemorySegment struct) {
+        return struct.get(Reserved$LAYOUT, Reserved$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Reserved
+     * }
+     */
+    public static void Reserved(MemorySegment struct, int fieldValue) {
+        struct.set(Reserved$LAYOUT, Reserved$OFFSET, fieldValue);
+    }
+
+    private static final OfInt RecordNumber$LAYOUT = (OfInt)$LAYOUT.select(groupElement("RecordNumber"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD RecordNumber
+     * }
+     */
+    public static final OfInt RecordNumber$layout() {
+        return RecordNumber$LAYOUT;
+    }
+
+    private static final long RecordNumber$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD RecordNumber
+     * }
+     */
+    public static final long RecordNumber$offset() {
+        return RecordNumber$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD RecordNumber
+     * }
+     */
+    public static int RecordNumber(MemorySegment struct) {
+        return struct.get(RecordNumber$LAYOUT, RecordNumber$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD RecordNumber
+     * }
+     */
+    public static void RecordNumber(MemorySegment struct, int fieldValue) {
+        struct.set(RecordNumber$LAYOUT, RecordNumber$OFFSET, fieldValue);
+    }
+
+    private static final OfInt TimeGenerated$LAYOUT = (OfInt)$LAYOUT.select(groupElement("TimeGenerated"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD TimeGenerated
+     * }
+     */
+    public static final OfInt TimeGenerated$layout() {
+        return TimeGenerated$LAYOUT;
+    }
+
+    private static final long TimeGenerated$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD TimeGenerated
+     * }
+     */
+    public static final long TimeGenerated$offset() {
+        return TimeGenerated$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD TimeGenerated
+     * }
+     */
+    public static int TimeGenerated(MemorySegment struct) {
+        return struct.get(TimeGenerated$LAYOUT, TimeGenerated$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD TimeGenerated
+     * }
+     */
+    public static void TimeGenerated(MemorySegment struct, int fieldValue) {
+        struct.set(TimeGenerated$LAYOUT, TimeGenerated$OFFSET, fieldValue);
+    }
+
+    private static final OfInt TimeWritten$LAYOUT = (OfInt)$LAYOUT.select(groupElement("TimeWritten"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD TimeWritten
+     * }
+     */
+    public static final OfInt TimeWritten$layout() {
+        return TimeWritten$LAYOUT;
+    }
+
+    private static final long TimeWritten$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD TimeWritten
+     * }
+     */
+    public static final long TimeWritten$offset() {
+        return TimeWritten$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD TimeWritten
+     * }
+     */
+    public static int TimeWritten(MemorySegment struct) {
+        return struct.get(TimeWritten$LAYOUT, TimeWritten$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD TimeWritten
+     * }
+     */
+    public static void TimeWritten(MemorySegment struct, int fieldValue) {
+        struct.set(TimeWritten$LAYOUT, TimeWritten$OFFSET, fieldValue);
+    }
+
+    private static final OfInt EventID$LAYOUT = (OfInt)$LAYOUT.select(groupElement("EventID"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD EventID
+     * }
+     */
+    public static final OfInt EventID$layout() {
+        return EventID$LAYOUT;
+    }
+
+    private static final long EventID$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD EventID
+     * }
+     */
+    public static final long EventID$offset() {
+        return EventID$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD EventID
+     * }
+     */
+    public static int EventID(MemorySegment struct) {
+        return struct.get(EventID$LAYOUT, EventID$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD EventID
+     * }
+     */
+    public static void EventID(MemorySegment struct, int fieldValue) {
+        struct.set(EventID$LAYOUT, EventID$OFFSET, fieldValue);
+    }
+
+    private static final OfShort EventType$LAYOUT = (OfShort)$LAYOUT.select(groupElement("EventType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD EventType
+     * }
+     */
+    public static final OfShort EventType$layout() {
+        return EventType$LAYOUT;
+    }
+
+    private static final long EventType$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD EventType
+     * }
+     */
+    public static final long EventType$offset() {
+        return EventType$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD EventType
+     * }
+     */
+    public static short EventType(MemorySegment struct) {
+        return struct.get(EventType$LAYOUT, EventType$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD EventType
+     * }
+     */
+    public static void EventType(MemorySegment struct, short fieldValue) {
+        struct.set(EventType$LAYOUT, EventType$OFFSET, fieldValue);
+    }
+
+    private static final OfShort NumStrings$LAYOUT = (OfShort)$LAYOUT.select(groupElement("NumStrings"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD NumStrings
+     * }
+     */
+    public static final OfShort NumStrings$layout() {
+        return NumStrings$LAYOUT;
+    }
+
+    private static final long NumStrings$OFFSET = 26;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD NumStrings
+     * }
+     */
+    public static final long NumStrings$offset() {
+        return NumStrings$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD NumStrings
+     * }
+     */
+    public static short NumStrings(MemorySegment struct) {
+        return struct.get(NumStrings$LAYOUT, NumStrings$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD NumStrings
+     * }
+     */
+    public static void NumStrings(MemorySegment struct, short fieldValue) {
+        struct.set(NumStrings$LAYOUT, NumStrings$OFFSET, fieldValue);
+    }
+
+    private static final OfShort EventCategory$LAYOUT = (OfShort)$LAYOUT.select(groupElement("EventCategory"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD EventCategory
+     * }
+     */
+    public static final OfShort EventCategory$layout() {
+        return EventCategory$LAYOUT;
+    }
+
+    private static final long EventCategory$OFFSET = 28;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD EventCategory
+     * }
+     */
+    public static final long EventCategory$offset() {
+        return EventCategory$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD EventCategory
+     * }
+     */
+    public static short EventCategory(MemorySegment struct) {
+        return struct.get(EventCategory$LAYOUT, EventCategory$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD EventCategory
+     * }
+     */
+    public static void EventCategory(MemorySegment struct, short fieldValue) {
+        struct.set(EventCategory$LAYOUT, EventCategory$OFFSET, fieldValue);
+    }
+
+    private static final OfShort ReservedFlags$LAYOUT = (OfShort)$LAYOUT.select(groupElement("ReservedFlags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD ReservedFlags
+     * }
+     */
+    public static final OfShort ReservedFlags$layout() {
+        return ReservedFlags$LAYOUT;
+    }
+
+    private static final long ReservedFlags$OFFSET = 30;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD ReservedFlags
+     * }
+     */
+    public static final long ReservedFlags$offset() {
+        return ReservedFlags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD ReservedFlags
+     * }
+     */
+    public static short ReservedFlags(MemorySegment struct) {
+        return struct.get(ReservedFlags$LAYOUT, ReservedFlags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD ReservedFlags
+     * }
+     */
+    public static void ReservedFlags(MemorySegment struct, short fieldValue) {
+        struct.set(ReservedFlags$LAYOUT, ReservedFlags$OFFSET, fieldValue);
+    }
+
+    private static final OfInt ClosingRecordNumber$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ClosingRecordNumber"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ClosingRecordNumber
+     * }
+     */
+    public static final OfInt ClosingRecordNumber$layout() {
+        return ClosingRecordNumber$LAYOUT;
+    }
+
+    private static final long ClosingRecordNumber$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ClosingRecordNumber
+     * }
+     */
+    public static final long ClosingRecordNumber$offset() {
+        return ClosingRecordNumber$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ClosingRecordNumber
+     * }
+     */
+    public static int ClosingRecordNumber(MemorySegment struct) {
+        return struct.get(ClosingRecordNumber$LAYOUT, ClosingRecordNumber$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ClosingRecordNumber
+     * }
+     */
+    public static void ClosingRecordNumber(MemorySegment struct, int fieldValue) {
+        struct.set(ClosingRecordNumber$LAYOUT, ClosingRecordNumber$OFFSET, fieldValue);
+    }
+
+    private static final OfInt StringOffset$LAYOUT = (OfInt)$LAYOUT.select(groupElement("StringOffset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD StringOffset
+     * }
+     */
+    public static final OfInt StringOffset$layout() {
+        return StringOffset$LAYOUT;
+    }
+
+    private static final long StringOffset$OFFSET = 36;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD StringOffset
+     * }
+     */
+    public static final long StringOffset$offset() {
+        return StringOffset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD StringOffset
+     * }
+     */
+    public static int StringOffset(MemorySegment struct) {
+        return struct.get(StringOffset$LAYOUT, StringOffset$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD StringOffset
+     * }
+     */
+    public static void StringOffset(MemorySegment struct, int fieldValue) {
+        struct.set(StringOffset$LAYOUT, StringOffset$OFFSET, fieldValue);
+    }
+
+    private static final OfInt UserSidLength$LAYOUT = (OfInt)$LAYOUT.select(groupElement("UserSidLength"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD UserSidLength
+     * }
+     */
+    public static final OfInt UserSidLength$layout() {
+        return UserSidLength$LAYOUT;
+    }
+
+    private static final long UserSidLength$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD UserSidLength
+     * }
+     */
+    public static final long UserSidLength$offset() {
+        return UserSidLength$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD UserSidLength
+     * }
+     */
+    public static int UserSidLength(MemorySegment struct) {
+        return struct.get(UserSidLength$LAYOUT, UserSidLength$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD UserSidLength
+     * }
+     */
+    public static void UserSidLength(MemorySegment struct, int fieldValue) {
+        struct.set(UserSidLength$LAYOUT, UserSidLength$OFFSET, fieldValue);
+    }
+
+    private static final OfInt UserSidOffset$LAYOUT = (OfInt)$LAYOUT.select(groupElement("UserSidOffset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD UserSidOffset
+     * }
+     */
+    public static final OfInt UserSidOffset$layout() {
+        return UserSidOffset$LAYOUT;
+    }
+
+    private static final long UserSidOffset$OFFSET = 44;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD UserSidOffset
+     * }
+     */
+    public static final long UserSidOffset$offset() {
+        return UserSidOffset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD UserSidOffset
+     * }
+     */
+    public static int UserSidOffset(MemorySegment struct) {
+        return struct.get(UserSidOffset$LAYOUT, UserSidOffset$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD UserSidOffset
+     * }
+     */
+    public static void UserSidOffset(MemorySegment struct, int fieldValue) {
+        struct.set(UserSidOffset$LAYOUT, UserSidOffset$OFFSET, fieldValue);
+    }
+
+    private static final OfInt DataLength$LAYOUT = (OfInt)$LAYOUT.select(groupElement("DataLength"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD DataLength
+     * }
+     */
+    public static final OfInt DataLength$layout() {
+        return DataLength$LAYOUT;
+    }
+
+    private static final long DataLength$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD DataLength
+     * }
+     */
+    public static final long DataLength$offset() {
+        return DataLength$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD DataLength
+     * }
+     */
+    public static int DataLength(MemorySegment struct) {
+        return struct.get(DataLength$LAYOUT, DataLength$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD DataLength
+     * }
+     */
+    public static void DataLength(MemorySegment struct, int fieldValue) {
+        struct.set(DataLength$LAYOUT, DataLength$OFFSET, fieldValue);
+    }
+
+    private static final OfInt DataOffset$LAYOUT = (OfInt)$LAYOUT.select(groupElement("DataOffset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD DataOffset
+     * }
+     */
+    public static final OfInt DataOffset$layout() {
+        return DataOffset$LAYOUT;
+    }
+
+    private static final long DataOffset$OFFSET = 52;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD DataOffset
+     * }
+     */
+    public static final long DataOffset$offset() {
+        return DataOffset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD DataOffset
+     * }
+     */
+    public static int DataOffset(MemorySegment struct) {
+        return struct.get(DataOffset$LAYOUT, DataOffset$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD DataOffset
+     * }
+     */
+    public static void DataOffset(MemorySegment struct, int fieldValue) {
+        struct.set(DataOffset$LAYOUT, DataOffset$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

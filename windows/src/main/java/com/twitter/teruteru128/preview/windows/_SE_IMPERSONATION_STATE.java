@@ -2,140 +2,265 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _SE_IMPERSONATION_STATE {
  *     PACCESS_TOKEN Token;
  *     BOOLEAN CopyOnOpen;
  *     BOOLEAN EffectiveOnly;
  *     SECURITY_IMPERSONATION_LEVEL Level;
- * };
+ * }
  * }
  */
 public class _SE_IMPERSONATION_STATE {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$181.const$1;
+    _SE_IMPERSONATION_STATE() {
+        // Should not be called directly
     }
-    public static VarHandle Token$VH() {
-        return constants$181.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PACCESS_TOKEN Token;
-     * }
-     */
-    public static MemorySegment Token$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$181.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PACCESS_TOKEN Token;
-     * }
-     */
-    public static void Token$set(MemorySegment seg, MemorySegment x) {
-        constants$181.const$2.set(seg, x);
-    }
-    public static MemorySegment Token$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$181.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Token$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$181.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle CopyOnOpen$VH() {
-        return constants$181.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BOOLEAN CopyOnOpen;
-     * }
-     */
-    public static byte CopyOnOpen$get(MemorySegment seg) {
-        return (byte)constants$181.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BOOLEAN CopyOnOpen;
-     * }
-     */
-    public static void CopyOnOpen$set(MemorySegment seg, byte x) {
-        constants$181.const$3.set(seg, x);
-    }
-    public static byte CopyOnOpen$get(MemorySegment seg, long index) {
-        return (byte)constants$181.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void CopyOnOpen$set(MemorySegment seg, long index, byte x) {
-        constants$181.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle EffectiveOnly$VH() {
-        return constants$181.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BOOLEAN EffectiveOnly;
-     * }
-     */
-    public static byte EffectiveOnly$get(MemorySegment seg) {
-        return (byte)constants$181.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BOOLEAN EffectiveOnly;
-     * }
-     */
-    public static void EffectiveOnly$set(MemorySegment seg, byte x) {
-        constants$181.const$4.set(seg, x);
-    }
-    public static byte EffectiveOnly$get(MemorySegment seg, long index) {
-        return (byte)constants$181.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void EffectiveOnly$set(MemorySegment seg, long index, byte x) {
-        constants$181.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Level$VH() {
-        return constants$181.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * SECURITY_IMPERSONATION_LEVEL Level;
-     * }
-     */
-    public static int Level$get(MemorySegment seg) {
-        return (int)constants$181.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * SECURITY_IMPERSONATION_LEVEL Level;
-     * }
-     */
-    public static void Level$set(MemorySegment seg, int x) {
-        constants$181.const$5.set(seg, x);
-    }
-    public static int Level$get(MemorySegment seg, long index) {
-        return (int)constants$181.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Level$set(MemorySegment seg, long index, int x) {
-        constants$181.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("Token"),
+        Windows_h.C_CHAR.withName("CopyOnOpen"),
+        Windows_h.C_CHAR.withName("EffectiveOnly"),
+        MemoryLayout.paddingLayout(2),
+        Windows_h.C_INT.withName("Level")
+    ).withName("_SE_IMPERSONATION_STATE");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final AddressLayout Token$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("Token"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PACCESS_TOKEN Token
+     * }
+     */
+    public static final AddressLayout Token$layout() {
+        return Token$LAYOUT;
+    }
+
+    private static final long Token$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PACCESS_TOKEN Token
+     * }
+     */
+    public static final long Token$offset() {
+        return Token$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PACCESS_TOKEN Token
+     * }
+     */
+    public static MemorySegment Token(MemorySegment struct) {
+        return struct.get(Token$LAYOUT, Token$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PACCESS_TOKEN Token
+     * }
+     */
+    public static void Token(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(Token$LAYOUT, Token$OFFSET, fieldValue);
+    }
+
+    private static final OfByte CopyOnOpen$LAYOUT = (OfByte)$LAYOUT.select(groupElement("CopyOnOpen"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BOOLEAN CopyOnOpen
+     * }
+     */
+    public static final OfByte CopyOnOpen$layout() {
+        return CopyOnOpen$LAYOUT;
+    }
+
+    private static final long CopyOnOpen$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BOOLEAN CopyOnOpen
+     * }
+     */
+    public static final long CopyOnOpen$offset() {
+        return CopyOnOpen$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BOOLEAN CopyOnOpen
+     * }
+     */
+    public static byte CopyOnOpen(MemorySegment struct) {
+        return struct.get(CopyOnOpen$LAYOUT, CopyOnOpen$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BOOLEAN CopyOnOpen
+     * }
+     */
+    public static void CopyOnOpen(MemorySegment struct, byte fieldValue) {
+        struct.set(CopyOnOpen$LAYOUT, CopyOnOpen$OFFSET, fieldValue);
+    }
+
+    private static final OfByte EffectiveOnly$LAYOUT = (OfByte)$LAYOUT.select(groupElement("EffectiveOnly"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BOOLEAN EffectiveOnly
+     * }
+     */
+    public static final OfByte EffectiveOnly$layout() {
+        return EffectiveOnly$LAYOUT;
+    }
+
+    private static final long EffectiveOnly$OFFSET = 9;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BOOLEAN EffectiveOnly
+     * }
+     */
+    public static final long EffectiveOnly$offset() {
+        return EffectiveOnly$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BOOLEAN EffectiveOnly
+     * }
+     */
+    public static byte EffectiveOnly(MemorySegment struct) {
+        return struct.get(EffectiveOnly$LAYOUT, EffectiveOnly$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BOOLEAN EffectiveOnly
+     * }
+     */
+    public static void EffectiveOnly(MemorySegment struct, byte fieldValue) {
+        struct.set(EffectiveOnly$LAYOUT, EffectiveOnly$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Level$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Level"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SECURITY_IMPERSONATION_LEVEL Level
+     * }
+     */
+    public static final OfInt Level$layout() {
+        return Level$LAYOUT;
+    }
+
+    private static final long Level$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SECURITY_IMPERSONATION_LEVEL Level
+     * }
+     */
+    public static final long Level$offset() {
+        return Level$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SECURITY_IMPERSONATION_LEVEL Level
+     * }
+     */
+    public static int Level(MemorySegment struct) {
+        return struct.get(Level$LAYOUT, Level$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SECURITY_IMPERSONATION_LEVEL Level
+     * }
+     */
+    public static void Level(MemorySegment struct, int fieldValue) {
+        struct.set(Level$LAYOUT, Level$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

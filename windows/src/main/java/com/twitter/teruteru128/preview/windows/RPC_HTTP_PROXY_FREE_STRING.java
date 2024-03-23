@@ -2,32 +2,66 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void (*RPC_HTTP_PROXY_FREE_STRING)(unsigned short* String);
+ * {@snippet lang=c :
+ * typedef void (*RPC_HTTP_PROXY_FREE_STRING)(RPC_WSTR) __attribute__((stdcall))
  * }
  */
-public interface RPC_HTTP_PROXY_FREE_STRING {
+public class RPC_HTTP_PROXY_FREE_STRING {
 
-    void apply(java.lang.foreign.MemorySegment pParameter);
-    static MemorySegment allocate(RPC_HTTP_PROXY_FREE_STRING fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$1760.const$2, fi, constants$0.const$0, scope);
+    RPC_HTTP_PROXY_FREE_STRING() {
+        // Should not be called directly
     }
-    static RPC_HTTP_PROXY_FREE_STRING ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _pParameter) -> {
-            try {
-                constants$496.const$2.invokeExact(symbol, _pParameter);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        void apply(MemorySegment String_);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(RPC_HTTP_PROXY_FREE_STRING.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(RPC_HTTP_PROXY_FREE_STRING.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static void invoke(MemorySegment funcPtr,MemorySegment String_) {
+        try {
+             DOWN$MH.invokeExact(funcPtr, String_);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

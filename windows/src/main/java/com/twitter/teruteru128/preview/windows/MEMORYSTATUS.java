@@ -2,20 +2,34 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _MEMORYSTATUS MEMORYSTATUS;
+ * {@snippet lang=c :
+ * typedef struct _MEMORYSTATUS {
+ *     DWORD dwLength;
+ *     DWORD dwMemoryLoad;
+ *     SIZE_T dwTotalPhys;
+ *     SIZE_T dwAvailPhys;
+ *     SIZE_T dwTotalPageFile;
+ *     SIZE_T dwAvailPageFile;
+ *     SIZE_T dwTotalVirtual;
+ *     SIZE_T dwAvailVirtual;
+ * } MEMORYSTATUS
  * }
  */
-public final class MEMORYSTATUS extends _MEMORYSTATUS {
+public class MEMORYSTATUS extends _MEMORYSTATUS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MEMORYSTATUS() {}
+    MEMORYSTATUS() {
+        // Should not be called directly
+    }
 }
-
 

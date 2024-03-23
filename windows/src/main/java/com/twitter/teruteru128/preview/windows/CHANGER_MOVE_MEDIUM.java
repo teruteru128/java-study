@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CHANGER_MOVE_MEDIUM CHANGER_MOVE_MEDIUM;
+ * {@snippet lang=c :
+ * typedef struct _CHANGER_MOVE_MEDIUM {
+ *     CHANGER_ELEMENT Transport;
+ *     CHANGER_ELEMENT Source;
+ *     CHANGER_ELEMENT Destination;
+ *     BOOLEAN Flip;
+ * } CHANGER_MOVE_MEDIUM
  * }
  */
-public final class CHANGER_MOVE_MEDIUM extends _CHANGER_MOVE_MEDIUM {
+public class CHANGER_MOVE_MEDIUM extends _CHANGER_MOVE_MEDIUM {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CHANGER_MOVE_MEDIUM() {}
+    CHANGER_MOVE_MEDIUM() {
+        // Should not be called directly
+    }
 }
-
 

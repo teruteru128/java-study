@@ -2,32 +2,68 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_CRYPT_ENUM_OID_INFO)(struct _CRYPT_OID_INFO* pInfo,void* pvArg);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_CRYPT_ENUM_OID_INFO)(PCCRYPT_OID_INFO, void *) __attribute__((stdcall))
  * }
  */
-public interface PFN_CRYPT_ENUM_OID_INFO {
+public class PFN_CRYPT_ENUM_OID_INFO {
 
-    int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1);
-    static MemorySegment allocate(PFN_CRYPT_ENUM_OID_INFO fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2077.const$1, fi, constants$34.const$0, scope);
+    PFN_CRYPT_ENUM_OID_INFO() {
+        // Should not be called directly
     }
-    static PFN_CRYPT_ENUM_OID_INFO ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1) -> {
-            try {
-                return (int)constants$92.const$2.invokeExact(symbol, __x0, __x1);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment pInfo, MemorySegment pvArg);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CRYPT_ENUM_OID_INFO.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CRYPT_ENUM_OID_INFO.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment pInfo, MemorySegment pvArg) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, pInfo, pvArg);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

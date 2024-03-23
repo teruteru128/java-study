@@ -2,20 +2,35 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _JOBOBJECT_CPU_RATE_CONTROL_INFORMATION JOBOBJECT_CPU_RATE_CONTROL_INFORMATION;
+ * {@snippet lang=c :
+ * typedef struct _JOBOBJECT_CPU_RATE_CONTROL_INFORMATION {
+ *     DWORD ControlFlags;
+ *     union {
+ *         DWORD CpuRate;
+ *         DWORD Weight;
+ *         struct {
+ *             WORD MinRate;
+ *             WORD MaxRate;
+ *         };
+ *     };
+ * } JOBOBJECT_CPU_RATE_CONTROL_INFORMATION
  * }
  */
-public final class JOBOBJECT_CPU_RATE_CONTROL_INFORMATION extends _JOBOBJECT_CPU_RATE_CONTROL_INFORMATION {
+public class JOBOBJECT_CPU_RATE_CONTROL_INFORMATION extends _JOBOBJECT_CPU_RATE_CONTROL_INFORMATION {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private JOBOBJECT_CPU_RATE_CONTROL_INFORMATION() {}
+    JOBOBJECT_CPU_RATE_CONTROL_INFORMATION() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _DISK_DETECTION_INFO {
  *     DWORD SizeOfDetectInfo;
  *     DETECTION_TYPE DetectionType;
@@ -18,80 +23,251 @@ import static java.lang.foreign.ValueLayout.*;
  *             DISK_EX_INT13_INFO ExInt13;
  *         };
  *     };
- * };
+ * }
  * }
  */
 public class _DISK_DETECTION_INFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2545.const$4;
+    _DISK_DETECTION_INFO() {
+        // Should not be called directly
     }
-    public static VarHandle SizeOfDetectInfo$VH() {
-        return constants$2545.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD SizeOfDetectInfo;
-     * }
-     */
-    public static int SizeOfDetectInfo$get(MemorySegment seg) {
-        return (int)constants$2545.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD SizeOfDetectInfo;
-     * }
-     */
-    public static void SizeOfDetectInfo$set(MemorySegment seg, int x) {
-        constants$2545.const$5.set(seg, x);
-    }
-    public static int SizeOfDetectInfo$get(MemorySegment seg, long index) {
-        return (int)constants$2545.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SizeOfDetectInfo$set(MemorySegment seg, long index, int x) {
-        constants$2545.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle DetectionType$VH() {
-        return constants$2546.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DETECTION_TYPE DetectionType;
-     * }
-     */
-    public static int DetectionType$get(MemorySegment seg) {
-        return (int)constants$2546.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DETECTION_TYPE DetectionType;
-     * }
-     */
-    public static void DetectionType$set(MemorySegment seg, int x) {
-        constants$2546.const$0.set(seg, x);
-    }
-    public static int DetectionType$get(MemorySegment seg, long index) {
-        return (int)constants$2546.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void DetectionType$set(MemorySegment seg, long index, int x) {
-        constants$2546.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment Int13$slice(MemorySegment seg) {
-        return seg.asSlice(8, 16);
-    }
-    public static MemorySegment ExInt13$slice(MemorySegment seg) {
-        return seg.asSlice(24, 32);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("SizeOfDetectInfo"),
+        Windows_h.C_INT.withName("DetectionType"),
+        MemoryLayout.unionLayout(
+            MemoryLayout.structLayout(
+                _DISK_INT13_INFO.layout().withName("Int13"),
+                _DISK_EX_INT13_INFO.layout().withName("ExInt13")
+            ).withName("$anon$9304:17")
+        ).withName("$anon$9303:9")
+    ).withName("_DISK_DETECTION_INFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt SizeOfDetectInfo$LAYOUT = (OfInt)$LAYOUT.select(groupElement("SizeOfDetectInfo"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD SizeOfDetectInfo
+     * }
+     */
+    public static final OfInt SizeOfDetectInfo$layout() {
+        return SizeOfDetectInfo$LAYOUT;
+    }
+
+    private static final long SizeOfDetectInfo$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD SizeOfDetectInfo
+     * }
+     */
+    public static final long SizeOfDetectInfo$offset() {
+        return SizeOfDetectInfo$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD SizeOfDetectInfo
+     * }
+     */
+    public static int SizeOfDetectInfo(MemorySegment struct) {
+        return struct.get(SizeOfDetectInfo$LAYOUT, SizeOfDetectInfo$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD SizeOfDetectInfo
+     * }
+     */
+    public static void SizeOfDetectInfo(MemorySegment struct, int fieldValue) {
+        struct.set(SizeOfDetectInfo$LAYOUT, SizeOfDetectInfo$OFFSET, fieldValue);
+    }
+
+    private static final OfInt DetectionType$LAYOUT = (OfInt)$LAYOUT.select(groupElement("DetectionType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DETECTION_TYPE DetectionType
+     * }
+     */
+    public static final OfInt DetectionType$layout() {
+        return DetectionType$LAYOUT;
+    }
+
+    private static final long DetectionType$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DETECTION_TYPE DetectionType
+     * }
+     */
+    public static final long DetectionType$offset() {
+        return DetectionType$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DETECTION_TYPE DetectionType
+     * }
+     */
+    public static int DetectionType(MemorySegment struct) {
+        return struct.get(DetectionType$LAYOUT, DetectionType$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DETECTION_TYPE DetectionType
+     * }
+     */
+    public static void DetectionType(MemorySegment struct, int fieldValue) {
+        struct.set(DetectionType$LAYOUT, DetectionType$OFFSET, fieldValue);
+    }
+
+    private static final GroupLayout Int13$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("$anon$9303:9"), groupElement("$anon$9304:17"), groupElement("Int13"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DISK_INT13_INFO Int13
+     * }
+     */
+    public static final GroupLayout Int13$layout() {
+        return Int13$LAYOUT;
+    }
+
+    private static final long Int13$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DISK_INT13_INFO Int13
+     * }
+     */
+    public static final long Int13$offset() {
+        return Int13$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DISK_INT13_INFO Int13
+     * }
+     */
+    public static MemorySegment Int13(MemorySegment struct) {
+        return struct.asSlice(Int13$OFFSET, Int13$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DISK_INT13_INFO Int13
+     * }
+     */
+    public static void Int13(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, Int13$OFFSET, Int13$LAYOUT.byteSize());
+    }
+
+    private static final GroupLayout ExInt13$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("$anon$9303:9"), groupElement("$anon$9304:17"), groupElement("ExInt13"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DISK_EX_INT13_INFO ExInt13
+     * }
+     */
+    public static final GroupLayout ExInt13$layout() {
+        return ExInt13$LAYOUT;
+    }
+
+    private static final long ExInt13$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DISK_EX_INT13_INFO ExInt13
+     * }
+     */
+    public static final long ExInt13$offset() {
+        return ExInt13$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DISK_EX_INT13_INFO ExInt13
+     * }
+     */
+    public static MemorySegment ExInt13(MemorySegment struct) {
+        return struct.asSlice(ExInt13$OFFSET, ExInt13$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DISK_EX_INT13_INFO ExInt13
+     * }
+     */
+    public static void ExInt13(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, ExInt13$OFFSET, ExInt13$LAYOUT.byteSize());
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

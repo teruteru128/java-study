@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _NCRYPT_KEY_ATTEST_PADDING_INFO NCRYPT_KEY_ATTEST_PADDING_INFO;
+ * {@snippet lang=c :
+ * typedef struct _NCRYPT_KEY_ATTEST_PADDING_INFO {
+ *     ULONG magic;
+ *     PUCHAR pbKeyBlob;
+ *     ULONG cbKeyBlob;
+ *     PUCHAR pbKeyAuth;
+ *     ULONG cbKeyAuth;
+ * } NCRYPT_KEY_ATTEST_PADDING_INFO
  * }
  */
-public final class NCRYPT_KEY_ATTEST_PADDING_INFO extends _NCRYPT_KEY_ATTEST_PADDING_INFO {
+public class NCRYPT_KEY_ATTEST_PADDING_INFO extends _NCRYPT_KEY_ATTEST_PADDING_INFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private NCRYPT_KEY_ATTEST_PADDING_INFO() {}
+    NCRYPT_KEY_ATTEST_PADDING_INFO() {
+        // Should not be called directly
+    }
 }
-
 

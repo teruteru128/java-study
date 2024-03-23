@@ -2,32 +2,66 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void (*PFLS_CALLBACK_FUNCTION)(void* lpFlsData);
+ * {@snippet lang=c :
+ * typedef void (*PFLS_CALLBACK_FUNCTION)(PVOID) __attribute__((stdcall))
  * }
  */
-public interface PFLS_CALLBACK_FUNCTION {
+public class PFLS_CALLBACK_FUNCTION {
 
-    void apply(java.lang.foreign.MemorySegment pParameter);
-    static MemorySegment allocate(PFLS_CALLBACK_FUNCTION fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$497.const$1, fi, constants$0.const$0, scope);
+    PFLS_CALLBACK_FUNCTION() {
+        // Should not be called directly
     }
-    static PFLS_CALLBACK_FUNCTION ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _pParameter) -> {
-            try {
-                constants$496.const$2.invokeExact(symbol, _pParameter);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        void apply(MemorySegment lpFlsData);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFLS_CALLBACK_FUNCTION.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFLS_CALLBACK_FUNCTION.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static void invoke(MemorySegment funcPtr,MemorySegment lpFlsData) {
+        try {
+             DOWN$MH.invokeExact(funcPtr, lpFlsData);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

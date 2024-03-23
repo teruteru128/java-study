@@ -2,32 +2,70 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void (*TIMECALLBACK)(UINT uTimerID,UINT uMsg,DWORD_PTR dwUser,DWORD_PTR dw1,DWORD_PTR dw2);
+ * {@snippet lang=c :
+ * typedef void (TIMECALLBACK)(UINT, UINT, DWORD_PTR, DWORD_PTR, DWORD_PTR) __attribute__((stdcall))
  * }
  */
-public interface TIMECALLBACK {
+public class TIMECALLBACK {
 
-    void apply(int uTimerID, int uMsg, long dwUser, long dw1, long dw2);
-    static MemorySegment allocate(TIMECALLBACK fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$1604.const$5, fi, constants$1604.const$4, scope);
+    TIMECALLBACK() {
+        // Should not be called directly
     }
-    static TIMECALLBACK ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (int _uTimerID, int _uMsg, long _dwUser, long _dw1, long _dw2) -> {
-            try {
-                constants$1605.const$0.invokeExact(symbol, _uTimerID, _uMsg, _dwUser, _dw1, _dw2);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        void apply(int uTimerID, int uMsg, long dwUser, long dw1, long dw2);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+        Windows_h.C_INT,
+        Windows_h.C_INT,
+        Windows_h.C_LONG_LONG,
+        Windows_h.C_LONG_LONG,
+        Windows_h.C_LONG_LONG
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(TIMECALLBACK.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(TIMECALLBACK.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static void invoke(MemorySegment funcPtr,int uTimerID, int uMsg, long dwUser, long dw1, long dw2) {
+        try {
+             DOWN$MH.invokeExact(funcPtr, uTimerID, uMsg, dwUser, dw1, dw2);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

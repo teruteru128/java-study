@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _PROV_ENUMALGS PROV_ENUMALGS;
+ * {@snippet lang=c :
+ * typedef struct _PROV_ENUMALGS {
+ *     ALG_ID aiAlgid;
+ *     DWORD dwBitLen;
+ *     DWORD dwNameLen;
+ *     CHAR szName[20];
+ * } PROV_ENUMALGS
  * }
  */
-public final class PROV_ENUMALGS extends _PROV_ENUMALGS {
+public class PROV_ENUMALGS extends _PROV_ENUMALGS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private PROV_ENUMALGS() {}
+    PROV_ENUMALGS() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,116 +2,266 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagSTATDATA {
  *     FORMATETC formatetc;
  *     DWORD advf;
- *     IAdviseSink* pAdvSink;
+ *     IAdviseSink *pAdvSink;
  *     DWORD dwConnection;
- * };
+ * }
  * }
  */
 public class tagSTATDATA {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$3292.const$1;
+    tagSTATDATA() {
+        // Should not be called directly
     }
-    public static MemorySegment formatetc$slice(MemorySegment seg) {
-        return seg.asSlice(0, 32);
-    }
-    public static VarHandle advf$VH() {
-        return constants$3292.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD advf;
-     * }
-     */
-    public static int advf$get(MemorySegment seg) {
-        return (int)constants$3292.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD advf;
-     * }
-     */
-    public static void advf$set(MemorySegment seg, int x) {
-        constants$3292.const$2.set(seg, x);
-    }
-    public static int advf$get(MemorySegment seg, long index) {
-        return (int)constants$3292.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void advf$set(MemorySegment seg, long index, int x) {
-        constants$3292.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pAdvSink$VH() {
-        return constants$3292.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * IAdviseSink* pAdvSink;
-     * }
-     */
-    public static MemorySegment pAdvSink$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3292.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * IAdviseSink* pAdvSink;
-     * }
-     */
-    public static void pAdvSink$set(MemorySegment seg, MemorySegment x) {
-        constants$3292.const$3.set(seg, x);
-    }
-    public static MemorySegment pAdvSink$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3292.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pAdvSink$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3292.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwConnection$VH() {
-        return constants$3292.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwConnection;
-     * }
-     */
-    public static int dwConnection$get(MemorySegment seg) {
-        return (int)constants$3292.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwConnection;
-     * }
-     */
-    public static void dwConnection$set(MemorySegment seg, int x) {
-        constants$3292.const$4.set(seg, x);
-    }
-    public static int dwConnection$get(MemorySegment seg, long index) {
-        return (int)constants$3292.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwConnection$set(MemorySegment seg, long index, int x) {
-        constants$3292.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        tagFORMATETC.layout().withName("formatetc"),
+        Windows_h.C_LONG.withName("advf"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("pAdvSink"),
+        Windows_h.C_LONG.withName("dwConnection"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("tagSTATDATA");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final GroupLayout formatetc$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("formatetc"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * FORMATETC formatetc
+     * }
+     */
+    public static final GroupLayout formatetc$layout() {
+        return formatetc$LAYOUT;
+    }
+
+    private static final long formatetc$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * FORMATETC formatetc
+     * }
+     */
+    public static final long formatetc$offset() {
+        return formatetc$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * FORMATETC formatetc
+     * }
+     */
+    public static MemorySegment formatetc(MemorySegment struct) {
+        return struct.asSlice(formatetc$OFFSET, formatetc$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * FORMATETC formatetc
+     * }
+     */
+    public static void formatetc(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, formatetc$OFFSET, formatetc$LAYOUT.byteSize());
+    }
+
+    private static final OfInt advf$LAYOUT = (OfInt)$LAYOUT.select(groupElement("advf"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD advf
+     * }
+     */
+    public static final OfInt advf$layout() {
+        return advf$LAYOUT;
+    }
+
+    private static final long advf$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD advf
+     * }
+     */
+    public static final long advf$offset() {
+        return advf$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD advf
+     * }
+     */
+    public static int advf(MemorySegment struct) {
+        return struct.get(advf$LAYOUT, advf$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD advf
+     * }
+     */
+    public static void advf(MemorySegment struct, int fieldValue) {
+        struct.set(advf$LAYOUT, advf$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pAdvSink$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pAdvSink"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * IAdviseSink *pAdvSink
+     * }
+     */
+    public static final AddressLayout pAdvSink$layout() {
+        return pAdvSink$LAYOUT;
+    }
+
+    private static final long pAdvSink$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * IAdviseSink *pAdvSink
+     * }
+     */
+    public static final long pAdvSink$offset() {
+        return pAdvSink$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * IAdviseSink *pAdvSink
+     * }
+     */
+    public static MemorySegment pAdvSink(MemorySegment struct) {
+        return struct.get(pAdvSink$LAYOUT, pAdvSink$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * IAdviseSink *pAdvSink
+     * }
+     */
+    public static void pAdvSink(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pAdvSink$LAYOUT, pAdvSink$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwConnection$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwConnection"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwConnection
+     * }
+     */
+    public static final OfInt dwConnection$layout() {
+        return dwConnection$LAYOUT;
+    }
+
+    private static final long dwConnection$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwConnection
+     * }
+     */
+    public static final long dwConnection$offset() {
+        return dwConnection$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwConnection
+     * }
+     */
+    public static int dwConnection(MemorySegment struct) {
+        return struct.get(dwConnection$LAYOUT, dwConnection$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwConnection
+     * }
+     */
+    public static void dwConnection(MemorySegment struct, int fieldValue) {
+        struct.set(dwConnection$LAYOUT, dwConnection$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

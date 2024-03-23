@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagFINDREPLACEA {
  *     DWORD lStructSize;
  *     HWND hwndOwner;
@@ -21,320 +26,565 @@ import static java.lang.foreign.ValueLayout.*;
  *     LPARAM lCustData;
  *     LPFRHOOKPROC lpfnHook;
  *     LPCSTR lpTemplateName;
- * };
+ * }
  * }
  */
 public class tagFINDREPLACEA {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$4437.const$1;
+    tagFINDREPLACEA() {
+        // Should not be called directly
     }
-    public static VarHandle lStructSize$VH() {
-        return constants$4437.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD lStructSize;
-     * }
-     */
-    public static int lStructSize$get(MemorySegment seg) {
-        return (int)constants$4437.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD lStructSize;
-     * }
-     */
-    public static void lStructSize$set(MemorySegment seg, int x) {
-        constants$4437.const$2.set(seg, x);
-    }
-    public static int lStructSize$get(MemorySegment seg, long index) {
-        return (int)constants$4437.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lStructSize$set(MemorySegment seg, long index, int x) {
-        constants$4437.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle hwndOwner$VH() {
-        return constants$4437.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * HWND hwndOwner;
-     * }
-     */
-    public static MemorySegment hwndOwner$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4437.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * HWND hwndOwner;
-     * }
-     */
-    public static void hwndOwner$set(MemorySegment seg, MemorySegment x) {
-        constants$4437.const$3.set(seg, x);
-    }
-    public static MemorySegment hwndOwner$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4437.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void hwndOwner$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4437.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle hInstance$VH() {
-        return constants$4437.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * HINSTANCE hInstance;
-     * }
-     */
-    public static MemorySegment hInstance$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4437.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * HINSTANCE hInstance;
-     * }
-     */
-    public static void hInstance$set(MemorySegment seg, MemorySegment x) {
-        constants$4437.const$4.set(seg, x);
-    }
-    public static MemorySegment hInstance$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4437.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void hInstance$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4437.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Flags$VH() {
-        return constants$4437.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Flags;
-     * }
-     */
-    public static int Flags$get(MemorySegment seg) {
-        return (int)constants$4437.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Flags;
-     * }
-     */
-    public static void Flags$set(MemorySegment seg, int x) {
-        constants$4437.const$5.set(seg, x);
-    }
-    public static int Flags$get(MemorySegment seg, long index) {
-        return (int)constants$4437.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Flags$set(MemorySegment seg, long index, int x) {
-        constants$4437.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle lpstrFindWhat$VH() {
-        return constants$4438.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPSTR lpstrFindWhat;
-     * }
-     */
-    public static MemorySegment lpstrFindWhat$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4438.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPSTR lpstrFindWhat;
-     * }
-     */
-    public static void lpstrFindWhat$set(MemorySegment seg, MemorySegment x) {
-        constants$4438.const$0.set(seg, x);
-    }
-    public static MemorySegment lpstrFindWhat$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4438.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lpstrFindWhat$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4438.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle lpstrReplaceWith$VH() {
-        return constants$4438.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPSTR lpstrReplaceWith;
-     * }
-     */
-    public static MemorySegment lpstrReplaceWith$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4438.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPSTR lpstrReplaceWith;
-     * }
-     */
-    public static void lpstrReplaceWith$set(MemorySegment seg, MemorySegment x) {
-        constants$4438.const$1.set(seg, x);
-    }
-    public static MemorySegment lpstrReplaceWith$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4438.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lpstrReplaceWith$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4438.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle wFindWhatLen$VH() {
-        return constants$4438.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD wFindWhatLen;
-     * }
-     */
-    public static short wFindWhatLen$get(MemorySegment seg) {
-        return (short)constants$4438.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD wFindWhatLen;
-     * }
-     */
-    public static void wFindWhatLen$set(MemorySegment seg, short x) {
-        constants$4438.const$2.set(seg, x);
-    }
-    public static short wFindWhatLen$get(MemorySegment seg, long index) {
-        return (short)constants$4438.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wFindWhatLen$set(MemorySegment seg, long index, short x) {
-        constants$4438.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle wReplaceWithLen$VH() {
-        return constants$4438.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD wReplaceWithLen;
-     * }
-     */
-    public static short wReplaceWithLen$get(MemorySegment seg) {
-        return (short)constants$4438.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD wReplaceWithLen;
-     * }
-     */
-    public static void wReplaceWithLen$set(MemorySegment seg, short x) {
-        constants$4438.const$3.set(seg, x);
-    }
-    public static short wReplaceWithLen$get(MemorySegment seg, long index) {
-        return (short)constants$4438.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wReplaceWithLen$set(MemorySegment seg, long index, short x) {
-        constants$4438.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle lCustData$VH() {
-        return constants$4438.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPARAM lCustData;
-     * }
-     */
-    public static long lCustData$get(MemorySegment seg) {
-        return (long)constants$4438.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPARAM lCustData;
-     * }
-     */
-    public static void lCustData$set(MemorySegment seg, long x) {
-        constants$4438.const$4.set(seg, x);
-    }
-    public static long lCustData$get(MemorySegment seg, long index) {
-        return (long)constants$4438.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lCustData$set(MemorySegment seg, long index, long x) {
-        constants$4438.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle lpfnHook$VH() {
-        return constants$4438.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPFRHOOKPROC lpfnHook;
-     * }
-     */
-    public static MemorySegment lpfnHook$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4438.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPFRHOOKPROC lpfnHook;
-     * }
-     */
-    public static void lpfnHook$set(MemorySegment seg, MemorySegment x) {
-        constants$4438.const$5.set(seg, x);
-    }
-    public static MemorySegment lpfnHook$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4438.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lpfnHook$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4438.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static LPFRHOOKPROC lpfnHook(MemorySegment segment, Arena scope) {
-        return LPFRHOOKPROC.ofAddress(lpfnHook$get(segment), scope);
-    }
-    public static VarHandle lpTemplateName$VH() {
-        return constants$4439.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPCSTR lpTemplateName;
-     * }
-     */
-    public static MemorySegment lpTemplateName$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4439.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPCSTR lpTemplateName;
-     * }
-     */
-    public static void lpTemplateName$set(MemorySegment seg, MemorySegment x) {
-        constants$4439.const$0.set(seg, x);
-    }
-    public static MemorySegment lpTemplateName$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4439.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lpTemplateName$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4439.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("lStructSize"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("hwndOwner"),
+        Windows_h.C_POINTER.withName("hInstance"),
+        Windows_h.C_LONG.withName("Flags"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("lpstrFindWhat"),
+        Windows_h.C_POINTER.withName("lpstrReplaceWith"),
+        Windows_h.C_SHORT.withName("wFindWhatLen"),
+        Windows_h.C_SHORT.withName("wReplaceWithLen"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_LONG_LONG.withName("lCustData"),
+        Windows_h.C_POINTER.withName("lpfnHook"),
+        Windows_h.C_POINTER.withName("lpTemplateName")
+    ).withName("tagFINDREPLACEA");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt lStructSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("lStructSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD lStructSize
+     * }
+     */
+    public static final OfInt lStructSize$layout() {
+        return lStructSize$LAYOUT;
+    }
+
+    private static final long lStructSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD lStructSize
+     * }
+     */
+    public static final long lStructSize$offset() {
+        return lStructSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD lStructSize
+     * }
+     */
+    public static int lStructSize(MemorySegment struct) {
+        return struct.get(lStructSize$LAYOUT, lStructSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD lStructSize
+     * }
+     */
+    public static void lStructSize(MemorySegment struct, int fieldValue) {
+        struct.set(lStructSize$LAYOUT, lStructSize$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout hwndOwner$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hwndOwner"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HWND hwndOwner
+     * }
+     */
+    public static final AddressLayout hwndOwner$layout() {
+        return hwndOwner$LAYOUT;
+    }
+
+    private static final long hwndOwner$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HWND hwndOwner
+     * }
+     */
+    public static final long hwndOwner$offset() {
+        return hwndOwner$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * HWND hwndOwner
+     * }
+     */
+    public static MemorySegment hwndOwner(MemorySegment struct) {
+        return struct.get(hwndOwner$LAYOUT, hwndOwner$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * HWND hwndOwner
+     * }
+     */
+    public static void hwndOwner(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(hwndOwner$LAYOUT, hwndOwner$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout hInstance$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hInstance"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HINSTANCE hInstance
+     * }
+     */
+    public static final AddressLayout hInstance$layout() {
+        return hInstance$LAYOUT;
+    }
+
+    private static final long hInstance$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HINSTANCE hInstance
+     * }
+     */
+    public static final long hInstance$offset() {
+        return hInstance$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * HINSTANCE hInstance
+     * }
+     */
+    public static MemorySegment hInstance(MemorySegment struct) {
+        return struct.get(hInstance$LAYOUT, hInstance$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * HINSTANCE hInstance
+     * }
+     */
+    public static void hInstance(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(hInstance$LAYOUT, hInstance$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Flags$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Flags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static final OfInt Flags$layout() {
+        return Flags$LAYOUT;
+    }
+
+    private static final long Flags$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static final long Flags$offset() {
+        return Flags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static int Flags(MemorySegment struct) {
+        return struct.get(Flags$LAYOUT, Flags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static void Flags(MemorySegment struct, int fieldValue) {
+        struct.set(Flags$LAYOUT, Flags$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout lpstrFindWhat$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("lpstrFindWhat"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPSTR lpstrFindWhat
+     * }
+     */
+    public static final AddressLayout lpstrFindWhat$layout() {
+        return lpstrFindWhat$LAYOUT;
+    }
+
+    private static final long lpstrFindWhat$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPSTR lpstrFindWhat
+     * }
+     */
+    public static final long lpstrFindWhat$offset() {
+        return lpstrFindWhat$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPSTR lpstrFindWhat
+     * }
+     */
+    public static MemorySegment lpstrFindWhat(MemorySegment struct) {
+        return struct.get(lpstrFindWhat$LAYOUT, lpstrFindWhat$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPSTR lpstrFindWhat
+     * }
+     */
+    public static void lpstrFindWhat(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(lpstrFindWhat$LAYOUT, lpstrFindWhat$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout lpstrReplaceWith$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("lpstrReplaceWith"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPSTR lpstrReplaceWith
+     * }
+     */
+    public static final AddressLayout lpstrReplaceWith$layout() {
+        return lpstrReplaceWith$LAYOUT;
+    }
+
+    private static final long lpstrReplaceWith$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPSTR lpstrReplaceWith
+     * }
+     */
+    public static final long lpstrReplaceWith$offset() {
+        return lpstrReplaceWith$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPSTR lpstrReplaceWith
+     * }
+     */
+    public static MemorySegment lpstrReplaceWith(MemorySegment struct) {
+        return struct.get(lpstrReplaceWith$LAYOUT, lpstrReplaceWith$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPSTR lpstrReplaceWith
+     * }
+     */
+    public static void lpstrReplaceWith(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(lpstrReplaceWith$LAYOUT, lpstrReplaceWith$OFFSET, fieldValue);
+    }
+
+    private static final OfShort wFindWhatLen$LAYOUT = (OfShort)$LAYOUT.select(groupElement("wFindWhatLen"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD wFindWhatLen
+     * }
+     */
+    public static final OfShort wFindWhatLen$layout() {
+        return wFindWhatLen$LAYOUT;
+    }
+
+    private static final long wFindWhatLen$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD wFindWhatLen
+     * }
+     */
+    public static final long wFindWhatLen$offset() {
+        return wFindWhatLen$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD wFindWhatLen
+     * }
+     */
+    public static short wFindWhatLen(MemorySegment struct) {
+        return struct.get(wFindWhatLen$LAYOUT, wFindWhatLen$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD wFindWhatLen
+     * }
+     */
+    public static void wFindWhatLen(MemorySegment struct, short fieldValue) {
+        struct.set(wFindWhatLen$LAYOUT, wFindWhatLen$OFFSET, fieldValue);
+    }
+
+    private static final OfShort wReplaceWithLen$LAYOUT = (OfShort)$LAYOUT.select(groupElement("wReplaceWithLen"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD wReplaceWithLen
+     * }
+     */
+    public static final OfShort wReplaceWithLen$layout() {
+        return wReplaceWithLen$LAYOUT;
+    }
+
+    private static final long wReplaceWithLen$OFFSET = 50;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD wReplaceWithLen
+     * }
+     */
+    public static final long wReplaceWithLen$offset() {
+        return wReplaceWithLen$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD wReplaceWithLen
+     * }
+     */
+    public static short wReplaceWithLen(MemorySegment struct) {
+        return struct.get(wReplaceWithLen$LAYOUT, wReplaceWithLen$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD wReplaceWithLen
+     * }
+     */
+    public static void wReplaceWithLen(MemorySegment struct, short fieldValue) {
+        struct.set(wReplaceWithLen$LAYOUT, wReplaceWithLen$OFFSET, fieldValue);
+    }
+
+    private static final OfLong lCustData$LAYOUT = (OfLong)$LAYOUT.select(groupElement("lCustData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPARAM lCustData
+     * }
+     */
+    public static final OfLong lCustData$layout() {
+        return lCustData$LAYOUT;
+    }
+
+    private static final long lCustData$OFFSET = 56;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPARAM lCustData
+     * }
+     */
+    public static final long lCustData$offset() {
+        return lCustData$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPARAM lCustData
+     * }
+     */
+    public static long lCustData(MemorySegment struct) {
+        return struct.get(lCustData$LAYOUT, lCustData$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPARAM lCustData
+     * }
+     */
+    public static void lCustData(MemorySegment struct, long fieldValue) {
+        struct.set(lCustData$LAYOUT, lCustData$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout lpfnHook$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("lpfnHook"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPFRHOOKPROC lpfnHook
+     * }
+     */
+    public static final AddressLayout lpfnHook$layout() {
+        return lpfnHook$LAYOUT;
+    }
+
+    private static final long lpfnHook$OFFSET = 64;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPFRHOOKPROC lpfnHook
+     * }
+     */
+    public static final long lpfnHook$offset() {
+        return lpfnHook$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPFRHOOKPROC lpfnHook
+     * }
+     */
+    public static MemorySegment lpfnHook(MemorySegment struct) {
+        return struct.get(lpfnHook$LAYOUT, lpfnHook$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPFRHOOKPROC lpfnHook
+     * }
+     */
+    public static void lpfnHook(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(lpfnHook$LAYOUT, lpfnHook$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout lpTemplateName$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("lpTemplateName"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPCSTR lpTemplateName
+     * }
+     */
+    public static final AddressLayout lpTemplateName$layout() {
+        return lpTemplateName$LAYOUT;
+    }
+
+    private static final long lpTemplateName$OFFSET = 72;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPCSTR lpTemplateName
+     * }
+     */
+    public static final long lpTemplateName$offset() {
+        return lpTemplateName$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPCSTR lpTemplateName
+     * }
+     */
+    public static MemorySegment lpTemplateName(MemorySegment struct) {
+        return struct.get(lpTemplateName$LAYOUT, lpTemplateName$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPCSTR lpTemplateName
+     * }
+     */
+    public static void lpTemplateName(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(lpTemplateName$LAYOUT, lpTemplateName$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

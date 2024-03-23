@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagSCROLLINFO {
  *     UINT cbSize;
  *     UINT fMask;
@@ -17,209 +22,382 @@ import static java.lang.foreign.ValueLayout.*;
  *     UINT nPage;
  *     int nPos;
  *     int nTrackPos;
- * };
+ * }
  * }
  */
 public class tagSCROLLINFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1326.const$0;
+    tagSCROLLINFO() {
+        // Should not be called directly
     }
-    public static VarHandle cbSize$VH() {
-        return constants$1326.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * UINT cbSize;
-     * }
-     */
-    public static int cbSize$get(MemorySegment seg) {
-        return (int)constants$1326.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * UINT cbSize;
-     * }
-     */
-    public static void cbSize$set(MemorySegment seg, int x) {
-        constants$1326.const$1.set(seg, x);
-    }
-    public static int cbSize$get(MemorySegment seg, long index) {
-        return (int)constants$1326.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cbSize$set(MemorySegment seg, long index, int x) {
-        constants$1326.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle fMask$VH() {
-        return constants$1326.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * UINT fMask;
-     * }
-     */
-    public static int fMask$get(MemorySegment seg) {
-        return (int)constants$1326.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * UINT fMask;
-     * }
-     */
-    public static void fMask$set(MemorySegment seg, int x) {
-        constants$1326.const$2.set(seg, x);
-    }
-    public static int fMask$get(MemorySegment seg, long index) {
-        return (int)constants$1326.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void fMask$set(MemorySegment seg, long index, int x) {
-        constants$1326.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle nMin$VH() {
-        return constants$1326.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * int nMin;
-     * }
-     */
-    public static int nMin$get(MemorySegment seg) {
-        return (int)constants$1326.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * int nMin;
-     * }
-     */
-    public static void nMin$set(MemorySegment seg, int x) {
-        constants$1326.const$3.set(seg, x);
-    }
-    public static int nMin$get(MemorySegment seg, long index) {
-        return (int)constants$1326.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void nMin$set(MemorySegment seg, long index, int x) {
-        constants$1326.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle nMax$VH() {
-        return constants$1326.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * int nMax;
-     * }
-     */
-    public static int nMax$get(MemorySegment seg) {
-        return (int)constants$1326.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * int nMax;
-     * }
-     */
-    public static void nMax$set(MemorySegment seg, int x) {
-        constants$1326.const$4.set(seg, x);
-    }
-    public static int nMax$get(MemorySegment seg, long index) {
-        return (int)constants$1326.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void nMax$set(MemorySegment seg, long index, int x) {
-        constants$1326.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle nPage$VH() {
-        return constants$1326.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * UINT nPage;
-     * }
-     */
-    public static int nPage$get(MemorySegment seg) {
-        return (int)constants$1326.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * UINT nPage;
-     * }
-     */
-    public static void nPage$set(MemorySegment seg, int x) {
-        constants$1326.const$5.set(seg, x);
-    }
-    public static int nPage$get(MemorySegment seg, long index) {
-        return (int)constants$1326.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void nPage$set(MemorySegment seg, long index, int x) {
-        constants$1326.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle nPos$VH() {
-        return constants$1327.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * int nPos;
-     * }
-     */
-    public static int nPos$get(MemorySegment seg) {
-        return (int)constants$1327.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * int nPos;
-     * }
-     */
-    public static void nPos$set(MemorySegment seg, int x) {
-        constants$1327.const$0.set(seg, x);
-    }
-    public static int nPos$get(MemorySegment seg, long index) {
-        return (int)constants$1327.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void nPos$set(MemorySegment seg, long index, int x) {
-        constants$1327.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle nTrackPos$VH() {
-        return constants$1327.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * int nTrackPos;
-     * }
-     */
-    public static int nTrackPos$get(MemorySegment seg) {
-        return (int)constants$1327.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * int nTrackPos;
-     * }
-     */
-    public static void nTrackPos$set(MemorySegment seg, int x) {
-        constants$1327.const$1.set(seg, x);
-    }
-    public static int nTrackPos$get(MemorySegment seg, long index) {
-        return (int)constants$1327.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void nTrackPos$set(MemorySegment seg, long index, int x) {
-        constants$1327.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_INT.withName("cbSize"),
+        Windows_h.C_INT.withName("fMask"),
+        Windows_h.C_INT.withName("nMin"),
+        Windows_h.C_INT.withName("nMax"),
+        Windows_h.C_INT.withName("nPage"),
+        Windows_h.C_INT.withName("nPos"),
+        Windows_h.C_INT.withName("nTrackPos")
+    ).withName("tagSCROLLINFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt cbSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cbSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * UINT cbSize
+     * }
+     */
+    public static final OfInt cbSize$layout() {
+        return cbSize$LAYOUT;
+    }
+
+    private static final long cbSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * UINT cbSize
+     * }
+     */
+    public static final long cbSize$offset() {
+        return cbSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * UINT cbSize
+     * }
+     */
+    public static int cbSize(MemorySegment struct) {
+        return struct.get(cbSize$LAYOUT, cbSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * UINT cbSize
+     * }
+     */
+    public static void cbSize(MemorySegment struct, int fieldValue) {
+        struct.set(cbSize$LAYOUT, cbSize$OFFSET, fieldValue);
+    }
+
+    private static final OfInt fMask$LAYOUT = (OfInt)$LAYOUT.select(groupElement("fMask"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * UINT fMask
+     * }
+     */
+    public static final OfInt fMask$layout() {
+        return fMask$LAYOUT;
+    }
+
+    private static final long fMask$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * UINT fMask
+     * }
+     */
+    public static final long fMask$offset() {
+        return fMask$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * UINT fMask
+     * }
+     */
+    public static int fMask(MemorySegment struct) {
+        return struct.get(fMask$LAYOUT, fMask$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * UINT fMask
+     * }
+     */
+    public static void fMask(MemorySegment struct, int fieldValue) {
+        struct.set(fMask$LAYOUT, fMask$OFFSET, fieldValue);
+    }
+
+    private static final OfInt nMin$LAYOUT = (OfInt)$LAYOUT.select(groupElement("nMin"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int nMin
+     * }
+     */
+    public static final OfInt nMin$layout() {
+        return nMin$LAYOUT;
+    }
+
+    private static final long nMin$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int nMin
+     * }
+     */
+    public static final long nMin$offset() {
+        return nMin$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int nMin
+     * }
+     */
+    public static int nMin(MemorySegment struct) {
+        return struct.get(nMin$LAYOUT, nMin$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int nMin
+     * }
+     */
+    public static void nMin(MemorySegment struct, int fieldValue) {
+        struct.set(nMin$LAYOUT, nMin$OFFSET, fieldValue);
+    }
+
+    private static final OfInt nMax$LAYOUT = (OfInt)$LAYOUT.select(groupElement("nMax"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int nMax
+     * }
+     */
+    public static final OfInt nMax$layout() {
+        return nMax$LAYOUT;
+    }
+
+    private static final long nMax$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int nMax
+     * }
+     */
+    public static final long nMax$offset() {
+        return nMax$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int nMax
+     * }
+     */
+    public static int nMax(MemorySegment struct) {
+        return struct.get(nMax$LAYOUT, nMax$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int nMax
+     * }
+     */
+    public static void nMax(MemorySegment struct, int fieldValue) {
+        struct.set(nMax$LAYOUT, nMax$OFFSET, fieldValue);
+    }
+
+    private static final OfInt nPage$LAYOUT = (OfInt)$LAYOUT.select(groupElement("nPage"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * UINT nPage
+     * }
+     */
+    public static final OfInt nPage$layout() {
+        return nPage$LAYOUT;
+    }
+
+    private static final long nPage$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * UINT nPage
+     * }
+     */
+    public static final long nPage$offset() {
+        return nPage$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * UINT nPage
+     * }
+     */
+    public static int nPage(MemorySegment struct) {
+        return struct.get(nPage$LAYOUT, nPage$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * UINT nPage
+     * }
+     */
+    public static void nPage(MemorySegment struct, int fieldValue) {
+        struct.set(nPage$LAYOUT, nPage$OFFSET, fieldValue);
+    }
+
+    private static final OfInt nPos$LAYOUT = (OfInt)$LAYOUT.select(groupElement("nPos"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int nPos
+     * }
+     */
+    public static final OfInt nPos$layout() {
+        return nPos$LAYOUT;
+    }
+
+    private static final long nPos$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int nPos
+     * }
+     */
+    public static final long nPos$offset() {
+        return nPos$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int nPos
+     * }
+     */
+    public static int nPos(MemorySegment struct) {
+        return struct.get(nPos$LAYOUT, nPos$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int nPos
+     * }
+     */
+    public static void nPos(MemorySegment struct, int fieldValue) {
+        struct.set(nPos$LAYOUT, nPos$OFFSET, fieldValue);
+    }
+
+    private static final OfInt nTrackPos$LAYOUT = (OfInt)$LAYOUT.select(groupElement("nTrackPos"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int nTrackPos
+     * }
+     */
+    public static final OfInt nTrackPos$layout() {
+        return nTrackPos$LAYOUT;
+    }
+
+    private static final long nTrackPos$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int nTrackPos
+     * }
+     */
+    public static final long nTrackPos$offset() {
+        return nTrackPos$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int nTrackPos
+     * }
+     */
+    public static int nTrackPos(MemorySegment struct) {
+        return struct.get(nTrackPos$LAYOUT, nTrackPos$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int nTrackPos
+     * }
+     */
+    public static void nTrackPos(MemorySegment struct, int fieldValue) {
+        struct.set(nTrackPos$LAYOUT, nTrackPos$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

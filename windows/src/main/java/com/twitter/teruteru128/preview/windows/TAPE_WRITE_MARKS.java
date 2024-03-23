@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _TAPE_WRITE_MARKS TAPE_WRITE_MARKS;
+ * {@snippet lang=c :
+ * typedef struct _TAPE_WRITE_MARKS {
+ *     DWORD Type;
+ *     DWORD Count;
+ *     BOOLEAN Immediate;
+ * } TAPE_WRITE_MARKS
  * }
  */
-public final class TAPE_WRITE_MARKS extends _TAPE_WRITE_MARKS {
+public class TAPE_WRITE_MARKS extends _TAPE_WRITE_MARKS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private TAPE_WRITE_MARKS() {}
+    TAPE_WRITE_MARKS() {
+        // Should not be called directly
+    }
 }
-
 

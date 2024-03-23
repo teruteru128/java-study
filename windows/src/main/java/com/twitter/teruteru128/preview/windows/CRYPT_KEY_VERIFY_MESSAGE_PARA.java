@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CRYPT_KEY_VERIFY_MESSAGE_PARA CRYPT_KEY_VERIFY_MESSAGE_PARA;
+ * {@snippet lang=c :
+ * typedef struct _CRYPT_KEY_VERIFY_MESSAGE_PARA {
+ *     DWORD cbSize;
+ *     DWORD dwMsgEncodingType;
+ *     HCRYPTPROV_LEGACY hCryptProv;
+ * } CRYPT_KEY_VERIFY_MESSAGE_PARA
  * }
  */
-public final class CRYPT_KEY_VERIFY_MESSAGE_PARA extends _CRYPT_KEY_VERIFY_MESSAGE_PARA {
+public class CRYPT_KEY_VERIFY_MESSAGE_PARA extends _CRYPT_KEY_VERIFY_MESSAGE_PARA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CRYPT_KEY_VERIFY_MESSAGE_PARA() {}
+    CRYPT_KEY_VERIFY_MESSAGE_PARA() {
+        // Should not be called directly
+    }
 }
-
 

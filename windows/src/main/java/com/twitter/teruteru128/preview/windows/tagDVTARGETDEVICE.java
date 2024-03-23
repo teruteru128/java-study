@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagDVTARGETDEVICE {
  *     DWORD tdSize;
  *     WORD tdDriverNameOffset;
@@ -16,158 +21,371 @@ import static java.lang.foreign.ValueLayout.*;
  *     WORD tdPortNameOffset;
  *     WORD tdExtDevmodeOffset;
  *     BYTE tdData[1];
- * };
+ * }
  * }
  */
 public class tagDVTARGETDEVICE {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$3286.const$5;
+    tagDVTARGETDEVICE() {
+        // Should not be called directly
     }
-    public static VarHandle tdSize$VH() {
-        return constants$3287.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD tdSize;
-     * }
-     */
-    public static int tdSize$get(MemorySegment seg) {
-        return (int)constants$3287.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD tdSize;
-     * }
-     */
-    public static void tdSize$set(MemorySegment seg, int x) {
-        constants$3287.const$0.set(seg, x);
-    }
-    public static int tdSize$get(MemorySegment seg, long index) {
-        return (int)constants$3287.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void tdSize$set(MemorySegment seg, long index, int x) {
-        constants$3287.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle tdDriverNameOffset$VH() {
-        return constants$3287.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD tdDriverNameOffset;
-     * }
-     */
-    public static short tdDriverNameOffset$get(MemorySegment seg) {
-        return (short)constants$3287.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD tdDriverNameOffset;
-     * }
-     */
-    public static void tdDriverNameOffset$set(MemorySegment seg, short x) {
-        constants$3287.const$1.set(seg, x);
-    }
-    public static short tdDriverNameOffset$get(MemorySegment seg, long index) {
-        return (short)constants$3287.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void tdDriverNameOffset$set(MemorySegment seg, long index, short x) {
-        constants$3287.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle tdDeviceNameOffset$VH() {
-        return constants$3287.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD tdDeviceNameOffset;
-     * }
-     */
-    public static short tdDeviceNameOffset$get(MemorySegment seg) {
-        return (short)constants$3287.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD tdDeviceNameOffset;
-     * }
-     */
-    public static void tdDeviceNameOffset$set(MemorySegment seg, short x) {
-        constants$3287.const$2.set(seg, x);
-    }
-    public static short tdDeviceNameOffset$get(MemorySegment seg, long index) {
-        return (short)constants$3287.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void tdDeviceNameOffset$set(MemorySegment seg, long index, short x) {
-        constants$3287.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle tdPortNameOffset$VH() {
-        return constants$3287.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD tdPortNameOffset;
-     * }
-     */
-    public static short tdPortNameOffset$get(MemorySegment seg) {
-        return (short)constants$3287.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD tdPortNameOffset;
-     * }
-     */
-    public static void tdPortNameOffset$set(MemorySegment seg, short x) {
-        constants$3287.const$3.set(seg, x);
-    }
-    public static short tdPortNameOffset$get(MemorySegment seg, long index) {
-        return (short)constants$3287.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void tdPortNameOffset$set(MemorySegment seg, long index, short x) {
-        constants$3287.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle tdExtDevmodeOffset$VH() {
-        return constants$3287.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD tdExtDevmodeOffset;
-     * }
-     */
-    public static short tdExtDevmodeOffset$get(MemorySegment seg) {
-        return (short)constants$3287.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD tdExtDevmodeOffset;
-     * }
-     */
-    public static void tdExtDevmodeOffset$set(MemorySegment seg, short x) {
-        constants$3287.const$4.set(seg, x);
-    }
-    public static short tdExtDevmodeOffset$get(MemorySegment seg, long index) {
-        return (short)constants$3287.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void tdExtDevmodeOffset$set(MemorySegment seg, long index, short x) {
-        constants$3287.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment tdData$slice(MemorySegment seg) {
-        return seg.asSlice(12, 1);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("tdSize"),
+        Windows_h.C_SHORT.withName("tdDriverNameOffset"),
+        Windows_h.C_SHORT.withName("tdDeviceNameOffset"),
+        Windows_h.C_SHORT.withName("tdPortNameOffset"),
+        Windows_h.C_SHORT.withName("tdExtDevmodeOffset"),
+        MemoryLayout.sequenceLayout(1, Windows_h.C_CHAR).withName("tdData"),
+        MemoryLayout.paddingLayout(3)
+    ).withName("tagDVTARGETDEVICE");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt tdSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("tdSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD tdSize
+     * }
+     */
+    public static final OfInt tdSize$layout() {
+        return tdSize$LAYOUT;
+    }
+
+    private static final long tdSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD tdSize
+     * }
+     */
+    public static final long tdSize$offset() {
+        return tdSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD tdSize
+     * }
+     */
+    public static int tdSize(MemorySegment struct) {
+        return struct.get(tdSize$LAYOUT, tdSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD tdSize
+     * }
+     */
+    public static void tdSize(MemorySegment struct, int fieldValue) {
+        struct.set(tdSize$LAYOUT, tdSize$OFFSET, fieldValue);
+    }
+
+    private static final OfShort tdDriverNameOffset$LAYOUT = (OfShort)$LAYOUT.select(groupElement("tdDriverNameOffset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD tdDriverNameOffset
+     * }
+     */
+    public static final OfShort tdDriverNameOffset$layout() {
+        return tdDriverNameOffset$LAYOUT;
+    }
+
+    private static final long tdDriverNameOffset$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD tdDriverNameOffset
+     * }
+     */
+    public static final long tdDriverNameOffset$offset() {
+        return tdDriverNameOffset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD tdDriverNameOffset
+     * }
+     */
+    public static short tdDriverNameOffset(MemorySegment struct) {
+        return struct.get(tdDriverNameOffset$LAYOUT, tdDriverNameOffset$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD tdDriverNameOffset
+     * }
+     */
+    public static void tdDriverNameOffset(MemorySegment struct, short fieldValue) {
+        struct.set(tdDriverNameOffset$LAYOUT, tdDriverNameOffset$OFFSET, fieldValue);
+    }
+
+    private static final OfShort tdDeviceNameOffset$LAYOUT = (OfShort)$LAYOUT.select(groupElement("tdDeviceNameOffset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD tdDeviceNameOffset
+     * }
+     */
+    public static final OfShort tdDeviceNameOffset$layout() {
+        return tdDeviceNameOffset$LAYOUT;
+    }
+
+    private static final long tdDeviceNameOffset$OFFSET = 6;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD tdDeviceNameOffset
+     * }
+     */
+    public static final long tdDeviceNameOffset$offset() {
+        return tdDeviceNameOffset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD tdDeviceNameOffset
+     * }
+     */
+    public static short tdDeviceNameOffset(MemorySegment struct) {
+        return struct.get(tdDeviceNameOffset$LAYOUT, tdDeviceNameOffset$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD tdDeviceNameOffset
+     * }
+     */
+    public static void tdDeviceNameOffset(MemorySegment struct, short fieldValue) {
+        struct.set(tdDeviceNameOffset$LAYOUT, tdDeviceNameOffset$OFFSET, fieldValue);
+    }
+
+    private static final OfShort tdPortNameOffset$LAYOUT = (OfShort)$LAYOUT.select(groupElement("tdPortNameOffset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD tdPortNameOffset
+     * }
+     */
+    public static final OfShort tdPortNameOffset$layout() {
+        return tdPortNameOffset$LAYOUT;
+    }
+
+    private static final long tdPortNameOffset$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD tdPortNameOffset
+     * }
+     */
+    public static final long tdPortNameOffset$offset() {
+        return tdPortNameOffset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD tdPortNameOffset
+     * }
+     */
+    public static short tdPortNameOffset(MemorySegment struct) {
+        return struct.get(tdPortNameOffset$LAYOUT, tdPortNameOffset$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD tdPortNameOffset
+     * }
+     */
+    public static void tdPortNameOffset(MemorySegment struct, short fieldValue) {
+        struct.set(tdPortNameOffset$LAYOUT, tdPortNameOffset$OFFSET, fieldValue);
+    }
+
+    private static final OfShort tdExtDevmodeOffset$LAYOUT = (OfShort)$LAYOUT.select(groupElement("tdExtDevmodeOffset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD tdExtDevmodeOffset
+     * }
+     */
+    public static final OfShort tdExtDevmodeOffset$layout() {
+        return tdExtDevmodeOffset$LAYOUT;
+    }
+
+    private static final long tdExtDevmodeOffset$OFFSET = 10;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD tdExtDevmodeOffset
+     * }
+     */
+    public static final long tdExtDevmodeOffset$offset() {
+        return tdExtDevmodeOffset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD tdExtDevmodeOffset
+     * }
+     */
+    public static short tdExtDevmodeOffset(MemorySegment struct) {
+        return struct.get(tdExtDevmodeOffset$LAYOUT, tdExtDevmodeOffset$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD tdExtDevmodeOffset
+     * }
+     */
+    public static void tdExtDevmodeOffset(MemorySegment struct, short fieldValue) {
+        struct.set(tdExtDevmodeOffset$LAYOUT, tdExtDevmodeOffset$OFFSET, fieldValue);
+    }
+
+    private static final SequenceLayout tdData$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("tdData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE tdData[1]
+     * }
+     */
+    public static final SequenceLayout tdData$layout() {
+        return tdData$LAYOUT;
+    }
+
+    private static final long tdData$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE tdData[1]
+     * }
+     */
+    public static final long tdData$offset() {
+        return tdData$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE tdData[1]
+     * }
+     */
+    public static MemorySegment tdData(MemorySegment struct) {
+        return struct.asSlice(tdData$OFFSET, tdData$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE tdData[1]
+     * }
+     */
+    public static void tdData(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, tdData$OFFSET, tdData$LAYOUT.byteSize());
+    }
+
+    private static long[] tdData$DIMS = { 1 };
+
+    /**
+     * Dimensions for array field:
+     * {@snippet lang=c :
+     * BYTE tdData[1]
+     * }
+     */
+    public static long[] tdData$dimensions() {
+        return tdData$DIMS;
+    }
+    private static final VarHandle tdData$ELEM_HANDLE = tdData$LAYOUT.varHandle(sequenceElement());
+
+    /**
+     * Indexed getter for field:
+     * {@snippet lang=c :
+     * BYTE tdData[1]
+     * }
+     */
+    public static byte tdData(MemorySegment struct, long index0) {
+        return (byte)tdData$ELEM_HANDLE.get(struct, 0L, index0);
+    }
+
+    /**
+     * Indexed setter for field:
+     * {@snippet lang=c :
+     * BYTE tdData[1]
+     * }
+     */
+    public static void tdData(MemorySegment struct, long index0, byte fieldValue) {
+        tdData$ELEM_HANDLE.set(struct, 0L, index0, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

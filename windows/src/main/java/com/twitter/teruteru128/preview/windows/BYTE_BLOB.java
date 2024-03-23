@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _BYTE_BLOB BYTE_BLOB;
+ * {@snippet lang=c :
+ * typedef struct _BYTE_BLOB {
+ *     ULONG clSize;
+ *     byte abData[1];
+ * } BYTE_BLOB
  * }
  */
-public final class BYTE_BLOB extends _BYTE_BLOB {
+public class BYTE_BLOB extends _BYTE_BLOB {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private BYTE_BLOB() {}
+    BYTE_BLOB() {
+        // Should not be called directly
+    }
 }
-
 

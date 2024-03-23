@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _STORAGE_DEVICE_TIERING_DESCRIPTOR STORAGE_DEVICE_TIERING_DESCRIPTOR;
+ * {@snippet lang=c :
+ * typedef struct _STORAGE_DEVICE_TIERING_DESCRIPTOR {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     DWORD Flags;
+ *     DWORD TotalNumberOfTiers;
+ *     DWORD NumberOfTiersReturned;
+ *     STORAGE_TIER Tiers[1];
+ * } STORAGE_DEVICE_TIERING_DESCRIPTOR
  * }
  */
-public final class STORAGE_DEVICE_TIERING_DESCRIPTOR extends _STORAGE_DEVICE_TIERING_DESCRIPTOR {
+public class STORAGE_DEVICE_TIERING_DESCRIPTOR extends _STORAGE_DEVICE_TIERING_DESCRIPTOR {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private STORAGE_DEVICE_TIERING_DESCRIPTOR() {}
+    STORAGE_DEVICE_TIERING_DESCRIPTOR() {
+        // Should not be called directly
+    }
 }
-
 

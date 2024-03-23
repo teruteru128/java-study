@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _PROCESS_INFORMATION PROCESS_INFORMATION;
+ * {@snippet lang=c :
+ * typedef struct _PROCESS_INFORMATION {
+ *     HANDLE hProcess;
+ *     HANDLE hThread;
+ *     DWORD dwProcessId;
+ *     DWORD dwThreadId;
+ * } PROCESS_INFORMATION
  * }
  */
-public final class PROCESS_INFORMATION extends _PROCESS_INFORMATION {
+public class PROCESS_INFORMATION extends _PROCESS_INFORMATION {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private PROCESS_INFORMATION() {}
+    PROCESS_INFORMATION() {
+        // Should not be called directly
+    }
 }
-
 

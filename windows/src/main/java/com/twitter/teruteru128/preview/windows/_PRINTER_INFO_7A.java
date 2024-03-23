@@ -2,84 +2,173 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _PRINTER_INFO_7A {
  *     LPSTR pszObjectGUID;
  *     DWORD dwAction;
- * };
+ * }
  * }
  */
 public class _PRINTER_INFO_7A {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2833.const$4;
+    _PRINTER_INFO_7A() {
+        // Should not be called directly
     }
-    public static VarHandle pszObjectGUID$VH() {
-        return constants$2833.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPSTR pszObjectGUID;
-     * }
-     */
-    public static MemorySegment pszObjectGUID$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2833.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPSTR pszObjectGUID;
-     * }
-     */
-    public static void pszObjectGUID$set(MemorySegment seg, MemorySegment x) {
-        constants$2833.const$5.set(seg, x);
-    }
-    public static MemorySegment pszObjectGUID$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2833.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pszObjectGUID$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2833.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwAction$VH() {
-        return constants$2834.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwAction;
-     * }
-     */
-    public static int dwAction$get(MemorySegment seg) {
-        return (int)constants$2834.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwAction;
-     * }
-     */
-    public static void dwAction$set(MemorySegment seg, int x) {
-        constants$2834.const$0.set(seg, x);
-    }
-    public static int dwAction$get(MemorySegment seg, long index) {
-        return (int)constants$2834.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwAction$set(MemorySegment seg, long index, int x) {
-        constants$2834.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("pszObjectGUID"),
+        Windows_h.C_LONG.withName("dwAction"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("_PRINTER_INFO_7A");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final AddressLayout pszObjectGUID$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pszObjectGUID"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPSTR pszObjectGUID
+     * }
+     */
+    public static final AddressLayout pszObjectGUID$layout() {
+        return pszObjectGUID$LAYOUT;
+    }
+
+    private static final long pszObjectGUID$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPSTR pszObjectGUID
+     * }
+     */
+    public static final long pszObjectGUID$offset() {
+        return pszObjectGUID$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPSTR pszObjectGUID
+     * }
+     */
+    public static MemorySegment pszObjectGUID(MemorySegment struct) {
+        return struct.get(pszObjectGUID$LAYOUT, pszObjectGUID$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPSTR pszObjectGUID
+     * }
+     */
+    public static void pszObjectGUID(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pszObjectGUID$LAYOUT, pszObjectGUID$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwAction$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwAction"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwAction
+     * }
+     */
+    public static final OfInt dwAction$layout() {
+        return dwAction$LAYOUT;
+    }
+
+    private static final long dwAction$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwAction
+     * }
+     */
+    public static final long dwAction$offset() {
+        return dwAction$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwAction
+     * }
+     */
+    public static int dwAction(MemorySegment struct) {
+        return struct.get(dwAction$LAYOUT, dwAction$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwAction
+     * }
+     */
+    public static void dwAction(MemorySegment struct, int fieldValue) {
+        struct.set(dwAction$LAYOUT, dwAction$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

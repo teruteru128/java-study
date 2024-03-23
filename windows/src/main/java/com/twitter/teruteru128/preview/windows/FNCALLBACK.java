@@ -2,32 +2,74 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * HDDEDATA (*FNCALLBACK)(UINT wType,UINT wFmt,HCONV hConv,HSZ hsz1,HSZ hsz2,HDDEDATA hData,ULONG_PTR dwData1,ULONG_PTR dwData2);
+ * {@snippet lang=c :
+ * typedef HDDEDATA (FNCALLBACK)(UINT, UINT, HCONV, HSZ, HSZ, HDDEDATA, ULONG_PTR, ULONG_PTR) __attribute__((stdcall))
  * }
  */
-public interface FNCALLBACK {
+public class FNCALLBACK {
 
-    java.lang.foreign.MemorySegment apply(int wType, int wFmt, java.lang.foreign.MemorySegment hConv, java.lang.foreign.MemorySegment hsz1, java.lang.foreign.MemorySegment hsz2, java.lang.foreign.MemorySegment hData, long dwData1, long dwData2);
-    static MemorySegment allocate(FNCALLBACK fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$1530.const$2, fi, constants$1530.const$1, scope);
+    FNCALLBACK() {
+        // Should not be called directly
     }
-    static FNCALLBACK ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (int _wType, int _wFmt, java.lang.foreign.MemorySegment _hConv, java.lang.foreign.MemorySegment _hsz1, java.lang.foreign.MemorySegment _hsz2, java.lang.foreign.MemorySegment _hData, long _dwData1, long _dwData2) -> {
-            try {
-                return (java.lang.foreign.MemorySegment)constants$1530.const$3.invokeExact(symbol, _wType, _wFmt, _hConv, _hsz1, _hsz2, _hData, _dwData1, _dwData2);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        MemorySegment apply(int wType, int wFmt, MemorySegment hConv, MemorySegment hsz1, MemorySegment hsz2, MemorySegment hData, long dwData1, long dwData2);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_POINTER,
+        Windows_h.C_INT,
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG_LONG,
+        Windows_h.C_LONG_LONG
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(FNCALLBACK.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(FNCALLBACK.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static MemorySegment invoke(MemorySegment funcPtr,int wType, int wFmt, MemorySegment hConv, MemorySegment hsz1, MemorySegment hsz2, MemorySegment hData, long dwData1, long dwData2) {
+        try {
+            return (MemorySegment) DOWN$MH.invokeExact(funcPtr, wType, wFmt, hConv, hsz1, hsz2, hData, dwData1, dwData2);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

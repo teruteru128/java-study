@@ -2,62 +2,177 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _NDR_USER_MARSHAL_INFO {
  *     unsigned long InformationLevel;
  *     union {
  *         NDR_USER_MARSHAL_INFO_LEVEL1 Level1;
  *     };
- * };
+ * }
  * }
  */
 public class _NDR_USER_MARSHAL_INFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2335.const$1;
+    _NDR_USER_MARSHAL_INFO() {
+        // Should not be called directly
     }
-    public static VarHandle InformationLevel$VH() {
-        return constants$2335.const$2;
+
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("InformationLevel"),
+        MemoryLayout.paddingLayout(4),
+        MemoryLayout.unionLayout(
+            _NDR_USER_MARSHAL_INFO_LEVEL1.layout().withName("Level1")
+        ).withName("$anon$3113:5")
+    ).withName("_NDR_USER_MARSHAL_INFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
     }
+
+    private static final OfInt InformationLevel$LAYOUT = (OfInt)$LAYOUT.select(groupElement("InformationLevel"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * unsigned long InformationLevel
+     * }
+     */
+    public static final OfInt InformationLevel$layout() {
+        return InformationLevel$LAYOUT;
+    }
+
+    private static final long InformationLevel$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * unsigned long InformationLevel
+     * }
+     */
+    public static final long InformationLevel$offset() {
+        return InformationLevel$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * unsigned long InformationLevel;
+     * {@snippet lang=c :
+     * unsigned long InformationLevel
      * }
      */
-    public static int InformationLevel$get(MemorySegment seg) {
-        return (int)constants$2335.const$2.get(seg);
+    public static int InformationLevel(MemorySegment struct) {
+        return struct.get(InformationLevel$LAYOUT, InformationLevel$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * unsigned long InformationLevel;
+     * {@snippet lang=c :
+     * unsigned long InformationLevel
      * }
      */
-    public static void InformationLevel$set(MemorySegment seg, int x) {
-        constants$2335.const$2.set(seg, x);
+    public static void InformationLevel(MemorySegment struct, int fieldValue) {
+        struct.set(InformationLevel$LAYOUT, InformationLevel$OFFSET, fieldValue);
     }
-    public static int InformationLevel$get(MemorySegment seg, long index) {
-        return (int)constants$2335.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void InformationLevel$set(MemorySegment seg, long index, int x) {
-        constants$2335.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment Level1$slice(MemorySegment seg) {
-        return seg.asSlice(8, 80);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout Level1$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("$anon$3113:5"), groupElement("Level1"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * NDR_USER_MARSHAL_INFO_LEVEL1 Level1
+     * }
+     */
+    public static final GroupLayout Level1$layout() {
+        return Level1$LAYOUT;
+    }
+
+    private static final long Level1$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * NDR_USER_MARSHAL_INFO_LEVEL1 Level1
+     * }
+     */
+    public static final long Level1$offset() {
+        return Level1$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * NDR_USER_MARSHAL_INFO_LEVEL1 Level1
+     * }
+     */
+    public static MemorySegment Level1(MemorySegment struct) {
+        return struct.asSlice(Level1$OFFSET, Level1$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * NDR_USER_MARSHAL_INFO_LEVEL1 Level1
+     * }
+     */
+    public static void Level1(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, Level1$OFFSET, Level1$LAYOUT.byteSize());
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

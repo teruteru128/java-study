@@ -2,32 +2,71 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void (*PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK)(struct _CERT_CHAIN_CONTEXT* pChainContext,struct _CERT_SERVER_OCSP_RESPONSE_CONTEXT* pServerOcspResponseContext,struct _CRL_CONTEXT* pNewCrlContext,struct _CRL_CONTEXT* pPrevCrlContext,void* pvArg,unsigned long dwWriteOcspFileError);
+ * {@snippet lang=c :
+ * typedef void (*PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK)(PCCERT_CHAIN_CONTEXT, PCCERT_SERVER_OCSP_RESPONSE_CONTEXT, PCCRL_CONTEXT, PCCRL_CONTEXT, PVOID, DWORD) __attribute__((stdcall))
  * }
  */
-public interface PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK {
+public class PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK {
 
-    void apply(java.lang.foreign.MemorySegment pChainContext, java.lang.foreign.MemorySegment pServerOcspResponseContext, java.lang.foreign.MemorySegment pNewCrlContext, java.lang.foreign.MemorySegment pPrevCrlContext, java.lang.foreign.MemorySegment pvArg, int dwWriteOcspFileError);
-    static MemorySegment allocate(PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2231.const$2, fi, constants$2231.const$1, scope);
+    PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK() {
+        // Should not be called directly
     }
-    static PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _pChainContext, java.lang.foreign.MemorySegment _pServerOcspResponseContext, java.lang.foreign.MemorySegment _pNewCrlContext, java.lang.foreign.MemorySegment _pPrevCrlContext, java.lang.foreign.MemorySegment _pvArg, int _dwWriteOcspFileError) -> {
-            try {
-                constants$2231.const$3.invokeExact(symbol, _pChainContext, _pServerOcspResponseContext, _pNewCrlContext, _pPrevCrlContext, _pvArg, _dwWriteOcspFileError);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        void apply(MemorySegment pChainContext, MemorySegment pServerOcspResponseContext, MemorySegment pNewCrlContext, MemorySegment pPrevCrlContext, MemorySegment pvArg, int dwWriteOcspFileError);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CERT_SERVER_OCSP_RESPONSE_UPDATE_CALLBACK.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static void invoke(MemorySegment funcPtr,MemorySegment pChainContext, MemorySegment pServerOcspResponseContext, MemorySegment pNewCrlContext, MemorySegment pPrevCrlContext, MemorySegment pvArg, int dwWriteOcspFileError) {
+        try {
+             DOWN$MH.invokeExact(funcPtr, pChainContext, pServerOcspResponseContext, pNewCrlContext, pPrevCrlContext, pvArg, dwWriteOcspFileError);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

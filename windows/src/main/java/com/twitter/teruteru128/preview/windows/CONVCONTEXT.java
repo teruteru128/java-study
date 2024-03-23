@@ -2,20 +2,33 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagCONVCONTEXT CONVCONTEXT;
+ * {@snippet lang=c :
+ * typedef struct tagCONVCONTEXT {
+ *     UINT cb;
+ *     UINT wFlags;
+ *     UINT wCountryID;
+ *     int iCodePage;
+ *     DWORD dwLangID;
+ *     DWORD dwSecurity;
+ *     SECURITY_QUALITY_OF_SERVICE qos;
+ * } CONVCONTEXT
  * }
  */
-public final class CONVCONTEXT extends tagCONVCONTEXT {
+public class CONVCONTEXT extends tagCONVCONTEXT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CONVCONTEXT() {}
+    CONVCONTEXT() {
+        // Should not be called directly
+    }
 }
-
 

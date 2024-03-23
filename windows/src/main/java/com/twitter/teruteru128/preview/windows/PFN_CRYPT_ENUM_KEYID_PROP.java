@@ -2,32 +2,74 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_CRYPT_ENUM_KEYID_PROP)(struct _CRYPTOAPI_BLOB* pKeyIdentifier,unsigned long dwFlags,void* pvReserved,void* pvArg,unsigned long cProp,unsigned long* rgdwPropId,void** rgpvData,unsigned long* rgcbData);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_CRYPT_ENUM_KEYID_PROP)(const CRYPT_HASH_BLOB *, DWORD, void *, void *, DWORD, DWORD *, void **, DWORD *) __attribute__((stdcall))
  * }
  */
-public interface PFN_CRYPT_ENUM_KEYID_PROP {
+public class PFN_CRYPT_ENUM_KEYID_PROP {
 
-    int apply(java.lang.foreign.MemorySegment pKeyIdentifier, int dwFlags, java.lang.foreign.MemorySegment pvReserved, java.lang.foreign.MemorySegment pvArg, int cProp, java.lang.foreign.MemorySegment rgdwPropId, java.lang.foreign.MemorySegment rgpvData, java.lang.foreign.MemorySegment rgcbData);
-    static MemorySegment allocate(PFN_CRYPT_ENUM_KEYID_PROP fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2203.const$5, fi, constants$2203.const$4, scope);
+    PFN_CRYPT_ENUM_KEYID_PROP() {
+        // Should not be called directly
     }
-    static PFN_CRYPT_ENUM_KEYID_PROP ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _pKeyIdentifier, int _dwFlags, java.lang.foreign.MemorySegment _pvReserved, java.lang.foreign.MemorySegment _pvArg, int _cProp, java.lang.foreign.MemorySegment _rgdwPropId, java.lang.foreign.MemorySegment _rgpvData, java.lang.foreign.MemorySegment _rgcbData) -> {
-            try {
-                return (int)constants$2204.const$0.invokeExact(symbol, _pKeyIdentifier, _dwFlags, _pvReserved, _pvArg, _cProp, _rgdwPropId, _rgpvData, _rgcbData);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment pKeyIdentifier, int dwFlags, MemorySegment pvReserved, MemorySegment pvArg, int cProp, MemorySegment rgdwPropId, MemorySegment rgpvData, MemorySegment rgcbData);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CRYPT_ENUM_KEYID_PROP.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CRYPT_ENUM_KEYID_PROP.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment pKeyIdentifier, int dwFlags, MemorySegment pvReserved, MemorySegment pvArg, int cProp, MemorySegment rgdwPropId, MemorySegment rgpvData, MemorySegment rgcbData) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, pKeyIdentifier, dwFlags, pvReserved, pvArg, cProp, rgdwPropId, rgpvData, rgcbData);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SYSTEM_POWER_STATUS SYSTEM_POWER_STATUS;
+ * {@snippet lang=c :
+ * typedef struct _SYSTEM_POWER_STATUS {
+ *     BYTE ACLineStatus;
+ *     BYTE BatteryFlag;
+ *     BYTE BatteryLifePercent;
+ *     BYTE SystemStatusFlag;
+ *     DWORD BatteryLifeTime;
+ *     DWORD BatteryFullLifeTime;
+ * } SYSTEM_POWER_STATUS
  * }
  */
-public final class SYSTEM_POWER_STATUS extends _SYSTEM_POWER_STATUS {
+public class SYSTEM_POWER_STATUS extends _SYSTEM_POWER_STATUS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SYSTEM_POWER_STATUS() {}
+    SYSTEM_POWER_STATUS() {
+        // Should not be called directly
+    }
 }
-
 

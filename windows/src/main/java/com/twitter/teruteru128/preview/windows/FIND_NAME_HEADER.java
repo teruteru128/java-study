@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _FIND_NAME_HEADER FIND_NAME_HEADER;
+ * {@snippet lang=c :
+ * typedef struct _FIND_NAME_HEADER {
+ *     WORD node_count;
+ *     UCHAR reserved;
+ *     UCHAR unique_group;
+ * } FIND_NAME_HEADER
  * }
  */
-public final class FIND_NAME_HEADER extends _FIND_NAME_HEADER {
+public class FIND_NAME_HEADER extends _FIND_NAME_HEADER {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private FIND_NAME_HEADER() {}
+    FIND_NAME_HEADER() {
+        // Should not be called directly
+    }
 }
-
 

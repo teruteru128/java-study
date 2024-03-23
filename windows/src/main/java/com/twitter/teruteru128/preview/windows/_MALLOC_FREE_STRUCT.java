@@ -2,136 +2,279 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _MALLOC_FREE_STRUCT {
- *     void* (*pfnAllocate)(size_t);
- *     void (*pfnFree)(void*);
- * };
+ *     void *(*pfnAllocate)(size_t) __attribute__((stdcall));
+ *     void (*pfnFree)(void *) __attribute__((stdcall));
+ * }
  * }
  */
 public class _MALLOC_FREE_STRUCT {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2282.const$2;
+    _MALLOC_FREE_STRUCT() {
+        // Should not be called directly
     }
+
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("pfnAllocate"),
+        Windows_h.C_POINTER.withName("pfnFree")
+    ).withName("_MALLOC_FREE_STRUCT");
+
     /**
-     * {@snippet :
- * void* (*pfnAllocate)(size_t);
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    /**
+     * {@snippet lang=c :
+     * void *(*pfnAllocate)(size_t) __attribute__((stdcall))
      * }
      */
-    public interface pfnAllocate {
+    public static class pfnAllocate {
 
-        java.lang.foreign.MemorySegment apply(long Size);
-        static MemorySegment allocate(pfnAllocate fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$2282.const$3, fi, constants$1977.const$2, scope);
+        pfnAllocate() {
+            // Should not be called directly
         }
-        static pfnAllocate ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (long _Size) -> {
-                try {
-                    return (java.lang.foreign.MemorySegment)constants$1977.const$4.invokeExact(symbol, _Size);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            MemorySegment apply(long _x0);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(pfnAllocate.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(pfnAllocate.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static MemorySegment invoke(MemorySegment funcPtr,long _x0) {
+            try {
+                return (MemorySegment) DOWN$MH.invokeExact(funcPtr, _x0);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle pfnAllocate$VH() {
-        return constants$2282.const$4;
+    private static final AddressLayout pfnAllocate$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pfnAllocate"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * void *(*pfnAllocate)(size_t) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout pfnAllocate$layout() {
+        return pfnAllocate$LAYOUT;
     }
+
+    private static final long pfnAllocate$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * void *(*pfnAllocate)(size_t) __attribute__((stdcall))
+     * }
+     */
+    public static final long pfnAllocate$offset() {
+        return pfnAllocate$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * void* (*pfnAllocate)(size_t);
+     * {@snippet lang=c :
+     * void *(*pfnAllocate)(size_t) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment pfnAllocate$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2282.const$4.get(seg);
+    public static MemorySegment pfnAllocate(MemorySegment struct) {
+        return struct.get(pfnAllocate$LAYOUT, pfnAllocate$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * void* (*pfnAllocate)(size_t);
+     * {@snippet lang=c :
+     * void *(*pfnAllocate)(size_t) __attribute__((stdcall))
      * }
      */
-    public static void pfnAllocate$set(MemorySegment seg, MemorySegment x) {
-        constants$2282.const$4.set(seg, x);
+    public static void pfnAllocate(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pfnAllocate$LAYOUT, pfnAllocate$OFFSET, fieldValue);
     }
-    public static MemorySegment pfnAllocate$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2282.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pfnAllocate$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2282.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static pfnAllocate pfnAllocate(MemorySegment segment, Arena scope) {
-        return pfnAllocate.ofAddress(pfnAllocate$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * void (*pfnFree)(void*);
+     * {@snippet lang=c :
+     * void (*pfnFree)(void *) __attribute__((stdcall))
      * }
      */
-    public interface pfnFree {
+    public static class pfnFree {
 
-        void apply(java.lang.foreign.MemorySegment pParameter);
-        static MemorySegment allocate(pfnFree fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$2282.const$5, fi, constants$0.const$0, scope);
+        pfnFree() {
+            // Should not be called directly
         }
-        static pfnFree ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment _pParameter) -> {
-                try {
-                    constants$496.const$2.invokeExact(symbol, _pParameter);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            void apply(MemorySegment _x0);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(pfnFree.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(pfnFree.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static void invoke(MemorySegment funcPtr,MemorySegment _x0) {
+            try {
+                 DOWN$MH.invokeExact(funcPtr, _x0);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle pfnFree$VH() {
-        return constants$2283.const$0;
+    private static final AddressLayout pfnFree$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pfnFree"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * void (*pfnFree)(void *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout pfnFree$layout() {
+        return pfnFree$LAYOUT;
     }
+
+    private static final long pfnFree$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * void (*pfnFree)(void *) __attribute__((stdcall))
+     * }
+     */
+    public static final long pfnFree$offset() {
+        return pfnFree$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * void (*pfnFree)(void*);
+     * {@snippet lang=c :
+     * void (*pfnFree)(void *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment pfnFree$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2283.const$0.get(seg);
+    public static MemorySegment pfnFree(MemorySegment struct) {
+        return struct.get(pfnFree$LAYOUT, pfnFree$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * void (*pfnFree)(void*);
+     * {@snippet lang=c :
+     * void (*pfnFree)(void *) __attribute__((stdcall))
      * }
      */
-    public static void pfnFree$set(MemorySegment seg, MemorySegment x) {
-        constants$2283.const$0.set(seg, x);
+    public static void pfnFree(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pfnFree$LAYOUT, pfnFree$OFFSET, fieldValue);
     }
-    public static MemorySegment pfnFree$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2283.const$0.get(seg.asSlice(index*sizeof()));
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
     }
-    public static void pfnFree$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2283.const$0.set(seg.asSlice(index*sizeof()), x);
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
     }
-    public static pfnFree pfnFree(MemorySegment segment, Arena scope) {
-        return pfnFree.ofAddress(pfnFree$get(segment), scope);
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
     }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
     }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
 }
-
 

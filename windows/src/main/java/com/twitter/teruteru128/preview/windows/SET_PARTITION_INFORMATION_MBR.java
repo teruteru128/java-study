@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SET_PARTITION_INFORMATION SET_PARTITION_INFORMATION_MBR;
+ * {@snippet lang=c :
+ * typedef SET_PARTITION_INFORMATION SET_PARTITION_INFORMATION_MBR
  * }
  */
-public final class SET_PARTITION_INFORMATION_MBR extends _SET_PARTITION_INFORMATION {
+public class SET_PARTITION_INFORMATION_MBR extends _SET_PARTITION_INFORMATION {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SET_PARTITION_INFORMATION_MBR() {}
+    SET_PARTITION_INFORMATION_MBR() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,112 +2,218 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _GRADIENT_TRIANGLE {
  *     ULONG Vertex1;
  *     ULONG Vertex2;
  *     ULONG Vertex3;
- * };
+ * }
  * }
  */
 public class _GRADIENT_TRIANGLE {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1041.const$3;
+    _GRADIENT_TRIANGLE() {
+        // Should not be called directly
     }
-    public static VarHandle Vertex1$VH() {
-        return constants$1041.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG Vertex1;
-     * }
-     */
-    public static int Vertex1$get(MemorySegment seg) {
-        return (int)constants$1041.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG Vertex1;
-     * }
-     */
-    public static void Vertex1$set(MemorySegment seg, int x) {
-        constants$1041.const$4.set(seg, x);
-    }
-    public static int Vertex1$get(MemorySegment seg, long index) {
-        return (int)constants$1041.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Vertex1$set(MemorySegment seg, long index, int x) {
-        constants$1041.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Vertex2$VH() {
-        return constants$1041.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG Vertex2;
-     * }
-     */
-    public static int Vertex2$get(MemorySegment seg) {
-        return (int)constants$1041.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG Vertex2;
-     * }
-     */
-    public static void Vertex2$set(MemorySegment seg, int x) {
-        constants$1041.const$5.set(seg, x);
-    }
-    public static int Vertex2$get(MemorySegment seg, long index) {
-        return (int)constants$1041.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Vertex2$set(MemorySegment seg, long index, int x) {
-        constants$1041.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Vertex3$VH() {
-        return constants$1042.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG Vertex3;
-     * }
-     */
-    public static int Vertex3$get(MemorySegment seg) {
-        return (int)constants$1042.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG Vertex3;
-     * }
-     */
-    public static void Vertex3$set(MemorySegment seg, int x) {
-        constants$1042.const$0.set(seg, x);
-    }
-    public static int Vertex3$get(MemorySegment seg, long index) {
-        return (int)constants$1042.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Vertex3$set(MemorySegment seg, long index, int x) {
-        constants$1042.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("Vertex1"),
+        Windows_h.C_LONG.withName("Vertex2"),
+        Windows_h.C_LONG.withName("Vertex3")
+    ).withName("_GRADIENT_TRIANGLE");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt Vertex1$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Vertex1"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG Vertex1
+     * }
+     */
+    public static final OfInt Vertex1$layout() {
+        return Vertex1$LAYOUT;
+    }
+
+    private static final long Vertex1$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG Vertex1
+     * }
+     */
+    public static final long Vertex1$offset() {
+        return Vertex1$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG Vertex1
+     * }
+     */
+    public static int Vertex1(MemorySegment struct) {
+        return struct.get(Vertex1$LAYOUT, Vertex1$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG Vertex1
+     * }
+     */
+    public static void Vertex1(MemorySegment struct, int fieldValue) {
+        struct.set(Vertex1$LAYOUT, Vertex1$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Vertex2$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Vertex2"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG Vertex2
+     * }
+     */
+    public static final OfInt Vertex2$layout() {
+        return Vertex2$LAYOUT;
+    }
+
+    private static final long Vertex2$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG Vertex2
+     * }
+     */
+    public static final long Vertex2$offset() {
+        return Vertex2$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG Vertex2
+     * }
+     */
+    public static int Vertex2(MemorySegment struct) {
+        return struct.get(Vertex2$LAYOUT, Vertex2$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG Vertex2
+     * }
+     */
+    public static void Vertex2(MemorySegment struct, int fieldValue) {
+        struct.set(Vertex2$LAYOUT, Vertex2$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Vertex3$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Vertex3"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG Vertex3
+     * }
+     */
+    public static final OfInt Vertex3$layout() {
+        return Vertex3$LAYOUT;
+    }
+
+    private static final long Vertex3$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG Vertex3
+     * }
+     */
+    public static final long Vertex3$offset() {
+        return Vertex3$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG Vertex3
+     * }
+     */
+    public static int Vertex3(MemorySegment struct) {
+        return struct.get(Vertex3$LAYOUT, Vertex3$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG Vertex3
+     * }
+     */
+    public static void Vertex3(MemorySegment struct, int fieldValue) {
+        struct.set(Vertex3$LAYOUT, Vertex3$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

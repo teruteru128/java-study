@@ -2,84 +2,172 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _WIN32_MEMORY_RANGE_ENTRY {
  *     PVOID VirtualAddress;
  *     SIZE_T NumberOfBytes;
- * };
+ * }
  * }
  */
 public class _WIN32_MEMORY_RANGE_ENTRY {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$679.const$0;
+    _WIN32_MEMORY_RANGE_ENTRY() {
+        // Should not be called directly
     }
-    public static VarHandle VirtualAddress$VH() {
-        return constants$679.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PVOID VirtualAddress;
-     * }
-     */
-    public static MemorySegment VirtualAddress$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$679.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PVOID VirtualAddress;
-     * }
-     */
-    public static void VirtualAddress$set(MemorySegment seg, MemorySegment x) {
-        constants$679.const$1.set(seg, x);
-    }
-    public static MemorySegment VirtualAddress$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$679.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void VirtualAddress$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$679.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle NumberOfBytes$VH() {
-        return constants$679.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * SIZE_T NumberOfBytes;
-     * }
-     */
-    public static long NumberOfBytes$get(MemorySegment seg) {
-        return (long)constants$679.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * SIZE_T NumberOfBytes;
-     * }
-     */
-    public static void NumberOfBytes$set(MemorySegment seg, long x) {
-        constants$679.const$2.set(seg, x);
-    }
-    public static long NumberOfBytes$get(MemorySegment seg, long index) {
-        return (long)constants$679.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void NumberOfBytes$set(MemorySegment seg, long index, long x) {
-        constants$679.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("VirtualAddress"),
+        Windows_h.C_LONG_LONG.withName("NumberOfBytes")
+    ).withName("_WIN32_MEMORY_RANGE_ENTRY");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final AddressLayout VirtualAddress$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("VirtualAddress"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PVOID VirtualAddress
+     * }
+     */
+    public static final AddressLayout VirtualAddress$layout() {
+        return VirtualAddress$LAYOUT;
+    }
+
+    private static final long VirtualAddress$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PVOID VirtualAddress
+     * }
+     */
+    public static final long VirtualAddress$offset() {
+        return VirtualAddress$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PVOID VirtualAddress
+     * }
+     */
+    public static MemorySegment VirtualAddress(MemorySegment struct) {
+        return struct.get(VirtualAddress$LAYOUT, VirtualAddress$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PVOID VirtualAddress
+     * }
+     */
+    public static void VirtualAddress(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(VirtualAddress$LAYOUT, VirtualAddress$OFFSET, fieldValue);
+    }
+
+    private static final OfLong NumberOfBytes$LAYOUT = (OfLong)$LAYOUT.select(groupElement("NumberOfBytes"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SIZE_T NumberOfBytes
+     * }
+     */
+    public static final OfLong NumberOfBytes$layout() {
+        return NumberOfBytes$LAYOUT;
+    }
+
+    private static final long NumberOfBytes$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SIZE_T NumberOfBytes
+     * }
+     */
+    public static final long NumberOfBytes$offset() {
+        return NumberOfBytes$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SIZE_T NumberOfBytes
+     * }
+     */
+    public static long NumberOfBytes(MemorySegment struct) {
+        return struct.get(NumberOfBytes$LAYOUT, NumberOfBytes$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SIZE_T NumberOfBytes
+     * }
+     */
+    public static void NumberOfBytes(MemorySegment struct, long fieldValue) {
+        struct.set(NumberOfBytes$LAYOUT, NumberOfBytes$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

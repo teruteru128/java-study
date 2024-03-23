@@ -2,20 +2,42 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _MMIOINFO MMIOINFO;
+ * {@snippet lang=c :
+ * typedef struct _MMIOINFO {
+ *     DWORD dwFlags;
+ *     FOURCC fccIOProc;
+ *     LPMMIOPROC pIOProc;
+ *     UINT wErrorRet;
+ *     HTASK htask;
+ *     LONG cchBuffer;
+ *     HPSTR pchBuffer;
+ *     HPSTR pchNext;
+ *     HPSTR pchEndRead;
+ *     HPSTR pchEndWrite;
+ *     LONG lBufOffset;
+ *     LONG lDiskOffset;
+ *     DWORD adwInfo[3];
+ *     DWORD dwReserved1;
+ *     DWORD dwReserved2;
+ *     HMMIO hmmio;
+ * } MMIOINFO
  * }
  */
-public final class MMIOINFO extends _MMIOINFO {
+public class MMIOINFO extends _MMIOINFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MMIOINFO() {}
+    MMIOINFO() {
+        // Should not be called directly
+    }
 }
-
 

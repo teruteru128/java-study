@@ -2,32 +2,68 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * enum _COPYFILE2_MESSAGE_ACTION (*PCOPYFILE2_PROGRESS_ROUTINE)(struct COPYFILE2_MESSAGE* pMessage,void* pvCallbackContext);
+ * {@snippet lang=c :
+ * typedef COPYFILE2_MESSAGE_ACTION (*PCOPYFILE2_PROGRESS_ROUTINE)(const COPYFILE2_MESSAGE *, PVOID) __attribute__((stdcall))
  * }
  */
-public interface PCOPYFILE2_PROGRESS_ROUTINE {
+public class PCOPYFILE2_PROGRESS_ROUTINE {
 
-    int apply(java.lang.foreign.MemorySegment pMessage, java.lang.foreign.MemorySegment pvCallbackContext);
-    static MemorySegment allocate(PCOPYFILE2_PROGRESS_ROUTINE fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$813.const$2, fi, constants$34.const$0, scope);
+    PCOPYFILE2_PROGRESS_ROUTINE() {
+        // Should not be called directly
     }
-    static PCOPYFILE2_PROGRESS_ROUTINE ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _pMessage, java.lang.foreign.MemorySegment _pvCallbackContext) -> {
-            try {
-                return (int)constants$92.const$2.invokeExact(symbol, _pMessage, _pvCallbackContext);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment pMessage, MemorySegment pvCallbackContext);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PCOPYFILE2_PROGRESS_ROUTINE.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PCOPYFILE2_PROGRESS_ROUTINE.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment pMessage, MemorySegment pvCallbackContext) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, pMessage, pvCallbackContext);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

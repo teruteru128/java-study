@@ -2,32 +2,68 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*WINSTAENUMPROC)(char*,long long);
+ * {@snippet lang=c :
+ * typedef WINSTAENUMPROCA WINSTAENUMPROC
  * }
  */
-public interface WINSTAENUMPROC {
+public class WINSTAENUMPROC {
 
-    int apply(java.lang.foreign.MemorySegment _x0, long _x1);
-    static MemorySegment allocate(WINSTAENUMPROC fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$1137.const$3, fi, constants$39.const$3, scope);
+    WINSTAENUMPROC() {
+        // Should not be called directly
     }
-    static WINSTAENUMPROC ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment __x0, long __x1) -> {
-            try {
-                return (int)constants$994.const$4.invokeExact(symbol, __x0, __x1);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment _x0, long _x1);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG_LONG
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(WINSTAENUMPROC.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(WINSTAENUMPROC.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment _x0, long _x1) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMIDIOUTCAPS2A MIDIOUTCAPS2;
+ * {@snippet lang=c :
+ * typedef MIDIOUTCAPS2A MIDIOUTCAPS2
  * }
  */
-public final class MIDIOUTCAPS2 extends tagMIDIOUTCAPS2A {
+public class MIDIOUTCAPS2 extends tagMIDIOUTCAPS2A {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MIDIOUTCAPS2() {}
+    MIDIOUTCAPS2() {
+        // Should not be called directly
+    }
 }
-
 

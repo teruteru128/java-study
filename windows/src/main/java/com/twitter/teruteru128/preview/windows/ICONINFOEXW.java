@@ -2,20 +2,35 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _ICONINFOEXW ICONINFOEXW;
+ * {@snippet lang=c :
+ * typedef struct _ICONINFOEXW {
+ *     DWORD cbSize;
+ *     BOOL fIcon;
+ *     DWORD xHotspot;
+ *     DWORD yHotspot;
+ *     HBITMAP hbmMask;
+ *     HBITMAP hbmColor;
+ *     WORD wResID;
+ *     WCHAR szModName[260];
+ *     WCHAR szResName[260];
+ * } ICONINFOEXW
  * }
  */
-public final class ICONINFOEXW extends _ICONINFOEXW {
+public class ICONINFOEXW extends _ICONINFOEXW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private ICONINFOEXW() {}
+    ICONINFOEXW() {
+        // Should not be called directly
+    }
 }
-
 

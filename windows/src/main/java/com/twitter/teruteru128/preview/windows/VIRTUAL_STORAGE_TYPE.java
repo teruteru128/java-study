@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _VIRTUAL_STORAGE_TYPE VIRTUAL_STORAGE_TYPE;
+ * {@snippet lang=c :
+ * typedef struct _VIRTUAL_STORAGE_TYPE {
+ *     DWORD DeviceId;
+ *     GUID VendorId;
+ * } VIRTUAL_STORAGE_TYPE
  * }
  */
-public final class VIRTUAL_STORAGE_TYPE extends _VIRTUAL_STORAGE_TYPE {
+public class VIRTUAL_STORAGE_TYPE extends _VIRTUAL_STORAGE_TYPE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private VIRTUAL_STORAGE_TYPE() {}
+    VIRTUAL_STORAGE_TYPE() {
+        // Should not be called directly
+    }
 }
-
 

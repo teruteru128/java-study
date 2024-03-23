@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _IMAGE_HOT_PATCH_BASE {
  *     DWORD SequenceNumber;
  *     DWORD Flags;
@@ -18,236 +23,427 @@ import static java.lang.foreign.ValueLayout.*;
  *     DWORD CodeIntegritySize;
  *     DWORD PatchTable;
  *     DWORD BufferOffset;
- * };
+ * }
  * }
  */
 public class _IMAGE_HOT_PATCH_BASE {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$440.const$1;
+    _IMAGE_HOT_PATCH_BASE() {
+        // Should not be called directly
     }
-    public static VarHandle SequenceNumber$VH() {
-        return constants$440.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD SequenceNumber;
-     * }
-     */
-    public static int SequenceNumber$get(MemorySegment seg) {
-        return (int)constants$440.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD SequenceNumber;
-     * }
-     */
-    public static void SequenceNumber$set(MemorySegment seg, int x) {
-        constants$440.const$2.set(seg, x);
-    }
-    public static int SequenceNumber$get(MemorySegment seg, long index) {
-        return (int)constants$440.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SequenceNumber$set(MemorySegment seg, long index, int x) {
-        constants$440.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Flags$VH() {
-        return constants$440.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Flags;
-     * }
-     */
-    public static int Flags$get(MemorySegment seg) {
-        return (int)constants$440.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Flags;
-     * }
-     */
-    public static void Flags$set(MemorySegment seg, int x) {
-        constants$440.const$3.set(seg, x);
-    }
-    public static int Flags$get(MemorySegment seg, long index) {
-        return (int)constants$440.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Flags$set(MemorySegment seg, long index, int x) {
-        constants$440.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle OriginalTimeDateStamp$VH() {
-        return constants$440.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD OriginalTimeDateStamp;
-     * }
-     */
-    public static int OriginalTimeDateStamp$get(MemorySegment seg) {
-        return (int)constants$440.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD OriginalTimeDateStamp;
-     * }
-     */
-    public static void OriginalTimeDateStamp$set(MemorySegment seg, int x) {
-        constants$440.const$4.set(seg, x);
-    }
-    public static int OriginalTimeDateStamp$get(MemorySegment seg, long index) {
-        return (int)constants$440.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void OriginalTimeDateStamp$set(MemorySegment seg, long index, int x) {
-        constants$440.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle OriginalCheckSum$VH() {
-        return constants$440.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD OriginalCheckSum;
-     * }
-     */
-    public static int OriginalCheckSum$get(MemorySegment seg) {
-        return (int)constants$440.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD OriginalCheckSum;
-     * }
-     */
-    public static void OriginalCheckSum$set(MemorySegment seg, int x) {
-        constants$440.const$5.set(seg, x);
-    }
-    public static int OriginalCheckSum$get(MemorySegment seg, long index) {
-        return (int)constants$440.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void OriginalCheckSum$set(MemorySegment seg, long index, int x) {
-        constants$440.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle CodeIntegrityInfo$VH() {
-        return constants$441.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD CodeIntegrityInfo;
-     * }
-     */
-    public static int CodeIntegrityInfo$get(MemorySegment seg) {
-        return (int)constants$441.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD CodeIntegrityInfo;
-     * }
-     */
-    public static void CodeIntegrityInfo$set(MemorySegment seg, int x) {
-        constants$441.const$0.set(seg, x);
-    }
-    public static int CodeIntegrityInfo$get(MemorySegment seg, long index) {
-        return (int)constants$441.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void CodeIntegrityInfo$set(MemorySegment seg, long index, int x) {
-        constants$441.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle CodeIntegritySize$VH() {
-        return constants$441.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD CodeIntegritySize;
-     * }
-     */
-    public static int CodeIntegritySize$get(MemorySegment seg) {
-        return (int)constants$441.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD CodeIntegritySize;
-     * }
-     */
-    public static void CodeIntegritySize$set(MemorySegment seg, int x) {
-        constants$441.const$1.set(seg, x);
-    }
-    public static int CodeIntegritySize$get(MemorySegment seg, long index) {
-        return (int)constants$441.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void CodeIntegritySize$set(MemorySegment seg, long index, int x) {
-        constants$441.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle PatchTable$VH() {
-        return constants$441.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD PatchTable;
-     * }
-     */
-    public static int PatchTable$get(MemorySegment seg) {
-        return (int)constants$441.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD PatchTable;
-     * }
-     */
-    public static void PatchTable$set(MemorySegment seg, int x) {
-        constants$441.const$2.set(seg, x);
-    }
-    public static int PatchTable$get(MemorySegment seg, long index) {
-        return (int)constants$441.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void PatchTable$set(MemorySegment seg, long index, int x) {
-        constants$441.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle BufferOffset$VH() {
-        return constants$441.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD BufferOffset;
-     * }
-     */
-    public static int BufferOffset$get(MemorySegment seg) {
-        return (int)constants$441.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD BufferOffset;
-     * }
-     */
-    public static void BufferOffset$set(MemorySegment seg, int x) {
-        constants$441.const$3.set(seg, x);
-    }
-    public static int BufferOffset$get(MemorySegment seg, long index) {
-        return (int)constants$441.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void BufferOffset$set(MemorySegment seg, long index, int x) {
-        constants$441.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("SequenceNumber"),
+        Windows_h.C_LONG.withName("Flags"),
+        Windows_h.C_LONG.withName("OriginalTimeDateStamp"),
+        Windows_h.C_LONG.withName("OriginalCheckSum"),
+        Windows_h.C_LONG.withName("CodeIntegrityInfo"),
+        Windows_h.C_LONG.withName("CodeIntegritySize"),
+        Windows_h.C_LONG.withName("PatchTable"),
+        Windows_h.C_LONG.withName("BufferOffset")
+    ).withName("_IMAGE_HOT_PATCH_BASE");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt SequenceNumber$LAYOUT = (OfInt)$LAYOUT.select(groupElement("SequenceNumber"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD SequenceNumber
+     * }
+     */
+    public static final OfInt SequenceNumber$layout() {
+        return SequenceNumber$LAYOUT;
+    }
+
+    private static final long SequenceNumber$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD SequenceNumber
+     * }
+     */
+    public static final long SequenceNumber$offset() {
+        return SequenceNumber$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD SequenceNumber
+     * }
+     */
+    public static int SequenceNumber(MemorySegment struct) {
+        return struct.get(SequenceNumber$LAYOUT, SequenceNumber$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD SequenceNumber
+     * }
+     */
+    public static void SequenceNumber(MemorySegment struct, int fieldValue) {
+        struct.set(SequenceNumber$LAYOUT, SequenceNumber$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Flags$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Flags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static final OfInt Flags$layout() {
+        return Flags$LAYOUT;
+    }
+
+    private static final long Flags$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static final long Flags$offset() {
+        return Flags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static int Flags(MemorySegment struct) {
+        return struct.get(Flags$LAYOUT, Flags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static void Flags(MemorySegment struct, int fieldValue) {
+        struct.set(Flags$LAYOUT, Flags$OFFSET, fieldValue);
+    }
+
+    private static final OfInt OriginalTimeDateStamp$LAYOUT = (OfInt)$LAYOUT.select(groupElement("OriginalTimeDateStamp"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD OriginalTimeDateStamp
+     * }
+     */
+    public static final OfInt OriginalTimeDateStamp$layout() {
+        return OriginalTimeDateStamp$LAYOUT;
+    }
+
+    private static final long OriginalTimeDateStamp$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD OriginalTimeDateStamp
+     * }
+     */
+    public static final long OriginalTimeDateStamp$offset() {
+        return OriginalTimeDateStamp$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD OriginalTimeDateStamp
+     * }
+     */
+    public static int OriginalTimeDateStamp(MemorySegment struct) {
+        return struct.get(OriginalTimeDateStamp$LAYOUT, OriginalTimeDateStamp$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD OriginalTimeDateStamp
+     * }
+     */
+    public static void OriginalTimeDateStamp(MemorySegment struct, int fieldValue) {
+        struct.set(OriginalTimeDateStamp$LAYOUT, OriginalTimeDateStamp$OFFSET, fieldValue);
+    }
+
+    private static final OfInt OriginalCheckSum$LAYOUT = (OfInt)$LAYOUT.select(groupElement("OriginalCheckSum"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD OriginalCheckSum
+     * }
+     */
+    public static final OfInt OriginalCheckSum$layout() {
+        return OriginalCheckSum$LAYOUT;
+    }
+
+    private static final long OriginalCheckSum$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD OriginalCheckSum
+     * }
+     */
+    public static final long OriginalCheckSum$offset() {
+        return OriginalCheckSum$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD OriginalCheckSum
+     * }
+     */
+    public static int OriginalCheckSum(MemorySegment struct) {
+        return struct.get(OriginalCheckSum$LAYOUT, OriginalCheckSum$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD OriginalCheckSum
+     * }
+     */
+    public static void OriginalCheckSum(MemorySegment struct, int fieldValue) {
+        struct.set(OriginalCheckSum$LAYOUT, OriginalCheckSum$OFFSET, fieldValue);
+    }
+
+    private static final OfInt CodeIntegrityInfo$LAYOUT = (OfInt)$LAYOUT.select(groupElement("CodeIntegrityInfo"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD CodeIntegrityInfo
+     * }
+     */
+    public static final OfInt CodeIntegrityInfo$layout() {
+        return CodeIntegrityInfo$LAYOUT;
+    }
+
+    private static final long CodeIntegrityInfo$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD CodeIntegrityInfo
+     * }
+     */
+    public static final long CodeIntegrityInfo$offset() {
+        return CodeIntegrityInfo$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD CodeIntegrityInfo
+     * }
+     */
+    public static int CodeIntegrityInfo(MemorySegment struct) {
+        return struct.get(CodeIntegrityInfo$LAYOUT, CodeIntegrityInfo$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD CodeIntegrityInfo
+     * }
+     */
+    public static void CodeIntegrityInfo(MemorySegment struct, int fieldValue) {
+        struct.set(CodeIntegrityInfo$LAYOUT, CodeIntegrityInfo$OFFSET, fieldValue);
+    }
+
+    private static final OfInt CodeIntegritySize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("CodeIntegritySize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD CodeIntegritySize
+     * }
+     */
+    public static final OfInt CodeIntegritySize$layout() {
+        return CodeIntegritySize$LAYOUT;
+    }
+
+    private static final long CodeIntegritySize$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD CodeIntegritySize
+     * }
+     */
+    public static final long CodeIntegritySize$offset() {
+        return CodeIntegritySize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD CodeIntegritySize
+     * }
+     */
+    public static int CodeIntegritySize(MemorySegment struct) {
+        return struct.get(CodeIntegritySize$LAYOUT, CodeIntegritySize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD CodeIntegritySize
+     * }
+     */
+    public static void CodeIntegritySize(MemorySegment struct, int fieldValue) {
+        struct.set(CodeIntegritySize$LAYOUT, CodeIntegritySize$OFFSET, fieldValue);
+    }
+
+    private static final OfInt PatchTable$LAYOUT = (OfInt)$LAYOUT.select(groupElement("PatchTable"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD PatchTable
+     * }
+     */
+    public static final OfInt PatchTable$layout() {
+        return PatchTable$LAYOUT;
+    }
+
+    private static final long PatchTable$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD PatchTable
+     * }
+     */
+    public static final long PatchTable$offset() {
+        return PatchTable$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD PatchTable
+     * }
+     */
+    public static int PatchTable(MemorySegment struct) {
+        return struct.get(PatchTable$LAYOUT, PatchTable$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD PatchTable
+     * }
+     */
+    public static void PatchTable(MemorySegment struct, int fieldValue) {
+        struct.set(PatchTable$LAYOUT, PatchTable$OFFSET, fieldValue);
+    }
+
+    private static final OfInt BufferOffset$LAYOUT = (OfInt)$LAYOUT.select(groupElement("BufferOffset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD BufferOffset
+     * }
+     */
+    public static final OfInt BufferOffset$layout() {
+        return BufferOffset$LAYOUT;
+    }
+
+    private static final long BufferOffset$OFFSET = 28;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD BufferOffset
+     * }
+     */
+    public static final long BufferOffset$offset() {
+        return BufferOffset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD BufferOffset
+     * }
+     */
+    public static int BufferOffset(MemorySegment struct) {
+        return struct.get(BufferOffset$LAYOUT, BufferOffset$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD BufferOffset
+     * }
+     */
+    public static void BufferOffset(MemorySegment struct, int fieldValue) {
+        struct.set(BufferOffset$LAYOUT, BufferOffset$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

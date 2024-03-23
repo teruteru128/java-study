@@ -2,116 +2,302 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _SCM_REGIONS {
  *     DWORD Version;
  *     DWORD Size;
  *     DWORD RegionCount;
  *     SCM_REGION Regions[1];
- * };
+ * }
  * }
  */
 public class _SCM_REGIONS {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2507.const$4;
+    _SCM_REGIONS() {
+        // Should not be called directly
     }
-    public static VarHandle Version$VH() {
-        return constants$2507.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Version;
-     * }
-     */
-    public static int Version$get(MemorySegment seg) {
-        return (int)constants$2507.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Version;
-     * }
-     */
-    public static void Version$set(MemorySegment seg, int x) {
-        constants$2507.const$5.set(seg, x);
-    }
-    public static int Version$get(MemorySegment seg, long index) {
-        return (int)constants$2507.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Version$set(MemorySegment seg, long index, int x) {
-        constants$2507.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Size$VH() {
-        return constants$2508.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Size;
-     * }
-     */
-    public static int Size$get(MemorySegment seg) {
-        return (int)constants$2508.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Size;
-     * }
-     */
-    public static void Size$set(MemorySegment seg, int x) {
-        constants$2508.const$0.set(seg, x);
-    }
-    public static int Size$get(MemorySegment seg, long index) {
-        return (int)constants$2508.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Size$set(MemorySegment seg, long index, int x) {
-        constants$2508.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle RegionCount$VH() {
-        return constants$2508.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD RegionCount;
-     * }
-     */
-    public static int RegionCount$get(MemorySegment seg) {
-        return (int)constants$2508.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD RegionCount;
-     * }
-     */
-    public static void RegionCount$set(MemorySegment seg, int x) {
-        constants$2508.const$1.set(seg, x);
-    }
-    public static int RegionCount$get(MemorySegment seg, long index) {
-        return (int)constants$2508.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void RegionCount$set(MemorySegment seg, long index, int x) {
-        constants$2508.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment Regions$slice(MemorySegment seg) {
-        return seg.asSlice(16, 96);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("Version"),
+        Windows_h.C_LONG.withName("Size"),
+        Windows_h.C_LONG.withName("RegionCount"),
+        MemoryLayout.paddingLayout(4),
+        MemoryLayout.sequenceLayout(1, _SCM_REGION.layout()).withName("Regions")
+    ).withName("_SCM_REGIONS");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt Version$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Version"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static final OfInt Version$layout() {
+        return Version$LAYOUT;
+    }
+
+    private static final long Version$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static final long Version$offset() {
+        return Version$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static int Version(MemorySegment struct) {
+        return struct.get(Version$LAYOUT, Version$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static void Version(MemorySegment struct, int fieldValue) {
+        struct.set(Version$LAYOUT, Version$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Size$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Size"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static final OfInt Size$layout() {
+        return Size$LAYOUT;
+    }
+
+    private static final long Size$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static final long Size$offset() {
+        return Size$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static int Size(MemorySegment struct) {
+        return struct.get(Size$LAYOUT, Size$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static void Size(MemorySegment struct, int fieldValue) {
+        struct.set(Size$LAYOUT, Size$OFFSET, fieldValue);
+    }
+
+    private static final OfInt RegionCount$LAYOUT = (OfInt)$LAYOUT.select(groupElement("RegionCount"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD RegionCount
+     * }
+     */
+    public static final OfInt RegionCount$layout() {
+        return RegionCount$LAYOUT;
+    }
+
+    private static final long RegionCount$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD RegionCount
+     * }
+     */
+    public static final long RegionCount$offset() {
+        return RegionCount$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD RegionCount
+     * }
+     */
+    public static int RegionCount(MemorySegment struct) {
+        return struct.get(RegionCount$LAYOUT, RegionCount$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD RegionCount
+     * }
+     */
+    public static void RegionCount(MemorySegment struct, int fieldValue) {
+        struct.set(RegionCount$LAYOUT, RegionCount$OFFSET, fieldValue);
+    }
+
+    private static final SequenceLayout Regions$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("Regions"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SCM_REGION Regions[1]
+     * }
+     */
+    public static final SequenceLayout Regions$layout() {
+        return Regions$LAYOUT;
+    }
+
+    private static final long Regions$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SCM_REGION Regions[1]
+     * }
+     */
+    public static final long Regions$offset() {
+        return Regions$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SCM_REGION Regions[1]
+     * }
+     */
+    public static MemorySegment Regions(MemorySegment struct) {
+        return struct.asSlice(Regions$OFFSET, Regions$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SCM_REGION Regions[1]
+     * }
+     */
+    public static void Regions(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, Regions$OFFSET, Regions$LAYOUT.byteSize());
+    }
+
+    private static long[] Regions$DIMS = { 1 };
+
+    /**
+     * Dimensions for array field:
+     * {@snippet lang=c :
+     * SCM_REGION Regions[1]
+     * }
+     */
+    public static long[] Regions$dimensions() {
+        return Regions$DIMS;
+    }
+    private static final MethodHandle Regions$ELEM_HANDLE = Regions$LAYOUT.sliceHandle(sequenceElement());
+
+    /**
+     * Indexed getter for field:
+     * {@snippet lang=c :
+     * SCM_REGION Regions[1]
+     * }
+     */
+    public static MemorySegment Regions(MemorySegment struct, long index0) {
+        try {
+            return (MemorySegment)Regions$ELEM_HANDLE.invokeExact(struct, 0L, index0);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    /**
+     * Indexed setter for field:
+     * {@snippet lang=c :
+     * SCM_REGION Regions[1]
+     * }
+     */
+    public static void Regions(MemorySegment struct, long index0, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, Regions(struct, index0), 0L, _SCM_REGION.layout().byteSize());
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

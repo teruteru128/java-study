@@ -2,259 +2,528 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct COPYFILE2_EXTENDED_PARAMETERS_V2 {
  *     DWORD dwSize;
  *     DWORD dwCopyFlags;
- *     BOOL* pfCancel;
+ *     BOOL *pfCancel;
  *     PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine;
  *     PVOID pvCallbackContext;
  *     DWORD dwCopyFlagsV2;
  *     ULONG ioDesiredSize;
  *     ULONG ioDesiredRate;
  *     PVOID reserved[8];
- * };
+ * }
  * }
  */
 public class COPYFILE2_EXTENDED_PARAMETERS_V2 {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$814.const$3;
+    COPYFILE2_EXTENDED_PARAMETERS_V2() {
+        // Should not be called directly
     }
-    public static VarHandle dwSize$VH() {
-        return constants$814.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwSize;
-     * }
-     */
-    public static int dwSize$get(MemorySegment seg) {
-        return (int)constants$814.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwSize;
-     * }
-     */
-    public static void dwSize$set(MemorySegment seg, int x) {
-        constants$814.const$4.set(seg, x);
-    }
-    public static int dwSize$get(MemorySegment seg, long index) {
-        return (int)constants$814.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwSize$set(MemorySegment seg, long index, int x) {
-        constants$814.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwCopyFlags$VH() {
-        return constants$814.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwCopyFlags;
-     * }
-     */
-    public static int dwCopyFlags$get(MemorySegment seg) {
-        return (int)constants$814.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwCopyFlags;
-     * }
-     */
-    public static void dwCopyFlags$set(MemorySegment seg, int x) {
-        constants$814.const$5.set(seg, x);
-    }
-    public static int dwCopyFlags$get(MemorySegment seg, long index) {
-        return (int)constants$814.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwCopyFlags$set(MemorySegment seg, long index, int x) {
-        constants$814.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pfCancel$VH() {
-        return constants$815.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BOOL* pfCancel;
-     * }
-     */
-    public static MemorySegment pfCancel$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$815.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BOOL* pfCancel;
-     * }
-     */
-    public static void pfCancel$set(MemorySegment seg, MemorySegment x) {
-        constants$815.const$0.set(seg, x);
-    }
-    public static MemorySegment pfCancel$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$815.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pfCancel$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$815.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pProgressRoutine$VH() {
-        return constants$815.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine;
-     * }
-     */
-    public static MemorySegment pProgressRoutine$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$815.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine;
-     * }
-     */
-    public static void pProgressRoutine$set(MemorySegment seg, MemorySegment x) {
-        constants$815.const$1.set(seg, x);
-    }
-    public static MemorySegment pProgressRoutine$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$815.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pProgressRoutine$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$815.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine(MemorySegment segment, Arena scope) {
-        return PCOPYFILE2_PROGRESS_ROUTINE.ofAddress(pProgressRoutine$get(segment), scope);
-    }
-    public static VarHandle pvCallbackContext$VH() {
-        return constants$815.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PVOID pvCallbackContext;
-     * }
-     */
-    public static MemorySegment pvCallbackContext$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$815.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PVOID pvCallbackContext;
-     * }
-     */
-    public static void pvCallbackContext$set(MemorySegment seg, MemorySegment x) {
-        constants$815.const$2.set(seg, x);
-    }
-    public static MemorySegment pvCallbackContext$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$815.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pvCallbackContext$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$815.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwCopyFlagsV2$VH() {
-        return constants$815.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwCopyFlagsV2;
-     * }
-     */
-    public static int dwCopyFlagsV2$get(MemorySegment seg) {
-        return (int)constants$815.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwCopyFlagsV2;
-     * }
-     */
-    public static void dwCopyFlagsV2$set(MemorySegment seg, int x) {
-        constants$815.const$3.set(seg, x);
-    }
-    public static int dwCopyFlagsV2$get(MemorySegment seg, long index) {
-        return (int)constants$815.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwCopyFlagsV2$set(MemorySegment seg, long index, int x) {
-        constants$815.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ioDesiredSize$VH() {
-        return constants$815.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG ioDesiredSize;
-     * }
-     */
-    public static int ioDesiredSize$get(MemorySegment seg) {
-        return (int)constants$815.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG ioDesiredSize;
-     * }
-     */
-    public static void ioDesiredSize$set(MemorySegment seg, int x) {
-        constants$815.const$4.set(seg, x);
-    }
-    public static int ioDesiredSize$get(MemorySegment seg, long index) {
-        return (int)constants$815.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ioDesiredSize$set(MemorySegment seg, long index, int x) {
-        constants$815.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ioDesiredRate$VH() {
-        return constants$815.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG ioDesiredRate;
-     * }
-     */
-    public static int ioDesiredRate$get(MemorySegment seg) {
-        return (int)constants$815.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG ioDesiredRate;
-     * }
-     */
-    public static void ioDesiredRate$set(MemorySegment seg, int x) {
-        constants$815.const$5.set(seg, x);
-    }
-    public static int ioDesiredRate$get(MemorySegment seg, long index) {
-        return (int)constants$815.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ioDesiredRate$set(MemorySegment seg, long index, int x) {
-        constants$815.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment reserved$slice(MemorySegment seg) {
-        return seg.asSlice(48, 64);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("dwSize"),
+        Windows_h.C_LONG.withName("dwCopyFlags"),
+        Windows_h.C_POINTER.withName("pfCancel"),
+        Windows_h.C_POINTER.withName("pProgressRoutine"),
+        Windows_h.C_POINTER.withName("pvCallbackContext"),
+        Windows_h.C_LONG.withName("dwCopyFlagsV2"),
+        Windows_h.C_LONG.withName("ioDesiredSize"),
+        Windows_h.C_LONG.withName("ioDesiredRate"),
+        MemoryLayout.paddingLayout(4),
+        MemoryLayout.sequenceLayout(8, Windows_h.C_POINTER).withName("reserved")
+    ).withName("COPYFILE2_EXTENDED_PARAMETERS_V2");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt dwSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwSize
+     * }
+     */
+    public static final OfInt dwSize$layout() {
+        return dwSize$LAYOUT;
+    }
+
+    private static final long dwSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwSize
+     * }
+     */
+    public static final long dwSize$offset() {
+        return dwSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwSize
+     * }
+     */
+    public static int dwSize(MemorySegment struct) {
+        return struct.get(dwSize$LAYOUT, dwSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwSize
+     * }
+     */
+    public static void dwSize(MemorySegment struct, int fieldValue) {
+        struct.set(dwSize$LAYOUT, dwSize$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwCopyFlags$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwCopyFlags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwCopyFlags
+     * }
+     */
+    public static final OfInt dwCopyFlags$layout() {
+        return dwCopyFlags$LAYOUT;
+    }
+
+    private static final long dwCopyFlags$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwCopyFlags
+     * }
+     */
+    public static final long dwCopyFlags$offset() {
+        return dwCopyFlags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwCopyFlags
+     * }
+     */
+    public static int dwCopyFlags(MemorySegment struct) {
+        return struct.get(dwCopyFlags$LAYOUT, dwCopyFlags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwCopyFlags
+     * }
+     */
+    public static void dwCopyFlags(MemorySegment struct, int fieldValue) {
+        struct.set(dwCopyFlags$LAYOUT, dwCopyFlags$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pfCancel$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pfCancel"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BOOL *pfCancel
+     * }
+     */
+    public static final AddressLayout pfCancel$layout() {
+        return pfCancel$LAYOUT;
+    }
+
+    private static final long pfCancel$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BOOL *pfCancel
+     * }
+     */
+    public static final long pfCancel$offset() {
+        return pfCancel$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BOOL *pfCancel
+     * }
+     */
+    public static MemorySegment pfCancel(MemorySegment struct) {
+        return struct.get(pfCancel$LAYOUT, pfCancel$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BOOL *pfCancel
+     * }
+     */
+    public static void pfCancel(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pfCancel$LAYOUT, pfCancel$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pProgressRoutine$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pProgressRoutine"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine
+     * }
+     */
+    public static final AddressLayout pProgressRoutine$layout() {
+        return pProgressRoutine$LAYOUT;
+    }
+
+    private static final long pProgressRoutine$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine
+     * }
+     */
+    public static final long pProgressRoutine$offset() {
+        return pProgressRoutine$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine
+     * }
+     */
+    public static MemorySegment pProgressRoutine(MemorySegment struct) {
+        return struct.get(pProgressRoutine$LAYOUT, pProgressRoutine$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine
+     * }
+     */
+    public static void pProgressRoutine(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pProgressRoutine$LAYOUT, pProgressRoutine$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pvCallbackContext$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pvCallbackContext"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PVOID pvCallbackContext
+     * }
+     */
+    public static final AddressLayout pvCallbackContext$layout() {
+        return pvCallbackContext$LAYOUT;
+    }
+
+    private static final long pvCallbackContext$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PVOID pvCallbackContext
+     * }
+     */
+    public static final long pvCallbackContext$offset() {
+        return pvCallbackContext$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PVOID pvCallbackContext
+     * }
+     */
+    public static MemorySegment pvCallbackContext(MemorySegment struct) {
+        return struct.get(pvCallbackContext$LAYOUT, pvCallbackContext$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PVOID pvCallbackContext
+     * }
+     */
+    public static void pvCallbackContext(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pvCallbackContext$LAYOUT, pvCallbackContext$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwCopyFlagsV2$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwCopyFlagsV2"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwCopyFlagsV2
+     * }
+     */
+    public static final OfInt dwCopyFlagsV2$layout() {
+        return dwCopyFlagsV2$LAYOUT;
+    }
+
+    private static final long dwCopyFlagsV2$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwCopyFlagsV2
+     * }
+     */
+    public static final long dwCopyFlagsV2$offset() {
+        return dwCopyFlagsV2$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwCopyFlagsV2
+     * }
+     */
+    public static int dwCopyFlagsV2(MemorySegment struct) {
+        return struct.get(dwCopyFlagsV2$LAYOUT, dwCopyFlagsV2$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwCopyFlagsV2
+     * }
+     */
+    public static void dwCopyFlagsV2(MemorySegment struct, int fieldValue) {
+        struct.set(dwCopyFlagsV2$LAYOUT, dwCopyFlagsV2$OFFSET, fieldValue);
+    }
+
+    private static final OfInt ioDesiredSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ioDesiredSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG ioDesiredSize
+     * }
+     */
+    public static final OfInt ioDesiredSize$layout() {
+        return ioDesiredSize$LAYOUT;
+    }
+
+    private static final long ioDesiredSize$OFFSET = 36;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG ioDesiredSize
+     * }
+     */
+    public static final long ioDesiredSize$offset() {
+        return ioDesiredSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG ioDesiredSize
+     * }
+     */
+    public static int ioDesiredSize(MemorySegment struct) {
+        return struct.get(ioDesiredSize$LAYOUT, ioDesiredSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG ioDesiredSize
+     * }
+     */
+    public static void ioDesiredSize(MemorySegment struct, int fieldValue) {
+        struct.set(ioDesiredSize$LAYOUT, ioDesiredSize$OFFSET, fieldValue);
+    }
+
+    private static final OfInt ioDesiredRate$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ioDesiredRate"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG ioDesiredRate
+     * }
+     */
+    public static final OfInt ioDesiredRate$layout() {
+        return ioDesiredRate$LAYOUT;
+    }
+
+    private static final long ioDesiredRate$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG ioDesiredRate
+     * }
+     */
+    public static final long ioDesiredRate$offset() {
+        return ioDesiredRate$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG ioDesiredRate
+     * }
+     */
+    public static int ioDesiredRate(MemorySegment struct) {
+        return struct.get(ioDesiredRate$LAYOUT, ioDesiredRate$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG ioDesiredRate
+     * }
+     */
+    public static void ioDesiredRate(MemorySegment struct, int fieldValue) {
+        struct.set(ioDesiredRate$LAYOUT, ioDesiredRate$OFFSET, fieldValue);
+    }
+
+    private static final SequenceLayout reserved$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("reserved"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PVOID reserved[8]
+     * }
+     */
+    public static final SequenceLayout reserved$layout() {
+        return reserved$LAYOUT;
+    }
+
+    private static final long reserved$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PVOID reserved[8]
+     * }
+     */
+    public static final long reserved$offset() {
+        return reserved$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PVOID reserved[8]
+     * }
+     */
+    public static MemorySegment reserved(MemorySegment struct) {
+        return struct.asSlice(reserved$OFFSET, reserved$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PVOID reserved[8]
+     * }
+     */
+    public static void reserved(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, reserved$OFFSET, reserved$LAYOUT.byteSize());
+    }
+
+    private static long[] reserved$DIMS = { 8 };
+
+    /**
+     * Dimensions for array field:
+     * {@snippet lang=c :
+     * PVOID reserved[8]
+     * }
+     */
+    public static long[] reserved$dimensions() {
+        return reserved$DIMS;
+    }
+    private static final VarHandle reserved$ELEM_HANDLE = reserved$LAYOUT.varHandle(sequenceElement());
+
+    /**
+     * Indexed getter for field:
+     * {@snippet lang=c :
+     * PVOID reserved[8]
+     * }
+     */
+    public static MemorySegment reserved(MemorySegment struct, long index0) {
+        return (MemorySegment)reserved$ELEM_HANDLE.get(struct, 0L, index0);
+    }
+
+    /**
+     * Indexed setter for field:
+     * {@snippet lang=c :
+     * PVOID reserved[8]
+     * }
+     */
+    public static void reserved(MemorySegment struct, long index0, MemorySegment fieldValue) {
+        reserved$ELEM_HANDLE.set(struct, 0L, index0, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

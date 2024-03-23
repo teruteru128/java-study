@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagSTICKYKEYS STICKYKEYS;
+ * {@snippet lang=c :
+ * typedef struct tagSTICKYKEYS {
+ *     UINT cbSize;
+ *     DWORD dwFlags;
+ * } STICKYKEYS
  * }
  */
-public final class STICKYKEYS extends tagSTICKYKEYS {
+public class STICKYKEYS extends tagSTICKYKEYS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private STICKYKEYS() {}
+    STICKYKEYS() {
+        // Should not be called directly
+    }
 }
-
 

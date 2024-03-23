@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _DISK_CACHE_INFORMATION {
  *     BOOLEAN ParametersSavable;
  *     BOOLEAN ReadCacheEnabled;
@@ -18,400 +23,879 @@ import static java.lang.foreign.ValueLayout.*;
  *     WORD DisablePrefetchTransferLength;
  *     BOOLEAN PrefetchScalar;
  *     union {
- *         struct  ScalarPrefetch;
- *         struct  BlockPrefetch;
+ *         struct {
+ *             WORD Minimum;
+ *             WORD Maximum;
+ *             WORD MaximumBlocks;
+ *         } ScalarPrefetch;
+ *         struct {
+ *             WORD Minimum;
+ *             WORD Maximum;
+ *         } BlockPrefetch;
  *     };
- * };
+ * }
  * }
  */
 public class _DISK_CACHE_INFORMATION {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2548.const$0;
+    _DISK_CACHE_INFORMATION() {
+        // Should not be called directly
     }
-    public static VarHandle ParametersSavable$VH() {
-        return constants$2548.const$1;
+
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_CHAR.withName("ParametersSavable"),
+        Windows_h.C_CHAR.withName("ReadCacheEnabled"),
+        Windows_h.C_CHAR.withName("WriteCacheEnabled"),
+        MemoryLayout.paddingLayout(1),
+        Windows_h.C_INT.withName("ReadRetentionPriority"),
+        Windows_h.C_INT.withName("WriteRetentionPriority"),
+        Windows_h.C_SHORT.withName("DisablePrefetchTransferLength"),
+        Windows_h.C_CHAR.withName("PrefetchScalar"),
+        MemoryLayout.paddingLayout(1),
+        MemoryLayout.unionLayout(
+            _DISK_CACHE_INFORMATION.ScalarPrefetch.layout().withName("ScalarPrefetch"),
+            _DISK_CACHE_INFORMATION.BlockPrefetch.layout().withName("BlockPrefetch")
+        ).withName("$anon$9472:5"),
+        MemoryLayout.paddingLayout(2)
+    ).withName("_DISK_CACHE_INFORMATION");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
     }
+
+    private static final OfByte ParametersSavable$LAYOUT = (OfByte)$LAYOUT.select(groupElement("ParametersSavable"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BOOLEAN ParametersSavable
+     * }
+     */
+    public static final OfByte ParametersSavable$layout() {
+        return ParametersSavable$LAYOUT;
+    }
+
+    private static final long ParametersSavable$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BOOLEAN ParametersSavable
+     * }
+     */
+    public static final long ParametersSavable$offset() {
+        return ParametersSavable$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * BOOLEAN ParametersSavable;
+     * {@snippet lang=c :
+     * BOOLEAN ParametersSavable
      * }
      */
-    public static byte ParametersSavable$get(MemorySegment seg) {
-        return (byte)constants$2548.const$1.get(seg);
+    public static byte ParametersSavable(MemorySegment struct) {
+        return struct.get(ParametersSavable$LAYOUT, ParametersSavable$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * BOOLEAN ParametersSavable;
+     * {@snippet lang=c :
+     * BOOLEAN ParametersSavable
      * }
      */
-    public static void ParametersSavable$set(MemorySegment seg, byte x) {
-        constants$2548.const$1.set(seg, x);
+    public static void ParametersSavable(MemorySegment struct, byte fieldValue) {
+        struct.set(ParametersSavable$LAYOUT, ParametersSavable$OFFSET, fieldValue);
     }
-    public static byte ParametersSavable$get(MemorySegment seg, long index) {
-        return (byte)constants$2548.const$1.get(seg.asSlice(index*sizeof()));
+
+    private static final OfByte ReadCacheEnabled$LAYOUT = (OfByte)$LAYOUT.select(groupElement("ReadCacheEnabled"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BOOLEAN ReadCacheEnabled
+     * }
+     */
+    public static final OfByte ReadCacheEnabled$layout() {
+        return ReadCacheEnabled$LAYOUT;
     }
-    public static void ParametersSavable$set(MemorySegment seg, long index, byte x) {
-        constants$2548.const$1.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long ReadCacheEnabled$OFFSET = 1;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BOOLEAN ReadCacheEnabled
+     * }
+     */
+    public static final long ReadCacheEnabled$offset() {
+        return ReadCacheEnabled$OFFSET;
     }
-    public static VarHandle ReadCacheEnabled$VH() {
-        return constants$2548.const$2;
-    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * BOOLEAN ReadCacheEnabled;
+     * {@snippet lang=c :
+     * BOOLEAN ReadCacheEnabled
      * }
      */
-    public static byte ReadCacheEnabled$get(MemorySegment seg) {
-        return (byte)constants$2548.const$2.get(seg);
+    public static byte ReadCacheEnabled(MemorySegment struct) {
+        return struct.get(ReadCacheEnabled$LAYOUT, ReadCacheEnabled$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * BOOLEAN ReadCacheEnabled;
+     * {@snippet lang=c :
+     * BOOLEAN ReadCacheEnabled
      * }
      */
-    public static void ReadCacheEnabled$set(MemorySegment seg, byte x) {
-        constants$2548.const$2.set(seg, x);
+    public static void ReadCacheEnabled(MemorySegment struct, byte fieldValue) {
+        struct.set(ReadCacheEnabled$LAYOUT, ReadCacheEnabled$OFFSET, fieldValue);
     }
-    public static byte ReadCacheEnabled$get(MemorySegment seg, long index) {
-        return (byte)constants$2548.const$2.get(seg.asSlice(index*sizeof()));
+
+    private static final OfByte WriteCacheEnabled$LAYOUT = (OfByte)$LAYOUT.select(groupElement("WriteCacheEnabled"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BOOLEAN WriteCacheEnabled
+     * }
+     */
+    public static final OfByte WriteCacheEnabled$layout() {
+        return WriteCacheEnabled$LAYOUT;
     }
-    public static void ReadCacheEnabled$set(MemorySegment seg, long index, byte x) {
-        constants$2548.const$2.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long WriteCacheEnabled$OFFSET = 2;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BOOLEAN WriteCacheEnabled
+     * }
+     */
+    public static final long WriteCacheEnabled$offset() {
+        return WriteCacheEnabled$OFFSET;
     }
-    public static VarHandle WriteCacheEnabled$VH() {
-        return constants$2548.const$3;
-    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * BOOLEAN WriteCacheEnabled;
+     * {@snippet lang=c :
+     * BOOLEAN WriteCacheEnabled
      * }
      */
-    public static byte WriteCacheEnabled$get(MemorySegment seg) {
-        return (byte)constants$2548.const$3.get(seg);
+    public static byte WriteCacheEnabled(MemorySegment struct) {
+        return struct.get(WriteCacheEnabled$LAYOUT, WriteCacheEnabled$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * BOOLEAN WriteCacheEnabled;
+     * {@snippet lang=c :
+     * BOOLEAN WriteCacheEnabled
      * }
      */
-    public static void WriteCacheEnabled$set(MemorySegment seg, byte x) {
-        constants$2548.const$3.set(seg, x);
+    public static void WriteCacheEnabled(MemorySegment struct, byte fieldValue) {
+        struct.set(WriteCacheEnabled$LAYOUT, WriteCacheEnabled$OFFSET, fieldValue);
     }
-    public static byte WriteCacheEnabled$get(MemorySegment seg, long index) {
-        return (byte)constants$2548.const$3.get(seg.asSlice(index*sizeof()));
+
+    private static final OfInt ReadRetentionPriority$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ReadRetentionPriority"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DISK_CACHE_RETENTION_PRIORITY ReadRetentionPriority
+     * }
+     */
+    public static final OfInt ReadRetentionPriority$layout() {
+        return ReadRetentionPriority$LAYOUT;
     }
-    public static void WriteCacheEnabled$set(MemorySegment seg, long index, byte x) {
-        constants$2548.const$3.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long ReadRetentionPriority$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DISK_CACHE_RETENTION_PRIORITY ReadRetentionPriority
+     * }
+     */
+    public static final long ReadRetentionPriority$offset() {
+        return ReadRetentionPriority$OFFSET;
     }
-    public static VarHandle ReadRetentionPriority$VH() {
-        return constants$2548.const$4;
-    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * DISK_CACHE_RETENTION_PRIORITY ReadRetentionPriority;
+     * {@snippet lang=c :
+     * DISK_CACHE_RETENTION_PRIORITY ReadRetentionPriority
      * }
      */
-    public static int ReadRetentionPriority$get(MemorySegment seg) {
-        return (int)constants$2548.const$4.get(seg);
+    public static int ReadRetentionPriority(MemorySegment struct) {
+        return struct.get(ReadRetentionPriority$LAYOUT, ReadRetentionPriority$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * DISK_CACHE_RETENTION_PRIORITY ReadRetentionPriority;
+     * {@snippet lang=c :
+     * DISK_CACHE_RETENTION_PRIORITY ReadRetentionPriority
      * }
      */
-    public static void ReadRetentionPriority$set(MemorySegment seg, int x) {
-        constants$2548.const$4.set(seg, x);
+    public static void ReadRetentionPriority(MemorySegment struct, int fieldValue) {
+        struct.set(ReadRetentionPriority$LAYOUT, ReadRetentionPriority$OFFSET, fieldValue);
     }
-    public static int ReadRetentionPriority$get(MemorySegment seg, long index) {
-        return (int)constants$2548.const$4.get(seg.asSlice(index*sizeof()));
+
+    private static final OfInt WriteRetentionPriority$LAYOUT = (OfInt)$LAYOUT.select(groupElement("WriteRetentionPriority"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DISK_CACHE_RETENTION_PRIORITY WriteRetentionPriority
+     * }
+     */
+    public static final OfInt WriteRetentionPriority$layout() {
+        return WriteRetentionPriority$LAYOUT;
     }
-    public static void ReadRetentionPriority$set(MemorySegment seg, long index, int x) {
-        constants$2548.const$4.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long WriteRetentionPriority$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DISK_CACHE_RETENTION_PRIORITY WriteRetentionPriority
+     * }
+     */
+    public static final long WriteRetentionPriority$offset() {
+        return WriteRetentionPriority$OFFSET;
     }
-    public static VarHandle WriteRetentionPriority$VH() {
-        return constants$2548.const$5;
-    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * DISK_CACHE_RETENTION_PRIORITY WriteRetentionPriority;
+     * {@snippet lang=c :
+     * DISK_CACHE_RETENTION_PRIORITY WriteRetentionPriority
      * }
      */
-    public static int WriteRetentionPriority$get(MemorySegment seg) {
-        return (int)constants$2548.const$5.get(seg);
+    public static int WriteRetentionPriority(MemorySegment struct) {
+        return struct.get(WriteRetentionPriority$LAYOUT, WriteRetentionPriority$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * DISK_CACHE_RETENTION_PRIORITY WriteRetentionPriority;
+     * {@snippet lang=c :
+     * DISK_CACHE_RETENTION_PRIORITY WriteRetentionPriority
      * }
      */
-    public static void WriteRetentionPriority$set(MemorySegment seg, int x) {
-        constants$2548.const$5.set(seg, x);
+    public static void WriteRetentionPriority(MemorySegment struct, int fieldValue) {
+        struct.set(WriteRetentionPriority$LAYOUT, WriteRetentionPriority$OFFSET, fieldValue);
     }
-    public static int WriteRetentionPriority$get(MemorySegment seg, long index) {
-        return (int)constants$2548.const$5.get(seg.asSlice(index*sizeof()));
+
+    private static final OfShort DisablePrefetchTransferLength$LAYOUT = (OfShort)$LAYOUT.select(groupElement("DisablePrefetchTransferLength"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD DisablePrefetchTransferLength
+     * }
+     */
+    public static final OfShort DisablePrefetchTransferLength$layout() {
+        return DisablePrefetchTransferLength$LAYOUT;
     }
-    public static void WriteRetentionPriority$set(MemorySegment seg, long index, int x) {
-        constants$2548.const$5.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long DisablePrefetchTransferLength$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD DisablePrefetchTransferLength
+     * }
+     */
+    public static final long DisablePrefetchTransferLength$offset() {
+        return DisablePrefetchTransferLength$OFFSET;
     }
-    public static VarHandle DisablePrefetchTransferLength$VH() {
-        return constants$2549.const$0;
-    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * WORD DisablePrefetchTransferLength;
+     * {@snippet lang=c :
+     * WORD DisablePrefetchTransferLength
      * }
      */
-    public static short DisablePrefetchTransferLength$get(MemorySegment seg) {
-        return (short)constants$2549.const$0.get(seg);
+    public static short DisablePrefetchTransferLength(MemorySegment struct) {
+        return struct.get(DisablePrefetchTransferLength$LAYOUT, DisablePrefetchTransferLength$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * WORD DisablePrefetchTransferLength;
+     * {@snippet lang=c :
+     * WORD DisablePrefetchTransferLength
      * }
      */
-    public static void DisablePrefetchTransferLength$set(MemorySegment seg, short x) {
-        constants$2549.const$0.set(seg, x);
+    public static void DisablePrefetchTransferLength(MemorySegment struct, short fieldValue) {
+        struct.set(DisablePrefetchTransferLength$LAYOUT, DisablePrefetchTransferLength$OFFSET, fieldValue);
     }
-    public static short DisablePrefetchTransferLength$get(MemorySegment seg, long index) {
-        return (short)constants$2549.const$0.get(seg.asSlice(index*sizeof()));
+
+    private static final OfByte PrefetchScalar$LAYOUT = (OfByte)$LAYOUT.select(groupElement("PrefetchScalar"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BOOLEAN PrefetchScalar
+     * }
+     */
+    public static final OfByte PrefetchScalar$layout() {
+        return PrefetchScalar$LAYOUT;
     }
-    public static void DisablePrefetchTransferLength$set(MemorySegment seg, long index, short x) {
-        constants$2549.const$0.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long PrefetchScalar$OFFSET = 14;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BOOLEAN PrefetchScalar
+     * }
+     */
+    public static final long PrefetchScalar$offset() {
+        return PrefetchScalar$OFFSET;
     }
-    public static VarHandle PrefetchScalar$VH() {
-        return constants$2549.const$1;
-    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * BOOLEAN PrefetchScalar;
+     * {@snippet lang=c :
+     * BOOLEAN PrefetchScalar
      * }
      */
-    public static byte PrefetchScalar$get(MemorySegment seg) {
-        return (byte)constants$2549.const$1.get(seg);
+    public static byte PrefetchScalar(MemorySegment struct) {
+        return struct.get(PrefetchScalar$LAYOUT, PrefetchScalar$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * BOOLEAN PrefetchScalar;
+     * {@snippet lang=c :
+     * BOOLEAN PrefetchScalar
      * }
      */
-    public static void PrefetchScalar$set(MemorySegment seg, byte x) {
-        constants$2549.const$1.set(seg, x);
+    public static void PrefetchScalar(MemorySegment struct, byte fieldValue) {
+        struct.set(PrefetchScalar$LAYOUT, PrefetchScalar$OFFSET, fieldValue);
     }
-    public static byte PrefetchScalar$get(MemorySegment seg, long index) {
-        return (byte)constants$2549.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void PrefetchScalar$set(MemorySegment seg, long index, byte x) {
-        constants$2549.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
+
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * struct {
      *     WORD Minimum;
      *     WORD Maximum;
      *     WORD MaximumBlocks;
-     * };
+     * }
      * }
      */
-    public static final class ScalarPrefetch {
+    public static class ScalarPrefetch {
 
-        // Suppresses default constructor, ensuring non-instantiability.
-        private ScalarPrefetch() {}
-        public static MemoryLayout $LAYOUT() {
-            return constants$2549.const$2;
+        ScalarPrefetch() {
+            // Should not be called directly
         }
-        public static VarHandle Minimum$VH() {
-            return constants$2549.const$3;
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            Windows_h.C_SHORT.withName("Minimum"),
+            Windows_h.C_SHORT.withName("Maximum"),
+            Windows_h.C_SHORT.withName("MaximumBlocks")
+        ).withName("$anon$9473:9");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
         }
+
+        private static final OfShort Minimum$LAYOUT = (OfShort)$LAYOUT.select(groupElement("Minimum"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * WORD Minimum
+         * }
+         */
+        public static final OfShort Minimum$layout() {
+            return Minimum$LAYOUT;
+        }
+
+        private static final long Minimum$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * WORD Minimum
+         * }
+         */
+        public static final long Minimum$offset() {
+            return Minimum$OFFSET;
+        }
+
         /**
          * Getter for field:
-         * {@snippet :
-         * WORD Minimum;
+         * {@snippet lang=c :
+         * WORD Minimum
          * }
          */
-        public static short Minimum$get(MemorySegment seg) {
-            return (short)constants$2549.const$3.get(seg);
+        public static short Minimum(MemorySegment struct) {
+            return struct.get(Minimum$LAYOUT, Minimum$OFFSET);
         }
+
         /**
          * Setter for field:
-         * {@snippet :
-         * WORD Minimum;
+         * {@snippet lang=c :
+         * WORD Minimum
          * }
          */
-        public static void Minimum$set(MemorySegment seg, short x) {
-            constants$2549.const$3.set(seg, x);
+        public static void Minimum(MemorySegment struct, short fieldValue) {
+            struct.set(Minimum$LAYOUT, Minimum$OFFSET, fieldValue);
         }
-        public static short Minimum$get(MemorySegment seg, long index) {
-            return (short)constants$2549.const$3.get(seg.asSlice(index*sizeof()));
+
+        private static final OfShort Maximum$LAYOUT = (OfShort)$LAYOUT.select(groupElement("Maximum"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * WORD Maximum
+         * }
+         */
+        public static final OfShort Maximum$layout() {
+            return Maximum$LAYOUT;
         }
-        public static void Minimum$set(MemorySegment seg, long index, short x) {
-            constants$2549.const$3.set(seg.asSlice(index*sizeof()), x);
+
+        private static final long Maximum$OFFSET = 2;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * WORD Maximum
+         * }
+         */
+        public static final long Maximum$offset() {
+            return Maximum$OFFSET;
         }
-        public static VarHandle Maximum$VH() {
-            return constants$2549.const$4;
-        }
+
         /**
          * Getter for field:
-         * {@snippet :
-         * WORD Maximum;
+         * {@snippet lang=c :
+         * WORD Maximum
          * }
          */
-        public static short Maximum$get(MemorySegment seg) {
-            return (short)constants$2549.const$4.get(seg);
+        public static short Maximum(MemorySegment struct) {
+            return struct.get(Maximum$LAYOUT, Maximum$OFFSET);
         }
+
         /**
          * Setter for field:
-         * {@snippet :
-         * WORD Maximum;
+         * {@snippet lang=c :
+         * WORD Maximum
          * }
          */
-        public static void Maximum$set(MemorySegment seg, short x) {
-            constants$2549.const$4.set(seg, x);
+        public static void Maximum(MemorySegment struct, short fieldValue) {
+            struct.set(Maximum$LAYOUT, Maximum$OFFSET, fieldValue);
         }
-        public static short Maximum$get(MemorySegment seg, long index) {
-            return (short)constants$2549.const$4.get(seg.asSlice(index*sizeof()));
+
+        private static final OfShort MaximumBlocks$LAYOUT = (OfShort)$LAYOUT.select(groupElement("MaximumBlocks"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * WORD MaximumBlocks
+         * }
+         */
+        public static final OfShort MaximumBlocks$layout() {
+            return MaximumBlocks$LAYOUT;
         }
-        public static void Maximum$set(MemorySegment seg, long index, short x) {
-            constants$2549.const$4.set(seg.asSlice(index*sizeof()), x);
+
+        private static final long MaximumBlocks$OFFSET = 4;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * WORD MaximumBlocks
+         * }
+         */
+        public static final long MaximumBlocks$offset() {
+            return MaximumBlocks$OFFSET;
         }
-        public static VarHandle MaximumBlocks$VH() {
-            return constants$2549.const$5;
-        }
+
         /**
          * Getter for field:
-         * {@snippet :
-         * WORD MaximumBlocks;
+         * {@snippet lang=c :
+         * WORD MaximumBlocks
          * }
          */
-        public static short MaximumBlocks$get(MemorySegment seg) {
-            return (short)constants$2549.const$5.get(seg);
+        public static short MaximumBlocks(MemorySegment struct) {
+            return struct.get(MaximumBlocks$LAYOUT, MaximumBlocks$OFFSET);
         }
+
         /**
          * Setter for field:
-         * {@snippet :
-         * WORD MaximumBlocks;
+         * {@snippet lang=c :
+         * WORD MaximumBlocks
          * }
          */
-        public static void MaximumBlocks$set(MemorySegment seg, short x) {
-            constants$2549.const$5.set(seg, x);
+        public static void MaximumBlocks(MemorySegment struct, short fieldValue) {
+            struct.set(MaximumBlocks$LAYOUT, MaximumBlocks$OFFSET, fieldValue);
         }
-        public static short MaximumBlocks$get(MemorySegment seg, long index) {
-            return (short)constants$2549.const$5.get(seg.asSlice(index*sizeof()));
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
         }
-        public static void MaximumBlocks$set(MemorySegment seg, long index, short x) {
-            constants$2549.const$5.set(seg.asSlice(index*sizeof()), x);
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
         }
-        public static long sizeof() { return $LAYOUT().byteSize(); }
-        public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-        public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-            return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
         }
-        public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
     }
 
-    public static MemorySegment ScalarPrefetch$slice(MemorySegment seg) {
-        return seg.asSlice(16, 6);
-    }
+    private static final GroupLayout ScalarPrefetch$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("$anon$9472:5"), groupElement("ScalarPrefetch"));
+
     /**
-     * {@snippet :
+     * Layout for field:
+     * {@snippet lang=c :
      * struct {
      *     WORD Minimum;
      *     WORD Maximum;
-     * };
+     *     WORD MaximumBlocks;
+     * } ScalarPrefetch
      * }
      */
-    public static final class BlockPrefetch {
-
-        // Suppresses default constructor, ensuring non-instantiability.
-        private BlockPrefetch() {}
-        public static MemoryLayout $LAYOUT() {
-            return constants$2550.const$0;
-        }
-        public static VarHandle Minimum$VH() {
-            return constants$2550.const$1;
-        }
-        /**
-         * Getter for field:
-         * {@snippet :
-         * WORD Minimum;
-         * }
-         */
-        public static short Minimum$get(MemorySegment seg) {
-            return (short)constants$2550.const$1.get(seg);
-        }
-        /**
-         * Setter for field:
-         * {@snippet :
-         * WORD Minimum;
-         * }
-         */
-        public static void Minimum$set(MemorySegment seg, short x) {
-            constants$2550.const$1.set(seg, x);
-        }
-        public static short Minimum$get(MemorySegment seg, long index) {
-            return (short)constants$2550.const$1.get(seg.asSlice(index*sizeof()));
-        }
-        public static void Minimum$set(MemorySegment seg, long index, short x) {
-            constants$2550.const$1.set(seg.asSlice(index*sizeof()), x);
-        }
-        public static VarHandle Maximum$VH() {
-            return constants$2550.const$2;
-        }
-        /**
-         * Getter for field:
-         * {@snippet :
-         * WORD Maximum;
-         * }
-         */
-        public static short Maximum$get(MemorySegment seg) {
-            return (short)constants$2550.const$2.get(seg);
-        }
-        /**
-         * Setter for field:
-         * {@snippet :
-         * WORD Maximum;
-         * }
-         */
-        public static void Maximum$set(MemorySegment seg, short x) {
-            constants$2550.const$2.set(seg, x);
-        }
-        public static short Maximum$get(MemorySegment seg, long index) {
-            return (short)constants$2550.const$2.get(seg.asSlice(index*sizeof()));
-        }
-        public static void Maximum$set(MemorySegment seg, long index, short x) {
-            constants$2550.const$2.set(seg.asSlice(index*sizeof()), x);
-        }
-        public static long sizeof() { return $LAYOUT().byteSize(); }
-        public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-        public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-            return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-        }
-        public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+    public static final GroupLayout ScalarPrefetch$layout() {
+        return ScalarPrefetch$LAYOUT;
     }
 
-    public static MemorySegment BlockPrefetch$slice(MemorySegment seg) {
-        return seg.asSlice(16, 4);
+    private static final long ScalarPrefetch$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct {
+     *     WORD Minimum;
+     *     WORD Maximum;
+     *     WORD MaximumBlocks;
+     * } ScalarPrefetch
+     * }
+     */
+    public static final long ScalarPrefetch$offset() {
+        return ScalarPrefetch$OFFSET;
     }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct {
+     *     WORD Minimum;
+     *     WORD Maximum;
+     *     WORD MaximumBlocks;
+     * } ScalarPrefetch
+     * }
+     */
+    public static MemorySegment ScalarPrefetch(MemorySegment struct) {
+        return struct.asSlice(ScalarPrefetch$OFFSET, ScalarPrefetch$LAYOUT.byteSize());
     }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct {
+     *     WORD Minimum;
+     *     WORD Maximum;
+     *     WORD MaximumBlocks;
+     * } ScalarPrefetch
+     * }
+     */
+    public static void ScalarPrefetch(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, ScalarPrefetch$OFFSET, ScalarPrefetch$LAYOUT.byteSize());
+    }
+
+    /**
+     * {@snippet lang=c :
+     * struct {
+     *     WORD Minimum;
+     *     WORD Maximum;
+     * }
+     * }
+     */
+    public static class BlockPrefetch {
+
+        BlockPrefetch() {
+            // Should not be called directly
+        }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            Windows_h.C_SHORT.withName("Minimum"),
+            Windows_h.C_SHORT.withName("Maximum")
+        ).withName("$anon$9485:9");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        private static final OfShort Minimum$LAYOUT = (OfShort)$LAYOUT.select(groupElement("Minimum"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * WORD Minimum
+         * }
+         */
+        public static final OfShort Minimum$layout() {
+            return Minimum$LAYOUT;
+        }
+
+        private static final long Minimum$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * WORD Minimum
+         * }
+         */
+        public static final long Minimum$offset() {
+            return Minimum$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * WORD Minimum
+         * }
+         */
+        public static short Minimum(MemorySegment struct) {
+            return struct.get(Minimum$LAYOUT, Minimum$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * WORD Minimum
+         * }
+         */
+        public static void Minimum(MemorySegment struct, short fieldValue) {
+            struct.set(Minimum$LAYOUT, Minimum$OFFSET, fieldValue);
+        }
+
+        private static final OfShort Maximum$LAYOUT = (OfShort)$LAYOUT.select(groupElement("Maximum"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * WORD Maximum
+         * }
+         */
+        public static final OfShort Maximum$layout() {
+            return Maximum$LAYOUT;
+        }
+
+        private static final long Maximum$OFFSET = 2;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * WORD Maximum
+         * }
+         */
+        public static final long Maximum$offset() {
+            return Maximum$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * WORD Maximum
+         * }
+         */
+        public static short Maximum(MemorySegment struct) {
+            return struct.get(Maximum$LAYOUT, Maximum$OFFSET);
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * WORD Maximum
+         * }
+         */
+        public static void Maximum(MemorySegment struct, short fieldValue) {
+            struct.set(Maximum$LAYOUT, Maximum$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
+    }
+
+    private static final GroupLayout BlockPrefetch$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("$anon$9472:5"), groupElement("BlockPrefetch"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct {
+     *     WORD Minimum;
+     *     WORD Maximum;
+     * } BlockPrefetch
+     * }
+     */
+    public static final GroupLayout BlockPrefetch$layout() {
+        return BlockPrefetch$LAYOUT;
+    }
+
+    private static final long BlockPrefetch$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct {
+     *     WORD Minimum;
+     *     WORD Maximum;
+     * } BlockPrefetch
+     * }
+     */
+    public static final long BlockPrefetch$offset() {
+        return BlockPrefetch$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * struct {
+     *     WORD Minimum;
+     *     WORD Maximum;
+     * } BlockPrefetch
+     * }
+     */
+    public static MemorySegment BlockPrefetch(MemorySegment struct) {
+        return struct.asSlice(BlockPrefetch$OFFSET, BlockPrefetch$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * struct {
+     *     WORD Minimum;
+     *     WORD Maximum;
+     * } BlockPrefetch
+     * }
+     */
+    public static void BlockPrefetch(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, BlockPrefetch$OFFSET, BlockPrefetch$LAYOUT.byteSize());
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
 }
-
 

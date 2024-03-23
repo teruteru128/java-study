@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _DRAWPATRECT DRAWPATRECT;
+ * {@snippet lang=c :
+ * typedef struct _DRAWPATRECT {
+ *     POINT ptPosition;
+ *     POINT ptSize;
+ *     WORD wStyle;
+ *     WORD wPattern;
+ * } DRAWPATRECT
  * }
  */
-public final class DRAWPATRECT extends _DRAWPATRECT {
+public class DRAWPATRECT extends _DRAWPATRECT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private DRAWPATRECT() {}
+    DRAWPATRECT() {
+        // Should not be called directly
+    }
 }
-
 

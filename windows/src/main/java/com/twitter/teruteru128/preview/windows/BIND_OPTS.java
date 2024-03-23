@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagBIND_OPTS BIND_OPTS;
+ * {@snippet lang=c :
+ * typedef struct tagBIND_OPTS {
+ *     DWORD cbStruct;
+ *     DWORD grfFlags;
+ *     DWORD grfMode;
+ *     DWORD dwTickCountDeadline;
+ * } BIND_OPTS
  * }
  */
-public final class BIND_OPTS extends tagBIND_OPTS {
+public class BIND_OPTS extends tagBIND_OPTS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private BIND_OPTS() {}
+    BIND_OPTS() {
+        // Should not be called directly
+    }
 }
-
 

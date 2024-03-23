@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagCAUB CAUB;
+ * {@snippet lang=c :
+ * typedef struct tagCAUB {
+ *     ULONG cElems;
+ *     UCHAR *pElems;
+ * } CAUB
  * }
  */
-public final class CAUB extends tagCAUB {
+public class CAUB extends tagCAUB {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CAUB() {}
+    CAUB() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _FSCTL_OFFLOAD_WRITE_OUTPUT FSCTL_OFFLOAD_WRITE_OUTPUT;
+ * {@snippet lang=c :
+ * typedef struct _FSCTL_OFFLOAD_WRITE_OUTPUT {
+ *     DWORD Size;
+ *     DWORD Flags;
+ *     DWORDLONG LengthWritten;
+ * } FSCTL_OFFLOAD_WRITE_OUTPUT
  * }
  */
-public final class FSCTL_OFFLOAD_WRITE_OUTPUT extends _FSCTL_OFFLOAD_WRITE_OUTPUT {
+public class FSCTL_OFFLOAD_WRITE_OUTPUT extends _FSCTL_OFFLOAD_WRITE_OUTPUT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private FSCTL_OFFLOAD_WRITE_OUTPUT() {}
+    FSCTL_OFFLOAD_WRITE_OUTPUT() {
+        // Should not be called directly
+    }
 }
-
 

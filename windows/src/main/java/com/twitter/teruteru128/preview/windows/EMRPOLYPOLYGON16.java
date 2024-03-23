@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagEMRPOLYPOLYLINE16 EMRPOLYPOLYGON16;
+ * {@snippet lang=c :
+ * typedef struct tagEMRPOLYPOLYLINE16 {
+ *     EMR emr;
+ *     RECTL rclBounds;
+ *     DWORD nPolys;
+ *     DWORD cpts;
+ *     DWORD aPolyCounts[1];
+ *     POINTS apts[1];
+ * } EMRPOLYPOLYGON16
  * }
  */
-public final class EMRPOLYPOLYGON16 extends tagEMRPOLYPOLYLINE16 {
+public class EMRPOLYPOLYGON16 extends tagEMRPOLYPOLYLINE16 {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private EMRPOLYPOLYGON16() {}
+    EMRPOLYPOLYGON16() {
+        // Should not be called directly
+    }
 }
-
 

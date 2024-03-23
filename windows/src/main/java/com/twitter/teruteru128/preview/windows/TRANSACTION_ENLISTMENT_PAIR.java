@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _TRANSACTION_ENLISTMENT_PAIR TRANSACTION_ENLISTMENT_PAIR;
+ * {@snippet lang=c :
+ * typedef struct _TRANSACTION_ENLISTMENT_PAIR {
+ *     GUID EnlistmentId;
+ *     GUID ResourceManagerId;
+ * } TRANSACTION_ENLISTMENT_PAIR
  * }
  */
-public final class TRANSACTION_ENLISTMENT_PAIR extends _TRANSACTION_ENLISTMENT_PAIR {
+public class TRANSACTION_ENLISTMENT_PAIR extends _TRANSACTION_ENLISTMENT_PAIR {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private TRANSACTION_ENLISTMENT_PAIR() {}
+    TRANSACTION_ENLISTMENT_PAIR() {
+        // Should not be called directly
+    }
 }
-
 

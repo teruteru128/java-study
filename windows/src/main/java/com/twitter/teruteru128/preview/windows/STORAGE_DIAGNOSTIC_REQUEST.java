@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _STORAGE_DIAGNOSTIC_REQUEST STORAGE_DIAGNOSTIC_REQUEST;
+ * {@snippet lang=c :
+ * typedef struct _STORAGE_DIAGNOSTIC_REQUEST {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     DWORD Flags;
+ *     STORAGE_DIAGNOSTIC_TARGET_TYPE TargetType;
+ *     STORAGE_DIAGNOSTIC_LEVEL Level;
+ * } STORAGE_DIAGNOSTIC_REQUEST
  * }
  */
-public final class STORAGE_DIAGNOSTIC_REQUEST extends _STORAGE_DIAGNOSTIC_REQUEST {
+public class STORAGE_DIAGNOSTIC_REQUEST extends _STORAGE_DIAGNOSTIC_REQUEST {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private STORAGE_DIAGNOSTIC_REQUEST() {}
+    STORAGE_DIAGNOSTIC_REQUEST() {
+        // Should not be called directly
+    }
 }
-
 

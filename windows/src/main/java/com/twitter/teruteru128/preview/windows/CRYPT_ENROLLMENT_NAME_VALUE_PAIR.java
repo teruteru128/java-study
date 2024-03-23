@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CRYPT_ENROLLMENT_NAME_VALUE_PAIR CRYPT_ENROLLMENT_NAME_VALUE_PAIR;
+ * {@snippet lang=c :
+ * typedef struct _CRYPT_ENROLLMENT_NAME_VALUE_PAIR {
+ *     LPWSTR pwszName;
+ *     LPWSTR pwszValue;
+ * } CRYPT_ENROLLMENT_NAME_VALUE_PAIR
  * }
  */
-public final class CRYPT_ENROLLMENT_NAME_VALUE_PAIR extends _CRYPT_ENROLLMENT_NAME_VALUE_PAIR {
+public class CRYPT_ENROLLMENT_NAME_VALUE_PAIR extends _CRYPT_ENROLLMENT_NAME_VALUE_PAIR {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CRYPT_ENROLLMENT_NAME_VALUE_PAIR() {}
+    CRYPT_ENROLLMENT_NAME_VALUE_PAIR() {
+        // Should not be called directly
+    }
 }
-
 

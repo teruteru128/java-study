@@ -2,32 +2,76 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC)(unsigned long dwCertEncodingType,struct _CERT_PUBLIC_KEY_INFO* pPubKeyInfo,struct _CRYPT_ALGORITHM_IDENTIFIER* pSignatureAlgorithm,void* pvDecodedSignPara,unsigned short* pwszCNGPubKeyAlgid,unsigned short* pwszCNGHashAlgid,unsigned char* pbComputedHash,unsigned long cbComputedHash,unsigned char* pbSignature,unsigned long cbSignature);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC)(DWORD, PCERT_PUBLIC_KEY_INFO, PCRYPT_ALGORITHM_IDENTIFIER, void *, LPCWSTR, LPCWSTR, BYTE *, DWORD, BYTE *, DWORD) __attribute__((stdcall))
  * }
  */
-public interface PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC {
+public class PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC {
 
-    int apply(int dwCertEncodingType, java.lang.foreign.MemorySegment pPubKeyInfo, java.lang.foreign.MemorySegment pSignatureAlgorithm, java.lang.foreign.MemorySegment pvDecodedSignPara, java.lang.foreign.MemorySegment pwszCNGPubKeyAlgid, java.lang.foreign.MemorySegment pwszCNGHashAlgid, java.lang.foreign.MemorySegment pbComputedHash, int cbComputedHash, java.lang.foreign.MemorySegment pbSignature, int cbSignature);
-    static MemorySegment allocate(PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2165.const$4, fi, constants$2165.const$3, scope);
+    PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC() {
+        // Should not be called directly
     }
-    static PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (int _dwCertEncodingType, java.lang.foreign.MemorySegment _pPubKeyInfo, java.lang.foreign.MemorySegment _pSignatureAlgorithm, java.lang.foreign.MemorySegment _pvDecodedSignPara, java.lang.foreign.MemorySegment _pwszCNGPubKeyAlgid, java.lang.foreign.MemorySegment _pwszCNGHashAlgid, java.lang.foreign.MemorySegment _pbComputedHash, int _cbComputedHash, java.lang.foreign.MemorySegment _pbSignature, int _cbSignature) -> {
-            try {
-                return (int)constants$2165.const$5.invokeExact(symbol, _dwCertEncodingType, _pPubKeyInfo, _pSignatureAlgorithm, _pvDecodedSignPara, _pwszCNGPubKeyAlgid, _pwszCNGHashAlgid, _pbComputedHash, _cbComputedHash, _pbSignature, _cbSignature);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(int dwCertEncodingType, MemorySegment pPubKeyInfo, MemorySegment pSignatureAlgorithm, MemorySegment pvDecodedSignPara, MemorySegment pwszCNGPubKeyAlgid, MemorySegment pwszCNGHashAlgid, MemorySegment pbComputedHash, int cbComputedHash, MemorySegment pbSignature, int cbSignature);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CRYPT_VERIFY_ENCODED_SIGNATURE_FUNC.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,int dwCertEncodingType, MemorySegment pPubKeyInfo, MemorySegment pSignatureAlgorithm, MemorySegment pvDecodedSignPara, MemorySegment pwszCNGPubKeyAlgid, MemorySegment pwszCNGHashAlgid, MemorySegment pbComputedHash, int cbComputedHash, MemorySegment pbSignature, int cbSignature) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, dwCertEncodingType, pPubKeyInfo, pSignatureAlgorithm, pvDecodedSignPara, pwszCNGPubKeyAlgid, pwszCNGHashAlgid, pbComputedHash, cbComputedHash, pbSignature, cbSignature);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

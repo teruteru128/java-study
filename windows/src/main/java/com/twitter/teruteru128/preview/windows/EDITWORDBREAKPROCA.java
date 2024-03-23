@@ -2,32 +2,70 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*EDITWORDBREAKPROCA)(char* lpch,int ichCurrent,int cch,int code);
+ * {@snippet lang=c :
+ * typedef int (*EDITWORDBREAKPROCA)(LPSTR, int, int, int) __attribute__((stdcall))
  * }
  */
-public interface EDITWORDBREAKPROCA {
+public class EDITWORDBREAKPROCA {
 
-    int apply(java.lang.foreign.MemorySegment lpch, int ichCurrent, int cch, int code);
-    static MemorySegment allocate(EDITWORDBREAKPROCA fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$1135.const$0, fi, constants$775.const$4, scope);
+    EDITWORDBREAKPROCA() {
+        // Should not be called directly
     }
-    static EDITWORDBREAKPROCA ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _lpch, int _ichCurrent, int _cch, int _code) -> {
-            try {
-                return (int)constants$1135.const$1.invokeExact(symbol, _lpch, _ichCurrent, _cch, _code);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment lpch, int ichCurrent, int cch, int code);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_INT,
+        Windows_h.C_INT,
+        Windows_h.C_INT
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(EDITWORDBREAKPROCA.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(EDITWORDBREAKPROCA.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment lpch, int ichCurrent, int cch, int code) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, lpch, ichCurrent, cch, code);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

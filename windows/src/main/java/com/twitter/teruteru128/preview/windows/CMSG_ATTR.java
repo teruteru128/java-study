@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CRYPT_ATTRIBUTES CMSG_ATTR;
+ * {@snippet lang=c :
+ * typedef CRYPT_ATTRIBUTES CMSG_ATTR
  * }
  */
-public final class CMSG_ATTR extends _CRYPT_ATTRIBUTES {
+public class CMSG_ATTR extends _CRYPT_ATTRIBUTES {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CMSG_ATTR() {}
+    CMSG_ATTR() {
+        // Should not be called directly
+    }
 }
-
 

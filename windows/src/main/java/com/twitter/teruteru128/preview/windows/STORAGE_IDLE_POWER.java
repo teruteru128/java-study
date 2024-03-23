@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _STORAGE_IDLE_POWER STORAGE_IDLE_POWER;
+ * {@snippet lang=c :
+ * typedef struct _STORAGE_IDLE_POWER {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     DWORD WakeCapableHint : 1;
+ *     DWORD D3ColdSupported : 1;
+ *     DWORD Reserved : 30;
+ *     DWORD D3IdleTimeout;
+ * } STORAGE_IDLE_POWER
  * }
  */
-public final class STORAGE_IDLE_POWER extends _STORAGE_IDLE_POWER {
+public class STORAGE_IDLE_POWER extends _STORAGE_IDLE_POWER {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private STORAGE_IDLE_POWER() {}
+    STORAGE_IDLE_POWER() {
+        // Should not be called directly
+    }
 }
-
 

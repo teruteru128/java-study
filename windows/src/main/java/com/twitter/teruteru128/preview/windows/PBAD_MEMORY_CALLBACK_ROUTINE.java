@@ -2,32 +2,64 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void (*PBAD_MEMORY_CALLBACK_ROUTINE)();
+ * {@snippet lang=c :
+ * typedef BAD_MEMORY_CALLBACK_ROUTINE *PBAD_MEMORY_CALLBACK_ROUTINE
  * }
  */
-public interface PBAD_MEMORY_CALLBACK_ROUTINE {
+public class PBAD_MEMORY_CALLBACK_ROUTINE {
 
-    void apply();
-    static MemorySegment allocate(PBAD_MEMORY_CALLBACK_ROUTINE fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$682.const$0, fi, constants$0.const$2, scope);
+    PBAD_MEMORY_CALLBACK_ROUTINE() {
+        // Should not be called directly
     }
-    static PBAD_MEMORY_CALLBACK_ROUTINE ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return () -> {
-            try {
-                constants$681.const$5.invokeExact(symbol);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        void apply();
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid();
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PBAD_MEMORY_CALLBACK_ROUTINE.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PBAD_MEMORY_CALLBACK_ROUTINE.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static void invoke(MemorySegment funcPtr) {
+        try {
+             DOWN$MH.invokeExact(funcPtr);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

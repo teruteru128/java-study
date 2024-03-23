@@ -2,32 +2,67 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void* (*PFIBER_CALLOUT_ROUTINE)(void* lpParameter);
+ * {@snippet lang=c :
+ * typedef LPVOID (*PFIBER_CALLOUT_ROUTINE)(LPVOID) __attribute__((stdcall))
  * }
  */
-public interface PFIBER_CALLOUT_ROUTINE {
+public class PFIBER_CALLOUT_ROUTINE {
 
-    java.lang.foreign.MemorySegment apply(java.lang.foreign.MemorySegment _x0);
-    static MemorySegment allocate(PFIBER_CALLOUT_ROUTINE fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$743.const$1, fi, constants$33.const$3, scope);
+    PFIBER_CALLOUT_ROUTINE() {
+        // Should not be called directly
     }
-    static PFIBER_CALLOUT_ROUTINE ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment __x0) -> {
-            try {
-                return (java.lang.foreign.MemorySegment)constants$250.const$3.invokeExact(symbol, __x0);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        MemorySegment apply(MemorySegment lpParameter);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFIBER_CALLOUT_ROUTINE.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFIBER_CALLOUT_ROUTINE.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static MemorySegment invoke(MemorySegment funcPtr,MemorySegment lpParameter) {
+        try {
+            return (MemorySegment) DOWN$MH.invokeExact(funcPtr, lpParameter);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

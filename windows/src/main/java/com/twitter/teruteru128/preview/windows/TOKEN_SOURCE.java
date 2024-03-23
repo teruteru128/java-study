@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _TOKEN_SOURCE TOKEN_SOURCE;
+ * {@snippet lang=c :
+ * typedef struct _TOKEN_SOURCE {
+ *     CHAR SourceName[8];
+ *     LUID SourceIdentifier;
+ * } TOKEN_SOURCE
  * }
  */
-public final class TOKEN_SOURCE extends _TOKEN_SOURCE {
+public class TOKEN_SOURCE extends _TOKEN_SOURCE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private TOKEN_SOURCE() {}
+    TOKEN_SOURCE() {
+        // Should not be called directly
+    }
 }
-
 

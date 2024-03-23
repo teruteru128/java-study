@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _STORAGE_IDENTIFIER {
  *     STORAGE_IDENTIFIER_CODE_SET CodeSet;
  *     STORAGE_IDENTIFIER_TYPE Type;
@@ -16,158 +21,371 @@ import static java.lang.foreign.ValueLayout.*;
  *     WORD NextOffset;
  *     STORAGE_ASSOCIATION_TYPE Association;
  *     BYTE Identifier[1];
- * };
+ * }
  * }
  */
 public class _STORAGE_IDENTIFIER {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2394.const$3;
+    _STORAGE_IDENTIFIER() {
+        // Should not be called directly
     }
-    public static VarHandle CodeSet$VH() {
-        return constants$2394.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * STORAGE_IDENTIFIER_CODE_SET CodeSet;
-     * }
-     */
-    public static int CodeSet$get(MemorySegment seg) {
-        return (int)constants$2394.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * STORAGE_IDENTIFIER_CODE_SET CodeSet;
-     * }
-     */
-    public static void CodeSet$set(MemorySegment seg, int x) {
-        constants$2394.const$4.set(seg, x);
-    }
-    public static int CodeSet$get(MemorySegment seg, long index) {
-        return (int)constants$2394.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void CodeSet$set(MemorySegment seg, long index, int x) {
-        constants$2394.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Type$VH() {
-        return constants$2394.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * STORAGE_IDENTIFIER_TYPE Type;
-     * }
-     */
-    public static int Type$get(MemorySegment seg) {
-        return (int)constants$2394.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * STORAGE_IDENTIFIER_TYPE Type;
-     * }
-     */
-    public static void Type$set(MemorySegment seg, int x) {
-        constants$2394.const$5.set(seg, x);
-    }
-    public static int Type$get(MemorySegment seg, long index) {
-        return (int)constants$2394.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Type$set(MemorySegment seg, long index, int x) {
-        constants$2394.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle IdentifierSize$VH() {
-        return constants$2395.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD IdentifierSize;
-     * }
-     */
-    public static short IdentifierSize$get(MemorySegment seg) {
-        return (short)constants$2395.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD IdentifierSize;
-     * }
-     */
-    public static void IdentifierSize$set(MemorySegment seg, short x) {
-        constants$2395.const$0.set(seg, x);
-    }
-    public static short IdentifierSize$get(MemorySegment seg, long index) {
-        return (short)constants$2395.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void IdentifierSize$set(MemorySegment seg, long index, short x) {
-        constants$2395.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle NextOffset$VH() {
-        return constants$2395.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD NextOffset;
-     * }
-     */
-    public static short NextOffset$get(MemorySegment seg) {
-        return (short)constants$2395.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD NextOffset;
-     * }
-     */
-    public static void NextOffset$set(MemorySegment seg, short x) {
-        constants$2395.const$1.set(seg, x);
-    }
-    public static short NextOffset$get(MemorySegment seg, long index) {
-        return (short)constants$2395.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void NextOffset$set(MemorySegment seg, long index, short x) {
-        constants$2395.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Association$VH() {
-        return constants$2395.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * STORAGE_ASSOCIATION_TYPE Association;
-     * }
-     */
-    public static int Association$get(MemorySegment seg) {
-        return (int)constants$2395.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * STORAGE_ASSOCIATION_TYPE Association;
-     * }
-     */
-    public static void Association$set(MemorySegment seg, int x) {
-        constants$2395.const$2.set(seg, x);
-    }
-    public static int Association$get(MemorySegment seg, long index) {
-        return (int)constants$2395.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Association$set(MemorySegment seg, long index, int x) {
-        constants$2395.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment Identifier$slice(MemorySegment seg) {
-        return seg.asSlice(16, 1);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_INT.withName("CodeSet"),
+        Windows_h.C_INT.withName("Type"),
+        Windows_h.C_SHORT.withName("IdentifierSize"),
+        Windows_h.C_SHORT.withName("NextOffset"),
+        Windows_h.C_INT.withName("Association"),
+        MemoryLayout.sequenceLayout(1, Windows_h.C_CHAR).withName("Identifier"),
+        MemoryLayout.paddingLayout(3)
+    ).withName("_STORAGE_IDENTIFIER");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt CodeSet$LAYOUT = (OfInt)$LAYOUT.select(groupElement("CodeSet"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * STORAGE_IDENTIFIER_CODE_SET CodeSet
+     * }
+     */
+    public static final OfInt CodeSet$layout() {
+        return CodeSet$LAYOUT;
+    }
+
+    private static final long CodeSet$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * STORAGE_IDENTIFIER_CODE_SET CodeSet
+     * }
+     */
+    public static final long CodeSet$offset() {
+        return CodeSet$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * STORAGE_IDENTIFIER_CODE_SET CodeSet
+     * }
+     */
+    public static int CodeSet(MemorySegment struct) {
+        return struct.get(CodeSet$LAYOUT, CodeSet$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * STORAGE_IDENTIFIER_CODE_SET CodeSet
+     * }
+     */
+    public static void CodeSet(MemorySegment struct, int fieldValue) {
+        struct.set(CodeSet$LAYOUT, CodeSet$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Type$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Type"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * STORAGE_IDENTIFIER_TYPE Type
+     * }
+     */
+    public static final OfInt Type$layout() {
+        return Type$LAYOUT;
+    }
+
+    private static final long Type$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * STORAGE_IDENTIFIER_TYPE Type
+     * }
+     */
+    public static final long Type$offset() {
+        return Type$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * STORAGE_IDENTIFIER_TYPE Type
+     * }
+     */
+    public static int Type(MemorySegment struct) {
+        return struct.get(Type$LAYOUT, Type$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * STORAGE_IDENTIFIER_TYPE Type
+     * }
+     */
+    public static void Type(MemorySegment struct, int fieldValue) {
+        struct.set(Type$LAYOUT, Type$OFFSET, fieldValue);
+    }
+
+    private static final OfShort IdentifierSize$LAYOUT = (OfShort)$LAYOUT.select(groupElement("IdentifierSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD IdentifierSize
+     * }
+     */
+    public static final OfShort IdentifierSize$layout() {
+        return IdentifierSize$LAYOUT;
+    }
+
+    private static final long IdentifierSize$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD IdentifierSize
+     * }
+     */
+    public static final long IdentifierSize$offset() {
+        return IdentifierSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD IdentifierSize
+     * }
+     */
+    public static short IdentifierSize(MemorySegment struct) {
+        return struct.get(IdentifierSize$LAYOUT, IdentifierSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD IdentifierSize
+     * }
+     */
+    public static void IdentifierSize(MemorySegment struct, short fieldValue) {
+        struct.set(IdentifierSize$LAYOUT, IdentifierSize$OFFSET, fieldValue);
+    }
+
+    private static final OfShort NextOffset$LAYOUT = (OfShort)$LAYOUT.select(groupElement("NextOffset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD NextOffset
+     * }
+     */
+    public static final OfShort NextOffset$layout() {
+        return NextOffset$LAYOUT;
+    }
+
+    private static final long NextOffset$OFFSET = 10;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD NextOffset
+     * }
+     */
+    public static final long NextOffset$offset() {
+        return NextOffset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD NextOffset
+     * }
+     */
+    public static short NextOffset(MemorySegment struct) {
+        return struct.get(NextOffset$LAYOUT, NextOffset$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD NextOffset
+     * }
+     */
+    public static void NextOffset(MemorySegment struct, short fieldValue) {
+        struct.set(NextOffset$LAYOUT, NextOffset$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Association$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Association"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * STORAGE_ASSOCIATION_TYPE Association
+     * }
+     */
+    public static final OfInt Association$layout() {
+        return Association$LAYOUT;
+    }
+
+    private static final long Association$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * STORAGE_ASSOCIATION_TYPE Association
+     * }
+     */
+    public static final long Association$offset() {
+        return Association$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * STORAGE_ASSOCIATION_TYPE Association
+     * }
+     */
+    public static int Association(MemorySegment struct) {
+        return struct.get(Association$LAYOUT, Association$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * STORAGE_ASSOCIATION_TYPE Association
+     * }
+     */
+    public static void Association(MemorySegment struct, int fieldValue) {
+        struct.set(Association$LAYOUT, Association$OFFSET, fieldValue);
+    }
+
+    private static final SequenceLayout Identifier$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("Identifier"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE Identifier[1]
+     * }
+     */
+    public static final SequenceLayout Identifier$layout() {
+        return Identifier$LAYOUT;
+    }
+
+    private static final long Identifier$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE Identifier[1]
+     * }
+     */
+    public static final long Identifier$offset() {
+        return Identifier$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE Identifier[1]
+     * }
+     */
+    public static MemorySegment Identifier(MemorySegment struct) {
+        return struct.asSlice(Identifier$OFFSET, Identifier$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE Identifier[1]
+     * }
+     */
+    public static void Identifier(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, Identifier$OFFSET, Identifier$LAYOUT.byteSize());
+    }
+
+    private static long[] Identifier$DIMS = { 1 };
+
+    /**
+     * Dimensions for array field:
+     * {@snippet lang=c :
+     * BYTE Identifier[1]
+     * }
+     */
+    public static long[] Identifier$dimensions() {
+        return Identifier$DIMS;
+    }
+    private static final VarHandle Identifier$ELEM_HANDLE = Identifier$LAYOUT.varHandle(sequenceElement());
+
+    /**
+     * Indexed getter for field:
+     * {@snippet lang=c :
+     * BYTE Identifier[1]
+     * }
+     */
+    public static byte Identifier(MemorySegment struct, long index0) {
+        return (byte)Identifier$ELEM_HANDLE.get(struct, 0L, index0);
+    }
+
+    /**
+     * Indexed setter for field:
+     * {@snippet lang=c :
+     * BYTE Identifier[1]
+     * }
+     */
+    public static void Identifier(MemorySegment struct, long index0, byte fieldValue) {
+        Identifier$ELEM_HANDLE.set(struct, 0L, index0, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

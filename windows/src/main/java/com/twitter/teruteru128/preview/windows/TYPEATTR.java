@@ -2,20 +2,44 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagTYPEATTR TYPEATTR;
+ * {@snippet lang=c :
+ * typedef struct tagTYPEATTR {
+ *     GUID guid;
+ *     LCID lcid;
+ *     DWORD dwReserved;
+ *     MEMBERID memidConstructor;
+ *     MEMBERID memidDestructor;
+ *     LPOLESTR lpstrSchema;
+ *     ULONG cbSizeInstance;
+ *     TYPEKIND typekind;
+ *     WORD cFuncs;
+ *     WORD cVars;
+ *     WORD cImplTypes;
+ *     WORD cbSizeVft;
+ *     WORD cbAlignment;
+ *     WORD wTypeFlags;
+ *     WORD wMajorVerNum;
+ *     WORD wMinorVerNum;
+ *     TYPEDESC tdescAlias;
+ *     IDLDESC idldescType;
+ * } TYPEATTR
  * }
  */
-public final class TYPEATTR extends tagTYPEATTR {
+public class TYPEATTR extends tagTYPEATTR {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private TYPEATTR() {}
+    TYPEATTR() {
+        // Should not be called directly
+    }
 }
-
 

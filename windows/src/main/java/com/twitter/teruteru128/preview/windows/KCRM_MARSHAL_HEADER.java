@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _KCRM_MARSHAL_HEADER KCRM_MARSHAL_HEADER;
+ * {@snippet lang=c :
+ * typedef struct _KCRM_MARSHAL_HEADER {
+ *     ULONG VersionMajor;
+ *     ULONG VersionMinor;
+ *     ULONG NumProtocols;
+ *     ULONG Unused;
+ * } KCRM_MARSHAL_HEADER
  * }
  */
-public final class KCRM_MARSHAL_HEADER extends _KCRM_MARSHAL_HEADER {
+public class KCRM_MARSHAL_HEADER extends _KCRM_MARSHAL_HEADER {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private KCRM_MARSHAL_HEADER() {}
+    KCRM_MARSHAL_HEADER() {
+        // Should not be called directly
+    }
 }
-
 

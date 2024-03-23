@@ -2,20 +2,33 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagWAVEINCAPSW WAVEINCAPSW;
+ * {@snippet lang=c :
+ * typedef struct tagWAVEINCAPSW {
+ *     WORD wMid;
+ *     WORD wPid;
+ *     MMVERSION vDriverVersion;
+ *     WCHAR szPname[32];
+ *     DWORD dwFormats;
+ *     WORD wChannels;
+ *     WORD wReserved1;
+ * } WAVEINCAPSW
  * }
  */
-public final class WAVEINCAPSW extends tagWAVEINCAPSW {
+public class WAVEINCAPSW extends tagWAVEINCAPSW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private WAVEINCAPSW() {}
+    WAVEINCAPSW() {
+        // Should not be called directly
+    }
 }
-
 

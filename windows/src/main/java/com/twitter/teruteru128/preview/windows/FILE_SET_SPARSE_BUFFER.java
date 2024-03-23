@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _FILE_SET_SPARSE_BUFFER FILE_SET_SPARSE_BUFFER;
+ * {@snippet lang=c :
+ * typedef struct _FILE_SET_SPARSE_BUFFER {
+ *     BOOLEAN SetSparse;
+ * } FILE_SET_SPARSE_BUFFER
  * }
  */
-public final class FILE_SET_SPARSE_BUFFER extends _FILE_SET_SPARSE_BUFFER {
+public class FILE_SET_SPARSE_BUFFER extends _FILE_SET_SPARSE_BUFFER {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private FILE_SET_SPARSE_BUFFER() {}
+    FILE_SET_SPARSE_BUFFER() {
+        // Should not be called directly
+    }
 }
-
 

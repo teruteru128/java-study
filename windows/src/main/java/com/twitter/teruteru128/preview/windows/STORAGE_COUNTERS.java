@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _STORAGE_COUNTERS STORAGE_COUNTERS;
+ * {@snippet lang=c :
+ * typedef struct _STORAGE_COUNTERS {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     DWORD NumberOfCounters;
+ *     STORAGE_COUNTER Counters[1];
+ * } STORAGE_COUNTERS
  * }
  */
-public final class STORAGE_COUNTERS extends _STORAGE_COUNTERS {
+public class STORAGE_COUNTERS extends _STORAGE_COUNTERS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private STORAGE_COUNTERS() {}
+    STORAGE_COUNTERS() {
+        // Should not be called directly
+    }
 }
-
 

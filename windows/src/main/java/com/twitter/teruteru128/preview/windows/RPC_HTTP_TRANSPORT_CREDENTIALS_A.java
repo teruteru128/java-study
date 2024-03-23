@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _RPC_HTTP_TRANSPORT_CREDENTIALS_A RPC_HTTP_TRANSPORT_CREDENTIALS_A;
+ * {@snippet lang=c :
+ * typedef struct _RPC_HTTP_TRANSPORT_CREDENTIALS_A {
+ *     SEC_WINNT_AUTH_IDENTITY_A *TransportCredentials;
+ *     unsigned long Flags;
+ *     unsigned long AuthenticationTarget;
+ *     unsigned long NumberOfAuthnSchemes;
+ *     unsigned long *AuthnSchemes;
+ *     unsigned char *ServerCertificateSubject;
+ * } RPC_HTTP_TRANSPORT_CREDENTIALS_A
  * }
  */
-public final class RPC_HTTP_TRANSPORT_CREDENTIALS_A extends _RPC_HTTP_TRANSPORT_CREDENTIALS_A {
+public class RPC_HTTP_TRANSPORT_CREDENTIALS_A extends _RPC_HTTP_TRANSPORT_CREDENTIALS_A {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private RPC_HTTP_TRANSPORT_CREDENTIALS_A() {}
+    RPC_HTTP_TRANSPORT_CREDENTIALS_A() {
+        // Should not be called directly
+    }
 }
-
 

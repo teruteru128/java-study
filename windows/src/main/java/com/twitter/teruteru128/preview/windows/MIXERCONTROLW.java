@@ -2,20 +2,49 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMIXERCONTROLW MIXERCONTROLW;
+ * {@snippet lang=c :
+ * typedef struct tagMIXERCONTROLW {
+ *     DWORD cbStruct;
+ *     DWORD dwControlID;
+ *     DWORD dwControlType;
+ *     DWORD fdwControl;
+ *     DWORD cMultipleItems;
+ *     WCHAR szShortName[16];
+ *     WCHAR szName[64];
+ *     union {
+ *         struct {
+ *             LONG lMinimum;
+ *             LONG lMaximum;
+ *         };
+ *         struct {
+ *             DWORD dwMinimum;
+ *             DWORD dwMaximum;
+ *         };
+ *         DWORD dwReserved[6];
+ *     } Bounds;
+ *     union {
+ *         DWORD cSteps;
+ *         DWORD cbCustomData;
+ *         DWORD dwReserved[6];
+ *     } Metrics;
+ * } MIXERCONTROLW
  * }
  */
-public final class MIXERCONTROLW extends tagMIXERCONTROLW {
+public class MIXERCONTROLW extends tagMIXERCONTROLW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MIXERCONTROLW() {}
+    MIXERCONTROLW() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMINIMIZEDMETRICS MINIMIZEDMETRICS;
+ * {@snippet lang=c :
+ * typedef struct tagMINIMIZEDMETRICS {
+ *     UINT cbSize;
+ *     int iWidth;
+ *     int iHorzGap;
+ *     int iVertGap;
+ *     int iArrange;
+ * } MINIMIZEDMETRICS
  * }
  */
-public final class MINIMIZEDMETRICS extends tagMINIMIZEDMETRICS {
+public class MINIMIZEDMETRICS extends tagMINIMIZEDMETRICS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MINIMIZEDMETRICS() {}
+    MINIMIZEDMETRICS() {
+        // Should not be called directly
+    }
 }
-
 

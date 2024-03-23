@@ -2,20 +2,34 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _MIDL_SERVER_INFO_ MIDL_SERVER_INFO;
+ * {@snippet lang=c :
+ * typedef struct _MIDL_SERVER_INFO_ {
+ *     PMIDL_STUB_DESC pStubDesc;
+ *     const SERVER_ROUTINE *DispatchTable;
+ *     PFORMAT_STRING ProcString;
+ *     const unsigned short *FmtStringOffset;
+ *     const STUB_THUNK *ThunkTable;
+ *     PRPC_SYNTAX_IDENTIFIER pTransferSyntax;
+ *     ULONG_PTR nCount;
+ *     PMIDL_SYNTAX_INFO pSyntaxInfo;
+ * } MIDL_SERVER_INFO
  * }
  */
-public final class MIDL_SERVER_INFO extends _MIDL_SERVER_INFO_ {
+public class MIDL_SERVER_INFO extends _MIDL_SERVER_INFO_ {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MIDL_SERVER_INFO() {}
+    MIDL_SERVER_INFO() {
+        // Should not be called directly
+    }
 }
-
 

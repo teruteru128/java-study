@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _MARK_HANDLE_INFO32 MARK_HANDLE_INFO32;
+ * {@snippet lang=c :
+ * typedef struct _MARK_HANDLE_INFO32 {
+ *     union {
+ *         DWORD UsnSourceInfo;
+ *         DWORD CopyNumber;
+ *     };
+ *     UINT32 VolumeHandle;
+ *     DWORD HandleInfo;
+ * } MARK_HANDLE_INFO32
  * }
  */
-public final class MARK_HANDLE_INFO32 extends _MARK_HANDLE_INFO32 {
+public class MARK_HANDLE_INFO32 extends _MARK_HANDLE_INFO32 {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MARK_HANDLE_INFO32() {}
+    MARK_HANDLE_INFO32() {
+        // Should not be called directly
+    }
 }
-
 

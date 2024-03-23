@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _RPC_PROTSEQ_VECTORA RPC_PROTSEQ_VECTORA;
+ * {@snippet lang=c :
+ * typedef struct _RPC_PROTSEQ_VECTORA {
+ *     unsigned int Count;
+ *     unsigned char *Protseq[1];
+ * } RPC_PROTSEQ_VECTORA
  * }
  */
-public final class RPC_PROTSEQ_VECTORA extends _RPC_PROTSEQ_VECTORA {
+public class RPC_PROTSEQ_VECTORA extends _RPC_PROTSEQ_VECTORA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private RPC_PROTSEQ_VECTORA() {}
+    RPC_PROTSEQ_VECTORA() {
+        // Should not be called directly
+    }
 }
-
 

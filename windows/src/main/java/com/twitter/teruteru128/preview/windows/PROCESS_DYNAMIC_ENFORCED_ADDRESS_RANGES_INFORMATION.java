@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION;
+ * {@snippet lang=c :
+ * typedef struct _PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION {
+ *     WORD NumberOfRanges;
+ *     WORD Reserved;
+ *     DWORD Reserved2;
+ *     PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE Ranges;
+ * } PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION
  * }
  */
-public final class PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION extends _PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION {
+public class PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION extends _PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION() {}
+    PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION() {
+        // Should not be called directly
+    }
 }
-
 

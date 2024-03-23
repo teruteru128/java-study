@@ -2,112 +2,218 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _CERT_SELECT_CRITERIA {
  *     DWORD dwType;
  *     DWORD cPara;
- *     void** ppPara;
- * };
+ *     void **ppPara;
+ * }
  * }
  */
 public class _CERT_SELECT_CRITERIA {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2235.const$0;
+    _CERT_SELECT_CRITERIA() {
+        // Should not be called directly
     }
-    public static VarHandle dwType$VH() {
-        return constants$2235.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwType;
-     * }
-     */
-    public static int dwType$get(MemorySegment seg) {
-        return (int)constants$2235.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwType;
-     * }
-     */
-    public static void dwType$set(MemorySegment seg, int x) {
-        constants$2235.const$1.set(seg, x);
-    }
-    public static int dwType$get(MemorySegment seg, long index) {
-        return (int)constants$2235.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwType$set(MemorySegment seg, long index, int x) {
-        constants$2235.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cPara$VH() {
-        return constants$2235.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cPara;
-     * }
-     */
-    public static int cPara$get(MemorySegment seg) {
-        return (int)constants$2235.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cPara;
-     * }
-     */
-    public static void cPara$set(MemorySegment seg, int x) {
-        constants$2235.const$2.set(seg, x);
-    }
-    public static int cPara$get(MemorySegment seg, long index) {
-        return (int)constants$2235.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cPara$set(MemorySegment seg, long index, int x) {
-        constants$2235.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ppPara$VH() {
-        return constants$2235.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * void** ppPara;
-     * }
-     */
-    public static MemorySegment ppPara$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2235.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * void** ppPara;
-     * }
-     */
-    public static void ppPara$set(MemorySegment seg, MemorySegment x) {
-        constants$2235.const$3.set(seg, x);
-    }
-    public static MemorySegment ppPara$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2235.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ppPara$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2235.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("dwType"),
+        Windows_h.C_LONG.withName("cPara"),
+        Windows_h.C_POINTER.withName("ppPara")
+    ).withName("_CERT_SELECT_CRITERIA");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt dwType$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwType
+     * }
+     */
+    public static final OfInt dwType$layout() {
+        return dwType$LAYOUT;
+    }
+
+    private static final long dwType$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwType
+     * }
+     */
+    public static final long dwType$offset() {
+        return dwType$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwType
+     * }
+     */
+    public static int dwType(MemorySegment struct) {
+        return struct.get(dwType$LAYOUT, dwType$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwType
+     * }
+     */
+    public static void dwType(MemorySegment struct, int fieldValue) {
+        struct.set(dwType$LAYOUT, dwType$OFFSET, fieldValue);
+    }
+
+    private static final OfInt cPara$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cPara"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cPara
+     * }
+     */
+    public static final OfInt cPara$layout() {
+        return cPara$LAYOUT;
+    }
+
+    private static final long cPara$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cPara
+     * }
+     */
+    public static final long cPara$offset() {
+        return cPara$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cPara
+     * }
+     */
+    public static int cPara(MemorySegment struct) {
+        return struct.get(cPara$LAYOUT, cPara$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cPara
+     * }
+     */
+    public static void cPara(MemorySegment struct, int fieldValue) {
+        struct.set(cPara$LAYOUT, cPara$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout ppPara$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("ppPara"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * void **ppPara
+     * }
+     */
+    public static final AddressLayout ppPara$layout() {
+        return ppPara$LAYOUT;
+    }
+
+    private static final long ppPara$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * void **ppPara
+     * }
+     */
+    public static final long ppPara$offset() {
+        return ppPara$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * void **ppPara
+     * }
+     */
+    public static MemorySegment ppPara(MemorySegment struct) {
+        return struct.get(ppPara$LAYOUT, ppPara$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * void **ppPara
+     * }
+     */
+    public static void ppPara(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(ppPara$LAYOUT, ppPara$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

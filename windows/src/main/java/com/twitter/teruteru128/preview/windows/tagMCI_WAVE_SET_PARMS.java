@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagMCI_WAVE_SET_PARMS {
  *     DWORD_PTR dwCallback;
  *     DWORD dwTimeFormat;
@@ -25,425 +30,742 @@ import static java.lang.foreign.ValueLayout.*;
  *     WORD wReserved4;
  *     WORD wBitsPerSample;
  *     WORD wReserved5;
- * };
+ * }
  * }
  */
 public class tagMCI_WAVE_SET_PARMS {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1574.const$2;
+    tagMCI_WAVE_SET_PARMS() {
+        // Should not be called directly
     }
-    public static VarHandle dwCallback$VH() {
-        return constants$1574.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD_PTR dwCallback;
-     * }
-     */
-    public static long dwCallback$get(MemorySegment seg) {
-        return (long)constants$1574.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD_PTR dwCallback;
-     * }
-     */
-    public static void dwCallback$set(MemorySegment seg, long x) {
-        constants$1574.const$3.set(seg, x);
-    }
-    public static long dwCallback$get(MemorySegment seg, long index) {
-        return (long)constants$1574.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwCallback$set(MemorySegment seg, long index, long x) {
-        constants$1574.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwTimeFormat$VH() {
-        return constants$1574.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwTimeFormat;
-     * }
-     */
-    public static int dwTimeFormat$get(MemorySegment seg) {
-        return (int)constants$1574.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwTimeFormat;
-     * }
-     */
-    public static void dwTimeFormat$set(MemorySegment seg, int x) {
-        constants$1574.const$4.set(seg, x);
-    }
-    public static int dwTimeFormat$get(MemorySegment seg, long index) {
-        return (int)constants$1574.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwTimeFormat$set(MemorySegment seg, long index, int x) {
-        constants$1574.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwAudio$VH() {
-        return constants$1574.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwAudio;
-     * }
-     */
-    public static int dwAudio$get(MemorySegment seg) {
-        return (int)constants$1574.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwAudio;
-     * }
-     */
-    public static void dwAudio$set(MemorySegment seg, int x) {
-        constants$1574.const$5.set(seg, x);
-    }
-    public static int dwAudio$get(MemorySegment seg, long index) {
-        return (int)constants$1574.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwAudio$set(MemorySegment seg, long index, int x) {
-        constants$1574.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle wInput$VH() {
-        return constants$1575.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * UINT wInput;
-     * }
-     */
-    public static int wInput$get(MemorySegment seg) {
-        return (int)constants$1575.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * UINT wInput;
-     * }
-     */
-    public static void wInput$set(MemorySegment seg, int x) {
-        constants$1575.const$0.set(seg, x);
-    }
-    public static int wInput$get(MemorySegment seg, long index) {
-        return (int)constants$1575.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wInput$set(MemorySegment seg, long index, int x) {
-        constants$1575.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle wOutput$VH() {
-        return constants$1575.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * UINT wOutput;
-     * }
-     */
-    public static int wOutput$get(MemorySegment seg) {
-        return (int)constants$1575.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * UINT wOutput;
-     * }
-     */
-    public static void wOutput$set(MemorySegment seg, int x) {
-        constants$1575.const$1.set(seg, x);
-    }
-    public static int wOutput$get(MemorySegment seg, long index) {
-        return (int)constants$1575.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wOutput$set(MemorySegment seg, long index, int x) {
-        constants$1575.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle wFormatTag$VH() {
-        return constants$1575.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD wFormatTag;
-     * }
-     */
-    public static short wFormatTag$get(MemorySegment seg) {
-        return (short)constants$1575.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD wFormatTag;
-     * }
-     */
-    public static void wFormatTag$set(MemorySegment seg, short x) {
-        constants$1575.const$2.set(seg, x);
-    }
-    public static short wFormatTag$get(MemorySegment seg, long index) {
-        return (short)constants$1575.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wFormatTag$set(MemorySegment seg, long index, short x) {
-        constants$1575.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle wReserved2$VH() {
-        return constants$1575.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD wReserved2;
-     * }
-     */
-    public static short wReserved2$get(MemorySegment seg) {
-        return (short)constants$1575.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD wReserved2;
-     * }
-     */
-    public static void wReserved2$set(MemorySegment seg, short x) {
-        constants$1575.const$3.set(seg, x);
-    }
-    public static short wReserved2$get(MemorySegment seg, long index) {
-        return (short)constants$1575.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wReserved2$set(MemorySegment seg, long index, short x) {
-        constants$1575.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle nChannels$VH() {
-        return constants$1575.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD nChannels;
-     * }
-     */
-    public static short nChannels$get(MemorySegment seg) {
-        return (short)constants$1575.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD nChannels;
-     * }
-     */
-    public static void nChannels$set(MemorySegment seg, short x) {
-        constants$1575.const$4.set(seg, x);
-    }
-    public static short nChannels$get(MemorySegment seg, long index) {
-        return (short)constants$1575.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void nChannels$set(MemorySegment seg, long index, short x) {
-        constants$1575.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle wReserved3$VH() {
-        return constants$1575.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD wReserved3;
-     * }
-     */
-    public static short wReserved3$get(MemorySegment seg) {
-        return (short)constants$1575.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD wReserved3;
-     * }
-     */
-    public static void wReserved3$set(MemorySegment seg, short x) {
-        constants$1575.const$5.set(seg, x);
-    }
-    public static short wReserved3$get(MemorySegment seg, long index) {
-        return (short)constants$1575.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wReserved3$set(MemorySegment seg, long index, short x) {
-        constants$1575.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle nSamplesPerSec$VH() {
-        return constants$1576.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD nSamplesPerSec;
-     * }
-     */
-    public static int nSamplesPerSec$get(MemorySegment seg) {
-        return (int)constants$1576.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD nSamplesPerSec;
-     * }
-     */
-    public static void nSamplesPerSec$set(MemorySegment seg, int x) {
-        constants$1576.const$0.set(seg, x);
-    }
-    public static int nSamplesPerSec$get(MemorySegment seg, long index) {
-        return (int)constants$1576.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void nSamplesPerSec$set(MemorySegment seg, long index, int x) {
-        constants$1576.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle nAvgBytesPerSec$VH() {
-        return constants$1576.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD nAvgBytesPerSec;
-     * }
-     */
-    public static int nAvgBytesPerSec$get(MemorySegment seg) {
-        return (int)constants$1576.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD nAvgBytesPerSec;
-     * }
-     */
-    public static void nAvgBytesPerSec$set(MemorySegment seg, int x) {
-        constants$1576.const$1.set(seg, x);
-    }
-    public static int nAvgBytesPerSec$get(MemorySegment seg, long index) {
-        return (int)constants$1576.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void nAvgBytesPerSec$set(MemorySegment seg, long index, int x) {
-        constants$1576.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle nBlockAlign$VH() {
-        return constants$1576.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD nBlockAlign;
-     * }
-     */
-    public static short nBlockAlign$get(MemorySegment seg) {
-        return (short)constants$1576.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD nBlockAlign;
-     * }
-     */
-    public static void nBlockAlign$set(MemorySegment seg, short x) {
-        constants$1576.const$2.set(seg, x);
-    }
-    public static short nBlockAlign$get(MemorySegment seg, long index) {
-        return (short)constants$1576.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void nBlockAlign$set(MemorySegment seg, long index, short x) {
-        constants$1576.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle wReserved4$VH() {
-        return constants$1576.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD wReserved4;
-     * }
-     */
-    public static short wReserved4$get(MemorySegment seg) {
-        return (short)constants$1576.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD wReserved4;
-     * }
-     */
-    public static void wReserved4$set(MemorySegment seg, short x) {
-        constants$1576.const$3.set(seg, x);
-    }
-    public static short wReserved4$get(MemorySegment seg, long index) {
-        return (short)constants$1576.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wReserved4$set(MemorySegment seg, long index, short x) {
-        constants$1576.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle wBitsPerSample$VH() {
-        return constants$1576.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD wBitsPerSample;
-     * }
-     */
-    public static short wBitsPerSample$get(MemorySegment seg) {
-        return (short)constants$1576.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD wBitsPerSample;
-     * }
-     */
-    public static void wBitsPerSample$set(MemorySegment seg, short x) {
-        constants$1576.const$4.set(seg, x);
-    }
-    public static short wBitsPerSample$get(MemorySegment seg, long index) {
-        return (short)constants$1576.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wBitsPerSample$set(MemorySegment seg, long index, short x) {
-        constants$1576.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle wReserved5$VH() {
-        return constants$1576.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD wReserved5;
-     * }
-     */
-    public static short wReserved5$get(MemorySegment seg) {
-        return (short)constants$1576.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD wReserved5;
-     * }
-     */
-    public static void wReserved5$set(MemorySegment seg, short x) {
-        constants$1576.const$5.set(seg, x);
-    }
-    public static short wReserved5$get(MemorySegment seg, long index) {
-        return (short)constants$1576.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wReserved5$set(MemorySegment seg, long index, short x) {
-        constants$1576.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.align(Windows_h.C_LONG_LONG, 1).withName("dwCallback"),
+        Windows_h.align(Windows_h.C_LONG, 1).withName("dwTimeFormat"),
+        Windows_h.align(Windows_h.C_LONG, 1).withName("dwAudio"),
+        Windows_h.align(Windows_h.C_INT, 1).withName("wInput"),
+        Windows_h.align(Windows_h.C_INT, 1).withName("wOutput"),
+        Windows_h.align(Windows_h.C_SHORT, 1).withName("wFormatTag"),
+        Windows_h.align(Windows_h.C_SHORT, 1).withName("wReserved2"),
+        Windows_h.align(Windows_h.C_SHORT, 1).withName("nChannels"),
+        Windows_h.align(Windows_h.C_SHORT, 1).withName("wReserved3"),
+        Windows_h.align(Windows_h.C_LONG, 1).withName("nSamplesPerSec"),
+        Windows_h.align(Windows_h.C_LONG, 1).withName("nAvgBytesPerSec"),
+        Windows_h.align(Windows_h.C_SHORT, 1).withName("nBlockAlign"),
+        Windows_h.align(Windows_h.C_SHORT, 1).withName("wReserved4"),
+        Windows_h.align(Windows_h.C_SHORT, 1).withName("wBitsPerSample"),
+        Windows_h.align(Windows_h.C_SHORT, 1).withName("wReserved5")
+    ).withName("tagMCI_WAVE_SET_PARMS");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfLong dwCallback$LAYOUT = (OfLong)$LAYOUT.select(groupElement("dwCallback"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD_PTR dwCallback
+     * }
+     */
+    public static final OfLong dwCallback$layout() {
+        return dwCallback$LAYOUT;
+    }
+
+    private static final long dwCallback$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD_PTR dwCallback
+     * }
+     */
+    public static final long dwCallback$offset() {
+        return dwCallback$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD_PTR dwCallback
+     * }
+     */
+    public static long dwCallback(MemorySegment struct) {
+        return struct.get(dwCallback$LAYOUT, dwCallback$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD_PTR dwCallback
+     * }
+     */
+    public static void dwCallback(MemorySegment struct, long fieldValue) {
+        struct.set(dwCallback$LAYOUT, dwCallback$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwTimeFormat$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwTimeFormat"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwTimeFormat
+     * }
+     */
+    public static final OfInt dwTimeFormat$layout() {
+        return dwTimeFormat$LAYOUT;
+    }
+
+    private static final long dwTimeFormat$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwTimeFormat
+     * }
+     */
+    public static final long dwTimeFormat$offset() {
+        return dwTimeFormat$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwTimeFormat
+     * }
+     */
+    public static int dwTimeFormat(MemorySegment struct) {
+        return struct.get(dwTimeFormat$LAYOUT, dwTimeFormat$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwTimeFormat
+     * }
+     */
+    public static void dwTimeFormat(MemorySegment struct, int fieldValue) {
+        struct.set(dwTimeFormat$LAYOUT, dwTimeFormat$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwAudio$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwAudio"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwAudio
+     * }
+     */
+    public static final OfInt dwAudio$layout() {
+        return dwAudio$LAYOUT;
+    }
+
+    private static final long dwAudio$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwAudio
+     * }
+     */
+    public static final long dwAudio$offset() {
+        return dwAudio$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwAudio
+     * }
+     */
+    public static int dwAudio(MemorySegment struct) {
+        return struct.get(dwAudio$LAYOUT, dwAudio$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwAudio
+     * }
+     */
+    public static void dwAudio(MemorySegment struct, int fieldValue) {
+        struct.set(dwAudio$LAYOUT, dwAudio$OFFSET, fieldValue);
+    }
+
+    private static final OfInt wInput$LAYOUT = (OfInt)$LAYOUT.select(groupElement("wInput"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * UINT wInput
+     * }
+     */
+    public static final OfInt wInput$layout() {
+        return wInput$LAYOUT;
+    }
+
+    private static final long wInput$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * UINT wInput
+     * }
+     */
+    public static final long wInput$offset() {
+        return wInput$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * UINT wInput
+     * }
+     */
+    public static int wInput(MemorySegment struct) {
+        return struct.get(wInput$LAYOUT, wInput$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * UINT wInput
+     * }
+     */
+    public static void wInput(MemorySegment struct, int fieldValue) {
+        struct.set(wInput$LAYOUT, wInput$OFFSET, fieldValue);
+    }
+
+    private static final OfInt wOutput$LAYOUT = (OfInt)$LAYOUT.select(groupElement("wOutput"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * UINT wOutput
+     * }
+     */
+    public static final OfInt wOutput$layout() {
+        return wOutput$LAYOUT;
+    }
+
+    private static final long wOutput$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * UINT wOutput
+     * }
+     */
+    public static final long wOutput$offset() {
+        return wOutput$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * UINT wOutput
+     * }
+     */
+    public static int wOutput(MemorySegment struct) {
+        return struct.get(wOutput$LAYOUT, wOutput$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * UINT wOutput
+     * }
+     */
+    public static void wOutput(MemorySegment struct, int fieldValue) {
+        struct.set(wOutput$LAYOUT, wOutput$OFFSET, fieldValue);
+    }
+
+    private static final OfShort wFormatTag$LAYOUT = (OfShort)$LAYOUT.select(groupElement("wFormatTag"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD wFormatTag
+     * }
+     */
+    public static final OfShort wFormatTag$layout() {
+        return wFormatTag$LAYOUT;
+    }
+
+    private static final long wFormatTag$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD wFormatTag
+     * }
+     */
+    public static final long wFormatTag$offset() {
+        return wFormatTag$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD wFormatTag
+     * }
+     */
+    public static short wFormatTag(MemorySegment struct) {
+        return struct.get(wFormatTag$LAYOUT, wFormatTag$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD wFormatTag
+     * }
+     */
+    public static void wFormatTag(MemorySegment struct, short fieldValue) {
+        struct.set(wFormatTag$LAYOUT, wFormatTag$OFFSET, fieldValue);
+    }
+
+    private static final OfShort wReserved2$LAYOUT = (OfShort)$LAYOUT.select(groupElement("wReserved2"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD wReserved2
+     * }
+     */
+    public static final OfShort wReserved2$layout() {
+        return wReserved2$LAYOUT;
+    }
+
+    private static final long wReserved2$OFFSET = 26;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD wReserved2
+     * }
+     */
+    public static final long wReserved2$offset() {
+        return wReserved2$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD wReserved2
+     * }
+     */
+    public static short wReserved2(MemorySegment struct) {
+        return struct.get(wReserved2$LAYOUT, wReserved2$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD wReserved2
+     * }
+     */
+    public static void wReserved2(MemorySegment struct, short fieldValue) {
+        struct.set(wReserved2$LAYOUT, wReserved2$OFFSET, fieldValue);
+    }
+
+    private static final OfShort nChannels$LAYOUT = (OfShort)$LAYOUT.select(groupElement("nChannels"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD nChannels
+     * }
+     */
+    public static final OfShort nChannels$layout() {
+        return nChannels$LAYOUT;
+    }
+
+    private static final long nChannels$OFFSET = 28;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD nChannels
+     * }
+     */
+    public static final long nChannels$offset() {
+        return nChannels$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD nChannels
+     * }
+     */
+    public static short nChannels(MemorySegment struct) {
+        return struct.get(nChannels$LAYOUT, nChannels$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD nChannels
+     * }
+     */
+    public static void nChannels(MemorySegment struct, short fieldValue) {
+        struct.set(nChannels$LAYOUT, nChannels$OFFSET, fieldValue);
+    }
+
+    private static final OfShort wReserved3$LAYOUT = (OfShort)$LAYOUT.select(groupElement("wReserved3"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD wReserved3
+     * }
+     */
+    public static final OfShort wReserved3$layout() {
+        return wReserved3$LAYOUT;
+    }
+
+    private static final long wReserved3$OFFSET = 30;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD wReserved3
+     * }
+     */
+    public static final long wReserved3$offset() {
+        return wReserved3$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD wReserved3
+     * }
+     */
+    public static short wReserved3(MemorySegment struct) {
+        return struct.get(wReserved3$LAYOUT, wReserved3$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD wReserved3
+     * }
+     */
+    public static void wReserved3(MemorySegment struct, short fieldValue) {
+        struct.set(wReserved3$LAYOUT, wReserved3$OFFSET, fieldValue);
+    }
+
+    private static final OfInt nSamplesPerSec$LAYOUT = (OfInt)$LAYOUT.select(groupElement("nSamplesPerSec"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD nSamplesPerSec
+     * }
+     */
+    public static final OfInt nSamplesPerSec$layout() {
+        return nSamplesPerSec$LAYOUT;
+    }
+
+    private static final long nSamplesPerSec$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD nSamplesPerSec
+     * }
+     */
+    public static final long nSamplesPerSec$offset() {
+        return nSamplesPerSec$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD nSamplesPerSec
+     * }
+     */
+    public static int nSamplesPerSec(MemorySegment struct) {
+        return struct.get(nSamplesPerSec$LAYOUT, nSamplesPerSec$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD nSamplesPerSec
+     * }
+     */
+    public static void nSamplesPerSec(MemorySegment struct, int fieldValue) {
+        struct.set(nSamplesPerSec$LAYOUT, nSamplesPerSec$OFFSET, fieldValue);
+    }
+
+    private static final OfInt nAvgBytesPerSec$LAYOUT = (OfInt)$LAYOUT.select(groupElement("nAvgBytesPerSec"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD nAvgBytesPerSec
+     * }
+     */
+    public static final OfInt nAvgBytesPerSec$layout() {
+        return nAvgBytesPerSec$LAYOUT;
+    }
+
+    private static final long nAvgBytesPerSec$OFFSET = 36;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD nAvgBytesPerSec
+     * }
+     */
+    public static final long nAvgBytesPerSec$offset() {
+        return nAvgBytesPerSec$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD nAvgBytesPerSec
+     * }
+     */
+    public static int nAvgBytesPerSec(MemorySegment struct) {
+        return struct.get(nAvgBytesPerSec$LAYOUT, nAvgBytesPerSec$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD nAvgBytesPerSec
+     * }
+     */
+    public static void nAvgBytesPerSec(MemorySegment struct, int fieldValue) {
+        struct.set(nAvgBytesPerSec$LAYOUT, nAvgBytesPerSec$OFFSET, fieldValue);
+    }
+
+    private static final OfShort nBlockAlign$LAYOUT = (OfShort)$LAYOUT.select(groupElement("nBlockAlign"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD nBlockAlign
+     * }
+     */
+    public static final OfShort nBlockAlign$layout() {
+        return nBlockAlign$LAYOUT;
+    }
+
+    private static final long nBlockAlign$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD nBlockAlign
+     * }
+     */
+    public static final long nBlockAlign$offset() {
+        return nBlockAlign$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD nBlockAlign
+     * }
+     */
+    public static short nBlockAlign(MemorySegment struct) {
+        return struct.get(nBlockAlign$LAYOUT, nBlockAlign$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD nBlockAlign
+     * }
+     */
+    public static void nBlockAlign(MemorySegment struct, short fieldValue) {
+        struct.set(nBlockAlign$LAYOUT, nBlockAlign$OFFSET, fieldValue);
+    }
+
+    private static final OfShort wReserved4$LAYOUT = (OfShort)$LAYOUT.select(groupElement("wReserved4"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD wReserved4
+     * }
+     */
+    public static final OfShort wReserved4$layout() {
+        return wReserved4$LAYOUT;
+    }
+
+    private static final long wReserved4$OFFSET = 42;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD wReserved4
+     * }
+     */
+    public static final long wReserved4$offset() {
+        return wReserved4$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD wReserved4
+     * }
+     */
+    public static short wReserved4(MemorySegment struct) {
+        return struct.get(wReserved4$LAYOUT, wReserved4$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD wReserved4
+     * }
+     */
+    public static void wReserved4(MemorySegment struct, short fieldValue) {
+        struct.set(wReserved4$LAYOUT, wReserved4$OFFSET, fieldValue);
+    }
+
+    private static final OfShort wBitsPerSample$LAYOUT = (OfShort)$LAYOUT.select(groupElement("wBitsPerSample"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD wBitsPerSample
+     * }
+     */
+    public static final OfShort wBitsPerSample$layout() {
+        return wBitsPerSample$LAYOUT;
+    }
+
+    private static final long wBitsPerSample$OFFSET = 44;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD wBitsPerSample
+     * }
+     */
+    public static final long wBitsPerSample$offset() {
+        return wBitsPerSample$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD wBitsPerSample
+     * }
+     */
+    public static short wBitsPerSample(MemorySegment struct) {
+        return struct.get(wBitsPerSample$LAYOUT, wBitsPerSample$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD wBitsPerSample
+     * }
+     */
+    public static void wBitsPerSample(MemorySegment struct, short fieldValue) {
+        struct.set(wBitsPerSample$LAYOUT, wBitsPerSample$OFFSET, fieldValue);
+    }
+
+    private static final OfShort wReserved5$LAYOUT = (OfShort)$LAYOUT.select(groupElement("wReserved5"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD wReserved5
+     * }
+     */
+    public static final OfShort wReserved5$layout() {
+        return wReserved5$LAYOUT;
+    }
+
+    private static final long wReserved5$OFFSET = 46;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD wReserved5
+     * }
+     */
+    public static final long wReserved5$offset() {
+        return wReserved5$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD wReserved5
+     * }
+     */
+    public static short wReserved5(MemorySegment struct) {
+        return struct.get(wReserved5$LAYOUT, wReserved5$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD wReserved5
+     * }
+     */
+    public static void wReserved5(MemorySegment struct, short fieldValue) {
+        struct.set(wReserved5$LAYOUT, wReserved5$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

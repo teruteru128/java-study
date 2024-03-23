@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _TOKEN_USER_CLAIMS TOKEN_USER_CLAIMS;
+ * {@snippet lang=c :
+ * typedef struct _TOKEN_USER_CLAIMS {
+ *     PCLAIMS_BLOB UserClaims;
+ * } TOKEN_USER_CLAIMS
  * }
  */
-public final class TOKEN_USER_CLAIMS extends _TOKEN_USER_CLAIMS {
+public class TOKEN_USER_CLAIMS extends _TOKEN_USER_CLAIMS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private TOKEN_USER_CLAIMS() {}
+    TOKEN_USER_CLAIMS() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,34 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _STORAGE_REINITIALIZE_MEDIA STORAGE_REINITIALIZE_MEDIA;
+ * {@snippet lang=c :
+ * typedef struct _STORAGE_REINITIALIZE_MEDIA {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     DWORD TimeoutInSeconds;
+ *     struct {
+ *         DWORD SanitizeMethod : 4;
+ *         DWORD DisallowUnrestrictedSanitizeExit : 1;
+ *         DWORD Reserved : 27;
+ *     } SanitizeOption;
+ * } STORAGE_REINITIALIZE_MEDIA
  * }
  */
-public final class STORAGE_REINITIALIZE_MEDIA extends _STORAGE_REINITIALIZE_MEDIA {
+public class STORAGE_REINITIALIZE_MEDIA extends _STORAGE_REINITIALIZE_MEDIA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private STORAGE_REINITIALIZE_MEDIA() {}
+    STORAGE_REINITIALIZE_MEDIA() {
+        // Should not be called directly
+    }
 }
-
 

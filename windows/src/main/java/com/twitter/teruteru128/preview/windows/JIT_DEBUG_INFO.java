@@ -2,20 +2,33 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _JIT_DEBUG_INFO JIT_DEBUG_INFO;
+ * {@snippet lang=c :
+ * typedef struct _JIT_DEBUG_INFO {
+ *     DWORD dwSize;
+ *     DWORD dwProcessorArchitecture;
+ *     DWORD dwThreadID;
+ *     DWORD dwReserved0;
+ *     ULONG64 lpExceptionAddress;
+ *     ULONG64 lpExceptionRecord;
+ *     ULONG64 lpContextRecord;
+ * } JIT_DEBUG_INFO
  * }
  */
-public final class JIT_DEBUG_INFO extends _JIT_DEBUG_INFO {
+public class JIT_DEBUG_INFO extends _JIT_DEBUG_INFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private JIT_DEBUG_INFO() {}
+    JIT_DEBUG_INFO() {
+        // Should not be called directly
+    }
 }
-
 

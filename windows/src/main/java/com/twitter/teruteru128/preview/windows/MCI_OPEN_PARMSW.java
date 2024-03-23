@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMCI_OPEN_PARMSW MCI_OPEN_PARMSW;
+ * {@snippet lang=c :
+ * typedef struct tagMCI_OPEN_PARMSW {
+ *     DWORD_PTR dwCallback;
+ *     MCIDEVICEID wDeviceID;
+ *     LPCWSTR lpstrDeviceType;
+ *     LPCWSTR lpstrElementName;
+ *     LPCWSTR lpstrAlias;
+ * } MCI_OPEN_PARMSW
  * }
  */
-public final class MCI_OPEN_PARMSW extends tagMCI_OPEN_PARMSW {
+public class MCI_OPEN_PARMSW extends tagMCI_OPEN_PARMSW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MCI_OPEN_PARMSW() {}
+    MCI_OPEN_PARMSW() {
+        // Should not be called directly
+    }
 }
-
 

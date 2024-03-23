@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SCM_PD_RUNTIME_FW_ACTIVATION_INFO SCM_PD_RUNTIME_FW_ACTIVATION_INFO;
+ * {@snippet lang=c :
+ * typedef struct _SCM_PD_RUNTIME_FW_ACTIVATION_INFO {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     SCM_PD_LAST_FW_ACTIVATION_STATUS LastFirmwareActivationStatus;
+ *     SCM_PD_FIRMWARE_ACTIVATION_STATE FirmwareActivationState;
+ * } SCM_PD_RUNTIME_FW_ACTIVATION_INFO
  * }
  */
-public final class SCM_PD_RUNTIME_FW_ACTIVATION_INFO extends _SCM_PD_RUNTIME_FW_ACTIVATION_INFO {
+public class SCM_PD_RUNTIME_FW_ACTIVATION_INFO extends _SCM_PD_RUNTIME_FW_ACTIVATION_INFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SCM_PD_RUNTIME_FW_ACTIVATION_INFO() {}
+    SCM_PD_RUNTIME_FW_ACTIVATION_INFO() {
+        // Should not be called directly
+    }
 }
-
 

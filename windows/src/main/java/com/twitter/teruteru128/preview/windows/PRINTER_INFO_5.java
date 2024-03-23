@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _PRINTER_INFO_5A PRINTER_INFO_5;
+ * {@snippet lang=c :
+ * typedef PRINTER_INFO_5A PRINTER_INFO_5
  * }
  */
-public final class PRINTER_INFO_5 extends _PRINTER_INFO_5A {
+public class PRINTER_INFO_5 extends _PRINTER_INFO_5A {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private PRINTER_INFO_5() {}
+    PRINTER_INFO_5() {
+        // Should not be called directly
+    }
 }
-
 

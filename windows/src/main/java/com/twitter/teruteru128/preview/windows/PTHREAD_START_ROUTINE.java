@@ -2,32 +2,67 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * unsigned long (*PTHREAD_START_ROUTINE)(void* lpThreadParameter);
+ * {@snippet lang=c :
+ * typedef DWORD (*PTHREAD_START_ROUTINE)(LPVOID) __attribute__((stdcall))
  * }
  */
-public interface PTHREAD_START_ROUTINE {
+public class PTHREAD_START_ROUTINE {
 
-    int apply(java.lang.foreign.MemorySegment pvParameter);
-    static MemorySegment allocate(PTHREAD_START_ROUTINE fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$561.const$1, fi, constants$18.const$5, scope);
+    PTHREAD_START_ROUTINE() {
+        // Should not be called directly
     }
-    static PTHREAD_START_ROUTINE ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _pvParameter) -> {
-            try {
-                return (int)constants$495.const$0.invokeExact(symbol, _pvParameter);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment lpThreadParameter);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PTHREAD_START_ROUTINE.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PTHREAD_START_ROUTINE.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment lpThreadParameter) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, lpThreadParameter);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

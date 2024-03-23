@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMIXERCONTROLA MIXERCONTROL;
+ * {@snippet lang=c :
+ * typedef MIXERCONTROLA MIXERCONTROL
  * }
  */
-public final class MIXERCONTROL extends tagMIXERCONTROLA {
+public class MIXERCONTROL extends tagMIXERCONTROLA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MIXERCONTROL() {}
+    MIXERCONTROL() {
+        // Should not be called directly
+    }
 }
-
 

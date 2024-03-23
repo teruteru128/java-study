@@ -2,97 +2,190 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _IMAGE_ARM_RUNTIME_FUNCTION_ENTRY {
  *     DWORD BeginAddress;
  *     union {
  *         DWORD UnwindData;
  *         struct {
- *              *             DWORD Flag;
- *             DWORD FunctionLength;
- *             DWORD Ret;
- *             DWORD H;
- *             DWORD Reg;
- *             DWORD R;
- *             DWORD L;
- *             DWORD C;
- *             DWORD StackAdjust;
+ *             DWORD Flag : 2;
+ *             DWORD FunctionLength : 11;
+ *             DWORD Ret : 2;
+ *             DWORD H : 1;
+ *             DWORD Reg : 3;
+ *             DWORD R : 1;
+ *             DWORD L : 1;
+ *             DWORD C : 1;
+ *             DWORD StackAdjust : 10;
  *         };
  *     };
- * };
+ * }
  * }
  */
 public class _IMAGE_ARM_RUNTIME_FUNCTION_ENTRY {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$442.const$1;
+    _IMAGE_ARM_RUNTIME_FUNCTION_ENTRY() {
+        // Should not be called directly
     }
-    public static VarHandle BeginAddress$VH() {
-        return constants$442.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD BeginAddress;
-     * }
-     */
-    public static int BeginAddress$get(MemorySegment seg) {
-        return (int)constants$442.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD BeginAddress;
-     * }
-     */
-    public static void BeginAddress$set(MemorySegment seg, int x) {
-        constants$442.const$2.set(seg, x);
-    }
-    public static int BeginAddress$get(MemorySegment seg, long index) {
-        return (int)constants$442.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void BeginAddress$set(MemorySegment seg, long index, int x) {
-        constants$442.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle UnwindData$VH() {
-        return constants$442.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD UnwindData;
-     * }
-     */
-    public static int UnwindData$get(MemorySegment seg) {
-        return (int)constants$442.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD UnwindData;
-     * }
-     */
-    public static void UnwindData$set(MemorySegment seg, int x) {
-        constants$442.const$3.set(seg, x);
-    }
-    public static int UnwindData$get(MemorySegment seg, long index) {
-        return (int)constants$442.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void UnwindData$set(MemorySegment seg, long index, int x) {
-        constants$442.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("BeginAddress"),
+        MemoryLayout.unionLayout(
+            Windows_h.C_LONG.withName("UnwindData"),
+            MemoryLayout.structLayout(
+                MemoryLayout.paddingLayout(4)
+            ).withName("$anon$19904:9")
+        ).withName("$anon$19902:5")
+    ).withName("_IMAGE_ARM_RUNTIME_FUNCTION_ENTRY");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt BeginAddress$LAYOUT = (OfInt)$LAYOUT.select(groupElement("BeginAddress"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD BeginAddress
+     * }
+     */
+    public static final OfInt BeginAddress$layout() {
+        return BeginAddress$LAYOUT;
+    }
+
+    private static final long BeginAddress$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD BeginAddress
+     * }
+     */
+    public static final long BeginAddress$offset() {
+        return BeginAddress$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD BeginAddress
+     * }
+     */
+    public static int BeginAddress(MemorySegment struct) {
+        return struct.get(BeginAddress$LAYOUT, BeginAddress$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD BeginAddress
+     * }
+     */
+    public static void BeginAddress(MemorySegment struct, int fieldValue) {
+        struct.set(BeginAddress$LAYOUT, BeginAddress$OFFSET, fieldValue);
+    }
+
+    private static final OfInt UnwindData$LAYOUT = (OfInt)$LAYOUT.select(groupElement("$anon$19902:5"), groupElement("UnwindData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD UnwindData
+     * }
+     */
+    public static final OfInt UnwindData$layout() {
+        return UnwindData$LAYOUT;
+    }
+
+    private static final long UnwindData$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD UnwindData
+     * }
+     */
+    public static final long UnwindData$offset() {
+        return UnwindData$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD UnwindData
+     * }
+     */
+    public static int UnwindData(MemorySegment struct) {
+        return struct.get(UnwindData$LAYOUT, UnwindData$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD UnwindData
+     * }
+     */
+    public static void UnwindData(MemorySegment struct, int fieldValue) {
+        struct.set(UnwindData$LAYOUT, UnwindData$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

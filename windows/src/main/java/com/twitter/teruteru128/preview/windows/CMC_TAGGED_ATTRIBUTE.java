@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CMC_TAGGED_ATTRIBUTE CMC_TAGGED_ATTRIBUTE;
+ * {@snippet lang=c :
+ * typedef struct _CMC_TAGGED_ATTRIBUTE {
+ *     DWORD dwBodyPartID;
+ *     CRYPT_ATTRIBUTE Attribute;
+ * } CMC_TAGGED_ATTRIBUTE
  * }
  */
-public final class CMC_TAGGED_ATTRIBUTE extends _CMC_TAGGED_ATTRIBUTE {
+public class CMC_TAGGED_ATTRIBUTE extends _CMC_TAGGED_ATTRIBUTE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CMC_TAGGED_ATTRIBUTE() {}
+    CMC_TAGGED_ATTRIBUTE() {
+        // Should not be called directly
+    }
 }
-
 

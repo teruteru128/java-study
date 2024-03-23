@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SCM_PHYSICAL_DEVICES SCM_PHYSICAL_DEVICES;
+ * {@snippet lang=c :
+ * typedef struct _SCM_PHYSICAL_DEVICES {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     DWORD DeviceCount;
+ *     SCM_PHYSICAL_DEVICE_INSTANCE Devices[1];
+ * } SCM_PHYSICAL_DEVICES
  * }
  */
-public final class SCM_PHYSICAL_DEVICES extends _SCM_PHYSICAL_DEVICES {
+public class SCM_PHYSICAL_DEVICES extends _SCM_PHYSICAL_DEVICES {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SCM_PHYSICAL_DEVICES() {}
+    SCM_PHYSICAL_DEVICES() {
+        // Should not be called directly
+    }
 }
-
 

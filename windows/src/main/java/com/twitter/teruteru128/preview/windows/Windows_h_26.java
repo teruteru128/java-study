@@ -2,8013 +2,17416 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
-public class Windows_h_26 extends Windows_h_25 {
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
+public class Windows_h_26 extends Windows_h_27 {
+
+    Windows_h_26() {
+        // Should not be called directly
+    }
+    private static final int TokenBnoIsolation = (int)44L;
+    /**
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenBnoIsolation = 44
+     * }
+     */
+    public static int TokenBnoIsolation() {
+        return TokenBnoIsolation;
+    }
+    private static final int TokenChildProcessFlags = (int)45L;
+    /**
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenChildProcessFlags = 45
+     * }
+     */
+    public static int TokenChildProcessFlags() {
+        return TokenChildProcessFlags;
+    }
+    private static final int TokenIsLessPrivilegedAppContainer = (int)46L;
+    /**
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenIsLessPrivilegedAppContainer = 46
+     * }
+     */
+    public static int TokenIsLessPrivilegedAppContainer() {
+        return TokenIsLessPrivilegedAppContainer;
+    }
+    private static final int TokenIsSandboxed = (int)47L;
+    /**
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenIsSandboxed = 47
+     * }
+     */
+    public static int TokenIsSandboxed() {
+        return TokenIsSandboxed;
+    }
+    private static final int MaxTokenInfoClass = (int)48L;
+    /**
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.MaxTokenInfoClass = 48
+     * }
+     */
+    public static int MaxTokenInfoClass() {
+        return MaxTokenInfoClass;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _TOKEN_INFORMATION_CLASS {
+     *     TokenUser = 1,
+     *     TokenGroups,
+     *     TokenPrivileges,
+     *     TokenOwner,
+     *     TokenPrimaryGroup,
+     *     TokenDefaultDacl,
+     *     TokenSource,
+     *     TokenType,
+     *     TokenImpersonationLevel,
+     *     TokenStatistics,
+     *     TokenRestrictedSids,
+     *     TokenSessionId,
+     *     TokenGroupsAndPrivileges,
+     *     TokenSessionReference,
+     *     TokenSandBoxInert,
+     *     TokenAuditPolicy,
+     *     TokenOrigin,
+     *     TokenElevationType,
+     *     TokenLinkedToken,
+     *     TokenElevation,
+     *     TokenHasRestrictions,
+     *     TokenAccessInformation,
+     *     TokenVirtualizationAllowed,
+     *     TokenVirtualizationEnabled,
+     *     TokenIntegrityLevel,
+     *     TokenUIAccess,
+     *     TokenMandatoryPolicy,
+     *     TokenLogonSid,
+     *     TokenIsAppContainer,
+     *     TokenCapabilities,
+     *     TokenAppContainerSid,
+     *     TokenAppContainerNumber,
+     *     TokenUserClaimAttributes,
+     *     TokenDeviceClaimAttributes,
+     *     TokenRestrictedUserClaimAttributes,
+     *     TokenRestrictedDeviceClaimAttributes,
+     *     TokenDeviceGroups,
+     *     TokenRestrictedDeviceGroups,
+     *     TokenSecurityAttributes,
+     *     TokenIsRestricted,
+     *     TokenProcessTrustLevel,
+     *     TokenPrivateNameSpace,
+     *     TokenSingletonAttributes,
+     *     TokenBnoIsolation,
+     *     TokenChildProcessFlags,
+     *     TokenIsLessPrivilegedAppContainer,
+     *     TokenIsSandboxed,
+     *     MaxTokenInfoClass
+     * } *PTOKEN_INFORMATION_CLASS
+     * }
+     */
+    public static final AddressLayout PTOKEN_INFORMATION_CLASS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_USER {
+     *     SID_AND_ATTRIBUTES User;
+     * } *PTOKEN_USER
+     * }
+     */
+    public static final AddressLayout PTOKEN_USER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_GROUPS {
+     *     DWORD GroupCount;
+     *     SID_AND_ATTRIBUTES Groups[1];
+     * } *PTOKEN_GROUPS
+     * }
+     */
+    public static final AddressLayout PTOKEN_GROUPS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_PRIVILEGES {
+     *     DWORD PrivilegeCount;
+     *     LUID_AND_ATTRIBUTES Privileges[1];
+     * } *PTOKEN_PRIVILEGES
+     * }
+     */
+    public static final AddressLayout PTOKEN_PRIVILEGES = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_OWNER {
+     *     PSID Owner;
+     * } *PTOKEN_OWNER
+     * }
+     */
+    public static final AddressLayout PTOKEN_OWNER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_PRIMARY_GROUP {
+     *     PSID PrimaryGroup;
+     * } *PTOKEN_PRIMARY_GROUP
+     * }
+     */
+    public static final AddressLayout PTOKEN_PRIMARY_GROUP = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_DEFAULT_DACL {
+     *     PACL DefaultDacl;
+     * } *PTOKEN_DEFAULT_DACL
+     * }
+     */
+    public static final AddressLayout PTOKEN_DEFAULT_DACL = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_USER_CLAIMS {
+     *     PCLAIMS_BLOB UserClaims;
+     * } *PTOKEN_USER_CLAIMS
+     * }
+     */
+    public static final AddressLayout PTOKEN_USER_CLAIMS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_DEVICE_CLAIMS {
+     *     PCLAIMS_BLOB DeviceClaims;
+     * } *PTOKEN_DEVICE_CLAIMS
+     * }
+     */
+    public static final AddressLayout PTOKEN_DEVICE_CLAIMS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_GROUPS_AND_PRIVILEGES {
+     *     DWORD SidCount;
+     *     DWORD SidLength;
+     *     PSID_AND_ATTRIBUTES Sids;
+     *     DWORD RestrictedSidCount;
+     *     DWORD RestrictedSidLength;
+     *     PSID_AND_ATTRIBUTES RestrictedSids;
+     *     DWORD PrivilegeCount;
+     *     DWORD PrivilegeLength;
+     *     PLUID_AND_ATTRIBUTES Privileges;
+     *     LUID AuthenticationId;
+     * } *PTOKEN_GROUPS_AND_PRIVILEGES
+     * }
+     */
+    public static final AddressLayout PTOKEN_GROUPS_AND_PRIVILEGES = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_LINKED_TOKEN {
+     *     HANDLE LinkedToken;
+     * } *PTOKEN_LINKED_TOKEN
+     * }
+     */
+    public static final AddressLayout PTOKEN_LINKED_TOKEN = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_ELEVATION {
+     *     DWORD TokenIsElevated;
+     * } *PTOKEN_ELEVATION
+     * }
+     */
+    public static final AddressLayout PTOKEN_ELEVATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_MANDATORY_LABEL {
+     *     SID_AND_ATTRIBUTES Label;
+     * } *PTOKEN_MANDATORY_LABEL
+     * }
+     */
+    public static final AddressLayout PTOKEN_MANDATORY_LABEL = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_MANDATORY_POLICY {
+     *     DWORD Policy;
+     * } *PTOKEN_MANDATORY_POLICY
+     * }
+     */
+    public static final AddressLayout PTOKEN_MANDATORY_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PVOID PSECURITY_ATTRIBUTES_OPAQUE
+     * }
+     */
+    public static final AddressLayout PSECURITY_ATTRIBUTES_OPAQUE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_ACCESS_INFORMATION {
+     *     PSID_AND_ATTRIBUTES_HASH SidHash;
+     *     PSID_AND_ATTRIBUTES_HASH RestrictedSidHash;
+     *     PTOKEN_PRIVILEGES Privileges;
+     *     LUID AuthenticationId;
+     *     TOKEN_TYPE TokenType;
+     *     SECURITY_IMPERSONATION_LEVEL ImpersonationLevel;
+     *     TOKEN_MANDATORY_POLICY MandatoryPolicy;
+     *     DWORD Flags;
+     *     DWORD AppContainerNumber;
+     *     PSID PackageSid;
+     *     PSID_AND_ATTRIBUTES_HASH CapabilitiesHash;
+     *     PSID TrustLevelSid;
+     *     PSECURITY_ATTRIBUTES_OPAQUE SecurityAttributes;
+     * } *PTOKEN_ACCESS_INFORMATION
+     * }
+     */
+    public static final AddressLayout PTOKEN_ACCESS_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_AUDIT_POLICY {
+     *     BYTE PerUserPolicy[30];
+     * } *PTOKEN_AUDIT_POLICY
+     * }
+     */
+    public static final AddressLayout PTOKEN_AUDIT_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_SOURCE {
+     *     CHAR SourceName[8];
+     *     LUID SourceIdentifier;
+     * } *PTOKEN_SOURCE
+     * }
+     */
+    public static final AddressLayout PTOKEN_SOURCE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_STATISTICS {
+     *     LUID TokenId;
+     *     LUID AuthenticationId;
+     *     LARGE_INTEGER ExpirationTime;
+     *     TOKEN_TYPE TokenType;
+     *     SECURITY_IMPERSONATION_LEVEL ImpersonationLevel;
+     *     DWORD DynamicCharged;
+     *     DWORD DynamicAvailable;
+     *     DWORD GroupCount;
+     *     DWORD PrivilegeCount;
+     *     LUID ModifiedId;
+     * } *PTOKEN_STATISTICS
+     * }
+     */
+    public static final AddressLayout PTOKEN_STATISTICS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_CONTROL {
+     *     LUID TokenId;
+     *     LUID AuthenticationId;
+     *     LUID ModifiedId;
+     *     TOKEN_SOURCE TokenSource;
+     * } *PTOKEN_CONTROL
+     * }
+     */
+    public static final AddressLayout PTOKEN_CONTROL = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_ORIGIN {
+     *     LUID OriginatingLogonSession;
+     * } *PTOKEN_ORIGIN
+     * }
+     */
+    public static final AddressLayout PTOKEN_ORIGIN = Windows_h.C_POINTER;
+    private static final int MandatoryLevelUntrusted = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _MANDATORY_LEVEL.MandatoryLevelUntrusted = 0
+     * }
+     */
+    public static int MandatoryLevelUntrusted() {
+        return MandatoryLevelUntrusted;
+    }
+    private static final int MandatoryLevelLow = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _MANDATORY_LEVEL.MandatoryLevelLow = 1
+     * }
+     */
+    public static int MandatoryLevelLow() {
+        return MandatoryLevelLow;
+    }
+    private static final int MandatoryLevelMedium = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _MANDATORY_LEVEL.MandatoryLevelMedium = 2
+     * }
+     */
+    public static int MandatoryLevelMedium() {
+        return MandatoryLevelMedium;
+    }
+    private static final int MandatoryLevelHigh = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _MANDATORY_LEVEL.MandatoryLevelHigh = 3
+     * }
+     */
+    public static int MandatoryLevelHigh() {
+        return MandatoryLevelHigh;
+    }
+    private static final int MandatoryLevelSystem = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _MANDATORY_LEVEL.MandatoryLevelSystem = 4
+     * }
+     */
+    public static int MandatoryLevelSystem() {
+        return MandatoryLevelSystem;
+    }
+    private static final int MandatoryLevelSecureProcess = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _MANDATORY_LEVEL.MandatoryLevelSecureProcess = 5
+     * }
+     */
+    public static int MandatoryLevelSecureProcess() {
+        return MandatoryLevelSecureProcess;
+    }
+    private static final int MandatoryLevelCount = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _MANDATORY_LEVEL.MandatoryLevelCount = 6
+     * }
+     */
+    public static int MandatoryLevelCount() {
+        return MandatoryLevelCount;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _MANDATORY_LEVEL {
+     *     MandatoryLevelUntrusted = 0,
+     *     MandatoryLevelLow,
+     *     MandatoryLevelMedium,
+     *     MandatoryLevelHigh,
+     *     MandatoryLevelSystem,
+     *     MandatoryLevelSecureProcess,
+     *     MandatoryLevelCount
+     * } *PMANDATORY_LEVEL
+     * }
+     */
+    public static final AddressLayout PMANDATORY_LEVEL = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_APPCONTAINER_INFORMATION {
+     *     PSID TokenAppContainer;
+     * } *PTOKEN_APPCONTAINER_INFORMATION
+     * }
+     */
+    public static final AddressLayout PTOKEN_APPCONTAINER_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_SID_INFORMATION {
+     *     PSID Sid;
+     * } *PTOKEN_SID_INFORMATION
+     * }
+     */
+    public static final AddressLayout PTOKEN_SID_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TOKEN_BNO_ISOLATION_INFORMATION {
+     *     PWSTR IsolationPrefix;
+     *     BOOLEAN IsolationEnabled;
+     * } *PTOKEN_BNO_ISOLATION_INFORMATION
+     * }
+     */
+    public static final AddressLayout PTOKEN_BNO_ISOLATION_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE {
+     *     DWORD64 Version;
+     *     PWSTR Name;
+     * } *PCLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE
+     * }
+     */
+    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE {
+     *     PVOID pValue;
+     *     DWORD ValueLength;
+     * } *PCLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE
+     * }
+     */
+    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CLAIM_SECURITY_ATTRIBUTE_V1 {
+     *     PWSTR Name;
+     *     WORD ValueType;
+     *     WORD Reserved;
+     *     DWORD Flags;
+     *     DWORD ValueCount;
+     *     union {
+     *         PLONG64 pInt64;
+     *         PDWORD64 pUint64;
+     *         PWSTR *ppString;
+     *         PCLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE pFqbn;
+     *         PCLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE pOctetString;
+     *     } Values;
+     * } *PCLAIM_SECURITY_ATTRIBUTE_V1
+     * }
+     */
+    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_V1 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 {
+     *     DWORD Name;
+     *     WORD ValueType;
+     *     WORD Reserved;
+     *     DWORD Flags;
+     *     DWORD ValueCount;
+     *     union {
+     *         DWORD pInt64[1];
+     *         DWORD pUint64[1];
+     *         DWORD ppString[1];
+     *         DWORD pFqbn[1];
+     *         DWORD pOctetString[1];
+     *     } Values;
+     * } *PCLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1
+     * }
+     */
+    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CLAIM_SECURITY_ATTRIBUTES_INFORMATION {
+     *     WORD Version;
+     *     WORD Reserved;
+     *     DWORD AttributeCount;
+     *     union {
+     *         PCLAIM_SECURITY_ATTRIBUTE_V1 pAttributeV1;
+     *     } Attribute;
+     * } *PCLAIM_SECURITY_ATTRIBUTES_INFORMATION
+     * }
+     */
+    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTES_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef BOOLEAN SECURITY_CONTEXT_TRACKING_MODE
+     * }
+     */
+    public static final OfByte SECURITY_CONTEXT_TRACKING_MODE = Windows_h.C_CHAR;
+    /**
+     * {@snippet lang=c :
+     * typedef BOOLEAN *PSECURITY_CONTEXT_TRACKING_MODE
+     * }
+     */
+    public static final AddressLayout PSECURITY_CONTEXT_TRACKING_MODE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SECURITY_QUALITY_OF_SERVICE {
+     *     DWORD Length;
+     *     SECURITY_IMPERSONATION_LEVEL ImpersonationLevel;
+     *     SECURITY_CONTEXT_TRACKING_MODE ContextTrackingMode;
+     *     BOOLEAN EffectiveOnly;
+     * } *PSECURITY_QUALITY_OF_SERVICE
+     * }
+     */
+    public static final AddressLayout PSECURITY_QUALITY_OF_SERVICE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SE_IMPERSONATION_STATE {
+     *     PACCESS_TOKEN Token;
+     *     BOOLEAN CopyOnOpen;
+     *     BOOLEAN EffectiveOnly;
+     *     SECURITY_IMPERSONATION_LEVEL Level;
+     * } *PSE_IMPERSONATION_STATE
+     * }
+     */
+    public static final AddressLayout PSE_IMPERSONATION_STATE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef DWORD SECURITY_INFORMATION
+     * }
+     */
+    public static final OfInt SECURITY_INFORMATION = Windows_h.C_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef DWORD *PSECURITY_INFORMATION
+     * }
+     */
+    public static final AddressLayout PSECURITY_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef BYTE SE_SIGNING_LEVEL
+     * }
+     */
+    public static final OfByte SE_SIGNING_LEVEL = Windows_h.C_CHAR;
+    /**
+     * {@snippet lang=c :
+     * typedef BYTE *PSE_SIGNING_LEVEL
+     * }
+     */
+    public static final AddressLayout PSE_SIGNING_LEVEL = Windows_h.C_POINTER;
+    private static final int SeImageSignatureNone = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignatureNone = 0
+     * }
+     */
+    public static int SeImageSignatureNone() {
+        return SeImageSignatureNone;
+    }
+    private static final int SeImageSignatureEmbedded = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignatureEmbedded = 1
+     * }
+     */
+    public static int SeImageSignatureEmbedded() {
+        return SeImageSignatureEmbedded;
+    }
+    private static final int SeImageSignatureCache = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignatureCache = 2
+     * }
+     */
+    public static int SeImageSignatureCache() {
+        return SeImageSignatureCache;
+    }
+    private static final int SeImageSignatureCatalogCached = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignatureCatalogCached = 3
+     * }
+     */
+    public static int SeImageSignatureCatalogCached() {
+        return SeImageSignatureCatalogCached;
+    }
+    private static final int SeImageSignatureCatalogNotCached = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignatureCatalogNotCached = 4
+     * }
+     */
+    public static int SeImageSignatureCatalogNotCached() {
+        return SeImageSignatureCatalogNotCached;
+    }
+    private static final int SeImageSignatureCatalogHint = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignatureCatalogHint = 5
+     * }
+     */
+    public static int SeImageSignatureCatalogHint() {
+        return SeImageSignatureCatalogHint;
+    }
+    private static final int SeImageSignaturePackageCatalog = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignaturePackageCatalog = 6
+     * }
+     */
+    public static int SeImageSignaturePackageCatalog() {
+        return SeImageSignaturePackageCatalog;
+    }
+    private static final int SeImageSignaturePplMitigated = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignaturePplMitigated = 7
+     * }
+     */
+    public static int SeImageSignaturePplMitigated() {
+        return SeImageSignaturePplMitigated;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SE_IMAGE_SIGNATURE_TYPE {
+     *     SeImageSignatureNone = 0,
+     *     SeImageSignatureEmbedded,
+     *     SeImageSignatureCache,
+     *     SeImageSignatureCatalogCached,
+     *     SeImageSignatureCatalogNotCached,
+     *     SeImageSignatureCatalogHint,
+     *     SeImageSignaturePackageCatalog,
+     *     SeImageSignaturePplMitigated
+     * } *PSE_IMAGE_SIGNATURE_TYPE
+     * }
+     */
+    public static final AddressLayout PSE_IMAGE_SIGNATURE_TYPE = Windows_h.C_POINTER;
+    private static final int SeLearningModeInvalidType = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SE_LEARNING_MODE_DATA_TYPE.SeLearningModeInvalidType = 0
+     * }
+     */
+    public static int SeLearningModeInvalidType() {
+        return SeLearningModeInvalidType;
+    }
+    private static final int SeLearningModeSettings = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SE_LEARNING_MODE_DATA_TYPE.SeLearningModeSettings = 1
+     * }
+     */
+    public static int SeLearningModeSettings() {
+        return SeLearningModeSettings;
+    }
+    private static final int SeLearningModeMax = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SE_LEARNING_MODE_DATA_TYPE.SeLearningModeMax = 2
+     * }
+     */
+    public static int SeLearningModeMax() {
+        return SeLearningModeMax;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SECURITY_CAPABILITIES {
+     *     PSID AppContainerSid;
+     *     PSID_AND_ATTRIBUTES Capabilities;
+     *     DWORD CapabilityCount;
+     *     DWORD Reserved;
+     * } *PSECURITY_CAPABILITIES
+     * }
+     */
+    public static final AddressLayout PSECURITY_CAPABILITIES = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SECURITY_CAPABILITIES {
+     *     PSID AppContainerSid;
+     *     PSID_AND_ATTRIBUTES Capabilities;
+     *     DWORD CapabilityCount;
+     *     DWORD Reserved;
+     * } *LPSECURITY_CAPABILITIES
+     * }
+     */
+    public static final AddressLayout LPSECURITY_CAPABILITIES = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOB_SET_ARRAY {
+     *     HANDLE JobHandle;
+     *     DWORD MemberLevel;
+     *     DWORD Flags;
+     * } *PJOB_SET_ARRAY
+     * }
+     */
+    public static final AddressLayout PJOB_SET_ARRAY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef EXCEPTION_REGISTRATION_RECORD *PEXCEPTION_REGISTRATION_RECORD
+     * }
+     */
+    public static final AddressLayout PEXCEPTION_REGISTRATION_RECORD = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef NT_TIB *PNT_TIB
+     * }
+     */
+    public static final AddressLayout PNT_TIB = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _NT_TIB32 {
+     *     DWORD ExceptionList;
+     *     DWORD StackBase;
+     *     DWORD StackLimit;
+     *     DWORD SubSystemTib;
+     *     union {
+     *         DWORD FiberData;
+     *         DWORD Version;
+     *     };
+     *     DWORD ArbitraryUserPointer;
+     *     DWORD Self;
+     * } *PNT_TIB32
+     * }
+     */
+    public static final AddressLayout PNT_TIB32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _NT_TIB64 {
+     *     DWORD64 ExceptionList;
+     *     DWORD64 StackBase;
+     *     DWORD64 StackLimit;
+     *     DWORD64 SubSystemTib;
+     *     union {
+     *         DWORD64 FiberData;
+     *         DWORD Version;
+     *     };
+     *     DWORD64 ArbitraryUserPointer;
+     *     DWORD64 Self;
+     * } *PNT_TIB64
+     * }
+     */
+    public static final AddressLayout PNT_TIB64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _UMS_CREATE_THREAD_ATTRIBUTES {
+     *     DWORD UmsVersion;
+     *     PVOID UmsContext;
+     *     PVOID UmsCompletionList;
+     * } *PUMS_CREATE_THREAD_ATTRIBUTES
+     * }
+     */
+    public static final AddressLayout PUMS_CREATE_THREAD_ATTRIBUTES = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _COMPONENT_FILTER {
+     *     DWORD ComponentFlags;
+     * } *PCOMPONENT_FILTER
+     * }
+     */
+    public static final AddressLayout PCOMPONENT_FILTER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_DYNAMIC_EH_CONTINUATION_TARGET {
+     *     ULONG_PTR TargetAddress;
+     *     ULONG_PTR Flags;
+     * } *PPROCESS_DYNAMIC_EH_CONTINUATION_TARGET
+     * }
+     */
+    public static final AddressLayout PPROCESS_DYNAMIC_EH_CONTINUATION_TARGET = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION {
+     *     WORD NumberOfTargets;
+     *     WORD Reserved;
+     *     DWORD Reserved2;
+     *     PPROCESS_DYNAMIC_EH_CONTINUATION_TARGET Targets;
+     * } *PPROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION
+     * }
+     */
+    public static final AddressLayout PPROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE {
+     *     ULONG_PTR BaseAddress;
+     *     SIZE_T Size;
+     *     DWORD Flags;
+     * } *PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE
+     * }
+     */
+    public static final AddressLayout PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION {
+     *     WORD NumberOfRanges;
+     *     WORD Reserved;
+     *     DWORD Reserved2;
+     *     PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE Ranges;
+     * } *PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION
+     * }
+     */
+    public static final AddressLayout PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _QUOTA_LIMITS {
+     *     SIZE_T PagedPoolLimit;
+     *     SIZE_T NonPagedPoolLimit;
+     *     SIZE_T MinimumWorkingSetSize;
+     *     SIZE_T MaximumWorkingSetSize;
+     *     SIZE_T PagefileLimit;
+     *     LARGE_INTEGER TimeLimit;
+     * } *PQUOTA_LIMITS
+     * }
+     */
+    public static final AddressLayout PQUOTA_LIMITS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef union _RATE_QUOTA_LIMIT {
+     *     DWORD RateData;
+     *     struct {
+     *         DWORD RatePercent : 7;
+     *         DWORD Reserved0 : 25;
+     *     };
+     * } *PRATE_QUOTA_LIMIT
+     * }
+     */
+    public static final AddressLayout PRATE_QUOTA_LIMIT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _QUOTA_LIMITS_EX {
+     *     SIZE_T PagedPoolLimit;
+     *     SIZE_T NonPagedPoolLimit;
+     *     SIZE_T MinimumWorkingSetSize;
+     *     SIZE_T MaximumWorkingSetSize;
+     *     SIZE_T PagefileLimit;
+     *     LARGE_INTEGER TimeLimit;
+     *     SIZE_T WorkingSetLimit;
+     *     SIZE_T Reserved2;
+     *     SIZE_T Reserved3;
+     *     SIZE_T Reserved4;
+     *     DWORD Flags;
+     *     RATE_QUOTA_LIMIT CpuRateLimit;
+     * } *PQUOTA_LIMITS_EX
+     * }
+     */
+    public static final AddressLayout PQUOTA_LIMITS_EX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef IO_COUNTERS *PIO_COUNTERS
+     * }
+     */
+    public static final AddressLayout PIO_COUNTERS = Windows_h.C_POINTER;
+    private static final int PMCCounter = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _HARDWARE_COUNTER_TYPE.PMCCounter = 0
+     * }
+     */
+    public static int PMCCounter() {
+        return PMCCounter;
+    }
+    private static final int MaxHardwareCounterType = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _HARDWARE_COUNTER_TYPE.MaxHardwareCounterType = 1
+     * }
+     */
+    public static int MaxHardwareCounterType() {
+        return MaxHardwareCounterType;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _HARDWARE_COUNTER_TYPE {
+     *     PMCCounter,
+     *     MaxHardwareCounterType
+     * } *PHARDWARE_COUNTER_TYPE
+     * }
+     */
+    public static final AddressLayout PHARDWARE_COUNTER_TYPE = Windows_h.C_POINTER;
+    private static final int ProcessDEPPolicy = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessDEPPolicy = 0
+     * }
+     */
+    public static int ProcessDEPPolicy() {
+        return ProcessDEPPolicy;
+    }
+    private static final int ProcessASLRPolicy = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessASLRPolicy = 1
+     * }
+     */
+    public static int ProcessASLRPolicy() {
+        return ProcessASLRPolicy;
+    }
+    private static final int ProcessDynamicCodePolicy = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessDynamicCodePolicy = 2
+     * }
+     */
+    public static int ProcessDynamicCodePolicy() {
+        return ProcessDynamicCodePolicy;
+    }
+    private static final int ProcessStrictHandleCheckPolicy = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessStrictHandleCheckPolicy = 3
+     * }
+     */
+    public static int ProcessStrictHandleCheckPolicy() {
+        return ProcessStrictHandleCheckPolicy;
+    }
+    private static final int ProcessSystemCallDisablePolicy = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessSystemCallDisablePolicy = 4
+     * }
+     */
+    public static int ProcessSystemCallDisablePolicy() {
+        return ProcessSystemCallDisablePolicy;
+    }
+    private static final int ProcessMitigationOptionsMask = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessMitigationOptionsMask = 5
+     * }
+     */
+    public static int ProcessMitigationOptionsMask() {
+        return ProcessMitigationOptionsMask;
+    }
+    private static final int ProcessExtensionPointDisablePolicy = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessExtensionPointDisablePolicy = 6
+     * }
+     */
+    public static int ProcessExtensionPointDisablePolicy() {
+        return ProcessExtensionPointDisablePolicy;
+    }
+    private static final int ProcessControlFlowGuardPolicy = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessControlFlowGuardPolicy = 7
+     * }
+     */
+    public static int ProcessControlFlowGuardPolicy() {
+        return ProcessControlFlowGuardPolicy;
+    }
+    private static final int ProcessSignaturePolicy = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessSignaturePolicy = 8
+     * }
+     */
+    public static int ProcessSignaturePolicy() {
+        return ProcessSignaturePolicy;
+    }
+    private static final int ProcessFontDisablePolicy = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessFontDisablePolicy = 9
+     * }
+     */
+    public static int ProcessFontDisablePolicy() {
+        return ProcessFontDisablePolicy;
+    }
+    private static final int ProcessImageLoadPolicy = (int)10L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessImageLoadPolicy = 10
+     * }
+     */
+    public static int ProcessImageLoadPolicy() {
+        return ProcessImageLoadPolicy;
+    }
+    private static final int ProcessSystemCallFilterPolicy = (int)11L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessSystemCallFilterPolicy = 11
+     * }
+     */
+    public static int ProcessSystemCallFilterPolicy() {
+        return ProcessSystemCallFilterPolicy;
+    }
+    private static final int ProcessPayloadRestrictionPolicy = (int)12L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessPayloadRestrictionPolicy = 12
+     * }
+     */
+    public static int ProcessPayloadRestrictionPolicy() {
+        return ProcessPayloadRestrictionPolicy;
+    }
+    private static final int ProcessChildProcessPolicy = (int)13L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessChildProcessPolicy = 13
+     * }
+     */
+    public static int ProcessChildProcessPolicy() {
+        return ProcessChildProcessPolicy;
+    }
+    private static final int ProcessSideChannelIsolationPolicy = (int)14L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessSideChannelIsolationPolicy = 14
+     * }
+     */
+    public static int ProcessSideChannelIsolationPolicy() {
+        return ProcessSideChannelIsolationPolicy;
+    }
+    private static final int ProcessUserShadowStackPolicy = (int)15L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessUserShadowStackPolicy = 15
+     * }
+     */
+    public static int ProcessUserShadowStackPolicy() {
+        return ProcessUserShadowStackPolicy;
+    }
+    private static final int ProcessRedirectionTrustPolicy = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.ProcessRedirectionTrustPolicy = 16
+     * }
+     */
+    public static int ProcessRedirectionTrustPolicy() {
+        return ProcessRedirectionTrustPolicy;
+    }
+    private static final int MaxProcessMitigationPolicy = (int)17L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESS_MITIGATION_POLICY.MaxProcessMitigationPolicy = 17
+     * }
+     */
+    public static int MaxProcessMitigationPolicy() {
+        return MaxProcessMitigationPolicy;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _PROCESS_MITIGATION_POLICY {
+     *     ProcessDEPPolicy,
+     *     ProcessASLRPolicy,
+     *     ProcessDynamicCodePolicy,
+     *     ProcessStrictHandleCheckPolicy,
+     *     ProcessSystemCallDisablePolicy,
+     *     ProcessMitigationOptionsMask,
+     *     ProcessExtensionPointDisablePolicy,
+     *     ProcessControlFlowGuardPolicy,
+     *     ProcessSignaturePolicy,
+     *     ProcessFontDisablePolicy,
+     *     ProcessImageLoadPolicy,
+     *     ProcessSystemCallFilterPolicy,
+     *     ProcessPayloadRestrictionPolicy,
+     *     ProcessChildProcessPolicy,
+     *     ProcessSideChannelIsolationPolicy,
+     *     ProcessUserShadowStackPolicy,
+     *     ProcessRedirectionTrustPolicy,
+     *     MaxProcessMitigationPolicy
+     * } *PPROCESS_MITIGATION_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_ASLR_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD EnableBottomUpRandomization : 1;
+     *             DWORD EnableForceRelocateImages : 1;
+     *             DWORD EnableHighEntropy : 1;
+     *             DWORD DisallowStrippedImages : 1;
+     *             DWORD ReservedFlags : 28;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_ASLR_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_ASLR_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_DEP_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD Enable : 1;
+     *             DWORD DisableAtlThunkEmulation : 1;
+     *             DWORD ReservedFlags : 30;
+     *         };
+     *     };
+     *     BOOLEAN Permanent;
+     * } *PPROCESS_MITIGATION_DEP_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_DEP_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD RaiseExceptionOnInvalidHandleReference : 1;
+     *             DWORD HandleExceptionsPermanentlyEnabled : 1;
+     *             DWORD ReservedFlags : 30;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD DisallowWin32kSystemCalls : 1;
+     *             DWORD AuditDisallowWin32kSystemCalls : 1;
+     *             DWORD ReservedFlags : 30;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD DisableExtensionPoints : 1;
+     *             DWORD ReservedFlags : 31;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_DYNAMIC_CODE_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD ProhibitDynamicCode : 1;
+     *             DWORD AllowThreadOptOut : 1;
+     *             DWORD AllowRemoteDowngrade : 1;
+     *             DWORD AuditProhibitDynamicCode : 1;
+     *             DWORD ReservedFlags : 28;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_DYNAMIC_CODE_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_DYNAMIC_CODE_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD EnableControlFlowGuard : 1;
+     *             DWORD EnableExportSuppression : 1;
+     *             DWORD StrictMode : 1;
+     *             DWORD EnableXfg : 1;
+     *             DWORD EnableXfgAuditMode : 1;
+     *             DWORD ReservedFlags : 27;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD MicrosoftSignedOnly : 1;
+     *             DWORD StoreSignedOnly : 1;
+     *             DWORD MitigationOptIn : 1;
+     *             DWORD AuditMicrosoftSignedOnly : 1;
+     *             DWORD AuditStoreSignedOnly : 1;
+     *             DWORD ReservedFlags : 27;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_BINARY_SIGNATURE_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_BINARY_SIGNATURE_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_FONT_DISABLE_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD DisableNonSystemFonts : 1;
+     *             DWORD AuditNonSystemFontLoading : 1;
+     *             DWORD ReservedFlags : 30;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_FONT_DISABLE_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_FONT_DISABLE_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_IMAGE_LOAD_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD NoRemoteImages : 1;
+     *             DWORD NoLowMandatoryLabelImages : 1;
+     *             DWORD PreferSystem32Images : 1;
+     *             DWORD AuditNoRemoteImages : 1;
+     *             DWORD AuditNoLowMandatoryLabelImages : 1;
+     *             DWORD ReservedFlags : 27;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_IMAGE_LOAD_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_IMAGE_LOAD_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD FilterId : 4;
+     *             DWORD ReservedFlags : 28;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD EnableExportAddressFilter : 1;
+     *             DWORD AuditExportAddressFilter : 1;
+     *             DWORD EnableExportAddressFilterPlus : 1;
+     *             DWORD AuditExportAddressFilterPlus : 1;
+     *             DWORD EnableImportAddressFilter : 1;
+     *             DWORD AuditImportAddressFilter : 1;
+     *             DWORD EnableRopStackPivot : 1;
+     *             DWORD AuditRopStackPivot : 1;
+     *             DWORD EnableRopCallerCheck : 1;
+     *             DWORD AuditRopCallerCheck : 1;
+     *             DWORD EnableRopSimExec : 1;
+     *             DWORD AuditRopSimExec : 1;
+     *             DWORD ReservedFlags : 20;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_CHILD_PROCESS_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD NoChildProcessCreation : 1;
+     *             DWORD AuditNoChildProcessCreation : 1;
+     *             DWORD AllowSecureProcessCreation : 1;
+     *             DWORD ReservedFlags : 29;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_CHILD_PROCESS_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_CHILD_PROCESS_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD SmtBranchTargetIsolation : 1;
+     *             DWORD IsolateSecurityDomain : 1;
+     *             DWORD DisablePageCombine : 1;
+     *             DWORD SpeculativeStoreBypassDisable : 1;
+     *             DWORD ReservedFlags : 28;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD EnableUserShadowStack : 1;
+     *             DWORD AuditUserShadowStack : 1;
+     *             DWORD SetContextIpValidation : 1;
+     *             DWORD AuditSetContextIpValidation : 1;
+     *             DWORD EnableUserShadowStackStrictMode : 1;
+     *             DWORD BlockNonCetBinaries : 1;
+     *             DWORD BlockNonCetBinariesNonEhcont : 1;
+     *             DWORD AuditBlockNonCetBinaries : 1;
+     *             DWORD CetDynamicApisOutOfProcOnly : 1;
+     *             DWORD SetContextIpValidationRelaxedMode : 1;
+     *             DWORD ReservedFlags : 22;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_USER_SHADOW_STACK_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_USER_SHADOW_STACK_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESS_MITIGATION_REDIRECTION_TRUST_POLICY {
+     *     union {
+     *         DWORD Flags;
+     *         struct {
+     *             DWORD EnforceRedirectionTrust : 1;
+     *             DWORD AuditRedirectionTrust : 1;
+     *             DWORD ReservedFlags : 30;
+     *         };
+     *     };
+     * } *PPROCESS_MITIGATION_REDIRECTION_TRUST_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESS_MITIGATION_REDIRECTION_TRUST_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_BASIC_ACCOUNTING_INFORMATION {
+     *     LARGE_INTEGER TotalUserTime;
+     *     LARGE_INTEGER TotalKernelTime;
+     *     LARGE_INTEGER ThisPeriodTotalUserTime;
+     *     LARGE_INTEGER ThisPeriodTotalKernelTime;
+     *     DWORD TotalPageFaultCount;
+     *     DWORD TotalProcesses;
+     *     DWORD ActiveProcesses;
+     *     DWORD TotalTerminatedProcesses;
+     * } *PJOBOBJECT_BASIC_ACCOUNTING_INFORMATION
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_BASIC_ACCOUNTING_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_BASIC_LIMIT_INFORMATION {
+     *     LARGE_INTEGER PerProcessUserTimeLimit;
+     *     LARGE_INTEGER PerJobUserTimeLimit;
+     *     DWORD LimitFlags;
+     *     SIZE_T MinimumWorkingSetSize;
+     *     SIZE_T MaximumWorkingSetSize;
+     *     DWORD ActiveProcessLimit;
+     *     ULONG_PTR Affinity;
+     *     DWORD PriorityClass;
+     *     DWORD SchedulingClass;
+     * } *PJOBOBJECT_BASIC_LIMIT_INFORMATION
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_BASIC_LIMIT_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_EXTENDED_LIMIT_INFORMATION {
+     *     JOBOBJECT_BASIC_LIMIT_INFORMATION BasicLimitInformation;
+     *     IO_COUNTERS IoInfo;
+     *     SIZE_T ProcessMemoryLimit;
+     *     SIZE_T JobMemoryLimit;
+     *     SIZE_T PeakProcessMemoryUsed;
+     *     SIZE_T PeakJobMemoryUsed;
+     * } *PJOBOBJECT_EXTENDED_LIMIT_INFORMATION
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_EXTENDED_LIMIT_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_BASIC_PROCESS_ID_LIST {
+     *     DWORD NumberOfAssignedProcesses;
+     *     DWORD NumberOfProcessIdsInList;
+     *     ULONG_PTR ProcessIdList[1];
+     * } *PJOBOBJECT_BASIC_PROCESS_ID_LIST
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_BASIC_PROCESS_ID_LIST = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_BASIC_UI_RESTRICTIONS {
+     *     DWORD UIRestrictionsClass;
+     * } *PJOBOBJECT_BASIC_UI_RESTRICTIONS
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_BASIC_UI_RESTRICTIONS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_SECURITY_LIMIT_INFORMATION {
+     *     DWORD SecurityLimitFlags;
+     *     HANDLE JobToken;
+     *     PTOKEN_GROUPS SidsToDisable;
+     *     PTOKEN_PRIVILEGES PrivilegesToDelete;
+     *     PTOKEN_GROUPS RestrictedSids;
+     * } *PJOBOBJECT_SECURITY_LIMIT_INFORMATION
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_SECURITY_LIMIT_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_END_OF_JOB_TIME_INFORMATION {
+     *     DWORD EndOfJobTimeAction;
+     * } *PJOBOBJECT_END_OF_JOB_TIME_INFORMATION
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_END_OF_JOB_TIME_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_ASSOCIATE_COMPLETION_PORT {
+     *     PVOID CompletionKey;
+     *     HANDLE CompletionPort;
+     * } *PJOBOBJECT_ASSOCIATE_COMPLETION_PORT
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_ASSOCIATE_COMPLETION_PORT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION {
+     *     JOBOBJECT_BASIC_ACCOUNTING_INFORMATION BasicInfo;
+     *     IO_COUNTERS IoInfo;
+     * } *PJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_JOBSET_INFORMATION {
+     *     DWORD MemberLevel;
+     * } *PJOBOBJECT_JOBSET_INFORMATION
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_JOBSET_INFORMATION = Windows_h.C_POINTER;
+    private static final int ToleranceLow = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECT_RATE_CONTROL_TOLERANCE.ToleranceLow = 1
+     * }
+     */
+    public static int ToleranceLow() {
+        return ToleranceLow;
+    }
+    private static final int ToleranceMedium = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECT_RATE_CONTROL_TOLERANCE.ToleranceMedium = 2
+     * }
+     */
+    public static int ToleranceMedium() {
+        return ToleranceMedium;
+    }
+    private static final int ToleranceHigh = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECT_RATE_CONTROL_TOLERANCE.ToleranceHigh = 3
+     * }
+     */
+    public static int ToleranceHigh() {
+        return ToleranceHigh;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _JOBOBJECT_RATE_CONTROL_TOLERANCE {
+     *     ToleranceLow = 1,
+     *     ToleranceMedium,
+     *     ToleranceHigh
+     * } *PJOBOBJECT_RATE_CONTROL_TOLERANCE
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_RATE_CONTROL_TOLERANCE = Windows_h.C_POINTER;
+    private static final int ToleranceIntervalShort = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL.ToleranceIntervalShort = 1
+     * }
+     */
+    public static int ToleranceIntervalShort() {
+        return ToleranceIntervalShort;
+    }
+    private static final int ToleranceIntervalMedium = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL.ToleranceIntervalMedium = 2
+     * }
+     */
+    public static int ToleranceIntervalMedium() {
+        return ToleranceIntervalMedium;
+    }
+    private static final int ToleranceIntervalLong = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL.ToleranceIntervalLong = 3
+     * }
+     */
+    public static int ToleranceIntervalLong() {
+        return ToleranceIntervalLong;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL {
+     *     ToleranceIntervalShort = 1,
+     *     ToleranceIntervalMedium,
+     *     ToleranceIntervalLong
+     * } *PJOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION {
+     *     DWORD64 IoReadBytesLimit;
+     *     DWORD64 IoWriteBytesLimit;
+     *     LARGE_INTEGER PerJobUserTimeLimit;
+     *     DWORD64 JobMemoryLimit;
+     *     JOBOBJECT_RATE_CONTROL_TOLERANCE RateControlTolerance;
+     *     JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL RateControlToleranceInterval;
+     *     DWORD LimitFlags;
+     * } *PJOBOBJECT_NOTIFICATION_LIMIT_INFORMATION
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_NOTIFICATION_LIMIT_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_LIMIT_VIOLATION_INFORMATION {
+     *     DWORD LimitFlags;
+     *     DWORD ViolationLimitFlags;
+     *     DWORD64 IoReadBytes;
+     *     DWORD64 IoReadBytesLimit;
+     *     DWORD64 IoWriteBytes;
+     *     DWORD64 IoWriteBytesLimit;
+     *     LARGE_INTEGER PerJobUserTime;
+     *     LARGE_INTEGER PerJobUserTimeLimit;
+     *     DWORD64 JobMemory;
+     *     DWORD64 JobMemoryLimit;
+     *     JOBOBJECT_RATE_CONTROL_TOLERANCE RateControlTolerance;
+     *     JOBOBJECT_RATE_CONTROL_TOLERANCE RateControlToleranceLimit;
+     * } *PJOBOBJECT_LIMIT_VIOLATION_INFORMATION
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_LIMIT_VIOLATION_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_CPU_RATE_CONTROL_INFORMATION {
+     *     DWORD ControlFlags;
+     *     union {
+     *         DWORD CpuRate;
+     *         DWORD Weight;
+     *         struct {
+     *             WORD MinRate;
+     *             WORD MaxRate;
+     *         };
+     *     };
+     * } *PJOBOBJECT_CPU_RATE_CONTROL_INFORMATION
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_CPU_RATE_CONTROL_INFORMATION = Windows_h.C_POINTER;
+    private static final int JOB_OBJECT_NET_RATE_CONTROL_ENABLE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum JOB_OBJECT_NET_RATE_CONTROL_FLAGS.JOB_OBJECT_NET_RATE_CONTROL_ENABLE = 1
+     * }
+     */
+    public static int JOB_OBJECT_NET_RATE_CONTROL_ENABLE() {
+        return JOB_OBJECT_NET_RATE_CONTROL_ENABLE;
+    }
+    private static final int JOB_OBJECT_NET_RATE_CONTROL_MAX_BANDWIDTH = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum JOB_OBJECT_NET_RATE_CONTROL_FLAGS.JOB_OBJECT_NET_RATE_CONTROL_MAX_BANDWIDTH = 2
+     * }
+     */
+    public static int JOB_OBJECT_NET_RATE_CONTROL_MAX_BANDWIDTH() {
+        return JOB_OBJECT_NET_RATE_CONTROL_MAX_BANDWIDTH;
+    }
+    private static final int JOB_OBJECT_NET_RATE_CONTROL_DSCP_TAG = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum JOB_OBJECT_NET_RATE_CONTROL_FLAGS.JOB_OBJECT_NET_RATE_CONTROL_DSCP_TAG = 4
+     * }
+     */
+    public static int JOB_OBJECT_NET_RATE_CONTROL_DSCP_TAG() {
+        return JOB_OBJECT_NET_RATE_CONTROL_DSCP_TAG;
+    }
+    private static final int JOB_OBJECT_NET_RATE_CONTROL_VALID_FLAGS = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum JOB_OBJECT_NET_RATE_CONTROL_FLAGS.JOB_OBJECT_NET_RATE_CONTROL_VALID_FLAGS = 7
+     * }
+     */
+    public static int JOB_OBJECT_NET_RATE_CONTROL_VALID_FLAGS() {
+        return JOB_OBJECT_NET_RATE_CONTROL_VALID_FLAGS;
+    }
+    private static final int JOB_OBJECT_IO_RATE_CONTROL_ENABLE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum JOB_OBJECT_IO_RATE_CONTROL_FLAGS.JOB_OBJECT_IO_RATE_CONTROL_ENABLE = 1
+     * }
+     */
+    public static int JOB_OBJECT_IO_RATE_CONTROL_ENABLE() {
+        return JOB_OBJECT_IO_RATE_CONTROL_ENABLE;
+    }
+    private static final int JOB_OBJECT_IO_RATE_CONTROL_STANDALONE_VOLUME = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum JOB_OBJECT_IO_RATE_CONTROL_FLAGS.JOB_OBJECT_IO_RATE_CONTROL_STANDALONE_VOLUME = 2
+     * }
+     */
+    public static int JOB_OBJECT_IO_RATE_CONTROL_STANDALONE_VOLUME() {
+        return JOB_OBJECT_IO_RATE_CONTROL_STANDALONE_VOLUME;
+    }
+    private static final int JOB_OBJECT_IO_RATE_CONTROL_FORCE_UNIT_ACCESS_ALL = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum JOB_OBJECT_IO_RATE_CONTROL_FLAGS.JOB_OBJECT_IO_RATE_CONTROL_FORCE_UNIT_ACCESS_ALL = 4
+     * }
+     */
+    public static int JOB_OBJECT_IO_RATE_CONTROL_FORCE_UNIT_ACCESS_ALL() {
+        return JOB_OBJECT_IO_RATE_CONTROL_FORCE_UNIT_ACCESS_ALL;
+    }
+    private static final int JOB_OBJECT_IO_RATE_CONTROL_FORCE_UNIT_ACCESS_ON_SOFT_CAP = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum JOB_OBJECT_IO_RATE_CONTROL_FLAGS.JOB_OBJECT_IO_RATE_CONTROL_FORCE_UNIT_ACCESS_ON_SOFT_CAP = 8
+     * }
+     */
+    public static int JOB_OBJECT_IO_RATE_CONTROL_FORCE_UNIT_ACCESS_ON_SOFT_CAP() {
+        return JOB_OBJECT_IO_RATE_CONTROL_FORCE_UNIT_ACCESS_ON_SOFT_CAP;
+    }
+    private static final int JOB_OBJECT_IO_RATE_CONTROL_VALID_FLAGS = (int)15L;
+    /**
+     * {@snippet lang=c :
+     * enum JOB_OBJECT_IO_RATE_CONTROL_FLAGS.JOB_OBJECT_IO_RATE_CONTROL_VALID_FLAGS = 15
+     * }
+     */
+    public static int JOB_OBJECT_IO_RATE_CONTROL_VALID_FLAGS() {
+        return JOB_OBJECT_IO_RATE_CONTROL_VALID_FLAGS;
+    }
+    private static final int JOBOBJECT_IO_ATTRIBUTION_CONTROL_ENABLE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum JOBOBJECT_IO_ATTRIBUTION_CONTROL_FLAGS.JOBOBJECT_IO_ATTRIBUTION_CONTROL_ENABLE = 1
+     * }
+     */
+    public static int JOBOBJECT_IO_ATTRIBUTION_CONTROL_ENABLE() {
+        return JOBOBJECT_IO_ATTRIBUTION_CONTROL_ENABLE;
+    }
+    private static final int JOBOBJECT_IO_ATTRIBUTION_CONTROL_DISABLE = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum JOBOBJECT_IO_ATTRIBUTION_CONTROL_FLAGS.JOBOBJECT_IO_ATTRIBUTION_CONTROL_DISABLE = 2
+     * }
+     */
+    public static int JOBOBJECT_IO_ATTRIBUTION_CONTROL_DISABLE() {
+        return JOBOBJECT_IO_ATTRIBUTION_CONTROL_DISABLE;
+    }
+    private static final int JOBOBJECT_IO_ATTRIBUTION_CONTROL_VALID_FLAGS = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum JOBOBJECT_IO_ATTRIBUTION_CONTROL_FLAGS.JOBOBJECT_IO_ATTRIBUTION_CONTROL_VALID_FLAGS = 3
+     * }
+     */
+    public static int JOBOBJECT_IO_ATTRIBUTION_CONTROL_VALID_FLAGS() {
+        return JOBOBJECT_IO_ATTRIBUTION_CONTROL_VALID_FLAGS;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_IO_ATTRIBUTION_STATS {
+     *     ULONG_PTR IoCount;
+     *     ULONGLONG TotalNonOverlappedQueueTime;
+     *     ULONGLONG TotalNonOverlappedServiceTime;
+     *     ULONGLONG TotalSize;
+     * } *PJOBOBJECT_IO_ATTRIBUTION_STATS
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_IO_ATTRIBUTION_STATS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _JOBOBJECT_IO_ATTRIBUTION_INFORMATION {
+     *     DWORD ControlFlags;
+     *     JOBOBJECT_IO_ATTRIBUTION_STATS ReadStats;
+     *     JOBOBJECT_IO_ATTRIBUTION_STATS WriteStats;
+     * } *PJOBOBJECT_IO_ATTRIBUTION_INFORMATION
+     * }
+     */
+    public static final AddressLayout PJOBOBJECT_IO_ATTRIBUTION_INFORMATION = Windows_h.C_POINTER;
+    private static final int JobObjectBasicAccountingInformation = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectBasicAccountingInformation = 1
+     * }
+     */
+    public static int JobObjectBasicAccountingInformation() {
+        return JobObjectBasicAccountingInformation;
+    }
+    private static final int JobObjectBasicLimitInformation = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectBasicLimitInformation = 2
+     * }
+     */
+    public static int JobObjectBasicLimitInformation() {
+        return JobObjectBasicLimitInformation;
+    }
+    private static final int JobObjectBasicProcessIdList = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectBasicProcessIdList = 3
+     * }
+     */
+    public static int JobObjectBasicProcessIdList() {
+        return JobObjectBasicProcessIdList;
+    }
+    private static final int JobObjectBasicUIRestrictions = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectBasicUIRestrictions = 4
+     * }
+     */
+    public static int JobObjectBasicUIRestrictions() {
+        return JobObjectBasicUIRestrictions;
+    }
+    private static final int JobObjectSecurityLimitInformation = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectSecurityLimitInformation = 5
+     * }
+     */
+    public static int JobObjectSecurityLimitInformation() {
+        return JobObjectSecurityLimitInformation;
+    }
+    private static final int JobObjectEndOfJobTimeInformation = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectEndOfJobTimeInformation = 6
+     * }
+     */
+    public static int JobObjectEndOfJobTimeInformation() {
+        return JobObjectEndOfJobTimeInformation;
+    }
+    private static final int JobObjectAssociateCompletionPortInformation = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectAssociateCompletionPortInformation = 7
+     * }
+     */
+    public static int JobObjectAssociateCompletionPortInformation() {
+        return JobObjectAssociateCompletionPortInformation;
+    }
+    private static final int JobObjectBasicAndIoAccountingInformation = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectBasicAndIoAccountingInformation = 8
+     * }
+     */
+    public static int JobObjectBasicAndIoAccountingInformation() {
+        return JobObjectBasicAndIoAccountingInformation;
+    }
+    private static final int JobObjectExtendedLimitInformation = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectExtendedLimitInformation = 9
+     * }
+     */
+    public static int JobObjectExtendedLimitInformation() {
+        return JobObjectExtendedLimitInformation;
+    }
+    private static final int JobObjectJobSetInformation = (int)10L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectJobSetInformation = 10
+     * }
+     */
+    public static int JobObjectJobSetInformation() {
+        return JobObjectJobSetInformation;
+    }
+    private static final int JobObjectGroupInformation = (int)11L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectGroupInformation = 11
+     * }
+     */
+    public static int JobObjectGroupInformation() {
+        return JobObjectGroupInformation;
+    }
+    private static final int JobObjectNotificationLimitInformation = (int)12L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectNotificationLimitInformation = 12
+     * }
+     */
+    public static int JobObjectNotificationLimitInformation() {
+        return JobObjectNotificationLimitInformation;
+    }
+    private static final int JobObjectLimitViolationInformation = (int)13L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectLimitViolationInformation = 13
+     * }
+     */
+    public static int JobObjectLimitViolationInformation() {
+        return JobObjectLimitViolationInformation;
+    }
+    private static final int JobObjectGroupInformationEx = (int)14L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectGroupInformationEx = 14
+     * }
+     */
+    public static int JobObjectGroupInformationEx() {
+        return JobObjectGroupInformationEx;
+    }
+    private static final int JobObjectCpuRateControlInformation = (int)15L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectCpuRateControlInformation = 15
+     * }
+     */
+    public static int JobObjectCpuRateControlInformation() {
+        return JobObjectCpuRateControlInformation;
+    }
+    private static final int JobObjectCompletionFilter = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectCompletionFilter = 16
+     * }
+     */
+    public static int JobObjectCompletionFilter() {
+        return JobObjectCompletionFilter;
+    }
+    private static final int JobObjectCompletionCounter = (int)17L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectCompletionCounter = 17
+     * }
+     */
+    public static int JobObjectCompletionCounter() {
+        return JobObjectCompletionCounter;
+    }
+    private static final int JobObjectReserved1Information = (int)18L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved1Information = 18
+     * }
+     */
+    public static int JobObjectReserved1Information() {
+        return JobObjectReserved1Information;
+    }
+    private static final int JobObjectReserved2Information = (int)19L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved2Information = 19
+     * }
+     */
+    public static int JobObjectReserved2Information() {
+        return JobObjectReserved2Information;
+    }
+    private static final int JobObjectReserved3Information = (int)20L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved3Information = 20
+     * }
+     */
+    public static int JobObjectReserved3Information() {
+        return JobObjectReserved3Information;
+    }
+    private static final int JobObjectReserved4Information = (int)21L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved4Information = 21
+     * }
+     */
+    public static int JobObjectReserved4Information() {
+        return JobObjectReserved4Information;
+    }
+    private static final int JobObjectReserved5Information = (int)22L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved5Information = 22
+     * }
+     */
+    public static int JobObjectReserved5Information() {
+        return JobObjectReserved5Information;
+    }
+    private static final int JobObjectReserved6Information = (int)23L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved6Information = 23
+     * }
+     */
+    public static int JobObjectReserved6Information() {
+        return JobObjectReserved6Information;
+    }
+    private static final int JobObjectReserved7Information = (int)24L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved7Information = 24
+     * }
+     */
+    public static int JobObjectReserved7Information() {
+        return JobObjectReserved7Information;
+    }
+    private static final int JobObjectReserved8Information = (int)25L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved8Information = 25
+     * }
+     */
+    public static int JobObjectReserved8Information() {
+        return JobObjectReserved8Information;
+    }
+    private static final int JobObjectReserved9Information = (int)26L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved9Information = 26
+     * }
+     */
+    public static int JobObjectReserved9Information() {
+        return JobObjectReserved9Information;
+    }
+    private static final int JobObjectReserved10Information = (int)27L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved10Information = 27
+     * }
+     */
+    public static int JobObjectReserved10Information() {
+        return JobObjectReserved10Information;
+    }
+    private static final int JobObjectReserved11Information = (int)28L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved11Information = 28
+     * }
+     */
+    public static int JobObjectReserved11Information() {
+        return JobObjectReserved11Information;
+    }
+    private static final int JobObjectReserved12Information = (int)29L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved12Information = 29
+     * }
+     */
+    public static int JobObjectReserved12Information() {
+        return JobObjectReserved12Information;
+    }
+    private static final int JobObjectReserved13Information = (int)30L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved13Information = 30
+     * }
+     */
+    public static int JobObjectReserved13Information() {
+        return JobObjectReserved13Information;
+    }
+    private static final int JobObjectReserved14Information = (int)31L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved14Information = 31
+     * }
+     */
+    public static int JobObjectReserved14Information() {
+        return JobObjectReserved14Information;
+    }
+    private static final int JobObjectNetRateControlInformation = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectNetRateControlInformation = 32
+     * }
+     */
+    public static int JobObjectNetRateControlInformation() {
+        return JobObjectNetRateControlInformation;
+    }
+    private static final int JobObjectNotificationLimitInformation2 = (int)33L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectNotificationLimitInformation2 = 33
+     * }
+     */
+    public static int JobObjectNotificationLimitInformation2() {
+        return JobObjectNotificationLimitInformation2;
+    }
+    private static final int JobObjectLimitViolationInformation2 = (int)34L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectLimitViolationInformation2 = 34
+     * }
+     */
+    public static int JobObjectLimitViolationInformation2() {
+        return JobObjectLimitViolationInformation2;
+    }
+    private static final int JobObjectCreateSilo = (int)35L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectCreateSilo = 35
+     * }
+     */
+    public static int JobObjectCreateSilo() {
+        return JobObjectCreateSilo;
+    }
+    private static final int JobObjectSiloBasicInformation = (int)36L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectSiloBasicInformation = 36
+     * }
+     */
+    public static int JobObjectSiloBasicInformation() {
+        return JobObjectSiloBasicInformation;
+    }
+    private static final int JobObjectReserved15Information = (int)37L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved15Information = 37
+     * }
+     */
+    public static int JobObjectReserved15Information() {
+        return JobObjectReserved15Information;
+    }
+    private static final int JobObjectReserved16Information = (int)38L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved16Information = 38
+     * }
+     */
+    public static int JobObjectReserved16Information() {
+        return JobObjectReserved16Information;
+    }
+    private static final int JobObjectReserved17Information = (int)39L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved17Information = 39
+     * }
+     */
+    public static int JobObjectReserved17Information() {
+        return JobObjectReserved17Information;
+    }
+    private static final int JobObjectReserved18Information = (int)40L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved18Information = 40
+     * }
+     */
+    public static int JobObjectReserved18Information() {
+        return JobObjectReserved18Information;
+    }
+    private static final int JobObjectReserved19Information = (int)41L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved19Information = 41
+     * }
+     */
+    public static int JobObjectReserved19Information() {
+        return JobObjectReserved19Information;
+    }
+    private static final int JobObjectReserved20Information = (int)42L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved20Information = 42
+     * }
+     */
+    public static int JobObjectReserved20Information() {
+        return JobObjectReserved20Information;
+    }
+    private static final int JobObjectReserved21Information = (int)43L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved21Information = 43
+     * }
+     */
+    public static int JobObjectReserved21Information() {
+        return JobObjectReserved21Information;
+    }
+    private static final int JobObjectReserved22Information = (int)44L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved22Information = 44
+     * }
+     */
+    public static int JobObjectReserved22Information() {
+        return JobObjectReserved22Information;
+    }
+    private static final int JobObjectReserved23Information = (int)45L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved23Information = 45
+     * }
+     */
+    public static int JobObjectReserved23Information() {
+        return JobObjectReserved23Information;
+    }
+    private static final int JobObjectReserved24Information = (int)46L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved24Information = 46
+     * }
+     */
+    public static int JobObjectReserved24Information() {
+        return JobObjectReserved24Information;
+    }
+    private static final int JobObjectReserved25Information = (int)47L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.JobObjectReserved25Information = 47
+     * }
+     */
+    public static int JobObjectReserved25Information() {
+        return JobObjectReserved25Information;
+    }
+    private static final int MaxJobObjectInfoClass = (int)48L;
+    /**
+     * {@snippet lang=c :
+     * enum _JOBOBJECTINFOCLASS.MaxJobObjectInfoClass = 48
+     * }
+     */
+    public static int MaxJobObjectInfoClass() {
+        return MaxJobObjectInfoClass;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SILOOBJECT_BASIC_INFORMATION {
+     *     DWORD SiloId;
+     *     DWORD SiloParentId;
+     *     DWORD NumberOfProcesses;
+     *     BOOLEAN IsInServerSilo;
+     *     BYTE Reserved[3];
+     * } *PSILOOBJECT_BASIC_INFORMATION
+     * }
+     */
+    public static final AddressLayout PSILOOBJECT_BASIC_INFORMATION = Windows_h.C_POINTER;
+    private static final int SERVERSILO_INITING = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SERVERSILO_STATE.SERVERSILO_INITING = 0
+     * }
+     */
+    public static int SERVERSILO_INITING() {
+        return SERVERSILO_INITING;
+    }
+    private static final int SERVERSILO_STARTED = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SERVERSILO_STATE.SERVERSILO_STARTED = 1
+     * }
+     */
+    public static int SERVERSILO_STARTED() {
+        return SERVERSILO_STARTED;
+    }
+    private static final int SERVERSILO_SHUTTING_DOWN = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SERVERSILO_STATE.SERVERSILO_SHUTTING_DOWN = 2
+     * }
+     */
+    public static int SERVERSILO_SHUTTING_DOWN() {
+        return SERVERSILO_SHUTTING_DOWN;
+    }
+    private static final int SERVERSILO_TERMINATING = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _SERVERSILO_STATE.SERVERSILO_TERMINATING = 3
+     * }
+     */
+    public static int SERVERSILO_TERMINATING() {
+        return SERVERSILO_TERMINATING;
+    }
+    private static final int SERVERSILO_TERMINATED = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _SERVERSILO_STATE.SERVERSILO_TERMINATED = 4
+     * }
+     */
+    public static int SERVERSILO_TERMINATED() {
+        return SERVERSILO_TERMINATED;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SERVERSILO_STATE {
+     *     SERVERSILO_INITING = 0,
+     *     SERVERSILO_STARTED,
+     *     SERVERSILO_SHUTTING_DOWN,
+     *     SERVERSILO_TERMINATING,
+     *     SERVERSILO_TERMINATED
+     * } *PSERVERSILO_STATE
+     * }
+     */
+    public static final AddressLayout PSERVERSILO_STATE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SERVERSILO_BASIC_INFORMATION {
+     *     DWORD ServiceSessionId;
+     *     SERVERSILO_STATE State;
+     *     DWORD ExitStatus;
+     *     BOOLEAN IsDownlevelContainer;
+     *     PVOID ApiSetSchema;
+     *     PVOID HostApiSetSchema;
+     * } *PSERVERSILO_BASIC_INFORMATION
+     * }
+     */
+    public static final AddressLayout PSERVERSILO_BASIC_INFORMATION = Windows_h.C_POINTER;
+    private static final int FirmwareTypeUnknown = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _FIRMWARE_TYPE.FirmwareTypeUnknown = 0
+     * }
+     */
+    public static int FirmwareTypeUnknown() {
+        return FirmwareTypeUnknown;
+    }
+    private static final int FirmwareTypeBios = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _FIRMWARE_TYPE.FirmwareTypeBios = 1
+     * }
+     */
+    public static int FirmwareTypeBios() {
+        return FirmwareTypeBios;
+    }
+    private static final int FirmwareTypeUefi = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _FIRMWARE_TYPE.FirmwareTypeUefi = 2
+     * }
+     */
+    public static int FirmwareTypeUefi() {
+        return FirmwareTypeUefi;
+    }
+    private static final int FirmwareTypeMax = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _FIRMWARE_TYPE.FirmwareTypeMax = 3
+     * }
+     */
+    public static int FirmwareTypeMax() {
+        return FirmwareTypeMax;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _FIRMWARE_TYPE {
+     *     FirmwareTypeUnknown,
+     *     FirmwareTypeBios,
+     *     FirmwareTypeUefi,
+     *     FirmwareTypeMax
+     * } *PFIRMWARE_TYPE
+     * }
+     */
+    public static final AddressLayout PFIRMWARE_TYPE = Windows_h.C_POINTER;
+    private static final int RelationProcessorCore = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationProcessorCore = 0
+     * }
+     */
+    public static int RelationProcessorCore() {
+        return RelationProcessorCore;
+    }
+    private static final int RelationNumaNode = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationNumaNode = 1
+     * }
+     */
+    public static int RelationNumaNode() {
+        return RelationNumaNode;
+    }
+    private static final int RelationCache = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationCache = 2
+     * }
+     */
+    public static int RelationCache() {
+        return RelationCache;
+    }
+    private static final int RelationProcessorPackage = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationProcessorPackage = 3
+     * }
+     */
+    public static int RelationProcessorPackage() {
+        return RelationProcessorPackage;
+    }
+    private static final int RelationGroup = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationGroup = 4
+     * }
+     */
+    public static int RelationGroup() {
+        return RelationGroup;
+    }
+    private static final int RelationProcessorDie = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationProcessorDie = 5
+     * }
+     */
+    public static int RelationProcessorDie() {
+        return RelationProcessorDie;
+    }
+    private static final int RelationNumaNodeEx = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationNumaNodeEx = 6
+     * }
+     */
+    public static int RelationNumaNodeEx() {
+        return RelationNumaNodeEx;
+    }
+    private static final int RelationProcessorModule = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationProcessorModule = 7
+     * }
+     */
+    public static int RelationProcessorModule() {
+        return RelationProcessorModule;
+    }
+    private static final int RelationAll = (int)65535L;
+    /**
+     * {@snippet lang=c :
+     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationAll = 65535
+     * }
+     */
+    public static int RelationAll() {
+        return RelationAll;
+    }
+    private static final int CacheUnified = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESSOR_CACHE_TYPE.CacheUnified = 0
+     * }
+     */
+    public static int CacheUnified() {
+        return CacheUnified;
+    }
+    private static final int CacheInstruction = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESSOR_CACHE_TYPE.CacheInstruction = 1
+     * }
+     */
+    public static int CacheInstruction() {
+        return CacheInstruction;
+    }
+    private static final int CacheData = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESSOR_CACHE_TYPE.CacheData = 2
+     * }
+     */
+    public static int CacheData() {
+        return CacheData;
+    }
+    private static final int CacheTrace = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _PROCESSOR_CACHE_TYPE.CacheTrace = 3
+     * }
+     */
+    public static int CacheTrace() {
+        return CacheTrace;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CACHE_DESCRIPTOR {
+     *     BYTE Level;
+     *     BYTE Associativity;
+     *     WORD LineSize;
+     *     DWORD Size;
+     *     PROCESSOR_CACHE_TYPE Type;
+     * } *PCACHE_DESCRIPTOR
+     * }
+     */
+    public static final AddressLayout PCACHE_DESCRIPTOR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_LOGICAL_PROCESSOR_INFORMATION {
+     *     ULONG_PTR ProcessorMask;
+     *     LOGICAL_PROCESSOR_RELATIONSHIP Relationship;
+     *     union {
+     *         struct {
+     *             BYTE Flags;
+     *         } ProcessorCore;
+     *         struct {
+     *             DWORD NodeNumber;
+     *         } NumaNode;
+     *         CACHE_DESCRIPTOR Cache;
+     *         ULONGLONG Reserved[2];
+     *     };
+     * } *PSYSTEM_LOGICAL_PROCESSOR_INFORMATION
+     * }
+     */
+    public static final AddressLayout PSYSTEM_LOGICAL_PROCESSOR_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESSOR_RELATIONSHIP {
+     *     BYTE Flags;
+     *     BYTE EfficiencyClass;
+     *     BYTE Reserved[20];
+     *     WORD GroupCount;
+     *     GROUP_AFFINITY GroupMask[1];
+     * } *PPROCESSOR_RELATIONSHIP
+     * }
+     */
+    public static final AddressLayout PPROCESSOR_RELATIONSHIP = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _NUMA_NODE_RELATIONSHIP {
+     *     DWORD NodeNumber;
+     *     BYTE Reserved[18];
+     *     WORD GroupCount;
+     *     union {
+     *         GROUP_AFFINITY GroupMask;
+     *         GROUP_AFFINITY GroupMasks[1];
+     *     };
+     * } *PNUMA_NODE_RELATIONSHIP
+     * }
+     */
+    public static final AddressLayout PNUMA_NODE_RELATIONSHIP = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CACHE_RELATIONSHIP {
+     *     BYTE Level;
+     *     BYTE Associativity;
+     *     WORD LineSize;
+     *     DWORD CacheSize;
+     *     PROCESSOR_CACHE_TYPE Type;
+     *     BYTE Reserved[18];
+     *     WORD GroupCount;
+     *     union {
+     *         GROUP_AFFINITY GroupMask;
+     *         GROUP_AFFINITY GroupMasks[1];
+     *     };
+     * } *PCACHE_RELATIONSHIP
+     * }
+     */
+    public static final AddressLayout PCACHE_RELATIONSHIP = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESSOR_GROUP_INFO {
+     *     BYTE MaximumProcessorCount;
+     *     BYTE ActiveProcessorCount;
+     *     BYTE Reserved[38];
+     *     KAFFINITY ActiveProcessorMask;
+     * } *PPROCESSOR_GROUP_INFO
+     * }
+     */
+    public static final AddressLayout PPROCESSOR_GROUP_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _GROUP_RELATIONSHIP {
+     *     WORD MaximumGroupCount;
+     *     WORD ActiveGroupCount;
+     *     BYTE Reserved[20];
+     *     PROCESSOR_GROUP_INFO GroupInfo[1];
+     * } *PGROUP_RELATIONSHIP
+     * }
+     */
+    public static final AddressLayout PGROUP_RELATIONSHIP = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX {
+     *     LOGICAL_PROCESSOR_RELATIONSHIP Relationship;
+     *     DWORD Size;
+     *     union {
+     *         PROCESSOR_RELATIONSHIP Processor;
+     *         NUMA_NODE_RELATIONSHIP NumaNode;
+     *         CACHE_RELATIONSHIP Cache;
+     *         GROUP_RELATIONSHIP Group;
+     *     };
+     * } *PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX
+     * }
+     */
+    public static final AddressLayout PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX = Windows_h.C_POINTER;
+    private static final int CpuSetInformation = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _CPU_SET_INFORMATION_TYPE.CpuSetInformation = 0
+     * }
+     */
+    public static int CpuSetInformation() {
+        return CpuSetInformation;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _CPU_SET_INFORMATION_TYPE {
+     *     CpuSetInformation
+     * } *PCPU_SET_INFORMATION_TYPE
+     * }
+     */
+    public static final AddressLayout PCPU_SET_INFORMATION_TYPE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_CPU_SET_INFORMATION {
+     *     DWORD Size;
+     *     CPU_SET_INFORMATION_TYPE Type;
+     *     union {
+     *         struct {
+     *             DWORD Id;
+     *             WORD Group;
+     *             BYTE LogicalProcessorIndex;
+     *             BYTE CoreIndex;
+     *             BYTE LastLevelCacheIndex;
+     *             BYTE NumaNodeIndex;
+     *             BYTE EfficiencyClass;
+     *             union {
+     *                 BYTE AllFlags;
+     *                 struct {
+     *                     BYTE Parked : 1;
+     *                     BYTE Allocated : 1;
+     *                     BYTE AllocatedToTargetProcess : 1;
+     *                     BYTE RealTime : 1;
+     *                     BYTE ReservedFlags : 4;
+     *                 };
+     *             };
+     *             union {
+     *                 DWORD Reserved;
+     *                 BYTE SchedulingClass;
+     *             };
+     *             DWORD64 AllocationTag;
+     *         } CpuSet;
+     *     };
+     * } *PSYSTEM_CPU_SET_INFORMATION
+     * }
+     */
+    public static final AddressLayout PSYSTEM_CPU_SET_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_POOL_ZEROING_INFORMATION {
+     *     BOOLEAN PoolZeroingSupportPresent;
+     * } *PSYSTEM_POOL_ZEROING_INFORMATION
+     * }
+     */
+    public static final AddressLayout PSYSTEM_POOL_ZEROING_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION {
+     *     DWORD64 CycleTime;
+     * } *PSYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION
+     * }
+     */
+    public static final AddressLayout PSYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _XSTATE_FEATURE {
+     *     DWORD Offset;
+     *     DWORD Size;
+     * } *PXSTATE_FEATURE
+     * }
+     */
+    public static final AddressLayout PXSTATE_FEATURE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _XSTATE_CONFIGURATION {
+     *     DWORD64 EnabledFeatures;
+     *     DWORD64 EnabledVolatileFeatures;
+     *     DWORD Size;
+     *     union {
+     *         DWORD ControlFlags;
+     *         struct {
+     *             DWORD OptimizedSave : 1;
+     *             DWORD CompactionEnabled : 1;
+     *             DWORD ExtendedFeatureDisable : 1;
+     *         };
+     *     };
+     *     XSTATE_FEATURE Features[64];
+     *     DWORD64 EnabledSupervisorFeatures;
+     *     DWORD64 AlignedFeatures;
+     *     DWORD AllFeatureSize;
+     *     DWORD AllFeatures[64];
+     *     DWORD64 EnabledUserVisibleSupervisorFeatures;
+     *     DWORD64 ExtendedFeatureDisableFeatures;
+     *     DWORD AllNonLargeFeatureSize;
+     *     DWORD Spare;
+     * } *PXSTATE_CONFIGURATION
+     * }
+     */
+    public static final AddressLayout PXSTATE_CONFIGURATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _MEMORY_BASIC_INFORMATION {
+     *     PVOID BaseAddress;
+     *     PVOID AllocationBase;
+     *     DWORD AllocationProtect;
+     *     WORD PartitionId;
+     *     SIZE_T RegionSize;
+     *     DWORD State;
+     *     DWORD Protect;
+     *     DWORD Type;
+     * } *PMEMORY_BASIC_INFORMATION
+     * }
+     */
+    public static final AddressLayout PMEMORY_BASIC_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _MEMORY_BASIC_INFORMATION32 {
+     *     DWORD BaseAddress;
+     *     DWORD AllocationBase;
+     *     DWORD AllocationProtect;
+     *     DWORD RegionSize;
+     *     DWORD State;
+     *     DWORD Protect;
+     *     DWORD Type;
+     * } *PMEMORY_BASIC_INFORMATION32
+     * }
+     */
+    public static final AddressLayout PMEMORY_BASIC_INFORMATION32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _MEMORY_BASIC_INFORMATION64 {
+     *     ULONGLONG BaseAddress;
+     *     ULONGLONG AllocationBase;
+     *     DWORD AllocationProtect;
+     *     DWORD __alignment1;
+     *     ULONGLONG RegionSize;
+     *     DWORD State;
+     *     DWORD Protect;
+     *     DWORD Type;
+     *     DWORD __alignment2;
+     * } *PMEMORY_BASIC_INFORMATION64
+     * }
+     */
+    public static final AddressLayout PMEMORY_BASIC_INFORMATION64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CFG_CALL_TARGET_INFO {
+     *     ULONG_PTR Offset;
+     *     ULONG_PTR Flags;
+     * } *PCFG_CALL_TARGET_INFO
+     * }
+     */
+    public static final AddressLayout PCFG_CALL_TARGET_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _MEM_ADDRESS_REQUIREMENTS {
+     *     PVOID LowestStartingAddress;
+     *     PVOID HighestEndingAddress;
+     *     SIZE_T Alignment;
+     * } *PMEM_ADDRESS_REQUIREMENTS
+     * }
+     */
+    public static final AddressLayout PMEM_ADDRESS_REQUIREMENTS = Windows_h.C_POINTER;
+    private static final int MemExtendedParameterInvalidType = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterInvalidType = 0
+     * }
+     */
+    public static int MemExtendedParameterInvalidType() {
+        return MemExtendedParameterInvalidType;
+    }
+    private static final int MemExtendedParameterAddressRequirements = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterAddressRequirements = 1
+     * }
+     */
+    public static int MemExtendedParameterAddressRequirements() {
+        return MemExtendedParameterAddressRequirements;
+    }
+    private static final int MemExtendedParameterNumaNode = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterNumaNode = 2
+     * }
+     */
+    public static int MemExtendedParameterNumaNode() {
+        return MemExtendedParameterNumaNode;
+    }
+    private static final int MemExtendedParameterPartitionHandle = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterPartitionHandle = 3
+     * }
+     */
+    public static int MemExtendedParameterPartitionHandle() {
+        return MemExtendedParameterPartitionHandle;
+    }
+    private static final int MemExtendedParameterUserPhysicalHandle = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterUserPhysicalHandle = 4
+     * }
+     */
+    public static int MemExtendedParameterUserPhysicalHandle() {
+        return MemExtendedParameterUserPhysicalHandle;
+    }
+    private static final int MemExtendedParameterAttributeFlags = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterAttributeFlags = 5
+     * }
+     */
+    public static int MemExtendedParameterAttributeFlags() {
+        return MemExtendedParameterAttributeFlags;
+    }
+    private static final int MemExtendedParameterImageMachine = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterImageMachine = 6
+     * }
+     */
+    public static int MemExtendedParameterImageMachine() {
+        return MemExtendedParameterImageMachine;
+    }
+    private static final int MemExtendedParameterMax = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterMax = 7
+     * }
+     */
+    public static int MemExtendedParameterMax() {
+        return MemExtendedParameterMax;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum MEM_EXTENDED_PARAMETER_TYPE {
+     *     MemExtendedParameterInvalidType = 0,
+     *     MemExtendedParameterAddressRequirements,
+     *     MemExtendedParameterNumaNode,
+     *     MemExtendedParameterPartitionHandle,
+     *     MemExtendedParameterUserPhysicalHandle,
+     *     MemExtendedParameterAttributeFlags,
+     *     MemExtendedParameterImageMachine,
+     *     MemExtendedParameterMax
+     * } *PMEM_EXTENDED_PARAMETER_TYPE
+     * }
+     */
+    public static final AddressLayout PMEM_EXTENDED_PARAMETER_TYPE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct MEM_EXTENDED_PARAMETER {
+     *     struct {
+     *         DWORD64 Type : 8;
+     *         DWORD64 Reserved : 64 - 8;
+     *     };
+     *     union {
+     *         DWORD64 ULong64;
+     *         PVOID Pointer;
+     *         SIZE_T Size;
+     *         HANDLE Handle;
+     *         DWORD ULong;
+     *     };
+     * } *PMEM_EXTENDED_PARAMETER
+     * }
+     */
+    public static final AddressLayout PMEM_EXTENDED_PARAMETER = Windows_h.C_POINTER;
+    private static final int MemDedicatedAttributeReadBandwidth = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEM_DEDICATED_ATTRIBUTE_TYPE.MemDedicatedAttributeReadBandwidth = 0
+     * }
+     */
+    public static int MemDedicatedAttributeReadBandwidth() {
+        return MemDedicatedAttributeReadBandwidth;
+    }
+    private static final int MemDedicatedAttributeReadLatency = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEM_DEDICATED_ATTRIBUTE_TYPE.MemDedicatedAttributeReadLatency = 1
+     * }
+     */
+    public static int MemDedicatedAttributeReadLatency() {
+        return MemDedicatedAttributeReadLatency;
+    }
+    private static final int MemDedicatedAttributeWriteBandwidth = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEM_DEDICATED_ATTRIBUTE_TYPE.MemDedicatedAttributeWriteBandwidth = 2
+     * }
+     */
+    public static int MemDedicatedAttributeWriteBandwidth() {
+        return MemDedicatedAttributeWriteBandwidth;
+    }
+    private static final int MemDedicatedAttributeWriteLatency = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEM_DEDICATED_ATTRIBUTE_TYPE.MemDedicatedAttributeWriteLatency = 3
+     * }
+     */
+    public static int MemDedicatedAttributeWriteLatency() {
+        return MemDedicatedAttributeWriteLatency;
+    }
+    private static final int MemDedicatedAttributeMax = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEM_DEDICATED_ATTRIBUTE_TYPE.MemDedicatedAttributeMax = 4
+     * }
+     */
+    public static int MemDedicatedAttributeMax() {
+        return MemDedicatedAttributeMax;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _MEM_DEDICATED_ATTRIBUTE_TYPE {
+     *     MemDedicatedAttributeReadBandwidth = 0,
+     *     MemDedicatedAttributeReadLatency,
+     *     MemDedicatedAttributeWriteBandwidth,
+     *     MemDedicatedAttributeWriteLatency,
+     *     MemDedicatedAttributeMax
+     * } *PMEM_DEDICATED_ATTRIBUTE_TYPE
+     * }
+     */
+    public static final AddressLayout PMEM_DEDICATED_ATTRIBUTE_TYPE = Windows_h.C_POINTER;
+    private static final int MemSectionExtendedParameterInvalidType = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum MEM_SECTION_EXTENDED_PARAMETER_TYPE.MemSectionExtendedParameterInvalidType = 0
+     * }
+     */
+    public static int MemSectionExtendedParameterInvalidType() {
+        return MemSectionExtendedParameterInvalidType;
+    }
+    private static final int MemSectionExtendedParameterUserPhysicalFlags = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum MEM_SECTION_EXTENDED_PARAMETER_TYPE.MemSectionExtendedParameterUserPhysicalFlags = 1
+     * }
+     */
+    public static int MemSectionExtendedParameterUserPhysicalFlags() {
+        return MemSectionExtendedParameterUserPhysicalFlags;
+    }
+    private static final int MemSectionExtendedParameterNumaNode = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum MEM_SECTION_EXTENDED_PARAMETER_TYPE.MemSectionExtendedParameterNumaNode = 2
+     * }
+     */
+    public static int MemSectionExtendedParameterNumaNode() {
+        return MemSectionExtendedParameterNumaNode;
+    }
+    private static final int MemSectionExtendedParameterSigningLevel = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum MEM_SECTION_EXTENDED_PARAMETER_TYPE.MemSectionExtendedParameterSigningLevel = 3
+     * }
+     */
+    public static int MemSectionExtendedParameterSigningLevel() {
+        return MemSectionExtendedParameterSigningLevel;
+    }
+    private static final int MemSectionExtendedParameterMax = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum MEM_SECTION_EXTENDED_PARAMETER_TYPE.MemSectionExtendedParameterMax = 4
+     * }
+     */
+    public static int MemSectionExtendedParameterMax() {
+        return MemSectionExtendedParameterMax;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum MEM_SECTION_EXTENDED_PARAMETER_TYPE {
+     *     MemSectionExtendedParameterInvalidType = 0,
+     *     MemSectionExtendedParameterUserPhysicalFlags,
+     *     MemSectionExtendedParameterNumaNode,
+     *     MemSectionExtendedParameterSigningLevel,
+     *     MemSectionExtendedParameterMax
+     * } *PMEM_SECTION_EXTENDED_PARAMETER_TYPE
+     * }
+     */
+    public static final AddressLayout PMEM_SECTION_EXTENDED_PARAMETER_TYPE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _ENCLAVE_CREATE_INFO_SGX {
+     *     BYTE Secs[4096];
+     * } *PENCLAVE_CREATE_INFO_SGX
+     * }
+     */
+    public static final AddressLayout PENCLAVE_CREATE_INFO_SGX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _ENCLAVE_INIT_INFO_SGX {
+     *     BYTE SigStruct[1808];
+     *     BYTE Reserved1[240];
+     *     BYTE EInitToken[304];
+     *     BYTE Reserved2[1744];
+     * } *PENCLAVE_INIT_INFO_SGX
+     * }
+     */
+    public static final AddressLayout PENCLAVE_INIT_INFO_SGX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _ENCLAVE_CREATE_INFO_VBS {
+     *     DWORD Flags;
+     *     BYTE OwnerID[32];
+     * } *PENCLAVE_CREATE_INFO_VBS
+     * }
+     */
+    public static final AddressLayout PENCLAVE_CREATE_INFO_VBS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _ENCLAVE_CREATE_INFO_VBS_BASIC {
+     *     DWORD Flags;
+     *     BYTE OwnerID[32];
+     * } *PENCLAVE_CREATE_INFO_VBS_BASIC
+     * }
+     */
+    public static final AddressLayout PENCLAVE_CREATE_INFO_VBS_BASIC = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _ENCLAVE_LOAD_DATA_VBS_BASIC {
+     *     DWORD PageType;
+     * } *PENCLAVE_LOAD_DATA_VBS_BASIC
+     * }
+     */
+    public static final AddressLayout PENCLAVE_LOAD_DATA_VBS_BASIC = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _ENCLAVE_INIT_INFO_VBS_BASIC {
+     *     BYTE FamilyId[16];
+     *     BYTE ImageId[16];
+     *     ULONGLONG EnclaveSize;
+     *     DWORD EnclaveSvn;
+     *     DWORD Reserved;
+     *     union {
+     *         HANDLE SignatureInfoHandle;
+     *         ULONGLONG Unused;
+     *     };
+     * } *PENCLAVE_INIT_INFO_VBS_BASIC
+     * }
+     */
+    public static final AddressLayout PENCLAVE_INIT_INFO_VBS_BASIC = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _ENCLAVE_INIT_INFO_VBS {
+     *     DWORD Length;
+     *     DWORD ThreadCount;
+     * } *PENCLAVE_INIT_INFO_VBS
+     * }
+     */
+    public static final AddressLayout PENCLAVE_INIT_INFO_VBS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE {
+     *     MEM_DEDICATED_ATTRIBUTE_TYPE Type;
+     *     DWORD Reserved;
+     *     DWORD64 Value;
+     * } *PMEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE
+     * }
+     */
+    public static final AddressLayout PMEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION {
+     *     DWORD NextEntryOffset;
+     *     DWORD SizeOfInformation;
+     *     DWORD Flags;
+     *     DWORD AttributesOffset;
+     *     DWORD AttributeCount;
+     *     DWORD Reserved;
+     *     DWORD64 TypeId;
+     * } *PMEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION
+     * }
+     */
+    public static final AddressLayout PMEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_ID_128 {
+     *     BYTE Identifier[16];
+     * } *PFILE_ID_128
+     * }
+     */
+    public static final AddressLayout PFILE_ID_128 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_NOTIFY_INFORMATION {
+     *     DWORD NextEntryOffset;
+     *     DWORD Action;
+     *     DWORD FileNameLength;
+     *     WCHAR FileName[1];
+     * } *PFILE_NOTIFY_INFORMATION
+     * }
+     */
+    public static final AddressLayout PFILE_NOTIFY_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_NOTIFY_EXTENDED_INFORMATION {
+     *     DWORD NextEntryOffset;
+     *     DWORD Action;
+     *     LARGE_INTEGER CreationTime;
+     *     LARGE_INTEGER LastModificationTime;
+     *     LARGE_INTEGER LastChangeTime;
+     *     LARGE_INTEGER LastAccessTime;
+     *     LARGE_INTEGER AllocatedLength;
+     *     LARGE_INTEGER FileSize;
+     *     DWORD FileAttributes;
+     *     DWORD ReparsePointTag;
+     *     LARGE_INTEGER FileId;
+     *     LARGE_INTEGER ParentFileId;
+     *     DWORD FileNameLength;
+     *     WCHAR FileName[1];
+     * } *PFILE_NOTIFY_EXTENDED_INFORMATION
+     * }
+     */
+    public static final AddressLayout PFILE_NOTIFY_EXTENDED_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef union _FILE_SEGMENT_ELEMENT {
+     *     PVOID64 Buffer;
+     *     ULONGLONG Alignment;
+     * } *PFILE_SEGMENT_ELEMENT
+     * }
+     */
+    public static final AddressLayout PFILE_SEGMENT_ELEMENT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _REPARSE_GUID_DATA_BUFFER {
+     *     DWORD ReparseTag;
+     *     WORD ReparseDataLength;
+     *     WORD Reserved;
+     *     GUID ReparseGuid;
+     *     struct {
+     *         BYTE DataBuffer[1];
+     *     } GenericReparseBuffer;
+     * } *PREPARSE_GUID_DATA_BUFFER
+     * }
+     */
+    public static final AddressLayout PREPARSE_GUID_DATA_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCRUB_DATA_INPUT {
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     DWORD MaximumIos;
+     *     DWORD ObjectId[4];
+     *     DWORD Reserved[41];
+     *     BYTE ResumeContext[1040];
+     * } *PSCRUB_DATA_INPUT
+     * }
+     */
+    public static final AddressLayout PSCRUB_DATA_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCRUB_PARITY_EXTENT {
+     *     LONGLONG Offset;
+     *     ULONGLONG Length;
+     * } *PSCRUB_PARITY_EXTENT
+     * }
+     */
+    public static final AddressLayout PSCRUB_PARITY_EXTENT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCRUB_PARITY_EXTENT_DATA {
+     *     WORD Size;
+     *     WORD Flags;
+     *     WORD NumberOfParityExtents;
+     *     WORD MaximumNumberOfParityExtents;
+     *     SCRUB_PARITY_EXTENT ParityExtents[1];
+     * } *PSCRUB_PARITY_EXTENT_DATA
+     * }
+     */
+    public static final AddressLayout PSCRUB_PARITY_EXTENT_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCRUB_DATA_OUTPUT {
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     DWORD Status;
+     *     ULONGLONG ErrorFileOffset;
+     *     ULONGLONG ErrorLength;
+     *     ULONGLONG NumberOfBytesRepaired;
+     *     ULONGLONG NumberOfBytesFailed;
+     *     ULONGLONG InternalFileReference;
+     *     WORD ResumeContextLength;
+     *     WORD ParityExtentDataOffset;
+     *     DWORD Reserved[9];
+     *     ULONGLONG NumberOfMetadataBytesProcessed;
+     *     ULONGLONG NumberOfDataBytesProcessed;
+     *     ULONGLONG TotalNumberOfMetadataBytesInUse;
+     *     ULONGLONG TotalNumberOfDataBytesInUse;
+     *     ULONGLONG DataBytesSkippedDueToNoAllocation;
+     *     ULONGLONG DataBytesSkippedDueToInvalidRun;
+     *     ULONGLONG DataBytesSkippedDueToIntegrityStream;
+     *     ULONGLONG DataBytesSkippedDueToRegionBeingClean;
+     *     ULONGLONG DataBytesSkippedDueToLockConflict;
+     *     ULONGLONG DataBytesSkippedDueToNoScrubDataFlag;
+     *     ULONGLONG DataBytesSkippedDueToNoScrubNonIntegrityStreamFlag;
+     *     ULONGLONG DataBytesScrubbed;
+     *     BYTE ResumeContext[1040];
+     * } *PSCRUB_DATA_OUTPUT
+     * }
+     */
+    public static final AddressLayout PSCRUB_DATA_OUTPUT = Windows_h.C_POINTER;
+    private static final int SharedVirtualDisksUnsupported = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SharedVirtualDiskSupportType.SharedVirtualDisksUnsupported = 0
+     * }
+     */
+    public static int SharedVirtualDisksUnsupported() {
+        return SharedVirtualDisksUnsupported;
+    }
+    private static final int SharedVirtualDisksSupported = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SharedVirtualDiskSupportType.SharedVirtualDisksSupported = 1
+     * }
+     */
+    public static int SharedVirtualDisksSupported() {
+        return SharedVirtualDisksSupported;
+    }
+    private static final int SharedVirtualDiskSnapshotsSupported = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _SharedVirtualDiskSupportType.SharedVirtualDiskSnapshotsSupported = 3
+     * }
+     */
+    public static int SharedVirtualDiskSnapshotsSupported() {
+        return SharedVirtualDiskSnapshotsSupported;
+    }
+    private static final int SharedVirtualDiskCDPSnapshotsSupported = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _SharedVirtualDiskSupportType.SharedVirtualDiskCDPSnapshotsSupported = 7
+     * }
+     */
+    public static int SharedVirtualDiskCDPSnapshotsSupported() {
+        return SharedVirtualDiskCDPSnapshotsSupported;
+    }
+    private static final int SharedVirtualDiskHandleStateNone = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SharedVirtualDiskHandleState.SharedVirtualDiskHandleStateNone = 0
+     * }
+     */
+    public static int SharedVirtualDiskHandleStateNone() {
+        return SharedVirtualDiskHandleStateNone;
+    }
+    private static final int SharedVirtualDiskHandleStateFileShared = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SharedVirtualDiskHandleState.SharedVirtualDiskHandleStateFileShared = 1
+     * }
+     */
+    public static int SharedVirtualDiskHandleStateFileShared() {
+        return SharedVirtualDiskHandleStateFileShared;
+    }
+    private static final int SharedVirtualDiskHandleStateHandleShared = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _SharedVirtualDiskHandleState.SharedVirtualDiskHandleStateHandleShared = 3
+     * }
+     */
+    public static int SharedVirtualDiskHandleStateHandleShared() {
+        return SharedVirtualDiskHandleStateHandleShared;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SHARED_VIRTUAL_DISK_SUPPORT {
+     *     SharedVirtualDiskSupportType SharedVirtualDiskSupport;
+     *     SharedVirtualDiskHandleState HandleState;
+     * } *PSHARED_VIRTUAL_DISK_SUPPORT
+     * }
+     */
+    public static final AddressLayout PSHARED_VIRTUAL_DISK_SUPPORT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _REARRANGE_FILE_DATA {
+     *     ULONGLONG SourceStartingOffset;
+     *     ULONGLONG TargetOffset;
+     *     HANDLE SourceFileHandle;
+     *     DWORD Length;
+     *     DWORD Flags;
+     * } *PREARRANGE_FILE_DATA
+     * }
+     */
+    public static final AddressLayout PREARRANGE_FILE_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _REARRANGE_FILE_DATA32 {
+     *     ULONGLONG SourceStartingOffset;
+     *     ULONGLONG TargetOffset;
+     *     UINT32 SourceFileHandle;
+     *     DWORD Length;
+     *     DWORD Flags;
+     * } *PREARRANGE_FILE_DATA32
+     * }
+     */
+    public static final AddressLayout PREARRANGE_FILE_DATA32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SHUFFLE_FILE_DATA {
+     *     LONGLONG StartingOffset;
+     *     LONGLONG Length;
+     *     DWORD Flags;
+     * } *PSHUFFLE_FILE_DATA
+     * }
+     */
+    public static final AddressLayout PSHUFFLE_FILE_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _NETWORK_APP_INSTANCE_EA {
+     *     GUID AppInstanceID;
+     *     DWORD CsvFlags;
+     * } *PNETWORK_APP_INSTANCE_EA
+     * }
+     */
+    public static final AddressLayout PNETWORK_APP_INSTANCE_EA = Windows_h.C_POINTER;
+
+    private static class GUID_MAX_POWER_SAVINGS$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_MAX_POWER_SAVINGS").reinterpret(LAYOUT.byteSize());
+    }
 
     /**
-     * {@snippet :
-     * #define SECURITY_CLOUD_INFRASTRUCTURE_SERVICES_ID_RID_COUNT 6
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_MAX_POWER_SAVINGS
      * }
      */
-    public static int SECURITY_CLOUD_INFRASTRUCTURE_SERVICES_ID_RID_COUNT() {
-        return (int)6L;
+    public static GroupLayout GUID_MAX_POWER_SAVINGS$layout() {
+        return GUID_MAX_POWER_SAVINGS$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_WMIHOST_ID_BASE_RID 86
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_MAX_POWER_SAVINGS
      * }
      */
-    public static int SECURITY_WMIHOST_ID_BASE_RID() {
-        return (int)86L;
+    public static MemorySegment GUID_MAX_POWER_SAVINGS() {
+        return GUID_MAX_POWER_SAVINGS$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_WMIHOST_ID_RID_COUNT 6
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_MAX_POWER_SAVINGS
      * }
      */
-    public static int SECURITY_WMIHOST_ID_RID_COUNT() {
-        return (int)6L;
+    public static void GUID_MAX_POWER_SAVINGS(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_MAX_POWER_SAVINGS$constants.SEGMENT, 0L, GUID_MAX_POWER_SAVINGS$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_MIN_POWER_SAVINGS$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_MIN_POWER_SAVINGS").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_TASK_ID_BASE_RID 87
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_MIN_POWER_SAVINGS
      * }
      */
-    public static int SECURITY_TASK_ID_BASE_RID() {
-        return (int)87L;
+    public static GroupLayout GUID_MIN_POWER_SAVINGS$layout() {
+        return GUID_MIN_POWER_SAVINGS$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_NFS_ID_BASE_RID 88
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_MIN_POWER_SAVINGS
      * }
      */
-    public static int SECURITY_NFS_ID_BASE_RID() {
-        return (int)88L;
+    public static MemorySegment GUID_MIN_POWER_SAVINGS() {
+        return GUID_MIN_POWER_SAVINGS$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_COM_ID_BASE_RID 89
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_MIN_POWER_SAVINGS
      * }
      */
-    public static int SECURITY_COM_ID_BASE_RID() {
-        return (int)89L;
+    public static void GUID_MIN_POWER_SAVINGS(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_MIN_POWER_SAVINGS$constants.SEGMENT, 0L, GUID_MIN_POWER_SAVINGS$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_TYPICAL_POWER_SAVINGS$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_TYPICAL_POWER_SAVINGS").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_WINDOW_MANAGER_BASE_RID 90
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_TYPICAL_POWER_SAVINGS
      * }
      */
-    public static int SECURITY_WINDOW_MANAGER_BASE_RID() {
-        return (int)90L;
+    public static GroupLayout GUID_TYPICAL_POWER_SAVINGS$layout() {
+        return GUID_TYPICAL_POWER_SAVINGS$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_RDV_GFX_BASE_RID 91
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_TYPICAL_POWER_SAVINGS
      * }
      */
-    public static int SECURITY_RDV_GFX_BASE_RID() {
-        return (int)91L;
+    public static MemorySegment GUID_TYPICAL_POWER_SAVINGS() {
+        return GUID_TYPICAL_POWER_SAVINGS$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_DASHOST_ID_BASE_RID 92
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_TYPICAL_POWER_SAVINGS
      * }
      */
-    public static int SECURITY_DASHOST_ID_BASE_RID() {
-        return (int)92L;
+    public static void GUID_TYPICAL_POWER_SAVINGS(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_TYPICAL_POWER_SAVINGS$constants.SEGMENT, 0L, GUID_TYPICAL_POWER_SAVINGS$constants.LAYOUT.byteSize());
     }
+
+    private static class NO_SUBGROUP_GUID$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("NO_SUBGROUP_GUID").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_DASHOST_ID_RID_COUNT 6
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID NO_SUBGROUP_GUID
      * }
      */
-    public static int SECURITY_DASHOST_ID_RID_COUNT() {
-        return (int)6L;
+    public static GroupLayout NO_SUBGROUP_GUID$layout() {
+        return NO_SUBGROUP_GUID$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_USERMANAGER_ID_BASE_RID 93
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID NO_SUBGROUP_GUID
      * }
      */
-    public static int SECURITY_USERMANAGER_ID_BASE_RID() {
-        return (int)93L;
+    public static MemorySegment NO_SUBGROUP_GUID() {
+        return NO_SUBGROUP_GUID$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_USERMANAGER_ID_RID_COUNT 6
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID NO_SUBGROUP_GUID
      * }
      */
-    public static int SECURITY_USERMANAGER_ID_RID_COUNT() {
-        return (int)6L;
+    public static void NO_SUBGROUP_GUID(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, NO_SUBGROUP_GUID$constants.SEGMENT, 0L, NO_SUBGROUP_GUID$constants.LAYOUT.byteSize());
+    }
+
+    private static class ALL_POWERSCHEMES_GUID$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("ALL_POWERSCHEMES_GUID").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_WINRM_ID_BASE_RID 94
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID ALL_POWERSCHEMES_GUID
      * }
      */
-    public static int SECURITY_WINRM_ID_BASE_RID() {
-        return (int)94L;
+    public static GroupLayout ALL_POWERSCHEMES_GUID$layout() {
+        return ALL_POWERSCHEMES_GUID$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_WINRM_ID_RID_COUNT 6
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID ALL_POWERSCHEMES_GUID
      * }
      */
-    public static int SECURITY_WINRM_ID_RID_COUNT() {
-        return (int)6L;
+    public static MemorySegment ALL_POWERSCHEMES_GUID() {
+        return ALL_POWERSCHEMES_GUID$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CCG_ID_BASE_RID 95
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID ALL_POWERSCHEMES_GUID
      * }
      */
-    public static int SECURITY_CCG_ID_BASE_RID() {
-        return (int)95L;
+    public static void ALL_POWERSCHEMES_GUID(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, ALL_POWERSCHEMES_GUID$constants.SEGMENT, 0L, ALL_POWERSCHEMES_GUID$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_POWERSCHEME_PERSONALITY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_POWERSCHEME_PERSONALITY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_UMFD_BASE_RID 96
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_POWERSCHEME_PERSONALITY
      * }
      */
-    public static int SECURITY_UMFD_BASE_RID() {
-        return (int)96L;
+    public static GroupLayout GUID_POWERSCHEME_PERSONALITY$layout() {
+        return GUID_POWERSCHEME_PERSONALITY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_VIRTUALACCOUNT_ID_RID_COUNT 6
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_POWERSCHEME_PERSONALITY
      * }
      */
-    public static int SECURITY_VIRTUALACCOUNT_ID_RID_COUNT() {
-        return (int)6L;
+    public static MemorySegment GUID_POWERSCHEME_PERSONALITY() {
+        return GUID_POWERSCHEME_PERSONALITY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_MAX_BASE_RID 111
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_POWERSCHEME_PERSONALITY
      * }
      */
-    public static int SECURITY_MAX_BASE_RID() {
-        return (int)111L;
+    public static void GUID_POWERSCHEME_PERSONALITY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_POWERSCHEME_PERSONALITY$constants.SEGMENT, 0L, GUID_POWERSCHEME_PERSONALITY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_ACTIVE_POWERSCHEME$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ACTIVE_POWERSCHEME").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_MAX_ALWAYS_FILTERED 999
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ACTIVE_POWERSCHEME
      * }
      */
-    public static int SECURITY_MAX_ALWAYS_FILTERED() {
-        return (int)999L;
+    public static GroupLayout GUID_ACTIVE_POWERSCHEME$layout() {
+        return GUID_ACTIVE_POWERSCHEME$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_MIN_NEVER_FILTERED 1000
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ACTIVE_POWERSCHEME
      * }
      */
-    public static int SECURITY_MIN_NEVER_FILTERED() {
-        return (int)1000L;
+    public static MemorySegment GUID_ACTIVE_POWERSCHEME() {
+        return GUID_ACTIVE_POWERSCHEME$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_OTHER_ORGANIZATION_RID 1000
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ACTIVE_POWERSCHEME
      * }
      */
-    public static int SECURITY_OTHER_ORGANIZATION_RID() {
-        return (int)1000L;
+    public static void GUID_ACTIVE_POWERSCHEME(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ACTIVE_POWERSCHEME$constants.SEGMENT, 0L, GUID_ACTIVE_POWERSCHEME$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_IDLE_RESILIENCY_SUBGROUP$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_IDLE_RESILIENCY_SUBGROUP").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_WINDOWSMOBILE_ID_BASE_RID 112
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_IDLE_RESILIENCY_SUBGROUP
      * }
      */
-    public static int SECURITY_WINDOWSMOBILE_ID_BASE_RID() {
-        return (int)112L;
+    public static GroupLayout GUID_IDLE_RESILIENCY_SUBGROUP$layout() {
+        return GUID_IDLE_RESILIENCY_SUBGROUP$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_INSTALLER_GROUP_CAPABILITY_BASE 32
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_IDLE_RESILIENCY_SUBGROUP
      * }
      */
-    public static int SECURITY_INSTALLER_GROUP_CAPABILITY_BASE() {
-        return (int)32L;
+    public static MemorySegment GUID_IDLE_RESILIENCY_SUBGROUP() {
+        return GUID_IDLE_RESILIENCY_SUBGROUP$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_INSTALLER_GROUP_CAPABILITY_RID_COUNT 9
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_IDLE_RESILIENCY_SUBGROUP
      * }
      */
-    public static int SECURITY_INSTALLER_GROUP_CAPABILITY_RID_COUNT() {
-        return (int)9L;
+    public static void GUID_IDLE_RESILIENCY_SUBGROUP(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_IDLE_RESILIENCY_SUBGROUP$constants.SEGMENT, 0L, GUID_IDLE_RESILIENCY_SUBGROUP$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_IDLE_RESILIENCY_PERIOD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_IDLE_RESILIENCY_PERIOD").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_INSTALLER_CAPABILITY_RID_COUNT 10
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_IDLE_RESILIENCY_PERIOD
      * }
      */
-    public static int SECURITY_INSTALLER_CAPABILITY_RID_COUNT() {
-        return (int)10L;
+    public static GroupLayout GUID_IDLE_RESILIENCY_PERIOD$layout() {
+        return GUID_IDLE_RESILIENCY_PERIOD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_LOCAL_ACCOUNT_RID 113
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_IDLE_RESILIENCY_PERIOD
      * }
      */
-    public static int SECURITY_LOCAL_ACCOUNT_RID() {
-        return (int)113L;
+    public static MemorySegment GUID_IDLE_RESILIENCY_PERIOD() {
+        return GUID_IDLE_RESILIENCY_PERIOD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_LOCAL_ACCOUNT_AND_ADMIN_RID 114
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_IDLE_RESILIENCY_PERIOD
      * }
      */
-    public static int SECURITY_LOCAL_ACCOUNT_AND_ADMIN_RID() {
-        return (int)114L;
+    public static void GUID_IDLE_RESILIENCY_PERIOD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_IDLE_RESILIENCY_PERIOD$constants.SEGMENT, 0L, GUID_IDLE_RESILIENCY_PERIOD$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_DEEP_SLEEP_ENABLED$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DEEP_SLEEP_ENABLED").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_AUTHORIZATION_DATA_IS_COMPOUNDED 496
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEEP_SLEEP_ENABLED
      * }
      */
-    public static int DOMAIN_GROUP_RID_AUTHORIZATION_DATA_IS_COMPOUNDED() {
-        return (int)496L;
+    public static GroupLayout GUID_DEEP_SLEEP_ENABLED$layout() {
+        return GUID_DEEP_SLEEP_ENABLED$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_AUTHORIZATION_DATA_CONTAINS_CLAIMS 497
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEEP_SLEEP_ENABLED
      * }
      */
-    public static int DOMAIN_GROUP_RID_AUTHORIZATION_DATA_CONTAINS_CLAIMS() {
-        return (int)497L;
+    public static MemorySegment GUID_DEEP_SLEEP_ENABLED() {
+        return GUID_DEEP_SLEEP_ENABLED$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_ENTERPRISE_READONLY_DOMAIN_CONTROLLERS 498
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEEP_SLEEP_ENABLED
      * }
      */
-    public static int DOMAIN_GROUP_RID_ENTERPRISE_READONLY_DOMAIN_CONTROLLERS() {
-        return (int)498L;
+    public static void GUID_DEEP_SLEEP_ENABLED(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DEEP_SLEEP_ENABLED$constants.SEGMENT, 0L, GUID_DEEP_SLEEP_ENABLED$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_DEEP_SLEEP_PLATFORM_STATE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DEEP_SLEEP_PLATFORM_STATE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define FOREST_USER_RID_MAX 499
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEEP_SLEEP_PLATFORM_STATE
      * }
      */
-    public static int FOREST_USER_RID_MAX() {
-        return (int)499L;
+    public static GroupLayout GUID_DEEP_SLEEP_PLATFORM_STATE$layout() {
+        return GUID_DEEP_SLEEP_PLATFORM_STATE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_USER_RID_ADMIN 500
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEEP_SLEEP_PLATFORM_STATE
      * }
      */
-    public static int DOMAIN_USER_RID_ADMIN() {
-        return (int)500L;
+    public static MemorySegment GUID_DEEP_SLEEP_PLATFORM_STATE() {
+        return GUID_DEEP_SLEEP_PLATFORM_STATE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_USER_RID_GUEST 501
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEEP_SLEEP_PLATFORM_STATE
      * }
      */
-    public static int DOMAIN_USER_RID_GUEST() {
-        return (int)501L;
+    public static void GUID_DEEP_SLEEP_PLATFORM_STATE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DEEP_SLEEP_PLATFORM_STATE$constants.SEGMENT, 0L, GUID_DEEP_SLEEP_PLATFORM_STATE$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_DISK_COALESCING_POWERDOWN_TIMEOUT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_COALESCING_POWERDOWN_TIMEOUT").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_USER_RID_KRBTGT 502
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_COALESCING_POWERDOWN_TIMEOUT
      * }
      */
-    public static int DOMAIN_USER_RID_KRBTGT() {
-        return (int)502L;
+    public static GroupLayout GUID_DISK_COALESCING_POWERDOWN_TIMEOUT$layout() {
+        return GUID_DISK_COALESCING_POWERDOWN_TIMEOUT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_USER_RID_DEFAULT_ACCOUNT 503
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_COALESCING_POWERDOWN_TIMEOUT
      * }
      */
-    public static int DOMAIN_USER_RID_DEFAULT_ACCOUNT() {
-        return (int)503L;
+    public static MemorySegment GUID_DISK_COALESCING_POWERDOWN_TIMEOUT() {
+        return GUID_DISK_COALESCING_POWERDOWN_TIMEOUT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_USER_RID_WDAG_ACCOUNT 504
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_COALESCING_POWERDOWN_TIMEOUT
      * }
      */
-    public static int DOMAIN_USER_RID_WDAG_ACCOUNT() {
-        return (int)504L;
+    public static void GUID_DISK_COALESCING_POWERDOWN_TIMEOUT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DISK_COALESCING_POWERDOWN_TIMEOUT$constants.SEGMENT, 0L, GUID_DISK_COALESCING_POWERDOWN_TIMEOUT$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_USER_RID_MAX 999
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT
      * }
      */
-    public static int DOMAIN_USER_RID_MAX() {
-        return (int)999L;
+    public static GroupLayout GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT$layout() {
+        return GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_ADMINS 512
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT
      * }
      */
-    public static int DOMAIN_GROUP_RID_ADMINS() {
-        return (int)512L;
+    public static MemorySegment GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT() {
+        return GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_USERS 513
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT
      * }
      */
-    public static int DOMAIN_GROUP_RID_USERS() {
-        return (int)513L;
+    public static void GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT$constants.SEGMENT, 0L, GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_VIDEO_SUBGROUP$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_SUBGROUP").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_GUESTS 514
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_SUBGROUP
      * }
      */
-    public static int DOMAIN_GROUP_RID_GUESTS() {
-        return (int)514L;
+    public static GroupLayout GUID_VIDEO_SUBGROUP$layout() {
+        return GUID_VIDEO_SUBGROUP$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_COMPUTERS 515
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_SUBGROUP
      * }
      */
-    public static int DOMAIN_GROUP_RID_COMPUTERS() {
-        return (int)515L;
+    public static MemorySegment GUID_VIDEO_SUBGROUP() {
+        return GUID_VIDEO_SUBGROUP$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_CONTROLLERS 516
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_SUBGROUP
      * }
      */
-    public static int DOMAIN_GROUP_RID_CONTROLLERS() {
-        return (int)516L;
+    public static void GUID_VIDEO_SUBGROUP(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_VIDEO_SUBGROUP$constants.SEGMENT, 0L, GUID_VIDEO_SUBGROUP$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_VIDEO_POWERDOWN_TIMEOUT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_POWERDOWN_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_CERT_ADMINS 517
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_POWERDOWN_TIMEOUT
      * }
      */
-    public static int DOMAIN_GROUP_RID_CERT_ADMINS() {
-        return (int)517L;
+    public static GroupLayout GUID_VIDEO_POWERDOWN_TIMEOUT$layout() {
+        return GUID_VIDEO_POWERDOWN_TIMEOUT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_SCHEMA_ADMINS 518
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_POWERDOWN_TIMEOUT
      * }
      */
-    public static int DOMAIN_GROUP_RID_SCHEMA_ADMINS() {
-        return (int)518L;
+    public static MemorySegment GUID_VIDEO_POWERDOWN_TIMEOUT() {
+        return GUID_VIDEO_POWERDOWN_TIMEOUT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_ENTERPRISE_ADMINS 519
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_POWERDOWN_TIMEOUT
      * }
      */
-    public static int DOMAIN_GROUP_RID_ENTERPRISE_ADMINS() {
-        return (int)519L;
+    public static void GUID_VIDEO_POWERDOWN_TIMEOUT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_VIDEO_POWERDOWN_TIMEOUT$constants.SEGMENT, 0L, GUID_VIDEO_POWERDOWN_TIMEOUT$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_VIDEO_ANNOYANCE_TIMEOUT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_ANNOYANCE_TIMEOUT").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_POLICY_ADMINS 520
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_ANNOYANCE_TIMEOUT
      * }
      */
-    public static int DOMAIN_GROUP_RID_POLICY_ADMINS() {
-        return (int)520L;
+    public static GroupLayout GUID_VIDEO_ANNOYANCE_TIMEOUT$layout() {
+        return GUID_VIDEO_ANNOYANCE_TIMEOUT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_READONLY_CONTROLLERS 521
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_ANNOYANCE_TIMEOUT
      * }
      */
-    public static int DOMAIN_GROUP_RID_READONLY_CONTROLLERS() {
-        return (int)521L;
+    public static MemorySegment GUID_VIDEO_ANNOYANCE_TIMEOUT() {
+        return GUID_VIDEO_ANNOYANCE_TIMEOUT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_CLONEABLE_CONTROLLERS 522
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_ANNOYANCE_TIMEOUT
      * }
      */
-    public static int DOMAIN_GROUP_RID_CLONEABLE_CONTROLLERS() {
-        return (int)522L;
+    public static void GUID_VIDEO_ANNOYANCE_TIMEOUT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_VIDEO_ANNOYANCE_TIMEOUT$constants.SEGMENT, 0L, GUID_VIDEO_ANNOYANCE_TIMEOUT$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_CDC_RESERVED 524
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE
      * }
      */
-    public static int DOMAIN_GROUP_RID_CDC_RESERVED() {
-        return (int)524L;
+    public static GroupLayout GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE$layout() {
+        return GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_PROTECTED_USERS 525
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE
      * }
      */
-    public static int DOMAIN_GROUP_RID_PROTECTED_USERS() {
-        return (int)525L;
+    public static MemorySegment GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE() {
+        return GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_KEY_ADMINS 526
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE
      * }
      */
-    public static int DOMAIN_GROUP_RID_KEY_ADMINS() {
-        return (int)526L;
+    public static void GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE$constants.SEGMENT, 0L, GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_VIDEO_DIM_TIMEOUT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_DIM_TIMEOUT").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_GROUP_RID_ENTERPRISE_KEY_ADMINS 527
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_DIM_TIMEOUT
      * }
      */
-    public static int DOMAIN_GROUP_RID_ENTERPRISE_KEY_ADMINS() {
-        return (int)527L;
+    public static GroupLayout GUID_VIDEO_DIM_TIMEOUT$layout() {
+        return GUID_VIDEO_DIM_TIMEOUT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_ADMINS 544
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_DIM_TIMEOUT
      * }
      */
-    public static int DOMAIN_ALIAS_RID_ADMINS() {
-        return (int)544L;
+    public static MemorySegment GUID_VIDEO_DIM_TIMEOUT() {
+        return GUID_VIDEO_DIM_TIMEOUT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_USERS 545
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_DIM_TIMEOUT
      * }
      */
-    public static int DOMAIN_ALIAS_RID_USERS() {
-        return (int)545L;
+    public static void GUID_VIDEO_DIM_TIMEOUT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_VIDEO_DIM_TIMEOUT$constants.SEGMENT, 0L, GUID_VIDEO_DIM_TIMEOUT$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_VIDEO_ADAPTIVE_POWERDOWN$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_ADAPTIVE_POWERDOWN").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_GUESTS 546
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_ADAPTIVE_POWERDOWN
      * }
      */
-    public static int DOMAIN_ALIAS_RID_GUESTS() {
-        return (int)546L;
+    public static GroupLayout GUID_VIDEO_ADAPTIVE_POWERDOWN$layout() {
+        return GUID_VIDEO_ADAPTIVE_POWERDOWN$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_POWER_USERS 547
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_ADAPTIVE_POWERDOWN
      * }
      */
-    public static int DOMAIN_ALIAS_RID_POWER_USERS() {
-        return (int)547L;
+    public static MemorySegment GUID_VIDEO_ADAPTIVE_POWERDOWN() {
+        return GUID_VIDEO_ADAPTIVE_POWERDOWN$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_ACCOUNT_OPS 548
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_ADAPTIVE_POWERDOWN
      * }
      */
-    public static int DOMAIN_ALIAS_RID_ACCOUNT_OPS() {
-        return (int)548L;
+    public static void GUID_VIDEO_ADAPTIVE_POWERDOWN(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_VIDEO_ADAPTIVE_POWERDOWN$constants.SEGMENT, 0L, GUID_VIDEO_ADAPTIVE_POWERDOWN$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_MONITOR_POWER_ON$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_MONITOR_POWER_ON").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_SYSTEM_OPS 549
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_MONITOR_POWER_ON
      * }
      */
-    public static int DOMAIN_ALIAS_RID_SYSTEM_OPS() {
-        return (int)549L;
+    public static GroupLayout GUID_MONITOR_POWER_ON$layout() {
+        return GUID_MONITOR_POWER_ON$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_PRINT_OPS 550
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_MONITOR_POWER_ON
      * }
      */
-    public static int DOMAIN_ALIAS_RID_PRINT_OPS() {
-        return (int)550L;
+    public static MemorySegment GUID_MONITOR_POWER_ON() {
+        return GUID_MONITOR_POWER_ON$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_BACKUP_OPS 551
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_MONITOR_POWER_ON
      * }
      */
-    public static int DOMAIN_ALIAS_RID_BACKUP_OPS() {
-        return (int)551L;
+    public static void GUID_MONITOR_POWER_ON(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_MONITOR_POWER_ON$constants.SEGMENT, 0L, GUID_MONITOR_POWER_ON$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_REPLICATOR 552
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_REPLICATOR() {
-        return (int)552L;
+    public static GroupLayout GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS$layout() {
+        return GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_RAS_SERVERS 553
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_RAS_SERVERS() {
-        return (int)553L;
+    public static MemorySegment GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS() {
+        return GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_PREW2KCOMPACCESS 554
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_PREW2KCOMPACCESS() {
-        return (int)554L;
+    public static void GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS$constants.SEGMENT, 0L, GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_REMOTE_DESKTOP_USERS 555
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_REMOTE_DESKTOP_USERS() {
-        return (int)555L;
+    public static GroupLayout GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS$layout() {
+        return GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_NETWORK_CONFIGURATION_OPS 556
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_NETWORK_CONFIGURATION_OPS() {
-        return (int)556L;
+    public static MemorySegment GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS() {
+        return GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_INCOMING_FOREST_TRUST_BUILDERS 557
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_INCOMING_FOREST_TRUST_BUILDERS() {
-        return (int)557L;
+    public static void GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS$constants.SEGMENT, 0L, GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_MONITORING_USERS 558
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_MONITORING_USERS() {
-        return (int)558L;
+    public static GroupLayout GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS$layout() {
+        return GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_LOGGING_USERS 559
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_LOGGING_USERS() {
-        return (int)559L;
+    public static MemorySegment GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS() {
+        return GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_AUTHORIZATIONACCESS 560
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_AUTHORIZATIONACCESS() {
-        return (int)560L;
+    public static void GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS$constants.SEGMENT, 0L, GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_TS_LICENSE_SERVERS 561
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_TS_LICENSE_SERVERS() {
-        return (int)561L;
+    public static GroupLayout GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS$layout() {
+        return GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_DCOM_USERS 562
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_DCOM_USERS() {
-        return (int)562L;
+    public static MemorySegment GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS() {
+        return GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_IUSERS 568
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_IUSERS() {
-        return (int)568L;
+    public static void GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS$constants.SEGMENT, 0L, GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_CONSOLE_DISPLAY_STATE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_CONSOLE_DISPLAY_STATE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_CRYPTO_OPERATORS 569
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_CONSOLE_DISPLAY_STATE
      * }
      */
-    public static int DOMAIN_ALIAS_RID_CRYPTO_OPERATORS() {
-        return (int)569L;
+    public static GroupLayout GUID_CONSOLE_DISPLAY_STATE$layout() {
+        return GUID_CONSOLE_DISPLAY_STATE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_CACHEABLE_PRINCIPALS_GROUP 571
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_CONSOLE_DISPLAY_STATE
      * }
      */
-    public static int DOMAIN_ALIAS_RID_CACHEABLE_PRINCIPALS_GROUP() {
-        return (int)571L;
+    public static MemorySegment GUID_CONSOLE_DISPLAY_STATE() {
+        return GUID_CONSOLE_DISPLAY_STATE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_NON_CACHEABLE_PRINCIPALS_GROUP 572
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_CONSOLE_DISPLAY_STATE
      * }
      */
-    public static int DOMAIN_ALIAS_RID_NON_CACHEABLE_PRINCIPALS_GROUP() {
-        return (int)572L;
+    public static void GUID_CONSOLE_DISPLAY_STATE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_CONSOLE_DISPLAY_STATE$constants.SEGMENT, 0L, GUID_CONSOLE_DISPLAY_STATE$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_ALLOW_DISPLAY_REQUIRED$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ALLOW_DISPLAY_REQUIRED").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_EVENT_LOG_READERS_GROUP 573
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_DISPLAY_REQUIRED
      * }
      */
-    public static int DOMAIN_ALIAS_RID_EVENT_LOG_READERS_GROUP() {
-        return (int)573L;
+    public static GroupLayout GUID_ALLOW_DISPLAY_REQUIRED$layout() {
+        return GUID_ALLOW_DISPLAY_REQUIRED$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_CERTSVC_DCOM_ACCESS_GROUP 574
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_DISPLAY_REQUIRED
      * }
      */
-    public static int DOMAIN_ALIAS_RID_CERTSVC_DCOM_ACCESS_GROUP() {
-        return (int)574L;
+    public static MemorySegment GUID_ALLOW_DISPLAY_REQUIRED() {
+        return GUID_ALLOW_DISPLAY_REQUIRED$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_RDS_REMOTE_ACCESS_SERVERS 575
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_DISPLAY_REQUIRED
      * }
      */
-    public static int DOMAIN_ALIAS_RID_RDS_REMOTE_ACCESS_SERVERS() {
-        return (int)575L;
+    public static void GUID_ALLOW_DISPLAY_REQUIRED(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ALLOW_DISPLAY_REQUIRED$constants.SEGMENT, 0L, GUID_ALLOW_DISPLAY_REQUIRED$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_VIDEO_CONSOLE_LOCK_TIMEOUT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_VIDEO_CONSOLE_LOCK_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_RDS_ENDPOINT_SERVERS 576
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_CONSOLE_LOCK_TIMEOUT
      * }
      */
-    public static int DOMAIN_ALIAS_RID_RDS_ENDPOINT_SERVERS() {
-        return (int)576L;
+    public static GroupLayout GUID_VIDEO_CONSOLE_LOCK_TIMEOUT$layout() {
+        return GUID_VIDEO_CONSOLE_LOCK_TIMEOUT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_RDS_MANAGEMENT_SERVERS 577
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_CONSOLE_LOCK_TIMEOUT
      * }
      */
-    public static int DOMAIN_ALIAS_RID_RDS_MANAGEMENT_SERVERS() {
-        return (int)577L;
+    public static MemorySegment GUID_VIDEO_CONSOLE_LOCK_TIMEOUT() {
+        return GUID_VIDEO_CONSOLE_LOCK_TIMEOUT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_HYPER_V_ADMINS 578
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_VIDEO_CONSOLE_LOCK_TIMEOUT
      * }
      */
-    public static int DOMAIN_ALIAS_RID_HYPER_V_ADMINS() {
-        return (int)578L;
+    public static void GUID_VIDEO_CONSOLE_LOCK_TIMEOUT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_VIDEO_CONSOLE_LOCK_TIMEOUT$constants.SEGMENT, 0L, GUID_VIDEO_CONSOLE_LOCK_TIMEOUT$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_ADVANCED_COLOR_QUALITY_BIAS$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ADVANCED_COLOR_QUALITY_BIAS").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_ACCESS_CONTROL_ASSISTANCE_OPS 579
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ADVANCED_COLOR_QUALITY_BIAS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_ACCESS_CONTROL_ASSISTANCE_OPS() {
-        return (int)579L;
+    public static GroupLayout GUID_ADVANCED_COLOR_QUALITY_BIAS$layout() {
+        return GUID_ADVANCED_COLOR_QUALITY_BIAS$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_REMOTE_MANAGEMENT_USERS 580
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ADVANCED_COLOR_QUALITY_BIAS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_REMOTE_MANAGEMENT_USERS() {
-        return (int)580L;
+    public static MemorySegment GUID_ADVANCED_COLOR_QUALITY_BIAS() {
+        return GUID_ADVANCED_COLOR_QUALITY_BIAS$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_DEFAULT_ACCOUNT 581
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ADVANCED_COLOR_QUALITY_BIAS
      * }
      */
-    public static int DOMAIN_ALIAS_RID_DEFAULT_ACCOUNT() {
-        return (int)581L;
+    public static void GUID_ADVANCED_COLOR_QUALITY_BIAS(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ADVANCED_COLOR_QUALITY_BIAS$constants.SEGMENT, 0L, GUID_ADVANCED_COLOR_QUALITY_BIAS$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_STORAGE_REPLICA_ADMINS 582
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP
      * }
      */
-    public static int DOMAIN_ALIAS_RID_STORAGE_REPLICA_ADMINS() {
-        return (int)582L;
+    public static GroupLayout GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP$layout() {
+        return GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DOMAIN_ALIAS_RID_DEVICE_OWNERS 583
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP
      * }
      */
-    public static int DOMAIN_ALIAS_RID_DEVICE_OWNERS() {
-        return (int)583L;
+    public static MemorySegment GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP() {
+        return GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_APP_PACKAGE_BASE_RID 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP
      * }
      */
-    public static int SECURITY_APP_PACKAGE_BASE_RID() {
-        return (int)2L;
+    public static void GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP$constants.SEGMENT, 0L, GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_NON_ADAPTIVE_INPUT_TIMEOUT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_NON_ADAPTIVE_INPUT_TIMEOUT").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_BUILTIN_APP_PACKAGE_RID_COUNT 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_NON_ADAPTIVE_INPUT_TIMEOUT
      * }
      */
-    public static int SECURITY_BUILTIN_APP_PACKAGE_RID_COUNT() {
-        return (int)2L;
+    public static GroupLayout GUID_NON_ADAPTIVE_INPUT_TIMEOUT$layout() {
+        return GUID_NON_ADAPTIVE_INPUT_TIMEOUT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_APP_PACKAGE_RID_COUNT 8
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_NON_ADAPTIVE_INPUT_TIMEOUT
      * }
      */
-    public static int SECURITY_APP_PACKAGE_RID_COUNT() {
-        return (int)8L;
+    public static MemorySegment GUID_NON_ADAPTIVE_INPUT_TIMEOUT() {
+        return GUID_NON_ADAPTIVE_INPUT_TIMEOUT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_BASE_RID 3
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_NON_ADAPTIVE_INPUT_TIMEOUT
      * }
      */
-    public static int SECURITY_CAPABILITY_BASE_RID() {
-        return (int)3L;
+    public static void GUID_NON_ADAPTIVE_INPUT_TIMEOUT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_NON_ADAPTIVE_INPUT_TIMEOUT$constants.SEGMENT, 0L, GUID_NON_ADAPTIVE_INPUT_TIMEOUT$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_ADAPTIVE_INPUT_CONTROLLER_STATE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ADAPTIVE_INPUT_CONTROLLER_STATE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_APP_RID 1024
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ADAPTIVE_INPUT_CONTROLLER_STATE
      * }
      */
-    public static int SECURITY_CAPABILITY_APP_RID() {
-        return (int)1024L;
+    public static GroupLayout GUID_ADAPTIVE_INPUT_CONTROLLER_STATE$layout() {
+        return GUID_ADAPTIVE_INPUT_CONTROLLER_STATE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_BUILTIN_CAPABILITY_RID_COUNT 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ADAPTIVE_INPUT_CONTROLLER_STATE
      * }
      */
-    public static int SECURITY_BUILTIN_CAPABILITY_RID_COUNT() {
-        return (int)2L;
+    public static MemorySegment GUID_ADAPTIVE_INPUT_CONTROLLER_STATE() {
+        return GUID_ADAPTIVE_INPUT_CONTROLLER_STATE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_RID_COUNT 5
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ADAPTIVE_INPUT_CONTROLLER_STATE
      * }
      */
-    public static int SECURITY_CAPABILITY_RID_COUNT() {
-        return (int)5L;
+    public static void GUID_ADAPTIVE_INPUT_CONTROLLER_STATE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ADAPTIVE_INPUT_CONTROLLER_STATE$constants.SEGMENT, 0L, GUID_ADAPTIVE_INPUT_CONTROLLER_STATE$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_DISK_SUBGROUP$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_SUBGROUP").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_PARENT_PACKAGE_RID_COUNT 8
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_SUBGROUP
      * }
      */
-    public static int SECURITY_PARENT_PACKAGE_RID_COUNT() {
-        return (int)8L;
+    public static GroupLayout GUID_DISK_SUBGROUP$layout() {
+        return GUID_DISK_SUBGROUP$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CHILD_PACKAGE_RID_COUNT 12
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_SUBGROUP
      * }
      */
-    public static int SECURITY_CHILD_PACKAGE_RID_COUNT() {
-        return (int)12L;
+    public static MemorySegment GUID_DISK_SUBGROUP() {
+        return GUID_DISK_SUBGROUP$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_BUILTIN_PACKAGE_ANY_PACKAGE 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_SUBGROUP
      * }
      */
-    public static int SECURITY_BUILTIN_PACKAGE_ANY_PACKAGE() {
-        return (int)1L;
+    public static void GUID_DISK_SUBGROUP(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DISK_SUBGROUP$constants.SEGMENT, 0L, GUID_DISK_SUBGROUP$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_DISK_MAX_POWER$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_MAX_POWER").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_BUILTIN_PACKAGE_ANY_RESTRICTED_PACKAGE 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_MAX_POWER
      * }
      */
-    public static int SECURITY_BUILTIN_PACKAGE_ANY_RESTRICTED_PACKAGE() {
-        return (int)2L;
+    public static GroupLayout GUID_DISK_MAX_POWER$layout() {
+        return GUID_DISK_MAX_POWER$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_INTERNET_CLIENT 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_MAX_POWER
      * }
      */
-    public static int SECURITY_CAPABILITY_INTERNET_CLIENT() {
-        return (int)1L;
+    public static MemorySegment GUID_DISK_MAX_POWER() {
+        return GUID_DISK_MAX_POWER$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_INTERNET_CLIENT_SERVER 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_MAX_POWER
      * }
      */
-    public static int SECURITY_CAPABILITY_INTERNET_CLIENT_SERVER() {
-        return (int)2L;
+    public static void GUID_DISK_MAX_POWER(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DISK_MAX_POWER$constants.SEGMENT, 0L, GUID_DISK_MAX_POWER$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_DISK_POWERDOWN_TIMEOUT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_POWERDOWN_TIMEOUT").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_PRIVATE_NETWORK_CLIENT_SERVER 3
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_POWERDOWN_TIMEOUT
      * }
      */
-    public static int SECURITY_CAPABILITY_PRIVATE_NETWORK_CLIENT_SERVER() {
-        return (int)3L;
+    public static GroupLayout GUID_DISK_POWERDOWN_TIMEOUT$layout() {
+        return GUID_DISK_POWERDOWN_TIMEOUT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_PICTURES_LIBRARY 4
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_POWERDOWN_TIMEOUT
      * }
      */
-    public static int SECURITY_CAPABILITY_PICTURES_LIBRARY() {
-        return (int)4L;
+    public static MemorySegment GUID_DISK_POWERDOWN_TIMEOUT() {
+        return GUID_DISK_POWERDOWN_TIMEOUT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_VIDEOS_LIBRARY 5
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_POWERDOWN_TIMEOUT
      * }
      */
-    public static int SECURITY_CAPABILITY_VIDEOS_LIBRARY() {
-        return (int)5L;
+    public static void GUID_DISK_POWERDOWN_TIMEOUT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DISK_POWERDOWN_TIMEOUT$constants.SEGMENT, 0L, GUID_DISK_POWERDOWN_TIMEOUT$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_DISK_IDLE_TIMEOUT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_IDLE_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_MUSIC_LIBRARY 6
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_IDLE_TIMEOUT
      * }
      */
-    public static int SECURITY_CAPABILITY_MUSIC_LIBRARY() {
-        return (int)6L;
+    public static GroupLayout GUID_DISK_IDLE_TIMEOUT$layout() {
+        return GUID_DISK_IDLE_TIMEOUT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_DOCUMENTS_LIBRARY 7
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_IDLE_TIMEOUT
      * }
      */
-    public static int SECURITY_CAPABILITY_DOCUMENTS_LIBRARY() {
-        return (int)7L;
+    public static MemorySegment GUID_DISK_IDLE_TIMEOUT() {
+        return GUID_DISK_IDLE_TIMEOUT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_ENTERPRISE_AUTHENTICATION 8
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_IDLE_TIMEOUT
      * }
      */
-    public static int SECURITY_CAPABILITY_ENTERPRISE_AUTHENTICATION() {
-        return (int)8L;
+    public static void GUID_DISK_IDLE_TIMEOUT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DISK_IDLE_TIMEOUT$constants.SEGMENT, 0L, GUID_DISK_IDLE_TIMEOUT$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_DISK_BURST_IGNORE_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_BURST_IGNORE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_SHARED_USER_CERTIFICATES 9
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_BURST_IGNORE_THRESHOLD
      * }
      */
-    public static int SECURITY_CAPABILITY_SHARED_USER_CERTIFICATES() {
-        return (int)9L;
+    public static GroupLayout GUID_DISK_BURST_IGNORE_THRESHOLD$layout() {
+        return GUID_DISK_BURST_IGNORE_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_REMOVABLE_STORAGE 10
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_BURST_IGNORE_THRESHOLD
      * }
      */
-    public static int SECURITY_CAPABILITY_REMOVABLE_STORAGE() {
-        return (int)10L;
+    public static MemorySegment GUID_DISK_BURST_IGNORE_THRESHOLD() {
+        return GUID_DISK_BURST_IGNORE_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_APPOINTMENTS 11
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_BURST_IGNORE_THRESHOLD
      * }
      */
-    public static int SECURITY_CAPABILITY_APPOINTMENTS() {
-        return (int)11L;
+    public static void GUID_DISK_BURST_IGNORE_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DISK_BURST_IGNORE_THRESHOLD$constants.SEGMENT, 0L, GUID_DISK_BURST_IGNORE_THRESHOLD$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_DISK_ADAPTIVE_POWERDOWN$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_ADAPTIVE_POWERDOWN").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_CONTACTS 12
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_ADAPTIVE_POWERDOWN
      * }
      */
-    public static int SECURITY_CAPABILITY_CONTACTS() {
-        return (int)12L;
+    public static GroupLayout GUID_DISK_ADAPTIVE_POWERDOWN$layout() {
+        return GUID_DISK_ADAPTIVE_POWERDOWN$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_CAPABILITY_INTERNET_EXPLORER 4096
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_ADAPTIVE_POWERDOWN
      * }
      */
-    public static int SECURITY_CAPABILITY_INTERNET_EXPLORER() {
-        return (int)4096L;
+    public static MemorySegment GUID_DISK_ADAPTIVE_POWERDOWN() {
+        return GUID_DISK_ADAPTIVE_POWERDOWN$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_MANDATORY_UNTRUSTED_RID 0
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_ADAPTIVE_POWERDOWN
      * }
      */
-    public static int SECURITY_MANDATORY_UNTRUSTED_RID() {
-        return (int)0L;
+    public static void GUID_DISK_ADAPTIVE_POWERDOWN(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DISK_ADAPTIVE_POWERDOWN$constants.SEGMENT, 0L, GUID_DISK_ADAPTIVE_POWERDOWN$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_DISK_NVME_NOPPME$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISK_NVME_NOPPME").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_MANDATORY_LOW_RID 4096
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_NVME_NOPPME
      * }
      */
-    public static int SECURITY_MANDATORY_LOW_RID() {
-        return (int)4096L;
+    public static GroupLayout GUID_DISK_NVME_NOPPME$layout() {
+        return GUID_DISK_NVME_NOPPME$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_MANDATORY_MEDIUM_RID 8192
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_NVME_NOPPME
      * }
      */
-    public static int SECURITY_MANDATORY_MEDIUM_RID() {
-        return (int)8192L;
+    public static MemorySegment GUID_DISK_NVME_NOPPME() {
+        return GUID_DISK_NVME_NOPPME$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_MANDATORY_MEDIUM_PLUS_RID 8448
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISK_NVME_NOPPME
      * }
      */
-    public static int SECURITY_MANDATORY_MEDIUM_PLUS_RID() {
-        return (int)8448L;
+    public static void GUID_DISK_NVME_NOPPME(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DISK_NVME_NOPPME$constants.SEGMENT, 0L, GUID_DISK_NVME_NOPPME$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_SLEEP_SUBGROUP$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SLEEP_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_MANDATORY_HIGH_RID 12288
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SLEEP_SUBGROUP
      * }
      */
-    public static int SECURITY_MANDATORY_HIGH_RID() {
-        return (int)12288L;
+    public static GroupLayout GUID_SLEEP_SUBGROUP$layout() {
+        return GUID_SLEEP_SUBGROUP$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_MANDATORY_SYSTEM_RID 16384
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SLEEP_SUBGROUP
      * }
      */
-    public static int SECURITY_MANDATORY_SYSTEM_RID() {
-        return (int)16384L;
+    public static MemorySegment GUID_SLEEP_SUBGROUP() {
+        return GUID_SLEEP_SUBGROUP$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_MANDATORY_PROTECTED_PROCESS_RID 20480
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SLEEP_SUBGROUP
      * }
      */
-    public static int SECURITY_MANDATORY_PROTECTED_PROCESS_RID() {
-        return (int)20480L;
+    public static void GUID_SLEEP_SUBGROUP(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_SLEEP_SUBGROUP$constants.SEGMENT, 0L, GUID_SLEEP_SUBGROUP$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_SLEEP_IDLE_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SLEEP_IDLE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_MANDATORY_MAXIMUM_USER_RID 16384
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SLEEP_IDLE_THRESHOLD
      * }
      */
-    public static int SECURITY_MANDATORY_MAXIMUM_USER_RID() {
-        return (int)16384L;
+    public static GroupLayout GUID_SLEEP_IDLE_THRESHOLD$layout() {
+        return GUID_SLEEP_IDLE_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_AUTHENTICATION_AUTHORITY_RID_COUNT 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SLEEP_IDLE_THRESHOLD
      * }
      */
-    public static int SECURITY_AUTHENTICATION_AUTHORITY_RID_COUNT() {
-        return (int)1L;
+    public static MemorySegment GUID_SLEEP_IDLE_THRESHOLD() {
+        return GUID_SLEEP_IDLE_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_AUTHENTICATION_AUTHORITY_ASSERTED_RID 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SLEEP_IDLE_THRESHOLD
      * }
      */
-    public static int SECURITY_AUTHENTICATION_AUTHORITY_ASSERTED_RID() {
-        return (int)1L;
+    public static void GUID_SLEEP_IDLE_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_SLEEP_IDLE_THRESHOLD$constants.SEGMENT, 0L, GUID_SLEEP_IDLE_THRESHOLD$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_STANDBY_TIMEOUT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_STANDBY_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_AUTHENTICATION_SERVICE_ASSERTED_RID 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_TIMEOUT
      * }
      */
-    public static int SECURITY_AUTHENTICATION_SERVICE_ASSERTED_RID() {
-        return (int)2L;
+    public static GroupLayout GUID_STANDBY_TIMEOUT$layout() {
+        return GUID_STANDBY_TIMEOUT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_AUTHENTICATION_FRESH_KEY_AUTH_RID 3
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_TIMEOUT
      * }
      */
-    public static int SECURITY_AUTHENTICATION_FRESH_KEY_AUTH_RID() {
-        return (int)3L;
+    public static MemorySegment GUID_STANDBY_TIMEOUT() {
+        return GUID_STANDBY_TIMEOUT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_AUTHENTICATION_KEY_TRUST_RID 4
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_TIMEOUT
      * }
      */
-    public static int SECURITY_AUTHENTICATION_KEY_TRUST_RID() {
-        return (int)4L;
+    public static void GUID_STANDBY_TIMEOUT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_STANDBY_TIMEOUT$constants.SEGMENT, 0L, GUID_STANDBY_TIMEOUT$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_UNATTEND_SLEEP_TIMEOUT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_UNATTEND_SLEEP_TIMEOUT").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_AUTHENTICATION_KEY_PROPERTY_MFA_RID 5
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_UNATTEND_SLEEP_TIMEOUT
      * }
      */
-    public static int SECURITY_AUTHENTICATION_KEY_PROPERTY_MFA_RID() {
-        return (int)5L;
+    public static GroupLayout GUID_UNATTEND_SLEEP_TIMEOUT$layout() {
+        return GUID_UNATTEND_SLEEP_TIMEOUT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_AUTHENTICATION_KEY_PROPERTY_ATTESTATION_RID 6
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_UNATTEND_SLEEP_TIMEOUT
      * }
      */
-    public static int SECURITY_AUTHENTICATION_KEY_PROPERTY_ATTESTATION_RID() {
-        return (int)6L;
+    public static MemorySegment GUID_UNATTEND_SLEEP_TIMEOUT() {
+        return GUID_UNATTEND_SLEEP_TIMEOUT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_PROCESS_TRUST_AUTHORITY_RID_COUNT 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_UNATTEND_SLEEP_TIMEOUT
      * }
      */
-    public static int SECURITY_PROCESS_TRUST_AUTHORITY_RID_COUNT() {
-        return (int)2L;
+    public static void GUID_UNATTEND_SLEEP_TIMEOUT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_UNATTEND_SLEEP_TIMEOUT$constants.SEGMENT, 0L, GUID_UNATTEND_SLEEP_TIMEOUT$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_HIBERNATE_TIMEOUT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_HIBERNATE_TIMEOUT").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_PROCESS_PROTECTION_TYPE_FULL_RID 1024
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_HIBERNATE_TIMEOUT
      * }
      */
-    public static int SECURITY_PROCESS_PROTECTION_TYPE_FULL_RID() {
-        return (int)1024L;
+    public static GroupLayout GUID_HIBERNATE_TIMEOUT$layout() {
+        return GUID_HIBERNATE_TIMEOUT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_PROCESS_PROTECTION_TYPE_LITE_RID 512
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_HIBERNATE_TIMEOUT
      * }
      */
-    public static int SECURITY_PROCESS_PROTECTION_TYPE_LITE_RID() {
-        return (int)512L;
+    public static MemorySegment GUID_HIBERNATE_TIMEOUT() {
+        return GUID_HIBERNATE_TIMEOUT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_PROCESS_PROTECTION_TYPE_NONE_RID 0
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_HIBERNATE_TIMEOUT
      * }
      */
-    public static int SECURITY_PROCESS_PROTECTION_TYPE_NONE_RID() {
-        return (int)0L;
+    public static void GUID_HIBERNATE_TIMEOUT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_HIBERNATE_TIMEOUT$constants.SEGMENT, 0L, GUID_HIBERNATE_TIMEOUT$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_HIBERNATE_FASTS4_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_HIBERNATE_FASTS4_POLICY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_PROCESS_PROTECTION_LEVEL_WINTCB_RID 8192
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_HIBERNATE_FASTS4_POLICY
      * }
      */
-    public static int SECURITY_PROCESS_PROTECTION_LEVEL_WINTCB_RID() {
-        return (int)8192L;
+    public static GroupLayout GUID_HIBERNATE_FASTS4_POLICY$layout() {
+        return GUID_HIBERNATE_FASTS4_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_PROCESS_PROTECTION_LEVEL_WINDOWS_RID 4096
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_HIBERNATE_FASTS4_POLICY
      * }
      */
-    public static int SECURITY_PROCESS_PROTECTION_LEVEL_WINDOWS_RID() {
-        return (int)4096L;
+    public static MemorySegment GUID_HIBERNATE_FASTS4_POLICY() {
+        return GUID_HIBERNATE_FASTS4_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_PROCESS_PROTECTION_LEVEL_APP_RID 2048
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_HIBERNATE_FASTS4_POLICY
      * }
      */
-    public static int SECURITY_PROCESS_PROTECTION_LEVEL_APP_RID() {
-        return (int)2048L;
+    public static void GUID_HIBERNATE_FASTS4_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_HIBERNATE_FASTS4_POLICY$constants.SEGMENT, 0L, GUID_HIBERNATE_FASTS4_POLICY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_CRITICAL_POWER_TRANSITION$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_CRITICAL_POWER_TRANSITION").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_PROCESS_PROTECTION_LEVEL_ANTIMALWARE_RID 1536
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_CRITICAL_POWER_TRANSITION
      * }
      */
-    public static int SECURITY_PROCESS_PROTECTION_LEVEL_ANTIMALWARE_RID() {
-        return (int)1536L;
+    public static GroupLayout GUID_CRITICAL_POWER_TRANSITION$layout() {
+        return GUID_CRITICAL_POWER_TRANSITION$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_PROCESS_PROTECTION_LEVEL_AUTHENTICODE_RID 1024
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_CRITICAL_POWER_TRANSITION
      * }
      */
-    public static int SECURITY_PROCESS_PROTECTION_LEVEL_AUTHENTICODE_RID() {
-        return (int)1024L;
+    public static MemorySegment GUID_CRITICAL_POWER_TRANSITION() {
+        return GUID_CRITICAL_POWER_TRANSITION$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_PROCESS_PROTECTION_LEVEL_NONE_RID 0
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_CRITICAL_POWER_TRANSITION
      * }
      */
-    public static int SECURITY_PROCESS_PROTECTION_LEVEL_NONE_RID() {
-        return (int)0L;
+    public static void GUID_CRITICAL_POWER_TRANSITION(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_CRITICAL_POWER_TRANSITION$constants.SEGMENT, 0L, GUID_CRITICAL_POWER_TRANSITION$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_SYSTEM_AWAYMODE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SYSTEM_AWAYMODE").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_TRUSTED_INSTALLER_RID2 3418522649
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SYSTEM_AWAYMODE
      * }
      */
-    public static long SECURITY_TRUSTED_INSTALLER_RID2() {
-        return 3418522649L;
+    public static GroupLayout GUID_SYSTEM_AWAYMODE$layout() {
+        return GUID_SYSTEM_AWAYMODE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_TRUSTED_INSTALLER_RID5 2271478464
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SYSTEM_AWAYMODE
      * }
      */
-    public static long SECURITY_TRUSTED_INSTALLER_RID5() {
-        return 2271478464L;
+    public static MemorySegment GUID_SYSTEM_AWAYMODE() {
+        return GUID_SYSTEM_AWAYMODE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_GROUP_MANDATORY 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SYSTEM_AWAYMODE
      * }
      */
-    public static int SE_GROUP_MANDATORY() {
-        return (int)1L;
+    public static void GUID_SYSTEM_AWAYMODE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_SYSTEM_AWAYMODE$constants.SEGMENT, 0L, GUID_SYSTEM_AWAYMODE$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_ALLOW_AWAYMODE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ALLOW_AWAYMODE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SE_GROUP_ENABLED_BY_DEFAULT 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_AWAYMODE
      * }
      */
-    public static int SE_GROUP_ENABLED_BY_DEFAULT() {
-        return (int)2L;
+    public static GroupLayout GUID_ALLOW_AWAYMODE$layout() {
+        return GUID_ALLOW_AWAYMODE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_GROUP_ENABLED 4
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_AWAYMODE
      * }
      */
-    public static int SE_GROUP_ENABLED() {
-        return (int)4L;
+    public static MemorySegment GUID_ALLOW_AWAYMODE() {
+        return GUID_ALLOW_AWAYMODE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_GROUP_OWNER 8
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_AWAYMODE
      * }
      */
-    public static int SE_GROUP_OWNER() {
-        return (int)8L;
+    public static void GUID_ALLOW_AWAYMODE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ALLOW_AWAYMODE$constants.SEGMENT, 0L, GUID_ALLOW_AWAYMODE$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_USER_PRESENCE_PREDICTION$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_USER_PRESENCE_PREDICTION").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SE_GROUP_USE_FOR_DENY_ONLY 16
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_USER_PRESENCE_PREDICTION
      * }
      */
-    public static int SE_GROUP_USE_FOR_DENY_ONLY() {
-        return (int)16L;
+    public static GroupLayout GUID_USER_PRESENCE_PREDICTION$layout() {
+        return GUID_USER_PRESENCE_PREDICTION$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_GROUP_INTEGRITY 32
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_USER_PRESENCE_PREDICTION
      * }
      */
-    public static int SE_GROUP_INTEGRITY() {
-        return (int)32L;
+    public static MemorySegment GUID_USER_PRESENCE_PREDICTION() {
+        return GUID_USER_PRESENCE_PREDICTION$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_GROUP_INTEGRITY_ENABLED 64
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_USER_PRESENCE_PREDICTION
      * }
      */
-    public static int SE_GROUP_INTEGRITY_ENABLED() {
-        return (int)64L;
+    public static void GUID_USER_PRESENCE_PREDICTION(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_USER_PRESENCE_PREDICTION$constants.SEGMENT, 0L, GUID_USER_PRESENCE_PREDICTION$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_STANDBY_BUDGET_GRACE_PERIOD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_STANDBY_BUDGET_GRACE_PERIOD").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SE_GROUP_LOGON_ID 3221225472
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_BUDGET_GRACE_PERIOD
      * }
      */
-    public static int SE_GROUP_LOGON_ID() {
-        return (int)3221225472L;
+    public static GroupLayout GUID_STANDBY_BUDGET_GRACE_PERIOD$layout() {
+        return GUID_STANDBY_BUDGET_GRACE_PERIOD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_GROUP_RESOURCE 536870912
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_BUDGET_GRACE_PERIOD
      * }
      */
-    public static int SE_GROUP_RESOURCE() {
-        return (int)536870912L;
+    public static MemorySegment GUID_STANDBY_BUDGET_GRACE_PERIOD() {
+        return GUID_STANDBY_BUDGET_GRACE_PERIOD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_GROUP_VALID_ATTRIBUTES 3758096511
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_BUDGET_GRACE_PERIOD
      * }
      */
-    public static int SE_GROUP_VALID_ATTRIBUTES() {
-        return (int)3758096511L;
+    public static void GUID_STANDBY_BUDGET_GRACE_PERIOD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_STANDBY_BUDGET_GRACE_PERIOD$constants.SEGMENT, 0L, GUID_STANDBY_BUDGET_GRACE_PERIOD$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_STANDBY_BUDGET_PERCENT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_STANDBY_BUDGET_PERCENT").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define ACL_REVISION 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_BUDGET_PERCENT
      * }
      */
-    public static int ACL_REVISION() {
-        return (int)2L;
+    public static GroupLayout GUID_STANDBY_BUDGET_PERCENT$layout() {
+        return GUID_STANDBY_BUDGET_PERCENT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ACL_REVISION_DS 4
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_BUDGET_PERCENT
      * }
      */
-    public static int ACL_REVISION_DS() {
-        return (int)4L;
+    public static MemorySegment GUID_STANDBY_BUDGET_PERCENT() {
+        return GUID_STANDBY_BUDGET_PERCENT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define ACL_REVISION1 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_BUDGET_PERCENT
      * }
      */
-    public static int ACL_REVISION1() {
-        return (int)1L;
+    public static void GUID_STANDBY_BUDGET_PERCENT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_STANDBY_BUDGET_PERCENT$constants.SEGMENT, 0L, GUID_STANDBY_BUDGET_PERCENT$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_STANDBY_RESERVE_GRACE_PERIOD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_STANDBY_RESERVE_GRACE_PERIOD").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define MIN_ACL_REVISION 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_RESERVE_GRACE_PERIOD
      * }
      */
-    public static int MIN_ACL_REVISION() {
-        return (int)2L;
+    public static GroupLayout GUID_STANDBY_RESERVE_GRACE_PERIOD$layout() {
+        return GUID_STANDBY_RESERVE_GRACE_PERIOD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ACL_REVISION2 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_RESERVE_GRACE_PERIOD
      * }
      */
-    public static int ACL_REVISION2() {
-        return (int)2L;
+    public static MemorySegment GUID_STANDBY_RESERVE_GRACE_PERIOD() {
+        return GUID_STANDBY_RESERVE_GRACE_PERIOD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define ACL_REVISION3 3
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_RESERVE_GRACE_PERIOD
      * }
      */
-    public static int ACL_REVISION3() {
-        return (int)3L;
+    public static void GUID_STANDBY_RESERVE_GRACE_PERIOD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_STANDBY_RESERVE_GRACE_PERIOD$constants.SEGMENT, 0L, GUID_STANDBY_RESERVE_GRACE_PERIOD$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_STANDBY_RESERVE_TIME$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_STANDBY_RESERVE_TIME").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define ACL_REVISION4 4
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_RESERVE_TIME
      * }
      */
-    public static int ACL_REVISION4() {
-        return (int)4L;
+    public static GroupLayout GUID_STANDBY_RESERVE_TIME$layout() {
+        return GUID_STANDBY_RESERVE_TIME$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define MAX_ACL_REVISION 4
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_RESERVE_TIME
      * }
      */
-    public static int MAX_ACL_REVISION() {
-        return (int)4L;
+    public static MemorySegment GUID_STANDBY_RESERVE_TIME() {
+        return GUID_STANDBY_RESERVE_TIME$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_MIN_MS_ACE_TYPE 0
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_RESERVE_TIME
      * }
      */
-    public static int ACCESS_MIN_MS_ACE_TYPE() {
-        return (int)0L;
+    public static void GUID_STANDBY_RESERVE_TIME(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_STANDBY_RESERVE_TIME$constants.SEGMENT, 0L, GUID_STANDBY_RESERVE_TIME$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_STANDBY_RESET_PERCENT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_STANDBY_RESET_PERCENT").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_ALLOWED_ACE_TYPE 0
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_RESET_PERCENT
      * }
      */
-    public static int ACCESS_ALLOWED_ACE_TYPE() {
-        return (int)0L;
+    public static GroupLayout GUID_STANDBY_RESET_PERCENT$layout() {
+        return GUID_STANDBY_RESET_PERCENT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_DENIED_ACE_TYPE 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_RESET_PERCENT
      * }
      */
-    public static int ACCESS_DENIED_ACE_TYPE() {
-        return (int)1L;
+    public static MemorySegment GUID_STANDBY_RESET_PERCENT() {
+        return GUID_STANDBY_RESET_PERCENT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_AUDIT_ACE_TYPE 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_STANDBY_RESET_PERCENT
      * }
      */
-    public static int SYSTEM_AUDIT_ACE_TYPE() {
-        return (int)2L;
+    public static void GUID_STANDBY_RESET_PERCENT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_STANDBY_RESET_PERCENT$constants.SEGMENT, 0L, GUID_STANDBY_RESET_PERCENT$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_ALARM_ACE_TYPE 3
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT
      * }
      */
-    public static int SYSTEM_ALARM_ACE_TYPE() {
-        return (int)3L;
+    public static GroupLayout GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT$layout() {
+        return GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_MAX_MS_V2_ACE_TYPE 3
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT
      * }
      */
-    public static int ACCESS_MAX_MS_V2_ACE_TYPE() {
-        return (int)3L;
+    public static MemorySegment GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT() {
+        return GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_ALLOWED_COMPOUND_ACE_TYPE 4
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT
      * }
      */
-    public static int ACCESS_ALLOWED_COMPOUND_ACE_TYPE() {
-        return (int)4L;
+    public static void GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT$constants.SEGMENT, 0L, GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_ALLOW_STANDBY_STATES$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ALLOW_STANDBY_STATES").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_MAX_MS_V3_ACE_TYPE 4
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_STANDBY_STATES
      * }
      */
-    public static int ACCESS_MAX_MS_V3_ACE_TYPE() {
-        return (int)4L;
+    public static GroupLayout GUID_ALLOW_STANDBY_STATES$layout() {
+        return GUID_ALLOW_STANDBY_STATES$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_MIN_MS_OBJECT_ACE_TYPE 5
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_STANDBY_STATES
      * }
      */
-    public static int ACCESS_MIN_MS_OBJECT_ACE_TYPE() {
-        return (int)5L;
+    public static MemorySegment GUID_ALLOW_STANDBY_STATES() {
+        return GUID_ALLOW_STANDBY_STATES$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_ALLOWED_OBJECT_ACE_TYPE 5
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_STANDBY_STATES
      * }
      */
-    public static int ACCESS_ALLOWED_OBJECT_ACE_TYPE() {
-        return (int)5L;
+    public static void GUID_ALLOW_STANDBY_STATES(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ALLOW_STANDBY_STATES$constants.SEGMENT, 0L, GUID_ALLOW_STANDBY_STATES$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_ALLOW_RTC_WAKE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ALLOW_RTC_WAKE").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define ACCESS_DENIED_OBJECT_ACE_TYPE 6
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_RTC_WAKE
      * }
      */
-    public static int ACCESS_DENIED_OBJECT_ACE_TYPE() {
-        return (int)6L;
+    public static GroupLayout GUID_ALLOW_RTC_WAKE$layout() {
+        return GUID_ALLOW_RTC_WAKE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_AUDIT_OBJECT_ACE_TYPE 7
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_RTC_WAKE
      * }
      */
-    public static int SYSTEM_AUDIT_OBJECT_ACE_TYPE() {
-        return (int)7L;
+    public static MemorySegment GUID_ALLOW_RTC_WAKE() {
+        return GUID_ALLOW_RTC_WAKE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_ALARM_OBJECT_ACE_TYPE 8
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_RTC_WAKE
      * }
      */
-    public static int SYSTEM_ALARM_OBJECT_ACE_TYPE() {
-        return (int)8L;
+    public static void GUID_ALLOW_RTC_WAKE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ALLOW_RTC_WAKE$constants.SEGMENT, 0L, GUID_ALLOW_RTC_WAKE$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_LEGACY_RTC_MITIGATION$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_LEGACY_RTC_MITIGATION").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_MAX_MS_OBJECT_ACE_TYPE 8
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LEGACY_RTC_MITIGATION
      * }
      */
-    public static int ACCESS_MAX_MS_OBJECT_ACE_TYPE() {
-        return (int)8L;
+    public static GroupLayout GUID_LEGACY_RTC_MITIGATION$layout() {
+        return GUID_LEGACY_RTC_MITIGATION$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_MAX_MS_V4_ACE_TYPE 8
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LEGACY_RTC_MITIGATION
      * }
      */
-    public static int ACCESS_MAX_MS_V4_ACE_TYPE() {
-        return (int)8L;
+    public static MemorySegment GUID_LEGACY_RTC_MITIGATION() {
+        return GUID_LEGACY_RTC_MITIGATION$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_MAX_MS_ACE_TYPE 8
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LEGACY_RTC_MITIGATION
      * }
      */
-    public static int ACCESS_MAX_MS_ACE_TYPE() {
-        return (int)8L;
+    public static void GUID_LEGACY_RTC_MITIGATION(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_LEGACY_RTC_MITIGATION$constants.SEGMENT, 0L, GUID_LEGACY_RTC_MITIGATION$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_ALLOW_SYSTEM_REQUIRED$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ALLOW_SYSTEM_REQUIRED").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define ACCESS_ALLOWED_CALLBACK_ACE_TYPE 9
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_SYSTEM_REQUIRED
      * }
      */
-    public static int ACCESS_ALLOWED_CALLBACK_ACE_TYPE() {
-        return (int)9L;
+    public static GroupLayout GUID_ALLOW_SYSTEM_REQUIRED$layout() {
+        return GUID_ALLOW_SYSTEM_REQUIRED$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_DENIED_CALLBACK_ACE_TYPE 10
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_SYSTEM_REQUIRED
      * }
      */
-    public static int ACCESS_DENIED_CALLBACK_ACE_TYPE() {
-        return (int)10L;
+    public static MemorySegment GUID_ALLOW_SYSTEM_REQUIRED() {
+        return GUID_ALLOW_SYSTEM_REQUIRED$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_ALLOWED_CALLBACK_OBJECT_ACE_TYPE 11
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ALLOW_SYSTEM_REQUIRED
      * }
      */
-    public static int ACCESS_ALLOWED_CALLBACK_OBJECT_ACE_TYPE() {
-        return (int)11L;
+    public static void GUID_ALLOW_SYSTEM_REQUIRED(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ALLOW_SYSTEM_REQUIRED$constants.SEGMENT, 0L, GUID_ALLOW_SYSTEM_REQUIRED$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_POWER_SAVING_STATUS$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_POWER_SAVING_STATUS").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_DENIED_CALLBACK_OBJECT_ACE_TYPE 12
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_POWER_SAVING_STATUS
      * }
      */
-    public static int ACCESS_DENIED_CALLBACK_OBJECT_ACE_TYPE() {
-        return (int)12L;
+    public static GroupLayout GUID_POWER_SAVING_STATUS$layout() {
+        return GUID_POWER_SAVING_STATUS$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_AUDIT_CALLBACK_ACE_TYPE 13
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_POWER_SAVING_STATUS
      * }
      */
-    public static int SYSTEM_AUDIT_CALLBACK_ACE_TYPE() {
-        return (int)13L;
+    public static MemorySegment GUID_POWER_SAVING_STATUS() {
+        return GUID_POWER_SAVING_STATUS$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_ALARM_CALLBACK_ACE_TYPE 14
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_POWER_SAVING_STATUS
      * }
      */
-    public static int SYSTEM_ALARM_CALLBACK_ACE_TYPE() {
-        return (int)14L;
+    public static void GUID_POWER_SAVING_STATUS(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_POWER_SAVING_STATUS$constants.SEGMENT, 0L, GUID_POWER_SAVING_STATUS$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_ENERGY_SAVER_SUBGROUP$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ENERGY_SAVER_SUBGROUP").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_AUDIT_CALLBACK_OBJECT_ACE_TYPE 15
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENERGY_SAVER_SUBGROUP
      * }
      */
-    public static int SYSTEM_AUDIT_CALLBACK_OBJECT_ACE_TYPE() {
-        return (int)15L;
+    public static GroupLayout GUID_ENERGY_SAVER_SUBGROUP$layout() {
+        return GUID_ENERGY_SAVER_SUBGROUP$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_ALARM_CALLBACK_OBJECT_ACE_TYPE 16
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENERGY_SAVER_SUBGROUP
      * }
      */
-    public static int SYSTEM_ALARM_CALLBACK_OBJECT_ACE_TYPE() {
-        return (int)16L;
+    public static MemorySegment GUID_ENERGY_SAVER_SUBGROUP() {
+        return GUID_ENERGY_SAVER_SUBGROUP$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_MANDATORY_LABEL_ACE_TYPE 17
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENERGY_SAVER_SUBGROUP
      * }
      */
-    public static int SYSTEM_MANDATORY_LABEL_ACE_TYPE() {
-        return (int)17L;
+    public static void GUID_ENERGY_SAVER_SUBGROUP(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ENERGY_SAVER_SUBGROUP$constants.SEGMENT, 0L, GUID_ENERGY_SAVER_SUBGROUP$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_ENERGY_SAVER_BATTERY_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ENERGY_SAVER_BATTERY_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_RESOURCE_ATTRIBUTE_ACE_TYPE 18
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENERGY_SAVER_BATTERY_THRESHOLD
      * }
      */
-    public static int SYSTEM_RESOURCE_ATTRIBUTE_ACE_TYPE() {
-        return (int)18L;
+    public static GroupLayout GUID_ENERGY_SAVER_BATTERY_THRESHOLD$layout() {
+        return GUID_ENERGY_SAVER_BATTERY_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_SCOPED_POLICY_ID_ACE_TYPE 19
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENERGY_SAVER_BATTERY_THRESHOLD
      * }
      */
-    public static int SYSTEM_SCOPED_POLICY_ID_ACE_TYPE() {
-        return (int)19L;
+    public static MemorySegment GUID_ENERGY_SAVER_BATTERY_THRESHOLD() {
+        return GUID_ENERGY_SAVER_BATTERY_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_PROCESS_TRUST_LABEL_ACE_TYPE 20
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENERGY_SAVER_BATTERY_THRESHOLD
      * }
      */
-    public static int SYSTEM_PROCESS_TRUST_LABEL_ACE_TYPE() {
-        return (int)20L;
+    public static void GUID_ENERGY_SAVER_BATTERY_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ENERGY_SAVER_BATTERY_THRESHOLD$constants.SEGMENT, 0L, GUID_ENERGY_SAVER_BATTERY_THRESHOLD$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_ENERGY_SAVER_BRIGHTNESS$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ENERGY_SAVER_BRIGHTNESS").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_ACCESS_FILTER_ACE_TYPE 21
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENERGY_SAVER_BRIGHTNESS
      * }
      */
-    public static int SYSTEM_ACCESS_FILTER_ACE_TYPE() {
-        return (int)21L;
+    public static GroupLayout GUID_ENERGY_SAVER_BRIGHTNESS$layout() {
+        return GUID_ENERGY_SAVER_BRIGHTNESS$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_MAX_MS_V5_ACE_TYPE 21
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENERGY_SAVER_BRIGHTNESS
      * }
      */
-    public static int ACCESS_MAX_MS_V5_ACE_TYPE() {
-        return (int)21L;
+    public static MemorySegment GUID_ENERGY_SAVER_BRIGHTNESS() {
+        return GUID_ENERGY_SAVER_BRIGHTNESS$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define OBJECT_INHERIT_ACE 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENERGY_SAVER_BRIGHTNESS
      * }
      */
-    public static int OBJECT_INHERIT_ACE() {
-        return (int)1L;
+    public static void GUID_ENERGY_SAVER_BRIGHTNESS(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ENERGY_SAVER_BRIGHTNESS$constants.SEGMENT, 0L, GUID_ENERGY_SAVER_BRIGHTNESS$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_ENERGY_SAVER_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ENERGY_SAVER_POLICY").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define CONTAINER_INHERIT_ACE 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENERGY_SAVER_POLICY
      * }
      */
-    public static int CONTAINER_INHERIT_ACE() {
-        return (int)2L;
+    public static GroupLayout GUID_ENERGY_SAVER_POLICY$layout() {
+        return GUID_ENERGY_SAVER_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define NO_PROPAGATE_INHERIT_ACE 4
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENERGY_SAVER_POLICY
      * }
      */
-    public static int NO_PROPAGATE_INHERIT_ACE() {
-        return (int)4L;
+    public static MemorySegment GUID_ENERGY_SAVER_POLICY() {
+        return GUID_ENERGY_SAVER_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define INHERIT_ONLY_ACE 8
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENERGY_SAVER_POLICY
      * }
      */
-    public static int INHERIT_ONLY_ACE() {
-        return (int)8L;
+    public static void GUID_ENERGY_SAVER_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ENERGY_SAVER_POLICY$constants.SEGMENT, 0L, GUID_ENERGY_SAVER_POLICY$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_SYSTEM_BUTTON_SUBGROUP$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SYSTEM_BUTTON_SUBGROUP").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define INHERITED_ACE 16
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SYSTEM_BUTTON_SUBGROUP
      * }
      */
-    public static int INHERITED_ACE() {
-        return (int)16L;
+    public static GroupLayout GUID_SYSTEM_BUTTON_SUBGROUP$layout() {
+        return GUID_SYSTEM_BUTTON_SUBGROUP$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define VALID_INHERIT_FLAGS 31
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SYSTEM_BUTTON_SUBGROUP
      * }
      */
-    public static int VALID_INHERIT_FLAGS() {
-        return (int)31L;
+    public static MemorySegment GUID_SYSTEM_BUTTON_SUBGROUP() {
+        return GUID_SYSTEM_BUTTON_SUBGROUP$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define CRITICAL_ACE_FLAG 32
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SYSTEM_BUTTON_SUBGROUP
      * }
      */
-    public static int CRITICAL_ACE_FLAG() {
-        return (int)32L;
+    public static void GUID_SYSTEM_BUTTON_SUBGROUP(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_SYSTEM_BUTTON_SUBGROUP$constants.SEGMENT, 0L, GUID_SYSTEM_BUTTON_SUBGROUP$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_POWERBUTTON_ACTION$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_POWERBUTTON_ACTION").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SUCCESSFUL_ACCESS_ACE_FLAG 64
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_POWERBUTTON_ACTION
      * }
      */
-    public static int SUCCESSFUL_ACCESS_ACE_FLAG() {
-        return (int)64L;
+    public static GroupLayout GUID_POWERBUTTON_ACTION$layout() {
+        return GUID_POWERBUTTON_ACTION$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define FAILED_ACCESS_ACE_FLAG 128
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_POWERBUTTON_ACTION
      * }
      */
-    public static int FAILED_ACCESS_ACE_FLAG() {
-        return (int)128L;
+    public static MemorySegment GUID_POWERBUTTON_ACTION() {
+        return GUID_POWERBUTTON_ACTION$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define TRUST_PROTECTED_FILTER_ACE_FLAG 64
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_POWERBUTTON_ACTION
      * }
      */
-    public static int TRUST_PROTECTED_FILTER_ACE_FLAG() {
-        return (int)64L;
+    public static void GUID_POWERBUTTON_ACTION(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_POWERBUTTON_ACTION$constants.SEGMENT, 0L, GUID_POWERBUTTON_ACTION$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_SLEEPBUTTON_ACTION$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SLEEPBUTTON_ACTION").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_MANDATORY_LABEL_VALID_MASK 7
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SLEEPBUTTON_ACTION
      * }
      */
-    public static int SYSTEM_MANDATORY_LABEL_VALID_MASK() {
-        return (int)7L;
+    public static GroupLayout GUID_SLEEPBUTTON_ACTION$layout() {
+        return GUID_SLEEPBUTTON_ACTION$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_PROCESS_TRUST_NOCONSTRAINT_MASK 4294967295
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SLEEPBUTTON_ACTION
      * }
      */
-    public static int SYSTEM_PROCESS_TRUST_NOCONSTRAINT_MASK() {
-        return (int)4294967295L;
+    public static MemorySegment GUID_SLEEPBUTTON_ACTION() {
+        return GUID_SLEEPBUTTON_ACTION$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SYSTEM_ACCESS_FILTER_NOCONSTRAINT_MASK 4294967295
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SLEEPBUTTON_ACTION
      * }
      */
-    public static int SYSTEM_ACCESS_FILTER_NOCONSTRAINT_MASK() {
-        return (int)4294967295L;
+    public static void GUID_SLEEPBUTTON_ACTION(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_SLEEPBUTTON_ACTION$constants.SEGMENT, 0L, GUID_SLEEPBUTTON_ACTION$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_USERINTERFACEBUTTON_ACTION$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_USERINTERFACEBUTTON_ACTION").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_DESCRIPTOR_REVISION 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_USERINTERFACEBUTTON_ACTION
      * }
      */
-    public static int SECURITY_DESCRIPTOR_REVISION() {
-        return (int)1L;
+    public static GroupLayout GUID_USERINTERFACEBUTTON_ACTION$layout() {
+        return GUID_USERINTERFACEBUTTON_ACTION$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_DESCRIPTOR_REVISION1 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_USERINTERFACEBUTTON_ACTION
      * }
      */
-    public static int SECURITY_DESCRIPTOR_REVISION1() {
-        return (int)1L;
+    public static MemorySegment GUID_USERINTERFACEBUTTON_ACTION() {
+        return GUID_USERINTERFACEBUTTON_ACTION$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_DESCRIPTOR_MIN_LENGTH 40
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_USERINTERFACEBUTTON_ACTION
      * }
      */
-    public static long SECURITY_DESCRIPTOR_MIN_LENGTH() {
-        return 40L;
+    public static void GUID_USERINTERFACEBUTTON_ACTION(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_USERINTERFACEBUTTON_ACTION$constants.SEGMENT, 0L, GUID_USERINTERFACEBUTTON_ACTION$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_LIDCLOSE_ACTION$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_LIDCLOSE_ACTION").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SE_OWNER_DEFAULTED 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LIDCLOSE_ACTION
      * }
      */
-    public static int SE_OWNER_DEFAULTED() {
-        return (int)1L;
+    public static GroupLayout GUID_LIDCLOSE_ACTION$layout() {
+        return GUID_LIDCLOSE_ACTION$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_GROUP_DEFAULTED 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LIDCLOSE_ACTION
      * }
      */
-    public static int SE_GROUP_DEFAULTED() {
-        return (int)2L;
+    public static MemorySegment GUID_LIDCLOSE_ACTION() {
+        return GUID_LIDCLOSE_ACTION$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_DACL_PRESENT 4
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LIDCLOSE_ACTION
      * }
      */
-    public static int SE_DACL_PRESENT() {
-        return (int)4L;
+    public static void GUID_LIDCLOSE_ACTION(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_LIDCLOSE_ACTION$constants.SEGMENT, 0L, GUID_LIDCLOSE_ACTION$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_LIDOPEN_POWERSTATE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_LIDOPEN_POWERSTATE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SE_DACL_DEFAULTED 8
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LIDOPEN_POWERSTATE
      * }
      */
-    public static int SE_DACL_DEFAULTED() {
-        return (int)8L;
+    public static GroupLayout GUID_LIDOPEN_POWERSTATE$layout() {
+        return GUID_LIDOPEN_POWERSTATE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_SACL_PRESENT 16
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LIDOPEN_POWERSTATE
      * }
      */
-    public static int SE_SACL_PRESENT() {
-        return (int)16L;
+    public static MemorySegment GUID_LIDOPEN_POWERSTATE() {
+        return GUID_LIDOPEN_POWERSTATE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_SACL_DEFAULTED 32
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LIDOPEN_POWERSTATE
      * }
      */
-    public static int SE_SACL_DEFAULTED() {
-        return (int)32L;
+    public static void GUID_LIDOPEN_POWERSTATE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_LIDOPEN_POWERSTATE$constants.SEGMENT, 0L, GUID_LIDOPEN_POWERSTATE$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_BATTERY_SUBGROUP$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_SUBGROUP").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SE_DACL_AUTO_INHERIT_REQ 256
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_SUBGROUP
      * }
      */
-    public static int SE_DACL_AUTO_INHERIT_REQ() {
-        return (int)256L;
+    public static GroupLayout GUID_BATTERY_SUBGROUP$layout() {
+        return GUID_BATTERY_SUBGROUP$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_SACL_AUTO_INHERIT_REQ 512
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_SUBGROUP
      * }
      */
-    public static int SE_SACL_AUTO_INHERIT_REQ() {
-        return (int)512L;
+    public static MemorySegment GUID_BATTERY_SUBGROUP() {
+        return GUID_BATTERY_SUBGROUP$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_DACL_AUTO_INHERITED 1024
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_SUBGROUP
      * }
      */
-    public static int SE_DACL_AUTO_INHERITED() {
-        return (int)1024L;
+    public static void GUID_BATTERY_SUBGROUP(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_SUBGROUP$constants.SEGMENT, 0L, GUID_BATTERY_SUBGROUP$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_BATTERY_DISCHARGE_ACTION_0$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_ACTION_0").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SE_SACL_AUTO_INHERITED 2048
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_ACTION_0
      * }
      */
-    public static int SE_SACL_AUTO_INHERITED() {
-        return (int)2048L;
+    public static GroupLayout GUID_BATTERY_DISCHARGE_ACTION_0$layout() {
+        return GUID_BATTERY_DISCHARGE_ACTION_0$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_DACL_PROTECTED 4096
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_ACTION_0
      * }
      */
-    public static int SE_DACL_PROTECTED() {
-        return (int)4096L;
+    public static MemorySegment GUID_BATTERY_DISCHARGE_ACTION_0() {
+        return GUID_BATTERY_DISCHARGE_ACTION_0$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_SACL_PROTECTED 8192
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_ACTION_0
      * }
      */
-    public static int SE_SACL_PROTECTED() {
-        return (int)8192L;
+    public static void GUID_BATTERY_DISCHARGE_ACTION_0(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_DISCHARGE_ACTION_0$constants.SEGMENT, 0L, GUID_BATTERY_DISCHARGE_ACTION_0$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_BATTERY_DISCHARGE_LEVEL_0$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_LEVEL_0").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SE_RM_CONTROL_VALID 16384
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_LEVEL_0
      * }
      */
-    public static int SE_RM_CONTROL_VALID() {
-        return (int)16384L;
+    public static GroupLayout GUID_BATTERY_DISCHARGE_LEVEL_0$layout() {
+        return GUID_BATTERY_DISCHARGE_LEVEL_0$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_SELF_RELATIVE 32768
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_LEVEL_0
      * }
      */
-    public static int SE_SELF_RELATIVE() {
-        return (int)32768L;
+    public static MemorySegment GUID_BATTERY_DISCHARGE_LEVEL_0() {
+        return GUID_BATTERY_DISCHARGE_LEVEL_0$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_DS_SOURCE_A "DS"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_LEVEL_0
      * }
      */
-    public static MemorySegment ACCESS_DS_SOURCE_A() {
-        return constants$4541.const$3;
+    public static void GUID_BATTERY_DISCHARGE_LEVEL_0(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_DISCHARGE_LEVEL_0$constants.SEGMENT, 0L, GUID_BATTERY_DISCHARGE_LEVEL_0$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_BATTERY_DISCHARGE_FLAGS_0$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_FLAGS_0").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_DS_SOURCE_W "D"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_FLAGS_0
      * }
      */
-    public static MemorySegment ACCESS_DS_SOURCE_W() {
-        return constants$4541.const$4;
+    public static GroupLayout GUID_BATTERY_DISCHARGE_FLAGS_0$layout() {
+        return GUID_BATTERY_DISCHARGE_FLAGS_0$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_DS_OBJECT_TYPE_NAME_A "Directory Service Object"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_FLAGS_0
      * }
      */
-    public static MemorySegment ACCESS_DS_OBJECT_TYPE_NAME_A() {
-        return constants$4541.const$5;
+    public static MemorySegment GUID_BATTERY_DISCHARGE_FLAGS_0() {
+        return GUID_BATTERY_DISCHARGE_FLAGS_0$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_DS_OBJECT_TYPE_NAME_W "D"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_FLAGS_0
      * }
      */
-    public static MemorySegment ACCESS_DS_OBJECT_TYPE_NAME_W() {
-        return constants$4541.const$4;
+    public static void GUID_BATTERY_DISCHARGE_FLAGS_0(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_DISCHARGE_FLAGS_0$constants.SEGMENT, 0L, GUID_BATTERY_DISCHARGE_FLAGS_0$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_BATTERY_DISCHARGE_ACTION_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_ACTION_1").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SE_PRIVILEGE_ENABLED_BY_DEFAULT 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_ACTION_1
      * }
      */
-    public static int SE_PRIVILEGE_ENABLED_BY_DEFAULT() {
-        return (int)1L;
+    public static GroupLayout GUID_BATTERY_DISCHARGE_ACTION_1$layout() {
+        return GUID_BATTERY_DISCHARGE_ACTION_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_PRIVILEGE_ENABLED 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_ACTION_1
      * }
      */
-    public static int SE_PRIVILEGE_ENABLED() {
-        return (int)2L;
+    public static MemorySegment GUID_BATTERY_DISCHARGE_ACTION_1() {
+        return GUID_BATTERY_DISCHARGE_ACTION_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_PRIVILEGE_REMOVED 4
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_ACTION_1
      * }
      */
-    public static int SE_PRIVILEGE_REMOVED() {
-        return (int)4L;
+    public static void GUID_BATTERY_DISCHARGE_ACTION_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_DISCHARGE_ACTION_1$constants.SEGMENT, 0L, GUID_BATTERY_DISCHARGE_ACTION_1$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_BATTERY_DISCHARGE_LEVEL_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_LEVEL_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SE_PRIVILEGE_USED_FOR_ACCESS 2147483648
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_LEVEL_1
      * }
      */
-    public static int SE_PRIVILEGE_USED_FOR_ACCESS() {
-        return (int)2147483648L;
+    public static GroupLayout GUID_BATTERY_DISCHARGE_LEVEL_1$layout() {
+        return GUID_BATTERY_DISCHARGE_LEVEL_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_PRIVILEGE_VALID_ATTRIBUTES 2147483655
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_LEVEL_1
      * }
      */
-    public static int SE_PRIVILEGE_VALID_ATTRIBUTES() {
-        return (int)2147483655L;
+    public static MemorySegment GUID_BATTERY_DISCHARGE_LEVEL_1() {
+        return GUID_BATTERY_DISCHARGE_LEVEL_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define PRIVILEGE_SET_ALL_NECESSARY 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_LEVEL_1
      * }
      */
-    public static int PRIVILEGE_SET_ALL_NECESSARY() {
-        return (int)1L;
+    public static void GUID_BATTERY_DISCHARGE_LEVEL_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_DISCHARGE_LEVEL_1$constants.SEGMENT, 0L, GUID_BATTERY_DISCHARGE_LEVEL_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_BATTERY_DISCHARGE_FLAGS_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_FLAGS_1").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define ACCESS_REASON_STAGING_MASK 2147483648
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_FLAGS_1
      * }
      */
-    public static int ACCESS_REASON_STAGING_MASK() {
-        return (int)2147483648L;
+    public static GroupLayout GUID_BATTERY_DISCHARGE_FLAGS_1$layout() {
+        return GUID_BATTERY_DISCHARGE_FLAGS_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_CREATE_TOKEN_NAME "SeCreateTokenPrivilege"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_FLAGS_1
      * }
      */
-    public static MemorySegment SE_CREATE_TOKEN_NAME() {
-        return constants$4542.const$0;
+    public static MemorySegment GUID_BATTERY_DISCHARGE_FLAGS_1() {
+        return GUID_BATTERY_DISCHARGE_FLAGS_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_ASSIGNPRIMARYTOKEN_NAME "SeAssignPrimaryTokenPrivilege"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_FLAGS_1
      * }
      */
-    public static MemorySegment SE_ASSIGNPRIMARYTOKEN_NAME() {
-        return constants$4542.const$1;
+    public static void GUID_BATTERY_DISCHARGE_FLAGS_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_DISCHARGE_FLAGS_1$constants.SEGMENT, 0L, GUID_BATTERY_DISCHARGE_FLAGS_1$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_BATTERY_DISCHARGE_ACTION_2$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_ACTION_2").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SE_LOCK_MEMORY_NAME "SeLockMemoryPrivilege"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_ACTION_2
      * }
      */
-    public static MemorySegment SE_LOCK_MEMORY_NAME() {
-        return constants$4542.const$2;
+    public static GroupLayout GUID_BATTERY_DISCHARGE_ACTION_2$layout() {
+        return GUID_BATTERY_DISCHARGE_ACTION_2$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_INCREASE_QUOTA_NAME "SeIncreaseQuotaPrivilege"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_ACTION_2
      * }
      */
-    public static MemorySegment SE_INCREASE_QUOTA_NAME() {
-        return constants$4542.const$3;
+    public static MemorySegment GUID_BATTERY_DISCHARGE_ACTION_2() {
+        return GUID_BATTERY_DISCHARGE_ACTION_2$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_UNSOLICITED_INPUT_NAME "SeUnsolicitedInputPrivilege"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_ACTION_2
      * }
      */
-    public static MemorySegment SE_UNSOLICITED_INPUT_NAME() {
-        return constants$4542.const$4;
+    public static void GUID_BATTERY_DISCHARGE_ACTION_2(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_DISCHARGE_ACTION_2$constants.SEGMENT, 0L, GUID_BATTERY_DISCHARGE_ACTION_2$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_BATTERY_DISCHARGE_LEVEL_2$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_LEVEL_2").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SE_MACHINE_ACCOUNT_NAME "SeMachineAccountPrivilege"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_LEVEL_2
      * }
      */
-    public static MemorySegment SE_MACHINE_ACCOUNT_NAME() {
-        return constants$4542.const$5;
+    public static GroupLayout GUID_BATTERY_DISCHARGE_LEVEL_2$layout() {
+        return GUID_BATTERY_DISCHARGE_LEVEL_2$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_TCB_NAME "SeTcbPrivilege"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_LEVEL_2
      * }
      */
-    public static MemorySegment SE_TCB_NAME() {
-        return constants$4543.const$0;
+    public static MemorySegment GUID_BATTERY_DISCHARGE_LEVEL_2() {
+        return GUID_BATTERY_DISCHARGE_LEVEL_2$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_SECURITY_NAME "SeSecurityPrivilege"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_LEVEL_2
      * }
      */
-    public static MemorySegment SE_SECURITY_NAME() {
-        return constants$4543.const$1;
+    public static void GUID_BATTERY_DISCHARGE_LEVEL_2(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_DISCHARGE_LEVEL_2$constants.SEGMENT, 0L, GUID_BATTERY_DISCHARGE_LEVEL_2$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_BATTERY_DISCHARGE_FLAGS_2$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_FLAGS_2").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SE_TAKE_OWNERSHIP_NAME "SeTakeOwnershipPrivilege"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_FLAGS_2
      * }
      */
-    public static MemorySegment SE_TAKE_OWNERSHIP_NAME() {
-        return constants$4543.const$2;
+    public static GroupLayout GUID_BATTERY_DISCHARGE_FLAGS_2$layout() {
+        return GUID_BATTERY_DISCHARGE_FLAGS_2$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_LOAD_DRIVER_NAME "SeLoadDriverPrivilege"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_FLAGS_2
      * }
      */
-    public static MemorySegment SE_LOAD_DRIVER_NAME() {
-        return constants$4543.const$3;
+    public static MemorySegment GUID_BATTERY_DISCHARGE_FLAGS_2() {
+        return GUID_BATTERY_DISCHARGE_FLAGS_2$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_SYSTEM_PROFILE_NAME "SeSystemProfilePrivilege"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_FLAGS_2
      * }
      */
-    public static MemorySegment SE_SYSTEM_PROFILE_NAME() {
-        return constants$4543.const$4;
+    public static void GUID_BATTERY_DISCHARGE_FLAGS_2(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_DISCHARGE_FLAGS_2$constants.SEGMENT, 0L, GUID_BATTERY_DISCHARGE_FLAGS_2$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_BATTERY_DISCHARGE_ACTION_3$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_ACTION_3").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SE_SYSTEMTIME_NAME "SeSystemtimePrivilege"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_ACTION_3
      * }
      */
-    public static MemorySegment SE_SYSTEMTIME_NAME() {
-        return constants$4543.const$5;
+    public static GroupLayout GUID_BATTERY_DISCHARGE_ACTION_3$layout() {
+        return GUID_BATTERY_DISCHARGE_ACTION_3$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_PROF_SINGLE_PROCESS_NAME "SeProfileSingleProcessPrivilege"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_ACTION_3
      * }
      */
-    public static MemorySegment SE_PROF_SINGLE_PROCESS_NAME() {
-        return constants$4544.const$0;
+    public static MemorySegment GUID_BATTERY_DISCHARGE_ACTION_3() {
+        return GUID_BATTERY_DISCHARGE_ACTION_3$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_INC_BASE_PRIORITY_NAME "SeIncreaseBasePriorityPrivilege"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_ACTION_3
      * }
      */
-    public static MemorySegment SE_INC_BASE_PRIORITY_NAME() {
-        return constants$4544.const$1;
+    public static void GUID_BATTERY_DISCHARGE_ACTION_3(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_DISCHARGE_ACTION_3$constants.SEGMENT, 0L, GUID_BATTERY_DISCHARGE_ACTION_3$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_BATTERY_DISCHARGE_LEVEL_3$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_LEVEL_3").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SE_CREATE_PAGEFILE_NAME "SeCreatePagefilePrivilege"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_LEVEL_3
      * }
      */
-    public static MemorySegment SE_CREATE_PAGEFILE_NAME() {
-        return constants$4544.const$2;
+    public static GroupLayout GUID_BATTERY_DISCHARGE_LEVEL_3$layout() {
+        return GUID_BATTERY_DISCHARGE_LEVEL_3$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_CREATE_PERMANENT_NAME "SeCreatePermanentPrivilege"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_LEVEL_3
      * }
      */
-    public static MemorySegment SE_CREATE_PERMANENT_NAME() {
-        return constants$4544.const$3;
+    public static MemorySegment GUID_BATTERY_DISCHARGE_LEVEL_3() {
+        return GUID_BATTERY_DISCHARGE_LEVEL_3$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_BACKUP_NAME "SeBackupPrivilege"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_LEVEL_3
      * }
      */
-    public static MemorySegment SE_BACKUP_NAME() {
-        return constants$4544.const$4;
+    public static void GUID_BATTERY_DISCHARGE_LEVEL_3(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_DISCHARGE_LEVEL_3$constants.SEGMENT, 0L, GUID_BATTERY_DISCHARGE_LEVEL_3$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_BATTERY_DISCHARGE_FLAGS_3$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_DISCHARGE_FLAGS_3").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SE_RESTORE_NAME "SeRestorePrivilege"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_FLAGS_3
      * }
      */
-    public static MemorySegment SE_RESTORE_NAME() {
-        return constants$4544.const$5;
+    public static GroupLayout GUID_BATTERY_DISCHARGE_FLAGS_3$layout() {
+        return GUID_BATTERY_DISCHARGE_FLAGS_3$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_SHUTDOWN_NAME "SeShutdownPrivilege"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_FLAGS_3
      * }
      */
-    public static MemorySegment SE_SHUTDOWN_NAME() {
-        return constants$4545.const$0;
+    public static MemorySegment GUID_BATTERY_DISCHARGE_FLAGS_3() {
+        return GUID_BATTERY_DISCHARGE_FLAGS_3$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_DEBUG_NAME "SeDebugPrivilege"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_DISCHARGE_FLAGS_3
      * }
      */
-    public static MemorySegment SE_DEBUG_NAME() {
-        return constants$4545.const$1;
+    public static void GUID_BATTERY_DISCHARGE_FLAGS_3(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_DISCHARGE_FLAGS_3$constants.SEGMENT, 0L, GUID_BATTERY_DISCHARGE_FLAGS_3$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_SETTINGS_SUBGROUP$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_SETTINGS_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SE_AUDIT_NAME "SeAuditPrivilege"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_SETTINGS_SUBGROUP
      * }
      */
-    public static MemorySegment SE_AUDIT_NAME() {
-        return constants$4545.const$2;
+    public static GroupLayout GUID_PROCESSOR_SETTINGS_SUBGROUP$layout() {
+        return GUID_PROCESSOR_SETTINGS_SUBGROUP$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_SYSTEM_ENVIRONMENT_NAME "SeSystemEnvironmentPrivilege"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_SETTINGS_SUBGROUP
      * }
      */
-    public static MemorySegment SE_SYSTEM_ENVIRONMENT_NAME() {
-        return constants$4545.const$3;
+    public static MemorySegment GUID_PROCESSOR_SETTINGS_SUBGROUP() {
+        return GUID_PROCESSOR_SETTINGS_SUBGROUP$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_CHANGE_NOTIFY_NAME "SeChangeNotifyPrivilege"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_SETTINGS_SUBGROUP
      * }
      */
-    public static MemorySegment SE_CHANGE_NOTIFY_NAME() {
-        return constants$4545.const$4;
+    public static void GUID_PROCESSOR_SETTINGS_SUBGROUP(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_SETTINGS_SUBGROUP$constants.SEGMENT, 0L, GUID_PROCESSOR_SETTINGS_SUBGROUP$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_THROTTLE_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_THROTTLE_POLICY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SE_REMOTE_SHUTDOWN_NAME "SeRemoteShutdownPrivilege"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_POLICY
      * }
      */
-    public static MemorySegment SE_REMOTE_SHUTDOWN_NAME() {
-        return constants$4545.const$5;
+    public static GroupLayout GUID_PROCESSOR_THROTTLE_POLICY$layout() {
+        return GUID_PROCESSOR_THROTTLE_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_UNDOCK_NAME "SeUndockPrivilege"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_POLICY
      * }
      */
-    public static MemorySegment SE_UNDOCK_NAME() {
-        return constants$4546.const$0;
+    public static MemorySegment GUID_PROCESSOR_THROTTLE_POLICY() {
+        return GUID_PROCESSOR_THROTTLE_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_SYNC_AGENT_NAME "SeSyncAgentPrivilege"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_POLICY
      * }
      */
-    public static MemorySegment SE_SYNC_AGENT_NAME() {
-        return constants$4546.const$1;
+    public static void GUID_PROCESSOR_THROTTLE_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_THROTTLE_POLICY$constants.SEGMENT, 0L, GUID_PROCESSOR_THROTTLE_POLICY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_THROTTLE_MAXIMUM$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_THROTTLE_MAXIMUM").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SE_ENABLE_DELEGATION_NAME "SeEnableDelegationPrivilege"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_MAXIMUM
      * }
      */
-    public static MemorySegment SE_ENABLE_DELEGATION_NAME() {
-        return constants$4546.const$2;
+    public static GroupLayout GUID_PROCESSOR_THROTTLE_MAXIMUM$layout() {
+        return GUID_PROCESSOR_THROTTLE_MAXIMUM$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_MANAGE_VOLUME_NAME "SeManageVolumePrivilege"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_MAXIMUM
      * }
      */
-    public static MemorySegment SE_MANAGE_VOLUME_NAME() {
-        return constants$4546.const$3;
+    public static MemorySegment GUID_PROCESSOR_THROTTLE_MAXIMUM() {
+        return GUID_PROCESSOR_THROTTLE_MAXIMUM$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_IMPERSONATE_NAME "SeImpersonatePrivilege"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_MAXIMUM
      * }
      */
-    public static MemorySegment SE_IMPERSONATE_NAME() {
-        return constants$4546.const$4;
+    public static void GUID_PROCESSOR_THROTTLE_MAXIMUM(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_THROTTLE_MAXIMUM$constants.SEGMENT, 0L, GUID_PROCESSOR_THROTTLE_MAXIMUM$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_THROTTLE_MAXIMUM_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_THROTTLE_MAXIMUM_1").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SE_CREATE_GLOBAL_NAME "SeCreateGlobalPrivilege"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_MAXIMUM_1
      * }
      */
-    public static MemorySegment SE_CREATE_GLOBAL_NAME() {
-        return constants$4546.const$5;
+    public static GroupLayout GUID_PROCESSOR_THROTTLE_MAXIMUM_1$layout() {
+        return GUID_PROCESSOR_THROTTLE_MAXIMUM_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_TRUSTED_CREDMAN_ACCESS_NAME "SeTrustedCredManAccessPrivilege"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_MAXIMUM_1
      * }
      */
-    public static MemorySegment SE_TRUSTED_CREDMAN_ACCESS_NAME() {
-        return constants$4547.const$0;
+    public static MemorySegment GUID_PROCESSOR_THROTTLE_MAXIMUM_1() {
+        return GUID_PROCESSOR_THROTTLE_MAXIMUM_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_RELABEL_NAME "SeRelabelPrivilege"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_MAXIMUM_1
      * }
      */
-    public static MemorySegment SE_RELABEL_NAME() {
-        return constants$4547.const$1;
+    public static void GUID_PROCESSOR_THROTTLE_MAXIMUM_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_THROTTLE_MAXIMUM_1$constants.SEGMENT, 0L, GUID_PROCESSOR_THROTTLE_MAXIMUM_1$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_THROTTLE_MINIMUM$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_THROTTLE_MINIMUM").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SE_INC_WORKING_SET_NAME "SeIncreaseWorkingSetPrivilege"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_MINIMUM
      * }
      */
-    public static MemorySegment SE_INC_WORKING_SET_NAME() {
-        return constants$4547.const$2;
+    public static GroupLayout GUID_PROCESSOR_THROTTLE_MINIMUM$layout() {
+        return GUID_PROCESSOR_THROTTLE_MINIMUM$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_TIME_ZONE_NAME "SeTimeZonePrivilege"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_MINIMUM
      * }
      */
-    public static MemorySegment SE_TIME_ZONE_NAME() {
-        return constants$4547.const$3;
+    public static MemorySegment GUID_PROCESSOR_THROTTLE_MINIMUM() {
+        return GUID_PROCESSOR_THROTTLE_MINIMUM$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_CREATE_SYMBOLIC_LINK_NAME "SeCreateSymbolicLinkPrivilege"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_MINIMUM
      * }
      */
-    public static MemorySegment SE_CREATE_SYMBOLIC_LINK_NAME() {
-        return constants$4547.const$4;
+    public static void GUID_PROCESSOR_THROTTLE_MINIMUM(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_THROTTLE_MINIMUM$constants.SEGMENT, 0L, GUID_PROCESSOR_THROTTLE_MINIMUM$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_THROTTLE_MINIMUM_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_THROTTLE_MINIMUM_1").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SE_DELEGATE_SESSION_USER_IMPERSONATE_NAME "SeDelegateSessionUserImpersonatePrivilege"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_MINIMUM_1
      * }
      */
-    public static MemorySegment SE_DELEGATE_SESSION_USER_IMPERSONATE_NAME() {
-        return constants$4547.const$5;
+    public static GroupLayout GUID_PROCESSOR_THROTTLE_MINIMUM_1$layout() {
+        return GUID_PROCESSOR_THROTTLE_MINIMUM_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_ACTIVATE_AS_USER_CAPABILITY "a"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_MINIMUM_1
      * }
      */
-    public static MemorySegment SE_ACTIVATE_AS_USER_CAPABILITY() {
-        return constants$4548.const$0;
+    public static MemorySegment GUID_PROCESSOR_THROTTLE_MINIMUM_1() {
+        return GUID_PROCESSOR_THROTTLE_MINIMUM_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_CONSTRAINED_IMPERSONATION_CAPABILITY "c"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THROTTLE_MINIMUM_1
      * }
      */
-    public static MemorySegment SE_CONSTRAINED_IMPERSONATION_CAPABILITY() {
-        return constants$4548.const$1;
+    public static void GUID_PROCESSOR_THROTTLE_MINIMUM_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_THROTTLE_MINIMUM_1$constants.SEGMENT, 0L, GUID_PROCESSOR_THROTTLE_MINIMUM_1$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_FREQUENCY_LIMIT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_FREQUENCY_LIMIT").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SE_SESSION_IMPERSONATION_CAPABILITY "s"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_FREQUENCY_LIMIT
      * }
      */
-    public static MemorySegment SE_SESSION_IMPERSONATION_CAPABILITY() {
-        return constants$4548.const$2;
+    public static GroupLayout GUID_PROCESSOR_FREQUENCY_LIMIT$layout() {
+        return GUID_PROCESSOR_FREQUENCY_LIMIT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_MUMA_CAPABILITY "m"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_FREQUENCY_LIMIT
      * }
      */
-    public static MemorySegment SE_MUMA_CAPABILITY() {
-        return constants$4548.const$3;
+    public static MemorySegment GUID_PROCESSOR_FREQUENCY_LIMIT() {
+        return GUID_PROCESSOR_FREQUENCY_LIMIT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_DEVELOPMENT_MODE_NETWORK_CAPABILITY "d"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_FREQUENCY_LIMIT
      * }
      */
-    public static MemorySegment SE_DEVELOPMENT_MODE_NETWORK_CAPABILITY() {
-        return constants$4548.const$4;
+    public static void GUID_PROCESSOR_FREQUENCY_LIMIT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_FREQUENCY_LIMIT$constants.SEGMENT, 0L, GUID_PROCESSOR_FREQUENCY_LIMIT$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_FREQUENCY_LIMIT_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_FREQUENCY_LIMIT_1").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SE_PERMISSIVE_LEARNING_MODE_CAPABILITY "p"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_FREQUENCY_LIMIT_1
      * }
      */
-    public static MemorySegment SE_PERMISSIVE_LEARNING_MODE_CAPABILITY() {
-        return constants$4548.const$5;
+    public static GroupLayout GUID_PROCESSOR_FREQUENCY_LIMIT_1$layout() {
+        return GUID_PROCESSOR_FREQUENCY_LIMIT_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_MAX_IMPERSONATION_LEVEL 3
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_FREQUENCY_LIMIT_1
      * }
      */
-    public static int SECURITY_MAX_IMPERSONATION_LEVEL() {
-        return (int)3L;
+    public static MemorySegment GUID_PROCESSOR_FREQUENCY_LIMIT_1() {
+        return GUID_PROCESSOR_FREQUENCY_LIMIT_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_MIN_IMPERSONATION_LEVEL 0
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_FREQUENCY_LIMIT_1
      * }
      */
-    public static int SECURITY_MIN_IMPERSONATION_LEVEL() {
-        return (int)0L;
+    public static void GUID_PROCESSOR_FREQUENCY_LIMIT_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_FREQUENCY_LIMIT_1$constants.SEGMENT, 0L, GUID_PROCESSOR_FREQUENCY_LIMIT_1$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_ALLOW_THROTTLING$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_ALLOW_THROTTLING").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define DEFAULT_IMPERSONATION_LEVEL 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_ALLOW_THROTTLING
      * }
      */
-    public static int DEFAULT_IMPERSONATION_LEVEL() {
-        return (int)2L;
+    public static GroupLayout GUID_PROCESSOR_ALLOW_THROTTLING$layout() {
+        return GUID_PROCESSOR_ALLOW_THROTTLING$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_ASSIGN_PRIMARY 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_ALLOW_THROTTLING
      * }
      */
-    public static int TOKEN_ASSIGN_PRIMARY() {
-        return (int)1L;
+    public static MemorySegment GUID_PROCESSOR_ALLOW_THROTTLING() {
+        return GUID_PROCESSOR_ALLOW_THROTTLING$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_DUPLICATE 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_ALLOW_THROTTLING
      * }
      */
-    public static int TOKEN_DUPLICATE() {
-        return (int)2L;
+    public static void GUID_PROCESSOR_ALLOW_THROTTLING(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_ALLOW_THROTTLING$constants.SEGMENT, 0L, GUID_PROCESSOR_ALLOW_THROTTLING$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_IDLESTATE_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_IDLESTATE_POLICY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define TOKEN_IMPERSONATE 4
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLESTATE_POLICY
      * }
      */
-    public static int TOKEN_IMPERSONATE() {
-        return (int)4L;
+    public static GroupLayout GUID_PROCESSOR_IDLESTATE_POLICY$layout() {
+        return GUID_PROCESSOR_IDLESTATE_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_QUERY 8
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLESTATE_POLICY
      * }
      */
-    public static int TOKEN_QUERY() {
-        return (int)8L;
+    public static MemorySegment GUID_PROCESSOR_IDLESTATE_POLICY() {
+        return GUID_PROCESSOR_IDLESTATE_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_QUERY_SOURCE 16
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLESTATE_POLICY
      * }
      */
-    public static int TOKEN_QUERY_SOURCE() {
-        return (int)16L;
+    public static void GUID_PROCESSOR_IDLESTATE_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_IDLESTATE_POLICY$constants.SEGMENT, 0L, GUID_PROCESSOR_IDLESTATE_POLICY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PERFSTATE_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERFSTATE_POLICY").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_ADJUST_PRIVILEGES 32
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERFSTATE_POLICY
      * }
      */
-    public static int TOKEN_ADJUST_PRIVILEGES() {
-        return (int)32L;
+    public static GroupLayout GUID_PROCESSOR_PERFSTATE_POLICY$layout() {
+        return GUID_PROCESSOR_PERFSTATE_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_ADJUST_GROUPS 64
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERFSTATE_POLICY
      * }
      */
-    public static int TOKEN_ADJUST_GROUPS() {
-        return (int)64L;
+    public static MemorySegment GUID_PROCESSOR_PERFSTATE_POLICY() {
+        return GUID_PROCESSOR_PERFSTATE_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_ADJUST_DEFAULT 128
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERFSTATE_POLICY
      * }
      */
-    public static int TOKEN_ADJUST_DEFAULT() {
-        return (int)128L;
+    public static void GUID_PROCESSOR_PERFSTATE_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERFSTATE_POLICY$constants.SEGMENT, 0L, GUID_PROCESSOR_PERFSTATE_POLICY$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PERF_INCREASE_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_INCREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define TOKEN_ADJUST_SESSIONID 256
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_THRESHOLD
      * }
      */
-    public static int TOKEN_ADJUST_SESSIONID() {
-        return (int)256L;
+    public static GroupLayout GUID_PROCESSOR_PERF_INCREASE_THRESHOLD$layout() {
+        return GUID_PROCESSOR_PERF_INCREASE_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_ALL_ACCESS_P 983295
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_THRESHOLD
      * }
      */
-    public static int TOKEN_ALL_ACCESS_P() {
-        return (int)983295L;
+    public static MemorySegment GUID_PROCESSOR_PERF_INCREASE_THRESHOLD() {
+        return GUID_PROCESSOR_PERF_INCREASE_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_ALL_ACCESS 983551
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_THRESHOLD
      * }
      */
-    public static int TOKEN_ALL_ACCESS() {
-        return (int)983551L;
+    public static void GUID_PROCESSOR_PERF_INCREASE_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_INCREASE_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_INCREASE_THRESHOLD$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_READ 131080
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1
      * }
      */
-    public static int TOKEN_READ() {
-        return (int)131080L;
+    public static GroupLayout GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1$layout() {
+        return GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_WRITE 131296
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1
      * }
      */
-    public static int TOKEN_WRITE() {
-        return (int)131296L;
+    public static MemorySegment GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1() {
+        return GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_EXECUTE 131072
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1
      * }
      */
-    public static int TOKEN_EXECUTE() {
-        return (int)131072L;
+    public static void GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PERF_DECREASE_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_DECREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define TOKEN_TRUST_CONSTRAINT_MASK 131096
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_THRESHOLD
      * }
      */
-    public static int TOKEN_TRUST_CONSTRAINT_MASK() {
-        return (int)131096L;
+    public static GroupLayout GUID_PROCESSOR_PERF_DECREASE_THRESHOLD$layout() {
+        return GUID_PROCESSOR_PERF_DECREASE_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_ACCESS_PSEUDO_HANDLE_WIN8 24
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_THRESHOLD
      * }
      */
-    public static int TOKEN_ACCESS_PSEUDO_HANDLE_WIN8() {
-        return (int)24L;
+    public static MemorySegment GUID_PROCESSOR_PERF_DECREASE_THRESHOLD() {
+        return GUID_PROCESSOR_PERF_DECREASE_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_ACCESS_PSEUDO_HANDLE 24
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_THRESHOLD
      * }
      */
-    public static int TOKEN_ACCESS_PSEUDO_HANDLE() {
-        return (int)24L;
+    public static void GUID_PROCESSOR_PERF_DECREASE_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_DECREASE_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_DECREASE_THRESHOLD$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_USER_MAX_SIZE 84
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1
      * }
      */
-    public static long TOKEN_USER_MAX_SIZE() {
-        return 84L;
+    public static GroupLayout GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1$layout() {
+        return GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_OWNER_MAX_SIZE 76
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1
      * }
      */
-    public static long TOKEN_OWNER_MAX_SIZE() {
-        return 76L;
+    public static MemorySegment GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1() {
+        return GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_MANDATORY_POLICY_VALID_MASK 3
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1
      * }
      */
-    public static int TOKEN_MANDATORY_POLICY_VALID_MASK() {
-        return (int)3L;
+    public static void GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PERF_INCREASE_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_INCREASE_POLICY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define TOKEN_INTEGRITY_LEVEL_MAX_SIZE 84
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_POLICY
      * }
      */
-    public static long TOKEN_INTEGRITY_LEVEL_MAX_SIZE() {
-        return 84L;
+    public static GroupLayout GUID_PROCESSOR_PERF_INCREASE_POLICY$layout() {
+        return GUID_PROCESSOR_PERF_INCREASE_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define POLICY_AUDIT_SUBCATEGORY_COUNT 59
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_POLICY
      * }
      */
-    public static int POLICY_AUDIT_SUBCATEGORY_COUNT() {
-        return (int)59L;
+    public static MemorySegment GUID_PROCESSOR_PERF_INCREASE_POLICY() {
+        return GUID_PROCESSOR_PERF_INCREASE_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define TOKEN_APPCONTAINER_SID_MAX_SIZE 76
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_POLICY
      * }
      */
-    public static long TOKEN_APPCONTAINER_SID_MAX_SIZE() {
-        return 76L;
+    public static void GUID_PROCESSOR_PERF_INCREASE_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_INCREASE_POLICY$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_INCREASE_POLICY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PERF_INCREASE_POLICY_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_INCREASE_POLICY_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define CLAIM_SECURITY_ATTRIBUTE_VALID_FLAGS 63
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_POLICY_1
      * }
      */
-    public static int CLAIM_SECURITY_ATTRIBUTE_VALID_FLAGS() {
-        return (int)63L;
+    public static GroupLayout GUID_PROCESSOR_PERF_INCREASE_POLICY_1$layout() {
+        return GUID_PROCESSOR_PERF_INCREASE_POLICY_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define CLAIM_SECURITY_ATTRIBUTE_CUSTOM_FLAGS 4294901760
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_POLICY_1
      * }
      */
-    public static int CLAIM_SECURITY_ATTRIBUTE_CUSTOM_FLAGS() {
-        return (int)4294901760L;
+    public static MemorySegment GUID_PROCESSOR_PERF_INCREASE_POLICY_1() {
+        return GUID_PROCESSOR_PERF_INCREASE_POLICY_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define CLAIM_SECURITY_ATTRIBUTES_INFORMATION_VERSION 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_POLICY_1
      * }
      */
-    public static int CLAIM_SECURITY_ATTRIBUTES_INFORMATION_VERSION() {
-        return (int)1L;
+    public static void GUID_PROCESSOR_PERF_INCREASE_POLICY_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_INCREASE_POLICY_1$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_INCREASE_POLICY_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PERF_DECREASE_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_DECREASE_POLICY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_DYNAMIC_TRACKING 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_POLICY
      * }
      */
-    public static int SECURITY_DYNAMIC_TRACKING() {
-        return (int)1L;
+    public static GroupLayout GUID_PROCESSOR_PERF_DECREASE_POLICY$layout() {
+        return GUID_PROCESSOR_PERF_DECREASE_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_STATIC_TRACKING 0
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_POLICY
      * }
      */
-    public static int SECURITY_STATIC_TRACKING() {
-        return (int)0L;
+    public static MemorySegment GUID_PROCESSOR_PERF_DECREASE_POLICY() {
+        return GUID_PROCESSOR_PERF_DECREASE_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define OWNER_SECURITY_INFORMATION 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_POLICY
      * }
      */
-    public static int OWNER_SECURITY_INFORMATION() {
-        return (int)1L;
+    public static void GUID_PROCESSOR_PERF_DECREASE_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_DECREASE_POLICY$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_DECREASE_POLICY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PERF_DECREASE_POLICY_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_DECREASE_POLICY_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define GROUP_SECURITY_INFORMATION 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_POLICY_1
      * }
      */
-    public static int GROUP_SECURITY_INFORMATION() {
-        return (int)2L;
+    public static GroupLayout GUID_PROCESSOR_PERF_DECREASE_POLICY_1$layout() {
+        return GUID_PROCESSOR_PERF_DECREASE_POLICY_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DACL_SECURITY_INFORMATION 4
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_POLICY_1
      * }
      */
-    public static int DACL_SECURITY_INFORMATION() {
-        return (int)4L;
+    public static MemorySegment GUID_PROCESSOR_PERF_DECREASE_POLICY_1() {
+        return GUID_PROCESSOR_PERF_DECREASE_POLICY_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SACL_SECURITY_INFORMATION 8
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_POLICY_1
      * }
      */
-    public static int SACL_SECURITY_INFORMATION() {
-        return (int)8L;
+    public static void GUID_PROCESSOR_PERF_DECREASE_POLICY_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_DECREASE_POLICY_1$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_DECREASE_POLICY_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PERF_INCREASE_TIME$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_INCREASE_TIME").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define LABEL_SECURITY_INFORMATION 16
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_TIME
      * }
      */
-    public static int LABEL_SECURITY_INFORMATION() {
-        return (int)16L;
+    public static GroupLayout GUID_PROCESSOR_PERF_INCREASE_TIME$layout() {
+        return GUID_PROCESSOR_PERF_INCREASE_TIME$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ATTRIBUTE_SECURITY_INFORMATION 32
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_TIME
      * }
      */
-    public static int ATTRIBUTE_SECURITY_INFORMATION() {
-        return (int)32L;
+    public static MemorySegment GUID_PROCESSOR_PERF_INCREASE_TIME() {
+        return GUID_PROCESSOR_PERF_INCREASE_TIME$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SCOPE_SECURITY_INFORMATION 64
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_TIME
      * }
      */
-    public static int SCOPE_SECURITY_INFORMATION() {
-        return (int)64L;
+    public static void GUID_PROCESSOR_PERF_INCREASE_TIME(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_INCREASE_TIME$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_INCREASE_TIME$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PERF_INCREASE_TIME_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_INCREASE_TIME_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_TRUST_LABEL_SECURITY_INFORMATION 128
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_TIME_1
      * }
      */
-    public static int PROCESS_TRUST_LABEL_SECURITY_INFORMATION() {
-        return (int)128L;
+    public static GroupLayout GUID_PROCESSOR_PERF_INCREASE_TIME_1$layout() {
+        return GUID_PROCESSOR_PERF_INCREASE_TIME_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ACCESS_FILTER_SECURITY_INFORMATION 256
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_TIME_1
      * }
      */
-    public static int ACCESS_FILTER_SECURITY_INFORMATION() {
-        return (int)256L;
+    public static MemorySegment GUID_PROCESSOR_PERF_INCREASE_TIME_1() {
+        return GUID_PROCESSOR_PERF_INCREASE_TIME_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define BACKUP_SECURITY_INFORMATION 65536
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_TIME_1
      * }
      */
-    public static int BACKUP_SECURITY_INFORMATION() {
-        return (int)65536L;
+    public static void GUID_PROCESSOR_PERF_INCREASE_TIME_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_INCREASE_TIME_1$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_INCREASE_TIME_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PERF_DECREASE_TIME$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_DECREASE_TIME").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define PROTECTED_DACL_SECURITY_INFORMATION 2147483648
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_TIME
      * }
      */
-    public static int PROTECTED_DACL_SECURITY_INFORMATION() {
-        return (int)2147483648L;
+    public static GroupLayout GUID_PROCESSOR_PERF_DECREASE_TIME$layout() {
+        return GUID_PROCESSOR_PERF_DECREASE_TIME$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define PROTECTED_SACL_SECURITY_INFORMATION 1073741824
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_TIME
      * }
      */
-    public static int PROTECTED_SACL_SECURITY_INFORMATION() {
-        return (int)1073741824L;
+    public static MemorySegment GUID_PROCESSOR_PERF_DECREASE_TIME() {
+        return GUID_PROCESSOR_PERF_DECREASE_TIME$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define UNPROTECTED_DACL_SECURITY_INFORMATION 536870912
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_TIME
      * }
      */
-    public static int UNPROTECTED_DACL_SECURITY_INFORMATION() {
-        return (int)536870912L;
+    public static void GUID_PROCESSOR_PERF_DECREASE_TIME(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_DECREASE_TIME$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_DECREASE_TIME$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PERF_DECREASE_TIME_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_DECREASE_TIME_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define UNPROTECTED_SACL_SECURITY_INFORMATION 268435456
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_TIME_1
      * }
      */
-    public static int UNPROTECTED_SACL_SECURITY_INFORMATION() {
-        return (int)268435456L;
+    public static GroupLayout GUID_PROCESSOR_PERF_DECREASE_TIME_1$layout() {
+        return GUID_PROCESSOR_PERF_DECREASE_TIME_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_SIGNING_LEVEL_DEVELOPER 3
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_TIME_1
      * }
      */
-    public static int SE_SIGNING_LEVEL_DEVELOPER() {
-        return (int)3L;
+    public static MemorySegment GUID_PROCESSOR_PERF_DECREASE_TIME_1() {
+        return GUID_PROCESSOR_PERF_DECREASE_TIME_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SE_SIGNING_LEVEL_ANTIMALWARE 7
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_TIME_1
      * }
      */
-    public static int SE_SIGNING_LEVEL_ANTIMALWARE() {
-        return (int)7L;
+    public static void GUID_PROCESSOR_PERF_DECREASE_TIME_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_DECREASE_TIME_1$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_DECREASE_TIME_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PERF_TIME_CHECK$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_TIME_CHECK").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_TERMINATE 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_TIME_CHECK
      * }
      */
-    public static int PROCESS_TERMINATE() {
-        return (int)1L;
+    public static GroupLayout GUID_PROCESSOR_PERF_TIME_CHECK$layout() {
+        return GUID_PROCESSOR_PERF_TIME_CHECK$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATE_THREAD 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_TIME_CHECK
      * }
      */
-    public static int PROCESS_CREATE_THREAD() {
-        return (int)2L;
+    public static MemorySegment GUID_PROCESSOR_PERF_TIME_CHECK() {
+        return GUID_PROCESSOR_PERF_TIME_CHECK$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_SET_SESSIONID 4
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_TIME_CHECK
      * }
      */
-    public static int PROCESS_SET_SESSIONID() {
-        return (int)4L;
+    public static void GUID_PROCESSOR_PERF_TIME_CHECK(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_TIME_CHECK$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_TIME_CHECK$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PERF_BOOST_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_BOOST_POLICY").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_VM_OPERATION 8
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_BOOST_POLICY
      * }
      */
-    public static int PROCESS_VM_OPERATION() {
-        return (int)8L;
+    public static GroupLayout GUID_PROCESSOR_PERF_BOOST_POLICY$layout() {
+        return GUID_PROCESSOR_PERF_BOOST_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_VM_READ 16
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_BOOST_POLICY
      * }
      */
-    public static int PROCESS_VM_READ() {
-        return (int)16L;
+    public static MemorySegment GUID_PROCESSOR_PERF_BOOST_POLICY() {
+        return GUID_PROCESSOR_PERF_BOOST_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_VM_WRITE 32
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_BOOST_POLICY
      * }
      */
-    public static int PROCESS_VM_WRITE() {
-        return (int)32L;
+    public static void GUID_PROCESSOR_PERF_BOOST_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_BOOST_POLICY$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_BOOST_POLICY$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PERF_BOOST_MODE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_BOOST_MODE").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_DUP_HANDLE 64
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_BOOST_MODE
      * }
      */
-    public static int PROCESS_DUP_HANDLE() {
-        return (int)64L;
+    public static GroupLayout GUID_PROCESSOR_PERF_BOOST_MODE$layout() {
+        return GUID_PROCESSOR_PERF_BOOST_MODE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATE_PROCESS 128
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_BOOST_MODE
      * }
      */
-    public static int PROCESS_CREATE_PROCESS() {
-        return (int)128L;
+    public static MemorySegment GUID_PROCESSOR_PERF_BOOST_MODE() {
+        return GUID_PROCESSOR_PERF_BOOST_MODE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_SET_QUOTA 256
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_BOOST_MODE
      * }
      */
-    public static int PROCESS_SET_QUOTA() {
-        return (int)256L;
+    public static void GUID_PROCESSOR_PERF_BOOST_MODE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_BOOST_MODE$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_BOOST_MODE$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PERF_AUTONOMOUS_MODE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_AUTONOMOUS_MODE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_SET_INFORMATION 512
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_AUTONOMOUS_MODE
      * }
      */
-    public static int PROCESS_SET_INFORMATION() {
-        return (int)512L;
+    public static GroupLayout GUID_PROCESSOR_PERF_AUTONOMOUS_MODE$layout() {
+        return GUID_PROCESSOR_PERF_AUTONOMOUS_MODE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_QUERY_INFORMATION 1024
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_AUTONOMOUS_MODE
      * }
      */
-    public static int PROCESS_QUERY_INFORMATION() {
-        return (int)1024L;
+    public static MemorySegment GUID_PROCESSOR_PERF_AUTONOMOUS_MODE() {
+        return GUID_PROCESSOR_PERF_AUTONOMOUS_MODE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_SUSPEND_RESUME 2048
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_AUTONOMOUS_MODE
      * }
      */
-    public static int PROCESS_SUSPEND_RESUME() {
-        return (int)2048L;
+    public static void GUID_PROCESSOR_PERF_AUTONOMOUS_MODE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_AUTONOMOUS_MODE$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_AUTONOMOUS_MODE$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_QUERY_LIMITED_INFORMATION 4096
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE
      * }
      */
-    public static int PROCESS_QUERY_LIMITED_INFORMATION() {
-        return (int)4096L;
+    public static GroupLayout GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE$layout() {
+        return GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_SET_LIMITED_INFORMATION 8192
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE
      * }
      */
-    public static int PROCESS_SET_LIMITED_INFORMATION() {
-        return (int)8192L;
+    public static MemorySegment GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE() {
+        return GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_ALL_ACCESS 2097151
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE
      * }
      */
-    public static int PROCESS_ALL_ACCESS() {
-        return (int)2097151L;
+    public static void GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_TERMINATE 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1
      * }
      */
-    public static int THREAD_TERMINATE() {
-        return (int)1L;
+    public static GroupLayout GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1$layout() {
+        return GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_SUSPEND_RESUME 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1
      * }
      */
-    public static int THREAD_SUSPEND_RESUME() {
-        return (int)2L;
+    public static MemorySegment GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1() {
+        return GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_GET_CONTEXT 8
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1
      * }
      */
-    public static int THREAD_GET_CONTEXT() {
-        return (int)8L;
+    public static void GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define THREAD_SET_CONTEXT 16
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW
      * }
      */
-    public static int THREAD_SET_CONTEXT() {
-        return (int)16L;
+    public static GroupLayout GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW$layout() {
+        return GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_QUERY_INFORMATION 64
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW
      * }
      */
-    public static int THREAD_QUERY_INFORMATION() {
-        return (int)64L;
+    public static MemorySegment GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW() {
+        return GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_SET_INFORMATION 32
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW
      * }
      */
-    public static int THREAD_SET_INFORMATION() {
-        return (int)32L;
+    public static void GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_DUTY_CYCLING$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_DUTY_CYCLING").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_SET_THREAD_TOKEN 128
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_DUTY_CYCLING
      * }
      */
-    public static int THREAD_SET_THREAD_TOKEN() {
-        return (int)128L;
+    public static GroupLayout GUID_PROCESSOR_DUTY_CYCLING$layout() {
+        return GUID_PROCESSOR_DUTY_CYCLING$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_IMPERSONATE 256
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_DUTY_CYCLING
      * }
      */
-    public static int THREAD_IMPERSONATE() {
-        return (int)256L;
+    public static MemorySegment GUID_PROCESSOR_DUTY_CYCLING() {
+        return GUID_PROCESSOR_DUTY_CYCLING$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_DIRECT_IMPERSONATION 512
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_DUTY_CYCLING
      * }
      */
-    public static int THREAD_DIRECT_IMPERSONATION() {
-        return (int)512L;
+    public static void GUID_PROCESSOR_DUTY_CYCLING(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_DUTY_CYCLING$constants.SEGMENT, 0L, GUID_PROCESSOR_DUTY_CYCLING$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_IDLE_ALLOW_SCALING$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_IDLE_ALLOW_SCALING").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define THREAD_SET_LIMITED_INFORMATION 1024
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_ALLOW_SCALING
      * }
      */
-    public static int THREAD_SET_LIMITED_INFORMATION() {
-        return (int)1024L;
+    public static GroupLayout GUID_PROCESSOR_IDLE_ALLOW_SCALING$layout() {
+        return GUID_PROCESSOR_IDLE_ALLOW_SCALING$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_QUERY_LIMITED_INFORMATION 2048
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_ALLOW_SCALING
      * }
      */
-    public static int THREAD_QUERY_LIMITED_INFORMATION() {
-        return (int)2048L;
+    public static MemorySegment GUID_PROCESSOR_IDLE_ALLOW_SCALING() {
+        return GUID_PROCESSOR_IDLE_ALLOW_SCALING$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_RESUME 4096
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_ALLOW_SCALING
      * }
      */
-    public static int THREAD_RESUME() {
-        return (int)4096L;
+    public static void GUID_PROCESSOR_IDLE_ALLOW_SCALING(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_IDLE_ALLOW_SCALING$constants.SEGMENT, 0L, GUID_PROCESSOR_IDLE_ALLOW_SCALING$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_IDLE_DISABLE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_IDLE_DISABLE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_ALL_ACCESS 2097151
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_DISABLE
      * }
      */
-    public static int THREAD_ALL_ACCESS() {
-        return (int)2097151L;
+    public static GroupLayout GUID_PROCESSOR_IDLE_DISABLE$layout() {
+        return GUID_PROCESSOR_IDLE_DISABLE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_ASSIGN_PROCESS 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_DISABLE
      * }
      */
-    public static int JOB_OBJECT_ASSIGN_PROCESS() {
-        return (int)1L;
+    public static MemorySegment GUID_PROCESSOR_IDLE_DISABLE() {
+        return GUID_PROCESSOR_IDLE_DISABLE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_SET_ATTRIBUTES 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_DISABLE
      * }
      */
-    public static int JOB_OBJECT_SET_ATTRIBUTES() {
-        return (int)2L;
+    public static void GUID_PROCESSOR_IDLE_DISABLE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_IDLE_DISABLE$constants.SEGMENT, 0L, GUID_PROCESSOR_IDLE_DISABLE$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_IDLE_STATE_MAXIMUM$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_IDLE_STATE_MAXIMUM").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_QUERY 4
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_STATE_MAXIMUM
      * }
      */
-    public static int JOB_OBJECT_QUERY() {
-        return (int)4L;
+    public static GroupLayout GUID_PROCESSOR_IDLE_STATE_MAXIMUM$layout() {
+        return GUID_PROCESSOR_IDLE_STATE_MAXIMUM$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_TERMINATE 8
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_STATE_MAXIMUM
      * }
      */
-    public static int JOB_OBJECT_TERMINATE() {
-        return (int)8L;
+    public static MemorySegment GUID_PROCESSOR_IDLE_STATE_MAXIMUM() {
+        return GUID_PROCESSOR_IDLE_STATE_MAXIMUM$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_SET_SECURITY_ATTRIBUTES 16
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_STATE_MAXIMUM
      * }
      */
-    public static int JOB_OBJECT_SET_SECURITY_ATTRIBUTES() {
-        return (int)16L;
+    public static void GUID_PROCESSOR_IDLE_STATE_MAXIMUM(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_IDLE_STATE_MAXIMUM$constants.SEGMENT, 0L, GUID_PROCESSOR_IDLE_STATE_MAXIMUM$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_IDLE_TIME_CHECK$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_IDLE_TIME_CHECK").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_IMPERSONATE 32
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_TIME_CHECK
      * }
      */
-    public static int JOB_OBJECT_IMPERSONATE() {
-        return (int)32L;
+    public static GroupLayout GUID_PROCESSOR_IDLE_TIME_CHECK$layout() {
+        return GUID_PROCESSOR_IDLE_TIME_CHECK$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_ALL_ACCESS 2031679
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_TIME_CHECK
      * }
      */
-    public static int JOB_OBJECT_ALL_ACCESS() {
-        return (int)2031679L;
+    public static MemorySegment GUID_PROCESSOR_IDLE_TIME_CHECK() {
+        return GUID_PROCESSOR_IDLE_TIME_CHECK$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_BASE_PRIORITY_MIN -2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_TIME_CHECK
      * }
      */
-    public static int THREAD_BASE_PRIORITY_MIN() {
-        return (int)-2L;
+    public static void GUID_PROCESSOR_IDLE_TIME_CHECK(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_IDLE_TIME_CHECK$constants.SEGMENT, 0L, GUID_PROCESSOR_IDLE_TIME_CHECK$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define THREAD_BASE_PRIORITY_IDLE -15
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD
      * }
      */
-    public static int THREAD_BASE_PRIORITY_IDLE() {
-        return (int)-15L;
+    public static GroupLayout GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD$layout() {
+        return GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define COMPONENT_VALID_FLAGS 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD
      * }
      */
-    public static int COMPONENT_VALID_FLAGS() {
-        return (int)1L;
+    public static MemorySegment GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD() {
+        return GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DYNAMIC_EH_CONTINUATION_TARGET_ADD 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD
      * }
      */
-    public static int DYNAMIC_EH_CONTINUATION_TARGET_ADD() {
-        return (int)1L;
+    public static void GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define DYNAMIC_EH_CONTINUATION_TARGET_PROCESSED 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD
      * }
      */
-    public static int DYNAMIC_EH_CONTINUATION_TARGET_PROCESSED() {
-        return (int)2L;
+    public static GroupLayout GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD$layout() {
+        return GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DYNAMIC_ENFORCED_ADDRESS_RANGE_ADD 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD
      * }
      */
-    public static int DYNAMIC_ENFORCED_ADDRESS_RANGE_ADD() {
-        return (int)1L;
+    public static MemorySegment GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD() {
+        return GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DYNAMIC_ENFORCED_ADDRESS_RANGE_PROCESSED 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD
      * }
      */
-    public static int DYNAMIC_ENFORCED_ADDRESS_RANGE_PROCESSED() {
-        return (int)2L;
+    public static void GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_VALID_COMPLETION_FILTER 16382
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD
      * }
      */
-    public static int JOB_OBJECT_VALID_COMPLETION_FILTER() {
-        return (int)16382L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_LIMIT_JOB_MEMORY_HIGH 512
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD
      * }
      */
-    public static int JOB_OBJECT_LIMIT_JOB_MEMORY_HIGH() {
-        return (int)512L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD() {
+        return GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_LIMIT_CPU_RATE_CONTROL 262144
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD
      * }
      */
-    public static int JOB_OBJECT_LIMIT_CPU_RATE_CONTROL() {
-        return (int)262144L;
+    public static void GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_NOTIFICATION_LIMIT_VALID_FLAGS 2064900
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD
      * }
      */
-    public static int JOB_OBJECT_NOTIFICATION_LIMIT_VALID_FLAGS() {
-        return (int)2064900L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define MEMORY_PARTITION_ALL_ACCESS 2031619
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD
      * }
      */
-    public static int MEMORY_PARTITION_ALL_ACCESS() {
-        return (int)2031619L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD() {
+        return GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define EVENT_ALL_ACCESS 2031619
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD
      * }
      */
-    public static int EVENT_ALL_ACCESS() {
-        return (int)2031619L;
+    public static void GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define MUTANT_ALL_ACCESS 2031617
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY
      * }
      */
-    public static int MUTANT_ALL_ACCESS() {
-        return (int)2031617L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SEMAPHORE_ALL_ACCESS 2031619
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY
      * }
      */
-    public static int SEMAPHORE_ALL_ACCESS() {
-        return (int)2031619L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY() {
+        return GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define TIMER_ALL_ACCESS 2031619
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY
      * }
      */
-    public static int TIMER_ALL_ACCESS() {
-        return (int)2031619L;
+    public static void GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_LEGACY_FLOATING_POINT 0
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY
      * }
      */
-    public static int XSTATE_LEGACY_FLOATING_POINT() {
-        return (int)0L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_LEGACY_SSE 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY
      * }
      */
-    public static int XSTATE_LEGACY_SSE() {
-        return (int)1L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY() {
+        return GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_GSSE 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY
      * }
      */
-    public static int XSTATE_GSSE() {
-        return (int)2L;
+    public static void GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_MAX_CORES$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_MAX_CORES").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define XSTATE_AVX 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_MAX_CORES
      * }
      */
-    public static int XSTATE_AVX() {
-        return (int)2L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_MAX_CORES$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_MAX_CORES$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MPX_BNDREGS 3
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_MAX_CORES
      * }
      */
-    public static int XSTATE_MPX_BNDREGS() {
-        return (int)3L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_MAX_CORES() {
+        return GUID_PROCESSOR_CORE_PARKING_MAX_CORES$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MPX_BNDCSR 4
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_MAX_CORES
      * }
      */
-    public static int XSTATE_MPX_BNDCSR() {
-        return (int)4L;
+    public static void GUID_PROCESSOR_CORE_PARKING_MAX_CORES(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_MAX_CORES$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_MAX_CORES$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_AVX512_KMASK 5
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1
      * }
      */
-    public static int XSTATE_AVX512_KMASK() {
-        return (int)5L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_AVX512_ZMM_H 6
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1
      * }
      */
-    public static int XSTATE_AVX512_ZMM_H() {
-        return (int)6L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1() {
+        return GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_AVX512_ZMM 7
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1
      * }
      */
-    public static int XSTATE_AVX512_ZMM() {
-        return (int)7L;
+    public static void GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_MIN_CORES$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_MIN_CORES").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define XSTATE_IPT 8
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_MIN_CORES
      * }
      */
-    public static int XSTATE_IPT() {
-        return (int)8L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_MIN_CORES$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_MIN_CORES$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_PASID 10
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_MIN_CORES
      * }
      */
-    public static int XSTATE_PASID() {
-        return (int)10L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_MIN_CORES() {
+        return GUID_PROCESSOR_CORE_PARKING_MIN_CORES$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_CET_U 11
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_MIN_CORES
      * }
      */
-    public static int XSTATE_CET_U() {
-        return (int)11L;
+    public static void GUID_PROCESSOR_CORE_PARKING_MIN_CORES(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_MIN_CORES$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_MIN_CORES$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_CET_S 12
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1
      * }
      */
-    public static int XSTATE_CET_S() {
-        return (int)12L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_AMX_TILE_CONFIG 17
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1
      * }
      */
-    public static int XSTATE_AMX_TILE_CONFIG() {
-        return (int)17L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1() {
+        return GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_AMX_TILE_DATA 18
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1
      * }
      */
-    public static int XSTATE_AMX_TILE_DATA() {
-        return (int)18L;
+    public static void GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define XSTATE_LWP 62
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME
      * }
      */
-    public static int XSTATE_LWP() {
-        return (int)62L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define MAXIMUM_XSTATE_FEATURES 64
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME
      * }
      */
-    public static int MAXIMUM_XSTATE_FEATURES() {
-        return (int)64L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME() {
+        return GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_LEGACY_FLOATING_POINT 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME
      * }
      */
-    public static long XSTATE_MASK_LEGACY_FLOATING_POINT() {
-        return 1L;
+    public static void GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_LEGACY_SSE 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME
      * }
      */
-    public static long XSTATE_MASK_LEGACY_SSE() {
-        return 2L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_LEGACY 3
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME
      * }
      */
-    public static long XSTATE_MASK_LEGACY() {
-        return 3L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME() {
+        return GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_GSSE 4
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME
      * }
      */
-    public static long XSTATE_MASK_GSSE() {
-        return 4L;
+    public static void GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_AVX 4
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR
      * }
      */
-    public static long XSTATE_MASK_AVX() {
-        return 4L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_MPX 24
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR
      * }
      */
-    public static long XSTATE_MASK_MPX() {
-        return 24L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR() {
+        return GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_AVX512 224
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR
      * }
      */
-    public static long XSTATE_MASK_AVX512() {
-        return 224L;
+    public static void GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_IPT 256
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD
      * }
      */
-    public static long XSTATE_MASK_IPT() {
-        return 256L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_PASID 1024
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD
      * }
      */
-    public static long XSTATE_MASK_PASID() {
-        return 1024L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD() {
+        return GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_CET_U 2048
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD
      * }
      */
-    public static long XSTATE_MASK_CET_U() {
-        return 2048L;
+    public static void GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_CET_S 4096
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING
      * }
      */
-    public static long XSTATE_MASK_CET_S() {
-        return 4096L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_AMX_TILE_CONFIG 131072
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING
      * }
      */
-    public static long XSTATE_MASK_AMX_TILE_CONFIG() {
-        return 131072L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING() {
+        return GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_AMX_TILE_DATA 262144
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING
      * }
      */
-    public static long XSTATE_MASK_AMX_TILE_DATA() {
-        return 262144L;
+    public static void GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_LWP 4611686018427387904
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR
      * }
      */
-    public static long XSTATE_MASK_LWP() {
-        return 4611686018427387904L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_ALLOWED 4611686018427784703
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR
      * }
      */
-    public static long XSTATE_MASK_ALLOWED() {
-        return 4611686018427784703L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR() {
+        return GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_PERSISTENT 4611686018427387920
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR
      * }
      */
-    public static long XSTATE_MASK_PERSISTENT() {
-        return 4611686018427387920L;
+    public static void GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_USER_VISIBLE_SUPERVISOR 2048
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD
      * }
      */
-    public static long XSTATE_MASK_USER_VISIBLE_SUPERVISOR() {
-        return 2048L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_MASK_LARGE_FEATURES 262144
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD
      * }
      */
-    public static long XSTATE_MASK_LARGE_FEATURES() {
-        return 262144L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD() {
+        return GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_COMPACTION_ENABLE 63
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD
      * }
      */
-    public static int XSTATE_COMPACTION_ENABLE() {
-        return (int)63L;
+    public static void GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_COMPACTION_ENABLE_MASK -9223372036854775808
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING
      * }
      */
-    public static long XSTATE_COMPACTION_ENABLE_MASK() {
-        return -9223372036854775808L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_ALIGN_BIT 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING
      * }
      */
-    public static int XSTATE_ALIGN_BIT() {
-        return (int)1L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING() {
+        return GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_ALIGN_MASK 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING
      * }
      */
-    public static long XSTATE_ALIGN_MASK() {
-        return 2L;
+    public static void GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define XSTATE_XFD_BIT 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD
      * }
      */
-    public static int XSTATE_XFD_BIT() {
-        return (int)2L;
+    public static GroupLayout GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD$layout() {
+        return GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_XFD_MASK 4
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD
      * }
      */
-    public static long XSTATE_XFD_MASK() {
-        return 4L;
+    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD() {
+        return GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_CONTROLFLAG_XSAVEOPT_MASK 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD
      * }
      */
-    public static int XSTATE_CONTROLFLAG_XSAVEOPT_MASK() {
-        return (int)1L;
+    public static void GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PARKING_CORE_OVERRIDE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PARKING_CORE_OVERRIDE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_CONTROLFLAG_XSAVEC_MASK 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_CORE_OVERRIDE
      * }
      */
-    public static int XSTATE_CONTROLFLAG_XSAVEC_MASK() {
-        return (int)2L;
+    public static GroupLayout GUID_PROCESSOR_PARKING_CORE_OVERRIDE$layout() {
+        return GUID_PROCESSOR_PARKING_CORE_OVERRIDE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_CONTROLFLAG_XFD_MASK 4
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_CORE_OVERRIDE
      * }
      */
-    public static int XSTATE_CONTROLFLAG_XFD_MASK() {
-        return (int)4L;
+    public static MemorySegment GUID_PROCESSOR_PARKING_CORE_OVERRIDE() {
+        return GUID_PROCESSOR_PARKING_CORE_OVERRIDE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define XSTATE_CONTROLFLAG_VALID_MASK 7
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_CORE_OVERRIDE
      * }
      */
-    public static int XSTATE_CONTROLFLAG_VALID_MASK() {
-        return (int)7L;
+    public static void GUID_PROCESSOR_PARKING_CORE_OVERRIDE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PARKING_CORE_OVERRIDE$constants.SEGMENT, 0L, GUID_PROCESSOR_PARKING_CORE_OVERRIDE$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PARKING_PERF_STATE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PARKING_PERF_STATE").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define CFG_CALL_TARGET_VALID 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_PERF_STATE
      * }
      */
-    public static int CFG_CALL_TARGET_VALID() {
-        return (int)1L;
+    public static GroupLayout GUID_PROCESSOR_PARKING_PERF_STATE$layout() {
+        return GUID_PROCESSOR_PARKING_PERF_STATE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define CFG_CALL_TARGET_PROCESSED 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_PERF_STATE
      * }
      */
-    public static int CFG_CALL_TARGET_PROCESSED() {
-        return (int)2L;
+    public static MemorySegment GUID_PROCESSOR_PARKING_PERF_STATE() {
+        return GUID_PROCESSOR_PARKING_PERF_STATE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define CFG_CALL_TARGET_CONVERT_EXPORT_SUPPRESSED_TO_VALID 4
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_PERF_STATE
      * }
      */
-    public static int CFG_CALL_TARGET_CONVERT_EXPORT_SUPPRESSED_TO_VALID() {
-        return (int)4L;
+    public static void GUID_PROCESSOR_PARKING_PERF_STATE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PARKING_PERF_STATE$constants.SEGMENT, 0L, GUID_PROCESSOR_PARKING_PERF_STATE$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PARKING_PERF_STATE_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PARKING_PERF_STATE_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define CFG_CALL_TARGET_VALID_XFG 8
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_PERF_STATE_1
      * }
      */
-    public static int CFG_CALL_TARGET_VALID_XFG() {
-        return (int)8L;
+    public static GroupLayout GUID_PROCESSOR_PARKING_PERF_STATE_1$layout() {
+        return GUID_PROCESSOR_PARKING_PERF_STATE_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define CFG_CALL_TARGET_CONVERT_XFG_TO_CFG 16
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_PERF_STATE_1
      * }
      */
-    public static int CFG_CALL_TARGET_CONVERT_XFG_TO_CFG() {
-        return (int)16L;
+    public static MemorySegment GUID_PROCESSOR_PARKING_PERF_STATE_1() {
+        return GUID_PROCESSOR_PARKING_PERF_STATE_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECTION_ALL_ACCESS 983071
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_PERF_STATE_1
      * }
      */
-    public static int SECTION_ALL_ACCESS() {
-        return (int)983071L;
+    public static void GUID_PROCESSOR_PARKING_PERF_STATE_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PARKING_PERF_STATE_1$constants.SEGMENT, 0L, GUID_PROCESSOR_PARKING_PERF_STATE_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SESSION_ALL_ACCESS 983043
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD
      * }
      */
-    public static int SESSION_ALL_ACCESS() {
-        return (int)983043L;
+    public static GroupLayout GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD$layout() {
+        return GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define PAGE_ENCLAVE_THREAD_CONTROL 2147483648
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD
      * }
      */
-    public static int PAGE_ENCLAVE_THREAD_CONTROL() {
-        return (int)2147483648L;
+    public static MemorySegment GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD() {
+        return GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define PAGE_REVERT_TO_FILE_MAP 2147483648
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD
      * }
      */
-    public static int PAGE_REVERT_TO_FILE_MAP() {
-        return (int)2147483648L;
+    public static void GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define PAGE_ENCLAVE_DECOMMIT 268435456
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD
      * }
      */
-    public static int PAGE_ENCLAVE_DECOMMIT() {
-        return (int)268435456L;
+    public static GroupLayout GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD$layout() {
+        return GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define PAGE_ENCLAVE_SS_FIRST 268435457
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD
      * }
      */
-    public static int PAGE_ENCLAVE_SS_FIRST() {
-        return (int)268435457L;
+    public static MemorySegment GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD() {
+        return GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define PAGE_ENCLAVE_SS_REST 268435458
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD
      * }
      */
-    public static int PAGE_ENCLAVE_SS_REST() {
-        return (int)268435458L;
+    public static void GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define MEM_4MB_PAGES 2147483648
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD
      * }
      */
-    public static int MEM_4MB_PAGES() {
-        return (int)2147483648L;
+    public static GroupLayout GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD$layout() {
+        return GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define MEM_64K_PAGES 541065216
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD
      * }
      */
-    public static int MEM_64K_PAGES() {
-        return (int)541065216L;
+    public static MemorySegment GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD() {
+        return GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define MEM_EXTENDED_PARAMETER_NUMA_NODE_MANDATORY -9223372036854775808
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD
      * }
      */
-    public static long MEM_EXTENDED_PARAMETER_NUMA_NODE_MANDATORY() {
-        return -9223372036854775808L;
+    public static void GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_SOFT_PARKING_LATENCY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_SOFT_PARKING_LATENCY").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define MEMORY_CURRENT_PARTITION_HANDLE -1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_SOFT_PARKING_LATENCY
      * }
      */
-    public static MemorySegment MEMORY_CURRENT_PARTITION_HANDLE() {
-        return constants$4549.const$0;
+    public static GroupLayout GUID_PROCESSOR_SOFT_PARKING_LATENCY$layout() {
+        return GUID_PROCESSOR_SOFT_PARKING_LATENCY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define MEMORY_SYSTEM_PARTITION_HANDLE -2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_SOFT_PARKING_LATENCY
      * }
      */
-    public static MemorySegment MEMORY_SYSTEM_PARTITION_HANDLE() {
-        return constants$4549.const$1;
+    public static MemorySegment GUID_PROCESSOR_SOFT_PARKING_LATENCY() {
+        return GUID_PROCESSOR_SOFT_PARKING_LATENCY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define MEMORY_EXISTING_VAD_PARTITION_HANDLE -3
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_SOFT_PARKING_LATENCY
      * }
      */
-    public static MemorySegment MEMORY_EXISTING_VAD_PARTITION_HANDLE() {
-        return constants$4549.const$2;
+    public static void GUID_PROCESSOR_SOFT_PARKING_LATENCY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_SOFT_PARKING_LATENCY$constants.SEGMENT, 0L, GUID_PROCESSOR_SOFT_PARKING_LATENCY$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PERF_HISTORY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_HISTORY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define MEM_DEDICATED_ATTRIBUTE_NOT_SPECIFIED -1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_HISTORY
      * }
      */
-    public static long MEM_DEDICATED_ATTRIBUTE_NOT_SPECIFIED() {
-        return -1L;
+    public static GroupLayout GUID_PROCESSOR_PERF_HISTORY$layout() {
+        return GUID_PROCESSOR_PERF_HISTORY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SEC_LARGE_PAGES 2147483648
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_HISTORY
      * }
      */
-    public static int SEC_LARGE_PAGES() {
-        return (int)2147483648L;
+    public static MemorySegment GUID_PROCESSOR_PERF_HISTORY() {
+        return GUID_PROCESSOR_PERF_HISTORY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SEC_IMAGE_NO_EXECUTE 285212672
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_HISTORY
      * }
      */
-    public static int SEC_IMAGE_NO_EXECUTE() {
-        return (int)285212672L;
+    public static void GUID_PROCESSOR_PERF_HISTORY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_HISTORY$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_HISTORY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PERF_HISTORY_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_HISTORY_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define FILE_READ_DATA 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_HISTORY_1
      * }
      */
-    public static int FILE_READ_DATA() {
-        return (int)1L;
+    public static GroupLayout GUID_PROCESSOR_PERF_HISTORY_1$layout() {
+        return GUID_PROCESSOR_PERF_HISTORY_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define FILE_LIST_DIRECTORY 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_HISTORY_1
      * }
      */
-    public static int FILE_LIST_DIRECTORY() {
-        return (int)1L;
+    public static MemorySegment GUID_PROCESSOR_PERF_HISTORY_1() {
+        return GUID_PROCESSOR_PERF_HISTORY_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define FILE_WRITE_DATA 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_HISTORY_1
      * }
      */
-    public static int FILE_WRITE_DATA() {
-        return (int)2L;
+    public static void GUID_PROCESSOR_PERF_HISTORY_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_HISTORY_1$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_HISTORY_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PERF_INCREASE_HISTORY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_INCREASE_HISTORY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define FILE_ADD_FILE 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_HISTORY
      * }
      */
-    public static int FILE_ADD_FILE() {
-        return (int)2L;
+    public static GroupLayout GUID_PROCESSOR_PERF_INCREASE_HISTORY$layout() {
+        return GUID_PROCESSOR_PERF_INCREASE_HISTORY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define FILE_APPEND_DATA 4
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_HISTORY
      * }
      */
-    public static int FILE_APPEND_DATA() {
-        return (int)4L;
+    public static MemorySegment GUID_PROCESSOR_PERF_INCREASE_HISTORY() {
+        return GUID_PROCESSOR_PERF_INCREASE_HISTORY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define FILE_ADD_SUBDIRECTORY 4
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_INCREASE_HISTORY
      * }
      */
-    public static int FILE_ADD_SUBDIRECTORY() {
-        return (int)4L;
+    public static void GUID_PROCESSOR_PERF_INCREASE_HISTORY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_INCREASE_HISTORY$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_INCREASE_HISTORY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PERF_DECREASE_HISTORY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_DECREASE_HISTORY").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define FILE_CREATE_PIPE_INSTANCE 4
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_HISTORY
      * }
      */
-    public static int FILE_CREATE_PIPE_INSTANCE() {
-        return (int)4L;
+    public static GroupLayout GUID_PROCESSOR_PERF_DECREASE_HISTORY$layout() {
+        return GUID_PROCESSOR_PERF_DECREASE_HISTORY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define FILE_READ_EA 8
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_HISTORY
      * }
      */
-    public static int FILE_READ_EA() {
-        return (int)8L;
+    public static MemorySegment GUID_PROCESSOR_PERF_DECREASE_HISTORY() {
+        return GUID_PROCESSOR_PERF_DECREASE_HISTORY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define FILE_WRITE_EA 16
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_DECREASE_HISTORY
      * }
      */
-    public static int FILE_WRITE_EA() {
-        return (int)16L;
+    public static void GUID_PROCESSOR_PERF_DECREASE_HISTORY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_DECREASE_HISTORY$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_DECREASE_HISTORY$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define FILE_EXECUTE 32
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY
      * }
      */
-    public static int FILE_EXECUTE() {
-        return (int)32L;
+    public static GroupLayout GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY$layout() {
+        return GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define FILE_TRAVERSE 32
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY
      * }
      */
-    public static int FILE_TRAVERSE() {
-        return (int)32L;
+    public static MemorySegment GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY() {
+        return GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define FILE_DELETE_CHILD 64
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY
      * }
      */
-    public static int FILE_DELETE_CHILD() {
-        return (int)64L;
+    public static void GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PERF_LATENCY_HINT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_LATENCY_HINT").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define FILE_READ_ATTRIBUTES 128
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_LATENCY_HINT
      * }
      */
-    public static int FILE_READ_ATTRIBUTES() {
-        return (int)128L;
+    public static GroupLayout GUID_PROCESSOR_PERF_LATENCY_HINT$layout() {
+        return GUID_PROCESSOR_PERF_LATENCY_HINT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define FILE_WRITE_ATTRIBUTES 256
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_LATENCY_HINT
      * }
      */
-    public static int FILE_WRITE_ATTRIBUTES() {
-        return (int)256L;
+    public static MemorySegment GUID_PROCESSOR_PERF_LATENCY_HINT() {
+        return GUID_PROCESSOR_PERF_LATENCY_HINT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define FILE_ALL_ACCESS 2032127
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_LATENCY_HINT
      * }
      */
-    public static int FILE_ALL_ACCESS() {
-        return (int)2032127L;
+    public static void GUID_PROCESSOR_PERF_LATENCY_HINT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_LATENCY_HINT$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_LATENCY_HINT$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_PERF_LATENCY_HINT_PERF$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_LATENCY_HINT_PERF").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define FILE_GENERIC_READ 1179785
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_LATENCY_HINT_PERF
      * }
      */
-    public static int FILE_GENERIC_READ() {
-        return (int)1179785L;
+    public static GroupLayout GUID_PROCESSOR_PERF_LATENCY_HINT_PERF$layout() {
+        return GUID_PROCESSOR_PERF_LATENCY_HINT_PERF$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define FILE_GENERIC_WRITE 1179926
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_LATENCY_HINT_PERF
      * }
      */
-    public static int FILE_GENERIC_WRITE() {
-        return (int)1179926L;
+    public static MemorySegment GUID_PROCESSOR_PERF_LATENCY_HINT_PERF() {
+        return GUID_PROCESSOR_PERF_LATENCY_HINT_PERF$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define FILE_GENERIC_EXECUTE 1179808
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_LATENCY_HINT_PERF
      * }
      */
-    public static int FILE_GENERIC_EXECUTE() {
-        return (int)1179808L;
+    public static void GUID_PROCESSOR_PERF_LATENCY_HINT_PERF(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_LATENCY_HINT_PERF$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_LATENCY_HINT_PERF$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define MAILSLOT_NO_MESSAGE 4294967295
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1
      * }
      */
-    public static int MAILSLOT_NO_MESSAGE() {
-        return (int)4294967295L;
+    public static GroupLayout GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1$layout() {
+        return GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define MAILSLOT_WAIT_FOREVER 4294967295
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1
      * }
      */
-    public static int MAILSLOT_WAIT_FOREVER() {
-        return (int)4294967295L;
+    public static MemorySegment GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1() {
+        return GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define FILE_INVALID_FILE_ID -1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1
      * }
      */
-    public static long FILE_INVALID_FILE_ID() {
-        return -1L;
+    public static void GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1$constants.SEGMENT, 0L, GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define REPARSE_GUID_DATA_BUFFER_HEADER_SIZE 24
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK
      * }
      */
-    public static int REPARSE_GUID_DATA_BUFFER_HEADER_SIZE() {
-        return (int)24L;
+    public static GroupLayout GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK$layout() {
+        return GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define MAXIMUM_REPARSE_DATA_BUFFER_SIZE 16384
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK
      * }
      */
-    public static int MAXIMUM_REPARSE_DATA_BUFFER_SIZE() {
-        return (int)16384L;
+    public static MemorySegment GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK() {
+        return GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_RESERVED_ZERO 0
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK
      * }
      */
-    public static int IO_REPARSE_TAG_RESERVED_ZERO() {
-        return (int)0L;
+    public static void GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK$constants.SEGMENT, 0L, GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_RESERVED_ONE 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1
      * }
      */
-    public static int IO_REPARSE_TAG_RESERVED_ONE() {
-        return (int)1L;
+    public static GroupLayout GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1$layout() {
+        return GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_RESERVED_TWO 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1
      * }
      */
-    public static int IO_REPARSE_TAG_RESERVED_TWO() {
-        return (int)2L;
+    public static MemorySegment GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1() {
+        return GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_RESERVED_RANGE 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1
      * }
      */
-    public static int IO_REPARSE_TAG_RESERVED_RANGE() {
-        return (int)2L;
+    public static void GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1$constants.SEGMENT, 0L, GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_DISTRIBUTE_UTILITY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_DISTRIBUTE_UTILITY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_MOUNT_POINT 2684354563
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_DISTRIBUTE_UTILITY
      * }
      */
-    public static int IO_REPARSE_TAG_MOUNT_POINT() {
-        return (int)2684354563L;
+    public static GroupLayout GUID_PROCESSOR_DISTRIBUTE_UTILITY$layout() {
+        return GUID_PROCESSOR_DISTRIBUTE_UTILITY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_HSM 3221225476
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_DISTRIBUTE_UTILITY
      * }
      */
-    public static int IO_REPARSE_TAG_HSM() {
-        return (int)3221225476L;
+    public static MemorySegment GUID_PROCESSOR_DISTRIBUTE_UTILITY() {
+        return GUID_PROCESSOR_DISTRIBUTE_UTILITY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_HSM2 2147483654
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_DISTRIBUTE_UTILITY
      * }
      */
-    public static int IO_REPARSE_TAG_HSM2() {
-        return (int)2147483654L;
+    public static void GUID_PROCESSOR_DISTRIBUTE_UTILITY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_DISTRIBUTE_UTILITY$constants.SEGMENT, 0L, GUID_PROCESSOR_DISTRIBUTE_UTILITY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_HETEROGENEOUS_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_HETEROGENEOUS_POLICY").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_SIS 2147483655
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETEROGENEOUS_POLICY
      * }
      */
-    public static int IO_REPARSE_TAG_SIS() {
-        return (int)2147483655L;
+    public static GroupLayout GUID_PROCESSOR_HETEROGENEOUS_POLICY$layout() {
+        return GUID_PROCESSOR_HETEROGENEOUS_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_WIM 2147483656
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETEROGENEOUS_POLICY
      * }
      */
-    public static int IO_REPARSE_TAG_WIM() {
-        return (int)2147483656L;
+    public static MemorySegment GUID_PROCESSOR_HETEROGENEOUS_POLICY() {
+        return GUID_PROCESSOR_HETEROGENEOUS_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CSV 2147483657
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETEROGENEOUS_POLICY
      * }
      */
-    public static int IO_REPARSE_TAG_CSV() {
-        return (int)2147483657L;
+    public static void GUID_PROCESSOR_HETEROGENEOUS_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_HETEROGENEOUS_POLICY$constants.SEGMENT, 0L, GUID_PROCESSOR_HETEROGENEOUS_POLICY$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_HETERO_DECREASE_TIME$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_HETERO_DECREASE_TIME").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_DFS 2147483658
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETERO_DECREASE_TIME
      * }
      */
-    public static int IO_REPARSE_TAG_DFS() {
-        return (int)2147483658L;
+    public static GroupLayout GUID_PROCESSOR_HETERO_DECREASE_TIME$layout() {
+        return GUID_PROCESSOR_HETERO_DECREASE_TIME$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_SYMLINK 2684354572
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETERO_DECREASE_TIME
      * }
      */
-    public static int IO_REPARSE_TAG_SYMLINK() {
-        return (int)2684354572L;
+    public static MemorySegment GUID_PROCESSOR_HETERO_DECREASE_TIME() {
+        return GUID_PROCESSOR_HETERO_DECREASE_TIME$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_DFSR 2147483666
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETERO_DECREASE_TIME
      * }
      */
-    public static int IO_REPARSE_TAG_DFSR() {
-        return (int)2147483666L;
+    public static void GUID_PROCESSOR_HETERO_DECREASE_TIME(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_HETERO_DECREASE_TIME$constants.SEGMENT, 0L, GUID_PROCESSOR_HETERO_DECREASE_TIME$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_HETERO_INCREASE_TIME$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_HETERO_INCREASE_TIME").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_DEDUP 2147483667
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETERO_INCREASE_TIME
      * }
      */
-    public static int IO_REPARSE_TAG_DEDUP() {
-        return (int)2147483667L;
+    public static GroupLayout GUID_PROCESSOR_HETERO_INCREASE_TIME$layout() {
+        return GUID_PROCESSOR_HETERO_INCREASE_TIME$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_NFS 2147483668
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETERO_INCREASE_TIME
      * }
      */
-    public static int IO_REPARSE_TAG_NFS() {
-        return (int)2147483668L;
+    public static MemorySegment GUID_PROCESSOR_HETERO_INCREASE_TIME() {
+        return GUID_PROCESSOR_HETERO_INCREASE_TIME$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_FILE_PLACEHOLDER 2147483669
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETERO_INCREASE_TIME
      * }
      */
-    public static int IO_REPARSE_TAG_FILE_PLACEHOLDER() {
-        return (int)2147483669L;
+    public static void GUID_PROCESSOR_HETERO_INCREASE_TIME(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_HETERO_INCREASE_TIME$constants.SEGMENT, 0L, GUID_PROCESSOR_HETERO_INCREASE_TIME$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_WOF 2147483671
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD
      * }
      */
-    public static int IO_REPARSE_TAG_WOF() {
-        return (int)2147483671L;
+    public static GroupLayout GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD$layout() {
+        return GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_WCI 2147483672
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD
      * }
      */
-    public static int IO_REPARSE_TAG_WCI() {
-        return (int)2147483672L;
+    public static MemorySegment GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD() {
+        return GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_WCI_1 2415923224
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD
      * }
      */
-    public static int IO_REPARSE_TAG_WCI_1() {
-        return (int)2415923224L;
+    public static void GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_GLOBAL_REPARSE 2684354585
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD
      * }
      */
-    public static int IO_REPARSE_TAG_GLOBAL_REPARSE() {
-        return (int)2684354585L;
+    public static GroupLayout GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD$layout() {
+        return GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD 2415919130
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD() {
-        return (int)2415919130L;
+    public static MemorySegment GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD() {
+        return GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_1 2415923226
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_1() {
-        return (int)2415923226L;
+    public static void GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_CLASS0_FLOOR_PERF$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CLASS0_FLOOR_PERF").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_2 2415927322
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CLASS0_FLOOR_PERF
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_2() {
-        return (int)2415927322L;
+    public static GroupLayout GUID_PROCESSOR_CLASS0_FLOOR_PERF$layout() {
+        return GUID_PROCESSOR_CLASS0_FLOOR_PERF$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_3 2415931418
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CLASS0_FLOOR_PERF
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_3() {
-        return (int)2415931418L;
+    public static MemorySegment GUID_PROCESSOR_CLASS0_FLOOR_PERF() {
+        return GUID_PROCESSOR_CLASS0_FLOOR_PERF$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_4 2415935514
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CLASS0_FLOOR_PERF
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_4() {
-        return (int)2415935514L;
+    public static void GUID_PROCESSOR_CLASS0_FLOOR_PERF(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CLASS0_FLOOR_PERF$constants.SEGMENT, 0L, GUID_PROCESSOR_CLASS0_FLOOR_PERF$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_CLASS1_INITIAL_PERF$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_CLASS1_INITIAL_PERF").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_5 2415939610
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CLASS1_INITIAL_PERF
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_5() {
-        return (int)2415939610L;
+    public static GroupLayout GUID_PROCESSOR_CLASS1_INITIAL_PERF$layout() {
+        return GUID_PROCESSOR_CLASS1_INITIAL_PERF$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_6 2415943706
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CLASS1_INITIAL_PERF
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_6() {
-        return (int)2415943706L;
+    public static MemorySegment GUID_PROCESSOR_CLASS1_INITIAL_PERF() {
+        return GUID_PROCESSOR_CLASS1_INITIAL_PERF$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_7 2415947802
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_CLASS1_INITIAL_PERF
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_7() {
-        return (int)2415947802L;
+    public static void GUID_PROCESSOR_CLASS1_INITIAL_PERF(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_CLASS1_INITIAL_PERF$constants.SEGMENT, 0L, GUID_PROCESSOR_CLASS1_INITIAL_PERF$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_THREAD_SCHEDULING_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_THREAD_SCHEDULING_POLICY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_8 2415951898
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THREAD_SCHEDULING_POLICY
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_8() {
-        return (int)2415951898L;
+    public static GroupLayout GUID_PROCESSOR_THREAD_SCHEDULING_POLICY$layout() {
+        return GUID_PROCESSOR_THREAD_SCHEDULING_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_9 2415955994
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THREAD_SCHEDULING_POLICY
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_9() {
-        return (int)2415955994L;
+    public static MemorySegment GUID_PROCESSOR_THREAD_SCHEDULING_POLICY() {
+        return GUID_PROCESSOR_THREAD_SCHEDULING_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_A 2415960090
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_THREAD_SCHEDULING_POLICY
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_A() {
-        return (int)2415960090L;
+    public static void GUID_PROCESSOR_THREAD_SCHEDULING_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_THREAD_SCHEDULING_POLICY$constants.SEGMENT, 0L, GUID_PROCESSOR_THREAD_SCHEDULING_POLICY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_B 2415964186
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_B() {
-        return (int)2415964186L;
+    public static GroupLayout GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY$layout() {
+        return GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_C 2415968282
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_C() {
-        return (int)2415968282L;
+    public static MemorySegment GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY() {
+        return GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_D 2415972378
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_D() {
-        return (int)2415972378L;
+    public static void GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY$constants.SEGMENT, 0L, GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_E 2415976474
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_E() {
-        return (int)2415976474L;
+    public static GroupLayout GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD$layout() {
+        return GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_F 2415980570
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_F() {
-        return (int)2415980570L;
+    public static MemorySegment GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD() {
+        return GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_CLOUD_MASK 61440
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD
      * }
      */
-    public static int IO_REPARSE_TAG_CLOUD_MASK() {
-        return (int)61440L;
+    public static void GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_SYSTEM_COOLING_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SYSTEM_COOLING_POLICY").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_APPEXECLINK 2147483675
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SYSTEM_COOLING_POLICY
      * }
      */
-    public static int IO_REPARSE_TAG_APPEXECLINK() {
-        return (int)2147483675L;
+    public static GroupLayout GUID_SYSTEM_COOLING_POLICY$layout() {
+        return GUID_SYSTEM_COOLING_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_PROJFS 2415919132
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SYSTEM_COOLING_POLICY
      * }
      */
-    public static int IO_REPARSE_TAG_PROJFS() {
-        return (int)2415919132L;
+    public static MemorySegment GUID_SYSTEM_COOLING_POLICY() {
+        return GUID_SYSTEM_COOLING_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_STORAGE_SYNC 2147483678
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SYSTEM_COOLING_POLICY
      * }
      */
-    public static int IO_REPARSE_TAG_STORAGE_SYNC() {
-        return (int)2147483678L;
+    public static void GUID_SYSTEM_COOLING_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_SYSTEM_COOLING_POLICY$constants.SEGMENT, 0L, GUID_SYSTEM_COOLING_POLICY$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_WCI_TOMBSTONE 2684354591
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD
      * }
      */
-    public static int IO_REPARSE_TAG_WCI_TOMBSTONE() {
-        return (int)2684354591L;
+    public static GroupLayout GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD$layout() {
+        return GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_UNHANDLED 2147483680
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD
      * }
      */
-    public static int IO_REPARSE_TAG_UNHANDLED() {
-        return (int)2147483680L;
+    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD() {
+        return GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_ONEDRIVE 2147483681
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD
      * }
      */
-    public static int IO_REPARSE_TAG_ONEDRIVE() {
-        return (int)2147483681L;
+    public static void GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_PROJFS_TOMBSTONE 2684354594
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1
      * }
      */
-    public static int IO_REPARSE_TAG_PROJFS_TOMBSTONE() {
-        return (int)2684354594L;
+    public static GroupLayout GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1$layout() {
+        return GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_AF_UNIX 2147483683
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1
      * }
      */
-    public static int IO_REPARSE_TAG_AF_UNIX() {
-        return (int)2147483683L;
+    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1() {
+        return GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_WCI_LINK 2684354599
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1
      * }
      */
-    public static int IO_REPARSE_TAG_WCI_LINK() {
-        return (int)2684354599L;
+    public static void GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1$constants.SEGMENT, 0L, GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_WCI_LINK_1 2684358695
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD
      * }
      */
-    public static int IO_REPARSE_TAG_WCI_LINK_1() {
-        return (int)2684358695L;
+    public static GroupLayout GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD$layout() {
+        return GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_REPARSE_TAG_DATALESS_CIM 2684354600
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD
      * }
      */
-    public static int IO_REPARSE_TAG_DATALESS_CIM() {
-        return (int)2684354600L;
+    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD() {
+        return GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SHUFFLE_FILE_FLAG_SKIP_INITIALIZING_NEW_CLUSTERS 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD
      * }
      */
-    public static int SHUFFLE_FILE_FLAG_SKIP_INITIALIZING_NEW_CLUSTERS() {
-        return (int)1L;
+    public static void GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD$constants.SEGMENT, 0L, GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define IO_COMPLETION_ALL_ACCESS 2031619
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1
      * }
      */
-    public static int IO_COMPLETION_ALL_ACCESS() {
-        return (int)2031619L;
+    public static GroupLayout GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1$layout() {
+        return GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IO_QOS_MAX_RESERVATION 1000000000
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1
      * }
      */
-    public static long IO_QOS_MAX_RESERVATION() {
-        return 1000000000L;
+    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1() {
+        return GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SMB_CCF_APP_INSTANCE_EA_NAME "ClusteredApplicationInstance"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1
      * }
      */
-    public static MemorySegment SMB_CCF_APP_INSTANCE_EA_NAME() {
-        return constants$4549.const$3;
+    public static void GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1$constants.SEGMENT, 0L, GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define PERFSTATE_POLICY_CHANGE_DECREASE_MAX 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME
      * }
      */
-    public static int PERFSTATE_POLICY_CHANGE_DECREASE_MAX() {
-        return (int)2L;
+    public static GroupLayout GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME$layout() {
+        return GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define PERFSTATE_POLICY_CHANGE_INCREASE_MAX 3
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME
      * }
      */
-    public static int PERFSTATE_POLICY_CHANGE_INCREASE_MAX() {
-        return (int)3L;
+    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME() {
+        return GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_BOOST_MODE_MAX 6
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME
      * }
      */
-    public static int PROCESSOR_PERF_BOOST_MODE_MAX() {
-        return (int)6L;
+    public static void GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME$constants.SEGMENT, 0L, GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define CORE_PARKING_POLICY_CHANGE_MAX 3
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1
      * }
      */
-    public static int CORE_PARKING_POLICY_CHANGE_MAX() {
-        return (int)3L;
+    public static GroupLayout GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1$layout() {
+        return GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ES_SYSTEM_REQUIRED 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1
      * }
      */
-    public static int ES_SYSTEM_REQUIRED() {
-        return (int)1L;
+    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1() {
+        return GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define ES_DISPLAY_REQUIRED 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1
      * }
      */
-    public static int ES_DISPLAY_REQUIRED() {
-        return (int)2L;
+    public static void GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1$constants.SEGMENT, 0L, GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define ES_USER_PRESENT 4
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME
      * }
      */
-    public static int ES_USER_PRESENT() {
-        return (int)4L;
+    public static GroupLayout GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME$layout() {
+        return GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ES_AWAYMODE_REQUIRED 64
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME
      * }
      */
-    public static int ES_AWAYMODE_REQUIRED() {
-        return (int)64L;
+    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME() {
+        return GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define ES_CONTINUOUS 2147483648
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME
      * }
      */
-    public static int ES_CONTINUOUS() {
-        return (int)2147483648L;
+    public static void GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME$constants.SEGMENT, 0L, GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define DIAGNOSTIC_REASON_NOT_SPECIFIED 2147483648
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1
      * }
      */
-    public static int DIAGNOSTIC_REASON_NOT_SPECIFIED() {
-        return (int)2147483648L;
+    public static GroupLayout GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1$layout() {
+        return GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DIAGNOSTIC_REASON_INVALID_FLAGS 2147483640
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1
      * }
      */
-    public static int DIAGNOSTIC_REASON_INVALID_FLAGS() {
-        return (int)2147483640L;
+    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1() {
+        return GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define POWER_REQUEST_CONTEXT_VERSION 0
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1
      * }
      */
-    public static int POWER_REQUEST_CONTEXT_VERSION() {
-        return (int)0L;
+    public static void GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1$constants.SEGMENT, 0L, GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define POWER_REQUEST_CONTEXT_SIMPLE_STRING 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING
      * }
      */
-    public static int POWER_REQUEST_CONTEXT_SIMPLE_STRING() {
-        return (int)1L;
+    public static GroupLayout GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING$layout() {
+        return GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define POWER_REQUEST_CONTEXT_DETAILED_STRING 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING
      * }
      */
-    public static int POWER_REQUEST_CONTEXT_DETAILED_STRING() {
-        return (int)2L;
+    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING() {
+        return GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define POWER_SETTING_VALUE_VERSION 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING
      * }
      */
-    public static int POWER_SETTING_VALUE_VERSION() {
-        return (int)1L;
+    public static void GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING$constants.SEGMENT, 0L, GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define POWER_PLATFORM_ROLE_V1 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1
      * }
      */
-    public static int POWER_PLATFORM_ROLE_V1() {
-        return (int)1L;
+    public static GroupLayout GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1$layout() {
+        return GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define POWER_PLATFORM_ROLE_V1_MAX 8
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1
      * }
      */
-    public static int POWER_PLATFORM_ROLE_V1_MAX() {
-        return (int)8L;
+    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1() {
+        return GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define POWER_PLATFORM_ROLE_V2 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1
      * }
      */
-    public static int POWER_PLATFORM_ROLE_V2() {
-        return (int)2L;
+    public static void GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1$constants.SEGMENT, 0L, GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define POWER_PLATFORM_ROLE_V2_MAX 9
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR
      * }
      */
-    public static int POWER_PLATFORM_ROLE_V2_MAX() {
-        return (int)9L;
+    public static GroupLayout GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR$layout() {
+        return GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define POWER_PLATFORM_ROLE_VERSION 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR
      * }
      */
-    public static int POWER_PLATFORM_ROLE_VERSION() {
-        return (int)2L;
+    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR() {
+        return GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define POWER_PLATFORM_ROLE_VERSION_MAX 9
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR
      * }
      */
-    public static int POWER_PLATFORM_ROLE_VERSION_MAX() {
-        return (int)9L;
+    public static void GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR$constants.SEGMENT, 0L, GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define POWER_ACTION_CRITICAL 2147483648
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1
      * }
      */
-    public static int POWER_ACTION_CRITICAL() {
-        return (int)2147483648L;
+    public static GroupLayout GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1$layout() {
+        return GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define POWER_FORCE_TRIGGER_RESET 2147483648
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1
      * }
      */
-    public static int POWER_FORCE_TRIGGER_RESET() {
-        return (int)2147483648L;
+    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1() {
+        return GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define BATTERY_DISCHARGE_FLAGS_ENABLE 2147483648
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1
      * }
      */
-    public static int BATTERY_DISCHARGE_FLAGS_ENABLE() {
-        return (int)2147483648L;
+    public static void GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1$constants.SEGMENT, 0L, GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_LOCK_CONSOLE_ON_WAKE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_LOCK_CONSOLE_ON_WAKE").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_AXP64 644
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LOCK_CONSOLE_ON_WAKE
      * }
      */
-    public static int IMAGE_FILE_MACHINE_AXP64() {
-        return (int)644L;
+    public static GroupLayout GUID_LOCK_CONSOLE_ON_WAKE$layout() {
+        return GUID_LOCK_CONSOLE_ON_WAKE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_NT_OPTIONAL_HDR_MAGIC 523
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LOCK_CONSOLE_ON_WAKE
      * }
      */
-    public static int IMAGE_NT_OPTIONAL_HDR_MAGIC() {
-        return (int)523L;
+    public static MemorySegment GUID_LOCK_CONSOLE_ON_WAKE() {
+        return GUID_LOCK_CONSOLE_ON_WAKE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_MEM_WRITE 2147483648
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LOCK_CONSOLE_ON_WAKE
      * }
      */
-    public static int IMAGE_SCN_MEM_WRITE() {
-        return (int)2147483648L;
+    public static void GUID_LOCK_CONSOLE_ON_WAKE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_LOCK_CONSOLE_ON_WAKE$constants.SEGMENT, 0L, GUID_LOCK_CONSOLE_ON_WAKE$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_DEVICE_IDLE_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DEVICE_IDLE_POLICY").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_UNDEFINED 0
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEVICE_IDLE_POLICY
      * }
      */
-    public static short IMAGE_SYM_UNDEFINED() {
-        return (short)0L;
+    public static GroupLayout GUID_DEVICE_IDLE_POLICY$layout() {
+        return GUID_DEVICE_IDLE_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_ABSOLUTE -1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEVICE_IDLE_POLICY
      * }
      */
-    public static short IMAGE_SYM_ABSOLUTE() {
-        return (short)-1L;
+    public static MemorySegment GUID_DEVICE_IDLE_POLICY() {
+        return GUID_DEVICE_IDLE_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_DEBUG -2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEVICE_IDLE_POLICY
      * }
      */
-    public static short IMAGE_SYM_DEBUG() {
-        return (short)-2L;
+    public static void GUID_DEVICE_IDLE_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DEVICE_IDLE_POLICY$constants.SEGMENT, 0L, GUID_DEVICE_IDLE_POLICY$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_CONNECTIVITY_IN_STANDBY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_CONNECTIVITY_IN_STANDBY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_SECTION_MAX_EX 2147483647
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_CONNECTIVITY_IN_STANDBY
      * }
      */
-    public static int IMAGE_SYM_SECTION_MAX_EX() {
-        return (int)2147483647L;
+    public static GroupLayout GUID_CONNECTIVITY_IN_STANDBY$layout() {
+        return GUID_CONNECTIVITY_IN_STANDBY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_END_OF_FUNCTION 255
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_CONNECTIVITY_IN_STANDBY
      * }
      */
-    public static byte IMAGE_SYM_CLASS_END_OF_FUNCTION() {
-        return (byte)255L;
+    public static MemorySegment GUID_CONNECTIVITY_IN_STANDBY() {
+        return GUID_CONNECTIVITY_IN_STANDBY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_ARCHIVE_START "!<arch>\n"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_CONNECTIVITY_IN_STANDBY
      * }
      */
-    public static MemorySegment IMAGE_ARCHIVE_START() {
-        return constants$4549.const$4;
+    public static void GUID_CONNECTIVITY_IN_STANDBY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_CONNECTIVITY_IN_STANDBY$constants.SEGMENT, 0L, GUID_CONNECTIVITY_IN_STANDBY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_DISCONNECTED_STANDBY_MODE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DISCONNECTED_STANDBY_MODE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_ARCHIVE_END "`\n"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISCONNECTED_STANDBY_MODE
      * }
      */
-    public static MemorySegment IMAGE_ARCHIVE_END() {
-        return constants$4549.const$5;
+    public static GroupLayout GUID_DISCONNECTED_STANDBY_MODE$layout() {
+        return GUID_DISCONNECTED_STANDBY_MODE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_ARCHIVE_PAD "\n"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISCONNECTED_STANDBY_MODE
      * }
      */
-    public static MemorySegment IMAGE_ARCHIVE_PAD() {
-        return constants$4550.const$0;
+    public static MemorySegment GUID_DISCONNECTED_STANDBY_MODE() {
+        return GUID_DISCONNECTED_STANDBY_MODE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_ARCHIVE_LINKER_MEMBER "/               "
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DISCONNECTED_STANDBY_MODE
      * }
      */
-    public static MemorySegment IMAGE_ARCHIVE_LINKER_MEMBER() {
-        return constants$4550.const$1;
+    public static void GUID_DISCONNECTED_STANDBY_MODE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DISCONNECTED_STANDBY_MODE$constants.SEGMENT, 0L, GUID_DISCONNECTED_STANDBY_MODE$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_ACDC_POWER_SOURCE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ACDC_POWER_SOURCE").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define IMAGE_ARCHIVE_LONGNAMES_MEMBER "//              "
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ACDC_POWER_SOURCE
      * }
      */
-    public static MemorySegment IMAGE_ARCHIVE_LONGNAMES_MEMBER() {
-        return constants$4550.const$2;
+    public static GroupLayout GUID_ACDC_POWER_SOURCE$layout() {
+        return GUID_ACDC_POWER_SOURCE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_ARCHIVE_HYBRIDMAP_MEMBER "/<HYBRIDMAP>/   "
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ACDC_POWER_SOURCE
      * }
      */
-    public static MemorySegment IMAGE_ARCHIVE_HYBRIDMAP_MEMBER() {
-        return constants$4550.const$3;
+    public static MemorySegment GUID_ACDC_POWER_SOURCE() {
+        return GUID_ACDC_POWER_SOURCE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_ORDINAL_FLAG64 -9223372036854775808
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ACDC_POWER_SOURCE
      * }
      */
-    public static long IMAGE_ORDINAL_FLAG64() {
-        return -9223372036854775808L;
+    public static void GUID_ACDC_POWER_SOURCE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ACDC_POWER_SOURCE$constants.SEGMENT, 0L, GUID_ACDC_POWER_SOURCE$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_LIDSWITCH_STATE_CHANGE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_LIDSWITCH_STATE_CHANGE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_ORDINAL_FLAG32 2147483648
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LIDSWITCH_STATE_CHANGE
      * }
      */
-    public static int IMAGE_ORDINAL_FLAG32() {
-        return (int)2147483648L;
+    public static GroupLayout GUID_LIDSWITCH_STATE_CHANGE$layout() {
+        return GUID_LIDSWITCH_STATE_CHANGE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_ORDINAL_FLAG -9223372036854775808
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LIDSWITCH_STATE_CHANGE
      * }
      */
-    public static long IMAGE_ORDINAL_FLAG() {
-        return -9223372036854775808L;
+    public static MemorySegment GUID_LIDSWITCH_STATE_CHANGE() {
+        return GUID_LIDSWITCH_STATE_CHANGE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_RESOURCE_NAME_IS_STRING 2147483648
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LIDSWITCH_STATE_CHANGE
      * }
      */
-    public static int IMAGE_RESOURCE_NAME_IS_STRING() {
-        return (int)2147483648L;
+    public static void GUID_LIDSWITCH_STATE_CHANGE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_LIDSWITCH_STATE_CHANGE$constants.SEGMENT, 0L, GUID_LIDSWITCH_STATE_CHANGE$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_LIDSWITCH_STATE_RELIABILITY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_LIDSWITCH_STATE_RELIABILITY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define IMAGE_RESOURCE_DATA_IS_DIRECTORY 2147483648
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LIDSWITCH_STATE_RELIABILITY
      * }
      */
-    public static int IMAGE_RESOURCE_DATA_IS_DIRECTORY() {
-        return (int)2147483648L;
+    public static GroupLayout GUID_LIDSWITCH_STATE_RELIABILITY$layout() {
+        return GUID_LIDSWITCH_STATE_RELIABILITY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_CHUNK_INVERSE 2147483648
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LIDSWITCH_STATE_RELIABILITY
      * }
      */
-    public static int IMAGE_HOT_PATCH_CHUNK_INVERSE() {
-        return (int)2147483648L;
+    public static MemorySegment GUID_LIDSWITCH_STATE_RELIABILITY() {
+        return GUID_LIDSWITCH_STATE_RELIABILITY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_MASK 4026531840
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_LIDSWITCH_STATE_RELIABILITY
      * }
      */
-    public static int IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_MASK() {
-        return (int)4026531840L;
+    public static void GUID_LIDSWITCH_STATE_RELIABILITY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_LIDSWITCH_STATE_RELIABILITY$constants.SEGMENT, 0L, GUID_LIDSWITCH_STATE_RELIABILITY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_BATTERY_PERCENTAGE_REMAINING$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_PERCENTAGE_REMAINING").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_ENCLAVE_LONG_ID_LENGTH 32
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_PERCENTAGE_REMAINING
      * }
      */
-    public static int IMAGE_ENCLAVE_LONG_ID_LENGTH() {
-        return (int)32L;
+    public static GroupLayout GUID_BATTERY_PERCENTAGE_REMAINING$layout() {
+        return GUID_BATTERY_PERCENTAGE_REMAINING$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_ENCLAVE_SHORT_ID_LENGTH 16
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_PERCENTAGE_REMAINING
      * }
      */
-    public static int IMAGE_ENCLAVE_SHORT_ID_LENGTH() {
-        return (int)16L;
+    public static MemorySegment GUID_BATTERY_PERCENTAGE_REMAINING() {
+        return GUID_BATTERY_PERCENTAGE_REMAINING$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_ENCLAVE_MINIMUM_CONFIG_SIZE 76
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_PERCENTAGE_REMAINING
      * }
      */
-    public static int IMAGE_ENCLAVE_MINIMUM_CONFIG_SIZE() {
-        return (int)76L;
+    public static void GUID_BATTERY_PERCENTAGE_REMAINING(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_PERCENTAGE_REMAINING$constants.SEGMENT, 0L, GUID_BATTERY_PERCENTAGE_REMAINING$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_BATTERY_COUNT$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BATTERY_COUNT").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define RTL_RUN_ONCE_CHECK_ONLY 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_COUNT
      * }
      */
-    public static int RTL_RUN_ONCE_CHECK_ONLY() {
-        return (int)1L;
+    public static GroupLayout GUID_BATTERY_COUNT$layout() {
+        return GUID_BATTERY_COUNT$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define RTL_RUN_ONCE_ASYNC 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_COUNT
      * }
      */
-    public static int RTL_RUN_ONCE_ASYNC() {
-        return (int)2L;
+    public static MemorySegment GUID_BATTERY_COUNT() {
+        return GUID_BATTERY_COUNT$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define RTL_RUN_ONCE_INIT_FAILED 4
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BATTERY_COUNT
      * }
      */
-    public static int RTL_RUN_ONCE_INIT_FAILED() {
-        return (int)4L;
+    public static void GUID_BATTERY_COUNT(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BATTERY_COUNT$constants.SEGMENT, 0L, GUID_BATTERY_COUNT$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_GLOBAL_USER_PRESENCE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_GLOBAL_USER_PRESENCE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define FAST_FAIL_INVALID_FAST_FAIL_CODE 4294967295
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_GLOBAL_USER_PRESENCE
      * }
      */
-    public static int FAST_FAIL_INVALID_FAST_FAIL_CODE() {
-        return (int)4294967295L;
+    public static GroupLayout GUID_GLOBAL_USER_PRESENCE$layout() {
+        return GUID_GLOBAL_USER_PRESENCE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define COMPRESSION_FORMAT_NONE 0
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_GLOBAL_USER_PRESENCE
      * }
      */
-    public static int COMPRESSION_FORMAT_NONE() {
-        return (int)0L;
+    public static MemorySegment GUID_GLOBAL_USER_PRESENCE() {
+        return GUID_GLOBAL_USER_PRESENCE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define COMPRESSION_FORMAT_DEFAULT 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_GLOBAL_USER_PRESENCE
      * }
      */
-    public static int COMPRESSION_FORMAT_DEFAULT() {
-        return (int)1L;
+    public static void GUID_GLOBAL_USER_PRESENCE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_GLOBAL_USER_PRESENCE$constants.SEGMENT, 0L, GUID_GLOBAL_USER_PRESENCE$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_SESSION_DISPLAY_STATUS$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SESSION_DISPLAY_STATUS").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define COMPRESSION_FORMAT_LZNT1 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SESSION_DISPLAY_STATUS
      * }
      */
-    public static int COMPRESSION_FORMAT_LZNT1() {
-        return (int)2L;
+    public static GroupLayout GUID_SESSION_DISPLAY_STATUS$layout() {
+        return GUID_SESSION_DISPLAY_STATUS$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define COMPRESSION_FORMAT_XPRESS 3
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SESSION_DISPLAY_STATUS
      * }
      */
-    public static int COMPRESSION_FORMAT_XPRESS() {
-        return (int)3L;
+    public static MemorySegment GUID_SESSION_DISPLAY_STATUS() {
+        return GUID_SESSION_DISPLAY_STATUS$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define COMPRESSION_FORMAT_XPRESS_HUFF 4
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SESSION_DISPLAY_STATUS
      * }
      */
-    public static int COMPRESSION_FORMAT_XPRESS_HUFF() {
-        return (int)4L;
+    public static void GUID_SESSION_DISPLAY_STATUS(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_SESSION_DISPLAY_STATUS$constants.SEGMENT, 0L, GUID_SESSION_DISPLAY_STATUS$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_SESSION_USER_PRESENCE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SESSION_USER_PRESENCE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define COMPRESSION_FORMAT_XP10 5
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SESSION_USER_PRESENCE
      * }
      */
-    public static int COMPRESSION_FORMAT_XP10() {
-        return (int)5L;
+    public static GroupLayout GUID_SESSION_USER_PRESENCE$layout() {
+        return GUID_SESSION_USER_PRESENCE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define COMPRESSION_ENGINE_STANDARD 0
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SESSION_USER_PRESENCE
      * }
      */
-    public static int COMPRESSION_ENGINE_STANDARD() {
-        return (int)0L;
+    public static MemorySegment GUID_SESSION_USER_PRESENCE() {
+        return GUID_SESSION_USER_PRESENCE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define COMPRESSION_ENGINE_MAXIMUM 256
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SESSION_USER_PRESENCE
      * }
      */
-    public static int COMPRESSION_ENGINE_MAXIMUM() {
-        return (int)256L;
+    public static void GUID_SESSION_USER_PRESENCE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_SESSION_USER_PRESENCE$constants.SEGMENT, 0L, GUID_SESSION_USER_PRESENCE$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_IDLE_BACKGROUND_TASK$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_IDLE_BACKGROUND_TASK").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define COMPRESSION_ENGINE_HIBER 512
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_IDLE_BACKGROUND_TASK
      * }
      */
-    public static int COMPRESSION_ENGINE_HIBER() {
-        return (int)512L;
+    public static GroupLayout GUID_IDLE_BACKGROUND_TASK$layout() {
+        return GUID_IDLE_BACKGROUND_TASK$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SEF_MACL_VALID_FLAGS 1792
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_IDLE_BACKGROUND_TASK
      * }
      */
-    public static int SEF_MACL_VALID_FLAGS() {
-        return (int)1792L;
+    public static MemorySegment GUID_IDLE_BACKGROUND_TASK() {
+        return GUID_IDLE_BACKGROUND_TASK$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define RTL_UMS_VERSION 256
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_IDLE_BACKGROUND_TASK
      * }
      */
-    public static int RTL_UMS_VERSION() {
-        return (int)256L;
+    public static void GUID_IDLE_BACKGROUND_TASK(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_IDLE_BACKGROUND_TASK$constants.SEGMENT, 0L, GUID_IDLE_BACKGROUND_TASK$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_BACKGROUND_TASK_NOTIFICATION$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_BACKGROUND_TASK_NOTIFICATION").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define VRL_PREDEFINED_CLASS_BEGIN 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BACKGROUND_TASK_NOTIFICATION
      * }
      */
-    public static int VRL_PREDEFINED_CLASS_BEGIN() {
-        return (int)1L;
+    public static GroupLayout GUID_BACKGROUND_TASK_NOTIFICATION$layout() {
+        return GUID_BACKGROUND_TASK_NOTIFICATION$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define VRL_CUSTOM_CLASS_BEGIN 256
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BACKGROUND_TASK_NOTIFICATION
      * }
      */
-    public static int VRL_CUSTOM_CLASS_BEGIN() {
-        return (int)256L;
+    public static MemorySegment GUID_BACKGROUND_TASK_NOTIFICATION() {
+        return GUID_BACKGROUND_TASK_NOTIFICATION$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define VRL_CLASS_CONSISTENCY 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_BACKGROUND_TASK_NOTIFICATION
      * }
      */
-    public static int VRL_CLASS_CONSISTENCY() {
-        return (int)1L;
+    public static void GUID_BACKGROUND_TASK_NOTIFICATION(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_BACKGROUND_TASK_NOTIFICATION$constants.SEGMENT, 0L, GUID_BACKGROUND_TASK_NOTIFICATION$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_APPLAUNCH_BUTTON$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_APPLAUNCH_BUTTON").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define VRL_ENABLE_KERNEL_BREAKS -2147483648
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_APPLAUNCH_BUTTON
      * }
      */
-    public static int VRL_ENABLE_KERNEL_BREAKS() {
-        return (int)-2147483648L;
+    public static GroupLayout GUID_APPLAUNCH_BUTTON$layout() {
+        return GUID_APPLAUNCH_BUTTON$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define CTMF_INCLUDE_APPCONTAINER 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_APPLAUNCH_BUTTON
      * }
      */
-    public static int CTMF_INCLUDE_APPCONTAINER() {
-        return (int)1L;
+    public static MemorySegment GUID_APPLAUNCH_BUTTON() {
+        return GUID_APPLAUNCH_BUTTON$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define CTMF_INCLUDE_LPAC 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_APPLAUNCH_BUTTON
      * }
      */
-    public static int CTMF_INCLUDE_LPAC() {
-        return (int)2L;
+    public static void GUID_APPLAUNCH_BUTTON(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_APPLAUNCH_BUTTON$constants.SEGMENT, 0L, GUID_APPLAUNCH_BUTTON$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_PCIEXPRESS_SETTINGS_SUBGROUP$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PCIEXPRESS_SETTINGS_SUBGROUP").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define CTMF_VALID_FLAGS 3
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PCIEXPRESS_SETTINGS_SUBGROUP
      * }
      */
-    public static int CTMF_VALID_FLAGS() {
-        return (int)3L;
+    public static GroupLayout GUID_PCIEXPRESS_SETTINGS_SUBGROUP$layout() {
+        return GUID_PCIEXPRESS_SETTINGS_SUBGROUP$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define FLUSH_NV_MEMORY_IN_FLAG_NO_DRAIN 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PCIEXPRESS_SETTINGS_SUBGROUP
      * }
      */
-    public static int FLUSH_NV_MEMORY_IN_FLAG_NO_DRAIN() {
-        return (int)1L;
+    public static MemorySegment GUID_PCIEXPRESS_SETTINGS_SUBGROUP() {
+        return GUID_PCIEXPRESS_SETTINGS_SUBGROUP$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define FLUSH_NV_MEMORY_DEFAULT_TOKEN -1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PCIEXPRESS_SETTINGS_SUBGROUP
      * }
      */
-    public static long FLUSH_NV_MEMORY_DEFAULT_TOKEN() {
-        return -1L;
+    public static void GUID_PCIEXPRESS_SETTINGS_SUBGROUP(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PCIEXPRESS_SETTINGS_SUBGROUP$constants.SEGMENT, 0L, GUID_PCIEXPRESS_SETTINGS_SUBGROUP$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_PCIEXPRESS_ASPM_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_PCIEXPRESS_ASPM_POLICY").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define WRITE_NV_MEMORY_FLAG_FLUSH 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PCIEXPRESS_ASPM_POLICY
      * }
      */
-    public static int WRITE_NV_MEMORY_FLAG_FLUSH() {
-        return (int)1L;
+    public static GroupLayout GUID_PCIEXPRESS_ASPM_POLICY$layout() {
+        return GUID_PCIEXPRESS_ASPM_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define WRITE_NV_MEMORY_FLAG_NON_TEMPORAL 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PCIEXPRESS_ASPM_POLICY
      * }
      */
-    public static int WRITE_NV_MEMORY_FLAG_NON_TEMPORAL() {
-        return (int)2L;
+    public static MemorySegment GUID_PCIEXPRESS_ASPM_POLICY() {
+        return GUID_PCIEXPRESS_ASPM_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define WRITE_NV_MEMORY_FLAG_PERSIST 3
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_PCIEXPRESS_ASPM_POLICY
      * }
      */
-    public static int WRITE_NV_MEMORY_FLAG_PERSIST() {
-        return (int)3L;
+    public static void GUID_PCIEXPRESS_ASPM_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_PCIEXPRESS_ASPM_POLICY$constants.SEGMENT, 0L, GUID_PCIEXPRESS_ASPM_POLICY$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_ENABLE_SWITCH_FORCED_SHUTDOWN$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_ENABLE_SWITCH_FORCED_SHUTDOWN").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define WRITE_NV_MEMORY_FLAG_NO_DRAIN 256
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENABLE_SWITCH_FORCED_SHUTDOWN
      * }
      */
-    public static int WRITE_NV_MEMORY_FLAG_NO_DRAIN() {
-        return (int)256L;
+    public static GroupLayout GUID_ENABLE_SWITCH_FORCED_SHUTDOWN$layout() {
+        return GUID_ENABLE_SWITCH_FORCED_SHUTDOWN$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define FILL_NV_MEMORY_FLAG_FLUSH 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENABLE_SWITCH_FORCED_SHUTDOWN
      * }
      */
-    public static int FILL_NV_MEMORY_FLAG_FLUSH() {
-        return (int)1L;
+    public static MemorySegment GUID_ENABLE_SWITCH_FORCED_SHUTDOWN() {
+        return GUID_ENABLE_SWITCH_FORCED_SHUTDOWN$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define FILL_NV_MEMORY_FLAG_NON_TEMPORAL 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_ENABLE_SWITCH_FORCED_SHUTDOWN
      * }
      */
-    public static int FILL_NV_MEMORY_FLAG_NON_TEMPORAL() {
-        return (int)2L;
+    public static void GUID_ENABLE_SWITCH_FORCED_SHUTDOWN(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_ENABLE_SWITCH_FORCED_SHUTDOWN$constants.SEGMENT, 0L, GUID_ENABLE_SWITCH_FORCED_SHUTDOWN$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_INTSTEER_SUBGROUP$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_INTSTEER_SUBGROUP").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define FILL_NV_MEMORY_FLAG_PERSIST 3
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_INTSTEER_SUBGROUP
      * }
      */
-    public static int FILL_NV_MEMORY_FLAG_PERSIST() {
-        return (int)3L;
+    public static GroupLayout GUID_INTSTEER_SUBGROUP$layout() {
+        return GUID_INTSTEER_SUBGROUP$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define FILL_NV_MEMORY_FLAG_NO_DRAIN 256
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_INTSTEER_SUBGROUP
      * }
      */
-    public static int FILL_NV_MEMORY_FLAG_NO_DRAIN() {
-        return (int)256L;
+    public static MemorySegment GUID_INTSTEER_SUBGROUP() {
+        return GUID_INTSTEER_SUBGROUP$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define RTL_CORRELATION_VECTOR_VERSION_1 1
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_INTSTEER_SUBGROUP
      * }
      */
-    public static byte RTL_CORRELATION_VECTOR_VERSION_1() {
-        return (byte)1L;
+    public static void GUID_INTSTEER_SUBGROUP(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_INTSTEER_SUBGROUP$constants.SEGMENT, 0L, GUID_INTSTEER_SUBGROUP$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_INTSTEER_MODE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_INTSTEER_MODE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define RTL_CORRELATION_VECTOR_VERSION_2 2
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_INTSTEER_MODE
      * }
      */
-    public static byte RTL_CORRELATION_VECTOR_VERSION_2() {
-        return (byte)2L;
+    public static GroupLayout GUID_INTSTEER_MODE$layout() {
+        return GUID_INTSTEER_MODE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define RTL_CORRELATION_VECTOR_VERSION_CURRENT 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_INTSTEER_MODE
      * }
      */
-    public static byte RTL_CORRELATION_VECTOR_VERSION_CURRENT() {
-        return (byte)2L;
+    public static MemorySegment GUID_INTSTEER_MODE() {
+        return GUID_INTSTEER_MODE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define RTL_CORRELATION_VECTOR_V1_PREFIX_LENGTH 16
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_INTSTEER_MODE
      * }
      */
-    public static int RTL_CORRELATION_VECTOR_V1_PREFIX_LENGTH() {
-        return (int)16L;
+    public static void GUID_INTSTEER_MODE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_INTSTEER_MODE$constants.SEGMENT, 0L, GUID_INTSTEER_MODE$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_INTSTEER_LOAD_PER_PROC_TRIGGER$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_INTSTEER_LOAD_PER_PROC_TRIGGER").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define RTL_CORRELATION_VECTOR_V1_LENGTH 64
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_INTSTEER_LOAD_PER_PROC_TRIGGER
      * }
      */
-    public static int RTL_CORRELATION_VECTOR_V1_LENGTH() {
-        return (int)64L;
+    public static GroupLayout GUID_INTSTEER_LOAD_PER_PROC_TRIGGER$layout() {
+        return GUID_INTSTEER_LOAD_PER_PROC_TRIGGER$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define RTL_CORRELATION_VECTOR_V2_PREFIX_LENGTH 22
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_INTSTEER_LOAD_PER_PROC_TRIGGER
      * }
      */
-    public static int RTL_CORRELATION_VECTOR_V2_PREFIX_LENGTH() {
-        return (int)22L;
+    public static MemorySegment GUID_INTSTEER_LOAD_PER_PROC_TRIGGER() {
+        return GUID_INTSTEER_LOAD_PER_PROC_TRIGGER$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define RTL_CORRELATION_VECTOR_V2_LENGTH 128
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_INTSTEER_LOAD_PER_PROC_TRIGGER
      * }
      */
-    public static int RTL_CORRELATION_VECTOR_V2_LENGTH() {
-        return (int)128L;
+    public static void GUID_INTSTEER_LOAD_PER_PROC_TRIGGER(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_INTSTEER_LOAD_PER_PROC_TRIGGER$constants.SEGMENT, 0L, GUID_INTSTEER_LOAD_PER_PROC_TRIGGER$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_INTSTEER_TIME_UNPARK_TRIGGER$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_INTSTEER_TIME_UNPARK_TRIGGER").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define IMAGE_POLICY_SECTION_NAME ".tPolicy"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_INTSTEER_TIME_UNPARK_TRIGGER
      * }
      */
-    public static MemorySegment IMAGE_POLICY_SECTION_NAME() {
-        return constants$4550.const$4;
+    public static GroupLayout GUID_INTSTEER_TIME_UNPARK_TRIGGER$layout() {
+        return GUID_INTSTEER_TIME_UNPARK_TRIGGER$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define RTL_VIRTUAL_UNWIND2_VALIDATE_PAC 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_INTSTEER_TIME_UNPARK_TRIGGER
      * }
      */
-    public static int RTL_VIRTUAL_UNWIND2_VALIDATE_PAC() {
-        return (int)1L;
+    public static MemorySegment GUID_INTSTEER_TIME_UNPARK_TRIGGER() {
+        return GUID_INTSTEER_TIME_UNPARK_TRIGGER$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define RTL_CRITICAL_SECTION_ALL_FLAG_BITS 4278190080
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_INTSTEER_TIME_UNPARK_TRIGGER
      * }
      */
-    public static int RTL_CRITICAL_SECTION_ALL_FLAG_BITS() {
-        return (int)4278190080L;
+    public static void GUID_INTSTEER_TIME_UNPARK_TRIGGER(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_INTSTEER_TIME_UNPARK_TRIGGER$constants.SEGMENT, 0L, GUID_INTSTEER_TIME_UNPARK_TRIGGER$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_GRAPHICS_SUBGROUP$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_GRAPHICS_SUBGROUP").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define RTL_CRITICAL_SECTION_FLAG_RESERVED 3758096384
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_GRAPHICS_SUBGROUP
      * }
      */
-    public static int RTL_CRITICAL_SECTION_FLAG_RESERVED() {
-        return (int)3758096384L;
+    public static GroupLayout GUID_GRAPHICS_SUBGROUP$layout() {
+        return GUID_GRAPHICS_SUBGROUP$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_PATH_TYPE_NONE 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_GRAPHICS_SUBGROUP
      * }
      */
-    public static int ACTIVATION_CONTEXT_PATH_TYPE_NONE() {
-        return (int)1L;
+    public static MemorySegment GUID_GRAPHICS_SUBGROUP() {
+        return GUID_GRAPHICS_SUBGROUP$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_PATH_TYPE_WIN32_FILE 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_GRAPHICS_SUBGROUP
      * }
      */
-    public static int ACTIVATION_CONTEXT_PATH_TYPE_WIN32_FILE() {
-        return (int)2L;
+    public static void GUID_GRAPHICS_SUBGROUP(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_GRAPHICS_SUBGROUP$constants.SEGMENT, 0L, GUID_GRAPHICS_SUBGROUP$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_GPU_PREFERENCE_POLICY$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_GPU_PREFERENCE_POLICY").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_PATH_TYPE_URL 3
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_GPU_PREFERENCE_POLICY
      * }
      */
-    public static int ACTIVATION_CONTEXT_PATH_TYPE_URL() {
-        return (int)3L;
+    public static GroupLayout GUID_GPU_PREFERENCE_POLICY$layout() {
+        return GUID_GPU_PREFERENCE_POLICY$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_PATH_TYPE_ASSEMBLYREF 4
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_GPU_PREFERENCE_POLICY
      * }
      */
-    public static int ACTIVATION_CONTEXT_PATH_TYPE_ASSEMBLYREF() {
-        return (int)4L;
+    public static MemorySegment GUID_GPU_PREFERENCE_POLICY() {
+        return GUID_GPU_PREFERENCE_POLICY$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define UNIFIEDBUILDREVISION_KEY "\\"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_GPU_PREFERENCE_POLICY
      * }
      */
-    public static MemorySegment UNIFIEDBUILDREVISION_KEY() {
-        return constants$4550.const$5;
+    public static void GUID_GPU_PREFERENCE_POLICY(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_GPU_PREFERENCE_POLICY$constants.SEGMENT, 0L, GUID_GPU_PREFERENCE_POLICY$constants.LAYOUT.byteSize());
     }
+
+    private static class GUID_MIXED_REALITY_MODE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_MIXED_REALITY_MODE").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define UNIFIEDBUILDREVISION_VALUE "U"
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_MIXED_REALITY_MODE
      * }
      */
-    public static MemorySegment UNIFIEDBUILDREVISION_VALUE() {
-        return constants$4551.const$0;
+    public static GroupLayout GUID_MIXED_REALITY_MODE$layout() {
+        return GUID_MIXED_REALITY_MODE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define DEVICEFAMILYDEVICEFORM_KEY "\\"
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_MIXED_REALITY_MODE
      * }
      */
-    public static MemorySegment DEVICEFAMILYDEVICEFORM_KEY() {
-        return constants$4550.const$5;
+    public static MemorySegment GUID_MIXED_REALITY_MODE() {
+        return GUID_MIXED_REALITY_MODE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define DEVICEFAMILYDEVICEFORM_VALUE "D"
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_MIXED_REALITY_MODE
      * }
      */
-    public static MemorySegment DEVICEFAMILYDEVICEFORM_VALUE() {
-        return constants$4541.const$4;
+    public static void GUID_MIXED_REALITY_MODE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_MIXED_REALITY_MODE$constants.SEGMENT, 0L, GUID_MIXED_REALITY_MODE$constants.LAYOUT.byteSize());
+    }
+
+    private static class GUID_SPR_ACTIVE_SESSION_CHANGE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_SPR_ACTIVE_SESSION_CHANGE").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define KEY_QUERY_VALUE 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SPR_ACTIVE_SESSION_CHANGE
      * }
      */
-    public static int KEY_QUERY_VALUE() {
-        return (int)1L;
+    public static GroupLayout GUID_SPR_ACTIVE_SESSION_CHANGE$layout() {
+        return GUID_SPR_ACTIVE_SESSION_CHANGE$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define KEY_SET_VALUE 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SPR_ACTIVE_SESSION_CHANGE
      * }
      */
-    public static int KEY_SET_VALUE() {
-        return (int)2L;
+    public static MemorySegment GUID_SPR_ACTIVE_SESSION_CHANGE() {
+        return GUID_SPR_ACTIVE_SESSION_CHANGE$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define KEY_CREATE_SUB_KEY 4
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_SPR_ACTIVE_SESSION_CHANGE
      * }
      */
-    public static int KEY_CREATE_SUB_KEY() {
-        return (int)4L;
+    public static void GUID_SPR_ACTIVE_SESSION_CHANGE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_SPR_ACTIVE_SESSION_CHANGE$constants.SEGMENT, 0L, GUID_SPR_ACTIVE_SESSION_CHANGE$constants.LAYOUT.byteSize());
     }
+    private static final int PowerSystemUnspecified = (int)0L;
     /**
-     * {@snippet :
-     * #define KEY_ENUMERATE_SUB_KEYS 8
+     * {@snippet lang=c :
+     * enum _SYSTEM_POWER_STATE.PowerSystemUnspecified = 0
      * }
      */
-    public static int KEY_ENUMERATE_SUB_KEYS() {
-        return (int)8L;
+    public static int PowerSystemUnspecified() {
+        return PowerSystemUnspecified;
     }
+    private static final int PowerSystemWorking = (int)1L;
     /**
-     * {@snippet :
-     * #define KEY_NOTIFY 16
+     * {@snippet lang=c :
+     * enum _SYSTEM_POWER_STATE.PowerSystemWorking = 1
      * }
      */
-    public static int KEY_NOTIFY() {
-        return (int)16L;
+    public static int PowerSystemWorking() {
+        return PowerSystemWorking;
     }
+    private static final int PowerSystemSleeping1 = (int)2L;
     /**
-     * {@snippet :
-     * #define KEY_CREATE_LINK 32
+     * {@snippet lang=c :
+     * enum _SYSTEM_POWER_STATE.PowerSystemSleeping1 = 2
      * }
      */
-    public static int KEY_CREATE_LINK() {
-        return (int)32L;
+    public static int PowerSystemSleeping1() {
+        return PowerSystemSleeping1;
     }
+    private static final int PowerSystemSleeping2 = (int)3L;
     /**
-     * {@snippet :
-     * #define KEY_WOW64_32KEY 512
+     * {@snippet lang=c :
+     * enum _SYSTEM_POWER_STATE.PowerSystemSleeping2 = 3
      * }
      */
-    public static int KEY_WOW64_32KEY() {
-        return (int)512L;
+    public static int PowerSystemSleeping2() {
+        return PowerSystemSleeping2;
     }
+    private static final int PowerSystemSleeping3 = (int)4L;
     /**
-     * {@snippet :
-     * #define KEY_WOW64_64KEY 256
+     * {@snippet lang=c :
+     * enum _SYSTEM_POWER_STATE.PowerSystemSleeping3 = 4
      * }
      */
-    public static int KEY_WOW64_64KEY() {
-        return (int)256L;
+    public static int PowerSystemSleeping3() {
+        return PowerSystemSleeping3;
     }
+    private static final int PowerSystemHibernate = (int)5L;
     /**
-     * {@snippet :
-     * #define KEY_WOW64_RES 768
+     * {@snippet lang=c :
+     * enum _SYSTEM_POWER_STATE.PowerSystemHibernate = 5
      * }
      */
-    public static int KEY_WOW64_RES() {
-        return (int)768L;
+    public static int PowerSystemHibernate() {
+        return PowerSystemHibernate;
     }
+    private static final int PowerSystemShutdown = (int)6L;
     /**
-     * {@snippet :
-     * #define KEY_READ 131097
+     * {@snippet lang=c :
+     * enum _SYSTEM_POWER_STATE.PowerSystemShutdown = 6
      * }
      */
-    public static int KEY_READ() {
-        return (int)131097L;
+    public static int PowerSystemShutdown() {
+        return PowerSystemShutdown;
     }
+    private static final int PowerSystemMaximum = (int)7L;
     /**
-     * {@snippet :
-     * #define KEY_WRITE 131078
+     * {@snippet lang=c :
+     * enum _SYSTEM_POWER_STATE.PowerSystemMaximum = 7
      * }
      */
-    public static int KEY_WRITE() {
-        return (int)131078L;
+    public static int PowerSystemMaximum() {
+        return PowerSystemMaximum;
     }
     /**
-     * {@snippet :
-     * #define KEY_EXECUTE 131097
+     * {@snippet lang=c :
+     * typedef enum _SYSTEM_POWER_STATE {
+     *     PowerSystemUnspecified = 0,
+     *     PowerSystemWorking = 1,
+     *     PowerSystemSleeping1 = 2,
+     *     PowerSystemSleeping2 = 3,
+     *     PowerSystemSleeping3 = 4,
+     *     PowerSystemHibernate = 5,
+     *     PowerSystemShutdown = 6,
+     *     PowerSystemMaximum = 7
+     * } *PSYSTEM_POWER_STATE
      * }
      */
-    public static int KEY_EXECUTE() {
-        return (int)131097L;
-    }
+    public static final AddressLayout PSYSTEM_POWER_STATE = Windows_h.C_POINTER;
+    private static final int PowerActionNone = (int)0L;
     /**
-     * {@snippet :
-     * #define KEY_ALL_ACCESS 983103
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerActionNone = 0
      * }
      */
-    public static int KEY_ALL_ACCESS() {
-        return (int)983103L;
+    public static int PowerActionNone() {
+        return PowerActionNone;
     }
+    private static final int PowerActionReserved = (int)1L;
     /**
-     * {@snippet :
-     * #define REG_OPTION_RESERVED 0
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerActionReserved = 1
      * }
      */
-    public static int REG_OPTION_RESERVED() {
-        return (int)0L;
+    public static int PowerActionReserved() {
+        return PowerActionReserved;
     }
+    private static final int PowerActionSleep = (int)2L;
     /**
-     * {@snippet :
-     * #define REG_OPTION_NON_VOLATILE 0
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerActionSleep = 2
      * }
      */
-    public static int REG_OPTION_NON_VOLATILE() {
-        return (int)0L;
+    public static int PowerActionSleep() {
+        return PowerActionSleep;
     }
+    private static final int PowerActionHibernate = (int)3L;
     /**
-     * {@snippet :
-     * #define REG_OPTION_VOLATILE 1
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerActionHibernate = 3
      * }
      */
-    public static int REG_OPTION_VOLATILE() {
-        return (int)1L;
+    public static int PowerActionHibernate() {
+        return PowerActionHibernate;
     }
+    private static final int PowerActionShutdown = (int)4L;
     /**
-     * {@snippet :
-     * #define REG_OPTION_CREATE_LINK 2
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerActionShutdown = 4
      * }
      */
-    public static int REG_OPTION_CREATE_LINK() {
-        return (int)2L;
+    public static int PowerActionShutdown() {
+        return PowerActionShutdown;
     }
+    private static final int PowerActionShutdownReset = (int)5L;
     /**
-     * {@snippet :
-     * #define REG_OPTION_BACKUP_RESTORE 4
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerActionShutdownReset = 5
      * }
      */
-    public static int REG_OPTION_BACKUP_RESTORE() {
-        return (int)4L;
+    public static int PowerActionShutdownReset() {
+        return PowerActionShutdownReset;
     }
+    private static final int PowerActionShutdownOff = (int)6L;
     /**
-     * {@snippet :
-     * #define REG_OPTION_OPEN_LINK 8
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerActionShutdownOff = 6
      * }
      */
-    public static int REG_OPTION_OPEN_LINK() {
-        return (int)8L;
+    public static int PowerActionShutdownOff() {
+        return PowerActionShutdownOff;
     }
+    private static final int PowerActionWarmEject = (int)7L;
     /**
-     * {@snippet :
-     * #define REG_OPTION_DONT_VIRTUALIZE 16
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerActionWarmEject = 7
      * }
      */
-    public static int REG_OPTION_DONT_VIRTUALIZE() {
-        return (int)16L;
+    public static int PowerActionWarmEject() {
+        return PowerActionWarmEject;
     }
+    private static final int PowerActionDisplayOff = (int)8L;
     /**
-     * {@snippet :
-     * #define REG_LEGAL_OPTION 31
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerActionDisplayOff = 8
      * }
      */
-    public static int REG_LEGAL_OPTION() {
-        return (int)31L;
+    public static int PowerActionDisplayOff() {
+        return PowerActionDisplayOff;
     }
     /**
-     * {@snippet :
-     * #define REG_OPEN_LEGAL_OPTION 28
+     * {@snippet lang=c :
+     * typedef enum {
+     *     PowerActionNone = 0,
+     *     PowerActionReserved,
+     *     PowerActionSleep,
+     *     PowerActionHibernate,
+     *     PowerActionShutdown,
+     *     PowerActionShutdownReset,
+     *     PowerActionShutdownOff,
+     *     PowerActionWarmEject,
+     *     PowerActionDisplayOff
+     * } *PPOWER_ACTION
      * }
      */
-    public static int REG_OPEN_LEGAL_OPTION() {
-        return (int)28L;
-    }
+    public static final AddressLayout PPOWER_ACTION = Windows_h.C_POINTER;
+    private static final int PowerDeviceUnspecified = (int)0L;
     /**
-     * {@snippet :
-     * #define REG_CREATED_NEW_KEY 1
+     * {@snippet lang=c :
+     * enum _DEVICE_POWER_STATE.PowerDeviceUnspecified = 0
      * }
      */
-    public static int REG_CREATED_NEW_KEY() {
-        return (int)1L;
+    public static int PowerDeviceUnspecified() {
+        return PowerDeviceUnspecified;
     }
+    private static final int PowerDeviceD0 = (int)1L;
     /**
-     * {@snippet :
-     * #define REG_OPENED_EXISTING_KEY 2
+     * {@snippet lang=c :
+     * enum _DEVICE_POWER_STATE.PowerDeviceD0 = 1
      * }
      */
-    public static int REG_OPENED_EXISTING_KEY() {
-        return (int)2L;
+    public static int PowerDeviceD0() {
+        return PowerDeviceD0;
     }
+    private static final int PowerDeviceD1 = (int)2L;
     /**
-     * {@snippet :
-     * #define REG_WHOLE_HIVE_VOLATILE 1
+     * {@snippet lang=c :
+     * enum _DEVICE_POWER_STATE.PowerDeviceD1 = 2
      * }
      */
-    public static int REG_WHOLE_HIVE_VOLATILE() {
-        return (int)1L;
+    public static int PowerDeviceD1() {
+        return PowerDeviceD1;
     }
+    private static final int PowerDeviceD2 = (int)3L;
     /**
-     * {@snippet :
-     * #define REG_REFRESH_HIVE 2
+     * {@snippet lang=c :
+     * enum _DEVICE_POWER_STATE.PowerDeviceD2 = 3
      * }
      */
-    public static int REG_REFRESH_HIVE() {
-        return (int)2L;
+    public static int PowerDeviceD2() {
+        return PowerDeviceD2;
     }
+    private static final int PowerDeviceD3 = (int)4L;
     /**
-     * {@snippet :
-     * #define REG_NO_LAZY_FLUSH 4
+     * {@snippet lang=c :
+     * enum _DEVICE_POWER_STATE.PowerDeviceD3 = 4
      * }
      */
-    public static int REG_NO_LAZY_FLUSH() {
-        return (int)4L;
+    public static int PowerDeviceD3() {
+        return PowerDeviceD3;
     }
+    private static final int PowerDeviceMaximum = (int)5L;
     /**
-     * {@snippet :
-     * #define REG_FORCE_RESTORE 8
+     * {@snippet lang=c :
+     * enum _DEVICE_POWER_STATE.PowerDeviceMaximum = 5
      * }
      */
-    public static int REG_FORCE_RESTORE() {
-        return (int)8L;
+    public static int PowerDeviceMaximum() {
+        return PowerDeviceMaximum;
     }
     /**
-     * {@snippet :
-     * #define REG_APP_HIVE 16
+     * {@snippet lang=c :
+     * typedef enum _DEVICE_POWER_STATE {
+     *     PowerDeviceUnspecified = 0,
+     *     PowerDeviceD0,
+     *     PowerDeviceD1,
+     *     PowerDeviceD2,
+     *     PowerDeviceD3,
+     *     PowerDeviceMaximum
+     * } *PDEVICE_POWER_STATE
      * }
      */
-    public static int REG_APP_HIVE() {
-        return (int)16L;
-    }
+    public static final AddressLayout PDEVICE_POWER_STATE = Windows_h.C_POINTER;
+    private static final int PowerMonitorOff = (int)0L;
     /**
-     * {@snippet :
-     * #define REG_PROCESS_PRIVATE 32
+     * {@snippet lang=c :
+     * enum _MONITOR_DISPLAY_STATE.PowerMonitorOff = 0
      * }
      */
-    public static int REG_PROCESS_PRIVATE() {
-        return (int)32L;
+    public static int PowerMonitorOff() {
+        return PowerMonitorOff;
     }
+    private static final int PowerMonitorOn = (int)1L;
     /**
-     * {@snippet :
-     * #define REG_START_JOURNAL 64
+     * {@snippet lang=c :
+     * enum _MONITOR_DISPLAY_STATE.PowerMonitorOn = 1
      * }
      */
-    public static int REG_START_JOURNAL() {
-        return (int)64L;
+    public static int PowerMonitorOn() {
+        return PowerMonitorOn;
     }
+    private static final int PowerMonitorDim = (int)2L;
     /**
-     * {@snippet :
-     * #define REG_HIVE_EXACT_FILE_GROWTH 128
+     * {@snippet lang=c :
+     * enum _MONITOR_DISPLAY_STATE.PowerMonitorDim = 2
      * }
      */
-    public static int REG_HIVE_EXACT_FILE_GROWTH() {
-        return (int)128L;
+    public static int PowerMonitorDim() {
+        return PowerMonitorDim;
     }
     /**
-     * {@snippet :
-     * #define REG_HIVE_NO_RM 256
+     * {@snippet lang=c :
+     * typedef enum _MONITOR_DISPLAY_STATE {
+     *     PowerMonitorOff = 0,
+     *     PowerMonitorOn,
+     *     PowerMonitorDim
+     * } *PMONITOR_DISPLAY_STATE
      * }
      */
-    public static int REG_HIVE_NO_RM() {
-        return (int)256L;
-    }
+    public static final AddressLayout PMONITOR_DISPLAY_STATE = Windows_h.C_POINTER;
+    private static final int PowerUserPresent = (int)0L;
     /**
-     * {@snippet :
-     * #define REG_HIVE_SINGLE_LOG 512
+     * {@snippet lang=c :
+     * enum _USER_ACTIVITY_PRESENCE.PowerUserPresent = 0
      * }
      */
-    public static int REG_HIVE_SINGLE_LOG() {
-        return (int)512L;
+    public static int PowerUserPresent() {
+        return PowerUserPresent;
     }
+    private static final int PowerUserNotPresent = (int)1L;
     /**
-     * {@snippet :
-     * #define REG_BOOT_HIVE 1024
+     * {@snippet lang=c :
+     * enum _USER_ACTIVITY_PRESENCE.PowerUserNotPresent = 1
      * }
      */
-    public static int REG_BOOT_HIVE() {
-        return (int)1024L;
+    public static int PowerUserNotPresent() {
+        return PowerUserNotPresent;
     }
+    private static final int PowerUserInactive = (int)2L;
     /**
-     * {@snippet :
-     * #define REG_LOAD_HIVE_OPEN_HANDLE 2048
+     * {@snippet lang=c :
+     * enum _USER_ACTIVITY_PRESENCE.PowerUserInactive = 2
      * }
      */
-    public static int REG_LOAD_HIVE_OPEN_HANDLE() {
-        return (int)2048L;
+    public static int PowerUserInactive() {
+        return PowerUserInactive;
     }
+    private static final int PowerUserMaximum = (int)3L;
     /**
-     * {@snippet :
-     * #define REG_FLUSH_HIVE_FILE_GROWTH 4096
+     * {@snippet lang=c :
+     * enum _USER_ACTIVITY_PRESENCE.PowerUserMaximum = 3
      * }
      */
-    public static int REG_FLUSH_HIVE_FILE_GROWTH() {
-        return (int)4096L;
+    public static int PowerUserMaximum() {
+        return PowerUserMaximum;
     }
+    private static final int PowerUserInvalid = (int)3L;
     /**
-     * {@snippet :
-     * #define REG_OPEN_READ_ONLY 8192
+     * {@snippet lang=c :
+     * enum _USER_ACTIVITY_PRESENCE.PowerUserInvalid = 3
      * }
      */
-    public static int REG_OPEN_READ_ONLY() {
-        return (int)8192L;
+    public static int PowerUserInvalid() {
+        return PowerUserInvalid;
     }
     /**
-     * {@snippet :
-     * #define REG_IMMUTABLE 16384
+     * {@snippet lang=c :
+     * typedef enum _USER_ACTIVITY_PRESENCE {
+     *     PowerUserPresent = 0,
+     *     PowerUserNotPresent,
+     *     PowerUserInactive,
+     *     PowerUserMaximum,
+     *     PowerUserInvalid = PowerUserMaximum
+     * } *PUSER_ACTIVITY_PRESENCE
      * }
      */
-    public static int REG_IMMUTABLE() {
-        return (int)16384L;
-    }
+    public static final AddressLayout PUSER_ACTIVITY_PRESENCE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define REG_NO_IMPERSONATION_FALLBACK 32768
+     * {@snippet lang=c :
+     * typedef DWORD EXECUTION_STATE
      * }
      */
-    public static int REG_NO_IMPERSONATION_FALLBACK() {
-        return (int)32768L;
-    }
+    public static final OfInt EXECUTION_STATE = Windows_h.C_LONG;
     /**
-     * {@snippet :
-     * #define REG_APP_HIVE_OPEN_READ_ONLY 8192
+     * {@snippet lang=c :
+     * typedef DWORD *PEXECUTION_STATE
      * }
      */
-    public static int REG_APP_HIVE_OPEN_READ_ONLY() {
-        return (int)8192L;
-    }
+    public static final AddressLayout PEXECUTION_STATE = Windows_h.C_POINTER;
+    private static final int LT_DONT_CARE = (int)0L;
     /**
-     * {@snippet :
-     * #define REG_UNLOAD_LEGAL_FLAGS 1
+     * {@snippet lang=c :
+     * enum <anonymous>.LT_DONT_CARE = 0
      * }
      */
-    public static int REG_UNLOAD_LEGAL_FLAGS() {
-        return (int)1L;
+    public static int LT_DONT_CARE() {
+        return LT_DONT_CARE;
     }
+    private static final int LT_LOWEST_LATENCY = (int)1L;
     /**
-     * {@snippet :
-     * #define REG_NOTIFY_CHANGE_NAME 1
+     * {@snippet lang=c :
+     * enum <anonymous>.LT_LOWEST_LATENCY = 1
      * }
      */
-    public static int REG_NOTIFY_CHANGE_NAME() {
-        return (int)1L;
+    public static int LT_LOWEST_LATENCY() {
+        return LT_LOWEST_LATENCY;
     }
+    private static final int PowerRequestDisplayRequired = (int)0L;
     /**
-     * {@snippet :
-     * #define REG_NOTIFY_CHANGE_ATTRIBUTES 2
+     * {@snippet lang=c :
+     * enum _POWER_REQUEST_TYPE.PowerRequestDisplayRequired = 0
      * }
      */
-    public static int REG_NOTIFY_CHANGE_ATTRIBUTES() {
-        return (int)2L;
+    public static int PowerRequestDisplayRequired() {
+        return PowerRequestDisplayRequired;
     }
+    private static final int PowerRequestSystemRequired = (int)1L;
     /**
-     * {@snippet :
-     * #define REG_NOTIFY_CHANGE_LAST_SET 4
+     * {@snippet lang=c :
+     * enum _POWER_REQUEST_TYPE.PowerRequestSystemRequired = 1
      * }
      */
-    public static int REG_NOTIFY_CHANGE_LAST_SET() {
-        return (int)4L;
+    public static int PowerRequestSystemRequired() {
+        return PowerRequestSystemRequired;
     }
+    private static final int PowerRequestAwayModeRequired = (int)2L;
     /**
-     * {@snippet :
-     * #define REG_NOTIFY_CHANGE_SECURITY 8
+     * {@snippet lang=c :
+     * enum _POWER_REQUEST_TYPE.PowerRequestAwayModeRequired = 2
      * }
      */
-    public static int REG_NOTIFY_CHANGE_SECURITY() {
-        return (int)8L;
+    public static int PowerRequestAwayModeRequired() {
+        return PowerRequestAwayModeRequired;
     }
+    private static final int PowerRequestExecutionRequired = (int)3L;
     /**
-     * {@snippet :
-     * #define REG_NOTIFY_THREAD_AGNOSTIC 268435456
+     * {@snippet lang=c :
+     * enum _POWER_REQUEST_TYPE.PowerRequestExecutionRequired = 3
      * }
      */
-    public static int REG_NOTIFY_THREAD_AGNOSTIC() {
-        return (int)268435456L;
+    public static int PowerRequestExecutionRequired() {
+        return PowerRequestExecutionRequired;
     }
     /**
-     * {@snippet :
-     * #define REG_LEGAL_CHANGE_FILTER 268435471
+     * {@snippet lang=c :
+     * typedef enum _POWER_REQUEST_TYPE {
+     *     PowerRequestDisplayRequired,
+     *     PowerRequestSystemRequired,
+     *     PowerRequestAwayModeRequired,
+     *     PowerRequestExecutionRequired
+     * } *PPOWER_REQUEST_TYPE
      * }
      */
-    public static int REG_LEGAL_CHANGE_FILTER() {
-        return (int)268435471L;
-    }
+    public static final AddressLayout PPOWER_REQUEST_TYPE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define REG_NONE 0
+     * {@snippet lang=c :
+     * typedef struct CM_Power_Data_s {
+     *     DWORD PD_Size;
+     *     DEVICE_POWER_STATE PD_MostRecentPowerState;
+     *     DWORD PD_Capabilities;
+     *     DWORD PD_D1Latency;
+     *     DWORD PD_D2Latency;
+     *     DWORD PD_D3Latency;
+     *     DEVICE_POWER_STATE PD_PowerStateMapping[7];
+     *     SYSTEM_POWER_STATE PD_DeepestSystemWake;
+     * } *PCM_POWER_DATA
      * }
      */
-    public static int REG_NONE() {
-        return (int)0L;
-    }
+    public static final AddressLayout PCM_POWER_DATA = Windows_h.C_POINTER;
+    private static final int SystemPowerPolicyAc = (int)0L;
     /**
-     * {@snippet :
-     * #define REG_SZ 1
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemPowerPolicyAc = 0
      * }
      */
-    public static int REG_SZ() {
-        return (int)1L;
+    public static int SystemPowerPolicyAc() {
+        return SystemPowerPolicyAc;
     }
+    private static final int SystemPowerPolicyDc = (int)1L;
     /**
-     * {@snippet :
-     * #define REG_EXPAND_SZ 2
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemPowerPolicyDc = 1
      * }
      */
-    public static int REG_EXPAND_SZ() {
-        return (int)2L;
+    public static int SystemPowerPolicyDc() {
+        return SystemPowerPolicyDc;
     }
+    private static final int VerifySystemPolicyAc = (int)2L;
     /**
-     * {@snippet :
-     * #define REG_BINARY 3
+     * {@snippet lang=c :
+     * enum <anonymous>.VerifySystemPolicyAc = 2
      * }
      */
-    public static int REG_BINARY() {
-        return (int)3L;
+    public static int VerifySystemPolicyAc() {
+        return VerifySystemPolicyAc;
     }
+    private static final int VerifySystemPolicyDc = (int)3L;
     /**
-     * {@snippet :
-     * #define REG_DWORD 4
+     * {@snippet lang=c :
+     * enum <anonymous>.VerifySystemPolicyDc = 3
      * }
      */
-    public static int REG_DWORD() {
-        return (int)4L;
+    public static int VerifySystemPolicyDc() {
+        return VerifySystemPolicyDc;
     }
+    private static final int SystemPowerCapabilities = (int)4L;
     /**
-     * {@snippet :
-     * #define REG_DWORD_LITTLE_ENDIAN 4
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemPowerCapabilities = 4
      * }
      */
-    public static int REG_DWORD_LITTLE_ENDIAN() {
-        return (int)4L;
+    public static int SystemPowerCapabilities() {
+        return SystemPowerCapabilities;
     }
+    private static final int SystemBatteryState = (int)5L;
     /**
-     * {@snippet :
-     * #define REG_DWORD_BIG_ENDIAN 5
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemBatteryState = 5
      * }
      */
-    public static int REG_DWORD_BIG_ENDIAN() {
-        return (int)5L;
+    public static int SystemBatteryState() {
+        return SystemBatteryState;
     }
+    private static final int SystemPowerStateHandler = (int)6L;
     /**
-     * {@snippet :
-     * #define REG_LINK 6
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemPowerStateHandler = 6
      * }
      */
-    public static int REG_LINK() {
-        return (int)6L;
+    public static int SystemPowerStateHandler() {
+        return SystemPowerStateHandler;
     }
+    private static final int ProcessorStateHandler = (int)7L;
     /**
-     * {@snippet :
-     * #define REG_MULTI_SZ 7
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorStateHandler = 7
      * }
      */
-    public static int REG_MULTI_SZ() {
-        return (int)7L;
+    public static int ProcessorStateHandler() {
+        return ProcessorStateHandler;
     }
+    private static final int SystemPowerPolicyCurrent = (int)8L;
     /**
-     * {@snippet :
-     * #define REG_RESOURCE_LIST 8
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemPowerPolicyCurrent = 8
      * }
      */
-    public static int REG_RESOURCE_LIST() {
-        return (int)8L;
+    public static int SystemPowerPolicyCurrent() {
+        return SystemPowerPolicyCurrent;
     }
+    private static final int AdministratorPowerPolicy = (int)9L;
     /**
-     * {@snippet :
-     * #define REG_FULL_RESOURCE_DESCRIPTOR 9
+     * {@snippet lang=c :
+     * enum <anonymous>.AdministratorPowerPolicy = 9
      * }
      */
-    public static int REG_FULL_RESOURCE_DESCRIPTOR() {
-        return (int)9L;
+    public static int AdministratorPowerPolicy() {
+        return AdministratorPowerPolicy;
     }
+    private static final int SystemReserveHiberFile = (int)10L;
     /**
-     * {@snippet :
-     * #define REG_RESOURCE_REQUIREMENTS_LIST 10
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemReserveHiberFile = 10
      * }
      */
-    public static int REG_RESOURCE_REQUIREMENTS_LIST() {
-        return (int)10L;
+    public static int SystemReserveHiberFile() {
+        return SystemReserveHiberFile;
     }
+    private static final int ProcessorInformation = (int)11L;
     /**
-     * {@snippet :
-     * #define REG_QWORD 11
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorInformation = 11
      * }
      */
-    public static int REG_QWORD() {
-        return (int)11L;
+    public static int ProcessorInformation() {
+        return ProcessorInformation;
     }
+    private static final int SystemPowerInformation = (int)12L;
     /**
-     * {@snippet :
-     * #define REG_QWORD_LITTLE_ENDIAN 11
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemPowerInformation = 12
      * }
      */
-    public static int REG_QWORD_LITTLE_ENDIAN() {
-        return (int)11L;
+    public static int SystemPowerInformation() {
+        return SystemPowerInformation;
     }
+    private static final int ProcessorStateHandler2 = (int)13L;
     /**
-     * {@snippet :
-     * #define SERVICE_DRIVER 11
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorStateHandler2 = 13
      * }
      */
-    public static int SERVICE_DRIVER() {
-        return (int)11L;
+    public static int ProcessorStateHandler2() {
+        return ProcessorStateHandler2;
     }
+    private static final int LastWakeTime = (int)14L;
     /**
-     * {@snippet :
-     * #define SERVICE_WIN32 48
+     * {@snippet lang=c :
+     * enum <anonymous>.LastWakeTime = 14
      * }
      */
-    public static int SERVICE_WIN32() {
-        return (int)48L;
+    public static int LastWakeTime() {
+        return LastWakeTime;
     }
+    private static final int LastSleepTime = (int)15L;
     /**
-     * {@snippet :
-     * #define SERVICE_USER_SHARE_PROCESS 96
+     * {@snippet lang=c :
+     * enum <anonymous>.LastSleepTime = 15
      * }
      */
-    public static int SERVICE_USER_SHARE_PROCESS() {
-        return (int)96L;
+    public static int LastSleepTime() {
+        return LastSleepTime;
     }
+    private static final int SystemExecutionState = (int)16L;
     /**
-     * {@snippet :
-     * #define SERVICE_USER_OWN_PROCESS 80
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemExecutionState = 16
      * }
      */
-    public static int SERVICE_USER_OWN_PROCESS() {
-        return (int)80L;
+    public static int SystemExecutionState() {
+        return SystemExecutionState;
     }
+    private static final int SystemPowerStateNotifyHandler = (int)17L;
     /**
-     * {@snippet :
-     * #define SERVICE_TYPE_ALL 1023
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemPowerStateNotifyHandler = 17
      * }
      */
-    public static int SERVICE_TYPE_ALL() {
-        return (int)1023L;
+    public static int SystemPowerStateNotifyHandler() {
+        return SystemPowerStateNotifyHandler;
     }
+    private static final int ProcessorPowerPolicyAc = (int)18L;
     /**
-     * {@snippet :
-     * #define CM_SERVICE_VALID_PROMOTION_MASK 511
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorPowerPolicyAc = 18
      * }
      */
-    public static int CM_SERVICE_VALID_PROMOTION_MASK() {
-        return (int)511L;
+    public static int ProcessorPowerPolicyAc() {
+        return ProcessorPowerPolicyAc;
     }
+    private static final int ProcessorPowerPolicyDc = (int)19L;
     /**
-     * {@snippet :
-     * #define TAPE_ERASE_SHORT 0
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorPowerPolicyDc = 19
      * }
      */
-    public static int TAPE_ERASE_SHORT() {
-        return (int)0L;
+    public static int ProcessorPowerPolicyDc() {
+        return ProcessorPowerPolicyDc;
     }
+    private static final int VerifyProcessorPowerPolicyAc = (int)20L;
     /**
-     * {@snippet :
-     * #define TAPE_ERASE_LONG 1
+     * {@snippet lang=c :
+     * enum <anonymous>.VerifyProcessorPowerPolicyAc = 20
      * }
      */
-    public static int TAPE_ERASE_LONG() {
-        return (int)1L;
+    public static int VerifyProcessorPowerPolicyAc() {
+        return VerifyProcessorPowerPolicyAc;
     }
+    private static final int VerifyProcessorPowerPolicyDc = (int)21L;
     /**
-     * {@snippet :
-     * #define TAPE_LOAD 0
+     * {@snippet lang=c :
+     * enum <anonymous>.VerifyProcessorPowerPolicyDc = 21
      * }
      */
-    public static int TAPE_LOAD() {
-        return (int)0L;
+    public static int VerifyProcessorPowerPolicyDc() {
+        return VerifyProcessorPowerPolicyDc;
     }
+    private static final int ProcessorPowerPolicyCurrent = (int)22L;
     /**
-     * {@snippet :
-     * #define TAPE_UNLOAD 1
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorPowerPolicyCurrent = 22
      * }
      */
-    public static int TAPE_UNLOAD() {
-        return (int)1L;
+    public static int ProcessorPowerPolicyCurrent() {
+        return ProcessorPowerPolicyCurrent;
     }
+    private static final int SystemPowerStateLogging = (int)23L;
     /**
-     * {@snippet :
-     * #define TAPE_TENSION 2
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemPowerStateLogging = 23
      * }
      */
-    public static int TAPE_TENSION() {
-        return (int)2L;
+    public static int SystemPowerStateLogging() {
+        return SystemPowerStateLogging;
     }
+    private static final int SystemPowerLoggingEntry = (int)24L;
     /**
-     * {@snippet :
-     * #define TAPE_LOCK 3
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemPowerLoggingEntry = 24
      * }
      */
-    public static int TAPE_LOCK() {
-        return (int)3L;
+    public static int SystemPowerLoggingEntry() {
+        return SystemPowerLoggingEntry;
     }
+    private static final int SetPowerSettingValue = (int)25L;
     /**
-     * {@snippet :
-     * #define TAPE_UNLOCK 4
+     * {@snippet lang=c :
+     * enum <anonymous>.SetPowerSettingValue = 25
      * }
      */
-    public static int TAPE_UNLOCK() {
-        return (int)4L;
+    public static int SetPowerSettingValue() {
+        return SetPowerSettingValue;
     }
+    private static final int NotifyUserPowerSetting = (int)26L;
     /**
-     * {@snippet :
-     * #define TAPE_FORMAT 5
+     * {@snippet lang=c :
+     * enum <anonymous>.NotifyUserPowerSetting = 26
      * }
      */
-    public static int TAPE_FORMAT() {
-        return (int)5L;
+    public static int NotifyUserPowerSetting() {
+        return NotifyUserPowerSetting;
     }
+    private static final int PowerInformationLevelUnused0 = (int)27L;
     /**
-     * {@snippet :
-     * #define TAPE_SETMARKS 0
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerInformationLevelUnused0 = 27
      * }
      */
-    public static int TAPE_SETMARKS() {
-        return (int)0L;
+    public static int PowerInformationLevelUnused0() {
+        return PowerInformationLevelUnused0;
     }
+    private static final int SystemMonitorHiberBootPowerOff = (int)28L;
     /**
-     * {@snippet :
-     * #define TAPE_FILEMARKS 1
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemMonitorHiberBootPowerOff = 28
      * }
      */
-    public static int TAPE_FILEMARKS() {
-        return (int)1L;
+    public static int SystemMonitorHiberBootPowerOff() {
+        return SystemMonitorHiberBootPowerOff;
     }
+    private static final int SystemVideoState = (int)29L;
     /**
-     * {@snippet :
-     * #define TAPE_SHORT_FILEMARKS 2
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemVideoState = 29
      * }
      */
-    public static int TAPE_SHORT_FILEMARKS() {
-        return (int)2L;
+    public static int SystemVideoState() {
+        return SystemVideoState;
     }
+    private static final int TraceApplicationPowerMessage = (int)30L;
     /**
-     * {@snippet :
-     * #define TAPE_LONG_FILEMARKS 3
+     * {@snippet lang=c :
+     * enum <anonymous>.TraceApplicationPowerMessage = 30
      * }
      */
-    public static int TAPE_LONG_FILEMARKS() {
-        return (int)3L;
+    public static int TraceApplicationPowerMessage() {
+        return TraceApplicationPowerMessage;
     }
+    private static final int TraceApplicationPowerMessageEnd = (int)31L;
     /**
-     * {@snippet :
-     * #define TAPE_ABSOLUTE_POSITION 0
+     * {@snippet lang=c :
+     * enum <anonymous>.TraceApplicationPowerMessageEnd = 31
      * }
      */
-    public static int TAPE_ABSOLUTE_POSITION() {
-        return (int)0L;
+    public static int TraceApplicationPowerMessageEnd() {
+        return TraceApplicationPowerMessageEnd;
     }
+    private static final int ProcessorPerfStates = (int)32L;
     /**
-     * {@snippet :
-     * #define TAPE_LOGICAL_POSITION 1
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorPerfStates = 32
      * }
      */
-    public static int TAPE_LOGICAL_POSITION() {
-        return (int)1L;
+    public static int ProcessorPerfStates() {
+        return ProcessorPerfStates;
     }
+    private static final int ProcessorIdleStates = (int)33L;
     /**
-     * {@snippet :
-     * #define TAPE_PSEUDO_LOGICAL_POSITION 2
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorIdleStates = 33
      * }
      */
-    public static int TAPE_PSEUDO_LOGICAL_POSITION() {
-        return (int)2L;
+    public static int ProcessorIdleStates() {
+        return ProcessorIdleStates;
     }
+    private static final int ProcessorCap = (int)34L;
     /**
-     * {@snippet :
-     * #define TAPE_REWIND 0
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorCap = 34
      * }
      */
-    public static int TAPE_REWIND() {
-        return (int)0L;
+    public static int ProcessorCap() {
+        return ProcessorCap;
     }
+    private static final int SystemWakeSource = (int)35L;
     /**
-     * {@snippet :
-     * #define TAPE_ABSOLUTE_BLOCK 1
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemWakeSource = 35
      * }
      */
-    public static int TAPE_ABSOLUTE_BLOCK() {
-        return (int)1L;
+    public static int SystemWakeSource() {
+        return SystemWakeSource;
     }
+    private static final int SystemHiberFileInformation = (int)36L;
     /**
-     * {@snippet :
-     * #define TAPE_LOGICAL_BLOCK 2
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemHiberFileInformation = 36
      * }
      */
-    public static int TAPE_LOGICAL_BLOCK() {
-        return (int)2L;
+    public static int SystemHiberFileInformation() {
+        return SystemHiberFileInformation;
     }
+    private static final int TraceServicePowerMessage = (int)37L;
     /**
-     * {@snippet :
-     * #define TAPE_PSEUDO_LOGICAL_BLOCK 3
+     * {@snippet lang=c :
+     * enum <anonymous>.TraceServicePowerMessage = 37
      * }
      */
-    public static int TAPE_PSEUDO_LOGICAL_BLOCK() {
-        return (int)3L;
+    public static int TraceServicePowerMessage() {
+        return TraceServicePowerMessage;
     }
+    private static final int ProcessorLoad = (int)38L;
     /**
-     * {@snippet :
-     * #define TAPE_SPACE_END_OF_DATA 4
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorLoad = 38
      * }
      */
-    public static int TAPE_SPACE_END_OF_DATA() {
-        return (int)4L;
+    public static int ProcessorLoad() {
+        return ProcessorLoad;
     }
+    private static final int PowerShutdownNotification = (int)39L;
     /**
-     * {@snippet :
-     * #define TAPE_SPACE_RELATIVE_BLOCKS 5
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerShutdownNotification = 39
      * }
      */
-    public static int TAPE_SPACE_RELATIVE_BLOCKS() {
-        return (int)5L;
+    public static int PowerShutdownNotification() {
+        return PowerShutdownNotification;
     }
+    private static final int MonitorCapabilities = (int)40L;
     /**
-     * {@snippet :
-     * #define TAPE_SPACE_FILEMARKS 6
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorCapabilities = 40
      * }
      */
-    public static int TAPE_SPACE_FILEMARKS() {
-        return (int)6L;
+    public static int MonitorCapabilities() {
+        return MonitorCapabilities;
     }
+    private static final int SessionPowerInit = (int)41L;
     /**
-     * {@snippet :
-     * #define TAPE_SPACE_SEQUENTIAL_FMKS 7
+     * {@snippet lang=c :
+     * enum <anonymous>.SessionPowerInit = 41
      * }
      */
-    public static int TAPE_SPACE_SEQUENTIAL_FMKS() {
-        return (int)7L;
+    public static int SessionPowerInit() {
+        return SessionPowerInit;
     }
+    private static final int SessionDisplayState = (int)42L;
     /**
-     * {@snippet :
-     * #define TAPE_SPACE_SETMARKS 8
+     * {@snippet lang=c :
+     * enum <anonymous>.SessionDisplayState = 42
      * }
      */
-    public static int TAPE_SPACE_SETMARKS() {
-        return (int)8L;
+    public static int SessionDisplayState() {
+        return SessionDisplayState;
     }
+    private static final int PowerRequestCreate = (int)43L;
     /**
-     * {@snippet :
-     * #define TAPE_SPACE_SEQUENTIAL_SMKS 9
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerRequestCreate = 43
      * }
      */
-    public static int TAPE_SPACE_SEQUENTIAL_SMKS() {
-        return (int)9L;
+    public static int PowerRequestCreate() {
+        return PowerRequestCreate;
     }
+    private static final int PowerRequestAction = (int)44L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_RESERVED_BIT 2147483648
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerRequestAction = 44
      * }
      */
-    public static int TAPE_DRIVE_RESERVED_BIT() {
-        return (int)2147483648L;
+    public static int PowerRequestAction() {
+        return PowerRequestAction;
     }
+    private static final int GetPowerRequestList = (int)45L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_LOAD_UNLOAD 2147483649
+     * {@snippet lang=c :
+     * enum <anonymous>.GetPowerRequestList = 45
      * }
      */
-    public static int TAPE_DRIVE_LOAD_UNLOAD() {
-        return (int)2147483649L;
+    public static int GetPowerRequestList() {
+        return GetPowerRequestList;
     }
+    private static final int ProcessorInformationEx = (int)46L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_TENSION 2147483650
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorInformationEx = 46
      * }
      */
-    public static int TAPE_DRIVE_TENSION() {
-        return (int)2147483650L;
+    public static int ProcessorInformationEx() {
+        return ProcessorInformationEx;
     }
+    private static final int NotifyUserModeLegacyPowerEvent = (int)47L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_LOCK_UNLOCK 2147483652
+     * {@snippet lang=c :
+     * enum <anonymous>.NotifyUserModeLegacyPowerEvent = 47
      * }
      */
-    public static int TAPE_DRIVE_LOCK_UNLOCK() {
-        return (int)2147483652L;
+    public static int NotifyUserModeLegacyPowerEvent() {
+        return NotifyUserModeLegacyPowerEvent;
     }
+    private static final int GroupPark = (int)48L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_REWIND_IMMEDIATE 2147483656
+     * {@snippet lang=c :
+     * enum <anonymous>.GroupPark = 48
      * }
      */
-    public static int TAPE_DRIVE_REWIND_IMMEDIATE() {
-        return (int)2147483656L;
+    public static int GroupPark() {
+        return GroupPark;
     }
+    private static final int ProcessorIdleDomains = (int)49L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_SET_BLOCK_SIZE 2147483664
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorIdleDomains = 49
      * }
      */
-    public static int TAPE_DRIVE_SET_BLOCK_SIZE() {
-        return (int)2147483664L;
+    public static int ProcessorIdleDomains() {
+        return ProcessorIdleDomains;
     }
+    private static final int WakeTimerList = (int)50L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_LOAD_UNLD_IMMED 2147483680
+     * {@snippet lang=c :
+     * enum <anonymous>.WakeTimerList = 50
      * }
      */
-    public static int TAPE_DRIVE_LOAD_UNLD_IMMED() {
-        return (int)2147483680L;
+    public static int WakeTimerList() {
+        return WakeTimerList;
     }
+    private static final int SystemHiberFileSize = (int)51L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_TENSION_IMMED 2147483712
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemHiberFileSize = 51
      * }
      */
-    public static int TAPE_DRIVE_TENSION_IMMED() {
-        return (int)2147483712L;
+    public static int SystemHiberFileSize() {
+        return SystemHiberFileSize;
     }
+    private static final int ProcessorIdleStatesHv = (int)52L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_LOCK_UNLK_IMMED 2147483776
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorIdleStatesHv = 52
      * }
      */
-    public static int TAPE_DRIVE_LOCK_UNLK_IMMED() {
-        return (int)2147483776L;
+    public static int ProcessorIdleStatesHv() {
+        return ProcessorIdleStatesHv;
     }
+    private static final int ProcessorPerfStatesHv = (int)53L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_SET_ECC 2147483904
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorPerfStatesHv = 53
      * }
      */
-    public static int TAPE_DRIVE_SET_ECC() {
-        return (int)2147483904L;
+    public static int ProcessorPerfStatesHv() {
+        return ProcessorPerfStatesHv;
     }
+    private static final int ProcessorPerfCapHv = (int)54L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_SET_COMPRESSION 2147484160
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorPerfCapHv = 54
      * }
      */
-    public static int TAPE_DRIVE_SET_COMPRESSION() {
-        return (int)2147484160L;
+    public static int ProcessorPerfCapHv() {
+        return ProcessorPerfCapHv;
     }
+    private static final int ProcessorSetIdle = (int)55L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_SET_PADDING 2147484672
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorSetIdle = 55
      * }
      */
-    public static int TAPE_DRIVE_SET_PADDING() {
-        return (int)2147484672L;
+    public static int ProcessorSetIdle() {
+        return ProcessorSetIdle;
     }
+    private static final int LogicalProcessorIdling = (int)56L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_SET_REPORT_SMKS 2147485696
+     * {@snippet lang=c :
+     * enum <anonymous>.LogicalProcessorIdling = 56
      * }
      */
-    public static int TAPE_DRIVE_SET_REPORT_SMKS() {
-        return (int)2147485696L;
+    public static int LogicalProcessorIdling() {
+        return LogicalProcessorIdling;
     }
+    private static final int UserPresence = (int)57L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_ABSOLUTE_BLK 2147487744
+     * {@snippet lang=c :
+     * enum <anonymous>.UserPresence = 57
      * }
      */
-    public static int TAPE_DRIVE_ABSOLUTE_BLK() {
-        return (int)2147487744L;
+    public static int UserPresence() {
+        return UserPresence;
     }
+    private static final int PowerSettingNotificationName = (int)58L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_ABS_BLK_IMMED 2147491840
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerSettingNotificationName = 58
      * }
      */
-    public static int TAPE_DRIVE_ABS_BLK_IMMED() {
-        return (int)2147491840L;
+    public static int PowerSettingNotificationName() {
+        return PowerSettingNotificationName;
     }
+    private static final int GetPowerSettingValue = (int)59L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_LOGICAL_BLK 2147500032
+     * {@snippet lang=c :
+     * enum <anonymous>.GetPowerSettingValue = 59
      * }
      */
-    public static int TAPE_DRIVE_LOGICAL_BLK() {
-        return (int)2147500032L;
+    public static int GetPowerSettingValue() {
+        return GetPowerSettingValue;
     }
+    private static final int IdleResiliency = (int)60L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_LOG_BLK_IMMED 2147516416
+     * {@snippet lang=c :
+     * enum <anonymous>.IdleResiliency = 60
      * }
      */
-    public static int TAPE_DRIVE_LOG_BLK_IMMED() {
-        return (int)2147516416L;
+    public static int IdleResiliency() {
+        return IdleResiliency;
     }
+    private static final int SessionRITState = (int)61L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_END_OF_DATA 2147549184
+     * {@snippet lang=c :
+     * enum <anonymous>.SessionRITState = 61
      * }
      */
-    public static int TAPE_DRIVE_END_OF_DATA() {
-        return (int)2147549184L;
+    public static int SessionRITState() {
+        return SessionRITState;
     }
+    private static final int SessionConnectNotification = (int)62L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_RELATIVE_BLKS 2147614720
+     * {@snippet lang=c :
+     * enum <anonymous>.SessionConnectNotification = 62
      * }
      */
-    public static int TAPE_DRIVE_RELATIVE_BLKS() {
-        return (int)2147614720L;
+    public static int SessionConnectNotification() {
+        return SessionConnectNotification;
     }
+    private static final int SessionPowerCleanup = (int)63L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_FILEMARKS 2147745792
+     * {@snippet lang=c :
+     * enum <anonymous>.SessionPowerCleanup = 63
      * }
      */
-    public static int TAPE_DRIVE_FILEMARKS() {
-        return (int)2147745792L;
+    public static int SessionPowerCleanup() {
+        return SessionPowerCleanup;
     }
+    private static final int SessionLockState = (int)64L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_SEQUENTIAL_FMKS 2148007936
+     * {@snippet lang=c :
+     * enum <anonymous>.SessionLockState = 64
      * }
      */
-    public static int TAPE_DRIVE_SEQUENTIAL_FMKS() {
-        return (int)2148007936L;
+    public static int SessionLockState() {
+        return SessionLockState;
     }
+    private static final int SystemHiberbootState = (int)65L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_SETMARKS 2148532224
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemHiberbootState = 65
      * }
      */
-    public static int TAPE_DRIVE_SETMARKS() {
-        return (int)2148532224L;
+    public static int SystemHiberbootState() {
+        return SystemHiberbootState;
     }
+    private static final int PlatformInformation = (int)66L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_SEQUENTIAL_SMKS 2149580800
+     * {@snippet lang=c :
+     * enum <anonymous>.PlatformInformation = 66
      * }
      */
-    public static int TAPE_DRIVE_SEQUENTIAL_SMKS() {
-        return (int)2149580800L;
+    public static int PlatformInformation() {
+        return PlatformInformation;
     }
+    private static final int PdcInvocation = (int)67L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_REVERSE_POSITION 2151677952
+     * {@snippet lang=c :
+     * enum <anonymous>.PdcInvocation = 67
      * }
      */
-    public static int TAPE_DRIVE_REVERSE_POSITION() {
-        return (int)2151677952L;
+    public static int PdcInvocation() {
+        return PdcInvocation;
     }
+    private static final int MonitorInvocation = (int)68L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_SPACE_IMMEDIATE 2155872256
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorInvocation = 68
      * }
      */
-    public static int TAPE_DRIVE_SPACE_IMMEDIATE() {
-        return (int)2155872256L;
+    public static int MonitorInvocation() {
+        return MonitorInvocation;
     }
+    private static final int FirmwareTableInformationRegistered = (int)69L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_WRITE_SETMARKS 2164260864
+     * {@snippet lang=c :
+     * enum <anonymous>.FirmwareTableInformationRegistered = 69
      * }
      */
-    public static int TAPE_DRIVE_WRITE_SETMARKS() {
-        return (int)2164260864L;
+    public static int FirmwareTableInformationRegistered() {
+        return FirmwareTableInformationRegistered;
     }
+    private static final int SetShutdownSelectedTime = (int)70L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_WRITE_FILEMARKS 2181038080
+     * {@snippet lang=c :
+     * enum <anonymous>.SetShutdownSelectedTime = 70
      * }
      */
-    public static int TAPE_DRIVE_WRITE_FILEMARKS() {
-        return (int)2181038080L;
+    public static int SetShutdownSelectedTime() {
+        return SetShutdownSelectedTime;
     }
+    private static final int SuspendResumeInvocation = (int)71L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_WRITE_SHORT_FMKS 2214592512
+     * {@snippet lang=c :
+     * enum <anonymous>.SuspendResumeInvocation = 71
      * }
      */
-    public static int TAPE_DRIVE_WRITE_SHORT_FMKS() {
-        return (int)2214592512L;
+    public static int SuspendResumeInvocation() {
+        return SuspendResumeInvocation;
     }
+    private static final int PlmPowerRequestCreate = (int)72L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_WRITE_LONG_FMKS 2281701376
+     * {@snippet lang=c :
+     * enum <anonymous>.PlmPowerRequestCreate = 72
      * }
      */
-    public static int TAPE_DRIVE_WRITE_LONG_FMKS() {
-        return (int)2281701376L;
+    public static int PlmPowerRequestCreate() {
+        return PlmPowerRequestCreate;
     }
+    private static final int ScreenOff = (int)73L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_WRITE_MARK_IMMED 2415919104
+     * {@snippet lang=c :
+     * enum <anonymous>.ScreenOff = 73
      * }
      */
-    public static int TAPE_DRIVE_WRITE_MARK_IMMED() {
-        return (int)2415919104L;
+    public static int ScreenOff() {
+        return ScreenOff;
     }
+    private static final int CsDeviceNotification = (int)74L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_FORMAT 2684354560
+     * {@snippet lang=c :
+     * enum <anonymous>.CsDeviceNotification = 74
      * }
      */
-    public static int TAPE_DRIVE_FORMAT() {
-        return (int)2684354560L;
+    public static int CsDeviceNotification() {
+        return CsDeviceNotification;
     }
+    private static final int PlatformRole = (int)75L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_FORMAT_IMMEDIATE 3221225472
+     * {@snippet lang=c :
+     * enum <anonymous>.PlatformRole = 75
      * }
      */
-    public static int TAPE_DRIVE_FORMAT_IMMEDIATE() {
-        return (int)3221225472L;
+    public static int PlatformRole() {
+        return PlatformRole;
     }
+    private static final int LastResumePerformance = (int)76L;
     /**
-     * {@snippet :
-     * #define TAPE_DRIVE_HIGH_FEATURES 2147483648
+     * {@snippet lang=c :
+     * enum <anonymous>.LastResumePerformance = 76
      * }
      */
-    public static int TAPE_DRIVE_HIGH_FEATURES() {
-        return (int)2147483648L;
+    public static int LastResumePerformance() {
+        return LastResumePerformance;
     }
+    private static final int DisplayBurst = (int)77L;
     /**
-     * {@snippet :
-     * #define TAPE_FIXED_PARTITIONS 0
+     * {@snippet lang=c :
+     * enum <anonymous>.DisplayBurst = 77
      * }
      */
-    public static int TAPE_FIXED_PARTITIONS() {
-        return (int)0L;
+    public static int DisplayBurst() {
+        return DisplayBurst;
     }
+    private static final int ExitLatencySamplingPercentage = (int)78L;
     /**
-     * {@snippet :
-     * #define TAPE_SELECT_PARTITIONS 1
+     * {@snippet lang=c :
+     * enum <anonymous>.ExitLatencySamplingPercentage = 78
      * }
      */
-    public static int TAPE_SELECT_PARTITIONS() {
-        return (int)1L;
+    public static int ExitLatencySamplingPercentage() {
+        return ExitLatencySamplingPercentage;
     }
+    private static final int RegisterSpmPowerSettings = (int)79L;
     /**
-     * {@snippet :
-     * #define TAPE_INITIATOR_PARTITIONS 2
+     * {@snippet lang=c :
+     * enum <anonymous>.RegisterSpmPowerSettings = 79
      * }
      */
-    public static int TAPE_INITIATOR_PARTITIONS() {
-        return (int)2L;
+    public static int RegisterSpmPowerSettings() {
+        return RegisterSpmPowerSettings;
     }
+    private static final int PlatformIdleStates = (int)80L;
     /**
-     * {@snippet :
-     * #define TAPE_QUERY_DRIVE_PARAMETERS 0
+     * {@snippet lang=c :
+     * enum <anonymous>.PlatformIdleStates = 80
      * }
      */
-    public static int TAPE_QUERY_DRIVE_PARAMETERS() {
-        return (int)0L;
+    public static int PlatformIdleStates() {
+        return PlatformIdleStates;
     }
+    private static final int ProcessorIdleVeto = (int)81L;
     /**
-     * {@snippet :
-     * #define TAPE_QUERY_MEDIA_CAPACITY 1
+     * {@snippet lang=c :
+     * enum <anonymous>.ProcessorIdleVeto = 81
      * }
      */
-    public static int TAPE_QUERY_MEDIA_CAPACITY() {
-        return (int)1L;
+    public static int ProcessorIdleVeto() {
+        return ProcessorIdleVeto;
     }
+    private static final int PlatformIdleVeto = (int)82L;
     /**
-     * {@snippet :
-     * #define TAPE_CHECK_FOR_DRIVE_PROBLEM 2
+     * {@snippet lang=c :
+     * enum <anonymous>.PlatformIdleVeto = 82
      * }
      */
-    public static int TAPE_CHECK_FOR_DRIVE_PROBLEM() {
-        return (int)2L;
+    public static int PlatformIdleVeto() {
+        return PlatformIdleVeto;
     }
+    private static final int SystemBatteryStatePrecise = (int)83L;
     /**
-     * {@snippet :
-     * #define TAPE_QUERY_IO_ERROR_DATA 3
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemBatteryStatePrecise = 83
      * }
      */
-    public static int TAPE_QUERY_IO_ERROR_DATA() {
-        return (int)3L;
+    public static int SystemBatteryStatePrecise() {
+        return SystemBatteryStatePrecise;
     }
+    private static final int ThermalEvent = (int)84L;
     /**
-     * {@snippet :
-     * #define TAPE_QUERY_DEVICE_ERROR_DATA 4
+     * {@snippet lang=c :
+     * enum <anonymous>.ThermalEvent = 84
      * }
      */
-    public static int TAPE_QUERY_DEVICE_ERROR_DATA() {
-        return (int)4L;
+    public static int ThermalEvent() {
+        return ThermalEvent;
     }
+    private static final int PowerRequestActionInternal = (int)85L;
     /**
-     * {@snippet :
-     * #define TRANSACTIONMANAGER_OBJECT_PATH "\\"
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerRequestActionInternal = 85
      * }
      */
-    public static MemorySegment TRANSACTIONMANAGER_OBJECT_PATH() {
-        return constants$4550.const$5;
+    public static int PowerRequestActionInternal() {
+        return PowerRequestActionInternal;
     }
+    private static final int BatteryDeviceState = (int)86L;
     /**
-     * {@snippet :
-     * #define TRANSACTION_OBJECT_PATH "\\"
+     * {@snippet lang=c :
+     * enum <anonymous>.BatteryDeviceState = 86
      * }
      */
-    public static MemorySegment TRANSACTION_OBJECT_PATH() {
-        return constants$4550.const$5;
+    public static int BatteryDeviceState() {
+        return BatteryDeviceState;
     }
+    private static final int PowerInformationInternal = (int)87L;
     /**
-     * {@snippet :
-     * #define ENLISTMENT_OBJECT_PATH "\\"
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerInformationInternal = 87
      * }
      */
-    public static MemorySegment ENLISTMENT_OBJECT_PATH() {
-        return constants$4550.const$5;
+    public static int PowerInformationInternal() {
+        return PowerInformationInternal;
     }
+    private static final int ThermalStandby = (int)88L;
     /**
-     * {@snippet :
-     * #define RESOURCE_MANAGER_OBJECT_PATH "\\"
+     * {@snippet lang=c :
+     * enum <anonymous>.ThermalStandby = 88
      * }
      */
-    public static MemorySegment RESOURCE_MANAGER_OBJECT_PATH() {
-        return constants$4550.const$5;
+    public static int ThermalStandby() {
+        return ThermalStandby;
     }
+    private static final int SystemHiberFileType = (int)89L;
     /**
-     * {@snippet :
-     * #define TRANSACTIONMANAGER_OBJECT_NAME_LENGTH_IN_BYTES 118
+     * {@snippet lang=c :
+     * enum <anonymous>.SystemHiberFileType = 89
      * }
      */
-    public static long TRANSACTIONMANAGER_OBJECT_NAME_LENGTH_IN_BYTES() {
-        return 118L;
+    public static int SystemHiberFileType() {
+        return SystemHiberFileType;
     }
+    private static final int PhysicalPowerButtonPress = (int)90L;
     /**
-     * {@snippet :
-     * #define TRANSACTION_OBJECT_NAME_LENGTH_IN_BYTES 104
+     * {@snippet lang=c :
+     * enum <anonymous>.PhysicalPowerButtonPress = 90
      * }
      */
-    public static long TRANSACTION_OBJECT_NAME_LENGTH_IN_BYTES() {
-        return 104L;
+    public static int PhysicalPowerButtonPress() {
+        return PhysicalPowerButtonPress;
     }
+    private static final int QueryPotentialDripsConstraint = (int)91L;
     /**
-     * {@snippet :
-     * #define ENLISTMENT_OBJECT_NAME_LENGTH_IN_BYTES 102
+     * {@snippet lang=c :
+     * enum <anonymous>.QueryPotentialDripsConstraint = 91
      * }
      */
-    public static long ENLISTMENT_OBJECT_NAME_LENGTH_IN_BYTES() {
-        return 102L;
+    public static int QueryPotentialDripsConstraint() {
+        return QueryPotentialDripsConstraint;
     }
+    private static final int EnergyTrackerCreate = (int)92L;
     /**
-     * {@snippet :
-     * #define RESOURCE_MANAGER_OBJECT_NAME_LENGTH_IN_BYTES 112
+     * {@snippet lang=c :
+     * enum <anonymous>.EnergyTrackerCreate = 92
      * }
      */
-    public static long RESOURCE_MANAGER_OBJECT_NAME_LENGTH_IN_BYTES() {
-        return 112L;
+    public static int EnergyTrackerCreate() {
+        return EnergyTrackerCreate;
     }
+    private static final int EnergyTrackerQuery = (int)93L;
     /**
-     * {@snippet :
-     * #define TRANSACTIONMANAGER_QUERY_INFORMATION 1
+     * {@snippet lang=c :
+     * enum <anonymous>.EnergyTrackerQuery = 93
      * }
      */
-    public static int TRANSACTIONMANAGER_QUERY_INFORMATION() {
-        return (int)1L;
+    public static int EnergyTrackerQuery() {
+        return EnergyTrackerQuery;
     }
+    private static final int UpdateBlackBoxRecorder = (int)94L;
     /**
-     * {@snippet :
-     * #define TRANSACTIONMANAGER_SET_INFORMATION 2
+     * {@snippet lang=c :
+     * enum <anonymous>.UpdateBlackBoxRecorder = 94
      * }
      */
-    public static int TRANSACTIONMANAGER_SET_INFORMATION() {
-        return (int)2L;
+    public static int UpdateBlackBoxRecorder() {
+        return UpdateBlackBoxRecorder;
     }
+    private static final int SessionAllowExternalDmaDevices = (int)95L;
     /**
-     * {@snippet :
-     * #define TRANSACTIONMANAGER_RECOVER 4
+     * {@snippet lang=c :
+     * enum <anonymous>.SessionAllowExternalDmaDevices = 95
      * }
      */
-    public static int TRANSACTIONMANAGER_RECOVER() {
-        return (int)4L;
+    public static int SessionAllowExternalDmaDevices() {
+        return SessionAllowExternalDmaDevices;
     }
+    private static final int SendSuspendResumeNotification = (int)96L;
     /**
-     * {@snippet :
-     * #define TRANSACTIONMANAGER_RENAME 8
+     * {@snippet lang=c :
+     * enum <anonymous>.SendSuspendResumeNotification = 96
      * }
      */
-    public static int TRANSACTIONMANAGER_RENAME() {
-        return (int)8L;
+    public static int SendSuspendResumeNotification() {
+        return SendSuspendResumeNotification;
     }
+    private static final int PowerInformationLevelMaximum = (int)97L;
     /**
-     * {@snippet :
-     * #define TRANSACTIONMANAGER_CREATE_RM 16
+     * {@snippet lang=c :
+     * enum <anonymous>.PowerInformationLevelMaximum = 97
      * }
      */
-    public static int TRANSACTIONMANAGER_CREATE_RM() {
-        return (int)16L;
+    public static int PowerInformationLevelMaximum() {
+        return PowerInformationLevelMaximum;
     }
+    private static final int UserNotPresent = (int)0L;
     /**
-     * {@snippet :
-     * #define TRANSACTIONMANAGER_BIND_TRANSACTION 32
+     * {@snippet lang=c :
+     * enum <anonymous>.UserNotPresent = 0
      * }
      */
-    public static int TRANSACTIONMANAGER_BIND_TRANSACTION() {
-        return (int)32L;
+    public static int UserNotPresent() {
+        return UserNotPresent;
     }
+    private static final int UserPresent = (int)1L;
     /**
-     * {@snippet :
-     * #define TRANSACTIONMANAGER_GENERIC_READ 131073
+     * {@snippet lang=c :
+     * enum <anonymous>.UserPresent = 1
      * }
      */
-    public static int TRANSACTIONMANAGER_GENERIC_READ() {
-        return (int)131073L;
+    public static int UserPresent() {
+        return UserPresent;
     }
+    private static final int UserUnknown = (int)255L;
     /**
-     * {@snippet :
-     * #define TRANSACTIONMANAGER_GENERIC_WRITE 131102
+     * {@snippet lang=c :
+     * enum <anonymous>.UserUnknown = 255
      * }
      */
-    public static int TRANSACTIONMANAGER_GENERIC_WRITE() {
-        return (int)131102L;
+    public static int UserUnknown() {
+        return UserUnknown;
     }
     /**
-     * {@snippet :
-     * #define TRANSACTIONMANAGER_GENERIC_EXECUTE 131072
+     * {@snippet lang=c :
+     * typedef enum {
+     *     UserNotPresent = 0,
+     *     UserPresent = 1,
+     *     UserUnknown = 255
+     * } *PPOWER_USER_PRESENCE_TYPE
      * }
      */
-    public static int TRANSACTIONMANAGER_GENERIC_EXECUTE() {
-        return (int)131072L;
-    }
+    public static final AddressLayout PPOWER_USER_PRESENCE_TYPE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define TRANSACTIONMANAGER_ALL_ACCESS 983103
+     * {@snippet lang=c :
+     * typedef struct _POWER_USER_PRESENCE {
+     *     POWER_USER_PRESENCE_TYPE UserPresence;
+     * } *PPOWER_USER_PRESENCE
      * }
      */
-    public static int TRANSACTIONMANAGER_ALL_ACCESS() {
-        return (int)983103L;
-    }
+    public static final AddressLayout PPOWER_USER_PRESENCE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define TRANSACTION_QUERY_INFORMATION 1
+     * {@snippet lang=c :
+     * typedef struct _POWER_SESSION_CONNECT {
+     *     BOOLEAN Connected;
+     *     BOOLEAN Console;
+     * } *PPOWER_SESSION_CONNECT
      * }
      */
-    public static int TRANSACTION_QUERY_INFORMATION() {
-        return (int)1L;
-    }
+    public static final AddressLayout PPOWER_SESSION_CONNECT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define TRANSACTION_SET_INFORMATION 2
+     * {@snippet lang=c :
+     * typedef struct _POWER_SESSION_TIMEOUTS {
+     *     DWORD InputTimeout;
+     *     DWORD DisplayTimeout;
+     * } *PPOWER_SESSION_TIMEOUTS
      * }
      */
-    public static int TRANSACTION_SET_INFORMATION() {
-        return (int)2L;
-    }
+    public static final AddressLayout PPOWER_SESSION_TIMEOUTS = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define TRANSACTION_ENLIST 4
+     * {@snippet lang=c :
+     * typedef struct _POWER_SESSION_RIT_STATE {
+     *     BOOLEAN Active;
+     *     DWORD64 LastInputTime;
+     * } *PPOWER_SESSION_RIT_STATE
      * }
      */
-    public static int TRANSACTION_ENLIST() {
-        return (int)4L;
-    }
+    public static final AddressLayout PPOWER_SESSION_RIT_STATE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define TRANSACTION_COMMIT 8
+     * {@snippet lang=c :
+     * typedef struct _POWER_SESSION_WINLOGON {
+     *     DWORD SessionId;
+     *     BOOLEAN Console;
+     *     BOOLEAN Locked;
+     * } *PPOWER_SESSION_WINLOGON
      * }
      */
-    public static int TRANSACTION_COMMIT() {
-        return (int)8L;
-    }
+    public static final AddressLayout PPOWER_SESSION_WINLOGON = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define TRANSACTION_ROLLBACK 16
+     * {@snippet lang=c :
+     * typedef struct _POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES {
+     *     BOOLEAN IsAllowed;
+     * } *PPOWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES
      * }
      */
-    public static int TRANSACTION_ROLLBACK() {
-        return (int)16L;
-    }
+    public static final AddressLayout PPOWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define TRANSACTION_PROPAGATE 32
+     * {@snippet lang=c :
+     * typedef struct _POWER_IDLE_RESILIENCY {
+     *     DWORD CoalescingTimeout;
+     *     DWORD IdleResiliencyPeriod;
+     * } *PPOWER_IDLE_RESILIENCY
      * }
      */
-    public static int TRANSACTION_PROPAGATE() {
-        return (int)32L;
-    }
+    public static final AddressLayout PPOWER_IDLE_RESILIENCY = Windows_h.C_POINTER;
+    private static final int MonitorRequestReasonUnknown = (int)0L;
     /**
-     * {@snippet :
-     * #define TRANSACTION_RIGHT_RESERVED1 64
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonUnknown = 0
      * }
      */
-    public static int TRANSACTION_RIGHT_RESERVED1() {
-        return (int)64L;
+    public static int MonitorRequestReasonUnknown() {
+        return MonitorRequestReasonUnknown;
     }
+    private static final int MonitorRequestReasonPowerButton = (int)1L;
     /**
-     * {@snippet :
-     * #define TRANSACTION_GENERIC_READ 1179649
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonPowerButton = 1
      * }
      */
-    public static int TRANSACTION_GENERIC_READ() {
-        return (int)1179649L;
+    public static int MonitorRequestReasonPowerButton() {
+        return MonitorRequestReasonPowerButton;
     }
+    private static final int MonitorRequestReasonRemoteConnection = (int)2L;
     /**
-     * {@snippet :
-     * #define TRANSACTION_GENERIC_WRITE 1179710
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonRemoteConnection = 2
      * }
      */
-    public static int TRANSACTION_GENERIC_WRITE() {
-        return (int)1179710L;
+    public static int MonitorRequestReasonRemoteConnection() {
+        return MonitorRequestReasonRemoteConnection;
     }
+    private static final int MonitorRequestReasonScMonitorpower = (int)3L;
     /**
-     * {@snippet :
-     * #define TRANSACTION_GENERIC_EXECUTE 1179672
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonScMonitorpower = 3
      * }
      */
-    public static int TRANSACTION_GENERIC_EXECUTE() {
-        return (int)1179672L;
+    public static int MonitorRequestReasonScMonitorpower() {
+        return MonitorRequestReasonScMonitorpower;
     }
+    private static final int MonitorRequestReasonUserInput = (int)4L;
     /**
-     * {@snippet :
-     * #define TRANSACTION_ALL_ACCESS 2031679
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonUserInput = 4
      * }
      */
-    public static int TRANSACTION_ALL_ACCESS() {
-        return (int)2031679L;
+    public static int MonitorRequestReasonUserInput() {
+        return MonitorRequestReasonUserInput;
     }
+    private static final int MonitorRequestReasonAcDcDisplayBurst = (int)5L;
     /**
-     * {@snippet :
-     * #define TRANSACTION_RESOURCE_MANAGER_RIGHTS 1179703
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonAcDcDisplayBurst = 5
      * }
      */
-    public static int TRANSACTION_RESOURCE_MANAGER_RIGHTS() {
-        return (int)1179703L;
+    public static int MonitorRequestReasonAcDcDisplayBurst() {
+        return MonitorRequestReasonAcDcDisplayBurst;
     }
+    private static final int MonitorRequestReasonUserDisplayBurst = (int)6L;
     /**
-     * {@snippet :
-     * #define RESOURCEMANAGER_QUERY_INFORMATION 1
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonUserDisplayBurst = 6
      * }
      */
-    public static int RESOURCEMANAGER_QUERY_INFORMATION() {
-        return (int)1L;
+    public static int MonitorRequestReasonUserDisplayBurst() {
+        return MonitorRequestReasonUserDisplayBurst;
     }
+    private static final int MonitorRequestReasonPoSetSystemState = (int)7L;
     /**
-     * {@snippet :
-     * #define RESOURCEMANAGER_SET_INFORMATION 2
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonPoSetSystemState = 7
      * }
      */
-    public static int RESOURCEMANAGER_SET_INFORMATION() {
-        return (int)2L;
+    public static int MonitorRequestReasonPoSetSystemState() {
+        return MonitorRequestReasonPoSetSystemState;
     }
+    private static final int MonitorRequestReasonSetThreadExecutionState = (int)8L;
     /**
-     * {@snippet :
-     * #define RESOURCEMANAGER_RECOVER 4
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonSetThreadExecutionState = 8
      * }
      */
-    public static int RESOURCEMANAGER_RECOVER() {
-        return (int)4L;
+    public static int MonitorRequestReasonSetThreadExecutionState() {
+        return MonitorRequestReasonSetThreadExecutionState;
     }
+    private static final int MonitorRequestReasonFullWake = (int)9L;
     /**
-     * {@snippet :
-     * #define RESOURCEMANAGER_ENLIST 8
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonFullWake = 9
      * }
      */
-    public static int RESOURCEMANAGER_ENLIST() {
-        return (int)8L;
+    public static int MonitorRequestReasonFullWake() {
+        return MonitorRequestReasonFullWake;
     }
+    private static final int MonitorRequestReasonSessionUnlock = (int)10L;
     /**
-     * {@snippet :
-     * #define RESOURCEMANAGER_GET_NOTIFICATION 16
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonSessionUnlock = 10
      * }
      */
-    public static int RESOURCEMANAGER_GET_NOTIFICATION() {
-        return (int)16L;
+    public static int MonitorRequestReasonSessionUnlock() {
+        return MonitorRequestReasonSessionUnlock;
     }
+    private static final int MonitorRequestReasonScreenOffRequest = (int)11L;
     /**
-     * {@snippet :
-     * #define RESOURCEMANAGER_REGISTER_PROTOCOL 32
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonScreenOffRequest = 11
      * }
      */
-    public static int RESOURCEMANAGER_REGISTER_PROTOCOL() {
-        return (int)32L;
+    public static int MonitorRequestReasonScreenOffRequest() {
+        return MonitorRequestReasonScreenOffRequest;
     }
+    private static final int MonitorRequestReasonIdleTimeout = (int)12L;
     /**
-     * {@snippet :
-     * #define RESOURCEMANAGER_COMPLETE_PROPAGATION 64
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonIdleTimeout = 12
      * }
      */
-    public static int RESOURCEMANAGER_COMPLETE_PROPAGATION() {
-        return (int)64L;
+    public static int MonitorRequestReasonIdleTimeout() {
+        return MonitorRequestReasonIdleTimeout;
     }
+    private static final int MonitorRequestReasonPolicyChange = (int)13L;
     /**
-     * {@snippet :
-     * #define RESOURCEMANAGER_GENERIC_READ 1179649
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonPolicyChange = 13
      * }
      */
-    public static int RESOURCEMANAGER_GENERIC_READ() {
-        return (int)1179649L;
+    public static int MonitorRequestReasonPolicyChange() {
+        return MonitorRequestReasonPolicyChange;
     }
+    private static final int MonitorRequestReasonSleepButton = (int)14L;
     /**
-     * {@snippet :
-     * #define RESOURCEMANAGER_GENERIC_WRITE 1179774
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonSleepButton = 14
      * }
      */
-    public static int RESOURCEMANAGER_GENERIC_WRITE() {
-        return (int)1179774L;
+    public static int MonitorRequestReasonSleepButton() {
+        return MonitorRequestReasonSleepButton;
     }
+    private static final int MonitorRequestReasonLid = (int)15L;
     /**
-     * {@snippet :
-     * #define RESOURCEMANAGER_GENERIC_EXECUTE 1179740
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonLid = 15
      * }
      */
-    public static int RESOURCEMANAGER_GENERIC_EXECUTE() {
-        return (int)1179740L;
+    public static int MonitorRequestReasonLid() {
+        return MonitorRequestReasonLid;
     }
+    private static final int MonitorRequestReasonBatteryCountChange = (int)16L;
     /**
-     * {@snippet :
-     * #define RESOURCEMANAGER_ALL_ACCESS 2031743
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonBatteryCountChange = 16
      * }
      */
-    public static int RESOURCEMANAGER_ALL_ACCESS() {
-        return (int)2031743L;
+    public static int MonitorRequestReasonBatteryCountChange() {
+        return MonitorRequestReasonBatteryCountChange;
     }
+    private static final int MonitorRequestReasonGracePeriod = (int)17L;
     /**
-     * {@snippet :
-     * #define ENLISTMENT_QUERY_INFORMATION 1
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonGracePeriod = 17
      * }
      */
-    public static int ENLISTMENT_QUERY_INFORMATION() {
-        return (int)1L;
+    public static int MonitorRequestReasonGracePeriod() {
+        return MonitorRequestReasonGracePeriod;
     }
+    private static final int MonitorRequestReasonPnP = (int)18L;
     /**
-     * {@snippet :
-     * #define ENLISTMENT_SET_INFORMATION 2
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonPnP = 18
      * }
      */
-    public static int ENLISTMENT_SET_INFORMATION() {
-        return (int)2L;
+    public static int MonitorRequestReasonPnP() {
+        return MonitorRequestReasonPnP;
     }
+    private static final int MonitorRequestReasonDP = (int)19L;
     /**
-     * {@snippet :
-     * #define ENLISTMENT_RECOVER 4
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonDP = 19
      * }
      */
-    public static int ENLISTMENT_RECOVER() {
-        return (int)4L;
+    public static int MonitorRequestReasonDP() {
+        return MonitorRequestReasonDP;
     }
+    private static final int MonitorRequestReasonSxTransition = (int)20L;
     /**
-     * {@snippet :
-     * #define ENLISTMENT_SUBORDINATE_RIGHTS 8
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonSxTransition = 20
      * }
      */
-    public static int ENLISTMENT_SUBORDINATE_RIGHTS() {
-        return (int)8L;
+    public static int MonitorRequestReasonSxTransition() {
+        return MonitorRequestReasonSxTransition;
     }
+    private static final int MonitorRequestReasonSystemIdle = (int)21L;
     /**
-     * {@snippet :
-     * #define ENLISTMENT_SUPERIOR_RIGHTS 16
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonSystemIdle = 21
      * }
      */
-    public static int ENLISTMENT_SUPERIOR_RIGHTS() {
-        return (int)16L;
+    public static int MonitorRequestReasonSystemIdle() {
+        return MonitorRequestReasonSystemIdle;
     }
+    private static final int MonitorRequestReasonNearProximity = (int)22L;
     /**
-     * {@snippet :
-     * #define ENLISTMENT_GENERIC_READ 131073
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonNearProximity = 22
      * }
      */
-    public static int ENLISTMENT_GENERIC_READ() {
-        return (int)131073L;
+    public static int MonitorRequestReasonNearProximity() {
+        return MonitorRequestReasonNearProximity;
     }
+    private static final int MonitorRequestReasonThermalStandby = (int)23L;
     /**
-     * {@snippet :
-     * #define ENLISTMENT_GENERIC_WRITE 131102
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonThermalStandby = 23
      * }
      */
-    public static int ENLISTMENT_GENERIC_WRITE() {
-        return (int)131102L;
+    public static int MonitorRequestReasonThermalStandby() {
+        return MonitorRequestReasonThermalStandby;
     }
+    private static final int MonitorRequestReasonResumePdc = (int)24L;
     /**
-     * {@snippet :
-     * #define ENLISTMENT_GENERIC_EXECUTE 131100
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonResumePdc = 24
      * }
      */
-    public static int ENLISTMENT_GENERIC_EXECUTE() {
-        return (int)131100L;
+    public static int MonitorRequestReasonResumePdc() {
+        return MonitorRequestReasonResumePdc;
     }
+    private static final int MonitorRequestReasonResumeS4 = (int)25L;
     /**
-     * {@snippet :
-     * #define ENLISTMENT_ALL_ACCESS 983071
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonResumeS4 = 25
      * }
      */
-    public static int ENLISTMENT_ALL_ACCESS() {
-        return (int)983071L;
+    public static int MonitorRequestReasonResumeS4() {
+        return MonitorRequestReasonResumeS4;
     }
+    private static final int MonitorRequestReasonTerminal = (int)26L;
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_SECTION_ASSEMBLY_INFORMATION 1
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonTerminal = 26
      * }
      */
-    public static int ACTIVATION_CONTEXT_SECTION_ASSEMBLY_INFORMATION() {
-        return (int)1L;
+    public static int MonitorRequestReasonTerminal() {
+        return MonitorRequestReasonTerminal;
     }
+    private static final int MonitorRequestReasonPdcSignal = (int)27L;
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_SECTION_DLL_REDIRECTION 2
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonPdcSignal = 27
      * }
      */
-    public static int ACTIVATION_CONTEXT_SECTION_DLL_REDIRECTION() {
-        return (int)2L;
+    public static int MonitorRequestReasonPdcSignal() {
+        return MonitorRequestReasonPdcSignal;
     }
+    private static final int MonitorRequestReasonAcDcDisplayBurstSuppressed = (int)28L;
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_SECTION_WINDOW_CLASS_REDIRECTION 3
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonAcDcDisplayBurstSuppressed = 28
      * }
      */
-    public static int ACTIVATION_CONTEXT_SECTION_WINDOW_CLASS_REDIRECTION() {
-        return (int)3L;
+    public static int MonitorRequestReasonAcDcDisplayBurstSuppressed() {
+        return MonitorRequestReasonAcDcDisplayBurstSuppressed;
     }
+    private static final int MonitorRequestReasonSystemStateEntered = (int)29L;
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_SECTION_COM_SERVER_REDIRECTION 4
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonSystemStateEntered = 29
      * }
      */
-    public static int ACTIVATION_CONTEXT_SECTION_COM_SERVER_REDIRECTION() {
-        return (int)4L;
+    public static int MonitorRequestReasonSystemStateEntered() {
+        return MonitorRequestReasonSystemStateEntered;
     }
+    private static final int MonitorRequestReasonWinrt = (int)30L;
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_SECTION_COM_INTERFACE_REDIRECTION 5
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonWinrt = 30
      * }
      */
-    public static int ACTIVATION_CONTEXT_SECTION_COM_INTERFACE_REDIRECTION() {
-        return (int)5L;
+    public static int MonitorRequestReasonWinrt() {
+        return MonitorRequestReasonWinrt;
     }
+    private static final int MonitorRequestReasonUserInputKeyboard = (int)31L;
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_SECTION_COM_TYPE_LIBRARY_REDIRECTION 6
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonUserInputKeyboard = 31
      * }
      */
-    public static int ACTIVATION_CONTEXT_SECTION_COM_TYPE_LIBRARY_REDIRECTION() {
-        return (int)6L;
+    public static int MonitorRequestReasonUserInputKeyboard() {
+        return MonitorRequestReasonUserInputKeyboard;
     }
+    private static final int MonitorRequestReasonUserInputMouse = (int)32L;
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_SECTION_COM_PROGID_REDIRECTION 7
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonUserInputMouse = 32
      * }
      */
-    public static int ACTIVATION_CONTEXT_SECTION_COM_PROGID_REDIRECTION() {
-        return (int)7L;
+    public static int MonitorRequestReasonUserInputMouse() {
+        return MonitorRequestReasonUserInputMouse;
     }
+    private static final int MonitorRequestReasonUserInputTouchpad = (int)33L;
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_SECTION_GLOBAL_OBJECT_RENAME_TABLE 8
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonUserInputTouchpad = 33
      * }
      */
-    public static int ACTIVATION_CONTEXT_SECTION_GLOBAL_OBJECT_RENAME_TABLE() {
-        return (int)8L;
+    public static int MonitorRequestReasonUserInputTouchpad() {
+        return MonitorRequestReasonUserInputTouchpad;
     }
+    private static final int MonitorRequestReasonUserInputPen = (int)34L;
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_SECTION_CLR_SURROGATES 9
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonUserInputPen = 34
      * }
      */
-    public static int ACTIVATION_CONTEXT_SECTION_CLR_SURROGATES() {
-        return (int)9L;
+    public static int MonitorRequestReasonUserInputPen() {
+        return MonitorRequestReasonUserInputPen;
     }
+    private static final int MonitorRequestReasonUserInputAccelerometer = (int)35L;
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_SECTION_APPLICATION_SETTINGS 10
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonUserInputAccelerometer = 35
      * }
      */
-    public static int ACTIVATION_CONTEXT_SECTION_APPLICATION_SETTINGS() {
-        return (int)10L;
+    public static int MonitorRequestReasonUserInputAccelerometer() {
+        return MonitorRequestReasonUserInputAccelerometer;
     }
+    private static final int MonitorRequestReasonUserInputHid = (int)36L;
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_SECTION_COMPATIBILITY_INFO 11
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonUserInputHid = 36
      * }
      */
-    public static int ACTIVATION_CONTEXT_SECTION_COMPATIBILITY_INFO() {
-        return (int)11L;
+    public static int MonitorRequestReasonUserInputHid() {
+        return MonitorRequestReasonUserInputHid;
     }
+    private static final int MonitorRequestReasonUserInputPoUserPresent = (int)37L;
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_SECTION_WINRT_ACTIVATABLE_CLASSES 12
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonUserInputPoUserPresent = 37
      * }
      */
-    public static int ACTIVATION_CONTEXT_SECTION_WINRT_ACTIVATABLE_CLASSES() {
-        return (int)12L;
+    public static int MonitorRequestReasonUserInputPoUserPresent() {
+        return MonitorRequestReasonUserInputPoUserPresent;
     }
+    private static final int MonitorRequestReasonUserInputSessionSwitch = (int)38L;
     /**
-     * {@snippet :
-     * #define HFILE_ERROR -1
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonUserInputSessionSwitch = 38
      * }
      */
-    public static int HFILE_ERROR() {
-        return (int)-1L;
+    public static int MonitorRequestReasonUserInputSessionSwitch() {
+        return MonitorRequestReasonUserInputSessionSwitch;
     }
+    private static final int MonitorRequestReasonUserInputInitialization = (int)39L;
     /**
-     * {@snippet :
-     * #define DM_IN_BUFFER 8
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonUserInputInitialization = 39
      * }
      */
-    public static int DM_IN_BUFFER() {
-        return (int)8L;
+    public static int MonitorRequestReasonUserInputInitialization() {
+        return MonitorRequestReasonUserInputInitialization;
     }
+    private static final int MonitorRequestReasonPdcSignalWindowsMobilePwrNotif = (int)40L;
     /**
-     * {@snippet :
-     * #define DM_IN_PROMPT 4
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonPdcSignalWindowsMobilePwrNotif = 40
      * }
      */
-    public static int DM_IN_PROMPT() {
-        return (int)4L;
+    public static int MonitorRequestReasonPdcSignalWindowsMobilePwrNotif() {
+        return MonitorRequestReasonPdcSignalWindowsMobilePwrNotif;
     }
+    private static final int MonitorRequestReasonPdcSignalWindowsMobileShell = (int)41L;
     /**
-     * {@snippet :
-     * #define DM_OUT_BUFFER 2
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonPdcSignalWindowsMobileShell = 41
      * }
      */
-    public static int DM_OUT_BUFFER() {
-        return (int)2L;
+    public static int MonitorRequestReasonPdcSignalWindowsMobileShell() {
+        return MonitorRequestReasonPdcSignalWindowsMobileShell;
     }
+    private static final int MonitorRequestReasonPdcSignalHeyCortana = (int)42L;
     /**
-     * {@snippet :
-     * #define DM_OUT_DEFAULT 1
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonPdcSignalHeyCortana = 42
      * }
      */
-    public static int DM_OUT_DEFAULT() {
-        return (int)1L;
+    public static int MonitorRequestReasonPdcSignalHeyCortana() {
+        return MonitorRequestReasonPdcSignalHeyCortana;
     }
+    private static final int MonitorRequestReasonPdcSignalHolographicShell = (int)43L;
     /**
-     * {@snippet :
-     * #define DPI_AWARENESS_CONTEXT_UNAWARE -1
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonPdcSignalHolographicShell = 43
      * }
      */
-    public static MemorySegment DPI_AWARENESS_CONTEXT_UNAWARE() {
-        return constants$4549.const$0;
+    public static int MonitorRequestReasonPdcSignalHolographicShell() {
+        return MonitorRequestReasonPdcSignalHolographicShell;
     }
+    private static final int MonitorRequestReasonPdcSignalFingerprint = (int)44L;
     /**
-     * {@snippet :
-     * #define DPI_AWARENESS_CONTEXT_SYSTEM_AWARE -2
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonPdcSignalFingerprint = 44
      * }
      */
-    public static MemorySegment DPI_AWARENESS_CONTEXT_SYSTEM_AWARE() {
-        return constants$4549.const$1;
+    public static int MonitorRequestReasonPdcSignalFingerprint() {
+        return MonitorRequestReasonPdcSignalFingerprint;
     }
+    private static final int MonitorRequestReasonDirectedDrips = (int)45L;
     /**
-     * {@snippet :
-     * #define DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE -3
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonDirectedDrips = 45
      * }
      */
-    public static MemorySegment DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE() {
-        return constants$4549.const$2;
+    public static int MonitorRequestReasonDirectedDrips() {
+        return MonitorRequestReasonDirectedDrips;
     }
+    private static final int MonitorRequestReasonDim = (int)46L;
     /**
-     * {@snippet :
-     * #define DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 -4
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonDim = 46
      * }
      */
-    public static MemorySegment DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2() {
-        return constants$4551.const$1;
+    public static int MonitorRequestReasonDim() {
+        return MonitorRequestReasonDim;
     }
+    private static final int MonitorRequestReasonBuiltinPanel = (int)47L;
     /**
-     * {@snippet :
-     * #define DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED -5
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonBuiltinPanel = 47
      * }
      */
-    public static MemorySegment DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED() {
-        return constants$4551.const$2;
+    public static int MonitorRequestReasonBuiltinPanel() {
+        return MonitorRequestReasonBuiltinPanel;
     }
+    private static final int MonitorRequestReasonDisplayRequiredUnDim = (int)48L;
     /**
-     * {@snippet :
-     * #define STILL_ACTIVE 259
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonDisplayRequiredUnDim = 48
      * }
      */
-    public static int STILL_ACTIVE() {
-        return (int)259L;
+    public static int MonitorRequestReasonDisplayRequiredUnDim() {
+        return MonitorRequestReasonDisplayRequiredUnDim;
     }
+    private static final int MonitorRequestReasonBatteryCountChangeSuppressed = (int)49L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_ACCESS_VIOLATION 3221225477
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonBatteryCountChangeSuppressed = 49
      * }
      */
-    public static int EXCEPTION_ACCESS_VIOLATION() {
-        return (int)3221225477L;
+    public static int MonitorRequestReasonBatteryCountChangeSuppressed() {
+        return MonitorRequestReasonBatteryCountChangeSuppressed;
     }
+    private static final int MonitorRequestReasonResumeModernStandby = (int)50L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_DATATYPE_MISALIGNMENT 2147483650
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonResumeModernStandby = 50
      * }
      */
-    public static int EXCEPTION_DATATYPE_MISALIGNMENT() {
-        return (int)2147483650L;
+    public static int MonitorRequestReasonResumeModernStandby() {
+        return MonitorRequestReasonResumeModernStandby;
     }
+    private static final int MonitorRequestReasonTerminalInit = (int)51L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_BREAKPOINT 2147483651
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonTerminalInit = 51
      * }
      */
-    public static int EXCEPTION_BREAKPOINT() {
-        return (int)2147483651L;
+    public static int MonitorRequestReasonTerminalInit() {
+        return MonitorRequestReasonTerminalInit;
     }
+    private static final int MonitorRequestReasonPdcSignalSensorsHumanPresence = (int)52L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_SINGLE_STEP 2147483652
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonPdcSignalSensorsHumanPresence = 52
      * }
      */
-    public static int EXCEPTION_SINGLE_STEP() {
-        return (int)2147483652L;
+    public static int MonitorRequestReasonPdcSignalSensorsHumanPresence() {
+        return MonitorRequestReasonPdcSignalSensorsHumanPresence;
     }
+    private static final int MonitorRequestReasonBatteryPreCritical = (int)53L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_ARRAY_BOUNDS_EXCEEDED 3221225612
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonBatteryPreCritical = 53
      * }
      */
-    public static int EXCEPTION_ARRAY_BOUNDS_EXCEEDED() {
-        return (int)3221225612L;
+    public static int MonitorRequestReasonBatteryPreCritical() {
+        return MonitorRequestReasonBatteryPreCritical;
     }
+    private static final int MonitorRequestReasonUserInputTouch = (int)54L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_FLT_DENORMAL_OPERAND 3221225613
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonUserInputTouch = 54
      * }
      */
-    public static int EXCEPTION_FLT_DENORMAL_OPERAND() {
-        return (int)3221225613L;
+    public static int MonitorRequestReasonUserInputTouch() {
+        return MonitorRequestReasonUserInputTouch;
     }
+    private static final int MonitorRequestReasonMax = (int)55L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_FLT_DIVIDE_BY_ZERO 3221225614
+     * {@snippet lang=c :
+     * enum <anonymous>.MonitorRequestReasonMax = 55
      * }
      */
-    public static int EXCEPTION_FLT_DIVIDE_BY_ZERO() {
-        return (int)3221225614L;
+    public static int MonitorRequestReasonMax() {
+        return MonitorRequestReasonMax;
     }
+    private static final int MonitorRequestTypeOff = (int)0L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_FLT_INEXACT_RESULT 3221225615
+     * {@snippet lang=c :
+     * enum _POWER_MONITOR_REQUEST_TYPE.MonitorRequestTypeOff = 0
      * }
      */
-    public static int EXCEPTION_FLT_INEXACT_RESULT() {
-        return (int)3221225615L;
+    public static int MonitorRequestTypeOff() {
+        return MonitorRequestTypeOff;
     }
+    private static final int MonitorRequestTypeOnAndPresent = (int)1L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_FLT_INVALID_OPERATION 3221225616
+     * {@snippet lang=c :
+     * enum _POWER_MONITOR_REQUEST_TYPE.MonitorRequestTypeOnAndPresent = 1
      * }
      */
-    public static int EXCEPTION_FLT_INVALID_OPERATION() {
-        return (int)3221225616L;
+    public static int MonitorRequestTypeOnAndPresent() {
+        return MonitorRequestTypeOnAndPresent;
     }
+    private static final int MonitorRequestTypeToggleOn = (int)2L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_FLT_OVERFLOW 3221225617
+     * {@snippet lang=c :
+     * enum _POWER_MONITOR_REQUEST_TYPE.MonitorRequestTypeToggleOn = 2
      * }
      */
-    public static int EXCEPTION_FLT_OVERFLOW() {
-        return (int)3221225617L;
+    public static int MonitorRequestTypeToggleOn() {
+        return MonitorRequestTypeToggleOn;
     }
     /**
-     * {@snippet :
-     * #define EXCEPTION_FLT_STACK_CHECK 3221225618
+     * {@snippet lang=c :
+     * typedef struct _POWER_MONITOR_INVOCATION {
+     *     BOOLEAN Console;
+     *     POWER_MONITOR_REQUEST_REASON RequestReason;
+     * } *PPOWER_MONITOR_INVOCATION
      * }
      */
-    public static int EXCEPTION_FLT_STACK_CHECK() {
-        return (int)3221225618L;
-    }
+    public static final AddressLayout PPOWER_MONITOR_INVOCATION = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define EXCEPTION_FLT_UNDERFLOW 3221225619
+     * {@snippet lang=c :
+     * typedef struct _RESUME_PERFORMANCE {
+     *     DWORD PostTimeMs;
+     *     ULONGLONG TotalResumeTimeMs;
+     *     ULONGLONG ResumeCompleteTimestamp;
+     * } *PRESUME_PERFORMANCE
      * }
      */
-    public static int EXCEPTION_FLT_UNDERFLOW() {
-        return (int)3221225619L;
-    }
+    public static final AddressLayout PRESUME_PERFORMANCE = Windows_h.C_POINTER;
+    private static final int PoAc = (int)0L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_INT_DIVIDE_BY_ZERO 3221225620
+     * {@snippet lang=c :
+     * enum <anonymous>.PoAc = 0
      * }
      */
-    public static int EXCEPTION_INT_DIVIDE_BY_ZERO() {
-        return (int)3221225620L;
+    public static int PoAc() {
+        return PoAc;
     }
+    private static final int PoDc = (int)1L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_INT_OVERFLOW 3221225621
+     * {@snippet lang=c :
+     * enum <anonymous>.PoDc = 1
      * }
      */
-    public static int EXCEPTION_INT_OVERFLOW() {
-        return (int)3221225621L;
+    public static int PoDc() {
+        return PoDc;
     }
+    private static final int PoHot = (int)2L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_PRIV_INSTRUCTION 3221225622
+     * {@snippet lang=c :
+     * enum <anonymous>.PoHot = 2
      * }
      */
-    public static int EXCEPTION_PRIV_INSTRUCTION() {
-        return (int)3221225622L;
+    public static int PoHot() {
+        return PoHot;
     }
+    private static final int PoConditionMaximum = (int)3L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_IN_PAGE_ERROR 3221225478
+     * {@snippet lang=c :
+     * enum <anonymous>.PoConditionMaximum = 3
      * }
      */
-    public static int EXCEPTION_IN_PAGE_ERROR() {
-        return (int)3221225478L;
+    public static int PoConditionMaximum() {
+        return PoConditionMaximum;
     }
     /**
-     * {@snippet :
-     * #define EXCEPTION_ILLEGAL_INSTRUCTION 3221225501
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD Version;
+     *     GUID Guid;
+     *     SYSTEM_POWER_CONDITION PowerCondition;
+     *     DWORD DataLength;
+     *     BYTE Data[1];
+     * } *PSET_POWER_SETTING_VALUE
      * }
      */
-    public static int EXCEPTION_ILLEGAL_INSTRUCTION() {
-        return (int)3221225501L;
-    }
+    public static final AddressLayout PSET_POWER_SETTING_VALUE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define EXCEPTION_NONCONTINUABLE_EXCEPTION 3221225509
+     * {@snippet lang=c :
+     * typedef struct {
+     *     GUID Guid;
+     * } *PNOTIFY_USER_POWER_SETTING
      * }
      */
-    public static int EXCEPTION_NONCONTINUABLE_EXCEPTION() {
-        return (int)3221225509L;
-    }
+    public static final AddressLayout PNOTIFY_USER_POWER_SETTING = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define EXCEPTION_STACK_OVERFLOW 3221225725
+     * {@snippet lang=c :
+     * typedef struct _APPLICATIONLAUNCH_SETTING_VALUE {
+     *     LARGE_INTEGER ActivationTime;
+     *     DWORD Flags;
+     *     DWORD ButtonInstanceID;
+     * } *PAPPLICATIONLAUNCH_SETTING_VALUE
      * }
      */
-    public static int EXCEPTION_STACK_OVERFLOW() {
-        return (int)3221225725L;
-    }
+    public static final AddressLayout PAPPLICATIONLAUNCH_SETTING_VALUE = Windows_h.C_POINTER;
+    private static final int PlatformRoleUnspecified = (int)0L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_INVALID_DISPOSITION 3221225510
+     * {@snippet lang=c :
+     * enum _POWER_PLATFORM_ROLE.PlatformRoleUnspecified = 0
      * }
      */
-    public static int EXCEPTION_INVALID_DISPOSITION() {
-        return (int)3221225510L;
+    public static int PlatformRoleUnspecified() {
+        return PlatformRoleUnspecified;
     }
+    private static final int PlatformRoleDesktop = (int)1L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_GUARD_PAGE 2147483649
+     * {@snippet lang=c :
+     * enum _POWER_PLATFORM_ROLE.PlatformRoleDesktop = 1
      * }
      */
-    public static int EXCEPTION_GUARD_PAGE() {
-        return (int)2147483649L;
+    public static int PlatformRoleDesktop() {
+        return PlatformRoleDesktop;
     }
+    private static final int PlatformRoleMobile = (int)2L;
     /**
-     * {@snippet :
-     * #define EXCEPTION_INVALID_HANDLE 3221225480
+     * {@snippet lang=c :
+     * enum _POWER_PLATFORM_ROLE.PlatformRoleMobile = 2
      * }
      */
-    public static int EXCEPTION_INVALID_HANDLE() {
-        return (int)3221225480L;
+    public static int PlatformRoleMobile() {
+        return PlatformRoleMobile;
     }
+    private static final int PlatformRoleWorkstation = (int)3L;
     /**
-     * {@snippet :
-     * #define CONTROL_C_EXIT 3221225786
+     * {@snippet lang=c :
+     * enum _POWER_PLATFORM_ROLE.PlatformRoleWorkstation = 3
      * }
      */
-    public static int CONTROL_C_EXIT() {
-        return (int)3221225786L;
+    public static int PlatformRoleWorkstation() {
+        return PlatformRoleWorkstation;
     }
+    private static final int PlatformRoleEnterpriseServer = (int)4L;
     /**
-     * {@snippet :
-     * #define LHND 66
+     * {@snippet lang=c :
+     * enum _POWER_PLATFORM_ROLE.PlatformRoleEnterpriseServer = 4
      * }
      */
-    public static int LHND() {
-        return (int)66L;
+    public static int PlatformRoleEnterpriseServer() {
+        return PlatformRoleEnterpriseServer;
     }
+    private static final int PlatformRoleSOHOServer = (int)5L;
     /**
-     * {@snippet :
-     * #define LPTR 64
+     * {@snippet lang=c :
+     * enum _POWER_PLATFORM_ROLE.PlatformRoleSOHOServer = 5
      * }
      */
-    public static int LPTR() {
-        return (int)64L;
+    public static int PlatformRoleSOHOServer() {
+        return PlatformRoleSOHOServer;
     }
+    private static final int PlatformRoleAppliancePC = (int)6L;
     /**
-     * {@snippet :
-     * #define NONZEROLHND 2
+     * {@snippet lang=c :
+     * enum _POWER_PLATFORM_ROLE.PlatformRoleAppliancePC = 6
      * }
      */
-    public static int NONZEROLHND() {
-        return (int)2L;
+    public static int PlatformRoleAppliancePC() {
+        return PlatformRoleAppliancePC;
     }
+    private static final int PlatformRolePerformanceServer = (int)7L;
     /**
-     * {@snippet :
-     * #define NONZEROLPTR 0
+     * {@snippet lang=c :
+     * enum _POWER_PLATFORM_ROLE.PlatformRolePerformanceServer = 7
      * }
      */
-    public static int NONZEROLPTR() {
-        return (int)0L;
+    public static int PlatformRolePerformanceServer() {
+        return PlatformRolePerformanceServer;
     }
+    private static final int PlatformRoleSlate = (int)8L;
     /**
-     * {@snippet :
-     * #define NUMA_NO_PREFERRED_NODE 4294967295
+     * {@snippet lang=c :
+     * enum _POWER_PLATFORM_ROLE.PlatformRoleSlate = 8
      * }
      */
-    public static int NUMA_NO_PREFERRED_NODE() {
-        return (int)4294967295L;
+    public static int PlatformRoleSlate() {
+        return PlatformRoleSlate;
     }
+    private static final int PlatformRoleMaximum = (int)9L;
     /**
-     * {@snippet :
-     * #define INVALID_FILE_SIZE 4294967295
+     * {@snippet lang=c :
+     * enum _POWER_PLATFORM_ROLE.PlatformRoleMaximum = 9
      * }
      */
-    public static int INVALID_FILE_SIZE() {
-        return (int)4294967295L;
+    public static int PlatformRoleMaximum() {
+        return PlatformRoleMaximum;
     }
     /**
-     * {@snippet :
-     * #define INVALID_SET_FILE_POINTER 4294967295
+     * {@snippet lang=c :
+     * typedef enum _POWER_PLATFORM_ROLE {
+     *     PlatformRoleUnspecified = 0,
+     *     PlatformRoleDesktop,
+     *     PlatformRoleMobile,
+     *     PlatformRoleWorkstation,
+     *     PlatformRoleEnterpriseServer,
+     *     PlatformRoleSOHOServer,
+     *     PlatformRoleAppliancePC,
+     *     PlatformRolePerformanceServer,
+     *     PlatformRoleSlate,
+     *     PlatformRoleMaximum
+     * } *PPOWER_PLATFORM_ROLE
      * }
      */
-    public static int INVALID_SET_FILE_POINTER() {
-        return (int)4294967295L;
-    }
+    public static final AddressLayout PPOWER_PLATFORM_ROLE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define INVALID_FILE_ATTRIBUTES 4294967295
+     * {@snippet lang=c :
+     * typedef struct _POWER_PLATFORM_INFORMATION {
+     *     BOOLEAN AoAc;
+     * } *PPOWER_PLATFORM_INFORMATION
      * }
      */
-    public static int INVALID_FILE_ATTRIBUTES() {
-        return (int)4294967295L;
-    }
+    public static final AddressLayout PPOWER_PLATFORM_INFORMATION = Windows_h.C_POINTER;
+    private static final int ALTITUDE_GROUP_POLICY = (int)0L;
     /**
-     * {@snippet :
-     * #define INVALID_HANDLE_VALUE -1
+     * {@snippet lang=c :
+     * enum POWER_SETTING_ALTITUDE.ALTITUDE_GROUP_POLICY = 0
      * }
      */
-    public static MemorySegment INVALID_HANDLE_VALUE() {
-        return constants$4549.const$0;
+    public static int ALTITUDE_GROUP_POLICY() {
+        return ALTITUDE_GROUP_POLICY;
     }
+    private static final int ALTITUDE_USER = (int)1L;
     /**
-     * {@snippet :
-     * #define FLS_OUT_OF_INDEXES 4294967295
+     * {@snippet lang=c :
+     * enum POWER_SETTING_ALTITUDE.ALTITUDE_USER = 1
      * }
      */
-    public static int FLS_OUT_OF_INDEXES() {
-        return (int)4294967295L;
+    public static int ALTITUDE_USER() {
+        return ALTITUDE_USER;
     }
+    private static final int ALTITUDE_RUNTIME_OVERRIDE = (int)2L;
     /**
-     * {@snippet :
-     * #define INIT_ONCE_CHECK_ONLY 1
+     * {@snippet lang=c :
+     * enum POWER_SETTING_ALTITUDE.ALTITUDE_RUNTIME_OVERRIDE = 2
      * }
      */
-    public static int INIT_ONCE_CHECK_ONLY() {
-        return (int)1L;
+    public static int ALTITUDE_RUNTIME_OVERRIDE() {
+        return ALTITUDE_RUNTIME_OVERRIDE;
     }
+    private static final int ALTITUDE_PROVISIONING = (int)3L;
     /**
-     * {@snippet :
-     * #define INIT_ONCE_ASYNC 2
+     * {@snippet lang=c :
+     * enum POWER_SETTING_ALTITUDE.ALTITUDE_PROVISIONING = 3
      * }
      */
-    public static int INIT_ONCE_ASYNC() {
-        return (int)2L;
+    public static int ALTITUDE_PROVISIONING() {
+        return ALTITUDE_PROVISIONING;
     }
+    private static final int ALTITUDE_OEM_CUSTOMIZATION = (int)4L;
     /**
-     * {@snippet :
-     * #define INIT_ONCE_INIT_FAILED 4
+     * {@snippet lang=c :
+     * enum POWER_SETTING_ALTITUDE.ALTITUDE_OEM_CUSTOMIZATION = 4
      * }
      */
-    public static int INIT_ONCE_INIT_FAILED() {
-        return (int)4L;
+    public static int ALTITUDE_OEM_CUSTOMIZATION() {
+        return ALTITUDE_OEM_CUSTOMIZATION;
     }
+    private static final int ALTITUDE_INTERNAL_OVERRIDE = (int)5L;
     /**
-     * {@snippet :
-     * #define INIT_ONCE_CTX_RESERVED_BITS 2
+     * {@snippet lang=c :
+     * enum POWER_SETTING_ALTITUDE.ALTITUDE_INTERNAL_OVERRIDE = 5
      * }
      */
-    public static int INIT_ONCE_CTX_RESERVED_BITS() {
-        return (int)2L;
+    public static int ALTITUDE_INTERNAL_OVERRIDE() {
+        return ALTITUDE_INTERNAL_OVERRIDE;
     }
+    private static final int ALTITUDE_OS_DEFAULT = (int)6L;
     /**
-     * {@snippet :
-     * #define CONDITION_VARIABLE_LOCKMODE_SHARED 1
+     * {@snippet lang=c :
+     * enum POWER_SETTING_ALTITUDE.ALTITUDE_OS_DEFAULT = 6
      * }
      */
-    public static int CONDITION_VARIABLE_LOCKMODE_SHARED() {
-        return (int)1L;
+    public static int ALTITUDE_OS_DEFAULT() {
+        return ALTITUDE_OS_DEFAULT;
     }
     /**
-     * {@snippet :
-     * #define MUTEX_MODIFY_STATE 1
+     * {@snippet lang=c :
+     * typedef enum POWER_SETTING_ALTITUDE {
+     *     ALTITUDE_GROUP_POLICY,
+     *     ALTITUDE_USER,
+     *     ALTITUDE_RUNTIME_OVERRIDE,
+     *     ALTITUDE_PROVISIONING,
+     *     ALTITUDE_OEM_CUSTOMIZATION,
+     *     ALTITUDE_INTERNAL_OVERRIDE,
+     *     ALTITUDE_OS_DEFAULT
+     * } *PPOWER_SETTING_ALTITUDE
      * }
      */
-    public static int MUTEX_MODIFY_STATE() {
-        return (int)1L;
-    }
+    public static final AddressLayout PPOWER_SETTING_ALTITUDE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define MUTEX_ALL_ACCESS 2031617
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD Granularity;
+     *     DWORD Capacity;
+     * } *PBATTERY_REPORTING_SCALE
      * }
      */
-    public static int MUTEX_ALL_ACCESS() {
-        return (int)2031617L;
-    }
+    public static final AddressLayout PBATTERY_REPORTING_SCALE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define TLS_OUT_OF_INDEXES 4294967295
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD Frequency;
+     *     DWORD Flags;
+     *     DWORD PercentFrequency;
+     * } *PPPM_WMI_LEGACY_PERFSTATE
      * }
      */
-    public static int TLS_OUT_OF_INDEXES() {
-        return (int)4294967295L;
-    }
+    public static final AddressLayout PPPM_WMI_LEGACY_PERFSTATE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define PROCESS_AFFINITY_ENABLE_AUTO_UPDATE 1
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD Latency;
+     *     DWORD Power;
+     *     DWORD TimeCheck;
+     *     BYTE PromotePercent;
+     *     BYTE DemotePercent;
+     *     BYTE StateType;
+     *     BYTE Reserved;
+     *     DWORD StateFlags;
+     *     DWORD Context;
+     *     DWORD IdleHandler;
+     *     DWORD Reserved1;
+     * } *PPPM_WMI_IDLE_STATE
      * }
      */
-    public static int PROCESS_AFFINITY_ENABLE_AUTO_UPDATE() {
-        return (int)1L;
-    }
+    public static final AddressLayout PPPM_WMI_IDLE_STATE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define THREAD_POWER_THROTTLING_VALID_FLAGS 1
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD Type;
+     *     DWORD Count;
+     *     DWORD TargetState;
+     *     DWORD OldState;
+     *     DWORD64 TargetProcessors;
+     *     PPM_WMI_IDLE_STATE State[1];
+     * } *PPPM_WMI_IDLE_STATES
      * }
      */
-    public static int THREAD_POWER_THROTTLING_VALID_FLAGS() {
-        return (int)1L;
-    }
+    public static final AddressLayout PPPM_WMI_IDLE_STATES = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define PROCESS_POWER_THROTTLING_VALID_FLAGS 5
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD Type;
+     *     DWORD Count;
+     *     DWORD TargetState;
+     *     DWORD OldState;
+     *     PVOID TargetProcessors;
+     *     PPM_WMI_IDLE_STATE State[1];
+     * } *PPPM_WMI_IDLE_STATES_EX
      * }
      */
-    public static int PROCESS_POWER_THROTTLING_VALID_FLAGS() {
-        return (int)5L;
-    }
+    public static final AddressLayout PPPM_WMI_IDLE_STATES_EX = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define PROCESS_LEAP_SECOND_INFO_VALID_FLAGS 1
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD Frequency;
+     *     DWORD Power;
+     *     BYTE PercentFrequency;
+     *     BYTE IncreaseLevel;
+     *     BYTE DecreaseLevel;
+     *     BYTE Type;
+     *     DWORD IncreaseTime;
+     *     DWORD DecreaseTime;
+     *     DWORD64 Control;
+     *     DWORD64 Status;
+     *     DWORD HitCount;
+     *     DWORD Reserved1;
+     *     DWORD64 Reserved2;
+     *     DWORD64 Reserved3;
+     * } *PPPM_WMI_PERF_STATE
      * }
      */
-    public static int PROCESS_LEAP_SECOND_INFO_VALID_FLAGS() {
-        return (int)1L;
-    }
+    public static final AddressLayout PPPM_WMI_PERF_STATE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define FILE_MAP_WRITE 2
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD Count;
+     *     DWORD MaxFrequency;
+     *     DWORD CurrentState;
+     *     DWORD MaxPerfState;
+     *     DWORD MinPerfState;
+     *     DWORD LowestPerfState;
+     *     DWORD ThermalConstraint;
+     *     BYTE BusyAdjThreshold;
+     *     BYTE PolicyType;
+     *     BYTE Type;
+     *     BYTE Reserved;
+     *     DWORD TimerInterval;
+     *     DWORD64 TargetProcessors;
+     *     DWORD PStateHandler;
+     *     DWORD PStateContext;
+     *     DWORD TStateHandler;
+     *     DWORD TStateContext;
+     *     DWORD FeedbackHandler;
+     *     DWORD Reserved1;
+     *     DWORD64 Reserved2;
+     *     PPM_WMI_PERF_STATE State[1];
+     * } *PPPM_WMI_PERF_STATES
      * }
      */
-    public static int FILE_MAP_WRITE() {
-        return (int)2L;
-    }
+    public static final AddressLayout PPPM_WMI_PERF_STATES = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define FILE_MAP_READ 4
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD Count;
+     *     DWORD MaxFrequency;
+     *     DWORD CurrentState;
+     *     DWORD MaxPerfState;
+     *     DWORD MinPerfState;
+     *     DWORD LowestPerfState;
+     *     DWORD ThermalConstraint;
+     *     BYTE BusyAdjThreshold;
+     *     BYTE PolicyType;
+     *     BYTE Type;
+     *     BYTE Reserved;
+     *     DWORD TimerInterval;
+     *     PVOID TargetProcessors;
+     *     DWORD PStateHandler;
+     *     DWORD PStateContext;
+     *     DWORD TStateHandler;
+     *     DWORD TStateContext;
+     *     DWORD FeedbackHandler;
+     *     DWORD Reserved1;
+     *     DWORD64 Reserved2;
+     *     PPM_WMI_PERF_STATE State[1];
+     * } *PPPM_WMI_PERF_STATES_EX
      * }
      */
-    public static int FILE_MAP_READ() {
-        return (int)4L;
-    }
+    public static final AddressLayout PPPM_WMI_PERF_STATES_EX = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define FILE_MAP_ALL_ACCESS 983071
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD IdleTransitions;
+     *     DWORD FailedTransitions;
+     *     DWORD InvalidBucketIndex;
+     *     DWORD64 TotalTime;
+     *     DWORD IdleTimeBuckets[6];
+     * } *PPPM_IDLE_STATE_ACCOUNTING
      * }
      */
-    public static int FILE_MAP_ALL_ACCESS() {
-        return (int)983071L;
-    }
+    public static final AddressLayout PPPM_IDLE_STATE_ACCOUNTING = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define FILE_MAP_EXECUTE 32
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD StateCount;
+     *     DWORD TotalTransitions;
+     *     DWORD ResetCount;
+     *     DWORD64 StartTime;
+     *     PPM_IDLE_STATE_ACCOUNTING State[1];
+     * } *PPPM_IDLE_ACCOUNTING
      * }
      */
-    public static int FILE_MAP_EXECUTE() {
-        return (int)32L;
-    }
+    public static final AddressLayout PPPM_IDLE_ACCOUNTING = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define FILE_MAP_RESERVE 2147483648
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD64 TotalTimeUs;
+     *     DWORD MinTimeUs;
+     *     DWORD MaxTimeUs;
+     *     DWORD Count;
+     * } *PPPM_IDLE_STATE_BUCKET_EX
      * }
      */
-    public static int FILE_MAP_RESERVE() {
-        return (int)2147483648L;
-    }
+    public static final AddressLayout PPPM_IDLE_STATE_BUCKET_EX = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define FIND_RESOURCE_DIRECTORY_TYPES 256
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD64 TotalTime;
+     *     DWORD IdleTransitions;
+     *     DWORD FailedTransitions;
+     *     DWORD InvalidBucketIndex;
+     *     DWORD MinTimeUs;
+     *     DWORD MaxTimeUs;
+     *     DWORD CancelledTransitions;
+     *     PPM_IDLE_STATE_BUCKET_EX IdleTimeBuckets[16];
+     * } *PPPM_IDLE_STATE_ACCOUNTING_EX
      * }
      */
-    public static int FIND_RESOURCE_DIRECTORY_TYPES() {
-        return (int)256L;
-    }
+    public static final AddressLayout PPPM_IDLE_STATE_ACCOUNTING_EX = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define FIND_RESOURCE_DIRECTORY_NAMES 512
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD StateCount;
+     *     DWORD TotalTransitions;
+     *     DWORD ResetCount;
+     *     DWORD AbortCount;
+     *     DWORD64 StartTime;
+     *     PPM_IDLE_STATE_ACCOUNTING_EX State[1];
+     * } *PPPM_IDLE_ACCOUNTING_EX
      * }
      */
-    public static int FIND_RESOURCE_DIRECTORY_NAMES() {
-        return (int)512L;
+    public static final AddressLayout PPPM_IDLE_ACCOUNTING_EX = Windows_h.C_POINTER;
+
+    private static class PPM_PERFSTATE_CHANGE_GUID$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_PERFSTATE_CHANGE_GUID").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define FIND_RESOURCE_DIRECTORY_LANGUAGES 1024
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_PERFSTATE_CHANGE_GUID
      * }
      */
-    public static int FIND_RESOURCE_DIRECTORY_LANGUAGES() {
-        return (int)1024L;
+    public static GroupLayout PPM_PERFSTATE_CHANGE_GUID$layout() {
+        return PPM_PERFSTATE_CHANGE_GUID$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define RESOURCE_ENUM_LN 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_PERFSTATE_CHANGE_GUID
      * }
      */
-    public static int RESOURCE_ENUM_LN() {
-        return (int)1L;
+    public static MemorySegment PPM_PERFSTATE_CHANGE_GUID() {
+        return PPM_PERFSTATE_CHANGE_GUID$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define RESOURCE_ENUM_MUI 2
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_PERFSTATE_CHANGE_GUID
      * }
      */
-    public static int RESOURCE_ENUM_MUI() {
-        return (int)2L;
+    public static void PPM_PERFSTATE_CHANGE_GUID(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, PPM_PERFSTATE_CHANGE_GUID$constants.SEGMENT, 0L, PPM_PERFSTATE_CHANGE_GUID$constants.LAYOUT.byteSize());
+    }
+
+    private static class PPM_PERFSTATE_DOMAIN_CHANGE_GUID$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_PERFSTATE_DOMAIN_CHANGE_GUID").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define RESOURCE_ENUM_MUI_SYSTEM 4
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_PERFSTATE_DOMAIN_CHANGE_GUID
      * }
      */
-    public static int RESOURCE_ENUM_MUI_SYSTEM() {
-        return (int)4L;
+    public static GroupLayout PPM_PERFSTATE_DOMAIN_CHANGE_GUID$layout() {
+        return PPM_PERFSTATE_DOMAIN_CHANGE_GUID$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define RESOURCE_ENUM_VALIDATE 8
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_PERFSTATE_DOMAIN_CHANGE_GUID
      * }
      */
-    public static int RESOURCE_ENUM_VALIDATE() {
-        return (int)8L;
+    public static MemorySegment PPM_PERFSTATE_DOMAIN_CHANGE_GUID() {
+        return PPM_PERFSTATE_DOMAIN_CHANGE_GUID$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define RESOURCE_ENUM_MODULE_EXACT 16
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_PERFSTATE_DOMAIN_CHANGE_GUID
      * }
      */
-    public static int RESOURCE_ENUM_MODULE_EXACT() {
-        return (int)16L;
+    public static void PPM_PERFSTATE_DOMAIN_CHANGE_GUID(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, PPM_PERFSTATE_DOMAIN_CHANGE_GUID$constants.SEGMENT, 0L, PPM_PERFSTATE_DOMAIN_CHANGE_GUID$constants.LAYOUT.byteSize());
     }
+
+    private static class PPM_IDLESTATE_CHANGE_GUID$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_IDLESTATE_CHANGE_GUID").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define GET_MODULE_HANDLE_EX_FLAG_PIN 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_IDLESTATE_CHANGE_GUID
      * }
      */
-    public static int GET_MODULE_HANDLE_EX_FLAG_PIN() {
-        return (int)1L;
+    public static GroupLayout PPM_IDLESTATE_CHANGE_GUID$layout() {
+        return PPM_IDLESTATE_CHANGE_GUID$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_IDLESTATE_CHANGE_GUID
      * }
      */
-    public static int GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT() {
-        return (int)2L;
+    public static MemorySegment PPM_IDLESTATE_CHANGE_GUID() {
+        return PPM_IDLESTATE_CHANGE_GUID$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS 4
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_IDLESTATE_CHANGE_GUID
      * }
      */
-    public static int GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS() {
-        return (int)4L;
+    public static void PPM_IDLESTATE_CHANGE_GUID(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, PPM_IDLESTATE_CHANGE_GUID$constants.SEGMENT, 0L, PPM_IDLESTATE_CHANGE_GUID$constants.LAYOUT.byteSize());
+    }
+
+    private static class PPM_PERFSTATES_DATA_GUID$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_PERFSTATES_DATA_GUID").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define WAIT_FAILED 4294967295
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_PERFSTATES_DATA_GUID
      * }
      */
-    public static int WAIT_FAILED() {
-        return (int)4294967295L;
+    public static GroupLayout PPM_PERFSTATES_DATA_GUID$layout() {
+        return PPM_PERFSTATES_DATA_GUID$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define WAIT_OBJECT_0 0
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_PERFSTATES_DATA_GUID
      * }
      */
-    public static int WAIT_OBJECT_0() {
-        return (int)0L;
+    public static MemorySegment PPM_PERFSTATES_DATA_GUID() {
+        return PPM_PERFSTATES_DATA_GUID$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define WAIT_ABANDONED 128
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_PERFSTATES_DATA_GUID
      * }
      */
-    public static int WAIT_ABANDONED() {
-        return (int)128L;
+    public static void PPM_PERFSTATES_DATA_GUID(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, PPM_PERFSTATES_DATA_GUID$constants.SEGMENT, 0L, PPM_PERFSTATES_DATA_GUID$constants.LAYOUT.byteSize());
     }
+
+    private static class PPM_IDLESTATES_DATA_GUID$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_IDLESTATES_DATA_GUID").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define WAIT_ABANDONED_0 128
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_IDLESTATES_DATA_GUID
      * }
      */
-    public static int WAIT_ABANDONED_0() {
-        return (int)128L;
+    public static GroupLayout PPM_IDLESTATES_DATA_GUID$layout() {
+        return PPM_IDLESTATES_DATA_GUID$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define WAIT_IO_COMPLETION 192
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_IDLESTATES_DATA_GUID
      * }
      */
-    public static int WAIT_IO_COMPLETION() {
-        return (int)192L;
+    public static MemorySegment PPM_IDLESTATES_DATA_GUID() {
+        return PPM_IDLESTATES_DATA_GUID$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define FILE_FLAG_WRITE_THROUGH 2147483648
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_IDLESTATES_DATA_GUID
      * }
      */
-    public static int FILE_FLAG_WRITE_THROUGH() {
-        return (int)2147483648L;
+    public static void PPM_IDLESTATES_DATA_GUID(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, PPM_IDLESTATES_DATA_GUID$constants.SEGMENT, 0L, PPM_IDLESTATES_DATA_GUID$constants.LAYOUT.byteSize());
+    }
+
+    private static class PPM_IDLE_ACCOUNTING_GUID$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_IDLE_ACCOUNTING_GUID").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_ANONYMOUS 0
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_IDLE_ACCOUNTING_GUID
      * }
      */
-    public static int SECURITY_ANONYMOUS() {
-        return (int)0L;
+    public static GroupLayout PPM_IDLE_ACCOUNTING_GUID$layout() {
+        return PPM_IDLE_ACCOUNTING_GUID$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_IDENTIFICATION 65536
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_IDLE_ACCOUNTING_GUID
      * }
      */
-    public static int SECURITY_IDENTIFICATION() {
-        return (int)65536L;
+    public static MemorySegment PPM_IDLE_ACCOUNTING_GUID() {
+        return PPM_IDLE_ACCOUNTING_GUID$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define SECURITY_IMPERSONATION 131072
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_IDLE_ACCOUNTING_GUID
      * }
      */
-    public static int SECURITY_IMPERSONATION() {
-        return (int)131072L;
+    public static void PPM_IDLE_ACCOUNTING_GUID(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, PPM_IDLE_ACCOUNTING_GUID$constants.SEGMENT, 0L, PPM_IDLE_ACCOUNTING_GUID$constants.LAYOUT.byteSize());
     }
+
+    private static class PPM_IDLE_ACCOUNTING_EX_GUID$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_IDLE_ACCOUNTING_EX_GUID").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define SECURITY_DELEGATION 196608
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_IDLE_ACCOUNTING_EX_GUID
      * }
      */
-    public static int SECURITY_DELEGATION() {
-        return (int)196608L;
+    public static GroupLayout PPM_IDLE_ACCOUNTING_EX_GUID$layout() {
+        return PPM_IDLE_ACCOUNTING_EX_GUID$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define SP_SERIALCOMM 1
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_IDLE_ACCOUNTING_EX_GUID
      * }
      */
-    public static int SP_SERIALCOMM() {
-        return (int)1L;
+    public static MemorySegment PPM_IDLE_ACCOUNTING_EX_GUID() {
+        return PPM_IDLE_ACCOUNTING_EX_GUID$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define PST_UNSPECIFIED 0
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_IDLE_ACCOUNTING_EX_GUID
      * }
      */
-    public static int PST_UNSPECIFIED() {
-        return (int)0L;
+    public static void PPM_IDLE_ACCOUNTING_EX_GUID(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, PPM_IDLE_ACCOUNTING_EX_GUID$constants.SEGMENT, 0L, PPM_IDLE_ACCOUNTING_EX_GUID$constants.LAYOUT.byteSize());
+    }
+
+    private static class PPM_THERMALCONSTRAINT_GUID$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_THERMALCONSTRAINT_GUID").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define PST_RS232 1
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_THERMALCONSTRAINT_GUID
      * }
      */
-    public static int PST_RS232() {
-        return (int)1L;
+    public static GroupLayout PPM_THERMALCONSTRAINT_GUID$layout() {
+        return PPM_THERMALCONSTRAINT_GUID$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define PST_PARALLELPORT 2
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_THERMALCONSTRAINT_GUID
      * }
      */
-    public static int PST_PARALLELPORT() {
-        return (int)2L;
+    public static MemorySegment PPM_THERMALCONSTRAINT_GUID() {
+        return PPM_THERMALCONSTRAINT_GUID$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define PST_RS422 3
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_THERMALCONSTRAINT_GUID
      * }
      */
-    public static int PST_RS422() {
-        return (int)3L;
+    public static void PPM_THERMALCONSTRAINT_GUID(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, PPM_THERMALCONSTRAINT_GUID$constants.SEGMENT, 0L, PPM_THERMALCONSTRAINT_GUID$constants.LAYOUT.byteSize());
     }
+
+    private static class PPM_PERFMON_PERFSTATE_GUID$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_PERFMON_PERFSTATE_GUID").reinterpret(LAYOUT.byteSize());
+    }
+
     /**
-     * {@snippet :
-     * #define PST_RS423 4
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_PERFMON_PERFSTATE_GUID
      * }
      */
-    public static int PST_RS423() {
-        return (int)4L;
+    public static GroupLayout PPM_PERFMON_PERFSTATE_GUID$layout() {
+        return PPM_PERFMON_PERFSTATE_GUID$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define PST_RS449 5
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_PERFMON_PERFSTATE_GUID
      * }
      */
-    public static int PST_RS449() {
-        return (int)5L;
+    public static MemorySegment PPM_PERFMON_PERFSTATE_GUID() {
+        return PPM_PERFMON_PERFSTATE_GUID$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define PST_MODEM 6
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_PERFMON_PERFSTATE_GUID
      * }
      */
-    public static int PST_MODEM() {
-        return (int)6L;
+    public static void PPM_PERFMON_PERFSTATE_GUID(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, PPM_PERFMON_PERFSTATE_GUID$constants.SEGMENT, 0L, PPM_PERFMON_PERFSTATE_GUID$constants.LAYOUT.byteSize());
+    }
+
+    private static class PPM_THERMAL_POLICY_CHANGE_GUID$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("PPM_THERMAL_POLICY_CHANGE_GUID").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * #define PST_FAX 33
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_THERMAL_POLICY_CHANGE_GUID
      * }
      */
-    public static int PST_FAX() {
-        return (int)33L;
+    public static GroupLayout PPM_THERMAL_POLICY_CHANGE_GUID$layout() {
+        return PPM_THERMAL_POLICY_CHANGE_GUID$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * #define PST_SCANNER 34
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_THERMAL_POLICY_CHANGE_GUID
      * }
      */
-    public static int PST_SCANNER() {
-        return (int)34L;
+    public static MemorySegment PPM_THERMAL_POLICY_CHANGE_GUID() {
+        return PPM_THERMAL_POLICY_CHANGE_GUID$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * #define PST_NETWORK_BRIDGE 256
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID PPM_THERMAL_POLICY_CHANGE_GUID
      * }
      */
-    public static int PST_NETWORK_BRIDGE() {
-        return (int)256L;
+    public static void PPM_THERMAL_POLICY_CHANGE_GUID(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, PPM_THERMAL_POLICY_CHANGE_GUID$constants.SEGMENT, 0L, PPM_THERMAL_POLICY_CHANGE_GUID$constants.LAYOUT.byteSize());
     }
     /**
-     * {@snippet :
-     * #define PST_LAT 257
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD State;
+     *     DWORD Status;
+     *     DWORD Latency;
+     *     DWORD Speed;
+     *     DWORD Processor;
+     * } *PPPM_PERFSTATE_EVENT
      * }
      */
-    public static int PST_LAT() {
-        return (int)257L;
-    }
+    public static final AddressLayout PPPM_PERFSTATE_EVENT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define PST_TCPIP_TELNET 258
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD State;
+     *     DWORD Latency;
+     *     DWORD Speed;
+     *     DWORD64 Processors;
+     * } *PPPM_PERFSTATE_DOMAIN_EVENT
      * }
      */
-    public static int PST_TCPIP_TELNET() {
-        return (int)258L;
-    }
+    public static final AddressLayout PPPM_PERFSTATE_DOMAIN_EVENT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define PST_X25 259
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD NewState;
+     *     DWORD OldState;
+     *     DWORD64 Processors;
+     * } *PPPM_IDLESTATE_EVENT
      * }
      */
-    public static int PST_X25() {
-        return (int)259L;
-    }
+    public static final AddressLayout PPPM_IDLESTATE_EVENT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define PCF_DTRDSR 1
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD ThermalConstraint;
+     *     DWORD64 Processors;
+     * } *PPPM_THERMALCHANGE_EVENT
      * }
      */
-    public static int PCF_DTRDSR() {
-        return (int)1L;
-    }
+    public static final AddressLayout PPPM_THERMALCHANGE_EVENT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define PCF_RTSCTS 2
+     * {@snippet lang=c :
+     * typedef struct {
+     *     BYTE Mode;
+     *     DWORD64 Processors;
+     * } *PPPM_THERMAL_POLICY_EVENT
      * }
      */
-    public static int PCF_RTSCTS() {
-        return (int)2L;
-    }
+    public static final AddressLayout PPPM_THERMAL_POLICY_EVENT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define PCF_RLSD 4
+     * {@snippet lang=c :
+     * typedef struct {
+     *     POWER_ACTION Action;
+     *     DWORD Flags;
+     *     DWORD EventCode;
+     * } *PPOWER_ACTION_POLICY
      * }
      */
-    public static int PCF_RLSD() {
-        return (int)4L;
-    }
+    public static final AddressLayout PPOWER_ACTION_POLICY = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define PCF_PARITY_CHECK 8
+     * {@snippet lang=c :
+     * typedef struct {
+     *     BOOLEAN Enable;
+     *     BYTE Spare[3];
+     *     DWORD BatteryLevel;
+     *     POWER_ACTION_POLICY PowerPolicy;
+     *     SYSTEM_POWER_STATE MinSystemState;
+     * } *PSYSTEM_POWER_LEVEL
      * }
      */
-    public static int PCF_PARITY_CHECK() {
-        return (int)8L;
-    }
+    public static final AddressLayout PSYSTEM_POWER_LEVEL = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define PCF_XONXOFF 16
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_POWER_POLICY {
+     *     DWORD Revision;
+     *     POWER_ACTION_POLICY PowerButton;
+     *     POWER_ACTION_POLICY SleepButton;
+     *     POWER_ACTION_POLICY LidClose;
+     *     SYSTEM_POWER_STATE LidOpenWake;
+     *     DWORD Reserved;
+     *     POWER_ACTION_POLICY Idle;
+     *     DWORD IdleTimeout;
+     *     BYTE IdleSensitivity;
+     *     BYTE DynamicThrottle;
+     *     BYTE Spare2[2];
+     *     SYSTEM_POWER_STATE MinSleep;
+     *     SYSTEM_POWER_STATE MaxSleep;
+     *     SYSTEM_POWER_STATE ReducedLatencySleep;
+     *     DWORD WinLogonFlags;
+     *     DWORD Spare3;
+     *     DWORD DozeS4Timeout;
+     *     DWORD BroadcastCapacityResolution;
+     *     SYSTEM_POWER_LEVEL DischargePolicy[4];
+     *     DWORD VideoTimeout;
+     *     BOOLEAN VideoDimDisplay;
+     *     DWORD VideoReserved[3];
+     *     DWORD SpindownTimeout;
+     *     BOOLEAN OptimizeForPower;
+     *     BYTE FanThrottleTolerance;
+     *     BYTE ForcedThrottle;
+     *     BYTE MinThrottle;
+     *     POWER_ACTION_POLICY OverThrottled;
+     * } *PSYSTEM_POWER_POLICY
      * }
      */
-    public static int PCF_XONXOFF() {
-        return (int)16L;
-    }
+    public static final AddressLayout PSYSTEM_POWER_POLICY = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define PCF_SETXCHAR 32
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD TimeCheck;
+     *     BYTE DemotePercent;
+     *     BYTE PromotePercent;
+     *     BYTE Spare[2];
+     * } *PPROCESSOR_IDLESTATE_INFO
      * }
      */
-    public static int PCF_SETXCHAR() {
-        return (int)32L;
-    }
+    public static final AddressLayout PPROCESSOR_IDLESTATE_INFO = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define PCF_TOTALTIMEOUTS 64
+     * {@snippet lang=c :
+     * typedef struct {
+     *     WORD Revision;
+     *     union {
+     *         WORD AsWORD;
+     *         struct {
+     *             WORD AllowScaling : 1;
+     *             WORD Disabled : 1;
+     *             WORD Reserved : 14;
+     *         };
+     *     } Flags;
+     *     DWORD PolicyCount;
+     *     PROCESSOR_IDLESTATE_INFO Policy[3];
+     * } *PPROCESSOR_IDLESTATE_POLICY
      * }
      */
-    public static int PCF_TOTALTIMEOUTS() {
-        return (int)64L;
+    public static final AddressLayout PPROCESSOR_IDLESTATE_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESSOR_POWER_POLICY_INFO {
+     *     DWORD TimeCheck;
+     *     DWORD DemoteLimit;
+     *     DWORD PromoteLimit;
+     *     BYTE DemotePercent;
+     *     BYTE PromotePercent;
+     *     BYTE Spare[2];
+     *     DWORD AllowDemotion : 1;
+     *     DWORD AllowPromotion : 1;
+     *     DWORD Reserved : 30;
+     * } *PPROCESSOR_POWER_POLICY_INFO
+     * }
+     */
+    public static final AddressLayout PPROCESSOR_POWER_POLICY_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESSOR_POWER_POLICY {
+     *     DWORD Revision;
+     *     BYTE DynamicThrottle;
+     *     BYTE Spare[3];
+     *     DWORD DisableCStates : 1;
+     *     DWORD Reserved : 31;
+     *     DWORD PolicyCount;
+     *     PROCESSOR_POWER_POLICY_INFO Policy[3];
+     * } *PPROCESSOR_POWER_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESSOR_POWER_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD Revision;
+     *     BYTE MaxThrottle;
+     *     BYTE MinThrottle;
+     *     BYTE BusyAdjThreshold;
+     *     union {
+     *         BYTE Spare;
+     *         union {
+     *             BYTE AsBYTE;
+     *             struct {
+     *                 BYTE NoDomainAccounting : 1;
+     *                 BYTE IncreasePolicy : 2;
+     *                 BYTE DecreasePolicy : 2;
+     *                 BYTE Reserved : 3;
+     *             };
+     *         } Flags;
+     *     };
+     *     DWORD TimeCheck;
+     *     DWORD IncreaseTime;
+     *     DWORD DecreaseTime;
+     *     DWORD IncreasePercent;
+     *     DWORD DecreasePercent;
+     * } *PPROCESSOR_PERFSTATE_POLICY
+     * }
+     */
+    public static final AddressLayout PPROCESSOR_PERFSTATE_POLICY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _ADMINISTRATOR_POWER_POLICY {
+     *     SYSTEM_POWER_STATE MinSleep;
+     *     SYSTEM_POWER_STATE MaxSleep;
+     *     DWORD MinVideoTimeout;
+     *     DWORD MaxVideoTimeout;
+     *     DWORD MinSpindownTimeout;
+     *     DWORD MaxSpindownTimeout;
+     * } *PADMINISTRATOR_POWER_POLICY
+     * }
+     */
+    public static final AddressLayout PADMINISTRATOR_POWER_POLICY = Windows_h.C_POINTER;
+    private static final int HiberFileBucket1GB = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucket1GB = 0
+     * }
+     */
+    public static int HiberFileBucket1GB() {
+        return HiberFileBucket1GB;
+    }
+    private static final int HiberFileBucket2GB = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucket2GB = 1
+     * }
+     */
+    public static int HiberFileBucket2GB() {
+        return HiberFileBucket2GB;
+    }
+    private static final int HiberFileBucket4GB = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucket4GB = 2
+     * }
+     */
+    public static int HiberFileBucket4GB() {
+        return HiberFileBucket4GB;
+    }
+    private static final int HiberFileBucket8GB = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucket8GB = 3
+     * }
+     */
+    public static int HiberFileBucket8GB() {
+        return HiberFileBucket8GB;
+    }
+    private static final int HiberFileBucket16GB = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucket16GB = 4
+     * }
+     */
+    public static int HiberFileBucket16GB() {
+        return HiberFileBucket16GB;
+    }
+    private static final int HiberFileBucket32GB = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucket32GB = 5
+     * }
+     */
+    public static int HiberFileBucket32GB() {
+        return HiberFileBucket32GB;
+    }
+    private static final int HiberFileBucketUnlimited = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucketUnlimited = 6
+     * }
+     */
+    public static int HiberFileBucketUnlimited() {
+        return HiberFileBucketUnlimited;
+    }
+    private static final int HiberFileBucketMax = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucketMax = 7
+     * }
+     */
+    public static int HiberFileBucketMax() {
+        return HiberFileBucketMax;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _HIBERFILE_BUCKET_SIZE {
+     *     HiberFileBucket1GB = 0,
+     *     HiberFileBucket2GB,
+     *     HiberFileBucket4GB,
+     *     HiberFileBucket8GB,
+     *     HiberFileBucket16GB,
+     *     HiberFileBucket32GB,
+     *     HiberFileBucketUnlimited,
+     *     HiberFileBucketMax
+     * } *PHIBERFILE_BUCKET_SIZE
+     * }
+     */
+    public static final AddressLayout PHIBERFILE_BUCKET_SIZE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _HIBERFILE_BUCKET {
+     *     DWORD64 MaxPhysicalMemory;
+     *     DWORD PhysicalMemoryPercent[3];
+     * } *PHIBERFILE_BUCKET
+     * }
+     */
+    public static final AddressLayout PHIBERFILE_BUCKET = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     BOOLEAN PowerButtonPresent;
+     *     BOOLEAN SleepButtonPresent;
+     *     BOOLEAN LidPresent;
+     *     BOOLEAN SystemS1;
+     *     BOOLEAN SystemS2;
+     *     BOOLEAN SystemS3;
+     *     BOOLEAN SystemS4;
+     *     BOOLEAN SystemS5;
+     *     BOOLEAN HiberFilePresent;
+     *     BOOLEAN FullWake;
+     *     BOOLEAN VideoDimPresent;
+     *     BOOLEAN ApmPresent;
+     *     BOOLEAN UpsPresent;
+     *     BOOLEAN ThermalControl;
+     *     BOOLEAN ProcessorThrottle;
+     *     BYTE ProcessorMinThrottle;
+     *     BYTE ProcessorMaxThrottle;
+     *     BOOLEAN FastSystemS4;
+     *     BOOLEAN Hiberboot;
+     *     BOOLEAN WakeAlarmPresent;
+     *     BOOLEAN AoAc;
+     *     BOOLEAN DiskSpinDown;
+     *     BYTE HiberFileType;
+     *     BOOLEAN AoAcConnectivitySupported;
+     *     BYTE spare3[6];
+     *     BOOLEAN SystemBatteriesPresent;
+     *     BOOLEAN BatteriesAreShortTerm;
+     *     BATTERY_REPORTING_SCALE BatteryScale[3];
+     *     SYSTEM_POWER_STATE AcOnLineWake;
+     *     SYSTEM_POWER_STATE SoftLidWake;
+     *     SYSTEM_POWER_STATE RtcWake;
+     *     SYSTEM_POWER_STATE MinDeviceWakeState;
+     *     SYSTEM_POWER_STATE DefaultLowLatencyWake;
+     * } *PSYSTEM_POWER_CAPABILITIES
+     * }
+     */
+    public static final AddressLayout PSYSTEM_POWER_CAPABILITIES = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     BOOLEAN AcOnLine;
+     *     BOOLEAN BatteryPresent;
+     *     BOOLEAN Charging;
+     *     BOOLEAN Discharging;
+     *     BOOLEAN Spare1[3];
+     *     BYTE Tag;
+     *     DWORD MaxCapacity;
+     *     DWORD RemainingCapacity;
+     *     DWORD Rate;
+     *     DWORD EstimatedTime;
+     *     DWORD DefaultAlert1;
+     *     DWORD DefaultAlert2;
+     * } *PSYSTEM_BATTERY_STATE
+     * }
+     */
+    public static final AddressLayout PSYSTEM_BATTERY_STATE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_DOS_HEADER {
+     *     WORD e_magic;
+     *     WORD e_cblp;
+     *     WORD e_cp;
+     *     WORD e_crlc;
+     *     WORD e_cparhdr;
+     *     WORD e_minalloc;
+     *     WORD e_maxalloc;
+     *     WORD e_ss;
+     *     WORD e_sp;
+     *     WORD e_csum;
+     *     WORD e_ip;
+     *     WORD e_cs;
+     *     WORD e_lfarlc;
+     *     WORD e_ovno;
+     *     WORD e_res[4];
+     *     WORD e_oemid;
+     *     WORD e_oeminfo;
+     *     WORD e_res2[10];
+     *     LONG e_lfanew;
+     * } *PIMAGE_DOS_HEADER
+     * }
+     */
+    public static final AddressLayout PIMAGE_DOS_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_OS2_HEADER {
+     *     WORD ne_magic;
+     *     CHAR ne_ver;
+     *     CHAR ne_rev;
+     *     WORD ne_enttab;
+     *     WORD ne_cbenttab;
+     *     LONG ne_crc;
+     *     WORD ne_flags;
+     *     WORD ne_autodata;
+     *     WORD ne_heap;
+     *     WORD ne_stack;
+     *     LONG ne_csip;
+     *     LONG ne_sssp;
+     *     WORD ne_cseg;
+     *     WORD ne_cmod;
+     *     WORD ne_cbnrestab;
+     *     WORD ne_segtab;
+     *     WORD ne_rsrctab;
+     *     WORD ne_restab;
+     *     WORD ne_modtab;
+     *     WORD ne_imptab;
+     *     LONG ne_nrestab;
+     *     WORD ne_cmovent;
+     *     WORD ne_align;
+     *     WORD ne_cres;
+     *     BYTE ne_exetyp;
+     *     BYTE ne_flagsothers;
+     *     WORD ne_pretthunks;
+     *     WORD ne_psegrefbytes;
+     *     WORD ne_swaparea;
+     *     WORD ne_expver;
+     * } *PIMAGE_OS2_HEADER
+     * }
+     */
+    public static final AddressLayout PIMAGE_OS2_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_VXD_HEADER {
+     *     WORD e32_magic;
+     *     BYTE e32_border;
+     *     BYTE e32_worder;
+     *     DWORD e32_level;
+     *     WORD e32_cpu;
+     *     WORD e32_os;
+     *     DWORD e32_ver;
+     *     DWORD e32_mflags;
+     *     DWORD e32_mpages;
+     *     DWORD e32_startobj;
+     *     DWORD e32_eip;
+     *     DWORD e32_stackobj;
+     *     DWORD e32_esp;
+     *     DWORD e32_pagesize;
+     *     DWORD e32_lastpagesize;
+     *     DWORD e32_fixupsize;
+     *     DWORD e32_fixupsum;
+     *     DWORD e32_ldrsize;
+     *     DWORD e32_ldrsum;
+     *     DWORD e32_objtab;
+     *     DWORD e32_objcnt;
+     *     DWORD e32_objmap;
+     *     DWORD e32_itermap;
+     *     DWORD e32_rsrctab;
+     *     DWORD e32_rsrccnt;
+     *     DWORD e32_restab;
+     *     DWORD e32_enttab;
+     *     DWORD e32_dirtab;
+     *     DWORD e32_dircnt;
+     *     DWORD e32_fpagetab;
+     *     DWORD e32_frectab;
+     *     DWORD e32_impmod;
+     *     DWORD e32_impmodcnt;
+     *     DWORD e32_impproc;
+     *     DWORD e32_pagesum;
+     *     DWORD e32_datapage;
+     *     DWORD e32_preload;
+     *     DWORD e32_nrestab;
+     *     DWORD e32_cbnrestab;
+     *     DWORD e32_nressum;
+     *     DWORD e32_autodata;
+     *     DWORD e32_debuginfo;
+     *     DWORD e32_debuglen;
+     *     DWORD e32_instpreload;
+     *     DWORD e32_instdemand;
+     *     DWORD e32_heapsize;
+     *     BYTE e32_res3[12];
+     *     DWORD e32_winresoff;
+     *     DWORD e32_winreslen;
+     *     WORD e32_devid;
+     *     WORD e32_ddkver;
+     * } *PIMAGE_VXD_HEADER
+     * }
+     */
+    public static final AddressLayout PIMAGE_VXD_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_FILE_HEADER {
+     *     WORD Machine;
+     *     WORD NumberOfSections;
+     *     DWORD TimeDateStamp;
+     *     DWORD PointerToSymbolTable;
+     *     DWORD NumberOfSymbols;
+     *     WORD SizeOfOptionalHeader;
+     *     WORD Characteristics;
+     * } *PIMAGE_FILE_HEADER
+     * }
+     */
+    public static final AddressLayout PIMAGE_FILE_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_DATA_DIRECTORY {
+     *     DWORD VirtualAddress;
+     *     DWORD Size;
+     * } *PIMAGE_DATA_DIRECTORY
+     * }
+     */
+    public static final AddressLayout PIMAGE_DATA_DIRECTORY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_OPTIONAL_HEADER {
+     *     WORD Magic;
+     *     BYTE MajorLinkerVersion;
+     *     BYTE MinorLinkerVersion;
+     *     DWORD SizeOfCode;
+     *     DWORD SizeOfInitializedData;
+     *     DWORD SizeOfUninitializedData;
+     *     DWORD AddressOfEntryPoint;
+     *     DWORD BaseOfCode;
+     *     DWORD BaseOfData;
+     *     DWORD ImageBase;
+     *     DWORD SectionAlignment;
+     *     DWORD FileAlignment;
+     *     WORD MajorOperatingSystemVersion;
+     *     WORD MinorOperatingSystemVersion;
+     *     WORD MajorImageVersion;
+     *     WORD MinorImageVersion;
+     *     WORD MajorSubsystemVersion;
+     *     WORD MinorSubsystemVersion;
+     *     DWORD Win32VersionValue;
+     *     DWORD SizeOfImage;
+     *     DWORD SizeOfHeaders;
+     *     DWORD CheckSum;
+     *     WORD Subsystem;
+     *     WORD DllCharacteristics;
+     *     DWORD SizeOfStackReserve;
+     *     DWORD SizeOfStackCommit;
+     *     DWORD SizeOfHeapReserve;
+     *     DWORD SizeOfHeapCommit;
+     *     DWORD LoaderFlags;
+     *     DWORD NumberOfRvaAndSizes;
+     *     IMAGE_DATA_DIRECTORY DataDirectory[16];
+     * } *PIMAGE_OPTIONAL_HEADER32
+     * }
+     */
+    public static final AddressLayout PIMAGE_OPTIONAL_HEADER32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_ROM_OPTIONAL_HEADER {
+     *     WORD Magic;
+     *     BYTE MajorLinkerVersion;
+     *     BYTE MinorLinkerVersion;
+     *     DWORD SizeOfCode;
+     *     DWORD SizeOfInitializedData;
+     *     DWORD SizeOfUninitializedData;
+     *     DWORD AddressOfEntryPoint;
+     *     DWORD BaseOfCode;
+     *     DWORD BaseOfData;
+     *     DWORD BaseOfBss;
+     *     DWORD GprMask;
+     *     DWORD CprMask[4];
+     *     DWORD GpValue;
+     * } *PIMAGE_ROM_OPTIONAL_HEADER
+     * }
+     */
+    public static final AddressLayout PIMAGE_ROM_OPTIONAL_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_OPTIONAL_HEADER64 {
+     *     WORD Magic;
+     *     BYTE MajorLinkerVersion;
+     *     BYTE MinorLinkerVersion;
+     *     DWORD SizeOfCode;
+     *     DWORD SizeOfInitializedData;
+     *     DWORD SizeOfUninitializedData;
+     *     DWORD AddressOfEntryPoint;
+     *     DWORD BaseOfCode;
+     *     ULONGLONG ImageBase;
+     *     DWORD SectionAlignment;
+     *     DWORD FileAlignment;
+     *     WORD MajorOperatingSystemVersion;
+     *     WORD MinorOperatingSystemVersion;
+     *     WORD MajorImageVersion;
+     *     WORD MinorImageVersion;
+     *     WORD MajorSubsystemVersion;
+     *     WORD MinorSubsystemVersion;
+     *     DWORD Win32VersionValue;
+     *     DWORD SizeOfImage;
+     *     DWORD SizeOfHeaders;
+     *     DWORD CheckSum;
+     *     WORD Subsystem;
+     *     WORD DllCharacteristics;
+     *     ULONGLONG SizeOfStackReserve;
+     *     ULONGLONG SizeOfStackCommit;
+     *     ULONGLONG SizeOfHeapReserve;
+     *     ULONGLONG SizeOfHeapCommit;
+     *     DWORD LoaderFlags;
+     *     DWORD NumberOfRvaAndSizes;
+     *     IMAGE_DATA_DIRECTORY DataDirectory[16];
+     * } *PIMAGE_OPTIONAL_HEADER64
+     * }
+     */
+    public static final AddressLayout PIMAGE_OPTIONAL_HEADER64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PIMAGE_OPTIONAL_HEADER64 PIMAGE_OPTIONAL_HEADER
+     * }
+     */
+    public static final AddressLayout PIMAGE_OPTIONAL_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_NT_HEADERS64 {
+     *     DWORD Signature;
+     *     IMAGE_FILE_HEADER FileHeader;
+     *     IMAGE_OPTIONAL_HEADER64 OptionalHeader;
+     * } *PIMAGE_NT_HEADERS64
+     * }
+     */
+    public static final AddressLayout PIMAGE_NT_HEADERS64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_NT_HEADERS {
+     *     DWORD Signature;
+     *     IMAGE_FILE_HEADER FileHeader;
+     *     IMAGE_OPTIONAL_HEADER32 OptionalHeader;
+     * } *PIMAGE_NT_HEADERS32
+     * }
+     */
+    public static final AddressLayout PIMAGE_NT_HEADERS32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_ROM_HEADERS {
+     *     IMAGE_FILE_HEADER FileHeader;
+     *     IMAGE_ROM_OPTIONAL_HEADER OptionalHeader;
+     * } *PIMAGE_ROM_HEADERS
+     * }
+     */
+    public static final AddressLayout PIMAGE_ROM_HEADERS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PIMAGE_NT_HEADERS64 PIMAGE_NT_HEADERS
+     * }
+     */
+    public static final AddressLayout PIMAGE_NT_HEADERS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_SECTION_HEADER {
+     *     BYTE Name[8];
+     *     union {
+     *         DWORD PhysicalAddress;
+     *         DWORD VirtualSize;
+     *     } Misc;
+     *     DWORD VirtualAddress;
+     *     DWORD SizeOfRawData;
+     *     DWORD PointerToRawData;
+     *     DWORD PointerToRelocations;
+     *     DWORD PointerToLinenumbers;
+     *     WORD NumberOfRelocations;
+     *     WORD NumberOfLinenumbers;
+     *     DWORD Characteristics;
+     * } *PIMAGE_SECTION_HEADER
+     * }
+     */
+    public static final AddressLayout PIMAGE_SECTION_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned IMAGE_SYMBOL *PIMAGE_SYMBOL
+     * }
+     */
+    public static final AddressLayout PIMAGE_SYMBOL = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned IMAGE_SYMBOL_EX *PIMAGE_SYMBOL_EX
+     * }
+     */
+    public static final AddressLayout PIMAGE_SYMBOL_EX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned IMAGE_AUX_SYMBOL_TOKEN_DEF *PIMAGE_AUX_SYMBOL_TOKEN_DEF
+     * }
+     */
+    public static final AddressLayout PIMAGE_AUX_SYMBOL_TOKEN_DEF = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned IMAGE_AUX_SYMBOL *PIMAGE_AUX_SYMBOL
+     * }
+     */
+    public static final AddressLayout PIMAGE_AUX_SYMBOL = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned IMAGE_AUX_SYMBOL_EX *PIMAGE_AUX_SYMBOL_EX
+     * }
+     */
+    public static final AddressLayout PIMAGE_AUX_SYMBOL_EX = Windows_h.C_POINTER;
+    private static final int IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum IMAGE_AUX_SYMBOL_TYPE.IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF = 1
+     * }
+     */
+    public static int IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF() {
+        return IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned IMAGE_RELOCATION *PIMAGE_RELOCATION
+     * }
+     */
+    public static final AddressLayout PIMAGE_RELOCATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned IMAGE_LINENUMBER *PIMAGE_LINENUMBER
+     * }
+     */
+    public static final AddressLayout PIMAGE_LINENUMBER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned IMAGE_BASE_RELOCATION *PIMAGE_BASE_RELOCATION
+     * }
+     */
+    public static final AddressLayout PIMAGE_BASE_RELOCATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_ARCHIVE_MEMBER_HEADER {
+     *     BYTE Name[16];
+     *     BYTE Date[12];
+     *     BYTE UserID[6];
+     *     BYTE GroupID[6];
+     *     BYTE Mode[8];
+     *     BYTE Size[10];
+     *     BYTE EndHeader[2];
+     * } *PIMAGE_ARCHIVE_MEMBER_HEADER
+     * }
+     */
+    public static final AddressLayout PIMAGE_ARCHIVE_MEMBER_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_EXPORT_DIRECTORY {
+     *     DWORD Characteristics;
+     *     DWORD TimeDateStamp;
+     *     WORD MajorVersion;
+     *     WORD MinorVersion;
+     *     DWORD Name;
+     *     DWORD Base;
+     *     DWORD NumberOfFunctions;
+     *     DWORD NumberOfNames;
+     *     DWORD AddressOfFunctions;
+     *     DWORD AddressOfNames;
+     *     DWORD AddressOfNameOrdinals;
+     * } *PIMAGE_EXPORT_DIRECTORY
+     * }
+     */
+    public static final AddressLayout PIMAGE_EXPORT_DIRECTORY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_IMPORT_BY_NAME {
+     *     WORD Hint;
+     *     CHAR Name[1];
+     * } *PIMAGE_IMPORT_BY_NAME
+     * }
+     */
+    public static final AddressLayout PIMAGE_IMPORT_BY_NAME = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef IMAGE_THUNK_DATA64 *PIMAGE_THUNK_DATA64
+     * }
+     */
+    public static final AddressLayout PIMAGE_THUNK_DATA64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef IMAGE_THUNK_DATA32 *PIMAGE_THUNK_DATA32
+     * }
+     */
+    public static final AddressLayout PIMAGE_THUNK_DATA32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef IMAGE_TLS_DIRECTORY64 *PIMAGE_TLS_DIRECTORY64
+     * }
+     */
+    public static final AddressLayout PIMAGE_TLS_DIRECTORY64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef IMAGE_TLS_DIRECTORY32 *PIMAGE_TLS_DIRECTORY32
+     * }
+     */
+    public static final AddressLayout PIMAGE_TLS_DIRECTORY32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PIMAGE_THUNK_DATA64 PIMAGE_THUNK_DATA
+     * }
+     */
+    public static final AddressLayout PIMAGE_THUNK_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PIMAGE_TLS_DIRECTORY64 PIMAGE_TLS_DIRECTORY
+     * }
+     */
+    public static final AddressLayout PIMAGE_TLS_DIRECTORY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned IMAGE_IMPORT_DESCRIPTOR *PIMAGE_IMPORT_DESCRIPTOR
+     * }
+     */
+    public static final AddressLayout PIMAGE_IMPORT_DESCRIPTOR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_BOUND_IMPORT_DESCRIPTOR {
+     *     DWORD TimeDateStamp;
+     *     WORD OffsetModuleName;
+     *     WORD NumberOfModuleForwarderRefs;
+     * } *PIMAGE_BOUND_IMPORT_DESCRIPTOR
+     * }
+     */
+    public static final AddressLayout PIMAGE_BOUND_IMPORT_DESCRIPTOR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_BOUND_FORWARDER_REF {
+     *     DWORD TimeDateStamp;
+     *     WORD OffsetModuleName;
+     *     WORD Reserved;
+     * } *PIMAGE_BOUND_FORWARDER_REF
+     * }
+     */
+    public static final AddressLayout PIMAGE_BOUND_FORWARDER_REF = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_DELAYLOAD_DESCRIPTOR {
+     *     union {
+     *         DWORD AllAttributes;
+     *         struct {
+     *             DWORD RvaBased : 1;
+     *             DWORD ReservedAttributes : 31;
+     *         };
+     *     } Attributes;
+     *     DWORD DllNameRVA;
+     *     DWORD ModuleHandleRVA;
+     *     DWORD ImportAddressTableRVA;
+     *     DWORD ImportNameTableRVA;
+     *     DWORD BoundImportAddressTableRVA;
+     *     DWORD UnloadInformationTableRVA;
+     *     DWORD TimeDateStamp;
+     * } *PIMAGE_DELAYLOAD_DESCRIPTOR
+     * }
+     */
+    public static final AddressLayout PIMAGE_DELAYLOAD_DESCRIPTOR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const IMAGE_DELAYLOAD_DESCRIPTOR *PCIMAGE_DELAYLOAD_DESCRIPTOR
+     * }
+     */
+    public static final AddressLayout PCIMAGE_DELAYLOAD_DESCRIPTOR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_RESOURCE_DIRECTORY {
+     *     DWORD Characteristics;
+     *     DWORD TimeDateStamp;
+     *     WORD MajorVersion;
+     *     WORD MinorVersion;
+     *     WORD NumberOfNamedEntries;
+     *     WORD NumberOfIdEntries;
+     * } *PIMAGE_RESOURCE_DIRECTORY
+     * }
+     */
+    public static final AddressLayout PIMAGE_RESOURCE_DIRECTORY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_RESOURCE_DIRECTORY_ENTRY {
+     *     union {
+     *         struct {
+     *             DWORD NameOffset : 31;
+     *             DWORD NameIsString : 1;
+     *         };
+     *         DWORD Name;
+     *         WORD Id;
+     *     };
+     *     union {
+     *         DWORD OffsetToData;
+     *         struct {
+     *             DWORD OffsetToDirectory : 31;
+     *             DWORD DataIsDirectory : 1;
+     *         };
+     *     };
+     * } *PIMAGE_RESOURCE_DIRECTORY_ENTRY
+     * }
+     */
+    public static final AddressLayout PIMAGE_RESOURCE_DIRECTORY_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_RESOURCE_DIRECTORY_STRING {
+     *     WORD Length;
+     *     CHAR NameString[1];
+     * } *PIMAGE_RESOURCE_DIRECTORY_STRING
+     * }
+     */
+    public static final AddressLayout PIMAGE_RESOURCE_DIRECTORY_STRING = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_RESOURCE_DIR_STRING_U {
+     *     WORD Length;
+     *     WCHAR NameString[1];
+     * } *PIMAGE_RESOURCE_DIR_STRING_U
+     * }
+     */
+    public static final AddressLayout PIMAGE_RESOURCE_DIR_STRING_U = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_RESOURCE_DATA_ENTRY {
+     *     DWORD OffsetToData;
+     *     DWORD Size;
+     *     DWORD CodePage;
+     *     DWORD Reserved;
+     * } *PIMAGE_RESOURCE_DATA_ENTRY
+     * }
+     */
+    public static final AddressLayout PIMAGE_RESOURCE_DATA_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_LOAD_CONFIG_CODE_INTEGRITY {
+     *     WORD Flags;
+     *     WORD Catalog;
+     *     DWORD CatalogOffset;
+     *     DWORD Reserved;
+     * } *PIMAGE_LOAD_CONFIG_CODE_INTEGRITY
+     * }
+     */
+    public static final AddressLayout PIMAGE_LOAD_CONFIG_CODE_INTEGRITY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_DYNAMIC_RELOCATION_TABLE {
+     *     DWORD Version;
+     *     DWORD Size;
+     * } *PIMAGE_DYNAMIC_RELOCATION_TABLE
+     * }
+     */
+    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION_TABLE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_DYNAMIC_RELOCATION32 {
+     *     DWORD Symbol;
+     *     DWORD BaseRelocSize;
+     * } *PIMAGE_DYNAMIC_RELOCATION32
+     * }
+     */
+    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_DYNAMIC_RELOCATION64 {
+     *     ULONGLONG Symbol;
+     *     DWORD BaseRelocSize;
+     * } *PIMAGE_DYNAMIC_RELOCATION64
+     * }
+     */
+    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_DYNAMIC_RELOCATION32_V2 {
+     *     DWORD HeaderSize;
+     *     DWORD FixupInfoSize;
+     *     DWORD Symbol;
+     *     DWORD SymbolGroup;
+     *     DWORD Flags;
+     * } *PIMAGE_DYNAMIC_RELOCATION32_V2
+     * }
+     */
+    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION32_V2 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_DYNAMIC_RELOCATION64_V2 {
+     *     DWORD HeaderSize;
+     *     DWORD FixupInfoSize;
+     *     ULONGLONG Symbol;
+     *     DWORD SymbolGroup;
+     *     DWORD Flags;
+     * } *PIMAGE_DYNAMIC_RELOCATION64_V2
+     * }
+     */
+    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION64_V2 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PIMAGE_DYNAMIC_RELOCATION64 PIMAGE_DYNAMIC_RELOCATION
+     * }
+     */
+    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PIMAGE_DYNAMIC_RELOCATION64_V2 PIMAGE_DYNAMIC_RELOCATION_V2
+     * }
+     */
+    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION_V2 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned IMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER *PIMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER
+     * }
+     */
+    public static final AddressLayout PIMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER *PIMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER
+     * }
+     */
+    public static final AddressLayout PIMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned IMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION *PIMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION
+     * }
+     */
+    public static final AddressLayout PIMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned IMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION *PIMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION
+     * }
+     */
+    public static final AddressLayout PIMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned IMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION *PIMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION
+     * }
+     */
+    public static final AddressLayout PIMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_LOAD_CONFIG_DIRECTORY32 {
+     *     DWORD Size;
+     *     DWORD TimeDateStamp;
+     *     WORD MajorVersion;
+     *     WORD MinorVersion;
+     *     DWORD GlobalFlagsClear;
+     *     DWORD GlobalFlagsSet;
+     *     DWORD CriticalSectionDefaultTimeout;
+     *     DWORD DeCommitFreeBlockThreshold;
+     *     DWORD DeCommitTotalFreeThreshold;
+     *     DWORD LockPrefixTable;
+     *     DWORD MaximumAllocationSize;
+     *     DWORD VirtualMemoryThreshold;
+     *     DWORD ProcessHeapFlags;
+     *     DWORD ProcessAffinityMask;
+     *     WORD CSDVersion;
+     *     WORD DependentLoadFlags;
+     *     DWORD EditList;
+     *     DWORD SecurityCookie;
+     *     DWORD SEHandlerTable;
+     *     DWORD SEHandlerCount;
+     *     DWORD GuardCFCheckFunctionPointer;
+     *     DWORD GuardCFDispatchFunctionPointer;
+     *     DWORD GuardCFFunctionTable;
+     *     DWORD GuardCFFunctionCount;
+     *     DWORD GuardFlags;
+     *     IMAGE_LOAD_CONFIG_CODE_INTEGRITY CodeIntegrity;
+     *     DWORD GuardAddressTakenIatEntryTable;
+     *     DWORD GuardAddressTakenIatEntryCount;
+     *     DWORD GuardLongJumpTargetTable;
+     *     DWORD GuardLongJumpTargetCount;
+     *     DWORD DynamicValueRelocTable;
+     *     DWORD CHPEMetadataPointer;
+     *     DWORD GuardRFFailureRoutine;
+     *     DWORD GuardRFFailureRoutineFunctionPointer;
+     *     DWORD DynamicValueRelocTableOffset;
+     *     WORD DynamicValueRelocTableSection;
+     *     WORD Reserved2;
+     *     DWORD GuardRFVerifyStackPointerFunctionPointer;
+     *     DWORD HotPatchTableOffset;
+     *     DWORD Reserved3;
+     *     DWORD EnclaveConfigurationPointer;
+     *     DWORD VolatileMetadataPointer;
+     *     DWORD GuardEHContinuationTable;
+     *     DWORD GuardEHContinuationCount;
+     *     DWORD GuardXFGCheckFunctionPointer;
+     *     DWORD GuardXFGDispatchFunctionPointer;
+     *     DWORD GuardXFGTableDispatchFunctionPointer;
+     *     DWORD CastGuardOsDeterminedFailureMode;
+     * } *PIMAGE_LOAD_CONFIG_DIRECTORY32
+     * }
+     */
+    public static final AddressLayout PIMAGE_LOAD_CONFIG_DIRECTORY32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_LOAD_CONFIG_DIRECTORY64 {
+     *     DWORD Size;
+     *     DWORD TimeDateStamp;
+     *     WORD MajorVersion;
+     *     WORD MinorVersion;
+     *     DWORD GlobalFlagsClear;
+     *     DWORD GlobalFlagsSet;
+     *     DWORD CriticalSectionDefaultTimeout;
+     *     ULONGLONG DeCommitFreeBlockThreshold;
+     *     ULONGLONG DeCommitTotalFreeThreshold;
+     *     ULONGLONG LockPrefixTable;
+     *     ULONGLONG MaximumAllocationSize;
+     *     ULONGLONG VirtualMemoryThreshold;
+     *     ULONGLONG ProcessAffinityMask;
+     *     DWORD ProcessHeapFlags;
+     *     WORD CSDVersion;
+     *     WORD DependentLoadFlags;
+     *     ULONGLONG EditList;
+     *     ULONGLONG SecurityCookie;
+     *     ULONGLONG SEHandlerTable;
+     *     ULONGLONG SEHandlerCount;
+     *     ULONGLONG GuardCFCheckFunctionPointer;
+     *     ULONGLONG GuardCFDispatchFunctionPointer;
+     *     ULONGLONG GuardCFFunctionTable;
+     *     ULONGLONG GuardCFFunctionCount;
+     *     DWORD GuardFlags;
+     *     IMAGE_LOAD_CONFIG_CODE_INTEGRITY CodeIntegrity;
+     *     ULONGLONG GuardAddressTakenIatEntryTable;
+     *     ULONGLONG GuardAddressTakenIatEntryCount;
+     *     ULONGLONG GuardLongJumpTargetTable;
+     *     ULONGLONG GuardLongJumpTargetCount;
+     *     ULONGLONG DynamicValueRelocTable;
+     *     ULONGLONG CHPEMetadataPointer;
+     *     ULONGLONG GuardRFFailureRoutine;
+     *     ULONGLONG GuardRFFailureRoutineFunctionPointer;
+     *     DWORD DynamicValueRelocTableOffset;
+     *     WORD DynamicValueRelocTableSection;
+     *     WORD Reserved2;
+     *     ULONGLONG GuardRFVerifyStackPointerFunctionPointer;
+     *     DWORD HotPatchTableOffset;
+     *     DWORD Reserved3;
+     *     ULONGLONG EnclaveConfigurationPointer;
+     *     ULONGLONG VolatileMetadataPointer;
+     *     ULONGLONG GuardEHContinuationTable;
+     *     ULONGLONG GuardEHContinuationCount;
+     *     ULONGLONG GuardXFGCheckFunctionPointer;
+     *     ULONGLONG GuardXFGDispatchFunctionPointer;
+     *     ULONGLONG GuardXFGTableDispatchFunctionPointer;
+     *     ULONGLONG CastGuardOsDeterminedFailureMode;
+     * } *PIMAGE_LOAD_CONFIG_DIRECTORY64
+     * }
+     */
+    public static final AddressLayout PIMAGE_LOAD_CONFIG_DIRECTORY64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PIMAGE_LOAD_CONFIG_DIRECTORY64 PIMAGE_LOAD_CONFIG_DIRECTORY
+     * }
+     */
+    public static final AddressLayout PIMAGE_LOAD_CONFIG_DIRECTORY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_HOT_PATCH_INFO {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD SequenceNumber;
+     *     DWORD BaseImageList;
+     *     DWORD BaseImageCount;
+     *     DWORD BufferOffset;
+     *     DWORD ExtraPatchSize;
+     * } *PIMAGE_HOT_PATCH_INFO
+     * }
+     */
+    public static final AddressLayout PIMAGE_HOT_PATCH_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_HOT_PATCH_BASE {
+     *     DWORD SequenceNumber;
+     *     DWORD Flags;
+     *     DWORD OriginalTimeDateStamp;
+     *     DWORD OriginalCheckSum;
+     *     DWORD CodeIntegrityInfo;
+     *     DWORD CodeIntegritySize;
+     *     DWORD PatchTable;
+     *     DWORD BufferOffset;
+     * } *PIMAGE_HOT_PATCH_BASE
+     * }
+     */
+    public static final AddressLayout PIMAGE_HOT_PATCH_BASE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_HOT_PATCH_HASHES {
+     *     BYTE SHA256[32];
+     *     BYTE SHA1[20];
+     * } *PIMAGE_HOT_PATCH_HASHES
+     * }
+     */
+    public static final AddressLayout PIMAGE_HOT_PATCH_HASHES = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_CE_RUNTIME_FUNCTION_ENTRY {
+     *     DWORD FuncStart;
+     *     DWORD PrologLen : 8;
+     *     DWORD FuncLen : 22;
+     *     DWORD ThirtyTwoBit : 1;
+     *     DWORD ExceptionFlag : 1;
+     * } *PIMAGE_CE_RUNTIME_FUNCTION_ENTRY
+     * }
+     */
+    public static final AddressLayout PIMAGE_CE_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_ARM_RUNTIME_FUNCTION_ENTRY {
+     *     DWORD BeginAddress;
+     *     union {
+     *         DWORD UnwindData;
+     *         struct {
+     *             DWORD Flag : 2;
+     *             DWORD FunctionLength : 11;
+     *             DWORD Ret : 2;
+     *             DWORD H : 1;
+     *             DWORD Reg : 3;
+     *             DWORD R : 1;
+     *             DWORD L : 1;
+     *             DWORD C : 1;
+     *             DWORD StackAdjust : 10;
+     *         };
+     *     };
+     * } *PIMAGE_ARM_RUNTIME_FUNCTION_ENTRY
+     * }
+     */
+    public static final AddressLayout PIMAGE_ARM_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    private static final int PdataRefToFullXdata = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum ARM64_FNPDATA_FLAGS.PdataRefToFullXdata = 0
+     * }
+     */
+    public static int PdataRefToFullXdata() {
+        return PdataRefToFullXdata;
+    }
+    private static final int PdataPackedUnwindFunction = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum ARM64_FNPDATA_FLAGS.PdataPackedUnwindFunction = 1
+     * }
+     */
+    public static int PdataPackedUnwindFunction() {
+        return PdataPackedUnwindFunction;
+    }
+    private static final int PdataPackedUnwindFragment = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum ARM64_FNPDATA_FLAGS.PdataPackedUnwindFragment = 2
+     * }
+     */
+    public static int PdataPackedUnwindFragment() {
+        return PdataPackedUnwindFragment;
+    }
+    private static final int PdataCrUnchained = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum ARM64_FNPDATA_CR.PdataCrUnchained = 0
+     * }
+     */
+    public static int PdataCrUnchained() {
+        return PdataCrUnchained;
+    }
+    private static final int PdataCrUnchainedSavedLr = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum ARM64_FNPDATA_CR.PdataCrUnchainedSavedLr = 1
+     * }
+     */
+    public static int PdataCrUnchainedSavedLr() {
+        return PdataCrUnchainedSavedLr;
+    }
+    private static final int PdataCrChainedWithPac = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum ARM64_FNPDATA_CR.PdataCrChainedWithPac = 2
+     * }
+     */
+    public static int PdataCrChainedWithPac() {
+        return PdataCrChainedWithPac;
+    }
+    private static final int PdataCrChained = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum ARM64_FNPDATA_CR.PdataCrChained = 3
+     * }
+     */
+    public static int PdataCrChained() {
+        return PdataCrChained;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY {
+     *     DWORD BeginAddress;
+     *     union {
+     *         DWORD UnwindData;
+     *         struct {
+     *             DWORD Flag : 2;
+     *             DWORD FunctionLength : 11;
+     *             DWORD RegF : 3;
+     *             DWORD RegI : 4;
+     *             DWORD H : 1;
+     *             DWORD CR : 2;
+     *             DWORD FrameSize : 9;
+     *         };
+     *     };
+     * } *PIMAGE_ARM64_RUNTIME_FUNCTION_ENTRY
+     * }
+     */
+    public static final AddressLayout PIMAGE_ARM64_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY {
+     *     ULONGLONG BeginAddress;
+     *     ULONGLONG EndAddress;
+     *     ULONGLONG ExceptionHandler;
+     *     ULONGLONG HandlerData;
+     *     ULONGLONG PrologEndAddress;
+     * } *PIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY
+     * }
+     */
+    public static final AddressLayout PIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY {
+     *     DWORD BeginAddress;
+     *     DWORD EndAddress;
+     *     DWORD ExceptionHandler;
+     *     DWORD HandlerData;
+     *     DWORD PrologEndAddress;
+     * } *PIMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY
+     * }
+     */
+    public static final AddressLayout PIMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_RUNTIME_FUNCTION_ENTRY {
+     *     DWORD BeginAddress;
+     *     DWORD EndAddress;
+     *     union {
+     *         DWORD UnwindInfoAddress;
+     *         DWORD UnwindData;
+     *     };
+     * } *_PIMAGE_RUNTIME_FUNCTION_ENTRY
+     * }
+     */
+    public static final AddressLayout _PIMAGE_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef _PIMAGE_RUNTIME_FUNCTION_ENTRY PIMAGE_IA64_RUNTIME_FUNCTION_ENTRY
+     * }
+     */
+    public static final AddressLayout PIMAGE_IA64_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef _PIMAGE_RUNTIME_FUNCTION_ENTRY PIMAGE_AMD64_RUNTIME_FUNCTION_ENTRY
+     * }
+     */
+    public static final AddressLayout PIMAGE_AMD64_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef _PIMAGE_RUNTIME_FUNCTION_ENTRY PIMAGE_RUNTIME_FUNCTION_ENTRY
+     * }
+     */
+    public static final AddressLayout PIMAGE_RUNTIME_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_ENCLAVE_CONFIG32 {
+     *     DWORD Size;
+     *     DWORD MinimumRequiredConfigSize;
+     *     DWORD PolicyFlags;
+     *     DWORD NumberOfImports;
+     *     DWORD ImportList;
+     *     DWORD ImportEntrySize;
+     *     BYTE FamilyID[16];
+     *     BYTE ImageID[16];
+     *     DWORD ImageVersion;
+     *     DWORD SecurityVersion;
+     *     DWORD EnclaveSize;
+     *     DWORD NumberOfThreads;
+     *     DWORD EnclaveFlags;
+     * } *PIMAGE_ENCLAVE_CONFIG32
+     * }
+     */
+    public static final AddressLayout PIMAGE_ENCLAVE_CONFIG32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_ENCLAVE_CONFIG64 {
+     *     DWORD Size;
+     *     DWORD MinimumRequiredConfigSize;
+     *     DWORD PolicyFlags;
+     *     DWORD NumberOfImports;
+     *     DWORD ImportList;
+     *     DWORD ImportEntrySize;
+     *     BYTE FamilyID[16];
+     *     BYTE ImageID[16];
+     *     DWORD ImageVersion;
+     *     DWORD SecurityVersion;
+     *     ULONGLONG EnclaveSize;
+     *     DWORD NumberOfThreads;
+     *     DWORD EnclaveFlags;
+     * } *PIMAGE_ENCLAVE_CONFIG64
+     * }
+     */
+    public static final AddressLayout PIMAGE_ENCLAVE_CONFIG64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PIMAGE_ENCLAVE_CONFIG64 PIMAGE_ENCLAVE_CONFIG
+     * }
+     */
+    public static final AddressLayout PIMAGE_ENCLAVE_CONFIG = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_ENCLAVE_IMPORT {
+     *     DWORD MatchType;
+     *     DWORD MinimumSecurityVersion;
+     *     BYTE UniqueOrAuthorID[32];
+     *     BYTE FamilyID[16];
+     *     BYTE ImageID[16];
+     *     DWORD ImportName;
+     *     DWORD Reserved;
+     * } *PIMAGE_ENCLAVE_IMPORT
+     * }
+     */
+    public static final AddressLayout PIMAGE_ENCLAVE_IMPORT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_DEBUG_DIRECTORY {
+     *     DWORD Characteristics;
+     *     DWORD TimeDateStamp;
+     *     WORD MajorVersion;
+     *     WORD MinorVersion;
+     *     DWORD Type;
+     *     DWORD SizeOfData;
+     *     DWORD AddressOfRawData;
+     *     DWORD PointerToRawData;
+     * } *PIMAGE_DEBUG_DIRECTORY
+     * }
+     */
+    public static final AddressLayout PIMAGE_DEBUG_DIRECTORY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_COFF_SYMBOLS_HEADER {
+     *     DWORD NumberOfSymbols;
+     *     DWORD LvaToFirstSymbol;
+     *     DWORD NumberOfLinenumbers;
+     *     DWORD LvaToFirstLinenumber;
+     *     DWORD RvaToFirstByteOfCode;
+     *     DWORD RvaToLastByteOfCode;
+     *     DWORD RvaToFirstByteOfData;
+     *     DWORD RvaToLastByteOfData;
+     * } *PIMAGE_COFF_SYMBOLS_HEADER
+     * }
+     */
+    public static final AddressLayout PIMAGE_COFF_SYMBOLS_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FPO_DATA {
+     *     DWORD ulOffStart;
+     *     DWORD cbProcSize;
+     *     DWORD cdwLocals;
+     *     WORD cdwParams;
+     *     WORD cbProlog : 8;
+     *     WORD cbRegs : 3;
+     *     WORD fHasSEH : 1;
+     *     WORD fUseBP : 1;
+     *     WORD reserved : 1;
+     *     WORD cbFrame : 2;
+     * } *PFPO_DATA
+     * }
+     */
+    public static final AddressLayout PFPO_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_DEBUG_MISC {
+     *     DWORD DataType;
+     *     DWORD Length;
+     *     BOOLEAN Unicode;
+     *     BYTE Reserved[3];
+     *     BYTE Data[1];
+     * } *PIMAGE_DEBUG_MISC
+     * }
+     */
+    public static final AddressLayout PIMAGE_DEBUG_MISC = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_FUNCTION_ENTRY {
+     *     DWORD StartingAddress;
+     *     DWORD EndingAddress;
+     *     DWORD EndOfPrologue;
+     * } *PIMAGE_FUNCTION_ENTRY
+     * }
+     */
+    public static final AddressLayout PIMAGE_FUNCTION_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_FUNCTION_ENTRY64 {
+     *     ULONGLONG StartingAddress;
+     *     ULONGLONG EndingAddress;
+     *     union {
+     *         ULONGLONG EndOfPrologue;
+     *         ULONGLONG UnwindInfoAddress;
+     *     };
+     * } *PIMAGE_FUNCTION_ENTRY64
+     * }
+     */
+    public static final AddressLayout PIMAGE_FUNCTION_ENTRY64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_SEPARATE_DEBUG_HEADER {
+     *     WORD Signature;
+     *     WORD Flags;
+     *     WORD Machine;
+     *     WORD Characteristics;
+     *     DWORD TimeDateStamp;
+     *     DWORD CheckSum;
+     *     DWORD ImageBase;
+     *     DWORD SizeOfImage;
+     *     DWORD NumberOfSections;
+     *     DWORD ExportedNamesSize;
+     *     DWORD DebugDirectorySize;
+     *     DWORD SectionAlignment;
+     *     DWORD Reserved[2];
+     * } *PIMAGE_SEPARATE_DEBUG_HEADER
+     * }
+     */
+    public static final AddressLayout PIMAGE_SEPARATE_DEBUG_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _NON_PAGED_DEBUG_INFO {
+     *     WORD Signature;
+     *     WORD Flags;
+     *     DWORD Size;
+     *     WORD Machine;
+     *     WORD Characteristics;
+     *     DWORD TimeDateStamp;
+     *     DWORD CheckSum;
+     *     DWORD SizeOfImage;
+     *     ULONGLONG ImageBase;
+     * } *PNON_PAGED_DEBUG_INFO
+     * }
+     */
+    public static final AddressLayout PNON_PAGED_DEBUG_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _ImageArchitectureHeader {
+     *     unsigned int AmaskValue : 1;
+     *     int : 7;
+     *     unsigned int AmaskShift : 8;
+     *     int : 16;
+     *     DWORD FirstEntryRVA;
+     * } *PIMAGE_ARCHITECTURE_HEADER
+     * }
+     */
+    public static final AddressLayout PIMAGE_ARCHITECTURE_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _ImageArchitectureEntry {
+     *     DWORD FixupInstRVA;
+     *     DWORD NewInst;
+     * } *PIMAGE_ARCHITECTURE_ENTRY
+     * }
+     */
+    public static final AddressLayout PIMAGE_ARCHITECTURE_ENTRY = Windows_h.C_POINTER;
+    private static final int IMPORT_OBJECT_CODE = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum IMPORT_OBJECT_TYPE.IMPORT_OBJECT_CODE = 0
+     * }
+     */
+    public static int IMPORT_OBJECT_CODE() {
+        return IMPORT_OBJECT_CODE;
+    }
+    private static final int IMPORT_OBJECT_DATA = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum IMPORT_OBJECT_TYPE.IMPORT_OBJECT_DATA = 1
+     * }
+     */
+    public static int IMPORT_OBJECT_DATA() {
+        return IMPORT_OBJECT_DATA;
+    }
+    private static final int IMPORT_OBJECT_CONST = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum IMPORT_OBJECT_TYPE.IMPORT_OBJECT_CONST = 2
+     * }
+     */
+    public static int IMPORT_OBJECT_CONST() {
+        return IMPORT_OBJECT_CONST;
+    }
+    private static final int IMPORT_OBJECT_ORDINAL = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum IMPORT_OBJECT_NAME_TYPE.IMPORT_OBJECT_ORDINAL = 0
+     * }
+     */
+    public static int IMPORT_OBJECT_ORDINAL() {
+        return IMPORT_OBJECT_ORDINAL;
+    }
+    private static final int IMPORT_OBJECT_NAME = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum IMPORT_OBJECT_NAME_TYPE.IMPORT_OBJECT_NAME = 1
+     * }
+     */
+    public static int IMPORT_OBJECT_NAME() {
+        return IMPORT_OBJECT_NAME;
+    }
+    private static final int IMPORT_OBJECT_NAME_NO_PREFIX = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum IMPORT_OBJECT_NAME_TYPE.IMPORT_OBJECT_NAME_NO_PREFIX = 2
+     * }
+     */
+    public static int IMPORT_OBJECT_NAME_NO_PREFIX() {
+        return IMPORT_OBJECT_NAME_NO_PREFIX;
+    }
+    private static final int IMPORT_OBJECT_NAME_UNDECORATE = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum IMPORT_OBJECT_NAME_TYPE.IMPORT_OBJECT_NAME_UNDECORATE = 3
+     * }
+     */
+    public static int IMPORT_OBJECT_NAME_UNDECORATE() {
+        return IMPORT_OBJECT_NAME_UNDECORATE;
+    }
+    private static final int IMPORT_OBJECT_NAME_EXPORTAS = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum IMPORT_OBJECT_NAME_TYPE.IMPORT_OBJECT_NAME_EXPORTAS = 4
+     * }
+     */
+    public static int IMPORT_OBJECT_NAME_EXPORTAS() {
+        return IMPORT_OBJECT_NAME_EXPORTAS;
+    }
+    private static final int COMIMAGE_FLAGS_ILONLY = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COMIMAGE_FLAGS_ILONLY = 1
+     * }
+     */
+    public static int COMIMAGE_FLAGS_ILONLY() {
+        return COMIMAGE_FLAGS_ILONLY;
+    }
+    private static final int COMIMAGE_FLAGS_32BITREQUIRED = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COMIMAGE_FLAGS_32BITREQUIRED = 2
+     * }
+     */
+    public static int COMIMAGE_FLAGS_32BITREQUIRED() {
+        return COMIMAGE_FLAGS_32BITREQUIRED;
+    }
+    private static final int COMIMAGE_FLAGS_IL_LIBRARY = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COMIMAGE_FLAGS_IL_LIBRARY = 4
+     * }
+     */
+    public static int COMIMAGE_FLAGS_IL_LIBRARY() {
+        return COMIMAGE_FLAGS_IL_LIBRARY;
+    }
+    private static final int COMIMAGE_FLAGS_STRONGNAMESIGNED = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COMIMAGE_FLAGS_STRONGNAMESIGNED = 8
+     * }
+     */
+    public static int COMIMAGE_FLAGS_STRONGNAMESIGNED() {
+        return COMIMAGE_FLAGS_STRONGNAMESIGNED;
+    }
+    private static final int COMIMAGE_FLAGS_NATIVE_ENTRYPOINT = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COMIMAGE_FLAGS_NATIVE_ENTRYPOINT = 16
+     * }
+     */
+    public static int COMIMAGE_FLAGS_NATIVE_ENTRYPOINT() {
+        return COMIMAGE_FLAGS_NATIVE_ENTRYPOINT;
+    }
+    private static final int COMIMAGE_FLAGS_TRACKDEBUGDATA = (int)65536L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COMIMAGE_FLAGS_TRACKDEBUGDATA = 65536
+     * }
+     */
+    public static int COMIMAGE_FLAGS_TRACKDEBUGDATA() {
+        return COMIMAGE_FLAGS_TRACKDEBUGDATA;
+    }
+    private static final int COMIMAGE_FLAGS_32BITPREFERRED = (int)131072L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COMIMAGE_FLAGS_32BITPREFERRED = 131072
+     * }
+     */
+    public static int COMIMAGE_FLAGS_32BITPREFERRED() {
+        return COMIMAGE_FLAGS_32BITPREFERRED;
+    }
+    private static final int COR_VERSION_MAJOR_V2 = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COR_VERSION_MAJOR_V2 = 2
+     * }
+     */
+    public static int COR_VERSION_MAJOR_V2() {
+        return COR_VERSION_MAJOR_V2;
+    }
+    private static final int COR_VERSION_MAJOR = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COR_VERSION_MAJOR = 2
+     * }
+     */
+    public static int COR_VERSION_MAJOR() {
+        return COR_VERSION_MAJOR;
+    }
+    private static final int COR_VERSION_MINOR = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COR_VERSION_MINOR = 5
+     * }
+     */
+    public static int COR_VERSION_MINOR() {
+        return COR_VERSION_MINOR;
+    }
+    private static final int COR_DELETED_NAME_LENGTH = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COR_DELETED_NAME_LENGTH = 8
+     * }
+     */
+    public static int COR_DELETED_NAME_LENGTH() {
+        return COR_DELETED_NAME_LENGTH;
+    }
+    private static final int COR_VTABLEGAP_NAME_LENGTH = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COR_VTABLEGAP_NAME_LENGTH = 8
+     * }
+     */
+    public static int COR_VTABLEGAP_NAME_LENGTH() {
+        return COR_VTABLEGAP_NAME_LENGTH;
+    }
+    private static final int NATIVE_TYPE_MAX_CB = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.NATIVE_TYPE_MAX_CB = 1
+     * }
+     */
+    public static int NATIVE_TYPE_MAX_CB() {
+        return NATIVE_TYPE_MAX_CB;
+    }
+    private static final int COR_ILMETHOD_SECT_SMALL_MAX_DATASIZE = (int)255L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COR_ILMETHOD_SECT_SMALL_MAX_DATASIZE = 255
+     * }
+     */
+    public static int COR_ILMETHOD_SECT_SMALL_MAX_DATASIZE() {
+        return COR_ILMETHOD_SECT_SMALL_MAX_DATASIZE;
+    }
+    private static final int IMAGE_COR_MIH_METHODRVA = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.IMAGE_COR_MIH_METHODRVA = 1
+     * }
+     */
+    public static int IMAGE_COR_MIH_METHODRVA() {
+        return IMAGE_COR_MIH_METHODRVA;
+    }
+    private static final int IMAGE_COR_MIH_EHRVA = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.IMAGE_COR_MIH_EHRVA = 2
+     * }
+     */
+    public static int IMAGE_COR_MIH_EHRVA() {
+        return IMAGE_COR_MIH_EHRVA;
+    }
+    private static final int IMAGE_COR_MIH_BASICBLOCK = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.IMAGE_COR_MIH_BASICBLOCK = 8
+     * }
+     */
+    public static int IMAGE_COR_MIH_BASICBLOCK() {
+        return IMAGE_COR_MIH_BASICBLOCK;
+    }
+    private static final int COR_VTABLE_32BIT = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COR_VTABLE_32BIT = 1
+     * }
+     */
+    public static int COR_VTABLE_32BIT() {
+        return COR_VTABLE_32BIT;
+    }
+    private static final int COR_VTABLE_64BIT = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COR_VTABLE_64BIT = 2
+     * }
+     */
+    public static int COR_VTABLE_64BIT() {
+        return COR_VTABLE_64BIT;
+    }
+    private static final int COR_VTABLE_FROM_UNMANAGED = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COR_VTABLE_FROM_UNMANAGED = 4
+     * }
+     */
+    public static int COR_VTABLE_FROM_UNMANAGED() {
+        return COR_VTABLE_FROM_UNMANAGED;
+    }
+    private static final int COR_VTABLE_FROM_UNMANAGED_RETAIN_APPDOMAIN = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COR_VTABLE_FROM_UNMANAGED_RETAIN_APPDOMAIN = 8
+     * }
+     */
+    public static int COR_VTABLE_FROM_UNMANAGED_RETAIN_APPDOMAIN() {
+        return COR_VTABLE_FROM_UNMANAGED_RETAIN_APPDOMAIN;
+    }
+    private static final int COR_VTABLE_CALL_MOST_DERIVED = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.COR_VTABLE_CALL_MOST_DERIVED = 16
+     * }
+     */
+    public static int COR_VTABLE_CALL_MOST_DERIVED() {
+        return COR_VTABLE_CALL_MOST_DERIVED;
+    }
+    private static final int IMAGE_COR_EATJ_THUNK_SIZE = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.IMAGE_COR_EATJ_THUNK_SIZE = 32
+     * }
+     */
+    public static int IMAGE_COR_EATJ_THUNK_SIZE() {
+        return IMAGE_COR_EATJ_THUNK_SIZE;
+    }
+    private static final int MAX_CLASS_NAME = (int)1024L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.MAX_CLASS_NAME = 1024
+     * }
+     */
+    public static int MAX_CLASS_NAME() {
+        return MAX_CLASS_NAME;
+    }
+    private static final int MAX_PACKAGE_NAME = (int)1024L;
+    /**
+     * {@snippet lang=c :
+     * enum ReplacesCorHdrNumericDefines.MAX_PACKAGE_NAME = 1024
+     * }
+     */
+    public static int MAX_PACKAGE_NAME() {
+        return MAX_PACKAGE_NAME;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct IMAGE_COR20_HEADER {
+     *     DWORD cb;
+     *     WORD MajorRuntimeVersion;
+     *     WORD MinorRuntimeVersion;
+     *     IMAGE_DATA_DIRECTORY MetaData;
+     *     DWORD Flags;
+     *     union {
+     *         DWORD EntryPointToken;
+     *         DWORD EntryPointRVA;
+     *     };
+     *     IMAGE_DATA_DIRECTORY Resources;
+     *     IMAGE_DATA_DIRECTORY StrongNameSignature;
+     *     IMAGE_DATA_DIRECTORY CodeManagerTable;
+     *     IMAGE_DATA_DIRECTORY VTableFixups;
+     *     IMAGE_DATA_DIRECTORY ExportAddressTableJumps;
+     *     IMAGE_DATA_DIRECTORY ManagedNativeHeader;
+     * } *PIMAGE_COR20_HEADER
+     * }
+     */
+    public static final AddressLayout PIMAGE_COR20_HEADER = Windows_h.C_POINTER;
+
+    private static class RtlCaptureStackBackTrace {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlCaptureStackBackTrace"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * WORD RtlCaptureStackBackTrace(DWORD FramesToSkip, DWORD FramesToCapture, PVOID *BackTrace, PDWORD BackTraceHash)
+     * }
+     */
+    public static FunctionDescriptor RtlCaptureStackBackTrace$descriptor() {
+        return RtlCaptureStackBackTrace.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * WORD RtlCaptureStackBackTrace(DWORD FramesToSkip, DWORD FramesToCapture, PVOID *BackTrace, PDWORD BackTraceHash)
+     * }
+     */
+    public static MethodHandle RtlCaptureStackBackTrace$handle() {
+        return RtlCaptureStackBackTrace.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * WORD RtlCaptureStackBackTrace(DWORD FramesToSkip, DWORD FramesToCapture, PVOID *BackTrace, PDWORD BackTraceHash)
+     * }
+     */
+    public static short RtlCaptureStackBackTrace(int FramesToSkip, int FramesToCapture, MemorySegment BackTrace, MemorySegment BackTraceHash) {
+        var mh$ = RtlCaptureStackBackTrace.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlCaptureStackBackTrace", FramesToSkip, FramesToCapture, BackTrace, BackTraceHash);
+            }
+            return (short)mh$.invokeExact(FramesToSkip, FramesToCapture, BackTrace, BackTraceHash);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlCaptureContext {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlCaptureContext"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void RtlCaptureContext(PCONTEXT ContextRecord)
+     * }
+     */
+    public static FunctionDescriptor RtlCaptureContext$descriptor() {
+        return RtlCaptureContext.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void RtlCaptureContext(PCONTEXT ContextRecord)
+     * }
+     */
+    public static MethodHandle RtlCaptureContext$handle() {
+        return RtlCaptureContext.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void RtlCaptureContext(PCONTEXT ContextRecord)
+     * }
+     */
+    public static void RtlCaptureContext(MemorySegment ContextRecord) {
+        var mh$ = RtlCaptureContext.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlCaptureContext", ContextRecord);
+            }
+            mh$.invokeExact(ContextRecord);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlCaptureContext2 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlCaptureContext2"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void RtlCaptureContext2(PCONTEXT ContextRecord)
+     * }
+     */
+    public static FunctionDescriptor RtlCaptureContext2$descriptor() {
+        return RtlCaptureContext2.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void RtlCaptureContext2(PCONTEXT ContextRecord)
+     * }
+     */
+    public static MethodHandle RtlCaptureContext2$handle() {
+        return RtlCaptureContext2.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void RtlCaptureContext2(PCONTEXT ContextRecord)
+     * }
+     */
+    public static void RtlCaptureContext2(MemorySegment ContextRecord) {
+        var mh$ = RtlCaptureContext2.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlCaptureContext2", ContextRecord);
+            }
+            mh$.invokeExact(ContextRecord);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _UNWIND_HISTORY_TABLE_ENTRY {
+     *     ULONG_PTR ImageBase;
+     *     PRUNTIME_FUNCTION FunctionEntry;
+     * } *PUNWIND_HISTORY_TABLE_ENTRY
+     * }
+     */
+    public static final AddressLayout PUNWIND_HISTORY_TABLE_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _UNWIND_HISTORY_TABLE {
+     *     DWORD Count;
+     *     BYTE LocalHint;
+     *     BYTE GlobalHint;
+     *     BYTE Search;
+     *     BYTE Once;
+     *     ULONG_PTR LowAddress;
+     *     ULONG_PTR HighAddress;
+     *     UNWIND_HISTORY_TABLE_ENTRY Entry[12];
+     * } *PUNWIND_HISTORY_TABLE
+     * }
+     */
+    public static final AddressLayout PUNWIND_HISTORY_TABLE = Windows_h.C_POINTER;
+
+    private static class RtlUnwind {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlUnwind"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void RtlUnwind(PVOID TargetFrame, PVOID TargetIp, PEXCEPTION_RECORD ExceptionRecord, PVOID ReturnValue)
+     * }
+     */
+    public static FunctionDescriptor RtlUnwind$descriptor() {
+        return RtlUnwind.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void RtlUnwind(PVOID TargetFrame, PVOID TargetIp, PEXCEPTION_RECORD ExceptionRecord, PVOID ReturnValue)
+     * }
+     */
+    public static MethodHandle RtlUnwind$handle() {
+        return RtlUnwind.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void RtlUnwind(PVOID TargetFrame, PVOID TargetIp, PEXCEPTION_RECORD ExceptionRecord, PVOID ReturnValue)
+     * }
+     */
+    public static void RtlUnwind(MemorySegment TargetFrame, MemorySegment TargetIp, MemorySegment ExceptionRecord, MemorySegment ReturnValue) {
+        var mh$ = RtlUnwind.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlUnwind", TargetFrame, TargetIp, ExceptionRecord, ReturnValue);
+            }
+            mh$.invokeExact(TargetFrame, TargetIp, ExceptionRecord, ReturnValue);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlAddFunctionTable {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlAddFunctionTable"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * BOOLEAN RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable, DWORD EntryCount, DWORD64 BaseAddress)
+     * }
+     */
+    public static FunctionDescriptor RtlAddFunctionTable$descriptor() {
+        return RtlAddFunctionTable.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * BOOLEAN RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable, DWORD EntryCount, DWORD64 BaseAddress)
+     * }
+     */
+    public static MethodHandle RtlAddFunctionTable$handle() {
+        return RtlAddFunctionTable.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * BOOLEAN RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable, DWORD EntryCount, DWORD64 BaseAddress)
+     * }
+     */
+    public static byte RtlAddFunctionTable(MemorySegment FunctionTable, int EntryCount, long BaseAddress) {
+        var mh$ = RtlAddFunctionTable.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlAddFunctionTable", FunctionTable, EntryCount, BaseAddress);
+            }
+            return (byte)mh$.invokeExact(FunctionTable, EntryCount, BaseAddress);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlDeleteFunctionTable {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlDeleteFunctionTable"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * BOOLEAN RtlDeleteFunctionTable(PRUNTIME_FUNCTION FunctionTable)
+     * }
+     */
+    public static FunctionDescriptor RtlDeleteFunctionTable$descriptor() {
+        return RtlDeleteFunctionTable.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * BOOLEAN RtlDeleteFunctionTable(PRUNTIME_FUNCTION FunctionTable)
+     * }
+     */
+    public static MethodHandle RtlDeleteFunctionTable$handle() {
+        return RtlDeleteFunctionTable.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * BOOLEAN RtlDeleteFunctionTable(PRUNTIME_FUNCTION FunctionTable)
+     * }
+     */
+    public static byte RtlDeleteFunctionTable(MemorySegment FunctionTable) {
+        var mh$ = RtlDeleteFunctionTable.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlDeleteFunctionTable", FunctionTable);
+            }
+            return (byte)mh$.invokeExact(FunctionTable);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlInstallFunctionTableCallback {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlInstallFunctionTableCallback"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * BOOLEAN RtlInstallFunctionTableCallback(DWORD64 TableIdentifier, DWORD64 BaseAddress, DWORD Length, PGET_RUNTIME_FUNCTION_CALLBACK Callback, PVOID Context, PCWSTR OutOfProcessCallbackDll)
+     * }
+     */
+    public static FunctionDescriptor RtlInstallFunctionTableCallback$descriptor() {
+        return RtlInstallFunctionTableCallback.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * BOOLEAN RtlInstallFunctionTableCallback(DWORD64 TableIdentifier, DWORD64 BaseAddress, DWORD Length, PGET_RUNTIME_FUNCTION_CALLBACK Callback, PVOID Context, PCWSTR OutOfProcessCallbackDll)
+     * }
+     */
+    public static MethodHandle RtlInstallFunctionTableCallback$handle() {
+        return RtlInstallFunctionTableCallback.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * BOOLEAN RtlInstallFunctionTableCallback(DWORD64 TableIdentifier, DWORD64 BaseAddress, DWORD Length, PGET_RUNTIME_FUNCTION_CALLBACK Callback, PVOID Context, PCWSTR OutOfProcessCallbackDll)
+     * }
+     */
+    public static byte RtlInstallFunctionTableCallback(long TableIdentifier, long BaseAddress, int Length, MemorySegment Callback, MemorySegment Context, MemorySegment OutOfProcessCallbackDll) {
+        var mh$ = RtlInstallFunctionTableCallback.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlInstallFunctionTableCallback", TableIdentifier, BaseAddress, Length, Callback, Context, OutOfProcessCallbackDll);
+            }
+            return (byte)mh$.invokeExact(TableIdentifier, BaseAddress, Length, Callback, Context, OutOfProcessCallbackDll);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlAddGrowableFunctionTable {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlAddGrowableFunctionTable"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD RtlAddGrowableFunctionTable(PVOID *DynamicTable, PRUNTIME_FUNCTION FunctionTable, DWORD EntryCount, DWORD MaximumEntryCount, ULONG_PTR RangeBase, ULONG_PTR RangeEnd)
+     * }
+     */
+    public static FunctionDescriptor RtlAddGrowableFunctionTable$descriptor() {
+        return RtlAddGrowableFunctionTable.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD RtlAddGrowableFunctionTable(PVOID *DynamicTable, PRUNTIME_FUNCTION FunctionTable, DWORD EntryCount, DWORD MaximumEntryCount, ULONG_PTR RangeBase, ULONG_PTR RangeEnd)
+     * }
+     */
+    public static MethodHandle RtlAddGrowableFunctionTable$handle() {
+        return RtlAddGrowableFunctionTable.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * DWORD RtlAddGrowableFunctionTable(PVOID *DynamicTable, PRUNTIME_FUNCTION FunctionTable, DWORD EntryCount, DWORD MaximumEntryCount, ULONG_PTR RangeBase, ULONG_PTR RangeEnd)
+     * }
+     */
+    public static int RtlAddGrowableFunctionTable(MemorySegment DynamicTable, MemorySegment FunctionTable, int EntryCount, int MaximumEntryCount, long RangeBase, long RangeEnd) {
+        var mh$ = RtlAddGrowableFunctionTable.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlAddGrowableFunctionTable", DynamicTable, FunctionTable, EntryCount, MaximumEntryCount, RangeBase, RangeEnd);
+            }
+            return (int)mh$.invokeExact(DynamicTable, FunctionTable, EntryCount, MaximumEntryCount, RangeBase, RangeEnd);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlGrowFunctionTable {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlGrowFunctionTable"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void RtlGrowFunctionTable(PVOID DynamicTable, DWORD NewEntryCount)
+     * }
+     */
+    public static FunctionDescriptor RtlGrowFunctionTable$descriptor() {
+        return RtlGrowFunctionTable.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void RtlGrowFunctionTable(PVOID DynamicTable, DWORD NewEntryCount)
+     * }
+     */
+    public static MethodHandle RtlGrowFunctionTable$handle() {
+        return RtlGrowFunctionTable.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void RtlGrowFunctionTable(PVOID DynamicTable, DWORD NewEntryCount)
+     * }
+     */
+    public static void RtlGrowFunctionTable(MemorySegment DynamicTable, int NewEntryCount) {
+        var mh$ = RtlGrowFunctionTable.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlGrowFunctionTable", DynamicTable, NewEntryCount);
+            }
+            mh$.invokeExact(DynamicTable, NewEntryCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlDeleteGrowableFunctionTable {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlDeleteGrowableFunctionTable"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void RtlDeleteGrowableFunctionTable(PVOID DynamicTable)
+     * }
+     */
+    public static FunctionDescriptor RtlDeleteGrowableFunctionTable$descriptor() {
+        return RtlDeleteGrowableFunctionTable.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void RtlDeleteGrowableFunctionTable(PVOID DynamicTable)
+     * }
+     */
+    public static MethodHandle RtlDeleteGrowableFunctionTable$handle() {
+        return RtlDeleteGrowableFunctionTable.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void RtlDeleteGrowableFunctionTable(PVOID DynamicTable)
+     * }
+     */
+    public static void RtlDeleteGrowableFunctionTable(MemorySegment DynamicTable) {
+        var mh$ = RtlDeleteGrowableFunctionTable.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlDeleteGrowableFunctionTable", DynamicTable);
+            }
+            mh$.invokeExact(DynamicTable);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlLookupFunctionEntry {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlLookupFunctionEntry"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * PRUNTIME_FUNCTION RtlLookupFunctionEntry(DWORD64 ControlPc, PDWORD64 ImageBase, PUNWIND_HISTORY_TABLE HistoryTable)
+     * }
+     */
+    public static FunctionDescriptor RtlLookupFunctionEntry$descriptor() {
+        return RtlLookupFunctionEntry.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * PRUNTIME_FUNCTION RtlLookupFunctionEntry(DWORD64 ControlPc, PDWORD64 ImageBase, PUNWIND_HISTORY_TABLE HistoryTable)
+     * }
+     */
+    public static MethodHandle RtlLookupFunctionEntry$handle() {
+        return RtlLookupFunctionEntry.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * PRUNTIME_FUNCTION RtlLookupFunctionEntry(DWORD64 ControlPc, PDWORD64 ImageBase, PUNWIND_HISTORY_TABLE HistoryTable)
+     * }
+     */
+    public static MemorySegment RtlLookupFunctionEntry(long ControlPc, MemorySegment ImageBase, MemorySegment HistoryTable) {
+        var mh$ = RtlLookupFunctionEntry.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlLookupFunctionEntry", ControlPc, ImageBase, HistoryTable);
+            }
+            return (MemorySegment)mh$.invokeExact(ControlPc, ImageBase, HistoryTable);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlRestoreContext {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlRestoreContext"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void RtlRestoreContext(PCONTEXT ContextRecord, struct _EXCEPTION_RECORD *ExceptionRecord)
+     * }
+     */
+    public static FunctionDescriptor RtlRestoreContext$descriptor() {
+        return RtlRestoreContext.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void RtlRestoreContext(PCONTEXT ContextRecord, struct _EXCEPTION_RECORD *ExceptionRecord)
+     * }
+     */
+    public static MethodHandle RtlRestoreContext$handle() {
+        return RtlRestoreContext.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void RtlRestoreContext(PCONTEXT ContextRecord, struct _EXCEPTION_RECORD *ExceptionRecord)
+     * }
+     */
+    public static void RtlRestoreContext(MemorySegment ContextRecord, MemorySegment ExceptionRecord) {
+        var mh$ = RtlRestoreContext.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlRestoreContext", ContextRecord, ExceptionRecord);
+            }
+            mh$.invokeExact(ContextRecord, ExceptionRecord);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlUnwindEx {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlUnwindEx"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void RtlUnwindEx(PVOID TargetFrame, PVOID TargetIp, PEXCEPTION_RECORD ExceptionRecord, PVOID ReturnValue, PCONTEXT ContextRecord, PUNWIND_HISTORY_TABLE HistoryTable)
+     * }
+     */
+    public static FunctionDescriptor RtlUnwindEx$descriptor() {
+        return RtlUnwindEx.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void RtlUnwindEx(PVOID TargetFrame, PVOID TargetIp, PEXCEPTION_RECORD ExceptionRecord, PVOID ReturnValue, PCONTEXT ContextRecord, PUNWIND_HISTORY_TABLE HistoryTable)
+     * }
+     */
+    public static MethodHandle RtlUnwindEx$handle() {
+        return RtlUnwindEx.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void RtlUnwindEx(PVOID TargetFrame, PVOID TargetIp, PEXCEPTION_RECORD ExceptionRecord, PVOID ReturnValue, PCONTEXT ContextRecord, PUNWIND_HISTORY_TABLE HistoryTable)
+     * }
+     */
+    public static void RtlUnwindEx(MemorySegment TargetFrame, MemorySegment TargetIp, MemorySegment ExceptionRecord, MemorySegment ReturnValue, MemorySegment ContextRecord, MemorySegment HistoryTable) {
+        var mh$ = RtlUnwindEx.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlUnwindEx", TargetFrame, TargetIp, ExceptionRecord, ReturnValue, ContextRecord, HistoryTable);
+            }
+            mh$.invokeExact(TargetFrame, TargetIp, ExceptionRecord, ReturnValue, ContextRecord, HistoryTable);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlVirtualUnwind {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlVirtualUnwind"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * PEXCEPTION_ROUTINE RtlVirtualUnwind(DWORD HandlerType, DWORD64 ImageBase, DWORD64 ControlPc, PRUNTIME_FUNCTION FunctionEntry, PCONTEXT ContextRecord, PVOID *HandlerData, PDWORD64 EstablisherFrame, PKNONVOLATILE_CONTEXT_POINTERS ContextPointers)
+     * }
+     */
+    public static FunctionDescriptor RtlVirtualUnwind$descriptor() {
+        return RtlVirtualUnwind.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * PEXCEPTION_ROUTINE RtlVirtualUnwind(DWORD HandlerType, DWORD64 ImageBase, DWORD64 ControlPc, PRUNTIME_FUNCTION FunctionEntry, PCONTEXT ContextRecord, PVOID *HandlerData, PDWORD64 EstablisherFrame, PKNONVOLATILE_CONTEXT_POINTERS ContextPointers)
+     * }
+     */
+    public static MethodHandle RtlVirtualUnwind$handle() {
+        return RtlVirtualUnwind.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * PEXCEPTION_ROUTINE RtlVirtualUnwind(DWORD HandlerType, DWORD64 ImageBase, DWORD64 ControlPc, PRUNTIME_FUNCTION FunctionEntry, PCONTEXT ContextRecord, PVOID *HandlerData, PDWORD64 EstablisherFrame, PKNONVOLATILE_CONTEXT_POINTERS ContextPointers)
+     * }
+     */
+    public static MemorySegment RtlVirtualUnwind(int HandlerType, long ImageBase, long ControlPc, MemorySegment FunctionEntry, MemorySegment ContextRecord, MemorySegment HandlerData, MemorySegment EstablisherFrame, MemorySegment ContextPointers) {
+        var mh$ = RtlVirtualUnwind.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlVirtualUnwind", HandlerType, ImageBase, ControlPc, FunctionEntry, ContextRecord, HandlerData, EstablisherFrame, ContextPointers);
+            }
+            return (MemorySegment)mh$.invokeExact(HandlerType, ImageBase, ControlPc, FunctionEntry, ContextRecord, HandlerData, EstablisherFrame, ContextPointers);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlRaiseException {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlRaiseException"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void RtlRaiseException(PEXCEPTION_RECORD ExceptionRecord)
+     * }
+     */
+    public static FunctionDescriptor RtlRaiseException$descriptor() {
+        return RtlRaiseException.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void RtlRaiseException(PEXCEPTION_RECORD ExceptionRecord)
+     * }
+     */
+    public static MethodHandle RtlRaiseException$handle() {
+        return RtlRaiseException.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void RtlRaiseException(PEXCEPTION_RECORD ExceptionRecord)
+     * }
+     */
+    public static void RtlRaiseException(MemorySegment ExceptionRecord) {
+        var mh$ = RtlRaiseException.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlRaiseException", ExceptionRecord);
+            }
+            mh$.invokeExact(ExceptionRecord);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlPcToFileHeader {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlPcToFileHeader"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PCF_INTTIMEOUTS 128
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * PVOID RtlPcToFileHeader(PVOID PcValue, PVOID *BaseOfImage)
      * }
      */
-    public static int PCF_INTTIMEOUTS() {
-        return (int)128L;
+    public static FunctionDescriptor RtlPcToFileHeader$descriptor() {
+        return RtlPcToFileHeader.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PCF_SPECIALCHARS 256
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * PVOID RtlPcToFileHeader(PVOID PcValue, PVOID *BaseOfImage)
      * }
      */
-    public static int PCF_SPECIALCHARS() {
-        return (int)256L;
+    public static MethodHandle RtlPcToFileHeader$handle() {
+        return RtlPcToFileHeader.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PCF_16BITMODE 512
+     * {@snippet lang=c :
+     * PVOID RtlPcToFileHeader(PVOID PcValue, PVOID *BaseOfImage)
      * }
      */
-    public static int PCF_16BITMODE() {
-        return (int)512L;
+    public static MemorySegment RtlPcToFileHeader(MemorySegment PcValue, MemorySegment BaseOfImage) {
+        var mh$ = RtlPcToFileHeader.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlPcToFileHeader", PcValue, BaseOfImage);
+            }
+            return (MemorySegment)mh$.invokeExact(PcValue, BaseOfImage);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class RtlCompareMemory {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlCompareMemory"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * SIZE_T RtlCompareMemory(const void *Source1, const void *Source2, SIZE_T Length)
+     * }
+     */
+    public static FunctionDescriptor RtlCompareMemory$descriptor() {
+        return RtlCompareMemory.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * SIZE_T RtlCompareMemory(const void *Source1, const void *Source2, SIZE_T Length)
+     * }
+     */
+    public static MethodHandle RtlCompareMemory$handle() {
+        return RtlCompareMemory.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * SIZE_T RtlCompareMemory(const void *Source1, const void *Source2, SIZE_T Length)
+     * }
+     */
+    public static long RtlCompareMemory(MemorySegment Source1, MemorySegment Source2, long Length) {
+        var mh$ = RtlCompareMemory.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlCompareMemory", Source1, Source2, Length);
+            }
+            return (long)mh$.invokeExact(Source1, Source2, Length);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SLIST_ENTRY {
+     *     struct _SLIST_ENTRY *Next;
+     * } *PSLIST_ENTRY
+     * }
+     */
+    public static final AddressLayout PSLIST_ENTRY = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define SP_PARITY 1
+     * {@snippet lang=c :
+     * typedef union _SLIST_HEADER {
+     *     struct {
+     *         ULONGLONG Alignment;
+     *         ULONGLONG Region;
+     *     };
+     *     struct {
+     *         ULONGLONG Depth : 16;
+     *         ULONGLONG Sequence : 48;
+     *         ULONGLONG Reserved : 4;
+     *         ULONGLONG NextEntry : 60;
+     *     } HeaderX64;
+     * } *PSLIST_HEADER
      * }
      */
-    public static int SP_PARITY() {
-        return (int)1L;
+    public static final AddressLayout PSLIST_HEADER = Windows_h.C_POINTER;
+
+    private static class RtlInitializeSListHead {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlInitializeSListHead"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define SP_BAUD 2
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void RtlInitializeSListHead(PSLIST_HEADER ListHead)
      * }
      */
-    public static int SP_BAUD() {
-        return (int)2L;
+    public static FunctionDescriptor RtlInitializeSListHead$descriptor() {
+        return RtlInitializeSListHead.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define SP_DATABITS 4
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void RtlInitializeSListHead(PSLIST_HEADER ListHead)
      * }
      */
-    public static int SP_DATABITS() {
-        return (int)4L;
+    public static MethodHandle RtlInitializeSListHead$handle() {
+        return RtlInitializeSListHead.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define SP_STOPBITS 8
+     * {@snippet lang=c :
+     * void RtlInitializeSListHead(PSLIST_HEADER ListHead)
      * }
      */
-    public static int SP_STOPBITS() {
-        return (int)8L;
+    public static void RtlInitializeSListHead(MemorySegment ListHead) {
+        var mh$ = RtlInitializeSListHead.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlInitializeSListHead", ListHead);
+            }
+            mh$.invokeExact(ListHead);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class RtlFirstEntrySList {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlFirstEntrySList"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlFirstEntrySList(const SLIST_HEADER *ListHead)
+     * }
+     */
+    public static FunctionDescriptor RtlFirstEntrySList$descriptor() {
+        return RtlFirstEntrySList.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlFirstEntrySList(const SLIST_HEADER *ListHead)
+     * }
+     */
+    public static MethodHandle RtlFirstEntrySList$handle() {
+        return RtlFirstEntrySList.HANDLE;
+    }
     /**
-     * {@snippet :
-     * #define SP_HANDSHAKING 16
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlFirstEntrySList(const SLIST_HEADER *ListHead)
      * }
      */
-    public static int SP_HANDSHAKING() {
-        return (int)16L;
+    public static MemorySegment RtlFirstEntrySList(MemorySegment ListHead) {
+        var mh$ = RtlFirstEntrySList.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlFirstEntrySList", ListHead);
+            }
+            return (MemorySegment)mh$.invokeExact(ListHead);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlInterlockedPopEntrySList {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlInterlockedPopEntrySList"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define SP_PARITY_CHECK 32
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlInterlockedPopEntrySList(PSLIST_HEADER ListHead)
      * }
      */
-    public static int SP_PARITY_CHECK() {
-        return (int)32L;
+    public static FunctionDescriptor RtlInterlockedPopEntrySList$descriptor() {
+        return RtlInterlockedPopEntrySList.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define SP_RLSD 64
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlInterlockedPopEntrySList(PSLIST_HEADER ListHead)
      * }
      */
-    public static int SP_RLSD() {
-        return (int)64L;
+    public static MethodHandle RtlInterlockedPopEntrySList$handle() {
+        return RtlInterlockedPopEntrySList.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define BAUD_075 1
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlInterlockedPopEntrySList(PSLIST_HEADER ListHead)
      * }
      */
-    public static int BAUD_075() {
-        return (int)1L;
+    public static MemorySegment RtlInterlockedPopEntrySList(MemorySegment ListHead) {
+        var mh$ = RtlInterlockedPopEntrySList.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlInterlockedPopEntrySList", ListHead);
+            }
+            return (MemorySegment)mh$.invokeExact(ListHead);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class RtlInterlockedPushEntrySList {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlInterlockedPushEntrySList"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define BAUD_110 2
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlInterlockedPushEntrySList(PSLIST_HEADER ListHead, PSLIST_ENTRY ListEntry)
      * }
      */
-    public static int BAUD_110() {
-        return (int)2L;
+    public static FunctionDescriptor RtlInterlockedPushEntrySList$descriptor() {
+        return RtlInterlockedPushEntrySList.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define BAUD_134_5 4
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlInterlockedPushEntrySList(PSLIST_HEADER ListHead, PSLIST_ENTRY ListEntry)
      * }
      */
-    public static int BAUD_134_5() {
-        return (int)4L;
+    public static MethodHandle RtlInterlockedPushEntrySList$handle() {
+        return RtlInterlockedPushEntrySList.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define BAUD_150 8
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlInterlockedPushEntrySList(PSLIST_HEADER ListHead, PSLIST_ENTRY ListEntry)
      * }
      */
-    public static int BAUD_150() {
-        return (int)8L;
+    public static MemorySegment RtlInterlockedPushEntrySList(MemorySegment ListHead, MemorySegment ListEntry) {
+        var mh$ = RtlInterlockedPushEntrySList.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlInterlockedPushEntrySList", ListHead, ListEntry);
+            }
+            return (MemorySegment)mh$.invokeExact(ListHead, ListEntry);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlInterlockedPushListSListEx {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlInterlockedPushListSListEx"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define BAUD_300 16
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlInterlockedPushListSListEx(PSLIST_HEADER ListHead, PSLIST_ENTRY List, PSLIST_ENTRY ListEnd, DWORD Count)
      * }
      */
-    public static int BAUD_300() {
-        return (int)16L;
+    public static FunctionDescriptor RtlInterlockedPushListSListEx$descriptor() {
+        return RtlInterlockedPushListSListEx.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define BAUD_600 32
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlInterlockedPushListSListEx(PSLIST_HEADER ListHead, PSLIST_ENTRY List, PSLIST_ENTRY ListEnd, DWORD Count)
      * }
      */
-    public static int BAUD_600() {
-        return (int)32L;
+    public static MethodHandle RtlInterlockedPushListSListEx$handle() {
+        return RtlInterlockedPushListSListEx.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define BAUD_1200 64
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlInterlockedPushListSListEx(PSLIST_HEADER ListHead, PSLIST_ENTRY List, PSLIST_ENTRY ListEnd, DWORD Count)
      * }
      */
-    public static int BAUD_1200() {
-        return (int)64L;
+    public static MemorySegment RtlInterlockedPushListSListEx(MemorySegment ListHead, MemorySegment List, MemorySegment ListEnd, int Count) {
+        var mh$ = RtlInterlockedPushListSListEx.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlInterlockedPushListSListEx", ListHead, List, ListEnd, Count);
+            }
+            return (MemorySegment)mh$.invokeExact(ListHead, List, ListEnd, Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class RtlInterlockedFlushSList {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlInterlockedFlushSList"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define BAUD_1800 128
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlInterlockedFlushSList(PSLIST_HEADER ListHead)
      * }
      */
-    public static int BAUD_1800() {
-        return (int)128L;
+    public static FunctionDescriptor RtlInterlockedFlushSList$descriptor() {
+        return RtlInterlockedFlushSList.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define BAUD_2400 256
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlInterlockedFlushSList(PSLIST_HEADER ListHead)
      * }
      */
-    public static int BAUD_2400() {
-        return (int)256L;
+    public static MethodHandle RtlInterlockedFlushSList$handle() {
+        return RtlInterlockedFlushSList.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define BAUD_4800 512
+     * {@snippet lang=c :
+     * PSLIST_ENTRY RtlInterlockedFlushSList(PSLIST_HEADER ListHead)
      * }
      */
-    public static int BAUD_4800() {
-        return (int)512L;
+    public static MemorySegment RtlInterlockedFlushSList(MemorySegment ListHead) {
+        var mh$ = RtlInterlockedFlushSList.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlInterlockedFlushSList", ListHead);
+            }
+            return (MemorySegment)mh$.invokeExact(ListHead);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlQueryDepthSList {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlQueryDepthSList"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define BAUD_7200 1024
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * WORD RtlQueryDepthSList(PSLIST_HEADER ListHead)
      * }
      */
-    public static int BAUD_7200() {
-        return (int)1024L;
+    public static FunctionDescriptor RtlQueryDepthSList$descriptor() {
+        return RtlQueryDepthSList.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define BAUD_9600 2048
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * WORD RtlQueryDepthSList(PSLIST_HEADER ListHead)
      * }
      */
-    public static int BAUD_9600() {
-        return (int)2048L;
+    public static MethodHandle RtlQueryDepthSList$handle() {
+        return RtlQueryDepthSList.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define BAUD_14400 4096
+     * {@snippet lang=c :
+     * WORD RtlQueryDepthSList(PSLIST_HEADER ListHead)
      * }
      */
-    public static int BAUD_14400() {
-        return (int)4096L;
+    public static short RtlQueryDepthSList(MemorySegment ListHead) {
+        var mh$ = RtlQueryDepthSList.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlQueryDepthSList", ListHead);
+            }
+            return (short)mh$.invokeExact(ListHead);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class RtlGetReturnAddressHijackTarget {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlGetReturnAddressHijackTarget"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define BAUD_19200 8192
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * ULONG_PTR RtlGetReturnAddressHijackTarget()
      * }
      */
-    public static int BAUD_19200() {
-        return (int)8192L;
+    public static FunctionDescriptor RtlGetReturnAddressHijackTarget$descriptor() {
+        return RtlGetReturnAddressHijackTarget.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define BAUD_38400 16384
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * ULONG_PTR RtlGetReturnAddressHijackTarget()
      * }
      */
-    public static int BAUD_38400() {
-        return (int)16384L;
+    public static MethodHandle RtlGetReturnAddressHijackTarget$handle() {
+        return RtlGetReturnAddressHijackTarget.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define BAUD_56K 32768
+     * {@snippet lang=c :
+     * ULONG_PTR RtlGetReturnAddressHijackTarget()
      * }
      */
-    public static int BAUD_56K() {
-        return (int)32768L;
+    public static long RtlGetReturnAddressHijackTarget() {
+        var mh$ = RtlGetReturnAddressHijackTarget.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlGetReturnAddressHijackTarget");
+            }
+            return (long)mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+    /**
+     * {@snippet lang=c :
+     * typedef union _RTL_RUN_ONCE {
+     *     PVOID Ptr;
+     * } *PRTL_RUN_ONCE
+     * }
+     */
+    public static final AddressLayout PRTL_RUN_ONCE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define BAUD_128K 65536
+     * {@snippet lang=c :
+     * typedef struct _RTL_BARRIER {
+     *     DWORD Reserved1;
+     *     DWORD Reserved2;
+     *     ULONG_PTR Reserved3[2];
+     *     DWORD Reserved4;
+     *     DWORD Reserved5;
+     * } *PRTL_BARRIER
      * }
      */
-    public static int BAUD_128K() {
-        return (int)65536L;
+    public static final AddressLayout PRTL_BARRIER = Windows_h.C_POINTER;
+
+    private static class __fastfail {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__fastfail"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define BAUD_115200 131072
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __fastfail(unsigned int Code)
      * }
      */
-    public static int BAUD_115200() {
-        return (int)131072L;
+    public static FunctionDescriptor __fastfail$descriptor() {
+        return __fastfail.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define BAUD_57600 262144
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __fastfail(unsigned int Code)
      * }
      */
-    public static int BAUD_57600() {
-        return (int)262144L;
+    public static MethodHandle __fastfail$handle() {
+        return __fastfail.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define BAUD_USER 268435456
+     * {@snippet lang=c :
+     * void __fastfail(unsigned int Code)
      * }
      */
-    public static int BAUD_USER() {
-        return (int)268435456L;
+    public static void __fastfail(int Code) {
+        var mh$ = __fastfail.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__fastfail", Code);
+            }
+            mh$.invokeExact(Code);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _MESSAGE_RESOURCE_ENTRY {
+     *     WORD Length;
+     *     WORD Flags;
+     *     BYTE Text[1];
+     * } *PMESSAGE_RESOURCE_ENTRY
+     * }
+     */
+    public static final AddressLayout PMESSAGE_RESOURCE_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _MESSAGE_RESOURCE_BLOCK {
+     *     DWORD LowId;
+     *     DWORD HighId;
+     *     DWORD OffsetToEntries;
+     * } *PMESSAGE_RESOURCE_BLOCK
+     * }
+     */
+    public static final AddressLayout PMESSAGE_RESOURCE_BLOCK = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _MESSAGE_RESOURCE_DATA {
+     *     DWORD NumberOfBlocks;
+     *     MESSAGE_RESOURCE_BLOCK Blocks[1];
+     * } *PMESSAGE_RESOURCE_DATA
+     * }
+     */
+    public static final AddressLayout PMESSAGE_RESOURCE_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _OSVERSIONINFOA {
+     *     DWORD dwOSVersionInfoSize;
+     *     DWORD dwMajorVersion;
+     *     DWORD dwMinorVersion;
+     *     DWORD dwBuildNumber;
+     *     DWORD dwPlatformId;
+     *     CHAR szCSDVersion[128];
+     * } *POSVERSIONINFOA
+     * }
+     */
+    public static final AddressLayout POSVERSIONINFOA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _OSVERSIONINFOA {
+     *     DWORD dwOSVersionInfoSize;
+     *     DWORD dwMajorVersion;
+     *     DWORD dwMinorVersion;
+     *     DWORD dwBuildNumber;
+     *     DWORD dwPlatformId;
+     *     CHAR szCSDVersion[128];
+     * } *LPOSVERSIONINFOA
+     * }
+     */
+    public static final AddressLayout LPOSVERSIONINFOA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _OSVERSIONINFOW {
+     *     DWORD dwOSVersionInfoSize;
+     *     DWORD dwMajorVersion;
+     *     DWORD dwMinorVersion;
+     *     DWORD dwBuildNumber;
+     *     DWORD dwPlatformId;
+     *     WCHAR szCSDVersion[128];
+     * } *POSVERSIONINFOW
+     * }
+     */
+    public static final AddressLayout POSVERSIONINFOW = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _OSVERSIONINFOW {
+     *     DWORD dwOSVersionInfoSize;
+     *     DWORD dwMajorVersion;
+     *     DWORD dwMinorVersion;
+     *     DWORD dwBuildNumber;
+     *     DWORD dwPlatformId;
+     *     WCHAR szCSDVersion[128];
+     * } *LPOSVERSIONINFOW
+     * }
+     */
+    public static final AddressLayout LPOSVERSIONINFOW = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _OSVERSIONINFOW {
+     *     DWORD dwOSVersionInfoSize;
+     *     DWORD dwMajorVersion;
+     *     DWORD dwMinorVersion;
+     *     DWORD dwBuildNumber;
+     *     DWORD dwPlatformId;
+     *     WCHAR szCSDVersion[128];
+     * } *PRTL_OSVERSIONINFOW
+     * }
+     */
+    public static final AddressLayout PRTL_OSVERSIONINFOW = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef POSVERSIONINFOA POSVERSIONINFO
+     * }
+     */
+    public static final AddressLayout POSVERSIONINFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LPOSVERSIONINFOA LPOSVERSIONINFO
+     * }
+     */
+    public static final AddressLayout LPOSVERSIONINFO = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define DATABITS_5 1
+     * {@snippet lang=c :
+     * typedef struct _OSVERSIONINFOEXA {
+     *     DWORD dwOSVersionInfoSize;
+     *     DWORD dwMajorVersion;
+     *     DWORD dwMinorVersion;
+     *     DWORD dwBuildNumber;
+     *     DWORD dwPlatformId;
+     *     CHAR szCSDVersion[128];
+     *     WORD wServicePackMajor;
+     *     WORD wServicePackMinor;
+     *     WORD wSuiteMask;
+     *     BYTE wProductType;
+     *     BYTE wReserved;
+     * } *POSVERSIONINFOEXA
      * }
      */
-    public static short DATABITS_5() {
-        return (short)1L;
+    public static final AddressLayout POSVERSIONINFOEXA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _OSVERSIONINFOEXA {
+     *     DWORD dwOSVersionInfoSize;
+     *     DWORD dwMajorVersion;
+     *     DWORD dwMinorVersion;
+     *     DWORD dwBuildNumber;
+     *     DWORD dwPlatformId;
+     *     CHAR szCSDVersion[128];
+     *     WORD wServicePackMajor;
+     *     WORD wServicePackMinor;
+     *     WORD wSuiteMask;
+     *     BYTE wProductType;
+     *     BYTE wReserved;
+     * } *LPOSVERSIONINFOEXA
+     * }
+     */
+    public static final AddressLayout LPOSVERSIONINFOEXA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _OSVERSIONINFOEXW {
+     *     DWORD dwOSVersionInfoSize;
+     *     DWORD dwMajorVersion;
+     *     DWORD dwMinorVersion;
+     *     DWORD dwBuildNumber;
+     *     DWORD dwPlatformId;
+     *     WCHAR szCSDVersion[128];
+     *     WORD wServicePackMajor;
+     *     WORD wServicePackMinor;
+     *     WORD wSuiteMask;
+     *     BYTE wProductType;
+     *     BYTE wReserved;
+     * } *POSVERSIONINFOEXW
+     * }
+     */
+    public static final AddressLayout POSVERSIONINFOEXW = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _OSVERSIONINFOEXW {
+     *     DWORD dwOSVersionInfoSize;
+     *     DWORD dwMajorVersion;
+     *     DWORD dwMinorVersion;
+     *     DWORD dwBuildNumber;
+     *     DWORD dwPlatformId;
+     *     WCHAR szCSDVersion[128];
+     *     WORD wServicePackMajor;
+     *     WORD wServicePackMinor;
+     *     WORD wSuiteMask;
+     *     BYTE wProductType;
+     *     BYTE wReserved;
+     * } *LPOSVERSIONINFOEXW
+     * }
+     */
+    public static final AddressLayout LPOSVERSIONINFOEXW = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _OSVERSIONINFOEXW {
+     *     DWORD dwOSVersionInfoSize;
+     *     DWORD dwMajorVersion;
+     *     DWORD dwMinorVersion;
+     *     DWORD dwBuildNumber;
+     *     DWORD dwPlatformId;
+     *     WCHAR szCSDVersion[128];
+     *     WORD wServicePackMajor;
+     *     WORD wServicePackMinor;
+     *     WORD wSuiteMask;
+     *     BYTE wProductType;
+     *     BYTE wReserved;
+     * } *PRTL_OSVERSIONINFOEXW
+     * }
+     */
+    public static final AddressLayout PRTL_OSVERSIONINFOEXW = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef POSVERSIONINFOEXA POSVERSIONINFOEX
+     * }
+     */
+    public static final AddressLayout POSVERSIONINFOEX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LPOSVERSIONINFOEXA LPOSVERSIONINFOEX
+     * }
+     */
+    public static final AddressLayout LPOSVERSIONINFOEX = Windows_h.C_POINTER;
+
+    private static class VerSetConditionMask {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_CHAR
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("VerSetConditionMask"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define DATABITS_6 2
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * ULONGLONG VerSetConditionMask(ULONGLONG ConditionMask, DWORD TypeMask, BYTE Condition)
      * }
      */
-    public static short DATABITS_6() {
-        return (short)2L;
+    public static FunctionDescriptor VerSetConditionMask$descriptor() {
+        return VerSetConditionMask.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define DATABITS_7 4
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * ULONGLONG VerSetConditionMask(ULONGLONG ConditionMask, DWORD TypeMask, BYTE Condition)
      * }
      */
-    public static short DATABITS_7() {
-        return (short)4L;
+    public static MethodHandle VerSetConditionMask$handle() {
+        return VerSetConditionMask.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define DATABITS_8 8
+     * {@snippet lang=c :
+     * ULONGLONG VerSetConditionMask(ULONGLONG ConditionMask, DWORD TypeMask, BYTE Condition)
      * }
      */
-    public static short DATABITS_8() {
-        return (short)8L;
+    public static long VerSetConditionMask(long ConditionMask, int TypeMask, byte Condition) {
+        var mh$ = VerSetConditionMask.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("VerSetConditionMask", ConditionMask, TypeMask, Condition);
+            }
+            return (long)mh$.invokeExact(ConditionMask, TypeMask, Condition);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class RtlGetProductInfo {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlGetProductInfo"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define DATABITS_16 16
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * BOOLEAN RtlGetProductInfo(DWORD OSMajorVersion, DWORD OSMinorVersion, DWORD SpMajorVersion, DWORD SpMinorVersion, PDWORD ReturnedProductType)
      * }
      */
-    public static short DATABITS_16() {
-        return (short)16L;
+    public static FunctionDescriptor RtlGetProductInfo$descriptor() {
+        return RtlGetProductInfo.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define DATABITS_16X 32
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * BOOLEAN RtlGetProductInfo(DWORD OSMajorVersion, DWORD OSMinorVersion, DWORD SpMajorVersion, DWORD SpMinorVersion, PDWORD ReturnedProductType)
      * }
      */
-    public static short DATABITS_16X() {
-        return (short)32L;
+    public static MethodHandle RtlGetProductInfo$handle() {
+        return RtlGetProductInfo.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define STOPBITS_10 1
+     * {@snippet lang=c :
+     * BOOLEAN RtlGetProductInfo(DWORD OSMajorVersion, DWORD OSMinorVersion, DWORD SpMajorVersion, DWORD SpMinorVersion, PDWORD ReturnedProductType)
      * }
      */
-    public static short STOPBITS_10() {
-        return (short)1L;
+    public static byte RtlGetProductInfo(int OSMajorVersion, int OSMinorVersion, int SpMajorVersion, int SpMinorVersion, MemorySegment ReturnedProductType) {
+        var mh$ = RtlGetProductInfo.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlGetProductInfo", OSMajorVersion, OSMinorVersion, SpMajorVersion, SpMinorVersion, ReturnedProductType);
+            }
+            return (byte)mh$.invokeExact(OSMajorVersion, OSMinorVersion, SpMajorVersion, SpMinorVersion, ReturnedProductType);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+    private static final int UmsThreadInvalidInfoClass = (int)0L;
     /**
-     * {@snippet :
-     * #define STOPBITS_15 2
+     * {@snippet lang=c :
+     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadInvalidInfoClass = 0
      * }
      */
-    public static short STOPBITS_15() {
-        return (short)2L;
+    public static int UmsThreadInvalidInfoClass() {
+        return UmsThreadInvalidInfoClass;
     }
+    private static final int UmsThreadUserContext = (int)1L;
     /**
-     * {@snippet :
-     * #define STOPBITS_20 4
+     * {@snippet lang=c :
+     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadUserContext = 1
      * }
      */
-    public static short STOPBITS_20() {
-        return (short)4L;
+    public static int UmsThreadUserContext() {
+        return UmsThreadUserContext;
     }
+    private static final int UmsThreadPriority = (int)2L;
     /**
-     * {@snippet :
-     * #define PARITY_NONE 256
+     * {@snippet lang=c :
+     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadPriority = 2
      * }
      */
-    public static short PARITY_NONE() {
-        return (short)256L;
+    public static int UmsThreadPriority() {
+        return UmsThreadPriority;
     }
+    private static final int UmsThreadAffinity = (int)3L;
     /**
-     * {@snippet :
-     * #define PARITY_ODD 512
+     * {@snippet lang=c :
+     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadAffinity = 3
      * }
      */
-    public static short PARITY_ODD() {
-        return (short)512L;
+    public static int UmsThreadAffinity() {
+        return UmsThreadAffinity;
     }
+    private static final int UmsThreadTeb = (int)4L;
     /**
-     * {@snippet :
-     * #define PARITY_EVEN 1024
+     * {@snippet lang=c :
+     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadTeb = 4
      * }
      */
-    public static short PARITY_EVEN() {
-        return (short)1024L;
+    public static int UmsThreadTeb() {
+        return UmsThreadTeb;
     }
+    private static final int UmsThreadIsSuspended = (int)5L;
     /**
-     * {@snippet :
-     * #define PARITY_MARK 2048
+     * {@snippet lang=c :
+     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadIsSuspended = 5
      * }
      */
-    public static short PARITY_MARK() {
-        return (short)2048L;
+    public static int UmsThreadIsSuspended() {
+        return UmsThreadIsSuspended;
     }
+    private static final int UmsThreadIsTerminated = (int)6L;
     /**
-     * {@snippet :
-     * #define PARITY_SPACE 4096
+     * {@snippet lang=c :
+     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadIsTerminated = 6
      * }
      */
-    public static short PARITY_SPACE() {
-        return (short)4096L;
+    public static int UmsThreadIsTerminated() {
+        return UmsThreadIsTerminated;
     }
+    private static final int UmsThreadMaxInfoClass = (int)7L;
     /**
-     * {@snippet :
-     * #define COMMPROP_INITIALIZED 3879531822
+     * {@snippet lang=c :
+     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadMaxInfoClass = 7
      * }
      */
-    public static int COMMPROP_INITIALIZED() {
-        return (int)3879531822L;
+    public static int UmsThreadMaxInfoClass() {
+        return UmsThreadMaxInfoClass;
     }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _RTL_UMS_THREAD_INFO_CLASS {
+     *     UmsThreadInvalidInfoClass = 0,
+     *     UmsThreadUserContext,
+     *     UmsThreadPriority,
+     *     UmsThreadAffinity,
+     *     UmsThreadTeb,
+     *     UmsThreadIsSuspended,
+     *     UmsThreadIsTerminated,
+     *     UmsThreadMaxInfoClass
+     * } *PRTL_UMS_THREAD_INFO_CLASS
+     * }
+     */
+    public static final AddressLayout PRTL_UMS_THREAD_INFO_CLASS = Windows_h.C_POINTER;
+    private static final int UmsSchedulerStartup = (int)0L;
     /**
-     * {@snippet :
-     * #define GMEM_LOWER 4096
+     * {@snippet lang=c :
+     * enum _RTL_UMS_SCHEDULER_REASON.UmsSchedulerStartup = 0
      * }
      */
-    public static int GMEM_LOWER() {
-        return (int)4096L;
+    public static int UmsSchedulerStartup() {
+        return UmsSchedulerStartup;
     }
+    private static final int UmsSchedulerThreadBlocked = (int)1L;
     /**
-     * {@snippet :
-     * #define GHND 66
+     * {@snippet lang=c :
+     * enum _RTL_UMS_SCHEDULER_REASON.UmsSchedulerThreadBlocked = 1
      * }
      */
-    public static int GHND() {
-        return (int)66L;
+    public static int UmsSchedulerThreadBlocked() {
+        return UmsSchedulerThreadBlocked;
     }
+    private static final int UmsSchedulerThreadYield = (int)2L;
     /**
-     * {@snippet :
-     * #define GPTR 64
+     * {@snippet lang=c :
+     * enum _RTL_UMS_SCHEDULER_REASON.UmsSchedulerThreadYield = 2
      * }
      */
-    public static int GPTR() {
-        return (int)64L;
+    public static int UmsSchedulerThreadYield() {
+        return UmsSchedulerThreadYield;
     }
     /**
-     * {@snippet :
-     * #define CREATE_IGNORE_SYSTEM_DEFAULT 2147483648
+     * {@snippet lang=c :
+     * typedef enum _RTL_UMS_SCHEDULER_REASON {
+     *     UmsSchedulerStartup = 0,
+     *     UmsSchedulerThreadBlocked,
+     *     UmsSchedulerThreadYield
+     * } *PRTL_UMS_SCHEDULER_REASON
      * }
      */
-    public static int CREATE_IGNORE_SYSTEM_DEFAULT() {
-        return (int)2147483648L;
+    public static final AddressLayout PRTL_UMS_SCHEDULER_REASON = Windows_h.C_POINTER;
+
+    private static class RtlCrc32 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlCrc32"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_PRIORITY_LOWEST -2
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD RtlCrc32(const void *Buffer, size_t Size, DWORD InitialCrc)
      * }
      */
-    public static int THREAD_PRIORITY_LOWEST() {
-        return (int)-2L;
+    public static FunctionDescriptor RtlCrc32$descriptor() {
+        return RtlCrc32.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_PRIORITY_BELOW_NORMAL -1
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD RtlCrc32(const void *Buffer, size_t Size, DWORD InitialCrc)
      * }
      */
-    public static int THREAD_PRIORITY_BELOW_NORMAL() {
-        return (int)-1L;
+    public static MethodHandle RtlCrc32$handle() {
+        return RtlCrc32.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define THREAD_PRIORITY_HIGHEST 2
+     * {@snippet lang=c :
+     * DWORD RtlCrc32(const void *Buffer, size_t Size, DWORD InitialCrc)
      * }
      */
-    public static int THREAD_PRIORITY_HIGHEST() {
-        return (int)2L;
+    public static int RtlCrc32(MemorySegment Buffer, long Size, int InitialCrc) {
+        var mh$ = RtlCrc32.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlCrc32", Buffer, Size, InitialCrc);
+            }
+            return (int)mh$.invokeExact(Buffer, Size, InitialCrc);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class RtlCrc64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlCrc64"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define THREAD_PRIORITY_ABOVE_NORMAL 1
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * ULONGLONG RtlCrc64(const void *Buffer, size_t Size, ULONGLONG InitialCrc)
      * }
      */
-    public static int THREAD_PRIORITY_ABOVE_NORMAL() {
-        return (int)1L;
+    public static FunctionDescriptor RtlCrc64$descriptor() {
+        return RtlCrc64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define THREAD_PRIORITY_ERROR_RETURN 2147483647
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * ULONGLONG RtlCrc64(const void *Buffer, size_t Size, ULONGLONG InitialCrc)
      * }
      */
-    public static int THREAD_PRIORITY_ERROR_RETURN() {
-        return (int)2147483647L;
+    public static MethodHandle RtlCrc64$handle() {
+        return RtlCrc64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define THREAD_PRIORITY_TIME_CRITICAL 15
+     * {@snippet lang=c :
+     * ULONGLONG RtlCrc64(const void *Buffer, size_t Size, ULONGLONG InitialCrc)
      * }
      */
-    public static int THREAD_PRIORITY_TIME_CRITICAL() {
-        return (int)15L;
+    public static long RtlCrc64(MemorySegment Buffer, long Size, long InitialCrc) {
+        var mh$ = RtlCrc64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlCrc64", Buffer, Size, InitialCrc);
+            }
+            return (long)mh$.invokeExact(Buffer, Size, InitialCrc);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+    private static final int OS_DEPLOYMENT_STANDARD = (int)1L;
     /**
-     * {@snippet :
-     * #define THREAD_PRIORITY_IDLE -15
+     * {@snippet lang=c :
+     * enum _OS_DEPLOYEMENT_STATE_VALUES.OS_DEPLOYMENT_STANDARD = 1
      * }
      */
-    public static int THREAD_PRIORITY_IDLE() {
-        return (int)-15L;
+    public static int OS_DEPLOYMENT_STANDARD() {
+        return OS_DEPLOYMENT_STANDARD;
     }
+    private static final int OS_DEPLOYMENT_COMPACT = (int)2L;
     /**
-     * {@snippet :
-     * #define STD_INPUT_HANDLE 4294967286
+     * {@snippet lang=c :
+     * enum _OS_DEPLOYEMENT_STATE_VALUES.OS_DEPLOYMENT_COMPACT = 2
      * }
      */
-    public static int STD_INPUT_HANDLE() {
-        return (int)4294967286L;
+    public static int OS_DEPLOYMENT_COMPACT() {
+        return OS_DEPLOYMENT_COMPACT;
+    }
+
+    private static class RtlOsDeploymentState {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlOsDeploymentState"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define STD_OUTPUT_HANDLE 4294967285
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * OS_DEPLOYEMENT_STATE_VALUES RtlOsDeploymentState(DWORD Flags)
      * }
      */
-    public static int STD_OUTPUT_HANDLE() {
-        return (int)4294967285L;
+    public static FunctionDescriptor RtlOsDeploymentState$descriptor() {
+        return RtlOsDeploymentState.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define STD_ERROR_HANDLE 4294967284
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * OS_DEPLOYEMENT_STATE_VALUES RtlOsDeploymentState(DWORD Flags)
      * }
      */
-    public static int STD_ERROR_HANDLE() {
-        return (int)4294967284L;
+    public static MethodHandle RtlOsDeploymentState$handle() {
+        return RtlOsDeploymentState.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define INFINITE 4294967295
+     * {@snippet lang=c :
+     * OS_DEPLOYEMENT_STATE_VALUES RtlOsDeploymentState(DWORD Flags)
      * }
      */
-    public static int INFINITE() {
-        return (int)4294967295L;
+    public static int RtlOsDeploymentState(int Flags) {
+        var mh$ = RtlOsDeploymentState.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlOsDeploymentState", Flags);
+            }
+            return (int)mh$.invokeExact(Flags);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
     /**
-     * {@snippet :
-     * #define IE_BADID -1
+     * {@snippet lang=c :
+     * typedef struct _NV_MEMORY_RANGE {
+     *     void *BaseAddress;
+     *     SIZE_T Length;
+     * } *PNV_MEMORY_RANGE
      * }
      */
-    public static int IE_BADID() {
-        return (int)-1L;
+    public static final AddressLayout PNV_MEMORY_RANGE = Windows_h.C_POINTER;
+
+    private static class RtlGetNonVolatileToken {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlGetNonVolatileToken"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define IE_OPEN -2
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD RtlGetNonVolatileToken(PVOID NvBuffer, SIZE_T Size, PVOID *NvToken)
      * }
      */
-    public static int IE_OPEN() {
-        return (int)-2L;
+    public static FunctionDescriptor RtlGetNonVolatileToken$descriptor() {
+        return RtlGetNonVolatileToken.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define IE_NOPEN -3
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD RtlGetNonVolatileToken(PVOID NvBuffer, SIZE_T Size, PVOID *NvToken)
      * }
      */
-    public static int IE_NOPEN() {
-        return (int)-3L;
+    public static MethodHandle RtlGetNonVolatileToken$handle() {
+        return RtlGetNonVolatileToken.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define IE_MEMORY -4
+     * {@snippet lang=c :
+     * DWORD RtlGetNonVolatileToken(PVOID NvBuffer, SIZE_T Size, PVOID *NvToken)
      * }
      */
-    public static int IE_MEMORY() {
-        return (int)-4L;
+    public static int RtlGetNonVolatileToken(MemorySegment NvBuffer, long Size, MemorySegment NvToken) {
+        var mh$ = RtlGetNonVolatileToken.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlGetNonVolatileToken", NvBuffer, Size, NvToken);
+            }
+            return (int)mh$.invokeExact(NvBuffer, Size, NvToken);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class RtlFreeNonVolatileToken {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlFreeNonVolatileToken"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define IE_DEFAULT -5
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD RtlFreeNonVolatileToken(PVOID NvToken)
      * }
      */
-    public static int IE_DEFAULT() {
-        return (int)-5L;
+    public static FunctionDescriptor RtlFreeNonVolatileToken$descriptor() {
+        return RtlFreeNonVolatileToken.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define IE_HARDWARE -10
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD RtlFreeNonVolatileToken(PVOID NvToken)
      * }
      */
-    public static int IE_HARDWARE() {
-        return (int)-10L;
+    public static MethodHandle RtlFreeNonVolatileToken$handle() {
+        return RtlFreeNonVolatileToken.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define IE_BYTESIZE -11
+     * {@snippet lang=c :
+     * DWORD RtlFreeNonVolatileToken(PVOID NvToken)
      * }
      */
-    public static int IE_BYTESIZE() {
-        return (int)-11L;
+    public static int RtlFreeNonVolatileToken(MemorySegment NvToken) {
+        var mh$ = RtlFreeNonVolatileToken.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlFreeNonVolatileToken", NvToken);
+            }
+            return (int)mh$.invokeExact(NvToken);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlFlushNonVolatileMemory {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlFlushNonVolatileMemory"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define IE_BAUDRATE -12
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD RtlFlushNonVolatileMemory(PVOID NvToken, PVOID NvBuffer, SIZE_T Size, DWORD Flags)
      * }
      */
-    public static int IE_BAUDRATE() {
-        return (int)-12L;
+    public static FunctionDescriptor RtlFlushNonVolatileMemory$descriptor() {
+        return RtlFlushNonVolatileMemory.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define MS_CTS_ON 16
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD RtlFlushNonVolatileMemory(PVOID NvToken, PVOID NvBuffer, SIZE_T Size, DWORD Flags)
      * }
      */
-    public static int MS_CTS_ON() {
-        return (int)16L;
+    public static MethodHandle RtlFlushNonVolatileMemory$handle() {
+        return RtlFlushNonVolatileMemory.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define MS_DSR_ON 32
+     * {@snippet lang=c :
+     * DWORD RtlFlushNonVolatileMemory(PVOID NvToken, PVOID NvBuffer, SIZE_T Size, DWORD Flags)
      * }
      */
-    public static int MS_DSR_ON() {
-        return (int)32L;
+    public static int RtlFlushNonVolatileMemory(MemorySegment NvToken, MemorySegment NvBuffer, long Size, int Flags) {
+        var mh$ = RtlFlushNonVolatileMemory.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlFlushNonVolatileMemory", NvToken, NvBuffer, Size, Flags);
+            }
+            return (int)mh$.invokeExact(NvToken, NvBuffer, Size, Flags);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class RtlDrainNonVolatileFlush {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlDrainNonVolatileFlush"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define MS_RING_ON 64
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD RtlDrainNonVolatileFlush(PVOID NvToken)
      * }
      */
-    public static int MS_RING_ON() {
-        return (int)64L;
+    public static FunctionDescriptor RtlDrainNonVolatileFlush$descriptor() {
+        return RtlDrainNonVolatileFlush.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define MS_RLSD_ON 128
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD RtlDrainNonVolatileFlush(PVOID NvToken)
      * }
      */
-    public static int MS_RLSD_ON() {
-        return (int)128L;
+    public static MethodHandle RtlDrainNonVolatileFlush$handle() {
+        return RtlDrainNonVolatileFlush.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define S_SERDVNA -1
+     * {@snippet lang=c :
+     * DWORD RtlDrainNonVolatileFlush(PVOID NvToken)
      * }
      */
-    public static int S_SERDVNA() {
-        return (int)-1L;
+    public static int RtlDrainNonVolatileFlush(MemorySegment NvToken) {
+        var mh$ = RtlDrainNonVolatileFlush.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlDrainNonVolatileFlush", NvToken);
+            }
+            return (int)mh$.invokeExact(NvToken);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlWriteNonVolatileMemory {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlWriteNonVolatileMemory"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define S_SEROFM -2
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD RtlWriteNonVolatileMemory(PVOID NvToken, __unaligned void *NvDestination, const __unaligned void *Source, SIZE_T Size, DWORD Flags)
      * }
      */
-    public static int S_SEROFM() {
-        return (int)-2L;
+    public static FunctionDescriptor RtlWriteNonVolatileMemory$descriptor() {
+        return RtlWriteNonVolatileMemory.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define S_SERMACT -3
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD RtlWriteNonVolatileMemory(PVOID NvToken, __unaligned void *NvDestination, const __unaligned void *Source, SIZE_T Size, DWORD Flags)
      * }
      */
-    public static int S_SERMACT() {
-        return (int)-3L;
+    public static MethodHandle RtlWriteNonVolatileMemory$handle() {
+        return RtlWriteNonVolatileMemory.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define S_SERQFUL -4
+     * {@snippet lang=c :
+     * DWORD RtlWriteNonVolatileMemory(PVOID NvToken, __unaligned void *NvDestination, const __unaligned void *Source, SIZE_T Size, DWORD Flags)
      * }
      */
-    public static int S_SERQFUL() {
-        return (int)-4L;
+    public static int RtlWriteNonVolatileMemory(MemorySegment NvToken, MemorySegment NvDestination, MemorySegment Source, long Size, int Flags) {
+        var mh$ = RtlWriteNonVolatileMemory.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlWriteNonVolatileMemory", NvToken, NvDestination, Source, Size, Flags);
+            }
+            return (int)mh$.invokeExact(NvToken, NvDestination, Source, Size, Flags);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class RtlFillNonVolatileMemory {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_CHAR,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlFillNonVolatileMemory"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define S_SERBDNT -5
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD RtlFillNonVolatileMemory(PVOID NvToken, __unaligned void *NvDestination, SIZE_T Size, const BYTE Value, DWORD Flags)
      * }
      */
-    public static int S_SERBDNT() {
-        return (int)-5L;
+    public static FunctionDescriptor RtlFillNonVolatileMemory$descriptor() {
+        return RtlFillNonVolatileMemory.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define S_SERDLN -6
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD RtlFillNonVolatileMemory(PVOID NvToken, __unaligned void *NvDestination, SIZE_T Size, const BYTE Value, DWORD Flags)
      * }
      */
-    public static int S_SERDLN() {
-        return (int)-6L;
+    public static MethodHandle RtlFillNonVolatileMemory$handle() {
+        return RtlFillNonVolatileMemory.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define S_SERDCC -7
+     * {@snippet lang=c :
+     * DWORD RtlFillNonVolatileMemory(PVOID NvToken, __unaligned void *NvDestination, SIZE_T Size, const BYTE Value, DWORD Flags)
      * }
      */
-    public static int S_SERDCC() {
-        return (int)-7L;
+    public static int RtlFillNonVolatileMemory(MemorySegment NvToken, MemorySegment NvDestination, long Size, byte Value, int Flags) {
+        var mh$ = RtlFillNonVolatileMemory.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlFillNonVolatileMemory", NvToken, NvDestination, Size, Value, Flags);
+            }
+            return (int)mh$.invokeExact(NvToken, NvDestination, Size, Value, Flags);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlFlushNonVolatileMemoryRanges {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlFlushNonVolatileMemoryRanges"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define S_SERDTP -8
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD RtlFlushNonVolatileMemoryRanges(PVOID NvToken, PNV_MEMORY_RANGE NvRanges, SIZE_T NumRanges, DWORD Flags)
      * }
      */
-    public static int S_SERDTP() {
-        return (int)-8L;
+    public static FunctionDescriptor RtlFlushNonVolatileMemoryRanges$descriptor() {
+        return RtlFlushNonVolatileMemoryRanges.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define S_SERDVL -9
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD RtlFlushNonVolatileMemoryRanges(PVOID NvToken, PNV_MEMORY_RANGE NvRanges, SIZE_T NumRanges, DWORD Flags)
      * }
      */
-    public static int S_SERDVL() {
-        return (int)-9L;
+    public static MethodHandle RtlFlushNonVolatileMemoryRanges$handle() {
+        return RtlFlushNonVolatileMemoryRanges.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define S_SERDMD -10
+     * {@snippet lang=c :
+     * DWORD RtlFlushNonVolatileMemoryRanges(PVOID NvToken, PNV_MEMORY_RANGE NvRanges, SIZE_T NumRanges, DWORD Flags)
      * }
      */
-    public static int S_SERDMD() {
-        return (int)-10L;
+    public static int RtlFlushNonVolatileMemoryRanges(MemorySegment NvToken, MemorySegment NvRanges, long NumRanges, int Flags) {
+        var mh$ = RtlFlushNonVolatileMemoryRanges.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlFlushNonVolatileMemoryRanges", NvToken, NvRanges, NumRanges, Flags);
+            }
+            return (int)mh$.invokeExact(NvToken, NvRanges, NumRanges, Flags);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
     /**
-     * {@snippet :
-     * #define S_SERDSH -11
+     * {@snippet lang=c :
+     * typedef CORRELATION_VECTOR *PCORRELATION_VECTOR
      * }
      */
-    public static int S_SERDSH() {
-        return (int)-11L;
+    public static final AddressLayout PCORRELATION_VECTOR = Windows_h.C_POINTER;
+
+    private static class RtlInitializeCorrelationVector {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlInitializeCorrelationVector"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define S_SERDPT -12
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD RtlInitializeCorrelationVector(PCORRELATION_VECTOR CorrelationVector, int Version, const GUID *Guid)
      * }
      */
-    public static int S_SERDPT() {
-        return (int)-12L;
+    public static FunctionDescriptor RtlInitializeCorrelationVector$descriptor() {
+        return RtlInitializeCorrelationVector.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define S_SERDFQ -13
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD RtlInitializeCorrelationVector(PCORRELATION_VECTOR CorrelationVector, int Version, const GUID *Guid)
      * }
      */
-    public static int S_SERDFQ() {
-        return (int)-13L;
+    public static MethodHandle RtlInitializeCorrelationVector$handle() {
+        return RtlInitializeCorrelationVector.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define S_SERDDR -14
+     * {@snippet lang=c :
+     * DWORD RtlInitializeCorrelationVector(PCORRELATION_VECTOR CorrelationVector, int Version, const GUID *Guid)
      * }
      */
-    public static int S_SERDDR() {
-        return (int)-14L;
+    public static int RtlInitializeCorrelationVector(MemorySegment CorrelationVector, int Version, MemorySegment Guid) {
+        var mh$ = RtlInitializeCorrelationVector.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlInitializeCorrelationVector", CorrelationVector, Version, Guid);
+            }
+            return (int)mh$.invokeExact(CorrelationVector, Version, Guid);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class RtlIncrementCorrelationVector {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlIncrementCorrelationVector"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define S_SERDSR -15
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD RtlIncrementCorrelationVector(PCORRELATION_VECTOR CorrelationVector)
      * }
      */
-    public static int S_SERDSR() {
-        return (int)-15L;
+    public static FunctionDescriptor RtlIncrementCorrelationVector$descriptor() {
+        return RtlIncrementCorrelationVector.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define S_SERDST -16
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD RtlIncrementCorrelationVector(PCORRELATION_VECTOR CorrelationVector)
      * }
      */
-    public static int S_SERDST() {
-        return (int)-16L;
+    public static MethodHandle RtlIncrementCorrelationVector$handle() {
+        return RtlIncrementCorrelationVector.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define NMPWAIT_WAIT_FOREVER 4294967295
+     * {@snippet lang=c :
+     * DWORD RtlIncrementCorrelationVector(PCORRELATION_VECTOR CorrelationVector)
      * }
      */
-    public static int NMPWAIT_WAIT_FOREVER() {
-        return (int)4294967295L;
+    public static int RtlIncrementCorrelationVector(MemorySegment CorrelationVector) {
+        var mh$ = RtlIncrementCorrelationVector.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlIncrementCorrelationVector", CorrelationVector);
+            }
+            return (int)mh$.invokeExact(CorrelationVector);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class RtlExtendCorrelationVector {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlExtendCorrelationVector"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define FS_CASE_IS_PRESERVED 2
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD RtlExtendCorrelationVector(PCORRELATION_VECTOR CorrelationVector)
      * }
      */
-    public static int FS_CASE_IS_PRESERVED() {
-        return (int)2L;
+    public static FunctionDescriptor RtlExtendCorrelationVector$descriptor() {
+        return RtlExtendCorrelationVector.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define FS_CASE_SENSITIVE 1
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD RtlExtendCorrelationVector(PCORRELATION_VECTOR CorrelationVector)
      * }
      */
-    public static int FS_CASE_SENSITIVE() {
-        return (int)1L;
+    public static MethodHandle RtlExtendCorrelationVector$handle() {
+        return RtlExtendCorrelationVector.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define FS_UNICODE_STORED_ON_DISK 4
+     * {@snippet lang=c :
+     * DWORD RtlExtendCorrelationVector(PCORRELATION_VECTOR CorrelationVector)
      * }
      */
-    public static int FS_UNICODE_STORED_ON_DISK() {
-        return (int)4L;
+    public static int RtlExtendCorrelationVector(MemorySegment CorrelationVector) {
+        var mh$ = RtlExtendCorrelationVector.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlExtendCorrelationVector", CorrelationVector);
+            }
+            return (int)mh$.invokeExact(CorrelationVector);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class RtlValidateCorrelationVector {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("RtlValidateCorrelationVector"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define FS_PERSISTENT_ACLS 8
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD RtlValidateCorrelationVector(PCORRELATION_VECTOR Vector)
      * }
      */
-    public static int FS_PERSISTENT_ACLS() {
-        return (int)8L;
+    public static FunctionDescriptor RtlValidateCorrelationVector$descriptor() {
+        return RtlValidateCorrelationVector.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define FS_VOL_IS_COMPRESSED 32768
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD RtlValidateCorrelationVector(PCORRELATION_VECTOR Vector)
      * }
      */
-    public static int FS_VOL_IS_COMPRESSED() {
-        return (int)32768L;
+    public static MethodHandle RtlValidateCorrelationVector$handle() {
+        return RtlValidateCorrelationVector.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define FS_FILE_COMPRESSION 16
+     * {@snippet lang=c :
+     * DWORD RtlValidateCorrelationVector(PCORRELATION_VECTOR Vector)
      * }
      */
-    public static int FS_FILE_COMPRESSION() {
-        return (int)16L;
+    public static int RtlValidateCorrelationVector(MemorySegment Vector) {
+        var mh$ = RtlValidateCorrelationVector.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("RtlValidateCorrelationVector", Vector);
+            }
+            return (int)mh$.invokeExact(Vector);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

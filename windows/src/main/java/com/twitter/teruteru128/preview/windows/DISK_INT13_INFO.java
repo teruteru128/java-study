@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _DISK_INT13_INFO DISK_INT13_INFO;
+ * {@snippet lang=c :
+ * typedef struct _DISK_INT13_INFO {
+ *     WORD DriveSelect;
+ *     DWORD MaxCylinders;
+ *     WORD SectorsPerTrack;
+ *     WORD MaxHeads;
+ *     WORD NumberDrives;
+ * } DISK_INT13_INFO
  * }
  */
-public final class DISK_INT13_INFO extends _DISK_INT13_INFO {
+public class DISK_INT13_INFO extends _DISK_INT13_INFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private DISK_INT13_INFO() {}
+    DISK_INT13_INFO() {
+        // Should not be called directly
+    }
 }
-
 

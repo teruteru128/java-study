@@ -2,152 +2,264 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _NDR_CS_SIZE_CONVERT_ROUTINES {
  *     CS_TYPE_NET_SIZE_ROUTINE pfnNetSize;
  *     CS_TYPE_TO_NETCS_ROUTINE pfnToNetCs;
  *     CS_TYPE_LOCAL_SIZE_ROUTINE pfnLocalSize;
  *     CS_TYPE_FROM_NETCS_ROUTINE pfnFromNetCs;
- * };
+ * }
  * }
  */
 public class _NDR_CS_SIZE_CONVERT_ROUTINES {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2286.const$0;
+    _NDR_CS_SIZE_CONVERT_ROUTINES() {
+        // Should not be called directly
     }
-    public static VarHandle pfnNetSize$VH() {
-        return constants$2286.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * CS_TYPE_NET_SIZE_ROUTINE pfnNetSize;
-     * }
-     */
-    public static MemorySegment pfnNetSize$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2286.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * CS_TYPE_NET_SIZE_ROUTINE pfnNetSize;
-     * }
-     */
-    public static void pfnNetSize$set(MemorySegment seg, MemorySegment x) {
-        constants$2286.const$1.set(seg, x);
-    }
-    public static MemorySegment pfnNetSize$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2286.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pfnNetSize$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2286.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static CS_TYPE_NET_SIZE_ROUTINE pfnNetSize(MemorySegment segment, Arena scope) {
-        return CS_TYPE_NET_SIZE_ROUTINE.ofAddress(pfnNetSize$get(segment), scope);
-    }
-    public static VarHandle pfnToNetCs$VH() {
-        return constants$2286.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * CS_TYPE_TO_NETCS_ROUTINE pfnToNetCs;
-     * }
-     */
-    public static MemorySegment pfnToNetCs$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2286.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * CS_TYPE_TO_NETCS_ROUTINE pfnToNetCs;
-     * }
-     */
-    public static void pfnToNetCs$set(MemorySegment seg, MemorySegment x) {
-        constants$2286.const$2.set(seg, x);
-    }
-    public static MemorySegment pfnToNetCs$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2286.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pfnToNetCs$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2286.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static CS_TYPE_TO_NETCS_ROUTINE pfnToNetCs(MemorySegment segment, Arena scope) {
-        return CS_TYPE_TO_NETCS_ROUTINE.ofAddress(pfnToNetCs$get(segment), scope);
-    }
-    public static VarHandle pfnLocalSize$VH() {
-        return constants$2286.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * CS_TYPE_LOCAL_SIZE_ROUTINE pfnLocalSize;
-     * }
-     */
-    public static MemorySegment pfnLocalSize$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2286.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * CS_TYPE_LOCAL_SIZE_ROUTINE pfnLocalSize;
-     * }
-     */
-    public static void pfnLocalSize$set(MemorySegment seg, MemorySegment x) {
-        constants$2286.const$3.set(seg, x);
-    }
-    public static MemorySegment pfnLocalSize$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2286.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pfnLocalSize$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2286.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static CS_TYPE_LOCAL_SIZE_ROUTINE pfnLocalSize(MemorySegment segment, Arena scope) {
-        return CS_TYPE_LOCAL_SIZE_ROUTINE.ofAddress(pfnLocalSize$get(segment), scope);
-    }
-    public static VarHandle pfnFromNetCs$VH() {
-        return constants$2286.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * CS_TYPE_FROM_NETCS_ROUTINE pfnFromNetCs;
-     * }
-     */
-    public static MemorySegment pfnFromNetCs$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2286.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * CS_TYPE_FROM_NETCS_ROUTINE pfnFromNetCs;
-     * }
-     */
-    public static void pfnFromNetCs$set(MemorySegment seg, MemorySegment x) {
-        constants$2286.const$4.set(seg, x);
-    }
-    public static MemorySegment pfnFromNetCs$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2286.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pfnFromNetCs$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2286.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static CS_TYPE_FROM_NETCS_ROUTINE pfnFromNetCs(MemorySegment segment, Arena scope) {
-        return CS_TYPE_FROM_NETCS_ROUTINE.ofAddress(pfnFromNetCs$get(segment), scope);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("pfnNetSize"),
+        Windows_h.C_POINTER.withName("pfnToNetCs"),
+        Windows_h.C_POINTER.withName("pfnLocalSize"),
+        Windows_h.C_POINTER.withName("pfnFromNetCs")
+    ).withName("_NDR_CS_SIZE_CONVERT_ROUTINES");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final AddressLayout pfnNetSize$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pfnNetSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * CS_TYPE_NET_SIZE_ROUTINE pfnNetSize
+     * }
+     */
+    public static final AddressLayout pfnNetSize$layout() {
+        return pfnNetSize$LAYOUT;
+    }
+
+    private static final long pfnNetSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * CS_TYPE_NET_SIZE_ROUTINE pfnNetSize
+     * }
+     */
+    public static final long pfnNetSize$offset() {
+        return pfnNetSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * CS_TYPE_NET_SIZE_ROUTINE pfnNetSize
+     * }
+     */
+    public static MemorySegment pfnNetSize(MemorySegment struct) {
+        return struct.get(pfnNetSize$LAYOUT, pfnNetSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * CS_TYPE_NET_SIZE_ROUTINE pfnNetSize
+     * }
+     */
+    public static void pfnNetSize(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pfnNetSize$LAYOUT, pfnNetSize$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pfnToNetCs$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pfnToNetCs"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * CS_TYPE_TO_NETCS_ROUTINE pfnToNetCs
+     * }
+     */
+    public static final AddressLayout pfnToNetCs$layout() {
+        return pfnToNetCs$LAYOUT;
+    }
+
+    private static final long pfnToNetCs$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * CS_TYPE_TO_NETCS_ROUTINE pfnToNetCs
+     * }
+     */
+    public static final long pfnToNetCs$offset() {
+        return pfnToNetCs$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * CS_TYPE_TO_NETCS_ROUTINE pfnToNetCs
+     * }
+     */
+    public static MemorySegment pfnToNetCs(MemorySegment struct) {
+        return struct.get(pfnToNetCs$LAYOUT, pfnToNetCs$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * CS_TYPE_TO_NETCS_ROUTINE pfnToNetCs
+     * }
+     */
+    public static void pfnToNetCs(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pfnToNetCs$LAYOUT, pfnToNetCs$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pfnLocalSize$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pfnLocalSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * CS_TYPE_LOCAL_SIZE_ROUTINE pfnLocalSize
+     * }
+     */
+    public static final AddressLayout pfnLocalSize$layout() {
+        return pfnLocalSize$LAYOUT;
+    }
+
+    private static final long pfnLocalSize$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * CS_TYPE_LOCAL_SIZE_ROUTINE pfnLocalSize
+     * }
+     */
+    public static final long pfnLocalSize$offset() {
+        return pfnLocalSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * CS_TYPE_LOCAL_SIZE_ROUTINE pfnLocalSize
+     * }
+     */
+    public static MemorySegment pfnLocalSize(MemorySegment struct) {
+        return struct.get(pfnLocalSize$LAYOUT, pfnLocalSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * CS_TYPE_LOCAL_SIZE_ROUTINE pfnLocalSize
+     * }
+     */
+    public static void pfnLocalSize(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pfnLocalSize$LAYOUT, pfnLocalSize$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pfnFromNetCs$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pfnFromNetCs"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * CS_TYPE_FROM_NETCS_ROUTINE pfnFromNetCs
+     * }
+     */
+    public static final AddressLayout pfnFromNetCs$layout() {
+        return pfnFromNetCs$LAYOUT;
+    }
+
+    private static final long pfnFromNetCs$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * CS_TYPE_FROM_NETCS_ROUTINE pfnFromNetCs
+     * }
+     */
+    public static final long pfnFromNetCs$offset() {
+        return pfnFromNetCs$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * CS_TYPE_FROM_NETCS_ROUTINE pfnFromNetCs
+     * }
+     */
+    public static MemorySegment pfnFromNetCs(MemorySegment struct) {
+        return struct.get(pfnFromNetCs$LAYOUT, pfnFromNetCs$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * CS_TYPE_FROM_NETCS_ROUTINE pfnFromNetCs
+     * }
+     */
+    public static void pfnFromNetCs(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pfnFromNetCs$LAYOUT, pfnFromNetCs$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

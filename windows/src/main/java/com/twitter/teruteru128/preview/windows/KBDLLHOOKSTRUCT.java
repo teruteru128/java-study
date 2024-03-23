@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagKBDLLHOOKSTRUCT KBDLLHOOKSTRUCT;
+ * {@snippet lang=c :
+ * typedef struct tagKBDLLHOOKSTRUCT {
+ *     DWORD vkCode;
+ *     DWORD scanCode;
+ *     DWORD flags;
+ *     DWORD time;
+ *     ULONG_PTR dwExtraInfo;
+ * } KBDLLHOOKSTRUCT
  * }
  */
-public final class KBDLLHOOKSTRUCT extends tagKBDLLHOOKSTRUCT {
+public class KBDLLHOOKSTRUCT extends tagKBDLLHOOKSTRUCT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private KBDLLHOOKSTRUCT() {}
+    KBDLLHOOKSTRUCT() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,32 +2,72 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * DWORD (*QUERYHANDLER)(LPVOID keycontext,PVALCONTEXT val_list,DWORD num_vals,LPVOID outputbuffer,DWORD* total_outlen,DWORD input_blen);
+ * {@snippet lang=c :
+ * typedef DWORD (QUERYHANDLER)(LPVOID, PVALCONTEXT, DWORD, LPVOID, DWORD *, DWORD) __attribute__((cdecl))
  * }
  */
-public interface QUERYHANDLER {
+public class QUERYHANDLER {
 
-    int apply(java.lang.foreign.MemorySegment keycontext, java.lang.foreign.MemorySegment val_list, int num_vals, java.lang.foreign.MemorySegment outputbuffer, java.lang.foreign.MemorySegment total_outlen, int input_blen);
-    static MemorySegment allocate(QUERYHANDLER fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$1482.const$3, fi, constants$626.const$3, scope);
+    QUERYHANDLER() {
+        // Should not be called directly
     }
-    static QUERYHANDLER ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _keycontext, java.lang.foreign.MemorySegment _val_list, int _num_vals, java.lang.foreign.MemorySegment _outputbuffer, java.lang.foreign.MemorySegment _total_outlen, int _input_blen) -> {
-            try {
-                return (int)constants$1482.const$4.invokeExact(symbol, _keycontext, _val_list, _num_vals, _outputbuffer, _total_outlen, _input_blen);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment keycontext, MemorySegment val_list, int num_vals, MemorySegment outputbuffer, MemorySegment total_outlen, int input_blen);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(QUERYHANDLER.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(QUERYHANDLER.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment keycontext, MemorySegment val_list, int num_vals, MemorySegment outputbuffer, MemorySegment total_outlen, int input_blen) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, keycontext, val_list, num_vals, outputbuffer, total_outlen, input_blen);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

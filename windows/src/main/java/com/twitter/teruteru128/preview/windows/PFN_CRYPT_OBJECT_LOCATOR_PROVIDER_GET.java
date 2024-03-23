@@ -2,32 +2,74 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET)(void* pPluginContext,struct _CRYPTOAPI_BLOB* pIdentifier,unsigned long dwNameType,struct _CRYPTOAPI_BLOB* pNameBlob,unsigned char** ppbContent,unsigned long* pcbContent,unsigned short** ppwszPassword,struct _CRYPTOAPI_BLOB** ppIdentifier);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET)(LPVOID, PCRYPT_DATA_BLOB, DWORD, PCERT_NAME_BLOB, PBYTE *, DWORD *, PCWSTR *, PCRYPT_DATA_BLOB *) __attribute__((stdcall))
  * }
  */
-public interface PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET {
+public class PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET {
 
-    int apply(java.lang.foreign.MemorySegment pPluginContext, java.lang.foreign.MemorySegment pIdentifier, int dwNameType, java.lang.foreign.MemorySegment pNameBlob, java.lang.foreign.MemorySegment ppbContent, java.lang.foreign.MemorySegment pcbContent, java.lang.foreign.MemorySegment ppwszPassword, java.lang.foreign.MemorySegment ppIdentifier);
-    static MemorySegment allocate(PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2241.const$5, fi, constants$717.const$2, scope);
+    PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET() {
+        // Should not be called directly
     }
-    static PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _pPluginContext, java.lang.foreign.MemorySegment _pIdentifier, int _dwNameType, java.lang.foreign.MemorySegment _pNameBlob, java.lang.foreign.MemorySegment _ppbContent, java.lang.foreign.MemorySegment _pcbContent, java.lang.foreign.MemorySegment _ppwszPassword, java.lang.foreign.MemorySegment _ppIdentifier) -> {
-            try {
-                return (int)constants$2242.const$0.invokeExact(symbol, _pPluginContext, _pIdentifier, _dwNameType, _pNameBlob, _ppbContent, _pcbContent, _ppwszPassword, _ppIdentifier);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment pPluginContext, MemorySegment pIdentifier, int dwNameType, MemorySegment pNameBlob, MemorySegment ppbContent, MemorySegment pcbContent, MemorySegment ppwszPassword, MemorySegment ppIdentifier);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment pPluginContext, MemorySegment pIdentifier, int dwNameType, MemorySegment pNameBlob, MemorySegment ppbContent, MemorySegment pcbContent, MemorySegment ppwszPassword, MemorySegment ppIdentifier) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, pPluginContext, pIdentifier, dwNameType, pNameBlob, ppbContent, pcbContent, ppwszPassword, ppIdentifier);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

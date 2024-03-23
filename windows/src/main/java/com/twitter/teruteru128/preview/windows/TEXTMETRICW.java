@@ -2,20 +2,46 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagTEXTMETRICW TEXTMETRICW;
+ * {@snippet lang=c :
+ * typedef struct tagTEXTMETRICW {
+ *     LONG tmHeight;
+ *     LONG tmAscent;
+ *     LONG tmDescent;
+ *     LONG tmInternalLeading;
+ *     LONG tmExternalLeading;
+ *     LONG tmAveCharWidth;
+ *     LONG tmMaxCharWidth;
+ *     LONG tmWeight;
+ *     LONG tmOverhang;
+ *     LONG tmDigitizedAspectX;
+ *     LONG tmDigitizedAspectY;
+ *     WCHAR tmFirstChar;
+ *     WCHAR tmLastChar;
+ *     WCHAR tmDefaultChar;
+ *     WCHAR tmBreakChar;
+ *     BYTE tmItalic;
+ *     BYTE tmUnderlined;
+ *     BYTE tmStruckOut;
+ *     BYTE tmPitchAndFamily;
+ *     BYTE tmCharSet;
+ * } TEXTMETRICW
  * }
  */
-public final class TEXTMETRICW extends tagTEXTMETRICW {
+public class TEXTMETRICW extends tagTEXTMETRICW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private TEXTMETRICW() {}
+    TEXTMETRICW() {
+        // Should not be called directly
+    }
 }
-
 

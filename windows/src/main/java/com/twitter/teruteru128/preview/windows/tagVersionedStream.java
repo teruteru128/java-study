@@ -2,60 +2,172 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagVersionedStream {
  *     GUID guidVersion;
- *     IStream* pStream;
- * };
+ *     IStream *pStream;
+ * }
  * }
  */
 public class tagVersionedStream {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$3583.const$4;
+    tagVersionedStream() {
+        // Should not be called directly
     }
-    public static MemorySegment guidVersion$slice(MemorySegment seg) {
-        return seg.asSlice(0, 16);
+
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        _GUID.layout().withName("guidVersion"),
+        Windows_h.C_POINTER.withName("pStream")
+    ).withName("tagVersionedStream");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
     }
-    public static VarHandle pStream$VH() {
-        return constants$3583.const$5;
+
+    private static final GroupLayout guidVersion$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("guidVersion"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * GUID guidVersion
+     * }
+     */
+    public static final GroupLayout guidVersion$layout() {
+        return guidVersion$LAYOUT;
     }
+
+    private static final long guidVersion$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * GUID guidVersion
+     * }
+     */
+    public static final long guidVersion$offset() {
+        return guidVersion$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * IStream* pStream;
+     * {@snippet lang=c :
+     * GUID guidVersion
      * }
      */
-    public static MemorySegment pStream$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3583.const$5.get(seg);
+    public static MemorySegment guidVersion(MemorySegment struct) {
+        return struct.asSlice(guidVersion$OFFSET, guidVersion$LAYOUT.byteSize());
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * IStream* pStream;
+     * {@snippet lang=c :
+     * GUID guidVersion
      * }
      */
-    public static void pStream$set(MemorySegment seg, MemorySegment x) {
-        constants$3583.const$5.set(seg, x);
+    public static void guidVersion(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, guidVersion$OFFSET, guidVersion$LAYOUT.byteSize());
     }
-    public static MemorySegment pStream$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3583.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pStream$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3583.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final AddressLayout pStream$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pStream"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * IStream *pStream
+     * }
+     */
+    public static final AddressLayout pStream$layout() {
+        return pStream$LAYOUT;
+    }
+
+    private static final long pStream$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * IStream *pStream
+     * }
+     */
+    public static final long pStream$offset() {
+        return pStream$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * IStream *pStream
+     * }
+     */
+    public static MemorySegment pStream(MemorySegment struct) {
+        return struct.get(pStream$LAYOUT, pStream$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * IStream *pStream
+     * }
+     */
+    public static void pStream(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pStream$LAYOUT, pStream$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

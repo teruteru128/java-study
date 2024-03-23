@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CRYPT_ATTRIBUTE CRYPT_ATTRIBUTE;
+ * {@snippet lang=c :
+ * typedef struct _CRYPT_ATTRIBUTE {
+ *     LPSTR pszObjId;
+ *     DWORD cValue;
+ *     PCRYPT_ATTR_BLOB rgValue;
+ * } CRYPT_ATTRIBUTE
  * }
  */
-public final class CRYPT_ATTRIBUTE extends _CRYPT_ATTRIBUTE {
+public class CRYPT_ATTRIBUTE extends _CRYPT_ATTRIBUTE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CRYPT_ATTRIBUTE() {}
+    CRYPT_ATTRIBUTE() {
+        // Should not be called directly
+    }
 }
-
 

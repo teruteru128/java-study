@@ -2,8013 +2,9020 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
-import static java.lang.foreign.ValueLayout.*;
-public class Windows_h_36 extends Windows_h_35 {
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
+import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
+public class Windows_h_36 extends Windows_h_37 {
+
+    Windows_h_36() {
+        // Should not be called directly
+    }
+    private static final int FACILITY_JSCRIPT = (int)2306L;
     /**
-     * {@snippet :
-     * #define PF_MAX 22
+     * {@snippet lang=c :
+     * #define FACILITY_JSCRIPT 2306
      * }
      */
-    public static int PF_MAX() {
-        return (int)22L;
+    public static int FACILITY_JSCRIPT() {
+        return FACILITY_JSCRIPT;
     }
+    private static final int FACILITY_PIDGENX = (int)2561L;
     /**
-     * {@snippet :
-     * #define HOST_NOT_FOUND 11001
+     * {@snippet lang=c :
+     * #define FACILITY_PIDGENX 2561
      * }
      */
-    public static int HOST_NOT_FOUND() {
-        return (int)11001L;
+    public static int FACILITY_PIDGENX() {
+        return FACILITY_PIDGENX;
     }
+    private static final int FACILITY_EAS = (int)85L;
     /**
-     * {@snippet :
-     * #define TRY_AGAIN 11002
+     * {@snippet lang=c :
+     * #define FACILITY_EAS 85
      * }
      */
-    public static int TRY_AGAIN() {
-        return (int)11002L;
+    public static int FACILITY_EAS() {
+        return FACILITY_EAS;
     }
+    private static final int FACILITY_WEB = (int)885L;
     /**
-     * {@snippet :
-     * #define NO_RECOVERY 11003
+     * {@snippet lang=c :
+     * #define FACILITY_WEB 885
      * }
      */
-    public static int NO_RECOVERY() {
-        return (int)11003L;
+    public static int FACILITY_WEB() {
+        return FACILITY_WEB;
     }
+    private static final int FACILITY_WEB_SOCKET = (int)886L;
     /**
-     * {@snippet :
-     * #define NO_DATA 11004
+     * {@snippet lang=c :
+     * #define FACILITY_WEB_SOCKET 886
      * }
      */
-    public static int NO_DATA() {
-        return (int)11004L;
+    public static int FACILITY_WEB_SOCKET() {
+        return FACILITY_WEB_SOCKET;
     }
+    private static final int FACILITY_MOBILE = (int)1793L;
     /**
-     * {@snippet :
-     * #define WSANO_ADDRESS 11004
+     * {@snippet lang=c :
+     * #define FACILITY_MOBILE 1793
      * }
      */
-    public static int WSANO_ADDRESS() {
-        return (int)11004L;
+    public static int FACILITY_MOBILE() {
+        return FACILITY_MOBILE;
     }
+    private static final int FACILITY_SQLITE = (int)1967L;
     /**
-     * {@snippet :
-     * #define NO_ADDRESS 11004
+     * {@snippet lang=c :
+     * #define FACILITY_SQLITE 1967
      * }
      */
-    public static int NO_ADDRESS() {
-        return (int)11004L;
+    public static int FACILITY_SQLITE() {
+        return FACILITY_SQLITE;
     }
+    private static final int FACILITY_SERVICE_FABRIC = (int)1968L;
     /**
-     * {@snippet :
-     * #define ALG_CLASS_ANY 0
+     * {@snippet lang=c :
+     * #define FACILITY_SERVICE_FABRIC 1968
      * }
      */
-    public static int ALG_CLASS_ANY() {
-        return (int)0L;
+    public static int FACILITY_SERVICE_FABRIC() {
+        return FACILITY_SERVICE_FABRIC;
     }
+    private static final int FACILITY_UTC = (int)1989L;
     /**
-     * {@snippet :
-     * #define ALG_CLASS_SIGNATURE 8192
+     * {@snippet lang=c :
+     * #define FACILITY_UTC 1989
      * }
      */
-    public static int ALG_CLASS_SIGNATURE() {
-        return (int)8192L;
+    public static int FACILITY_UTC() {
+        return FACILITY_UTC;
     }
+    private static final int FACILITY_WEP = (int)2049L;
     /**
-     * {@snippet :
-     * #define ALG_CLASS_MSG_ENCRYPT 16384
+     * {@snippet lang=c :
+     * #define FACILITY_WEP 2049
      * }
      */
-    public static int ALG_CLASS_MSG_ENCRYPT() {
-        return (int)16384L;
+    public static int FACILITY_WEP() {
+        return FACILITY_WEP;
     }
+    private static final int FACILITY_SYNCENGINE = (int)2050L;
     /**
-     * {@snippet :
-     * #define ALG_CLASS_DATA_ENCRYPT 24576
+     * {@snippet lang=c :
+     * #define FACILITY_SYNCENGINE 2050
      * }
      */
-    public static int ALG_CLASS_DATA_ENCRYPT() {
-        return (int)24576L;
+    public static int FACILITY_SYNCENGINE() {
+        return FACILITY_SYNCENGINE;
     }
+    private static final int FACILITY_XBOX = (int)2339L;
     /**
-     * {@snippet :
-     * #define ALG_CLASS_HASH 32768
+     * {@snippet lang=c :
+     * #define FACILITY_XBOX 2339
      * }
      */
-    public static int ALG_CLASS_HASH() {
-        return (int)32768L;
+    public static int FACILITY_XBOX() {
+        return FACILITY_XBOX;
     }
+    private static final int FACILITY_GAME = (int)2340L;
     /**
-     * {@snippet :
-     * #define ALG_CLASS_KEY_EXCHANGE 40960
+     * {@snippet lang=c :
+     * #define FACILITY_GAME 2340
      * }
      */
-    public static int ALG_CLASS_KEY_EXCHANGE() {
-        return (int)40960L;
+    public static int FACILITY_GAME() {
+        return FACILITY_GAME;
     }
+    private static final int FACILITY_PIX = (int)2748L;
     /**
-     * {@snippet :
-     * #define ALG_CLASS_ALL 57344
+     * {@snippet lang=c :
+     * #define FACILITY_PIX 2748
      * }
      */
-    public static int ALG_CLASS_ALL() {
-        return (int)57344L;
+    public static int FACILITY_PIX() {
+        return FACILITY_PIX;
     }
+    private static final int DNS_ERROR_RESPONSE_CODES_BASE = (int)9000L;
     /**
-     * {@snippet :
-     * #define ALG_TYPE_ANY 0
+     * {@snippet lang=c :
+     * #define DNS_ERROR_RESPONSE_CODES_BASE 9000
      * }
      */
-    public static int ALG_TYPE_ANY() {
-        return (int)0L;
+    public static int DNS_ERROR_RESPONSE_CODES_BASE() {
+        return DNS_ERROR_RESPONSE_CODES_BASE;
     }
+    private static final int DNS_ERROR_MASK = (int)9000L;
     /**
-     * {@snippet :
-     * #define ALG_TYPE_DSS 512
+     * {@snippet lang=c :
+     * #define DNS_ERROR_MASK 9000
      * }
      */
-    public static int ALG_TYPE_DSS() {
-        return (int)512L;
+    public static int DNS_ERROR_MASK() {
+        return DNS_ERROR_MASK;
     }
+    private static final int DNS_ERROR_DNSSEC_BASE = (int)9100L;
     /**
-     * {@snippet :
-     * #define ALG_TYPE_RSA 1024
+     * {@snippet lang=c :
+     * #define DNS_ERROR_DNSSEC_BASE 9100
      * }
      */
-    public static int ALG_TYPE_RSA() {
-        return (int)1024L;
+    public static int DNS_ERROR_DNSSEC_BASE() {
+        return DNS_ERROR_DNSSEC_BASE;
     }
+    private static final int DNS_ERROR_PACKET_FMT_BASE = (int)9500L;
     /**
-     * {@snippet :
-     * #define ALG_TYPE_BLOCK 1536
+     * {@snippet lang=c :
+     * #define DNS_ERROR_PACKET_FMT_BASE 9500
      * }
      */
-    public static int ALG_TYPE_BLOCK() {
-        return (int)1536L;
+    public static int DNS_ERROR_PACKET_FMT_BASE() {
+        return DNS_ERROR_PACKET_FMT_BASE;
     }
+    private static final int DNS_ERROR_GENERAL_API_BASE = (int)9550L;
     /**
-     * {@snippet :
-     * #define ALG_TYPE_STREAM 2048
+     * {@snippet lang=c :
+     * #define DNS_ERROR_GENERAL_API_BASE 9550
      * }
      */
-    public static int ALG_TYPE_STREAM() {
-        return (int)2048L;
+    public static int DNS_ERROR_GENERAL_API_BASE() {
+        return DNS_ERROR_GENERAL_API_BASE;
     }
+    private static final int DNS_ERROR_ZONE_BASE = (int)9600L;
     /**
-     * {@snippet :
-     * #define ALG_TYPE_DH 2560
+     * {@snippet lang=c :
+     * #define DNS_ERROR_ZONE_BASE 9600
      * }
      */
-    public static int ALG_TYPE_DH() {
-        return (int)2560L;
+    public static int DNS_ERROR_ZONE_BASE() {
+        return DNS_ERROR_ZONE_BASE;
     }
+    private static final int DNS_ERROR_DATAFILE_BASE = (int)9650L;
     /**
-     * {@snippet :
-     * #define ALG_TYPE_SECURECHANNEL 3072
+     * {@snippet lang=c :
+     * #define DNS_ERROR_DATAFILE_BASE 9650
      * }
      */
-    public static int ALG_TYPE_SECURECHANNEL() {
-        return (int)3072L;
+    public static int DNS_ERROR_DATAFILE_BASE() {
+        return DNS_ERROR_DATAFILE_BASE;
     }
+    private static final int DNS_ERROR_DATABASE_BASE = (int)9700L;
     /**
-     * {@snippet :
-     * #define ALG_TYPE_ECDH 3584
+     * {@snippet lang=c :
+     * #define DNS_ERROR_DATABASE_BASE 9700
      * }
      */
-    public static int ALG_TYPE_ECDH() {
-        return (int)3584L;
+    public static int DNS_ERROR_DATABASE_BASE() {
+        return DNS_ERROR_DATABASE_BASE;
     }
+    private static final int DNS_ERROR_OPERATION_BASE = (int)9750L;
     /**
-     * {@snippet :
-     * #define ALG_TYPE_THIRDPARTY 4096
+     * {@snippet lang=c :
+     * #define DNS_ERROR_OPERATION_BASE 9750
      * }
      */
-    public static int ALG_TYPE_THIRDPARTY() {
-        return (int)4096L;
+    public static int DNS_ERROR_OPERATION_BASE() {
+        return DNS_ERROR_OPERATION_BASE;
     }
+    private static final int DNS_ERROR_SECURE_BASE = (int)9800L;
     /**
-     * {@snippet :
-     * #define ALG_SID_ANY 0
+     * {@snippet lang=c :
+     * #define DNS_ERROR_SECURE_BASE 9800
      * }
      */
-    public static int ALG_SID_ANY() {
-        return (int)0L;
+    public static int DNS_ERROR_SECURE_BASE() {
+        return DNS_ERROR_SECURE_BASE;
     }
+    private static final int DNS_ERROR_SETUP_BASE = (int)9850L;
     /**
-     * {@snippet :
-     * #define ALG_SID_THIRDPARTY_ANY 0
+     * {@snippet lang=c :
+     * #define DNS_ERROR_SETUP_BASE 9850
      * }
      */
-    public static int ALG_SID_THIRDPARTY_ANY() {
-        return (int)0L;
+    public static int DNS_ERROR_SETUP_BASE() {
+        return DNS_ERROR_SETUP_BASE;
     }
+    private static final int DNS_ERROR_DP_BASE = (int)9900L;
     /**
-     * {@snippet :
-     * #define CALG_MD2 32769
+     * {@snippet lang=c :
+     * #define DNS_ERROR_DP_BASE 9900
      * }
      */
-    public static int CALG_MD2() {
-        return (int)32769L;
+    public static int DNS_ERROR_DP_BASE() {
+        return DNS_ERROR_DP_BASE;
     }
+    private static final int WSABASEERR = (int)10000L;
     /**
-     * {@snippet :
-     * #define CALG_MD4 32770
+     * {@snippet lang=c :
+     * #define WSABASEERR 10000
      * }
      */
-    public static int CALG_MD4() {
-        return (int)32770L;
+    public static int WSABASEERR() {
+        return WSABASEERR;
     }
+    private static final int SEVERITY_SUCCESS = (int)0L;
     /**
-     * {@snippet :
-     * #define CALG_MD5 32771
+     * {@snippet lang=c :
+     * #define SEVERITY_SUCCESS 0
      * }
      */
-    public static int CALG_MD5() {
-        return (int)32771L;
+    public static int SEVERITY_SUCCESS() {
+        return SEVERITY_SUCCESS;
     }
+    private static final int SEVERITY_ERROR = (int)1L;
     /**
-     * {@snippet :
-     * #define CALG_SHA 32772
+     * {@snippet lang=c :
+     * #define SEVERITY_ERROR 1
      * }
      */
-    public static int CALG_SHA() {
-        return (int)32772L;
+    public static int SEVERITY_ERROR() {
+        return SEVERITY_ERROR;
     }
+    private static final int FACILITY_NT_BIT = (int)268435456L;
     /**
-     * {@snippet :
-     * #define CALG_SHA1 32772
+     * {@snippet lang=c :
+     * #define FACILITY_NT_BIT 268435456
      * }
      */
-    public static int CALG_SHA1() {
-        return (int)32772L;
+    public static int FACILITY_NT_BIT() {
+        return FACILITY_NT_BIT;
     }
+    private static final int NOERROR = (int)0L;
     /**
-     * {@snippet :
-     * #define CALG_MAC 32773
+     * {@snippet lang=c :
+     * #define NOERROR 0
      * }
      */
-    public static int CALG_MAC() {
-        return (int)32773L;
+    public static int NOERROR() {
+        return NOERROR;
     }
+    private static final int XACT_S_FIRST = (int)315392L;
     /**
-     * {@snippet :
-     * #define CALG_RSA_SIGN 9216
+     * {@snippet lang=c :
+     * #define XACT_S_FIRST 315392
      * }
      */
-    public static int CALG_RSA_SIGN() {
-        return (int)9216L;
+    public static int XACT_S_FIRST() {
+        return XACT_S_FIRST;
     }
+    private static final int XACT_S_LAST = (int)315408L;
     /**
-     * {@snippet :
-     * #define CALG_DSS_SIGN 8704
+     * {@snippet lang=c :
+     * #define XACT_S_LAST 315408
      * }
      */
-    public static int CALG_DSS_SIGN() {
-        return (int)8704L;
+    public static int XACT_S_LAST() {
+        return XACT_S_LAST;
     }
+    private static final int NTE_OP_OK = (int)0L;
     /**
-     * {@snippet :
-     * #define CALG_NO_SIGN 8192
+     * {@snippet lang=c :
+     * #define NTE_OP_OK 0
      * }
      */
-    public static int CALG_NO_SIGN() {
-        return (int)8192L;
+    public static int NTE_OP_OK() {
+        return NTE_OP_OK;
     }
+    private static final int TC_NORMAL = (int)0L;
     /**
-     * {@snippet :
-     * #define CALG_RSA_KEYX 41984
+     * {@snippet lang=c :
+     * #define TC_NORMAL 0
      * }
      */
-    public static int CALG_RSA_KEYX() {
-        return (int)41984L;
+    public static int TC_NORMAL() {
+        return TC_NORMAL;
     }
+    private static final int TC_HARDERR = (int)1L;
     /**
-     * {@snippet :
-     * #define CALG_DES 26113
+     * {@snippet lang=c :
+     * #define TC_HARDERR 1
      * }
      */
-    public static int CALG_DES() {
-        return (int)26113L;
+    public static int TC_HARDERR() {
+        return TC_HARDERR;
     }
+    private static final int TC_GP_TRAP = (int)2L;
     /**
-     * {@snippet :
-     * #define CALG_3DES_112 26121
+     * {@snippet lang=c :
+     * #define TC_GP_TRAP 2
      * }
      */
-    public static int CALG_3DES_112() {
-        return (int)26121L;
+    public static int TC_GP_TRAP() {
+        return TC_GP_TRAP;
     }
+    private static final int TC_SIGNAL = (int)3L;
     /**
-     * {@snippet :
-     * #define CALG_3DES 26115
+     * {@snippet lang=c :
+     * #define TC_SIGNAL 3
      * }
      */
-    public static int CALG_3DES() {
-        return (int)26115L;
+    public static int TC_SIGNAL() {
+        return TC_SIGNAL;
     }
+    private static final int AC_LINE_OFFLINE = (int)0L;
     /**
-     * {@snippet :
-     * #define CALG_DESX 26116
+     * {@snippet lang=c :
+     * #define AC_LINE_OFFLINE 0
      * }
      */
-    public static int CALG_DESX() {
-        return (int)26116L;
+    public static int AC_LINE_OFFLINE() {
+        return AC_LINE_OFFLINE;
     }
+    private static final int AC_LINE_ONLINE = (int)1L;
     /**
-     * {@snippet :
-     * #define CALG_RC2 26114
+     * {@snippet lang=c :
+     * #define AC_LINE_ONLINE 1
      * }
      */
-    public static int CALG_RC2() {
-        return (int)26114L;
+    public static int AC_LINE_ONLINE() {
+        return AC_LINE_ONLINE;
     }
+    private static final int AC_LINE_BACKUP_POWER = (int)2L;
     /**
-     * {@snippet :
-     * #define CALG_RC4 26625
+     * {@snippet lang=c :
+     * #define AC_LINE_BACKUP_POWER 2
      * }
      */
-    public static int CALG_RC4() {
-        return (int)26625L;
+    public static int AC_LINE_BACKUP_POWER() {
+        return AC_LINE_BACKUP_POWER;
     }
+    private static final int AC_LINE_UNKNOWN = (int)255L;
     /**
-     * {@snippet :
-     * #define CALG_SEAL 26626
+     * {@snippet lang=c :
+     * #define AC_LINE_UNKNOWN 255
      * }
      */
-    public static int CALG_SEAL() {
-        return (int)26626L;
+    public static int AC_LINE_UNKNOWN() {
+        return AC_LINE_UNKNOWN;
     }
+    private static final int BATTERY_FLAG_HIGH = (int)1L;
     /**
-     * {@snippet :
-     * #define CALG_DH_SF 43521
+     * {@snippet lang=c :
+     * #define BATTERY_FLAG_HIGH 1
      * }
      */
-    public static int CALG_DH_SF() {
-        return (int)43521L;
+    public static int BATTERY_FLAG_HIGH() {
+        return BATTERY_FLAG_HIGH;
     }
+    private static final int BATTERY_FLAG_LOW = (int)2L;
     /**
-     * {@snippet :
-     * #define CALG_DH_EPHEM 43522
+     * {@snippet lang=c :
+     * #define BATTERY_FLAG_LOW 2
      * }
      */
-    public static int CALG_DH_EPHEM() {
-        return (int)43522L;
+    public static int BATTERY_FLAG_LOW() {
+        return BATTERY_FLAG_LOW;
     }
+    private static final int BATTERY_FLAG_CRITICAL = (int)4L;
     /**
-     * {@snippet :
-     * #define CALG_AGREEDKEY_ANY 43523
+     * {@snippet lang=c :
+     * #define BATTERY_FLAG_CRITICAL 4
      * }
      */
-    public static int CALG_AGREEDKEY_ANY() {
-        return (int)43523L;
+    public static int BATTERY_FLAG_CRITICAL() {
+        return BATTERY_FLAG_CRITICAL;
     }
+    private static final int BATTERY_FLAG_CHARGING = (int)8L;
     /**
-     * {@snippet :
-     * #define CALG_KEA_KEYX 43524
+     * {@snippet lang=c :
+     * #define BATTERY_FLAG_CHARGING 8
      * }
      */
-    public static int CALG_KEA_KEYX() {
-        return (int)43524L;
+    public static int BATTERY_FLAG_CHARGING() {
+        return BATTERY_FLAG_CHARGING;
     }
+    private static final int BATTERY_FLAG_NO_BATTERY = (int)128L;
     /**
-     * {@snippet :
-     * #define CALG_HUGHES_MD5 40963
+     * {@snippet lang=c :
+     * #define BATTERY_FLAG_NO_BATTERY 128
      * }
      */
-    public static int CALG_HUGHES_MD5() {
-        return (int)40963L;
+    public static int BATTERY_FLAG_NO_BATTERY() {
+        return BATTERY_FLAG_NO_BATTERY;
     }
+    private static final int BATTERY_FLAG_UNKNOWN = (int)255L;
     /**
-     * {@snippet :
-     * #define CALG_SKIPJACK 26122
+     * {@snippet lang=c :
+     * #define BATTERY_FLAG_UNKNOWN 255
      * }
      */
-    public static int CALG_SKIPJACK() {
-        return (int)26122L;
+    public static int BATTERY_FLAG_UNKNOWN() {
+        return BATTERY_FLAG_UNKNOWN;
     }
+    private static final int BATTERY_PERCENTAGE_UNKNOWN = (int)255L;
     /**
-     * {@snippet :
-     * #define CALG_TEK 26123
+     * {@snippet lang=c :
+     * #define BATTERY_PERCENTAGE_UNKNOWN 255
      * }
      */
-    public static int CALG_TEK() {
-        return (int)26123L;
+    public static int BATTERY_PERCENTAGE_UNKNOWN() {
+        return BATTERY_PERCENTAGE_UNKNOWN;
     }
+    private static final int SYSTEM_STATUS_FLAG_POWER_SAVING_ON = (int)1L;
     /**
-     * {@snippet :
-     * #define CALG_CYLINK_MEK 26124
+     * {@snippet lang=c :
+     * #define SYSTEM_STATUS_FLAG_POWER_SAVING_ON 1
      * }
      */
-    public static int CALG_CYLINK_MEK() {
-        return (int)26124L;
+    public static int SYSTEM_STATUS_FLAG_POWER_SAVING_ON() {
+        return SYSTEM_STATUS_FLAG_POWER_SAVING_ON;
     }
+    private static final int ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED = (int)1L;
     /**
-     * {@snippet :
-     * #define CALG_SSL3_SHAMD5 32776
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED 1
      * }
      */
-    public static int CALG_SSL3_SHAMD5() {
-        return (int)32776L;
+    public static int ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED() {
+        return ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED;
     }
+    private static final int RESTART_MAX_CMD_LINE = (int)1024L;
     /**
-     * {@snippet :
-     * #define CALG_SSL3_MASTER 19457
+     * {@snippet lang=c :
+     * #define RESTART_MAX_CMD_LINE 1024
      * }
      */
-    public static int CALG_SSL3_MASTER() {
-        return (int)19457L;
+    public static int RESTART_MAX_CMD_LINE() {
+        return RESTART_MAX_CMD_LINE;
     }
+    private static final int RESTART_NO_CRASH = (int)1L;
     /**
-     * {@snippet :
-     * #define CALG_SCHANNEL_MASTER_HASH 19458
+     * {@snippet lang=c :
+     * #define RESTART_NO_CRASH 1
      * }
      */
-    public static int CALG_SCHANNEL_MASTER_HASH() {
-        return (int)19458L;
+    public static int RESTART_NO_CRASH() {
+        return RESTART_NO_CRASH;
     }
+    private static final int RESTART_NO_HANG = (int)2L;
     /**
-     * {@snippet :
-     * #define CALG_SCHANNEL_MAC_KEY 19459
+     * {@snippet lang=c :
+     * #define RESTART_NO_HANG 2
      * }
      */
-    public static int CALG_SCHANNEL_MAC_KEY() {
-        return (int)19459L;
+    public static int RESTART_NO_HANG() {
+        return RESTART_NO_HANG;
     }
+    private static final int RESTART_NO_PATCH = (int)4L;
     /**
-     * {@snippet :
-     * #define CALG_SCHANNEL_ENC_KEY 19463
+     * {@snippet lang=c :
+     * #define RESTART_NO_PATCH 4
      * }
      */
-    public static int CALG_SCHANNEL_ENC_KEY() {
-        return (int)19463L;
+    public static int RESTART_NO_PATCH() {
+        return RESTART_NO_PATCH;
     }
+    private static final int RESTART_NO_REBOOT = (int)8L;
     /**
-     * {@snippet :
-     * #define CALG_PCT1_MASTER 19460
+     * {@snippet lang=c :
+     * #define RESTART_NO_REBOOT 8
      * }
      */
-    public static int CALG_PCT1_MASTER() {
-        return (int)19460L;
+    public static int RESTART_NO_REBOOT() {
+        return RESTART_NO_REBOOT;
     }
+    private static final int RECOVERY_DEFAULT_PING_INTERVAL = (int)5000L;
     /**
-     * {@snippet :
-     * #define CALG_SSL2_MASTER 19461
+     * {@snippet lang=c :
+     * #define RECOVERY_DEFAULT_PING_INTERVAL 5000
      * }
      */
-    public static int CALG_SSL2_MASTER() {
-        return (int)19461L;
+    public static int RECOVERY_DEFAULT_PING_INTERVAL() {
+        return RECOVERY_DEFAULT_PING_INTERVAL;
     }
+    private static final int FILE_RENAME_FLAG_REPLACE_IF_EXISTS = (int)1L;
     /**
-     * {@snippet :
-     * #define CALG_TLS1_MASTER 19462
+     * {@snippet lang=c :
+     * #define FILE_RENAME_FLAG_REPLACE_IF_EXISTS 1
      * }
      */
-    public static int CALG_TLS1_MASTER() {
-        return (int)19462L;
+    public static int FILE_RENAME_FLAG_REPLACE_IF_EXISTS() {
+        return FILE_RENAME_FLAG_REPLACE_IF_EXISTS;
     }
+    private static final int FILE_RENAME_FLAG_POSIX_SEMANTICS = (int)2L;
     /**
-     * {@snippet :
-     * #define CALG_RC5 26125
+     * {@snippet lang=c :
+     * #define FILE_RENAME_FLAG_POSIX_SEMANTICS 2
      * }
      */
-    public static int CALG_RC5() {
-        return (int)26125L;
+    public static int FILE_RENAME_FLAG_POSIX_SEMANTICS() {
+        return FILE_RENAME_FLAG_POSIX_SEMANTICS;
     }
+    private static final int FILE_RENAME_FLAG_SUPPRESS_PIN_STATE_INHERITANCE = (int)4L;
     /**
-     * {@snippet :
-     * #define CALG_HMAC 32777
+     * {@snippet lang=c :
+     * #define FILE_RENAME_FLAG_SUPPRESS_PIN_STATE_INHERITANCE 4
      * }
      */
-    public static int CALG_HMAC() {
-        return (int)32777L;
+    public static int FILE_RENAME_FLAG_SUPPRESS_PIN_STATE_INHERITANCE() {
+        return FILE_RENAME_FLAG_SUPPRESS_PIN_STATE_INHERITANCE;
     }
+    private static final int FILE_DISPOSITION_FLAG_DO_NOT_DELETE = (int)0L;
     /**
-     * {@snippet :
-     * #define CALG_TLS1PRF 32778
+     * {@snippet lang=c :
+     * #define FILE_DISPOSITION_FLAG_DO_NOT_DELETE 0
      * }
      */
-    public static int CALG_TLS1PRF() {
-        return (int)32778L;
+    public static int FILE_DISPOSITION_FLAG_DO_NOT_DELETE() {
+        return FILE_DISPOSITION_FLAG_DO_NOT_DELETE;
     }
+    private static final int FILE_DISPOSITION_FLAG_DELETE = (int)1L;
     /**
-     * {@snippet :
-     * #define CALG_HASH_REPLACE_OWF 32779
+     * {@snippet lang=c :
+     * #define FILE_DISPOSITION_FLAG_DELETE 1
      * }
      */
-    public static int CALG_HASH_REPLACE_OWF() {
-        return (int)32779L;
+    public static int FILE_DISPOSITION_FLAG_DELETE() {
+        return FILE_DISPOSITION_FLAG_DELETE;
     }
+    private static final int FILE_DISPOSITION_FLAG_POSIX_SEMANTICS = (int)2L;
     /**
-     * {@snippet :
-     * #define CALG_AES_128 26126
+     * {@snippet lang=c :
+     * #define FILE_DISPOSITION_FLAG_POSIX_SEMANTICS 2
      * }
      */
-    public static int CALG_AES_128() {
-        return (int)26126L;
+    public static int FILE_DISPOSITION_FLAG_POSIX_SEMANTICS() {
+        return FILE_DISPOSITION_FLAG_POSIX_SEMANTICS;
     }
+    private static final int FILE_DISPOSITION_FLAG_FORCE_IMAGE_SECTION_CHECK = (int)4L;
     /**
-     * {@snippet :
-     * #define CALG_AES_192 26127
+     * {@snippet lang=c :
+     * #define FILE_DISPOSITION_FLAG_FORCE_IMAGE_SECTION_CHECK 4
      * }
      */
-    public static int CALG_AES_192() {
-        return (int)26127L;
+    public static int FILE_DISPOSITION_FLAG_FORCE_IMAGE_SECTION_CHECK() {
+        return FILE_DISPOSITION_FLAG_FORCE_IMAGE_SECTION_CHECK;
     }
+    private static final int FILE_DISPOSITION_FLAG_ON_CLOSE = (int)8L;
     /**
-     * {@snippet :
-     * #define CALG_AES_256 26128
+     * {@snippet lang=c :
+     * #define FILE_DISPOSITION_FLAG_ON_CLOSE 8
      * }
      */
-    public static int CALG_AES_256() {
-        return (int)26128L;
+    public static int FILE_DISPOSITION_FLAG_ON_CLOSE() {
+        return FILE_DISPOSITION_FLAG_ON_CLOSE;
     }
+    private static final int FILE_DISPOSITION_FLAG_IGNORE_READONLY_ATTRIBUTE = (int)16L;
     /**
-     * {@snippet :
-     * #define CALG_AES 26129
+     * {@snippet lang=c :
+     * #define FILE_DISPOSITION_FLAG_IGNORE_READONLY_ATTRIBUTE 16
      * }
      */
-    public static int CALG_AES() {
-        return (int)26129L;
+    public static int FILE_DISPOSITION_FLAG_IGNORE_READONLY_ATTRIBUTE() {
+        return FILE_DISPOSITION_FLAG_IGNORE_READONLY_ATTRIBUTE;
     }
+    private static final int STORAGE_INFO_FLAGS_ALIGNED_DEVICE = (int)1L;
     /**
-     * {@snippet :
-     * #define CALG_SHA_256 32780
+     * {@snippet lang=c :
+     * #define STORAGE_INFO_FLAGS_ALIGNED_DEVICE 1
      * }
      */
-    public static int CALG_SHA_256() {
-        return (int)32780L;
+    public static int STORAGE_INFO_FLAGS_ALIGNED_DEVICE() {
+        return STORAGE_INFO_FLAGS_ALIGNED_DEVICE;
     }
+    private static final int STORAGE_INFO_FLAGS_PARTITION_ALIGNED_ON_DEVICE = (int)2L;
     /**
-     * {@snippet :
-     * #define CALG_SHA_384 32781
+     * {@snippet lang=c :
+     * #define STORAGE_INFO_FLAGS_PARTITION_ALIGNED_ON_DEVICE 2
      * }
      */
-    public static int CALG_SHA_384() {
-        return (int)32781L;
+    public static int STORAGE_INFO_FLAGS_PARTITION_ALIGNED_ON_DEVICE() {
+        return STORAGE_INFO_FLAGS_PARTITION_ALIGNED_ON_DEVICE;
     }
+    private static final int REMOTE_PROTOCOL_INFO_FLAG_LOOPBACK = (int)1L;
     /**
-     * {@snippet :
-     * #define CALG_SHA_512 32782
+     * {@snippet lang=c :
+     * #define REMOTE_PROTOCOL_INFO_FLAG_LOOPBACK 1
      * }
      */
-    public static int CALG_SHA_512() {
-        return (int)32782L;
+    public static int REMOTE_PROTOCOL_INFO_FLAG_LOOPBACK() {
+        return REMOTE_PROTOCOL_INFO_FLAG_LOOPBACK;
     }
+    private static final int REMOTE_PROTOCOL_INFO_FLAG_OFFLINE = (int)2L;
     /**
-     * {@snippet :
-     * #define CALG_ECDH 43525
+     * {@snippet lang=c :
+     * #define REMOTE_PROTOCOL_INFO_FLAG_OFFLINE 2
      * }
      */
-    public static int CALG_ECDH() {
-        return (int)43525L;
+    public static int REMOTE_PROTOCOL_INFO_FLAG_OFFLINE() {
+        return REMOTE_PROTOCOL_INFO_FLAG_OFFLINE;
     }
+    private static final int REMOTE_PROTOCOL_INFO_FLAG_PERSISTENT_HANDLE = (int)4L;
     /**
-     * {@snippet :
-     * #define CALG_ECDH_EPHEM 44550
+     * {@snippet lang=c :
+     * #define REMOTE_PROTOCOL_INFO_FLAG_PERSISTENT_HANDLE 4
      * }
      */
-    public static int CALG_ECDH_EPHEM() {
-        return (int)44550L;
+    public static int REMOTE_PROTOCOL_INFO_FLAG_PERSISTENT_HANDLE() {
+        return REMOTE_PROTOCOL_INFO_FLAG_PERSISTENT_HANDLE;
     }
+    private static final int RPI_FLAG_SMB2_SHARECAP_TIMEWARP = (int)2L;
     /**
-     * {@snippet :
-     * #define CALG_ECMQV 40961
+     * {@snippet lang=c :
+     * #define RPI_FLAG_SMB2_SHARECAP_TIMEWARP 2
      * }
      */
-    public static int CALG_ECMQV() {
-        return (int)40961L;
+    public static int RPI_FLAG_SMB2_SHARECAP_TIMEWARP() {
+        return RPI_FLAG_SMB2_SHARECAP_TIMEWARP;
     }
+    private static final int RPI_FLAG_SMB2_SHARECAP_DFS = (int)8L;
     /**
-     * {@snippet :
-     * #define CALG_ECDSA 8707
+     * {@snippet lang=c :
+     * #define RPI_FLAG_SMB2_SHARECAP_DFS 8
      * }
      */
-    public static int CALG_ECDSA() {
-        return (int)8707L;
+    public static int RPI_FLAG_SMB2_SHARECAP_DFS() {
+        return RPI_FLAG_SMB2_SHARECAP_DFS;
     }
+    private static final int RPI_FLAG_SMB2_SHARECAP_CONTINUOUS_AVAILABILITY = (int)16L;
     /**
-     * {@snippet :
-     * #define CALG_NULLCIPHER 24576
+     * {@snippet lang=c :
+     * #define RPI_FLAG_SMB2_SHARECAP_CONTINUOUS_AVAILABILITY 16
      * }
      */
-    public static int CALG_NULLCIPHER() {
-        return (int)24576L;
+    public static int RPI_FLAG_SMB2_SHARECAP_CONTINUOUS_AVAILABILITY() {
+        return RPI_FLAG_SMB2_SHARECAP_CONTINUOUS_AVAILABILITY;
     }
+    private static final int RPI_FLAG_SMB2_SHARECAP_SCALEOUT = (int)32L;
     /**
-     * {@snippet :
-     * #define CALG_THIRDPARTY_KEY_EXCHANGE 45056
+     * {@snippet lang=c :
+     * #define RPI_FLAG_SMB2_SHARECAP_SCALEOUT 32
      * }
      */
-    public static int CALG_THIRDPARTY_KEY_EXCHANGE() {
-        return (int)45056L;
+    public static int RPI_FLAG_SMB2_SHARECAP_SCALEOUT() {
+        return RPI_FLAG_SMB2_SHARECAP_SCALEOUT;
     }
+    private static final int RPI_FLAG_SMB2_SHARECAP_CLUSTER = (int)64L;
     /**
-     * {@snippet :
-     * #define CALG_THIRDPARTY_SIGNATURE 12288
+     * {@snippet lang=c :
+     * #define RPI_FLAG_SMB2_SHARECAP_CLUSTER 64
      * }
      */
-    public static int CALG_THIRDPARTY_SIGNATURE() {
-        return (int)12288L;
+    public static int RPI_FLAG_SMB2_SHARECAP_CLUSTER() {
+        return RPI_FLAG_SMB2_SHARECAP_CLUSTER;
     }
+    private static final int RPI_SMB2_SHAREFLAG_ENCRYPT_DATA = (int)1L;
     /**
-     * {@snippet :
-     * #define CALG_THIRDPARTY_CIPHER 28672
+     * {@snippet lang=c :
+     * #define RPI_SMB2_SHAREFLAG_ENCRYPT_DATA 1
      * }
      */
-    public static int CALG_THIRDPARTY_CIPHER() {
-        return (int)28672L;
+    public static int RPI_SMB2_SHAREFLAG_ENCRYPT_DATA() {
+        return RPI_SMB2_SHAREFLAG_ENCRYPT_DATA;
     }
+    private static final int RPI_SMB2_FLAG_SERVERCAP_DFS = (int)1L;
     /**
-     * {@snippet :
-     * #define CALG_THIRDPARTY_HASH 36864
+     * {@snippet lang=c :
+     * #define RPI_SMB2_FLAG_SERVERCAP_DFS 1
      * }
      */
-    public static int CALG_THIRDPARTY_HASH() {
-        return (int)36864L;
+    public static int RPI_SMB2_FLAG_SERVERCAP_DFS() {
+        return RPI_SMB2_FLAG_SERVERCAP_DFS;
     }
+    private static final int RPI_SMB2_FLAG_SERVERCAP_LEASING = (int)2L;
     /**
-     * {@snippet :
-     * #define CRYPT_VERIFYCONTEXT 4026531840
+     * {@snippet lang=c :
+     * #define RPI_SMB2_FLAG_SERVERCAP_LEASING 2
      * }
      */
-    public static int CRYPT_VERIFYCONTEXT() {
-        return (int)4026531840L;
+    public static int RPI_SMB2_FLAG_SERVERCAP_LEASING() {
+        return RPI_SMB2_FLAG_SERVERCAP_LEASING;
     }
+    private static final int RPI_SMB2_FLAG_SERVERCAP_LARGEMTU = (int)4L;
     /**
-     * {@snippet :
-     * #define KEY_LENGTH_MASK 4294901760
+     * {@snippet lang=c :
+     * #define RPI_SMB2_FLAG_SERVERCAP_LARGEMTU 4
      * }
      */
-    public static int KEY_LENGTH_MASK() {
-        return (int)4294901760L;
+    public static int RPI_SMB2_FLAG_SERVERCAP_LARGEMTU() {
+        return RPI_SMB2_FLAG_SERVERCAP_LARGEMTU;
     }
+    private static final int RPI_SMB2_FLAG_SERVERCAP_MULTICHANNEL = (int)8L;
     /**
-     * {@snippet :
-     * #define CRYPT_FAILED 0
+     * {@snippet lang=c :
+     * #define RPI_SMB2_FLAG_SERVERCAP_MULTICHANNEL 8
      * }
      */
-    public static int CRYPT_FAILED() {
-        return (int)0L;
+    public static int RPI_SMB2_FLAG_SERVERCAP_MULTICHANNEL() {
+        return RPI_SMB2_FLAG_SERVERCAP_MULTICHANNEL;
     }
+    private static final int RPI_SMB2_FLAG_SERVERCAP_PERSISTENT_HANDLES = (int)16L;
     /**
-     * {@snippet :
-     * #define CRYPT_SUCCEED 1
+     * {@snippet lang=c :
+     * #define RPI_SMB2_FLAG_SERVERCAP_PERSISTENT_HANDLES 16
      * }
      */
-    public static int CRYPT_SUCCEED() {
-        return (int)1L;
+    public static int RPI_SMB2_FLAG_SERVERCAP_PERSISTENT_HANDLES() {
+        return RPI_SMB2_FLAG_SERVERCAP_PERSISTENT_HANDLES;
     }
+    private static final int RPI_SMB2_FLAG_SERVERCAP_DIRECTORY_LEASING = (int)32L;
     /**
-     * {@snippet :
-     * #define MS_DEF_PROV_A "Microsoft Base Cryptographic Provider v1.0"
+     * {@snippet lang=c :
+     * #define RPI_SMB2_FLAG_SERVERCAP_DIRECTORY_LEASING 32
      * }
      */
-    public static MemorySegment MS_DEF_PROV_A() {
-        return constants$4563.const$1;
+    public static int RPI_SMB2_FLAG_SERVERCAP_DIRECTORY_LEASING() {
+        return RPI_SMB2_FLAG_SERVERCAP_DIRECTORY_LEASING;
     }
+    private static final int MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS = (int)1L;
     /**
-     * {@snippet :
-     * #define MS_DEF_PROV_W "M"
+     * {@snippet lang=c :
+     * #define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 1
      * }
      */
-    public static MemorySegment MS_DEF_PROV_W() {
-        return constants$4562.const$3;
+    public static int MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS() {
+        return MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS;
     }
+    private static final int MICROSOFT_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS = (int)0L;
     /**
-     * {@snippet :
-     * #define MS_DEF_PROV "Microsoft Base Cryptographic Provider v1.0"
+     * {@snippet lang=c :
+     * #define MICROSOFT_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
      * }
      */
-    public static MemorySegment MS_DEF_PROV() {
-        return constants$4563.const$1;
+    public static int MICROSOFT_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS() {
+        return MICROSOFT_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS;
     }
+    private static final int R2_BLACK = (int)1L;
     /**
-     * {@snippet :
-     * #define MS_ENHANCED_PROV_A "Microsoft Enhanced Cryptographic Provider v1.0"
+     * {@snippet lang=c :
+     * #define R2_BLACK 1
      * }
      */
-    public static MemorySegment MS_ENHANCED_PROV_A() {
-        return constants$4563.const$2;
+    public static int R2_BLACK() {
+        return R2_BLACK;
     }
+    private static final int R2_NOTMERGEPEN = (int)2L;
     /**
-     * {@snippet :
-     * #define MS_ENHANCED_PROV_W "M"
+     * {@snippet lang=c :
+     * #define R2_NOTMERGEPEN 2
      * }
      */
-    public static MemorySegment MS_ENHANCED_PROV_W() {
-        return constants$4562.const$3;
+    public static int R2_NOTMERGEPEN() {
+        return R2_NOTMERGEPEN;
     }
+    private static final int R2_MASKNOTPEN = (int)3L;
     /**
-     * {@snippet :
-     * #define MS_ENHANCED_PROV "Microsoft Enhanced Cryptographic Provider v1.0"
+     * {@snippet lang=c :
+     * #define R2_MASKNOTPEN 3
      * }
      */
-    public static MemorySegment MS_ENHANCED_PROV() {
-        return constants$4563.const$2;
+    public static int R2_MASKNOTPEN() {
+        return R2_MASKNOTPEN;
     }
+    private static final int R2_NOTCOPYPEN = (int)4L;
     /**
-     * {@snippet :
-     * #define MS_STRONG_PROV_A "Microsoft Strong Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define R2_NOTCOPYPEN 4
      * }
      */
-    public static MemorySegment MS_STRONG_PROV_A() {
-        return constants$4563.const$3;
+    public static int R2_NOTCOPYPEN() {
+        return R2_NOTCOPYPEN;
     }
+    private static final int R2_MASKPENNOT = (int)5L;
     /**
-     * {@snippet :
-     * #define MS_STRONG_PROV_W "M"
+     * {@snippet lang=c :
+     * #define R2_MASKPENNOT 5
      * }
      */
-    public static MemorySegment MS_STRONG_PROV_W() {
-        return constants$4562.const$3;
+    public static int R2_MASKPENNOT() {
+        return R2_MASKPENNOT;
     }
+    private static final int R2_NOT = (int)6L;
     /**
-     * {@snippet :
-     * #define MS_STRONG_PROV "Microsoft Strong Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define R2_NOT 6
      * }
      */
-    public static MemorySegment MS_STRONG_PROV() {
-        return constants$4563.const$3;
+    public static int R2_NOT() {
+        return R2_NOT;
     }
+    private static final int R2_XORPEN = (int)7L;
     /**
-     * {@snippet :
-     * #define MS_DEF_RSA_SIG_PROV_A "Microsoft RSA Signature Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define R2_XORPEN 7
      * }
      */
-    public static MemorySegment MS_DEF_RSA_SIG_PROV_A() {
-        return constants$4563.const$4;
+    public static int R2_XORPEN() {
+        return R2_XORPEN;
     }
+    private static final int R2_NOTMASKPEN = (int)8L;
     /**
-     * {@snippet :
-     * #define MS_DEF_RSA_SIG_PROV_W "M"
+     * {@snippet lang=c :
+     * #define R2_NOTMASKPEN 8
      * }
      */
-    public static MemorySegment MS_DEF_RSA_SIG_PROV_W() {
-        return constants$4562.const$3;
+    public static int R2_NOTMASKPEN() {
+        return R2_NOTMASKPEN;
     }
+    private static final int R2_MASKPEN = (int)9L;
     /**
-     * {@snippet :
-     * #define MS_DEF_RSA_SIG_PROV "Microsoft RSA Signature Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define R2_MASKPEN 9
      * }
      */
-    public static MemorySegment MS_DEF_RSA_SIG_PROV() {
-        return constants$4563.const$4;
+    public static int R2_MASKPEN() {
+        return R2_MASKPEN;
     }
+    private static final int R2_NOTXORPEN = (int)10L;
     /**
-     * {@snippet :
-     * #define MS_DEF_RSA_SCHANNEL_PROV_A "Microsoft RSA SChannel Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define R2_NOTXORPEN 10
      * }
      */
-    public static MemorySegment MS_DEF_RSA_SCHANNEL_PROV_A() {
-        return constants$4563.const$5;
+    public static int R2_NOTXORPEN() {
+        return R2_NOTXORPEN;
     }
+    private static final int R2_NOP = (int)11L;
     /**
-     * {@snippet :
-     * #define MS_DEF_RSA_SCHANNEL_PROV_W "M"
+     * {@snippet lang=c :
+     * #define R2_NOP 11
      * }
      */
-    public static MemorySegment MS_DEF_RSA_SCHANNEL_PROV_W() {
-        return constants$4562.const$3;
+    public static int R2_NOP() {
+        return R2_NOP;
     }
+    private static final int R2_MERGENOTPEN = (int)12L;
     /**
-     * {@snippet :
-     * #define MS_DEF_RSA_SCHANNEL_PROV "Microsoft RSA SChannel Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define R2_MERGENOTPEN 12
      * }
      */
-    public static MemorySegment MS_DEF_RSA_SCHANNEL_PROV() {
-        return constants$4563.const$5;
+    public static int R2_MERGENOTPEN() {
+        return R2_MERGENOTPEN;
     }
+    private static final int R2_COPYPEN = (int)13L;
     /**
-     * {@snippet :
-     * #define MS_DEF_DSS_PROV_A "Microsoft Base DSS Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define R2_COPYPEN 13
      * }
      */
-    public static MemorySegment MS_DEF_DSS_PROV_A() {
-        return constants$4564.const$0;
+    public static int R2_COPYPEN() {
+        return R2_COPYPEN;
     }
+    private static final int R2_MERGEPENNOT = (int)14L;
     /**
-     * {@snippet :
-     * #define MS_DEF_DSS_PROV_W "M"
+     * {@snippet lang=c :
+     * #define R2_MERGEPENNOT 14
      * }
      */
-    public static MemorySegment MS_DEF_DSS_PROV_W() {
-        return constants$4562.const$3;
+    public static int R2_MERGEPENNOT() {
+        return R2_MERGEPENNOT;
     }
+    private static final int R2_MERGEPEN = (int)15L;
     /**
-     * {@snippet :
-     * #define MS_DEF_DSS_PROV "Microsoft Base DSS Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define R2_MERGEPEN 15
      * }
      */
-    public static MemorySegment MS_DEF_DSS_PROV() {
-        return constants$4564.const$0;
+    public static int R2_MERGEPEN() {
+        return R2_MERGEPEN;
     }
+    private static final int R2_WHITE = (int)16L;
     /**
-     * {@snippet :
-     * #define MS_DEF_DSS_DH_PROV_A "Microsoft Base DSS and Diffie-Hellman Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define R2_WHITE 16
      * }
      */
-    public static MemorySegment MS_DEF_DSS_DH_PROV_A() {
-        return constants$4564.const$1;
+    public static int R2_WHITE() {
+        return R2_WHITE;
     }
+    private static final int R2_LAST = (int)16L;
     /**
-     * {@snippet :
-     * #define MS_DEF_DSS_DH_PROV_W "M"
+     * {@snippet lang=c :
+     * #define R2_LAST 16
      * }
      */
-    public static MemorySegment MS_DEF_DSS_DH_PROV_W() {
-        return constants$4562.const$3;
+    public static int R2_LAST() {
+        return R2_LAST;
     }
+    private static final int ERROR = (int)0L;
     /**
-     * {@snippet :
-     * #define MS_DEF_DSS_DH_PROV "Microsoft Base DSS and Diffie-Hellman Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define ERROR 0
      * }
      */
-    public static MemorySegment MS_DEF_DSS_DH_PROV() {
-        return constants$4564.const$1;
+    public static int ERROR() {
+        return ERROR;
     }
+    private static final int NULLREGION = (int)1L;
     /**
-     * {@snippet :
-     * #define MS_ENH_DSS_DH_PROV_A "Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define NULLREGION 1
      * }
      */
-    public static MemorySegment MS_ENH_DSS_DH_PROV_A() {
-        return constants$4564.const$2;
+    public static int NULLREGION() {
+        return NULLREGION;
     }
+    private static final int SIMPLEREGION = (int)2L;
     /**
-     * {@snippet :
-     * #define MS_ENH_DSS_DH_PROV_W "M"
+     * {@snippet lang=c :
+     * #define SIMPLEREGION 2
      * }
      */
-    public static MemorySegment MS_ENH_DSS_DH_PROV_W() {
-        return constants$4562.const$3;
+    public static int SIMPLEREGION() {
+        return SIMPLEREGION;
     }
+    private static final int COMPLEXREGION = (int)3L;
     /**
-     * {@snippet :
-     * #define MS_ENH_DSS_DH_PROV "Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define COMPLEXREGION 3
      * }
      */
-    public static MemorySegment MS_ENH_DSS_DH_PROV() {
-        return constants$4564.const$2;
+    public static int COMPLEXREGION() {
+        return COMPLEXREGION;
     }
+    private static final int RGN_AND = (int)1L;
     /**
-     * {@snippet :
-     * #define MS_DEF_DH_SCHANNEL_PROV_A "Microsoft DH SChannel Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define RGN_AND 1
      * }
      */
-    public static MemorySegment MS_DEF_DH_SCHANNEL_PROV_A() {
-        return constants$4564.const$3;
+    public static int RGN_AND() {
+        return RGN_AND;
     }
+    private static final int RGN_OR = (int)2L;
     /**
-     * {@snippet :
-     * #define MS_DEF_DH_SCHANNEL_PROV_W "M"
+     * {@snippet lang=c :
+     * #define RGN_OR 2
      * }
      */
-    public static MemorySegment MS_DEF_DH_SCHANNEL_PROV_W() {
-        return constants$4562.const$3;
+    public static int RGN_OR() {
+        return RGN_OR;
     }
+    private static final int RGN_XOR = (int)3L;
     /**
-     * {@snippet :
-     * #define MS_DEF_DH_SCHANNEL_PROV "Microsoft DH SChannel Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define RGN_XOR 3
      * }
      */
-    public static MemorySegment MS_DEF_DH_SCHANNEL_PROV() {
-        return constants$4564.const$3;
+    public static int RGN_XOR() {
+        return RGN_XOR;
     }
+    private static final int RGN_DIFF = (int)4L;
     /**
-     * {@snippet :
-     * #define MS_SCARD_PROV_A "Microsoft Base Smart Card Crypto Provider"
+     * {@snippet lang=c :
+     * #define RGN_DIFF 4
      * }
      */
-    public static MemorySegment MS_SCARD_PROV_A() {
-        return constants$4564.const$4;
+    public static int RGN_DIFF() {
+        return RGN_DIFF;
     }
+    private static final int RGN_COPY = (int)5L;
     /**
-     * {@snippet :
-     * #define MS_SCARD_PROV_W "M"
+     * {@snippet lang=c :
+     * #define RGN_COPY 5
      * }
      */
-    public static MemorySegment MS_SCARD_PROV_W() {
-        return constants$4562.const$3;
+    public static int RGN_COPY() {
+        return RGN_COPY;
     }
+    private static final int BLACKONWHITE = (int)1L;
     /**
-     * {@snippet :
-     * #define MS_SCARD_PROV "Microsoft Base Smart Card Crypto Provider"
+     * {@snippet lang=c :
+     * #define BLACKONWHITE 1
      * }
      */
-    public static MemorySegment MS_SCARD_PROV() {
-        return constants$4564.const$4;
+    public static int BLACKONWHITE() {
+        return BLACKONWHITE;
     }
+    private static final int WHITEONBLACK = (int)2L;
     /**
-     * {@snippet :
-     * #define MS_ENH_RSA_AES_PROV_A "Microsoft Enhanced RSA and AES Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define WHITEONBLACK 2
      * }
      */
-    public static MemorySegment MS_ENH_RSA_AES_PROV_A() {
-        return constants$4564.const$5;
+    public static int WHITEONBLACK() {
+        return WHITEONBLACK;
     }
+    private static final int COLORONCOLOR = (int)3L;
     /**
-     * {@snippet :
-     * #define MS_ENH_RSA_AES_PROV_W "M"
+     * {@snippet lang=c :
+     * #define COLORONCOLOR 3
      * }
      */
-    public static MemorySegment MS_ENH_RSA_AES_PROV_W() {
-        return constants$4562.const$3;
+    public static int COLORONCOLOR() {
+        return COLORONCOLOR;
     }
+    private static final int HALFTONE = (int)4L;
     /**
-     * {@snippet :
-     * #define MS_ENH_RSA_AES_PROV_XP_A "Microsoft Enhanced RSA and AES Cryptographic Provider (Prototype)"
+     * {@snippet lang=c :
+     * #define HALFTONE 4
      * }
      */
-    public static MemorySegment MS_ENH_RSA_AES_PROV_XP_A() {
-        return constants$4565.const$0;
+    public static int HALFTONE() {
+        return HALFTONE;
     }
+    private static final int MAXSTRETCHBLTMODE = (int)4L;
     /**
-     * {@snippet :
-     * #define MS_ENH_RSA_AES_PROV_XP_W "M"
+     * {@snippet lang=c :
+     * #define MAXSTRETCHBLTMODE 4
      * }
      */
-    public static MemorySegment MS_ENH_RSA_AES_PROV_XP_W() {
-        return constants$4562.const$3;
+    public static int MAXSTRETCHBLTMODE() {
+        return MAXSTRETCHBLTMODE;
     }
+    private static final int ALTERNATE = (int)1L;
     /**
-     * {@snippet :
-     * #define MS_ENH_RSA_AES_PROV_XP "Microsoft Enhanced RSA and AES Cryptographic Provider (Prototype)"
+     * {@snippet lang=c :
+     * #define ALTERNATE 1
      * }
      */
-    public static MemorySegment MS_ENH_RSA_AES_PROV_XP() {
-        return constants$4565.const$0;
+    public static int ALTERNATE() {
+        return ALTERNATE;
     }
+    private static final int WINDING = (int)2L;
     /**
-     * {@snippet :
-     * #define MS_ENH_RSA_AES_PROV "Microsoft Enhanced RSA and AES Cryptographic Provider"
+     * {@snippet lang=c :
+     * #define WINDING 2
      * }
      */
-    public static MemorySegment MS_ENH_RSA_AES_PROV() {
-        return constants$4564.const$5;
+    public static int WINDING() {
+        return WINDING;
     }
+    private static final int POLYFILL_LAST = (int)2L;
     /**
-     * {@snippet :
-     * #define EXPO_OFFLOAD_REG_VALUE "ExpoOffload"
+     * {@snippet lang=c :
+     * #define POLYFILL_LAST 2
      * }
      */
-    public static MemorySegment EXPO_OFFLOAD_REG_VALUE() {
-        return constants$4565.const$1;
+    public static int POLYFILL_LAST() {
+        return POLYFILL_LAST;
     }
+    private static final int LAYOUT_RTL = (int)1L;
     /**
-     * {@snippet :
-     * #define EXPO_OFFLOAD_FUNC_NAME "OffloadModExpo"
+     * {@snippet lang=c :
+     * #define LAYOUT_RTL 1
      * }
      */
-    public static MemorySegment EXPO_OFFLOAD_FUNC_NAME() {
-        return constants$4565.const$2;
+    public static int LAYOUT_RTL() {
+        return LAYOUT_RTL;
     }
+    private static final int LAYOUT_BTT = (int)2L;
     /**
-     * {@snippet :
-     * #define szKEY_CRYPTOAPI_PRIVATE_KEY_OPTIONS "Software\\Policies\\Microsoft\\Cryptography"
+     * {@snippet lang=c :
+     * #define LAYOUT_BTT 2
      * }
      */
-    public static MemorySegment szKEY_CRYPTOAPI_PRIVATE_KEY_OPTIONS() {
-        return constants$4565.const$3;
+    public static int LAYOUT_BTT() {
+        return LAYOUT_BTT;
     }
+    private static final int LAYOUT_VBH = (int)4L;
     /**
-     * {@snippet :
-     * #define szKEY_CACHE_ENABLED "CachePrivateKeys"
+     * {@snippet lang=c :
+     * #define LAYOUT_VBH 4
      * }
      */
-    public static MemorySegment szKEY_CACHE_ENABLED() {
-        return constants$4565.const$4;
+    public static int LAYOUT_VBH() {
+        return LAYOUT_VBH;
     }
+    private static final int LAYOUT_BITMAPORIENTATIONPRESERVED = (int)8L;
     /**
-     * {@snippet :
-     * #define szKEY_CACHE_SECONDS "PrivateKeyLifetimeSeconds"
+     * {@snippet lang=c :
+     * #define LAYOUT_BITMAPORIENTATIONPRESERVED 8
      * }
      */
-    public static MemorySegment szKEY_CACHE_SECONDS() {
-        return constants$4565.const$5;
+    public static int LAYOUT_BITMAPORIENTATIONPRESERVED() {
+        return LAYOUT_BITMAPORIENTATIONPRESERVED;
     }
+    private static final int TA_NOUPDATECP = (int)0L;
     /**
-     * {@snippet :
-     * #define szPRIV_KEY_CACHE_MAX_ITEMS "PrivKeyCacheMaxItems"
+     * {@snippet lang=c :
+     * #define TA_NOUPDATECP 0
      * }
      */
-    public static MemorySegment szPRIV_KEY_CACHE_MAX_ITEMS() {
-        return constants$4566.const$0;
+    public static int TA_NOUPDATECP() {
+        return TA_NOUPDATECP;
     }
+    private static final int TA_UPDATECP = (int)1L;
     /**
-     * {@snippet :
-     * #define szPRIV_KEY_CACHE_PURGE_INTERVAL_SECONDS "PrivKeyCachePurgeIntervalSeconds"
+     * {@snippet lang=c :
+     * #define TA_UPDATECP 1
      * }
      */
-    public static MemorySegment szPRIV_KEY_CACHE_PURGE_INTERVAL_SECONDS() {
-        return constants$4566.const$1;
+    public static int TA_UPDATECP() {
+        return TA_UPDATECP;
     }
+    private static final int TA_LEFT = (int)0L;
     /**
-     * {@snippet :
-     * #define BCRYPT_KDF_HASH "H"
+     * {@snippet lang=c :
+     * #define TA_LEFT 0
      * }
      */
-    public static MemorySegment BCRYPT_KDF_HASH() {
-        return constants$4566.const$2;
+    public static int TA_LEFT() {
+        return TA_LEFT;
     }
+    private static final int TA_RIGHT = (int)2L;
     /**
-     * {@snippet :
-     * #define BCRYPT_KDF_HMAC "H"
+     * {@snippet lang=c :
+     * #define TA_RIGHT 2
      * }
      */
-    public static MemorySegment BCRYPT_KDF_HMAC() {
-        return constants$4566.const$2;
+    public static int TA_RIGHT() {
+        return TA_RIGHT;
     }
+    private static final int TA_CENTER = (int)6L;
     /**
-     * {@snippet :
-     * #define BCRYPT_KDF_TLS_PRF "T"
+     * {@snippet lang=c :
+     * #define TA_CENTER 6
      * }
      */
-    public static MemorySegment BCRYPT_KDF_TLS_PRF() {
-        return constants$4566.const$3;
+    public static int TA_CENTER() {
+        return TA_CENTER;
     }
+    private static final int TA_TOP = (int)0L;
     /**
-     * {@snippet :
-     * #define BCRYPT_KDF_SP80056A_CONCAT "S"
+     * {@snippet lang=c :
+     * #define TA_TOP 0
      * }
      */
-    public static MemorySegment BCRYPT_KDF_SP80056A_CONCAT() {
-        return constants$4566.const$4;
+    public static int TA_TOP() {
+        return TA_TOP;
     }
+    private static final int TA_BOTTOM = (int)8L;
     /**
-     * {@snippet :
-     * #define BCRYPT_KDF_RAW_SECRET "T"
+     * {@snippet lang=c :
+     * #define TA_BOTTOM 8
      * }
      */
-    public static MemorySegment BCRYPT_KDF_RAW_SECRET() {
-        return constants$4566.const$3;
+    public static int TA_BOTTOM() {
+        return TA_BOTTOM;
     }
+    private static final int TA_BASELINE = (int)24L;
     /**
-     * {@snippet :
-     * #define BCRYPT_KDF_HKDF "H"
+     * {@snippet lang=c :
+     * #define TA_BASELINE 24
      * }
      */
-    public static MemorySegment BCRYPT_KDF_HKDF() {
-        return constants$4566.const$2;
+    public static int TA_BASELINE() {
+        return TA_BASELINE;
     }
+    private static final int TA_RTLREADING = (int)256L;
     /**
-     * {@snippet :
-     * #define BCRYPT_OPAQUE_KEY_BLOB "O"
+     * {@snippet lang=c :
+     * #define TA_RTLREADING 256
      * }
      */
-    public static MemorySegment BCRYPT_OPAQUE_KEY_BLOB() {
-        return constants$4566.const$5;
+    public static int TA_RTLREADING() {
+        return TA_RTLREADING;
     }
+    private static final int ETO_OPAQUE = (int)2L;
     /**
-     * {@snippet :
-     * #define BCRYPT_KEY_DATA_BLOB "K"
+     * {@snippet lang=c :
+     * #define ETO_OPAQUE 2
      * }
      */
-    public static MemorySegment BCRYPT_KEY_DATA_BLOB() {
-        return constants$4567.const$0;
+    public static int ETO_OPAQUE() {
+        return ETO_OPAQUE;
     }
+    private static final int ETO_CLIPPED = (int)4L;
     /**
-     * {@snippet :
-     * #define BCRYPT_AES_WRAP_KEY_BLOB "R"
+     * {@snippet lang=c :
+     * #define ETO_CLIPPED 4
      * }
      */
-    public static MemorySegment BCRYPT_AES_WRAP_KEY_BLOB() {
-        return constants$4567.const$1;
+    public static int ETO_CLIPPED() {
+        return ETO_CLIPPED;
     }
+    private static final int ETO_GLYPH_INDEX = (int)16L;
     /**
-     * {@snippet :
-     * #define BCRYPT_OBJECT_LENGTH "O"
+     * {@snippet lang=c :
+     * #define ETO_GLYPH_INDEX 16
      * }
      */
-    public static MemorySegment BCRYPT_OBJECT_LENGTH() {
-        return constants$4566.const$5;
+    public static int ETO_GLYPH_INDEX() {
+        return ETO_GLYPH_INDEX;
     }
+    private static final int ETO_RTLREADING = (int)128L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ALGORITHM_NAME "A"
+     * {@snippet lang=c :
+     * #define ETO_RTLREADING 128
      * }
      */
-    public static MemorySegment BCRYPT_ALGORITHM_NAME() {
-        return constants$4567.const$2;
+    public static int ETO_RTLREADING() {
+        return ETO_RTLREADING;
     }
+    private static final int ETO_NUMERICSLOCAL = (int)1024L;
     /**
-     * {@snippet :
-     * #define BCRYPT_PROVIDER_HANDLE "P"
+     * {@snippet lang=c :
+     * #define ETO_NUMERICSLOCAL 1024
      * }
      */
-    public static MemorySegment BCRYPT_PROVIDER_HANDLE() {
-        return constants$4567.const$3;
+    public static int ETO_NUMERICSLOCAL() {
+        return ETO_NUMERICSLOCAL;
     }
+    private static final int ETO_NUMERICSLATIN = (int)2048L;
     /**
-     * {@snippet :
-     * #define BCRYPT_CHAINING_MODE "C"
+     * {@snippet lang=c :
+     * #define ETO_NUMERICSLATIN 2048
      * }
      */
-    public static MemorySegment BCRYPT_CHAINING_MODE() {
-        return constants$4541.const$1;
+    public static int ETO_NUMERICSLATIN() {
+        return ETO_NUMERICSLATIN;
     }
+    private static final int ETO_IGNORELANGUAGE = (int)4096L;
     /**
-     * {@snippet :
-     * #define BCRYPT_BLOCK_LENGTH "B"
+     * {@snippet lang=c :
+     * #define ETO_IGNORELANGUAGE 4096
      * }
      */
-    public static MemorySegment BCRYPT_BLOCK_LENGTH() {
-        return constants$4567.const$4;
+    public static int ETO_IGNORELANGUAGE() {
+        return ETO_IGNORELANGUAGE;
     }
+    private static final int ETO_PDY = (int)8192L;
     /**
-     * {@snippet :
-     * #define BCRYPT_KEY_LENGTH "K"
+     * {@snippet lang=c :
+     * #define ETO_PDY 8192
      * }
      */
-    public static MemorySegment BCRYPT_KEY_LENGTH() {
-        return constants$4567.const$0;
+    public static int ETO_PDY() {
+        return ETO_PDY;
     }
+    private static final int ETO_REVERSE_INDEX_MAP = (int)65536L;
     /**
-     * {@snippet :
-     * #define BCRYPT_KEY_OBJECT_LENGTH "K"
+     * {@snippet lang=c :
+     * #define ETO_REVERSE_INDEX_MAP 65536
      * }
      */
-    public static MemorySegment BCRYPT_KEY_OBJECT_LENGTH() {
-        return constants$4567.const$0;
+    public static int ETO_REVERSE_INDEX_MAP() {
+        return ETO_REVERSE_INDEX_MAP;
     }
+    private static final int ASPECT_FILTERING = (int)1L;
     /**
-     * {@snippet :
-     * #define BCRYPT_KEY_STRENGTH "K"
+     * {@snippet lang=c :
+     * #define ASPECT_FILTERING 1
      * }
      */
-    public static MemorySegment BCRYPT_KEY_STRENGTH() {
-        return constants$4567.const$0;
+    public static int ASPECT_FILTERING() {
+        return ASPECT_FILTERING;
     }
+    private static final int DCB_RESET = (int)1L;
     /**
-     * {@snippet :
-     * #define BCRYPT_KEY_LENGTHS "K"
+     * {@snippet lang=c :
+     * #define DCB_RESET 1
      * }
      */
-    public static MemorySegment BCRYPT_KEY_LENGTHS() {
-        return constants$4567.const$0;
+    public static int DCB_RESET() {
+        return DCB_RESET;
     }
+    private static final int DCB_ACCUMULATE = (int)2L;
     /**
-     * {@snippet :
-     * #define BCRYPT_BLOCK_SIZE_LIST "B"
+     * {@snippet lang=c :
+     * #define DCB_ACCUMULATE 2
      * }
      */
-    public static MemorySegment BCRYPT_BLOCK_SIZE_LIST() {
-        return constants$4567.const$4;
+    public static int DCB_ACCUMULATE() {
+        return DCB_ACCUMULATE;
     }
+    private static final int DCB_ENABLE = (int)4L;
     /**
-     * {@snippet :
-     * #define BCRYPT_EFFECTIVE_KEY_LENGTH "E"
+     * {@snippet lang=c :
+     * #define DCB_ENABLE 4
      * }
      */
-    public static MemorySegment BCRYPT_EFFECTIVE_KEY_LENGTH() {
-        return constants$4567.const$5;
+    public static int DCB_ENABLE() {
+        return DCB_ENABLE;
     }
+    private static final int DCB_DISABLE = (int)8L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HASH_LENGTH "H"
+     * {@snippet lang=c :
+     * #define DCB_DISABLE 8
      * }
      */
-    public static MemorySegment BCRYPT_HASH_LENGTH() {
-        return constants$4566.const$2;
+    public static int DCB_DISABLE() {
+        return DCB_DISABLE;
     }
+    private static final int META_SETBKCOLOR = (int)513L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HASH_OID_LIST "H"
+     * {@snippet lang=c :
+     * #define META_SETBKCOLOR 513
      * }
      */
-    public static MemorySegment BCRYPT_HASH_OID_LIST() {
-        return constants$4566.const$2;
+    public static int META_SETBKCOLOR() {
+        return META_SETBKCOLOR;
     }
+    private static final int META_SETBKMODE = (int)258L;
     /**
-     * {@snippet :
-     * #define BCRYPT_PADDING_SCHEMES "P"
+     * {@snippet lang=c :
+     * #define META_SETBKMODE 258
      * }
      */
-    public static MemorySegment BCRYPT_PADDING_SCHEMES() {
-        return constants$4567.const$3;
+    public static int META_SETBKMODE() {
+        return META_SETBKMODE;
     }
+    private static final int META_SETMAPMODE = (int)259L;
     /**
-     * {@snippet :
-     * #define BCRYPT_SIGNATURE_LENGTH "S"
+     * {@snippet lang=c :
+     * #define META_SETMAPMODE 259
      * }
      */
-    public static MemorySegment BCRYPT_SIGNATURE_LENGTH() {
-        return constants$4566.const$4;
+    public static int META_SETMAPMODE() {
+        return META_SETMAPMODE;
     }
+    private static final int META_SETROP2 = (int)260L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HASH_BLOCK_LENGTH "H"
+     * {@snippet lang=c :
+     * #define META_SETROP2 260
      * }
      */
-    public static MemorySegment BCRYPT_HASH_BLOCK_LENGTH() {
-        return constants$4566.const$2;
+    public static int META_SETROP2() {
+        return META_SETROP2;
     }
+    private static final int META_SETRELABS = (int)261L;
     /**
-     * {@snippet :
-     * #define BCRYPT_AUTH_TAG_LENGTH "A"
+     * {@snippet lang=c :
+     * #define META_SETRELABS 261
      * }
      */
-    public static MemorySegment BCRYPT_AUTH_TAG_LENGTH() {
-        return constants$4567.const$2;
+    public static int META_SETRELABS() {
+        return META_SETRELABS;
     }
+    private static final int META_SETPOLYFILLMODE = (int)262L;
     /**
-     * {@snippet :
-     * #define BCRYPT_PRIMITIVE_TYPE "P"
+     * {@snippet lang=c :
+     * #define META_SETPOLYFILLMODE 262
      * }
      */
-    public static MemorySegment BCRYPT_PRIMITIVE_TYPE() {
-        return constants$4567.const$3;
+    public static int META_SETPOLYFILLMODE() {
+        return META_SETPOLYFILLMODE;
     }
+    private static final int META_SETSTRETCHBLTMODE = (int)263L;
     /**
-     * {@snippet :
-     * #define BCRYPT_IS_KEYED_HASH "I"
+     * {@snippet lang=c :
+     * #define META_SETSTRETCHBLTMODE 263
      * }
      */
-    public static MemorySegment BCRYPT_IS_KEYED_HASH() {
-        return constants$4568.const$0;
+    public static int META_SETSTRETCHBLTMODE() {
+        return META_SETSTRETCHBLTMODE;
     }
+    private static final int META_SETTEXTCHAREXTRA = (int)264L;
     /**
-     * {@snippet :
-     * #define BCRYPT_IS_REUSABLE_HASH "I"
+     * {@snippet lang=c :
+     * #define META_SETTEXTCHAREXTRA 264
      * }
      */
-    public static MemorySegment BCRYPT_IS_REUSABLE_HASH() {
-        return constants$4568.const$0;
+    public static int META_SETTEXTCHAREXTRA() {
+        return META_SETTEXTCHAREXTRA;
     }
+    private static final int META_SETTEXTCOLOR = (int)521L;
     /**
-     * {@snippet :
-     * #define BCRYPT_MESSAGE_BLOCK_LENGTH "M"
+     * {@snippet lang=c :
+     * #define META_SETTEXTCOLOR 521
      * }
      */
-    public static MemorySegment BCRYPT_MESSAGE_BLOCK_LENGTH() {
-        return constants$4562.const$3;
+    public static int META_SETTEXTCOLOR() {
+        return META_SETTEXTCOLOR;
     }
+    private static final int META_SETTEXTJUSTIFICATION = (int)522L;
     /**
-     * {@snippet :
-     * #define BCRYPT_PUBLIC_KEY_LENGTH "P"
+     * {@snippet lang=c :
+     * #define META_SETTEXTJUSTIFICATION 522
      * }
      */
-    public static MemorySegment BCRYPT_PUBLIC_KEY_LENGTH() {
-        return constants$4567.const$3;
+    public static int META_SETTEXTJUSTIFICATION() {
+        return META_SETTEXTJUSTIFICATION;
     }
+    private static final int META_SETWINDOWORG = (int)523L;
     /**
-     * {@snippet :
-     * #define BCRYPT_PCP_PLATFORM_TYPE_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define META_SETWINDOWORG 523
      * }
      */
-    public static MemorySegment BCRYPT_PCP_PLATFORM_TYPE_PROPERTY() {
-        return constants$4567.const$3;
+    public static int META_SETWINDOWORG() {
+        return META_SETWINDOWORG;
     }
+    private static final int META_SETWINDOWEXT = (int)524L;
     /**
-     * {@snippet :
-     * #define BCRYPT_PCP_PROVIDER_VERSION_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define META_SETWINDOWEXT 524
      * }
      */
-    public static MemorySegment BCRYPT_PCP_PROVIDER_VERSION_PROPERTY() {
-        return constants$4567.const$3;
+    public static int META_SETWINDOWEXT() {
+        return META_SETWINDOWEXT;
     }
+    private static final int META_SETVIEWPORTORG = (int)525L;
     /**
-     * {@snippet :
-     * #define BCRYPT_MULTI_OBJECT_LENGTH "M"
+     * {@snippet lang=c :
+     * #define META_SETVIEWPORTORG 525
      * }
      */
-    public static MemorySegment BCRYPT_MULTI_OBJECT_LENGTH() {
-        return constants$4562.const$3;
+    public static int META_SETVIEWPORTORG() {
+        return META_SETVIEWPORTORG;
     }
+    private static final int META_SETVIEWPORTEXT = (int)526L;
     /**
-     * {@snippet :
-     * #define BCRYPT_IS_IFX_TPM_WEAK_KEY "I"
+     * {@snippet lang=c :
+     * #define META_SETVIEWPORTEXT 526
      * }
      */
-    public static MemorySegment BCRYPT_IS_IFX_TPM_WEAK_KEY() {
-        return constants$4568.const$0;
+    public static int META_SETVIEWPORTEXT() {
+        return META_SETVIEWPORTEXT;
     }
+    private static final int META_OFFSETWINDOWORG = (int)527L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HKDF_HASH_ALGORITHM "H"
+     * {@snippet lang=c :
+     * #define META_OFFSETWINDOWORG 527
      * }
      */
-    public static MemorySegment BCRYPT_HKDF_HASH_ALGORITHM() {
-        return constants$4566.const$2;
+    public static int META_OFFSETWINDOWORG() {
+        return META_OFFSETWINDOWORG;
     }
+    private static final int META_SCALEWINDOWEXT = (int)1040L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HKDF_SALT_AND_FINALIZE "H"
+     * {@snippet lang=c :
+     * #define META_SCALEWINDOWEXT 1040
      * }
      */
-    public static MemorySegment BCRYPT_HKDF_SALT_AND_FINALIZE() {
-        return constants$4566.const$2;
+    public static int META_SCALEWINDOWEXT() {
+        return META_SCALEWINDOWEXT;
     }
+    private static final int META_OFFSETVIEWPORTORG = (int)529L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HKDF_PRK_AND_FINALIZE "H"
+     * {@snippet lang=c :
+     * #define META_OFFSETVIEWPORTORG 529
      * }
      */
-    public static MemorySegment BCRYPT_HKDF_PRK_AND_FINALIZE() {
-        return constants$4566.const$2;
+    public static int META_OFFSETVIEWPORTORG() {
+        return META_OFFSETVIEWPORTORG;
     }
+    private static final int META_SCALEVIEWPORTEXT = (int)1042L;
     /**
-     * {@snippet :
-     * #define BCRYPT_INITIALIZATION_VECTOR "I"
+     * {@snippet lang=c :
+     * #define META_SCALEVIEWPORTEXT 1042
      * }
      */
-    public static MemorySegment BCRYPT_INITIALIZATION_VECTOR() {
-        return constants$4568.const$0;
+    public static int META_SCALEVIEWPORTEXT() {
+        return META_SCALEVIEWPORTEXT;
     }
+    private static final int META_LINETO = (int)531L;
     /**
-     * {@snippet :
-     * #define BCRYPT_CHAIN_MODE_NA "C"
+     * {@snippet lang=c :
+     * #define META_LINETO 531
      * }
      */
-    public static MemorySegment BCRYPT_CHAIN_MODE_NA() {
-        return constants$4541.const$1;
+    public static int META_LINETO() {
+        return META_LINETO;
     }
+    private static final int META_MOVETO = (int)532L;
     /**
-     * {@snippet :
-     * #define BCRYPT_CHAIN_MODE_CBC "C"
+     * {@snippet lang=c :
+     * #define META_MOVETO 532
      * }
      */
-    public static MemorySegment BCRYPT_CHAIN_MODE_CBC() {
-        return constants$4541.const$1;
+    public static int META_MOVETO() {
+        return META_MOVETO;
     }
+    private static final int META_EXCLUDECLIPRECT = (int)1045L;
     /**
-     * {@snippet :
-     * #define BCRYPT_CHAIN_MODE_ECB "C"
+     * {@snippet lang=c :
+     * #define META_EXCLUDECLIPRECT 1045
      * }
      */
-    public static MemorySegment BCRYPT_CHAIN_MODE_ECB() {
-        return constants$4541.const$1;
+    public static int META_EXCLUDECLIPRECT() {
+        return META_EXCLUDECLIPRECT;
     }
+    private static final int META_INTERSECTCLIPRECT = (int)1046L;
     /**
-     * {@snippet :
-     * #define BCRYPT_CHAIN_MODE_CFB "C"
+     * {@snippet lang=c :
+     * #define META_INTERSECTCLIPRECT 1046
      * }
      */
-    public static MemorySegment BCRYPT_CHAIN_MODE_CFB() {
-        return constants$4541.const$1;
+    public static int META_INTERSECTCLIPRECT() {
+        return META_INTERSECTCLIPRECT;
     }
+    private static final int META_ARC = (int)2071L;
     /**
-     * {@snippet :
-     * #define BCRYPT_CHAIN_MODE_CCM "C"
+     * {@snippet lang=c :
+     * #define META_ARC 2071
      * }
      */
-    public static MemorySegment BCRYPT_CHAIN_MODE_CCM() {
-        return constants$4541.const$1;
+    public static int META_ARC() {
+        return META_ARC;
     }
+    private static final int META_ELLIPSE = (int)1048L;
     /**
-     * {@snippet :
-     * #define BCRYPT_CHAIN_MODE_GCM "C"
+     * {@snippet lang=c :
+     * #define META_ELLIPSE 1048
      * }
      */
-    public static MemorySegment BCRYPT_CHAIN_MODE_GCM() {
-        return constants$4541.const$1;
+    public static int META_ELLIPSE() {
+        return META_ELLIPSE;
     }
+    private static final int META_FLOODFILL = (int)1049L;
     /**
-     * {@snippet :
-     * #define BCRYPT_PUBLIC_KEY_BLOB "P"
+     * {@snippet lang=c :
+     * #define META_FLOODFILL 1049
      * }
      */
-    public static MemorySegment BCRYPT_PUBLIC_KEY_BLOB() {
-        return constants$4567.const$3;
+    public static int META_FLOODFILL() {
+        return META_FLOODFILL;
     }
+    private static final int META_PIE = (int)2074L;
     /**
-     * {@snippet :
-     * #define BCRYPT_PRIVATE_KEY_BLOB "P"
+     * {@snippet lang=c :
+     * #define META_PIE 2074
      * }
      */
-    public static MemorySegment BCRYPT_PRIVATE_KEY_BLOB() {
-        return constants$4567.const$3;
+    public static int META_PIE() {
+        return META_PIE;
     }
+    private static final int META_RECTANGLE = (int)1051L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RSAPUBLIC_BLOB "R"
+     * {@snippet lang=c :
+     * #define META_RECTANGLE 1051
      * }
      */
-    public static MemorySegment BCRYPT_RSAPUBLIC_BLOB() {
-        return constants$4567.const$1;
+    public static int META_RECTANGLE() {
+        return META_RECTANGLE;
     }
+    private static final int META_ROUNDRECT = (int)1564L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RSAPRIVATE_BLOB "R"
+     * {@snippet lang=c :
+     * #define META_ROUNDRECT 1564
      * }
      */
-    public static MemorySegment BCRYPT_RSAPRIVATE_BLOB() {
-        return constants$4567.const$1;
+    public static int META_ROUNDRECT() {
+        return META_ROUNDRECT;
     }
+    private static final int META_PATBLT = (int)1565L;
     /**
-     * {@snippet :
-     * #define LEGACY_RSAPUBLIC_BLOB "C"
+     * {@snippet lang=c :
+     * #define META_PATBLT 1565
      * }
      */
-    public static MemorySegment LEGACY_RSAPUBLIC_BLOB() {
-        return constants$4541.const$1;
+    public static int META_PATBLT() {
+        return META_PATBLT;
     }
+    private static final int META_SAVEDC = (int)30L;
     /**
-     * {@snippet :
-     * #define LEGACY_RSAPRIVATE_BLOB "C"
+     * {@snippet lang=c :
+     * #define META_SAVEDC 30
      * }
      */
-    public static MemorySegment LEGACY_RSAPRIVATE_BLOB() {
-        return constants$4541.const$1;
+    public static int META_SAVEDC() {
+        return META_SAVEDC;
     }
+    private static final int META_SETPIXEL = (int)1055L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RSAFULLPRIVATE_BLOB "R"
+     * {@snippet lang=c :
+     * #define META_SETPIXEL 1055
      * }
      */
-    public static MemorySegment BCRYPT_RSAFULLPRIVATE_BLOB() {
-        return constants$4567.const$1;
+    public static int META_SETPIXEL() {
+        return META_SETPIXEL;
     }
+    private static final int META_OFFSETCLIPRGN = (int)544L;
     /**
-     * {@snippet :
-     * #define BCRYPT_GLOBAL_PARAMETERS "S"
+     * {@snippet lang=c :
+     * #define META_OFFSETCLIPRGN 544
      * }
      */
-    public static MemorySegment BCRYPT_GLOBAL_PARAMETERS() {
-        return constants$4566.const$4;
+    public static int META_OFFSETCLIPRGN() {
+        return META_OFFSETCLIPRGN;
     }
+    private static final int META_TEXTOUT = (int)1313L;
     /**
-     * {@snippet :
-     * #define BCRYPT_PRIVATE_KEY "P"
+     * {@snippet lang=c :
+     * #define META_TEXTOUT 1313
      * }
      */
-    public static MemorySegment BCRYPT_PRIVATE_KEY() {
-        return constants$4567.const$3;
+    public static int META_TEXTOUT() {
+        return META_TEXTOUT;
     }
+    private static final int META_BITBLT = (int)2338L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECCPUBLIC_BLOB "E"
+     * {@snippet lang=c :
+     * #define META_BITBLT 2338
      * }
      */
-    public static MemorySegment BCRYPT_ECCPUBLIC_BLOB() {
-        return constants$4567.const$5;
+    public static int META_BITBLT() {
+        return META_BITBLT;
     }
+    private static final int META_STRETCHBLT = (int)2851L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECCPRIVATE_BLOB "E"
+     * {@snippet lang=c :
+     * #define META_STRETCHBLT 2851
      * }
      */
-    public static MemorySegment BCRYPT_ECCPRIVATE_BLOB() {
-        return constants$4567.const$5;
+    public static int META_STRETCHBLT() {
+        return META_STRETCHBLT;
     }
+    private static final int META_POLYGON = (int)804L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECCFULLPUBLIC_BLOB "E"
+     * {@snippet lang=c :
+     * #define META_POLYGON 804
      * }
      */
-    public static MemorySegment BCRYPT_ECCFULLPUBLIC_BLOB() {
-        return constants$4567.const$5;
+    public static int META_POLYGON() {
+        return META_POLYGON;
     }
+    private static final int META_POLYLINE = (int)805L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECCFULLPRIVATE_BLOB "E"
+     * {@snippet lang=c :
+     * #define META_POLYLINE 805
      * }
      */
-    public static MemorySegment BCRYPT_ECCFULLPRIVATE_BLOB() {
-        return constants$4567.const$5;
+    public static int META_POLYLINE() {
+        return META_POLYLINE;
     }
+    private static final int META_ESCAPE = (int)1574L;
     /**
-     * {@snippet :
-     * #define SSL_ECCPUBLIC_BLOB "S"
+     * {@snippet lang=c :
+     * #define META_ESCAPE 1574
      * }
      */
-    public static MemorySegment SSL_ECCPUBLIC_BLOB() {
-        return constants$4566.const$4;
+    public static int META_ESCAPE() {
+        return META_ESCAPE;
     }
+    private static final int META_RESTOREDC = (int)295L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DH_PUBLIC_BLOB "D"
+     * {@snippet lang=c :
+     * #define META_RESTOREDC 295
      * }
      */
-    public static MemorySegment BCRYPT_DH_PUBLIC_BLOB() {
-        return constants$4541.const$4;
+    public static int META_RESTOREDC() {
+        return META_RESTOREDC;
     }
+    private static final int META_FILLREGION = (int)552L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DH_PRIVATE_BLOB "D"
+     * {@snippet lang=c :
+     * #define META_FILLREGION 552
      * }
      */
-    public static MemorySegment BCRYPT_DH_PRIVATE_BLOB() {
-        return constants$4541.const$4;
+    public static int META_FILLREGION() {
+        return META_FILLREGION;
     }
+    private static final int META_FRAMEREGION = (int)1065L;
     /**
-     * {@snippet :
-     * #define LEGACY_DH_PUBLIC_BLOB "C"
+     * {@snippet lang=c :
+     * #define META_FRAMEREGION 1065
      * }
      */
-    public static MemorySegment LEGACY_DH_PUBLIC_BLOB() {
-        return constants$4541.const$1;
+    public static int META_FRAMEREGION() {
+        return META_FRAMEREGION;
     }
+    private static final int META_INVERTREGION = (int)298L;
     /**
-     * {@snippet :
-     * #define LEGACY_DH_PRIVATE_BLOB "C"
+     * {@snippet lang=c :
+     * #define META_INVERTREGION 298
      * }
      */
-    public static MemorySegment LEGACY_DH_PRIVATE_BLOB() {
-        return constants$4541.const$1;
+    public static int META_INVERTREGION() {
+        return META_INVERTREGION;
     }
+    private static final int META_PAINTREGION = (int)299L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DH_PARAMETERS "D"
+     * {@snippet lang=c :
+     * #define META_PAINTREGION 299
      * }
      */
-    public static MemorySegment BCRYPT_DH_PARAMETERS() {
-        return constants$4541.const$4;
+    public static int META_PAINTREGION() {
+        return META_PAINTREGION;
     }
+    private static final int META_SELECTCLIPREGION = (int)300L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DSA_PUBLIC_BLOB "D"
+     * {@snippet lang=c :
+     * #define META_SELECTCLIPREGION 300
      * }
      */
-    public static MemorySegment BCRYPT_DSA_PUBLIC_BLOB() {
-        return constants$4541.const$4;
+    public static int META_SELECTCLIPREGION() {
+        return META_SELECTCLIPREGION;
     }
+    private static final int META_SELECTOBJECT = (int)301L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DSA_PRIVATE_BLOB "D"
+     * {@snippet lang=c :
+     * #define META_SELECTOBJECT 301
      * }
      */
-    public static MemorySegment BCRYPT_DSA_PRIVATE_BLOB() {
-        return constants$4541.const$4;
+    public static int META_SELECTOBJECT() {
+        return META_SELECTOBJECT;
     }
+    private static final int META_SETTEXTALIGN = (int)302L;
     /**
-     * {@snippet :
-     * #define LEGACY_DSA_PUBLIC_BLOB "C"
+     * {@snippet lang=c :
+     * #define META_SETTEXTALIGN 302
      * }
      */
-    public static MemorySegment LEGACY_DSA_PUBLIC_BLOB() {
-        return constants$4541.const$1;
+    public static int META_SETTEXTALIGN() {
+        return META_SETTEXTALIGN;
     }
+    private static final int META_CHORD = (int)2096L;
     /**
-     * {@snippet :
-     * #define LEGACY_DSA_PRIVATE_BLOB "C"
+     * {@snippet lang=c :
+     * #define META_CHORD 2096
      * }
      */
-    public static MemorySegment LEGACY_DSA_PRIVATE_BLOB() {
-        return constants$4541.const$1;
+    public static int META_CHORD() {
+        return META_CHORD;
     }
+    private static final int META_SETMAPPERFLAGS = (int)561L;
     /**
-     * {@snippet :
-     * #define LEGACY_DSA_V2_PUBLIC_BLOB "V"
+     * {@snippet lang=c :
+     * #define META_SETMAPPERFLAGS 561
      * }
      */
-    public static MemorySegment LEGACY_DSA_V2_PUBLIC_BLOB() {
-        return constants$4568.const$1;
+    public static int META_SETMAPPERFLAGS() {
+        return META_SETMAPPERFLAGS;
     }
+    private static final int META_EXTTEXTOUT = (int)2610L;
     /**
-     * {@snippet :
-     * #define LEGACY_DSA_V2_PRIVATE_BLOB "V"
+     * {@snippet lang=c :
+     * #define META_EXTTEXTOUT 2610
      * }
      */
-    public static MemorySegment LEGACY_DSA_V2_PRIVATE_BLOB() {
-        return constants$4568.const$1;
+    public static int META_EXTTEXTOUT() {
+        return META_EXTTEXTOUT;
     }
+    private static final int META_SETDIBTODEV = (int)3379L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DSA_PARAMETERS "D"
+     * {@snippet lang=c :
+     * #define META_SETDIBTODEV 3379
      * }
      */
-    public static MemorySegment BCRYPT_DSA_PARAMETERS() {
-        return constants$4541.const$4;
+    public static int META_SETDIBTODEV() {
+        return META_SETDIBTODEV;
     }
+    private static final int META_SELECTPALETTE = (int)564L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_PARAMETERS "E"
+     * {@snippet lang=c :
+     * #define META_SELECTPALETTE 564
      * }
      */
-    public static MemorySegment BCRYPT_ECC_PARAMETERS() {
-        return constants$4567.const$5;
+    public static int META_SELECTPALETTE() {
+        return META_SELECTPALETTE;
     }
+    private static final int META_REALIZEPALETTE = (int)53L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_NAME "E"
+     * {@snippet lang=c :
+     * #define META_REALIZEPALETTE 53
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_NAME() {
-        return constants$4567.const$5;
+    public static int META_REALIZEPALETTE() {
+        return META_REALIZEPALETTE;
     }
+    private static final int META_ANIMATEPALETTE = (int)1078L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_NAME_LIST "E"
+     * {@snippet lang=c :
+     * #define META_ANIMATEPALETTE 1078
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_NAME_LIST() {
-        return constants$4567.const$5;
+    public static int META_ANIMATEPALETTE() {
+        return META_ANIMATEPALETTE;
     }
+    private static final int META_SETPALENTRIES = (int)55L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_BRAINPOOLP160R1 "b"
+     * {@snippet lang=c :
+     * #define META_SETPALENTRIES 55
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP160R1() {
-        return constants$4568.const$2;
+    public static int META_SETPALENTRIES() {
+        return META_SETPALENTRIES;
     }
+    private static final int META_POLYPOLYGON = (int)1336L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_BRAINPOOLP160T1 "b"
+     * {@snippet lang=c :
+     * #define META_POLYPOLYGON 1336
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP160T1() {
-        return constants$4568.const$2;
+    public static int META_POLYPOLYGON() {
+        return META_POLYPOLYGON;
     }
+    private static final int META_RESIZEPALETTE = (int)313L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_BRAINPOOLP192R1 "b"
+     * {@snippet lang=c :
+     * #define META_RESIZEPALETTE 313
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP192R1() {
-        return constants$4568.const$2;
+    public static int META_RESIZEPALETTE() {
+        return META_RESIZEPALETTE;
     }
+    private static final int META_DIBBITBLT = (int)2368L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_BRAINPOOLP192T1 "b"
+     * {@snippet lang=c :
+     * #define META_DIBBITBLT 2368
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP192T1() {
-        return constants$4568.const$2;
+    public static int META_DIBBITBLT() {
+        return META_DIBBITBLT;
     }
+    private static final int META_DIBSTRETCHBLT = (int)2881L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_BRAINPOOLP224R1 "b"
+     * {@snippet lang=c :
+     * #define META_DIBSTRETCHBLT 2881
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP224R1() {
-        return constants$4568.const$2;
+    public static int META_DIBSTRETCHBLT() {
+        return META_DIBSTRETCHBLT;
     }
+    private static final int META_DIBCREATEPATTERNBRUSH = (int)322L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_BRAINPOOLP224T1 "b"
+     * {@snippet lang=c :
+     * #define META_DIBCREATEPATTERNBRUSH 322
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP224T1() {
-        return constants$4568.const$2;
+    public static int META_DIBCREATEPATTERNBRUSH() {
+        return META_DIBCREATEPATTERNBRUSH;
     }
+    private static final int META_STRETCHDIB = (int)3907L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_BRAINPOOLP256R1 "b"
+     * {@snippet lang=c :
+     * #define META_STRETCHDIB 3907
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP256R1() {
-        return constants$4568.const$2;
+    public static int META_STRETCHDIB() {
+        return META_STRETCHDIB;
     }
+    private static final int META_EXTFLOODFILL = (int)1352L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_BRAINPOOLP256T1 "b"
+     * {@snippet lang=c :
+     * #define META_EXTFLOODFILL 1352
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP256T1() {
-        return constants$4568.const$2;
+    public static int META_EXTFLOODFILL() {
+        return META_EXTFLOODFILL;
     }
+    private static final int META_SETLAYOUT = (int)329L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_BRAINPOOLP320R1 "b"
+     * {@snippet lang=c :
+     * #define META_SETLAYOUT 329
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP320R1() {
-        return constants$4568.const$2;
+    public static int META_SETLAYOUT() {
+        return META_SETLAYOUT;
     }
+    private static final int META_DELETEOBJECT = (int)496L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_BRAINPOOLP320T1 "b"
+     * {@snippet lang=c :
+     * #define META_DELETEOBJECT 496
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP320T1() {
-        return constants$4568.const$2;
+    public static int META_DELETEOBJECT() {
+        return META_DELETEOBJECT;
     }
+    private static final int META_CREATEPALETTE = (int)247L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_BRAINPOOLP384R1 "b"
+     * {@snippet lang=c :
+     * #define META_CREATEPALETTE 247
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP384R1() {
-        return constants$4568.const$2;
+    public static int META_CREATEPALETTE() {
+        return META_CREATEPALETTE;
     }
+    private static final int META_CREATEPATTERNBRUSH = (int)505L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_BRAINPOOLP384T1 "b"
+     * {@snippet lang=c :
+     * #define META_CREATEPATTERNBRUSH 505
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP384T1() {
-        return constants$4568.const$2;
+    public static int META_CREATEPATTERNBRUSH() {
+        return META_CREATEPATTERNBRUSH;
     }
+    private static final int META_CREATEPENINDIRECT = (int)762L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_BRAINPOOLP512R1 "b"
+     * {@snippet lang=c :
+     * #define META_CREATEPENINDIRECT 762
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP512R1() {
-        return constants$4568.const$2;
+    public static int META_CREATEPENINDIRECT() {
+        return META_CREATEPENINDIRECT;
     }
+    private static final int META_CREATEFONTINDIRECT = (int)763L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_BRAINPOOLP512T1 "b"
+     * {@snippet lang=c :
+     * #define META_CREATEFONTINDIRECT 763
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP512T1() {
-        return constants$4568.const$2;
+    public static int META_CREATEFONTINDIRECT() {
+        return META_CREATEFONTINDIRECT;
     }
+    private static final int META_CREATEBRUSHINDIRECT = (int)764L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_25519 "c"
+     * {@snippet lang=c :
+     * #define META_CREATEBRUSHINDIRECT 764
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_25519() {
-        return constants$4548.const$1;
+    public static int META_CREATEBRUSHINDIRECT() {
+        return META_CREATEBRUSHINDIRECT;
     }
+    private static final int META_CREATEREGION = (int)1791L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_EC192WAPI "e"
+     * {@snippet lang=c :
+     * #define META_CREATEREGION 1791
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_EC192WAPI() {
-        return constants$4568.const$3;
+    public static int META_CREATEREGION() {
+        return META_CREATEREGION;
     }
+    private static final int NEWFRAME = (int)1L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_NISTP192 "n"
+     * {@snippet lang=c :
+     * #define NEWFRAME 1
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_NISTP192() {
-        return constants$4568.const$4;
+    public static int NEWFRAME() {
+        return NEWFRAME;
     }
+    private static final int ABORTDOC = (int)2L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_NISTP224 "n"
+     * {@snippet lang=c :
+     * #define ABORTDOC 2
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_NISTP224() {
-        return constants$4568.const$4;
+    public static int ABORTDOC() {
+        return ABORTDOC;
     }
+    private static final int NEXTBAND = (int)3L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_NISTP256 "n"
+     * {@snippet lang=c :
+     * #define NEXTBAND 3
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_NISTP256() {
-        return constants$4568.const$4;
+    public static int NEXTBAND() {
+        return NEXTBAND;
     }
+    private static final int SETCOLORTABLE = (int)4L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_NISTP384 "n"
+     * {@snippet lang=c :
+     * #define SETCOLORTABLE 4
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_NISTP384() {
-        return constants$4568.const$4;
+    public static int SETCOLORTABLE() {
+        return SETCOLORTABLE;
     }
+    private static final int GETCOLORTABLE = (int)5L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_NISTP521 "n"
+     * {@snippet lang=c :
+     * #define GETCOLORTABLE 5
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_NISTP521() {
-        return constants$4568.const$4;
+    public static int GETCOLORTABLE() {
+        return GETCOLORTABLE;
     }
+    private static final int FLUSHOUTPUT = (int)6L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_NUMSP256T1 "n"
+     * {@snippet lang=c :
+     * #define FLUSHOUTPUT 6
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_NUMSP256T1() {
-        return constants$4568.const$4;
+    public static int FLUSHOUTPUT() {
+        return FLUSHOUTPUT;
     }
+    private static final int DRAFTMODE = (int)7L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_NUMSP384T1 "n"
+     * {@snippet lang=c :
+     * #define DRAFTMODE 7
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_NUMSP384T1() {
-        return constants$4568.const$4;
+    public static int DRAFTMODE() {
+        return DRAFTMODE;
     }
+    private static final int QUERYESCSUPPORT = (int)8L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_NUMSP512T1 "n"
+     * {@snippet lang=c :
+     * #define QUERYESCSUPPORT 8
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_NUMSP512T1() {
-        return constants$4568.const$4;
+    public static int QUERYESCSUPPORT() {
+        return QUERYESCSUPPORT;
     }
+    private static final int SETABORTPROC = (int)9L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_SECP160K1 "s"
+     * {@snippet lang=c :
+     * #define SETABORTPROC 9
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_SECP160K1() {
-        return constants$4548.const$2;
+    public static int SETABORTPROC() {
+        return SETABORTPROC;
     }
+    private static final int STARTDOC = (int)10L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_SECP160R1 "s"
+     * {@snippet lang=c :
+     * #define STARTDOC 10
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_SECP160R1() {
-        return constants$4548.const$2;
+    public static int STARTDOC() {
+        return STARTDOC;
     }
+    private static final int ENDDOC = (int)11L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_SECP160R2 "s"
+     * {@snippet lang=c :
+     * #define ENDDOC 11
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_SECP160R2() {
-        return constants$4548.const$2;
+    public static int ENDDOC() {
+        return ENDDOC;
     }
+    private static final int GETPHYSPAGESIZE = (int)12L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_SECP192K1 "s"
+     * {@snippet lang=c :
+     * #define GETPHYSPAGESIZE 12
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_SECP192K1() {
-        return constants$4548.const$2;
+    public static int GETPHYSPAGESIZE() {
+        return GETPHYSPAGESIZE;
     }
+    private static final int GETPRINTINGOFFSET = (int)13L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_SECP192R1 "s"
+     * {@snippet lang=c :
+     * #define GETPRINTINGOFFSET 13
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_SECP192R1() {
-        return constants$4548.const$2;
+    public static int GETPRINTINGOFFSET() {
+        return GETPRINTINGOFFSET;
     }
+    private static final int GETSCALINGFACTOR = (int)14L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_SECP224K1 "s"
+     * {@snippet lang=c :
+     * #define GETSCALINGFACTOR 14
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_SECP224K1() {
-        return constants$4548.const$2;
+    public static int GETSCALINGFACTOR() {
+        return GETSCALINGFACTOR;
     }
+    private static final int MFCOMMENT = (int)15L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_SECP224R1 "s"
+     * {@snippet lang=c :
+     * #define MFCOMMENT 15
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_SECP224R1() {
-        return constants$4548.const$2;
+    public static int MFCOMMENT() {
+        return MFCOMMENT;
     }
+    private static final int GETPENWIDTH = (int)16L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_SECP256K1 "s"
+     * {@snippet lang=c :
+     * #define GETPENWIDTH 16
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_SECP256K1() {
-        return constants$4548.const$2;
+    public static int GETPENWIDTH() {
+        return GETPENWIDTH;
     }
+    private static final int SETCOPYCOUNT = (int)17L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_SECP256R1 "s"
+     * {@snippet lang=c :
+     * #define SETCOPYCOUNT 17
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_SECP256R1() {
-        return constants$4548.const$2;
+    public static int SETCOPYCOUNT() {
+        return SETCOPYCOUNT;
     }
+    private static final int SELECTPAPERSOURCE = (int)18L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_SECP384R1 "s"
+     * {@snippet lang=c :
+     * #define SELECTPAPERSOURCE 18
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_SECP384R1() {
-        return constants$4548.const$2;
+    public static int SELECTPAPERSOURCE() {
+        return SELECTPAPERSOURCE;
     }
+    private static final int DEVICEDATA = (int)19L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_SECP521R1 "s"
+     * {@snippet lang=c :
+     * #define DEVICEDATA 19
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_SECP521R1() {
-        return constants$4548.const$2;
+    public static int DEVICEDATA() {
+        return DEVICEDATA;
     }
+    private static final int PASSTHROUGH = (int)19L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_WTLS7 "w"
+     * {@snippet lang=c :
+     * #define PASSTHROUGH 19
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_WTLS7() {
-        return constants$4568.const$5;
+    public static int PASSTHROUGH() {
+        return PASSTHROUGH;
     }
+    private static final int GETTECHNOLGY = (int)20L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_WTLS9 "w"
+     * {@snippet lang=c :
+     * #define GETTECHNOLGY 20
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_WTLS9() {
-        return constants$4568.const$5;
+    public static int GETTECHNOLGY() {
+        return GETTECHNOLGY;
     }
+    private static final int GETTECHNOLOGY = (int)20L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_WTLS12 "w"
+     * {@snippet lang=c :
+     * #define GETTECHNOLOGY 20
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_WTLS12() {
-        return constants$4568.const$5;
+    public static int GETTECHNOLOGY() {
+        return GETTECHNOLOGY;
     }
+    private static final int SETLINECAP = (int)21L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_X962P192V1 "x"
+     * {@snippet lang=c :
+     * #define SETLINECAP 21
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_X962P192V1() {
-        return constants$4569.const$0;
+    public static int SETLINECAP() {
+        return SETLINECAP;
     }
+    private static final int SETLINEJOIN = (int)22L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_X962P192V2 "x"
+     * {@snippet lang=c :
+     * #define SETLINEJOIN 22
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_X962P192V2() {
-        return constants$4569.const$0;
+    public static int SETLINEJOIN() {
+        return SETLINEJOIN;
     }
+    private static final int SETMITERLIMIT = (int)23L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_X962P192V3 "x"
+     * {@snippet lang=c :
+     * #define SETMITERLIMIT 23
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_X962P192V3() {
-        return constants$4569.const$0;
+    public static int SETMITERLIMIT() {
+        return SETMITERLIMIT;
     }
+    private static final int BANDINFO = (int)24L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_X962P239V1 "x"
+     * {@snippet lang=c :
+     * #define BANDINFO 24
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_X962P239V1() {
-        return constants$4569.const$0;
+    public static int BANDINFO() {
+        return BANDINFO;
     }
+    private static final int DRAWPATTERNRECT = (int)25L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_X962P239V2 "x"
+     * {@snippet lang=c :
+     * #define DRAWPATTERNRECT 25
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_X962P239V2() {
-        return constants$4569.const$0;
+    public static int DRAWPATTERNRECT() {
+        return DRAWPATTERNRECT;
     }
+    private static final int GETVECTORPENSIZE = (int)26L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_X962P239V3 "x"
+     * {@snippet lang=c :
+     * #define GETVECTORPENSIZE 26
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_X962P239V3() {
-        return constants$4569.const$0;
+    public static int GETVECTORPENSIZE() {
+        return GETVECTORPENSIZE;
     }
+    private static final int GETVECTORBRUSHSIZE = (int)27L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECC_CURVE_X962P256V1 "x"
+     * {@snippet lang=c :
+     * #define GETVECTORBRUSHSIZE 27
      * }
      */
-    public static MemorySegment BCRYPT_ECC_CURVE_X962P256V1() {
-        return constants$4569.const$0;
+    public static int GETVECTORBRUSHSIZE() {
+        return GETVECTORBRUSHSIZE;
     }
+    private static final int ENABLEDUPLEX = (int)28L;
     /**
-     * {@snippet :
-     * #define MS_PRIMITIVE_PROVIDER "M"
+     * {@snippet lang=c :
+     * #define ENABLEDUPLEX 28
      * }
      */
-    public static MemorySegment MS_PRIMITIVE_PROVIDER() {
-        return constants$4562.const$3;
+    public static int ENABLEDUPLEX() {
+        return ENABLEDUPLEX;
     }
+    private static final int GETSETPAPERBINS = (int)29L;
     /**
-     * {@snippet :
-     * #define MS_PLATFORM_CRYPTO_PROVIDER "M"
+     * {@snippet lang=c :
+     * #define GETSETPAPERBINS 29
      * }
      */
-    public static MemorySegment MS_PLATFORM_CRYPTO_PROVIDER() {
-        return constants$4562.const$3;
+    public static int GETSETPAPERBINS() {
+        return GETSETPAPERBINS;
     }
+    private static final int GETSETPRINTORIENT = (int)30L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RSA_ALGORITHM "R"
+     * {@snippet lang=c :
+     * #define GETSETPRINTORIENT 30
      * }
      */
-    public static MemorySegment BCRYPT_RSA_ALGORITHM() {
-        return constants$4567.const$1;
+    public static int GETSETPRINTORIENT() {
+        return GETSETPRINTORIENT;
     }
+    private static final int ENUMPAPERBINS = (int)31L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RSA_SIGN_ALGORITHM "R"
+     * {@snippet lang=c :
+     * #define ENUMPAPERBINS 31
      * }
      */
-    public static MemorySegment BCRYPT_RSA_SIGN_ALGORITHM() {
-        return constants$4567.const$1;
+    public static int ENUMPAPERBINS() {
+        return ENUMPAPERBINS;
     }
+    private static final int SETDIBSCALING = (int)32L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DH_ALGORITHM "D"
+     * {@snippet lang=c :
+     * #define SETDIBSCALING 32
      * }
      */
-    public static MemorySegment BCRYPT_DH_ALGORITHM() {
-        return constants$4541.const$4;
+    public static int SETDIBSCALING() {
+        return SETDIBSCALING;
     }
+    private static final int EPSPRINTING = (int)33L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DSA_ALGORITHM "D"
+     * {@snippet lang=c :
+     * #define EPSPRINTING 33
      * }
      */
-    public static MemorySegment BCRYPT_DSA_ALGORITHM() {
-        return constants$4541.const$4;
+    public static int EPSPRINTING() {
+        return EPSPRINTING;
     }
+    private static final int ENUMPAPERMETRICS = (int)34L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RC2_ALGORITHM "R"
+     * {@snippet lang=c :
+     * #define ENUMPAPERMETRICS 34
      * }
      */
-    public static MemorySegment BCRYPT_RC2_ALGORITHM() {
-        return constants$4567.const$1;
+    public static int ENUMPAPERMETRICS() {
+        return ENUMPAPERMETRICS;
     }
+    private static final int GETSETPAPERMETRICS = (int)35L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RC4_ALGORITHM "R"
+     * {@snippet lang=c :
+     * #define GETSETPAPERMETRICS 35
      * }
      */
-    public static MemorySegment BCRYPT_RC4_ALGORITHM() {
-        return constants$4567.const$1;
+    public static int GETSETPAPERMETRICS() {
+        return GETSETPAPERMETRICS;
     }
+    private static final int POSTSCRIPT_DATA = (int)37L;
     /**
-     * {@snippet :
-     * #define BCRYPT_AES_ALGORITHM "A"
+     * {@snippet lang=c :
+     * #define POSTSCRIPT_DATA 37
      * }
      */
-    public static MemorySegment BCRYPT_AES_ALGORITHM() {
-        return constants$4567.const$2;
+    public static int POSTSCRIPT_DATA() {
+        return POSTSCRIPT_DATA;
     }
+    private static final int POSTSCRIPT_IGNORE = (int)38L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DES_ALGORITHM "D"
+     * {@snippet lang=c :
+     * #define POSTSCRIPT_IGNORE 38
      * }
      */
-    public static MemorySegment BCRYPT_DES_ALGORITHM() {
-        return constants$4541.const$4;
+    public static int POSTSCRIPT_IGNORE() {
+        return POSTSCRIPT_IGNORE;
     }
+    private static final int MOUSETRAILS = (int)39L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DESX_ALGORITHM "D"
+     * {@snippet lang=c :
+     * #define MOUSETRAILS 39
      * }
      */
-    public static MemorySegment BCRYPT_DESX_ALGORITHM() {
-        return constants$4541.const$4;
+    public static int MOUSETRAILS() {
+        return MOUSETRAILS;
     }
+    private static final int GETDEVICEUNITS = (int)42L;
     /**
-     * {@snippet :
-     * #define BCRYPT_3DES_ALGORITHM "3"
+     * {@snippet lang=c :
+     * #define GETDEVICEUNITS 42
      * }
      */
-    public static MemorySegment BCRYPT_3DES_ALGORITHM() {
-        return constants$4569.const$1;
+    public static int GETDEVICEUNITS() {
+        return GETDEVICEUNITS;
     }
+    private static final int GETEXTENDEDTEXTMETRICS = (int)256L;
     /**
-     * {@snippet :
-     * #define BCRYPT_3DES_112_ALGORITHM "3"
+     * {@snippet lang=c :
+     * #define GETEXTENDEDTEXTMETRICS 256
      * }
      */
-    public static MemorySegment BCRYPT_3DES_112_ALGORITHM() {
-        return constants$4569.const$1;
+    public static int GETEXTENDEDTEXTMETRICS() {
+        return GETEXTENDEDTEXTMETRICS;
     }
+    private static final int GETEXTENTTABLE = (int)257L;
     /**
-     * {@snippet :
-     * #define BCRYPT_MD2_ALGORITHM "M"
+     * {@snippet lang=c :
+     * #define GETEXTENTTABLE 257
      * }
      */
-    public static MemorySegment BCRYPT_MD2_ALGORITHM() {
-        return constants$4562.const$3;
+    public static int GETEXTENTTABLE() {
+        return GETEXTENTTABLE;
     }
+    private static final int GETPAIRKERNTABLE = (int)258L;
     /**
-     * {@snippet :
-     * #define BCRYPT_MD4_ALGORITHM "M"
+     * {@snippet lang=c :
+     * #define GETPAIRKERNTABLE 258
      * }
      */
-    public static MemorySegment BCRYPT_MD4_ALGORITHM() {
-        return constants$4562.const$3;
+    public static int GETPAIRKERNTABLE() {
+        return GETPAIRKERNTABLE;
     }
+    private static final int GETTRACKKERNTABLE = (int)259L;
     /**
-     * {@snippet :
-     * #define BCRYPT_MD5_ALGORITHM "M"
+     * {@snippet lang=c :
+     * #define GETTRACKKERNTABLE 259
      * }
      */
-    public static MemorySegment BCRYPT_MD5_ALGORITHM() {
-        return constants$4562.const$3;
+    public static int GETTRACKKERNTABLE() {
+        return GETTRACKKERNTABLE;
     }
+    private static final int EXTTEXTOUT = (int)512L;
     /**
-     * {@snippet :
-     * #define BCRYPT_SHA1_ALGORITHM "S"
+     * {@snippet lang=c :
+     * #define EXTTEXTOUT 512
      * }
      */
-    public static MemorySegment BCRYPT_SHA1_ALGORITHM() {
-        return constants$4566.const$4;
+    public static int EXTTEXTOUT() {
+        return EXTTEXTOUT;
     }
+    private static final int GETFACENAME = (int)513L;
     /**
-     * {@snippet :
-     * #define BCRYPT_SHA256_ALGORITHM "S"
+     * {@snippet lang=c :
+     * #define GETFACENAME 513
      * }
      */
-    public static MemorySegment BCRYPT_SHA256_ALGORITHM() {
-        return constants$4566.const$4;
+    public static int GETFACENAME() {
+        return GETFACENAME;
     }
+    private static final int DOWNLOADFACE = (int)514L;
     /**
-     * {@snippet :
-     * #define BCRYPT_SHA384_ALGORITHM "S"
+     * {@snippet lang=c :
+     * #define DOWNLOADFACE 514
      * }
      */
-    public static MemorySegment BCRYPT_SHA384_ALGORITHM() {
-        return constants$4566.const$4;
+    public static int DOWNLOADFACE() {
+        return DOWNLOADFACE;
     }
+    private static final int ENABLERELATIVEWIDTHS = (int)768L;
     /**
-     * {@snippet :
-     * #define BCRYPT_SHA512_ALGORITHM "S"
+     * {@snippet lang=c :
+     * #define ENABLERELATIVEWIDTHS 768
      * }
      */
-    public static MemorySegment BCRYPT_SHA512_ALGORITHM() {
-        return constants$4566.const$4;
+    public static int ENABLERELATIVEWIDTHS() {
+        return ENABLERELATIVEWIDTHS;
     }
+    private static final int ENABLEPAIRKERNING = (int)769L;
     /**
-     * {@snippet :
-     * #define BCRYPT_AES_GMAC_ALGORITHM "A"
+     * {@snippet lang=c :
+     * #define ENABLEPAIRKERNING 769
      * }
      */
-    public static MemorySegment BCRYPT_AES_GMAC_ALGORITHM() {
-        return constants$4567.const$2;
+    public static int ENABLEPAIRKERNING() {
+        return ENABLEPAIRKERNING;
     }
+    private static final int SETKERNTRACK = (int)770L;
     /**
-     * {@snippet :
-     * #define BCRYPT_AES_CMAC_ALGORITHM "A"
+     * {@snippet lang=c :
+     * #define SETKERNTRACK 770
      * }
      */
-    public static MemorySegment BCRYPT_AES_CMAC_ALGORITHM() {
-        return constants$4567.const$2;
+    public static int SETKERNTRACK() {
+        return SETKERNTRACK;
     }
+    private static final int SETALLJUSTVALUES = (int)771L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDSA_P256_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define SETALLJUSTVALUES 771
      * }
      */
-    public static MemorySegment BCRYPT_ECDSA_P256_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int SETALLJUSTVALUES() {
+        return SETALLJUSTVALUES;
     }
+    private static final int SETCHARSET = (int)772L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDSA_P384_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define SETCHARSET 772
      * }
      */
-    public static MemorySegment BCRYPT_ECDSA_P384_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int SETCHARSET() {
+        return SETCHARSET;
     }
+    private static final int STRETCHBLT = (int)2048L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDSA_P521_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define STRETCHBLT 2048
      * }
      */
-    public static MemorySegment BCRYPT_ECDSA_P521_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int STRETCHBLT() {
+        return STRETCHBLT;
     }
+    private static final int METAFILE_DRIVER = (int)2049L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDH_P256_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define METAFILE_DRIVER 2049
      * }
      */
-    public static MemorySegment BCRYPT_ECDH_P256_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int METAFILE_DRIVER() {
+        return METAFILE_DRIVER;
     }
+    private static final int GETSETSCREENPARAMS = (int)3072L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDH_P384_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define GETSETSCREENPARAMS 3072
      * }
      */
-    public static MemorySegment BCRYPT_ECDH_P384_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int GETSETSCREENPARAMS() {
+        return GETSETSCREENPARAMS;
     }
+    private static final int QUERYDIBSUPPORT = (int)3073L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDH_P521_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define QUERYDIBSUPPORT 3073
      * }
      */
-    public static MemorySegment BCRYPT_ECDH_P521_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int QUERYDIBSUPPORT() {
+        return QUERYDIBSUPPORT;
     }
+    private static final int BEGIN_PATH = (int)4096L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RNG_ALGORITHM "R"
+     * {@snippet lang=c :
+     * #define BEGIN_PATH 4096
      * }
      */
-    public static MemorySegment BCRYPT_RNG_ALGORITHM() {
-        return constants$4567.const$1;
+    public static int BEGIN_PATH() {
+        return BEGIN_PATH;
     }
+    private static final int CLIP_TO_PATH = (int)4097L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RNG_FIPS186_DSA_ALGORITHM "F"
+     * {@snippet lang=c :
+     * #define CLIP_TO_PATH 4097
      * }
      */
-    public static MemorySegment BCRYPT_RNG_FIPS186_DSA_ALGORITHM() {
-        return constants$4569.const$2;
+    public static int CLIP_TO_PATH() {
+        return CLIP_TO_PATH;
     }
+    private static final int END_PATH = (int)4098L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RNG_DUAL_EC_ALGORITHM "D"
+     * {@snippet lang=c :
+     * #define END_PATH 4098
      * }
      */
-    public static MemorySegment BCRYPT_RNG_DUAL_EC_ALGORITHM() {
-        return constants$4541.const$4;
+    public static int END_PATH() {
+        return END_PATH;
     }
+    private static final int EXT_DEVICE_CAPS = (int)4099L;
     /**
-     * {@snippet :
-     * #define BCRYPT_SP800108_CTR_HMAC_ALGORITHM "S"
+     * {@snippet lang=c :
+     * #define EXT_DEVICE_CAPS 4099
      * }
      */
-    public static MemorySegment BCRYPT_SP800108_CTR_HMAC_ALGORITHM() {
-        return constants$4566.const$4;
+    public static int EXT_DEVICE_CAPS() {
+        return EXT_DEVICE_CAPS;
     }
+    private static final int RESTORE_CTM = (int)4100L;
     /**
-     * {@snippet :
-     * #define BCRYPT_SP80056A_CONCAT_ALGORITHM "S"
+     * {@snippet lang=c :
+     * #define RESTORE_CTM 4100
      * }
      */
-    public static MemorySegment BCRYPT_SP80056A_CONCAT_ALGORITHM() {
-        return constants$4566.const$4;
+    public static int RESTORE_CTM() {
+        return RESTORE_CTM;
     }
+    private static final int SAVE_CTM = (int)4101L;
     /**
-     * {@snippet :
-     * #define BCRYPT_PBKDF2_ALGORITHM "P"
+     * {@snippet lang=c :
+     * #define SAVE_CTM 4101
      * }
      */
-    public static MemorySegment BCRYPT_PBKDF2_ALGORITHM() {
-        return constants$4567.const$3;
+    public static int SAVE_CTM() {
+        return SAVE_CTM;
     }
+    private static final int SET_ARC_DIRECTION = (int)4102L;
     /**
-     * {@snippet :
-     * #define BCRYPT_CAPI_KDF_ALGORITHM "C"
+     * {@snippet lang=c :
+     * #define SET_ARC_DIRECTION 4102
      * }
      */
-    public static MemorySegment BCRYPT_CAPI_KDF_ALGORITHM() {
-        return constants$4541.const$1;
+    public static int SET_ARC_DIRECTION() {
+        return SET_ARC_DIRECTION;
     }
+    private static final int SET_BACKGROUND_COLOR = (int)4103L;
     /**
-     * {@snippet :
-     * #define BCRYPT_TLS1_1_KDF_ALGORITHM "T"
+     * {@snippet lang=c :
+     * #define SET_BACKGROUND_COLOR 4103
      * }
      */
-    public static MemorySegment BCRYPT_TLS1_1_KDF_ALGORITHM() {
-        return constants$4566.const$3;
+    public static int SET_BACKGROUND_COLOR() {
+        return SET_BACKGROUND_COLOR;
     }
+    private static final int SET_POLY_MODE = (int)4104L;
     /**
-     * {@snippet :
-     * #define BCRYPT_TLS1_2_KDF_ALGORITHM "T"
+     * {@snippet lang=c :
+     * #define SET_POLY_MODE 4104
      * }
      */
-    public static MemorySegment BCRYPT_TLS1_2_KDF_ALGORITHM() {
-        return constants$4566.const$3;
+    public static int SET_POLY_MODE() {
+        return SET_POLY_MODE;
     }
+    private static final int SET_SCREEN_ANGLE = (int)4105L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDSA_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define SET_SCREEN_ANGLE 4105
      * }
      */
-    public static MemorySegment BCRYPT_ECDSA_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int SET_SCREEN_ANGLE() {
+        return SET_SCREEN_ANGLE;
     }
+    private static final int SET_SPREAD = (int)4106L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDH_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define SET_SPREAD 4106
      * }
      */
-    public static MemorySegment BCRYPT_ECDH_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int SET_SPREAD() {
+        return SET_SPREAD;
     }
+    private static final int TRANSFORM_CTM = (int)4107L;
     /**
-     * {@snippet :
-     * #define BCRYPT_XTS_AES_ALGORITHM "X"
+     * {@snippet lang=c :
+     * #define TRANSFORM_CTM 4107
      * }
      */
-    public static MemorySegment BCRYPT_XTS_AES_ALGORITHM() {
-        return constants$4569.const$3;
+    public static int TRANSFORM_CTM() {
+        return TRANSFORM_CTM;
     }
+    private static final int SET_CLIP_BOX = (int)4108L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HKDF_ALGORITHM "H"
+     * {@snippet lang=c :
+     * #define SET_CLIP_BOX 4108
      * }
      */
-    public static MemorySegment BCRYPT_HKDF_ALGORITHM() {
-        return constants$4566.const$2;
+    public static int SET_CLIP_BOX() {
+        return SET_CLIP_BOX;
     }
+    private static final int SET_BOUNDS = (int)4109L;
     /**
-     * {@snippet :
-     * #define BCRYPT_CHACHA20_POLY1305_ALGORITHM "C"
+     * {@snippet lang=c :
+     * #define SET_BOUNDS 4109
      * }
      */
-    public static MemorySegment BCRYPT_CHACHA20_POLY1305_ALGORITHM() {
-        return constants$4541.const$1;
+    public static int SET_BOUNDS() {
+        return SET_BOUNDS;
     }
+    private static final int SET_MIRROR_MODE = (int)4110L;
     /**
-     * {@snippet :
-     * #define BCRYPT_MD2_ALG_HANDLE 1
+     * {@snippet lang=c :
+     * #define SET_MIRROR_MODE 4110
      * }
      */
-    public static MemorySegment BCRYPT_MD2_ALG_HANDLE() {
-        return constants$4552.const$0;
+    public static int SET_MIRROR_MODE() {
+        return SET_MIRROR_MODE;
     }
+    private static final int OPENCHANNEL = (int)4110L;
     /**
-     * {@snippet :
-     * #define BCRYPT_MD4_ALG_HANDLE 17
+     * {@snippet lang=c :
+     * #define OPENCHANNEL 4110
      * }
      */
-    public static MemorySegment BCRYPT_MD4_ALG_HANDLE() {
-        return constants$4554.const$2;
+    public static int OPENCHANNEL() {
+        return OPENCHANNEL;
     }
+    private static final int DOWNLOADHEADER = (int)4111L;
     /**
-     * {@snippet :
-     * #define BCRYPT_MD5_ALG_HANDLE 33
+     * {@snippet lang=c :
+     * #define DOWNLOADHEADER 4111
      * }
      */
-    public static MemorySegment BCRYPT_MD5_ALG_HANDLE() {
-        return constants$4569.const$4;
+    public static int DOWNLOADHEADER() {
+        return DOWNLOADHEADER;
     }
+    private static final int CLOSECHANNEL = (int)4112L;
     /**
-     * {@snippet :
-     * #define BCRYPT_SHA1_ALG_HANDLE 49
+     * {@snippet lang=c :
+     * #define CLOSECHANNEL 4112
      * }
      */
-    public static MemorySegment BCRYPT_SHA1_ALG_HANDLE() {
-        return constants$4569.const$5;
+    public static int CLOSECHANNEL() {
+        return CLOSECHANNEL;
     }
+    private static final int POSTSCRIPT_PASSTHROUGH = (int)4115L;
     /**
-     * {@snippet :
-     * #define BCRYPT_SHA256_ALG_HANDLE 65
+     * {@snippet lang=c :
+     * #define POSTSCRIPT_PASSTHROUGH 4115
      * }
      */
-    public static MemorySegment BCRYPT_SHA256_ALG_HANDLE() {
-        return constants$4570.const$0;
+    public static int POSTSCRIPT_PASSTHROUGH() {
+        return POSTSCRIPT_PASSTHROUGH;
     }
+    private static final int ENCAPSULATED_POSTSCRIPT = (int)4116L;
     /**
-     * {@snippet :
-     * #define BCRYPT_SHA384_ALG_HANDLE 81
+     * {@snippet lang=c :
+     * #define ENCAPSULATED_POSTSCRIPT 4116
      * }
      */
-    public static MemorySegment BCRYPT_SHA384_ALG_HANDLE() {
-        return constants$4570.const$1;
+    public static int ENCAPSULATED_POSTSCRIPT() {
+        return ENCAPSULATED_POSTSCRIPT;
     }
+    private static final int POSTSCRIPT_IDENTIFY = (int)4117L;
     /**
-     * {@snippet :
-     * #define BCRYPT_SHA512_ALG_HANDLE 97
+     * {@snippet lang=c :
+     * #define POSTSCRIPT_IDENTIFY 4117
      * }
      */
-    public static MemorySegment BCRYPT_SHA512_ALG_HANDLE() {
-        return constants$4570.const$2;
+    public static int POSTSCRIPT_IDENTIFY() {
+        return POSTSCRIPT_IDENTIFY;
     }
+    private static final int POSTSCRIPT_INJECTION = (int)4118L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RC4_ALG_HANDLE 113
+     * {@snippet lang=c :
+     * #define POSTSCRIPT_INJECTION 4118
      * }
      */
-    public static MemorySegment BCRYPT_RC4_ALG_HANDLE() {
-        return constants$4570.const$3;
+    public static int POSTSCRIPT_INJECTION() {
+        return POSTSCRIPT_INJECTION;
     }
+    private static final int CHECKJPEGFORMAT = (int)4119L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RNG_ALG_HANDLE 129
+     * {@snippet lang=c :
+     * #define CHECKJPEGFORMAT 4119
      * }
      */
-    public static MemorySegment BCRYPT_RNG_ALG_HANDLE() {
-        return constants$4570.const$4;
+    public static int CHECKJPEGFORMAT() {
+        return CHECKJPEGFORMAT;
     }
+    private static final int CHECKPNGFORMAT = (int)4120L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HMAC_MD5_ALG_HANDLE 145
+     * {@snippet lang=c :
+     * #define CHECKPNGFORMAT 4120
      * }
      */
-    public static MemorySegment BCRYPT_HMAC_MD5_ALG_HANDLE() {
-        return constants$4570.const$5;
+    public static int CHECKPNGFORMAT() {
+        return CHECKPNGFORMAT;
     }
+    private static final int GET_PS_FEATURESETTING = (int)4121L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HMAC_SHA1_ALG_HANDLE 161
+     * {@snippet lang=c :
+     * #define GET_PS_FEATURESETTING 4121
      * }
      */
-    public static MemorySegment BCRYPT_HMAC_SHA1_ALG_HANDLE() {
-        return constants$4571.const$0;
+    public static int GET_PS_FEATURESETTING() {
+        return GET_PS_FEATURESETTING;
     }
+    private static final int GDIPLUS_TS_QUERYVER = (int)4122L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HMAC_SHA256_ALG_HANDLE 177
+     * {@snippet lang=c :
+     * #define GDIPLUS_TS_QUERYVER 4122
      * }
      */
-    public static MemorySegment BCRYPT_HMAC_SHA256_ALG_HANDLE() {
-        return constants$4571.const$1;
+    public static int GDIPLUS_TS_QUERYVER() {
+        return GDIPLUS_TS_QUERYVER;
     }
+    private static final int GDIPLUS_TS_RECORD = (int)4123L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HMAC_SHA384_ALG_HANDLE 193
+     * {@snippet lang=c :
+     * #define GDIPLUS_TS_RECORD 4123
      * }
      */
-    public static MemorySegment BCRYPT_HMAC_SHA384_ALG_HANDLE() {
-        return constants$4571.const$2;
+    public static int GDIPLUS_TS_RECORD() {
+        return GDIPLUS_TS_RECORD;
     }
+    private static final int MILCORE_TS_QUERYVER_RESULT_FALSE = (int)0L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HMAC_SHA512_ALG_HANDLE 209
+     * {@snippet lang=c :
+     * #define MILCORE_TS_QUERYVER_RESULT_FALSE 0
      * }
      */
-    public static MemorySegment BCRYPT_HMAC_SHA512_ALG_HANDLE() {
-        return constants$4571.const$3;
+    public static int MILCORE_TS_QUERYVER_RESULT_FALSE() {
+        return MILCORE_TS_QUERYVER_RESULT_FALSE;
     }
+    private static final int MILCORE_TS_QUERYVER_RESULT_TRUE = (int)2147483647L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RSA_ALG_HANDLE 225
+     * {@snippet lang=c :
+     * #define MILCORE_TS_QUERYVER_RESULT_TRUE 2147483647
      * }
      */
-    public static MemorySegment BCRYPT_RSA_ALG_HANDLE() {
-        return constants$4571.const$4;
+    public static int MILCORE_TS_QUERYVER_RESULT_TRUE() {
+        return MILCORE_TS_QUERYVER_RESULT_TRUE;
     }
+    private static final int SPCLPASSTHROUGH2 = (int)4568L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDSA_ALG_HANDLE 241
+     * {@snippet lang=c :
+     * #define SPCLPASSTHROUGH2 4568
      * }
      */
-    public static MemorySegment BCRYPT_ECDSA_ALG_HANDLE() {
-        return constants$4571.const$5;
+    public static int SPCLPASSTHROUGH2() {
+        return SPCLPASSTHROUGH2;
     }
+    private static final int PSIDENT_GDICENTRIC = (int)0L;
     /**
-     * {@snippet :
-     * #define BCRYPT_AES_CMAC_ALG_HANDLE 257
+     * {@snippet lang=c :
+     * #define PSIDENT_GDICENTRIC 0
      * }
      */
-    public static MemorySegment BCRYPT_AES_CMAC_ALG_HANDLE() {
-        return constants$4572.const$0;
+    public static int PSIDENT_GDICENTRIC() {
+        return PSIDENT_GDICENTRIC;
     }
+    private static final int PSIDENT_PSCENTRIC = (int)1L;
     /**
-     * {@snippet :
-     * #define BCRYPT_AES_GMAC_ALG_HANDLE 273
+     * {@snippet lang=c :
+     * #define PSIDENT_PSCENTRIC 1
      * }
      */
-    public static MemorySegment BCRYPT_AES_GMAC_ALG_HANDLE() {
-        return constants$4572.const$1;
+    public static int PSIDENT_PSCENTRIC() {
+        return PSIDENT_PSCENTRIC;
     }
+    private static final int PSINJECT_BEGINSTREAM = (int)1L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HMAC_MD2_ALG_HANDLE 289
+     * {@snippet lang=c :
+     * #define PSINJECT_BEGINSTREAM 1
      * }
      */
-    public static MemorySegment BCRYPT_HMAC_MD2_ALG_HANDLE() {
-        return constants$4572.const$2;
+    public static int PSINJECT_BEGINSTREAM() {
+        return PSINJECT_BEGINSTREAM;
     }
+    private static final int PSINJECT_PSADOBE = (int)2L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HMAC_MD4_ALG_HANDLE 305
+     * {@snippet lang=c :
+     * #define PSINJECT_PSADOBE 2
      * }
      */
-    public static MemorySegment BCRYPT_HMAC_MD4_ALG_HANDLE() {
-        return constants$4572.const$3;
+    public static int PSINJECT_PSADOBE() {
+        return PSINJECT_PSADOBE;
     }
+    private static final int PSINJECT_PAGESATEND = (int)3L;
     /**
-     * {@snippet :
-     * #define BCRYPT_3DES_CBC_ALG_HANDLE 321
+     * {@snippet lang=c :
+     * #define PSINJECT_PAGESATEND 3
      * }
      */
-    public static MemorySegment BCRYPT_3DES_CBC_ALG_HANDLE() {
-        return constants$4572.const$4;
+    public static int PSINJECT_PAGESATEND() {
+        return PSINJECT_PAGESATEND;
     }
+    private static final int PSINJECT_PAGES = (int)4L;
     /**
-     * {@snippet :
-     * #define BCRYPT_3DES_ECB_ALG_HANDLE 337
+     * {@snippet lang=c :
+     * #define PSINJECT_PAGES 4
      * }
      */
-    public static MemorySegment BCRYPT_3DES_ECB_ALG_HANDLE() {
-        return constants$4572.const$5;
+    public static int PSINJECT_PAGES() {
+        return PSINJECT_PAGES;
     }
+    private static final int PSINJECT_DOCNEEDEDRES = (int)5L;
     /**
-     * {@snippet :
-     * #define BCRYPT_3DES_CFB_ALG_HANDLE 353
+     * {@snippet lang=c :
+     * #define PSINJECT_DOCNEEDEDRES 5
      * }
      */
-    public static MemorySegment BCRYPT_3DES_CFB_ALG_HANDLE() {
-        return constants$4573.const$0;
+    public static int PSINJECT_DOCNEEDEDRES() {
+        return PSINJECT_DOCNEEDEDRES;
     }
+    private static final int PSINJECT_DOCSUPPLIEDRES = (int)6L;
     /**
-     * {@snippet :
-     * #define BCRYPT_3DES_112_CBC_ALG_HANDLE 369
+     * {@snippet lang=c :
+     * #define PSINJECT_DOCSUPPLIEDRES 6
      * }
      */
-    public static MemorySegment BCRYPT_3DES_112_CBC_ALG_HANDLE() {
-        return constants$4573.const$1;
+    public static int PSINJECT_DOCSUPPLIEDRES() {
+        return PSINJECT_DOCSUPPLIEDRES;
     }
+    private static final int PSINJECT_PAGEORDER = (int)7L;
     /**
-     * {@snippet :
-     * #define BCRYPT_3DES_112_ECB_ALG_HANDLE 385
+     * {@snippet lang=c :
+     * #define PSINJECT_PAGEORDER 7
      * }
      */
-    public static MemorySegment BCRYPT_3DES_112_ECB_ALG_HANDLE() {
-        return constants$4573.const$2;
+    public static int PSINJECT_PAGEORDER() {
+        return PSINJECT_PAGEORDER;
     }
+    private static final int PSINJECT_ORIENTATION = (int)8L;
     /**
-     * {@snippet :
-     * #define BCRYPT_3DES_112_CFB_ALG_HANDLE 401
+     * {@snippet lang=c :
+     * #define PSINJECT_ORIENTATION 8
      * }
      */
-    public static MemorySegment BCRYPT_3DES_112_CFB_ALG_HANDLE() {
-        return constants$4573.const$3;
+    public static int PSINJECT_ORIENTATION() {
+        return PSINJECT_ORIENTATION;
     }
+    private static final int PSINJECT_BOUNDINGBOX = (int)9L;
     /**
-     * {@snippet :
-     * #define BCRYPT_AES_CBC_ALG_HANDLE 417
+     * {@snippet lang=c :
+     * #define PSINJECT_BOUNDINGBOX 9
      * }
      */
-    public static MemorySegment BCRYPT_AES_CBC_ALG_HANDLE() {
-        return constants$4573.const$4;
+    public static int PSINJECT_BOUNDINGBOX() {
+        return PSINJECT_BOUNDINGBOX;
     }
+    private static final int PSINJECT_DOCUMENTPROCESSCOLORS = (int)10L;
     /**
-     * {@snippet :
-     * #define BCRYPT_AES_ECB_ALG_HANDLE 433
+     * {@snippet lang=c :
+     * #define PSINJECT_DOCUMENTPROCESSCOLORS 10
      * }
      */
-    public static MemorySegment BCRYPT_AES_ECB_ALG_HANDLE() {
-        return constants$4573.const$5;
+    public static int PSINJECT_DOCUMENTPROCESSCOLORS() {
+        return PSINJECT_DOCUMENTPROCESSCOLORS;
     }
+    private static final int PSINJECT_COMMENTS = (int)11L;
     /**
-     * {@snippet :
-     * #define BCRYPT_AES_CFB_ALG_HANDLE 449
+     * {@snippet lang=c :
+     * #define PSINJECT_COMMENTS 11
      * }
      */
-    public static MemorySegment BCRYPT_AES_CFB_ALG_HANDLE() {
-        return constants$4574.const$0;
+    public static int PSINJECT_COMMENTS() {
+        return PSINJECT_COMMENTS;
     }
+    private static final int PSINJECT_BEGINDEFAULTS = (int)12L;
     /**
-     * {@snippet :
-     * #define BCRYPT_AES_CCM_ALG_HANDLE 465
+     * {@snippet lang=c :
+     * #define PSINJECT_BEGINDEFAULTS 12
      * }
      */
-    public static MemorySegment BCRYPT_AES_CCM_ALG_HANDLE() {
-        return constants$4574.const$1;
+    public static int PSINJECT_BEGINDEFAULTS() {
+        return PSINJECT_BEGINDEFAULTS;
     }
+    private static final int PSINJECT_ENDDEFAULTS = (int)13L;
     /**
-     * {@snippet :
-     * #define BCRYPT_AES_GCM_ALG_HANDLE 481
+     * {@snippet lang=c :
+     * #define PSINJECT_ENDDEFAULTS 13
      * }
      */
-    public static MemorySegment BCRYPT_AES_GCM_ALG_HANDLE() {
-        return constants$4574.const$2;
+    public static int PSINJECT_ENDDEFAULTS() {
+        return PSINJECT_ENDDEFAULTS;
     }
+    private static final int PSINJECT_BEGINPROLOG = (int)14L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DES_CBC_ALG_HANDLE 497
+     * {@snippet lang=c :
+     * #define PSINJECT_BEGINPROLOG 14
      * }
      */
-    public static MemorySegment BCRYPT_DES_CBC_ALG_HANDLE() {
-        return constants$4574.const$3;
+    public static int PSINJECT_BEGINPROLOG() {
+        return PSINJECT_BEGINPROLOG;
     }
+    private static final int PSINJECT_ENDPROLOG = (int)15L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DES_ECB_ALG_HANDLE 513
+     * {@snippet lang=c :
+     * #define PSINJECT_ENDPROLOG 15
      * }
      */
-    public static MemorySegment BCRYPT_DES_ECB_ALG_HANDLE() {
-        return constants$4574.const$4;
+    public static int PSINJECT_ENDPROLOG() {
+        return PSINJECT_ENDPROLOG;
     }
+    private static final int PSINJECT_BEGINSETUP = (int)16L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DES_CFB_ALG_HANDLE 529
+     * {@snippet lang=c :
+     * #define PSINJECT_BEGINSETUP 16
      * }
      */
-    public static MemorySegment BCRYPT_DES_CFB_ALG_HANDLE() {
-        return constants$4574.const$5;
+    public static int PSINJECT_BEGINSETUP() {
+        return PSINJECT_BEGINSETUP;
     }
+    private static final int PSINJECT_ENDSETUP = (int)17L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DESX_CBC_ALG_HANDLE 545
+     * {@snippet lang=c :
+     * #define PSINJECT_ENDSETUP 17
      * }
      */
-    public static MemorySegment BCRYPT_DESX_CBC_ALG_HANDLE() {
-        return constants$4575.const$0;
+    public static int PSINJECT_ENDSETUP() {
+        return PSINJECT_ENDSETUP;
     }
+    private static final int PSINJECT_TRAILER = (int)18L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DESX_ECB_ALG_HANDLE 561
+     * {@snippet lang=c :
+     * #define PSINJECT_TRAILER 18
      * }
      */
-    public static MemorySegment BCRYPT_DESX_ECB_ALG_HANDLE() {
-        return constants$4575.const$1;
+    public static int PSINJECT_TRAILER() {
+        return PSINJECT_TRAILER;
     }
+    private static final int PSINJECT_EOF = (int)19L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DESX_CFB_ALG_HANDLE 577
+     * {@snippet lang=c :
+     * #define PSINJECT_EOF 19
      * }
      */
-    public static MemorySegment BCRYPT_DESX_CFB_ALG_HANDLE() {
-        return constants$4575.const$2;
+    public static int PSINJECT_EOF() {
+        return PSINJECT_EOF;
     }
+    private static final int PSINJECT_ENDSTREAM = (int)20L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RC2_CBC_ALG_HANDLE 593
+     * {@snippet lang=c :
+     * #define PSINJECT_ENDSTREAM 20
      * }
      */
-    public static MemorySegment BCRYPT_RC2_CBC_ALG_HANDLE() {
-        return constants$4575.const$3;
+    public static int PSINJECT_ENDSTREAM() {
+        return PSINJECT_ENDSTREAM;
     }
+    private static final int PSINJECT_DOCUMENTPROCESSCOLORSATEND = (int)21L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RC2_ECB_ALG_HANDLE 609
+     * {@snippet lang=c :
+     * #define PSINJECT_DOCUMENTPROCESSCOLORSATEND 21
      * }
      */
-    public static MemorySegment BCRYPT_RC2_ECB_ALG_HANDLE() {
-        return constants$4575.const$4;
+    public static int PSINJECT_DOCUMENTPROCESSCOLORSATEND() {
+        return PSINJECT_DOCUMENTPROCESSCOLORSATEND;
     }
+    private static final int PSINJECT_PAGENUMBER = (int)100L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RC2_CFB_ALG_HANDLE 625
+     * {@snippet lang=c :
+     * #define PSINJECT_PAGENUMBER 100
      * }
      */
-    public static MemorySegment BCRYPT_RC2_CFB_ALG_HANDLE() {
-        return constants$4575.const$5;
+    public static int PSINJECT_PAGENUMBER() {
+        return PSINJECT_PAGENUMBER;
     }
+    private static final int PSINJECT_BEGINPAGESETUP = (int)101L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DH_ALG_HANDLE 641
+     * {@snippet lang=c :
+     * #define PSINJECT_BEGINPAGESETUP 101
      * }
      */
-    public static MemorySegment BCRYPT_DH_ALG_HANDLE() {
-        return constants$4576.const$0;
+    public static int PSINJECT_BEGINPAGESETUP() {
+        return PSINJECT_BEGINPAGESETUP;
     }
+    private static final int PSINJECT_ENDPAGESETUP = (int)102L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDH_ALG_HANDLE 657
+     * {@snippet lang=c :
+     * #define PSINJECT_ENDPAGESETUP 102
      * }
      */
-    public static MemorySegment BCRYPT_ECDH_ALG_HANDLE() {
-        return constants$4576.const$1;
+    public static int PSINJECT_ENDPAGESETUP() {
+        return PSINJECT_ENDPAGESETUP;
     }
+    private static final int PSINJECT_PAGETRAILER = (int)103L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDH_P256_ALG_HANDLE 673
+     * {@snippet lang=c :
+     * #define PSINJECT_PAGETRAILER 103
      * }
      */
-    public static MemorySegment BCRYPT_ECDH_P256_ALG_HANDLE() {
-        return constants$4576.const$2;
+    public static int PSINJECT_PAGETRAILER() {
+        return PSINJECT_PAGETRAILER;
     }
+    private static final int PSINJECT_PLATECOLOR = (int)104L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDH_P384_ALG_HANDLE 689
+     * {@snippet lang=c :
+     * #define PSINJECT_PLATECOLOR 104
      * }
      */
-    public static MemorySegment BCRYPT_ECDH_P384_ALG_HANDLE() {
-        return constants$4576.const$3;
+    public static int PSINJECT_PLATECOLOR() {
+        return PSINJECT_PLATECOLOR;
     }
+    private static final int PSINJECT_SHOWPAGE = (int)105L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDH_P521_ALG_HANDLE 705
+     * {@snippet lang=c :
+     * #define PSINJECT_SHOWPAGE 105
      * }
      */
-    public static MemorySegment BCRYPT_ECDH_P521_ALG_HANDLE() {
-        return constants$4576.const$4;
+    public static int PSINJECT_SHOWPAGE() {
+        return PSINJECT_SHOWPAGE;
     }
+    private static final int PSINJECT_PAGEBBOX = (int)106L;
     /**
-     * {@snippet :
-     * #define BCRYPT_DSA_ALG_HANDLE 721
+     * {@snippet lang=c :
+     * #define PSINJECT_PAGEBBOX 106
      * }
      */
-    public static MemorySegment BCRYPT_DSA_ALG_HANDLE() {
-        return constants$4576.const$5;
+    public static int PSINJECT_PAGEBBOX() {
+        return PSINJECT_PAGEBBOX;
     }
+    private static final int PSINJECT_ENDPAGECOMMENTS = (int)107L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDSA_P256_ALG_HANDLE 737
+     * {@snippet lang=c :
+     * #define PSINJECT_ENDPAGECOMMENTS 107
      * }
      */
-    public static MemorySegment BCRYPT_ECDSA_P256_ALG_HANDLE() {
-        return constants$4577.const$0;
+    public static int PSINJECT_ENDPAGECOMMENTS() {
+        return PSINJECT_ENDPAGECOMMENTS;
     }
+    private static final int PSINJECT_VMSAVE = (int)200L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDSA_P384_ALG_HANDLE 753
+     * {@snippet lang=c :
+     * #define PSINJECT_VMSAVE 200
      * }
      */
-    public static MemorySegment BCRYPT_ECDSA_P384_ALG_HANDLE() {
-        return constants$4577.const$1;
+    public static int PSINJECT_VMSAVE() {
+        return PSINJECT_VMSAVE;
     }
+    private static final int PSINJECT_VMRESTORE = (int)201L;
     /**
-     * {@snippet :
-     * #define BCRYPT_ECDSA_P521_ALG_HANDLE 769
+     * {@snippet lang=c :
+     * #define PSINJECT_VMRESTORE 201
      * }
      */
-    public static MemorySegment BCRYPT_ECDSA_P521_ALG_HANDLE() {
-        return constants$4577.const$2;
+    public static int PSINJECT_VMRESTORE() {
+        return PSINJECT_VMRESTORE;
     }
+    private static final int FEATURESETTING_NUP = (int)0L;
     /**
-     * {@snippet :
-     * #define BCRYPT_RSA_SIGN_ALG_HANDLE 785
+     * {@snippet lang=c :
+     * #define FEATURESETTING_NUP 0
      * }
      */
-    public static MemorySegment BCRYPT_RSA_SIGN_ALG_HANDLE() {
-        return constants$4577.const$3;
+    public static int FEATURESETTING_NUP() {
+        return FEATURESETTING_NUP;
     }
+    private static final int FEATURESETTING_OUTPUT = (int)1L;
     /**
-     * {@snippet :
-     * #define BCRYPT_CAPI_KDF_ALG_HANDLE 801
+     * {@snippet lang=c :
+     * #define FEATURESETTING_OUTPUT 1
      * }
      */
-    public static MemorySegment BCRYPT_CAPI_KDF_ALG_HANDLE() {
-        return constants$4577.const$4;
+    public static int FEATURESETTING_OUTPUT() {
+        return FEATURESETTING_OUTPUT;
     }
+    private static final int FEATURESETTING_PSLEVEL = (int)2L;
     /**
-     * {@snippet :
-     * #define BCRYPT_PBKDF2_ALG_HANDLE 817
+     * {@snippet lang=c :
+     * #define FEATURESETTING_PSLEVEL 2
      * }
      */
-    public static MemorySegment BCRYPT_PBKDF2_ALG_HANDLE() {
-        return constants$4577.const$5;
+    public static int FEATURESETTING_PSLEVEL() {
+        return FEATURESETTING_PSLEVEL;
     }
+    private static final int FEATURESETTING_CUSTPAPER = (int)3L;
     /**
-     * {@snippet :
-     * #define BCRYPT_SP800108_CTR_HMAC_ALG_HANDLE 833
+     * {@snippet lang=c :
+     * #define FEATURESETTING_CUSTPAPER 3
      * }
      */
-    public static MemorySegment BCRYPT_SP800108_CTR_HMAC_ALG_HANDLE() {
-        return constants$4578.const$0;
+    public static int FEATURESETTING_CUSTPAPER() {
+        return FEATURESETTING_CUSTPAPER;
     }
+    private static final int FEATURESETTING_MIRROR = (int)4L;
     /**
-     * {@snippet :
-     * #define BCRYPT_SP80056A_CONCAT_ALG_HANDLE 849
+     * {@snippet lang=c :
+     * #define FEATURESETTING_MIRROR 4
      * }
      */
-    public static MemorySegment BCRYPT_SP80056A_CONCAT_ALG_HANDLE() {
-        return constants$4578.const$1;
+    public static int FEATURESETTING_MIRROR() {
+        return FEATURESETTING_MIRROR;
     }
+    private static final int FEATURESETTING_NEGATIVE = (int)5L;
     /**
-     * {@snippet :
-     * #define BCRYPT_TLS1_1_KDF_ALG_HANDLE 865
+     * {@snippet lang=c :
+     * #define FEATURESETTING_NEGATIVE 5
      * }
      */
-    public static MemorySegment BCRYPT_TLS1_1_KDF_ALG_HANDLE() {
-        return constants$4578.const$2;
+    public static int FEATURESETTING_NEGATIVE() {
+        return FEATURESETTING_NEGATIVE;
     }
+    private static final int FEATURESETTING_PROTOCOL = (int)6L;
     /**
-     * {@snippet :
-     * #define BCRYPT_TLS1_2_KDF_ALG_HANDLE 881
+     * {@snippet lang=c :
+     * #define FEATURESETTING_PROTOCOL 6
      * }
      */
-    public static MemorySegment BCRYPT_TLS1_2_KDF_ALG_HANDLE() {
-        return constants$4578.const$3;
+    public static int FEATURESETTING_PROTOCOL() {
+        return FEATURESETTING_PROTOCOL;
     }
+    private static final int FEATURESETTING_PRIVATE_BEGIN = (int)4096L;
     /**
-     * {@snippet :
-     * #define BCRYPT_XTS_AES_ALG_HANDLE 897
+     * {@snippet lang=c :
+     * #define FEATURESETTING_PRIVATE_BEGIN 4096
      * }
      */
-    public static MemorySegment BCRYPT_XTS_AES_ALG_HANDLE() {
-        return constants$4578.const$4;
+    public static int FEATURESETTING_PRIVATE_BEGIN() {
+        return FEATURESETTING_PRIVATE_BEGIN;
     }
+    private static final int FEATURESETTING_PRIVATE_END = (int)8191L;
     /**
-     * {@snippet :
-     * #define BCRYPT_HKDF_ALG_HANDLE 913
+     * {@snippet lang=c :
+     * #define FEATURESETTING_PRIVATE_END 8191
      * }
      */
-    public static MemorySegment BCRYPT_HKDF_ALG_HANDLE() {
-        return constants$4578.const$5;
+    public static int FEATURESETTING_PRIVATE_END() {
+        return FEATURESETTING_PRIVATE_END;
     }
+    private static final int PSPROTOCOL_ASCII = (int)0L;
     /**
-     * {@snippet :
-     * #define BCRYPT_CHACHA20_POLY1305_ALG_HANDLE 929
+     * {@snippet lang=c :
+     * #define PSPROTOCOL_ASCII 0
      * }
      */
-    public static MemorySegment BCRYPT_CHACHA20_POLY1305_ALG_HANDLE() {
-        return constants$4579.const$0;
+    public static int PSPROTOCOL_ASCII() {
+        return PSPROTOCOL_ASCII;
     }
+    private static final int PSPROTOCOL_BCP = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_MIN_DEPENDENCIES 1
+     * {@snippet lang=c :
+     * #define PSPROTOCOL_BCP 1
      * }
      */
-    public static int CRYPT_MIN_DEPENDENCIES() {
-        return (int)1L;
+    public static int PSPROTOCOL_BCP() {
+        return PSPROTOCOL_BCP;
     }
+    private static final int PSPROTOCOL_TBCP = (int)2L;
     /**
-     * {@snippet :
-     * #define CRYPT_PROCESS_ISOLATE 65536
+     * {@snippet lang=c :
+     * #define PSPROTOCOL_TBCP 2
      * }
      */
-    public static int CRYPT_PROCESS_ISOLATE() {
-        return (int)65536L;
+    public static int PSPROTOCOL_TBCP() {
+        return PSPROTOCOL_TBCP;
     }
+    private static final int PSPROTOCOL_BINARY = (int)3L;
     /**
-     * {@snippet :
-     * #define CRYPT_UM 1
+     * {@snippet lang=c :
+     * #define PSPROTOCOL_BINARY 3
      * }
      */
-    public static int CRYPT_UM() {
-        return (int)1L;
+    public static int PSPROTOCOL_BINARY() {
+        return PSPROTOCOL_BINARY;
     }
+    private static final int QDI_SETDIBITS = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_KM 2
+     * {@snippet lang=c :
+     * #define QDI_SETDIBITS 1
      * }
      */
-    public static int CRYPT_KM() {
-        return (int)2L;
+    public static int QDI_SETDIBITS() {
+        return QDI_SETDIBITS;
     }
+    private static final int QDI_GETDIBITS = (int)2L;
     /**
-     * {@snippet :
-     * #define CRYPT_MM 3
+     * {@snippet lang=c :
+     * #define QDI_GETDIBITS 2
      * }
      */
-    public static int CRYPT_MM() {
-        return (int)3L;
+    public static int QDI_GETDIBITS() {
+        return QDI_GETDIBITS;
     }
+    private static final int QDI_DIBTOSCREEN = (int)4L;
     /**
-     * {@snippet :
-     * #define CRYPT_ANY 4
+     * {@snippet lang=c :
+     * #define QDI_DIBTOSCREEN 4
      * }
      */
-    public static int CRYPT_ANY() {
-        return (int)4L;
+    public static int QDI_DIBTOSCREEN() {
+        return QDI_DIBTOSCREEN;
     }
+    private static final int QDI_STRETCHDIB = (int)8L;
     /**
-     * {@snippet :
-     * #define CRYPT_OVERWRITE 1
+     * {@snippet lang=c :
+     * #define QDI_STRETCHDIB 8
      * }
      */
-    public static int CRYPT_OVERWRITE() {
-        return (int)1L;
+    public static int QDI_STRETCHDIB() {
+        return QDI_STRETCHDIB;
     }
+    private static final int SP_NOTREPORTED = (int)16384L;
     /**
-     * {@snippet :
-     * #define CRYPT_LOCAL 1
+     * {@snippet lang=c :
+     * #define SP_NOTREPORTED 16384
      * }
      */
-    public static int CRYPT_LOCAL() {
-        return (int)1L;
+    public static int SP_NOTREPORTED() {
+        return SP_NOTREPORTED;
     }
+    private static final int PR_JOBSTATUS = (int)0L;
     /**
-     * {@snippet :
-     * #define CRYPT_DOMAIN 2
+     * {@snippet lang=c :
+     * #define PR_JOBSTATUS 0
      * }
      */
-    public static int CRYPT_DOMAIN() {
-        return (int)2L;
+    public static int PR_JOBSTATUS() {
+        return PR_JOBSTATUS;
     }
+    private static final int OBJ_PEN = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_EXCLUSIVE 1
+     * {@snippet lang=c :
+     * #define OBJ_PEN 1
      * }
      */
-    public static int CRYPT_EXCLUSIVE() {
-        return (int)1L;
+    public static int OBJ_PEN() {
+        return OBJ_PEN;
     }
+    private static final int OBJ_BRUSH = (int)2L;
     /**
-     * {@snippet :
-     * #define CRYPT_OVERRIDE 65536
+     * {@snippet lang=c :
+     * #define OBJ_BRUSH 2
      * }
      */
-    public static int CRYPT_OVERRIDE() {
-        return (int)65536L;
+    public static int OBJ_BRUSH() {
+        return OBJ_BRUSH;
     }
+    private static final int OBJ_DC = (int)3L;
     /**
-     * {@snippet :
-     * #define CRYPT_ALL_FUNCTIONS 1
+     * {@snippet lang=c :
+     * #define OBJ_DC 3
      * }
      */
-    public static int CRYPT_ALL_FUNCTIONS() {
-        return (int)1L;
+    public static int OBJ_DC() {
+        return OBJ_DC;
     }
+    private static final int OBJ_METADC = (int)4L;
     /**
-     * {@snippet :
-     * #define CRYPT_ALL_PROVIDERS 2
+     * {@snippet lang=c :
+     * #define OBJ_METADC 4
      * }
      */
-    public static int CRYPT_ALL_PROVIDERS() {
-        return (int)2L;
+    public static int OBJ_METADC() {
+        return OBJ_METADC;
     }
+    private static final int OBJ_PAL = (int)5L;
     /**
-     * {@snippet :
-     * #define CRYPT_PRIORITY_TOP 0
+     * {@snippet lang=c :
+     * #define OBJ_PAL 5
      * }
      */
-    public static int CRYPT_PRIORITY_TOP() {
-        return (int)0L;
+    public static int OBJ_PAL() {
+        return OBJ_PAL;
     }
+    private static final int OBJ_FONT = (int)6L;
     /**
-     * {@snippet :
-     * #define CRYPT_PRIORITY_BOTTOM 4294967295
+     * {@snippet lang=c :
+     * #define OBJ_FONT 6
      * }
      */
-    public static int CRYPT_PRIORITY_BOTTOM() {
-        return (int)4294967295L;
+    public static int OBJ_FONT() {
+        return OBJ_FONT;
     }
+    private static final int OBJ_BITMAP = (int)7L;
     /**
-     * {@snippet :
-     * #define CRYPT_DEFAULT_CONTEXT "D"
+     * {@snippet lang=c :
+     * #define OBJ_BITMAP 7
      * }
      */
-    public static MemorySegment CRYPT_DEFAULT_CONTEXT() {
-        return constants$4541.const$4;
+    public static int OBJ_BITMAP() {
+        return OBJ_BITMAP;
     }
+    private static final int OBJ_REGION = (int)8L;
     /**
-     * {@snippet :
-     * #define MS_KEY_STORAGE_PROVIDER "M"
+     * {@snippet lang=c :
+     * #define OBJ_REGION 8
      * }
      */
-    public static MemorySegment MS_KEY_STORAGE_PROVIDER() {
-        return constants$4562.const$3;
+    public static int OBJ_REGION() {
+        return OBJ_REGION;
     }
+    private static final int OBJ_METAFILE = (int)9L;
     /**
-     * {@snippet :
-     * #define MS_SMART_CARD_KEY_STORAGE_PROVIDER "M"
+     * {@snippet lang=c :
+     * #define OBJ_METAFILE 9
      * }
      */
-    public static MemorySegment MS_SMART_CARD_KEY_STORAGE_PROVIDER() {
-        return constants$4562.const$3;
+    public static int OBJ_METAFILE() {
+        return OBJ_METAFILE;
     }
+    private static final int OBJ_MEMDC = (int)10L;
     /**
-     * {@snippet :
-     * #define MS_PLATFORM_KEY_STORAGE_PROVIDER "M"
+     * {@snippet lang=c :
+     * #define OBJ_MEMDC 10
      * }
      */
-    public static MemorySegment MS_PLATFORM_KEY_STORAGE_PROVIDER() {
-        return constants$4562.const$3;
+    public static int OBJ_MEMDC() {
+        return OBJ_MEMDC;
     }
+    private static final int OBJ_EXTPEN = (int)11L;
     /**
-     * {@snippet :
-     * #define MS_NGC_KEY_STORAGE_PROVIDER "M"
+     * {@snippet lang=c :
+     * #define OBJ_EXTPEN 11
      * }
      */
-    public static MemorySegment MS_NGC_KEY_STORAGE_PROVIDER() {
-        return constants$4562.const$3;
+    public static int OBJ_EXTPEN() {
+        return OBJ_EXTPEN;
     }
+    private static final int OBJ_ENHMETADC = (int)12L;
     /**
-     * {@snippet :
-     * #define TPM_RSA_SRK_SEAL_KEY "M"
+     * {@snippet lang=c :
+     * #define OBJ_ENHMETADC 12
      * }
      */
-    public static MemorySegment TPM_RSA_SRK_SEAL_KEY() {
-        return constants$4562.const$3;
+    public static int OBJ_ENHMETADC() {
+        return OBJ_ENHMETADC;
     }
+    private static final int OBJ_ENHMETAFILE = (int)13L;
     /**
-     * {@snippet :
-     * #define NCRYPT_RSA_ALGORITHM "R"
+     * {@snippet lang=c :
+     * #define OBJ_ENHMETAFILE 13
      * }
      */
-    public static MemorySegment NCRYPT_RSA_ALGORITHM() {
-        return constants$4567.const$1;
+    public static int OBJ_ENHMETAFILE() {
+        return OBJ_ENHMETAFILE;
     }
+    private static final int OBJ_COLORSPACE = (int)14L;
     /**
-     * {@snippet :
-     * #define NCRYPT_RSA_SIGN_ALGORITHM "R"
+     * {@snippet lang=c :
+     * #define OBJ_COLORSPACE 14
      * }
      */
-    public static MemorySegment NCRYPT_RSA_SIGN_ALGORITHM() {
-        return constants$4567.const$1;
+    public static int OBJ_COLORSPACE() {
+        return OBJ_COLORSPACE;
     }
+    private static final int MWT_IDENTITY = (int)1L;
     /**
-     * {@snippet :
-     * #define NCRYPT_DH_ALGORITHM "D"
+     * {@snippet lang=c :
+     * #define MWT_IDENTITY 1
      * }
      */
-    public static MemorySegment NCRYPT_DH_ALGORITHM() {
-        return constants$4541.const$4;
+    public static int MWT_IDENTITY() {
+        return MWT_IDENTITY;
     }
+    private static final int MWT_LEFTMULTIPLY = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_DSA_ALGORITHM "D"
+     * {@snippet lang=c :
+     * #define MWT_LEFTMULTIPLY 2
      * }
      */
-    public static MemorySegment NCRYPT_DSA_ALGORITHM() {
-        return constants$4541.const$4;
+    public static int MWT_LEFTMULTIPLY() {
+        return MWT_LEFTMULTIPLY;
     }
+    private static final int MWT_RIGHTMULTIPLY = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_MD2_ALGORITHM "M"
+     * {@snippet lang=c :
+     * #define MWT_RIGHTMULTIPLY 3
      * }
      */
-    public static MemorySegment NCRYPT_MD2_ALGORITHM() {
-        return constants$4562.const$3;
+    public static int MWT_RIGHTMULTIPLY() {
+        return MWT_RIGHTMULTIPLY;
     }
+    private static final int CM_OUT_OF_GAMUT = (int)255L;
     /**
-     * {@snippet :
-     * #define NCRYPT_MD4_ALGORITHM "M"
+     * {@snippet lang=c :
+     * #define CM_OUT_OF_GAMUT 255
      * }
      */
-    public static MemorySegment NCRYPT_MD4_ALGORITHM() {
-        return constants$4562.const$3;
+    public static int CM_OUT_OF_GAMUT() {
+        return CM_OUT_OF_GAMUT;
     }
+    private static final int CM_IN_GAMUT = (int)0L;
     /**
-     * {@snippet :
-     * #define NCRYPT_MD5_ALGORITHM "M"
+     * {@snippet lang=c :
+     * #define CM_IN_GAMUT 0
      * }
      */
-    public static MemorySegment NCRYPT_MD5_ALGORITHM() {
-        return constants$4562.const$3;
+    public static int CM_IN_GAMUT() {
+        return CM_IN_GAMUT;
     }
+    private static final int ICM_ADDPROFILE = (int)1L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SHA1_ALGORITHM "S"
+     * {@snippet lang=c :
+     * #define ICM_ADDPROFILE 1
      * }
      */
-    public static MemorySegment NCRYPT_SHA1_ALGORITHM() {
-        return constants$4566.const$4;
+    public static int ICM_ADDPROFILE() {
+        return ICM_ADDPROFILE;
     }
+    private static final int ICM_DELETEPROFILE = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SHA256_ALGORITHM "S"
+     * {@snippet lang=c :
+     * #define ICM_DELETEPROFILE 2
      * }
      */
-    public static MemorySegment NCRYPT_SHA256_ALGORITHM() {
-        return constants$4566.const$4;
+    public static int ICM_DELETEPROFILE() {
+        return ICM_DELETEPROFILE;
     }
+    private static final int ICM_QUERYPROFILE = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SHA384_ALGORITHM "S"
+     * {@snippet lang=c :
+     * #define ICM_QUERYPROFILE 3
      * }
      */
-    public static MemorySegment NCRYPT_SHA384_ALGORITHM() {
-        return constants$4566.const$4;
+    public static int ICM_QUERYPROFILE() {
+        return ICM_QUERYPROFILE;
     }
+    private static final int ICM_SETDEFAULTPROFILE = (int)4L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SHA512_ALGORITHM "S"
+     * {@snippet lang=c :
+     * #define ICM_SETDEFAULTPROFILE 4
      * }
      */
-    public static MemorySegment NCRYPT_SHA512_ALGORITHM() {
-        return constants$4566.const$4;
+    public static int ICM_SETDEFAULTPROFILE() {
+        return ICM_SETDEFAULTPROFILE;
     }
+    private static final int ICM_REGISTERICMATCHER = (int)5L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ECDSA_P256_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define ICM_REGISTERICMATCHER 5
      * }
      */
-    public static MemorySegment NCRYPT_ECDSA_P256_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int ICM_REGISTERICMATCHER() {
+        return ICM_REGISTERICMATCHER;
     }
+    private static final int ICM_UNREGISTERICMATCHER = (int)6L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ECDSA_P384_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define ICM_UNREGISTERICMATCHER 6
      * }
      */
-    public static MemorySegment NCRYPT_ECDSA_P384_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int ICM_UNREGISTERICMATCHER() {
+        return ICM_UNREGISTERICMATCHER;
     }
+    private static final int ICM_QUERYMATCH = (int)7L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ECDSA_P521_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define ICM_QUERYMATCH 7
      * }
      */
-    public static MemorySegment NCRYPT_ECDSA_P521_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int ICM_QUERYMATCH() {
+        return ICM_QUERYMATCH;
     }
+    private static final int TCI_SRCCHARSET = (int)1L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ECDH_P256_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define TCI_SRCCHARSET 1
      * }
      */
-    public static MemorySegment NCRYPT_ECDH_P256_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int TCI_SRCCHARSET() {
+        return TCI_SRCCHARSET;
     }
+    private static final int TCI_SRCCODEPAGE = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ECDH_P384_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define TCI_SRCCODEPAGE 2
      * }
      */
-    public static MemorySegment NCRYPT_ECDH_P384_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int TCI_SRCCODEPAGE() {
+        return TCI_SRCCODEPAGE;
     }
+    private static final int TCI_SRCFONTSIG = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ECDH_P521_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define TCI_SRCFONTSIG 3
      * }
      */
-    public static MemorySegment NCRYPT_ECDH_P521_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int TCI_SRCFONTSIG() {
+        return TCI_SRCFONTSIG;
     }
+    private static final int TCI_SRCLOCALE = (int)4096L;
     /**
-     * {@snippet :
-     * #define NCRYPT_AES_ALGORITHM "A"
+     * {@snippet lang=c :
+     * #define TCI_SRCLOCALE 4096
      * }
      */
-    public static MemorySegment NCRYPT_AES_ALGORITHM() {
-        return constants$4567.const$2;
+    public static int TCI_SRCLOCALE() {
+        return TCI_SRCLOCALE;
     }
+    private static final int TMPF_FIXED_PITCH = (int)1L;
     /**
-     * {@snippet :
-     * #define NCRYPT_RC2_ALGORITHM "R"
+     * {@snippet lang=c :
+     * #define TMPF_FIXED_PITCH 1
      * }
      */
-    public static MemorySegment NCRYPT_RC2_ALGORITHM() {
-        return constants$4567.const$1;
+    public static int TMPF_FIXED_PITCH() {
+        return TMPF_FIXED_PITCH;
     }
+    private static final int TMPF_VECTOR = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_3DES_ALGORITHM "3"
+     * {@snippet lang=c :
+     * #define TMPF_VECTOR 2
      * }
      */
-    public static MemorySegment NCRYPT_3DES_ALGORITHM() {
-        return constants$4569.const$1;
+    public static int TMPF_VECTOR() {
+        return TMPF_VECTOR;
     }
+    private static final int TMPF_DEVICE = (int)8L;
     /**
-     * {@snippet :
-     * #define NCRYPT_DES_ALGORITHM "D"
+     * {@snippet lang=c :
+     * #define TMPF_DEVICE 8
      * }
      */
-    public static MemorySegment NCRYPT_DES_ALGORITHM() {
-        return constants$4541.const$4;
+    public static int TMPF_DEVICE() {
+        return TMPF_DEVICE;
     }
+    private static final int TMPF_TRUETYPE = (int)4L;
     /**
-     * {@snippet :
-     * #define NCRYPT_DESX_ALGORITHM "D"
+     * {@snippet lang=c :
+     * #define TMPF_TRUETYPE 4
      * }
      */
-    public static MemorySegment NCRYPT_DESX_ALGORITHM() {
-        return constants$4541.const$4;
+    public static int TMPF_TRUETYPE() {
+        return TMPF_TRUETYPE;
     }
+    private static final int NTM_NONNEGATIVE_AC = (int)65536L;
     /**
-     * {@snippet :
-     * #define NCRYPT_3DES_112_ALGORITHM "3"
+     * {@snippet lang=c :
+     * #define NTM_NONNEGATIVE_AC 65536
      * }
      */
-    public static MemorySegment NCRYPT_3DES_112_ALGORITHM() {
-        return constants$4569.const$1;
+    public static int NTM_NONNEGATIVE_AC() {
+        return NTM_NONNEGATIVE_AC;
     }
+    private static final int NTM_PS_OPENTYPE = (int)131072L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SP800108_CTR_HMAC_ALGORITHM "S"
+     * {@snippet lang=c :
+     * #define NTM_PS_OPENTYPE 131072
      * }
      */
-    public static MemorySegment NCRYPT_SP800108_CTR_HMAC_ALGORITHM() {
-        return constants$4566.const$4;
+    public static int NTM_PS_OPENTYPE() {
+        return NTM_PS_OPENTYPE;
     }
+    private static final int NTM_TT_OPENTYPE = (int)262144L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SP80056A_CONCAT_ALGORITHM "S"
+     * {@snippet lang=c :
+     * #define NTM_TT_OPENTYPE 262144
      * }
      */
-    public static MemorySegment NCRYPT_SP80056A_CONCAT_ALGORITHM() {
-        return constants$4566.const$4;
+    public static int NTM_TT_OPENTYPE() {
+        return NTM_TT_OPENTYPE;
     }
+    private static final int NTM_MULTIPLEMASTER = (int)524288L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PBKDF2_ALGORITHM "P"
+     * {@snippet lang=c :
+     * #define NTM_MULTIPLEMASTER 524288
      * }
      */
-    public static MemorySegment NCRYPT_PBKDF2_ALGORITHM() {
-        return constants$4567.const$3;
+    public static int NTM_MULTIPLEMASTER() {
+        return NTM_MULTIPLEMASTER;
     }
+    private static final int NTM_TYPE1 = (int)1048576L;
     /**
-     * {@snippet :
-     * #define NCRYPT_CAPI_KDF_ALGORITHM "C"
+     * {@snippet lang=c :
+     * #define NTM_TYPE1 1048576
      * }
      */
-    public static MemorySegment NCRYPT_CAPI_KDF_ALGORITHM() {
-        return constants$4541.const$1;
+    public static int NTM_TYPE1() {
+        return NTM_TYPE1;
     }
+    private static final int NTM_DSIG = (int)2097152L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ECDSA_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define NTM_DSIG 2097152
      * }
      */
-    public static MemorySegment NCRYPT_ECDSA_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int NTM_DSIG() {
+        return NTM_DSIG;
     }
+    private static final int LF_FACESIZE = (int)32L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ECDH_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define LF_FACESIZE 32
      * }
      */
-    public static MemorySegment NCRYPT_ECDH_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int LF_FACESIZE() {
+        return LF_FACESIZE;
     }
+    private static final int LF_FULLFACESIZE = (int)64L;
     /**
-     * {@snippet :
-     * #define NCRYPT_KEY_STORAGE_ALGORITHM "K"
+     * {@snippet lang=c :
+     * #define LF_FULLFACESIZE 64
      * }
      */
-    public static MemorySegment NCRYPT_KEY_STORAGE_ALGORITHM() {
-        return constants$4567.const$0;
+    public static int LF_FULLFACESIZE() {
+        return LF_FULLFACESIZE;
     }
+    private static final int OUT_DEFAULT_PRECIS = (int)0L;
     /**
-     * {@snippet :
-     * #define NCRYPT_HMAC_SHA256_ALGORITHM "H"
+     * {@snippet lang=c :
+     * #define OUT_DEFAULT_PRECIS 0
      * }
      */
-    public static MemorySegment NCRYPT_HMAC_SHA256_ALGORITHM() {
-        return constants$4566.const$2;
+    public static int OUT_DEFAULT_PRECIS() {
+        return OUT_DEFAULT_PRECIS;
     }
+    private static final int OUT_STRING_PRECIS = (int)1L;
     /**
-     * {@snippet :
-     * #define NCRYPT_CIPHER_INTERFACE 1
+     * {@snippet lang=c :
+     * #define OUT_STRING_PRECIS 1
      * }
      */
-    public static int NCRYPT_CIPHER_INTERFACE() {
-        return (int)1L;
+    public static int OUT_STRING_PRECIS() {
+        return OUT_STRING_PRECIS;
     }
+    private static final int OUT_CHARACTER_PRECIS = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_HASH_INTERFACE 2
+     * {@snippet lang=c :
+     * #define OUT_CHARACTER_PRECIS 2
      * }
      */
-    public static int NCRYPT_HASH_INTERFACE() {
-        return (int)2L;
+    public static int OUT_CHARACTER_PRECIS() {
+        return OUT_CHARACTER_PRECIS;
     }
+    private static final int OUT_STROKE_PRECIS = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE 3
+     * {@snippet lang=c :
+     * #define OUT_STROKE_PRECIS 3
      * }
      */
-    public static int NCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE() {
-        return (int)3L;
+    public static int OUT_STROKE_PRECIS() {
+        return OUT_STROKE_PRECIS;
     }
+    private static final int OUT_TT_PRECIS = (int)4L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SECRET_AGREEMENT_INTERFACE 4
+     * {@snippet lang=c :
+     * #define OUT_TT_PRECIS 4
      * }
      */
-    public static int NCRYPT_SECRET_AGREEMENT_INTERFACE() {
-        return (int)4L;
+    public static int OUT_TT_PRECIS() {
+        return OUT_TT_PRECIS;
     }
+    private static final int OUT_DEVICE_PRECIS = (int)5L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SIGNATURE_INTERFACE 5
+     * {@snippet lang=c :
+     * #define OUT_DEVICE_PRECIS 5
      * }
      */
-    public static int NCRYPT_SIGNATURE_INTERFACE() {
-        return (int)5L;
+    public static int OUT_DEVICE_PRECIS() {
+        return OUT_DEVICE_PRECIS;
     }
+    private static final int OUT_RASTER_PRECIS = (int)6L;
     /**
-     * {@snippet :
-     * #define NCRYPT_KEY_DERIVATION_INTERFACE 7
+     * {@snippet lang=c :
+     * #define OUT_RASTER_PRECIS 6
      * }
      */
-    public static int NCRYPT_KEY_DERIVATION_INTERFACE() {
-        return (int)7L;
+    public static int OUT_RASTER_PRECIS() {
+        return OUT_RASTER_PRECIS;
     }
+    private static final int OUT_TT_ONLY_PRECIS = (int)7L;
     /**
-     * {@snippet :
-     * #define NCRYPT_RSA_ALGORITHM_GROUP "R"
+     * {@snippet lang=c :
+     * #define OUT_TT_ONLY_PRECIS 7
      * }
      */
-    public static MemorySegment NCRYPT_RSA_ALGORITHM_GROUP() {
-        return constants$4567.const$1;
+    public static int OUT_TT_ONLY_PRECIS() {
+        return OUT_TT_ONLY_PRECIS;
     }
+    private static final int OUT_OUTLINE_PRECIS = (int)8L;
     /**
-     * {@snippet :
-     * #define NCRYPT_DH_ALGORITHM_GROUP "D"
+     * {@snippet lang=c :
+     * #define OUT_OUTLINE_PRECIS 8
      * }
      */
-    public static MemorySegment NCRYPT_DH_ALGORITHM_GROUP() {
-        return constants$4541.const$4;
+    public static int OUT_OUTLINE_PRECIS() {
+        return OUT_OUTLINE_PRECIS;
     }
+    private static final int OUT_SCREEN_OUTLINE_PRECIS = (int)9L;
     /**
-     * {@snippet :
-     * #define NCRYPT_DSA_ALGORITHM_GROUP "D"
+     * {@snippet lang=c :
+     * #define OUT_SCREEN_OUTLINE_PRECIS 9
      * }
      */
-    public static MemorySegment NCRYPT_DSA_ALGORITHM_GROUP() {
-        return constants$4541.const$4;
+    public static int OUT_SCREEN_OUTLINE_PRECIS() {
+        return OUT_SCREEN_OUTLINE_PRECIS;
     }
+    private static final int OUT_PS_ONLY_PRECIS = (int)10L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ECDSA_ALGORITHM_GROUP "E"
+     * {@snippet lang=c :
+     * #define OUT_PS_ONLY_PRECIS 10
      * }
      */
-    public static MemorySegment NCRYPT_ECDSA_ALGORITHM_GROUP() {
-        return constants$4567.const$5;
+    public static int OUT_PS_ONLY_PRECIS() {
+        return OUT_PS_ONLY_PRECIS;
     }
+    private static final int CLIP_DEFAULT_PRECIS = (int)0L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ECDH_ALGORITHM_GROUP "E"
+     * {@snippet lang=c :
+     * #define CLIP_DEFAULT_PRECIS 0
      * }
      */
-    public static MemorySegment NCRYPT_ECDH_ALGORITHM_GROUP() {
-        return constants$4567.const$5;
+    public static int CLIP_DEFAULT_PRECIS() {
+        return CLIP_DEFAULT_PRECIS;
     }
+    private static final int CLIP_CHARACTER_PRECIS = (int)1L;
     /**
-     * {@snippet :
-     * #define NCRYPT_AES_ALGORITHM_GROUP "A"
+     * {@snippet lang=c :
+     * #define CLIP_CHARACTER_PRECIS 1
      * }
      */
-    public static MemorySegment NCRYPT_AES_ALGORITHM_GROUP() {
-        return constants$4567.const$2;
+    public static int CLIP_CHARACTER_PRECIS() {
+        return CLIP_CHARACTER_PRECIS;
     }
+    private static final int CLIP_STROKE_PRECIS = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_RC2_ALGORITHM_GROUP "R"
+     * {@snippet lang=c :
+     * #define CLIP_STROKE_PRECIS 2
      * }
      */
-    public static MemorySegment NCRYPT_RC2_ALGORITHM_GROUP() {
-        return constants$4567.const$1;
+    public static int CLIP_STROKE_PRECIS() {
+        return CLIP_STROKE_PRECIS;
     }
+    private static final int CLIP_MASK = (int)15L;
     /**
-     * {@snippet :
-     * #define NCRYPT_DES_ALGORITHM_GROUP "D"
+     * {@snippet lang=c :
+     * #define CLIP_MASK 15
      * }
      */
-    public static MemorySegment NCRYPT_DES_ALGORITHM_GROUP() {
-        return constants$4541.const$4;
+    public static int CLIP_MASK() {
+        return CLIP_MASK;
     }
+    private static final int DEFAULT_QUALITY = (int)0L;
     /**
-     * {@snippet :
-     * #define NCRYPT_KEY_DERIVATION_GROUP "K"
+     * {@snippet lang=c :
+     * #define DEFAULT_QUALITY 0
      * }
      */
-    public static MemorySegment NCRYPT_KEY_DERIVATION_GROUP() {
-        return constants$4567.const$0;
+    public static int DEFAULT_QUALITY() {
+        return DEFAULT_QUALITY;
     }
+    private static final int DRAFT_QUALITY = (int)1L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ISOLATED_KEY_ATTESTED_ATTRIBUTES_CURRENT_VERSION 0
+     * {@snippet lang=c :
+     * #define DRAFT_QUALITY 1
      * }
      */
-    public static int NCRYPT_ISOLATED_KEY_ATTESTED_ATTRIBUTES_CURRENT_VERSION() {
-        return (int)0L;
+    public static int DRAFT_QUALITY() {
+        return DRAFT_QUALITY;
     }
+    private static final int PROOF_QUALITY = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_VSM_KEY_ATTESTATION_STATEMENT_CURRENT_VERSION 0
+     * {@snippet lang=c :
+     * #define PROOF_QUALITY 2
      * }
      */
-    public static int NCRYPT_VSM_KEY_ATTESTATION_STATEMENT_CURRENT_VERSION() {
-        return (int)0L;
+    public static int PROOF_QUALITY() {
+        return PROOF_QUALITY;
     }
+    private static final int NONANTIALIASED_QUALITY = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS_CURRENT_VERSION 0
+     * {@snippet lang=c :
+     * #define NONANTIALIASED_QUALITY 3
      * }
      */
-    public static int NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS_CURRENT_VERSION() {
-        return (int)0L;
+    public static int NONANTIALIASED_QUALITY() {
+        return NONANTIALIASED_QUALITY;
     }
+    private static final int ANTIALIASED_QUALITY = (int)4L;
     /**
-     * {@snippet :
-     * #define NCRYPT_EXPORTED_ISOLATED_KEY_HEADER_CURRENT_VERSION 0
+     * {@snippet lang=c :
+     * #define ANTIALIASED_QUALITY 4
      * }
      */
-    public static int NCRYPT_EXPORTED_ISOLATED_KEY_HEADER_CURRENT_VERSION() {
-        return (int)0L;
+    public static int ANTIALIASED_QUALITY() {
+        return ANTIALIASED_QUALITY;
     }
+    private static final int CLEARTYPE_QUALITY = (int)5L;
     /**
-     * {@snippet :
-     * #define NCRYPT_TPM_PLATFORM_ATTESTATION_STATEMENT_CURRENT_VERSION 0
+     * {@snippet lang=c :
+     * #define CLEARTYPE_QUALITY 5
      * }
      */
-    public static int NCRYPT_TPM_PLATFORM_ATTESTATION_STATEMENT_CURRENT_VERSION() {
-        return (int)0L;
+    public static int CLEARTYPE_QUALITY() {
+        return CLEARTYPE_QUALITY;
     }
+    private static final int CLEARTYPE_NATURAL_QUALITY = (int)6L;
     /**
-     * {@snippet :
-     * #define NCRYPT_NO_KEY_VALIDATION 8
+     * {@snippet lang=c :
+     * #define CLEARTYPE_NATURAL_QUALITY 6
      * }
      */
-    public static int NCRYPT_NO_KEY_VALIDATION() {
-        return (int)8L;
+    public static int CLEARTYPE_NATURAL_QUALITY() {
+        return CLEARTYPE_NATURAL_QUALITY;
     }
+    private static final int DEFAULT_PITCH = (int)0L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PERSIST_FLAG 2147483648
+     * {@snippet lang=c :
+     * #define DEFAULT_PITCH 0
      * }
      */
-    public static int NCRYPT_PERSIST_FLAG() {
-        return (int)2147483648L;
+    public static int DEFAULT_PITCH() {
+        return DEFAULT_PITCH;
     }
+    private static final int FIXED_PITCH = (int)1L;
     /**
-     * {@snippet :
-     * #define NCRYPT_CIPHER_OPERATION 1
+     * {@snippet lang=c :
+     * #define FIXED_PITCH 1
      * }
      */
-    public static int NCRYPT_CIPHER_OPERATION() {
-        return (int)1L;
+    public static int FIXED_PITCH() {
+        return FIXED_PITCH;
     }
+    private static final int VARIABLE_PITCH = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_HASH_OPERATION 2
+     * {@snippet lang=c :
+     * #define VARIABLE_PITCH 2
      * }
      */
-    public static int NCRYPT_HASH_OPERATION() {
-        return (int)2L;
+    public static int VARIABLE_PITCH() {
+        return VARIABLE_PITCH;
     }
+    private static final int MONO_FONT = (int)8L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION 4
+     * {@snippet lang=c :
+     * #define MONO_FONT 8
      * }
      */
-    public static int NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION() {
-        return (int)4L;
+    public static int MONO_FONT() {
+        return MONO_FONT;
     }
+    private static final int ANSI_CHARSET = (int)0L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SECRET_AGREEMENT_OPERATION 8
+     * {@snippet lang=c :
+     * #define ANSI_CHARSET 0
      * }
      */
-    public static int NCRYPT_SECRET_AGREEMENT_OPERATION() {
-        return (int)8L;
+    public static int ANSI_CHARSET() {
+        return ANSI_CHARSET;
     }
+    private static final int DEFAULT_CHARSET = (int)1L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SIGNATURE_OPERATION 16
+     * {@snippet lang=c :
+     * #define DEFAULT_CHARSET 1
      * }
      */
-    public static int NCRYPT_SIGNATURE_OPERATION() {
-        return (int)16L;
+    public static int DEFAULT_CHARSET() {
+        return DEFAULT_CHARSET;
     }
+    private static final int SYMBOL_CHARSET = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_RNG_OPERATION 32
+     * {@snippet lang=c :
+     * #define SYMBOL_CHARSET 2
      * }
      */
-    public static int NCRYPT_RNG_OPERATION() {
-        return (int)32L;
+    public static int SYMBOL_CHARSET() {
+        return SYMBOL_CHARSET;
     }
+    private static final int SHIFTJIS_CHARSET = (int)128L;
     /**
-     * {@snippet :
-     * #define NCRYPT_KEY_DERIVATION_OPERATION 64
+     * {@snippet lang=c :
+     * #define SHIFTJIS_CHARSET 128
      * }
      */
-    public static int NCRYPT_KEY_DERIVATION_OPERATION() {
-        return (int)64L;
+    public static int SHIFTJIS_CHARSET() {
+        return SHIFTJIS_CHARSET;
     }
+    private static final int HANGEUL_CHARSET = (int)129L;
     /**
-     * {@snippet :
-     * #define NCRYPT_NAME_PROPERTY "N"
+     * {@snippet lang=c :
+     * #define HANGEUL_CHARSET 129
      * }
      */
-    public static MemorySegment NCRYPT_NAME_PROPERTY() {
-        return constants$4579.const$1;
+    public static int HANGEUL_CHARSET() {
+        return HANGEUL_CHARSET;
     }
+    private static final int HANGUL_CHARSET = (int)129L;
     /**
-     * {@snippet :
-     * #define NCRYPT_UNIQUE_NAME_PROPERTY "U"
+     * {@snippet lang=c :
+     * #define HANGUL_CHARSET 129
      * }
      */
-    public static MemorySegment NCRYPT_UNIQUE_NAME_PROPERTY() {
-        return constants$4551.const$0;
+    public static int HANGUL_CHARSET() {
+        return HANGUL_CHARSET;
     }
+    private static final int GB2312_CHARSET = (int)134L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ALGORITHM_PROPERTY "A"
+     * {@snippet lang=c :
+     * #define GB2312_CHARSET 134
      * }
      */
-    public static MemorySegment NCRYPT_ALGORITHM_PROPERTY() {
-        return constants$4567.const$2;
+    public static int GB2312_CHARSET() {
+        return GB2312_CHARSET;
     }
+    private static final int CHINESEBIG5_CHARSET = (int)136L;
     /**
-     * {@snippet :
-     * #define NCRYPT_LENGTH_PROPERTY "L"
+     * {@snippet lang=c :
+     * #define CHINESEBIG5_CHARSET 136
      * }
      */
-    public static MemorySegment NCRYPT_LENGTH_PROPERTY() {
-        return constants$4579.const$2;
+    public static int CHINESEBIG5_CHARSET() {
+        return CHINESEBIG5_CHARSET;
     }
+    private static final int OEM_CHARSET = (int)255L;
     /**
-     * {@snippet :
-     * #define NCRYPT_LENGTHS_PROPERTY "L"
+     * {@snippet lang=c :
+     * #define OEM_CHARSET 255
      * }
      */
-    public static MemorySegment NCRYPT_LENGTHS_PROPERTY() {
-        return constants$4579.const$2;
+    public static int OEM_CHARSET() {
+        return OEM_CHARSET;
     }
+    private static final int JOHAB_CHARSET = (int)130L;
     /**
-     * {@snippet :
-     * #define NCRYPT_BLOCK_LENGTH_PROPERTY "B"
+     * {@snippet lang=c :
+     * #define JOHAB_CHARSET 130
      * }
      */
-    public static MemorySegment NCRYPT_BLOCK_LENGTH_PROPERTY() {
-        return constants$4567.const$4;
+    public static int JOHAB_CHARSET() {
+        return JOHAB_CHARSET;
     }
+    private static final int HEBREW_CHARSET = (int)177L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PUBLIC_LENGTH_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define HEBREW_CHARSET 177
      * }
      */
-    public static MemorySegment NCRYPT_PUBLIC_LENGTH_PROPERTY() {
-        return constants$4567.const$3;
+    public static int HEBREW_CHARSET() {
+        return HEBREW_CHARSET;
     }
+    private static final int ARABIC_CHARSET = (int)178L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SIGNATURE_LENGTH_PROPERTY "S"
+     * {@snippet lang=c :
+     * #define ARABIC_CHARSET 178
      * }
      */
-    public static MemorySegment NCRYPT_SIGNATURE_LENGTH_PROPERTY() {
-        return constants$4566.const$4;
+    public static int ARABIC_CHARSET() {
+        return ARABIC_CHARSET;
     }
+    private static final int GREEK_CHARSET = (int)161L;
     /**
-     * {@snippet :
-     * #define NCRYPT_CHAINING_MODE_PROPERTY "C"
+     * {@snippet lang=c :
+     * #define GREEK_CHARSET 161
      * }
      */
-    public static MemorySegment NCRYPT_CHAINING_MODE_PROPERTY() {
-        return constants$4541.const$1;
+    public static int GREEK_CHARSET() {
+        return GREEK_CHARSET;
     }
+    private static final int TURKISH_CHARSET = (int)162L;
     /**
-     * {@snippet :
-     * #define NCRYPT_AUTH_TAG_LENGTH "A"
+     * {@snippet lang=c :
+     * #define TURKISH_CHARSET 162
      * }
      */
-    public static MemorySegment NCRYPT_AUTH_TAG_LENGTH() {
-        return constants$4567.const$2;
+    public static int TURKISH_CHARSET() {
+        return TURKISH_CHARSET;
     }
+    private static final int VIETNAMESE_CHARSET = (int)163L;
     /**
-     * {@snippet :
-     * #define NCRYPT_UI_POLICY_PROPERTY "U"
+     * {@snippet lang=c :
+     * #define VIETNAMESE_CHARSET 163
      * }
      */
-    public static MemorySegment NCRYPT_UI_POLICY_PROPERTY() {
-        return constants$4551.const$0;
+    public static int VIETNAMESE_CHARSET() {
+        return VIETNAMESE_CHARSET;
     }
+    private static final int THAI_CHARSET = (int)222L;
     /**
-     * {@snippet :
-     * #define NCRYPT_EXPORT_POLICY_PROPERTY "E"
+     * {@snippet lang=c :
+     * #define THAI_CHARSET 222
      * }
      */
-    public static MemorySegment NCRYPT_EXPORT_POLICY_PROPERTY() {
-        return constants$4567.const$5;
+    public static int THAI_CHARSET() {
+        return THAI_CHARSET;
     }
+    private static final int EASTEUROPE_CHARSET = (int)238L;
     /**
-     * {@snippet :
-     * #define NCRYPT_WINDOW_HANDLE_PROPERTY "H"
+     * {@snippet lang=c :
+     * #define EASTEUROPE_CHARSET 238
      * }
      */
-    public static MemorySegment NCRYPT_WINDOW_HANDLE_PROPERTY() {
-        return constants$4566.const$2;
+    public static int EASTEUROPE_CHARSET() {
+        return EASTEUROPE_CHARSET;
     }
+    private static final int RUSSIAN_CHARSET = (int)204L;
     /**
-     * {@snippet :
-     * #define NCRYPT_USE_CONTEXT_PROPERTY "U"
+     * {@snippet lang=c :
+     * #define RUSSIAN_CHARSET 204
      * }
      */
-    public static MemorySegment NCRYPT_USE_CONTEXT_PROPERTY() {
-        return constants$4551.const$0;
+    public static int RUSSIAN_CHARSET() {
+        return RUSSIAN_CHARSET;
     }
+    private static final int MAC_CHARSET = (int)77L;
     /**
-     * {@snippet :
-     * #define NCRYPT_IMPL_TYPE_PROPERTY "I"
+     * {@snippet lang=c :
+     * #define MAC_CHARSET 77
      * }
      */
-    public static MemorySegment NCRYPT_IMPL_TYPE_PROPERTY() {
-        return constants$4568.const$0;
+    public static int MAC_CHARSET() {
+        return MAC_CHARSET;
     }
+    private static final int BALTIC_CHARSET = (int)186L;
     /**
-     * {@snippet :
-     * #define NCRYPT_KEY_USAGE_PROPERTY "K"
+     * {@snippet lang=c :
+     * #define BALTIC_CHARSET 186
      * }
      */
-    public static MemorySegment NCRYPT_KEY_USAGE_PROPERTY() {
-        return constants$4567.const$0;
+    public static int BALTIC_CHARSET() {
+        return BALTIC_CHARSET;
     }
+    private static final int FW_DONTCARE = (int)0L;
     /**
-     * {@snippet :
-     * #define NCRYPT_KEY_TYPE_PROPERTY "K"
+     * {@snippet lang=c :
+     * #define FW_DONTCARE 0
      * }
      */
-    public static MemorySegment NCRYPT_KEY_TYPE_PROPERTY() {
-        return constants$4567.const$0;
+    public static int FW_DONTCARE() {
+        return FW_DONTCARE;
     }
+    private static final int FW_THIN = (int)100L;
     /**
-     * {@snippet :
-     * #define NCRYPT_VERSION_PROPERTY "V"
+     * {@snippet lang=c :
+     * #define FW_THIN 100
      * }
      */
-    public static MemorySegment NCRYPT_VERSION_PROPERTY() {
-        return constants$4568.const$1;
+    public static int FW_THIN() {
+        return FW_THIN;
     }
+    private static final int FW_EXTRALIGHT = (int)200L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SECURITY_DESCR_SUPPORT_PROPERTY "S"
+     * {@snippet lang=c :
+     * #define FW_EXTRALIGHT 200
      * }
      */
-    public static MemorySegment NCRYPT_SECURITY_DESCR_SUPPORT_PROPERTY() {
-        return constants$4566.const$4;
+    public static int FW_EXTRALIGHT() {
+        return FW_EXTRALIGHT;
     }
+    private static final int FW_LIGHT = (int)300L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SECURITY_DESCR_PROPERTY "S"
+     * {@snippet lang=c :
+     * #define FW_LIGHT 300
      * }
      */
-    public static MemorySegment NCRYPT_SECURITY_DESCR_PROPERTY() {
-        return constants$4566.const$4;
+    public static int FW_LIGHT() {
+        return FW_LIGHT;
     }
+    private static final int FW_NORMAL = (int)400L;
     /**
-     * {@snippet :
-     * #define NCRYPT_USE_COUNT_ENABLED_PROPERTY "E"
+     * {@snippet lang=c :
+     * #define FW_NORMAL 400
      * }
      */
-    public static MemorySegment NCRYPT_USE_COUNT_ENABLED_PROPERTY() {
-        return constants$4567.const$5;
+    public static int FW_NORMAL() {
+        return FW_NORMAL;
     }
+    private static final int FW_MEDIUM = (int)500L;
     /**
-     * {@snippet :
-     * #define NCRYPT_USE_COUNT_PROPERTY "U"
+     * {@snippet lang=c :
+     * #define FW_MEDIUM 500
      * }
      */
-    public static MemorySegment NCRYPT_USE_COUNT_PROPERTY() {
-        return constants$4551.const$0;
+    public static int FW_MEDIUM() {
+        return FW_MEDIUM;
     }
+    private static final int FW_SEMIBOLD = (int)600L;
     /**
-     * {@snippet :
-     * #define NCRYPT_LAST_MODIFIED_PROPERTY "M"
+     * {@snippet lang=c :
+     * #define FW_SEMIBOLD 600
      * }
      */
-    public static MemorySegment NCRYPT_LAST_MODIFIED_PROPERTY() {
-        return constants$4562.const$3;
+    public static int FW_SEMIBOLD() {
+        return FW_SEMIBOLD;
     }
+    private static final int FW_BOLD = (int)700L;
     /**
-     * {@snippet :
-     * #define NCRYPT_MAX_NAME_LENGTH_PROPERTY "M"
+     * {@snippet lang=c :
+     * #define FW_BOLD 700
      * }
      */
-    public static MemorySegment NCRYPT_MAX_NAME_LENGTH_PROPERTY() {
-        return constants$4562.const$3;
+    public static int FW_BOLD() {
+        return FW_BOLD;
     }
+    private static final int FW_EXTRABOLD = (int)800L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ALGORITHM_GROUP_PROPERTY "A"
+     * {@snippet lang=c :
+     * #define FW_EXTRABOLD 800
      * }
      */
-    public static MemorySegment NCRYPT_ALGORITHM_GROUP_PROPERTY() {
-        return constants$4567.const$2;
+    public static int FW_EXTRABOLD() {
+        return FW_EXTRABOLD;
     }
+    private static final int FW_HEAVY = (int)900L;
     /**
-     * {@snippet :
-     * #define NCRYPT_DH_PARAMETERS_PROPERTY "D"
+     * {@snippet lang=c :
+     * #define FW_HEAVY 900
      * }
      */
-    public static MemorySegment NCRYPT_DH_PARAMETERS_PROPERTY() {
-        return constants$4541.const$4;
+    public static int FW_HEAVY() {
+        return FW_HEAVY;
     }
+    private static final int PANOSE_COUNT = (int)10L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ECC_PARAMETERS_PROPERTY "E"
+     * {@snippet lang=c :
+     * #define PANOSE_COUNT 10
      * }
      */
-    public static MemorySegment NCRYPT_ECC_PARAMETERS_PROPERTY() {
-        return constants$4567.const$5;
+    public static int PANOSE_COUNT() {
+        return PANOSE_COUNT;
     }
+    private static final int PAN_FAMILYTYPE_INDEX = (int)0L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ECC_CURVE_NAME_PROPERTY "E"
+     * {@snippet lang=c :
+     * #define PAN_FAMILYTYPE_INDEX 0
      * }
      */
-    public static MemorySegment NCRYPT_ECC_CURVE_NAME_PROPERTY() {
-        return constants$4567.const$5;
+    public static int PAN_FAMILYTYPE_INDEX() {
+        return PAN_FAMILYTYPE_INDEX;
     }
+    private static final int PAN_SERIFSTYLE_INDEX = (int)1L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ECC_CURVE_NAME_LIST_PROPERTY "E"
+     * {@snippet lang=c :
+     * #define PAN_SERIFSTYLE_INDEX 1
      * }
      */
-    public static MemorySegment NCRYPT_ECC_CURVE_NAME_LIST_PROPERTY() {
-        return constants$4567.const$5;
+    public static int PAN_SERIFSTYLE_INDEX() {
+        return PAN_SERIFSTYLE_INDEX;
     }
+    private static final int PAN_WEIGHT_INDEX = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_USE_VIRTUAL_ISOLATION_PROPERTY "V"
+     * {@snippet lang=c :
+     * #define PAN_WEIGHT_INDEX 2
      * }
      */
-    public static MemorySegment NCRYPT_USE_VIRTUAL_ISOLATION_PROPERTY() {
-        return constants$4568.const$1;
+    public static int PAN_WEIGHT_INDEX() {
+        return PAN_WEIGHT_INDEX;
     }
+    private static final int PAN_PROPORTION_INDEX = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_USE_PER_BOOT_KEY_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_PROPORTION_INDEX 3
      * }
      */
-    public static MemorySegment NCRYPT_USE_PER_BOOT_KEY_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_PROPORTION_INDEX() {
+        return PAN_PROPORTION_INDEX;
     }
+    private static final int PAN_CONTRAST_INDEX = (int)4L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PROVIDER_HANDLE_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_CONTRAST_INDEX 4
      * }
      */
-    public static MemorySegment NCRYPT_PROVIDER_HANDLE_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_CONTRAST_INDEX() {
+        return PAN_CONTRAST_INDEX;
     }
+    private static final int PAN_STROKEVARIATION_INDEX = (int)5L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PIN_PROPERTY "S"
+     * {@snippet lang=c :
+     * #define PAN_STROKEVARIATION_INDEX 5
      * }
      */
-    public static MemorySegment NCRYPT_PIN_PROPERTY() {
-        return constants$4566.const$4;
+    public static int PAN_STROKEVARIATION_INDEX() {
+        return PAN_STROKEVARIATION_INDEX;
     }
+    private static final int PAN_ARMSTYLE_INDEX = (int)6L;
     /**
-     * {@snippet :
-     * #define NCRYPT_READER_PROPERTY "S"
+     * {@snippet lang=c :
+     * #define PAN_ARMSTYLE_INDEX 6
      * }
      */
-    public static MemorySegment NCRYPT_READER_PROPERTY() {
-        return constants$4566.const$4;
+    public static int PAN_ARMSTYLE_INDEX() {
+        return PAN_ARMSTYLE_INDEX;
     }
+    private static final int PAN_LETTERFORM_INDEX = (int)7L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SMARTCARD_GUID_PROPERTY "S"
+     * {@snippet lang=c :
+     * #define PAN_LETTERFORM_INDEX 7
      * }
      */
-    public static MemorySegment NCRYPT_SMARTCARD_GUID_PROPERTY() {
-        return constants$4566.const$4;
+    public static int PAN_LETTERFORM_INDEX() {
+        return PAN_LETTERFORM_INDEX;
     }
+    private static final int PAN_MIDLINE_INDEX = (int)8L;
     /**
-     * {@snippet :
-     * #define NCRYPT_CERTIFICATE_PROPERTY "S"
+     * {@snippet lang=c :
+     * #define PAN_MIDLINE_INDEX 8
      * }
      */
-    public static MemorySegment NCRYPT_CERTIFICATE_PROPERTY() {
-        return constants$4566.const$4;
+    public static int PAN_MIDLINE_INDEX() {
+        return PAN_MIDLINE_INDEX;
     }
+    private static final int PAN_XHEIGHT_INDEX = (int)9L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PIN_PROMPT_PROPERTY "S"
+     * {@snippet lang=c :
+     * #define PAN_XHEIGHT_INDEX 9
      * }
      */
-    public static MemorySegment NCRYPT_PIN_PROMPT_PROPERTY() {
-        return constants$4566.const$4;
+    public static int PAN_XHEIGHT_INDEX() {
+        return PAN_XHEIGHT_INDEX;
     }
+    private static final int PAN_CULTURE_LATIN = (int)0L;
     /**
-     * {@snippet :
-     * #define NCRYPT_USER_CERTSTORE_PROPERTY "S"
+     * {@snippet lang=c :
+     * #define PAN_CULTURE_LATIN 0
      * }
      */
-    public static MemorySegment NCRYPT_USER_CERTSTORE_PROPERTY() {
-        return constants$4566.const$4;
+    public static int PAN_CULTURE_LATIN() {
+        return PAN_CULTURE_LATIN;
     }
+    private static final int PAN_ANY = (int)0L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ROOT_CERTSTORE_PROPERTY "S"
+     * {@snippet lang=c :
+     * #define PAN_ANY 0
      * }
      */
-    public static MemorySegment NCRYPT_ROOT_CERTSTORE_PROPERTY() {
-        return constants$4566.const$4;
+    public static int PAN_ANY() {
+        return PAN_ANY;
     }
+    private static final int PAN_NO_FIT = (int)1L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SECURE_PIN_PROPERTY "S"
+     * {@snippet lang=c :
+     * #define PAN_NO_FIT 1
      * }
      */
-    public static MemorySegment NCRYPT_SECURE_PIN_PROPERTY() {
-        return constants$4566.const$4;
+    public static int PAN_NO_FIT() {
+        return PAN_NO_FIT;
     }
+    private static final int PAN_FAMILY_TEXT_DISPLAY = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ASSOCIATED_ECDH_KEY "S"
+     * {@snippet lang=c :
+     * #define PAN_FAMILY_TEXT_DISPLAY 2
      * }
      */
-    public static MemorySegment NCRYPT_ASSOCIATED_ECDH_KEY() {
-        return constants$4566.const$4;
+    public static int PAN_FAMILY_TEXT_DISPLAY() {
+        return PAN_FAMILY_TEXT_DISPLAY;
     }
+    private static final int PAN_FAMILY_SCRIPT = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SCARD_PIN_ID "S"
+     * {@snippet lang=c :
+     * #define PAN_FAMILY_SCRIPT 3
      * }
      */
-    public static MemorySegment NCRYPT_SCARD_PIN_ID() {
-        return constants$4566.const$4;
+    public static int PAN_FAMILY_SCRIPT() {
+        return PAN_FAMILY_SCRIPT;
     }
+    private static final int PAN_FAMILY_DECORATIVE = (int)4L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SCARD_PIN_INFO "S"
+     * {@snippet lang=c :
+     * #define PAN_FAMILY_DECORATIVE 4
      * }
      */
-    public static MemorySegment NCRYPT_SCARD_PIN_INFO() {
-        return constants$4566.const$4;
+    public static int PAN_FAMILY_DECORATIVE() {
+        return PAN_FAMILY_DECORATIVE;
     }
+    private static final int PAN_FAMILY_PICTORIAL = (int)5L;
     /**
-     * {@snippet :
-     * #define NCRYPT_READER_ICON_PROPERTY "S"
+     * {@snippet lang=c :
+     * #define PAN_FAMILY_PICTORIAL 5
      * }
      */
-    public static MemorySegment NCRYPT_READER_ICON_PROPERTY() {
-        return constants$4566.const$4;
+    public static int PAN_FAMILY_PICTORIAL() {
+        return PAN_FAMILY_PICTORIAL;
     }
+    private static final int PAN_SERIF_COVE = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_KDF_SECRET_VALUE "K"
+     * {@snippet lang=c :
+     * #define PAN_SERIF_COVE 2
      * }
      */
-    public static MemorySegment NCRYPT_KDF_SECRET_VALUE() {
-        return constants$4567.const$0;
+    public static int PAN_SERIF_COVE() {
+        return PAN_SERIF_COVE;
     }
+    private static final int PAN_SERIF_OBTUSE_COVE = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_DISMISS_UI_TIMEOUT_SEC_PROPERTY "S"
+     * {@snippet lang=c :
+     * #define PAN_SERIF_OBTUSE_COVE 3
      * }
      */
-    public static MemorySegment NCRYPT_DISMISS_UI_TIMEOUT_SEC_PROPERTY() {
-        return constants$4566.const$4;
+    public static int PAN_SERIF_OBTUSE_COVE() {
+        return PAN_SERIF_OBTUSE_COVE;
     }
+    private static final int PAN_SERIF_SQUARE_COVE = (int)4L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_PLATFORM_TYPE_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_SERIF_SQUARE_COVE 4
      * }
      */
-    public static MemorySegment NCRYPT_PCP_PLATFORM_TYPE_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_SERIF_SQUARE_COVE() {
+        return PAN_SERIF_SQUARE_COVE;
     }
+    private static final int PAN_SERIF_OBTUSE_SQUARE_COVE = (int)5L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_PROVIDER_VERSION_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_SERIF_OBTUSE_SQUARE_COVE 5
      * }
      */
-    public static MemorySegment NCRYPT_PCP_PROVIDER_VERSION_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_SERIF_OBTUSE_SQUARE_COVE() {
+        return PAN_SERIF_OBTUSE_SQUARE_COVE;
     }
+    private static final int PAN_SERIF_SQUARE = (int)6L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_EKPUB_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_SERIF_SQUARE 6
      * }
      */
-    public static MemorySegment NCRYPT_PCP_EKPUB_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_SERIF_SQUARE() {
+        return PAN_SERIF_SQUARE;
     }
+    private static final int PAN_SERIF_THIN = (int)7L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_EKCERT_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_SERIF_THIN 7
      * }
      */
-    public static MemorySegment NCRYPT_PCP_EKCERT_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_SERIF_THIN() {
+        return PAN_SERIF_THIN;
     }
+    private static final int PAN_SERIF_BONE = (int)8L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_EKNVCERT_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_SERIF_BONE 8
      * }
      */
-    public static MemorySegment NCRYPT_PCP_EKNVCERT_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_SERIF_BONE() {
+        return PAN_SERIF_BONE;
     }
+    private static final int PAN_SERIF_EXAGGERATED = (int)9L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_RSA_EKPUB_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_SERIF_EXAGGERATED 9
      * }
      */
-    public static MemorySegment NCRYPT_PCP_RSA_EKPUB_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_SERIF_EXAGGERATED() {
+        return PAN_SERIF_EXAGGERATED;
     }
+    private static final int PAN_SERIF_TRIANGLE = (int)10L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_RSA_EKCERT_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_SERIF_TRIANGLE 10
      * }
      */
-    public static MemorySegment NCRYPT_PCP_RSA_EKCERT_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_SERIF_TRIANGLE() {
+        return PAN_SERIF_TRIANGLE;
     }
+    private static final int PAN_SERIF_NORMAL_SANS = (int)11L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_RSA_EKNVCERT_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_SERIF_NORMAL_SANS 11
      * }
      */
-    public static MemorySegment NCRYPT_PCP_RSA_EKNVCERT_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_SERIF_NORMAL_SANS() {
+        return PAN_SERIF_NORMAL_SANS;
     }
+    private static final int PAN_SERIF_OBTUSE_SANS = (int)12L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_ECC_EKPUB_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_SERIF_OBTUSE_SANS 12
      * }
      */
-    public static MemorySegment NCRYPT_PCP_ECC_EKPUB_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_SERIF_OBTUSE_SANS() {
+        return PAN_SERIF_OBTUSE_SANS;
     }
+    private static final int PAN_SERIF_PERP_SANS = (int)13L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_ECC_EKCERT_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_SERIF_PERP_SANS 13
      * }
      */
-    public static MemorySegment NCRYPT_PCP_ECC_EKCERT_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_SERIF_PERP_SANS() {
+        return PAN_SERIF_PERP_SANS;
     }
+    private static final int PAN_SERIF_FLARED = (int)14L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_ECC_EKNVCERT_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_SERIF_FLARED 14
      * }
      */
-    public static MemorySegment NCRYPT_PCP_ECC_EKNVCERT_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_SERIF_FLARED() {
+        return PAN_SERIF_FLARED;
     }
+    private static final int PAN_SERIF_ROUNDED = (int)15L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_SRKPUB_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_SERIF_ROUNDED 15
      * }
      */
-    public static MemorySegment NCRYPT_PCP_SRKPUB_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_SERIF_ROUNDED() {
+        return PAN_SERIF_ROUNDED;
     }
+    private static final int PAN_WEIGHT_VERY_LIGHT = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_PCRTABLE_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_WEIGHT_VERY_LIGHT 2
      * }
      */
-    public static MemorySegment NCRYPT_PCP_PCRTABLE_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_WEIGHT_VERY_LIGHT() {
+        return PAN_WEIGHT_VERY_LIGHT;
     }
+    private static final int PAN_WEIGHT_LIGHT = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_CHANGEPASSWORD_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_WEIGHT_LIGHT 3
      * }
      */
-    public static MemorySegment NCRYPT_PCP_CHANGEPASSWORD_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_WEIGHT_LIGHT() {
+        return PAN_WEIGHT_LIGHT;
     }
+    private static final int PAN_WEIGHT_THIN = (int)4L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_PASSWORD_REQUIRED_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_WEIGHT_THIN 4
      * }
      */
-    public static MemorySegment NCRYPT_PCP_PASSWORD_REQUIRED_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_WEIGHT_THIN() {
+        return PAN_WEIGHT_THIN;
     }
+    private static final int PAN_WEIGHT_BOOK = (int)5L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_USAGEAUTH_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_WEIGHT_BOOK 5
      * }
      */
-    public static MemorySegment NCRYPT_PCP_USAGEAUTH_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_WEIGHT_BOOK() {
+        return PAN_WEIGHT_BOOK;
     }
+    private static final int PAN_WEIGHT_MEDIUM = (int)6L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_MIGRATIONPASSWORD_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_WEIGHT_MEDIUM 6
      * }
      */
-    public static MemorySegment NCRYPT_PCP_MIGRATIONPASSWORD_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_WEIGHT_MEDIUM() {
+        return PAN_WEIGHT_MEDIUM;
     }
+    private static final int PAN_WEIGHT_DEMI = (int)7L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_EXPORT_ALLOWED_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_WEIGHT_DEMI 7
      * }
      */
-    public static MemorySegment NCRYPT_PCP_EXPORT_ALLOWED_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_WEIGHT_DEMI() {
+        return PAN_WEIGHT_DEMI;
     }
+    private static final int PAN_WEIGHT_BOLD = (int)8L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_STORAGEPARENT_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_WEIGHT_BOLD 8
      * }
      */
-    public static MemorySegment NCRYPT_PCP_STORAGEPARENT_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_WEIGHT_BOLD() {
+        return PAN_WEIGHT_BOLD;
     }
+    private static final int PAN_WEIGHT_HEAVY = (int)9L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_PROVIDERHANDLE_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_WEIGHT_HEAVY 9
      * }
      */
-    public static MemorySegment NCRYPT_PCP_PROVIDERHANDLE_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_WEIGHT_HEAVY() {
+        return PAN_WEIGHT_HEAVY;
     }
+    private static final int PAN_WEIGHT_BLACK = (int)10L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_PLATFORMHANDLE_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_WEIGHT_BLACK 10
      * }
      */
-    public static MemorySegment NCRYPT_PCP_PLATFORMHANDLE_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_WEIGHT_BLACK() {
+        return PAN_WEIGHT_BLACK;
     }
+    private static final int PAN_WEIGHT_NORD = (int)11L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_PLATFORM_BINDING_PCRMASK_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_WEIGHT_NORD 11
      * }
      */
-    public static MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRMASK_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_WEIGHT_NORD() {
+        return PAN_WEIGHT_NORD;
     }
+    private static final int PAN_PROP_OLD_STYLE = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_PLATFORM_BINDING_PCRDIGESTLIST_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_PROP_OLD_STYLE 2
      * }
      */
-    public static MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRDIGESTLIST_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_PROP_OLD_STYLE() {
+        return PAN_PROP_OLD_STYLE;
     }
+    private static final int PAN_PROP_MODERN = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_PLATFORM_BINDING_PCRDIGEST_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_PROP_MODERN 3
      * }
      */
-    public static MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRDIGEST_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_PROP_MODERN() {
+        return PAN_PROP_MODERN;
     }
+    private static final int PAN_PROP_EVEN_WIDTH = (int)4L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_KEY_USAGE_POLICY_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_PROP_EVEN_WIDTH 4
      * }
      */
-    public static MemorySegment NCRYPT_PCP_KEY_USAGE_POLICY_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_PROP_EVEN_WIDTH() {
+        return PAN_PROP_EVEN_WIDTH;
     }
+    private static final int PAN_PROP_EXPANDED = (int)5L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_RSA_SCHEME_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_PROP_EXPANDED 5
      * }
      */
-    public static MemorySegment NCRYPT_PCP_RSA_SCHEME_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_PROP_EXPANDED() {
+        return PAN_PROP_EXPANDED;
     }
+    private static final int PAN_PROP_CONDENSED = (int)6L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_TPM12_IDBINDING_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_PROP_CONDENSED 6
      * }
      */
-    public static MemorySegment NCRYPT_PCP_TPM12_IDBINDING_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_PROP_CONDENSED() {
+        return PAN_PROP_CONDENSED;
     }
+    private static final int PAN_PROP_VERY_EXPANDED = (int)7L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_TPM12_IDBINDING_DYNAMIC_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_PROP_VERY_EXPANDED 7
      * }
      */
-    public static MemorySegment NCRYPT_PCP_TPM12_IDBINDING_DYNAMIC_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_PROP_VERY_EXPANDED() {
+        return PAN_PROP_VERY_EXPANDED;
     }
+    private static final int PAN_PROP_VERY_CONDENSED = (int)8L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_TPM12_IDACTIVATION_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_PROP_VERY_CONDENSED 8
      * }
      */
-    public static MemorySegment NCRYPT_PCP_TPM12_IDACTIVATION_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_PROP_VERY_CONDENSED() {
+        return PAN_PROP_VERY_CONDENSED;
     }
+    private static final int PAN_PROP_MONOSPACED = (int)9L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_KEYATTESTATION_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_PROP_MONOSPACED 9
      * }
      */
-    public static MemorySegment NCRYPT_PCP_KEYATTESTATION_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_PROP_MONOSPACED() {
+        return PAN_PROP_MONOSPACED;
     }
+    private static final int PAN_CONTRAST_NONE = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_CONTRAST_NONE 2
      * }
      */
-    public static MemorySegment NCRYPT_PCP_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_CONTRAST_NONE() {
+        return PAN_CONTRAST_NONE;
     }
+    private static final int PAN_CONTRAST_VERY_LOW = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_PLATFORM_BINDING_PCRALGID_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_CONTRAST_VERY_LOW 3
      * }
      */
-    public static MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRALGID_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_CONTRAST_VERY_LOW() {
+        return PAN_CONTRAST_VERY_LOW;
     }
+    private static final int PAN_CONTRAST_LOW = (int)4L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_HMAC_AUTH_POLICYREF "P"
+     * {@snippet lang=c :
+     * #define PAN_CONTRAST_LOW 4
      * }
      */
-    public static MemorySegment NCRYPT_PCP_HMAC_AUTH_POLICYREF() {
-        return constants$4567.const$3;
+    public static int PAN_CONTRAST_LOW() {
+        return PAN_CONTRAST_LOW;
     }
+    private static final int PAN_CONTRAST_MEDIUM_LOW = (int)5L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_HMAC_AUTH_POLICYINFO "P"
+     * {@snippet lang=c :
+     * #define PAN_CONTRAST_MEDIUM_LOW 5
      * }
      */
-    public static MemorySegment NCRYPT_PCP_HMAC_AUTH_POLICYINFO() {
-        return constants$4567.const$3;
+    public static int PAN_CONTRAST_MEDIUM_LOW() {
+        return PAN_CONTRAST_MEDIUM_LOW;
     }
+    private static final int PAN_CONTRAST_MEDIUM = (int)6L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_HMAC_AUTH_NONCE "P"
+     * {@snippet lang=c :
+     * #define PAN_CONTRAST_MEDIUM 6
      * }
      */
-    public static MemorySegment NCRYPT_PCP_HMAC_AUTH_NONCE() {
-        return constants$4567.const$3;
+    public static int PAN_CONTRAST_MEDIUM() {
+        return PAN_CONTRAST_MEDIUM;
     }
+    private static final int PAN_CONTRAST_MEDIUM_HIGH = (int)7L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_HMAC_AUTH_SIGNATURE "P"
+     * {@snippet lang=c :
+     * #define PAN_CONTRAST_MEDIUM_HIGH 7
      * }
      */
-    public static MemorySegment NCRYPT_PCP_HMAC_AUTH_SIGNATURE() {
-        return constants$4567.const$3;
+    public static int PAN_CONTRAST_MEDIUM_HIGH() {
+        return PAN_CONTRAST_MEDIUM_HIGH;
     }
+    private static final int PAN_CONTRAST_HIGH = (int)8L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_HMAC_AUTH_TICKET "P"
+     * {@snippet lang=c :
+     * #define PAN_CONTRAST_HIGH 8
      * }
      */
-    public static MemorySegment NCRYPT_PCP_HMAC_AUTH_TICKET() {
-        return constants$4567.const$3;
+    public static int PAN_CONTRAST_HIGH() {
+        return PAN_CONTRAST_HIGH;
     }
+    private static final int PAN_CONTRAST_VERY_HIGH = (int)9L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_NO_DA_PROTECTION_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_CONTRAST_VERY_HIGH 9
      * }
      */
-    public static MemorySegment NCRYPT_PCP_NO_DA_PROTECTION_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_CONTRAST_VERY_HIGH() {
+        return PAN_CONTRAST_VERY_HIGH;
     }
+    private static final int PAN_STROKE_GRADUAL_DIAG = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_TPM_MANUFACTURER_ID_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_STROKE_GRADUAL_DIAG 2
      * }
      */
-    public static MemorySegment NCRYPT_PCP_TPM_MANUFACTURER_ID_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_STROKE_GRADUAL_DIAG() {
+        return PAN_STROKE_GRADUAL_DIAG;
     }
+    private static final int PAN_STROKE_GRADUAL_TRAN = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_TPM_FW_VERSION_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_STROKE_GRADUAL_TRAN 3
      * }
      */
-    public static MemorySegment NCRYPT_PCP_TPM_FW_VERSION_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_STROKE_GRADUAL_TRAN() {
+        return PAN_STROKE_GRADUAL_TRAN;
     }
+    private static final int PAN_STROKE_GRADUAL_VERT = (int)4L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_TPM2BNAME_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_STROKE_GRADUAL_VERT 4
      * }
      */
-    public static MemorySegment NCRYPT_PCP_TPM2BNAME_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_STROKE_GRADUAL_VERT() {
+        return PAN_STROKE_GRADUAL_VERT;
     }
+    private static final int PAN_STROKE_GRADUAL_HORZ = (int)5L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_TPM_VERSION_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_STROKE_GRADUAL_HORZ 5
      * }
      */
-    public static MemorySegment NCRYPT_PCP_TPM_VERSION_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_STROKE_GRADUAL_HORZ() {
+        return PAN_STROKE_GRADUAL_HORZ;
     }
+    private static final int PAN_STROKE_RAPID_VERT = (int)6L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_RAW_POLICYDIGEST_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_STROKE_RAPID_VERT 6
      * }
      */
-    public static MemorySegment NCRYPT_PCP_RAW_POLICYDIGEST_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_STROKE_RAPID_VERT() {
+        return PAN_STROKE_RAPID_VERT;
     }
+    private static final int PAN_STROKE_RAPID_HORZ = (int)7L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_KEY_CREATIONHASH_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_STROKE_RAPID_HORZ 7
      * }
      */
-    public static MemorySegment NCRYPT_PCP_KEY_CREATIONHASH_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_STROKE_RAPID_HORZ() {
+        return PAN_STROKE_RAPID_HORZ;
     }
+    private static final int PAN_STROKE_INSTANT_VERT = (int)8L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_KEY_CREATIONTICKET_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_STROKE_INSTANT_VERT 8
      * }
      */
-    public static MemorySegment NCRYPT_PCP_KEY_CREATIONTICKET_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_STROKE_INSTANT_VERT() {
+        return PAN_STROKE_INSTANT_VERT;
     }
+    private static final int PAN_STRAIGHT_ARMS_HORZ = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_RSA_SCHEME_HASH_ALG_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_STRAIGHT_ARMS_HORZ 2
      * }
      */
-    public static MemorySegment NCRYPT_PCP_RSA_SCHEME_HASH_ALG_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_STRAIGHT_ARMS_HORZ() {
+        return PAN_STRAIGHT_ARMS_HORZ;
     }
+    private static final int PAN_STRAIGHT_ARMS_WEDGE = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_PROHIBITED_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_STRAIGHT_ARMS_WEDGE 3
      * }
      */
-    public static MemorySegment NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_PROHIBITED_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_STRAIGHT_ARMS_WEDGE() {
+        return PAN_STRAIGHT_ARMS_WEDGE;
     }
+    private static final int PAN_STRAIGHT_ARMS_VERT = (int)4L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_VULNERABILITY_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_STRAIGHT_ARMS_VERT 4
      * }
      */
-    public static MemorySegment NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_VULNERABILITY_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_STRAIGHT_ARMS_VERT() {
+        return PAN_STRAIGHT_ARMS_VERT;
     }
+    private static final int PAN_STRAIGHT_ARMS_SINGLE_SERIF = (int)5L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_SESSIONID_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_STRAIGHT_ARMS_SINGLE_SERIF 5
      * }
      */
-    public static MemorySegment NCRYPT_PCP_SESSIONID_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_STRAIGHT_ARMS_SINGLE_SERIF() {
+        return PAN_STRAIGHT_ARMS_SINGLE_SERIF;
     }
+    private static final int PAN_STRAIGHT_ARMS_DOUBLE_SERIF = (int)6L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_PSS_SALT_SIZE_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_STRAIGHT_ARMS_DOUBLE_SERIF 6
      * }
      */
-    public static MemorySegment NCRYPT_PCP_PSS_SALT_SIZE_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_STRAIGHT_ARMS_DOUBLE_SERIF() {
+        return PAN_STRAIGHT_ARMS_DOUBLE_SERIF;
     }
+    private static final int PAN_BENT_ARMS_HORZ = (int)7L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_INTERMEDIATE_CA_EKCERT_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_BENT_ARMS_HORZ 7
      * }
      */
-    public static MemorySegment NCRYPT_PCP_INTERMEDIATE_CA_EKCERT_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_BENT_ARMS_HORZ() {
+        return PAN_BENT_ARMS_HORZ;
     }
+    private static final int PAN_BENT_ARMS_WEDGE = (int)8L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_PCRTABLE_ALGORITHM_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_BENT_ARMS_WEDGE 8
      * }
      */
-    public static MemorySegment NCRYPT_PCP_PCRTABLE_ALGORITHM_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_BENT_ARMS_WEDGE() {
+        return PAN_BENT_ARMS_WEDGE;
     }
+    private static final int PAN_BENT_ARMS_VERT = (int)9L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_SYMMETRIC_KEYBITS_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_BENT_ARMS_VERT 9
      * }
      */
-    public static MemorySegment NCRYPT_PCP_SYMMETRIC_KEYBITS_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_BENT_ARMS_VERT() {
+        return PAN_BENT_ARMS_VERT;
     }
+    private static final int PAN_BENT_ARMS_SINGLE_SERIF = (int)10L;
     /**
-     * {@snippet :
-     * #define NCRYPT_TPM12_PROVIDER 65536
+     * {@snippet lang=c :
+     * #define PAN_BENT_ARMS_SINGLE_SERIF 10
      * }
      */
-    public static int NCRYPT_TPM12_PROVIDER() {
-        return (int)65536L;
+    public static int PAN_BENT_ARMS_SINGLE_SERIF() {
+        return PAN_BENT_ARMS_SINGLE_SERIF;
     }
+    private static final int PAN_BENT_ARMS_DOUBLE_SERIF = (int)11L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_SIGNATURE_KEY 1
+     * {@snippet lang=c :
+     * #define PAN_BENT_ARMS_DOUBLE_SERIF 11
      * }
      */
-    public static int NCRYPT_PCP_SIGNATURE_KEY() {
-        return (int)1L;
+    public static int PAN_BENT_ARMS_DOUBLE_SERIF() {
+        return PAN_BENT_ARMS_DOUBLE_SERIF;
     }
+    private static final int PAN_LETT_NORMAL_CONTACT = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_ENCRYPTION_KEY 2
+     * {@snippet lang=c :
+     * #define PAN_LETT_NORMAL_CONTACT 2
      * }
      */
-    public static int NCRYPT_PCP_ENCRYPTION_KEY() {
-        return (int)2L;
+    public static int PAN_LETT_NORMAL_CONTACT() {
+        return PAN_LETT_NORMAL_CONTACT;
     }
+    private static final int PAN_LETT_NORMAL_WEIGHTED = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_GENERIC_KEY 3
+     * {@snippet lang=c :
+     * #define PAN_LETT_NORMAL_WEIGHTED 3
      * }
      */
-    public static int NCRYPT_PCP_GENERIC_KEY() {
-        return (int)3L;
+    public static int PAN_LETT_NORMAL_WEIGHTED() {
+        return PAN_LETT_NORMAL_WEIGHTED;
     }
+    private static final int PAN_LETT_NORMAL_BOXED = (int)4L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_STORAGE_KEY 4
+     * {@snippet lang=c :
+     * #define PAN_LETT_NORMAL_BOXED 4
      * }
      */
-    public static int NCRYPT_PCP_STORAGE_KEY() {
-        return (int)4L;
+    public static int PAN_LETT_NORMAL_BOXED() {
+        return PAN_LETT_NORMAL_BOXED;
     }
+    private static final int PAN_LETT_NORMAL_FLATTENED = (int)5L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_IDENTITY_KEY 8
+     * {@snippet lang=c :
+     * #define PAN_LETT_NORMAL_FLATTENED 5
      * }
      */
-    public static int NCRYPT_PCP_IDENTITY_KEY() {
-        return (int)8L;
+    public static int PAN_LETT_NORMAL_FLATTENED() {
+        return PAN_LETT_NORMAL_FLATTENED;
     }
+    private static final int PAN_LETT_NORMAL_ROUNDED = (int)6L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PCP_HMACVERIFICATION_KEY 16
+     * {@snippet lang=c :
+     * #define PAN_LETT_NORMAL_ROUNDED 6
      * }
      */
-    public static int NCRYPT_PCP_HMACVERIFICATION_KEY() {
-        return (int)16L;
+    public static int PAN_LETT_NORMAL_ROUNDED() {
+        return PAN_LETT_NORMAL_ROUNDED;
     }
+    private static final int PAN_LETT_NORMAL_OFF_CENTER = (int)7L;
     /**
-     * {@snippet :
-     * #define NCRYPT_SCARD_NGC_KEY_NAME "S"
+     * {@snippet lang=c :
+     * #define PAN_LETT_NORMAL_OFF_CENTER 7
      * }
      */
-    public static MemorySegment NCRYPT_SCARD_NGC_KEY_NAME() {
-        return constants$4566.const$4;
+    public static int PAN_LETT_NORMAL_OFF_CENTER() {
+        return PAN_LETT_NORMAL_OFF_CENTER;
     }
+    private static final int PAN_LETT_NORMAL_SQUARE = (int)8L;
     /**
-     * {@snippet :
-     * #define NCRYPT_INITIALIZATION_VECTOR "I"
+     * {@snippet lang=c :
+     * #define PAN_LETT_NORMAL_SQUARE 8
      * }
      */
-    public static MemorySegment NCRYPT_INITIALIZATION_VECTOR() {
-        return constants$4568.const$0;
+    public static int PAN_LETT_NORMAL_SQUARE() {
+        return PAN_LETT_NORMAL_SQUARE;
     }
+    private static final int PAN_LETT_OBLIQUE_CONTACT = (int)9L;
     /**
-     * {@snippet :
-     * #define NCRYPT_CHANGEPASSWORD_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_LETT_OBLIQUE_CONTACT 9
      * }
      */
-    public static MemorySegment NCRYPT_CHANGEPASSWORD_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_LETT_OBLIQUE_CONTACT() {
+        return PAN_LETT_OBLIQUE_CONTACT;
     }
+    private static final int PAN_LETT_OBLIQUE_WEIGHTED = (int)10L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_LETT_OBLIQUE_WEIGHTED 10
      * }
      */
-    public static MemorySegment NCRYPT_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_LETT_OBLIQUE_WEIGHTED() {
+        return PAN_LETT_OBLIQUE_WEIGHTED;
     }
+    private static final int PAN_LETT_OBLIQUE_BOXED = (int)11L;
     /**
-     * {@snippet :
-     * #define NCRYPT_KEY_ACCESS_POLICY_PROPERTY "K"
+     * {@snippet lang=c :
+     * #define PAN_LETT_OBLIQUE_BOXED 11
      * }
      */
-    public static MemorySegment NCRYPT_KEY_ACCESS_POLICY_PROPERTY() {
-        return constants$4567.const$0;
+    public static int PAN_LETT_OBLIQUE_BOXED() {
+        return PAN_LETT_OBLIQUE_BOXED;
     }
+    private static final int PAN_LETT_OBLIQUE_FLATTENED = (int)12L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PIN_CACHE_FREE_APPLICATION_TICKET_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_LETT_OBLIQUE_FLATTENED 12
      * }
      */
-    public static MemorySegment NCRYPT_PIN_CACHE_FREE_APPLICATION_TICKET_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_LETT_OBLIQUE_FLATTENED() {
+        return PAN_LETT_OBLIQUE_FLATTENED;
     }
+    private static final int PAN_LETT_OBLIQUE_ROUNDED = (int)13L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PIN_CACHE_FLAGS_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_LETT_OBLIQUE_ROUNDED 13
      * }
      */
-    public static MemorySegment NCRYPT_PIN_CACHE_FLAGS_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_LETT_OBLIQUE_ROUNDED() {
+        return PAN_LETT_OBLIQUE_ROUNDED;
     }
+    private static final int PAN_LETT_OBLIQUE_OFF_CENTER = (int)14L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PIN_CACHE_APPLICATION_TICKET_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_LETT_OBLIQUE_OFF_CENTER 14
      * }
      */
-    public static MemorySegment NCRYPT_PIN_CACHE_APPLICATION_TICKET_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_LETT_OBLIQUE_OFF_CENTER() {
+        return PAN_LETT_OBLIQUE_OFF_CENTER;
     }
+    private static final int PAN_LETT_OBLIQUE_SQUARE = (int)15L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PIN_CACHE_APPLICATION_IMAGE_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_LETT_OBLIQUE_SQUARE 15
      * }
      */
-    public static MemorySegment NCRYPT_PIN_CACHE_APPLICATION_IMAGE_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_LETT_OBLIQUE_SQUARE() {
+        return PAN_LETT_OBLIQUE_SQUARE;
     }
+    private static final int PAN_MIDLINE_STANDARD_TRIMMED = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PIN_CACHE_APPLICATION_STATUS_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_MIDLINE_STANDARD_TRIMMED 2
      * }
      */
-    public static MemorySegment NCRYPT_PIN_CACHE_APPLICATION_STATUS_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_MIDLINE_STANDARD_TRIMMED() {
+        return PAN_MIDLINE_STANDARD_TRIMMED;
     }
+    private static final int PAN_MIDLINE_STANDARD_POINTED = (int)3L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PIN_CACHE_PIN_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_MIDLINE_STANDARD_POINTED 3
      * }
      */
-    public static MemorySegment NCRYPT_PIN_CACHE_PIN_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_MIDLINE_STANDARD_POINTED() {
+        return PAN_MIDLINE_STANDARD_POINTED;
     }
+    private static final int PAN_MIDLINE_STANDARD_SERIFED = (int)4L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PIN_CACHE_IS_GESTURE_REQUIRED_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_MIDLINE_STANDARD_SERIFED 4
      * }
      */
-    public static MemorySegment NCRYPT_PIN_CACHE_IS_GESTURE_REQUIRED_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_MIDLINE_STANDARD_SERIFED() {
+        return PAN_MIDLINE_STANDARD_SERIFED;
     }
+    private static final int PAN_MIDLINE_HIGH_TRIMMED = (int)5L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PIN_CACHE_CLEAR_PROPERTY "P"
+     * {@snippet lang=c :
+     * #define PAN_MIDLINE_HIGH_TRIMMED 5
      * }
      */
-    public static MemorySegment NCRYPT_PIN_CACHE_CLEAR_PROPERTY() {
-        return constants$4567.const$3;
+    public static int PAN_MIDLINE_HIGH_TRIMMED() {
+        return PAN_MIDLINE_HIGH_TRIMMED;
     }
+    private static final int PAN_MIDLINE_HIGH_POINTED = (int)6L;
     /**
-     * {@snippet :
-     * #define NCRYPT_CIPHER_KEY_BLOB "C"
+     * {@snippet lang=c :
+     * #define PAN_MIDLINE_HIGH_POINTED 6
      * }
      */
-    public static MemorySegment NCRYPT_CIPHER_KEY_BLOB() {
-        return constants$4541.const$1;
+    public static int PAN_MIDLINE_HIGH_POINTED() {
+        return PAN_MIDLINE_HIGH_POINTED;
     }
+    private static final int PAN_MIDLINE_HIGH_SERIFED = (int)7L;
     /**
-     * {@snippet :
-     * #define NCRYPT_KDF_KEY_BLOB "K"
+     * {@snippet lang=c :
+     * #define PAN_MIDLINE_HIGH_SERIFED 7
      * }
      */
-    public static MemorySegment NCRYPT_KDF_KEY_BLOB() {
-        return constants$4567.const$0;
+    public static int PAN_MIDLINE_HIGH_SERIFED() {
+        return PAN_MIDLINE_HIGH_SERIFED;
     }
+    private static final int PAN_MIDLINE_CONSTANT_TRIMMED = (int)8L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PROTECTED_KEY_BLOB "P"
+     * {@snippet lang=c :
+     * #define PAN_MIDLINE_CONSTANT_TRIMMED 8
      * }
      */
-    public static MemorySegment NCRYPT_PROTECTED_KEY_BLOB() {
-        return constants$4567.const$3;
+    public static int PAN_MIDLINE_CONSTANT_TRIMMED() {
+        return PAN_MIDLINE_CONSTANT_TRIMMED;
     }
+    private static final int PAN_MIDLINE_CONSTANT_POINTED = (int)9L;
     /**
-     * {@snippet :
-     * #define NCRYPT_TPM_LOADABLE_KEY_BLOB_MIN_SIZE 20
+     * {@snippet lang=c :
+     * #define PAN_MIDLINE_CONSTANT_POINTED 9
      * }
      */
-    public static long NCRYPT_TPM_LOADABLE_KEY_BLOB_MIN_SIZE() {
-        return 20L;
+    public static int PAN_MIDLINE_CONSTANT_POINTED() {
+        return PAN_MIDLINE_CONSTANT_POINTED;
     }
+    private static final int PAN_MIDLINE_CONSTANT_SERIFED = (int)10L;
     /**
-     * {@snippet :
-     * #define NCRYPT_TPM_LOADABLE_KEY_BLOB "P"
+     * {@snippet lang=c :
+     * #define PAN_MIDLINE_CONSTANT_SERIFED 10
      * }
      */
-    public static MemorySegment NCRYPT_TPM_LOADABLE_KEY_BLOB() {
-        return constants$4567.const$3;
+    public static int PAN_MIDLINE_CONSTANT_SERIFED() {
+        return PAN_MIDLINE_CONSTANT_SERIFED;
     }
+    private static final int PAN_MIDLINE_LOW_TRIMMED = (int)11L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PKCS7_ENVELOPE_BLOB "P"
+     * {@snippet lang=c :
+     * #define PAN_MIDLINE_LOW_TRIMMED 11
      * }
      */
-    public static MemorySegment NCRYPT_PKCS7_ENVELOPE_BLOB() {
-        return constants$4567.const$3;
+    public static int PAN_MIDLINE_LOW_TRIMMED() {
+        return PAN_MIDLINE_LOW_TRIMMED;
     }
+    private static final int PAN_MIDLINE_LOW_POINTED = (int)12L;
     /**
-     * {@snippet :
-     * #define NCRYPT_PKCS8_PRIVATE_KEY_BLOB "P"
+     * {@snippet lang=c :
+     * #define PAN_MIDLINE_LOW_POINTED 12
      * }
      */
-    public static MemorySegment NCRYPT_PKCS8_PRIVATE_KEY_BLOB() {
-        return constants$4567.const$3;
+    public static int PAN_MIDLINE_LOW_POINTED() {
+        return PAN_MIDLINE_LOW_POINTED;
     }
+    private static final int PAN_MIDLINE_LOW_SERIFED = (int)13L;
     /**
-     * {@snippet :
-     * #define NCRYPT_OPAQUETRANSPORT_BLOB "O"
+     * {@snippet lang=c :
+     * #define PAN_MIDLINE_LOW_SERIFED 13
      * }
      */
-    public static MemorySegment NCRYPT_OPAQUETRANSPORT_BLOB() {
-        return constants$4566.const$5;
+    public static int PAN_MIDLINE_LOW_SERIFED() {
+        return PAN_MIDLINE_LOW_SERIFED;
     }
+    private static final int PAN_XHEIGHT_CONSTANT_SMALL = (int)2L;
     /**
-     * {@snippet :
-     * #define NCRYPT_ISOLATED_KEY_ENVELOPE_BLOB "I"
+     * {@snippet lang=c :
+     * #define PAN_XHEIGHT_CONSTANT_SMALL 2
      * }
      */
-    public static MemorySegment NCRYPT_ISOLATED_KEY_ENVELOPE_BLOB() {
-        return constants$4568.const$0;
+    public static int PAN_XHEIGHT_CONSTANT_SMALL() {
+        return PAN_XHEIGHT_CONSTANT_SMALL;
     }
+    private static final int PAN_XHEIGHT_CONSTANT_STD = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_RSA "1.2.840.113549"
+     * {@snippet lang=c :
+     * #define PAN_XHEIGHT_CONSTANT_STD 3
      * }
      */
-    public static MemorySegment szOID_RSA() {
-        return constants$4579.const$3;
+    public static int PAN_XHEIGHT_CONSTANT_STD() {
+        return PAN_XHEIGHT_CONSTANT_STD;
     }
+    private static final int PAN_XHEIGHT_CONSTANT_LARGE = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS "1.2.840.113549.1"
+     * {@snippet lang=c :
+     * #define PAN_XHEIGHT_CONSTANT_LARGE 4
      * }
      */
-    public static MemorySegment szOID_PKCS() {
-        return constants$4579.const$4;
+    public static int PAN_XHEIGHT_CONSTANT_LARGE() {
+        return PAN_XHEIGHT_CONSTANT_LARGE;
     }
+    private static final int PAN_XHEIGHT_DUCKING_SMALL = (int)5L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_HASH "1.2.840.113549.2"
+     * {@snippet lang=c :
+     * #define PAN_XHEIGHT_DUCKING_SMALL 5
      * }
      */
-    public static MemorySegment szOID_RSA_HASH() {
-        return constants$4579.const$5;
+    public static int PAN_XHEIGHT_DUCKING_SMALL() {
+        return PAN_XHEIGHT_DUCKING_SMALL;
     }
+    private static final int PAN_XHEIGHT_DUCKING_STD = (int)6L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_ENCRYPT "1.2.840.113549.3"
+     * {@snippet lang=c :
+     * #define PAN_XHEIGHT_DUCKING_STD 6
      * }
      */
-    public static MemorySegment szOID_RSA_ENCRYPT() {
-        return constants$4580.const$0;
+    public static int PAN_XHEIGHT_DUCKING_STD() {
+        return PAN_XHEIGHT_DUCKING_STD;
     }
+    private static final int PAN_XHEIGHT_DUCKING_LARGE = (int)7L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_1 "1.2.840.113549.1.1"
+     * {@snippet lang=c :
+     * #define PAN_XHEIGHT_DUCKING_LARGE 7
      * }
      */
-    public static MemorySegment szOID_PKCS_1() {
-        return constants$4580.const$1;
+    public static int PAN_XHEIGHT_DUCKING_LARGE() {
+        return PAN_XHEIGHT_DUCKING_LARGE;
     }
+    private static final int ELF_VENDOR_SIZE = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_2 "1.2.840.113549.1.2"
+     * {@snippet lang=c :
+     * #define ELF_VENDOR_SIZE 4
      * }
      */
-    public static MemorySegment szOID_PKCS_2() {
-        return constants$4580.const$2;
+    public static int ELF_VENDOR_SIZE() {
+        return ELF_VENDOR_SIZE;
     }
+    private static final int ELF_VERSION = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_3 "1.2.840.113549.1.3"
+     * {@snippet lang=c :
+     * #define ELF_VERSION 0
      * }
      */
-    public static MemorySegment szOID_PKCS_3() {
-        return constants$4580.const$3;
+    public static int ELF_VERSION() {
+        return ELF_VERSION;
     }
+    private static final int ELF_CULTURE_LATIN = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_4 "1.2.840.113549.1.4"
+     * {@snippet lang=c :
+     * #define ELF_CULTURE_LATIN 0
      * }
      */
-    public static MemorySegment szOID_PKCS_4() {
-        return constants$4580.const$4;
+    public static int ELF_CULTURE_LATIN() {
+        return ELF_CULTURE_LATIN;
     }
+    private static final int RASTER_FONTTYPE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_5 "1.2.840.113549.1.5"
+     * {@snippet lang=c :
+     * #define RASTER_FONTTYPE 1
      * }
      */
-    public static MemorySegment szOID_PKCS_5() {
-        return constants$4580.const$5;
+    public static int RASTER_FONTTYPE() {
+        return RASTER_FONTTYPE;
     }
+    private static final int DEVICE_FONTTYPE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_6 "1.2.840.113549.1.6"
+     * {@snippet lang=c :
+     * #define DEVICE_FONTTYPE 2
      * }
      */
-    public static MemorySegment szOID_PKCS_6() {
-        return constants$4581.const$0;
+    public static int DEVICE_FONTTYPE() {
+        return DEVICE_FONTTYPE;
     }
+    private static final int TRUETYPE_FONTTYPE = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_7 "1.2.840.113549.1.7"
+     * {@snippet lang=c :
+     * #define TRUETYPE_FONTTYPE 4
      * }
      */
-    public static MemorySegment szOID_PKCS_7() {
-        return constants$4581.const$1;
+    public static int TRUETYPE_FONTTYPE() {
+        return TRUETYPE_FONTTYPE;
     }
+    private static final int PC_RESERVED = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_8 "1.2.840.113549.1.8"
+     * {@snippet lang=c :
+     * #define PC_RESERVED 1
      * }
      */
-    public static MemorySegment szOID_PKCS_8() {
-        return constants$4581.const$2;
+    public static int PC_RESERVED() {
+        return PC_RESERVED;
     }
+    private static final int PC_EXPLICIT = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_9 "1.2.840.113549.1.9"
+     * {@snippet lang=c :
+     * #define PC_EXPLICIT 2
      * }
      */
-    public static MemorySegment szOID_PKCS_9() {
-        return constants$4581.const$3;
+    public static int PC_EXPLICIT() {
+        return PC_EXPLICIT;
     }
+    private static final int PC_NOCOLLAPSE = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_10 "1.2.840.113549.1.10"
+     * {@snippet lang=c :
+     * #define PC_NOCOLLAPSE 4
      * }
      */
-    public static MemorySegment szOID_PKCS_10() {
-        return constants$4581.const$4;
+    public static int PC_NOCOLLAPSE() {
+        return PC_NOCOLLAPSE;
     }
+    private static final int TRANSPARENT = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_12 "1.2.840.113549.1.12"
+     * {@snippet lang=c :
+     * #define TRANSPARENT 1
      * }
      */
-    public static MemorySegment szOID_PKCS_12() {
-        return constants$4581.const$5;
+    public static int TRANSPARENT() {
+        return TRANSPARENT;
     }
+    private static final int OPAQUE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_RSA "1.2.840.113549.1.1.1"
+     * {@snippet lang=c :
+     * #define OPAQUE 2
      * }
      */
-    public static MemorySegment szOID_RSA_RSA() {
-        return constants$4582.const$0;
+    public static int OPAQUE() {
+        return OPAQUE;
     }
+    private static final int BKMODE_LAST = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_MD2RSA "1.2.840.113549.1.1.2"
+     * {@snippet lang=c :
+     * #define BKMODE_LAST 2
      * }
      */
-    public static MemorySegment szOID_RSA_MD2RSA() {
-        return constants$4582.const$1;
+    public static int BKMODE_LAST() {
+        return BKMODE_LAST;
     }
+    private static final int GM_COMPATIBLE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_MD4RSA "1.2.840.113549.1.1.3"
+     * {@snippet lang=c :
+     * #define GM_COMPATIBLE 1
      * }
      */
-    public static MemorySegment szOID_RSA_MD4RSA() {
-        return constants$4582.const$2;
+    public static int GM_COMPATIBLE() {
+        return GM_COMPATIBLE;
     }
+    private static final int GM_ADVANCED = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_MD5RSA "1.2.840.113549.1.1.4"
+     * {@snippet lang=c :
+     * #define GM_ADVANCED 2
      * }
      */
-    public static MemorySegment szOID_RSA_MD5RSA() {
-        return constants$4582.const$3;
+    public static int GM_ADVANCED() {
+        return GM_ADVANCED;
     }
+    private static final int GM_LAST = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_SHA1RSA "1.2.840.113549.1.1.5"
+     * {@snippet lang=c :
+     * #define GM_LAST 2
      * }
      */
-    public static MemorySegment szOID_RSA_SHA1RSA() {
-        return constants$4582.const$4;
+    public static int GM_LAST() {
+        return GM_LAST;
     }
+    private static final int PT_CLOSEFIGURE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_SETOAEP_RSA "1.2.840.113549.1.1.6"
+     * {@snippet lang=c :
+     * #define PT_CLOSEFIGURE 1
      * }
      */
-    public static MemorySegment szOID_RSA_SETOAEP_RSA() {
-        return constants$4582.const$5;
+    public static int PT_CLOSEFIGURE() {
+        return PT_CLOSEFIGURE;
     }
+    private static final int PT_LINETO = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_RSAES_OAEP "1.2.840.113549.1.1.7"
+     * {@snippet lang=c :
+     * #define PT_LINETO 2
      * }
      */
-    public static MemorySegment szOID_RSAES_OAEP() {
-        return constants$4583.const$0;
+    public static int PT_LINETO() {
+        return PT_LINETO;
     }
+    private static final int PT_BEZIERTO = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_MGF1 "1.2.840.113549.1.1.8"
+     * {@snippet lang=c :
+     * #define PT_BEZIERTO 4
      * }
      */
-    public static MemorySegment szOID_RSA_MGF1() {
-        return constants$4583.const$1;
+    public static int PT_BEZIERTO() {
+        return PT_BEZIERTO;
     }
+    private static final int PT_MOVETO = (int)6L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_PSPECIFIED "1.2.840.113549.1.1.9"
+     * {@snippet lang=c :
+     * #define PT_MOVETO 6
      * }
      */
-    public static MemorySegment szOID_RSA_PSPECIFIED() {
-        return constants$4583.const$2;
+    public static int PT_MOVETO() {
+        return PT_MOVETO;
     }
+    private static final int MM_TEXT = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_SSA_PSS "1.2.840.113549.1.1.10"
+     * {@snippet lang=c :
+     * #define MM_TEXT 1
      * }
      */
-    public static MemorySegment szOID_RSA_SSA_PSS() {
-        return constants$4583.const$3;
+    public static int MM_TEXT() {
+        return MM_TEXT;
     }
+    private static final int MM_LOMETRIC = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_SHA256RSA "1.2.840.113549.1.1.11"
+     * {@snippet lang=c :
+     * #define MM_LOMETRIC 2
      * }
      */
-    public static MemorySegment szOID_RSA_SHA256RSA() {
-        return constants$4583.const$4;
+    public static int MM_LOMETRIC() {
+        return MM_LOMETRIC;
     }
+    private static final int MM_HIMETRIC = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_SHA384RSA "1.2.840.113549.1.1.12"
+     * {@snippet lang=c :
+     * #define MM_HIMETRIC 3
      * }
      */
-    public static MemorySegment szOID_RSA_SHA384RSA() {
-        return constants$4583.const$5;
+    public static int MM_HIMETRIC() {
+        return MM_HIMETRIC;
     }
+    private static final int MM_LOENGLISH = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_SHA512RSA "1.2.840.113549.1.1.13"
+     * {@snippet lang=c :
+     * #define MM_LOENGLISH 4
      * }
      */
-    public static MemorySegment szOID_RSA_SHA512RSA() {
-        return constants$4584.const$0;
+    public static int MM_LOENGLISH() {
+        return MM_LOENGLISH;
     }
+    private static final int MM_HIENGLISH = (int)5L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_DH "1.2.840.113549.1.3.1"
+     * {@snippet lang=c :
+     * #define MM_HIENGLISH 5
      * }
      */
-    public static MemorySegment szOID_RSA_DH() {
-        return constants$4584.const$1;
+    public static int MM_HIENGLISH() {
+        return MM_HIENGLISH;
     }
+    private static final int MM_TWIPS = (int)6L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_data "1.2.840.113549.1.7.1"
+     * {@snippet lang=c :
+     * #define MM_TWIPS 6
      * }
      */
-    public static MemorySegment szOID_RSA_data() {
-        return constants$4584.const$2;
+    public static int MM_TWIPS() {
+        return MM_TWIPS;
     }
+    private static final int MM_ISOTROPIC = (int)7L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_signedData "1.2.840.113549.1.7.2"
+     * {@snippet lang=c :
+     * #define MM_ISOTROPIC 7
      * }
      */
-    public static MemorySegment szOID_RSA_signedData() {
-        return constants$4584.const$3;
+    public static int MM_ISOTROPIC() {
+        return MM_ISOTROPIC;
     }
+    private static final int MM_ANISOTROPIC = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_envelopedData "1.2.840.113549.1.7.3"
+     * {@snippet lang=c :
+     * #define MM_ANISOTROPIC 8
      * }
      */
-    public static MemorySegment szOID_RSA_envelopedData() {
-        return constants$4584.const$4;
+    public static int MM_ANISOTROPIC() {
+        return MM_ANISOTROPIC;
     }
+    private static final int ABSOLUTE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_signEnvData "1.2.840.113549.1.7.4"
+     * {@snippet lang=c :
+     * #define ABSOLUTE 1
      * }
      */
-    public static MemorySegment szOID_RSA_signEnvData() {
-        return constants$4584.const$5;
+    public static int ABSOLUTE() {
+        return ABSOLUTE;
     }
+    private static final int RELATIVE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_digestedData "1.2.840.113549.1.7.5"
+     * {@snippet lang=c :
+     * #define RELATIVE 2
      * }
      */
-    public static MemorySegment szOID_RSA_digestedData() {
-        return constants$4585.const$0;
+    public static int RELATIVE() {
+        return RELATIVE;
     }
+    private static final int WHITE_BRUSH = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_hashedData "1.2.840.113549.1.7.5"
+     * {@snippet lang=c :
+     * #define WHITE_BRUSH 0
      * }
      */
-    public static MemorySegment szOID_RSA_hashedData() {
-        return constants$4585.const$0;
+    public static int WHITE_BRUSH() {
+        return WHITE_BRUSH;
     }
+    private static final int LTGRAY_BRUSH = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_encryptedData "1.2.840.113549.1.7.6"
+     * {@snippet lang=c :
+     * #define LTGRAY_BRUSH 1
      * }
      */
-    public static MemorySegment szOID_RSA_encryptedData() {
-        return constants$4585.const$1;
+    public static int LTGRAY_BRUSH() {
+        return LTGRAY_BRUSH;
     }
+    private static final int GRAY_BRUSH = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_emailAddr "1.2.840.113549.1.9.1"
+     * {@snippet lang=c :
+     * #define GRAY_BRUSH 2
      * }
      */
-    public static MemorySegment szOID_RSA_emailAddr() {
-        return constants$4585.const$2;
+    public static int GRAY_BRUSH() {
+        return GRAY_BRUSH;
     }
+    private static final int DKGRAY_BRUSH = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_unstructName "1.2.840.113549.1.9.2"
+     * {@snippet lang=c :
+     * #define DKGRAY_BRUSH 3
      * }
      */
-    public static MemorySegment szOID_RSA_unstructName() {
-        return constants$4585.const$3;
+    public static int DKGRAY_BRUSH() {
+        return DKGRAY_BRUSH;
     }
+    private static final int BLACK_BRUSH = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_contentType "1.2.840.113549.1.9.3"
+     * {@snippet lang=c :
+     * #define BLACK_BRUSH 4
      * }
      */
-    public static MemorySegment szOID_RSA_contentType() {
-        return constants$4585.const$4;
+    public static int BLACK_BRUSH() {
+        return BLACK_BRUSH;
     }
+    private static final int NULL_BRUSH = (int)5L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_messageDigest "1.2.840.113549.1.9.4"
+     * {@snippet lang=c :
+     * #define NULL_BRUSH 5
      * }
      */
-    public static MemorySegment szOID_RSA_messageDigest() {
-        return constants$4585.const$5;
+    public static int NULL_BRUSH() {
+        return NULL_BRUSH;
     }
+    private static final int WHITE_PEN = (int)6L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_signingTime "1.2.840.113549.1.9.5"
+     * {@snippet lang=c :
+     * #define WHITE_PEN 6
      * }
      */
-    public static MemorySegment szOID_RSA_signingTime() {
-        return constants$4586.const$0;
+    public static int WHITE_PEN() {
+        return WHITE_PEN;
     }
+    private static final int BLACK_PEN = (int)7L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_counterSign "1.2.840.113549.1.9.6"
+     * {@snippet lang=c :
+     * #define BLACK_PEN 7
      * }
      */
-    public static MemorySegment szOID_RSA_counterSign() {
-        return constants$4586.const$1;
+    public static int BLACK_PEN() {
+        return BLACK_PEN;
     }
+    private static final int NULL_PEN = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_challengePwd "1.2.840.113549.1.9.7"
+     * {@snippet lang=c :
+     * #define NULL_PEN 8
      * }
      */
-    public static MemorySegment szOID_RSA_challengePwd() {
-        return constants$4586.const$2;
+    public static int NULL_PEN() {
+        return NULL_PEN;
     }
+    private static final int OEM_FIXED_FONT = (int)10L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_unstructAddr "1.2.840.113549.1.9.8"
+     * {@snippet lang=c :
+     * #define OEM_FIXED_FONT 10
      * }
      */
-    public static MemorySegment szOID_RSA_unstructAddr() {
-        return constants$4586.const$3;
+    public static int OEM_FIXED_FONT() {
+        return OEM_FIXED_FONT;
     }
+    private static final int ANSI_FIXED_FONT = (int)11L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_extCertAttrs "1.2.840.113549.1.9.9"
+     * {@snippet lang=c :
+     * #define ANSI_FIXED_FONT 11
      * }
      */
-    public static MemorySegment szOID_RSA_extCertAttrs() {
-        return constants$4586.const$4;
+    public static int ANSI_FIXED_FONT() {
+        return ANSI_FIXED_FONT;
     }
+    private static final int ANSI_VAR_FONT = (int)12L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_certExtensions "1.2.840.113549.1.9.14"
+     * {@snippet lang=c :
+     * #define ANSI_VAR_FONT 12
      * }
      */
-    public static MemorySegment szOID_RSA_certExtensions() {
-        return constants$4586.const$5;
+    public static int ANSI_VAR_FONT() {
+        return ANSI_VAR_FONT;
     }
+    private static final int SYSTEM_FONT = (int)13L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_SMIMECapabilities "1.2.840.113549.1.9.15"
+     * {@snippet lang=c :
+     * #define SYSTEM_FONT 13
      * }
      */
-    public static MemorySegment szOID_RSA_SMIMECapabilities() {
-        return constants$4587.const$0;
+    public static int SYSTEM_FONT() {
+        return SYSTEM_FONT;
     }
+    private static final int DEVICE_DEFAULT_FONT = (int)14L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_preferSignedData "1.2.840.113549.1.9.15.1"
+     * {@snippet lang=c :
+     * #define DEVICE_DEFAULT_FONT 14
      * }
      */
-    public static MemorySegment szOID_RSA_preferSignedData() {
-        return constants$4587.const$1;
+    public static int DEVICE_DEFAULT_FONT() {
+        return DEVICE_DEFAULT_FONT;
     }
+    private static final int DEFAULT_PALETTE = (int)15L;
     /**
-     * {@snippet :
-     * #define szOID_TIMESTAMP_TOKEN "1.2.840.113549.1.9.16.1.4"
+     * {@snippet lang=c :
+     * #define DEFAULT_PALETTE 15
      * }
      */
-    public static MemorySegment szOID_TIMESTAMP_TOKEN() {
-        return constants$4587.const$2;
+    public static int DEFAULT_PALETTE() {
+        return DEFAULT_PALETTE;
     }
+    private static final int SYSTEM_FIXED_FONT = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_RFC3161_counterSign "1.3.6.1.4.1.311.3.3.1"
+     * {@snippet lang=c :
+     * #define SYSTEM_FIXED_FONT 16
      * }
      */
-    public static MemorySegment szOID_RFC3161_counterSign() {
-        return constants$4587.const$3;
+    public static int SYSTEM_FIXED_FONT() {
+        return SYSTEM_FIXED_FONT;
     }
+    private static final int DEFAULT_GUI_FONT = (int)17L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_SMIMEalg "1.2.840.113549.1.9.16.3"
+     * {@snippet lang=c :
+     * #define DEFAULT_GUI_FONT 17
      * }
      */
-    public static MemorySegment szOID_RSA_SMIMEalg() {
-        return constants$4587.const$4;
+    public static int DEFAULT_GUI_FONT() {
+        return DEFAULT_GUI_FONT;
     }
+    private static final int DC_BRUSH = (int)18L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_SMIMEalgESDH "1.2.840.113549.1.9.16.3.5"
+     * {@snippet lang=c :
+     * #define DC_BRUSH 18
      * }
      */
-    public static MemorySegment szOID_RSA_SMIMEalgESDH() {
-        return constants$4587.const$5;
+    public static int DC_BRUSH() {
+        return DC_BRUSH;
     }
+    private static final int DC_PEN = (int)19L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_SMIMEalgCMS3DESwrap "1.2.840.113549.1.9.16.3.6"
+     * {@snippet lang=c :
+     * #define DC_PEN 19
      * }
      */
-    public static MemorySegment szOID_RSA_SMIMEalgCMS3DESwrap() {
-        return constants$4588.const$0;
+    public static int DC_PEN() {
+        return DC_PEN;
     }
+    private static final int STOCK_LAST = (int)19L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_SMIMEalgCMSRC2wrap "1.2.840.113549.1.9.16.3.7"
+     * {@snippet lang=c :
+     * #define STOCK_LAST 19
      * }
      */
-    public static MemorySegment szOID_RSA_SMIMEalgCMSRC2wrap() {
-        return constants$4588.const$1;
+    public static int STOCK_LAST() {
+        return STOCK_LAST;
     }
+    private static final int BS_SOLID = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_MD2 "1.2.840.113549.2.2"
+     * {@snippet lang=c :
+     * #define BS_SOLID 0
      * }
      */
-    public static MemorySegment szOID_RSA_MD2() {
-        return constants$4588.const$2;
+    public static int BS_SOLID() {
+        return BS_SOLID;
     }
+    private static final int BS_NULL = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_MD4 "1.2.840.113549.2.4"
+     * {@snippet lang=c :
+     * #define BS_NULL 1
      * }
      */
-    public static MemorySegment szOID_RSA_MD4() {
-        return constants$4588.const$3;
+    public static int BS_NULL() {
+        return BS_NULL;
     }
+    private static final int BS_HATCHED = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_MD5 "1.2.840.113549.2.5"
+     * {@snippet lang=c :
+     * #define BS_HATCHED 2
      * }
      */
-    public static MemorySegment szOID_RSA_MD5() {
-        return constants$4588.const$4;
+    public static int BS_HATCHED() {
+        return BS_HATCHED;
     }
+    private static final int BS_PATTERN = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_RC2CBC "1.2.840.113549.3.2"
+     * {@snippet lang=c :
+     * #define BS_PATTERN 3
      * }
      */
-    public static MemorySegment szOID_RSA_RC2CBC() {
-        return constants$4588.const$5;
+    public static int BS_PATTERN() {
+        return BS_PATTERN;
     }
+    private static final int BS_INDEXED = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_RC4 "1.2.840.113549.3.4"
+     * {@snippet lang=c :
+     * #define BS_INDEXED 4
      * }
      */
-    public static MemorySegment szOID_RSA_RC4() {
-        return constants$4589.const$0;
+    public static int BS_INDEXED() {
+        return BS_INDEXED;
     }
+    private static final int BS_DIBPATTERN = (int)5L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_DES_EDE3_CBC "1.2.840.113549.3.7"
+     * {@snippet lang=c :
+     * #define BS_DIBPATTERN 5
      * }
      */
-    public static MemorySegment szOID_RSA_DES_EDE3_CBC() {
-        return constants$4589.const$1;
+    public static int BS_DIBPATTERN() {
+        return BS_DIBPATTERN;
     }
+    private static final int BS_DIBPATTERNPT = (int)6L;
     /**
-     * {@snippet :
-     * #define szOID_RSA_RC5_CBCPad "1.2.840.113549.3.9"
+     * {@snippet lang=c :
+     * #define BS_DIBPATTERNPT 6
      * }
      */
-    public static MemorySegment szOID_RSA_RC5_CBCPad() {
-        return constants$4589.const$2;
+    public static int BS_DIBPATTERNPT() {
+        return BS_DIBPATTERNPT;
     }
+    private static final int BS_PATTERN8X8 = (int)7L;
     /**
-     * {@snippet :
-     * #define szOID_ANSI_X942 "1.2.840.10046"
+     * {@snippet lang=c :
+     * #define BS_PATTERN8X8 7
      * }
      */
-    public static MemorySegment szOID_ANSI_X942() {
-        return constants$4589.const$3;
+    public static int BS_PATTERN8X8() {
+        return BS_PATTERN8X8;
     }
+    private static final int BS_DIBPATTERN8X8 = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_ANSI_X942_DH "1.2.840.10046.2.1"
+     * {@snippet lang=c :
+     * #define BS_DIBPATTERN8X8 8
      * }
      */
-    public static MemorySegment szOID_ANSI_X942_DH() {
-        return constants$4589.const$4;
+    public static int BS_DIBPATTERN8X8() {
+        return BS_DIBPATTERN8X8;
     }
+    private static final int BS_MONOPATTERN = (int)9L;
     /**
-     * {@snippet :
-     * #define szOID_X957 "1.2.840.10040"
+     * {@snippet lang=c :
+     * #define BS_MONOPATTERN 9
      * }
      */
-    public static MemorySegment szOID_X957() {
-        return constants$4589.const$5;
+    public static int BS_MONOPATTERN() {
+        return BS_MONOPATTERN;
     }
+    private static final int HS_HORIZONTAL = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_X957_DSA "1.2.840.10040.4.1"
+     * {@snippet lang=c :
+     * #define HS_HORIZONTAL 0
      * }
      */
-    public static MemorySegment szOID_X957_DSA() {
-        return constants$4590.const$0;
+    public static int HS_HORIZONTAL() {
+        return HS_HORIZONTAL;
     }
+    private static final int HS_VERTICAL = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_X957_SHA1DSA "1.2.840.10040.4.3"
+     * {@snippet lang=c :
+     * #define HS_VERTICAL 1
      * }
      */
-    public static MemorySegment szOID_X957_SHA1DSA() {
-        return constants$4590.const$1;
+    public static int HS_VERTICAL() {
+        return HS_VERTICAL;
     }
+    private static final int HS_FDIAGONAL = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_PUBLIC_KEY "1.2.840.10045.2.1"
+     * {@snippet lang=c :
+     * #define HS_FDIAGONAL 2
      * }
      */
-    public static MemorySegment szOID_ECC_PUBLIC_KEY() {
-        return constants$4590.const$2;
+    public static int HS_FDIAGONAL() {
+        return HS_FDIAGONAL;
     }
+    private static final int HS_BDIAGONAL = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_P256 "1.2.840.10045.3.1.7"
+     * {@snippet lang=c :
+     * #define HS_BDIAGONAL 3
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_P256() {
-        return constants$4590.const$3;
+    public static int HS_BDIAGONAL() {
+        return HS_BDIAGONAL;
     }
+    private static final int HS_CROSS = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_P384 "1.3.132.0.34"
+     * {@snippet lang=c :
+     * #define HS_CROSS 4
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_P384() {
-        return constants$4590.const$4;
+    public static int HS_CROSS() {
+        return HS_CROSS;
     }
+    private static final int HS_DIAGCROSS = (int)5L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_P521 "1.3.132.0.35"
+     * {@snippet lang=c :
+     * #define HS_DIAGCROSS 5
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_P521() {
-        return constants$4590.const$5;
+    public static int HS_DIAGCROSS() {
+        return HS_DIAGCROSS;
     }
+    private static final int HS_API_MAX = (int)12L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_BRAINPOOLP160R1 "1.3.36.3.3.2.8.1.1.1"
+     * {@snippet lang=c :
+     * #define HS_API_MAX 12
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP160R1() {
-        return constants$4591.const$0;
+    public static int HS_API_MAX() {
+        return HS_API_MAX;
     }
+    private static final int PS_SOLID = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_BRAINPOOLP160T1 "1.3.36.3.3.2.8.1.1.2"
+     * {@snippet lang=c :
+     * #define PS_SOLID 0
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP160T1() {
-        return constants$4591.const$1;
+    public static int PS_SOLID() {
+        return PS_SOLID;
     }
+    private static final int PS_DASH = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_BRAINPOOLP192R1 "1.3.36.3.3.2.8.1.1.3"
+     * {@snippet lang=c :
+     * #define PS_DASH 1
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP192R1() {
-        return constants$4591.const$2;
+    public static int PS_DASH() {
+        return PS_DASH;
     }
+    private static final int PS_DOT = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_BRAINPOOLP192T1 "1.3.36.3.3.2.8.1.1.4"
+     * {@snippet lang=c :
+     * #define PS_DOT 2
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP192T1() {
-        return constants$4591.const$3;
+    public static int PS_DOT() {
+        return PS_DOT;
     }
+    private static final int PS_DASHDOT = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_BRAINPOOLP224R1 "1.3.36.3.3.2.8.1.1.5"
+     * {@snippet lang=c :
+     * #define PS_DASHDOT 3
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP224R1() {
-        return constants$4591.const$4;
+    public static int PS_DASHDOT() {
+        return PS_DASHDOT;
     }
+    private static final int PS_DASHDOTDOT = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_BRAINPOOLP224T1 "1.3.36.3.3.2.8.1.1.6"
+     * {@snippet lang=c :
+     * #define PS_DASHDOTDOT 4
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP224T1() {
-        return constants$4591.const$5;
+    public static int PS_DASHDOTDOT() {
+        return PS_DASHDOTDOT;
     }
+    private static final int PS_NULL = (int)5L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_BRAINPOOLP256R1 "1.3.36.3.3.2.8.1.1.7"
+     * {@snippet lang=c :
+     * #define PS_NULL 5
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP256R1() {
-        return constants$4592.const$0;
+    public static int PS_NULL() {
+        return PS_NULL;
     }
+    private static final int PS_INSIDEFRAME = (int)6L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_BRAINPOOLP256T1 "1.3.36.3.3.2.8.1.1.8"
+     * {@snippet lang=c :
+     * #define PS_INSIDEFRAME 6
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP256T1() {
-        return constants$4592.const$1;
+    public static int PS_INSIDEFRAME() {
+        return PS_INSIDEFRAME;
     }
+    private static final int PS_USERSTYLE = (int)7L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_BRAINPOOLP320R1 "1.3.36.3.3.2.8.1.1.9"
+     * {@snippet lang=c :
+     * #define PS_USERSTYLE 7
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP320R1() {
-        return constants$4592.const$2;
+    public static int PS_USERSTYLE() {
+        return PS_USERSTYLE;
     }
+    private static final int PS_ALTERNATE = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_BRAINPOOLP320T1 "1.3.36.3.3.2.8.1.1.10"
+     * {@snippet lang=c :
+     * #define PS_ALTERNATE 8
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP320T1() {
-        return constants$4592.const$3;
+    public static int PS_ALTERNATE() {
+        return PS_ALTERNATE;
     }
+    private static final int PS_STYLE_MASK = (int)15L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_BRAINPOOLP384R1 "1.3.36.3.3.2.8.1.1.11"
+     * {@snippet lang=c :
+     * #define PS_STYLE_MASK 15
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP384R1() {
-        return constants$4592.const$4;
+    public static int PS_STYLE_MASK() {
+        return PS_STYLE_MASK;
     }
+    private static final int PS_ENDCAP_ROUND = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_BRAINPOOLP384T1 "1.3.36.3.3.2.8.1.1.12"
+     * {@snippet lang=c :
+     * #define PS_ENDCAP_ROUND 0
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP384T1() {
-        return constants$4592.const$5;
+    public static int PS_ENDCAP_ROUND() {
+        return PS_ENDCAP_ROUND;
     }
+    private static final int PS_ENDCAP_SQUARE = (int)256L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_BRAINPOOLP512R1 "1.3.36.3.3.2.8.1.1.13"
+     * {@snippet lang=c :
+     * #define PS_ENDCAP_SQUARE 256
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP512R1() {
-        return constants$4593.const$0;
+    public static int PS_ENDCAP_SQUARE() {
+        return PS_ENDCAP_SQUARE;
     }
+    private static final int PS_ENDCAP_FLAT = (int)512L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_BRAINPOOLP512T1 "1.3.36.3.3.2.8.1.1.14"
+     * {@snippet lang=c :
+     * #define PS_ENDCAP_FLAT 512
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP512T1() {
-        return constants$4593.const$1;
+    public static int PS_ENDCAP_FLAT() {
+        return PS_ENDCAP_FLAT;
     }
+    private static final int PS_ENDCAP_MASK = (int)3840L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_EC192WAPI "1.2.156.11235.1.1.2.1"
+     * {@snippet lang=c :
+     * #define PS_ENDCAP_MASK 3840
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_EC192WAPI() {
-        return constants$4593.const$2;
+    public static int PS_ENDCAP_MASK() {
+        return PS_ENDCAP_MASK;
     }
+    private static final int PS_JOIN_ROUND = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_CN_ECDSA_SHA256 "1.2.156.11235.1.1.1"
+     * {@snippet lang=c :
+     * #define PS_JOIN_ROUND 0
      * }
      */
-    public static MemorySegment szOID_CN_ECDSA_SHA256() {
-        return constants$4593.const$3;
+    public static int PS_JOIN_ROUND() {
+        return PS_JOIN_ROUND;
     }
+    private static final int PS_JOIN_BEVEL = (int)4096L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_NISTP192 "1.2.840.10045.3.1.1"
+     * {@snippet lang=c :
+     * #define PS_JOIN_BEVEL 4096
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_NISTP192() {
-        return constants$4593.const$4;
+    public static int PS_JOIN_BEVEL() {
+        return PS_JOIN_BEVEL;
     }
+    private static final int PS_JOIN_MITER = (int)8192L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_NISTP224 "1.3.132.0.33"
+     * {@snippet lang=c :
+     * #define PS_JOIN_MITER 8192
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_NISTP224() {
-        return constants$4593.const$5;
+    public static int PS_JOIN_MITER() {
+        return PS_JOIN_MITER;
     }
+    private static final int PS_JOIN_MASK = (int)61440L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_NISTP256 "1.2.840.10045.3.1.7"
+     * {@snippet lang=c :
+     * #define PS_JOIN_MASK 61440
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_NISTP256() {
-        return constants$4590.const$3;
+    public static int PS_JOIN_MASK() {
+        return PS_JOIN_MASK;
     }
+    private static final int PS_COSMETIC = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_NISTP384 "1.3.132.0.34"
+     * {@snippet lang=c :
+     * #define PS_COSMETIC 0
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_NISTP384() {
-        return constants$4590.const$4;
+    public static int PS_COSMETIC() {
+        return PS_COSMETIC;
     }
+    private static final int PS_GEOMETRIC = (int)65536L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_NISTP521 "1.3.132.0.35"
+     * {@snippet lang=c :
+     * #define PS_GEOMETRIC 65536
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_NISTP521() {
-        return constants$4590.const$5;
+    public static int PS_GEOMETRIC() {
+        return PS_GEOMETRIC;
     }
+    private static final int PS_TYPE_MASK = (int)983040L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_SECP160K1 "1.3.132.0.9"
+     * {@snippet lang=c :
+     * #define PS_TYPE_MASK 983040
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_SECP160K1() {
-        return constants$4594.const$0;
+    public static int PS_TYPE_MASK() {
+        return PS_TYPE_MASK;
     }
+    private static final int AD_COUNTERCLOCKWISE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_SECP160R1 "1.3.132.0.8"
+     * {@snippet lang=c :
+     * #define AD_COUNTERCLOCKWISE 1
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_SECP160R1() {
-        return constants$4594.const$1;
+    public static int AD_COUNTERCLOCKWISE() {
+        return AD_COUNTERCLOCKWISE;
     }
+    private static final int AD_CLOCKWISE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_SECP160R2 "1.3.132.0.30"
+     * {@snippet lang=c :
+     * #define AD_CLOCKWISE 2
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_SECP160R2() {
-        return constants$4594.const$2;
+    public static int AD_CLOCKWISE() {
+        return AD_CLOCKWISE;
     }
+    private static final int DRIVERVERSION = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_SECP192K1 "1.3.132.0.31"
+     * {@snippet lang=c :
+     * #define DRIVERVERSION 0
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_SECP192K1() {
-        return constants$4594.const$3;
+    public static int DRIVERVERSION() {
+        return DRIVERVERSION;
     }
+    private static final int TECHNOLOGY = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_SECP192R1 "1.2.840.10045.3.1.1"
+     * {@snippet lang=c :
+     * #define TECHNOLOGY 2
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_SECP192R1() {
-        return constants$4593.const$4;
+    public static int TECHNOLOGY() {
+        return TECHNOLOGY;
     }
+    private static final int HORZSIZE = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_SECP224K1 "1.3.132.0.32"
+     * {@snippet lang=c :
+     * #define HORZSIZE 4
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_SECP224K1() {
-        return constants$4594.const$4;
+    public static int HORZSIZE() {
+        return HORZSIZE;
     }
+    private static final int VERTSIZE = (int)6L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_SECP224R1 "1.3.132.0.33"
+     * {@snippet lang=c :
+     * #define VERTSIZE 6
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_SECP224R1() {
-        return constants$4593.const$5;
+    public static int VERTSIZE() {
+        return VERTSIZE;
     }
+    private static final int HORZRES = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_SECP256K1 "1.3.132.0.10"
+     * {@snippet lang=c :
+     * #define HORZRES 8
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_SECP256K1() {
-        return constants$4594.const$5;
+    public static int HORZRES() {
+        return HORZRES;
     }
+    private static final int VERTRES = (int)10L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_SECP256R1 "1.2.840.10045.3.1.7"
+     * {@snippet lang=c :
+     * #define VERTRES 10
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_SECP256R1() {
-        return constants$4590.const$3;
+    public static int VERTRES() {
+        return VERTRES;
     }
+    private static final int BITSPIXEL = (int)12L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_SECP384R1 "1.3.132.0.34"
+     * {@snippet lang=c :
+     * #define BITSPIXEL 12
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_SECP384R1() {
-        return constants$4590.const$4;
+    public static int BITSPIXEL() {
+        return BITSPIXEL;
     }
+    private static final int PLANES = (int)14L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_SECP521R1 "1.3.132.0.35"
+     * {@snippet lang=c :
+     * #define PLANES 14
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_SECP521R1() {
-        return constants$4590.const$5;
+    public static int PLANES() {
+        return PLANES;
     }
+    private static final int NUMBRUSHES = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_WTLS7 "1.3.132.0.30"
+     * {@snippet lang=c :
+     * #define NUMBRUSHES 16
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_WTLS7() {
-        return constants$4594.const$2;
+    public static int NUMBRUSHES() {
+        return NUMBRUSHES;
     }
+    private static final int NUMPENS = (int)18L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_WTLS9 "2.23.43.1.4.9"
+     * {@snippet lang=c :
+     * #define NUMPENS 18
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_WTLS9() {
-        return constants$4595.const$0;
+    public static int NUMPENS() {
+        return NUMPENS;
     }
+    private static final int NUMMARKERS = (int)20L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_WTLS12 "1.3.132.0.33"
+     * {@snippet lang=c :
+     * #define NUMMARKERS 20
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_WTLS12() {
-        return constants$4593.const$5;
+    public static int NUMMARKERS() {
+        return NUMMARKERS;
     }
+    private static final int NUMFONTS = (int)22L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_X962P192V1 "1.2.840.10045.3.1.1"
+     * {@snippet lang=c :
+     * #define NUMFONTS 22
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_X962P192V1() {
-        return constants$4593.const$4;
+    public static int NUMFONTS() {
+        return NUMFONTS;
     }
+    private static final int NUMCOLORS = (int)24L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_X962P192V2 "1.2.840.10045.3.1.2"
+     * {@snippet lang=c :
+     * #define NUMCOLORS 24
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_X962P192V2() {
-        return constants$4595.const$1;
+    public static int NUMCOLORS() {
+        return NUMCOLORS;
     }
+    private static final int PDEVICESIZE = (int)26L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_X962P192V3 "1.2.840.10045.3.1.3"
+     * {@snippet lang=c :
+     * #define PDEVICESIZE 26
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_X962P192V3() {
-        return constants$4595.const$2;
+    public static int PDEVICESIZE() {
+        return PDEVICESIZE;
     }
+    private static final int CURVECAPS = (int)28L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_X962P239V1 "1.2.840.10045.3.1.4"
+     * {@snippet lang=c :
+     * #define CURVECAPS 28
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_X962P239V1() {
-        return constants$4595.const$3;
+    public static int CURVECAPS() {
+        return CURVECAPS;
     }
+    private static final int LINECAPS = (int)30L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_X962P239V2 "1.2.840.10045.3.1.5"
+     * {@snippet lang=c :
+     * #define LINECAPS 30
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_X962P239V2() {
-        return constants$4595.const$4;
+    public static int LINECAPS() {
+        return LINECAPS;
     }
+    private static final int POLYGONALCAPS = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_X962P239V3 "1.2.840.10045.3.1.6"
+     * {@snippet lang=c :
+     * #define POLYGONALCAPS 32
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_X962P239V3() {
-        return constants$4595.const$5;
+    public static int POLYGONALCAPS() {
+        return POLYGONALCAPS;
     }
+    private static final int TEXTCAPS = (int)34L;
     /**
-     * {@snippet :
-     * #define szOID_ECC_CURVE_X962P256V1 "1.2.840.10045.3.1.7"
+     * {@snippet lang=c :
+     * #define TEXTCAPS 34
      * }
      */
-    public static MemorySegment szOID_ECC_CURVE_X962P256V1() {
-        return constants$4590.const$3;
+    public static int TEXTCAPS() {
+        return TEXTCAPS;
     }
+    private static final int CLIPCAPS = (int)36L;
     /**
-     * {@snippet :
-     * #define szOID_ECDSA_SHA1 "1.2.840.10045.4.1"
+     * {@snippet lang=c :
+     * #define CLIPCAPS 36
      * }
      */
-    public static MemorySegment szOID_ECDSA_SHA1() {
-        return constants$4596.const$0;
+    public static int CLIPCAPS() {
+        return CLIPCAPS;
     }
+    private static final int RASTERCAPS = (int)38L;
     /**
-     * {@snippet :
-     * #define szOID_ECDSA_SPECIFIED "1.2.840.10045.4.3"
+     * {@snippet lang=c :
+     * #define RASTERCAPS 38
      * }
      */
-    public static MemorySegment szOID_ECDSA_SPECIFIED() {
-        return constants$4596.const$1;
+    public static int RASTERCAPS() {
+        return RASTERCAPS;
     }
+    private static final int ASPECTX = (int)40L;
     /**
-     * {@snippet :
-     * #define szOID_ECDSA_SHA256 "1.2.840.10045.4.3.2"
+     * {@snippet lang=c :
+     * #define ASPECTX 40
      * }
      */
-    public static MemorySegment szOID_ECDSA_SHA256() {
-        return constants$4596.const$2;
+    public static int ASPECTX() {
+        return ASPECTX;
     }
+    private static final int ASPECTY = (int)42L;
     /**
-     * {@snippet :
-     * #define szOID_ECDSA_SHA384 "1.2.840.10045.4.3.3"
+     * {@snippet lang=c :
+     * #define ASPECTY 42
      * }
      */
-    public static MemorySegment szOID_ECDSA_SHA384() {
-        return constants$4596.const$3;
+    public static int ASPECTY() {
+        return ASPECTY;
     }
+    private static final int ASPECTXY = (int)44L;
     /**
-     * {@snippet :
-     * #define szOID_ECDSA_SHA512 "1.2.840.10045.4.3.4"
+     * {@snippet lang=c :
+     * #define ASPECTXY 44
      * }
      */
-    public static MemorySegment szOID_ECDSA_SHA512() {
-        return constants$4596.const$4;
+    public static int ASPECTXY() {
+        return ASPECTXY;
     }
+    private static final int LOGPIXELSX = (int)88L;
     /**
-     * {@snippet :
-     * #define szOID_NIST_AES128_CBC "2.16.840.1.101.3.4.1.2"
+     * {@snippet lang=c :
+     * #define LOGPIXELSX 88
      * }
      */
-    public static MemorySegment szOID_NIST_AES128_CBC() {
-        return constants$4596.const$5;
+    public static int LOGPIXELSX() {
+        return LOGPIXELSX;
     }
+    private static final int LOGPIXELSY = (int)90L;
     /**
-     * {@snippet :
-     * #define szOID_NIST_AES192_CBC "2.16.840.1.101.3.4.1.22"
+     * {@snippet lang=c :
+     * #define LOGPIXELSY 90
      * }
      */
-    public static MemorySegment szOID_NIST_AES192_CBC() {
-        return constants$4597.const$0;
+    public static int LOGPIXELSY() {
+        return LOGPIXELSY;
     }
+    private static final int SIZEPALETTE = (int)104L;
     /**
-     * {@snippet :
-     * #define szOID_NIST_AES256_CBC "2.16.840.1.101.3.4.1.42"
+     * {@snippet lang=c :
+     * #define SIZEPALETTE 104
      * }
      */
-    public static MemorySegment szOID_NIST_AES256_CBC() {
-        return constants$4597.const$1;
+    public static int SIZEPALETTE() {
+        return SIZEPALETTE;
     }
+    private static final int NUMRESERVED = (int)106L;
     /**
-     * {@snippet :
-     * #define szOID_NIST_AES128_WRAP "2.16.840.1.101.3.4.1.5"
+     * {@snippet lang=c :
+     * #define NUMRESERVED 106
      * }
      */
-    public static MemorySegment szOID_NIST_AES128_WRAP() {
-        return constants$4597.const$2;
+    public static int NUMRESERVED() {
+        return NUMRESERVED;
     }
+    private static final int COLORRES = (int)108L;
     /**
-     * {@snippet :
-     * #define szOID_NIST_AES192_WRAP "2.16.840.1.101.3.4.1.25"
+     * {@snippet lang=c :
+     * #define COLORRES 108
      * }
      */
-    public static MemorySegment szOID_NIST_AES192_WRAP() {
-        return constants$4597.const$3;
+    public static int COLORRES() {
+        return COLORRES;
     }
+    private static final int PHYSICALWIDTH = (int)110L;
     /**
-     * {@snippet :
-     * #define szOID_NIST_AES256_WRAP "2.16.840.1.101.3.4.1.45"
+     * {@snippet lang=c :
+     * #define PHYSICALWIDTH 110
      * }
      */
-    public static MemorySegment szOID_NIST_AES256_WRAP() {
-        return constants$4597.const$4;
+    public static int PHYSICALWIDTH() {
+        return PHYSICALWIDTH;
     }
+    private static final int PHYSICALHEIGHT = (int)111L;
     /**
-     * {@snippet :
-     * #define szOID_DH_SINGLE_PASS_STDDH_SHA1_KDF "1.3.133.16.840.63.0.2"
+     * {@snippet lang=c :
+     * #define PHYSICALHEIGHT 111
      * }
      */
-    public static MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA1_KDF() {
-        return constants$4597.const$5;
+    public static int PHYSICALHEIGHT() {
+        return PHYSICALHEIGHT;
     }
+    private static final int PHYSICALOFFSETX = (int)112L;
     /**
-     * {@snippet :
-     * #define szOID_DH_SINGLE_PASS_STDDH_SHA256_KDF "1.3.132.1.11.1"
+     * {@snippet lang=c :
+     * #define PHYSICALOFFSETX 112
      * }
      */
-    public static MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA256_KDF() {
-        return constants$4598.const$0;
+    public static int PHYSICALOFFSETX() {
+        return PHYSICALOFFSETX;
     }
+    private static final int PHYSICALOFFSETY = (int)113L;
     /**
-     * {@snippet :
-     * #define szOID_DH_SINGLE_PASS_STDDH_SHA384_KDF "1.3.132.1.11.2"
+     * {@snippet lang=c :
+     * #define PHYSICALOFFSETY 113
      * }
      */
-    public static MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA384_KDF() {
-        return constants$4598.const$1;
+    public static int PHYSICALOFFSETY() {
+        return PHYSICALOFFSETY;
     }
+    private static final int SCALINGFACTORX = (int)114L;
     /**
-     * {@snippet :
-     * #define szOID_DS "2.5"
+     * {@snippet lang=c :
+     * #define SCALINGFACTORX 114
      * }
      */
-    public static MemorySegment szOID_DS() {
-        return constants$4598.const$2;
+    public static int SCALINGFACTORX() {
+        return SCALINGFACTORX;
     }
+    private static final int SCALINGFACTORY = (int)115L;
     /**
-     * {@snippet :
-     * #define szOID_DSALG "2.5.8"
+     * {@snippet lang=c :
+     * #define SCALINGFACTORY 115
      * }
      */
-    public static MemorySegment szOID_DSALG() {
-        return constants$4598.const$3;
+    public static int SCALINGFACTORY() {
+        return SCALINGFACTORY;
     }
+    private static final int VREFRESH = (int)116L;
     /**
-     * {@snippet :
-     * #define szOID_DSALG_CRPT "2.5.8.1"
+     * {@snippet lang=c :
+     * #define VREFRESH 116
      * }
      */
-    public static MemorySegment szOID_DSALG_CRPT() {
-        return constants$4598.const$4;
+    public static int VREFRESH() {
+        return VREFRESH;
     }
+    private static final int DESKTOPVERTRES = (int)117L;
     /**
-     * {@snippet :
-     * #define szOID_DSALG_HASH "2.5.8.2"
+     * {@snippet lang=c :
+     * #define DESKTOPVERTRES 117
      * }
      */
-    public static MemorySegment szOID_DSALG_HASH() {
-        return constants$4598.const$5;
+    public static int DESKTOPVERTRES() {
+        return DESKTOPVERTRES;
     }
+    private static final int DESKTOPHORZRES = (int)118L;
     /**
-     * {@snippet :
-     * #define szOID_DSALG_SIGN "2.5.8.3"
+     * {@snippet lang=c :
+     * #define DESKTOPHORZRES 118
      * }
      */
-    public static MemorySegment szOID_DSALG_SIGN() {
-        return constants$4599.const$0;
+    public static int DESKTOPHORZRES() {
+        return DESKTOPHORZRES;
     }
+    private static final int BLTALIGNMENT = (int)119L;
     /**
-     * {@snippet :
-     * #define szOID_DSALG_RSA "2.5.8.1.1"
+     * {@snippet lang=c :
+     * #define BLTALIGNMENT 119
      * }
      */
-    public static MemorySegment szOID_DSALG_RSA() {
-        return constants$4599.const$1;
+    public static int BLTALIGNMENT() {
+        return BLTALIGNMENT;
     }
+    private static final int SHADEBLENDCAPS = (int)120L;
     /**
-     * {@snippet :
-     * #define szOID_OIW "1.3.14"
+     * {@snippet lang=c :
+     * #define SHADEBLENDCAPS 120
      * }
      */
-    public static MemorySegment szOID_OIW() {
-        return constants$4599.const$2;
+    public static int SHADEBLENDCAPS() {
+        return SHADEBLENDCAPS;
     }
+    private static final int COLORMGMTCAPS = (int)121L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC "1.3.14.3.2"
+     * {@snippet lang=c :
+     * #define COLORMGMTCAPS 121
      * }
      */
-    public static MemorySegment szOID_OIWSEC() {
-        return constants$4599.const$3;
+    public static int COLORMGMTCAPS() {
+        return COLORMGMTCAPS;
     }
+    private static final int DT_PLOTTER = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_md4RSA "1.3.14.3.2.2"
+     * {@snippet lang=c :
+     * #define DT_PLOTTER 0
      * }
      */
-    public static MemorySegment szOID_OIWSEC_md4RSA() {
-        return constants$4599.const$4;
+    public static int DT_PLOTTER() {
+        return DT_PLOTTER;
     }
+    private static final int DT_RASDISPLAY = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_md5RSA "1.3.14.3.2.3"
+     * {@snippet lang=c :
+     * #define DT_RASDISPLAY 1
      * }
      */
-    public static MemorySegment szOID_OIWSEC_md5RSA() {
-        return constants$4599.const$5;
+    public static int DT_RASDISPLAY() {
+        return DT_RASDISPLAY;
     }
+    private static final int DT_RASPRINTER = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_md4RSA2 "1.3.14.3.2.4"
+     * {@snippet lang=c :
+     * #define DT_RASPRINTER 2
      * }
      */
-    public static MemorySegment szOID_OIWSEC_md4RSA2() {
-        return constants$4600.const$0;
+    public static int DT_RASPRINTER() {
+        return DT_RASPRINTER;
     }
+    private static final int DT_RASCAMERA = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_desECB "1.3.14.3.2.6"
+     * {@snippet lang=c :
+     * #define DT_RASCAMERA 3
      * }
      */
-    public static MemorySegment szOID_OIWSEC_desECB() {
-        return constants$4600.const$1;
+    public static int DT_RASCAMERA() {
+        return DT_RASCAMERA;
     }
+    private static final int DT_CHARSTREAM = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_desCBC "1.3.14.3.2.7"
+     * {@snippet lang=c :
+     * #define DT_CHARSTREAM 4
      * }
      */
-    public static MemorySegment szOID_OIWSEC_desCBC() {
-        return constants$4600.const$2;
+    public static int DT_CHARSTREAM() {
+        return DT_CHARSTREAM;
     }
+    private static final int DT_METAFILE = (int)5L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_desOFB "1.3.14.3.2.8"
+     * {@snippet lang=c :
+     * #define DT_METAFILE 5
      * }
      */
-    public static MemorySegment szOID_OIWSEC_desOFB() {
-        return constants$4600.const$3;
+    public static int DT_METAFILE() {
+        return DT_METAFILE;
     }
+    private static final int DT_DISPFILE = (int)6L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_desCFB "1.3.14.3.2.9"
+     * {@snippet lang=c :
+     * #define DT_DISPFILE 6
      * }
      */
-    public static MemorySegment szOID_OIWSEC_desCFB() {
-        return constants$4600.const$4;
+    public static int DT_DISPFILE() {
+        return DT_DISPFILE;
     }
+    private static final int CC_NONE = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_desMAC "1.3.14.3.2.10"
+     * {@snippet lang=c :
+     * #define CC_NONE 0
      * }
      */
-    public static MemorySegment szOID_OIWSEC_desMAC() {
-        return constants$4600.const$5;
+    public static int CC_NONE() {
+        return CC_NONE;
     }
+    private static final int CC_CIRCLES = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_rsaSign "1.3.14.3.2.11"
+     * {@snippet lang=c :
+     * #define CC_CIRCLES 1
      * }
      */
-    public static MemorySegment szOID_OIWSEC_rsaSign() {
-        return constants$4601.const$0;
+    public static int CC_CIRCLES() {
+        return CC_CIRCLES;
     }
+    private static final int CC_PIE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_dsa "1.3.14.3.2.12"
+     * {@snippet lang=c :
+     * #define CC_PIE 2
      * }
      */
-    public static MemorySegment szOID_OIWSEC_dsa() {
-        return constants$4601.const$1;
+    public static int CC_PIE() {
+        return CC_PIE;
     }
+    private static final int CC_CHORD = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_shaDSA "1.3.14.3.2.13"
+     * {@snippet lang=c :
+     * #define CC_CHORD 4
      * }
      */
-    public static MemorySegment szOID_OIWSEC_shaDSA() {
-        return constants$4601.const$2;
+    public static int CC_CHORD() {
+        return CC_CHORD;
     }
+    private static final int CC_ELLIPSES = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_mdc2RSA "1.3.14.3.2.14"
+     * {@snippet lang=c :
+     * #define CC_ELLIPSES 8
      * }
      */
-    public static MemorySegment szOID_OIWSEC_mdc2RSA() {
-        return constants$4601.const$3;
+    public static int CC_ELLIPSES() {
+        return CC_ELLIPSES;
     }
+    private static final int CC_WIDE = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_shaRSA "1.3.14.3.2.15"
+     * {@snippet lang=c :
+     * #define CC_WIDE 16
      * }
      */
-    public static MemorySegment szOID_OIWSEC_shaRSA() {
-        return constants$4601.const$4;
+    public static int CC_WIDE() {
+        return CC_WIDE;
     }
+    private static final int CC_STYLED = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_dhCommMod "1.3.14.3.2.16"
+     * {@snippet lang=c :
+     * #define CC_STYLED 32
      * }
      */
-    public static MemorySegment szOID_OIWSEC_dhCommMod() {
-        return constants$4601.const$5;
+    public static int CC_STYLED() {
+        return CC_STYLED;
     }
+    private static final int CC_WIDESTYLED = (int)64L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_desEDE "1.3.14.3.2.17"
+     * {@snippet lang=c :
+     * #define CC_WIDESTYLED 64
      * }
      */
-    public static MemorySegment szOID_OIWSEC_desEDE() {
-        return constants$4602.const$0;
+    public static int CC_WIDESTYLED() {
+        return CC_WIDESTYLED;
     }
+    private static final int CC_INTERIORS = (int)128L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_sha "1.3.14.3.2.18"
+     * {@snippet lang=c :
+     * #define CC_INTERIORS 128
      * }
      */
-    public static MemorySegment szOID_OIWSEC_sha() {
-        return constants$4602.const$1;
+    public static int CC_INTERIORS() {
+        return CC_INTERIORS;
     }
+    private static final int CC_ROUNDRECT = (int)256L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_mdc2 "1.3.14.3.2.19"
+     * {@snippet lang=c :
+     * #define CC_ROUNDRECT 256
      * }
      */
-    public static MemorySegment szOID_OIWSEC_mdc2() {
-        return constants$4602.const$2;
+    public static int CC_ROUNDRECT() {
+        return CC_ROUNDRECT;
     }
+    private static final int LC_NONE = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_dsaComm "1.3.14.3.2.20"
+     * {@snippet lang=c :
+     * #define LC_NONE 0
      * }
      */
-    public static MemorySegment szOID_OIWSEC_dsaComm() {
-        return constants$4602.const$3;
+    public static int LC_NONE() {
+        return LC_NONE;
     }
+    private static final int LC_POLYLINE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_dsaCommSHA "1.3.14.3.2.21"
+     * {@snippet lang=c :
+     * #define LC_POLYLINE 2
      * }
      */
-    public static MemorySegment szOID_OIWSEC_dsaCommSHA() {
-        return constants$4602.const$4;
+    public static int LC_POLYLINE() {
+        return LC_POLYLINE;
     }
+    private static final int LC_MARKER = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_rsaXchg "1.3.14.3.2.22"
+     * {@snippet lang=c :
+     * #define LC_MARKER 4
      * }
      */
-    public static MemorySegment szOID_OIWSEC_rsaXchg() {
-        return constants$4602.const$5;
+    public static int LC_MARKER() {
+        return LC_MARKER;
     }
+    private static final int LC_POLYMARKER = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_keyHashSeal "1.3.14.3.2.23"
+     * {@snippet lang=c :
+     * #define LC_POLYMARKER 8
      * }
      */
-    public static MemorySegment szOID_OIWSEC_keyHashSeal() {
-        return constants$4603.const$0;
+    public static int LC_POLYMARKER() {
+        return LC_POLYMARKER;
     }
+    private static final int LC_WIDE = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_md2RSASign "1.3.14.3.2.24"
+     * {@snippet lang=c :
+     * #define LC_WIDE 16
      * }
      */
-    public static MemorySegment szOID_OIWSEC_md2RSASign() {
-        return constants$4603.const$1;
+    public static int LC_WIDE() {
+        return LC_WIDE;
     }
+    private static final int LC_STYLED = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_md5RSASign "1.3.14.3.2.25"
+     * {@snippet lang=c :
+     * #define LC_STYLED 32
      * }
      */
-    public static MemorySegment szOID_OIWSEC_md5RSASign() {
-        return constants$4603.const$2;
+    public static int LC_STYLED() {
+        return LC_STYLED;
     }
+    private static final int LC_WIDESTYLED = (int)64L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_sha1 "1.3.14.3.2.26"
+     * {@snippet lang=c :
+     * #define LC_WIDESTYLED 64
      * }
      */
-    public static MemorySegment szOID_OIWSEC_sha1() {
-        return constants$4603.const$3;
+    public static int LC_WIDESTYLED() {
+        return LC_WIDESTYLED;
     }
+    private static final int LC_INTERIORS = (int)128L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_dsaSHA1 "1.3.14.3.2.27"
+     * {@snippet lang=c :
+     * #define LC_INTERIORS 128
      * }
      */
-    public static MemorySegment szOID_OIWSEC_dsaSHA1() {
-        return constants$4603.const$4;
+    public static int LC_INTERIORS() {
+        return LC_INTERIORS;
     }
+    private static final int PC_NONE = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_dsaCommSHA1 "1.3.14.3.2.28"
+     * {@snippet lang=c :
+     * #define PC_NONE 0
      * }
      */
-    public static MemorySegment szOID_OIWSEC_dsaCommSHA1() {
-        return constants$4603.const$5;
+    public static int PC_NONE() {
+        return PC_NONE;
     }
+    private static final int PC_POLYGON = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_OIWSEC_sha1RSASign "1.3.14.3.2.29"
+     * {@snippet lang=c :
+     * #define PC_POLYGON 1
      * }
      */
-    public static MemorySegment szOID_OIWSEC_sha1RSASign() {
-        return constants$4604.const$0;
+    public static int PC_POLYGON() {
+        return PC_POLYGON;
     }
+    private static final int PC_RECTANGLE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_OIWDIR "1.3.14.7.2"
+     * {@snippet lang=c :
+     * #define PC_RECTANGLE 2
      * }
      */
-    public static MemorySegment szOID_OIWDIR() {
-        return constants$4604.const$1;
+    public static int PC_RECTANGLE() {
+        return PC_RECTANGLE;
     }
+    private static final int PC_WINDPOLYGON = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_OIWDIR_CRPT "1.3.14.7.2.1"
+     * {@snippet lang=c :
+     * #define PC_WINDPOLYGON 4
      * }
      */
-    public static MemorySegment szOID_OIWDIR_CRPT() {
-        return constants$4604.const$2;
+    public static int PC_WINDPOLYGON() {
+        return PC_WINDPOLYGON;
     }
+    private static final int PC_TRAPEZOID = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_OIWDIR_HASH "1.3.14.7.2.2"
+     * {@snippet lang=c :
+     * #define PC_TRAPEZOID 4
      * }
      */
-    public static MemorySegment szOID_OIWDIR_HASH() {
-        return constants$4604.const$3;
+    public static int PC_TRAPEZOID() {
+        return PC_TRAPEZOID;
     }
+    private static final int PC_SCANLINE = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_OIWDIR_SIGN "1.3.14.7.2.3"
+     * {@snippet lang=c :
+     * #define PC_SCANLINE 8
      * }
      */
-    public static MemorySegment szOID_OIWDIR_SIGN() {
-        return constants$4604.const$4;
+    public static int PC_SCANLINE() {
+        return PC_SCANLINE;
     }
+    private static final int PC_WIDE = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_OIWDIR_md2 "1.3.14.7.2.2.1"
+     * {@snippet lang=c :
+     * #define PC_WIDE 16
      * }
      */
-    public static MemorySegment szOID_OIWDIR_md2() {
-        return constants$4604.const$5;
+    public static int PC_WIDE() {
+        return PC_WIDE;
     }
+    private static final int PC_STYLED = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_OIWDIR_md2RSA "1.3.14.7.2.3.1"
+     * {@snippet lang=c :
+     * #define PC_STYLED 32
      * }
      */
-    public static MemorySegment szOID_OIWDIR_md2RSA() {
-        return constants$4605.const$0;
+    public static int PC_STYLED() {
+        return PC_STYLED;
     }
+    private static final int PC_WIDESTYLED = (int)64L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC "2.16.840.1.101.2.1"
+     * {@snippet lang=c :
+     * #define PC_WIDESTYLED 64
      * }
      */
-    public static MemorySegment szOID_INFOSEC() {
-        return constants$4605.const$1;
+    public static int PC_WIDESTYLED() {
+        return PC_WIDESTYLED;
     }
+    private static final int PC_INTERIORS = (int)128L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_sdnsSignature "2.16.840.1.101.2.1.1.1"
+     * {@snippet lang=c :
+     * #define PC_INTERIORS 128
      * }
      */
-    public static MemorySegment szOID_INFOSEC_sdnsSignature() {
-        return constants$4605.const$2;
+    public static int PC_INTERIORS() {
+        return PC_INTERIORS;
     }
+    private static final int PC_POLYPOLYGON = (int)256L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_mosaicSignature "2.16.840.1.101.2.1.1.2"
+     * {@snippet lang=c :
+     * #define PC_POLYPOLYGON 256
      * }
      */
-    public static MemorySegment szOID_INFOSEC_mosaicSignature() {
-        return constants$4605.const$3;
+    public static int PC_POLYPOLYGON() {
+        return PC_POLYPOLYGON;
     }
+    private static final int PC_PATHS = (int)512L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_sdnsConfidentiality "2.16.840.1.101.2.1.1.3"
+     * {@snippet lang=c :
+     * #define PC_PATHS 512
      * }
      */
-    public static MemorySegment szOID_INFOSEC_sdnsConfidentiality() {
-        return constants$4605.const$4;
+    public static int PC_PATHS() {
+        return PC_PATHS;
     }
+    private static final int CP_NONE = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_mosaicConfidentiality "2.16.840.1.101.2.1.1.4"
+     * {@snippet lang=c :
+     * #define CP_NONE 0
      * }
      */
-    public static MemorySegment szOID_INFOSEC_mosaicConfidentiality() {
-        return constants$4605.const$5;
+    public static int CP_NONE() {
+        return CP_NONE;
     }
+    private static final int CP_RECTANGLE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_sdnsIntegrity "2.16.840.1.101.2.1.1.5"
+     * {@snippet lang=c :
+     * #define CP_RECTANGLE 1
      * }
      */
-    public static MemorySegment szOID_INFOSEC_sdnsIntegrity() {
-        return constants$4606.const$0;
+    public static int CP_RECTANGLE() {
+        return CP_RECTANGLE;
     }
+    private static final int CP_REGION = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_mosaicIntegrity "2.16.840.1.101.2.1.1.6"
+     * {@snippet lang=c :
+     * #define CP_REGION 2
      * }
      */
-    public static MemorySegment szOID_INFOSEC_mosaicIntegrity() {
-        return constants$4606.const$1;
+    public static int CP_REGION() {
+        return CP_REGION;
     }
+    private static final int TC_OP_CHARACTER = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_sdnsTokenProtection "2.16.840.1.101.2.1.1.7"
+     * {@snippet lang=c :
+     * #define TC_OP_CHARACTER 1
      * }
      */
-    public static MemorySegment szOID_INFOSEC_sdnsTokenProtection() {
-        return constants$4606.const$2;
+    public static int TC_OP_CHARACTER() {
+        return TC_OP_CHARACTER;
     }
+    private static final int TC_OP_STROKE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_mosaicTokenProtection "2.16.840.1.101.2.1.1.8"
+     * {@snippet lang=c :
+     * #define TC_OP_STROKE 2
      * }
      */
-    public static MemorySegment szOID_INFOSEC_mosaicTokenProtection() {
-        return constants$4606.const$3;
+    public static int TC_OP_STROKE() {
+        return TC_OP_STROKE;
     }
+    private static final int TC_CP_STROKE = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_sdnsKeyManagement "2.16.840.1.101.2.1.1.9"
+     * {@snippet lang=c :
+     * #define TC_CP_STROKE 4
      * }
      */
-    public static MemorySegment szOID_INFOSEC_sdnsKeyManagement() {
-        return constants$4606.const$4;
+    public static int TC_CP_STROKE() {
+        return TC_CP_STROKE;
     }
+    private static final int TC_CR_90 = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_mosaicKeyManagement "2.16.840.1.101.2.1.1.10"
+     * {@snippet lang=c :
+     * #define TC_CR_90 8
      * }
      */
-    public static MemorySegment szOID_INFOSEC_mosaicKeyManagement() {
-        return constants$4606.const$5;
+    public static int TC_CR_90() {
+        return TC_CR_90;
     }
+    private static final int TC_CR_ANY = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_sdnsKMandSig "2.16.840.1.101.2.1.1.11"
+     * {@snippet lang=c :
+     * #define TC_CR_ANY 16
      * }
      */
-    public static MemorySegment szOID_INFOSEC_sdnsKMandSig() {
-        return constants$4607.const$0;
+    public static int TC_CR_ANY() {
+        return TC_CR_ANY;
     }
+    private static final int TC_SF_X_YINDEP = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_mosaicKMandSig "2.16.840.1.101.2.1.1.12"
+     * {@snippet lang=c :
+     * #define TC_SF_X_YINDEP 32
      * }
      */
-    public static MemorySegment szOID_INFOSEC_mosaicKMandSig() {
-        return constants$4607.const$1;
+    public static int TC_SF_X_YINDEP() {
+        return TC_SF_X_YINDEP;
     }
+    private static final int TC_SA_DOUBLE = (int)64L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_SuiteASignature "2.16.840.1.101.2.1.1.13"
+     * {@snippet lang=c :
+     * #define TC_SA_DOUBLE 64
      * }
      */
-    public static MemorySegment szOID_INFOSEC_SuiteASignature() {
-        return constants$4607.const$2;
+    public static int TC_SA_DOUBLE() {
+        return TC_SA_DOUBLE;
     }
+    private static final int TC_SA_INTEGER = (int)128L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_SuiteAConfidentiality "2.16.840.1.101.2.1.1.14"
+     * {@snippet lang=c :
+     * #define TC_SA_INTEGER 128
      * }
      */
-    public static MemorySegment szOID_INFOSEC_SuiteAConfidentiality() {
-        return constants$4607.const$3;
+    public static int TC_SA_INTEGER() {
+        return TC_SA_INTEGER;
     }
+    private static final int TC_SA_CONTIN = (int)256L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_SuiteAIntegrity "2.16.840.1.101.2.1.1.15"
+     * {@snippet lang=c :
+     * #define TC_SA_CONTIN 256
      * }
      */
-    public static MemorySegment szOID_INFOSEC_SuiteAIntegrity() {
-        return constants$4607.const$4;
+    public static int TC_SA_CONTIN() {
+        return TC_SA_CONTIN;
     }
+    private static final int TC_EA_DOUBLE = (int)512L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_SuiteATokenProtection "2.16.840.1.101.2.1.1.16"
+     * {@snippet lang=c :
+     * #define TC_EA_DOUBLE 512
      * }
      */
-    public static MemorySegment szOID_INFOSEC_SuiteATokenProtection() {
-        return constants$4607.const$5;
+    public static int TC_EA_DOUBLE() {
+        return TC_EA_DOUBLE;
     }
+    private static final int TC_IA_ABLE = (int)1024L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_SuiteAKeyManagement "2.16.840.1.101.2.1.1.17"
+     * {@snippet lang=c :
+     * #define TC_IA_ABLE 1024
      * }
      */
-    public static MemorySegment szOID_INFOSEC_SuiteAKeyManagement() {
-        return constants$4608.const$0;
+    public static int TC_IA_ABLE() {
+        return TC_IA_ABLE;
     }
+    private static final int TC_UA_ABLE = (int)2048L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_SuiteAKMandSig "2.16.840.1.101.2.1.1.18"
+     * {@snippet lang=c :
+     * #define TC_UA_ABLE 2048
      * }
      */
-    public static MemorySegment szOID_INFOSEC_SuiteAKMandSig() {
-        return constants$4608.const$1;
+    public static int TC_UA_ABLE() {
+        return TC_UA_ABLE;
     }
+    private static final int TC_SO_ABLE = (int)4096L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_mosaicUpdatedSig "2.16.840.1.101.2.1.1.19"
+     * {@snippet lang=c :
+     * #define TC_SO_ABLE 4096
      * }
      */
-    public static MemorySegment szOID_INFOSEC_mosaicUpdatedSig() {
-        return constants$4608.const$2;
+    public static int TC_SO_ABLE() {
+        return TC_SO_ABLE;
     }
+    private static final int TC_RA_ABLE = (int)8192L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_mosaicKMandUpdSig "2.16.840.1.101.2.1.1.20"
+     * {@snippet lang=c :
+     * #define TC_RA_ABLE 8192
      * }
      */
-    public static MemorySegment szOID_INFOSEC_mosaicKMandUpdSig() {
-        return constants$4608.const$3;
+    public static int TC_RA_ABLE() {
+        return TC_RA_ABLE;
     }
+    private static final int TC_VA_ABLE = (int)16384L;
     /**
-     * {@snippet :
-     * #define szOID_INFOSEC_mosaicUpdatedInteg "2.16.840.1.101.2.1.1.21"
+     * {@snippet lang=c :
+     * #define TC_VA_ABLE 16384
      * }
      */
-    public static MemorySegment szOID_INFOSEC_mosaicUpdatedInteg() {
-        return constants$4608.const$4;
+    public static int TC_VA_ABLE() {
+        return TC_VA_ABLE;
     }
+    private static final int TC_RESERVED = (int)32768L;
     /**
-     * {@snippet :
-     * #define szOID_NIST_sha256 "2.16.840.1.101.3.4.2.1"
+     * {@snippet lang=c :
+     * #define TC_RESERVED 32768
      * }
      */
-    public static MemorySegment szOID_NIST_sha256() {
-        return constants$4608.const$5;
+    public static int TC_RESERVED() {
+        return TC_RESERVED;
     }
+    private static final int TC_SCROLLBLT = (int)65536L;
     /**
-     * {@snippet :
-     * #define szOID_NIST_sha384 "2.16.840.1.101.3.4.2.2"
+     * {@snippet lang=c :
+     * #define TC_SCROLLBLT 65536
      * }
      */
-    public static MemorySegment szOID_NIST_sha384() {
-        return constants$4609.const$0;
+    public static int TC_SCROLLBLT() {
+        return TC_SCROLLBLT;
     }
+    private static final int RC_BITBLT = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_NIST_sha512 "2.16.840.1.101.3.4.2.3"
+     * {@snippet lang=c :
+     * #define RC_BITBLT 1
      * }
      */
-    public static MemorySegment szOID_NIST_sha512() {
-        return constants$4609.const$1;
+    public static int RC_BITBLT() {
+        return RC_BITBLT;
     }
+    private static final int RC_BANDING = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_COMMON_NAME "2.5.4.3"
+     * {@snippet lang=c :
+     * #define RC_BANDING 2
      * }
      */
-    public static MemorySegment szOID_COMMON_NAME() {
-        return constants$4609.const$2;
+    public static int RC_BANDING() {
+        return RC_BANDING;
     }
+    private static final int RC_SCALING = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_SUR_NAME "2.5.4.4"
+     * {@snippet lang=c :
+     * #define RC_SCALING 4
      * }
      */
-    public static MemorySegment szOID_SUR_NAME() {
-        return constants$4609.const$3;
+    public static int RC_SCALING() {
+        return RC_SCALING;
     }
+    private static final int RC_BITMAP64 = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_DEVICE_SERIAL_NUMBER "2.5.4.5"
+     * {@snippet lang=c :
+     * #define RC_BITMAP64 8
      * }
      */
-    public static MemorySegment szOID_DEVICE_SERIAL_NUMBER() {
-        return constants$4609.const$4;
+    public static int RC_BITMAP64() {
+        return RC_BITMAP64;
     }
+    private static final int RC_GDI20_OUTPUT = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_COUNTRY_NAME "2.5.4.6"
+     * {@snippet lang=c :
+     * #define RC_GDI20_OUTPUT 16
      * }
      */
-    public static MemorySegment szOID_COUNTRY_NAME() {
-        return constants$4609.const$5;
+    public static int RC_GDI20_OUTPUT() {
+        return RC_GDI20_OUTPUT;
     }
+    private static final int RC_GDI20_STATE = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_LOCALITY_NAME "2.5.4.7"
+     * {@snippet lang=c :
+     * #define RC_GDI20_STATE 32
      * }
      */
-    public static MemorySegment szOID_LOCALITY_NAME() {
-        return constants$4610.const$0;
+    public static int RC_GDI20_STATE() {
+        return RC_GDI20_STATE;
     }
+    private static final int RC_SAVEBITMAP = (int)64L;
     /**
-     * {@snippet :
-     * #define szOID_STATE_OR_PROVINCE_NAME "2.5.4.8"
+     * {@snippet lang=c :
+     * #define RC_SAVEBITMAP 64
      * }
      */
-    public static MemorySegment szOID_STATE_OR_PROVINCE_NAME() {
-        return constants$4610.const$1;
+    public static int RC_SAVEBITMAP() {
+        return RC_SAVEBITMAP;
     }
+    private static final int RC_DI_BITMAP = (int)128L;
     /**
-     * {@snippet :
-     * #define szOID_STREET_ADDRESS "2.5.4.9"
+     * {@snippet lang=c :
+     * #define RC_DI_BITMAP 128
      * }
      */
-    public static MemorySegment szOID_STREET_ADDRESS() {
-        return constants$4610.const$2;
+    public static int RC_DI_BITMAP() {
+        return RC_DI_BITMAP;
     }
+    private static final int RC_PALETTE = (int)256L;
     /**
-     * {@snippet :
-     * #define szOID_ORGANIZATION_NAME "2.5.4.10"
+     * {@snippet lang=c :
+     * #define RC_PALETTE 256
      * }
      */
-    public static MemorySegment szOID_ORGANIZATION_NAME() {
-        return constants$4610.const$3;
+    public static int RC_PALETTE() {
+        return RC_PALETTE;
     }
+    private static final int RC_DIBTODEV = (int)512L;
     /**
-     * {@snippet :
-     * #define szOID_ORGANIZATIONAL_UNIT_NAME "2.5.4.11"
+     * {@snippet lang=c :
+     * #define RC_DIBTODEV 512
      * }
      */
-    public static MemorySegment szOID_ORGANIZATIONAL_UNIT_NAME() {
-        return constants$4610.const$4;
+    public static int RC_DIBTODEV() {
+        return RC_DIBTODEV;
     }
+    private static final int RC_BIGFONT = (int)1024L;
     /**
-     * {@snippet :
-     * #define szOID_TITLE "2.5.4.12"
+     * {@snippet lang=c :
+     * #define RC_BIGFONT 1024
      * }
      */
-    public static MemorySegment szOID_TITLE() {
-        return constants$4610.const$5;
+    public static int RC_BIGFONT() {
+        return RC_BIGFONT;
     }
+    private static final int RC_STRETCHBLT = (int)2048L;
     /**
-     * {@snippet :
-     * #define szOID_DESCRIPTION "2.5.4.13"
+     * {@snippet lang=c :
+     * #define RC_STRETCHBLT 2048
      * }
      */
-    public static MemorySegment szOID_DESCRIPTION() {
-        return constants$4611.const$0;
+    public static int RC_STRETCHBLT() {
+        return RC_STRETCHBLT;
     }
+    private static final int RC_FLOODFILL = (int)4096L;
     /**
-     * {@snippet :
-     * #define szOID_SEARCH_GUIDE "2.5.4.14"
+     * {@snippet lang=c :
+     * #define RC_FLOODFILL 4096
      * }
      */
-    public static MemorySegment szOID_SEARCH_GUIDE() {
-        return constants$4611.const$1;
+    public static int RC_FLOODFILL() {
+        return RC_FLOODFILL;
     }
+    private static final int RC_STRETCHDIB = (int)8192L;
     /**
-     * {@snippet :
-     * #define szOID_BUSINESS_CATEGORY "2.5.4.15"
+     * {@snippet lang=c :
+     * #define RC_STRETCHDIB 8192
      * }
      */
-    public static MemorySegment szOID_BUSINESS_CATEGORY() {
-        return constants$4611.const$2;
+    public static int RC_STRETCHDIB() {
+        return RC_STRETCHDIB;
     }
+    private static final int RC_OP_DX_OUTPUT = (int)16384L;
     /**
-     * {@snippet :
-     * #define szOID_POSTAL_ADDRESS "2.5.4.16"
+     * {@snippet lang=c :
+     * #define RC_OP_DX_OUTPUT 16384
      * }
      */
-    public static MemorySegment szOID_POSTAL_ADDRESS() {
-        return constants$4611.const$3;
+    public static int RC_OP_DX_OUTPUT() {
+        return RC_OP_DX_OUTPUT;
     }
+    private static final int RC_DEVBITS = (int)32768L;
     /**
-     * {@snippet :
-     * #define szOID_POSTAL_CODE "2.5.4.17"
+     * {@snippet lang=c :
+     * #define RC_DEVBITS 32768
      * }
      */
-    public static MemorySegment szOID_POSTAL_CODE() {
-        return constants$4611.const$4;
+    public static int RC_DEVBITS() {
+        return RC_DEVBITS;
     }
+    private static final int SB_NONE = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_POST_OFFICE_BOX "2.5.4.18"
+     * {@snippet lang=c :
+     * #define SB_NONE 0
      * }
      */
-    public static MemorySegment szOID_POST_OFFICE_BOX() {
-        return constants$4611.const$5;
+    public static int SB_NONE() {
+        return SB_NONE;
     }
+    private static final int SB_CONST_ALPHA = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_PHYSICAL_DELIVERY_OFFICE_NAME "2.5.4.19"
+     * {@snippet lang=c :
+     * #define SB_CONST_ALPHA 1
      * }
      */
-    public static MemorySegment szOID_PHYSICAL_DELIVERY_OFFICE_NAME() {
-        return constants$4612.const$0;
+    public static int SB_CONST_ALPHA() {
+        return SB_CONST_ALPHA;
     }
+    private static final int SB_PIXEL_ALPHA = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_TELEPHONE_NUMBER "2.5.4.20"
+     * {@snippet lang=c :
+     * #define SB_PIXEL_ALPHA 2
      * }
      */
-    public static MemorySegment szOID_TELEPHONE_NUMBER() {
-        return constants$4612.const$1;
+    public static int SB_PIXEL_ALPHA() {
+        return SB_PIXEL_ALPHA;
     }
+    private static final int SB_PREMULT_ALPHA = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_TELEX_NUMBER "2.5.4.21"
+     * {@snippet lang=c :
+     * #define SB_PREMULT_ALPHA 4
      * }
      */
-    public static MemorySegment szOID_TELEX_NUMBER() {
-        return constants$4612.const$2;
+    public static int SB_PREMULT_ALPHA() {
+        return SB_PREMULT_ALPHA;
     }
+    private static final int SB_GRAD_RECT = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_TELETEXT_TERMINAL_IDENTIFIER "2.5.4.22"
+     * {@snippet lang=c :
+     * #define SB_GRAD_RECT 16
      * }
      */
-    public static MemorySegment szOID_TELETEXT_TERMINAL_IDENTIFIER() {
-        return constants$4612.const$3;
+    public static int SB_GRAD_RECT() {
+        return SB_GRAD_RECT;
     }
+    private static final int SB_GRAD_TRI = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_FACSIMILE_TELEPHONE_NUMBER "2.5.4.23"
+     * {@snippet lang=c :
+     * #define SB_GRAD_TRI 32
      * }
      */
-    public static MemorySegment szOID_FACSIMILE_TELEPHONE_NUMBER() {
-        return constants$4612.const$4;
+    public static int SB_GRAD_TRI() {
+        return SB_GRAD_TRI;
     }
+    private static final int CM_NONE = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_X21_ADDRESS "2.5.4.24"
+     * {@snippet lang=c :
+     * #define CM_NONE 0
      * }
      */
-    public static MemorySegment szOID_X21_ADDRESS() {
-        return constants$4612.const$5;
+    public static int CM_NONE() {
+        return CM_NONE;
     }
+    private static final int CM_DEVICE_ICM = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_INTERNATIONAL_ISDN_NUMBER "2.5.4.25"
+     * {@snippet lang=c :
+     * #define CM_DEVICE_ICM 1
      * }
      */
-    public static MemorySegment szOID_INTERNATIONAL_ISDN_NUMBER() {
-        return constants$4613.const$0;
+    public static int CM_DEVICE_ICM() {
+        return CM_DEVICE_ICM;
     }
+    private static final int CM_GAMMA_RAMP = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_REGISTERED_ADDRESS "2.5.4.26"
+     * {@snippet lang=c :
+     * #define CM_GAMMA_RAMP 2
      * }
      */
-    public static MemorySegment szOID_REGISTERED_ADDRESS() {
-        return constants$4613.const$1;
+    public static int CM_GAMMA_RAMP() {
+        return CM_GAMMA_RAMP;
     }
+    private static final int CM_CMYK_COLOR = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_DESTINATION_INDICATOR "2.5.4.27"
+     * {@snippet lang=c :
+     * #define CM_CMYK_COLOR 4
      * }
      */
-    public static MemorySegment szOID_DESTINATION_INDICATOR() {
-        return constants$4613.const$2;
+    public static int CM_CMYK_COLOR() {
+        return CM_CMYK_COLOR;
     }
+    private static final int DIB_RGB_COLORS = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_PREFERRED_DELIVERY_METHOD "2.5.4.28"
+     * {@snippet lang=c :
+     * #define DIB_RGB_COLORS 0
      * }
      */
-    public static MemorySegment szOID_PREFERRED_DELIVERY_METHOD() {
-        return constants$4613.const$3;
+    public static int DIB_RGB_COLORS() {
+        return DIB_RGB_COLORS;
     }
+    private static final int DIB_PAL_COLORS = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_PRESENTATION_ADDRESS "2.5.4.29"
+     * {@snippet lang=c :
+     * #define DIB_PAL_COLORS 1
      * }
      */
-    public static MemorySegment szOID_PRESENTATION_ADDRESS() {
-        return constants$4613.const$4;
+    public static int DIB_PAL_COLORS() {
+        return DIB_PAL_COLORS;
     }
+    private static final int SYSPAL_ERROR = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_SUPPORTED_APPLICATION_CONTEXT "2.5.4.30"
+     * {@snippet lang=c :
+     * #define SYSPAL_ERROR 0
      * }
      */
-    public static MemorySegment szOID_SUPPORTED_APPLICATION_CONTEXT() {
-        return constants$4613.const$5;
+    public static int SYSPAL_ERROR() {
+        return SYSPAL_ERROR;
     }
+    private static final int SYSPAL_STATIC = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_MEMBER "2.5.4.31"
+     * {@snippet lang=c :
+     * #define SYSPAL_STATIC 1
      * }
      */
-    public static MemorySegment szOID_MEMBER() {
-        return constants$4614.const$0;
+    public static int SYSPAL_STATIC() {
+        return SYSPAL_STATIC;
     }
+    private static final int SYSPAL_NOSTATIC = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_OWNER "2.5.4.32"
+     * {@snippet lang=c :
+     * #define SYSPAL_NOSTATIC 2
      * }
      */
-    public static MemorySegment szOID_OWNER() {
-        return constants$4614.const$1;
+    public static int SYSPAL_NOSTATIC() {
+        return SYSPAL_NOSTATIC;
     }
+    private static final int SYSPAL_NOSTATIC256 = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_ROLE_OCCUPANT "2.5.4.33"
+     * {@snippet lang=c :
+     * #define SYSPAL_NOSTATIC256 3
      * }
      */
-    public static MemorySegment szOID_ROLE_OCCUPANT() {
-        return constants$4614.const$2;
+    public static int SYSPAL_NOSTATIC256() {
+        return SYSPAL_NOSTATIC256;
     }
+    private static final int FLOODFILLBORDER = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_SEE_ALSO "2.5.4.34"
+     * {@snippet lang=c :
+     * #define FLOODFILLBORDER 0
      * }
      */
-    public static MemorySegment szOID_SEE_ALSO() {
-        return constants$4614.const$3;
+    public static int FLOODFILLBORDER() {
+        return FLOODFILLBORDER;
     }
+    private static final int FLOODFILLSURFACE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_USER_PASSWORD "2.5.4.35"
+     * {@snippet lang=c :
+     * #define FLOODFILLSURFACE 1
      * }
      */
-    public static MemorySegment szOID_USER_PASSWORD() {
-        return constants$4614.const$4;
+    public static int FLOODFILLSURFACE() {
+        return FLOODFILLSURFACE;
     }
+    private static final int CCHDEVICENAME = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_USER_CERTIFICATE "2.5.4.36"
+     * {@snippet lang=c :
+     * #define CCHDEVICENAME 32
      * }
      */
-    public static MemorySegment szOID_USER_CERTIFICATE() {
-        return constants$4614.const$5;
+    public static int CCHDEVICENAME() {
+        return CCHDEVICENAME;
     }
+    private static final int CCHFORMNAME = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_CA_CERTIFICATE "2.5.4.37"
+     * {@snippet lang=c :
+     * #define CCHFORMNAME 32
      * }
      */
-    public static MemorySegment szOID_CA_CERTIFICATE() {
-        return constants$4615.const$0;
+    public static int CCHFORMNAME() {
+        return CCHFORMNAME;
     }
+    private static final int DM_SPECVERSION = (int)1025L;
     /**
-     * {@snippet :
-     * #define szOID_AUTHORITY_REVOCATION_LIST "2.5.4.38"
+     * {@snippet lang=c :
+     * #define DM_SPECVERSION 1025
      * }
      */
-    public static MemorySegment szOID_AUTHORITY_REVOCATION_LIST() {
-        return constants$4615.const$1;
+    public static int DM_SPECVERSION() {
+        return DM_SPECVERSION;
     }
+    private static final int DMORIENT_PORTRAIT = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_CERTIFICATE_REVOCATION_LIST "2.5.4.39"
+     * {@snippet lang=c :
+     * #define DMORIENT_PORTRAIT 1
      * }
      */
-    public static MemorySegment szOID_CERTIFICATE_REVOCATION_LIST() {
-        return constants$4615.const$2;
+    public static int DMORIENT_PORTRAIT() {
+        return DMORIENT_PORTRAIT;
     }
+    private static final int DMORIENT_LANDSCAPE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_CROSS_CERTIFICATE_PAIR "2.5.4.40"
+     * {@snippet lang=c :
+     * #define DMORIENT_LANDSCAPE 2
      * }
      */
-    public static MemorySegment szOID_CROSS_CERTIFICATE_PAIR() {
-        return constants$4615.const$3;
+    public static int DMORIENT_LANDSCAPE() {
+        return DMORIENT_LANDSCAPE;
     }
+    private static final int DMPAPER_LETTER = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_GIVEN_NAME "2.5.4.42"
+     * {@snippet lang=c :
+     * #define DMPAPER_LETTER 1
      * }
      */
-    public static MemorySegment szOID_GIVEN_NAME() {
-        return constants$4615.const$4;
+    public static int DMPAPER_LETTER() {
+        return DMPAPER_LETTER;
     }
+    private static final int DMPAPER_LETTERSMALL = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_INITIALS "2.5.4.43"
+     * {@snippet lang=c :
+     * #define DMPAPER_LETTERSMALL 2
      * }
      */
-    public static MemorySegment szOID_INITIALS() {
-        return constants$4615.const$5;
+    public static int DMPAPER_LETTERSMALL() {
+        return DMPAPER_LETTERSMALL;
     }
+    private static final int DMPAPER_TABLOID = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_DN_QUALIFIER "2.5.4.46"
+     * {@snippet lang=c :
+     * #define DMPAPER_TABLOID 3
      * }
      */
-    public static MemorySegment szOID_DN_QUALIFIER() {
-        return constants$4616.const$0;
+    public static int DMPAPER_TABLOID() {
+        return DMPAPER_TABLOID;
     }
+    private static final int DMPAPER_LEDGER = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_DOMAIN_COMPONENT "0.9.2342.19200300.100.1.25"
+     * {@snippet lang=c :
+     * #define DMPAPER_LEDGER 4
      * }
      */
-    public static MemorySegment szOID_DOMAIN_COMPONENT() {
-        return constants$4616.const$1;
+    public static int DMPAPER_LEDGER() {
+        return DMPAPER_LEDGER;
     }
+    private static final int DMPAPER_LEGAL = (int)5L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_12_FRIENDLY_NAME_ATTR "1.2.840.113549.1.9.20"
+     * {@snippet lang=c :
+     * #define DMPAPER_LEGAL 5
      * }
      */
-    public static MemorySegment szOID_PKCS_12_FRIENDLY_NAME_ATTR() {
-        return constants$4616.const$2;
+    public static int DMPAPER_LEGAL() {
+        return DMPAPER_LEGAL;
     }
+    private static final int DMPAPER_STATEMENT = (int)6L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_12_LOCAL_KEY_ID "1.2.840.113549.1.9.21"
+     * {@snippet lang=c :
+     * #define DMPAPER_STATEMENT 6
      * }
      */
-    public static MemorySegment szOID_PKCS_12_LOCAL_KEY_ID() {
-        return constants$4616.const$3;
+    public static int DMPAPER_STATEMENT() {
+        return DMPAPER_STATEMENT;
     }
+    private static final int DMPAPER_EXECUTIVE = (int)7L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_12_KEY_PROVIDER_NAME_ATTR "1.3.6.1.4.1.311.17.1"
+     * {@snippet lang=c :
+     * #define DMPAPER_EXECUTIVE 7
      * }
      */
-    public static MemorySegment szOID_PKCS_12_KEY_PROVIDER_NAME_ATTR() {
-        return constants$4616.const$4;
+    public static int DMPAPER_EXECUTIVE() {
+        return DMPAPER_EXECUTIVE;
     }
+    private static final int DMPAPER_A3 = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_LOCAL_MACHINE_KEYSET "1.3.6.1.4.1.311.17.2"
+     * {@snippet lang=c :
+     * #define DMPAPER_A3 8
      * }
      */
-    public static MemorySegment szOID_LOCAL_MACHINE_KEYSET() {
-        return constants$4616.const$5;
+    public static int DMPAPER_A3() {
+        return DMPAPER_A3;
     }
+    private static final int DMPAPER_A4 = (int)9L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_12_EXTENDED_ATTRIBUTES "1.3.6.1.4.1.311.17.3"
+     * {@snippet lang=c :
+     * #define DMPAPER_A4 9
      * }
      */
-    public static MemorySegment szOID_PKCS_12_EXTENDED_ATTRIBUTES() {
-        return constants$4617.const$0;
+    public static int DMPAPER_A4() {
+        return DMPAPER_A4;
     }
+    private static final int DMPAPER_A4SMALL = (int)10L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_12_PROTECTED_PASSWORD_SECRET_BAG_TYPE_ID "1.3.6.1.4.1.311.17.4"
+     * {@snippet lang=c :
+     * #define DMPAPER_A4SMALL 10
      * }
      */
-    public static MemorySegment szOID_PKCS_12_PROTECTED_PASSWORD_SECRET_BAG_TYPE_ID() {
-        return constants$4617.const$1;
+    public static int DMPAPER_A4SMALL() {
+        return DMPAPER_A4SMALL;
     }
+    private static final int DMPAPER_A5 = (int)11L;
     /**
-     * {@snippet :
-     * #define szOID_KEYID_RDN "1.3.6.1.4.1.311.10.7.1"
+     * {@snippet lang=c :
+     * #define DMPAPER_A5 11
      * }
      */
-    public static MemorySegment szOID_KEYID_RDN() {
-        return constants$4617.const$2;
+    public static int DMPAPER_A5() {
+        return DMPAPER_A5;
     }
+    private static final int DMPAPER_B4 = (int)12L;
     /**
-     * {@snippet :
-     * #define szOID_EV_RDN_LOCALE "1.3.6.1.4.1.311.60.2.1.1"
+     * {@snippet lang=c :
+     * #define DMPAPER_B4 12
      * }
      */
-    public static MemorySegment szOID_EV_RDN_LOCALE() {
-        return constants$4617.const$3;
+    public static int DMPAPER_B4() {
+        return DMPAPER_B4;
     }
+    private static final int DMPAPER_B5 = (int)13L;
     /**
-     * {@snippet :
-     * #define szOID_EV_RDN_STATE_OR_PROVINCE "1.3.6.1.4.1.311.60.2.1.2"
+     * {@snippet lang=c :
+     * #define DMPAPER_B5 13
      * }
      */
-    public static MemorySegment szOID_EV_RDN_STATE_OR_PROVINCE() {
-        return constants$4617.const$4;
+    public static int DMPAPER_B5() {
+        return DMPAPER_B5;
     }
+    private static final int DMPAPER_FOLIO = (int)14L;
     /**
-     * {@snippet :
-     * #define szOID_EV_RDN_COUNTRY "1.3.6.1.4.1.311.60.2.1.3"
+     * {@snippet lang=c :
+     * #define DMPAPER_FOLIO 14
      * }
      */
-    public static MemorySegment szOID_EV_RDN_COUNTRY() {
-        return constants$4617.const$5;
+    public static int DMPAPER_FOLIO() {
+        return DMPAPER_FOLIO;
     }
+    private static final int DMPAPER_QUARTO = (int)15L;
     /**
-     * {@snippet :
-     * #define CERT_RDN_FLAGS_MASK 4278190080
+     * {@snippet lang=c :
+     * #define DMPAPER_QUARTO 15
      * }
      */
-    public static int CERT_RDN_FLAGS_MASK() {
-        return (int)4278190080L;
+    public static int DMPAPER_QUARTO() {
+        return DMPAPER_QUARTO;
     }
+    private static final int DMPAPER_10X14 = (int)16L;
     /**
-     * {@snippet :
-     * #define CERT_RDN_ENABLE_T61_UNICODE_FLAG 2147483648
+     * {@snippet lang=c :
+     * #define DMPAPER_10X14 16
      * }
      */
-    public static int CERT_RDN_ENABLE_T61_UNICODE_FLAG() {
-        return (int)2147483648L;
+    public static int DMPAPER_10X14() {
+        return DMPAPER_10X14;
     }
+    private static final int DMPAPER_11X17 = (int)17L;
     /**
-     * {@snippet :
-     * #define CERT_RSA_PUBLIC_KEY_OBJID "1.2.840.113549.1.1.1"
+     * {@snippet lang=c :
+     * #define DMPAPER_11X17 17
      * }
      */
-    public static MemorySegment CERT_RSA_PUBLIC_KEY_OBJID() {
-        return constants$4582.const$0;
+    public static int DMPAPER_11X17() {
+        return DMPAPER_11X17;
     }
+    private static final int DMPAPER_NOTE = (int)18L;
     /**
-     * {@snippet :
-     * #define CERT_DEFAULT_OID_PUBLIC_KEY_SIGN "1.2.840.113549.1.1.1"
+     * {@snippet lang=c :
+     * #define DMPAPER_NOTE 18
      * }
      */
-    public static MemorySegment CERT_DEFAULT_OID_PUBLIC_KEY_SIGN() {
-        return constants$4582.const$0;
+    public static int DMPAPER_NOTE() {
+        return DMPAPER_NOTE;
     }
+    private static final int DMPAPER_ENV_9 = (int)19L;
     /**
-     * {@snippet :
-     * #define CERT_DEFAULT_OID_PUBLIC_KEY_XCHG "1.2.840.113549.1.1.1"
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_9 19
      * }
      */
-    public static MemorySegment CERT_DEFAULT_OID_PUBLIC_KEY_XCHG() {
-        return constants$4582.const$0;
+    public static int DMPAPER_ENV_9() {
+        return DMPAPER_ENV_9;
     }
+    private static final int DMPAPER_ENV_10 = (int)20L;
     /**
-     * {@snippet :
-     * #define CMSG_ENCODING_TYPE_MASK 4294901760
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_10 20
      * }
      */
-    public static int CMSG_ENCODING_TYPE_MASK() {
-        return (int)4294901760L;
+    public static int DMPAPER_ENV_10() {
+        return DMPAPER_ENV_10;
     }
+    private static final int DMPAPER_ENV_11 = (int)21L;
     /**
-     * {@snippet :
-     * #define CRYPT_FORMAT_SEMICOLON 256
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_11 21
      * }
      */
-    public static int CRYPT_FORMAT_SEMICOLON() {
-        return (int)256L;
+    public static int DMPAPER_ENV_11() {
+        return DMPAPER_ENV_11;
     }
+    private static final int DMPAPER_ENV_12 = (int)22L;
     /**
-     * {@snippet :
-     * #define CRYPT_FORMAT_CRLF 512
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_12 22
      * }
      */
-    public static int CRYPT_FORMAT_CRLF() {
-        return (int)512L;
+    public static int DMPAPER_ENV_12() {
+        return DMPAPER_ENV_12;
     }
+    private static final int DMPAPER_ENV_14 = (int)23L;
     /**
-     * {@snippet :
-     * #define CRYPT_UNICODE_NAME_ENCODE_ENABLE_T61_UNICODE_FLAG 2147483648
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_14 23
      * }
      */
-    public static int CRYPT_UNICODE_NAME_ENCODE_ENABLE_T61_UNICODE_FLAG() {
-        return (int)2147483648L;
+    public static int DMPAPER_ENV_14() {
+        return DMPAPER_ENV_14;
     }
+    private static final int DMPAPER_CSHEET = (int)24L;
     /**
-     * {@snippet :
-     * #define CRYPT_UNICODE_NAME_ENCODE_ENABLE_UTF8_UNICODE_FLAG 536870912
+     * {@snippet lang=c :
+     * #define DMPAPER_CSHEET 24
      * }
      */
-    public static int CRYPT_UNICODE_NAME_ENCODE_ENABLE_UTF8_UNICODE_FLAG() {
-        return (int)536870912L;
+    public static int DMPAPER_CSHEET() {
+        return DMPAPER_CSHEET;
     }
+    private static final int DMPAPER_DSHEET = (int)25L;
     /**
-     * {@snippet :
-     * #define CRYPT_UNICODE_NAME_ENCODE_FORCE_UTF8_UNICODE_FLAG 268435456
+     * {@snippet lang=c :
+     * #define DMPAPER_DSHEET 25
      * }
      */
-    public static int CRYPT_UNICODE_NAME_ENCODE_FORCE_UTF8_UNICODE_FLAG() {
-        return (int)268435456L;
+    public static int DMPAPER_DSHEET() {
+        return DMPAPER_DSHEET;
     }
+    private static final int DMPAPER_ESHEET = (int)26L;
     /**
-     * {@snippet :
-     * #define CRYPT_UNICODE_NAME_ENCODE_DISABLE_CHECK_TYPE_FLAG 1073741824
+     * {@snippet lang=c :
+     * #define DMPAPER_ESHEET 26
      * }
      */
-    public static int CRYPT_UNICODE_NAME_ENCODE_DISABLE_CHECK_TYPE_FLAG() {
-        return (int)1073741824L;
+    public static int DMPAPER_ESHEET() {
+        return DMPAPER_ESHEET;
     }
+    private static final int DMPAPER_ENV_DL = (int)27L;
     /**
-     * {@snippet :
-     * #define CRYPT_ENCODE_ENABLE_IA5CONVERSION_FLAG 393216
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_DL 27
      * }
      */
-    public static int CRYPT_ENCODE_ENABLE_IA5CONVERSION_FLAG() {
-        return (int)393216L;
+    public static int DMPAPER_ENV_DL() {
+        return DMPAPER_ENV_DL;
     }
+    private static final int DMPAPER_ENV_C5 = (int)28L;
     /**
-     * {@snippet :
-     * #define CRYPT_UNICODE_NAME_DECODE_DISABLE_IE4_UTF8_FLAG 16777216
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_C5 28
      * }
      */
-    public static int CRYPT_UNICODE_NAME_DECODE_DISABLE_IE4_UTF8_FLAG() {
-        return (int)16777216L;
+    public static int DMPAPER_ENV_C5() {
+        return DMPAPER_ENV_C5;
     }
+    private static final int DMPAPER_ENV_C3 = (int)29L;
     /**
-     * {@snippet :
-     * #define CRYPT_DECODE_ENABLE_IA5CONVERSION_FLAG 100663296
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_C3 29
      * }
      */
-    public static int CRYPT_DECODE_ENABLE_IA5CONVERSION_FLAG() {
-        return (int)100663296L;
+    public static int DMPAPER_ENV_C3() {
+        return DMPAPER_ENV_C3;
     }
+    private static final int DMPAPER_ENV_C4 = (int)30L;
     /**
-     * {@snippet :
-     * #define X509_CERT 1
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_C4 30
      * }
      */
-    public static MemorySegment X509_CERT() {
-        return constants$4552.const$0;
+    public static int DMPAPER_ENV_C4() {
+        return DMPAPER_ENV_C4;
     }
+    private static final int DMPAPER_ENV_C6 = (int)31L;
     /**
-     * {@snippet :
-     * #define X509_CERT_TO_BE_SIGNED 2
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_C6 31
      * }
      */
-    public static MemorySegment X509_CERT_TO_BE_SIGNED() {
-        return constants$4552.const$1;
+    public static int DMPAPER_ENV_C6() {
+        return DMPAPER_ENV_C6;
     }
+    private static final int DMPAPER_ENV_C65 = (int)32L;
     /**
-     * {@snippet :
-     * #define X509_CERT_CRL_TO_BE_SIGNED 3
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_C65 32
      * }
      */
-    public static MemorySegment X509_CERT_CRL_TO_BE_SIGNED() {
-        return constants$4552.const$2;
+    public static int DMPAPER_ENV_C65() {
+        return DMPAPER_ENV_C65;
     }
+    private static final int DMPAPER_ENV_B4 = (int)33L;
     /**
-     * {@snippet :
-     * #define X509_CERT_REQUEST_TO_BE_SIGNED 4
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_B4 33
      * }
      */
-    public static MemorySegment X509_CERT_REQUEST_TO_BE_SIGNED() {
-        return constants$4552.const$3;
+    public static int DMPAPER_ENV_B4() {
+        return DMPAPER_ENV_B4;
     }
+    private static final int DMPAPER_ENV_B5 = (int)34L;
     /**
-     * {@snippet :
-     * #define X509_EXTENSIONS 5
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_B5 34
      * }
      */
-    public static MemorySegment X509_EXTENSIONS() {
-        return constants$4552.const$4;
+    public static int DMPAPER_ENV_B5() {
+        return DMPAPER_ENV_B5;
     }
+    private static final int DMPAPER_ENV_B6 = (int)35L;
     /**
-     * {@snippet :
-     * #define X509_NAME_VALUE 6
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_B6 35
      * }
      */
-    public static MemorySegment X509_NAME_VALUE() {
-        return constants$4552.const$5;
+    public static int DMPAPER_ENV_B6() {
+        return DMPAPER_ENV_B6;
     }
+    private static final int DMPAPER_ENV_ITALY = (int)36L;
     /**
-     * {@snippet :
-     * #define X509_NAME 7
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_ITALY 36
      * }
      */
-    public static MemorySegment X509_NAME() {
-        return constants$4553.const$0;
+    public static int DMPAPER_ENV_ITALY() {
+        return DMPAPER_ENV_ITALY;
     }
+    private static final int DMPAPER_ENV_MONARCH = (int)37L;
     /**
-     * {@snippet :
-     * #define X509_PUBLIC_KEY_INFO 8
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_MONARCH 37
      * }
      */
-    public static MemorySegment X509_PUBLIC_KEY_INFO() {
-        return constants$4553.const$1;
+    public static int DMPAPER_ENV_MONARCH() {
+        return DMPAPER_ENV_MONARCH;
     }
+    private static final int DMPAPER_ENV_PERSONAL = (int)38L;
     /**
-     * {@snippet :
-     * #define X509_AUTHORITY_KEY_ID 9
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_PERSONAL 38
      * }
      */
-    public static MemorySegment X509_AUTHORITY_KEY_ID() {
-        return constants$4553.const$2;
+    public static int DMPAPER_ENV_PERSONAL() {
+        return DMPAPER_ENV_PERSONAL;
     }
+    private static final int DMPAPER_FANFOLD_US = (int)39L;
     /**
-     * {@snippet :
-     * #define X509_KEY_ATTRIBUTES 10
+     * {@snippet lang=c :
+     * #define DMPAPER_FANFOLD_US 39
      * }
      */
-    public static MemorySegment X509_KEY_ATTRIBUTES() {
-        return constants$4553.const$3;
+    public static int DMPAPER_FANFOLD_US() {
+        return DMPAPER_FANFOLD_US;
     }
+    private static final int DMPAPER_FANFOLD_STD_GERMAN = (int)40L;
     /**
-     * {@snippet :
-     * #define X509_KEY_USAGE_RESTRICTION 11
+     * {@snippet lang=c :
+     * #define DMPAPER_FANFOLD_STD_GERMAN 40
      * }
      */
-    public static MemorySegment X509_KEY_USAGE_RESTRICTION() {
-        return constants$4553.const$4;
+    public static int DMPAPER_FANFOLD_STD_GERMAN() {
+        return DMPAPER_FANFOLD_STD_GERMAN;
     }
+    private static final int DMPAPER_FANFOLD_LGL_GERMAN = (int)41L;
     /**
-     * {@snippet :
-     * #define X509_ALTERNATE_NAME 12
+     * {@snippet lang=c :
+     * #define DMPAPER_FANFOLD_LGL_GERMAN 41
      * }
      */
-    public static MemorySegment X509_ALTERNATE_NAME() {
-        return constants$4553.const$5;
+    public static int DMPAPER_FANFOLD_LGL_GERMAN() {
+        return DMPAPER_FANFOLD_LGL_GERMAN;
     }
+    private static final int DMPAPER_ISO_B4 = (int)42L;
     /**
-     * {@snippet :
-     * #define X509_BASIC_CONSTRAINTS 13
+     * {@snippet lang=c :
+     * #define DMPAPER_ISO_B4 42
      * }
      */
-    public static MemorySegment X509_BASIC_CONSTRAINTS() {
-        return constants$4618.const$0;
+    public static int DMPAPER_ISO_B4() {
+        return DMPAPER_ISO_B4;
     }
+    private static final int DMPAPER_JAPANESE_POSTCARD = (int)43L;
     /**
-     * {@snippet :
-     * #define X509_KEY_USAGE 14
+     * {@snippet lang=c :
+     * #define DMPAPER_JAPANESE_POSTCARD 43
      * }
      */
-    public static MemorySegment X509_KEY_USAGE() {
-        return constants$4554.const$0;
+    public static int DMPAPER_JAPANESE_POSTCARD() {
+        return DMPAPER_JAPANESE_POSTCARD;
     }
+    private static final int DMPAPER_9X11 = (int)44L;
     /**
-     * {@snippet :
-     * #define X509_BASIC_CONSTRAINTS2 15
+     * {@snippet lang=c :
+     * #define DMPAPER_9X11 44
      * }
      */
-    public static MemorySegment X509_BASIC_CONSTRAINTS2() {
-        return constants$4618.const$1;
+    public static int DMPAPER_9X11() {
+        return DMPAPER_9X11;
     }
+    private static final int DMPAPER_10X11 = (int)45L;
     /**
-     * {@snippet :
-     * #define X509_CERT_POLICIES 16
+     * {@snippet lang=c :
+     * #define DMPAPER_10X11 45
      * }
      */
-    public static MemorySegment X509_CERT_POLICIES() {
-        return constants$4554.const$1;
+    public static int DMPAPER_10X11() {
+        return DMPAPER_10X11;
     }
+    private static final int DMPAPER_15X11 = (int)46L;
     /**
-     * {@snippet :
-     * #define PKCS_UTC_TIME 17
+     * {@snippet lang=c :
+     * #define DMPAPER_15X11 46
      * }
      */
-    public static MemorySegment PKCS_UTC_TIME() {
-        return constants$4554.const$2;
+    public static int DMPAPER_15X11() {
+        return DMPAPER_15X11;
     }
+    private static final int DMPAPER_ENV_INVITE = (int)47L;
     /**
-     * {@snippet :
-     * #define PKCS_TIME_REQUEST 18
+     * {@snippet lang=c :
+     * #define DMPAPER_ENV_INVITE 47
      * }
      */
-    public static MemorySegment PKCS_TIME_REQUEST() {
-        return constants$4618.const$2;
+    public static int DMPAPER_ENV_INVITE() {
+        return DMPAPER_ENV_INVITE;
     }
+    private static final int DMPAPER_RESERVED_48 = (int)48L;
     /**
-     * {@snippet :
-     * #define RSA_CSP_PUBLICKEYBLOB 19
+     * {@snippet lang=c :
+     * #define DMPAPER_RESERVED_48 48
      * }
      */
-    public static MemorySegment RSA_CSP_PUBLICKEYBLOB() {
-        return constants$4554.const$3;
+    public static int DMPAPER_RESERVED_48() {
+        return DMPAPER_RESERVED_48;
     }
+    private static final int DMPAPER_RESERVED_49 = (int)49L;
     /**
-     * {@snippet :
-     * #define X509_UNICODE_NAME 20
+     * {@snippet lang=c :
+     * #define DMPAPER_RESERVED_49 49
      * }
      */
-    public static MemorySegment X509_UNICODE_NAME() {
-        return constants$4554.const$4;
+    public static int DMPAPER_RESERVED_49() {
+        return DMPAPER_RESERVED_49;
     }
+    private static final int DMPAPER_LETTER_EXTRA = (int)50L;
     /**
-     * {@snippet :
-     * #define X509_KEYGEN_REQUEST_TO_BE_SIGNED 21
+     * {@snippet lang=c :
+     * #define DMPAPER_LETTER_EXTRA 50
      * }
      */
-    public static MemorySegment X509_KEYGEN_REQUEST_TO_BE_SIGNED() {
-        return constants$4554.const$5;
+    public static int DMPAPER_LETTER_EXTRA() {
+        return DMPAPER_LETTER_EXTRA;
     }
+    private static final int DMPAPER_LEGAL_EXTRA = (int)51L;
     /**
-     * {@snippet :
-     * #define PKCS_ATTRIBUTE 22
+     * {@snippet lang=c :
+     * #define DMPAPER_LEGAL_EXTRA 51
      * }
      */
-    public static MemorySegment PKCS_ATTRIBUTE() {
-        return constants$4555.const$0;
+    public static int DMPAPER_LEGAL_EXTRA() {
+        return DMPAPER_LEGAL_EXTRA;
     }
+    private static final int DMPAPER_TABLOID_EXTRA = (int)52L;
     /**
-     * {@snippet :
-     * #define PKCS_CONTENT_INFO_SEQUENCE_OF_ANY 23
+     * {@snippet lang=c :
+     * #define DMPAPER_TABLOID_EXTRA 52
      * }
      */
-    public static MemorySegment PKCS_CONTENT_INFO_SEQUENCE_OF_ANY() {
-        return constants$4555.const$1;
+    public static int DMPAPER_TABLOID_EXTRA() {
+        return DMPAPER_TABLOID_EXTRA;
     }
+    private static final int DMPAPER_A4_EXTRA = (int)53L;
     /**
-     * {@snippet :
-     * #define X509_UNICODE_NAME_VALUE 24
+     * {@snippet lang=c :
+     * #define DMPAPER_A4_EXTRA 53
      * }
      */
-    public static MemorySegment X509_UNICODE_NAME_VALUE() {
-        return constants$4555.const$2;
+    public static int DMPAPER_A4_EXTRA() {
+        return DMPAPER_A4_EXTRA;
     }
+    private static final int DMPAPER_LETTER_TRANSVERSE = (int)54L;
     /**
-     * {@snippet :
-     * #define X509_ANY_STRING 6
+     * {@snippet lang=c :
+     * #define DMPAPER_LETTER_TRANSVERSE 54
      * }
      */
-    public static MemorySegment X509_ANY_STRING() {
-        return constants$4552.const$5;
+    public static int DMPAPER_LETTER_TRANSVERSE() {
+        return DMPAPER_LETTER_TRANSVERSE;
     }
+    private static final int DMPAPER_A4_TRANSVERSE = (int)55L;
     /**
-     * {@snippet :
-     * #define X509_UNICODE_ANY_STRING 24
+     * {@snippet lang=c :
+     * #define DMPAPER_A4_TRANSVERSE 55
      * }
      */
-    public static MemorySegment X509_UNICODE_ANY_STRING() {
-        return constants$4555.const$2;
+    public static int DMPAPER_A4_TRANSVERSE() {
+        return DMPAPER_A4_TRANSVERSE;
     }
+    private static final int DMPAPER_LETTER_EXTRA_TRANSVERSE = (int)56L;
     /**
-     * {@snippet :
-     * #define X509_OCTET_STRING 25
+     * {@snippet lang=c :
+     * #define DMPAPER_LETTER_EXTRA_TRANSVERSE 56
      * }
      */
-    public static MemorySegment X509_OCTET_STRING() {
-        return constants$4618.const$3;
+    public static int DMPAPER_LETTER_EXTRA_TRANSVERSE() {
+        return DMPAPER_LETTER_EXTRA_TRANSVERSE;
     }
+    private static final int DMPAPER_A_PLUS = (int)57L;
     /**
-     * {@snippet :
-     * #define X509_BITS 26
+     * {@snippet lang=c :
+     * #define DMPAPER_A_PLUS 57
      * }
      */
-    public static MemorySegment X509_BITS() {
-        return constants$4618.const$4;
+    public static int DMPAPER_A_PLUS() {
+        return DMPAPER_A_PLUS;
     }
+    private static final int DMPAPER_B_PLUS = (int)58L;
     /**
-     * {@snippet :
-     * #define X509_INTEGER 27
+     * {@snippet lang=c :
+     * #define DMPAPER_B_PLUS 58
      * }
      */
-    public static MemorySegment X509_INTEGER() {
-        return constants$4618.const$5;
+    public static int DMPAPER_B_PLUS() {
+        return DMPAPER_B_PLUS;
     }
+    private static final int DMPAPER_LETTER_PLUS = (int)59L;
     /**
-     * {@snippet :
-     * #define X509_MULTI_BYTE_INTEGER 28
+     * {@snippet lang=c :
+     * #define DMPAPER_LETTER_PLUS 59
      * }
      */
-    public static MemorySegment X509_MULTI_BYTE_INTEGER() {
-        return constants$4619.const$0;
+    public static int DMPAPER_LETTER_PLUS() {
+        return DMPAPER_LETTER_PLUS;
     }
+    private static final int DMPAPER_A4_PLUS = (int)60L;
     /**
-     * {@snippet :
-     * #define X509_ENUMERATED 29
+     * {@snippet lang=c :
+     * #define DMPAPER_A4_PLUS 60
      * }
      */
-    public static MemorySegment X509_ENUMERATED() {
-        return constants$4619.const$1;
+    public static int DMPAPER_A4_PLUS() {
+        return DMPAPER_A4_PLUS;
     }
+    private static final int DMPAPER_A5_TRANSVERSE = (int)61L;
     /**
-     * {@snippet :
-     * #define X509_CHOICE_OF_TIME 30
+     * {@snippet lang=c :
+     * #define DMPAPER_A5_TRANSVERSE 61
      * }
      */
-    public static MemorySegment X509_CHOICE_OF_TIME() {
-        return constants$4619.const$2;
+    public static int DMPAPER_A5_TRANSVERSE() {
+        return DMPAPER_A5_TRANSVERSE;
     }
+    private static final int DMPAPER_B5_TRANSVERSE = (int)62L;
     /**
-     * {@snippet :
-     * #define X509_AUTHORITY_KEY_ID2 31
+     * {@snippet lang=c :
+     * #define DMPAPER_B5_TRANSVERSE 62
      * }
      */
-    public static MemorySegment X509_AUTHORITY_KEY_ID2() {
-        return constants$4619.const$3;
+    public static int DMPAPER_B5_TRANSVERSE() {
+        return DMPAPER_B5_TRANSVERSE;
     }
+    private static final int DMPAPER_A3_EXTRA = (int)63L;
     /**
-     * {@snippet :
-     * #define X509_AUTHORITY_INFO_ACCESS 32
+     * {@snippet lang=c :
+     * #define DMPAPER_A3_EXTRA 63
      * }
      */
-    public static MemorySegment X509_AUTHORITY_INFO_ACCESS() {
-        return constants$4619.const$4;
+    public static int DMPAPER_A3_EXTRA() {
+        return DMPAPER_A3_EXTRA;
     }
+    private static final int DMPAPER_A5_EXTRA = (int)64L;
     /**
-     * {@snippet :
-     * #define X509_SUBJECT_INFO_ACCESS 32
+     * {@snippet lang=c :
+     * #define DMPAPER_A5_EXTRA 64
      * }
      */
-    public static MemorySegment X509_SUBJECT_INFO_ACCESS() {
-        return constants$4619.const$4;
+    public static int DMPAPER_A5_EXTRA() {
+        return DMPAPER_A5_EXTRA;
     }
+    private static final int DMPAPER_B5_EXTRA = (int)65L;
     /**
-     * {@snippet :
-     * #define X509_CRL_REASON_CODE 29
+     * {@snippet lang=c :
+     * #define DMPAPER_B5_EXTRA 65
      * }
      */
-    public static MemorySegment X509_CRL_REASON_CODE() {
-        return constants$4619.const$1;
+    public static int DMPAPER_B5_EXTRA() {
+        return DMPAPER_B5_EXTRA;
     }
+    private static final int DMPAPER_A2 = (int)66L;
     /**
-     * {@snippet :
-     * #define PKCS_CONTENT_INFO 33
+     * {@snippet lang=c :
+     * #define DMPAPER_A2 66
      * }
      */
-    public static MemorySegment PKCS_CONTENT_INFO() {
-        return constants$4569.const$4;
+    public static int DMPAPER_A2() {
+        return DMPAPER_A2;
     }
+    private static final int DMPAPER_A3_TRANSVERSE = (int)67L;
     /**
-     * {@snippet :
-     * #define X509_SEQUENCE_OF_ANY 34
+     * {@snippet lang=c :
+     * #define DMPAPER_A3_TRANSVERSE 67
      * }
      */
-    public static MemorySegment X509_SEQUENCE_OF_ANY() {
-        return constants$4619.const$5;
+    public static int DMPAPER_A3_TRANSVERSE() {
+        return DMPAPER_A3_TRANSVERSE;
     }
+    private static final int DMPAPER_A3_EXTRA_TRANSVERSE = (int)68L;
     /**
-     * {@snippet :
-     * #define X509_CRL_DIST_POINTS 35
+     * {@snippet lang=c :
+     * #define DMPAPER_A3_EXTRA_TRANSVERSE 68
      * }
      */
-    public static MemorySegment X509_CRL_DIST_POINTS() {
-        return constants$4620.const$0;
+    public static int DMPAPER_A3_EXTRA_TRANSVERSE() {
+        return DMPAPER_A3_EXTRA_TRANSVERSE;
     }
+    private static final int DMPAPER_DBL_JAPANESE_POSTCARD = (int)69L;
     /**
-     * {@snippet :
-     * #define X509_ENHANCED_KEY_USAGE 36
+     * {@snippet lang=c :
+     * #define DMPAPER_DBL_JAPANESE_POSTCARD 69
      * }
      */
-    public static MemorySegment X509_ENHANCED_KEY_USAGE() {
-        return constants$4620.const$1;
+    public static int DMPAPER_DBL_JAPANESE_POSTCARD() {
+        return DMPAPER_DBL_JAPANESE_POSTCARD;
     }
+    private static final int DMPAPER_A6 = (int)70L;
     /**
-     * {@snippet :
-     * #define PKCS_CTL 37
+     * {@snippet lang=c :
+     * #define DMPAPER_A6 70
      * }
      */
-    public static MemorySegment PKCS_CTL() {
-        return constants$4620.const$2;
+    public static int DMPAPER_A6() {
+        return DMPAPER_A6;
     }
+    private static final int DMPAPER_JENV_KAKU2 = (int)71L;
     /**
-     * {@snippet :
-     * #define X509_MULTI_BYTE_UINT 38
+     * {@snippet lang=c :
+     * #define DMPAPER_JENV_KAKU2 71
      * }
      */
-    public static MemorySegment X509_MULTI_BYTE_UINT() {
-        return constants$4620.const$3;
+    public static int DMPAPER_JENV_KAKU2() {
+        return DMPAPER_JENV_KAKU2;
     }
+    private static final int DMPAPER_JENV_KAKU3 = (int)72L;
     /**
-     * {@snippet :
-     * #define X509_DSS_PUBLICKEY 38
+     * {@snippet lang=c :
+     * #define DMPAPER_JENV_KAKU3 72
      * }
      */
-    public static MemorySegment X509_DSS_PUBLICKEY() {
-        return constants$4620.const$3;
+    public static int DMPAPER_JENV_KAKU3() {
+        return DMPAPER_JENV_KAKU3;
     }
+    private static final int DMPAPER_JENV_CHOU3 = (int)73L;
     /**
-     * {@snippet :
-     * #define X509_DSS_PARAMETERS 39
+     * {@snippet lang=c :
+     * #define DMPAPER_JENV_CHOU3 73
      * }
      */
-    public static MemorySegment X509_DSS_PARAMETERS() {
-        return constants$4620.const$4;
+    public static int DMPAPER_JENV_CHOU3() {
+        return DMPAPER_JENV_CHOU3;
     }
+    private static final int DMPAPER_JENV_CHOU4 = (int)74L;
     /**
-     * {@snippet :
-     * #define X509_DSS_SIGNATURE 40
+     * {@snippet lang=c :
+     * #define DMPAPER_JENV_CHOU4 74
      * }
      */
-    public static MemorySegment X509_DSS_SIGNATURE() {
-        return constants$4620.const$5;
+    public static int DMPAPER_JENV_CHOU4() {
+        return DMPAPER_JENV_CHOU4;
     }
+    private static final int DMPAPER_LETTER_ROTATED = (int)75L;
     /**
-     * {@snippet :
-     * #define PKCS_RC2_CBC_PARAMETERS 41
+     * {@snippet lang=c :
+     * #define DMPAPER_LETTER_ROTATED 75
      * }
      */
-    public static MemorySegment PKCS_RC2_CBC_PARAMETERS() {
-        return constants$4621.const$0;
+    public static int DMPAPER_LETTER_ROTATED() {
+        return DMPAPER_LETTER_ROTATED;
     }
+    private static final int DMPAPER_A3_ROTATED = (int)76L;
     /**
-     * {@snippet :
-     * #define PKCS_SMIME_CAPABILITIES 42
+     * {@snippet lang=c :
+     * #define DMPAPER_A3_ROTATED 76
      * }
      */
-    public static MemorySegment PKCS_SMIME_CAPABILITIES() {
-        return constants$4621.const$1;
+    public static int DMPAPER_A3_ROTATED() {
+        return DMPAPER_A3_ROTATED;
     }
+    private static final int DMPAPER_A4_ROTATED = (int)77L;
     /**
-     * {@snippet :
-     * #define X509_QC_STATEMENTS_EXT 42
+     * {@snippet lang=c :
+     * #define DMPAPER_A4_ROTATED 77
      * }
      */
-    public static MemorySegment X509_QC_STATEMENTS_EXT() {
-        return constants$4621.const$1;
+    public static int DMPAPER_A4_ROTATED() {
+        return DMPAPER_A4_ROTATED;
     }
+    private static final int DMPAPER_A5_ROTATED = (int)78L;
     /**
-     * {@snippet :
-     * #define PKCS_RSA_PRIVATE_KEY 43
+     * {@snippet lang=c :
+     * #define DMPAPER_A5_ROTATED 78
      * }
      */
-    public static MemorySegment PKCS_RSA_PRIVATE_KEY() {
-        return constants$4621.const$2;
+    public static int DMPAPER_A5_ROTATED() {
+        return DMPAPER_A5_ROTATED;
     }
+    private static final int DMPAPER_B4_JIS_ROTATED = (int)79L;
     /**
-     * {@snippet :
-     * #define PKCS_PRIVATE_KEY_INFO 44
+     * {@snippet lang=c :
+     * #define DMPAPER_B4_JIS_ROTATED 79
      * }
      */
-    public static MemorySegment PKCS_PRIVATE_KEY_INFO() {
-        return constants$4621.const$3;
+    public static int DMPAPER_B4_JIS_ROTATED() {
+        return DMPAPER_B4_JIS_ROTATED;
     }
+    private static final int DMPAPER_B5_JIS_ROTATED = (int)80L;
     /**
-     * {@snippet :
-     * #define PKCS_ENCRYPTED_PRIVATE_KEY_INFO 45
+     * {@snippet lang=c :
+     * #define DMPAPER_B5_JIS_ROTATED 80
      * }
      */
-    public static MemorySegment PKCS_ENCRYPTED_PRIVATE_KEY_INFO() {
-        return constants$4621.const$4;
+    public static int DMPAPER_B5_JIS_ROTATED() {
+        return DMPAPER_B5_JIS_ROTATED;
     }
+    private static final int DMPAPER_JAPANESE_POSTCARD_ROTATED = (int)81L;
     /**
-     * {@snippet :
-     * #define X509_PKIX_POLICY_QUALIFIER_USERNOTICE 46
+     * {@snippet lang=c :
+     * #define DMPAPER_JAPANESE_POSTCARD_ROTATED 81
      * }
      */
-    public static MemorySegment X509_PKIX_POLICY_QUALIFIER_USERNOTICE() {
-        return constants$4621.const$5;
+    public static int DMPAPER_JAPANESE_POSTCARD_ROTATED() {
+        return DMPAPER_JAPANESE_POSTCARD_ROTATED;
     }
+    private static final int DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED = (int)82L;
     /**
-     * {@snippet :
-     * #define X509_DH_PUBLICKEY 38
+     * {@snippet lang=c :
+     * #define DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED 82
      * }
      */
-    public static MemorySegment X509_DH_PUBLICKEY() {
-        return constants$4620.const$3;
+    public static int DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED() {
+        return DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED;
     }
+    private static final int DMPAPER_A6_ROTATED = (int)83L;
     /**
-     * {@snippet :
-     * #define X509_DH_PARAMETERS 47
+     * {@snippet lang=c :
+     * #define DMPAPER_A6_ROTATED 83
      * }
      */
-    public static MemorySegment X509_DH_PARAMETERS() {
-        return constants$4622.const$0;
+    public static int DMPAPER_A6_ROTATED() {
+        return DMPAPER_A6_ROTATED;
     }
+    private static final int DMPAPER_JENV_KAKU2_ROTATED = (int)84L;
     /**
-     * {@snippet :
-     * #define PKCS_ATTRIBUTES 48
+     * {@snippet lang=c :
+     * #define DMPAPER_JENV_KAKU2_ROTATED 84
      * }
      */
-    public static MemorySegment PKCS_ATTRIBUTES() {
-        return constants$4622.const$1;
+    public static int DMPAPER_JENV_KAKU2_ROTATED() {
+        return DMPAPER_JENV_KAKU2_ROTATED;
     }
+    private static final int DMPAPER_JENV_KAKU3_ROTATED = (int)85L;
     /**
-     * {@snippet :
-     * #define PKCS_SORTED_CTL 49
+     * {@snippet lang=c :
+     * #define DMPAPER_JENV_KAKU3_ROTATED 85
      * }
      */
-    public static MemorySegment PKCS_SORTED_CTL() {
-        return constants$4569.const$5;
+    public static int DMPAPER_JENV_KAKU3_ROTATED() {
+        return DMPAPER_JENV_KAKU3_ROTATED;
     }
+    private static final int DMPAPER_JENV_CHOU3_ROTATED = (int)86L;
     /**
-     * {@snippet :
-     * #define X509_ECC_SIGNATURE 47
+     * {@snippet lang=c :
+     * #define DMPAPER_JENV_CHOU3_ROTATED 86
      * }
      */
-    public static MemorySegment X509_ECC_SIGNATURE() {
-        return constants$4622.const$0;
+    public static int DMPAPER_JENV_CHOU3_ROTATED() {
+        return DMPAPER_JENV_CHOU3_ROTATED;
     }
+    private static final int DMPAPER_JENV_CHOU4_ROTATED = (int)87L;
     /**
-     * {@snippet :
-     * #define X942_DH_PARAMETERS 50
+     * {@snippet lang=c :
+     * #define DMPAPER_JENV_CHOU4_ROTATED 87
      * }
      */
-    public static MemorySegment X942_DH_PARAMETERS() {
-        return constants$4622.const$2;
+    public static int DMPAPER_JENV_CHOU4_ROTATED() {
+        return DMPAPER_JENV_CHOU4_ROTATED;
     }
+    private static final int DMPAPER_B6_JIS = (int)88L;
     /**
-     * {@snippet :
-     * #define X509_BITS_WITHOUT_TRAILING_ZEROES 51
+     * {@snippet lang=c :
+     * #define DMPAPER_B6_JIS 88
      * }
      */
-    public static MemorySegment X509_BITS_WITHOUT_TRAILING_ZEROES() {
-        return constants$4622.const$3;
+    public static int DMPAPER_B6_JIS() {
+        return DMPAPER_B6_JIS;
     }
+    private static final int DMPAPER_B6_JIS_ROTATED = (int)89L;
     /**
-     * {@snippet :
-     * #define X942_OTHER_INFO 52
+     * {@snippet lang=c :
+     * #define DMPAPER_B6_JIS_ROTATED 89
      * }
      */
-    public static MemorySegment X942_OTHER_INFO() {
-        return constants$4622.const$4;
+    public static int DMPAPER_B6_JIS_ROTATED() {
+        return DMPAPER_B6_JIS_ROTATED;
     }
+    private static final int DMPAPER_12X11 = (int)90L;
     /**
-     * {@snippet :
-     * #define X509_CERT_PAIR 53
+     * {@snippet lang=c :
+     * #define DMPAPER_12X11 90
      * }
      */
-    public static MemorySegment X509_CERT_PAIR() {
-        return constants$4622.const$5;
+    public static int DMPAPER_12X11() {
+        return DMPAPER_12X11;
     }
+    private static final int DMPAPER_JENV_YOU4 = (int)91L;
     /**
-     * {@snippet :
-     * #define X509_ISSUING_DIST_POINT 54
+     * {@snippet lang=c :
+     * #define DMPAPER_JENV_YOU4 91
      * }
      */
-    public static MemorySegment X509_ISSUING_DIST_POINT() {
-        return constants$4623.const$0;
+    public static int DMPAPER_JENV_YOU4() {
+        return DMPAPER_JENV_YOU4;
     }
+    private static final int DMPAPER_JENV_YOU4_ROTATED = (int)92L;
     /**
-     * {@snippet :
-     * #define X509_NAME_CONSTRAINTS 55
+     * {@snippet lang=c :
+     * #define DMPAPER_JENV_YOU4_ROTATED 92
      * }
      */
-    public static MemorySegment X509_NAME_CONSTRAINTS() {
-        return constants$4623.const$1;
+    public static int DMPAPER_JENV_YOU4_ROTATED() {
+        return DMPAPER_JENV_YOU4_ROTATED;
     }
+    private static final int DMPAPER_P16K = (int)93L;
     /**
-     * {@snippet :
-     * #define X509_POLICY_MAPPINGS 56
+     * {@snippet lang=c :
+     * #define DMPAPER_P16K 93
      * }
      */
-    public static MemorySegment X509_POLICY_MAPPINGS() {
-        return constants$4623.const$2;
+    public static int DMPAPER_P16K() {
+        return DMPAPER_P16K;
     }
+    private static final int DMPAPER_P32K = (int)94L;
     /**
-     * {@snippet :
-     * #define X509_POLICY_CONSTRAINTS 57
+     * {@snippet lang=c :
+     * #define DMPAPER_P32K 94
      * }
      */
-    public static MemorySegment X509_POLICY_CONSTRAINTS() {
-        return constants$4623.const$3;
+    public static int DMPAPER_P32K() {
+        return DMPAPER_P32K;
     }
+    private static final int DMPAPER_P32KBIG = (int)95L;
     /**
-     * {@snippet :
-     * #define X509_CROSS_CERT_DIST_POINTS 58
+     * {@snippet lang=c :
+     * #define DMPAPER_P32KBIG 95
      * }
      */
-    public static MemorySegment X509_CROSS_CERT_DIST_POINTS() {
-        return constants$4623.const$4;
+    public static int DMPAPER_P32KBIG() {
+        return DMPAPER_P32KBIG;
     }
+    private static final int DMPAPER_PENV_1 = (int)96L;
     /**
-     * {@snippet :
-     * #define CMC_DATA 59
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_1 96
      * }
      */
-    public static MemorySegment CMC_DATA() {
-        return constants$4623.const$5;
+    public static int DMPAPER_PENV_1() {
+        return DMPAPER_PENV_1;
     }
+    private static final int DMPAPER_PENV_2 = (int)97L;
     /**
-     * {@snippet :
-     * #define CMC_RESPONSE 60
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_2 97
      * }
      */
-    public static MemorySegment CMC_RESPONSE() {
-        return constants$4624.const$0;
+    public static int DMPAPER_PENV_2() {
+        return DMPAPER_PENV_2;
     }
+    private static final int DMPAPER_PENV_3 = (int)98L;
     /**
-     * {@snippet :
-     * #define CMC_STATUS 61
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_3 98
      * }
      */
-    public static MemorySegment CMC_STATUS() {
-        return constants$4624.const$1;
+    public static int DMPAPER_PENV_3() {
+        return DMPAPER_PENV_3;
     }
+    private static final int DMPAPER_PENV_4 = (int)99L;
     /**
-     * {@snippet :
-     * #define CMC_ADD_EXTENSIONS 62
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_4 99
      * }
      */
-    public static MemorySegment CMC_ADD_EXTENSIONS() {
-        return constants$4624.const$2;
+    public static int DMPAPER_PENV_4() {
+        return DMPAPER_PENV_4;
     }
+    private static final int DMPAPER_PENV_5 = (int)100L;
     /**
-     * {@snippet :
-     * #define CMC_ADD_ATTRIBUTES 63
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_5 100
      * }
      */
-    public static MemorySegment CMC_ADD_ATTRIBUTES() {
-        return constants$4624.const$3;
+    public static int DMPAPER_PENV_5() {
+        return DMPAPER_PENV_5;
     }
+    private static final int DMPAPER_PENV_6 = (int)101L;
     /**
-     * {@snippet :
-     * #define X509_CERTIFICATE_TEMPLATE 64
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_6 101
      * }
      */
-    public static MemorySegment X509_CERTIFICATE_TEMPLATE() {
-        return constants$4624.const$4;
+    public static int DMPAPER_PENV_6() {
+        return DMPAPER_PENV_6;
     }
+    private static final int DMPAPER_PENV_7 = (int)102L;
     /**
-     * {@snippet :
-     * #define OCSP_SIGNED_REQUEST 65
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_7 102
      * }
      */
-    public static MemorySegment OCSP_SIGNED_REQUEST() {
-        return constants$4570.const$0;
+    public static int DMPAPER_PENV_7() {
+        return DMPAPER_PENV_7;
     }
+    private static final int DMPAPER_PENV_8 = (int)103L;
     /**
-     * {@snippet :
-     * #define OCSP_REQUEST 66
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_8 103
      * }
      */
-    public static MemorySegment OCSP_REQUEST() {
-        return constants$4624.const$5;
+    public static int DMPAPER_PENV_8() {
+        return DMPAPER_PENV_8;
     }
+    private static final int DMPAPER_PENV_9 = (int)104L;
     /**
-     * {@snippet :
-     * #define OCSP_RESPONSE 67
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_9 104
      * }
      */
-    public static MemorySegment OCSP_RESPONSE() {
-        return constants$4625.const$0;
+    public static int DMPAPER_PENV_9() {
+        return DMPAPER_PENV_9;
     }
+    private static final int DMPAPER_PENV_10 = (int)105L;
     /**
-     * {@snippet :
-     * #define OCSP_BASIC_SIGNED_RESPONSE 68
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_10 105
      * }
      */
-    public static MemorySegment OCSP_BASIC_SIGNED_RESPONSE() {
-        return constants$4625.const$1;
+    public static int DMPAPER_PENV_10() {
+        return DMPAPER_PENV_10;
     }
+    private static final int DMPAPER_P16K_ROTATED = (int)106L;
     /**
-     * {@snippet :
-     * #define OCSP_BASIC_RESPONSE 69
+     * {@snippet lang=c :
+     * #define DMPAPER_P16K_ROTATED 106
      * }
      */
-    public static MemorySegment OCSP_BASIC_RESPONSE() {
-        return constants$4625.const$2;
+    public static int DMPAPER_P16K_ROTATED() {
+        return DMPAPER_P16K_ROTATED;
     }
+    private static final int DMPAPER_P32K_ROTATED = (int)107L;
     /**
-     * {@snippet :
-     * #define X509_LOGOTYPE_EXT 70
+     * {@snippet lang=c :
+     * #define DMPAPER_P32K_ROTATED 107
      * }
      */
-    public static MemorySegment X509_LOGOTYPE_EXT() {
-        return constants$4625.const$3;
+    public static int DMPAPER_P32K_ROTATED() {
+        return DMPAPER_P32K_ROTATED;
     }
+    private static final int DMPAPER_P32KBIG_ROTATED = (int)108L;
     /**
-     * {@snippet :
-     * #define X509_BIOMETRIC_EXT 71
+     * {@snippet lang=c :
+     * #define DMPAPER_P32KBIG_ROTATED 108
      * }
      */
-    public static MemorySegment X509_BIOMETRIC_EXT() {
-        return constants$4625.const$4;
+    public static int DMPAPER_P32KBIG_ROTATED() {
+        return DMPAPER_P32KBIG_ROTATED;
     }
+    private static final int DMPAPER_PENV_1_ROTATED = (int)109L;
     /**
-     * {@snippet :
-     * #define CNG_RSA_PUBLIC_KEY_BLOB 72
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_1_ROTATED 109
      * }
      */
-    public static MemorySegment CNG_RSA_PUBLIC_KEY_BLOB() {
-        return constants$4625.const$5;
+    public static int DMPAPER_PENV_1_ROTATED() {
+        return DMPAPER_PENV_1_ROTATED;
     }
+    private static final int DMPAPER_PENV_2_ROTATED = (int)110L;
     /**
-     * {@snippet :
-     * #define X509_OBJECT_IDENTIFIER 73
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_2_ROTATED 110
      * }
      */
-    public static MemorySegment X509_OBJECT_IDENTIFIER() {
-        return constants$4626.const$0;
+    public static int DMPAPER_PENV_2_ROTATED() {
+        return DMPAPER_PENV_2_ROTATED;
     }
+    private static final int DMPAPER_PENV_3_ROTATED = (int)111L;
     /**
-     * {@snippet :
-     * #define X509_ALGORITHM_IDENTIFIER 74
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_3_ROTATED 111
      * }
      */
-    public static MemorySegment X509_ALGORITHM_IDENTIFIER() {
-        return constants$4626.const$1;
+    public static int DMPAPER_PENV_3_ROTATED() {
+        return DMPAPER_PENV_3_ROTATED;
     }
+    private static final int DMPAPER_PENV_4_ROTATED = (int)112L;
     /**
-     * {@snippet :
-     * #define PKCS_RSA_SSA_PSS_PARAMETERS 75
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_4_ROTATED 112
      * }
      */
-    public static MemorySegment PKCS_RSA_SSA_PSS_PARAMETERS() {
-        return constants$4626.const$2;
+    public static int DMPAPER_PENV_4_ROTATED() {
+        return DMPAPER_PENV_4_ROTATED;
     }
+    private static final int DMPAPER_PENV_5_ROTATED = (int)113L;
     /**
-     * {@snippet :
-     * #define PKCS_RSAES_OAEP_PARAMETERS 76
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_5_ROTATED 113
      * }
      */
-    public static MemorySegment PKCS_RSAES_OAEP_PARAMETERS() {
-        return constants$4626.const$3;
+    public static int DMPAPER_PENV_5_ROTATED() {
+        return DMPAPER_PENV_5_ROTATED;
     }
+    private static final int DMPAPER_PENV_6_ROTATED = (int)114L;
     /**
-     * {@snippet :
-     * #define ECC_CMS_SHARED_INFO 77
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_6_ROTATED 114
      * }
      */
-    public static MemorySegment ECC_CMS_SHARED_INFO() {
-        return constants$4626.const$4;
+    public static int DMPAPER_PENV_6_ROTATED() {
+        return DMPAPER_PENV_6_ROTATED;
     }
+    private static final int DMPAPER_PENV_7_ROTATED = (int)115L;
     /**
-     * {@snippet :
-     * #define TIMESTAMP_REQUEST 78
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_7_ROTATED 115
      * }
      */
-    public static MemorySegment TIMESTAMP_REQUEST() {
-        return constants$4626.const$5;
+    public static int DMPAPER_PENV_7_ROTATED() {
+        return DMPAPER_PENV_7_ROTATED;
     }
+    private static final int DMPAPER_PENV_8_ROTATED = (int)116L;
     /**
-     * {@snippet :
-     * #define TIMESTAMP_RESPONSE 79
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_8_ROTATED 116
      * }
      */
-    public static MemorySegment TIMESTAMP_RESPONSE() {
-        return constants$4627.const$0;
+    public static int DMPAPER_PENV_8_ROTATED() {
+        return DMPAPER_PENV_8_ROTATED;
     }
+    private static final int DMPAPER_PENV_9_ROTATED = (int)117L;
     /**
-     * {@snippet :
-     * #define TIMESTAMP_INFO 80
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_9_ROTATED 117
      * }
      */
-    public static MemorySegment TIMESTAMP_INFO() {
-        return constants$4627.const$1;
+    public static int DMPAPER_PENV_9_ROTATED() {
+        return DMPAPER_PENV_9_ROTATED;
     }
+    private static final int DMPAPER_PENV_10_ROTATED = (int)118L;
     /**
-     * {@snippet :
-     * #define X509_CERT_BUNDLE 81
+     * {@snippet lang=c :
+     * #define DMPAPER_PENV_10_ROTATED 118
      * }
      */
-    public static MemorySegment X509_CERT_BUNDLE() {
-        return constants$4570.const$1;
+    public static int DMPAPER_PENV_10_ROTATED() {
+        return DMPAPER_PENV_10_ROTATED;
     }
+    private static final int DMPAPER_USER = (int)256L;
     /**
-     * {@snippet :
-     * #define X509_ECC_PRIVATE_KEY 82
+     * {@snippet lang=c :
+     * #define DMPAPER_USER 256
      * }
      */
-    public static MemorySegment X509_ECC_PRIVATE_KEY() {
-        return constants$4627.const$2;
+    public static int DMPAPER_USER() {
+        return DMPAPER_USER;
     }
+    private static final int DMBIN_UPPER = (int)1L;
     /**
-     * {@snippet :
-     * #define CNG_RSA_PRIVATE_KEY_BLOB 83
+     * {@snippet lang=c :
+     * #define DMBIN_UPPER 1
      * }
      */
-    public static MemorySegment CNG_RSA_PRIVATE_KEY_BLOB() {
-        return constants$4627.const$3;
+    public static int DMBIN_UPPER() {
+        return DMBIN_UPPER;
     }
+    private static final int DMBIN_ONLYONE = (int)1L;
     /**
-     * {@snippet :
-     * #define X509_SUBJECT_DIR_ATTRS 84
+     * {@snippet lang=c :
+     * #define DMBIN_ONLYONE 1
      * }
      */
-    public static MemorySegment X509_SUBJECT_DIR_ATTRS() {
-        return constants$4627.const$4;
+    public static int DMBIN_ONLYONE() {
+        return DMBIN_ONLYONE;
     }
+    private static final int DMBIN_LOWER = (int)2L;
     /**
-     * {@snippet :
-     * #define X509_ECC_PARAMETERS 85
+     * {@snippet lang=c :
+     * #define DMBIN_LOWER 2
      * }
      */
-    public static MemorySegment X509_ECC_PARAMETERS() {
-        return constants$4627.const$5;
+    public static int DMBIN_LOWER() {
+        return DMBIN_LOWER;
     }
+    private static final int DMBIN_MIDDLE = (int)3L;
     /**
-     * {@snippet :
-     * #define PKCS7_SIGNER_INFO 500
+     * {@snippet lang=c :
+     * #define DMBIN_MIDDLE 3
      * }
      */
-    public static MemorySegment PKCS7_SIGNER_INFO() {
-        return constants$4628.const$0;
+    public static int DMBIN_MIDDLE() {
+        return DMBIN_MIDDLE;
     }
+    private static final int DMBIN_MANUAL = (int)4L;
     /**
-     * {@snippet :
-     * #define CMS_SIGNER_INFO 501
+     * {@snippet lang=c :
+     * #define DMBIN_MANUAL 4
      * }
      */
-    public static MemorySegment CMS_SIGNER_INFO() {
-        return constants$4628.const$1;
+    public static int DMBIN_MANUAL() {
+        return DMBIN_MANUAL;
     }
+    private static final int DMBIN_ENVELOPE = (int)5L;
     /**
-     * {@snippet :
-     * #define szOID_AUTHORITY_KEY_IDENTIFIER "2.5.29.1"
+     * {@snippet lang=c :
+     * #define DMBIN_ENVELOPE 5
      * }
      */
-    public static MemorySegment szOID_AUTHORITY_KEY_IDENTIFIER() {
-        return constants$4628.const$2;
+    public static int DMBIN_ENVELOPE() {
+        return DMBIN_ENVELOPE;
     }
+    private static final int DMBIN_ENVMANUAL = (int)6L;
     /**
-     * {@snippet :
-     * #define szOID_KEY_ATTRIBUTES "2.5.29.2"
+     * {@snippet lang=c :
+     * #define DMBIN_ENVMANUAL 6
      * }
      */
-    public static MemorySegment szOID_KEY_ATTRIBUTES() {
-        return constants$4628.const$3;
+    public static int DMBIN_ENVMANUAL() {
+        return DMBIN_ENVMANUAL;
     }
+    private static final int DMBIN_AUTO = (int)7L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_POLICIES_95 "2.5.29.3"
+     * {@snippet lang=c :
+     * #define DMBIN_AUTO 7
      * }
      */
-    public static MemorySegment szOID_CERT_POLICIES_95() {
-        return constants$4628.const$4;
+    public static int DMBIN_AUTO() {
+        return DMBIN_AUTO;
     }
+    private static final int DMBIN_TRACTOR = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_KEY_USAGE_RESTRICTION "2.5.29.4"
+     * {@snippet lang=c :
+     * #define DMBIN_TRACTOR 8
      * }
      */
-    public static MemorySegment szOID_KEY_USAGE_RESTRICTION() {
-        return constants$4628.const$5;
+    public static int DMBIN_TRACTOR() {
+        return DMBIN_TRACTOR;
     }
+    private static final int DMBIN_SMALLFMT = (int)9L;
     /**
-     * {@snippet :
-     * #define szOID_SUBJECT_ALT_NAME "2.5.29.7"
+     * {@snippet lang=c :
+     * #define DMBIN_SMALLFMT 9
      * }
      */
-    public static MemorySegment szOID_SUBJECT_ALT_NAME() {
-        return constants$4629.const$0;
+    public static int DMBIN_SMALLFMT() {
+        return DMBIN_SMALLFMT;
     }
+    private static final int DMBIN_LARGEFMT = (int)10L;
     /**
-     * {@snippet :
-     * #define szOID_ISSUER_ALT_NAME "2.5.29.8"
+     * {@snippet lang=c :
+     * #define DMBIN_LARGEFMT 10
      * }
      */
-    public static MemorySegment szOID_ISSUER_ALT_NAME() {
-        return constants$4629.const$1;
+    public static int DMBIN_LARGEFMT() {
+        return DMBIN_LARGEFMT;
     }
+    private static final int DMBIN_LARGECAPACITY = (int)11L;
     /**
-     * {@snippet :
-     * #define szOID_BASIC_CONSTRAINTS "2.5.29.10"
+     * {@snippet lang=c :
+     * #define DMBIN_LARGECAPACITY 11
      * }
      */
-    public static MemorySegment szOID_BASIC_CONSTRAINTS() {
-        return constants$4629.const$2;
+    public static int DMBIN_LARGECAPACITY() {
+        return DMBIN_LARGECAPACITY;
     }
+    private static final int DMBIN_CASSETTE = (int)14L;
     /**
-     * {@snippet :
-     * #define szOID_KEY_USAGE "2.5.29.15"
+     * {@snippet lang=c :
+     * #define DMBIN_CASSETTE 14
      * }
      */
-    public static MemorySegment szOID_KEY_USAGE() {
-        return constants$4629.const$3;
+    public static int DMBIN_CASSETTE() {
+        return DMBIN_CASSETTE;
     }
+    private static final int DMBIN_FORMSOURCE = (int)15L;
     /**
-     * {@snippet :
-     * #define szOID_PRIVATEKEY_USAGE_PERIOD "2.5.29.16"
+     * {@snippet lang=c :
+     * #define DMBIN_FORMSOURCE 15
      * }
      */
-    public static MemorySegment szOID_PRIVATEKEY_USAGE_PERIOD() {
-        return constants$4629.const$4;
+    public static int DMBIN_FORMSOURCE() {
+        return DMBIN_FORMSOURCE;
     }
+    private static final int DMBIN_USER = (int)256L;
     /**
-     * {@snippet :
-     * #define szOID_BASIC_CONSTRAINTS2 "2.5.29.19"
+     * {@snippet lang=c :
+     * #define DMBIN_USER 256
      * }
      */
-    public static MemorySegment szOID_BASIC_CONSTRAINTS2() {
-        return constants$4629.const$5;
+    public static int DMBIN_USER() {
+        return DMBIN_USER;
     }
+    private static final int DMCOLOR_MONOCHROME = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_POLICIES "2.5.29.32"
+     * {@snippet lang=c :
+     * #define DMCOLOR_MONOCHROME 1
      * }
      */
-    public static MemorySegment szOID_CERT_POLICIES() {
-        return constants$4630.const$0;
+    public static int DMCOLOR_MONOCHROME() {
+        return DMCOLOR_MONOCHROME;
     }
+    private static final int DMCOLOR_COLOR = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_ANY_CERT_POLICY "2.5.29.32.0"
+     * {@snippet lang=c :
+     * #define DMCOLOR_COLOR 2
      * }
      */
-    public static MemorySegment szOID_ANY_CERT_POLICY() {
-        return constants$4630.const$1;
+    public static int DMCOLOR_COLOR() {
+        return DMCOLOR_COLOR;
     }
+    private static final int DMDUP_SIMPLEX = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_INHIBIT_ANY_POLICY "2.5.29.54"
+     * {@snippet lang=c :
+     * #define DMDUP_SIMPLEX 1
      * }
      */
-    public static MemorySegment szOID_INHIBIT_ANY_POLICY() {
-        return constants$4630.const$2;
+    public static int DMDUP_SIMPLEX() {
+        return DMDUP_SIMPLEX;
     }
+    private static final int DMDUP_VERTICAL = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_AUTHORITY_KEY_IDENTIFIER2 "2.5.29.35"
+     * {@snippet lang=c :
+     * #define DMDUP_VERTICAL 2
      * }
      */
-    public static MemorySegment szOID_AUTHORITY_KEY_IDENTIFIER2() {
-        return constants$4630.const$3;
+    public static int DMDUP_VERTICAL() {
+        return DMDUP_VERTICAL;
     }
+    private static final int DMDUP_HORIZONTAL = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_SUBJECT_KEY_IDENTIFIER "2.5.29.14"
+     * {@snippet lang=c :
+     * #define DMDUP_HORIZONTAL 3
      * }
      */
-    public static MemorySegment szOID_SUBJECT_KEY_IDENTIFIER() {
-        return constants$4630.const$4;
+    public static int DMDUP_HORIZONTAL() {
+        return DMDUP_HORIZONTAL;
     }
+    private static final int DMTT_BITMAP = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_SUBJECT_ALT_NAME2 "2.5.29.17"
+     * {@snippet lang=c :
+     * #define DMTT_BITMAP 1
      * }
      */
-    public static MemorySegment szOID_SUBJECT_ALT_NAME2() {
-        return constants$4630.const$5;
+    public static int DMTT_BITMAP() {
+        return DMTT_BITMAP;
     }
+    private static final int DMTT_DOWNLOAD = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_ISSUER_ALT_NAME2 "2.5.29.18"
+     * {@snippet lang=c :
+     * #define DMTT_DOWNLOAD 2
      * }
      */
-    public static MemorySegment szOID_ISSUER_ALT_NAME2() {
-        return constants$4631.const$0;
+    public static int DMTT_DOWNLOAD() {
+        return DMTT_DOWNLOAD;
     }
+    private static final int DMTT_SUBDEV = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_CRL_REASON_CODE "2.5.29.21"
+     * {@snippet lang=c :
+     * #define DMTT_SUBDEV 3
      * }
      */
-    public static MemorySegment szOID_CRL_REASON_CODE() {
-        return constants$4631.const$1;
+    public static int DMTT_SUBDEV() {
+        return DMTT_SUBDEV;
     }
+    private static final int DMTT_DOWNLOAD_OUTLINE = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_REASON_CODE_HOLD "2.5.29.23"
+     * {@snippet lang=c :
+     * #define DMTT_DOWNLOAD_OUTLINE 4
      * }
      */
-    public static MemorySegment szOID_REASON_CODE_HOLD() {
-        return constants$4631.const$2;
+    public static int DMTT_DOWNLOAD_OUTLINE() {
+        return DMTT_DOWNLOAD_OUTLINE;
     }
+    private static final int DMCOLLATE_FALSE = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_CRL_DIST_POINTS "2.5.29.31"
+     * {@snippet lang=c :
+     * #define DMCOLLATE_FALSE 0
      * }
      */
-    public static MemorySegment szOID_CRL_DIST_POINTS() {
-        return constants$4631.const$3;
+    public static int DMCOLLATE_FALSE() {
+        return DMCOLLATE_FALSE;
     }
+    private static final int DMCOLLATE_TRUE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_ENHANCED_KEY_USAGE "2.5.29.37"
+     * {@snippet lang=c :
+     * #define DMCOLLATE_TRUE 1
      * }
      */
-    public static MemorySegment szOID_ENHANCED_KEY_USAGE() {
-        return constants$4631.const$4;
+    public static int DMCOLLATE_TRUE() {
+        return DMCOLLATE_TRUE;
     }
+    private static final int DMDO_DEFAULT = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_ANY_ENHANCED_KEY_USAGE "2.5.29.37.0"
+     * {@snippet lang=c :
+     * #define DMDO_DEFAULT 0
      * }
      */
-    public static MemorySegment szOID_ANY_ENHANCED_KEY_USAGE() {
-        return constants$4631.const$5;
+    public static int DMDO_DEFAULT() {
+        return DMDO_DEFAULT;
     }
+    private static final int DMDO_90 = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_CRL_NUMBER "2.5.29.20"
+     * {@snippet lang=c :
+     * #define DMDO_90 1
      * }
      */
-    public static MemorySegment szOID_CRL_NUMBER() {
-        return constants$4632.const$0;
+    public static int DMDO_90() {
+        return DMDO_90;
     }
+    private static final int DMDO_180 = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_DELTA_CRL_INDICATOR "2.5.29.27"
+     * {@snippet lang=c :
+     * #define DMDO_180 2
      * }
      */
-    public static MemorySegment szOID_DELTA_CRL_INDICATOR() {
-        return constants$4632.const$1;
+    public static int DMDO_180() {
+        return DMDO_180;
     }
+    private static final int DMDO_270 = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_ISSUING_DIST_POINT "2.5.29.28"
+     * {@snippet lang=c :
+     * #define DMDO_270 3
      * }
      */
-    public static MemorySegment szOID_ISSUING_DIST_POINT() {
-        return constants$4632.const$2;
+    public static int DMDO_270() {
+        return DMDO_270;
     }
+    private static final int DMDFO_DEFAULT = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_FRESHEST_CRL "2.5.29.46"
+     * {@snippet lang=c :
+     * #define DMDFO_DEFAULT 0
      * }
      */
-    public static MemorySegment szOID_FRESHEST_CRL() {
-        return constants$4632.const$3;
+    public static int DMDFO_DEFAULT() {
+        return DMDFO_DEFAULT;
     }
+    private static final int DMDFO_STRETCH = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_NAME_CONSTRAINTS "2.5.29.30"
+     * {@snippet lang=c :
+     * #define DMDFO_STRETCH 1
      * }
      */
-    public static MemorySegment szOID_NAME_CONSTRAINTS() {
-        return constants$4632.const$4;
+    public static int DMDFO_STRETCH() {
+        return DMDFO_STRETCH;
     }
+    private static final int DMDFO_CENTER = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_POLICY_MAPPINGS "2.5.29.33"
+     * {@snippet lang=c :
+     * #define DMDFO_CENTER 2
      * }
      */
-    public static MemorySegment szOID_POLICY_MAPPINGS() {
-        return constants$4632.const$5;
+    public static int DMDFO_CENTER() {
+        return DMDFO_CENTER;
     }
+    private static final int DM_INTERLACED = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_LEGACY_POLICY_MAPPINGS "2.5.29.5"
+     * {@snippet lang=c :
+     * #define DM_INTERLACED 2
      * }
      */
-    public static MemorySegment szOID_LEGACY_POLICY_MAPPINGS() {
-        return constants$4633.const$0;
+    public static int DM_INTERLACED() {
+        return DM_INTERLACED;
     }
+    private static final int DMDISPLAYFLAGS_TEXTMODE = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_POLICY_CONSTRAINTS "2.5.29.36"
+     * {@snippet lang=c :
+     * #define DMDISPLAYFLAGS_TEXTMODE 4
      * }
      */
-    public static MemorySegment szOID_POLICY_CONSTRAINTS() {
-        return constants$4633.const$1;
+    public static int DMDISPLAYFLAGS_TEXTMODE() {
+        return DMDISPLAYFLAGS_TEXTMODE;
     }
+    private static final int DMNUP_SYSTEM = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_RENEWAL_CERTIFICATE "1.3.6.1.4.1.311.13.1"
+     * {@snippet lang=c :
+     * #define DMNUP_SYSTEM 1
      * }
      */
-    public static MemorySegment szOID_RENEWAL_CERTIFICATE() {
-        return constants$4633.const$2;
+    public static int DMNUP_SYSTEM() {
+        return DMNUP_SYSTEM;
     }
+    private static final int DMNUP_ONEUP = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLLMENT_NAME_VALUE_PAIR "1.3.6.1.4.1.311.13.2.1"
+     * {@snippet lang=c :
+     * #define DMNUP_ONEUP 2
      * }
      */
-    public static MemorySegment szOID_ENROLLMENT_NAME_VALUE_PAIR() {
-        return constants$4633.const$3;
+    public static int DMNUP_ONEUP() {
+        return DMNUP_ONEUP;
     }
+    private static final int DMICMMETHOD_NONE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLLMENT_CSP_PROVIDER "1.3.6.1.4.1.311.13.2.2"
+     * {@snippet lang=c :
+     * #define DMICMMETHOD_NONE 1
      * }
      */
-    public static MemorySegment szOID_ENROLLMENT_CSP_PROVIDER() {
-        return constants$4633.const$4;
+    public static int DMICMMETHOD_NONE() {
+        return DMICMMETHOD_NONE;
     }
+    private static final int DMICMMETHOD_SYSTEM = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_OS_VERSION "1.3.6.1.4.1.311.13.2.3"
+     * {@snippet lang=c :
+     * #define DMICMMETHOD_SYSTEM 2
      * }
      */
-    public static MemorySegment szOID_OS_VERSION() {
-        return constants$4633.const$5;
+    public static int DMICMMETHOD_SYSTEM() {
+        return DMICMMETHOD_SYSTEM;
     }
+    private static final int DMICMMETHOD_DRIVER = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLLMENT_AGENT "1.3.6.1.4.1.311.20.2.1"
+     * {@snippet lang=c :
+     * #define DMICMMETHOD_DRIVER 3
      * }
      */
-    public static MemorySegment szOID_ENROLLMENT_AGENT() {
-        return constants$4634.const$0;
+    public static int DMICMMETHOD_DRIVER() {
+        return DMICMMETHOD_DRIVER;
     }
+    private static final int DMICMMETHOD_DEVICE = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX "1.3.6.1.5.5.7"
+     * {@snippet lang=c :
+     * #define DMICMMETHOD_DEVICE 4
      * }
      */
-    public static MemorySegment szOID_PKIX() {
-        return constants$4634.const$1;
+    public static int DMICMMETHOD_DEVICE() {
+        return DMICMMETHOD_DEVICE;
     }
+    private static final int DMICMMETHOD_USER = (int)256L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_PE "1.3.6.1.5.5.7.1"
+     * {@snippet lang=c :
+     * #define DMICMMETHOD_USER 256
      * }
      */
-    public static MemorySegment szOID_PKIX_PE() {
-        return constants$4634.const$2;
+    public static int DMICMMETHOD_USER() {
+        return DMICMMETHOD_USER;
     }
+    private static final int DMICM_SATURATE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_AUTHORITY_INFO_ACCESS "1.3.6.1.5.5.7.1.1"
+     * {@snippet lang=c :
+     * #define DMICM_SATURATE 1
      * }
      */
-    public static MemorySegment szOID_AUTHORITY_INFO_ACCESS() {
-        return constants$4634.const$3;
+    public static int DMICM_SATURATE() {
+        return DMICM_SATURATE;
     }
+    private static final int DMICM_CONTRAST = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_SUBJECT_INFO_ACCESS "1.3.6.1.5.5.7.1.11"
+     * {@snippet lang=c :
+     * #define DMICM_CONTRAST 2
      * }
      */
-    public static MemorySegment szOID_SUBJECT_INFO_ACCESS() {
-        return constants$4634.const$4;
+    public static int DMICM_CONTRAST() {
+        return DMICM_CONTRAST;
     }
+    private static final int DMICM_COLORIMETRIC = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_BIOMETRIC_EXT "1.3.6.1.5.5.7.1.2"
+     * {@snippet lang=c :
+     * #define DMICM_COLORIMETRIC 3
      * }
      */
-    public static MemorySegment szOID_BIOMETRIC_EXT() {
-        return constants$4634.const$5;
+    public static int DMICM_COLORIMETRIC() {
+        return DMICM_COLORIMETRIC;
     }
+    private static final int DMICM_ABS_COLORIMETRIC = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_QC_STATEMENTS_EXT "1.3.6.1.5.5.7.1.3"
+     * {@snippet lang=c :
+     * #define DMICM_ABS_COLORIMETRIC 4
      * }
      */
-    public static MemorySegment szOID_QC_STATEMENTS_EXT() {
-        return constants$4635.const$0;
+    public static int DMICM_ABS_COLORIMETRIC() {
+        return DMICM_ABS_COLORIMETRIC;
     }
+    private static final int DMICM_USER = (int)256L;
     /**
-     * {@snippet :
-     * #define szOID_LOGOTYPE_EXT "1.3.6.1.5.5.7.1.12"
+     * {@snippet lang=c :
+     * #define DMICM_USER 256
      * }
      */
-    public static MemorySegment szOID_LOGOTYPE_EXT() {
-        return constants$4635.const$1;
+    public static int DMICM_USER() {
+        return DMICM_USER;
     }
+    private static final int DMMEDIA_STANDARD = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_TLS_FEATURES_EXT "1.3.6.1.5.5.7.1.24"
+     * {@snippet lang=c :
+     * #define DMMEDIA_STANDARD 1
      * }
      */
-    public static MemorySegment szOID_TLS_FEATURES_EXT() {
-        return constants$4635.const$2;
+    public static int DMMEDIA_STANDARD() {
+        return DMMEDIA_STANDARD;
     }
+    private static final int DMMEDIA_TRANSPARENCY = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_EXTENSIONS "1.3.6.1.4.1.311.2.1.14"
+     * {@snippet lang=c :
+     * #define DMMEDIA_TRANSPARENCY 2
      * }
      */
-    public static MemorySegment szOID_CERT_EXTENSIONS() {
-        return constants$4635.const$3;
+    public static int DMMEDIA_TRANSPARENCY() {
+        return DMMEDIA_TRANSPARENCY;
     }
+    private static final int DMMEDIA_GLOSSY = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_NEXT_UPDATE_LOCATION "1.3.6.1.4.1.311.10.2"
+     * {@snippet lang=c :
+     * #define DMMEDIA_GLOSSY 3
      * }
      */
-    public static MemorySegment szOID_NEXT_UPDATE_LOCATION() {
-        return constants$4635.const$4;
+    public static int DMMEDIA_GLOSSY() {
+        return DMMEDIA_GLOSSY;
     }
+    private static final int DMMEDIA_USER = (int)256L;
     /**
-     * {@snippet :
-     * #define szOID_REMOVE_CERTIFICATE "1.3.6.1.4.1.311.10.8.1"
+     * {@snippet lang=c :
+     * #define DMMEDIA_USER 256
      * }
      */
-    public static MemorySegment szOID_REMOVE_CERTIFICATE() {
-        return constants$4635.const$5;
+    public static int DMMEDIA_USER() {
+        return DMMEDIA_USER;
     }
+    private static final int DMDITHER_NONE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_CROSS_CERT_DIST_POINTS "1.3.6.1.4.1.311.10.9.1"
+     * {@snippet lang=c :
+     * #define DMDITHER_NONE 1
      * }
      */
-    public static MemorySegment szOID_CROSS_CERT_DIST_POINTS() {
-        return constants$4636.const$0;
+    public static int DMDITHER_NONE() {
+        return DMDITHER_NONE;
     }
+    private static final int DMDITHER_COARSE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_CTL "1.3.6.1.4.1.311.10.1"
+     * {@snippet lang=c :
+     * #define DMDITHER_COARSE 2
      * }
      */
-    public static MemorySegment szOID_CTL() {
-        return constants$4636.const$1;
+    public static int DMDITHER_COARSE() {
+        return DMDITHER_COARSE;
     }
+    private static final int DMDITHER_FINE = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_SORTED_CTL "1.3.6.1.4.1.311.10.1.1"
+     * {@snippet lang=c :
+     * #define DMDITHER_FINE 3
      * }
      */
-    public static MemorySegment szOID_SORTED_CTL() {
-        return constants$4636.const$2;
+    public static int DMDITHER_FINE() {
+        return DMDITHER_FINE;
     }
+    private static final int DMDITHER_LINEART = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_SERIALIZED "1.3.6.1.4.1.311.10.3.3.1"
+     * {@snippet lang=c :
+     * #define DMDITHER_LINEART 4
      * }
      */
-    public static MemorySegment szOID_SERIALIZED() {
-        return constants$4636.const$3;
+    public static int DMDITHER_LINEART() {
+        return DMDITHER_LINEART;
     }
+    private static final int DMDITHER_ERRORDIFFUSION = (int)5L;
     /**
-     * {@snippet :
-     * #define szOID_NT_PRINCIPAL_NAME "1.3.6.1.4.1.311.20.2.3"
+     * {@snippet lang=c :
+     * #define DMDITHER_ERRORDIFFUSION 5
      * }
      */
-    public static MemorySegment szOID_NT_PRINCIPAL_NAME() {
-        return constants$4636.const$4;
+    public static int DMDITHER_ERRORDIFFUSION() {
+        return DMDITHER_ERRORDIFFUSION;
     }
+    private static final int DMDITHER_RESERVED6 = (int)6L;
     /**
-     * {@snippet :
-     * #define szOID_INTERNATIONALIZED_EMAIL_ADDRESS "1.3.6.1.4.1.311.20.2.4"
+     * {@snippet lang=c :
+     * #define DMDITHER_RESERVED6 6
      * }
      */
-    public static MemorySegment szOID_INTERNATIONALIZED_EMAIL_ADDRESS() {
-        return constants$4636.const$5;
+    public static int DMDITHER_RESERVED6() {
+        return DMDITHER_RESERVED6;
     }
+    private static final int DMDITHER_RESERVED7 = (int)7L;
     /**
-     * {@snippet :
-     * #define szOID_PRODUCT_UPDATE "1.3.6.1.4.1.311.31.1"
+     * {@snippet lang=c :
+     * #define DMDITHER_RESERVED7 7
      * }
      */
-    public static MemorySegment szOID_PRODUCT_UPDATE() {
-        return constants$4637.const$0;
+    public static int DMDITHER_RESERVED7() {
+        return DMDITHER_RESERVED7;
     }
+    private static final int DMDITHER_RESERVED8 = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_ANY_APPLICATION_POLICY "1.3.6.1.4.1.311.10.12.1"
+     * {@snippet lang=c :
+     * #define DMDITHER_RESERVED8 8
      * }
      */
-    public static MemorySegment szOID_ANY_APPLICATION_POLICY() {
-        return constants$4637.const$1;
+    public static int DMDITHER_RESERVED8() {
+        return DMDITHER_RESERVED8;
     }
+    private static final int DMDITHER_RESERVED9 = (int)9L;
     /**
-     * {@snippet :
-     * #define szOID_AUTO_ENROLL_CTL_USAGE "1.3.6.1.4.1.311.20.1"
+     * {@snippet lang=c :
+     * #define DMDITHER_RESERVED9 9
      * }
      */
-    public static MemorySegment szOID_AUTO_ENROLL_CTL_USAGE() {
-        return constants$4637.const$2;
+    public static int DMDITHER_RESERVED9() {
+        return DMDITHER_RESERVED9;
     }
+    private static final int DMDITHER_GRAYSCALE = (int)10L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_CERTTYPE_EXTENSION "1.3.6.1.4.1.311.20.2"
+     * {@snippet lang=c :
+     * #define DMDITHER_GRAYSCALE 10
      * }
      */
-    public static MemorySegment szOID_ENROLL_CERTTYPE_EXTENSION() {
-        return constants$4637.const$3;
+    public static int DMDITHER_GRAYSCALE() {
+        return DMDITHER_GRAYSCALE;
     }
+    private static final int DMDITHER_USER = (int)256L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_MANIFOLD "1.3.6.1.4.1.311.20.3"
+     * {@snippet lang=c :
+     * #define DMDITHER_USER 256
      * }
      */
-    public static MemorySegment szOID_CERT_MANIFOLD() {
-        return constants$4637.const$4;
+    public static int DMDITHER_USER() {
+        return DMDITHER_USER;
     }
+    private static final int DISPLAY_DEVICE_ATTACHED_TO_DESKTOP = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_CERTSRV_CA_VERSION "1.3.6.1.4.1.311.21.1"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_ATTACHED_TO_DESKTOP 1
      * }
      */
-    public static MemorySegment szOID_CERTSRV_CA_VERSION() {
-        return constants$4637.const$5;
+    public static int DISPLAY_DEVICE_ATTACHED_TO_DESKTOP() {
+        return DISPLAY_DEVICE_ATTACHED_TO_DESKTOP;
     }
+    private static final int DISPLAY_DEVICE_MULTI_DRIVER = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_CERTSRV_PREVIOUS_CERT_HASH "1.3.6.1.4.1.311.21.2"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_MULTI_DRIVER 2
      * }
      */
-    public static MemorySegment szOID_CERTSRV_PREVIOUS_CERT_HASH() {
-        return constants$4638.const$0;
+    public static int DISPLAY_DEVICE_MULTI_DRIVER() {
+        return DISPLAY_DEVICE_MULTI_DRIVER;
     }
+    private static final int DISPLAY_DEVICE_PRIMARY_DEVICE = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_CRL_VIRTUAL_BASE "1.3.6.1.4.1.311.21.3"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_PRIMARY_DEVICE 4
      * }
      */
-    public static MemorySegment szOID_CRL_VIRTUAL_BASE() {
-        return constants$4638.const$1;
+    public static int DISPLAY_DEVICE_PRIMARY_DEVICE() {
+        return DISPLAY_DEVICE_PRIMARY_DEVICE;
     }
+    private static final int DISPLAY_DEVICE_MIRRORING_DRIVER = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_CRL_NEXT_PUBLISH "1.3.6.1.4.1.311.21.4"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_MIRRORING_DRIVER 8
      * }
      */
-    public static MemorySegment szOID_CRL_NEXT_PUBLISH() {
-        return constants$4638.const$2;
+    public static int DISPLAY_DEVICE_MIRRORING_DRIVER() {
+        return DISPLAY_DEVICE_MIRRORING_DRIVER;
     }
+    private static final int DISPLAY_DEVICE_VGA_COMPATIBLE = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_KP_CA_EXCHANGE "1.3.6.1.4.1.311.21.5"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_VGA_COMPATIBLE 16
      * }
      */
-    public static MemorySegment szOID_KP_CA_EXCHANGE() {
-        return constants$4638.const$3;
+    public static int DISPLAY_DEVICE_VGA_COMPATIBLE() {
+        return DISPLAY_DEVICE_VGA_COMPATIBLE;
     }
+    private static final int DISPLAY_DEVICE_REMOVABLE = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_KP_PRIVACY_CA "1.3.6.1.4.1.311.21.36"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_REMOVABLE 32
      * }
      */
-    public static MemorySegment szOID_KP_PRIVACY_CA() {
-        return constants$4638.const$4;
+    public static int DISPLAY_DEVICE_REMOVABLE() {
+        return DISPLAY_DEVICE_REMOVABLE;
     }
+    private static final int DISPLAY_DEVICE_ACC_DRIVER = (int)64L;
     /**
-     * {@snippet :
-     * #define szOID_KP_KEY_RECOVERY_AGENT "1.3.6.1.4.1.311.21.6"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_ACC_DRIVER 64
      * }
      */
-    public static MemorySegment szOID_KP_KEY_RECOVERY_AGENT() {
-        return constants$4638.const$5;
+    public static int DISPLAY_DEVICE_ACC_DRIVER() {
+        return DISPLAY_DEVICE_ACC_DRIVER;
     }
+    private static final int DISPLAY_DEVICE_MODESPRUNED = (int)134217728L;
     /**
-     * {@snippet :
-     * #define szOID_CERTIFICATE_TEMPLATE "1.3.6.1.4.1.311.21.7"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_MODESPRUNED 134217728
      * }
      */
-    public static MemorySegment szOID_CERTIFICATE_TEMPLATE() {
-        return constants$4639.const$0;
+    public static int DISPLAY_DEVICE_MODESPRUNED() {
+        return DISPLAY_DEVICE_MODESPRUNED;
     }
+    private static final int DISPLAY_DEVICE_RDPUDD = (int)16777216L;
     /**
-     * {@snippet :
-     * #define szOID_ENTERPRISE_OID_ROOT "1.3.6.1.4.1.311.21.8"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_RDPUDD 16777216
      * }
      */
-    public static MemorySegment szOID_ENTERPRISE_OID_ROOT() {
-        return constants$4639.const$1;
+    public static int DISPLAY_DEVICE_RDPUDD() {
+        return DISPLAY_DEVICE_RDPUDD;
     }
+    private static final int DISPLAY_DEVICE_REMOTE = (int)67108864L;
     /**
-     * {@snippet :
-     * #define szOID_RDN_DUMMY_SIGNER "1.3.6.1.4.1.311.21.9"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_REMOTE 67108864
      * }
      */
-    public static MemorySegment szOID_RDN_DUMMY_SIGNER() {
-        return constants$4639.const$2;
+    public static int DISPLAY_DEVICE_REMOTE() {
+        return DISPLAY_DEVICE_REMOTE;
     }
+    private static final int DISPLAY_DEVICE_DISCONNECT = (int)33554432L;
     /**
-     * {@snippet :
-     * #define szOID_APPLICATION_CERT_POLICIES "1.3.6.1.4.1.311.21.10"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_DISCONNECT 33554432
      * }
      */
-    public static MemorySegment szOID_APPLICATION_CERT_POLICIES() {
-        return constants$4639.const$3;
+    public static int DISPLAY_DEVICE_DISCONNECT() {
+        return DISPLAY_DEVICE_DISCONNECT;
     }
+    private static final int DISPLAY_DEVICE_TS_COMPATIBLE = (int)2097152L;
     /**
-     * {@snippet :
-     * #define szOID_APPLICATION_POLICY_MAPPINGS "1.3.6.1.4.1.311.21.11"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_TS_COMPATIBLE 2097152
      * }
      */
-    public static MemorySegment szOID_APPLICATION_POLICY_MAPPINGS() {
-        return constants$4639.const$4;
+    public static int DISPLAY_DEVICE_TS_COMPATIBLE() {
+        return DISPLAY_DEVICE_TS_COMPATIBLE;
     }
+    private static final int DISPLAY_DEVICE_UNSAFE_MODES_ON = (int)524288L;
     /**
-     * {@snippet :
-     * #define szOID_APPLICATION_POLICY_CONSTRAINTS "1.3.6.1.4.1.311.21.12"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_UNSAFE_MODES_ON 524288
      * }
      */
-    public static MemorySegment szOID_APPLICATION_POLICY_CONSTRAINTS() {
-        return constants$4639.const$5;
+    public static int DISPLAY_DEVICE_UNSAFE_MODES_ON() {
+        return DISPLAY_DEVICE_UNSAFE_MODES_ON;
     }
+    private static final int DISPLAY_DEVICE_ACTIVE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_ARCHIVED_KEY_ATTR "1.3.6.1.4.1.311.21.13"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_ACTIVE 1
      * }
      */
-    public static MemorySegment szOID_ARCHIVED_KEY_ATTR() {
-        return constants$4640.const$0;
+    public static int DISPLAY_DEVICE_ACTIVE() {
+        return DISPLAY_DEVICE_ACTIVE;
     }
+    private static final int DISPLAY_DEVICE_ATTACHED = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_CRL_SELF_CDP "1.3.6.1.4.1.311.21.14"
+     * {@snippet lang=c :
+     * #define DISPLAY_DEVICE_ATTACHED 2
      * }
      */
-    public static MemorySegment szOID_CRL_SELF_CDP() {
-        return constants$4640.const$1;
+    public static int DISPLAY_DEVICE_ATTACHED() {
+        return DISPLAY_DEVICE_ATTACHED;
     }
+    private static final int DISPLAYCONFIG_MAXPATH = (int)1024L;
     /**
-     * {@snippet :
-     * #define szOID_REQUIRE_CERT_CHAIN_POLICY "1.3.6.1.4.1.311.21.15"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_MAXPATH 1024
      * }
      */
-    public static MemorySegment szOID_REQUIRE_CERT_CHAIN_POLICY() {
-        return constants$4640.const$2;
+    public static int DISPLAYCONFIG_MAXPATH() {
+        return DISPLAYCONFIG_MAXPATH;
     }
+    private static final int DISPLAYCONFIG_PATH_TARGET_MODE_IDX_INVALID = (int)65535L;
     /**
-     * {@snippet :
-     * #define szOID_ARCHIVED_KEY_CERT_HASH "1.3.6.1.4.1.311.21.16"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_PATH_TARGET_MODE_IDX_INVALID 65535
      * }
      */
-    public static MemorySegment szOID_ARCHIVED_KEY_CERT_HASH() {
-        return constants$4640.const$3;
+    public static int DISPLAYCONFIG_PATH_TARGET_MODE_IDX_INVALID() {
+        return DISPLAYCONFIG_PATH_TARGET_MODE_IDX_INVALID;
     }
+    private static final int DISPLAYCONFIG_PATH_DESKTOP_IMAGE_IDX_INVALID = (int)65535L;
     /**
-     * {@snippet :
-     * #define szOID_ISSUED_CERT_HASH "1.3.6.1.4.1.311.21.17"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_PATH_DESKTOP_IMAGE_IDX_INVALID 65535
      * }
      */
-    public static MemorySegment szOID_ISSUED_CERT_HASH() {
-        return constants$4640.const$4;
+    public static int DISPLAYCONFIG_PATH_DESKTOP_IMAGE_IDX_INVALID() {
+        return DISPLAYCONFIG_PATH_DESKTOP_IMAGE_IDX_INVALID;
     }
+    private static final int DISPLAYCONFIG_PATH_SOURCE_MODE_IDX_INVALID = (int)65535L;
     /**
-     * {@snippet :
-     * #define szOID_DS_EMAIL_REPLICATION "1.3.6.1.4.1.311.21.19"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_PATH_SOURCE_MODE_IDX_INVALID 65535
      * }
      */
-    public static MemorySegment szOID_DS_EMAIL_REPLICATION() {
-        return constants$4640.const$5;
+    public static int DISPLAYCONFIG_PATH_SOURCE_MODE_IDX_INVALID() {
+        return DISPLAYCONFIG_PATH_SOURCE_MODE_IDX_INVALID;
     }
+    private static final int DISPLAYCONFIG_PATH_CLONE_GROUP_INVALID = (int)65535L;
     /**
-     * {@snippet :
-     * #define szOID_REQUEST_CLIENT_INFO "1.3.6.1.4.1.311.21.20"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_PATH_CLONE_GROUP_INVALID 65535
      * }
      */
-    public static MemorySegment szOID_REQUEST_CLIENT_INFO() {
-        return constants$4641.const$0;
+    public static int DISPLAYCONFIG_PATH_CLONE_GROUP_INVALID() {
+        return DISPLAYCONFIG_PATH_CLONE_GROUP_INVALID;
     }
+    private static final int DISPLAYCONFIG_SOURCE_IN_USE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_ENCRYPTED_KEY_HASH "1.3.6.1.4.1.311.21.21"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_SOURCE_IN_USE 1
      * }
      */
-    public static MemorySegment szOID_ENCRYPTED_KEY_HASH() {
-        return constants$4641.const$1;
+    public static int DISPLAYCONFIG_SOURCE_IN_USE() {
+        return DISPLAYCONFIG_SOURCE_IN_USE;
     }
+    private static final int DISPLAYCONFIG_TARGET_IN_USE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_CERTSRV_CROSSCA_VERSION "1.3.6.1.4.1.311.21.22"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_TARGET_IN_USE 1
      * }
      */
-    public static MemorySegment szOID_CERTSRV_CROSSCA_VERSION() {
-        return constants$4641.const$2;
+    public static int DISPLAYCONFIG_TARGET_IN_USE() {
+        return DISPLAYCONFIG_TARGET_IN_USE;
     }
+    private static final int DISPLAYCONFIG_TARGET_FORCIBLE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_NTDS_REPLICATION "1.3.6.1.4.1.311.25.1"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_TARGET_FORCIBLE 2
      * }
      */
-    public static MemorySegment szOID_NTDS_REPLICATION() {
-        return constants$4641.const$3;
+    public static int DISPLAYCONFIG_TARGET_FORCIBLE() {
+        return DISPLAYCONFIG_TARGET_FORCIBLE;
     }
+    private static final int DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_BOOT = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_NTDS_CA_SECURITY_EXT "1.3.6.1.4.1.311.25.2"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_BOOT 4
      * }
      */
-    public static MemorySegment szOID_NTDS_CA_SECURITY_EXT() {
-        return constants$4641.const$4;
+    public static int DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_BOOT() {
+        return DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_BOOT;
     }
+    private static final int DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_PATH = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_NTDS_OBJECTSID "1.3.6.1.4.1.311.25.2.1"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_PATH 8
      * }
      */
-    public static MemorySegment szOID_NTDS_OBJECTSID() {
-        return constants$4641.const$5;
+    public static int DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_PATH() {
+        return DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_PATH;
     }
+    private static final int DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_SYSTEM = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_SUBJECT_DIR_ATTRS "2.5.29.9"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_SYSTEM 16
      * }
      */
-    public static MemorySegment szOID_SUBJECT_DIR_ATTRS() {
-        return constants$4642.const$0;
+    public static int DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_SYSTEM() {
+        return DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_SYSTEM;
     }
+    private static final int DISPLAYCONFIG_TARGET_IS_HMD = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_KP "1.3.6.1.5.5.7.3"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_TARGET_IS_HMD 32
      * }
      */
-    public static MemorySegment szOID_PKIX_KP() {
-        return constants$4642.const$1;
+    public static int DISPLAYCONFIG_TARGET_IS_HMD() {
+        return DISPLAYCONFIG_TARGET_IS_HMD;
     }
+    private static final int DISPLAYCONFIG_PATH_ACTIVE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_KP_SERVER_AUTH "1.3.6.1.5.5.7.3.1"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_PATH_ACTIVE 1
      * }
      */
-    public static MemorySegment szOID_PKIX_KP_SERVER_AUTH() {
-        return constants$4642.const$2;
+    public static int DISPLAYCONFIG_PATH_ACTIVE() {
+        return DISPLAYCONFIG_PATH_ACTIVE;
     }
+    private static final int DISPLAYCONFIG_PATH_PREFERRED_UNSCALED = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_KP_CLIENT_AUTH "1.3.6.1.5.5.7.3.2"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_PATH_PREFERRED_UNSCALED 4
      * }
      */
-    public static MemorySegment szOID_PKIX_KP_CLIENT_AUTH() {
-        return constants$4642.const$3;
+    public static int DISPLAYCONFIG_PATH_PREFERRED_UNSCALED() {
+        return DISPLAYCONFIG_PATH_PREFERRED_UNSCALED;
     }
+    private static final int DISPLAYCONFIG_PATH_SUPPORT_VIRTUAL_MODE = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_KP_CODE_SIGNING "1.3.6.1.5.5.7.3.3"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_PATH_SUPPORT_VIRTUAL_MODE 8
      * }
      */
-    public static MemorySegment szOID_PKIX_KP_CODE_SIGNING() {
-        return constants$4642.const$4;
+    public static int DISPLAYCONFIG_PATH_SUPPORT_VIRTUAL_MODE() {
+        return DISPLAYCONFIG_PATH_SUPPORT_VIRTUAL_MODE;
     }
+    private static final int DISPLAYCONFIG_PATH_VALID_FLAGS = (int)29L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_KP_EMAIL_PROTECTION "1.3.6.1.5.5.7.3.4"
+     * {@snippet lang=c :
+     * #define DISPLAYCONFIG_PATH_VALID_FLAGS 29
      * }
      */
-    public static MemorySegment szOID_PKIX_KP_EMAIL_PROTECTION() {
-        return constants$4642.const$5;
+    public static int DISPLAYCONFIG_PATH_VALID_FLAGS() {
+        return DISPLAYCONFIG_PATH_VALID_FLAGS;
     }
+    private static final int QDC_ALL_PATHS = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_KP_IPSEC_END_SYSTEM "1.3.6.1.5.5.7.3.5"
+     * {@snippet lang=c :
+     * #define QDC_ALL_PATHS 1
      * }
      */
-    public static MemorySegment szOID_PKIX_KP_IPSEC_END_SYSTEM() {
-        return constants$4643.const$0;
+    public static int QDC_ALL_PATHS() {
+        return QDC_ALL_PATHS;
     }
+    private static final int QDC_ONLY_ACTIVE_PATHS = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_KP_IPSEC_TUNNEL "1.3.6.1.5.5.7.3.6"
+     * {@snippet lang=c :
+     * #define QDC_ONLY_ACTIVE_PATHS 2
      * }
      */
-    public static MemorySegment szOID_PKIX_KP_IPSEC_TUNNEL() {
-        return constants$4643.const$1;
+    public static int QDC_ONLY_ACTIVE_PATHS() {
+        return QDC_ONLY_ACTIVE_PATHS;
     }
+    private static final int QDC_DATABASE_CURRENT = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_KP_IPSEC_USER "1.3.6.1.5.5.7.3.7"
+     * {@snippet lang=c :
+     * #define QDC_DATABASE_CURRENT 4
      * }
      */
-    public static MemorySegment szOID_PKIX_KP_IPSEC_USER() {
-        return constants$4643.const$2;
+    public static int QDC_DATABASE_CURRENT() {
+        return QDC_DATABASE_CURRENT;
     }
+    private static final int QDC_VIRTUAL_MODE_AWARE = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_KP_TIMESTAMP_SIGNING "1.3.6.1.5.5.7.3.8"
+     * {@snippet lang=c :
+     * #define QDC_VIRTUAL_MODE_AWARE 16
      * }
      */
-    public static MemorySegment szOID_PKIX_KP_TIMESTAMP_SIGNING() {
-        return constants$4643.const$3;
+    public static int QDC_VIRTUAL_MODE_AWARE() {
+        return QDC_VIRTUAL_MODE_AWARE;
     }
 }
-
 

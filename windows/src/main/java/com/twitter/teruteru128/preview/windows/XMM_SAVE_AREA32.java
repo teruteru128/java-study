@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _XSAVE_FORMAT XMM_SAVE_AREA32;
+ * {@snippet lang=c :
+ * typedef XSAVE_FORMAT XMM_SAVE_AREA32
  * }
  */
-public final class XMM_SAVE_AREA32 extends _XSAVE_FORMAT {
+public class XMM_SAVE_AREA32 extends _XSAVE_FORMAT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private XMM_SAVE_AREA32() {}
+    XMM_SAVE_AREA32() {
+        // Should not be called directly
+    }
 }
-
 

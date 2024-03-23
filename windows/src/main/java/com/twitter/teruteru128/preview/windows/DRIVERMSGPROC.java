@@ -2,32 +2,71 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * unsigned long (*DRIVERMSGPROC)(unsigned long,unsigned long,unsigned long long,unsigned long long,unsigned long long);
+ * {@snippet lang=c :
+ * typedef DWORD (*DRIVERMSGPROC)(DWORD, DWORD, DWORD_PTR, DWORD_PTR, DWORD_PTR) __attribute__((stdcall))
  * }
  */
-public interface DRIVERMSGPROC {
+public class DRIVERMSGPROC {
 
-    int apply(int _x0, int _x1, long _x2, long _x3, long _x4);
-    static MemorySegment allocate(DRIVERMSGPROC fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$1596.const$2, fi, constants$1596.const$1, scope);
+    DRIVERMSGPROC() {
+        // Should not be called directly
     }
-    static DRIVERMSGPROC ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (int __x0, int __x1, long __x2, long __x3, long __x4) -> {
-            try {
-                return (int)constants$1596.const$3.invokeExact(symbol, __x0, __x1, __x2, __x3, __x4);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(int _x0, int _x1, long _x2, long _x3, long _x4);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_LONG,
+        Windows_h.C_LONG,
+        Windows_h.C_LONG,
+        Windows_h.C_LONG_LONG,
+        Windows_h.C_LONG_LONG,
+        Windows_h.C_LONG_LONG
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(DRIVERMSGPROC.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(DRIVERMSGPROC.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,int _x0, int _x1, long _x2, long _x3, long _x4) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

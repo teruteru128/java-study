@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SET_DISK_ATTRIBUTES SET_DISK_ATTRIBUTES;
+ * {@snippet lang=c :
+ * typedef struct _SET_DISK_ATTRIBUTES {
+ *     DWORD Version;
+ *     BOOLEAN Persist;
+ *     BYTE Reserved1[3];
+ *     DWORDLONG Attributes;
+ *     DWORDLONG AttributesMask;
+ *     DWORD Reserved2[4];
+ * } SET_DISK_ATTRIBUTES
  * }
  */
-public final class SET_DISK_ATTRIBUTES extends _SET_DISK_ATTRIBUTES {
+public class SET_DISK_ATTRIBUTES extends _SET_DISK_ATTRIBUTES {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SET_DISK_ATTRIBUTES() {}
+    SET_DISK_ATTRIBUTES() {
+        // Should not be called directly
+    }
 }
-
 

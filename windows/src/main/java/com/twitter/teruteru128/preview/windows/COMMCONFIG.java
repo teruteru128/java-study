@@ -2,20 +2,34 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _COMMCONFIG COMMCONFIG;
+ * {@snippet lang=c :
+ * typedef struct _COMMCONFIG {
+ *     DWORD dwSize;
+ *     WORD wVersion;
+ *     WORD wReserved;
+ *     DCB dcb;
+ *     DWORD dwProviderSubType;
+ *     DWORD dwProviderOffset;
+ *     DWORD dwProviderSize;
+ *     WCHAR wcProviderData[1];
+ * } COMMCONFIG
  * }
  */
-public final class COMMCONFIG extends _COMMCONFIG {
+public class COMMCONFIG extends _COMMCONFIG {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private COMMCONFIG() {}
+    COMMCONFIG() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _ASYNC_DUPLICATE_EXTENTS_STATUS {
  *     DWORD Version;
  *     DUPLICATE_EXTENTS_STATE State;
@@ -16,182 +21,337 @@ import static java.lang.foreign.ValueLayout.*;
  *     DWORDLONG TargetFileOffset;
  *     DWORDLONG ByteCount;
  *     DWORDLONG BytesDuplicated;
- * };
+ * }
  * }
  */
 public class _ASYNC_DUPLICATE_EXTENTS_STATUS {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2719.const$3;
+    _ASYNC_DUPLICATE_EXTENTS_STATUS() {
+        // Should not be called directly
     }
-    public static VarHandle Version$VH() {
-        return constants$2719.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Version;
-     * }
-     */
-    public static int Version$get(MemorySegment seg) {
-        return (int)constants$2719.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Version;
-     * }
-     */
-    public static void Version$set(MemorySegment seg, int x) {
-        constants$2719.const$4.set(seg, x);
-    }
-    public static int Version$get(MemorySegment seg, long index) {
-        return (int)constants$2719.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Version$set(MemorySegment seg, long index, int x) {
-        constants$2719.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle State$VH() {
-        return constants$2719.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DUPLICATE_EXTENTS_STATE State;
-     * }
-     */
-    public static int State$get(MemorySegment seg) {
-        return (int)constants$2719.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DUPLICATE_EXTENTS_STATE State;
-     * }
-     */
-    public static void State$set(MemorySegment seg, int x) {
-        constants$2719.const$5.set(seg, x);
-    }
-    public static int State$get(MemorySegment seg, long index) {
-        return (int)constants$2719.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void State$set(MemorySegment seg, long index, int x) {
-        constants$2719.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle SourceFileOffset$VH() {
-        return constants$2720.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORDLONG SourceFileOffset;
-     * }
-     */
-    public static long SourceFileOffset$get(MemorySegment seg) {
-        return (long)constants$2720.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORDLONG SourceFileOffset;
-     * }
-     */
-    public static void SourceFileOffset$set(MemorySegment seg, long x) {
-        constants$2720.const$0.set(seg, x);
-    }
-    public static long SourceFileOffset$get(MemorySegment seg, long index) {
-        return (long)constants$2720.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SourceFileOffset$set(MemorySegment seg, long index, long x) {
-        constants$2720.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle TargetFileOffset$VH() {
-        return constants$2720.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORDLONG TargetFileOffset;
-     * }
-     */
-    public static long TargetFileOffset$get(MemorySegment seg) {
-        return (long)constants$2720.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORDLONG TargetFileOffset;
-     * }
-     */
-    public static void TargetFileOffset$set(MemorySegment seg, long x) {
-        constants$2720.const$1.set(seg, x);
-    }
-    public static long TargetFileOffset$get(MemorySegment seg, long index) {
-        return (long)constants$2720.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void TargetFileOffset$set(MemorySegment seg, long index, long x) {
-        constants$2720.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ByteCount$VH() {
-        return constants$2720.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORDLONG ByteCount;
-     * }
-     */
-    public static long ByteCount$get(MemorySegment seg) {
-        return (long)constants$2720.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORDLONG ByteCount;
-     * }
-     */
-    public static void ByteCount$set(MemorySegment seg, long x) {
-        constants$2720.const$2.set(seg, x);
-    }
-    public static long ByteCount$get(MemorySegment seg, long index) {
-        return (long)constants$2720.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ByteCount$set(MemorySegment seg, long index, long x) {
-        constants$2720.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle BytesDuplicated$VH() {
-        return constants$2720.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORDLONG BytesDuplicated;
-     * }
-     */
-    public static long BytesDuplicated$get(MemorySegment seg) {
-        return (long)constants$2720.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORDLONG BytesDuplicated;
-     * }
-     */
-    public static void BytesDuplicated$set(MemorySegment seg, long x) {
-        constants$2720.const$3.set(seg, x);
-    }
-    public static long BytesDuplicated$get(MemorySegment seg, long index) {
-        return (long)constants$2720.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void BytesDuplicated$set(MemorySegment seg, long index, long x) {
-        constants$2720.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("Version"),
+        Windows_h.C_INT.withName("State"),
+        Windows_h.C_LONG_LONG.withName("SourceFileOffset"),
+        Windows_h.C_LONG_LONG.withName("TargetFileOffset"),
+        Windows_h.C_LONG_LONG.withName("ByteCount"),
+        Windows_h.C_LONG_LONG.withName("BytesDuplicated")
+    ).withName("_ASYNC_DUPLICATE_EXTENTS_STATUS");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt Version$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Version"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static final OfInt Version$layout() {
+        return Version$LAYOUT;
+    }
+
+    private static final long Version$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static final long Version$offset() {
+        return Version$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static int Version(MemorySegment struct) {
+        return struct.get(Version$LAYOUT, Version$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static void Version(MemorySegment struct, int fieldValue) {
+        struct.set(Version$LAYOUT, Version$OFFSET, fieldValue);
+    }
+
+    private static final OfInt State$LAYOUT = (OfInt)$LAYOUT.select(groupElement("State"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DUPLICATE_EXTENTS_STATE State
+     * }
+     */
+    public static final OfInt State$layout() {
+        return State$LAYOUT;
+    }
+
+    private static final long State$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DUPLICATE_EXTENTS_STATE State
+     * }
+     */
+    public static final long State$offset() {
+        return State$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DUPLICATE_EXTENTS_STATE State
+     * }
+     */
+    public static int State(MemorySegment struct) {
+        return struct.get(State$LAYOUT, State$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DUPLICATE_EXTENTS_STATE State
+     * }
+     */
+    public static void State(MemorySegment struct, int fieldValue) {
+        struct.set(State$LAYOUT, State$OFFSET, fieldValue);
+    }
+
+    private static final OfLong SourceFileOffset$LAYOUT = (OfLong)$LAYOUT.select(groupElement("SourceFileOffset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORDLONG SourceFileOffset
+     * }
+     */
+    public static final OfLong SourceFileOffset$layout() {
+        return SourceFileOffset$LAYOUT;
+    }
+
+    private static final long SourceFileOffset$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORDLONG SourceFileOffset
+     * }
+     */
+    public static final long SourceFileOffset$offset() {
+        return SourceFileOffset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORDLONG SourceFileOffset
+     * }
+     */
+    public static long SourceFileOffset(MemorySegment struct) {
+        return struct.get(SourceFileOffset$LAYOUT, SourceFileOffset$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORDLONG SourceFileOffset
+     * }
+     */
+    public static void SourceFileOffset(MemorySegment struct, long fieldValue) {
+        struct.set(SourceFileOffset$LAYOUT, SourceFileOffset$OFFSET, fieldValue);
+    }
+
+    private static final OfLong TargetFileOffset$LAYOUT = (OfLong)$LAYOUT.select(groupElement("TargetFileOffset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORDLONG TargetFileOffset
+     * }
+     */
+    public static final OfLong TargetFileOffset$layout() {
+        return TargetFileOffset$LAYOUT;
+    }
+
+    private static final long TargetFileOffset$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORDLONG TargetFileOffset
+     * }
+     */
+    public static final long TargetFileOffset$offset() {
+        return TargetFileOffset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORDLONG TargetFileOffset
+     * }
+     */
+    public static long TargetFileOffset(MemorySegment struct) {
+        return struct.get(TargetFileOffset$LAYOUT, TargetFileOffset$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORDLONG TargetFileOffset
+     * }
+     */
+    public static void TargetFileOffset(MemorySegment struct, long fieldValue) {
+        struct.set(TargetFileOffset$LAYOUT, TargetFileOffset$OFFSET, fieldValue);
+    }
+
+    private static final OfLong ByteCount$LAYOUT = (OfLong)$LAYOUT.select(groupElement("ByteCount"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORDLONG ByteCount
+     * }
+     */
+    public static final OfLong ByteCount$layout() {
+        return ByteCount$LAYOUT;
+    }
+
+    private static final long ByteCount$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORDLONG ByteCount
+     * }
+     */
+    public static final long ByteCount$offset() {
+        return ByteCount$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORDLONG ByteCount
+     * }
+     */
+    public static long ByteCount(MemorySegment struct) {
+        return struct.get(ByteCount$LAYOUT, ByteCount$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORDLONG ByteCount
+     * }
+     */
+    public static void ByteCount(MemorySegment struct, long fieldValue) {
+        struct.set(ByteCount$LAYOUT, ByteCount$OFFSET, fieldValue);
+    }
+
+    private static final OfLong BytesDuplicated$LAYOUT = (OfLong)$LAYOUT.select(groupElement("BytesDuplicated"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORDLONG BytesDuplicated
+     * }
+     */
+    public static final OfLong BytesDuplicated$layout() {
+        return BytesDuplicated$LAYOUT;
+    }
+
+    private static final long BytesDuplicated$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORDLONG BytesDuplicated
+     * }
+     */
+    public static final long BytesDuplicated$offset() {
+        return BytesDuplicated$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORDLONG BytesDuplicated
+     * }
+     */
+    public static long BytesDuplicated(MemorySegment struct) {
+        return struct.get(BytesDuplicated$LAYOUT, BytesDuplicated$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORDLONG BytesDuplicated
+     * }
+     */
+    public static void BytesDuplicated(MemorySegment struct, long fieldValue) {
+        struct.set(BytesDuplicated$LAYOUT, BytesDuplicated$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

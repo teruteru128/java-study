@@ -2,20 +2,34 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _STORAGE_DEVICE_RESILIENCY_DESCRIPTOR STORAGE_DEVICE_RESILIENCY_DESCRIPTOR;
+ * {@snippet lang=c :
+ * typedef struct _STORAGE_DEVICE_RESILIENCY_DESCRIPTOR {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     DWORD NameOffset;
+ *     DWORD NumberOfLogicalCopies;
+ *     DWORD NumberOfPhysicalCopies;
+ *     DWORD PhysicalDiskRedundancy;
+ *     DWORD NumberOfColumns;
+ *     DWORD Interleave;
+ * } STORAGE_DEVICE_RESILIENCY_DESCRIPTOR
  * }
  */
-public final class STORAGE_DEVICE_RESILIENCY_DESCRIPTOR extends _STORAGE_DEVICE_RESILIENCY_DESCRIPTOR {
+public class STORAGE_DEVICE_RESILIENCY_DESCRIPTOR extends _STORAGE_DEVICE_RESILIENCY_DESCRIPTOR {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private STORAGE_DEVICE_RESILIENCY_DESCRIPTOR() {}
+    STORAGE_DEVICE_RESILIENCY_DESCRIPTOR() {
+        // Should not be called directly
+    }
 }
-
 

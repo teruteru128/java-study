@@ -2,406 +2,806 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct IInternetProtocolInfoVtbl {
- *     HRESULT (*QueryInterface)(IInternetProtocolInfo*,const IID*,void**);
- *     ULONG (*AddRef)(IInternetProtocolInfo*);
- *     ULONG (*Release)(IInternetProtocolInfo*);
- *     HRESULT (*ParseUrl)(IInternetProtocolInfo*,LPCWSTR,PARSEACTION,DWORD,LPWSTR,DWORD,DWORD*,DWORD);
- *     HRESULT (*CombineUrl)(IInternetProtocolInfo*,LPCWSTR,LPCWSTR,DWORD,LPWSTR,DWORD,DWORD*,DWORD);
- *     HRESULT (*CompareUrl)(IInternetProtocolInfo*,LPCWSTR,LPCWSTR,DWORD);
- *     HRESULT (*QueryInfo)(IInternetProtocolInfo*,LPCWSTR,QUERYOPTION,DWORD,LPVOID,DWORD,DWORD*,DWORD);
- * };
+ *     HRESULT (*QueryInterface)(IInternetProtocolInfo *, const IID *const, void **) __attribute__((stdcall));
+ *     ULONG (*AddRef)(IInternetProtocolInfo *) __attribute__((stdcall));
+ *     ULONG (*Release)(IInternetProtocolInfo *) __attribute__((stdcall));
+ *     HRESULT (*ParseUrl)(IInternetProtocolInfo *, LPCWSTR, PARSEACTION, DWORD, LPWSTR, DWORD, DWORD *, DWORD) __attribute__((stdcall));
+ *     HRESULT (*CombineUrl)(IInternetProtocolInfo *, LPCWSTR, LPCWSTR, DWORD, LPWSTR, DWORD, DWORD *, DWORD) __attribute__((stdcall));
+ *     HRESULT (*CompareUrl)(IInternetProtocolInfo *, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall));
+ *     HRESULT (*QueryInfo)(IInternetProtocolInfo *, LPCWSTR, QUERYOPTION, DWORD, LPVOID, DWORD, DWORD *, DWORD) __attribute__((stdcall));
+ * }
  * }
  */
 public class IInternetProtocolInfoVtbl {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$4234.const$4;
+    IInternetProtocolInfoVtbl() {
+        // Should not be called directly
     }
+
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("QueryInterface"),
+        Windows_h.C_POINTER.withName("AddRef"),
+        Windows_h.C_POINTER.withName("Release"),
+        Windows_h.C_POINTER.withName("ParseUrl"),
+        Windows_h.C_POINTER.withName("CombineUrl"),
+        Windows_h.C_POINTER.withName("CompareUrl"),
+        Windows_h.C_POINTER.withName("QueryInfo")
+    ).withName("IInternetProtocolInfoVtbl");
+
     /**
-     * {@snippet :
- * HRESULT (*QueryInterface)(IInternetProtocolInfo*,const IID*,void**);
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    /**
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IInternetProtocolInfo *, const IID *const, void **) __attribute__((stdcall))
      * }
      */
-    public interface QueryInterface {
+    public static class QueryInterface {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1, java.lang.foreign.MemorySegment _x2);
-        static MemorySegment allocate(QueryInterface fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4234.const$5, fi, constants$37.const$3, scope);
+        QueryInterface() {
+            // Should not be called directly
         }
-        static QueryInterface ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1, java.lang.foreign.MemorySegment __x2) -> {
-                try {
-                    return (int)constants$620.const$5.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(QueryInterface.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(QueryInterface.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle QueryInterface$VH() {
-        return constants$4235.const$0;
+    private static final AddressLayout QueryInterface$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("QueryInterface"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IInternetProtocolInfo *, const IID *const, void **) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout QueryInterface$layout() {
+        return QueryInterface$LAYOUT;
     }
+
+    private static final long QueryInterface$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IInternetProtocolInfo *, const IID *const, void **) __attribute__((stdcall))
+     * }
+     */
+    public static final long QueryInterface$offset() {
+        return QueryInterface$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*QueryInterface)(IInternetProtocolInfo*,const IID*,void**);
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IInternetProtocolInfo *, const IID *const, void **) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment QueryInterface$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4235.const$0.get(seg);
+    public static MemorySegment QueryInterface(MemorySegment struct) {
+        return struct.get(QueryInterface$LAYOUT, QueryInterface$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*QueryInterface)(IInternetProtocolInfo*,const IID*,void**);
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IInternetProtocolInfo *, const IID *const, void **) __attribute__((stdcall))
      * }
      */
-    public static void QueryInterface$set(MemorySegment seg, MemorySegment x) {
-        constants$4235.const$0.set(seg, x);
+    public static void QueryInterface(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(QueryInterface$LAYOUT, QueryInterface$OFFSET, fieldValue);
     }
-    public static MemorySegment QueryInterface$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4235.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void QueryInterface$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4235.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static QueryInterface QueryInterface(MemorySegment segment, Arena scope) {
-        return QueryInterface.ofAddress(QueryInterface$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * ULONG (*AddRef)(IInternetProtocolInfo*);
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IInternetProtocolInfo *) __attribute__((stdcall))
      * }
      */
-    public interface AddRef {
+    public static class AddRef {
 
-        int apply(java.lang.foreign.MemorySegment _x0);
-        static MemorySegment allocate(AddRef fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4235.const$1, fi, constants$18.const$5, scope);
+        AddRef() {
+            // Should not be called directly
         }
-        static AddRef ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0) -> {
-                try {
-                    return (int)constants$495.const$0.invokeExact(symbol, __x0);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(AddRef.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(AddRef.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle AddRef$VH() {
-        return constants$4235.const$2;
+    private static final AddressLayout AddRef$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("AddRef"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IInternetProtocolInfo *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout AddRef$layout() {
+        return AddRef$LAYOUT;
     }
+
+    private static final long AddRef$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IInternetProtocolInfo *) __attribute__((stdcall))
+     * }
+     */
+    public static final long AddRef$offset() {
+        return AddRef$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * ULONG (*AddRef)(IInternetProtocolInfo*);
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IInternetProtocolInfo *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment AddRef$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4235.const$2.get(seg);
+    public static MemorySegment AddRef(MemorySegment struct) {
+        return struct.get(AddRef$LAYOUT, AddRef$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * ULONG (*AddRef)(IInternetProtocolInfo*);
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IInternetProtocolInfo *) __attribute__((stdcall))
      * }
      */
-    public static void AddRef$set(MemorySegment seg, MemorySegment x) {
-        constants$4235.const$2.set(seg, x);
+    public static void AddRef(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(AddRef$LAYOUT, AddRef$OFFSET, fieldValue);
     }
-    public static MemorySegment AddRef$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4235.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void AddRef$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4235.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static AddRef AddRef(MemorySegment segment, Arena scope) {
-        return AddRef.ofAddress(AddRef$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * ULONG (*Release)(IInternetProtocolInfo*);
+     * {@snippet lang=c :
+     * ULONG (*Release)(IInternetProtocolInfo *) __attribute__((stdcall))
      * }
      */
-    public interface Release {
+    public static class Release {
 
-        int apply(java.lang.foreign.MemorySegment _x0);
-        static MemorySegment allocate(Release fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4235.const$3, fi, constants$18.const$5, scope);
+        Release() {
+            // Should not be called directly
         }
-        static Release ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0) -> {
-                try {
-                    return (int)constants$495.const$0.invokeExact(symbol, __x0);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(Release.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(Release.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle Release$VH() {
-        return constants$4235.const$4;
+    private static final AddressLayout Release$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("Release"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG (*Release)(IInternetProtocolInfo *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout Release$layout() {
+        return Release$LAYOUT;
     }
+
+    private static final long Release$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG (*Release)(IInternetProtocolInfo *) __attribute__((stdcall))
+     * }
+     */
+    public static final long Release$offset() {
+        return Release$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * ULONG (*Release)(IInternetProtocolInfo*);
+     * {@snippet lang=c :
+     * ULONG (*Release)(IInternetProtocolInfo *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment Release$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4235.const$4.get(seg);
+    public static MemorySegment Release(MemorySegment struct) {
+        return struct.get(Release$LAYOUT, Release$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * ULONG (*Release)(IInternetProtocolInfo*);
+     * {@snippet lang=c :
+     * ULONG (*Release)(IInternetProtocolInfo *) __attribute__((stdcall))
      * }
      */
-    public static void Release$set(MemorySegment seg, MemorySegment x) {
-        constants$4235.const$4.set(seg, x);
+    public static void Release(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(Release$LAYOUT, Release$OFFSET, fieldValue);
     }
-    public static MemorySegment Release$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4235.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Release$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4235.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static Release Release(MemorySegment segment, Arena scope) {
-        return Release.ofAddress(Release$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*ParseUrl)(IInternetProtocolInfo*,LPCWSTR,PARSEACTION,DWORD,LPWSTR,DWORD,DWORD*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*ParseUrl)(IInternetProtocolInfo *, LPCWSTR, PARSEACTION, DWORD, LPWSTR, DWORD, DWORD *, DWORD) __attribute__((stdcall))
      * }
      */
-    public interface ParseUrl {
+    public static class ParseUrl {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1, int _x2, int _x3, java.lang.foreign.MemorySegment _x4, int _x5, java.lang.foreign.MemorySegment _x6, int _x7);
-        static MemorySegment allocate(ParseUrl fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4236.const$0, fi, constants$4235.const$5, scope);
+        ParseUrl() {
+            // Should not be called directly
         }
-        static ParseUrl ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1, int __x2, int __x3, java.lang.foreign.MemorySegment __x4, int __x5, java.lang.foreign.MemorySegment __x6, int __x7) -> {
-                try {
-                    return (int)constants$4236.const$1.invokeExact(symbol, __x0, __x1, __x2, __x3, __x4, __x5, __x6, __x7);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1, int _x2, int _x3, MemorySegment _x4, int _x5, MemorySegment _x6, int _x7);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(ParseUrl.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(ParseUrl.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, int _x2, int _x3, MemorySegment _x4, int _x5, MemorySegment _x6, int _x7) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle ParseUrl$VH() {
-        return constants$4236.const$2;
+    private static final AddressLayout ParseUrl$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("ParseUrl"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*ParseUrl)(IInternetProtocolInfo *, LPCWSTR, PARSEACTION, DWORD, LPWSTR, DWORD, DWORD *, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout ParseUrl$layout() {
+        return ParseUrl$LAYOUT;
     }
+
+    private static final long ParseUrl$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*ParseUrl)(IInternetProtocolInfo *, LPCWSTR, PARSEACTION, DWORD, LPWSTR, DWORD, DWORD *, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long ParseUrl$offset() {
+        return ParseUrl$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*ParseUrl)(IInternetProtocolInfo*,LPCWSTR,PARSEACTION,DWORD,LPWSTR,DWORD,DWORD*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*ParseUrl)(IInternetProtocolInfo *, LPCWSTR, PARSEACTION, DWORD, LPWSTR, DWORD, DWORD *, DWORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment ParseUrl$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4236.const$2.get(seg);
+    public static MemorySegment ParseUrl(MemorySegment struct) {
+        return struct.get(ParseUrl$LAYOUT, ParseUrl$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*ParseUrl)(IInternetProtocolInfo*,LPCWSTR,PARSEACTION,DWORD,LPWSTR,DWORD,DWORD*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*ParseUrl)(IInternetProtocolInfo *, LPCWSTR, PARSEACTION, DWORD, LPWSTR, DWORD, DWORD *, DWORD) __attribute__((stdcall))
      * }
      */
-    public static void ParseUrl$set(MemorySegment seg, MemorySegment x) {
-        constants$4236.const$2.set(seg, x);
+    public static void ParseUrl(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(ParseUrl$LAYOUT, ParseUrl$OFFSET, fieldValue);
     }
-    public static MemorySegment ParseUrl$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4236.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ParseUrl$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4236.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static ParseUrl ParseUrl(MemorySegment segment, Arena scope) {
-        return ParseUrl.ofAddress(ParseUrl$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*CombineUrl)(IInternetProtocolInfo*,LPCWSTR,LPCWSTR,DWORD,LPWSTR,DWORD,DWORD*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*CombineUrl)(IInternetProtocolInfo *, LPCWSTR, LPCWSTR, DWORD, LPWSTR, DWORD, DWORD *, DWORD) __attribute__((stdcall))
      * }
      */
-    public interface CombineUrl {
+    public static class CombineUrl {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1, java.lang.foreign.MemorySegment _x2, int _x3, java.lang.foreign.MemorySegment _x4, int _x5, java.lang.foreign.MemorySegment _x6, int _x7);
-        static MemorySegment allocate(CombineUrl fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4236.const$3, fi, constants$1961.const$4, scope);
+        CombineUrl() {
+            // Should not be called directly
         }
-        static CombineUrl ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1, java.lang.foreign.MemorySegment __x2, int __x3, java.lang.foreign.MemorySegment __x4, int __x5, java.lang.foreign.MemorySegment __x6, int __x7) -> {
-                try {
-                    return (int)constants$4236.const$4.invokeExact(symbol, __x0, __x1, __x2, __x3, __x4, __x5, __x6, __x7);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, int _x3, MemorySegment _x4, int _x5, MemorySegment _x6, int _x7);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(CombineUrl.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(CombineUrl.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, int _x3, MemorySegment _x4, int _x5, MemorySegment _x6, int _x7) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle CombineUrl$VH() {
-        return constants$4236.const$5;
+    private static final AddressLayout CombineUrl$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("CombineUrl"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*CombineUrl)(IInternetProtocolInfo *, LPCWSTR, LPCWSTR, DWORD, LPWSTR, DWORD, DWORD *, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout CombineUrl$layout() {
+        return CombineUrl$LAYOUT;
     }
+
+    private static final long CombineUrl$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*CombineUrl)(IInternetProtocolInfo *, LPCWSTR, LPCWSTR, DWORD, LPWSTR, DWORD, DWORD *, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long CombineUrl$offset() {
+        return CombineUrl$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*CombineUrl)(IInternetProtocolInfo*,LPCWSTR,LPCWSTR,DWORD,LPWSTR,DWORD,DWORD*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*CombineUrl)(IInternetProtocolInfo *, LPCWSTR, LPCWSTR, DWORD, LPWSTR, DWORD, DWORD *, DWORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment CombineUrl$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4236.const$5.get(seg);
+    public static MemorySegment CombineUrl(MemorySegment struct) {
+        return struct.get(CombineUrl$LAYOUT, CombineUrl$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*CombineUrl)(IInternetProtocolInfo*,LPCWSTR,LPCWSTR,DWORD,LPWSTR,DWORD,DWORD*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*CombineUrl)(IInternetProtocolInfo *, LPCWSTR, LPCWSTR, DWORD, LPWSTR, DWORD, DWORD *, DWORD) __attribute__((stdcall))
      * }
      */
-    public static void CombineUrl$set(MemorySegment seg, MemorySegment x) {
-        constants$4236.const$5.set(seg, x);
+    public static void CombineUrl(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(CombineUrl$LAYOUT, CombineUrl$OFFSET, fieldValue);
     }
-    public static MemorySegment CombineUrl$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4236.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void CombineUrl$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4236.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static CombineUrl CombineUrl(MemorySegment segment, Arena scope) {
-        return CombineUrl.ofAddress(CombineUrl$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*CompareUrl)(IInternetProtocolInfo*,LPCWSTR,LPCWSTR,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*CompareUrl)(IInternetProtocolInfo *, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
      * }
      */
-    public interface CompareUrl {
+    public static class CompareUrl {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1, java.lang.foreign.MemorySegment _x2, int _x3);
-        static MemorySegment allocate(CompareUrl fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4237.const$0, fi, constants$607.const$3, scope);
+        CompareUrl() {
+            // Should not be called directly
         }
-        static CompareUrl ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1, java.lang.foreign.MemorySegment __x2, int __x3) -> {
-                try {
-                    return (int)constants$2133.const$3.invokeExact(symbol, __x0, __x1, __x2, __x3);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, int _x3);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(CompareUrl.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(CompareUrl.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, int _x3) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle CompareUrl$VH() {
-        return constants$4237.const$1;
+    private static final AddressLayout CompareUrl$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("CompareUrl"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*CompareUrl)(IInternetProtocolInfo *, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout CompareUrl$layout() {
+        return CompareUrl$LAYOUT;
     }
+
+    private static final long CompareUrl$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*CompareUrl)(IInternetProtocolInfo *, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long CompareUrl$offset() {
+        return CompareUrl$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*CompareUrl)(IInternetProtocolInfo*,LPCWSTR,LPCWSTR,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*CompareUrl)(IInternetProtocolInfo *, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment CompareUrl$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4237.const$1.get(seg);
+    public static MemorySegment CompareUrl(MemorySegment struct) {
+        return struct.get(CompareUrl$LAYOUT, CompareUrl$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*CompareUrl)(IInternetProtocolInfo*,LPCWSTR,LPCWSTR,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*CompareUrl)(IInternetProtocolInfo *, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
      * }
      */
-    public static void CompareUrl$set(MemorySegment seg, MemorySegment x) {
-        constants$4237.const$1.set(seg, x);
+    public static void CompareUrl(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(CompareUrl$LAYOUT, CompareUrl$OFFSET, fieldValue);
     }
-    public static MemorySegment CompareUrl$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4237.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void CompareUrl$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4237.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static CompareUrl CompareUrl(MemorySegment segment, Arena scope) {
-        return CompareUrl.ofAddress(CompareUrl$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*QueryInfo)(IInternetProtocolInfo*,LPCWSTR,QUERYOPTION,DWORD,LPVOID,DWORD,DWORD*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*QueryInfo)(IInternetProtocolInfo *, LPCWSTR, QUERYOPTION, DWORD, LPVOID, DWORD, DWORD *, DWORD) __attribute__((stdcall))
      * }
      */
-    public interface QueryInfo {
+    public static class QueryInfo {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1, int _x2, int _x3, java.lang.foreign.MemorySegment _x4, int _x5, java.lang.foreign.MemorySegment _x6, int _x7);
-        static MemorySegment allocate(QueryInfo fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4237.const$2, fi, constants$4235.const$5, scope);
+        QueryInfo() {
+            // Should not be called directly
         }
-        static QueryInfo ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1, int __x2, int __x3, java.lang.foreign.MemorySegment __x4, int __x5, java.lang.foreign.MemorySegment __x6, int __x7) -> {
-                try {
-                    return (int)constants$4236.const$1.invokeExact(symbol, __x0, __x1, __x2, __x3, __x4, __x5, __x6, __x7);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1, int _x2, int _x3, MemorySegment _x4, int _x5, MemorySegment _x6, int _x7);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(QueryInfo.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(QueryInfo.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, int _x2, int _x3, MemorySegment _x4, int _x5, MemorySegment _x6, int _x7) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6, _x7);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle QueryInfo$VH() {
-        return constants$4237.const$3;
+    private static final AddressLayout QueryInfo$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("QueryInfo"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*QueryInfo)(IInternetProtocolInfo *, LPCWSTR, QUERYOPTION, DWORD, LPVOID, DWORD, DWORD *, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout QueryInfo$layout() {
+        return QueryInfo$LAYOUT;
     }
+
+    private static final long QueryInfo$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*QueryInfo)(IInternetProtocolInfo *, LPCWSTR, QUERYOPTION, DWORD, LPVOID, DWORD, DWORD *, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long QueryInfo$offset() {
+        return QueryInfo$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*QueryInfo)(IInternetProtocolInfo*,LPCWSTR,QUERYOPTION,DWORD,LPVOID,DWORD,DWORD*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*QueryInfo)(IInternetProtocolInfo *, LPCWSTR, QUERYOPTION, DWORD, LPVOID, DWORD, DWORD *, DWORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment QueryInfo$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4237.const$3.get(seg);
+    public static MemorySegment QueryInfo(MemorySegment struct) {
+        return struct.get(QueryInfo$LAYOUT, QueryInfo$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*QueryInfo)(IInternetProtocolInfo*,LPCWSTR,QUERYOPTION,DWORD,LPVOID,DWORD,DWORD*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*QueryInfo)(IInternetProtocolInfo *, LPCWSTR, QUERYOPTION, DWORD, LPVOID, DWORD, DWORD *, DWORD) __attribute__((stdcall))
      * }
      */
-    public static void QueryInfo$set(MemorySegment seg, MemorySegment x) {
-        constants$4237.const$3.set(seg, x);
+    public static void QueryInfo(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(QueryInfo$LAYOUT, QueryInfo$OFFSET, fieldValue);
     }
-    public static MemorySegment QueryInfo$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4237.const$3.get(seg.asSlice(index*sizeof()));
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
     }
-    public static void QueryInfo$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4237.const$3.set(seg.asSlice(index*sizeof()), x);
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
     }
-    public static QueryInfo QueryInfo(MemorySegment segment, Arena scope) {
-        return QueryInfo.ofAddress(QueryInfo$get(segment), scope);
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
     }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
     }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
 }
-
 

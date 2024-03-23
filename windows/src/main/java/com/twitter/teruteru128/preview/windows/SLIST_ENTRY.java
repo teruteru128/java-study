@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SLIST_ENTRY SLIST_ENTRY;
+ * {@snippet lang=c :
+ * typedef struct _SLIST_ENTRY {
+ *     struct _SLIST_ENTRY *Next;
+ * } SLIST_ENTRY
  * }
  */
-public final class SLIST_ENTRY extends _SLIST_ENTRY {
+public class SLIST_ENTRY extends _SLIST_ENTRY {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SLIST_ENTRY() {}
+    SLIST_ENTRY() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,171 +2,310 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct COPYFILE2_EXTENDED_PARAMETERS {
  *     DWORD dwSize;
  *     DWORD dwCopyFlags;
- *     BOOL* pfCancel;
+ *     BOOL *pfCancel;
  *     PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine;
  *     PVOID pvCallbackContext;
- * };
+ * }
  * }
  */
 public class COPYFILE2_EXTENDED_PARAMETERS {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$813.const$3;
+    COPYFILE2_EXTENDED_PARAMETERS() {
+        // Should not be called directly
     }
-    public static VarHandle dwSize$VH() {
-        return constants$813.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwSize;
-     * }
-     */
-    public static int dwSize$get(MemorySegment seg) {
-        return (int)constants$813.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwSize;
-     * }
-     */
-    public static void dwSize$set(MemorySegment seg, int x) {
-        constants$813.const$4.set(seg, x);
-    }
-    public static int dwSize$get(MemorySegment seg, long index) {
-        return (int)constants$813.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwSize$set(MemorySegment seg, long index, int x) {
-        constants$813.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwCopyFlags$VH() {
-        return constants$813.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwCopyFlags;
-     * }
-     */
-    public static int dwCopyFlags$get(MemorySegment seg) {
-        return (int)constants$813.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwCopyFlags;
-     * }
-     */
-    public static void dwCopyFlags$set(MemorySegment seg, int x) {
-        constants$813.const$5.set(seg, x);
-    }
-    public static int dwCopyFlags$get(MemorySegment seg, long index) {
-        return (int)constants$813.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwCopyFlags$set(MemorySegment seg, long index, int x) {
-        constants$813.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pfCancel$VH() {
-        return constants$814.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BOOL* pfCancel;
-     * }
-     */
-    public static MemorySegment pfCancel$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$814.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BOOL* pfCancel;
-     * }
-     */
-    public static void pfCancel$set(MemorySegment seg, MemorySegment x) {
-        constants$814.const$0.set(seg, x);
-    }
-    public static MemorySegment pfCancel$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$814.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pfCancel$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$814.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pProgressRoutine$VH() {
-        return constants$814.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine;
-     * }
-     */
-    public static MemorySegment pProgressRoutine$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$814.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine;
-     * }
-     */
-    public static void pProgressRoutine$set(MemorySegment seg, MemorySegment x) {
-        constants$814.const$1.set(seg, x);
-    }
-    public static MemorySegment pProgressRoutine$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$814.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pProgressRoutine$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$814.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine(MemorySegment segment, Arena scope) {
-        return PCOPYFILE2_PROGRESS_ROUTINE.ofAddress(pProgressRoutine$get(segment), scope);
-    }
-    public static VarHandle pvCallbackContext$VH() {
-        return constants$814.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PVOID pvCallbackContext;
-     * }
-     */
-    public static MemorySegment pvCallbackContext$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$814.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PVOID pvCallbackContext;
-     * }
-     */
-    public static void pvCallbackContext$set(MemorySegment seg, MemorySegment x) {
-        constants$814.const$2.set(seg, x);
-    }
-    public static MemorySegment pvCallbackContext$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$814.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pvCallbackContext$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$814.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("dwSize"),
+        Windows_h.C_LONG.withName("dwCopyFlags"),
+        Windows_h.C_POINTER.withName("pfCancel"),
+        Windows_h.C_POINTER.withName("pProgressRoutine"),
+        Windows_h.C_POINTER.withName("pvCallbackContext")
+    ).withName("COPYFILE2_EXTENDED_PARAMETERS");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt dwSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwSize
+     * }
+     */
+    public static final OfInt dwSize$layout() {
+        return dwSize$LAYOUT;
+    }
+
+    private static final long dwSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwSize
+     * }
+     */
+    public static final long dwSize$offset() {
+        return dwSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwSize
+     * }
+     */
+    public static int dwSize(MemorySegment struct) {
+        return struct.get(dwSize$LAYOUT, dwSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwSize
+     * }
+     */
+    public static void dwSize(MemorySegment struct, int fieldValue) {
+        struct.set(dwSize$LAYOUT, dwSize$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwCopyFlags$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwCopyFlags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwCopyFlags
+     * }
+     */
+    public static final OfInt dwCopyFlags$layout() {
+        return dwCopyFlags$LAYOUT;
+    }
+
+    private static final long dwCopyFlags$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwCopyFlags
+     * }
+     */
+    public static final long dwCopyFlags$offset() {
+        return dwCopyFlags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwCopyFlags
+     * }
+     */
+    public static int dwCopyFlags(MemorySegment struct) {
+        return struct.get(dwCopyFlags$LAYOUT, dwCopyFlags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwCopyFlags
+     * }
+     */
+    public static void dwCopyFlags(MemorySegment struct, int fieldValue) {
+        struct.set(dwCopyFlags$LAYOUT, dwCopyFlags$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pfCancel$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pfCancel"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BOOL *pfCancel
+     * }
+     */
+    public static final AddressLayout pfCancel$layout() {
+        return pfCancel$LAYOUT;
+    }
+
+    private static final long pfCancel$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BOOL *pfCancel
+     * }
+     */
+    public static final long pfCancel$offset() {
+        return pfCancel$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BOOL *pfCancel
+     * }
+     */
+    public static MemorySegment pfCancel(MemorySegment struct) {
+        return struct.get(pfCancel$LAYOUT, pfCancel$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BOOL *pfCancel
+     * }
+     */
+    public static void pfCancel(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pfCancel$LAYOUT, pfCancel$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pProgressRoutine$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pProgressRoutine"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine
+     * }
+     */
+    public static final AddressLayout pProgressRoutine$layout() {
+        return pProgressRoutine$LAYOUT;
+    }
+
+    private static final long pProgressRoutine$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine
+     * }
+     */
+    public static final long pProgressRoutine$offset() {
+        return pProgressRoutine$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine
+     * }
+     */
+    public static MemorySegment pProgressRoutine(MemorySegment struct) {
+        return struct.get(pProgressRoutine$LAYOUT, pProgressRoutine$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCOPYFILE2_PROGRESS_ROUTINE pProgressRoutine
+     * }
+     */
+    public static void pProgressRoutine(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pProgressRoutine$LAYOUT, pProgressRoutine$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pvCallbackContext$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pvCallbackContext"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PVOID pvCallbackContext
+     * }
+     */
+    public static final AddressLayout pvCallbackContext$layout() {
+        return pvCallbackContext$LAYOUT;
+    }
+
+    private static final long pvCallbackContext$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PVOID pvCallbackContext
+     * }
+     */
+    public static final long pvCallbackContext$offset() {
+        return pvCallbackContext$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PVOID pvCallbackContext
+     * }
+     */
+    public static MemorySegment pvCallbackContext(MemorySegment struct) {
+        return struct.get(pvCallbackContext$LAYOUT, pvCallbackContext$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PVOID pvCallbackContext
+     * }
+     */
+    public static void pvCallbackContext(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pvCallbackContext$LAYOUT, pvCallbackContext$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

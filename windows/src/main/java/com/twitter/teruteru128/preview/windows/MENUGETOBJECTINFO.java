@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMENUGETOBJECTINFO MENUGETOBJECTINFO;
+ * {@snippet lang=c :
+ * typedef struct tagMENUGETOBJECTINFO {
+ *     DWORD dwFlags;
+ *     UINT uPos;
+ *     HMENU hmenu;
+ *     PVOID riid;
+ *     PVOID pvObj;
+ * } MENUGETOBJECTINFO
  * }
  */
-public final class MENUGETOBJECTINFO extends tagMENUGETOBJECTINFO {
+public class MENUGETOBJECTINFO extends tagMENUGETOBJECTINFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MENUGETOBJECTINFO() {}
+    MENUGETOBJECTINFO() {
+        // Should not be called directly
+    }
 }
-
 

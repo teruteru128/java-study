@@ -2,406 +2,786 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct IComThreadingInfoVtbl {
- *     HRESULT (*QueryInterface)(IComThreadingInfo*,const IID*,void**);
- *     ULONG (*AddRef)(IComThreadingInfo*);
- *     ULONG (*Release)(IComThreadingInfo*);
- *     HRESULT (*GetCurrentApartmentType)(IComThreadingInfo*,APTTYPE*);
- *     HRESULT (*GetCurrentThreadType)(IComThreadingInfo*,THDTYPE*);
- *     HRESULT (*GetCurrentLogicalThreadId)(IComThreadingInfo*,GUID*);
- *     HRESULT (*SetCurrentLogicalThreadId)(IComThreadingInfo*,const GUID*);
- * };
+ *     HRESULT (*QueryInterface)(IComThreadingInfo *, const IID *const, void **) __attribute__((stdcall));
+ *     ULONG (*AddRef)(IComThreadingInfo *) __attribute__((stdcall));
+ *     ULONG (*Release)(IComThreadingInfo *) __attribute__((stdcall));
+ *     HRESULT (*GetCurrentApartmentType)(IComThreadingInfo *, APTTYPE *) __attribute__((stdcall));
+ *     HRESULT (*GetCurrentThreadType)(IComThreadingInfo *, THDTYPE *) __attribute__((stdcall));
+ *     HRESULT (*GetCurrentLogicalThreadId)(IComThreadingInfo *, GUID *) __attribute__((stdcall));
+ *     HRESULT (*SetCurrentLogicalThreadId)(IComThreadingInfo *, const GUID *const) __attribute__((stdcall));
+ * }
  * }
  */
 public class IComThreadingInfoVtbl {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$3161.const$0;
+    IComThreadingInfoVtbl() {
+        // Should not be called directly
     }
+
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("QueryInterface"),
+        Windows_h.C_POINTER.withName("AddRef"),
+        Windows_h.C_POINTER.withName("Release"),
+        Windows_h.C_POINTER.withName("GetCurrentApartmentType"),
+        Windows_h.C_POINTER.withName("GetCurrentThreadType"),
+        Windows_h.C_POINTER.withName("GetCurrentLogicalThreadId"),
+        Windows_h.C_POINTER.withName("SetCurrentLogicalThreadId")
+    ).withName("IComThreadingInfoVtbl");
+
     /**
-     * {@snippet :
- * HRESULT (*QueryInterface)(IComThreadingInfo*,const IID*,void**);
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    /**
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IComThreadingInfo *, const IID *const, void **) __attribute__((stdcall))
      * }
      */
-    public interface QueryInterface {
+    public static class QueryInterface {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1, java.lang.foreign.MemorySegment _x2);
-        static MemorySegment allocate(QueryInterface fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3161.const$1, fi, constants$37.const$3, scope);
+        QueryInterface() {
+            // Should not be called directly
         }
-        static QueryInterface ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1, java.lang.foreign.MemorySegment __x2) -> {
-                try {
-                    return (int)constants$620.const$5.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(QueryInterface.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(QueryInterface.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle QueryInterface$VH() {
-        return constants$3161.const$2;
+    private static final AddressLayout QueryInterface$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("QueryInterface"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IComThreadingInfo *, const IID *const, void **) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout QueryInterface$layout() {
+        return QueryInterface$LAYOUT;
     }
+
+    private static final long QueryInterface$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IComThreadingInfo *, const IID *const, void **) __attribute__((stdcall))
+     * }
+     */
+    public static final long QueryInterface$offset() {
+        return QueryInterface$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*QueryInterface)(IComThreadingInfo*,const IID*,void**);
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IComThreadingInfo *, const IID *const, void **) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment QueryInterface$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3161.const$2.get(seg);
+    public static MemorySegment QueryInterface(MemorySegment struct) {
+        return struct.get(QueryInterface$LAYOUT, QueryInterface$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*QueryInterface)(IComThreadingInfo*,const IID*,void**);
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IComThreadingInfo *, const IID *const, void **) __attribute__((stdcall))
      * }
      */
-    public static void QueryInterface$set(MemorySegment seg, MemorySegment x) {
-        constants$3161.const$2.set(seg, x);
+    public static void QueryInterface(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(QueryInterface$LAYOUT, QueryInterface$OFFSET, fieldValue);
     }
-    public static MemorySegment QueryInterface$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3161.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void QueryInterface$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3161.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static QueryInterface QueryInterface(MemorySegment segment, Arena scope) {
-        return QueryInterface.ofAddress(QueryInterface$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * ULONG (*AddRef)(IComThreadingInfo*);
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IComThreadingInfo *) __attribute__((stdcall))
      * }
      */
-    public interface AddRef {
+    public static class AddRef {
 
-        int apply(java.lang.foreign.MemorySegment _x0);
-        static MemorySegment allocate(AddRef fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3161.const$3, fi, constants$18.const$5, scope);
+        AddRef() {
+            // Should not be called directly
         }
-        static AddRef ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0) -> {
-                try {
-                    return (int)constants$495.const$0.invokeExact(symbol, __x0);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(AddRef.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(AddRef.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle AddRef$VH() {
-        return constants$3161.const$4;
+    private static final AddressLayout AddRef$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("AddRef"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IComThreadingInfo *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout AddRef$layout() {
+        return AddRef$LAYOUT;
     }
+
+    private static final long AddRef$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IComThreadingInfo *) __attribute__((stdcall))
+     * }
+     */
+    public static final long AddRef$offset() {
+        return AddRef$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * ULONG (*AddRef)(IComThreadingInfo*);
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IComThreadingInfo *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment AddRef$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3161.const$4.get(seg);
+    public static MemorySegment AddRef(MemorySegment struct) {
+        return struct.get(AddRef$LAYOUT, AddRef$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * ULONG (*AddRef)(IComThreadingInfo*);
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IComThreadingInfo *) __attribute__((stdcall))
      * }
      */
-    public static void AddRef$set(MemorySegment seg, MemorySegment x) {
-        constants$3161.const$4.set(seg, x);
+    public static void AddRef(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(AddRef$LAYOUT, AddRef$OFFSET, fieldValue);
     }
-    public static MemorySegment AddRef$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3161.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void AddRef$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3161.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static AddRef AddRef(MemorySegment segment, Arena scope) {
-        return AddRef.ofAddress(AddRef$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * ULONG (*Release)(IComThreadingInfo*);
+     * {@snippet lang=c :
+     * ULONG (*Release)(IComThreadingInfo *) __attribute__((stdcall))
      * }
      */
-    public interface Release {
+    public static class Release {
 
-        int apply(java.lang.foreign.MemorySegment _x0);
-        static MemorySegment allocate(Release fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3161.const$5, fi, constants$18.const$5, scope);
+        Release() {
+            // Should not be called directly
         }
-        static Release ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0) -> {
-                try {
-                    return (int)constants$495.const$0.invokeExact(symbol, __x0);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(Release.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(Release.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle Release$VH() {
-        return constants$3162.const$0;
+    private static final AddressLayout Release$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("Release"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG (*Release)(IComThreadingInfo *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout Release$layout() {
+        return Release$LAYOUT;
     }
+
+    private static final long Release$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG (*Release)(IComThreadingInfo *) __attribute__((stdcall))
+     * }
+     */
+    public static final long Release$offset() {
+        return Release$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * ULONG (*Release)(IComThreadingInfo*);
+     * {@snippet lang=c :
+     * ULONG (*Release)(IComThreadingInfo *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment Release$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3162.const$0.get(seg);
+    public static MemorySegment Release(MemorySegment struct) {
+        return struct.get(Release$LAYOUT, Release$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * ULONG (*Release)(IComThreadingInfo*);
+     * {@snippet lang=c :
+     * ULONG (*Release)(IComThreadingInfo *) __attribute__((stdcall))
      * }
      */
-    public static void Release$set(MemorySegment seg, MemorySegment x) {
-        constants$3162.const$0.set(seg, x);
+    public static void Release(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(Release$LAYOUT, Release$OFFSET, fieldValue);
     }
-    public static MemorySegment Release$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3162.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Release$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3162.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static Release Release(MemorySegment segment, Arena scope) {
-        return Release.ofAddress(Release$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*GetCurrentApartmentType)(IComThreadingInfo*,APTTYPE*);
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentApartmentType)(IComThreadingInfo *, APTTYPE *) __attribute__((stdcall))
      * }
      */
-    public interface GetCurrentApartmentType {
+    public static class GetCurrentApartmentType {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1);
-        static MemorySegment allocate(GetCurrentApartmentType fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3162.const$1, fi, constants$34.const$0, scope);
+        GetCurrentApartmentType() {
+            // Should not be called directly
         }
-        static GetCurrentApartmentType ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1) -> {
-                try {
-                    return (int)constants$92.const$2.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(GetCurrentApartmentType.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(GetCurrentApartmentType.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle GetCurrentApartmentType$VH() {
-        return constants$3162.const$2;
+    private static final AddressLayout GetCurrentApartmentType$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("GetCurrentApartmentType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentApartmentType)(IComThreadingInfo *, APTTYPE *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout GetCurrentApartmentType$layout() {
+        return GetCurrentApartmentType$LAYOUT;
     }
+
+    private static final long GetCurrentApartmentType$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentApartmentType)(IComThreadingInfo *, APTTYPE *) __attribute__((stdcall))
+     * }
+     */
+    public static final long GetCurrentApartmentType$offset() {
+        return GetCurrentApartmentType$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*GetCurrentApartmentType)(IComThreadingInfo*,APTTYPE*);
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentApartmentType)(IComThreadingInfo *, APTTYPE *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment GetCurrentApartmentType$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3162.const$2.get(seg);
+    public static MemorySegment GetCurrentApartmentType(MemorySegment struct) {
+        return struct.get(GetCurrentApartmentType$LAYOUT, GetCurrentApartmentType$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*GetCurrentApartmentType)(IComThreadingInfo*,APTTYPE*);
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentApartmentType)(IComThreadingInfo *, APTTYPE *) __attribute__((stdcall))
      * }
      */
-    public static void GetCurrentApartmentType$set(MemorySegment seg, MemorySegment x) {
-        constants$3162.const$2.set(seg, x);
+    public static void GetCurrentApartmentType(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(GetCurrentApartmentType$LAYOUT, GetCurrentApartmentType$OFFSET, fieldValue);
     }
-    public static MemorySegment GetCurrentApartmentType$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3162.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void GetCurrentApartmentType$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3162.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static GetCurrentApartmentType GetCurrentApartmentType(MemorySegment segment, Arena scope) {
-        return GetCurrentApartmentType.ofAddress(GetCurrentApartmentType$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*GetCurrentThreadType)(IComThreadingInfo*,THDTYPE*);
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentThreadType)(IComThreadingInfo *, THDTYPE *) __attribute__((stdcall))
      * }
      */
-    public interface GetCurrentThreadType {
+    public static class GetCurrentThreadType {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1);
-        static MemorySegment allocate(GetCurrentThreadType fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3162.const$3, fi, constants$34.const$0, scope);
+        GetCurrentThreadType() {
+            // Should not be called directly
         }
-        static GetCurrentThreadType ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1) -> {
-                try {
-                    return (int)constants$92.const$2.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(GetCurrentThreadType.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(GetCurrentThreadType.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle GetCurrentThreadType$VH() {
-        return constants$3162.const$4;
+    private static final AddressLayout GetCurrentThreadType$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("GetCurrentThreadType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentThreadType)(IComThreadingInfo *, THDTYPE *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout GetCurrentThreadType$layout() {
+        return GetCurrentThreadType$LAYOUT;
     }
+
+    private static final long GetCurrentThreadType$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentThreadType)(IComThreadingInfo *, THDTYPE *) __attribute__((stdcall))
+     * }
+     */
+    public static final long GetCurrentThreadType$offset() {
+        return GetCurrentThreadType$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*GetCurrentThreadType)(IComThreadingInfo*,THDTYPE*);
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentThreadType)(IComThreadingInfo *, THDTYPE *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment GetCurrentThreadType$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3162.const$4.get(seg);
+    public static MemorySegment GetCurrentThreadType(MemorySegment struct) {
+        return struct.get(GetCurrentThreadType$LAYOUT, GetCurrentThreadType$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*GetCurrentThreadType)(IComThreadingInfo*,THDTYPE*);
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentThreadType)(IComThreadingInfo *, THDTYPE *) __attribute__((stdcall))
      * }
      */
-    public static void GetCurrentThreadType$set(MemorySegment seg, MemorySegment x) {
-        constants$3162.const$4.set(seg, x);
+    public static void GetCurrentThreadType(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(GetCurrentThreadType$LAYOUT, GetCurrentThreadType$OFFSET, fieldValue);
     }
-    public static MemorySegment GetCurrentThreadType$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3162.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void GetCurrentThreadType$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3162.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static GetCurrentThreadType GetCurrentThreadType(MemorySegment segment, Arena scope) {
-        return GetCurrentThreadType.ofAddress(GetCurrentThreadType$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*GetCurrentLogicalThreadId)(IComThreadingInfo*,GUID*);
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentLogicalThreadId)(IComThreadingInfo *, GUID *) __attribute__((stdcall))
      * }
      */
-    public interface GetCurrentLogicalThreadId {
+    public static class GetCurrentLogicalThreadId {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1);
-        static MemorySegment allocate(GetCurrentLogicalThreadId fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3162.const$5, fi, constants$34.const$0, scope);
+        GetCurrentLogicalThreadId() {
+            // Should not be called directly
         }
-        static GetCurrentLogicalThreadId ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1) -> {
-                try {
-                    return (int)constants$92.const$2.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(GetCurrentLogicalThreadId.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(GetCurrentLogicalThreadId.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle GetCurrentLogicalThreadId$VH() {
-        return constants$3163.const$0;
+    private static final AddressLayout GetCurrentLogicalThreadId$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("GetCurrentLogicalThreadId"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentLogicalThreadId)(IComThreadingInfo *, GUID *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout GetCurrentLogicalThreadId$layout() {
+        return GetCurrentLogicalThreadId$LAYOUT;
     }
+
+    private static final long GetCurrentLogicalThreadId$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentLogicalThreadId)(IComThreadingInfo *, GUID *) __attribute__((stdcall))
+     * }
+     */
+    public static final long GetCurrentLogicalThreadId$offset() {
+        return GetCurrentLogicalThreadId$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*GetCurrentLogicalThreadId)(IComThreadingInfo*,GUID*);
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentLogicalThreadId)(IComThreadingInfo *, GUID *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment GetCurrentLogicalThreadId$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3163.const$0.get(seg);
+    public static MemorySegment GetCurrentLogicalThreadId(MemorySegment struct) {
+        return struct.get(GetCurrentLogicalThreadId$LAYOUT, GetCurrentLogicalThreadId$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*GetCurrentLogicalThreadId)(IComThreadingInfo*,GUID*);
+     * {@snippet lang=c :
+     * HRESULT (*GetCurrentLogicalThreadId)(IComThreadingInfo *, GUID *) __attribute__((stdcall))
      * }
      */
-    public static void GetCurrentLogicalThreadId$set(MemorySegment seg, MemorySegment x) {
-        constants$3163.const$0.set(seg, x);
+    public static void GetCurrentLogicalThreadId(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(GetCurrentLogicalThreadId$LAYOUT, GetCurrentLogicalThreadId$OFFSET, fieldValue);
     }
-    public static MemorySegment GetCurrentLogicalThreadId$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3163.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void GetCurrentLogicalThreadId$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3163.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static GetCurrentLogicalThreadId GetCurrentLogicalThreadId(MemorySegment segment, Arena scope) {
-        return GetCurrentLogicalThreadId.ofAddress(GetCurrentLogicalThreadId$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetCurrentLogicalThreadId)(IComThreadingInfo*,const GUID*);
+     * {@snippet lang=c :
+     * HRESULT (*SetCurrentLogicalThreadId)(IComThreadingInfo *, const GUID *const) __attribute__((stdcall))
      * }
      */
-    public interface SetCurrentLogicalThreadId {
+    public static class SetCurrentLogicalThreadId {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1);
-        static MemorySegment allocate(SetCurrentLogicalThreadId fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3163.const$1, fi, constants$34.const$0, scope);
+        SetCurrentLogicalThreadId() {
+            // Should not be called directly
         }
-        static SetCurrentLogicalThreadId ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1) -> {
-                try {
-                    return (int)constants$92.const$2.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetCurrentLogicalThreadId.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetCurrentLogicalThreadId.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetCurrentLogicalThreadId$VH() {
-        return constants$3163.const$2;
+    private static final AddressLayout SetCurrentLogicalThreadId$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetCurrentLogicalThreadId"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetCurrentLogicalThreadId)(IComThreadingInfo *, const GUID *const) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetCurrentLogicalThreadId$layout() {
+        return SetCurrentLogicalThreadId$LAYOUT;
     }
+
+    private static final long SetCurrentLogicalThreadId$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetCurrentLogicalThreadId)(IComThreadingInfo *, const GUID *const) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetCurrentLogicalThreadId$offset() {
+        return SetCurrentLogicalThreadId$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetCurrentLogicalThreadId)(IComThreadingInfo*,const GUID*);
+     * {@snippet lang=c :
+     * HRESULT (*SetCurrentLogicalThreadId)(IComThreadingInfo *, const GUID *const) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetCurrentLogicalThreadId$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3163.const$2.get(seg);
+    public static MemorySegment SetCurrentLogicalThreadId(MemorySegment struct) {
+        return struct.get(SetCurrentLogicalThreadId$LAYOUT, SetCurrentLogicalThreadId$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetCurrentLogicalThreadId)(IComThreadingInfo*,const GUID*);
+     * {@snippet lang=c :
+     * HRESULT (*SetCurrentLogicalThreadId)(IComThreadingInfo *, const GUID *const) __attribute__((stdcall))
      * }
      */
-    public static void SetCurrentLogicalThreadId$set(MemorySegment seg, MemorySegment x) {
-        constants$3163.const$2.set(seg, x);
+    public static void SetCurrentLogicalThreadId(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetCurrentLogicalThreadId$LAYOUT, SetCurrentLogicalThreadId$OFFSET, fieldValue);
     }
-    public static MemorySegment SetCurrentLogicalThreadId$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3163.const$2.get(seg.asSlice(index*sizeof()));
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
     }
-    public static void SetCurrentLogicalThreadId$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3163.const$2.set(seg.asSlice(index*sizeof()), x);
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
     }
-    public static SetCurrentLogicalThreadId SetCurrentLogicalThreadId(MemorySegment segment, Arena scope) {
-        return SetCurrentLogicalThreadId.ofAddress(SetCurrentLogicalThreadId$get(segment), scope);
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
     }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
     }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
 }
-
 

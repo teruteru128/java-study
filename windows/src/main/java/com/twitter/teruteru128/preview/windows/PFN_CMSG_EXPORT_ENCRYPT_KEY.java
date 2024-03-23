@@ -2,32 +2,71 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_CMSG_EXPORT_ENCRYPT_KEY)(unsigned long long hCryptProv,unsigned long long hEncryptKey,struct _CERT_PUBLIC_KEY_INFO* pPublicKeyInfo,unsigned char* pbData,unsigned long* pcbData);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_CMSG_EXPORT_ENCRYPT_KEY)(HCRYPTPROV, HCRYPTKEY, PCERT_PUBLIC_KEY_INFO, PBYTE, PDWORD) __attribute__((stdcall))
  * }
  */
-public interface PFN_CMSG_EXPORT_ENCRYPT_KEY {
+public class PFN_CMSG_EXPORT_ENCRYPT_KEY {
 
-    int apply(long hCryptProv, long hEncryptKey, java.lang.foreign.MemorySegment pPublicKeyInfo, java.lang.foreign.MemorySegment pbData, java.lang.foreign.MemorySegment pcbData);
-    static MemorySegment allocate(PFN_CMSG_EXPORT_ENCRYPT_KEY fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2107.const$5, fi, constants$2107.const$4, scope);
+    PFN_CMSG_EXPORT_ENCRYPT_KEY() {
+        // Should not be called directly
     }
-    static PFN_CMSG_EXPORT_ENCRYPT_KEY ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (long _hCryptProv, long _hEncryptKey, java.lang.foreign.MemorySegment _pPublicKeyInfo, java.lang.foreign.MemorySegment _pbData, java.lang.foreign.MemorySegment _pcbData) -> {
-            try {
-                return (int)constants$2108.const$0.invokeExact(symbol, _hCryptProv, _hEncryptKey, _pPublicKeyInfo, _pbData, _pcbData);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(long hCryptProv, long hEncryptKey, MemorySegment pPublicKeyInfo, MemorySegment pbData, MemorySegment pcbData);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_LONG_LONG,
+        Windows_h.C_LONG_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CMSG_EXPORT_ENCRYPT_KEY.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CMSG_EXPORT_ENCRYPT_KEY.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,long hCryptProv, long hEncryptKey, MemorySegment pPublicKeyInfo, MemorySegment pbData, MemorySegment pcbData) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, hCryptProv, hEncryptKey, pPublicKeyInfo, pbData, pcbData);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

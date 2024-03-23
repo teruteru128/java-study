@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _ImageArchitectureHeader IMAGE_ARCHITECTURE_HEADER;
+ * {@snippet lang=c :
+ * typedef struct _ImageArchitectureHeader {
+ *     unsigned int AmaskValue : 1;
+ *     int : 7;
+ *     unsigned int AmaskShift : 8;
+ *     int : 16;
+ *     DWORD FirstEntryRVA;
+ * } IMAGE_ARCHITECTURE_HEADER
  * }
  */
-public final class IMAGE_ARCHITECTURE_HEADER extends _ImageArchitectureHeader {
+public class IMAGE_ARCHITECTURE_HEADER extends _ImageArchitectureHeader {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private IMAGE_ARCHITECTURE_HEADER() {}
+    IMAGE_ARCHITECTURE_HEADER() {
+        // Should not be called directly
+    }
 }
-
 

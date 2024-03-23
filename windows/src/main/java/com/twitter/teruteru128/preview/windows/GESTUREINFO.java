@@ -2,20 +2,35 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagGESTUREINFO GESTUREINFO;
+ * {@snippet lang=c :
+ * typedef struct tagGESTUREINFO {
+ *     UINT cbSize;
+ *     DWORD dwFlags;
+ *     DWORD dwID;
+ *     HWND hwndTarget;
+ *     POINTS ptsLocation;
+ *     DWORD dwInstanceID;
+ *     DWORD dwSequenceID;
+ *     ULONGLONG ullArguments;
+ *     UINT cbExtraArgs;
+ * } GESTUREINFO
  * }
  */
-public final class GESTUREINFO extends tagGESTUREINFO {
+public class GESTUREINFO extends tagGESTUREINFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private GESTUREINFO() {}
+    GESTUREINFO() {
+        // Should not be called directly
+    }
 }
-
 

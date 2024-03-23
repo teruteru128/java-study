@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _BCRYPT_ECCKEY_BLOB BCRYPT_ECCKEY_BLOB;
+ * {@snippet lang=c :
+ * typedef struct _BCRYPT_ECCKEY_BLOB {
+ *     ULONG dwMagic;
+ *     ULONG cbKey;
+ * } BCRYPT_ECCKEY_BLOB
  * }
  */
-public final class BCRYPT_ECCKEY_BLOB extends _BCRYPT_ECCKEY_BLOB {
+public class BCRYPT_ECCKEY_BLOB extends _BCRYPT_ECCKEY_BLOB {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private BCRYPT_ECCKEY_BLOB() {}
+    BCRYPT_ECCKEY_BLOB() {
+        // Should not be called directly
+    }
 }
-
 

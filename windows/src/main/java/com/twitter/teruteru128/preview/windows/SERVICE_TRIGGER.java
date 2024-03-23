@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SERVICE_TRIGGER SERVICE_TRIGGER;
+ * {@snippet lang=c :
+ * typedef struct _SERVICE_TRIGGER {
+ *     DWORD dwTriggerType;
+ *     DWORD dwAction;
+ *     GUID *pTriggerSubtype;
+ *     DWORD cDataItems;
+ *     PSERVICE_TRIGGER_SPECIFIC_DATA_ITEM pDataItems;
+ * } SERVICE_TRIGGER
  * }
  */
-public final class SERVICE_TRIGGER extends _SERVICE_TRIGGER {
+public class SERVICE_TRIGGER extends _SERVICE_TRIGGER {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SERVICE_TRIGGER() {}
+    SERVICE_TRIGGER() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _OBJECT_TYPE_LIST OBJECT_TYPE_LIST;
+ * {@snippet lang=c :
+ * typedef struct _OBJECT_TYPE_LIST {
+ *     WORD Level;
+ *     WORD Sbz;
+ *     GUID *ObjectType;
+ * } OBJECT_TYPE_LIST
  * }
  */
-public final class OBJECT_TYPE_LIST extends _OBJECT_TYPE_LIST {
+public class OBJECT_TYPE_LIST extends _OBJECT_TYPE_LIST {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private OBJECT_TYPE_LIST() {}
+    OBJECT_TYPE_LIST() {
+        // Should not be called directly
+    }
 }
-
 

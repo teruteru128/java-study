@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMONHSZSTRUCTA MONHSZSTRUCTA;
+ * {@snippet lang=c :
+ * typedef struct tagMONHSZSTRUCTA {
+ *     UINT cb;
+ *     BOOL fsAction;
+ *     DWORD dwTime;
+ *     HSZ hsz;
+ *     HANDLE hTask;
+ *     CHAR str[1];
+ * } MONHSZSTRUCTA
  * }
  */
-public final class MONHSZSTRUCTA extends tagMONHSZSTRUCTA {
+public class MONHSZSTRUCTA extends tagMONHSZSTRUCTA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MONHSZSTRUCTA() {}
+    MONHSZSTRUCTA() {
+        // Should not be called directly
+    }
 }
-
 

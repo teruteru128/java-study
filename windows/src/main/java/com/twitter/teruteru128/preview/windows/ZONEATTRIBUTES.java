@@ -2,20 +2,34 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _ZONEATTRIBUTES ZONEATTRIBUTES;
+ * {@snippet lang=c :
+ * typedef struct _ZONEATTRIBUTES {
+ *     ULONG cbSize;
+ *     WCHAR szDisplayName[260];
+ *     WCHAR szDescription[200];
+ *     WCHAR szIconPath[260];
+ *     DWORD dwTemplateMinLevel;
+ *     DWORD dwTemplateRecommended;
+ *     DWORD dwTemplateCurrentLevel;
+ *     DWORD dwFlags;
+ * } ZONEATTRIBUTES
  * }
  */
-public final class ZONEATTRIBUTES extends _ZONEATTRIBUTES {
+public class ZONEATTRIBUTES extends _ZONEATTRIBUTES {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private ZONEATTRIBUTES() {}
+    ZONEATTRIBUTES() {
+        // Should not be called directly
+    }
 }
-
 

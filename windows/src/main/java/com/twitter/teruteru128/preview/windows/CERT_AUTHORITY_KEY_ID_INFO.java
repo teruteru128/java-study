@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CERT_AUTHORITY_KEY_ID_INFO CERT_AUTHORITY_KEY_ID_INFO;
+ * {@snippet lang=c :
+ * typedef struct _CERT_AUTHORITY_KEY_ID_INFO {
+ *     CRYPT_DATA_BLOB KeyId;
+ *     CERT_NAME_BLOB CertIssuer;
+ *     CRYPT_INTEGER_BLOB CertSerialNumber;
+ * } CERT_AUTHORITY_KEY_ID_INFO
  * }
  */
-public final class CERT_AUTHORITY_KEY_ID_INFO extends _CERT_AUTHORITY_KEY_ID_INFO {
+public class CERT_AUTHORITY_KEY_ID_INFO extends _CERT_AUTHORITY_KEY_ID_INFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CERT_AUTHORITY_KEY_ID_INFO() {}
+    CERT_AUTHORITY_KEY_ID_INFO() {
+        // Should not be called directly
+    }
 }
-
 

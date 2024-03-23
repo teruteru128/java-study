@@ -2,120 +2,310 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagEMRANGLEARC {
  *     EMR emr;
  *     POINTL ptlCenter;
  *     DWORD nRadius;
  *     FLOAT eStartAngle;
  *     FLOAT eSweepAngle;
- * };
+ * }
  * }
  */
 public class tagEMRANGLEARC {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1082.const$2;
+    tagEMRANGLEARC() {
+        // Should not be called directly
     }
-    public static MemorySegment emr$slice(MemorySegment seg) {
-        return seg.asSlice(0, 8);
-    }
-    public static MemorySegment ptlCenter$slice(MemorySegment seg) {
-        return seg.asSlice(8, 8);
-    }
-    public static VarHandle nRadius$VH() {
-        return constants$1082.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD nRadius;
-     * }
-     */
-    public static int nRadius$get(MemorySegment seg) {
-        return (int)constants$1082.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD nRadius;
-     * }
-     */
-    public static void nRadius$set(MemorySegment seg, int x) {
-        constants$1082.const$3.set(seg, x);
-    }
-    public static int nRadius$get(MemorySegment seg, long index) {
-        return (int)constants$1082.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void nRadius$set(MemorySegment seg, long index, int x) {
-        constants$1082.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle eStartAngle$VH() {
-        return constants$1082.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * FLOAT eStartAngle;
-     * }
-     */
-    public static float eStartAngle$get(MemorySegment seg) {
-        return (float)constants$1082.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * FLOAT eStartAngle;
-     * }
-     */
-    public static void eStartAngle$set(MemorySegment seg, float x) {
-        constants$1082.const$4.set(seg, x);
-    }
-    public static float eStartAngle$get(MemorySegment seg, long index) {
-        return (float)constants$1082.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void eStartAngle$set(MemorySegment seg, long index, float x) {
-        constants$1082.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle eSweepAngle$VH() {
-        return constants$1082.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * FLOAT eSweepAngle;
-     * }
-     */
-    public static float eSweepAngle$get(MemorySegment seg) {
-        return (float)constants$1082.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * FLOAT eSweepAngle;
-     * }
-     */
-    public static void eSweepAngle$set(MemorySegment seg, float x) {
-        constants$1082.const$5.set(seg, x);
-    }
-    public static float eSweepAngle$get(MemorySegment seg, long index) {
-        return (float)constants$1082.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void eSweepAngle$set(MemorySegment seg, long index, float x) {
-        constants$1082.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        tagEMR.layout().withName("emr"),
+        _POINTL.layout().withName("ptlCenter"),
+        Windows_h.C_LONG.withName("nRadius"),
+        Windows_h.C_FLOAT.withName("eStartAngle"),
+        Windows_h.C_FLOAT.withName("eSweepAngle")
+    ).withName("tagEMRANGLEARC");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final GroupLayout emr$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("emr"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * EMR emr
+     * }
+     */
+    public static final GroupLayout emr$layout() {
+        return emr$LAYOUT;
+    }
+
+    private static final long emr$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * EMR emr
+     * }
+     */
+    public static final long emr$offset() {
+        return emr$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * EMR emr
+     * }
+     */
+    public static MemorySegment emr(MemorySegment struct) {
+        return struct.asSlice(emr$OFFSET, emr$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * EMR emr
+     * }
+     */
+    public static void emr(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, emr$OFFSET, emr$LAYOUT.byteSize());
+    }
+
+    private static final GroupLayout ptlCenter$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("ptlCenter"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * POINTL ptlCenter
+     * }
+     */
+    public static final GroupLayout ptlCenter$layout() {
+        return ptlCenter$LAYOUT;
+    }
+
+    private static final long ptlCenter$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * POINTL ptlCenter
+     * }
+     */
+    public static final long ptlCenter$offset() {
+        return ptlCenter$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * POINTL ptlCenter
+     * }
+     */
+    public static MemorySegment ptlCenter(MemorySegment struct) {
+        return struct.asSlice(ptlCenter$OFFSET, ptlCenter$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * POINTL ptlCenter
+     * }
+     */
+    public static void ptlCenter(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, ptlCenter$OFFSET, ptlCenter$LAYOUT.byteSize());
+    }
+
+    private static final OfInt nRadius$LAYOUT = (OfInt)$LAYOUT.select(groupElement("nRadius"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD nRadius
+     * }
+     */
+    public static final OfInt nRadius$layout() {
+        return nRadius$LAYOUT;
+    }
+
+    private static final long nRadius$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD nRadius
+     * }
+     */
+    public static final long nRadius$offset() {
+        return nRadius$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD nRadius
+     * }
+     */
+    public static int nRadius(MemorySegment struct) {
+        return struct.get(nRadius$LAYOUT, nRadius$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD nRadius
+     * }
+     */
+    public static void nRadius(MemorySegment struct, int fieldValue) {
+        struct.set(nRadius$LAYOUT, nRadius$OFFSET, fieldValue);
+    }
+
+    private static final OfFloat eStartAngle$LAYOUT = (OfFloat)$LAYOUT.select(groupElement("eStartAngle"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * FLOAT eStartAngle
+     * }
+     */
+    public static final OfFloat eStartAngle$layout() {
+        return eStartAngle$LAYOUT;
+    }
+
+    private static final long eStartAngle$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * FLOAT eStartAngle
+     * }
+     */
+    public static final long eStartAngle$offset() {
+        return eStartAngle$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * FLOAT eStartAngle
+     * }
+     */
+    public static float eStartAngle(MemorySegment struct) {
+        return struct.get(eStartAngle$LAYOUT, eStartAngle$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * FLOAT eStartAngle
+     * }
+     */
+    public static void eStartAngle(MemorySegment struct, float fieldValue) {
+        struct.set(eStartAngle$LAYOUT, eStartAngle$OFFSET, fieldValue);
+    }
+
+    private static final OfFloat eSweepAngle$LAYOUT = (OfFloat)$LAYOUT.select(groupElement("eSweepAngle"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * FLOAT eSweepAngle
+     * }
+     */
+    public static final OfFloat eSweepAngle$layout() {
+        return eSweepAngle$LAYOUT;
+    }
+
+    private static final long eSweepAngle$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * FLOAT eSweepAngle
+     * }
+     */
+    public static final long eSweepAngle$offset() {
+        return eSweepAngle$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * FLOAT eSweepAngle
+     * }
+     */
+    public static float eSweepAngle(MemorySegment struct) {
+        return struct.get(eSweepAngle$LAYOUT, eSweepAngle$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * FLOAT eSweepAngle
+     * }
+     */
+    public static void eSweepAngle(MemorySegment struct, float fieldValue) {
+        struct.set(eSweepAngle$LAYOUT, eSweepAngle$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

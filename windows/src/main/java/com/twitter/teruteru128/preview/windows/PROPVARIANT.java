@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagPROPVARIANT PROPVARIANT;
+ * {@snippet lang=c :
+ * typedef struct tagPROPVARIANT PROPVARIANT
  * }
  */
-public final class PROPVARIANT extends tagPROPVARIANT {
+public class PROPVARIANT extends tagPROPVARIANT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private PROPVARIANT() {}
+    PROPVARIANT() {
+        // Should not be called directly
+    }
 }
-
 

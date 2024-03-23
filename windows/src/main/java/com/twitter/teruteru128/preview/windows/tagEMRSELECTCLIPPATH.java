@@ -2,60 +2,172 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagEMRSELECTCLIPPATH {
  *     EMR emr;
  *     DWORD iMode;
- * };
+ * }
  * }
  */
 public class tagEMRSELECTCLIPPATH {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1073.const$4;
+    tagEMRSELECTCLIPPATH() {
+        // Should not be called directly
     }
-    public static MemorySegment emr$slice(MemorySegment seg) {
-        return seg.asSlice(0, 8);
+
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        tagEMR.layout().withName("emr"),
+        Windows_h.C_LONG.withName("iMode")
+    ).withName("tagEMRSELECTCLIPPATH");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
     }
-    public static VarHandle iMode$VH() {
-        return constants$1073.const$5;
+
+    private static final GroupLayout emr$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("emr"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * EMR emr
+     * }
+     */
+    public static final GroupLayout emr$layout() {
+        return emr$LAYOUT;
     }
+
+    private static final long emr$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * EMR emr
+     * }
+     */
+    public static final long emr$offset() {
+        return emr$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * DWORD iMode;
+     * {@snippet lang=c :
+     * EMR emr
      * }
      */
-    public static int iMode$get(MemorySegment seg) {
-        return (int)constants$1073.const$5.get(seg);
+    public static MemorySegment emr(MemorySegment struct) {
+        return struct.asSlice(emr$OFFSET, emr$LAYOUT.byteSize());
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * DWORD iMode;
+     * {@snippet lang=c :
+     * EMR emr
      * }
      */
-    public static void iMode$set(MemorySegment seg, int x) {
-        constants$1073.const$5.set(seg, x);
+    public static void emr(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, emr$OFFSET, emr$LAYOUT.byteSize());
     }
-    public static int iMode$get(MemorySegment seg, long index) {
-        return (int)constants$1073.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void iMode$set(MemorySegment seg, long index, int x) {
-        constants$1073.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final OfInt iMode$LAYOUT = (OfInt)$LAYOUT.select(groupElement("iMode"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD iMode
+     * }
+     */
+    public static final OfInt iMode$layout() {
+        return iMode$LAYOUT;
+    }
+
+    private static final long iMode$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD iMode
+     * }
+     */
+    public static final long iMode$offset() {
+        return iMode$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD iMode
+     * }
+     */
+    public static int iMode(MemorySegment struct) {
+        return struct.get(iMode$LAYOUT, iMode$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD iMode
+     * }
+     */
+    public static void iMode(MemorySegment struct, int fieldValue) {
+        struct.set(iMode$LAYOUT, iMode$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

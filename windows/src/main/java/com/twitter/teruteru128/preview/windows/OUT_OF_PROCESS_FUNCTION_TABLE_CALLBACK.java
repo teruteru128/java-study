@@ -2,32 +2,70 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * unsigned long (*OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK)(void* Process,void* TableAddress,unsigned long* Entries,struct _IMAGE_RUNTIME_FUNCTION_ENTRY** Functions);
+ * {@snippet lang=c :
+ * typedef DWORD (OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK)(HANDLE, PVOID, PDWORD, PRUNTIME_FUNCTION *)
  * }
  */
-public interface OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK {
+public class OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK {
 
-    int apply(java.lang.foreign.MemorySegment Process, java.lang.foreign.MemorySegment TableAddress, java.lang.foreign.MemorySegment Entries, java.lang.foreign.MemorySegment Functions);
-    static MemorySegment allocate(OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$89.const$5, fi, constants$1.const$3, scope);
+    OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK() {
+        // Should not be called directly
     }
-    static OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _Process, java.lang.foreign.MemorySegment _TableAddress, java.lang.foreign.MemorySegment _Entries, java.lang.foreign.MemorySegment _Functions) -> {
-            try {
-                return (int)constants$55.const$1.invokeExact(symbol, _Process, _TableAddress, _Entries, _Functions);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment Process, MemorySegment TableAddress, MemorySegment Entries, MemorySegment Functions);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment Process, MemorySegment TableAddress, MemorySegment Entries, MemorySegment Functions) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, Process, TableAddress, Entries, Functions);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

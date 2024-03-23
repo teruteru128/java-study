@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _ACCESS_DENIED_CALLBACK_ACE ACCESS_DENIED_CALLBACK_ACE;
+ * {@snippet lang=c :
+ * typedef struct _ACCESS_DENIED_CALLBACK_ACE {
+ *     ACE_HEADER Header;
+ *     ACCESS_MASK Mask;
+ *     DWORD SidStart;
+ * } ACCESS_DENIED_CALLBACK_ACE
  * }
  */
-public final class ACCESS_DENIED_CALLBACK_ACE extends _ACCESS_DENIED_CALLBACK_ACE {
+public class ACCESS_DENIED_CALLBACK_ACE extends _ACCESS_DENIED_CALLBACK_ACE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private ACCESS_DENIED_CALLBACK_ACE() {}
+    ACCESS_DENIED_CALLBACK_ACE() {
+        // Should not be called directly
+    }
 }
-
 

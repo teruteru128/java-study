@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _PERF_BIN PERF_BIN;
+ * {@snippet lang=c :
+ * typedef struct _PERF_BIN {
+ *     DWORD NumberOfBins;
+ *     DWORD TypeOfBin;
+ *     BIN_RANGE BinsRanges[1];
+ * } PERF_BIN
  * }
  */
-public final class PERF_BIN extends _PERF_BIN {
+public class PERF_BIN extends _PERF_BIN {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private PERF_BIN() {}
+    PERF_BIN() {
+        // Should not be called directly
+    }
 }
-
 

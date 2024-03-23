@@ -2,168 +2,311 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _TXFS_GET_TRANSACTED_VERSION {
  *     DWORD ThisBaseVersion;
  *     DWORD LatestVersion;
  *     WORD ThisMiniVersion;
  *     WORD FirstMiniVersion;
  *     WORD LatestMiniVersion;
- * };
+ * }
  * }
  */
 public class _TXFS_GET_TRANSACTED_VERSION {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2659.const$5;
+    _TXFS_GET_TRANSACTED_VERSION() {
+        // Should not be called directly
     }
-    public static VarHandle ThisBaseVersion$VH() {
-        return constants$2660.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ThisBaseVersion;
-     * }
-     */
-    public static int ThisBaseVersion$get(MemorySegment seg) {
-        return (int)constants$2660.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ThisBaseVersion;
-     * }
-     */
-    public static void ThisBaseVersion$set(MemorySegment seg, int x) {
-        constants$2660.const$0.set(seg, x);
-    }
-    public static int ThisBaseVersion$get(MemorySegment seg, long index) {
-        return (int)constants$2660.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ThisBaseVersion$set(MemorySegment seg, long index, int x) {
-        constants$2660.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle LatestVersion$VH() {
-        return constants$2660.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD LatestVersion;
-     * }
-     */
-    public static int LatestVersion$get(MemorySegment seg) {
-        return (int)constants$2660.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD LatestVersion;
-     * }
-     */
-    public static void LatestVersion$set(MemorySegment seg, int x) {
-        constants$2660.const$1.set(seg, x);
-    }
-    public static int LatestVersion$get(MemorySegment seg, long index) {
-        return (int)constants$2660.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void LatestVersion$set(MemorySegment seg, long index, int x) {
-        constants$2660.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ThisMiniVersion$VH() {
-        return constants$2660.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD ThisMiniVersion;
-     * }
-     */
-    public static short ThisMiniVersion$get(MemorySegment seg) {
-        return (short)constants$2660.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD ThisMiniVersion;
-     * }
-     */
-    public static void ThisMiniVersion$set(MemorySegment seg, short x) {
-        constants$2660.const$2.set(seg, x);
-    }
-    public static short ThisMiniVersion$get(MemorySegment seg, long index) {
-        return (short)constants$2660.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ThisMiniVersion$set(MemorySegment seg, long index, short x) {
-        constants$2660.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle FirstMiniVersion$VH() {
-        return constants$2660.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD FirstMiniVersion;
-     * }
-     */
-    public static short FirstMiniVersion$get(MemorySegment seg) {
-        return (short)constants$2660.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD FirstMiniVersion;
-     * }
-     */
-    public static void FirstMiniVersion$set(MemorySegment seg, short x) {
-        constants$2660.const$3.set(seg, x);
-    }
-    public static short FirstMiniVersion$get(MemorySegment seg, long index) {
-        return (short)constants$2660.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void FirstMiniVersion$set(MemorySegment seg, long index, short x) {
-        constants$2660.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle LatestMiniVersion$VH() {
-        return constants$2660.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD LatestMiniVersion;
-     * }
-     */
-    public static short LatestMiniVersion$get(MemorySegment seg) {
-        return (short)constants$2660.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD LatestMiniVersion;
-     * }
-     */
-    public static void LatestMiniVersion$set(MemorySegment seg, short x) {
-        constants$2660.const$4.set(seg, x);
-    }
-    public static short LatestMiniVersion$get(MemorySegment seg, long index) {
-        return (short)constants$2660.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void LatestMiniVersion$set(MemorySegment seg, long index, short x) {
-        constants$2660.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("ThisBaseVersion"),
+        Windows_h.C_LONG.withName("LatestVersion"),
+        Windows_h.C_SHORT.withName("ThisMiniVersion"),
+        Windows_h.C_SHORT.withName("FirstMiniVersion"),
+        Windows_h.C_SHORT.withName("LatestMiniVersion"),
+        MemoryLayout.paddingLayout(2)
+    ).withName("_TXFS_GET_TRANSACTED_VERSION");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt ThisBaseVersion$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ThisBaseVersion"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ThisBaseVersion
+     * }
+     */
+    public static final OfInt ThisBaseVersion$layout() {
+        return ThisBaseVersion$LAYOUT;
+    }
+
+    private static final long ThisBaseVersion$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ThisBaseVersion
+     * }
+     */
+    public static final long ThisBaseVersion$offset() {
+        return ThisBaseVersion$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ThisBaseVersion
+     * }
+     */
+    public static int ThisBaseVersion(MemorySegment struct) {
+        return struct.get(ThisBaseVersion$LAYOUT, ThisBaseVersion$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ThisBaseVersion
+     * }
+     */
+    public static void ThisBaseVersion(MemorySegment struct, int fieldValue) {
+        struct.set(ThisBaseVersion$LAYOUT, ThisBaseVersion$OFFSET, fieldValue);
+    }
+
+    private static final OfInt LatestVersion$LAYOUT = (OfInt)$LAYOUT.select(groupElement("LatestVersion"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD LatestVersion
+     * }
+     */
+    public static final OfInt LatestVersion$layout() {
+        return LatestVersion$LAYOUT;
+    }
+
+    private static final long LatestVersion$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD LatestVersion
+     * }
+     */
+    public static final long LatestVersion$offset() {
+        return LatestVersion$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD LatestVersion
+     * }
+     */
+    public static int LatestVersion(MemorySegment struct) {
+        return struct.get(LatestVersion$LAYOUT, LatestVersion$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD LatestVersion
+     * }
+     */
+    public static void LatestVersion(MemorySegment struct, int fieldValue) {
+        struct.set(LatestVersion$LAYOUT, LatestVersion$OFFSET, fieldValue);
+    }
+
+    private static final OfShort ThisMiniVersion$LAYOUT = (OfShort)$LAYOUT.select(groupElement("ThisMiniVersion"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD ThisMiniVersion
+     * }
+     */
+    public static final OfShort ThisMiniVersion$layout() {
+        return ThisMiniVersion$LAYOUT;
+    }
+
+    private static final long ThisMiniVersion$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD ThisMiniVersion
+     * }
+     */
+    public static final long ThisMiniVersion$offset() {
+        return ThisMiniVersion$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD ThisMiniVersion
+     * }
+     */
+    public static short ThisMiniVersion(MemorySegment struct) {
+        return struct.get(ThisMiniVersion$LAYOUT, ThisMiniVersion$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD ThisMiniVersion
+     * }
+     */
+    public static void ThisMiniVersion(MemorySegment struct, short fieldValue) {
+        struct.set(ThisMiniVersion$LAYOUT, ThisMiniVersion$OFFSET, fieldValue);
+    }
+
+    private static final OfShort FirstMiniVersion$LAYOUT = (OfShort)$LAYOUT.select(groupElement("FirstMiniVersion"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD FirstMiniVersion
+     * }
+     */
+    public static final OfShort FirstMiniVersion$layout() {
+        return FirstMiniVersion$LAYOUT;
+    }
+
+    private static final long FirstMiniVersion$OFFSET = 10;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD FirstMiniVersion
+     * }
+     */
+    public static final long FirstMiniVersion$offset() {
+        return FirstMiniVersion$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD FirstMiniVersion
+     * }
+     */
+    public static short FirstMiniVersion(MemorySegment struct) {
+        return struct.get(FirstMiniVersion$LAYOUT, FirstMiniVersion$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD FirstMiniVersion
+     * }
+     */
+    public static void FirstMiniVersion(MemorySegment struct, short fieldValue) {
+        struct.set(FirstMiniVersion$LAYOUT, FirstMiniVersion$OFFSET, fieldValue);
+    }
+
+    private static final OfShort LatestMiniVersion$LAYOUT = (OfShort)$LAYOUT.select(groupElement("LatestMiniVersion"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD LatestMiniVersion
+     * }
+     */
+    public static final OfShort LatestMiniVersion$layout() {
+        return LatestMiniVersion$LAYOUT;
+    }
+
+    private static final long LatestMiniVersion$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD LatestMiniVersion
+     * }
+     */
+    public static final long LatestMiniVersion$offset() {
+        return LatestMiniVersion$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD LatestMiniVersion
+     * }
+     */
+    public static short LatestMiniVersion(MemorySegment struct) {
+        return struct.get(LatestMiniVersion$LAYOUT, LatestMiniVersion$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD LatestMiniVersion
+     * }
+     */
+    public static void LatestMiniVersion(MemorySegment struct, short fieldValue) {
+        struct.set(LatestMiniVersion$LAYOUT, LatestMiniVersion$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

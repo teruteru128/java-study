@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _userHPALETTE userHPALETTE;
+ * {@snippet lang=c :
+ * typedef struct _userHPALETTE {
+ *     LONG fContext;
+ *     union __MIDL_IWinTypes_0008 {
+ *         LONG hInproc;
+ *         LOGPALETTE *hRemote;
+ *         long long hInproc64;
+ *     } u;
+ * } userHPALETTE
  * }
  */
-public final class userHPALETTE extends _userHPALETTE {
+public class userHPALETTE extends _userHPALETTE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private userHPALETTE() {}
+    userHPALETTE() {
+        // Should not be called directly
+    }
 }
-
 

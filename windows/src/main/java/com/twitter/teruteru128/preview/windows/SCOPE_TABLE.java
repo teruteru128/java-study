@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SCOPE_TABLE_AMD64 SCOPE_TABLE;
+ * {@snippet lang=c :
+ * typedef SCOPE_TABLE_AMD64 SCOPE_TABLE
  * }
  */
-public final class SCOPE_TABLE extends _SCOPE_TABLE_AMD64 {
+public class SCOPE_TABLE extends _SCOPE_TABLE_AMD64 {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SCOPE_TABLE() {}
+    SCOPE_TABLE() {
+        // Should not be called directly
+    }
 }
-
 

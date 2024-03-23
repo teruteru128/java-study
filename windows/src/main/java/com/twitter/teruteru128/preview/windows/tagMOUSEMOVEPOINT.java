@@ -2,140 +2,265 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagMOUSEMOVEPOINT {
  *     int x;
  *     int y;
  *     DWORD time;
  *     ULONG_PTR dwExtraInfo;
- * };
+ * }
  * }
  */
 public class tagMOUSEMOVEPOINT {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1149.const$5;
+    tagMOUSEMOVEPOINT() {
+        // Should not be called directly
     }
-    public static VarHandle x$VH() {
-        return constants$1150.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * int x;
-     * }
-     */
-    public static int x$get(MemorySegment seg) {
-        return (int)constants$1150.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * int x;
-     * }
-     */
-    public static void x$set(MemorySegment seg, int x) {
-        constants$1150.const$0.set(seg, x);
-    }
-    public static int x$get(MemorySegment seg, long index) {
-        return (int)constants$1150.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void x$set(MemorySegment seg, long index, int x) {
-        constants$1150.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle y$VH() {
-        return constants$1150.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * int y;
-     * }
-     */
-    public static int y$get(MemorySegment seg) {
-        return (int)constants$1150.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * int y;
-     * }
-     */
-    public static void y$set(MemorySegment seg, int x) {
-        constants$1150.const$1.set(seg, x);
-    }
-    public static int y$get(MemorySegment seg, long index) {
-        return (int)constants$1150.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void y$set(MemorySegment seg, long index, int x) {
-        constants$1150.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle time$VH() {
-        return constants$1150.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD time;
-     * }
-     */
-    public static int time$get(MemorySegment seg) {
-        return (int)constants$1150.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD time;
-     * }
-     */
-    public static void time$set(MemorySegment seg, int x) {
-        constants$1150.const$2.set(seg, x);
-    }
-    public static int time$get(MemorySegment seg, long index) {
-        return (int)constants$1150.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void time$set(MemorySegment seg, long index, int x) {
-        constants$1150.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwExtraInfo$VH() {
-        return constants$1150.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG_PTR dwExtraInfo;
-     * }
-     */
-    public static long dwExtraInfo$get(MemorySegment seg) {
-        return (long)constants$1150.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG_PTR dwExtraInfo;
-     * }
-     */
-    public static void dwExtraInfo$set(MemorySegment seg, long x) {
-        constants$1150.const$3.set(seg, x);
-    }
-    public static long dwExtraInfo$get(MemorySegment seg, long index) {
-        return (long)constants$1150.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwExtraInfo$set(MemorySegment seg, long index, long x) {
-        constants$1150.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_INT.withName("x"),
+        Windows_h.C_INT.withName("y"),
+        Windows_h.C_LONG.withName("time"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_LONG_LONG.withName("dwExtraInfo")
+    ).withName("tagMOUSEMOVEPOINT");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt x$LAYOUT = (OfInt)$LAYOUT.select(groupElement("x"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int x
+     * }
+     */
+    public static final OfInt x$layout() {
+        return x$LAYOUT;
+    }
+
+    private static final long x$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int x
+     * }
+     */
+    public static final long x$offset() {
+        return x$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int x
+     * }
+     */
+    public static int x(MemorySegment struct) {
+        return struct.get(x$LAYOUT, x$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int x
+     * }
+     */
+    public static void x(MemorySegment struct, int fieldValue) {
+        struct.set(x$LAYOUT, x$OFFSET, fieldValue);
+    }
+
+    private static final OfInt y$LAYOUT = (OfInt)$LAYOUT.select(groupElement("y"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int y
+     * }
+     */
+    public static final OfInt y$layout() {
+        return y$LAYOUT;
+    }
+
+    private static final long y$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int y
+     * }
+     */
+    public static final long y$offset() {
+        return y$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int y
+     * }
+     */
+    public static int y(MemorySegment struct) {
+        return struct.get(y$LAYOUT, y$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int y
+     * }
+     */
+    public static void y(MemorySegment struct, int fieldValue) {
+        struct.set(y$LAYOUT, y$OFFSET, fieldValue);
+    }
+
+    private static final OfInt time$LAYOUT = (OfInt)$LAYOUT.select(groupElement("time"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD time
+     * }
+     */
+    public static final OfInt time$layout() {
+        return time$LAYOUT;
+    }
+
+    private static final long time$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD time
+     * }
+     */
+    public static final long time$offset() {
+        return time$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD time
+     * }
+     */
+    public static int time(MemorySegment struct) {
+        return struct.get(time$LAYOUT, time$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD time
+     * }
+     */
+    public static void time(MemorySegment struct, int fieldValue) {
+        struct.set(time$LAYOUT, time$OFFSET, fieldValue);
+    }
+
+    private static final OfLong dwExtraInfo$LAYOUT = (OfLong)$LAYOUT.select(groupElement("dwExtraInfo"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG_PTR dwExtraInfo
+     * }
+     */
+    public static final OfLong dwExtraInfo$layout() {
+        return dwExtraInfo$LAYOUT;
+    }
+
+    private static final long dwExtraInfo$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG_PTR dwExtraInfo
+     * }
+     */
+    public static final long dwExtraInfo$offset() {
+        return dwExtraInfo$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG_PTR dwExtraInfo
+     * }
+     */
+    public static long dwExtraInfo(MemorySegment struct) {
+        return struct.get(dwExtraInfo$LAYOUT, dwExtraInfo$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG_PTR dwExtraInfo
+     * }
+     */
+    public static void dwExtraInfo(MemorySegment struct, long fieldValue) {
+        struct.set(dwExtraInfo$LAYOUT, dwExtraInfo$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

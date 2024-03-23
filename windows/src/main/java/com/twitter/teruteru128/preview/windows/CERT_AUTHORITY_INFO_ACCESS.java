@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CERT_AUTHORITY_INFO_ACCESS CERT_AUTHORITY_INFO_ACCESS;
+ * {@snippet lang=c :
+ * typedef struct _CERT_AUTHORITY_INFO_ACCESS {
+ *     DWORD cAccDescr;
+ *     PCERT_ACCESS_DESCRIPTION rgAccDescr;
+ * } CERT_AUTHORITY_INFO_ACCESS
  * }
  */
-public final class CERT_AUTHORITY_INFO_ACCESS extends _CERT_AUTHORITY_INFO_ACCESS {
+public class CERT_AUTHORITY_INFO_ACCESS extends _CERT_AUTHORITY_INFO_ACCESS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CERT_AUTHORITY_INFO_ACCESS() {}
+    CERT_AUTHORITY_INFO_ACCESS() {
+        // Should not be called directly
+    }
 }
-
 

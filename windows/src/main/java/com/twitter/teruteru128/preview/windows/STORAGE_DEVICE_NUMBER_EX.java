@@ -2,20 +2,33 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _STORAGE_DEVICE_NUMBER_EX STORAGE_DEVICE_NUMBER_EX;
+ * {@snippet lang=c :
+ * typedef struct _STORAGE_DEVICE_NUMBER_EX {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     DWORD Flags;
+ *     DWORD DeviceType;
+ *     DWORD DeviceNumber;
+ *     GUID DeviceGuid;
+ *     DWORD PartitionNumber;
+ * } STORAGE_DEVICE_NUMBER_EX
  * }
  */
-public final class STORAGE_DEVICE_NUMBER_EX extends _STORAGE_DEVICE_NUMBER_EX {
+public class STORAGE_DEVICE_NUMBER_EX extends _STORAGE_DEVICE_NUMBER_EX {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private STORAGE_DEVICE_NUMBER_EX() {}
+    STORAGE_DEVICE_NUMBER_EX() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _TXFS_LIST_TRANSACTIONS_ENTRY TXFS_LIST_TRANSACTIONS_ENTRY;
+ * {@snippet lang=c :
+ * typedef struct _TXFS_LIST_TRANSACTIONS_ENTRY {
+ *     GUID TransactionId;
+ *     DWORD TransactionState;
+ *     DWORD Reserved1;
+ *     DWORD Reserved2;
+ *     LONGLONG Reserved3;
+ * } TXFS_LIST_TRANSACTIONS_ENTRY
  * }
  */
-public final class TXFS_LIST_TRANSACTIONS_ENTRY extends _TXFS_LIST_TRANSACTIONS_ENTRY {
+public class TXFS_LIST_TRANSACTIONS_ENTRY extends _TXFS_LIST_TRANSACTIONS_ENTRY {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private TXFS_LIST_TRANSACTIONS_ENTRY() {}
+    TXFS_LIST_TRANSACTIONS_ENTRY() {
+        // Should not be called directly
+    }
 }
-
 

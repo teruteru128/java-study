@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _FILE_ZERO_DATA_INFORMATION_EX FILE_ZERO_DATA_INFORMATION_EX;
+ * {@snippet lang=c :
+ * typedef struct _FILE_ZERO_DATA_INFORMATION_EX {
+ *     LARGE_INTEGER FileOffset;
+ *     LARGE_INTEGER BeyondFinalZero;
+ *     DWORD Flags;
+ * } FILE_ZERO_DATA_INFORMATION_EX
  * }
  */
-public final class FILE_ZERO_DATA_INFORMATION_EX extends _FILE_ZERO_DATA_INFORMATION_EX {
+public class FILE_ZERO_DATA_INFORMATION_EX extends _FILE_ZERO_DATA_INFORMATION_EX {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private FILE_ZERO_DATA_INFORMATION_EX() {}
+    FILE_ZERO_DATA_INFORMATION_EX() {
+        // Should not be called directly
+    }
 }
-
 

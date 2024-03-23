@@ -2,20 +2,33 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION;
+ * {@snippet lang=c :
+ * typedef struct _MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION {
+ *     DWORD NextEntryOffset;
+ *     DWORD SizeOfInformation;
+ *     DWORD Flags;
+ *     DWORD AttributesOffset;
+ *     DWORD AttributeCount;
+ *     DWORD Reserved;
+ *     DWORD64 TypeId;
+ * } MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION
  * }
  */
-public final class MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION extends _MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION {
+public class MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION extends _MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION() {}
+    MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,32 +2,73 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_EXPORT_PRIV_KEY_FUNC)(unsigned long long hCryptProv,unsigned long dwKeySpec,char* pszPrivateKeyObjId,unsigned long dwFlags,void* pvAuxInfo,struct _CRYPT_PRIVATE_KEY_INFO* pPrivateKeyInfo,unsigned long* pcbPrivateKeyInfo);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_EXPORT_PRIV_KEY_FUNC)(HCRYPTPROV, DWORD, LPSTR, DWORD, void *, CRYPT_PRIVATE_KEY_INFO *, DWORD *) __attribute__((stdcall))
  * }
  */
-public interface PFN_EXPORT_PRIV_KEY_FUNC {
+public class PFN_EXPORT_PRIV_KEY_FUNC {
 
-    int apply(long hCryptProv, int dwKeySpec, java.lang.foreign.MemorySegment pszPrivateKeyObjId, int dwFlags, java.lang.foreign.MemorySegment pvAuxInfo, java.lang.foreign.MemorySegment pPrivateKeyInfo, java.lang.foreign.MemorySegment pcbPrivateKeyInfo);
-    static MemorySegment allocate(PFN_EXPORT_PRIV_KEY_FUNC fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2172.const$0, fi, constants$2169.const$0, scope);
+    PFN_EXPORT_PRIV_KEY_FUNC() {
+        // Should not be called directly
     }
-    static PFN_EXPORT_PRIV_KEY_FUNC ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (long _hCryptProv, int _dwKeySpec, java.lang.foreign.MemorySegment _pszPrivateKeyObjId, int _dwFlags, java.lang.foreign.MemorySegment _pvAuxInfo, java.lang.foreign.MemorySegment _pPrivateKeyInfo, java.lang.foreign.MemorySegment _pcbPrivateKeyInfo) -> {
-            try {
-                return (int)constants$2169.const$2.invokeExact(symbol, _hCryptProv, _dwKeySpec, _pszPrivateKeyObjId, _dwFlags, _pvAuxInfo, _pPrivateKeyInfo, _pcbPrivateKeyInfo);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(long hCryptProv, int dwKeySpec, MemorySegment pszPrivateKeyObjId, int dwFlags, MemorySegment pvAuxInfo, MemorySegment pPrivateKeyInfo, MemorySegment pcbPrivateKeyInfo);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_LONG_LONG,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_EXPORT_PRIV_KEY_FUNC.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_EXPORT_PRIV_KEY_FUNC.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,long hCryptProv, int dwKeySpec, MemorySegment pszPrivateKeyObjId, int dwFlags, MemorySegment pvAuxInfo, MemorySegment pPrivateKeyInfo, MemorySegment pcbPrivateKeyInfo) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, hCryptProv, dwKeySpec, pszPrivateKeyObjId, dwFlags, pvAuxInfo, pPrivateKeyInfo, pcbPrivateKeyInfo);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

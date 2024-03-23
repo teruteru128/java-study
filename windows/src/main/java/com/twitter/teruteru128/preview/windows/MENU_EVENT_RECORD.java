@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _MENU_EVENT_RECORD MENU_EVENT_RECORD;
+ * {@snippet lang=c :
+ * typedef struct _MENU_EVENT_RECORD {
+ *     UINT dwCommandId;
+ * } MENU_EVENT_RECORD
  * }
  */
-public final class MENU_EVENT_RECORD extends _MENU_EVENT_RECORD {
+public class MENU_EVENT_RECORD extends _MENU_EVENT_RECORD {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MENU_EVENT_RECORD() {}
+    MENU_EVENT_RECORD() {
+        // Should not be called directly
+    }
 }
-
 

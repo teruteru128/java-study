@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagCUSTDATA CUSTDATA;
+ * {@snippet lang=c :
+ * typedef struct tagCUSTDATA {
+ *     DWORD cCustData;
+ *     LPCUSTDATAITEM prgCustData;
+ * } CUSTDATA
  * }
  */
-public final class CUSTDATA extends tagCUSTDATA {
+public class CUSTDATA extends tagCUSTDATA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CUSTDATA() {}
+    CUSTDATA() {
+        // Should not be called directly
+    }
 }
-
 

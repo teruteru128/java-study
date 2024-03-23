@@ -2,200 +2,402 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _CERT_SIMPLE_CHAIN {
  *     DWORD cbSize;
  *     CERT_TRUST_STATUS TrustStatus;
  *     DWORD cElement;
- *     PCERT_CHAIN_ELEMENT* rgpElement;
+ *     PCERT_CHAIN_ELEMENT *rgpElement;
  *     PCERT_TRUST_LIST_INFO pTrustListInfo;
  *     BOOL fHasRevocationFreshnessTime;
  *     DWORD dwRevocationFreshnessTime;
- * };
+ * }
  * }
  */
 public class _CERT_SIMPLE_CHAIN {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2211.const$0;
+    _CERT_SIMPLE_CHAIN() {
+        // Should not be called directly
     }
-    public static VarHandle cbSize$VH() {
-        return constants$2211.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cbSize;
-     * }
-     */
-    public static int cbSize$get(MemorySegment seg) {
-        return (int)constants$2211.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cbSize;
-     * }
-     */
-    public static void cbSize$set(MemorySegment seg, int x) {
-        constants$2211.const$1.set(seg, x);
-    }
-    public static int cbSize$get(MemorySegment seg, long index) {
-        return (int)constants$2211.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cbSize$set(MemorySegment seg, long index, int x) {
-        constants$2211.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment TrustStatus$slice(MemorySegment seg) {
-        return seg.asSlice(4, 8);
-    }
-    public static VarHandle cElement$VH() {
-        return constants$2211.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cElement;
-     * }
-     */
-    public static int cElement$get(MemorySegment seg) {
-        return (int)constants$2211.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cElement;
-     * }
-     */
-    public static void cElement$set(MemorySegment seg, int x) {
-        constants$2211.const$2.set(seg, x);
-    }
-    public static int cElement$get(MemorySegment seg, long index) {
-        return (int)constants$2211.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cElement$set(MemorySegment seg, long index, int x) {
-        constants$2211.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle rgpElement$VH() {
-        return constants$2211.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCERT_CHAIN_ELEMENT* rgpElement;
-     * }
-     */
-    public static MemorySegment rgpElement$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2211.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCERT_CHAIN_ELEMENT* rgpElement;
-     * }
-     */
-    public static void rgpElement$set(MemorySegment seg, MemorySegment x) {
-        constants$2211.const$3.set(seg, x);
-    }
-    public static MemorySegment rgpElement$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2211.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void rgpElement$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2211.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pTrustListInfo$VH() {
-        return constants$2211.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCERT_TRUST_LIST_INFO pTrustListInfo;
-     * }
-     */
-    public static MemorySegment pTrustListInfo$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2211.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCERT_TRUST_LIST_INFO pTrustListInfo;
-     * }
-     */
-    public static void pTrustListInfo$set(MemorySegment seg, MemorySegment x) {
-        constants$2211.const$4.set(seg, x);
-    }
-    public static MemorySegment pTrustListInfo$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2211.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pTrustListInfo$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2211.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle fHasRevocationFreshnessTime$VH() {
-        return constants$2211.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BOOL fHasRevocationFreshnessTime;
-     * }
-     */
-    public static int fHasRevocationFreshnessTime$get(MemorySegment seg) {
-        return (int)constants$2211.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BOOL fHasRevocationFreshnessTime;
-     * }
-     */
-    public static void fHasRevocationFreshnessTime$set(MemorySegment seg, int x) {
-        constants$2211.const$5.set(seg, x);
-    }
-    public static int fHasRevocationFreshnessTime$get(MemorySegment seg, long index) {
-        return (int)constants$2211.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void fHasRevocationFreshnessTime$set(MemorySegment seg, long index, int x) {
-        constants$2211.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwRevocationFreshnessTime$VH() {
-        return constants$2212.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwRevocationFreshnessTime;
-     * }
-     */
-    public static int dwRevocationFreshnessTime$get(MemorySegment seg) {
-        return (int)constants$2212.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwRevocationFreshnessTime;
-     * }
-     */
-    public static void dwRevocationFreshnessTime$set(MemorySegment seg, int x) {
-        constants$2212.const$0.set(seg, x);
-    }
-    public static int dwRevocationFreshnessTime$get(MemorySegment seg, long index) {
-        return (int)constants$2212.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwRevocationFreshnessTime$set(MemorySegment seg, long index, int x) {
-        constants$2212.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("cbSize"),
+        _CERT_TRUST_STATUS.layout().withName("TrustStatus"),
+        Windows_h.C_LONG.withName("cElement"),
+        Windows_h.C_POINTER.withName("rgpElement"),
+        Windows_h.C_POINTER.withName("pTrustListInfo"),
+        Windows_h.C_INT.withName("fHasRevocationFreshnessTime"),
+        Windows_h.C_LONG.withName("dwRevocationFreshnessTime")
+    ).withName("_CERT_SIMPLE_CHAIN");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt cbSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cbSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static final OfInt cbSize$layout() {
+        return cbSize$LAYOUT;
+    }
+
+    private static final long cbSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static final long cbSize$offset() {
+        return cbSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static int cbSize(MemorySegment struct) {
+        return struct.get(cbSize$LAYOUT, cbSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static void cbSize(MemorySegment struct, int fieldValue) {
+        struct.set(cbSize$LAYOUT, cbSize$OFFSET, fieldValue);
+    }
+
+    private static final GroupLayout TrustStatus$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("TrustStatus"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * CERT_TRUST_STATUS TrustStatus
+     * }
+     */
+    public static final GroupLayout TrustStatus$layout() {
+        return TrustStatus$LAYOUT;
+    }
+
+    private static final long TrustStatus$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * CERT_TRUST_STATUS TrustStatus
+     * }
+     */
+    public static final long TrustStatus$offset() {
+        return TrustStatus$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * CERT_TRUST_STATUS TrustStatus
+     * }
+     */
+    public static MemorySegment TrustStatus(MemorySegment struct) {
+        return struct.asSlice(TrustStatus$OFFSET, TrustStatus$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * CERT_TRUST_STATUS TrustStatus
+     * }
+     */
+    public static void TrustStatus(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, TrustStatus$OFFSET, TrustStatus$LAYOUT.byteSize());
+    }
+
+    private static final OfInt cElement$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cElement"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cElement
+     * }
+     */
+    public static final OfInt cElement$layout() {
+        return cElement$LAYOUT;
+    }
+
+    private static final long cElement$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cElement
+     * }
+     */
+    public static final long cElement$offset() {
+        return cElement$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cElement
+     * }
+     */
+    public static int cElement(MemorySegment struct) {
+        return struct.get(cElement$LAYOUT, cElement$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cElement
+     * }
+     */
+    public static void cElement(MemorySegment struct, int fieldValue) {
+        struct.set(cElement$LAYOUT, cElement$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout rgpElement$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("rgpElement"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCERT_CHAIN_ELEMENT *rgpElement
+     * }
+     */
+    public static final AddressLayout rgpElement$layout() {
+        return rgpElement$LAYOUT;
+    }
+
+    private static final long rgpElement$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCERT_CHAIN_ELEMENT *rgpElement
+     * }
+     */
+    public static final long rgpElement$offset() {
+        return rgpElement$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCERT_CHAIN_ELEMENT *rgpElement
+     * }
+     */
+    public static MemorySegment rgpElement(MemorySegment struct) {
+        return struct.get(rgpElement$LAYOUT, rgpElement$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCERT_CHAIN_ELEMENT *rgpElement
+     * }
+     */
+    public static void rgpElement(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(rgpElement$LAYOUT, rgpElement$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pTrustListInfo$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pTrustListInfo"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCERT_TRUST_LIST_INFO pTrustListInfo
+     * }
+     */
+    public static final AddressLayout pTrustListInfo$layout() {
+        return pTrustListInfo$LAYOUT;
+    }
+
+    private static final long pTrustListInfo$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCERT_TRUST_LIST_INFO pTrustListInfo
+     * }
+     */
+    public static final long pTrustListInfo$offset() {
+        return pTrustListInfo$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCERT_TRUST_LIST_INFO pTrustListInfo
+     * }
+     */
+    public static MemorySegment pTrustListInfo(MemorySegment struct) {
+        return struct.get(pTrustListInfo$LAYOUT, pTrustListInfo$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCERT_TRUST_LIST_INFO pTrustListInfo
+     * }
+     */
+    public static void pTrustListInfo(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pTrustListInfo$LAYOUT, pTrustListInfo$OFFSET, fieldValue);
+    }
+
+    private static final OfInt fHasRevocationFreshnessTime$LAYOUT = (OfInt)$LAYOUT.select(groupElement("fHasRevocationFreshnessTime"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BOOL fHasRevocationFreshnessTime
+     * }
+     */
+    public static final OfInt fHasRevocationFreshnessTime$layout() {
+        return fHasRevocationFreshnessTime$LAYOUT;
+    }
+
+    private static final long fHasRevocationFreshnessTime$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BOOL fHasRevocationFreshnessTime
+     * }
+     */
+    public static final long fHasRevocationFreshnessTime$offset() {
+        return fHasRevocationFreshnessTime$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BOOL fHasRevocationFreshnessTime
+     * }
+     */
+    public static int fHasRevocationFreshnessTime(MemorySegment struct) {
+        return struct.get(fHasRevocationFreshnessTime$LAYOUT, fHasRevocationFreshnessTime$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BOOL fHasRevocationFreshnessTime
+     * }
+     */
+    public static void fHasRevocationFreshnessTime(MemorySegment struct, int fieldValue) {
+        struct.set(fHasRevocationFreshnessTime$LAYOUT, fHasRevocationFreshnessTime$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwRevocationFreshnessTime$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwRevocationFreshnessTime"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwRevocationFreshnessTime
+     * }
+     */
+    public static final OfInt dwRevocationFreshnessTime$layout() {
+        return dwRevocationFreshnessTime$LAYOUT;
+    }
+
+    private static final long dwRevocationFreshnessTime$OFFSET = 36;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwRevocationFreshnessTime
+     * }
+     */
+    public static final long dwRevocationFreshnessTime$offset() {
+        return dwRevocationFreshnessTime$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwRevocationFreshnessTime
+     * }
+     */
+    public static int dwRevocationFreshnessTime(MemorySegment struct) {
+        return struct.get(dwRevocationFreshnessTime$LAYOUT, dwRevocationFreshnessTime$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwRevocationFreshnessTime
+     * }
+     */
+    public static void dwRevocationFreshnessTime(MemorySegment struct, int fieldValue) {
+        struct.set(dwRevocationFreshnessTime$LAYOUT, dwRevocationFreshnessTime$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CERT_QC_STATEMENTS_EXT_INFO CERT_QC_STATEMENTS_EXT_INFO;
+ * {@snippet lang=c :
+ * typedef struct _CERT_QC_STATEMENTS_EXT_INFO {
+ *     DWORD cStatement;
+ *     PCERT_QC_STATEMENT rgStatement;
+ * } CERT_QC_STATEMENTS_EXT_INFO
  * }
  */
-public final class CERT_QC_STATEMENTS_EXT_INFO extends _CERT_QC_STATEMENTS_EXT_INFO {
+public class CERT_QC_STATEMENTS_EXT_INFO extends _CERT_QC_STATEMENTS_EXT_INFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CERT_QC_STATEMENTS_EXT_INFO() {}
+    CERT_QC_STATEMENTS_EXT_INFO() {
+        // Should not be called directly
+    }
 }
-
 

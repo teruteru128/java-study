@@ -2,20 +2,39 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _IMAGE_SYMBOL_EX IMAGE_SYMBOL_EX;
+ * {@snippet lang=c :
+ * typedef struct _IMAGE_SYMBOL_EX {
+ *     union {
+ *         BYTE ShortName[8];
+ *         struct {
+ *             DWORD Short;
+ *             DWORD Long;
+ *         } Name;
+ *         DWORD LongName[2];
+ *     } N;
+ *     DWORD Value;
+ *     LONG SectionNumber;
+ *     WORD Type;
+ *     BYTE StorageClass;
+ *     BYTE NumberOfAuxSymbols;
+ * } IMAGE_SYMBOL_EX
  * }
  */
-public final class IMAGE_SYMBOL_EX extends _IMAGE_SYMBOL_EX {
+public class IMAGE_SYMBOL_EX extends _IMAGE_SYMBOL_EX {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private IMAGE_SYMBOL_EX() {}
+    IMAGE_SYMBOL_EX() {
+        // Should not be called directly
+    }
 }
-
 

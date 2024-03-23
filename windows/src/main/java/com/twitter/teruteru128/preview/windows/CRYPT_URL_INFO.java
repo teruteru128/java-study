@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CRYPT_URL_INFO CRYPT_URL_INFO;
+ * {@snippet lang=c :
+ * typedef struct _CRYPT_URL_INFO {
+ *     DWORD cbSize;
+ *     DWORD dwSyncDeltaTime;
+ *     DWORD cGroup;
+ *     DWORD *rgcGroupEntry;
+ * } CRYPT_URL_INFO
  * }
  */
-public final class CRYPT_URL_INFO extends _CRYPT_URL_INFO {
+public class CRYPT_URL_INFO extends _CRYPT_URL_INFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CRYPT_URL_INFO() {}
+    CRYPT_URL_INFO() {
+        // Should not be called directly
+    }
 }
-
 

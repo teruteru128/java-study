@@ -2,32 +2,70 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_CMSG_CNG_IMPORT_KEY_TRANS)(struct _CMSG_CNG_CONTENT_DECRYPT_INFO* pCNGContentDecryptInfo,struct _CMSG_CTRL_KEY_TRANS_DECRYPT_PARA* pKeyTransDecryptPara,unsigned long dwFlags,void* pvReserved);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_CMSG_CNG_IMPORT_KEY_TRANS)(PCMSG_CNG_CONTENT_DECRYPT_INFO, PCMSG_CTRL_KEY_TRANS_DECRYPT_PARA, DWORD, void *) __attribute__((stdcall))
  * }
  */
-public interface PFN_CMSG_CNG_IMPORT_KEY_TRANS {
+public class PFN_CMSG_CNG_IMPORT_KEY_TRANS {
 
-    int apply(java.lang.foreign.MemorySegment hStoreProv, java.lang.foreign.MemorySegment pStoreCtlContext, int dwFlags, java.lang.foreign.MemorySegment ppProvCtlContext);
-    static MemorySegment allocate(PFN_CMSG_CNG_IMPORT_KEY_TRANS fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2117.const$0, fi, constants$586.const$5, scope);
+    PFN_CMSG_CNG_IMPORT_KEY_TRANS() {
+        // Should not be called directly
     }
-    static PFN_CMSG_CNG_IMPORT_KEY_TRANS ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _hStoreProv, java.lang.foreign.MemorySegment _pStoreCtlContext, int _dwFlags, java.lang.foreign.MemorySegment _ppProvCtlContext) -> {
-            try {
-                return (int)constants$2117.const$1.invokeExact(symbol, _hStoreProv, _pStoreCtlContext, _dwFlags, _ppProvCtlContext);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment pCNGContentDecryptInfo, MemorySegment pKeyTransDecryptPara, int dwFlags, MemorySegment pvReserved);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CMSG_CNG_IMPORT_KEY_TRANS.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CMSG_CNG_IMPORT_KEY_TRANS.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment pCNGContentDecryptInfo, MemorySegment pKeyTransDecryptPara, int dwFlags, MemorySegment pvReserved) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, pCNGContentDecryptInfo, pKeyTransDecryptPara, dwFlags, pvReserved);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

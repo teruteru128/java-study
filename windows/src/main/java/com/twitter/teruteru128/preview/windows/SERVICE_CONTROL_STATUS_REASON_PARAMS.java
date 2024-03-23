@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SERVICE_CONTROL_STATUS_REASON_PARAMSA SERVICE_CONTROL_STATUS_REASON_PARAMS;
+ * {@snippet lang=c :
+ * typedef SERVICE_CONTROL_STATUS_REASON_PARAMSA SERVICE_CONTROL_STATUS_REASON_PARAMS
  * }
  */
-public final class SERVICE_CONTROL_STATUS_REASON_PARAMS extends _SERVICE_CONTROL_STATUS_REASON_PARAMSA {
+public class SERVICE_CONTROL_STATUS_REASON_PARAMS extends _SERVICE_CONTROL_STATUS_REASON_PARAMSA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SERVICE_CONTROL_STATUS_REASON_PARAMS() {}
+    SERVICE_CONTROL_STATUS_REASON_PARAMS() {
+        // Should not be called directly
+    }
 }
-
 

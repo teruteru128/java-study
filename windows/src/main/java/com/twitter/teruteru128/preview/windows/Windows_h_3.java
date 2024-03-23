@@ -2,8013 +2,11156 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
-import static java.lang.foreign.ValueLayout.*;
-public class Windows_h_3 extends Windows_h_2 {
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
+import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
+public class Windows_h_3 extends Windows_h_4 {
+
+    Windows_h_3() {
+        // Should not be called directly
+    }
+    private static final int NO_RECOVERY = (int)11003L;
     /**
-     * {@snippet :
-     * #define FACILITY_JSCRIPT 2306
+     * {@snippet lang=c :
+     * #define NO_RECOVERY 11003
      * }
      */
-    public static int FACILITY_JSCRIPT() {
-        return (int)2306L;
+    public static int NO_RECOVERY() {
+        return NO_RECOVERY;
     }
+    private static final int NO_DATA = (int)11004L;
     /**
-     * {@snippet :
-     * #define FACILITY_PIDGENX 2561
+     * {@snippet lang=c :
+     * #define NO_DATA 11004
      * }
      */
-    public static int FACILITY_PIDGENX() {
-        return (int)2561L;
+    public static int NO_DATA() {
+        return NO_DATA;
     }
+    private static final int WSANO_ADDRESS = (int)11004L;
     /**
-     * {@snippet :
-     * #define FACILITY_EAS 85
+     * {@snippet lang=c :
+     * #define WSANO_ADDRESS 11004
      * }
      */
-    public static int FACILITY_EAS() {
-        return (int)85L;
+    public static int WSANO_ADDRESS() {
+        return WSANO_ADDRESS;
     }
+    private static final int NO_ADDRESS = (int)11004L;
     /**
-     * {@snippet :
-     * #define FACILITY_WEB 885
+     * {@snippet lang=c :
+     * #define NO_ADDRESS 11004
      * }
      */
-    public static int FACILITY_WEB() {
-        return (int)885L;
+    public static int NO_ADDRESS() {
+        return NO_ADDRESS;
     }
+    private static final int ALG_CLASS_ANY = (int)0L;
     /**
-     * {@snippet :
-     * #define FACILITY_WEB_SOCKET 886
+     * {@snippet lang=c :
+     * #define ALG_CLASS_ANY 0
      * }
      */
-    public static int FACILITY_WEB_SOCKET() {
-        return (int)886L;
+    public static int ALG_CLASS_ANY() {
+        return ALG_CLASS_ANY;
     }
+    private static final int ALG_CLASS_SIGNATURE = (int)8192L;
     /**
-     * {@snippet :
-     * #define FACILITY_MOBILE 1793
+     * {@snippet lang=c :
+     * #define ALG_CLASS_SIGNATURE 8192
      * }
      */
-    public static int FACILITY_MOBILE() {
-        return (int)1793L;
+    public static int ALG_CLASS_SIGNATURE() {
+        return ALG_CLASS_SIGNATURE;
     }
+    private static final int ALG_CLASS_MSG_ENCRYPT = (int)16384L;
     /**
-     * {@snippet :
-     * #define FACILITY_SQLITE 1967
+     * {@snippet lang=c :
+     * #define ALG_CLASS_MSG_ENCRYPT 16384
      * }
      */
-    public static int FACILITY_SQLITE() {
-        return (int)1967L;
+    public static int ALG_CLASS_MSG_ENCRYPT() {
+        return ALG_CLASS_MSG_ENCRYPT;
     }
+    private static final int ALG_CLASS_DATA_ENCRYPT = (int)24576L;
     /**
-     * {@snippet :
-     * #define FACILITY_SERVICE_FABRIC 1968
+     * {@snippet lang=c :
+     * #define ALG_CLASS_DATA_ENCRYPT 24576
      * }
      */
-    public static int FACILITY_SERVICE_FABRIC() {
-        return (int)1968L;
+    public static int ALG_CLASS_DATA_ENCRYPT() {
+        return ALG_CLASS_DATA_ENCRYPT;
     }
+    private static final int ALG_CLASS_HASH = (int)32768L;
     /**
-     * {@snippet :
-     * #define FACILITY_UTC 1989
+     * {@snippet lang=c :
+     * #define ALG_CLASS_HASH 32768
      * }
      */
-    public static int FACILITY_UTC() {
-        return (int)1989L;
+    public static int ALG_CLASS_HASH() {
+        return ALG_CLASS_HASH;
     }
+    private static final int ALG_CLASS_KEY_EXCHANGE = (int)40960L;
     /**
-     * {@snippet :
-     * #define FACILITY_WEP 2049
+     * {@snippet lang=c :
+     * #define ALG_CLASS_KEY_EXCHANGE 40960
      * }
      */
-    public static int FACILITY_WEP() {
-        return (int)2049L;
+    public static int ALG_CLASS_KEY_EXCHANGE() {
+        return ALG_CLASS_KEY_EXCHANGE;
     }
+    private static final int ALG_CLASS_ALL = (int)57344L;
     /**
-     * {@snippet :
-     * #define FACILITY_SYNCENGINE 2050
+     * {@snippet lang=c :
+     * #define ALG_CLASS_ALL 57344
      * }
      */
-    public static int FACILITY_SYNCENGINE() {
-        return (int)2050L;
+    public static int ALG_CLASS_ALL() {
+        return ALG_CLASS_ALL;
     }
+    private static final int ALG_TYPE_ANY = (int)0L;
     /**
-     * {@snippet :
-     * #define FACILITY_XBOX 2339
+     * {@snippet lang=c :
+     * #define ALG_TYPE_ANY 0
      * }
      */
-    public static int FACILITY_XBOX() {
-        return (int)2339L;
+    public static int ALG_TYPE_ANY() {
+        return ALG_TYPE_ANY;
     }
+    private static final int ALG_TYPE_DSS = (int)512L;
     /**
-     * {@snippet :
-     * #define FACILITY_GAME 2340
+     * {@snippet lang=c :
+     * #define ALG_TYPE_DSS 512
      * }
      */
-    public static int FACILITY_GAME() {
-        return (int)2340L;
+    public static int ALG_TYPE_DSS() {
+        return ALG_TYPE_DSS;
     }
+    private static final int ALG_TYPE_RSA = (int)1024L;
     /**
-     * {@snippet :
-     * #define FACILITY_PIX 2748
+     * {@snippet lang=c :
+     * #define ALG_TYPE_RSA 1024
      * }
      */
-    public static int FACILITY_PIX() {
-        return (int)2748L;
+    public static int ALG_TYPE_RSA() {
+        return ALG_TYPE_RSA;
     }
+    private static final int ALG_TYPE_BLOCK = (int)1536L;
     /**
-     * {@snippet :
-     * #define DNS_ERROR_RESPONSE_CODES_BASE 9000
+     * {@snippet lang=c :
+     * #define ALG_TYPE_BLOCK 1536
      * }
      */
-    public static int DNS_ERROR_RESPONSE_CODES_BASE() {
-        return (int)9000L;
+    public static int ALG_TYPE_BLOCK() {
+        return ALG_TYPE_BLOCK;
     }
+    private static final int ALG_TYPE_STREAM = (int)2048L;
     /**
-     * {@snippet :
-     * #define DNS_ERROR_MASK 9000
+     * {@snippet lang=c :
+     * #define ALG_TYPE_STREAM 2048
      * }
      */
-    public static int DNS_ERROR_MASK() {
-        return (int)9000L;
+    public static int ALG_TYPE_STREAM() {
+        return ALG_TYPE_STREAM;
     }
+    private static final int ALG_TYPE_DH = (int)2560L;
     /**
-     * {@snippet :
-     * #define DNS_ERROR_DNSSEC_BASE 9100
+     * {@snippet lang=c :
+     * #define ALG_TYPE_DH 2560
      * }
      */
-    public static int DNS_ERROR_DNSSEC_BASE() {
-        return (int)9100L;
+    public static int ALG_TYPE_DH() {
+        return ALG_TYPE_DH;
     }
+    private static final int ALG_TYPE_SECURECHANNEL = (int)3072L;
     /**
-     * {@snippet :
-     * #define DNS_ERROR_PACKET_FMT_BASE 9500
+     * {@snippet lang=c :
+     * #define ALG_TYPE_SECURECHANNEL 3072
      * }
      */
-    public static int DNS_ERROR_PACKET_FMT_BASE() {
-        return (int)9500L;
+    public static int ALG_TYPE_SECURECHANNEL() {
+        return ALG_TYPE_SECURECHANNEL;
     }
+    private static final int ALG_TYPE_ECDH = (int)3584L;
     /**
-     * {@snippet :
-     * #define DNS_ERROR_GENERAL_API_BASE 9550
+     * {@snippet lang=c :
+     * #define ALG_TYPE_ECDH 3584
      * }
      */
-    public static int DNS_ERROR_GENERAL_API_BASE() {
-        return (int)9550L;
+    public static int ALG_TYPE_ECDH() {
+        return ALG_TYPE_ECDH;
     }
+    private static final int ALG_TYPE_THIRDPARTY = (int)4096L;
     /**
-     * {@snippet :
-     * #define DNS_ERROR_ZONE_BASE 9600
+     * {@snippet lang=c :
+     * #define ALG_TYPE_THIRDPARTY 4096
      * }
      */
-    public static int DNS_ERROR_ZONE_BASE() {
-        return (int)9600L;
+    public static int ALG_TYPE_THIRDPARTY() {
+        return ALG_TYPE_THIRDPARTY;
     }
+    private static final int ALG_SID_ANY = (int)0L;
     /**
-     * {@snippet :
-     * #define DNS_ERROR_DATAFILE_BASE 9650
+     * {@snippet lang=c :
+     * #define ALG_SID_ANY 0
      * }
      */
-    public static int DNS_ERROR_DATAFILE_BASE() {
-        return (int)9650L;
+    public static int ALG_SID_ANY() {
+        return ALG_SID_ANY;
     }
+    private static final int ALG_SID_THIRDPARTY_ANY = (int)0L;
     /**
-     * {@snippet :
-     * #define DNS_ERROR_DATABASE_BASE 9700
+     * {@snippet lang=c :
+     * #define ALG_SID_THIRDPARTY_ANY 0
      * }
      */
-    public static int DNS_ERROR_DATABASE_BASE() {
-        return (int)9700L;
+    public static int ALG_SID_THIRDPARTY_ANY() {
+        return ALG_SID_THIRDPARTY_ANY;
     }
+    private static final int CALG_MD2 = (int)32769L;
     /**
-     * {@snippet :
-     * #define DNS_ERROR_OPERATION_BASE 9750
+     * {@snippet lang=c :
+     * #define CALG_MD2 32769
      * }
      */
-    public static int DNS_ERROR_OPERATION_BASE() {
-        return (int)9750L;
+    public static int CALG_MD2() {
+        return CALG_MD2;
     }
+    private static final int CALG_MD4 = (int)32770L;
     /**
-     * {@snippet :
-     * #define DNS_ERROR_SECURE_BASE 9800
+     * {@snippet lang=c :
+     * #define CALG_MD4 32770
      * }
      */
-    public static int DNS_ERROR_SECURE_BASE() {
-        return (int)9800L;
+    public static int CALG_MD4() {
+        return CALG_MD4;
     }
+    private static final int CALG_MD5 = (int)32771L;
     /**
-     * {@snippet :
-     * #define DNS_ERROR_SETUP_BASE 9850
+     * {@snippet lang=c :
+     * #define CALG_MD5 32771
      * }
      */
-    public static int DNS_ERROR_SETUP_BASE() {
-        return (int)9850L;
+    public static int CALG_MD5() {
+        return CALG_MD5;
     }
+    private static final int CALG_SHA = (int)32772L;
     /**
-     * {@snippet :
-     * #define DNS_ERROR_DP_BASE 9900
+     * {@snippet lang=c :
+     * #define CALG_SHA 32772
      * }
      */
-    public static int DNS_ERROR_DP_BASE() {
-        return (int)9900L;
+    public static int CALG_SHA() {
+        return CALG_SHA;
     }
+    private static final int CALG_SHA1 = (int)32772L;
     /**
-     * {@snippet :
-     * #define WSABASEERR 10000
+     * {@snippet lang=c :
+     * #define CALG_SHA1 32772
      * }
      */
-    public static int WSABASEERR() {
-        return (int)10000L;
+    public static int CALG_SHA1() {
+        return CALG_SHA1;
     }
+    private static final int CALG_MAC = (int)32773L;
     /**
-     * {@snippet :
-     * #define SEVERITY_SUCCESS 0
+     * {@snippet lang=c :
+     * #define CALG_MAC 32773
      * }
      */
-    public static int SEVERITY_SUCCESS() {
-        return (int)0L;
+    public static int CALG_MAC() {
+        return CALG_MAC;
     }
+    private static final int CALG_RSA_SIGN = (int)9216L;
     /**
-     * {@snippet :
-     * #define SEVERITY_ERROR 1
+     * {@snippet lang=c :
+     * #define CALG_RSA_SIGN 9216
      * }
      */
-    public static int SEVERITY_ERROR() {
-        return (int)1L;
+    public static int CALG_RSA_SIGN() {
+        return CALG_RSA_SIGN;
     }
+    private static final int CALG_DSS_SIGN = (int)8704L;
     /**
-     * {@snippet :
-     * #define FACILITY_NT_BIT 268435456
+     * {@snippet lang=c :
+     * #define CALG_DSS_SIGN 8704
      * }
      */
-    public static int FACILITY_NT_BIT() {
-        return (int)268435456L;
+    public static int CALG_DSS_SIGN() {
+        return CALG_DSS_SIGN;
     }
+    private static final int CALG_NO_SIGN = (int)8192L;
     /**
-     * {@snippet :
-     * #define NOERROR 0
+     * {@snippet lang=c :
+     * #define CALG_NO_SIGN 8192
      * }
      */
-    public static int NOERROR() {
-        return (int)0L;
+    public static int CALG_NO_SIGN() {
+        return CALG_NO_SIGN;
     }
+    private static final int CALG_RSA_KEYX = (int)41984L;
     /**
-     * {@snippet :
-     * #define XACT_S_FIRST 315392
+     * {@snippet lang=c :
+     * #define CALG_RSA_KEYX 41984
      * }
      */
-    public static int XACT_S_FIRST() {
-        return (int)315392L;
+    public static int CALG_RSA_KEYX() {
+        return CALG_RSA_KEYX;
     }
+    private static final int CALG_DES = (int)26113L;
     /**
-     * {@snippet :
-     * #define XACT_S_LAST 315408
+     * {@snippet lang=c :
+     * #define CALG_DES 26113
      * }
      */
-    public static int XACT_S_LAST() {
-        return (int)315408L;
+    public static int CALG_DES() {
+        return CALG_DES;
     }
+    private static final int CALG_3DES_112 = (int)26121L;
     /**
-     * {@snippet :
-     * #define NTE_OP_OK 0
+     * {@snippet lang=c :
+     * #define CALG_3DES_112 26121
      * }
      */
-    public static int NTE_OP_OK() {
-        return (int)0L;
+    public static int CALG_3DES_112() {
+        return CALG_3DES_112;
     }
+    private static final int CALG_3DES = (int)26115L;
     /**
-     * {@snippet :
-     * #define TC_NORMAL 0
+     * {@snippet lang=c :
+     * #define CALG_3DES 26115
      * }
      */
-    public static int TC_NORMAL() {
-        return (int)0L;
+    public static int CALG_3DES() {
+        return CALG_3DES;
     }
+    private static final int CALG_DESX = (int)26116L;
     /**
-     * {@snippet :
-     * #define TC_HARDERR 1
+     * {@snippet lang=c :
+     * #define CALG_DESX 26116
      * }
      */
-    public static int TC_HARDERR() {
-        return (int)1L;
+    public static int CALG_DESX() {
+        return CALG_DESX;
     }
+    private static final int CALG_RC2 = (int)26114L;
     /**
-     * {@snippet :
-     * #define TC_GP_TRAP 2
+     * {@snippet lang=c :
+     * #define CALG_RC2 26114
      * }
      */
-    public static int TC_GP_TRAP() {
-        return (int)2L;
+    public static int CALG_RC2() {
+        return CALG_RC2;
     }
+    private static final int CALG_RC4 = (int)26625L;
     /**
-     * {@snippet :
-     * #define TC_SIGNAL 3
+     * {@snippet lang=c :
+     * #define CALG_RC4 26625
      * }
      */
-    public static int TC_SIGNAL() {
-        return (int)3L;
+    public static int CALG_RC4() {
+        return CALG_RC4;
     }
+    private static final int CALG_SEAL = (int)26626L;
     /**
-     * {@snippet :
-     * #define AC_LINE_OFFLINE 0
+     * {@snippet lang=c :
+     * #define CALG_SEAL 26626
      * }
      */
-    public static int AC_LINE_OFFLINE() {
-        return (int)0L;
+    public static int CALG_SEAL() {
+        return CALG_SEAL;
     }
+    private static final int CALG_DH_SF = (int)43521L;
     /**
-     * {@snippet :
-     * #define AC_LINE_ONLINE 1
+     * {@snippet lang=c :
+     * #define CALG_DH_SF 43521
      * }
      */
-    public static int AC_LINE_ONLINE() {
-        return (int)1L;
+    public static int CALG_DH_SF() {
+        return CALG_DH_SF;
     }
+    private static final int CALG_DH_EPHEM = (int)43522L;
     /**
-     * {@snippet :
-     * #define AC_LINE_BACKUP_POWER 2
+     * {@snippet lang=c :
+     * #define CALG_DH_EPHEM 43522
      * }
      */
-    public static int AC_LINE_BACKUP_POWER() {
-        return (int)2L;
+    public static int CALG_DH_EPHEM() {
+        return CALG_DH_EPHEM;
     }
+    private static final int CALG_AGREEDKEY_ANY = (int)43523L;
     /**
-     * {@snippet :
-     * #define AC_LINE_UNKNOWN 255
+     * {@snippet lang=c :
+     * #define CALG_AGREEDKEY_ANY 43523
      * }
      */
-    public static int AC_LINE_UNKNOWN() {
-        return (int)255L;
+    public static int CALG_AGREEDKEY_ANY() {
+        return CALG_AGREEDKEY_ANY;
     }
+    private static final int CALG_KEA_KEYX = (int)43524L;
     /**
-     * {@snippet :
-     * #define BATTERY_FLAG_HIGH 1
+     * {@snippet lang=c :
+     * #define CALG_KEA_KEYX 43524
      * }
      */
-    public static int BATTERY_FLAG_HIGH() {
-        return (int)1L;
+    public static int CALG_KEA_KEYX() {
+        return CALG_KEA_KEYX;
     }
+    private static final int CALG_HUGHES_MD5 = (int)40963L;
     /**
-     * {@snippet :
-     * #define BATTERY_FLAG_LOW 2
+     * {@snippet lang=c :
+     * #define CALG_HUGHES_MD5 40963
      * }
      */
-    public static int BATTERY_FLAG_LOW() {
-        return (int)2L;
+    public static int CALG_HUGHES_MD5() {
+        return CALG_HUGHES_MD5;
     }
+    private static final int CALG_SKIPJACK = (int)26122L;
     /**
-     * {@snippet :
-     * #define BATTERY_FLAG_CRITICAL 4
+     * {@snippet lang=c :
+     * #define CALG_SKIPJACK 26122
      * }
      */
-    public static int BATTERY_FLAG_CRITICAL() {
-        return (int)4L;
+    public static int CALG_SKIPJACK() {
+        return CALG_SKIPJACK;
     }
+    private static final int CALG_TEK = (int)26123L;
     /**
-     * {@snippet :
-     * #define BATTERY_FLAG_CHARGING 8
+     * {@snippet lang=c :
+     * #define CALG_TEK 26123
      * }
      */
-    public static int BATTERY_FLAG_CHARGING() {
-        return (int)8L;
+    public static int CALG_TEK() {
+        return CALG_TEK;
     }
+    private static final int CALG_CYLINK_MEK = (int)26124L;
     /**
-     * {@snippet :
-     * #define BATTERY_FLAG_NO_BATTERY 128
+     * {@snippet lang=c :
+     * #define CALG_CYLINK_MEK 26124
      * }
      */
-    public static int BATTERY_FLAG_NO_BATTERY() {
-        return (int)128L;
+    public static int CALG_CYLINK_MEK() {
+        return CALG_CYLINK_MEK;
     }
+    private static final int CALG_SSL3_SHAMD5 = (int)32776L;
     /**
-     * {@snippet :
-     * #define BATTERY_FLAG_UNKNOWN 255
+     * {@snippet lang=c :
+     * #define CALG_SSL3_SHAMD5 32776
      * }
      */
-    public static int BATTERY_FLAG_UNKNOWN() {
-        return (int)255L;
+    public static int CALG_SSL3_SHAMD5() {
+        return CALG_SSL3_SHAMD5;
     }
+    private static final int CALG_SSL3_MASTER = (int)19457L;
     /**
-     * {@snippet :
-     * #define BATTERY_PERCENTAGE_UNKNOWN 255
+     * {@snippet lang=c :
+     * #define CALG_SSL3_MASTER 19457
      * }
      */
-    public static int BATTERY_PERCENTAGE_UNKNOWN() {
-        return (int)255L;
+    public static int CALG_SSL3_MASTER() {
+        return CALG_SSL3_MASTER;
     }
+    private static final int CALG_SCHANNEL_MASTER_HASH = (int)19458L;
     /**
-     * {@snippet :
-     * #define SYSTEM_STATUS_FLAG_POWER_SAVING_ON 1
+     * {@snippet lang=c :
+     * #define CALG_SCHANNEL_MASTER_HASH 19458
      * }
      */
-    public static int SYSTEM_STATUS_FLAG_POWER_SAVING_ON() {
-        return (int)1L;
+    public static int CALG_SCHANNEL_MASTER_HASH() {
+        return CALG_SCHANNEL_MASTER_HASH;
     }
+    private static final int CALG_SCHANNEL_MAC_KEY = (int)19459L;
     /**
-     * {@snippet :
-     * #define ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED 1
+     * {@snippet lang=c :
+     * #define CALG_SCHANNEL_MAC_KEY 19459
      * }
      */
-    public static int ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED() {
-        return (int)1L;
+    public static int CALG_SCHANNEL_MAC_KEY() {
+        return CALG_SCHANNEL_MAC_KEY;
     }
+    private static final int CALG_SCHANNEL_ENC_KEY = (int)19463L;
     /**
-     * {@snippet :
-     * #define RESTART_MAX_CMD_LINE 1024
+     * {@snippet lang=c :
+     * #define CALG_SCHANNEL_ENC_KEY 19463
      * }
      */
-    public static int RESTART_MAX_CMD_LINE() {
-        return (int)1024L;
+    public static int CALG_SCHANNEL_ENC_KEY() {
+        return CALG_SCHANNEL_ENC_KEY;
     }
+    private static final int CALG_PCT1_MASTER = (int)19460L;
     /**
-     * {@snippet :
-     * #define RESTART_NO_CRASH 1
+     * {@snippet lang=c :
+     * #define CALG_PCT1_MASTER 19460
      * }
      */
-    public static int RESTART_NO_CRASH() {
-        return (int)1L;
+    public static int CALG_PCT1_MASTER() {
+        return CALG_PCT1_MASTER;
     }
+    private static final int CALG_SSL2_MASTER = (int)19461L;
     /**
-     * {@snippet :
-     * #define RESTART_NO_HANG 2
+     * {@snippet lang=c :
+     * #define CALG_SSL2_MASTER 19461
      * }
      */
-    public static int RESTART_NO_HANG() {
-        return (int)2L;
+    public static int CALG_SSL2_MASTER() {
+        return CALG_SSL2_MASTER;
     }
+    private static final int CALG_TLS1_MASTER = (int)19462L;
     /**
-     * {@snippet :
-     * #define RESTART_NO_PATCH 4
+     * {@snippet lang=c :
+     * #define CALG_TLS1_MASTER 19462
      * }
      */
-    public static int RESTART_NO_PATCH() {
-        return (int)4L;
+    public static int CALG_TLS1_MASTER() {
+        return CALG_TLS1_MASTER;
     }
+    private static final int CALG_RC5 = (int)26125L;
     /**
-     * {@snippet :
-     * #define RESTART_NO_REBOOT 8
+     * {@snippet lang=c :
+     * #define CALG_RC5 26125
      * }
      */
-    public static int RESTART_NO_REBOOT() {
-        return (int)8L;
+    public static int CALG_RC5() {
+        return CALG_RC5;
     }
+    private static final int CALG_HMAC = (int)32777L;
     /**
-     * {@snippet :
-     * #define RECOVERY_DEFAULT_PING_INTERVAL 5000
+     * {@snippet lang=c :
+     * #define CALG_HMAC 32777
      * }
      */
-    public static int RECOVERY_DEFAULT_PING_INTERVAL() {
-        return (int)5000L;
+    public static int CALG_HMAC() {
+        return CALG_HMAC;
     }
+    private static final int CALG_TLS1PRF = (int)32778L;
     /**
-     * {@snippet :
-     * #define FILE_RENAME_FLAG_REPLACE_IF_EXISTS 1
+     * {@snippet lang=c :
+     * #define CALG_TLS1PRF 32778
      * }
      */
-    public static int FILE_RENAME_FLAG_REPLACE_IF_EXISTS() {
-        return (int)1L;
+    public static int CALG_TLS1PRF() {
+        return CALG_TLS1PRF;
     }
+    private static final int CALG_HASH_REPLACE_OWF = (int)32779L;
     /**
-     * {@snippet :
-     * #define FILE_RENAME_FLAG_POSIX_SEMANTICS 2
+     * {@snippet lang=c :
+     * #define CALG_HASH_REPLACE_OWF 32779
      * }
      */
-    public static int FILE_RENAME_FLAG_POSIX_SEMANTICS() {
-        return (int)2L;
+    public static int CALG_HASH_REPLACE_OWF() {
+        return CALG_HASH_REPLACE_OWF;
     }
+    private static final int CALG_AES_128 = (int)26126L;
     /**
-     * {@snippet :
-     * #define FILE_RENAME_FLAG_SUPPRESS_PIN_STATE_INHERITANCE 4
+     * {@snippet lang=c :
+     * #define CALG_AES_128 26126
      * }
      */
-    public static int FILE_RENAME_FLAG_SUPPRESS_PIN_STATE_INHERITANCE() {
-        return (int)4L;
+    public static int CALG_AES_128() {
+        return CALG_AES_128;
     }
+    private static final int CALG_AES_192 = (int)26127L;
     /**
-     * {@snippet :
-     * #define FILE_DISPOSITION_FLAG_DO_NOT_DELETE 0
+     * {@snippet lang=c :
+     * #define CALG_AES_192 26127
      * }
      */
-    public static int FILE_DISPOSITION_FLAG_DO_NOT_DELETE() {
-        return (int)0L;
+    public static int CALG_AES_192() {
+        return CALG_AES_192;
     }
+    private static final int CALG_AES_256 = (int)26128L;
     /**
-     * {@snippet :
-     * #define FILE_DISPOSITION_FLAG_DELETE 1
+     * {@snippet lang=c :
+     * #define CALG_AES_256 26128
      * }
      */
-    public static int FILE_DISPOSITION_FLAG_DELETE() {
-        return (int)1L;
+    public static int CALG_AES_256() {
+        return CALG_AES_256;
     }
+    private static final int CALG_AES = (int)26129L;
     /**
-     * {@snippet :
-     * #define FILE_DISPOSITION_FLAG_POSIX_SEMANTICS 2
+     * {@snippet lang=c :
+     * #define CALG_AES 26129
      * }
      */
-    public static int FILE_DISPOSITION_FLAG_POSIX_SEMANTICS() {
-        return (int)2L;
+    public static int CALG_AES() {
+        return CALG_AES;
     }
+    private static final int CALG_SHA_256 = (int)32780L;
     /**
-     * {@snippet :
-     * #define FILE_DISPOSITION_FLAG_FORCE_IMAGE_SECTION_CHECK 4
+     * {@snippet lang=c :
+     * #define CALG_SHA_256 32780
      * }
      */
-    public static int FILE_DISPOSITION_FLAG_FORCE_IMAGE_SECTION_CHECK() {
-        return (int)4L;
+    public static int CALG_SHA_256() {
+        return CALG_SHA_256;
     }
+    private static final int CALG_SHA_384 = (int)32781L;
     /**
-     * {@snippet :
-     * #define FILE_DISPOSITION_FLAG_ON_CLOSE 8
+     * {@snippet lang=c :
+     * #define CALG_SHA_384 32781
      * }
      */
-    public static int FILE_DISPOSITION_FLAG_ON_CLOSE() {
-        return (int)8L;
+    public static int CALG_SHA_384() {
+        return CALG_SHA_384;
     }
+    private static final int CALG_SHA_512 = (int)32782L;
     /**
-     * {@snippet :
-     * #define FILE_DISPOSITION_FLAG_IGNORE_READONLY_ATTRIBUTE 16
+     * {@snippet lang=c :
+     * #define CALG_SHA_512 32782
      * }
      */
-    public static int FILE_DISPOSITION_FLAG_IGNORE_READONLY_ATTRIBUTE() {
-        return (int)16L;
+    public static int CALG_SHA_512() {
+        return CALG_SHA_512;
     }
+    private static final int CALG_ECDH = (int)43525L;
     /**
-     * {@snippet :
-     * #define STORAGE_INFO_FLAGS_ALIGNED_DEVICE 1
+     * {@snippet lang=c :
+     * #define CALG_ECDH 43525
      * }
      */
-    public static int STORAGE_INFO_FLAGS_ALIGNED_DEVICE() {
-        return (int)1L;
+    public static int CALG_ECDH() {
+        return CALG_ECDH;
     }
+    private static final int CALG_ECDH_EPHEM = (int)44550L;
     /**
-     * {@snippet :
-     * #define STORAGE_INFO_FLAGS_PARTITION_ALIGNED_ON_DEVICE 2
+     * {@snippet lang=c :
+     * #define CALG_ECDH_EPHEM 44550
      * }
      */
-    public static int STORAGE_INFO_FLAGS_PARTITION_ALIGNED_ON_DEVICE() {
-        return (int)2L;
+    public static int CALG_ECDH_EPHEM() {
+        return CALG_ECDH_EPHEM;
     }
+    private static final int CALG_ECMQV = (int)40961L;
     /**
-     * {@snippet :
-     * #define REMOTE_PROTOCOL_INFO_FLAG_LOOPBACK 1
+     * {@snippet lang=c :
+     * #define CALG_ECMQV 40961
      * }
      */
-    public static int REMOTE_PROTOCOL_INFO_FLAG_LOOPBACK() {
-        return (int)1L;
+    public static int CALG_ECMQV() {
+        return CALG_ECMQV;
     }
+    private static final int CALG_ECDSA = (int)8707L;
     /**
-     * {@snippet :
-     * #define REMOTE_PROTOCOL_INFO_FLAG_OFFLINE 2
+     * {@snippet lang=c :
+     * #define CALG_ECDSA 8707
      * }
      */
-    public static int REMOTE_PROTOCOL_INFO_FLAG_OFFLINE() {
-        return (int)2L;
+    public static int CALG_ECDSA() {
+        return CALG_ECDSA;
     }
+    private static final int CALG_NULLCIPHER = (int)24576L;
     /**
-     * {@snippet :
-     * #define REMOTE_PROTOCOL_INFO_FLAG_PERSISTENT_HANDLE 4
+     * {@snippet lang=c :
+     * #define CALG_NULLCIPHER 24576
      * }
      */
-    public static int REMOTE_PROTOCOL_INFO_FLAG_PERSISTENT_HANDLE() {
-        return (int)4L;
+    public static int CALG_NULLCIPHER() {
+        return CALG_NULLCIPHER;
     }
+    private static final int CALG_THIRDPARTY_KEY_EXCHANGE = (int)45056L;
     /**
-     * {@snippet :
-     * #define RPI_FLAG_SMB2_SHARECAP_TIMEWARP 2
+     * {@snippet lang=c :
+     * #define CALG_THIRDPARTY_KEY_EXCHANGE 45056
      * }
      */
-    public static int RPI_FLAG_SMB2_SHARECAP_TIMEWARP() {
-        return (int)2L;
+    public static int CALG_THIRDPARTY_KEY_EXCHANGE() {
+        return CALG_THIRDPARTY_KEY_EXCHANGE;
     }
+    private static final int CALG_THIRDPARTY_SIGNATURE = (int)12288L;
     /**
-     * {@snippet :
-     * #define RPI_FLAG_SMB2_SHARECAP_DFS 8
+     * {@snippet lang=c :
+     * #define CALG_THIRDPARTY_SIGNATURE 12288
      * }
      */
-    public static int RPI_FLAG_SMB2_SHARECAP_DFS() {
-        return (int)8L;
+    public static int CALG_THIRDPARTY_SIGNATURE() {
+        return CALG_THIRDPARTY_SIGNATURE;
     }
+    private static final int CALG_THIRDPARTY_CIPHER = (int)28672L;
     /**
-     * {@snippet :
-     * #define RPI_FLAG_SMB2_SHARECAP_CONTINUOUS_AVAILABILITY 16
+     * {@snippet lang=c :
+     * #define CALG_THIRDPARTY_CIPHER 28672
      * }
      */
-    public static int RPI_FLAG_SMB2_SHARECAP_CONTINUOUS_AVAILABILITY() {
-        return (int)16L;
+    public static int CALG_THIRDPARTY_CIPHER() {
+        return CALG_THIRDPARTY_CIPHER;
     }
+    private static final int CALG_THIRDPARTY_HASH = (int)36864L;
     /**
-     * {@snippet :
-     * #define RPI_FLAG_SMB2_SHARECAP_SCALEOUT 32
+     * {@snippet lang=c :
+     * #define CALG_THIRDPARTY_HASH 36864
      * }
      */
-    public static int RPI_FLAG_SMB2_SHARECAP_SCALEOUT() {
-        return (int)32L;
+    public static int CALG_THIRDPARTY_HASH() {
+        return CALG_THIRDPARTY_HASH;
     }
+    private static final int CRYPT_VERIFYCONTEXT = (int)4026531840L;
     /**
-     * {@snippet :
-     * #define RPI_FLAG_SMB2_SHARECAP_CLUSTER 64
+     * {@snippet lang=c :
+     * #define CRYPT_VERIFYCONTEXT 4026531840
      * }
      */
-    public static int RPI_FLAG_SMB2_SHARECAP_CLUSTER() {
-        return (int)64L;
+    public static int CRYPT_VERIFYCONTEXT() {
+        return CRYPT_VERIFYCONTEXT;
     }
+    private static final int KEY_LENGTH_MASK = (int)4294901760L;
     /**
-     * {@snippet :
-     * #define RPI_SMB2_SHAREFLAG_ENCRYPT_DATA 1
+     * {@snippet lang=c :
+     * #define KEY_LENGTH_MASK 4294901760
      * }
      */
-    public static int RPI_SMB2_SHAREFLAG_ENCRYPT_DATA() {
-        return (int)1L;
+    public static int KEY_LENGTH_MASK() {
+        return KEY_LENGTH_MASK;
     }
+    private static final int CRYPT_FAILED = (int)0L;
     /**
-     * {@snippet :
-     * #define RPI_SMB2_FLAG_SERVERCAP_DFS 1
+     * {@snippet lang=c :
+     * #define CRYPT_FAILED 0
      * }
      */
-    public static int RPI_SMB2_FLAG_SERVERCAP_DFS() {
-        return (int)1L;
+    public static int CRYPT_FAILED() {
+        return CRYPT_FAILED;
     }
+    private static final int CRYPT_SUCCEED = (int)1L;
     /**
-     * {@snippet :
-     * #define RPI_SMB2_FLAG_SERVERCAP_LEASING 2
+     * {@snippet lang=c :
+     * #define CRYPT_SUCCEED 1
      * }
      */
-    public static int RPI_SMB2_FLAG_SERVERCAP_LEASING() {
-        return (int)2L;
+    public static int CRYPT_SUCCEED() {
+        return CRYPT_SUCCEED;
     }
     /**
-     * {@snippet :
-     * #define RPI_SMB2_FLAG_SERVERCAP_LARGEMTU 4
+     * {@snippet lang=c :
+     * #define MS_DEF_PROV_A "Microsoft Base Cryptographic Provider v1.0"
      * }
      */
-    public static int RPI_SMB2_FLAG_SERVERCAP_LARGEMTU() {
-        return (int)4L;
+    public static MemorySegment MS_DEF_PROV_A() {
+        class Holder {
+            static final MemorySegment MS_DEF_PROV_A
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base Cryptographic Provider v1.0");
+        }
+        return Holder.MS_DEF_PROV_A;
     }
     /**
-     * {@snippet :
-     * #define RPI_SMB2_FLAG_SERVERCAP_MULTICHANNEL 8
+     * {@snippet lang=c :
+     * #define MS_DEF_PROV_W "M"
      * }
      */
-    public static int RPI_SMB2_FLAG_SERVERCAP_MULTICHANNEL() {
-        return (int)8L;
+    public static MemorySegment MS_DEF_PROV_W() {
+        class Holder {
+            static final MemorySegment MS_DEF_PROV_W
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_DEF_PROV_W;
     }
     /**
-     * {@snippet :
-     * #define RPI_SMB2_FLAG_SERVERCAP_PERSISTENT_HANDLES 16
+     * {@snippet lang=c :
+     * #define MS_DEF_PROV "Microsoft Base Cryptographic Provider v1.0"
      * }
      */
-    public static int RPI_SMB2_FLAG_SERVERCAP_PERSISTENT_HANDLES() {
-        return (int)16L;
+    public static MemorySegment MS_DEF_PROV() {
+        class Holder {
+            static final MemorySegment MS_DEF_PROV
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base Cryptographic Provider v1.0");
+        }
+        return Holder.MS_DEF_PROV;
     }
     /**
-     * {@snippet :
-     * #define RPI_SMB2_FLAG_SERVERCAP_DIRECTORY_LEASING 32
+     * {@snippet lang=c :
+     * #define MS_ENHANCED_PROV_A "Microsoft Enhanced Cryptographic Provider v1.0"
      * }
      */
-    public static int RPI_SMB2_FLAG_SERVERCAP_DIRECTORY_LEASING() {
-        return (int)32L;
+    public static MemorySegment MS_ENHANCED_PROV_A() {
+        class Holder {
+            static final MemorySegment MS_ENHANCED_PROV_A
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced Cryptographic Provider v1.0");
+        }
+        return Holder.MS_ENHANCED_PROV_A;
     }
     /**
-     * {@snippet :
-     * #define MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 1
+     * {@snippet lang=c :
+     * #define MS_ENHANCED_PROV_W "M"
      * }
      */
-    public static int MICROSOFT_WINDOWS_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS() {
-        return (int)1L;
+    public static MemorySegment MS_ENHANCED_PROV_W() {
+        class Holder {
+            static final MemorySegment MS_ENHANCED_PROV_W
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_ENHANCED_PROV_W;
     }
     /**
-     * {@snippet :
-     * #define MICROSOFT_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS 0
+     * {@snippet lang=c :
+     * #define MS_ENHANCED_PROV "Microsoft Enhanced Cryptographic Provider v1.0"
      * }
      */
-    public static int MICROSOFT_WINBASE_H_DEFINE_INTERLOCKED_CPLUSPLUS_OVERLOADS() {
-        return (int)0L;
+    public static MemorySegment MS_ENHANCED_PROV() {
+        class Holder {
+            static final MemorySegment MS_ENHANCED_PROV
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced Cryptographic Provider v1.0");
+        }
+        return Holder.MS_ENHANCED_PROV;
     }
     /**
-     * {@snippet :
-     * #define R2_BLACK 1
+     * {@snippet lang=c :
+     * #define MS_STRONG_PROV_A "Microsoft Strong Cryptographic Provider"
      * }
      */
-    public static int R2_BLACK() {
-        return (int)1L;
+    public static MemorySegment MS_STRONG_PROV_A() {
+        class Holder {
+            static final MemorySegment MS_STRONG_PROV_A
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Strong Cryptographic Provider");
+        }
+        return Holder.MS_STRONG_PROV_A;
     }
     /**
-     * {@snippet :
-     * #define R2_NOTMERGEPEN 2
+     * {@snippet lang=c :
+     * #define MS_STRONG_PROV_W "M"
      * }
      */
-    public static int R2_NOTMERGEPEN() {
-        return (int)2L;
+    public static MemorySegment MS_STRONG_PROV_W() {
+        class Holder {
+            static final MemorySegment MS_STRONG_PROV_W
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_STRONG_PROV_W;
     }
     /**
-     * {@snippet :
-     * #define R2_MASKNOTPEN 3
+     * {@snippet lang=c :
+     * #define MS_STRONG_PROV "Microsoft Strong Cryptographic Provider"
      * }
      */
-    public static int R2_MASKNOTPEN() {
-        return (int)3L;
+    public static MemorySegment MS_STRONG_PROV() {
+        class Holder {
+            static final MemorySegment MS_STRONG_PROV
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Strong Cryptographic Provider");
+        }
+        return Holder.MS_STRONG_PROV;
     }
     /**
-     * {@snippet :
-     * #define R2_NOTCOPYPEN 4
+     * {@snippet lang=c :
+     * #define MS_DEF_RSA_SIG_PROV_A "Microsoft RSA Signature Cryptographic Provider"
      * }
      */
-    public static int R2_NOTCOPYPEN() {
-        return (int)4L;
+    public static MemorySegment MS_DEF_RSA_SIG_PROV_A() {
+        class Holder {
+            static final MemorySegment MS_DEF_RSA_SIG_PROV_A
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft RSA Signature Cryptographic Provider");
+        }
+        return Holder.MS_DEF_RSA_SIG_PROV_A;
     }
     /**
-     * {@snippet :
-     * #define R2_MASKPENNOT 5
+     * {@snippet lang=c :
+     * #define MS_DEF_RSA_SIG_PROV_W "M"
      * }
      */
-    public static int R2_MASKPENNOT() {
-        return (int)5L;
+    public static MemorySegment MS_DEF_RSA_SIG_PROV_W() {
+        class Holder {
+            static final MemorySegment MS_DEF_RSA_SIG_PROV_W
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_DEF_RSA_SIG_PROV_W;
     }
     /**
-     * {@snippet :
-     * #define R2_NOT 6
+     * {@snippet lang=c :
+     * #define MS_DEF_RSA_SIG_PROV "Microsoft RSA Signature Cryptographic Provider"
      * }
      */
-    public static int R2_NOT() {
-        return (int)6L;
+    public static MemorySegment MS_DEF_RSA_SIG_PROV() {
+        class Holder {
+            static final MemorySegment MS_DEF_RSA_SIG_PROV
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft RSA Signature Cryptographic Provider");
+        }
+        return Holder.MS_DEF_RSA_SIG_PROV;
     }
     /**
-     * {@snippet :
-     * #define R2_XORPEN 7
+     * {@snippet lang=c :
+     * #define MS_DEF_RSA_SCHANNEL_PROV_A "Microsoft RSA SChannel Cryptographic Provider"
      * }
      */
-    public static int R2_XORPEN() {
-        return (int)7L;
+    public static MemorySegment MS_DEF_RSA_SCHANNEL_PROV_A() {
+        class Holder {
+            static final MemorySegment MS_DEF_RSA_SCHANNEL_PROV_A
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft RSA SChannel Cryptographic Provider");
+        }
+        return Holder.MS_DEF_RSA_SCHANNEL_PROV_A;
     }
     /**
-     * {@snippet :
-     * #define R2_NOTMASKPEN 8
+     * {@snippet lang=c :
+     * #define MS_DEF_RSA_SCHANNEL_PROV_W "M"
      * }
      */
-    public static int R2_NOTMASKPEN() {
-        return (int)8L;
+    public static MemorySegment MS_DEF_RSA_SCHANNEL_PROV_W() {
+        class Holder {
+            static final MemorySegment MS_DEF_RSA_SCHANNEL_PROV_W
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_DEF_RSA_SCHANNEL_PROV_W;
     }
     /**
-     * {@snippet :
-     * #define R2_MASKPEN 9
+     * {@snippet lang=c :
+     * #define MS_DEF_RSA_SCHANNEL_PROV "Microsoft RSA SChannel Cryptographic Provider"
      * }
      */
-    public static int R2_MASKPEN() {
-        return (int)9L;
+    public static MemorySegment MS_DEF_RSA_SCHANNEL_PROV() {
+        class Holder {
+            static final MemorySegment MS_DEF_RSA_SCHANNEL_PROV
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft RSA SChannel Cryptographic Provider");
+        }
+        return Holder.MS_DEF_RSA_SCHANNEL_PROV;
     }
     /**
-     * {@snippet :
-     * #define R2_NOTXORPEN 10
+     * {@snippet lang=c :
+     * #define MS_DEF_DSS_PROV_A "Microsoft Base DSS Cryptographic Provider"
      * }
      */
-    public static int R2_NOTXORPEN() {
-        return (int)10L;
+    public static MemorySegment MS_DEF_DSS_PROV_A() {
+        class Holder {
+            static final MemorySegment MS_DEF_DSS_PROV_A
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base DSS Cryptographic Provider");
+        }
+        return Holder.MS_DEF_DSS_PROV_A;
     }
     /**
-     * {@snippet :
-     * #define R2_NOP 11
+     * {@snippet lang=c :
+     * #define MS_DEF_DSS_PROV_W "M"
      * }
      */
-    public static int R2_NOP() {
-        return (int)11L;
+    public static MemorySegment MS_DEF_DSS_PROV_W() {
+        class Holder {
+            static final MemorySegment MS_DEF_DSS_PROV_W
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_DEF_DSS_PROV_W;
     }
     /**
-     * {@snippet :
-     * #define R2_MERGENOTPEN 12
+     * {@snippet lang=c :
+     * #define MS_DEF_DSS_PROV "Microsoft Base DSS Cryptographic Provider"
      * }
      */
-    public static int R2_MERGENOTPEN() {
-        return (int)12L;
+    public static MemorySegment MS_DEF_DSS_PROV() {
+        class Holder {
+            static final MemorySegment MS_DEF_DSS_PROV
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base DSS Cryptographic Provider");
+        }
+        return Holder.MS_DEF_DSS_PROV;
     }
     /**
-     * {@snippet :
-     * #define R2_COPYPEN 13
+     * {@snippet lang=c :
+     * #define MS_DEF_DSS_DH_PROV_A "Microsoft Base DSS and Diffie-Hellman Cryptographic Provider"
      * }
      */
-    public static int R2_COPYPEN() {
-        return (int)13L;
+    public static MemorySegment MS_DEF_DSS_DH_PROV_A() {
+        class Holder {
+            static final MemorySegment MS_DEF_DSS_DH_PROV_A
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base DSS and Diffie-Hellman Cryptographic Provider");
+        }
+        return Holder.MS_DEF_DSS_DH_PROV_A;
     }
     /**
-     * {@snippet :
-     * #define R2_MERGEPENNOT 14
+     * {@snippet lang=c :
+     * #define MS_DEF_DSS_DH_PROV_W "M"
      * }
      */
-    public static int R2_MERGEPENNOT() {
-        return (int)14L;
+    public static MemorySegment MS_DEF_DSS_DH_PROV_W() {
+        class Holder {
+            static final MemorySegment MS_DEF_DSS_DH_PROV_W
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_DEF_DSS_DH_PROV_W;
     }
     /**
-     * {@snippet :
-     * #define R2_MERGEPEN 15
+     * {@snippet lang=c :
+     * #define MS_DEF_DSS_DH_PROV "Microsoft Base DSS and Diffie-Hellman Cryptographic Provider"
      * }
      */
-    public static int R2_MERGEPEN() {
-        return (int)15L;
+    public static MemorySegment MS_DEF_DSS_DH_PROV() {
+        class Holder {
+            static final MemorySegment MS_DEF_DSS_DH_PROV
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base DSS and Diffie-Hellman Cryptographic Provider");
+        }
+        return Holder.MS_DEF_DSS_DH_PROV;
     }
     /**
-     * {@snippet :
-     * #define R2_WHITE 16
+     * {@snippet lang=c :
+     * #define MS_ENH_DSS_DH_PROV_A "Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider"
      * }
      */
-    public static int R2_WHITE() {
-        return (int)16L;
+    public static MemorySegment MS_ENH_DSS_DH_PROV_A() {
+        class Holder {
+            static final MemorySegment MS_ENH_DSS_DH_PROV_A
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider");
+        }
+        return Holder.MS_ENH_DSS_DH_PROV_A;
     }
     /**
-     * {@snippet :
-     * #define R2_LAST 16
+     * {@snippet lang=c :
+     * #define MS_ENH_DSS_DH_PROV_W "M"
      * }
      */
-    public static int R2_LAST() {
-        return (int)16L;
+    public static MemorySegment MS_ENH_DSS_DH_PROV_W() {
+        class Holder {
+            static final MemorySegment MS_ENH_DSS_DH_PROV_W
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_ENH_DSS_DH_PROV_W;
     }
     /**
-     * {@snippet :
-     * #define ERROR 0
+     * {@snippet lang=c :
+     * #define MS_ENH_DSS_DH_PROV "Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider"
      * }
      */
-    public static int ERROR() {
-        return (int)0L;
+    public static MemorySegment MS_ENH_DSS_DH_PROV() {
+        class Holder {
+            static final MemorySegment MS_ENH_DSS_DH_PROV
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced DSS and Diffie-Hellman Cryptographic Provider");
+        }
+        return Holder.MS_ENH_DSS_DH_PROV;
     }
     /**
-     * {@snippet :
-     * #define NULLREGION 1
+     * {@snippet lang=c :
+     * #define MS_DEF_DH_SCHANNEL_PROV_A "Microsoft DH SChannel Cryptographic Provider"
      * }
      */
-    public static int NULLREGION() {
-        return (int)1L;
+    public static MemorySegment MS_DEF_DH_SCHANNEL_PROV_A() {
+        class Holder {
+            static final MemorySegment MS_DEF_DH_SCHANNEL_PROV_A
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft DH SChannel Cryptographic Provider");
+        }
+        return Holder.MS_DEF_DH_SCHANNEL_PROV_A;
     }
     /**
-     * {@snippet :
-     * #define SIMPLEREGION 2
+     * {@snippet lang=c :
+     * #define MS_DEF_DH_SCHANNEL_PROV_W "M"
      * }
      */
-    public static int SIMPLEREGION() {
-        return (int)2L;
+    public static MemorySegment MS_DEF_DH_SCHANNEL_PROV_W() {
+        class Holder {
+            static final MemorySegment MS_DEF_DH_SCHANNEL_PROV_W
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_DEF_DH_SCHANNEL_PROV_W;
     }
     /**
-     * {@snippet :
-     * #define COMPLEXREGION 3
+     * {@snippet lang=c :
+     * #define MS_DEF_DH_SCHANNEL_PROV "Microsoft DH SChannel Cryptographic Provider"
      * }
      */
-    public static int COMPLEXREGION() {
-        return (int)3L;
+    public static MemorySegment MS_DEF_DH_SCHANNEL_PROV() {
+        class Holder {
+            static final MemorySegment MS_DEF_DH_SCHANNEL_PROV
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft DH SChannel Cryptographic Provider");
+        }
+        return Holder.MS_DEF_DH_SCHANNEL_PROV;
     }
     /**
-     * {@snippet :
-     * #define RGN_AND 1
+     * {@snippet lang=c :
+     * #define MS_SCARD_PROV_A "Microsoft Base Smart Card Crypto Provider"
      * }
      */
-    public static int RGN_AND() {
-        return (int)1L;
+    public static MemorySegment MS_SCARD_PROV_A() {
+        class Holder {
+            static final MemorySegment MS_SCARD_PROV_A
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base Smart Card Crypto Provider");
+        }
+        return Holder.MS_SCARD_PROV_A;
     }
     /**
-     * {@snippet :
-     * #define RGN_OR 2
+     * {@snippet lang=c :
+     * #define MS_SCARD_PROV_W "M"
      * }
      */
-    public static int RGN_OR() {
-        return (int)2L;
+    public static MemorySegment MS_SCARD_PROV_W() {
+        class Holder {
+            static final MemorySegment MS_SCARD_PROV_W
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_SCARD_PROV_W;
     }
     /**
-     * {@snippet :
-     * #define RGN_XOR 3
+     * {@snippet lang=c :
+     * #define MS_SCARD_PROV "Microsoft Base Smart Card Crypto Provider"
      * }
      */
-    public static int RGN_XOR() {
-        return (int)3L;
+    public static MemorySegment MS_SCARD_PROV() {
+        class Holder {
+            static final MemorySegment MS_SCARD_PROV
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Base Smart Card Crypto Provider");
+        }
+        return Holder.MS_SCARD_PROV;
     }
     /**
-     * {@snippet :
-     * #define RGN_DIFF 4
+     * {@snippet lang=c :
+     * #define MS_ENH_RSA_AES_PROV_A "Microsoft Enhanced RSA and AES Cryptographic Provider"
      * }
      */
-    public static int RGN_DIFF() {
-        return (int)4L;
+    public static MemorySegment MS_ENH_RSA_AES_PROV_A() {
+        class Holder {
+            static final MemorySegment MS_ENH_RSA_AES_PROV_A
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced RSA and AES Cryptographic Provider");
+        }
+        return Holder.MS_ENH_RSA_AES_PROV_A;
     }
     /**
-     * {@snippet :
-     * #define RGN_COPY 5
+     * {@snippet lang=c :
+     * #define MS_ENH_RSA_AES_PROV_W "M"
      * }
      */
-    public static int RGN_COPY() {
-        return (int)5L;
+    public static MemorySegment MS_ENH_RSA_AES_PROV_W() {
+        class Holder {
+            static final MemorySegment MS_ENH_RSA_AES_PROV_W
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_ENH_RSA_AES_PROV_W;
     }
     /**
-     * {@snippet :
-     * #define BLACKONWHITE 1
+     * {@snippet lang=c :
+     * #define MS_ENH_RSA_AES_PROV_XP_A "Microsoft Enhanced RSA and AES Cryptographic Provider (Prototype)"
      * }
      */
-    public static int BLACKONWHITE() {
-        return (int)1L;
+    public static MemorySegment MS_ENH_RSA_AES_PROV_XP_A() {
+        class Holder {
+            static final MemorySegment MS_ENH_RSA_AES_PROV_XP_A
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced RSA and AES Cryptographic Provider (Prototype)");
+        }
+        return Holder.MS_ENH_RSA_AES_PROV_XP_A;
     }
     /**
-     * {@snippet :
-     * #define WHITEONBLACK 2
+     * {@snippet lang=c :
+     * #define MS_ENH_RSA_AES_PROV_XP_W "M"
      * }
      */
-    public static int WHITEONBLACK() {
-        return (int)2L;
+    public static MemorySegment MS_ENH_RSA_AES_PROV_XP_W() {
+        class Holder {
+            static final MemorySegment MS_ENH_RSA_AES_PROV_XP_W
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_ENH_RSA_AES_PROV_XP_W;
     }
     /**
-     * {@snippet :
-     * #define COLORONCOLOR 3
+     * {@snippet lang=c :
+     * #define MS_ENH_RSA_AES_PROV_XP "Microsoft Enhanced RSA and AES Cryptographic Provider (Prototype)"
      * }
      */
-    public static int COLORONCOLOR() {
-        return (int)3L;
+    public static MemorySegment MS_ENH_RSA_AES_PROV_XP() {
+        class Holder {
+            static final MemorySegment MS_ENH_RSA_AES_PROV_XP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced RSA and AES Cryptographic Provider (Prototype)");
+        }
+        return Holder.MS_ENH_RSA_AES_PROV_XP;
     }
     /**
-     * {@snippet :
-     * #define HALFTONE 4
+     * {@snippet lang=c :
+     * #define MS_ENH_RSA_AES_PROV "Microsoft Enhanced RSA and AES Cryptographic Provider"
      * }
      */
-    public static int HALFTONE() {
-        return (int)4L;
+    public static MemorySegment MS_ENH_RSA_AES_PROV() {
+        class Holder {
+            static final MemorySegment MS_ENH_RSA_AES_PROV
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Microsoft Enhanced RSA and AES Cryptographic Provider");
+        }
+        return Holder.MS_ENH_RSA_AES_PROV;
     }
     /**
-     * {@snippet :
-     * #define MAXSTRETCHBLTMODE 4
+     * {@snippet lang=c :
+     * #define EXPO_OFFLOAD_REG_VALUE "ExpoOffload"
      * }
      */
-    public static int MAXSTRETCHBLTMODE() {
-        return (int)4L;
+    public static MemorySegment EXPO_OFFLOAD_REG_VALUE() {
+        class Holder {
+            static final MemorySegment EXPO_OFFLOAD_REG_VALUE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("ExpoOffload");
+        }
+        return Holder.EXPO_OFFLOAD_REG_VALUE;
     }
     /**
-     * {@snippet :
-     * #define ALTERNATE 1
+     * {@snippet lang=c :
+     * #define EXPO_OFFLOAD_FUNC_NAME "OffloadModExpo"
      * }
      */
-    public static int ALTERNATE() {
-        return (int)1L;
+    public static MemorySegment EXPO_OFFLOAD_FUNC_NAME() {
+        class Holder {
+            static final MemorySegment EXPO_OFFLOAD_FUNC_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("OffloadModExpo");
+        }
+        return Holder.EXPO_OFFLOAD_FUNC_NAME;
     }
     /**
-     * {@snippet :
-     * #define WINDING 2
+     * {@snippet lang=c :
+     * #define szKEY_CRYPTOAPI_PRIVATE_KEY_OPTIONS "Software\Policies\Microsoft\Cryptography"
      * }
      */
-    public static int WINDING() {
-        return (int)2L;
+    public static MemorySegment szKEY_CRYPTOAPI_PRIVATE_KEY_OPTIONS() {
+        class Holder {
+            static final MemorySegment szKEY_CRYPTOAPI_PRIVATE_KEY_OPTIONS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Software\\Policies\\Microsoft\\Cryptography");
+        }
+        return Holder.szKEY_CRYPTOAPI_PRIVATE_KEY_OPTIONS;
     }
     /**
-     * {@snippet :
-     * #define POLYFILL_LAST 2
+     * {@snippet lang=c :
+     * #define szKEY_CACHE_ENABLED "CachePrivateKeys"
      * }
      */
-    public static int POLYFILL_LAST() {
-        return (int)2L;
+    public static MemorySegment szKEY_CACHE_ENABLED() {
+        class Holder {
+            static final MemorySegment szKEY_CACHE_ENABLED
+                = Windows_h.LIBRARY_ARENA.allocateFrom("CachePrivateKeys");
+        }
+        return Holder.szKEY_CACHE_ENABLED;
     }
     /**
-     * {@snippet :
-     * #define LAYOUT_RTL 1
+     * {@snippet lang=c :
+     * #define szKEY_CACHE_SECONDS "PrivateKeyLifetimeSeconds"
      * }
      */
-    public static int LAYOUT_RTL() {
-        return (int)1L;
+    public static MemorySegment szKEY_CACHE_SECONDS() {
+        class Holder {
+            static final MemorySegment szKEY_CACHE_SECONDS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("PrivateKeyLifetimeSeconds");
+        }
+        return Holder.szKEY_CACHE_SECONDS;
     }
     /**
-     * {@snippet :
-     * #define LAYOUT_BTT 2
+     * {@snippet lang=c :
+     * #define szPRIV_KEY_CACHE_MAX_ITEMS "PrivKeyCacheMaxItems"
      * }
      */
-    public static int LAYOUT_BTT() {
-        return (int)2L;
+    public static MemorySegment szPRIV_KEY_CACHE_MAX_ITEMS() {
+        class Holder {
+            static final MemorySegment szPRIV_KEY_CACHE_MAX_ITEMS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("PrivKeyCacheMaxItems");
+        }
+        return Holder.szPRIV_KEY_CACHE_MAX_ITEMS;
     }
     /**
-     * {@snippet :
-     * #define LAYOUT_VBH 4
+     * {@snippet lang=c :
+     * #define szPRIV_KEY_CACHE_PURGE_INTERVAL_SECONDS "PrivKeyCachePurgeIntervalSeconds"
      * }
      */
-    public static int LAYOUT_VBH() {
-        return (int)4L;
+    public static MemorySegment szPRIV_KEY_CACHE_PURGE_INTERVAL_SECONDS() {
+        class Holder {
+            static final MemorySegment szPRIV_KEY_CACHE_PURGE_INTERVAL_SECONDS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("PrivKeyCachePurgeIntervalSeconds");
+        }
+        return Holder.szPRIV_KEY_CACHE_PURGE_INTERVAL_SECONDS;
     }
     /**
-     * {@snippet :
-     * #define LAYOUT_BITMAPORIENTATIONPRESERVED 8
+     * {@snippet lang=c :
+     * #define BCRYPT_KDF_HASH "H"
      * }
      */
-    public static int LAYOUT_BITMAPORIENTATIONPRESERVED() {
-        return (int)8L;
+    public static MemorySegment BCRYPT_KDF_HASH() {
+        class Holder {
+            static final MemorySegment BCRYPT_KDF_HASH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+        }
+        return Holder.BCRYPT_KDF_HASH;
     }
     /**
-     * {@snippet :
-     * #define TA_NOUPDATECP 0
+     * {@snippet lang=c :
+     * #define BCRYPT_KDF_HMAC "H"
      * }
      */
-    public static int TA_NOUPDATECP() {
-        return (int)0L;
+    public static MemorySegment BCRYPT_KDF_HMAC() {
+        class Holder {
+            static final MemorySegment BCRYPT_KDF_HMAC
+                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+        }
+        return Holder.BCRYPT_KDF_HMAC;
     }
     /**
-     * {@snippet :
-     * #define TA_UPDATECP 1
+     * {@snippet lang=c :
+     * #define BCRYPT_KDF_TLS_PRF "T"
      * }
      */
-    public static int TA_UPDATECP() {
-        return (int)1L;
+    public static MemorySegment BCRYPT_KDF_TLS_PRF() {
+        class Holder {
+            static final MemorySegment BCRYPT_KDF_TLS_PRF
+                = Windows_h.LIBRARY_ARENA.allocateFrom("T");
+        }
+        return Holder.BCRYPT_KDF_TLS_PRF;
     }
     /**
-     * {@snippet :
-     * #define TA_LEFT 0
+     * {@snippet lang=c :
+     * #define BCRYPT_KDF_SP80056A_CONCAT "S"
      * }
      */
-    public static int TA_LEFT() {
-        return (int)0L;
+    public static MemorySegment BCRYPT_KDF_SP80056A_CONCAT() {
+        class Holder {
+            static final MemorySegment BCRYPT_KDF_SP80056A_CONCAT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.BCRYPT_KDF_SP80056A_CONCAT;
     }
     /**
-     * {@snippet :
-     * #define TA_RIGHT 2
+     * {@snippet lang=c :
+     * #define BCRYPT_KDF_RAW_SECRET "T"
      * }
      */
-    public static int TA_RIGHT() {
-        return (int)2L;
+    public static MemorySegment BCRYPT_KDF_RAW_SECRET() {
+        class Holder {
+            static final MemorySegment BCRYPT_KDF_RAW_SECRET
+                = Windows_h.LIBRARY_ARENA.allocateFrom("T");
+        }
+        return Holder.BCRYPT_KDF_RAW_SECRET;
     }
     /**
-     * {@snippet :
-     * #define TA_CENTER 6
+     * {@snippet lang=c :
+     * #define BCRYPT_KDF_HKDF "H"
      * }
      */
-    public static int TA_CENTER() {
-        return (int)6L;
+    public static MemorySegment BCRYPT_KDF_HKDF() {
+        class Holder {
+            static final MemorySegment BCRYPT_KDF_HKDF
+                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+        }
+        return Holder.BCRYPT_KDF_HKDF;
     }
     /**
-     * {@snippet :
-     * #define TA_TOP 0
+     * {@snippet lang=c :
+     * #define BCRYPT_OPAQUE_KEY_BLOB "O"
      * }
      */
-    public static int TA_TOP() {
-        return (int)0L;
+    public static MemorySegment BCRYPT_OPAQUE_KEY_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_OPAQUE_KEY_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("O");
+        }
+        return Holder.BCRYPT_OPAQUE_KEY_BLOB;
     }
     /**
-     * {@snippet :
-     * #define TA_BOTTOM 8
+     * {@snippet lang=c :
+     * #define BCRYPT_KEY_DATA_BLOB "K"
      * }
      */
-    public static int TA_BOTTOM() {
-        return (int)8L;
+    public static MemorySegment BCRYPT_KEY_DATA_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_KEY_DATA_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+        }
+        return Holder.BCRYPT_KEY_DATA_BLOB;
     }
     /**
-     * {@snippet :
-     * #define TA_BASELINE 24
+     * {@snippet lang=c :
+     * #define BCRYPT_AES_WRAP_KEY_BLOB "R"
      * }
      */
-    public static int TA_BASELINE() {
-        return (int)24L;
+    public static MemorySegment BCRYPT_AES_WRAP_KEY_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_AES_WRAP_KEY_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+        }
+        return Holder.BCRYPT_AES_WRAP_KEY_BLOB;
     }
     /**
-     * {@snippet :
-     * #define TA_RTLREADING 256
+     * {@snippet lang=c :
+     * #define BCRYPT_OBJECT_LENGTH "O"
      * }
      */
-    public static int TA_RTLREADING() {
-        return (int)256L;
+    public static MemorySegment BCRYPT_OBJECT_LENGTH() {
+        class Holder {
+            static final MemorySegment BCRYPT_OBJECT_LENGTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("O");
+        }
+        return Holder.BCRYPT_OBJECT_LENGTH;
     }
     /**
-     * {@snippet :
-     * #define ETO_OPAQUE 2
+     * {@snippet lang=c :
+     * #define BCRYPT_ALGORITHM_NAME "A"
      * }
      */
-    public static int ETO_OPAQUE() {
-        return (int)2L;
+    public static MemorySegment BCRYPT_ALGORITHM_NAME() {
+        class Holder {
+            static final MemorySegment BCRYPT_ALGORITHM_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+        }
+        return Holder.BCRYPT_ALGORITHM_NAME;
     }
     /**
-     * {@snippet :
-     * #define ETO_CLIPPED 4
+     * {@snippet lang=c :
+     * #define BCRYPT_PROVIDER_HANDLE "P"
      * }
      */
-    public static int ETO_CLIPPED() {
-        return (int)4L;
+    public static MemorySegment BCRYPT_PROVIDER_HANDLE() {
+        class Holder {
+            static final MemorySegment BCRYPT_PROVIDER_HANDLE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.BCRYPT_PROVIDER_HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ETO_GLYPH_INDEX 16
+     * {@snippet lang=c :
+     * #define BCRYPT_CHAINING_MODE "C"
      * }
      */
-    public static int ETO_GLYPH_INDEX() {
-        return (int)16L;
+    public static MemorySegment BCRYPT_CHAINING_MODE() {
+        class Holder {
+            static final MemorySegment BCRYPT_CHAINING_MODE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.BCRYPT_CHAINING_MODE;
     }
     /**
-     * {@snippet :
-     * #define ETO_RTLREADING 128
+     * {@snippet lang=c :
+     * #define BCRYPT_BLOCK_LENGTH "B"
      * }
      */
-    public static int ETO_RTLREADING() {
-        return (int)128L;
+    public static MemorySegment BCRYPT_BLOCK_LENGTH() {
+        class Holder {
+            static final MemorySegment BCRYPT_BLOCK_LENGTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("B");
+        }
+        return Holder.BCRYPT_BLOCK_LENGTH;
     }
     /**
-     * {@snippet :
-     * #define ETO_NUMERICSLOCAL 1024
+     * {@snippet lang=c :
+     * #define BCRYPT_KEY_LENGTH "K"
      * }
      */
-    public static int ETO_NUMERICSLOCAL() {
-        return (int)1024L;
+    public static MemorySegment BCRYPT_KEY_LENGTH() {
+        class Holder {
+            static final MemorySegment BCRYPT_KEY_LENGTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+        }
+        return Holder.BCRYPT_KEY_LENGTH;
     }
     /**
-     * {@snippet :
-     * #define ETO_NUMERICSLATIN 2048
+     * {@snippet lang=c :
+     * #define BCRYPT_KEY_OBJECT_LENGTH "K"
      * }
      */
-    public static int ETO_NUMERICSLATIN() {
-        return (int)2048L;
+    public static MemorySegment BCRYPT_KEY_OBJECT_LENGTH() {
+        class Holder {
+            static final MemorySegment BCRYPT_KEY_OBJECT_LENGTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+        }
+        return Holder.BCRYPT_KEY_OBJECT_LENGTH;
     }
     /**
-     * {@snippet :
-     * #define ETO_IGNORELANGUAGE 4096
+     * {@snippet lang=c :
+     * #define BCRYPT_KEY_STRENGTH "K"
      * }
      */
-    public static int ETO_IGNORELANGUAGE() {
-        return (int)4096L;
+    public static MemorySegment BCRYPT_KEY_STRENGTH() {
+        class Holder {
+            static final MemorySegment BCRYPT_KEY_STRENGTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+        }
+        return Holder.BCRYPT_KEY_STRENGTH;
     }
     /**
-     * {@snippet :
-     * #define ETO_PDY 8192
+     * {@snippet lang=c :
+     * #define BCRYPT_KEY_LENGTHS "K"
      * }
      */
-    public static int ETO_PDY() {
-        return (int)8192L;
+    public static MemorySegment BCRYPT_KEY_LENGTHS() {
+        class Holder {
+            static final MemorySegment BCRYPT_KEY_LENGTHS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+        }
+        return Holder.BCRYPT_KEY_LENGTHS;
     }
     /**
-     * {@snippet :
-     * #define ETO_REVERSE_INDEX_MAP 65536
+     * {@snippet lang=c :
+     * #define BCRYPT_BLOCK_SIZE_LIST "B"
      * }
      */
-    public static int ETO_REVERSE_INDEX_MAP() {
-        return (int)65536L;
+    public static MemorySegment BCRYPT_BLOCK_SIZE_LIST() {
+        class Holder {
+            static final MemorySegment BCRYPT_BLOCK_SIZE_LIST
+                = Windows_h.LIBRARY_ARENA.allocateFrom("B");
+        }
+        return Holder.BCRYPT_BLOCK_SIZE_LIST;
     }
     /**
-     * {@snippet :
-     * #define ASPECT_FILTERING 1
+     * {@snippet lang=c :
+     * #define BCRYPT_EFFECTIVE_KEY_LENGTH "E"
      * }
      */
-    public static int ASPECT_FILTERING() {
-        return (int)1L;
+    public static MemorySegment BCRYPT_EFFECTIVE_KEY_LENGTH() {
+        class Holder {
+            static final MemorySegment BCRYPT_EFFECTIVE_KEY_LENGTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_EFFECTIVE_KEY_LENGTH;
     }
     /**
-     * {@snippet :
-     * #define DCB_RESET 1
+     * {@snippet lang=c :
+     * #define BCRYPT_HASH_LENGTH "H"
      * }
      */
-    public static int DCB_RESET() {
-        return (int)1L;
+    public static MemorySegment BCRYPT_HASH_LENGTH() {
+        class Holder {
+            static final MemorySegment BCRYPT_HASH_LENGTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+        }
+        return Holder.BCRYPT_HASH_LENGTH;
     }
     /**
-     * {@snippet :
-     * #define DCB_ACCUMULATE 2
+     * {@snippet lang=c :
+     * #define BCRYPT_HASH_OID_LIST "H"
      * }
      */
-    public static int DCB_ACCUMULATE() {
-        return (int)2L;
+    public static MemorySegment BCRYPT_HASH_OID_LIST() {
+        class Holder {
+            static final MemorySegment BCRYPT_HASH_OID_LIST
+                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+        }
+        return Holder.BCRYPT_HASH_OID_LIST;
     }
     /**
-     * {@snippet :
-     * #define DCB_ENABLE 4
+     * {@snippet lang=c :
+     * #define BCRYPT_PADDING_SCHEMES "P"
      * }
      */
-    public static int DCB_ENABLE() {
-        return (int)4L;
+    public static MemorySegment BCRYPT_PADDING_SCHEMES() {
+        class Holder {
+            static final MemorySegment BCRYPT_PADDING_SCHEMES
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.BCRYPT_PADDING_SCHEMES;
     }
     /**
-     * {@snippet :
-     * #define DCB_DISABLE 8
+     * {@snippet lang=c :
+     * #define BCRYPT_SIGNATURE_LENGTH "S"
      * }
      */
-    public static int DCB_DISABLE() {
-        return (int)8L;
+    public static MemorySegment BCRYPT_SIGNATURE_LENGTH() {
+        class Holder {
+            static final MemorySegment BCRYPT_SIGNATURE_LENGTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.BCRYPT_SIGNATURE_LENGTH;
     }
     /**
-     * {@snippet :
-     * #define META_SETBKCOLOR 513
+     * {@snippet lang=c :
+     * #define BCRYPT_HASH_BLOCK_LENGTH "H"
      * }
      */
-    public static int META_SETBKCOLOR() {
-        return (int)513L;
+    public static MemorySegment BCRYPT_HASH_BLOCK_LENGTH() {
+        class Holder {
+            static final MemorySegment BCRYPT_HASH_BLOCK_LENGTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+        }
+        return Holder.BCRYPT_HASH_BLOCK_LENGTH;
     }
     /**
-     * {@snippet :
-     * #define META_SETBKMODE 258
+     * {@snippet lang=c :
+     * #define BCRYPT_AUTH_TAG_LENGTH "A"
      * }
      */
-    public static int META_SETBKMODE() {
-        return (int)258L;
+    public static MemorySegment BCRYPT_AUTH_TAG_LENGTH() {
+        class Holder {
+            static final MemorySegment BCRYPT_AUTH_TAG_LENGTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+        }
+        return Holder.BCRYPT_AUTH_TAG_LENGTH;
     }
     /**
-     * {@snippet :
-     * #define META_SETMAPMODE 259
+     * {@snippet lang=c :
+     * #define BCRYPT_PRIMITIVE_TYPE "P"
      * }
      */
-    public static int META_SETMAPMODE() {
-        return (int)259L;
+    public static MemorySegment BCRYPT_PRIMITIVE_TYPE() {
+        class Holder {
+            static final MemorySegment BCRYPT_PRIMITIVE_TYPE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.BCRYPT_PRIMITIVE_TYPE;
     }
     /**
-     * {@snippet :
-     * #define META_SETROP2 260
+     * {@snippet lang=c :
+     * #define BCRYPT_IS_KEYED_HASH "I"
      * }
      */
-    public static int META_SETROP2() {
-        return (int)260L;
+    public static MemorySegment BCRYPT_IS_KEYED_HASH() {
+        class Holder {
+            static final MemorySegment BCRYPT_IS_KEYED_HASH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("I");
+        }
+        return Holder.BCRYPT_IS_KEYED_HASH;
     }
     /**
-     * {@snippet :
-     * #define META_SETRELABS 261
+     * {@snippet lang=c :
+     * #define BCRYPT_IS_REUSABLE_HASH "I"
      * }
      */
-    public static int META_SETRELABS() {
-        return (int)261L;
+    public static MemorySegment BCRYPT_IS_REUSABLE_HASH() {
+        class Holder {
+            static final MemorySegment BCRYPT_IS_REUSABLE_HASH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("I");
+        }
+        return Holder.BCRYPT_IS_REUSABLE_HASH;
     }
     /**
-     * {@snippet :
-     * #define META_SETPOLYFILLMODE 262
+     * {@snippet lang=c :
+     * #define BCRYPT_MESSAGE_BLOCK_LENGTH "M"
      * }
      */
-    public static int META_SETPOLYFILLMODE() {
-        return (int)262L;
+    public static MemorySegment BCRYPT_MESSAGE_BLOCK_LENGTH() {
+        class Holder {
+            static final MemorySegment BCRYPT_MESSAGE_BLOCK_LENGTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.BCRYPT_MESSAGE_BLOCK_LENGTH;
     }
     /**
-     * {@snippet :
-     * #define META_SETSTRETCHBLTMODE 263
+     * {@snippet lang=c :
+     * #define BCRYPT_PUBLIC_KEY_LENGTH "P"
      * }
      */
-    public static int META_SETSTRETCHBLTMODE() {
-        return (int)263L;
+    public static MemorySegment BCRYPT_PUBLIC_KEY_LENGTH() {
+        class Holder {
+            static final MemorySegment BCRYPT_PUBLIC_KEY_LENGTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.BCRYPT_PUBLIC_KEY_LENGTH;
     }
     /**
-     * {@snippet :
-     * #define META_SETTEXTCHAREXTRA 264
+     * {@snippet lang=c :
+     * #define BCRYPT_PCP_PLATFORM_TYPE_PROPERTY "P"
      * }
      */
-    public static int META_SETTEXTCHAREXTRA() {
-        return (int)264L;
+    public static MemorySegment BCRYPT_PCP_PLATFORM_TYPE_PROPERTY() {
+        class Holder {
+            static final MemorySegment BCRYPT_PCP_PLATFORM_TYPE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.BCRYPT_PCP_PLATFORM_TYPE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define META_SETTEXTCOLOR 521
+     * {@snippet lang=c :
+     * #define BCRYPT_PCP_PROVIDER_VERSION_PROPERTY "P"
      * }
      */
-    public static int META_SETTEXTCOLOR() {
-        return (int)521L;
+    public static MemorySegment BCRYPT_PCP_PROVIDER_VERSION_PROPERTY() {
+        class Holder {
+            static final MemorySegment BCRYPT_PCP_PROVIDER_VERSION_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.BCRYPT_PCP_PROVIDER_VERSION_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define META_SETTEXTJUSTIFICATION 522
+     * {@snippet lang=c :
+     * #define BCRYPT_MULTI_OBJECT_LENGTH "M"
      * }
      */
-    public static int META_SETTEXTJUSTIFICATION() {
-        return (int)522L;
+    public static MemorySegment BCRYPT_MULTI_OBJECT_LENGTH() {
+        class Holder {
+            static final MemorySegment BCRYPT_MULTI_OBJECT_LENGTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.BCRYPT_MULTI_OBJECT_LENGTH;
     }
     /**
-     * {@snippet :
-     * #define META_SETWINDOWORG 523
+     * {@snippet lang=c :
+     * #define BCRYPT_IS_IFX_TPM_WEAK_KEY "I"
      * }
      */
-    public static int META_SETWINDOWORG() {
-        return (int)523L;
+    public static MemorySegment BCRYPT_IS_IFX_TPM_WEAK_KEY() {
+        class Holder {
+            static final MemorySegment BCRYPT_IS_IFX_TPM_WEAK_KEY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("I");
+        }
+        return Holder.BCRYPT_IS_IFX_TPM_WEAK_KEY;
     }
     /**
-     * {@snippet :
-     * #define META_SETWINDOWEXT 524
+     * {@snippet lang=c :
+     * #define BCRYPT_HKDF_HASH_ALGORITHM "H"
      * }
      */
-    public static int META_SETWINDOWEXT() {
-        return (int)524L;
+    public static MemorySegment BCRYPT_HKDF_HASH_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_HKDF_HASH_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+        }
+        return Holder.BCRYPT_HKDF_HASH_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define META_SETVIEWPORTORG 525
+     * {@snippet lang=c :
+     * #define BCRYPT_HKDF_SALT_AND_FINALIZE "H"
      * }
      */
-    public static int META_SETVIEWPORTORG() {
-        return (int)525L;
+    public static MemorySegment BCRYPT_HKDF_SALT_AND_FINALIZE() {
+        class Holder {
+            static final MemorySegment BCRYPT_HKDF_SALT_AND_FINALIZE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+        }
+        return Holder.BCRYPT_HKDF_SALT_AND_FINALIZE;
     }
     /**
-     * {@snippet :
-     * #define META_SETVIEWPORTEXT 526
+     * {@snippet lang=c :
+     * #define BCRYPT_HKDF_PRK_AND_FINALIZE "H"
      * }
      */
-    public static int META_SETVIEWPORTEXT() {
-        return (int)526L;
+    public static MemorySegment BCRYPT_HKDF_PRK_AND_FINALIZE() {
+        class Holder {
+            static final MemorySegment BCRYPT_HKDF_PRK_AND_FINALIZE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+        }
+        return Holder.BCRYPT_HKDF_PRK_AND_FINALIZE;
     }
     /**
-     * {@snippet :
-     * #define META_OFFSETWINDOWORG 527
+     * {@snippet lang=c :
+     * #define BCRYPT_INITIALIZATION_VECTOR "I"
      * }
      */
-    public static int META_OFFSETWINDOWORG() {
-        return (int)527L;
+    public static MemorySegment BCRYPT_INITIALIZATION_VECTOR() {
+        class Holder {
+            static final MemorySegment BCRYPT_INITIALIZATION_VECTOR
+                = Windows_h.LIBRARY_ARENA.allocateFrom("I");
+        }
+        return Holder.BCRYPT_INITIALIZATION_VECTOR;
     }
     /**
-     * {@snippet :
-     * #define META_SCALEWINDOWEXT 1040
+     * {@snippet lang=c :
+     * #define BCRYPT_CHAIN_MODE_NA "C"
      * }
      */
-    public static int META_SCALEWINDOWEXT() {
-        return (int)1040L;
+    public static MemorySegment BCRYPT_CHAIN_MODE_NA() {
+        class Holder {
+            static final MemorySegment BCRYPT_CHAIN_MODE_NA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.BCRYPT_CHAIN_MODE_NA;
     }
     /**
-     * {@snippet :
-     * #define META_OFFSETVIEWPORTORG 529
+     * {@snippet lang=c :
+     * #define BCRYPT_CHAIN_MODE_CBC "C"
      * }
      */
-    public static int META_OFFSETVIEWPORTORG() {
-        return (int)529L;
+    public static MemorySegment BCRYPT_CHAIN_MODE_CBC() {
+        class Holder {
+            static final MemorySegment BCRYPT_CHAIN_MODE_CBC
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.BCRYPT_CHAIN_MODE_CBC;
     }
     /**
-     * {@snippet :
-     * #define META_SCALEVIEWPORTEXT 1042
+     * {@snippet lang=c :
+     * #define BCRYPT_CHAIN_MODE_ECB "C"
      * }
      */
-    public static int META_SCALEVIEWPORTEXT() {
-        return (int)1042L;
+    public static MemorySegment BCRYPT_CHAIN_MODE_ECB() {
+        class Holder {
+            static final MemorySegment BCRYPT_CHAIN_MODE_ECB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.BCRYPT_CHAIN_MODE_ECB;
     }
     /**
-     * {@snippet :
-     * #define META_LINETO 531
+     * {@snippet lang=c :
+     * #define BCRYPT_CHAIN_MODE_CFB "C"
      * }
      */
-    public static int META_LINETO() {
-        return (int)531L;
+    public static MemorySegment BCRYPT_CHAIN_MODE_CFB() {
+        class Holder {
+            static final MemorySegment BCRYPT_CHAIN_MODE_CFB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.BCRYPT_CHAIN_MODE_CFB;
     }
     /**
-     * {@snippet :
-     * #define META_MOVETO 532
+     * {@snippet lang=c :
+     * #define BCRYPT_CHAIN_MODE_CCM "C"
      * }
      */
-    public static int META_MOVETO() {
-        return (int)532L;
+    public static MemorySegment BCRYPT_CHAIN_MODE_CCM() {
+        class Holder {
+            static final MemorySegment BCRYPT_CHAIN_MODE_CCM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.BCRYPT_CHAIN_MODE_CCM;
     }
     /**
-     * {@snippet :
-     * #define META_EXCLUDECLIPRECT 1045
+     * {@snippet lang=c :
+     * #define BCRYPT_CHAIN_MODE_GCM "C"
      * }
      */
-    public static int META_EXCLUDECLIPRECT() {
-        return (int)1045L;
+    public static MemorySegment BCRYPT_CHAIN_MODE_GCM() {
+        class Holder {
+            static final MemorySegment BCRYPT_CHAIN_MODE_GCM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.BCRYPT_CHAIN_MODE_GCM;
     }
     /**
-     * {@snippet :
-     * #define META_INTERSECTCLIPRECT 1046
+     * {@snippet lang=c :
+     * #define BCRYPT_PUBLIC_KEY_BLOB "P"
      * }
      */
-    public static int META_INTERSECTCLIPRECT() {
-        return (int)1046L;
+    public static MemorySegment BCRYPT_PUBLIC_KEY_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_PUBLIC_KEY_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.BCRYPT_PUBLIC_KEY_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_ARC 2071
+     * {@snippet lang=c :
+     * #define BCRYPT_PRIVATE_KEY_BLOB "P"
      * }
      */
-    public static int META_ARC() {
-        return (int)2071L;
+    public static MemorySegment BCRYPT_PRIVATE_KEY_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_PRIVATE_KEY_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.BCRYPT_PRIVATE_KEY_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_ELLIPSE 1048
+     * {@snippet lang=c :
+     * #define BCRYPT_RSAPUBLIC_BLOB "R"
      * }
      */
-    public static int META_ELLIPSE() {
-        return (int)1048L;
+    public static MemorySegment BCRYPT_RSAPUBLIC_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_RSAPUBLIC_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+        }
+        return Holder.BCRYPT_RSAPUBLIC_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_FLOODFILL 1049
+     * {@snippet lang=c :
+     * #define BCRYPT_RSAPRIVATE_BLOB "R"
      * }
      */
-    public static int META_FLOODFILL() {
-        return (int)1049L;
+    public static MemorySegment BCRYPT_RSAPRIVATE_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_RSAPRIVATE_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+        }
+        return Holder.BCRYPT_RSAPRIVATE_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_PIE 2074
+     * {@snippet lang=c :
+     * #define LEGACY_RSAPUBLIC_BLOB "C"
      * }
      */
-    public static int META_PIE() {
-        return (int)2074L;
+    public static MemorySegment LEGACY_RSAPUBLIC_BLOB() {
+        class Holder {
+            static final MemorySegment LEGACY_RSAPUBLIC_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.LEGACY_RSAPUBLIC_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_RECTANGLE 1051
+     * {@snippet lang=c :
+     * #define LEGACY_RSAPRIVATE_BLOB "C"
      * }
      */
-    public static int META_RECTANGLE() {
-        return (int)1051L;
+    public static MemorySegment LEGACY_RSAPRIVATE_BLOB() {
+        class Holder {
+            static final MemorySegment LEGACY_RSAPRIVATE_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.LEGACY_RSAPRIVATE_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_ROUNDRECT 1564
+     * {@snippet lang=c :
+     * #define BCRYPT_RSAFULLPRIVATE_BLOB "R"
      * }
      */
-    public static int META_ROUNDRECT() {
-        return (int)1564L;
+    public static MemorySegment BCRYPT_RSAFULLPRIVATE_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_RSAFULLPRIVATE_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+        }
+        return Holder.BCRYPT_RSAFULLPRIVATE_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_PATBLT 1565
+     * {@snippet lang=c :
+     * #define BCRYPT_GLOBAL_PARAMETERS "S"
      * }
      */
-    public static int META_PATBLT() {
-        return (int)1565L;
+    public static MemorySegment BCRYPT_GLOBAL_PARAMETERS() {
+        class Holder {
+            static final MemorySegment BCRYPT_GLOBAL_PARAMETERS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.BCRYPT_GLOBAL_PARAMETERS;
     }
     /**
-     * {@snippet :
-     * #define META_SAVEDC 30
+     * {@snippet lang=c :
+     * #define BCRYPT_PRIVATE_KEY "P"
      * }
      */
-    public static int META_SAVEDC() {
-        return (int)30L;
+    public static MemorySegment BCRYPT_PRIVATE_KEY() {
+        class Holder {
+            static final MemorySegment BCRYPT_PRIVATE_KEY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.BCRYPT_PRIVATE_KEY;
     }
     /**
-     * {@snippet :
-     * #define META_SETPIXEL 1055
+     * {@snippet lang=c :
+     * #define BCRYPT_ECCPUBLIC_BLOB "E"
      * }
      */
-    public static int META_SETPIXEL() {
-        return (int)1055L;
+    public static MemorySegment BCRYPT_ECCPUBLIC_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECCPUBLIC_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECCPUBLIC_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_OFFSETCLIPRGN 544
+     * {@snippet lang=c :
+     * #define BCRYPT_ECCPRIVATE_BLOB "E"
      * }
      */
-    public static int META_OFFSETCLIPRGN() {
-        return (int)544L;
+    public static MemorySegment BCRYPT_ECCPRIVATE_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECCPRIVATE_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECCPRIVATE_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_TEXTOUT 1313
+     * {@snippet lang=c :
+     * #define BCRYPT_ECCFULLPUBLIC_BLOB "E"
      * }
      */
-    public static int META_TEXTOUT() {
-        return (int)1313L;
+    public static MemorySegment BCRYPT_ECCFULLPUBLIC_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECCFULLPUBLIC_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECCFULLPUBLIC_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_BITBLT 2338
+     * {@snippet lang=c :
+     * #define BCRYPT_ECCFULLPRIVATE_BLOB "E"
      * }
      */
-    public static int META_BITBLT() {
-        return (int)2338L;
+    public static MemorySegment BCRYPT_ECCFULLPRIVATE_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECCFULLPRIVATE_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECCFULLPRIVATE_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_STRETCHBLT 2851
+     * {@snippet lang=c :
+     * #define SSL_ECCPUBLIC_BLOB "S"
      * }
      */
-    public static int META_STRETCHBLT() {
-        return (int)2851L;
+    public static MemorySegment SSL_ECCPUBLIC_BLOB() {
+        class Holder {
+            static final MemorySegment SSL_ECCPUBLIC_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.SSL_ECCPUBLIC_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_POLYGON 804
+     * {@snippet lang=c :
+     * #define BCRYPT_DH_PUBLIC_BLOB "D"
      * }
      */
-    public static int META_POLYGON() {
-        return (int)804L;
+    public static MemorySegment BCRYPT_DH_PUBLIC_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_DH_PUBLIC_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.BCRYPT_DH_PUBLIC_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_POLYLINE 805
+     * {@snippet lang=c :
+     * #define BCRYPT_DH_PRIVATE_BLOB "D"
      * }
      */
-    public static int META_POLYLINE() {
-        return (int)805L;
+    public static MemorySegment BCRYPT_DH_PRIVATE_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_DH_PRIVATE_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.BCRYPT_DH_PRIVATE_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_ESCAPE 1574
+     * {@snippet lang=c :
+     * #define LEGACY_DH_PUBLIC_BLOB "C"
      * }
      */
-    public static int META_ESCAPE() {
-        return (int)1574L;
+    public static MemorySegment LEGACY_DH_PUBLIC_BLOB() {
+        class Holder {
+            static final MemorySegment LEGACY_DH_PUBLIC_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.LEGACY_DH_PUBLIC_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_RESTOREDC 295
+     * {@snippet lang=c :
+     * #define LEGACY_DH_PRIVATE_BLOB "C"
      * }
      */
-    public static int META_RESTOREDC() {
-        return (int)295L;
+    public static MemorySegment LEGACY_DH_PRIVATE_BLOB() {
+        class Holder {
+            static final MemorySegment LEGACY_DH_PRIVATE_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.LEGACY_DH_PRIVATE_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_FILLREGION 552
+     * {@snippet lang=c :
+     * #define BCRYPT_DH_PARAMETERS "D"
      * }
      */
-    public static int META_FILLREGION() {
-        return (int)552L;
+    public static MemorySegment BCRYPT_DH_PARAMETERS() {
+        class Holder {
+            static final MemorySegment BCRYPT_DH_PARAMETERS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.BCRYPT_DH_PARAMETERS;
     }
     /**
-     * {@snippet :
-     * #define META_FRAMEREGION 1065
+     * {@snippet lang=c :
+     * #define BCRYPT_DSA_PUBLIC_BLOB "D"
      * }
      */
-    public static int META_FRAMEREGION() {
-        return (int)1065L;
+    public static MemorySegment BCRYPT_DSA_PUBLIC_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_DSA_PUBLIC_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.BCRYPT_DSA_PUBLIC_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_INVERTREGION 298
+     * {@snippet lang=c :
+     * #define BCRYPT_DSA_PRIVATE_BLOB "D"
      * }
      */
-    public static int META_INVERTREGION() {
-        return (int)298L;
+    public static MemorySegment BCRYPT_DSA_PRIVATE_BLOB() {
+        class Holder {
+            static final MemorySegment BCRYPT_DSA_PRIVATE_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.BCRYPT_DSA_PRIVATE_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_PAINTREGION 299
+     * {@snippet lang=c :
+     * #define LEGACY_DSA_PUBLIC_BLOB "C"
      * }
      */
-    public static int META_PAINTREGION() {
-        return (int)299L;
+    public static MemorySegment LEGACY_DSA_PUBLIC_BLOB() {
+        class Holder {
+            static final MemorySegment LEGACY_DSA_PUBLIC_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.LEGACY_DSA_PUBLIC_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_SELECTCLIPREGION 300
+     * {@snippet lang=c :
+     * #define LEGACY_DSA_PRIVATE_BLOB "C"
      * }
      */
-    public static int META_SELECTCLIPREGION() {
-        return (int)300L;
+    public static MemorySegment LEGACY_DSA_PRIVATE_BLOB() {
+        class Holder {
+            static final MemorySegment LEGACY_DSA_PRIVATE_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.LEGACY_DSA_PRIVATE_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_SELECTOBJECT 301
+     * {@snippet lang=c :
+     * #define LEGACY_DSA_V2_PUBLIC_BLOB "V"
      * }
      */
-    public static int META_SELECTOBJECT() {
-        return (int)301L;
+    public static MemorySegment LEGACY_DSA_V2_PUBLIC_BLOB() {
+        class Holder {
+            static final MemorySegment LEGACY_DSA_V2_PUBLIC_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("V");
+        }
+        return Holder.LEGACY_DSA_V2_PUBLIC_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_SETTEXTALIGN 302
+     * {@snippet lang=c :
+     * #define LEGACY_DSA_V2_PRIVATE_BLOB "V"
      * }
      */
-    public static int META_SETTEXTALIGN() {
-        return (int)302L;
+    public static MemorySegment LEGACY_DSA_V2_PRIVATE_BLOB() {
+        class Holder {
+            static final MemorySegment LEGACY_DSA_V2_PRIVATE_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("V");
+        }
+        return Holder.LEGACY_DSA_V2_PRIVATE_BLOB;
     }
     /**
-     * {@snippet :
-     * #define META_CHORD 2096
+     * {@snippet lang=c :
+     * #define BCRYPT_DSA_PARAMETERS "D"
      * }
      */
-    public static int META_CHORD() {
-        return (int)2096L;
+    public static MemorySegment BCRYPT_DSA_PARAMETERS() {
+        class Holder {
+            static final MemorySegment BCRYPT_DSA_PARAMETERS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.BCRYPT_DSA_PARAMETERS;
     }
     /**
-     * {@snippet :
-     * #define META_SETMAPPERFLAGS 561
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_PARAMETERS "E"
      * }
      */
-    public static int META_SETMAPPERFLAGS() {
-        return (int)561L;
+    public static MemorySegment BCRYPT_ECC_PARAMETERS() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_PARAMETERS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECC_PARAMETERS;
     }
     /**
-     * {@snippet :
-     * #define META_EXTTEXTOUT 2610
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_NAME "E"
      * }
      */
-    public static int META_EXTTEXTOUT() {
-        return (int)2610L;
+    public static MemorySegment BCRYPT_ECC_CURVE_NAME() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECC_CURVE_NAME;
     }
     /**
-     * {@snippet :
-     * #define META_SETDIBTODEV 3379
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_NAME_LIST "E"
      * }
      */
-    public static int META_SETDIBTODEV() {
-        return (int)3379L;
+    public static MemorySegment BCRYPT_ECC_CURVE_NAME_LIST() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_NAME_LIST
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECC_CURVE_NAME_LIST;
     }
     /**
-     * {@snippet :
-     * #define META_SELECTPALETTE 564
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_BRAINPOOLP160R1 "b"
      * }
      */
-    public static int META_SELECTPALETTE() {
-        return (int)564L;
+    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP160R1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP160R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+        }
+        return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP160R1;
     }
     /**
-     * {@snippet :
-     * #define META_REALIZEPALETTE 53
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_BRAINPOOLP160T1 "b"
      * }
      */
-    public static int META_REALIZEPALETTE() {
-        return (int)53L;
+    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP160T1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP160T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+        }
+        return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP160T1;
     }
     /**
-     * {@snippet :
-     * #define META_ANIMATEPALETTE 1078
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_BRAINPOOLP192R1 "b"
      * }
      */
-    public static int META_ANIMATEPALETTE() {
-        return (int)1078L;
+    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP192R1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP192R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+        }
+        return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP192R1;
     }
     /**
-     * {@snippet :
-     * #define META_SETPALENTRIES 55
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_BRAINPOOLP192T1 "b"
      * }
      */
-    public static int META_SETPALENTRIES() {
-        return (int)55L;
+    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP192T1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP192T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+        }
+        return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP192T1;
     }
     /**
-     * {@snippet :
-     * #define META_POLYPOLYGON 1336
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_BRAINPOOLP224R1 "b"
      * }
      */
-    public static int META_POLYPOLYGON() {
-        return (int)1336L;
+    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP224R1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP224R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+        }
+        return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP224R1;
     }
     /**
-     * {@snippet :
-     * #define META_RESIZEPALETTE 313
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_BRAINPOOLP224T1 "b"
      * }
      */
-    public static int META_RESIZEPALETTE() {
-        return (int)313L;
+    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP224T1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP224T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+        }
+        return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP224T1;
     }
     /**
-     * {@snippet :
-     * #define META_DIBBITBLT 2368
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_BRAINPOOLP256R1 "b"
      * }
      */
-    public static int META_DIBBITBLT() {
-        return (int)2368L;
+    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP256R1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP256R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+        }
+        return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP256R1;
     }
     /**
-     * {@snippet :
-     * #define META_DIBSTRETCHBLT 2881
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_BRAINPOOLP256T1 "b"
      * }
      */
-    public static int META_DIBSTRETCHBLT() {
-        return (int)2881L;
+    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP256T1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP256T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+        }
+        return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP256T1;
     }
     /**
-     * {@snippet :
-     * #define META_DIBCREATEPATTERNBRUSH 322
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_BRAINPOOLP320R1 "b"
      * }
      */
-    public static int META_DIBCREATEPATTERNBRUSH() {
-        return (int)322L;
+    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP320R1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP320R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+        }
+        return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP320R1;
     }
     /**
-     * {@snippet :
-     * #define META_STRETCHDIB 3907
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_BRAINPOOLP320T1 "b"
      * }
      */
-    public static int META_STRETCHDIB() {
-        return (int)3907L;
+    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP320T1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP320T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+        }
+        return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP320T1;
     }
     /**
-     * {@snippet :
-     * #define META_EXTFLOODFILL 1352
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_BRAINPOOLP384R1 "b"
      * }
      */
-    public static int META_EXTFLOODFILL() {
-        return (int)1352L;
+    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP384R1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP384R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+        }
+        return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP384R1;
     }
     /**
-     * {@snippet :
-     * #define META_SETLAYOUT 329
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_BRAINPOOLP384T1 "b"
      * }
      */
-    public static int META_SETLAYOUT() {
-        return (int)329L;
+    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP384T1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP384T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+        }
+        return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP384T1;
     }
     /**
-     * {@snippet :
-     * #define META_DELETEOBJECT 496
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_BRAINPOOLP512R1 "b"
      * }
      */
-    public static int META_DELETEOBJECT() {
-        return (int)496L;
+    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP512R1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP512R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+        }
+        return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP512R1;
     }
     /**
-     * {@snippet :
-     * #define META_CREATEPALETTE 247
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_BRAINPOOLP512T1 "b"
      * }
      */
-    public static int META_CREATEPALETTE() {
-        return (int)247L;
+    public static MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP512T1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_BRAINPOOLP512T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("b");
+        }
+        return Holder.BCRYPT_ECC_CURVE_BRAINPOOLP512T1;
     }
     /**
-     * {@snippet :
-     * #define META_CREATEPATTERNBRUSH 505
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_25519 "c"
      * }
      */
-    public static int META_CREATEPATTERNBRUSH() {
-        return (int)505L;
+    public static MemorySegment BCRYPT_ECC_CURVE_25519() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_25519
+                = Windows_h.LIBRARY_ARENA.allocateFrom("c");
+        }
+        return Holder.BCRYPT_ECC_CURVE_25519;
     }
     /**
-     * {@snippet :
-     * #define META_CREATEPENINDIRECT 762
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_EC192WAPI "e"
      * }
      */
-    public static int META_CREATEPENINDIRECT() {
-        return (int)762L;
+    public static MemorySegment BCRYPT_ECC_CURVE_EC192WAPI() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_EC192WAPI
+                = Windows_h.LIBRARY_ARENA.allocateFrom("e");
+        }
+        return Holder.BCRYPT_ECC_CURVE_EC192WAPI;
     }
     /**
-     * {@snippet :
-     * #define META_CREATEFONTINDIRECT 763
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_NISTP192 "n"
      * }
      */
-    public static int META_CREATEFONTINDIRECT() {
-        return (int)763L;
+    public static MemorySegment BCRYPT_ECC_CURVE_NISTP192() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_NISTP192
+                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+        }
+        return Holder.BCRYPT_ECC_CURVE_NISTP192;
     }
     /**
-     * {@snippet :
-     * #define META_CREATEBRUSHINDIRECT 764
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_NISTP224 "n"
      * }
      */
-    public static int META_CREATEBRUSHINDIRECT() {
-        return (int)764L;
+    public static MemorySegment BCRYPT_ECC_CURVE_NISTP224() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_NISTP224
+                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+        }
+        return Holder.BCRYPT_ECC_CURVE_NISTP224;
     }
     /**
-     * {@snippet :
-     * #define META_CREATEREGION 1791
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_NISTP256 "n"
      * }
      */
-    public static int META_CREATEREGION() {
-        return (int)1791L;
+    public static MemorySegment BCRYPT_ECC_CURVE_NISTP256() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_NISTP256
+                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+        }
+        return Holder.BCRYPT_ECC_CURVE_NISTP256;
     }
     /**
-     * {@snippet :
-     * #define NEWFRAME 1
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_NISTP384 "n"
      * }
      */
-    public static int NEWFRAME() {
-        return (int)1L;
+    public static MemorySegment BCRYPT_ECC_CURVE_NISTP384() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_NISTP384
+                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+        }
+        return Holder.BCRYPT_ECC_CURVE_NISTP384;
     }
     /**
-     * {@snippet :
-     * #define ABORTDOC 2
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_NISTP521 "n"
      * }
      */
-    public static int ABORTDOC() {
-        return (int)2L;
+    public static MemorySegment BCRYPT_ECC_CURVE_NISTP521() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_NISTP521
+                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+        }
+        return Holder.BCRYPT_ECC_CURVE_NISTP521;
     }
     /**
-     * {@snippet :
-     * #define NEXTBAND 3
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_NUMSP256T1 "n"
      * }
      */
-    public static int NEXTBAND() {
-        return (int)3L;
+    public static MemorySegment BCRYPT_ECC_CURVE_NUMSP256T1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_NUMSP256T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+        }
+        return Holder.BCRYPT_ECC_CURVE_NUMSP256T1;
     }
     /**
-     * {@snippet :
-     * #define SETCOLORTABLE 4
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_NUMSP384T1 "n"
      * }
      */
-    public static int SETCOLORTABLE() {
-        return (int)4L;
+    public static MemorySegment BCRYPT_ECC_CURVE_NUMSP384T1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_NUMSP384T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+        }
+        return Holder.BCRYPT_ECC_CURVE_NUMSP384T1;
     }
     /**
-     * {@snippet :
-     * #define GETCOLORTABLE 5
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_NUMSP512T1 "n"
      * }
      */
-    public static int GETCOLORTABLE() {
-        return (int)5L;
+    public static MemorySegment BCRYPT_ECC_CURVE_NUMSP512T1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_NUMSP512T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("n");
+        }
+        return Holder.BCRYPT_ECC_CURVE_NUMSP512T1;
     }
     /**
-     * {@snippet :
-     * #define FLUSHOUTPUT 6
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_SECP160K1 "s"
      * }
      */
-    public static int FLUSHOUTPUT() {
-        return (int)6L;
+    public static MemorySegment BCRYPT_ECC_CURVE_SECP160K1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_SECP160K1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+        }
+        return Holder.BCRYPT_ECC_CURVE_SECP160K1;
     }
     /**
-     * {@snippet :
-     * #define DRAFTMODE 7
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_SECP160R1 "s"
      * }
      */
-    public static int DRAFTMODE() {
-        return (int)7L;
+    public static MemorySegment BCRYPT_ECC_CURVE_SECP160R1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_SECP160R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+        }
+        return Holder.BCRYPT_ECC_CURVE_SECP160R1;
     }
     /**
-     * {@snippet :
-     * #define QUERYESCSUPPORT 8
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_SECP160R2 "s"
      * }
      */
-    public static int QUERYESCSUPPORT() {
-        return (int)8L;
+    public static MemorySegment BCRYPT_ECC_CURVE_SECP160R2() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_SECP160R2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+        }
+        return Holder.BCRYPT_ECC_CURVE_SECP160R2;
     }
     /**
-     * {@snippet :
-     * #define SETABORTPROC 9
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_SECP192K1 "s"
      * }
      */
-    public static int SETABORTPROC() {
-        return (int)9L;
+    public static MemorySegment BCRYPT_ECC_CURVE_SECP192K1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_SECP192K1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+        }
+        return Holder.BCRYPT_ECC_CURVE_SECP192K1;
     }
     /**
-     * {@snippet :
-     * #define STARTDOC 10
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_SECP192R1 "s"
      * }
      */
-    public static int STARTDOC() {
-        return (int)10L;
+    public static MemorySegment BCRYPT_ECC_CURVE_SECP192R1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_SECP192R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+        }
+        return Holder.BCRYPT_ECC_CURVE_SECP192R1;
     }
     /**
-     * {@snippet :
-     * #define ENDDOC 11
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_SECP224K1 "s"
      * }
      */
-    public static int ENDDOC() {
-        return (int)11L;
+    public static MemorySegment BCRYPT_ECC_CURVE_SECP224K1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_SECP224K1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+        }
+        return Holder.BCRYPT_ECC_CURVE_SECP224K1;
     }
     /**
-     * {@snippet :
-     * #define GETPHYSPAGESIZE 12
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_SECP224R1 "s"
      * }
      */
-    public static int GETPHYSPAGESIZE() {
-        return (int)12L;
+    public static MemorySegment BCRYPT_ECC_CURVE_SECP224R1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_SECP224R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+        }
+        return Holder.BCRYPT_ECC_CURVE_SECP224R1;
     }
     /**
-     * {@snippet :
-     * #define GETPRINTINGOFFSET 13
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_SECP256K1 "s"
      * }
      */
-    public static int GETPRINTINGOFFSET() {
-        return (int)13L;
+    public static MemorySegment BCRYPT_ECC_CURVE_SECP256K1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_SECP256K1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+        }
+        return Holder.BCRYPT_ECC_CURVE_SECP256K1;
     }
     /**
-     * {@snippet :
-     * #define GETSCALINGFACTOR 14
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_SECP256R1 "s"
      * }
      */
-    public static int GETSCALINGFACTOR() {
-        return (int)14L;
+    public static MemorySegment BCRYPT_ECC_CURVE_SECP256R1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_SECP256R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+        }
+        return Holder.BCRYPT_ECC_CURVE_SECP256R1;
     }
     /**
-     * {@snippet :
-     * #define MFCOMMENT 15
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_SECP384R1 "s"
      * }
      */
-    public static int MFCOMMENT() {
-        return (int)15L;
+    public static MemorySegment BCRYPT_ECC_CURVE_SECP384R1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_SECP384R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+        }
+        return Holder.BCRYPT_ECC_CURVE_SECP384R1;
     }
     /**
-     * {@snippet :
-     * #define GETPENWIDTH 16
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_SECP521R1 "s"
      * }
      */
-    public static int GETPENWIDTH() {
-        return (int)16L;
+    public static MemorySegment BCRYPT_ECC_CURVE_SECP521R1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_SECP521R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+        }
+        return Holder.BCRYPT_ECC_CURVE_SECP521R1;
     }
     /**
-     * {@snippet :
-     * #define SETCOPYCOUNT 17
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_WTLS7 "w"
      * }
      */
-    public static int SETCOPYCOUNT() {
-        return (int)17L;
+    public static MemorySegment BCRYPT_ECC_CURVE_WTLS7() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_WTLS7
+                = Windows_h.LIBRARY_ARENA.allocateFrom("w");
+        }
+        return Holder.BCRYPT_ECC_CURVE_WTLS7;
     }
     /**
-     * {@snippet :
-     * #define SELECTPAPERSOURCE 18
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_WTLS9 "w"
      * }
      */
-    public static int SELECTPAPERSOURCE() {
-        return (int)18L;
+    public static MemorySegment BCRYPT_ECC_CURVE_WTLS9() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_WTLS9
+                = Windows_h.LIBRARY_ARENA.allocateFrom("w");
+        }
+        return Holder.BCRYPT_ECC_CURVE_WTLS9;
     }
     /**
-     * {@snippet :
-     * #define DEVICEDATA 19
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_WTLS12 "w"
      * }
      */
-    public static int DEVICEDATA() {
-        return (int)19L;
+    public static MemorySegment BCRYPT_ECC_CURVE_WTLS12() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_WTLS12
+                = Windows_h.LIBRARY_ARENA.allocateFrom("w");
+        }
+        return Holder.BCRYPT_ECC_CURVE_WTLS12;
     }
     /**
-     * {@snippet :
-     * #define PASSTHROUGH 19
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_X962P192V1 "x"
      * }
      */
-    public static int PASSTHROUGH() {
-        return (int)19L;
+    public static MemorySegment BCRYPT_ECC_CURVE_X962P192V1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_X962P192V1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("x");
+        }
+        return Holder.BCRYPT_ECC_CURVE_X962P192V1;
     }
     /**
-     * {@snippet :
-     * #define GETTECHNOLGY 20
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_X962P192V2 "x"
      * }
      */
-    public static int GETTECHNOLGY() {
-        return (int)20L;
+    public static MemorySegment BCRYPT_ECC_CURVE_X962P192V2() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_X962P192V2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("x");
+        }
+        return Holder.BCRYPT_ECC_CURVE_X962P192V2;
     }
     /**
-     * {@snippet :
-     * #define GETTECHNOLOGY 20
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_X962P192V3 "x"
      * }
      */
-    public static int GETTECHNOLOGY() {
-        return (int)20L;
+    public static MemorySegment BCRYPT_ECC_CURVE_X962P192V3() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_X962P192V3
+                = Windows_h.LIBRARY_ARENA.allocateFrom("x");
+        }
+        return Holder.BCRYPT_ECC_CURVE_X962P192V3;
     }
     /**
-     * {@snippet :
-     * #define SETLINECAP 21
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_X962P239V1 "x"
      * }
      */
-    public static int SETLINECAP() {
-        return (int)21L;
+    public static MemorySegment BCRYPT_ECC_CURVE_X962P239V1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_X962P239V1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("x");
+        }
+        return Holder.BCRYPT_ECC_CURVE_X962P239V1;
     }
     /**
-     * {@snippet :
-     * #define SETLINEJOIN 22
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_X962P239V2 "x"
      * }
      */
-    public static int SETLINEJOIN() {
-        return (int)22L;
+    public static MemorySegment BCRYPT_ECC_CURVE_X962P239V2() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_X962P239V2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("x");
+        }
+        return Holder.BCRYPT_ECC_CURVE_X962P239V2;
     }
     /**
-     * {@snippet :
-     * #define SETMITERLIMIT 23
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_X962P239V3 "x"
      * }
      */
-    public static int SETMITERLIMIT() {
-        return (int)23L;
+    public static MemorySegment BCRYPT_ECC_CURVE_X962P239V3() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_X962P239V3
+                = Windows_h.LIBRARY_ARENA.allocateFrom("x");
+        }
+        return Holder.BCRYPT_ECC_CURVE_X962P239V3;
     }
     /**
-     * {@snippet :
-     * #define BANDINFO 24
+     * {@snippet lang=c :
+     * #define BCRYPT_ECC_CURVE_X962P256V1 "x"
      * }
      */
-    public static int BANDINFO() {
-        return (int)24L;
+    public static MemorySegment BCRYPT_ECC_CURVE_X962P256V1() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECC_CURVE_X962P256V1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("x");
+        }
+        return Holder.BCRYPT_ECC_CURVE_X962P256V1;
     }
     /**
-     * {@snippet :
-     * #define DRAWPATTERNRECT 25
+     * {@snippet lang=c :
+     * #define MS_PRIMITIVE_PROVIDER "M"
      * }
      */
-    public static int DRAWPATTERNRECT() {
-        return (int)25L;
+    public static MemorySegment MS_PRIMITIVE_PROVIDER() {
+        class Holder {
+            static final MemorySegment MS_PRIMITIVE_PROVIDER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_PRIMITIVE_PROVIDER;
     }
     /**
-     * {@snippet :
-     * #define GETVECTORPENSIZE 26
+     * {@snippet lang=c :
+     * #define MS_PLATFORM_CRYPTO_PROVIDER "M"
      * }
      */
-    public static int GETVECTORPENSIZE() {
-        return (int)26L;
+    public static MemorySegment MS_PLATFORM_CRYPTO_PROVIDER() {
+        class Holder {
+            static final MemorySegment MS_PLATFORM_CRYPTO_PROVIDER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_PLATFORM_CRYPTO_PROVIDER;
     }
     /**
-     * {@snippet :
-     * #define GETVECTORBRUSHSIZE 27
+     * {@snippet lang=c :
+     * #define BCRYPT_RSA_ALGORITHM "R"
      * }
      */
-    public static int GETVECTORBRUSHSIZE() {
-        return (int)27L;
+    public static MemorySegment BCRYPT_RSA_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_RSA_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+        }
+        return Holder.BCRYPT_RSA_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define ENABLEDUPLEX 28
+     * {@snippet lang=c :
+     * #define BCRYPT_RSA_SIGN_ALGORITHM "R"
      * }
      */
-    public static int ENABLEDUPLEX() {
-        return (int)28L;
+    public static MemorySegment BCRYPT_RSA_SIGN_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_RSA_SIGN_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+        }
+        return Holder.BCRYPT_RSA_SIGN_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define GETSETPAPERBINS 29
+     * {@snippet lang=c :
+     * #define BCRYPT_DH_ALGORITHM "D"
      * }
      */
-    public static int GETSETPAPERBINS() {
-        return (int)29L;
+    public static MemorySegment BCRYPT_DH_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_DH_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.BCRYPT_DH_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define GETSETPRINTORIENT 30
+     * {@snippet lang=c :
+     * #define BCRYPT_DSA_ALGORITHM "D"
      * }
      */
-    public static int GETSETPRINTORIENT() {
-        return (int)30L;
+    public static MemorySegment BCRYPT_DSA_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_DSA_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.BCRYPT_DSA_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define ENUMPAPERBINS 31
+     * {@snippet lang=c :
+     * #define BCRYPT_RC2_ALGORITHM "R"
      * }
      */
-    public static int ENUMPAPERBINS() {
-        return (int)31L;
+    public static MemorySegment BCRYPT_RC2_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_RC2_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+        }
+        return Holder.BCRYPT_RC2_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define SETDIBSCALING 32
+     * {@snippet lang=c :
+     * #define BCRYPT_RC4_ALGORITHM "R"
      * }
      */
-    public static int SETDIBSCALING() {
-        return (int)32L;
+    public static MemorySegment BCRYPT_RC4_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_RC4_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+        }
+        return Holder.BCRYPT_RC4_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define EPSPRINTING 33
+     * {@snippet lang=c :
+     * #define BCRYPT_AES_ALGORITHM "A"
      * }
      */
-    public static int EPSPRINTING() {
-        return (int)33L;
+    public static MemorySegment BCRYPT_AES_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_AES_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+        }
+        return Holder.BCRYPT_AES_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define ENUMPAPERMETRICS 34
+     * {@snippet lang=c :
+     * #define BCRYPT_DES_ALGORITHM "D"
      * }
      */
-    public static int ENUMPAPERMETRICS() {
-        return (int)34L;
+    public static MemorySegment BCRYPT_DES_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_DES_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.BCRYPT_DES_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define GETSETPAPERMETRICS 35
+     * {@snippet lang=c :
+     * #define BCRYPT_DESX_ALGORITHM "D"
      * }
      */
-    public static int GETSETPAPERMETRICS() {
-        return (int)35L;
+    public static MemorySegment BCRYPT_DESX_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_DESX_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.BCRYPT_DESX_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define POSTSCRIPT_DATA 37
+     * {@snippet lang=c :
+     * #define BCRYPT_3DES_ALGORITHM "3"
      * }
      */
-    public static int POSTSCRIPT_DATA() {
-        return (int)37L;
+    public static MemorySegment BCRYPT_3DES_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_3DES_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("3");
+        }
+        return Holder.BCRYPT_3DES_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define POSTSCRIPT_IGNORE 38
+     * {@snippet lang=c :
+     * #define BCRYPT_3DES_112_ALGORITHM "3"
      * }
      */
-    public static int POSTSCRIPT_IGNORE() {
-        return (int)38L;
+    public static MemorySegment BCRYPT_3DES_112_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_3DES_112_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("3");
+        }
+        return Holder.BCRYPT_3DES_112_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define MOUSETRAILS 39
+     * {@snippet lang=c :
+     * #define BCRYPT_MD2_ALGORITHM "M"
      * }
      */
-    public static int MOUSETRAILS() {
-        return (int)39L;
+    public static MemorySegment BCRYPT_MD2_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_MD2_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.BCRYPT_MD2_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define GETDEVICEUNITS 42
+     * {@snippet lang=c :
+     * #define BCRYPT_MD4_ALGORITHM "M"
      * }
      */
-    public static int GETDEVICEUNITS() {
-        return (int)42L;
+    public static MemorySegment BCRYPT_MD4_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_MD4_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.BCRYPT_MD4_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define GETEXTENDEDTEXTMETRICS 256
+     * {@snippet lang=c :
+     * #define BCRYPT_MD5_ALGORITHM "M"
      * }
      */
-    public static int GETEXTENDEDTEXTMETRICS() {
-        return (int)256L;
+    public static MemorySegment BCRYPT_MD5_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_MD5_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.BCRYPT_MD5_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define GETEXTENTTABLE 257
+     * {@snippet lang=c :
+     * #define BCRYPT_SHA1_ALGORITHM "S"
      * }
      */
-    public static int GETEXTENTTABLE() {
-        return (int)257L;
+    public static MemorySegment BCRYPT_SHA1_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_SHA1_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.BCRYPT_SHA1_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define GETPAIRKERNTABLE 258
+     * {@snippet lang=c :
+     * #define BCRYPT_SHA256_ALGORITHM "S"
      * }
      */
-    public static int GETPAIRKERNTABLE() {
-        return (int)258L;
+    public static MemorySegment BCRYPT_SHA256_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_SHA256_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.BCRYPT_SHA256_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define GETTRACKKERNTABLE 259
+     * {@snippet lang=c :
+     * #define BCRYPT_SHA384_ALGORITHM "S"
      * }
      */
-    public static int GETTRACKKERNTABLE() {
-        return (int)259L;
+    public static MemorySegment BCRYPT_SHA384_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_SHA384_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.BCRYPT_SHA384_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define EXTTEXTOUT 512
+     * {@snippet lang=c :
+     * #define BCRYPT_SHA512_ALGORITHM "S"
      * }
      */
-    public static int EXTTEXTOUT() {
-        return (int)512L;
+    public static MemorySegment BCRYPT_SHA512_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_SHA512_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.BCRYPT_SHA512_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define GETFACENAME 513
+     * {@snippet lang=c :
+     * #define BCRYPT_AES_GMAC_ALGORITHM "A"
      * }
      */
-    public static int GETFACENAME() {
-        return (int)513L;
+    public static MemorySegment BCRYPT_AES_GMAC_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_AES_GMAC_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+        }
+        return Holder.BCRYPT_AES_GMAC_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define DOWNLOADFACE 514
+     * {@snippet lang=c :
+     * #define BCRYPT_AES_CMAC_ALGORITHM "A"
      * }
      */
-    public static int DOWNLOADFACE() {
-        return (int)514L;
+    public static MemorySegment BCRYPT_AES_CMAC_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_AES_CMAC_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+        }
+        return Holder.BCRYPT_AES_CMAC_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define ENABLERELATIVEWIDTHS 768
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDSA_P256_ALGORITHM "E"
      * }
      */
-    public static int ENABLERELATIVEWIDTHS() {
-        return (int)768L;
+    public static MemorySegment BCRYPT_ECDSA_P256_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECDSA_P256_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECDSA_P256_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define ENABLEPAIRKERNING 769
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDSA_P384_ALGORITHM "E"
      * }
      */
-    public static int ENABLEPAIRKERNING() {
-        return (int)769L;
+    public static MemorySegment BCRYPT_ECDSA_P384_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECDSA_P384_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECDSA_P384_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define SETKERNTRACK 770
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDSA_P521_ALGORITHM "E"
      * }
      */
-    public static int SETKERNTRACK() {
-        return (int)770L;
+    public static MemorySegment BCRYPT_ECDSA_P521_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECDSA_P521_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECDSA_P521_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define SETALLJUSTVALUES 771
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDH_P256_ALGORITHM "E"
      * }
      */
-    public static int SETALLJUSTVALUES() {
-        return (int)771L;
+    public static MemorySegment BCRYPT_ECDH_P256_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECDH_P256_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECDH_P256_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define SETCHARSET 772
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDH_P384_ALGORITHM "E"
      * }
      */
-    public static int SETCHARSET() {
-        return (int)772L;
+    public static MemorySegment BCRYPT_ECDH_P384_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECDH_P384_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECDH_P384_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define STRETCHBLT 2048
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDH_P521_ALGORITHM "E"
      * }
      */
-    public static int STRETCHBLT() {
-        return (int)2048L;
+    public static MemorySegment BCRYPT_ECDH_P521_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECDH_P521_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECDH_P521_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define METAFILE_DRIVER 2049
+     * {@snippet lang=c :
+     * #define BCRYPT_RNG_ALGORITHM "R"
      * }
      */
-    public static int METAFILE_DRIVER() {
-        return (int)2049L;
+    public static MemorySegment BCRYPT_RNG_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_RNG_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+        }
+        return Holder.BCRYPT_RNG_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define GETSETSCREENPARAMS 3072
+     * {@snippet lang=c :
+     * #define BCRYPT_RNG_FIPS186_DSA_ALGORITHM "F"
      * }
      */
-    public static int GETSETSCREENPARAMS() {
-        return (int)3072L;
+    public static MemorySegment BCRYPT_RNG_FIPS186_DSA_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_RNG_FIPS186_DSA_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("F");
+        }
+        return Holder.BCRYPT_RNG_FIPS186_DSA_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define QUERYDIBSUPPORT 3073
+     * {@snippet lang=c :
+     * #define BCRYPT_RNG_DUAL_EC_ALGORITHM "D"
      * }
      */
-    public static int QUERYDIBSUPPORT() {
-        return (int)3073L;
+    public static MemorySegment BCRYPT_RNG_DUAL_EC_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_RNG_DUAL_EC_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.BCRYPT_RNG_DUAL_EC_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define BEGIN_PATH 4096
+     * {@snippet lang=c :
+     * #define BCRYPT_SP800108_CTR_HMAC_ALGORITHM "S"
      * }
      */
-    public static int BEGIN_PATH() {
-        return (int)4096L;
+    public static MemorySegment BCRYPT_SP800108_CTR_HMAC_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_SP800108_CTR_HMAC_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.BCRYPT_SP800108_CTR_HMAC_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define CLIP_TO_PATH 4097
+     * {@snippet lang=c :
+     * #define BCRYPT_SP80056A_CONCAT_ALGORITHM "S"
      * }
      */
-    public static int CLIP_TO_PATH() {
-        return (int)4097L;
+    public static MemorySegment BCRYPT_SP80056A_CONCAT_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_SP80056A_CONCAT_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.BCRYPT_SP80056A_CONCAT_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define END_PATH 4098
+     * {@snippet lang=c :
+     * #define BCRYPT_PBKDF2_ALGORITHM "P"
      * }
      */
-    public static int END_PATH() {
-        return (int)4098L;
+    public static MemorySegment BCRYPT_PBKDF2_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_PBKDF2_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.BCRYPT_PBKDF2_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define EXT_DEVICE_CAPS 4099
+     * {@snippet lang=c :
+     * #define BCRYPT_CAPI_KDF_ALGORITHM "C"
      * }
      */
-    public static int EXT_DEVICE_CAPS() {
-        return (int)4099L;
+    public static MemorySegment BCRYPT_CAPI_KDF_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_CAPI_KDF_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.BCRYPT_CAPI_KDF_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define RESTORE_CTM 4100
+     * {@snippet lang=c :
+     * #define BCRYPT_TLS1_1_KDF_ALGORITHM "T"
      * }
      */
-    public static int RESTORE_CTM() {
-        return (int)4100L;
+    public static MemorySegment BCRYPT_TLS1_1_KDF_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_TLS1_1_KDF_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("T");
+        }
+        return Holder.BCRYPT_TLS1_1_KDF_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define SAVE_CTM 4101
+     * {@snippet lang=c :
+     * #define BCRYPT_TLS1_2_KDF_ALGORITHM "T"
      * }
      */
-    public static int SAVE_CTM() {
-        return (int)4101L;
+    public static MemorySegment BCRYPT_TLS1_2_KDF_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_TLS1_2_KDF_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("T");
+        }
+        return Holder.BCRYPT_TLS1_2_KDF_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define SET_ARC_DIRECTION 4102
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDSA_ALGORITHM "E"
      * }
      */
-    public static int SET_ARC_DIRECTION() {
-        return (int)4102L;
+    public static MemorySegment BCRYPT_ECDSA_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECDSA_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECDSA_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define SET_BACKGROUND_COLOR 4103
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDH_ALGORITHM "E"
      * }
      */
-    public static int SET_BACKGROUND_COLOR() {
-        return (int)4103L;
+    public static MemorySegment BCRYPT_ECDH_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_ECDH_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BCRYPT_ECDH_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define SET_POLY_MODE 4104
+     * {@snippet lang=c :
+     * #define BCRYPT_XTS_AES_ALGORITHM "X"
      * }
      */
-    public static int SET_POLY_MODE() {
-        return (int)4104L;
+    public static MemorySegment BCRYPT_XTS_AES_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_XTS_AES_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("X");
+        }
+        return Holder.BCRYPT_XTS_AES_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define SET_SCREEN_ANGLE 4105
+     * {@snippet lang=c :
+     * #define BCRYPT_HKDF_ALGORITHM "H"
      * }
      */
-    public static int SET_SCREEN_ANGLE() {
-        return (int)4105L;
+    public static MemorySegment BCRYPT_HKDF_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_HKDF_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+        }
+        return Holder.BCRYPT_HKDF_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define SET_SPREAD 4106
+     * {@snippet lang=c :
+     * #define BCRYPT_CHACHA20_POLY1305_ALGORITHM "C"
      * }
      */
-    public static int SET_SPREAD() {
-        return (int)4106L;
+    public static MemorySegment BCRYPT_CHACHA20_POLY1305_ALGORITHM() {
+        class Holder {
+            static final MemorySegment BCRYPT_CHACHA20_POLY1305_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.BCRYPT_CHACHA20_POLY1305_ALGORITHM;
     }
+    private static final MemorySegment BCRYPT_MD2_ALG_HANDLE = MemorySegment.ofAddress(1L);
     /**
-     * {@snippet :
-     * #define TRANSFORM_CTM 4107
+     * {@snippet lang=c :
+     * #define BCRYPT_MD2_ALG_HANDLE (void*) 1
      * }
      */
-    public static int TRANSFORM_CTM() {
-        return (int)4107L;
+    public static MemorySegment BCRYPT_MD2_ALG_HANDLE() {
+        return BCRYPT_MD2_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_MD4_ALG_HANDLE = MemorySegment.ofAddress(17L);
     /**
-     * {@snippet :
-     * #define SET_CLIP_BOX 4108
+     * {@snippet lang=c :
+     * #define BCRYPT_MD4_ALG_HANDLE (void*) 17
      * }
      */
-    public static int SET_CLIP_BOX() {
-        return (int)4108L;
+    public static MemorySegment BCRYPT_MD4_ALG_HANDLE() {
+        return BCRYPT_MD4_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_MD5_ALG_HANDLE = MemorySegment.ofAddress(33L);
     /**
-     * {@snippet :
-     * #define SET_BOUNDS 4109
+     * {@snippet lang=c :
+     * #define BCRYPT_MD5_ALG_HANDLE (void*) 33
      * }
      */
-    public static int SET_BOUNDS() {
-        return (int)4109L;
+    public static MemorySegment BCRYPT_MD5_ALG_HANDLE() {
+        return BCRYPT_MD5_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_SHA1_ALG_HANDLE = MemorySegment.ofAddress(49L);
     /**
-     * {@snippet :
-     * #define SET_MIRROR_MODE 4110
+     * {@snippet lang=c :
+     * #define BCRYPT_SHA1_ALG_HANDLE (void*) 49
      * }
      */
-    public static int SET_MIRROR_MODE() {
-        return (int)4110L;
+    public static MemorySegment BCRYPT_SHA1_ALG_HANDLE() {
+        return BCRYPT_SHA1_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_SHA256_ALG_HANDLE = MemorySegment.ofAddress(65L);
     /**
-     * {@snippet :
-     * #define OPENCHANNEL 4110
+     * {@snippet lang=c :
+     * #define BCRYPT_SHA256_ALG_HANDLE (void*) 65
      * }
      */
-    public static int OPENCHANNEL() {
-        return (int)4110L;
+    public static MemorySegment BCRYPT_SHA256_ALG_HANDLE() {
+        return BCRYPT_SHA256_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_SHA384_ALG_HANDLE = MemorySegment.ofAddress(81L);
     /**
-     * {@snippet :
-     * #define DOWNLOADHEADER 4111
+     * {@snippet lang=c :
+     * #define BCRYPT_SHA384_ALG_HANDLE (void*) 81
      * }
      */
-    public static int DOWNLOADHEADER() {
-        return (int)4111L;
+    public static MemorySegment BCRYPT_SHA384_ALG_HANDLE() {
+        return BCRYPT_SHA384_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_SHA512_ALG_HANDLE = MemorySegment.ofAddress(97L);
     /**
-     * {@snippet :
-     * #define CLOSECHANNEL 4112
+     * {@snippet lang=c :
+     * #define BCRYPT_SHA512_ALG_HANDLE (void*) 97
      * }
      */
-    public static int CLOSECHANNEL() {
-        return (int)4112L;
+    public static MemorySegment BCRYPT_SHA512_ALG_HANDLE() {
+        return BCRYPT_SHA512_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_RC4_ALG_HANDLE = MemorySegment.ofAddress(113L);
     /**
-     * {@snippet :
-     * #define POSTSCRIPT_PASSTHROUGH 4115
+     * {@snippet lang=c :
+     * #define BCRYPT_RC4_ALG_HANDLE (void*) 113
      * }
      */
-    public static int POSTSCRIPT_PASSTHROUGH() {
-        return (int)4115L;
+    public static MemorySegment BCRYPT_RC4_ALG_HANDLE() {
+        return BCRYPT_RC4_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_RNG_ALG_HANDLE = MemorySegment.ofAddress(129L);
     /**
-     * {@snippet :
-     * #define ENCAPSULATED_POSTSCRIPT 4116
+     * {@snippet lang=c :
+     * #define BCRYPT_RNG_ALG_HANDLE (void*) 129
      * }
      */
-    public static int ENCAPSULATED_POSTSCRIPT() {
-        return (int)4116L;
+    public static MemorySegment BCRYPT_RNG_ALG_HANDLE() {
+        return BCRYPT_RNG_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_HMAC_MD5_ALG_HANDLE = MemorySegment.ofAddress(145L);
     /**
-     * {@snippet :
-     * #define POSTSCRIPT_IDENTIFY 4117
+     * {@snippet lang=c :
+     * #define BCRYPT_HMAC_MD5_ALG_HANDLE (void*) 145
      * }
      */
-    public static int POSTSCRIPT_IDENTIFY() {
-        return (int)4117L;
+    public static MemorySegment BCRYPT_HMAC_MD5_ALG_HANDLE() {
+        return BCRYPT_HMAC_MD5_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_HMAC_SHA1_ALG_HANDLE = MemorySegment.ofAddress(161L);
     /**
-     * {@snippet :
-     * #define POSTSCRIPT_INJECTION 4118
+     * {@snippet lang=c :
+     * #define BCRYPT_HMAC_SHA1_ALG_HANDLE (void*) 161
      * }
      */
-    public static int POSTSCRIPT_INJECTION() {
-        return (int)4118L;
+    public static MemorySegment BCRYPT_HMAC_SHA1_ALG_HANDLE() {
+        return BCRYPT_HMAC_SHA1_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_HMAC_SHA256_ALG_HANDLE = MemorySegment.ofAddress(177L);
     /**
-     * {@snippet :
-     * #define CHECKJPEGFORMAT 4119
+     * {@snippet lang=c :
+     * #define BCRYPT_HMAC_SHA256_ALG_HANDLE (void*) 177
      * }
      */
-    public static int CHECKJPEGFORMAT() {
-        return (int)4119L;
+    public static MemorySegment BCRYPT_HMAC_SHA256_ALG_HANDLE() {
+        return BCRYPT_HMAC_SHA256_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_HMAC_SHA384_ALG_HANDLE = MemorySegment.ofAddress(193L);
     /**
-     * {@snippet :
-     * #define CHECKPNGFORMAT 4120
+     * {@snippet lang=c :
+     * #define BCRYPT_HMAC_SHA384_ALG_HANDLE (void*) 193
      * }
      */
-    public static int CHECKPNGFORMAT() {
-        return (int)4120L;
+    public static MemorySegment BCRYPT_HMAC_SHA384_ALG_HANDLE() {
+        return BCRYPT_HMAC_SHA384_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_HMAC_SHA512_ALG_HANDLE = MemorySegment.ofAddress(209L);
     /**
-     * {@snippet :
-     * #define GET_PS_FEATURESETTING 4121
+     * {@snippet lang=c :
+     * #define BCRYPT_HMAC_SHA512_ALG_HANDLE (void*) 209
      * }
      */
-    public static int GET_PS_FEATURESETTING() {
-        return (int)4121L;
+    public static MemorySegment BCRYPT_HMAC_SHA512_ALG_HANDLE() {
+        return BCRYPT_HMAC_SHA512_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_RSA_ALG_HANDLE = MemorySegment.ofAddress(225L);
     /**
-     * {@snippet :
-     * #define GDIPLUS_TS_QUERYVER 4122
+     * {@snippet lang=c :
+     * #define BCRYPT_RSA_ALG_HANDLE (void*) 225
      * }
      */
-    public static int GDIPLUS_TS_QUERYVER() {
-        return (int)4122L;
+    public static MemorySegment BCRYPT_RSA_ALG_HANDLE() {
+        return BCRYPT_RSA_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_ECDSA_ALG_HANDLE = MemorySegment.ofAddress(241L);
     /**
-     * {@snippet :
-     * #define GDIPLUS_TS_RECORD 4123
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDSA_ALG_HANDLE (void*) 241
      * }
      */
-    public static int GDIPLUS_TS_RECORD() {
-        return (int)4123L;
+    public static MemorySegment BCRYPT_ECDSA_ALG_HANDLE() {
+        return BCRYPT_ECDSA_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_AES_CMAC_ALG_HANDLE = MemorySegment.ofAddress(257L);
     /**
-     * {@snippet :
-     * #define MILCORE_TS_QUERYVER_RESULT_FALSE 0
+     * {@snippet lang=c :
+     * #define BCRYPT_AES_CMAC_ALG_HANDLE (void*) 257
      * }
      */
-    public static int MILCORE_TS_QUERYVER_RESULT_FALSE() {
-        return (int)0L;
+    public static MemorySegment BCRYPT_AES_CMAC_ALG_HANDLE() {
+        return BCRYPT_AES_CMAC_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_AES_GMAC_ALG_HANDLE = MemorySegment.ofAddress(273L);
     /**
-     * {@snippet :
-     * #define MILCORE_TS_QUERYVER_RESULT_TRUE 2147483647
+     * {@snippet lang=c :
+     * #define BCRYPT_AES_GMAC_ALG_HANDLE (void*) 273
      * }
      */
-    public static int MILCORE_TS_QUERYVER_RESULT_TRUE() {
-        return (int)2147483647L;
+    public static MemorySegment BCRYPT_AES_GMAC_ALG_HANDLE() {
+        return BCRYPT_AES_GMAC_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_HMAC_MD2_ALG_HANDLE = MemorySegment.ofAddress(289L);
     /**
-     * {@snippet :
-     * #define SPCLPASSTHROUGH2 4568
+     * {@snippet lang=c :
+     * #define BCRYPT_HMAC_MD2_ALG_HANDLE (void*) 289
      * }
      */
-    public static int SPCLPASSTHROUGH2() {
-        return (int)4568L;
+    public static MemorySegment BCRYPT_HMAC_MD2_ALG_HANDLE() {
+        return BCRYPT_HMAC_MD2_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_HMAC_MD4_ALG_HANDLE = MemorySegment.ofAddress(305L);
     /**
-     * {@snippet :
-     * #define PSIDENT_GDICENTRIC 0
+     * {@snippet lang=c :
+     * #define BCRYPT_HMAC_MD4_ALG_HANDLE (void*) 305
      * }
      */
-    public static int PSIDENT_GDICENTRIC() {
-        return (int)0L;
+    public static MemorySegment BCRYPT_HMAC_MD4_ALG_HANDLE() {
+        return BCRYPT_HMAC_MD4_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_3DES_CBC_ALG_HANDLE = MemorySegment.ofAddress(321L);
     /**
-     * {@snippet :
-     * #define PSIDENT_PSCENTRIC 1
+     * {@snippet lang=c :
+     * #define BCRYPT_3DES_CBC_ALG_HANDLE (void*) 321
      * }
      */
-    public static int PSIDENT_PSCENTRIC() {
-        return (int)1L;
+    public static MemorySegment BCRYPT_3DES_CBC_ALG_HANDLE() {
+        return BCRYPT_3DES_CBC_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_3DES_ECB_ALG_HANDLE = MemorySegment.ofAddress(337L);
     /**
-     * {@snippet :
-     * #define PSINJECT_BEGINSTREAM 1
+     * {@snippet lang=c :
+     * #define BCRYPT_3DES_ECB_ALG_HANDLE (void*) 337
      * }
      */
-    public static int PSINJECT_BEGINSTREAM() {
-        return (int)1L;
+    public static MemorySegment BCRYPT_3DES_ECB_ALG_HANDLE() {
+        return BCRYPT_3DES_ECB_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_3DES_CFB_ALG_HANDLE = MemorySegment.ofAddress(353L);
     /**
-     * {@snippet :
-     * #define PSINJECT_PSADOBE 2
+     * {@snippet lang=c :
+     * #define BCRYPT_3DES_CFB_ALG_HANDLE (void*) 353
      * }
      */
-    public static int PSINJECT_PSADOBE() {
-        return (int)2L;
+    public static MemorySegment BCRYPT_3DES_CFB_ALG_HANDLE() {
+        return BCRYPT_3DES_CFB_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_3DES_112_CBC_ALG_HANDLE = MemorySegment.ofAddress(369L);
     /**
-     * {@snippet :
-     * #define PSINJECT_PAGESATEND 3
+     * {@snippet lang=c :
+     * #define BCRYPT_3DES_112_CBC_ALG_HANDLE (void*) 369
      * }
      */
-    public static int PSINJECT_PAGESATEND() {
-        return (int)3L;
+    public static MemorySegment BCRYPT_3DES_112_CBC_ALG_HANDLE() {
+        return BCRYPT_3DES_112_CBC_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_3DES_112_ECB_ALG_HANDLE = MemorySegment.ofAddress(385L);
     /**
-     * {@snippet :
-     * #define PSINJECT_PAGES 4
+     * {@snippet lang=c :
+     * #define BCRYPT_3DES_112_ECB_ALG_HANDLE (void*) 385
      * }
      */
-    public static int PSINJECT_PAGES() {
-        return (int)4L;
+    public static MemorySegment BCRYPT_3DES_112_ECB_ALG_HANDLE() {
+        return BCRYPT_3DES_112_ECB_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_3DES_112_CFB_ALG_HANDLE = MemorySegment.ofAddress(401L);
     /**
-     * {@snippet :
-     * #define PSINJECT_DOCNEEDEDRES 5
+     * {@snippet lang=c :
+     * #define BCRYPT_3DES_112_CFB_ALG_HANDLE (void*) 401
      * }
      */
-    public static int PSINJECT_DOCNEEDEDRES() {
-        return (int)5L;
+    public static MemorySegment BCRYPT_3DES_112_CFB_ALG_HANDLE() {
+        return BCRYPT_3DES_112_CFB_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_AES_CBC_ALG_HANDLE = MemorySegment.ofAddress(417L);
     /**
-     * {@snippet :
-     * #define PSINJECT_DOCSUPPLIEDRES 6
+     * {@snippet lang=c :
+     * #define BCRYPT_AES_CBC_ALG_HANDLE (void*) 417
      * }
      */
-    public static int PSINJECT_DOCSUPPLIEDRES() {
-        return (int)6L;
+    public static MemorySegment BCRYPT_AES_CBC_ALG_HANDLE() {
+        return BCRYPT_AES_CBC_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_AES_ECB_ALG_HANDLE = MemorySegment.ofAddress(433L);
     /**
-     * {@snippet :
-     * #define PSINJECT_PAGEORDER 7
+     * {@snippet lang=c :
+     * #define BCRYPT_AES_ECB_ALG_HANDLE (void*) 433
      * }
      */
-    public static int PSINJECT_PAGEORDER() {
-        return (int)7L;
+    public static MemorySegment BCRYPT_AES_ECB_ALG_HANDLE() {
+        return BCRYPT_AES_ECB_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_AES_CFB_ALG_HANDLE = MemorySegment.ofAddress(449L);
     /**
-     * {@snippet :
-     * #define PSINJECT_ORIENTATION 8
+     * {@snippet lang=c :
+     * #define BCRYPT_AES_CFB_ALG_HANDLE (void*) 449
      * }
      */
-    public static int PSINJECT_ORIENTATION() {
-        return (int)8L;
+    public static MemorySegment BCRYPT_AES_CFB_ALG_HANDLE() {
+        return BCRYPT_AES_CFB_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_AES_CCM_ALG_HANDLE = MemorySegment.ofAddress(465L);
     /**
-     * {@snippet :
-     * #define PSINJECT_BOUNDINGBOX 9
+     * {@snippet lang=c :
+     * #define BCRYPT_AES_CCM_ALG_HANDLE (void*) 465
      * }
      */
-    public static int PSINJECT_BOUNDINGBOX() {
-        return (int)9L;
+    public static MemorySegment BCRYPT_AES_CCM_ALG_HANDLE() {
+        return BCRYPT_AES_CCM_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_AES_GCM_ALG_HANDLE = MemorySegment.ofAddress(481L);
     /**
-     * {@snippet :
-     * #define PSINJECT_DOCUMENTPROCESSCOLORS 10
+     * {@snippet lang=c :
+     * #define BCRYPT_AES_GCM_ALG_HANDLE (void*) 481
      * }
      */
-    public static int PSINJECT_DOCUMENTPROCESSCOLORS() {
-        return (int)10L;
+    public static MemorySegment BCRYPT_AES_GCM_ALG_HANDLE() {
+        return BCRYPT_AES_GCM_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_DES_CBC_ALG_HANDLE = MemorySegment.ofAddress(497L);
     /**
-     * {@snippet :
-     * #define PSINJECT_COMMENTS 11
+     * {@snippet lang=c :
+     * #define BCRYPT_DES_CBC_ALG_HANDLE (void*) 497
      * }
      */
-    public static int PSINJECT_COMMENTS() {
-        return (int)11L;
+    public static MemorySegment BCRYPT_DES_CBC_ALG_HANDLE() {
+        return BCRYPT_DES_CBC_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_DES_ECB_ALG_HANDLE = MemorySegment.ofAddress(513L);
     /**
-     * {@snippet :
-     * #define PSINJECT_BEGINDEFAULTS 12
+     * {@snippet lang=c :
+     * #define BCRYPT_DES_ECB_ALG_HANDLE (void*) 513
      * }
      */
-    public static int PSINJECT_BEGINDEFAULTS() {
-        return (int)12L;
+    public static MemorySegment BCRYPT_DES_ECB_ALG_HANDLE() {
+        return BCRYPT_DES_ECB_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_DES_CFB_ALG_HANDLE = MemorySegment.ofAddress(529L);
     /**
-     * {@snippet :
-     * #define PSINJECT_ENDDEFAULTS 13
+     * {@snippet lang=c :
+     * #define BCRYPT_DES_CFB_ALG_HANDLE (void*) 529
      * }
      */
-    public static int PSINJECT_ENDDEFAULTS() {
-        return (int)13L;
+    public static MemorySegment BCRYPT_DES_CFB_ALG_HANDLE() {
+        return BCRYPT_DES_CFB_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_DESX_CBC_ALG_HANDLE = MemorySegment.ofAddress(545L);
     /**
-     * {@snippet :
-     * #define PSINJECT_BEGINPROLOG 14
+     * {@snippet lang=c :
+     * #define BCRYPT_DESX_CBC_ALG_HANDLE (void*) 545
      * }
      */
-    public static int PSINJECT_BEGINPROLOG() {
-        return (int)14L;
+    public static MemorySegment BCRYPT_DESX_CBC_ALG_HANDLE() {
+        return BCRYPT_DESX_CBC_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_DESX_ECB_ALG_HANDLE = MemorySegment.ofAddress(561L);
     /**
-     * {@snippet :
-     * #define PSINJECT_ENDPROLOG 15
+     * {@snippet lang=c :
+     * #define BCRYPT_DESX_ECB_ALG_HANDLE (void*) 561
      * }
      */
-    public static int PSINJECT_ENDPROLOG() {
-        return (int)15L;
+    public static MemorySegment BCRYPT_DESX_ECB_ALG_HANDLE() {
+        return BCRYPT_DESX_ECB_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_DESX_CFB_ALG_HANDLE = MemorySegment.ofAddress(577L);
     /**
-     * {@snippet :
-     * #define PSINJECT_BEGINSETUP 16
+     * {@snippet lang=c :
+     * #define BCRYPT_DESX_CFB_ALG_HANDLE (void*) 577
      * }
      */
-    public static int PSINJECT_BEGINSETUP() {
-        return (int)16L;
+    public static MemorySegment BCRYPT_DESX_CFB_ALG_HANDLE() {
+        return BCRYPT_DESX_CFB_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_RC2_CBC_ALG_HANDLE = MemorySegment.ofAddress(593L);
     /**
-     * {@snippet :
-     * #define PSINJECT_ENDSETUP 17
+     * {@snippet lang=c :
+     * #define BCRYPT_RC2_CBC_ALG_HANDLE (void*) 593
      * }
      */
-    public static int PSINJECT_ENDSETUP() {
-        return (int)17L;
+    public static MemorySegment BCRYPT_RC2_CBC_ALG_HANDLE() {
+        return BCRYPT_RC2_CBC_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_RC2_ECB_ALG_HANDLE = MemorySegment.ofAddress(609L);
     /**
-     * {@snippet :
-     * #define PSINJECT_TRAILER 18
+     * {@snippet lang=c :
+     * #define BCRYPT_RC2_ECB_ALG_HANDLE (void*) 609
      * }
      */
-    public static int PSINJECT_TRAILER() {
-        return (int)18L;
+    public static MemorySegment BCRYPT_RC2_ECB_ALG_HANDLE() {
+        return BCRYPT_RC2_ECB_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_RC2_CFB_ALG_HANDLE = MemorySegment.ofAddress(625L);
     /**
-     * {@snippet :
-     * #define PSINJECT_EOF 19
+     * {@snippet lang=c :
+     * #define BCRYPT_RC2_CFB_ALG_HANDLE (void*) 625
      * }
      */
-    public static int PSINJECT_EOF() {
-        return (int)19L;
+    public static MemorySegment BCRYPT_RC2_CFB_ALG_HANDLE() {
+        return BCRYPT_RC2_CFB_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_DH_ALG_HANDLE = MemorySegment.ofAddress(641L);
     /**
-     * {@snippet :
-     * #define PSINJECT_ENDSTREAM 20
+     * {@snippet lang=c :
+     * #define BCRYPT_DH_ALG_HANDLE (void*) 641
      * }
      */
-    public static int PSINJECT_ENDSTREAM() {
-        return (int)20L;
+    public static MemorySegment BCRYPT_DH_ALG_HANDLE() {
+        return BCRYPT_DH_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_ECDH_ALG_HANDLE = MemorySegment.ofAddress(657L);
     /**
-     * {@snippet :
-     * #define PSINJECT_DOCUMENTPROCESSCOLORSATEND 21
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDH_ALG_HANDLE (void*) 657
      * }
      */
-    public static int PSINJECT_DOCUMENTPROCESSCOLORSATEND() {
-        return (int)21L;
+    public static MemorySegment BCRYPT_ECDH_ALG_HANDLE() {
+        return BCRYPT_ECDH_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_ECDH_P256_ALG_HANDLE = MemorySegment.ofAddress(673L);
     /**
-     * {@snippet :
-     * #define PSINJECT_PAGENUMBER 100
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDH_P256_ALG_HANDLE (void*) 673
      * }
      */
-    public static int PSINJECT_PAGENUMBER() {
-        return (int)100L;
+    public static MemorySegment BCRYPT_ECDH_P256_ALG_HANDLE() {
+        return BCRYPT_ECDH_P256_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_ECDH_P384_ALG_HANDLE = MemorySegment.ofAddress(689L);
     /**
-     * {@snippet :
-     * #define PSINJECT_BEGINPAGESETUP 101
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDH_P384_ALG_HANDLE (void*) 689
      * }
      */
-    public static int PSINJECT_BEGINPAGESETUP() {
-        return (int)101L;
+    public static MemorySegment BCRYPT_ECDH_P384_ALG_HANDLE() {
+        return BCRYPT_ECDH_P384_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_ECDH_P521_ALG_HANDLE = MemorySegment.ofAddress(705L);
     /**
-     * {@snippet :
-     * #define PSINJECT_ENDPAGESETUP 102
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDH_P521_ALG_HANDLE (void*) 705
      * }
      */
-    public static int PSINJECT_ENDPAGESETUP() {
-        return (int)102L;
+    public static MemorySegment BCRYPT_ECDH_P521_ALG_HANDLE() {
+        return BCRYPT_ECDH_P521_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_DSA_ALG_HANDLE = MemorySegment.ofAddress(721L);
     /**
-     * {@snippet :
-     * #define PSINJECT_PAGETRAILER 103
+     * {@snippet lang=c :
+     * #define BCRYPT_DSA_ALG_HANDLE (void*) 721
      * }
      */
-    public static int PSINJECT_PAGETRAILER() {
-        return (int)103L;
+    public static MemorySegment BCRYPT_DSA_ALG_HANDLE() {
+        return BCRYPT_DSA_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_ECDSA_P256_ALG_HANDLE = MemorySegment.ofAddress(737L);
     /**
-     * {@snippet :
-     * #define PSINJECT_PLATECOLOR 104
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDSA_P256_ALG_HANDLE (void*) 737
      * }
      */
-    public static int PSINJECT_PLATECOLOR() {
-        return (int)104L;
+    public static MemorySegment BCRYPT_ECDSA_P256_ALG_HANDLE() {
+        return BCRYPT_ECDSA_P256_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_ECDSA_P384_ALG_HANDLE = MemorySegment.ofAddress(753L);
     /**
-     * {@snippet :
-     * #define PSINJECT_SHOWPAGE 105
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDSA_P384_ALG_HANDLE (void*) 753
      * }
      */
-    public static int PSINJECT_SHOWPAGE() {
-        return (int)105L;
+    public static MemorySegment BCRYPT_ECDSA_P384_ALG_HANDLE() {
+        return BCRYPT_ECDSA_P384_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_ECDSA_P521_ALG_HANDLE = MemorySegment.ofAddress(769L);
     /**
-     * {@snippet :
-     * #define PSINJECT_PAGEBBOX 106
+     * {@snippet lang=c :
+     * #define BCRYPT_ECDSA_P521_ALG_HANDLE (void*) 769
      * }
      */
-    public static int PSINJECT_PAGEBBOX() {
-        return (int)106L;
+    public static MemorySegment BCRYPT_ECDSA_P521_ALG_HANDLE() {
+        return BCRYPT_ECDSA_P521_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_RSA_SIGN_ALG_HANDLE = MemorySegment.ofAddress(785L);
     /**
-     * {@snippet :
-     * #define PSINJECT_ENDPAGECOMMENTS 107
+     * {@snippet lang=c :
+     * #define BCRYPT_RSA_SIGN_ALG_HANDLE (void*) 785
      * }
      */
-    public static int PSINJECT_ENDPAGECOMMENTS() {
-        return (int)107L;
+    public static MemorySegment BCRYPT_RSA_SIGN_ALG_HANDLE() {
+        return BCRYPT_RSA_SIGN_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_CAPI_KDF_ALG_HANDLE = MemorySegment.ofAddress(801L);
     /**
-     * {@snippet :
-     * #define PSINJECT_VMSAVE 200
+     * {@snippet lang=c :
+     * #define BCRYPT_CAPI_KDF_ALG_HANDLE (void*) 801
      * }
      */
-    public static int PSINJECT_VMSAVE() {
-        return (int)200L;
+    public static MemorySegment BCRYPT_CAPI_KDF_ALG_HANDLE() {
+        return BCRYPT_CAPI_KDF_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_PBKDF2_ALG_HANDLE = MemorySegment.ofAddress(817L);
     /**
-     * {@snippet :
-     * #define PSINJECT_VMRESTORE 201
+     * {@snippet lang=c :
+     * #define BCRYPT_PBKDF2_ALG_HANDLE (void*) 817
      * }
      */
-    public static int PSINJECT_VMRESTORE() {
-        return (int)201L;
+    public static MemorySegment BCRYPT_PBKDF2_ALG_HANDLE() {
+        return BCRYPT_PBKDF2_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_SP800108_CTR_HMAC_ALG_HANDLE = MemorySegment.ofAddress(833L);
     /**
-     * {@snippet :
-     * #define FEATURESETTING_NUP 0
+     * {@snippet lang=c :
+     * #define BCRYPT_SP800108_CTR_HMAC_ALG_HANDLE (void*) 833
      * }
      */
-    public static int FEATURESETTING_NUP() {
-        return (int)0L;
+    public static MemorySegment BCRYPT_SP800108_CTR_HMAC_ALG_HANDLE() {
+        return BCRYPT_SP800108_CTR_HMAC_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_SP80056A_CONCAT_ALG_HANDLE = MemorySegment.ofAddress(849L);
     /**
-     * {@snippet :
-     * #define FEATURESETTING_OUTPUT 1
+     * {@snippet lang=c :
+     * #define BCRYPT_SP80056A_CONCAT_ALG_HANDLE (void*) 849
      * }
      */
-    public static int FEATURESETTING_OUTPUT() {
-        return (int)1L;
+    public static MemorySegment BCRYPT_SP80056A_CONCAT_ALG_HANDLE() {
+        return BCRYPT_SP80056A_CONCAT_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_TLS1_1_KDF_ALG_HANDLE = MemorySegment.ofAddress(865L);
     /**
-     * {@snippet :
-     * #define FEATURESETTING_PSLEVEL 2
+     * {@snippet lang=c :
+     * #define BCRYPT_TLS1_1_KDF_ALG_HANDLE (void*) 865
      * }
      */
-    public static int FEATURESETTING_PSLEVEL() {
-        return (int)2L;
+    public static MemorySegment BCRYPT_TLS1_1_KDF_ALG_HANDLE() {
+        return BCRYPT_TLS1_1_KDF_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_TLS1_2_KDF_ALG_HANDLE = MemorySegment.ofAddress(881L);
     /**
-     * {@snippet :
-     * #define FEATURESETTING_CUSTPAPER 3
+     * {@snippet lang=c :
+     * #define BCRYPT_TLS1_2_KDF_ALG_HANDLE (void*) 881
      * }
      */
-    public static int FEATURESETTING_CUSTPAPER() {
-        return (int)3L;
+    public static MemorySegment BCRYPT_TLS1_2_KDF_ALG_HANDLE() {
+        return BCRYPT_TLS1_2_KDF_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_XTS_AES_ALG_HANDLE = MemorySegment.ofAddress(897L);
     /**
-     * {@snippet :
-     * #define FEATURESETTING_MIRROR 4
+     * {@snippet lang=c :
+     * #define BCRYPT_XTS_AES_ALG_HANDLE (void*) 897
      * }
      */
-    public static int FEATURESETTING_MIRROR() {
-        return (int)4L;
+    public static MemorySegment BCRYPT_XTS_AES_ALG_HANDLE() {
+        return BCRYPT_XTS_AES_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_HKDF_ALG_HANDLE = MemorySegment.ofAddress(913L);
     /**
-     * {@snippet :
-     * #define FEATURESETTING_NEGATIVE 5
+     * {@snippet lang=c :
+     * #define BCRYPT_HKDF_ALG_HANDLE (void*) 913
      * }
      */
-    public static int FEATURESETTING_NEGATIVE() {
-        return (int)5L;
+    public static MemorySegment BCRYPT_HKDF_ALG_HANDLE() {
+        return BCRYPT_HKDF_ALG_HANDLE;
     }
+    private static final MemorySegment BCRYPT_CHACHA20_POLY1305_ALG_HANDLE = MemorySegment.ofAddress(929L);
     /**
-     * {@snippet :
-     * #define FEATURESETTING_PROTOCOL 6
+     * {@snippet lang=c :
+     * #define BCRYPT_CHACHA20_POLY1305_ALG_HANDLE (void*) 929
      * }
      */
-    public static int FEATURESETTING_PROTOCOL() {
-        return (int)6L;
+    public static MemorySegment BCRYPT_CHACHA20_POLY1305_ALG_HANDLE() {
+        return BCRYPT_CHACHA20_POLY1305_ALG_HANDLE;
     }
+    private static final int CRYPT_MIN_DEPENDENCIES = (int)1L;
     /**
-     * {@snippet :
-     * #define FEATURESETTING_PRIVATE_BEGIN 4096
+     * {@snippet lang=c :
+     * #define CRYPT_MIN_DEPENDENCIES 1
      * }
      */
-    public static int FEATURESETTING_PRIVATE_BEGIN() {
-        return (int)4096L;
+    public static int CRYPT_MIN_DEPENDENCIES() {
+        return CRYPT_MIN_DEPENDENCIES;
     }
+    private static final int CRYPT_PROCESS_ISOLATE = (int)65536L;
     /**
-     * {@snippet :
-     * #define FEATURESETTING_PRIVATE_END 8191
+     * {@snippet lang=c :
+     * #define CRYPT_PROCESS_ISOLATE 65536
      * }
      */
-    public static int FEATURESETTING_PRIVATE_END() {
-        return (int)8191L;
+    public static int CRYPT_PROCESS_ISOLATE() {
+        return CRYPT_PROCESS_ISOLATE;
     }
+    private static final int CRYPT_UM = (int)1L;
     /**
-     * {@snippet :
-     * #define PSPROTOCOL_ASCII 0
+     * {@snippet lang=c :
+     * #define CRYPT_UM 1
      * }
      */
-    public static int PSPROTOCOL_ASCII() {
-        return (int)0L;
+    public static int CRYPT_UM() {
+        return CRYPT_UM;
     }
+    private static final int CRYPT_KM = (int)2L;
     /**
-     * {@snippet :
-     * #define PSPROTOCOL_BCP 1
+     * {@snippet lang=c :
+     * #define CRYPT_KM 2
      * }
      */
-    public static int PSPROTOCOL_BCP() {
-        return (int)1L;
+    public static int CRYPT_KM() {
+        return CRYPT_KM;
     }
+    private static final int CRYPT_MM = (int)3L;
     /**
-     * {@snippet :
-     * #define PSPROTOCOL_TBCP 2
+     * {@snippet lang=c :
+     * #define CRYPT_MM 3
      * }
      */
-    public static int PSPROTOCOL_TBCP() {
-        return (int)2L;
+    public static int CRYPT_MM() {
+        return CRYPT_MM;
     }
+    private static final int CRYPT_ANY = (int)4L;
     /**
-     * {@snippet :
-     * #define PSPROTOCOL_BINARY 3
+     * {@snippet lang=c :
+     * #define CRYPT_ANY 4
      * }
      */
-    public static int PSPROTOCOL_BINARY() {
-        return (int)3L;
+    public static int CRYPT_ANY() {
+        return CRYPT_ANY;
     }
+    private static final int CRYPT_OVERWRITE = (int)1L;
     /**
-     * {@snippet :
-     * #define QDI_SETDIBITS 1
+     * {@snippet lang=c :
+     * #define CRYPT_OVERWRITE 1
      * }
      */
-    public static int QDI_SETDIBITS() {
-        return (int)1L;
+    public static int CRYPT_OVERWRITE() {
+        return CRYPT_OVERWRITE;
     }
+    private static final int CRYPT_LOCAL = (int)1L;
     /**
-     * {@snippet :
-     * #define QDI_GETDIBITS 2
+     * {@snippet lang=c :
+     * #define CRYPT_LOCAL 1
      * }
      */
-    public static int QDI_GETDIBITS() {
-        return (int)2L;
+    public static int CRYPT_LOCAL() {
+        return CRYPT_LOCAL;
     }
+    private static final int CRYPT_DOMAIN = (int)2L;
     /**
-     * {@snippet :
-     * #define QDI_DIBTOSCREEN 4
+     * {@snippet lang=c :
+     * #define CRYPT_DOMAIN 2
      * }
      */
-    public static int QDI_DIBTOSCREEN() {
-        return (int)4L;
+    public static int CRYPT_DOMAIN() {
+        return CRYPT_DOMAIN;
     }
+    private static final int CRYPT_EXCLUSIVE = (int)1L;
     /**
-     * {@snippet :
-     * #define QDI_STRETCHDIB 8
+     * {@snippet lang=c :
+     * #define CRYPT_EXCLUSIVE 1
      * }
      */
-    public static int QDI_STRETCHDIB() {
-        return (int)8L;
+    public static int CRYPT_EXCLUSIVE() {
+        return CRYPT_EXCLUSIVE;
     }
+    private static final int CRYPT_OVERRIDE = (int)65536L;
     /**
-     * {@snippet :
-     * #define SP_NOTREPORTED 16384
+     * {@snippet lang=c :
+     * #define CRYPT_OVERRIDE 65536
      * }
      */
-    public static int SP_NOTREPORTED() {
-        return (int)16384L;
+    public static int CRYPT_OVERRIDE() {
+        return CRYPT_OVERRIDE;
     }
+    private static final int CRYPT_ALL_FUNCTIONS = (int)1L;
     /**
-     * {@snippet :
-     * #define PR_JOBSTATUS 0
+     * {@snippet lang=c :
+     * #define CRYPT_ALL_FUNCTIONS 1
      * }
      */
-    public static int PR_JOBSTATUS() {
-        return (int)0L;
+    public static int CRYPT_ALL_FUNCTIONS() {
+        return CRYPT_ALL_FUNCTIONS;
     }
+    private static final int CRYPT_ALL_PROVIDERS = (int)2L;
     /**
-     * {@snippet :
-     * #define OBJ_PEN 1
+     * {@snippet lang=c :
+     * #define CRYPT_ALL_PROVIDERS 2
      * }
      */
-    public static int OBJ_PEN() {
-        return (int)1L;
+    public static int CRYPT_ALL_PROVIDERS() {
+        return CRYPT_ALL_PROVIDERS;
     }
+    private static final int CRYPT_PRIORITY_TOP = (int)0L;
     /**
-     * {@snippet :
-     * #define OBJ_BRUSH 2
+     * {@snippet lang=c :
+     * #define CRYPT_PRIORITY_TOP 0
      * }
      */
-    public static int OBJ_BRUSH() {
-        return (int)2L;
+    public static int CRYPT_PRIORITY_TOP() {
+        return CRYPT_PRIORITY_TOP;
     }
+    private static final int CRYPT_PRIORITY_BOTTOM = (int)4294967295L;
     /**
-     * {@snippet :
-     * #define OBJ_DC 3
+     * {@snippet lang=c :
+     * #define CRYPT_PRIORITY_BOTTOM 4294967295
      * }
      */
-    public static int OBJ_DC() {
-        return (int)3L;
+    public static int CRYPT_PRIORITY_BOTTOM() {
+        return CRYPT_PRIORITY_BOTTOM;
     }
     /**
-     * {@snippet :
-     * #define OBJ_METADC 4
+     * {@snippet lang=c :
+     * #define CRYPT_DEFAULT_CONTEXT "D"
      * }
      */
-    public static int OBJ_METADC() {
-        return (int)4L;
+    public static MemorySegment CRYPT_DEFAULT_CONTEXT() {
+        class Holder {
+            static final MemorySegment CRYPT_DEFAULT_CONTEXT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.CRYPT_DEFAULT_CONTEXT;
     }
     /**
-     * {@snippet :
-     * #define OBJ_PAL 5
+     * {@snippet lang=c :
+     * #define MS_KEY_STORAGE_PROVIDER "M"
      * }
      */
-    public static int OBJ_PAL() {
-        return (int)5L;
+    public static MemorySegment MS_KEY_STORAGE_PROVIDER() {
+        class Holder {
+            static final MemorySegment MS_KEY_STORAGE_PROVIDER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_KEY_STORAGE_PROVIDER;
     }
     /**
-     * {@snippet :
-     * #define OBJ_FONT 6
+     * {@snippet lang=c :
+     * #define MS_SMART_CARD_KEY_STORAGE_PROVIDER "M"
      * }
      */
-    public static int OBJ_FONT() {
-        return (int)6L;
+    public static MemorySegment MS_SMART_CARD_KEY_STORAGE_PROVIDER() {
+        class Holder {
+            static final MemorySegment MS_SMART_CARD_KEY_STORAGE_PROVIDER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_SMART_CARD_KEY_STORAGE_PROVIDER;
     }
     /**
-     * {@snippet :
-     * #define OBJ_BITMAP 7
+     * {@snippet lang=c :
+     * #define MS_PLATFORM_KEY_STORAGE_PROVIDER "M"
      * }
      */
-    public static int OBJ_BITMAP() {
-        return (int)7L;
+    public static MemorySegment MS_PLATFORM_KEY_STORAGE_PROVIDER() {
+        class Holder {
+            static final MemorySegment MS_PLATFORM_KEY_STORAGE_PROVIDER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_PLATFORM_KEY_STORAGE_PROVIDER;
     }
     /**
-     * {@snippet :
-     * #define OBJ_REGION 8
+     * {@snippet lang=c :
+     * #define MS_NGC_KEY_STORAGE_PROVIDER "M"
      * }
      */
-    public static int OBJ_REGION() {
-        return (int)8L;
+    public static MemorySegment MS_NGC_KEY_STORAGE_PROVIDER() {
+        class Holder {
+            static final MemorySegment MS_NGC_KEY_STORAGE_PROVIDER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_NGC_KEY_STORAGE_PROVIDER;
     }
     /**
-     * {@snippet :
-     * #define OBJ_METAFILE 9
+     * {@snippet lang=c :
+     * #define TPM_RSA_SRK_SEAL_KEY "M"
      * }
      */
-    public static int OBJ_METAFILE() {
-        return (int)9L;
+    public static MemorySegment TPM_RSA_SRK_SEAL_KEY() {
+        class Holder {
+            static final MemorySegment TPM_RSA_SRK_SEAL_KEY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.TPM_RSA_SRK_SEAL_KEY;
     }
     /**
-     * {@snippet :
-     * #define OBJ_MEMDC 10
+     * {@snippet lang=c :
+     * #define NCRYPT_RSA_ALGORITHM "R"
      * }
      */
-    public static int OBJ_MEMDC() {
-        return (int)10L;
+    public static MemorySegment NCRYPT_RSA_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_RSA_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+        }
+        return Holder.NCRYPT_RSA_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define OBJ_EXTPEN 11
+     * {@snippet lang=c :
+     * #define NCRYPT_RSA_SIGN_ALGORITHM "R"
      * }
      */
-    public static int OBJ_EXTPEN() {
-        return (int)11L;
+    public static MemorySegment NCRYPT_RSA_SIGN_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_RSA_SIGN_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+        }
+        return Holder.NCRYPT_RSA_SIGN_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define OBJ_ENHMETADC 12
+     * {@snippet lang=c :
+     * #define NCRYPT_DH_ALGORITHM "D"
      * }
      */
-    public static int OBJ_ENHMETADC() {
-        return (int)12L;
+    public static MemorySegment NCRYPT_DH_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_DH_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.NCRYPT_DH_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define OBJ_ENHMETAFILE 13
+     * {@snippet lang=c :
+     * #define NCRYPT_DSA_ALGORITHM "D"
      * }
      */
-    public static int OBJ_ENHMETAFILE() {
-        return (int)13L;
+    public static MemorySegment NCRYPT_DSA_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_DSA_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.NCRYPT_DSA_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define OBJ_COLORSPACE 14
+     * {@snippet lang=c :
+     * #define NCRYPT_MD2_ALGORITHM "M"
      * }
      */
-    public static int OBJ_COLORSPACE() {
-        return (int)14L;
+    public static MemorySegment NCRYPT_MD2_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_MD2_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.NCRYPT_MD2_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define MWT_IDENTITY 1
+     * {@snippet lang=c :
+     * #define NCRYPT_MD4_ALGORITHM "M"
      * }
      */
-    public static int MWT_IDENTITY() {
-        return (int)1L;
+    public static MemorySegment NCRYPT_MD4_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_MD4_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.NCRYPT_MD4_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define MWT_LEFTMULTIPLY 2
+     * {@snippet lang=c :
+     * #define NCRYPT_MD5_ALGORITHM "M"
      * }
      */
-    public static int MWT_LEFTMULTIPLY() {
-        return (int)2L;
+    public static MemorySegment NCRYPT_MD5_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_MD5_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.NCRYPT_MD5_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define MWT_RIGHTMULTIPLY 3
+     * {@snippet lang=c :
+     * #define NCRYPT_SHA1_ALGORITHM "S"
      * }
      */
-    public static int MWT_RIGHTMULTIPLY() {
-        return (int)3L;
+    public static MemorySegment NCRYPT_SHA1_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_SHA1_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_SHA1_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define CM_OUT_OF_GAMUT 255
+     * {@snippet lang=c :
+     * #define NCRYPT_SHA256_ALGORITHM "S"
      * }
      */
-    public static int CM_OUT_OF_GAMUT() {
-        return (int)255L;
+    public static MemorySegment NCRYPT_SHA256_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_SHA256_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_SHA256_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define CM_IN_GAMUT 0
+     * {@snippet lang=c :
+     * #define NCRYPT_SHA384_ALGORITHM "S"
      * }
      */
-    public static int CM_IN_GAMUT() {
-        return (int)0L;
+    public static MemorySegment NCRYPT_SHA384_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_SHA384_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_SHA384_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define ICM_ADDPROFILE 1
+     * {@snippet lang=c :
+     * #define NCRYPT_SHA512_ALGORITHM "S"
      * }
      */
-    public static int ICM_ADDPROFILE() {
-        return (int)1L;
+    public static MemorySegment NCRYPT_SHA512_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_SHA512_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_SHA512_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define ICM_DELETEPROFILE 2
+     * {@snippet lang=c :
+     * #define NCRYPT_ECDSA_P256_ALGORITHM "E"
      * }
      */
-    public static int ICM_DELETEPROFILE() {
-        return (int)2L;
+    public static MemorySegment NCRYPT_ECDSA_P256_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_ECDSA_P256_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_ECDSA_P256_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define ICM_QUERYPROFILE 3
+     * {@snippet lang=c :
+     * #define NCRYPT_ECDSA_P384_ALGORITHM "E"
      * }
      */
-    public static int ICM_QUERYPROFILE() {
-        return (int)3L;
+    public static MemorySegment NCRYPT_ECDSA_P384_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_ECDSA_P384_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_ECDSA_P384_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define ICM_SETDEFAULTPROFILE 4
+     * {@snippet lang=c :
+     * #define NCRYPT_ECDSA_P521_ALGORITHM "E"
      * }
      */
-    public static int ICM_SETDEFAULTPROFILE() {
-        return (int)4L;
+    public static MemorySegment NCRYPT_ECDSA_P521_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_ECDSA_P521_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_ECDSA_P521_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define ICM_REGISTERICMATCHER 5
+     * {@snippet lang=c :
+     * #define NCRYPT_ECDH_P256_ALGORITHM "E"
      * }
      */
-    public static int ICM_REGISTERICMATCHER() {
-        return (int)5L;
+    public static MemorySegment NCRYPT_ECDH_P256_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_ECDH_P256_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_ECDH_P256_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define ICM_UNREGISTERICMATCHER 6
+     * {@snippet lang=c :
+     * #define NCRYPT_ECDH_P384_ALGORITHM "E"
      * }
      */
-    public static int ICM_UNREGISTERICMATCHER() {
-        return (int)6L;
+    public static MemorySegment NCRYPT_ECDH_P384_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_ECDH_P384_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_ECDH_P384_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define ICM_QUERYMATCH 7
+     * {@snippet lang=c :
+     * #define NCRYPT_ECDH_P521_ALGORITHM "E"
      * }
      */
-    public static int ICM_QUERYMATCH() {
-        return (int)7L;
+    public static MemorySegment NCRYPT_ECDH_P521_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_ECDH_P521_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_ECDH_P521_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define TCI_SRCCHARSET 1
+     * {@snippet lang=c :
+     * #define NCRYPT_AES_ALGORITHM "A"
      * }
      */
-    public static int TCI_SRCCHARSET() {
-        return (int)1L;
+    public static MemorySegment NCRYPT_AES_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_AES_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+        }
+        return Holder.NCRYPT_AES_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define TCI_SRCCODEPAGE 2
+     * {@snippet lang=c :
+     * #define NCRYPT_RC2_ALGORITHM "R"
      * }
      */
-    public static int TCI_SRCCODEPAGE() {
-        return (int)2L;
+    public static MemorySegment NCRYPT_RC2_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_RC2_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+        }
+        return Holder.NCRYPT_RC2_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define TCI_SRCFONTSIG 3
+     * {@snippet lang=c :
+     * #define NCRYPT_3DES_ALGORITHM "3"
      * }
      */
-    public static int TCI_SRCFONTSIG() {
-        return (int)3L;
+    public static MemorySegment NCRYPT_3DES_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_3DES_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("3");
+        }
+        return Holder.NCRYPT_3DES_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define TCI_SRCLOCALE 4096
+     * {@snippet lang=c :
+     * #define NCRYPT_DES_ALGORITHM "D"
      * }
      */
-    public static int TCI_SRCLOCALE() {
-        return (int)4096L;
+    public static MemorySegment NCRYPT_DES_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_DES_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.NCRYPT_DES_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define TMPF_FIXED_PITCH 1
+     * {@snippet lang=c :
+     * #define NCRYPT_DESX_ALGORITHM "D"
      * }
      */
-    public static int TMPF_FIXED_PITCH() {
-        return (int)1L;
+    public static MemorySegment NCRYPT_DESX_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_DESX_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.NCRYPT_DESX_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define TMPF_VECTOR 2
+     * {@snippet lang=c :
+     * #define NCRYPT_3DES_112_ALGORITHM "3"
      * }
      */
-    public static int TMPF_VECTOR() {
-        return (int)2L;
+    public static MemorySegment NCRYPT_3DES_112_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_3DES_112_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("3");
+        }
+        return Holder.NCRYPT_3DES_112_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define TMPF_DEVICE 8
+     * {@snippet lang=c :
+     * #define NCRYPT_SP800108_CTR_HMAC_ALGORITHM "S"
      * }
      */
-    public static int TMPF_DEVICE() {
-        return (int)8L;
+    public static MemorySegment NCRYPT_SP800108_CTR_HMAC_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_SP800108_CTR_HMAC_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_SP800108_CTR_HMAC_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define TMPF_TRUETYPE 4
+     * {@snippet lang=c :
+     * #define NCRYPT_SP80056A_CONCAT_ALGORITHM "S"
      * }
      */
-    public static int TMPF_TRUETYPE() {
-        return (int)4L;
+    public static MemorySegment NCRYPT_SP80056A_CONCAT_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_SP80056A_CONCAT_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_SP80056A_CONCAT_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define NTM_NONNEGATIVE_AC 65536
+     * {@snippet lang=c :
+     * #define NCRYPT_PBKDF2_ALGORITHM "P"
      * }
      */
-    public static int NTM_NONNEGATIVE_AC() {
-        return (int)65536L;
+    public static MemorySegment NCRYPT_PBKDF2_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_PBKDF2_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PBKDF2_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define NTM_PS_OPENTYPE 131072
+     * {@snippet lang=c :
+     * #define NCRYPT_CAPI_KDF_ALGORITHM "C"
      * }
      */
-    public static int NTM_PS_OPENTYPE() {
-        return (int)131072L;
+    public static MemorySegment NCRYPT_CAPI_KDF_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_CAPI_KDF_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.NCRYPT_CAPI_KDF_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define NTM_TT_OPENTYPE 262144
+     * {@snippet lang=c :
+     * #define NCRYPT_ECDSA_ALGORITHM "E"
      * }
      */
-    public static int NTM_TT_OPENTYPE() {
-        return (int)262144L;
+    public static MemorySegment NCRYPT_ECDSA_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_ECDSA_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_ECDSA_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define NTM_MULTIPLEMASTER 524288
+     * {@snippet lang=c :
+     * #define NCRYPT_ECDH_ALGORITHM "E"
      * }
      */
-    public static int NTM_MULTIPLEMASTER() {
-        return (int)524288L;
+    public static MemorySegment NCRYPT_ECDH_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_ECDH_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_ECDH_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define NTM_TYPE1 1048576
+     * {@snippet lang=c :
+     * #define NCRYPT_KEY_STORAGE_ALGORITHM "K"
      * }
      */
-    public static int NTM_TYPE1() {
-        return (int)1048576L;
+    public static MemorySegment NCRYPT_KEY_STORAGE_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_KEY_STORAGE_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+        }
+        return Holder.NCRYPT_KEY_STORAGE_ALGORITHM;
     }
     /**
-     * {@snippet :
-     * #define NTM_DSIG 2097152
+     * {@snippet lang=c :
+     * #define NCRYPT_HMAC_SHA256_ALGORITHM "H"
      * }
      */
-    public static int NTM_DSIG() {
-        return (int)2097152L;
+    public static MemorySegment NCRYPT_HMAC_SHA256_ALGORITHM() {
+        class Holder {
+            static final MemorySegment NCRYPT_HMAC_SHA256_ALGORITHM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+        }
+        return Holder.NCRYPT_HMAC_SHA256_ALGORITHM;
     }
+    private static final int NCRYPT_CIPHER_INTERFACE = (int)1L;
     /**
-     * {@snippet :
-     * #define LF_FACESIZE 32
+     * {@snippet lang=c :
+     * #define NCRYPT_CIPHER_INTERFACE 1
      * }
      */
-    public static int LF_FACESIZE() {
-        return (int)32L;
+    public static int NCRYPT_CIPHER_INTERFACE() {
+        return NCRYPT_CIPHER_INTERFACE;
     }
+    private static final int NCRYPT_HASH_INTERFACE = (int)2L;
     /**
-     * {@snippet :
-     * #define LF_FULLFACESIZE 64
+     * {@snippet lang=c :
+     * #define NCRYPT_HASH_INTERFACE 2
      * }
      */
-    public static int LF_FULLFACESIZE() {
-        return (int)64L;
+    public static int NCRYPT_HASH_INTERFACE() {
+        return NCRYPT_HASH_INTERFACE;
     }
+    private static final int NCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE = (int)3L;
     /**
-     * {@snippet :
-     * #define OUT_DEFAULT_PRECIS 0
+     * {@snippet lang=c :
+     * #define NCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE 3
      * }
      */
-    public static int OUT_DEFAULT_PRECIS() {
-        return (int)0L;
+    public static int NCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE() {
+        return NCRYPT_ASYMMETRIC_ENCRYPTION_INTERFACE;
     }
+    private static final int NCRYPT_SECRET_AGREEMENT_INTERFACE = (int)4L;
     /**
-     * {@snippet :
-     * #define OUT_STRING_PRECIS 1
+     * {@snippet lang=c :
+     * #define NCRYPT_SECRET_AGREEMENT_INTERFACE 4
      * }
      */
-    public static int OUT_STRING_PRECIS() {
-        return (int)1L;
+    public static int NCRYPT_SECRET_AGREEMENT_INTERFACE() {
+        return NCRYPT_SECRET_AGREEMENT_INTERFACE;
     }
+    private static final int NCRYPT_SIGNATURE_INTERFACE = (int)5L;
     /**
-     * {@snippet :
-     * #define OUT_CHARACTER_PRECIS 2
+     * {@snippet lang=c :
+     * #define NCRYPT_SIGNATURE_INTERFACE 5
      * }
      */
-    public static int OUT_CHARACTER_PRECIS() {
-        return (int)2L;
+    public static int NCRYPT_SIGNATURE_INTERFACE() {
+        return NCRYPT_SIGNATURE_INTERFACE;
     }
+    private static final int NCRYPT_KEY_DERIVATION_INTERFACE = (int)7L;
     /**
-     * {@snippet :
-     * #define OUT_STROKE_PRECIS 3
+     * {@snippet lang=c :
+     * #define NCRYPT_KEY_DERIVATION_INTERFACE 7
      * }
      */
-    public static int OUT_STROKE_PRECIS() {
-        return (int)3L;
+    public static int NCRYPT_KEY_DERIVATION_INTERFACE() {
+        return NCRYPT_KEY_DERIVATION_INTERFACE;
     }
     /**
-     * {@snippet :
-     * #define OUT_TT_PRECIS 4
+     * {@snippet lang=c :
+     * #define NCRYPT_RSA_ALGORITHM_GROUP "R"
      * }
      */
-    public static int OUT_TT_PRECIS() {
-        return (int)4L;
+    public static MemorySegment NCRYPT_RSA_ALGORITHM_GROUP() {
+        class Holder {
+            static final MemorySegment NCRYPT_RSA_ALGORITHM_GROUP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+        }
+        return Holder.NCRYPT_RSA_ALGORITHM_GROUP;
     }
     /**
-     * {@snippet :
-     * #define OUT_DEVICE_PRECIS 5
+     * {@snippet lang=c :
+     * #define NCRYPT_DH_ALGORITHM_GROUP "D"
      * }
      */
-    public static int OUT_DEVICE_PRECIS() {
-        return (int)5L;
+    public static MemorySegment NCRYPT_DH_ALGORITHM_GROUP() {
+        class Holder {
+            static final MemorySegment NCRYPT_DH_ALGORITHM_GROUP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.NCRYPT_DH_ALGORITHM_GROUP;
     }
     /**
-     * {@snippet :
-     * #define OUT_RASTER_PRECIS 6
+     * {@snippet lang=c :
+     * #define NCRYPT_DSA_ALGORITHM_GROUP "D"
      * }
      */
-    public static int OUT_RASTER_PRECIS() {
-        return (int)6L;
+    public static MemorySegment NCRYPT_DSA_ALGORITHM_GROUP() {
+        class Holder {
+            static final MemorySegment NCRYPT_DSA_ALGORITHM_GROUP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.NCRYPT_DSA_ALGORITHM_GROUP;
     }
     /**
-     * {@snippet :
-     * #define OUT_TT_ONLY_PRECIS 7
+     * {@snippet lang=c :
+     * #define NCRYPT_ECDSA_ALGORITHM_GROUP "E"
      * }
      */
-    public static int OUT_TT_ONLY_PRECIS() {
-        return (int)7L;
+    public static MemorySegment NCRYPT_ECDSA_ALGORITHM_GROUP() {
+        class Holder {
+            static final MemorySegment NCRYPT_ECDSA_ALGORITHM_GROUP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_ECDSA_ALGORITHM_GROUP;
     }
     /**
-     * {@snippet :
-     * #define OUT_OUTLINE_PRECIS 8
+     * {@snippet lang=c :
+     * #define NCRYPT_ECDH_ALGORITHM_GROUP "E"
      * }
      */
-    public static int OUT_OUTLINE_PRECIS() {
-        return (int)8L;
+    public static MemorySegment NCRYPT_ECDH_ALGORITHM_GROUP() {
+        class Holder {
+            static final MemorySegment NCRYPT_ECDH_ALGORITHM_GROUP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_ECDH_ALGORITHM_GROUP;
     }
     /**
-     * {@snippet :
-     * #define OUT_SCREEN_OUTLINE_PRECIS 9
+     * {@snippet lang=c :
+     * #define NCRYPT_AES_ALGORITHM_GROUP "A"
      * }
      */
-    public static int OUT_SCREEN_OUTLINE_PRECIS() {
-        return (int)9L;
+    public static MemorySegment NCRYPT_AES_ALGORITHM_GROUP() {
+        class Holder {
+            static final MemorySegment NCRYPT_AES_ALGORITHM_GROUP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+        }
+        return Holder.NCRYPT_AES_ALGORITHM_GROUP;
     }
     /**
-     * {@snippet :
-     * #define OUT_PS_ONLY_PRECIS 10
+     * {@snippet lang=c :
+     * #define NCRYPT_RC2_ALGORITHM_GROUP "R"
      * }
      */
-    public static int OUT_PS_ONLY_PRECIS() {
-        return (int)10L;
+    public static MemorySegment NCRYPT_RC2_ALGORITHM_GROUP() {
+        class Holder {
+            static final MemorySegment NCRYPT_RC2_ALGORITHM_GROUP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("R");
+        }
+        return Holder.NCRYPT_RC2_ALGORITHM_GROUP;
     }
     /**
-     * {@snippet :
-     * #define CLIP_DEFAULT_PRECIS 0
+     * {@snippet lang=c :
+     * #define NCRYPT_DES_ALGORITHM_GROUP "D"
      * }
      */
-    public static int CLIP_DEFAULT_PRECIS() {
-        return (int)0L;
+    public static MemorySegment NCRYPT_DES_ALGORITHM_GROUP() {
+        class Holder {
+            static final MemorySegment NCRYPT_DES_ALGORITHM_GROUP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.NCRYPT_DES_ALGORITHM_GROUP;
     }
     /**
-     * {@snippet :
-     * #define CLIP_CHARACTER_PRECIS 1
+     * {@snippet lang=c :
+     * #define NCRYPT_KEY_DERIVATION_GROUP "K"
      * }
      */
-    public static int CLIP_CHARACTER_PRECIS() {
-        return (int)1L;
+    public static MemorySegment NCRYPT_KEY_DERIVATION_GROUP() {
+        class Holder {
+            static final MemorySegment NCRYPT_KEY_DERIVATION_GROUP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+        }
+        return Holder.NCRYPT_KEY_DERIVATION_GROUP;
     }
+    private static final int NCRYPT_ISOLATED_KEY_ATTESTED_ATTRIBUTES_CURRENT_VERSION = (int)0L;
     /**
-     * {@snippet :
-     * #define CLIP_STROKE_PRECIS 2
+     * {@snippet lang=c :
+     * #define NCRYPT_ISOLATED_KEY_ATTESTED_ATTRIBUTES_CURRENT_VERSION 0
      * }
      */
-    public static int CLIP_STROKE_PRECIS() {
-        return (int)2L;
+    public static int NCRYPT_ISOLATED_KEY_ATTESTED_ATTRIBUTES_CURRENT_VERSION() {
+        return NCRYPT_ISOLATED_KEY_ATTESTED_ATTRIBUTES_CURRENT_VERSION;
     }
+    private static final int NCRYPT_VSM_KEY_ATTESTATION_STATEMENT_CURRENT_VERSION = (int)0L;
     /**
-     * {@snippet :
-     * #define CLIP_MASK 15
+     * {@snippet lang=c :
+     * #define NCRYPT_VSM_KEY_ATTESTATION_STATEMENT_CURRENT_VERSION 0
      * }
      */
-    public static int CLIP_MASK() {
-        return (int)15L;
+    public static int NCRYPT_VSM_KEY_ATTESTATION_STATEMENT_CURRENT_VERSION() {
+        return NCRYPT_VSM_KEY_ATTESTATION_STATEMENT_CURRENT_VERSION;
     }
+    private static final int NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS_CURRENT_VERSION = (int)0L;
     /**
-     * {@snippet :
-     * #define DEFAULT_QUALITY 0
+     * {@snippet lang=c :
+     * #define NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS_CURRENT_VERSION 0
      * }
      */
-    public static int DEFAULT_QUALITY() {
-        return (int)0L;
+    public static int NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS_CURRENT_VERSION() {
+        return NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS_CURRENT_VERSION;
     }
+    private static final int NCRYPT_EXPORTED_ISOLATED_KEY_HEADER_CURRENT_VERSION = (int)0L;
     /**
-     * {@snippet :
-     * #define DRAFT_QUALITY 1
+     * {@snippet lang=c :
+     * #define NCRYPT_EXPORTED_ISOLATED_KEY_HEADER_CURRENT_VERSION 0
      * }
      */
-    public static int DRAFT_QUALITY() {
-        return (int)1L;
+    public static int NCRYPT_EXPORTED_ISOLATED_KEY_HEADER_CURRENT_VERSION() {
+        return NCRYPT_EXPORTED_ISOLATED_KEY_HEADER_CURRENT_VERSION;
     }
+    private static final int NCRYPT_TPM_PLATFORM_ATTESTATION_STATEMENT_CURRENT_VERSION = (int)0L;
     /**
-     * {@snippet :
-     * #define PROOF_QUALITY 2
+     * {@snippet lang=c :
+     * #define NCRYPT_TPM_PLATFORM_ATTESTATION_STATEMENT_CURRENT_VERSION 0
      * }
      */
-    public static int PROOF_QUALITY() {
-        return (int)2L;
+    public static int NCRYPT_TPM_PLATFORM_ATTESTATION_STATEMENT_CURRENT_VERSION() {
+        return NCRYPT_TPM_PLATFORM_ATTESTATION_STATEMENT_CURRENT_VERSION;
     }
+    private static final int NCRYPT_NO_KEY_VALIDATION = (int)8L;
     /**
-     * {@snippet :
-     * #define NONANTIALIASED_QUALITY 3
+     * {@snippet lang=c :
+     * #define NCRYPT_NO_KEY_VALIDATION 8
      * }
      */
-    public static int NONANTIALIASED_QUALITY() {
-        return (int)3L;
+    public static int NCRYPT_NO_KEY_VALIDATION() {
+        return NCRYPT_NO_KEY_VALIDATION;
     }
+    private static final int NCRYPT_PERSIST_FLAG = (int)2147483648L;
     /**
-     * {@snippet :
-     * #define ANTIALIASED_QUALITY 4
+     * {@snippet lang=c :
+     * #define NCRYPT_PERSIST_FLAG 2147483648
      * }
      */
-    public static int ANTIALIASED_QUALITY() {
-        return (int)4L;
+    public static int NCRYPT_PERSIST_FLAG() {
+        return NCRYPT_PERSIST_FLAG;
     }
+    private static final int NCRYPT_CIPHER_OPERATION = (int)1L;
     /**
-     * {@snippet :
-     * #define CLEARTYPE_QUALITY 5
+     * {@snippet lang=c :
+     * #define NCRYPT_CIPHER_OPERATION 1
      * }
      */
-    public static int CLEARTYPE_QUALITY() {
-        return (int)5L;
+    public static int NCRYPT_CIPHER_OPERATION() {
+        return NCRYPT_CIPHER_OPERATION;
     }
+    private static final int NCRYPT_HASH_OPERATION = (int)2L;
     /**
-     * {@snippet :
-     * #define CLEARTYPE_NATURAL_QUALITY 6
+     * {@snippet lang=c :
+     * #define NCRYPT_HASH_OPERATION 2
      * }
      */
-    public static int CLEARTYPE_NATURAL_QUALITY() {
-        return (int)6L;
+    public static int NCRYPT_HASH_OPERATION() {
+        return NCRYPT_HASH_OPERATION;
     }
+    private static final int NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION = (int)4L;
     /**
-     * {@snippet :
-     * #define DEFAULT_PITCH 0
+     * {@snippet lang=c :
+     * #define NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION 4
      * }
      */
-    public static int DEFAULT_PITCH() {
-        return (int)0L;
+    public static int NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION() {
+        return NCRYPT_ASYMMETRIC_ENCRYPTION_OPERATION;
     }
+    private static final int NCRYPT_SECRET_AGREEMENT_OPERATION = (int)8L;
     /**
-     * {@snippet :
-     * #define FIXED_PITCH 1
+     * {@snippet lang=c :
+     * #define NCRYPT_SECRET_AGREEMENT_OPERATION 8
      * }
      */
-    public static int FIXED_PITCH() {
-        return (int)1L;
+    public static int NCRYPT_SECRET_AGREEMENT_OPERATION() {
+        return NCRYPT_SECRET_AGREEMENT_OPERATION;
     }
+    private static final int NCRYPT_SIGNATURE_OPERATION = (int)16L;
     /**
-     * {@snippet :
-     * #define VARIABLE_PITCH 2
+     * {@snippet lang=c :
+     * #define NCRYPT_SIGNATURE_OPERATION 16
      * }
      */
-    public static int VARIABLE_PITCH() {
-        return (int)2L;
+    public static int NCRYPT_SIGNATURE_OPERATION() {
+        return NCRYPT_SIGNATURE_OPERATION;
     }
+    private static final int NCRYPT_RNG_OPERATION = (int)32L;
     /**
-     * {@snippet :
-     * #define MONO_FONT 8
+     * {@snippet lang=c :
+     * #define NCRYPT_RNG_OPERATION 32
      * }
      */
-    public static int MONO_FONT() {
-        return (int)8L;
+    public static int NCRYPT_RNG_OPERATION() {
+        return NCRYPT_RNG_OPERATION;
     }
+    private static final int NCRYPT_KEY_DERIVATION_OPERATION = (int)64L;
     /**
-     * {@snippet :
-     * #define ANSI_CHARSET 0
+     * {@snippet lang=c :
+     * #define NCRYPT_KEY_DERIVATION_OPERATION 64
      * }
      */
-    public static int ANSI_CHARSET() {
-        return (int)0L;
+    public static int NCRYPT_KEY_DERIVATION_OPERATION() {
+        return NCRYPT_KEY_DERIVATION_OPERATION;
     }
     /**
-     * {@snippet :
-     * #define DEFAULT_CHARSET 1
+     * {@snippet lang=c :
+     * #define NCRYPT_NAME_PROPERTY "N"
      * }
      */
-    public static int DEFAULT_CHARSET() {
-        return (int)1L;
+    public static MemorySegment NCRYPT_NAME_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_NAME_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("N");
+        }
+        return Holder.NCRYPT_NAME_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define SYMBOL_CHARSET 2
+     * {@snippet lang=c :
+     * #define NCRYPT_UNIQUE_NAME_PROPERTY "U"
      * }
      */
-    public static int SYMBOL_CHARSET() {
-        return (int)2L;
+    public static MemorySegment NCRYPT_UNIQUE_NAME_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_UNIQUE_NAME_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("U");
+        }
+        return Holder.NCRYPT_UNIQUE_NAME_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define SHIFTJIS_CHARSET 128
+     * {@snippet lang=c :
+     * #define NCRYPT_ALGORITHM_PROPERTY "A"
      * }
      */
-    public static int SHIFTJIS_CHARSET() {
-        return (int)128L;
+    public static MemorySegment NCRYPT_ALGORITHM_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_ALGORITHM_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+        }
+        return Holder.NCRYPT_ALGORITHM_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define HANGEUL_CHARSET 129
+     * {@snippet lang=c :
+     * #define NCRYPT_LENGTH_PROPERTY "L"
      * }
      */
-    public static int HANGEUL_CHARSET() {
-        return (int)129L;
+    public static MemorySegment NCRYPT_LENGTH_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_LENGTH_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("L");
+        }
+        return Holder.NCRYPT_LENGTH_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define HANGUL_CHARSET 129
+     * {@snippet lang=c :
+     * #define NCRYPT_LENGTHS_PROPERTY "L"
      * }
      */
-    public static int HANGUL_CHARSET() {
-        return (int)129L;
+    public static MemorySegment NCRYPT_LENGTHS_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_LENGTHS_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("L");
+        }
+        return Holder.NCRYPT_LENGTHS_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define GB2312_CHARSET 134
+     * {@snippet lang=c :
+     * #define NCRYPT_BLOCK_LENGTH_PROPERTY "B"
      * }
      */
-    public static int GB2312_CHARSET() {
-        return (int)134L;
+    public static MemorySegment NCRYPT_BLOCK_LENGTH_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_BLOCK_LENGTH_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("B");
+        }
+        return Holder.NCRYPT_BLOCK_LENGTH_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define CHINESEBIG5_CHARSET 136
+     * {@snippet lang=c :
+     * #define NCRYPT_PUBLIC_LENGTH_PROPERTY "P"
      * }
      */
-    public static int CHINESEBIG5_CHARSET() {
-        return (int)136L;
+    public static MemorySegment NCRYPT_PUBLIC_LENGTH_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PUBLIC_LENGTH_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PUBLIC_LENGTH_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define OEM_CHARSET 255
+     * {@snippet lang=c :
+     * #define NCRYPT_SIGNATURE_LENGTH_PROPERTY "S"
      * }
      */
-    public static int OEM_CHARSET() {
-        return (int)255L;
+    public static MemorySegment NCRYPT_SIGNATURE_LENGTH_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_SIGNATURE_LENGTH_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_SIGNATURE_LENGTH_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define JOHAB_CHARSET 130
+     * {@snippet lang=c :
+     * #define NCRYPT_CHAINING_MODE_PROPERTY "C"
      * }
      */
-    public static int JOHAB_CHARSET() {
-        return (int)130L;
+    public static MemorySegment NCRYPT_CHAINING_MODE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_CHAINING_MODE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.NCRYPT_CHAINING_MODE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define HEBREW_CHARSET 177
+     * {@snippet lang=c :
+     * #define NCRYPT_AUTH_TAG_LENGTH "A"
      * }
      */
-    public static int HEBREW_CHARSET() {
-        return (int)177L;
+    public static MemorySegment NCRYPT_AUTH_TAG_LENGTH() {
+        class Holder {
+            static final MemorySegment NCRYPT_AUTH_TAG_LENGTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+        }
+        return Holder.NCRYPT_AUTH_TAG_LENGTH;
     }
     /**
-     * {@snippet :
-     * #define ARABIC_CHARSET 178
+     * {@snippet lang=c :
+     * #define NCRYPT_UI_POLICY_PROPERTY "U"
      * }
      */
-    public static int ARABIC_CHARSET() {
-        return (int)178L;
+    public static MemorySegment NCRYPT_UI_POLICY_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_UI_POLICY_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("U");
+        }
+        return Holder.NCRYPT_UI_POLICY_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define GREEK_CHARSET 161
+     * {@snippet lang=c :
+     * #define NCRYPT_EXPORT_POLICY_PROPERTY "E"
      * }
      */
-    public static int GREEK_CHARSET() {
-        return (int)161L;
+    public static MemorySegment NCRYPT_EXPORT_POLICY_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_EXPORT_POLICY_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_EXPORT_POLICY_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define TURKISH_CHARSET 162
+     * {@snippet lang=c :
+     * #define NCRYPT_WINDOW_HANDLE_PROPERTY "H"
      * }
      */
-    public static int TURKISH_CHARSET() {
-        return (int)162L;
+    public static MemorySegment NCRYPT_WINDOW_HANDLE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_WINDOW_HANDLE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("H");
+        }
+        return Holder.NCRYPT_WINDOW_HANDLE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define VIETNAMESE_CHARSET 163
+     * {@snippet lang=c :
+     * #define NCRYPT_USE_CONTEXT_PROPERTY "U"
      * }
      */
-    public static int VIETNAMESE_CHARSET() {
-        return (int)163L;
+    public static MemorySegment NCRYPT_USE_CONTEXT_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_USE_CONTEXT_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("U");
+        }
+        return Holder.NCRYPT_USE_CONTEXT_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define THAI_CHARSET 222
+     * {@snippet lang=c :
+     * #define NCRYPT_IMPL_TYPE_PROPERTY "I"
      * }
      */
-    public static int THAI_CHARSET() {
-        return (int)222L;
+    public static MemorySegment NCRYPT_IMPL_TYPE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_IMPL_TYPE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("I");
+        }
+        return Holder.NCRYPT_IMPL_TYPE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define EASTEUROPE_CHARSET 238
+     * {@snippet lang=c :
+     * #define NCRYPT_KEY_USAGE_PROPERTY "K"
      * }
      */
-    public static int EASTEUROPE_CHARSET() {
-        return (int)238L;
+    public static MemorySegment NCRYPT_KEY_USAGE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_KEY_USAGE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+        }
+        return Holder.NCRYPT_KEY_USAGE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define RUSSIAN_CHARSET 204
+     * {@snippet lang=c :
+     * #define NCRYPT_KEY_TYPE_PROPERTY "K"
      * }
      */
-    public static int RUSSIAN_CHARSET() {
-        return (int)204L;
+    public static MemorySegment NCRYPT_KEY_TYPE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_KEY_TYPE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+        }
+        return Holder.NCRYPT_KEY_TYPE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define MAC_CHARSET 77
+     * {@snippet lang=c :
+     * #define NCRYPT_VERSION_PROPERTY "V"
      * }
      */
-    public static int MAC_CHARSET() {
-        return (int)77L;
+    public static MemorySegment NCRYPT_VERSION_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_VERSION_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("V");
+        }
+        return Holder.NCRYPT_VERSION_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define BALTIC_CHARSET 186
+     * {@snippet lang=c :
+     * #define NCRYPT_SECURITY_DESCR_SUPPORT_PROPERTY "S"
      * }
      */
-    public static int BALTIC_CHARSET() {
-        return (int)186L;
+    public static MemorySegment NCRYPT_SECURITY_DESCR_SUPPORT_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_SECURITY_DESCR_SUPPORT_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_SECURITY_DESCR_SUPPORT_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define FW_DONTCARE 0
+     * {@snippet lang=c :
+     * #define NCRYPT_SECURITY_DESCR_PROPERTY "S"
      * }
      */
-    public static int FW_DONTCARE() {
-        return (int)0L;
+    public static MemorySegment NCRYPT_SECURITY_DESCR_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_SECURITY_DESCR_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_SECURITY_DESCR_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define FW_THIN 100
+     * {@snippet lang=c :
+     * #define NCRYPT_USE_COUNT_ENABLED_PROPERTY "E"
      * }
      */
-    public static int FW_THIN() {
-        return (int)100L;
+    public static MemorySegment NCRYPT_USE_COUNT_ENABLED_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_USE_COUNT_ENABLED_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_USE_COUNT_ENABLED_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define FW_EXTRALIGHT 200
+     * {@snippet lang=c :
+     * #define NCRYPT_USE_COUNT_PROPERTY "U"
      * }
      */
-    public static int FW_EXTRALIGHT() {
-        return (int)200L;
+    public static MemorySegment NCRYPT_USE_COUNT_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_USE_COUNT_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("U");
+        }
+        return Holder.NCRYPT_USE_COUNT_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define FW_LIGHT 300
+     * {@snippet lang=c :
+     * #define NCRYPT_LAST_MODIFIED_PROPERTY "M"
      * }
      */
-    public static int FW_LIGHT() {
-        return (int)300L;
+    public static MemorySegment NCRYPT_LAST_MODIFIED_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_LAST_MODIFIED_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.NCRYPT_LAST_MODIFIED_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define FW_NORMAL 400
+     * {@snippet lang=c :
+     * #define NCRYPT_MAX_NAME_LENGTH_PROPERTY "M"
      * }
      */
-    public static int FW_NORMAL() {
-        return (int)400L;
+    public static MemorySegment NCRYPT_MAX_NAME_LENGTH_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_MAX_NAME_LENGTH_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.NCRYPT_MAX_NAME_LENGTH_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define FW_MEDIUM 500
+     * {@snippet lang=c :
+     * #define NCRYPT_ALGORITHM_GROUP_PROPERTY "A"
      * }
      */
-    public static int FW_MEDIUM() {
-        return (int)500L;
+    public static MemorySegment NCRYPT_ALGORITHM_GROUP_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_ALGORITHM_GROUP_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+        }
+        return Holder.NCRYPT_ALGORITHM_GROUP_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define FW_SEMIBOLD 600
+     * {@snippet lang=c :
+     * #define NCRYPT_DH_PARAMETERS_PROPERTY "D"
      * }
      */
-    public static int FW_SEMIBOLD() {
-        return (int)600L;
+    public static MemorySegment NCRYPT_DH_PARAMETERS_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_DH_PARAMETERS_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.NCRYPT_DH_PARAMETERS_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define FW_BOLD 700
+     * {@snippet lang=c :
+     * #define NCRYPT_ECC_PARAMETERS_PROPERTY "E"
      * }
      */
-    public static int FW_BOLD() {
-        return (int)700L;
+    public static MemorySegment NCRYPT_ECC_PARAMETERS_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_ECC_PARAMETERS_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_ECC_PARAMETERS_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define FW_EXTRABOLD 800
+     * {@snippet lang=c :
+     * #define NCRYPT_ECC_CURVE_NAME_PROPERTY "E"
      * }
      */
-    public static int FW_EXTRABOLD() {
-        return (int)800L;
+    public static MemorySegment NCRYPT_ECC_CURVE_NAME_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_ECC_CURVE_NAME_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_ECC_CURVE_NAME_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define FW_HEAVY 900
+     * {@snippet lang=c :
+     * #define NCRYPT_ECC_CURVE_NAME_LIST_PROPERTY "E"
      * }
      */
-    public static int FW_HEAVY() {
-        return (int)900L;
+    public static MemorySegment NCRYPT_ECC_CURVE_NAME_LIST_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_ECC_CURVE_NAME_LIST_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.NCRYPT_ECC_CURVE_NAME_LIST_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PANOSE_COUNT 10
+     * {@snippet lang=c :
+     * #define NCRYPT_USE_VIRTUAL_ISOLATION_PROPERTY "V"
      * }
      */
-    public static int PANOSE_COUNT() {
-        return (int)10L;
+    public static MemorySegment NCRYPT_USE_VIRTUAL_ISOLATION_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_USE_VIRTUAL_ISOLATION_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("V");
+        }
+        return Holder.NCRYPT_USE_VIRTUAL_ISOLATION_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_FAMILYTYPE_INDEX 0
+     * {@snippet lang=c :
+     * #define NCRYPT_USE_PER_BOOT_KEY_PROPERTY "P"
      * }
      */
-    public static int PAN_FAMILYTYPE_INDEX() {
-        return (int)0L;
+    public static MemorySegment NCRYPT_USE_PER_BOOT_KEY_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_USE_PER_BOOT_KEY_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_USE_PER_BOOT_KEY_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIFSTYLE_INDEX 1
+     * {@snippet lang=c :
+     * #define NCRYPT_PROVIDER_HANDLE_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIFSTYLE_INDEX() {
-        return (int)1L;
+    public static MemorySegment NCRYPT_PROVIDER_HANDLE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PROVIDER_HANDLE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PROVIDER_HANDLE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_WEIGHT_INDEX 2
+     * {@snippet lang=c :
+     * #define NCRYPT_PIN_PROPERTY "S"
      * }
      */
-    public static int PAN_WEIGHT_INDEX() {
-        return (int)2L;
+    public static MemorySegment NCRYPT_PIN_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PIN_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_PIN_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_PROPORTION_INDEX 3
+     * {@snippet lang=c :
+     * #define NCRYPT_READER_PROPERTY "S"
      * }
      */
-    public static int PAN_PROPORTION_INDEX() {
-        return (int)3L;
+    public static MemorySegment NCRYPT_READER_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_READER_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_READER_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_CONTRAST_INDEX 4
+     * {@snippet lang=c :
+     * #define NCRYPT_SMARTCARD_GUID_PROPERTY "S"
      * }
      */
-    public static int PAN_CONTRAST_INDEX() {
-        return (int)4L;
+    public static MemorySegment NCRYPT_SMARTCARD_GUID_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_SMARTCARD_GUID_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_SMARTCARD_GUID_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_STROKEVARIATION_INDEX 5
+     * {@snippet lang=c :
+     * #define NCRYPT_CERTIFICATE_PROPERTY "S"
      * }
      */
-    public static int PAN_STROKEVARIATION_INDEX() {
-        return (int)5L;
+    public static MemorySegment NCRYPT_CERTIFICATE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_CERTIFICATE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_CERTIFICATE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_ARMSTYLE_INDEX 6
+     * {@snippet lang=c :
+     * #define NCRYPT_PIN_PROMPT_PROPERTY "S"
      * }
      */
-    public static int PAN_ARMSTYLE_INDEX() {
-        return (int)6L;
+    public static MemorySegment NCRYPT_PIN_PROMPT_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PIN_PROMPT_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_PIN_PROMPT_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_LETTERFORM_INDEX 7
+     * {@snippet lang=c :
+     * #define NCRYPT_USER_CERTSTORE_PROPERTY "S"
      * }
      */
-    public static int PAN_LETTERFORM_INDEX() {
-        return (int)7L;
+    public static MemorySegment NCRYPT_USER_CERTSTORE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_USER_CERTSTORE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_USER_CERTSTORE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_MIDLINE_INDEX 8
+     * {@snippet lang=c :
+     * #define NCRYPT_ROOT_CERTSTORE_PROPERTY "S"
      * }
      */
-    public static int PAN_MIDLINE_INDEX() {
-        return (int)8L;
+    public static MemorySegment NCRYPT_ROOT_CERTSTORE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_ROOT_CERTSTORE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_ROOT_CERTSTORE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_XHEIGHT_INDEX 9
+     * {@snippet lang=c :
+     * #define NCRYPT_SECURE_PIN_PROPERTY "S"
      * }
      */
-    public static int PAN_XHEIGHT_INDEX() {
-        return (int)9L;
+    public static MemorySegment NCRYPT_SECURE_PIN_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_SECURE_PIN_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_SECURE_PIN_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_CULTURE_LATIN 0
+     * {@snippet lang=c :
+     * #define NCRYPT_ASSOCIATED_ECDH_KEY "S"
      * }
      */
-    public static int PAN_CULTURE_LATIN() {
-        return (int)0L;
+    public static MemorySegment NCRYPT_ASSOCIATED_ECDH_KEY() {
+        class Holder {
+            static final MemorySegment NCRYPT_ASSOCIATED_ECDH_KEY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_ASSOCIATED_ECDH_KEY;
     }
     /**
-     * {@snippet :
-     * #define PAN_ANY 0
+     * {@snippet lang=c :
+     * #define NCRYPT_SCARD_PIN_ID "S"
      * }
      */
-    public static int PAN_ANY() {
-        return (int)0L;
+    public static MemorySegment NCRYPT_SCARD_PIN_ID() {
+        class Holder {
+            static final MemorySegment NCRYPT_SCARD_PIN_ID
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_SCARD_PIN_ID;
     }
     /**
-     * {@snippet :
-     * #define PAN_NO_FIT 1
+     * {@snippet lang=c :
+     * #define NCRYPT_SCARD_PIN_INFO "S"
      * }
      */
-    public static int PAN_NO_FIT() {
-        return (int)1L;
+    public static MemorySegment NCRYPT_SCARD_PIN_INFO() {
+        class Holder {
+            static final MemorySegment NCRYPT_SCARD_PIN_INFO
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_SCARD_PIN_INFO;
     }
     /**
-     * {@snippet :
-     * #define PAN_FAMILY_TEXT_DISPLAY 2
+     * {@snippet lang=c :
+     * #define NCRYPT_READER_ICON_PROPERTY "S"
      * }
      */
-    public static int PAN_FAMILY_TEXT_DISPLAY() {
-        return (int)2L;
+    public static MemorySegment NCRYPT_READER_ICON_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_READER_ICON_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_READER_ICON_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_FAMILY_SCRIPT 3
+     * {@snippet lang=c :
+     * #define NCRYPT_KDF_SECRET_VALUE "K"
      * }
      */
-    public static int PAN_FAMILY_SCRIPT() {
-        return (int)3L;
+    public static MemorySegment NCRYPT_KDF_SECRET_VALUE() {
+        class Holder {
+            static final MemorySegment NCRYPT_KDF_SECRET_VALUE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+        }
+        return Holder.NCRYPT_KDF_SECRET_VALUE;
     }
     /**
-     * {@snippet :
-     * #define PAN_FAMILY_DECORATIVE 4
+     * {@snippet lang=c :
+     * #define NCRYPT_DISMISS_UI_TIMEOUT_SEC_PROPERTY "S"
      * }
      */
-    public static int PAN_FAMILY_DECORATIVE() {
-        return (int)4L;
+    public static MemorySegment NCRYPT_DISMISS_UI_TIMEOUT_SEC_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_DISMISS_UI_TIMEOUT_SEC_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_DISMISS_UI_TIMEOUT_SEC_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_FAMILY_PICTORIAL 5
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_PLATFORM_TYPE_PROPERTY "P"
      * }
      */
-    public static int PAN_FAMILY_PICTORIAL() {
-        return (int)5L;
+    public static MemorySegment NCRYPT_PCP_PLATFORM_TYPE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_PLATFORM_TYPE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_PLATFORM_TYPE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIF_COVE 2
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_PROVIDER_VERSION_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIF_COVE() {
-        return (int)2L;
+    public static MemorySegment NCRYPT_PCP_PROVIDER_VERSION_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_PROVIDER_VERSION_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_PROVIDER_VERSION_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIF_OBTUSE_COVE 3
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_EKPUB_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIF_OBTUSE_COVE() {
-        return (int)3L;
+    public static MemorySegment NCRYPT_PCP_EKPUB_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_EKPUB_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_EKPUB_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIF_SQUARE_COVE 4
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_EKCERT_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIF_SQUARE_COVE() {
-        return (int)4L;
+    public static MemorySegment NCRYPT_PCP_EKCERT_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_EKCERT_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_EKCERT_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIF_OBTUSE_SQUARE_COVE 5
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_EKNVCERT_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIF_OBTUSE_SQUARE_COVE() {
-        return (int)5L;
+    public static MemorySegment NCRYPT_PCP_EKNVCERT_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_EKNVCERT_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_EKNVCERT_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIF_SQUARE 6
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_RSA_EKPUB_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIF_SQUARE() {
-        return (int)6L;
+    public static MemorySegment NCRYPT_PCP_RSA_EKPUB_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_RSA_EKPUB_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_RSA_EKPUB_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIF_THIN 7
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_RSA_EKCERT_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIF_THIN() {
-        return (int)7L;
+    public static MemorySegment NCRYPT_PCP_RSA_EKCERT_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_RSA_EKCERT_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_RSA_EKCERT_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIF_BONE 8
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_RSA_EKNVCERT_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIF_BONE() {
-        return (int)8L;
+    public static MemorySegment NCRYPT_PCP_RSA_EKNVCERT_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_RSA_EKNVCERT_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_RSA_EKNVCERT_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIF_EXAGGERATED 9
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_ECC_EKPUB_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIF_EXAGGERATED() {
-        return (int)9L;
+    public static MemorySegment NCRYPT_PCP_ECC_EKPUB_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_ECC_EKPUB_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_ECC_EKPUB_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIF_TRIANGLE 10
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_ECC_EKCERT_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIF_TRIANGLE() {
-        return (int)10L;
+    public static MemorySegment NCRYPT_PCP_ECC_EKCERT_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_ECC_EKCERT_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_ECC_EKCERT_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIF_NORMAL_SANS 11
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_ECC_EKNVCERT_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIF_NORMAL_SANS() {
-        return (int)11L;
+    public static MemorySegment NCRYPT_PCP_ECC_EKNVCERT_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_ECC_EKNVCERT_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_ECC_EKNVCERT_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIF_OBTUSE_SANS 12
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_SRKPUB_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIF_OBTUSE_SANS() {
-        return (int)12L;
+    public static MemorySegment NCRYPT_PCP_SRKPUB_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_SRKPUB_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_SRKPUB_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIF_PERP_SANS 13
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_PCRTABLE_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIF_PERP_SANS() {
-        return (int)13L;
+    public static MemorySegment NCRYPT_PCP_PCRTABLE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_PCRTABLE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_PCRTABLE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIF_FLARED 14
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_CHANGEPASSWORD_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIF_FLARED() {
-        return (int)14L;
+    public static MemorySegment NCRYPT_PCP_CHANGEPASSWORD_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_CHANGEPASSWORD_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_CHANGEPASSWORD_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_SERIF_ROUNDED 15
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_PASSWORD_REQUIRED_PROPERTY "P"
      * }
      */
-    public static int PAN_SERIF_ROUNDED() {
-        return (int)15L;
+    public static MemorySegment NCRYPT_PCP_PASSWORD_REQUIRED_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_PASSWORD_REQUIRED_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_PASSWORD_REQUIRED_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_WEIGHT_VERY_LIGHT 2
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_USAGEAUTH_PROPERTY "P"
      * }
      */
-    public static int PAN_WEIGHT_VERY_LIGHT() {
-        return (int)2L;
+    public static MemorySegment NCRYPT_PCP_USAGEAUTH_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_USAGEAUTH_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_USAGEAUTH_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_WEIGHT_LIGHT 3
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_MIGRATIONPASSWORD_PROPERTY "P"
      * }
      */
-    public static int PAN_WEIGHT_LIGHT() {
-        return (int)3L;
+    public static MemorySegment NCRYPT_PCP_MIGRATIONPASSWORD_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_MIGRATIONPASSWORD_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_MIGRATIONPASSWORD_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_WEIGHT_THIN 4
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_EXPORT_ALLOWED_PROPERTY "P"
      * }
      */
-    public static int PAN_WEIGHT_THIN() {
-        return (int)4L;
+    public static MemorySegment NCRYPT_PCP_EXPORT_ALLOWED_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_EXPORT_ALLOWED_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_EXPORT_ALLOWED_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_WEIGHT_BOOK 5
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_STORAGEPARENT_PROPERTY "P"
      * }
      */
-    public static int PAN_WEIGHT_BOOK() {
-        return (int)5L;
+    public static MemorySegment NCRYPT_PCP_STORAGEPARENT_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_STORAGEPARENT_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_STORAGEPARENT_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_WEIGHT_MEDIUM 6
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_PROVIDERHANDLE_PROPERTY "P"
      * }
      */
-    public static int PAN_WEIGHT_MEDIUM() {
-        return (int)6L;
+    public static MemorySegment NCRYPT_PCP_PROVIDERHANDLE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_PROVIDERHANDLE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_PROVIDERHANDLE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_WEIGHT_DEMI 7
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_PLATFORMHANDLE_PROPERTY "P"
      * }
      */
-    public static int PAN_WEIGHT_DEMI() {
-        return (int)7L;
+    public static MemorySegment NCRYPT_PCP_PLATFORMHANDLE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_PLATFORMHANDLE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_PLATFORMHANDLE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_WEIGHT_BOLD 8
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_PLATFORM_BINDING_PCRMASK_PROPERTY "P"
      * }
      */
-    public static int PAN_WEIGHT_BOLD() {
-        return (int)8L;
+    public static MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRMASK_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRMASK_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_PLATFORM_BINDING_PCRMASK_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_WEIGHT_HEAVY 9
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_PLATFORM_BINDING_PCRDIGESTLIST_PROPERTY "P"
      * }
      */
-    public static int PAN_WEIGHT_HEAVY() {
-        return (int)9L;
+    public static MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRDIGESTLIST_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRDIGESTLIST_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_PLATFORM_BINDING_PCRDIGESTLIST_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_WEIGHT_BLACK 10
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_PLATFORM_BINDING_PCRDIGEST_PROPERTY "P"
      * }
      */
-    public static int PAN_WEIGHT_BLACK() {
-        return (int)10L;
+    public static MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRDIGEST_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRDIGEST_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_PLATFORM_BINDING_PCRDIGEST_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_WEIGHT_NORD 11
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_KEY_USAGE_POLICY_PROPERTY "P"
      * }
      */
-    public static int PAN_WEIGHT_NORD() {
-        return (int)11L;
+    public static MemorySegment NCRYPT_PCP_KEY_USAGE_POLICY_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_KEY_USAGE_POLICY_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_KEY_USAGE_POLICY_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_PROP_OLD_STYLE 2
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_RSA_SCHEME_PROPERTY "P"
      * }
      */
-    public static int PAN_PROP_OLD_STYLE() {
-        return (int)2L;
+    public static MemorySegment NCRYPT_PCP_RSA_SCHEME_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_RSA_SCHEME_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_RSA_SCHEME_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_PROP_MODERN 3
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_TPM12_IDBINDING_PROPERTY "P"
      * }
      */
-    public static int PAN_PROP_MODERN() {
-        return (int)3L;
+    public static MemorySegment NCRYPT_PCP_TPM12_IDBINDING_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_TPM12_IDBINDING_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_TPM12_IDBINDING_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_PROP_EVEN_WIDTH 4
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_TPM12_IDBINDING_DYNAMIC_PROPERTY "P"
      * }
      */
-    public static int PAN_PROP_EVEN_WIDTH() {
-        return (int)4L;
+    public static MemorySegment NCRYPT_PCP_TPM12_IDBINDING_DYNAMIC_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_TPM12_IDBINDING_DYNAMIC_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_TPM12_IDBINDING_DYNAMIC_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_PROP_EXPANDED 5
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_TPM12_IDACTIVATION_PROPERTY "P"
      * }
      */
-    public static int PAN_PROP_EXPANDED() {
-        return (int)5L;
+    public static MemorySegment NCRYPT_PCP_TPM12_IDACTIVATION_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_TPM12_IDACTIVATION_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_TPM12_IDACTIVATION_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_PROP_CONDENSED 6
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_KEYATTESTATION_PROPERTY "P"
      * }
      */
-    public static int PAN_PROP_CONDENSED() {
-        return (int)6L;
+    public static MemorySegment NCRYPT_PCP_KEYATTESTATION_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_KEYATTESTATION_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_KEYATTESTATION_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_PROP_VERY_EXPANDED 7
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY "P"
      * }
      */
-    public static int PAN_PROP_VERY_EXPANDED() {
-        return (int)7L;
+    public static MemorySegment NCRYPT_PCP_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_PROP_VERY_CONDENSED 8
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_PLATFORM_BINDING_PCRALGID_PROPERTY "P"
      * }
      */
-    public static int PAN_PROP_VERY_CONDENSED() {
-        return (int)8L;
+    public static MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRALGID_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_PLATFORM_BINDING_PCRALGID_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_PLATFORM_BINDING_PCRALGID_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_PROP_MONOSPACED 9
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_HMAC_AUTH_POLICYREF "P"
      * }
      */
-    public static int PAN_PROP_MONOSPACED() {
-        return (int)9L;
+    public static MemorySegment NCRYPT_PCP_HMAC_AUTH_POLICYREF() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_HMAC_AUTH_POLICYREF
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_HMAC_AUTH_POLICYREF;
     }
     /**
-     * {@snippet :
-     * #define PAN_CONTRAST_NONE 2
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_HMAC_AUTH_POLICYINFO "P"
      * }
      */
-    public static int PAN_CONTRAST_NONE() {
-        return (int)2L;
+    public static MemorySegment NCRYPT_PCP_HMAC_AUTH_POLICYINFO() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_HMAC_AUTH_POLICYINFO
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_HMAC_AUTH_POLICYINFO;
     }
     /**
-     * {@snippet :
-     * #define PAN_CONTRAST_VERY_LOW 3
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_HMAC_AUTH_NONCE "P"
      * }
      */
-    public static int PAN_CONTRAST_VERY_LOW() {
-        return (int)3L;
+    public static MemorySegment NCRYPT_PCP_HMAC_AUTH_NONCE() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_HMAC_AUTH_NONCE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_HMAC_AUTH_NONCE;
     }
     /**
-     * {@snippet :
-     * #define PAN_CONTRAST_LOW 4
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_HMAC_AUTH_SIGNATURE "P"
      * }
      */
-    public static int PAN_CONTRAST_LOW() {
-        return (int)4L;
+    public static MemorySegment NCRYPT_PCP_HMAC_AUTH_SIGNATURE() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_HMAC_AUTH_SIGNATURE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_HMAC_AUTH_SIGNATURE;
     }
     /**
-     * {@snippet :
-     * #define PAN_CONTRAST_MEDIUM_LOW 5
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_HMAC_AUTH_TICKET "P"
      * }
      */
-    public static int PAN_CONTRAST_MEDIUM_LOW() {
-        return (int)5L;
+    public static MemorySegment NCRYPT_PCP_HMAC_AUTH_TICKET() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_HMAC_AUTH_TICKET
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_HMAC_AUTH_TICKET;
     }
     /**
-     * {@snippet :
-     * #define PAN_CONTRAST_MEDIUM 6
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_NO_DA_PROTECTION_PROPERTY "P"
      * }
      */
-    public static int PAN_CONTRAST_MEDIUM() {
-        return (int)6L;
+    public static MemorySegment NCRYPT_PCP_NO_DA_PROTECTION_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_NO_DA_PROTECTION_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_NO_DA_PROTECTION_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_CONTRAST_MEDIUM_HIGH 7
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_TPM_MANUFACTURER_ID_PROPERTY "P"
      * }
      */
-    public static int PAN_CONTRAST_MEDIUM_HIGH() {
-        return (int)7L;
+    public static MemorySegment NCRYPT_PCP_TPM_MANUFACTURER_ID_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_TPM_MANUFACTURER_ID_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_TPM_MANUFACTURER_ID_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_CONTRAST_HIGH 8
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_TPM_FW_VERSION_PROPERTY "P"
      * }
      */
-    public static int PAN_CONTRAST_HIGH() {
-        return (int)8L;
+    public static MemorySegment NCRYPT_PCP_TPM_FW_VERSION_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_TPM_FW_VERSION_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_TPM_FW_VERSION_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_CONTRAST_VERY_HIGH 9
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_TPM2BNAME_PROPERTY "P"
      * }
      */
-    public static int PAN_CONTRAST_VERY_HIGH() {
-        return (int)9L;
+    public static MemorySegment NCRYPT_PCP_TPM2BNAME_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_TPM2BNAME_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_TPM2BNAME_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_STROKE_GRADUAL_DIAG 2
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_TPM_VERSION_PROPERTY "P"
      * }
      */
-    public static int PAN_STROKE_GRADUAL_DIAG() {
-        return (int)2L;
+    public static MemorySegment NCRYPT_PCP_TPM_VERSION_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_TPM_VERSION_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_TPM_VERSION_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_STROKE_GRADUAL_TRAN 3
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_RAW_POLICYDIGEST_PROPERTY "P"
      * }
      */
-    public static int PAN_STROKE_GRADUAL_TRAN() {
-        return (int)3L;
+    public static MemorySegment NCRYPT_PCP_RAW_POLICYDIGEST_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_RAW_POLICYDIGEST_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_RAW_POLICYDIGEST_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_STROKE_GRADUAL_VERT 4
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_KEY_CREATIONHASH_PROPERTY "P"
      * }
      */
-    public static int PAN_STROKE_GRADUAL_VERT() {
-        return (int)4L;
+    public static MemorySegment NCRYPT_PCP_KEY_CREATIONHASH_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_KEY_CREATIONHASH_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_KEY_CREATIONHASH_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_STROKE_GRADUAL_HORZ 5
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_KEY_CREATIONTICKET_PROPERTY "P"
      * }
      */
-    public static int PAN_STROKE_GRADUAL_HORZ() {
-        return (int)5L;
+    public static MemorySegment NCRYPT_PCP_KEY_CREATIONTICKET_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_KEY_CREATIONTICKET_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_KEY_CREATIONTICKET_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_STROKE_RAPID_VERT 6
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_RSA_SCHEME_HASH_ALG_PROPERTY "P"
      * }
      */
-    public static int PAN_STROKE_RAPID_VERT() {
-        return (int)6L;
+    public static MemorySegment NCRYPT_PCP_RSA_SCHEME_HASH_ALG_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_RSA_SCHEME_HASH_ALG_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_RSA_SCHEME_HASH_ALG_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_STROKE_RAPID_HORZ 7
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_PROHIBITED_PROPERTY "P"
      * }
      */
-    public static int PAN_STROKE_RAPID_HORZ() {
-        return (int)7L;
+    public static MemorySegment NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_PROHIBITED_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_PROHIBITED_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_PROHIBITED_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_STROKE_INSTANT_VERT 8
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_VULNERABILITY_PROPERTY "P"
      * }
      */
-    public static int PAN_STROKE_INSTANT_VERT() {
-        return (int)8L;
+    public static MemorySegment NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_VULNERABILITY_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_VULNERABILITY_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_TPM_IFX_RSA_KEYGEN_VULNERABILITY_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_STRAIGHT_ARMS_HORZ 2
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_SESSIONID_PROPERTY "P"
      * }
      */
-    public static int PAN_STRAIGHT_ARMS_HORZ() {
-        return (int)2L;
+    public static MemorySegment NCRYPT_PCP_SESSIONID_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_SESSIONID_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_SESSIONID_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_STRAIGHT_ARMS_WEDGE 3
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_PSS_SALT_SIZE_PROPERTY "P"
      * }
      */
-    public static int PAN_STRAIGHT_ARMS_WEDGE() {
-        return (int)3L;
+    public static MemorySegment NCRYPT_PCP_PSS_SALT_SIZE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_PSS_SALT_SIZE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_PSS_SALT_SIZE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_STRAIGHT_ARMS_VERT 4
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_INTERMEDIATE_CA_EKCERT_PROPERTY "P"
      * }
      */
-    public static int PAN_STRAIGHT_ARMS_VERT() {
-        return (int)4L;
+    public static MemorySegment NCRYPT_PCP_INTERMEDIATE_CA_EKCERT_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_INTERMEDIATE_CA_EKCERT_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_INTERMEDIATE_CA_EKCERT_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_STRAIGHT_ARMS_SINGLE_SERIF 5
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_PCRTABLE_ALGORITHM_PROPERTY "P"
      * }
      */
-    public static int PAN_STRAIGHT_ARMS_SINGLE_SERIF() {
-        return (int)5L;
+    public static MemorySegment NCRYPT_PCP_PCRTABLE_ALGORITHM_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_PCRTABLE_ALGORITHM_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_PCRTABLE_ALGORITHM_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_STRAIGHT_ARMS_DOUBLE_SERIF 6
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_SYMMETRIC_KEYBITS_PROPERTY "P"
      * }
      */
-    public static int PAN_STRAIGHT_ARMS_DOUBLE_SERIF() {
-        return (int)6L;
+    public static MemorySegment NCRYPT_PCP_SYMMETRIC_KEYBITS_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PCP_SYMMETRIC_KEYBITS_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PCP_SYMMETRIC_KEYBITS_PROPERTY;
     }
+    private static final int NCRYPT_TPM12_PROVIDER = (int)65536L;
     /**
-     * {@snippet :
-     * #define PAN_BENT_ARMS_HORZ 7
+     * {@snippet lang=c :
+     * #define NCRYPT_TPM12_PROVIDER 65536
      * }
      */
-    public static int PAN_BENT_ARMS_HORZ() {
-        return (int)7L;
+    public static int NCRYPT_TPM12_PROVIDER() {
+        return NCRYPT_TPM12_PROVIDER;
     }
+    private static final int NCRYPT_PCP_SIGNATURE_KEY = (int)1L;
     /**
-     * {@snippet :
-     * #define PAN_BENT_ARMS_WEDGE 8
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_SIGNATURE_KEY 1
      * }
      */
-    public static int PAN_BENT_ARMS_WEDGE() {
-        return (int)8L;
+    public static int NCRYPT_PCP_SIGNATURE_KEY() {
+        return NCRYPT_PCP_SIGNATURE_KEY;
     }
+    private static final int NCRYPT_PCP_ENCRYPTION_KEY = (int)2L;
     /**
-     * {@snippet :
-     * #define PAN_BENT_ARMS_VERT 9
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_ENCRYPTION_KEY 2
      * }
      */
-    public static int PAN_BENT_ARMS_VERT() {
-        return (int)9L;
+    public static int NCRYPT_PCP_ENCRYPTION_KEY() {
+        return NCRYPT_PCP_ENCRYPTION_KEY;
     }
+    private static final int NCRYPT_PCP_GENERIC_KEY = (int)3L;
     /**
-     * {@snippet :
-     * #define PAN_BENT_ARMS_SINGLE_SERIF 10
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_GENERIC_KEY 3
      * }
      */
-    public static int PAN_BENT_ARMS_SINGLE_SERIF() {
-        return (int)10L;
+    public static int NCRYPT_PCP_GENERIC_KEY() {
+        return NCRYPT_PCP_GENERIC_KEY;
     }
+    private static final int NCRYPT_PCP_STORAGE_KEY = (int)4L;
     /**
-     * {@snippet :
-     * #define PAN_BENT_ARMS_DOUBLE_SERIF 11
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_STORAGE_KEY 4
      * }
      */
-    public static int PAN_BENT_ARMS_DOUBLE_SERIF() {
-        return (int)11L;
+    public static int NCRYPT_PCP_STORAGE_KEY() {
+        return NCRYPT_PCP_STORAGE_KEY;
     }
+    private static final int NCRYPT_PCP_IDENTITY_KEY = (int)8L;
     /**
-     * {@snippet :
-     * #define PAN_LETT_NORMAL_CONTACT 2
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_IDENTITY_KEY 8
      * }
      */
-    public static int PAN_LETT_NORMAL_CONTACT() {
-        return (int)2L;
+    public static int NCRYPT_PCP_IDENTITY_KEY() {
+        return NCRYPT_PCP_IDENTITY_KEY;
     }
+    private static final int NCRYPT_PCP_HMACVERIFICATION_KEY = (int)16L;
     /**
-     * {@snippet :
-     * #define PAN_LETT_NORMAL_WEIGHTED 3
+     * {@snippet lang=c :
+     * #define NCRYPT_PCP_HMACVERIFICATION_KEY 16
      * }
      */
-    public static int PAN_LETT_NORMAL_WEIGHTED() {
-        return (int)3L;
+    public static int NCRYPT_PCP_HMACVERIFICATION_KEY() {
+        return NCRYPT_PCP_HMACVERIFICATION_KEY;
     }
     /**
-     * {@snippet :
-     * #define PAN_LETT_NORMAL_BOXED 4
+     * {@snippet lang=c :
+     * #define NCRYPT_SCARD_NGC_KEY_NAME "S"
      * }
      */
-    public static int PAN_LETT_NORMAL_BOXED() {
-        return (int)4L;
+    public static MemorySegment NCRYPT_SCARD_NGC_KEY_NAME() {
+        class Holder {
+            static final MemorySegment NCRYPT_SCARD_NGC_KEY_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.NCRYPT_SCARD_NGC_KEY_NAME;
     }
     /**
-     * {@snippet :
-     * #define PAN_LETT_NORMAL_FLATTENED 5
+     * {@snippet lang=c :
+     * #define NCRYPT_INITIALIZATION_VECTOR "I"
      * }
      */
-    public static int PAN_LETT_NORMAL_FLATTENED() {
-        return (int)5L;
+    public static MemorySegment NCRYPT_INITIALIZATION_VECTOR() {
+        class Holder {
+            static final MemorySegment NCRYPT_INITIALIZATION_VECTOR
+                = Windows_h.LIBRARY_ARENA.allocateFrom("I");
+        }
+        return Holder.NCRYPT_INITIALIZATION_VECTOR;
     }
     /**
-     * {@snippet :
-     * #define PAN_LETT_NORMAL_ROUNDED 6
+     * {@snippet lang=c :
+     * #define NCRYPT_CHANGEPASSWORD_PROPERTY "P"
      * }
      */
-    public static int PAN_LETT_NORMAL_ROUNDED() {
-        return (int)6L;
+    public static MemorySegment NCRYPT_CHANGEPASSWORD_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_CHANGEPASSWORD_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_CHANGEPASSWORD_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_LETT_NORMAL_OFF_CENTER 7
+     * {@snippet lang=c :
+     * #define NCRYPT_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY "P"
      * }
      */
-    public static int PAN_LETT_NORMAL_OFF_CENTER() {
-        return (int)7L;
+    public static MemorySegment NCRYPT_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_ALTERNATE_KEY_STORAGE_LOCATION_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_LETT_NORMAL_SQUARE 8
+     * {@snippet lang=c :
+     * #define NCRYPT_KEY_ACCESS_POLICY_PROPERTY "K"
      * }
      */
-    public static int PAN_LETT_NORMAL_SQUARE() {
-        return (int)8L;
+    public static MemorySegment NCRYPT_KEY_ACCESS_POLICY_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_KEY_ACCESS_POLICY_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+        }
+        return Holder.NCRYPT_KEY_ACCESS_POLICY_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_LETT_OBLIQUE_CONTACT 9
+     * {@snippet lang=c :
+     * #define NCRYPT_PIN_CACHE_FREE_APPLICATION_TICKET_PROPERTY "P"
      * }
      */
-    public static int PAN_LETT_OBLIQUE_CONTACT() {
-        return (int)9L;
+    public static MemorySegment NCRYPT_PIN_CACHE_FREE_APPLICATION_TICKET_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PIN_CACHE_FREE_APPLICATION_TICKET_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PIN_CACHE_FREE_APPLICATION_TICKET_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_LETT_OBLIQUE_WEIGHTED 10
+     * {@snippet lang=c :
+     * #define NCRYPT_PIN_CACHE_FLAGS_PROPERTY "P"
      * }
      */
-    public static int PAN_LETT_OBLIQUE_WEIGHTED() {
-        return (int)10L;
+    public static MemorySegment NCRYPT_PIN_CACHE_FLAGS_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PIN_CACHE_FLAGS_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PIN_CACHE_FLAGS_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_LETT_OBLIQUE_BOXED 11
+     * {@snippet lang=c :
+     * #define NCRYPT_PIN_CACHE_APPLICATION_TICKET_PROPERTY "P"
      * }
      */
-    public static int PAN_LETT_OBLIQUE_BOXED() {
-        return (int)11L;
+    public static MemorySegment NCRYPT_PIN_CACHE_APPLICATION_TICKET_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PIN_CACHE_APPLICATION_TICKET_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PIN_CACHE_APPLICATION_TICKET_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_LETT_OBLIQUE_FLATTENED 12
+     * {@snippet lang=c :
+     * #define NCRYPT_PIN_CACHE_APPLICATION_IMAGE_PROPERTY "P"
      * }
      */
-    public static int PAN_LETT_OBLIQUE_FLATTENED() {
-        return (int)12L;
+    public static MemorySegment NCRYPT_PIN_CACHE_APPLICATION_IMAGE_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PIN_CACHE_APPLICATION_IMAGE_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PIN_CACHE_APPLICATION_IMAGE_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_LETT_OBLIQUE_ROUNDED 13
+     * {@snippet lang=c :
+     * #define NCRYPT_PIN_CACHE_APPLICATION_STATUS_PROPERTY "P"
      * }
      */
-    public static int PAN_LETT_OBLIQUE_ROUNDED() {
-        return (int)13L;
+    public static MemorySegment NCRYPT_PIN_CACHE_APPLICATION_STATUS_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PIN_CACHE_APPLICATION_STATUS_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PIN_CACHE_APPLICATION_STATUS_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_LETT_OBLIQUE_OFF_CENTER 14
+     * {@snippet lang=c :
+     * #define NCRYPT_PIN_CACHE_PIN_PROPERTY "P"
      * }
      */
-    public static int PAN_LETT_OBLIQUE_OFF_CENTER() {
-        return (int)14L;
+    public static MemorySegment NCRYPT_PIN_CACHE_PIN_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PIN_CACHE_PIN_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PIN_CACHE_PIN_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_LETT_OBLIQUE_SQUARE 15
+     * {@snippet lang=c :
+     * #define NCRYPT_PIN_CACHE_IS_GESTURE_REQUIRED_PROPERTY "P"
      * }
      */
-    public static int PAN_LETT_OBLIQUE_SQUARE() {
-        return (int)15L;
+    public static MemorySegment NCRYPT_PIN_CACHE_IS_GESTURE_REQUIRED_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PIN_CACHE_IS_GESTURE_REQUIRED_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PIN_CACHE_IS_GESTURE_REQUIRED_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_MIDLINE_STANDARD_TRIMMED 2
+     * {@snippet lang=c :
+     * #define NCRYPT_PIN_CACHE_CLEAR_PROPERTY "P"
      * }
      */
-    public static int PAN_MIDLINE_STANDARD_TRIMMED() {
-        return (int)2L;
+    public static MemorySegment NCRYPT_PIN_CACHE_CLEAR_PROPERTY() {
+        class Holder {
+            static final MemorySegment NCRYPT_PIN_CACHE_CLEAR_PROPERTY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PIN_CACHE_CLEAR_PROPERTY;
     }
     /**
-     * {@snippet :
-     * #define PAN_MIDLINE_STANDARD_POINTED 3
+     * {@snippet lang=c :
+     * #define NCRYPT_CIPHER_KEY_BLOB "C"
      * }
      */
-    public static int PAN_MIDLINE_STANDARD_POINTED() {
-        return (int)3L;
+    public static MemorySegment NCRYPT_CIPHER_KEY_BLOB() {
+        class Holder {
+            static final MemorySegment NCRYPT_CIPHER_KEY_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("C");
+        }
+        return Holder.NCRYPT_CIPHER_KEY_BLOB;
     }
     /**
-     * {@snippet :
-     * #define PAN_MIDLINE_STANDARD_SERIFED 4
+     * {@snippet lang=c :
+     * #define NCRYPT_KDF_KEY_BLOB "K"
      * }
      */
-    public static int PAN_MIDLINE_STANDARD_SERIFED() {
-        return (int)4L;
+    public static MemorySegment NCRYPT_KDF_KEY_BLOB() {
+        class Holder {
+            static final MemorySegment NCRYPT_KDF_KEY_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("K");
+        }
+        return Holder.NCRYPT_KDF_KEY_BLOB;
     }
     /**
-     * {@snippet :
-     * #define PAN_MIDLINE_HIGH_TRIMMED 5
+     * {@snippet lang=c :
+     * #define NCRYPT_PROTECTED_KEY_BLOB "P"
      * }
      */
-    public static int PAN_MIDLINE_HIGH_TRIMMED() {
-        return (int)5L;
+    public static MemorySegment NCRYPT_PROTECTED_KEY_BLOB() {
+        class Holder {
+            static final MemorySegment NCRYPT_PROTECTED_KEY_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PROTECTED_KEY_BLOB;
     }
+    private static final long NCRYPT_TPM_LOADABLE_KEY_BLOB_MIN_SIZE = 20L;
     /**
-     * {@snippet :
-     * #define PAN_MIDLINE_HIGH_POINTED 6
+     * {@snippet lang=c :
+     * #define NCRYPT_TPM_LOADABLE_KEY_BLOB_MIN_SIZE 20
      * }
      */
-    public static int PAN_MIDLINE_HIGH_POINTED() {
-        return (int)6L;
+    public static long NCRYPT_TPM_LOADABLE_KEY_BLOB_MIN_SIZE() {
+        return NCRYPT_TPM_LOADABLE_KEY_BLOB_MIN_SIZE;
     }
     /**
-     * {@snippet :
-     * #define PAN_MIDLINE_HIGH_SERIFED 7
+     * {@snippet lang=c :
+     * #define NCRYPT_TPM_LOADABLE_KEY_BLOB "P"
      * }
      */
-    public static int PAN_MIDLINE_HIGH_SERIFED() {
-        return (int)7L;
+    public static MemorySegment NCRYPT_TPM_LOADABLE_KEY_BLOB() {
+        class Holder {
+            static final MemorySegment NCRYPT_TPM_LOADABLE_KEY_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_TPM_LOADABLE_KEY_BLOB;
     }
     /**
-     * {@snippet :
-     * #define PAN_MIDLINE_CONSTANT_TRIMMED 8
+     * {@snippet lang=c :
+     * #define NCRYPT_PKCS7_ENVELOPE_BLOB "P"
      * }
      */
-    public static int PAN_MIDLINE_CONSTANT_TRIMMED() {
-        return (int)8L;
+    public static MemorySegment NCRYPT_PKCS7_ENVELOPE_BLOB() {
+        class Holder {
+            static final MemorySegment NCRYPT_PKCS7_ENVELOPE_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PKCS7_ENVELOPE_BLOB;
     }
     /**
-     * {@snippet :
-     * #define PAN_MIDLINE_CONSTANT_POINTED 9
+     * {@snippet lang=c :
+     * #define NCRYPT_PKCS8_PRIVATE_KEY_BLOB "P"
      * }
      */
-    public static int PAN_MIDLINE_CONSTANT_POINTED() {
-        return (int)9L;
+    public static MemorySegment NCRYPT_PKCS8_PRIVATE_KEY_BLOB() {
+        class Holder {
+            static final MemorySegment NCRYPT_PKCS8_PRIVATE_KEY_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("P");
+        }
+        return Holder.NCRYPT_PKCS8_PRIVATE_KEY_BLOB;
     }
     /**
-     * {@snippet :
-     * #define PAN_MIDLINE_CONSTANT_SERIFED 10
+     * {@snippet lang=c :
+     * #define NCRYPT_OPAQUETRANSPORT_BLOB "O"
      * }
      */
-    public static int PAN_MIDLINE_CONSTANT_SERIFED() {
-        return (int)10L;
+    public static MemorySegment NCRYPT_OPAQUETRANSPORT_BLOB() {
+        class Holder {
+            static final MemorySegment NCRYPT_OPAQUETRANSPORT_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("O");
+        }
+        return Holder.NCRYPT_OPAQUETRANSPORT_BLOB;
     }
     /**
-     * {@snippet :
-     * #define PAN_MIDLINE_LOW_TRIMMED 11
+     * {@snippet lang=c :
+     * #define NCRYPT_ISOLATED_KEY_ENVELOPE_BLOB "I"
      * }
      */
-    public static int PAN_MIDLINE_LOW_TRIMMED() {
-        return (int)11L;
+    public static MemorySegment NCRYPT_ISOLATED_KEY_ENVELOPE_BLOB() {
+        class Holder {
+            static final MemorySegment NCRYPT_ISOLATED_KEY_ENVELOPE_BLOB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("I");
+        }
+        return Holder.NCRYPT_ISOLATED_KEY_ENVELOPE_BLOB;
     }
     /**
-     * {@snippet :
-     * #define PAN_MIDLINE_LOW_POINTED 12
+     * {@snippet lang=c :
+     * #define szOID_RSA "1.2.840.113549"
      * }
      */
-    public static int PAN_MIDLINE_LOW_POINTED() {
-        return (int)12L;
+    public static MemorySegment szOID_RSA() {
+        class Holder {
+            static final MemorySegment szOID_RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549");
+        }
+        return Holder.szOID_RSA;
     }
     /**
-     * {@snippet :
-     * #define PAN_MIDLINE_LOW_SERIFED 13
+     * {@snippet lang=c :
+     * #define szOID_PKCS "1.2.840.113549.1"
      * }
      */
-    public static int PAN_MIDLINE_LOW_SERIFED() {
-        return (int)13L;
+    public static MemorySegment szOID_PKCS() {
+        class Holder {
+            static final MemorySegment szOID_PKCS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1");
+        }
+        return Holder.szOID_PKCS;
     }
     /**
-     * {@snippet :
-     * #define PAN_XHEIGHT_CONSTANT_SMALL 2
+     * {@snippet lang=c :
+     * #define szOID_RSA_HASH "1.2.840.113549.2"
      * }
      */
-    public static int PAN_XHEIGHT_CONSTANT_SMALL() {
-        return (int)2L;
+    public static MemorySegment szOID_RSA_HASH() {
+        class Holder {
+            static final MemorySegment szOID_RSA_HASH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.2");
+        }
+        return Holder.szOID_RSA_HASH;
     }
     /**
-     * {@snippet :
-     * #define PAN_XHEIGHT_CONSTANT_STD 3
+     * {@snippet lang=c :
+     * #define szOID_RSA_ENCRYPT "1.2.840.113549.3"
      * }
      */
-    public static int PAN_XHEIGHT_CONSTANT_STD() {
-        return (int)3L;
+    public static MemorySegment szOID_RSA_ENCRYPT() {
+        class Holder {
+            static final MemorySegment szOID_RSA_ENCRYPT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.3");
+        }
+        return Holder.szOID_RSA_ENCRYPT;
     }
     /**
-     * {@snippet :
-     * #define PAN_XHEIGHT_CONSTANT_LARGE 4
+     * {@snippet lang=c :
+     * #define szOID_PKCS_1 "1.2.840.113549.1.1"
      * }
      */
-    public static int PAN_XHEIGHT_CONSTANT_LARGE() {
-        return (int)4L;
+    public static MemorySegment szOID_PKCS_1() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1");
+        }
+        return Holder.szOID_PKCS_1;
     }
     /**
-     * {@snippet :
-     * #define PAN_XHEIGHT_DUCKING_SMALL 5
+     * {@snippet lang=c :
+     * #define szOID_PKCS_2 "1.2.840.113549.1.2"
      * }
      */
-    public static int PAN_XHEIGHT_DUCKING_SMALL() {
-        return (int)5L;
+    public static MemorySegment szOID_PKCS_2() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.2");
+        }
+        return Holder.szOID_PKCS_2;
     }
     /**
-     * {@snippet :
-     * #define PAN_XHEIGHT_DUCKING_STD 6
+     * {@snippet lang=c :
+     * #define szOID_PKCS_3 "1.2.840.113549.1.3"
      * }
      */
-    public static int PAN_XHEIGHT_DUCKING_STD() {
-        return (int)6L;
+    public static MemorySegment szOID_PKCS_3() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_3
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.3");
+        }
+        return Holder.szOID_PKCS_3;
     }
     /**
-     * {@snippet :
-     * #define PAN_XHEIGHT_DUCKING_LARGE 7
+     * {@snippet lang=c :
+     * #define szOID_PKCS_4 "1.2.840.113549.1.4"
      * }
      */
-    public static int PAN_XHEIGHT_DUCKING_LARGE() {
-        return (int)7L;
+    public static MemorySegment szOID_PKCS_4() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_4
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.4");
+        }
+        return Holder.szOID_PKCS_4;
     }
     /**
-     * {@snippet :
-     * #define ELF_VENDOR_SIZE 4
+     * {@snippet lang=c :
+     * #define szOID_PKCS_5 "1.2.840.113549.1.5"
      * }
      */
-    public static int ELF_VENDOR_SIZE() {
-        return (int)4L;
+    public static MemorySegment szOID_PKCS_5() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_5
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.5");
+        }
+        return Holder.szOID_PKCS_5;
     }
     /**
-     * {@snippet :
-     * #define ELF_VERSION 0
+     * {@snippet lang=c :
+     * #define szOID_PKCS_6 "1.2.840.113549.1.6"
      * }
      */
-    public static int ELF_VERSION() {
-        return (int)0L;
+    public static MemorySegment szOID_PKCS_6() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_6
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.6");
+        }
+        return Holder.szOID_PKCS_6;
     }
     /**
-     * {@snippet :
-     * #define ELF_CULTURE_LATIN 0
+     * {@snippet lang=c :
+     * #define szOID_PKCS_7 "1.2.840.113549.1.7"
      * }
      */
-    public static int ELF_CULTURE_LATIN() {
-        return (int)0L;
+    public static MemorySegment szOID_PKCS_7() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_7
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7");
+        }
+        return Holder.szOID_PKCS_7;
     }
     /**
-     * {@snippet :
-     * #define RASTER_FONTTYPE 1
+     * {@snippet lang=c :
+     * #define szOID_PKCS_8 "1.2.840.113549.1.8"
      * }
      */
-    public static int RASTER_FONTTYPE() {
-        return (int)1L;
+    public static MemorySegment szOID_PKCS_8() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_8
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.8");
+        }
+        return Holder.szOID_PKCS_8;
     }
     /**
-     * {@snippet :
-     * #define DEVICE_FONTTYPE 2
+     * {@snippet lang=c :
+     * #define szOID_PKCS_9 "1.2.840.113549.1.9"
      * }
      */
-    public static int DEVICE_FONTTYPE() {
-        return (int)2L;
+    public static MemorySegment szOID_PKCS_9() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_9
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9");
+        }
+        return Holder.szOID_PKCS_9;
     }
     /**
-     * {@snippet :
-     * #define TRUETYPE_FONTTYPE 4
+     * {@snippet lang=c :
+     * #define szOID_PKCS_10 "1.2.840.113549.1.10"
      * }
      */
-    public static int TRUETYPE_FONTTYPE() {
-        return (int)4L;
+    public static MemorySegment szOID_PKCS_10() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_10
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.10");
+        }
+        return Holder.szOID_PKCS_10;
     }
     /**
-     * {@snippet :
-     * #define PC_RESERVED 1
+     * {@snippet lang=c :
+     * #define szOID_PKCS_12 "1.2.840.113549.1.12"
      * }
      */
-    public static int PC_RESERVED() {
-        return (int)1L;
+    public static MemorySegment szOID_PKCS_12() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_12
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.12");
+        }
+        return Holder.szOID_PKCS_12;
     }
     /**
-     * {@snippet :
-     * #define PC_EXPLICIT 2
+     * {@snippet lang=c :
+     * #define szOID_RSA_RSA "1.2.840.113549.1.1.1"
      * }
      */
-    public static int PC_EXPLICIT() {
-        return (int)2L;
+    public static MemorySegment szOID_RSA_RSA() {
+        class Holder {
+            static final MemorySegment szOID_RSA_RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.1");
+        }
+        return Holder.szOID_RSA_RSA;
     }
     /**
-     * {@snippet :
-     * #define PC_NOCOLLAPSE 4
+     * {@snippet lang=c :
+     * #define szOID_RSA_MD2RSA "1.2.840.113549.1.1.2"
      * }
      */
-    public static int PC_NOCOLLAPSE() {
-        return (int)4L;
+    public static MemorySegment szOID_RSA_MD2RSA() {
+        class Holder {
+            static final MemorySegment szOID_RSA_MD2RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.2");
+        }
+        return Holder.szOID_RSA_MD2RSA;
     }
     /**
-     * {@snippet :
-     * #define TRANSPARENT 1
+     * {@snippet lang=c :
+     * #define szOID_RSA_MD4RSA "1.2.840.113549.1.1.3"
      * }
      */
-    public static int TRANSPARENT() {
-        return (int)1L;
+    public static MemorySegment szOID_RSA_MD4RSA() {
+        class Holder {
+            static final MemorySegment szOID_RSA_MD4RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.3");
+        }
+        return Holder.szOID_RSA_MD4RSA;
     }
     /**
-     * {@snippet :
-     * #define OPAQUE 2
+     * {@snippet lang=c :
+     * #define szOID_RSA_MD5RSA "1.2.840.113549.1.1.4"
      * }
      */
-    public static int OPAQUE() {
-        return (int)2L;
+    public static MemorySegment szOID_RSA_MD5RSA() {
+        class Holder {
+            static final MemorySegment szOID_RSA_MD5RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.4");
+        }
+        return Holder.szOID_RSA_MD5RSA;
     }
     /**
-     * {@snippet :
-     * #define BKMODE_LAST 2
+     * {@snippet lang=c :
+     * #define szOID_RSA_SHA1RSA "1.2.840.113549.1.1.5"
      * }
      */
-    public static int BKMODE_LAST() {
-        return (int)2L;
+    public static MemorySegment szOID_RSA_SHA1RSA() {
+        class Holder {
+            static final MemorySegment szOID_RSA_SHA1RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.5");
+        }
+        return Holder.szOID_RSA_SHA1RSA;
     }
     /**
-     * {@snippet :
-     * #define GM_COMPATIBLE 1
+     * {@snippet lang=c :
+     * #define szOID_RSA_SETOAEP_RSA "1.2.840.113549.1.1.6"
      * }
      */
-    public static int GM_COMPATIBLE() {
-        return (int)1L;
+    public static MemorySegment szOID_RSA_SETOAEP_RSA() {
+        class Holder {
+            static final MemorySegment szOID_RSA_SETOAEP_RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.6");
+        }
+        return Holder.szOID_RSA_SETOAEP_RSA;
     }
     /**
-     * {@snippet :
-     * #define GM_ADVANCED 2
+     * {@snippet lang=c :
+     * #define szOID_RSAES_OAEP "1.2.840.113549.1.1.7"
      * }
      */
-    public static int GM_ADVANCED() {
-        return (int)2L;
+    public static MemorySegment szOID_RSAES_OAEP() {
+        class Holder {
+            static final MemorySegment szOID_RSAES_OAEP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.7");
+        }
+        return Holder.szOID_RSAES_OAEP;
     }
     /**
-     * {@snippet :
-     * #define GM_LAST 2
+     * {@snippet lang=c :
+     * #define szOID_RSA_MGF1 "1.2.840.113549.1.1.8"
      * }
      */
-    public static int GM_LAST() {
-        return (int)2L;
+    public static MemorySegment szOID_RSA_MGF1() {
+        class Holder {
+            static final MemorySegment szOID_RSA_MGF1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.8");
+        }
+        return Holder.szOID_RSA_MGF1;
     }
     /**
-     * {@snippet :
-     * #define PT_CLOSEFIGURE 1
+     * {@snippet lang=c :
+     * #define szOID_RSA_PSPECIFIED "1.2.840.113549.1.1.9"
      * }
      */
-    public static int PT_CLOSEFIGURE() {
-        return (int)1L;
+    public static MemorySegment szOID_RSA_PSPECIFIED() {
+        class Holder {
+            static final MemorySegment szOID_RSA_PSPECIFIED
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.9");
+        }
+        return Holder.szOID_RSA_PSPECIFIED;
     }
     /**
-     * {@snippet :
-     * #define PT_LINETO 2
+     * {@snippet lang=c :
+     * #define szOID_RSA_SSA_PSS "1.2.840.113549.1.1.10"
      * }
      */
-    public static int PT_LINETO() {
-        return (int)2L;
+    public static MemorySegment szOID_RSA_SSA_PSS() {
+        class Holder {
+            static final MemorySegment szOID_RSA_SSA_PSS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.10");
+        }
+        return Holder.szOID_RSA_SSA_PSS;
     }
     /**
-     * {@snippet :
-     * #define PT_BEZIERTO 4
+     * {@snippet lang=c :
+     * #define szOID_RSA_SHA256RSA "1.2.840.113549.1.1.11"
      * }
      */
-    public static int PT_BEZIERTO() {
-        return (int)4L;
+    public static MemorySegment szOID_RSA_SHA256RSA() {
+        class Holder {
+            static final MemorySegment szOID_RSA_SHA256RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.11");
+        }
+        return Holder.szOID_RSA_SHA256RSA;
     }
     /**
-     * {@snippet :
-     * #define PT_MOVETO 6
+     * {@snippet lang=c :
+     * #define szOID_RSA_SHA384RSA "1.2.840.113549.1.1.12"
      * }
      */
-    public static int PT_MOVETO() {
-        return (int)6L;
+    public static MemorySegment szOID_RSA_SHA384RSA() {
+        class Holder {
+            static final MemorySegment szOID_RSA_SHA384RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.12");
+        }
+        return Holder.szOID_RSA_SHA384RSA;
     }
     /**
-     * {@snippet :
-     * #define MM_TEXT 1
+     * {@snippet lang=c :
+     * #define szOID_RSA_SHA512RSA "1.2.840.113549.1.1.13"
      * }
      */
-    public static int MM_TEXT() {
-        return (int)1L;
+    public static MemorySegment szOID_RSA_SHA512RSA() {
+        class Holder {
+            static final MemorySegment szOID_RSA_SHA512RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.13");
+        }
+        return Holder.szOID_RSA_SHA512RSA;
     }
     /**
-     * {@snippet :
-     * #define MM_LOMETRIC 2
+     * {@snippet lang=c :
+     * #define szOID_RSA_DH "1.2.840.113549.1.3.1"
      * }
      */
-    public static int MM_LOMETRIC() {
-        return (int)2L;
+    public static MemorySegment szOID_RSA_DH() {
+        class Holder {
+            static final MemorySegment szOID_RSA_DH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.3.1");
+        }
+        return Holder.szOID_RSA_DH;
     }
     /**
-     * {@snippet :
-     * #define MM_HIMETRIC 3
+     * {@snippet lang=c :
+     * #define szOID_RSA_data "1.2.840.113549.1.7.1"
      * }
      */
-    public static int MM_HIMETRIC() {
-        return (int)3L;
+    public static MemorySegment szOID_RSA_data() {
+        class Holder {
+            static final MemorySegment szOID_RSA_data
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.1");
+        }
+        return Holder.szOID_RSA_data;
     }
     /**
-     * {@snippet :
-     * #define MM_LOENGLISH 4
+     * {@snippet lang=c :
+     * #define szOID_RSA_signedData "1.2.840.113549.1.7.2"
      * }
      */
-    public static int MM_LOENGLISH() {
-        return (int)4L;
+    public static MemorySegment szOID_RSA_signedData() {
+        class Holder {
+            static final MemorySegment szOID_RSA_signedData
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.2");
+        }
+        return Holder.szOID_RSA_signedData;
     }
     /**
-     * {@snippet :
-     * #define MM_HIENGLISH 5
+     * {@snippet lang=c :
+     * #define szOID_RSA_envelopedData "1.2.840.113549.1.7.3"
      * }
      */
-    public static int MM_HIENGLISH() {
-        return (int)5L;
+    public static MemorySegment szOID_RSA_envelopedData() {
+        class Holder {
+            static final MemorySegment szOID_RSA_envelopedData
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.3");
+        }
+        return Holder.szOID_RSA_envelopedData;
     }
     /**
-     * {@snippet :
-     * #define MM_TWIPS 6
+     * {@snippet lang=c :
+     * #define szOID_RSA_signEnvData "1.2.840.113549.1.7.4"
      * }
      */
-    public static int MM_TWIPS() {
-        return (int)6L;
+    public static MemorySegment szOID_RSA_signEnvData() {
+        class Holder {
+            static final MemorySegment szOID_RSA_signEnvData
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.4");
+        }
+        return Holder.szOID_RSA_signEnvData;
     }
     /**
-     * {@snippet :
-     * #define MM_ISOTROPIC 7
+     * {@snippet lang=c :
+     * #define szOID_RSA_digestedData "1.2.840.113549.1.7.5"
      * }
      */
-    public static int MM_ISOTROPIC() {
-        return (int)7L;
+    public static MemorySegment szOID_RSA_digestedData() {
+        class Holder {
+            static final MemorySegment szOID_RSA_digestedData
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.5");
+        }
+        return Holder.szOID_RSA_digestedData;
     }
     /**
-     * {@snippet :
-     * #define MM_ANISOTROPIC 8
+     * {@snippet lang=c :
+     * #define szOID_RSA_hashedData "1.2.840.113549.1.7.5"
      * }
      */
-    public static int MM_ANISOTROPIC() {
-        return (int)8L;
+    public static MemorySegment szOID_RSA_hashedData() {
+        class Holder {
+            static final MemorySegment szOID_RSA_hashedData
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.5");
+        }
+        return Holder.szOID_RSA_hashedData;
     }
     /**
-     * {@snippet :
-     * #define ABSOLUTE 1
+     * {@snippet lang=c :
+     * #define szOID_RSA_encryptedData "1.2.840.113549.1.7.6"
      * }
      */
-    public static int ABSOLUTE() {
-        return (int)1L;
+    public static MemorySegment szOID_RSA_encryptedData() {
+        class Holder {
+            static final MemorySegment szOID_RSA_encryptedData
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.7.6");
+        }
+        return Holder.szOID_RSA_encryptedData;
     }
     /**
-     * {@snippet :
-     * #define RELATIVE 2
+     * {@snippet lang=c :
+     * #define szOID_RSA_emailAddr "1.2.840.113549.1.9.1"
      * }
      */
-    public static int RELATIVE() {
-        return (int)2L;
+    public static MemorySegment szOID_RSA_emailAddr() {
+        class Holder {
+            static final MemorySegment szOID_RSA_emailAddr
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.1");
+        }
+        return Holder.szOID_RSA_emailAddr;
     }
     /**
-     * {@snippet :
-     * #define WHITE_BRUSH 0
+     * {@snippet lang=c :
+     * #define szOID_RSA_unstructName "1.2.840.113549.1.9.2"
      * }
      */
-    public static int WHITE_BRUSH() {
-        return (int)0L;
+    public static MemorySegment szOID_RSA_unstructName() {
+        class Holder {
+            static final MemorySegment szOID_RSA_unstructName
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.2");
+        }
+        return Holder.szOID_RSA_unstructName;
     }
     /**
-     * {@snippet :
-     * #define LTGRAY_BRUSH 1
+     * {@snippet lang=c :
+     * #define szOID_RSA_contentType "1.2.840.113549.1.9.3"
      * }
      */
-    public static int LTGRAY_BRUSH() {
-        return (int)1L;
+    public static MemorySegment szOID_RSA_contentType() {
+        class Holder {
+            static final MemorySegment szOID_RSA_contentType
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.3");
+        }
+        return Holder.szOID_RSA_contentType;
     }
     /**
-     * {@snippet :
-     * #define GRAY_BRUSH 2
+     * {@snippet lang=c :
+     * #define szOID_RSA_messageDigest "1.2.840.113549.1.9.4"
      * }
      */
-    public static int GRAY_BRUSH() {
-        return (int)2L;
+    public static MemorySegment szOID_RSA_messageDigest() {
+        class Holder {
+            static final MemorySegment szOID_RSA_messageDigest
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.4");
+        }
+        return Holder.szOID_RSA_messageDigest;
     }
     /**
-     * {@snippet :
-     * #define DKGRAY_BRUSH 3
+     * {@snippet lang=c :
+     * #define szOID_RSA_signingTime "1.2.840.113549.1.9.5"
      * }
      */
-    public static int DKGRAY_BRUSH() {
-        return (int)3L;
+    public static MemorySegment szOID_RSA_signingTime() {
+        class Holder {
+            static final MemorySegment szOID_RSA_signingTime
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.5");
+        }
+        return Holder.szOID_RSA_signingTime;
     }
     /**
-     * {@snippet :
-     * #define BLACK_BRUSH 4
+     * {@snippet lang=c :
+     * #define szOID_RSA_counterSign "1.2.840.113549.1.9.6"
      * }
      */
-    public static int BLACK_BRUSH() {
-        return (int)4L;
+    public static MemorySegment szOID_RSA_counterSign() {
+        class Holder {
+            static final MemorySegment szOID_RSA_counterSign
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.6");
+        }
+        return Holder.szOID_RSA_counterSign;
     }
     /**
-     * {@snippet :
-     * #define NULL_BRUSH 5
+     * {@snippet lang=c :
+     * #define szOID_RSA_challengePwd "1.2.840.113549.1.9.7"
      * }
      */
-    public static int NULL_BRUSH() {
-        return (int)5L;
+    public static MemorySegment szOID_RSA_challengePwd() {
+        class Holder {
+            static final MemorySegment szOID_RSA_challengePwd
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.7");
+        }
+        return Holder.szOID_RSA_challengePwd;
     }
     /**
-     * {@snippet :
-     * #define WHITE_PEN 6
+     * {@snippet lang=c :
+     * #define szOID_RSA_unstructAddr "1.2.840.113549.1.9.8"
      * }
      */
-    public static int WHITE_PEN() {
-        return (int)6L;
+    public static MemorySegment szOID_RSA_unstructAddr() {
+        class Holder {
+            static final MemorySegment szOID_RSA_unstructAddr
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.8");
+        }
+        return Holder.szOID_RSA_unstructAddr;
     }
     /**
-     * {@snippet :
-     * #define BLACK_PEN 7
+     * {@snippet lang=c :
+     * #define szOID_RSA_extCertAttrs "1.2.840.113549.1.9.9"
      * }
      */
-    public static int BLACK_PEN() {
-        return (int)7L;
+    public static MemorySegment szOID_RSA_extCertAttrs() {
+        class Holder {
+            static final MemorySegment szOID_RSA_extCertAttrs
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.9");
+        }
+        return Holder.szOID_RSA_extCertAttrs;
     }
     /**
-     * {@snippet :
-     * #define NULL_PEN 8
+     * {@snippet lang=c :
+     * #define szOID_RSA_certExtensions "1.2.840.113549.1.9.14"
      * }
      */
-    public static int NULL_PEN() {
-        return (int)8L;
+    public static MemorySegment szOID_RSA_certExtensions() {
+        class Holder {
+            static final MemorySegment szOID_RSA_certExtensions
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.14");
+        }
+        return Holder.szOID_RSA_certExtensions;
     }
     /**
-     * {@snippet :
-     * #define OEM_FIXED_FONT 10
+     * {@snippet lang=c :
+     * #define szOID_RSA_SMIMECapabilities "1.2.840.113549.1.9.15"
      * }
      */
-    public static int OEM_FIXED_FONT() {
-        return (int)10L;
+    public static MemorySegment szOID_RSA_SMIMECapabilities() {
+        class Holder {
+            static final MemorySegment szOID_RSA_SMIMECapabilities
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.15");
+        }
+        return Holder.szOID_RSA_SMIMECapabilities;
     }
     /**
-     * {@snippet :
-     * #define ANSI_FIXED_FONT 11
+     * {@snippet lang=c :
+     * #define szOID_RSA_preferSignedData "1.2.840.113549.1.9.15.1"
      * }
      */
-    public static int ANSI_FIXED_FONT() {
-        return (int)11L;
+    public static MemorySegment szOID_RSA_preferSignedData() {
+        class Holder {
+            static final MemorySegment szOID_RSA_preferSignedData
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.15.1");
+        }
+        return Holder.szOID_RSA_preferSignedData;
     }
     /**
-     * {@snippet :
-     * #define ANSI_VAR_FONT 12
+     * {@snippet lang=c :
+     * #define szOID_TIMESTAMP_TOKEN "1.2.840.113549.1.9.16.1.4"
      * }
      */
-    public static int ANSI_VAR_FONT() {
-        return (int)12L;
+    public static MemorySegment szOID_TIMESTAMP_TOKEN() {
+        class Holder {
+            static final MemorySegment szOID_TIMESTAMP_TOKEN
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.1.4");
+        }
+        return Holder.szOID_TIMESTAMP_TOKEN;
     }
     /**
-     * {@snippet :
-     * #define SYSTEM_FONT 13
+     * {@snippet lang=c :
+     * #define szOID_RFC3161_counterSign "1.3.6.1.4.1.311.3.3.1"
      * }
      */
-    public static int SYSTEM_FONT() {
-        return (int)13L;
+    public static MemorySegment szOID_RFC3161_counterSign() {
+        class Holder {
+            static final MemorySegment szOID_RFC3161_counterSign
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.3.3.1");
+        }
+        return Holder.szOID_RFC3161_counterSign;
     }
     /**
-     * {@snippet :
-     * #define DEVICE_DEFAULT_FONT 14
+     * {@snippet lang=c :
+     * #define szOID_RSA_SMIMEalg "1.2.840.113549.1.9.16.3"
      * }
      */
-    public static int DEVICE_DEFAULT_FONT() {
-        return (int)14L;
+    public static MemorySegment szOID_RSA_SMIMEalg() {
+        class Holder {
+            static final MemorySegment szOID_RSA_SMIMEalg
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.3");
+        }
+        return Holder.szOID_RSA_SMIMEalg;
     }
     /**
-     * {@snippet :
-     * #define DEFAULT_PALETTE 15
+     * {@snippet lang=c :
+     * #define szOID_RSA_SMIMEalgESDH "1.2.840.113549.1.9.16.3.5"
      * }
      */
-    public static int DEFAULT_PALETTE() {
-        return (int)15L;
+    public static MemorySegment szOID_RSA_SMIMEalgESDH() {
+        class Holder {
+            static final MemorySegment szOID_RSA_SMIMEalgESDH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.3.5");
+        }
+        return Holder.szOID_RSA_SMIMEalgESDH;
     }
     /**
-     * {@snippet :
-     * #define SYSTEM_FIXED_FONT 16
+     * {@snippet lang=c :
+     * #define szOID_RSA_SMIMEalgCMS3DESwrap "1.2.840.113549.1.9.16.3.6"
      * }
      */
-    public static int SYSTEM_FIXED_FONT() {
-        return (int)16L;
+    public static MemorySegment szOID_RSA_SMIMEalgCMS3DESwrap() {
+        class Holder {
+            static final MemorySegment szOID_RSA_SMIMEalgCMS3DESwrap
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.3.6");
+        }
+        return Holder.szOID_RSA_SMIMEalgCMS3DESwrap;
     }
     /**
-     * {@snippet :
-     * #define DEFAULT_GUI_FONT 17
+     * {@snippet lang=c :
+     * #define szOID_RSA_SMIMEalgCMSRC2wrap "1.2.840.113549.1.9.16.3.7"
      * }
      */
-    public static int DEFAULT_GUI_FONT() {
-        return (int)17L;
+    public static MemorySegment szOID_RSA_SMIMEalgCMSRC2wrap() {
+        class Holder {
+            static final MemorySegment szOID_RSA_SMIMEalgCMSRC2wrap
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.16.3.7");
+        }
+        return Holder.szOID_RSA_SMIMEalgCMSRC2wrap;
     }
     /**
-     * {@snippet :
-     * #define DC_BRUSH 18
+     * {@snippet lang=c :
+     * #define szOID_RSA_MD2 "1.2.840.113549.2.2"
      * }
      */
-    public static int DC_BRUSH() {
-        return (int)18L;
+    public static MemorySegment szOID_RSA_MD2() {
+        class Holder {
+            static final MemorySegment szOID_RSA_MD2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.2.2");
+        }
+        return Holder.szOID_RSA_MD2;
     }
     /**
-     * {@snippet :
-     * #define DC_PEN 19
+     * {@snippet lang=c :
+     * #define szOID_RSA_MD4 "1.2.840.113549.2.4"
      * }
      */
-    public static int DC_PEN() {
-        return (int)19L;
+    public static MemorySegment szOID_RSA_MD4() {
+        class Holder {
+            static final MemorySegment szOID_RSA_MD4
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.2.4");
+        }
+        return Holder.szOID_RSA_MD4;
     }
     /**
-     * {@snippet :
-     * #define STOCK_LAST 19
+     * {@snippet lang=c :
+     * #define szOID_RSA_MD5 "1.2.840.113549.2.5"
      * }
      */
-    public static int STOCK_LAST() {
-        return (int)19L;
+    public static MemorySegment szOID_RSA_MD5() {
+        class Holder {
+            static final MemorySegment szOID_RSA_MD5
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.2.5");
+        }
+        return Holder.szOID_RSA_MD5;
     }
     /**
-     * {@snippet :
-     * #define BS_SOLID 0
+     * {@snippet lang=c :
+     * #define szOID_RSA_RC2CBC "1.2.840.113549.3.2"
      * }
      */
-    public static int BS_SOLID() {
-        return (int)0L;
+    public static MemorySegment szOID_RSA_RC2CBC() {
+        class Holder {
+            static final MemorySegment szOID_RSA_RC2CBC
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.3.2");
+        }
+        return Holder.szOID_RSA_RC2CBC;
     }
     /**
-     * {@snippet :
-     * #define BS_NULL 1
+     * {@snippet lang=c :
+     * #define szOID_RSA_RC4 "1.2.840.113549.3.4"
      * }
      */
-    public static int BS_NULL() {
-        return (int)1L;
+    public static MemorySegment szOID_RSA_RC4() {
+        class Holder {
+            static final MemorySegment szOID_RSA_RC4
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.3.4");
+        }
+        return Holder.szOID_RSA_RC4;
     }
     /**
-     * {@snippet :
-     * #define BS_HATCHED 2
+     * {@snippet lang=c :
+     * #define szOID_RSA_DES_EDE3_CBC "1.2.840.113549.3.7"
      * }
      */
-    public static int BS_HATCHED() {
-        return (int)2L;
+    public static MemorySegment szOID_RSA_DES_EDE3_CBC() {
+        class Holder {
+            static final MemorySegment szOID_RSA_DES_EDE3_CBC
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.3.7");
+        }
+        return Holder.szOID_RSA_DES_EDE3_CBC;
     }
     /**
-     * {@snippet :
-     * #define BS_PATTERN 3
+     * {@snippet lang=c :
+     * #define szOID_RSA_RC5_CBCPad "1.2.840.113549.3.9"
      * }
      */
-    public static int BS_PATTERN() {
-        return (int)3L;
+    public static MemorySegment szOID_RSA_RC5_CBCPad() {
+        class Holder {
+            static final MemorySegment szOID_RSA_RC5_CBCPad
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.3.9");
+        }
+        return Holder.szOID_RSA_RC5_CBCPad;
     }
     /**
-     * {@snippet :
-     * #define BS_INDEXED 4
+     * {@snippet lang=c :
+     * #define szOID_ANSI_X942 "1.2.840.10046"
      * }
      */
-    public static int BS_INDEXED() {
-        return (int)4L;
+    public static MemorySegment szOID_ANSI_X942() {
+        class Holder {
+            static final MemorySegment szOID_ANSI_X942
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10046");
+        }
+        return Holder.szOID_ANSI_X942;
     }
     /**
-     * {@snippet :
-     * #define BS_DIBPATTERN 5
+     * {@snippet lang=c :
+     * #define szOID_ANSI_X942_DH "1.2.840.10046.2.1"
      * }
      */
-    public static int BS_DIBPATTERN() {
-        return (int)5L;
+    public static MemorySegment szOID_ANSI_X942_DH() {
+        class Holder {
+            static final MemorySegment szOID_ANSI_X942_DH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10046.2.1");
+        }
+        return Holder.szOID_ANSI_X942_DH;
     }
     /**
-     * {@snippet :
-     * #define BS_DIBPATTERNPT 6
+     * {@snippet lang=c :
+     * #define szOID_X957 "1.2.840.10040"
      * }
      */
-    public static int BS_DIBPATTERNPT() {
-        return (int)6L;
+    public static MemorySegment szOID_X957() {
+        class Holder {
+            static final MemorySegment szOID_X957
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10040");
+        }
+        return Holder.szOID_X957;
     }
     /**
-     * {@snippet :
-     * #define BS_PATTERN8X8 7
+     * {@snippet lang=c :
+     * #define szOID_X957_DSA "1.2.840.10040.4.1"
      * }
      */
-    public static int BS_PATTERN8X8() {
-        return (int)7L;
+    public static MemorySegment szOID_X957_DSA() {
+        class Holder {
+            static final MemorySegment szOID_X957_DSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10040.4.1");
+        }
+        return Holder.szOID_X957_DSA;
     }
     /**
-     * {@snippet :
-     * #define BS_DIBPATTERN8X8 8
+     * {@snippet lang=c :
+     * #define szOID_X957_SHA1DSA "1.2.840.10040.4.3"
      * }
      */
-    public static int BS_DIBPATTERN8X8() {
-        return (int)8L;
+    public static MemorySegment szOID_X957_SHA1DSA() {
+        class Holder {
+            static final MemorySegment szOID_X957_SHA1DSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10040.4.3");
+        }
+        return Holder.szOID_X957_SHA1DSA;
     }
     /**
-     * {@snippet :
-     * #define BS_MONOPATTERN 9
+     * {@snippet lang=c :
+     * #define szOID_ECC_PUBLIC_KEY "1.2.840.10045.2.1"
      * }
      */
-    public static int BS_MONOPATTERN() {
-        return (int)9L;
+    public static MemorySegment szOID_ECC_PUBLIC_KEY() {
+        class Holder {
+            static final MemorySegment szOID_ECC_PUBLIC_KEY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.2.1");
+        }
+        return Holder.szOID_ECC_PUBLIC_KEY;
     }
     /**
-     * {@snippet :
-     * #define HS_HORIZONTAL 0
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_P256 "1.2.840.10045.3.1.7"
      * }
      */
-    public static int HS_HORIZONTAL() {
-        return (int)0L;
+    public static MemorySegment szOID_ECC_CURVE_P256() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_P256
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.7");
+        }
+        return Holder.szOID_ECC_CURVE_P256;
     }
     /**
-     * {@snippet :
-     * #define HS_VERTICAL 1
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_P384 "1.3.132.0.34"
      * }
      */
-    public static int HS_VERTICAL() {
-        return (int)1L;
+    public static MemorySegment szOID_ECC_CURVE_P384() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_P384
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.34");
+        }
+        return Holder.szOID_ECC_CURVE_P384;
     }
     /**
-     * {@snippet :
-     * #define HS_FDIAGONAL 2
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_P521 "1.3.132.0.35"
      * }
      */
-    public static int HS_FDIAGONAL() {
-        return (int)2L;
+    public static MemorySegment szOID_ECC_CURVE_P521() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_P521
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.35");
+        }
+        return Holder.szOID_ECC_CURVE_P521;
     }
     /**
-     * {@snippet :
-     * #define HS_BDIAGONAL 3
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_BRAINPOOLP160R1 "1.3.36.3.3.2.8.1.1.1"
      * }
      */
-    public static int HS_BDIAGONAL() {
-        return (int)3L;
+    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP160R1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP160R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.1");
+        }
+        return Holder.szOID_ECC_CURVE_BRAINPOOLP160R1;
     }
     /**
-     * {@snippet :
-     * #define HS_CROSS 4
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_BRAINPOOLP160T1 "1.3.36.3.3.2.8.1.1.2"
      * }
      */
-    public static int HS_CROSS() {
-        return (int)4L;
+    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP160T1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP160T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.2");
+        }
+        return Holder.szOID_ECC_CURVE_BRAINPOOLP160T1;
     }
     /**
-     * {@snippet :
-     * #define HS_DIAGCROSS 5
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_BRAINPOOLP192R1 "1.3.36.3.3.2.8.1.1.3"
      * }
      */
-    public static int HS_DIAGCROSS() {
-        return (int)5L;
+    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP192R1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP192R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.3");
+        }
+        return Holder.szOID_ECC_CURVE_BRAINPOOLP192R1;
     }
     /**
-     * {@snippet :
-     * #define HS_API_MAX 12
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_BRAINPOOLP192T1 "1.3.36.3.3.2.8.1.1.4"
      * }
      */
-    public static int HS_API_MAX() {
-        return (int)12L;
+    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP192T1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP192T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.4");
+        }
+        return Holder.szOID_ECC_CURVE_BRAINPOOLP192T1;
     }
     /**
-     * {@snippet :
-     * #define PS_SOLID 0
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_BRAINPOOLP224R1 "1.3.36.3.3.2.8.1.1.5"
      * }
      */
-    public static int PS_SOLID() {
-        return (int)0L;
+    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP224R1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP224R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.5");
+        }
+        return Holder.szOID_ECC_CURVE_BRAINPOOLP224R1;
     }
     /**
-     * {@snippet :
-     * #define PS_DASH 1
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_BRAINPOOLP224T1 "1.3.36.3.3.2.8.1.1.6"
      * }
      */
-    public static int PS_DASH() {
-        return (int)1L;
+    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP224T1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP224T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.6");
+        }
+        return Holder.szOID_ECC_CURVE_BRAINPOOLP224T1;
     }
     /**
-     * {@snippet :
-     * #define PS_DOT 2
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_BRAINPOOLP256R1 "1.3.36.3.3.2.8.1.1.7"
      * }
      */
-    public static int PS_DOT() {
-        return (int)2L;
+    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP256R1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP256R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.7");
+        }
+        return Holder.szOID_ECC_CURVE_BRAINPOOLP256R1;
     }
     /**
-     * {@snippet :
-     * #define PS_DASHDOT 3
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_BRAINPOOLP256T1 "1.3.36.3.3.2.8.1.1.8"
      * }
      */
-    public static int PS_DASHDOT() {
-        return (int)3L;
+    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP256T1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP256T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.8");
+        }
+        return Holder.szOID_ECC_CURVE_BRAINPOOLP256T1;
     }
     /**
-     * {@snippet :
-     * #define PS_DASHDOTDOT 4
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_BRAINPOOLP320R1 "1.3.36.3.3.2.8.1.1.9"
      * }
      */
-    public static int PS_DASHDOTDOT() {
-        return (int)4L;
+    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP320R1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP320R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.9");
+        }
+        return Holder.szOID_ECC_CURVE_BRAINPOOLP320R1;
     }
     /**
-     * {@snippet :
-     * #define PS_NULL 5
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_BRAINPOOLP320T1 "1.3.36.3.3.2.8.1.1.10"
      * }
      */
-    public static int PS_NULL() {
-        return (int)5L;
+    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP320T1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP320T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.10");
+        }
+        return Holder.szOID_ECC_CURVE_BRAINPOOLP320T1;
     }
     /**
-     * {@snippet :
-     * #define PS_INSIDEFRAME 6
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_BRAINPOOLP384R1 "1.3.36.3.3.2.8.1.1.11"
      * }
      */
-    public static int PS_INSIDEFRAME() {
-        return (int)6L;
+    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP384R1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP384R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.11");
+        }
+        return Holder.szOID_ECC_CURVE_BRAINPOOLP384R1;
     }
     /**
-     * {@snippet :
-     * #define PS_USERSTYLE 7
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_BRAINPOOLP384T1 "1.3.36.3.3.2.8.1.1.12"
      * }
      */
-    public static int PS_USERSTYLE() {
-        return (int)7L;
+    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP384T1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP384T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.12");
+        }
+        return Holder.szOID_ECC_CURVE_BRAINPOOLP384T1;
     }
     /**
-     * {@snippet :
-     * #define PS_ALTERNATE 8
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_BRAINPOOLP512R1 "1.3.36.3.3.2.8.1.1.13"
      * }
      */
-    public static int PS_ALTERNATE() {
-        return (int)8L;
+    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP512R1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP512R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.13");
+        }
+        return Holder.szOID_ECC_CURVE_BRAINPOOLP512R1;
     }
     /**
-     * {@snippet :
-     * #define PS_STYLE_MASK 15
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_BRAINPOOLP512T1 "1.3.36.3.3.2.8.1.1.14"
      * }
      */
-    public static int PS_STYLE_MASK() {
-        return (int)15L;
+    public static MemorySegment szOID_ECC_CURVE_BRAINPOOLP512T1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_BRAINPOOLP512T1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.36.3.3.2.8.1.1.14");
+        }
+        return Holder.szOID_ECC_CURVE_BRAINPOOLP512T1;
     }
     /**
-     * {@snippet :
-     * #define PS_ENDCAP_ROUND 0
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_EC192WAPI "1.2.156.11235.1.1.2.1"
      * }
      */
-    public static int PS_ENDCAP_ROUND() {
-        return (int)0L;
+    public static MemorySegment szOID_ECC_CURVE_EC192WAPI() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_EC192WAPI
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.156.11235.1.1.2.1");
+        }
+        return Holder.szOID_ECC_CURVE_EC192WAPI;
     }
     /**
-     * {@snippet :
-     * #define PS_ENDCAP_SQUARE 256
+     * {@snippet lang=c :
+     * #define szOID_CN_ECDSA_SHA256 "1.2.156.11235.1.1.1"
      * }
      */
-    public static int PS_ENDCAP_SQUARE() {
-        return (int)256L;
+    public static MemorySegment szOID_CN_ECDSA_SHA256() {
+        class Holder {
+            static final MemorySegment szOID_CN_ECDSA_SHA256
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.156.11235.1.1.1");
+        }
+        return Holder.szOID_CN_ECDSA_SHA256;
     }
     /**
-     * {@snippet :
-     * #define PS_ENDCAP_FLAT 512
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_NISTP192 "1.2.840.10045.3.1.1"
      * }
      */
-    public static int PS_ENDCAP_FLAT() {
-        return (int)512L;
+    public static MemorySegment szOID_ECC_CURVE_NISTP192() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_NISTP192
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.1");
+        }
+        return Holder.szOID_ECC_CURVE_NISTP192;
     }
     /**
-     * {@snippet :
-     * #define PS_ENDCAP_MASK 3840
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_NISTP224 "1.3.132.0.33"
      * }
      */
-    public static int PS_ENDCAP_MASK() {
-        return (int)3840L;
+    public static MemorySegment szOID_ECC_CURVE_NISTP224() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_NISTP224
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.33");
+        }
+        return Holder.szOID_ECC_CURVE_NISTP224;
     }
     /**
-     * {@snippet :
-     * #define PS_JOIN_ROUND 0
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_NISTP256 "1.2.840.10045.3.1.7"
      * }
      */
-    public static int PS_JOIN_ROUND() {
-        return (int)0L;
+    public static MemorySegment szOID_ECC_CURVE_NISTP256() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_NISTP256
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.7");
+        }
+        return Holder.szOID_ECC_CURVE_NISTP256;
     }
     /**
-     * {@snippet :
-     * #define PS_JOIN_BEVEL 4096
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_NISTP384 "1.3.132.0.34"
      * }
      */
-    public static int PS_JOIN_BEVEL() {
-        return (int)4096L;
+    public static MemorySegment szOID_ECC_CURVE_NISTP384() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_NISTP384
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.34");
+        }
+        return Holder.szOID_ECC_CURVE_NISTP384;
     }
     /**
-     * {@snippet :
-     * #define PS_JOIN_MITER 8192
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_NISTP521 "1.3.132.0.35"
      * }
      */
-    public static int PS_JOIN_MITER() {
-        return (int)8192L;
+    public static MemorySegment szOID_ECC_CURVE_NISTP521() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_NISTP521
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.35");
+        }
+        return Holder.szOID_ECC_CURVE_NISTP521;
     }
     /**
-     * {@snippet :
-     * #define PS_JOIN_MASK 61440
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_SECP160K1 "1.3.132.0.9"
      * }
      */
-    public static int PS_JOIN_MASK() {
-        return (int)61440L;
+    public static MemorySegment szOID_ECC_CURVE_SECP160K1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_SECP160K1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.9");
+        }
+        return Holder.szOID_ECC_CURVE_SECP160K1;
     }
     /**
-     * {@snippet :
-     * #define PS_COSMETIC 0
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_SECP160R1 "1.3.132.0.8"
      * }
      */
-    public static int PS_COSMETIC() {
-        return (int)0L;
+    public static MemorySegment szOID_ECC_CURVE_SECP160R1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_SECP160R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.8");
+        }
+        return Holder.szOID_ECC_CURVE_SECP160R1;
     }
     /**
-     * {@snippet :
-     * #define PS_GEOMETRIC 65536
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_SECP160R2 "1.3.132.0.30"
      * }
      */
-    public static int PS_GEOMETRIC() {
-        return (int)65536L;
+    public static MemorySegment szOID_ECC_CURVE_SECP160R2() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_SECP160R2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.30");
+        }
+        return Holder.szOID_ECC_CURVE_SECP160R2;
     }
     /**
-     * {@snippet :
-     * #define PS_TYPE_MASK 983040
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_SECP192K1 "1.3.132.0.31"
      * }
      */
-    public static int PS_TYPE_MASK() {
-        return (int)983040L;
+    public static MemorySegment szOID_ECC_CURVE_SECP192K1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_SECP192K1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.31");
+        }
+        return Holder.szOID_ECC_CURVE_SECP192K1;
     }
     /**
-     * {@snippet :
-     * #define AD_COUNTERCLOCKWISE 1
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_SECP192R1 "1.2.840.10045.3.1.1"
      * }
      */
-    public static int AD_COUNTERCLOCKWISE() {
-        return (int)1L;
+    public static MemorySegment szOID_ECC_CURVE_SECP192R1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_SECP192R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.1");
+        }
+        return Holder.szOID_ECC_CURVE_SECP192R1;
     }
     /**
-     * {@snippet :
-     * #define AD_CLOCKWISE 2
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_SECP224K1 "1.3.132.0.32"
      * }
      */
-    public static int AD_CLOCKWISE() {
-        return (int)2L;
+    public static MemorySegment szOID_ECC_CURVE_SECP224K1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_SECP224K1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.32");
+        }
+        return Holder.szOID_ECC_CURVE_SECP224K1;
     }
     /**
-     * {@snippet :
-     * #define DRIVERVERSION 0
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_SECP224R1 "1.3.132.0.33"
      * }
      */
-    public static int DRIVERVERSION() {
-        return (int)0L;
+    public static MemorySegment szOID_ECC_CURVE_SECP224R1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_SECP224R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.33");
+        }
+        return Holder.szOID_ECC_CURVE_SECP224R1;
     }
     /**
-     * {@snippet :
-     * #define TECHNOLOGY 2
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_SECP256K1 "1.3.132.0.10"
      * }
      */
-    public static int TECHNOLOGY() {
-        return (int)2L;
+    public static MemorySegment szOID_ECC_CURVE_SECP256K1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_SECP256K1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.10");
+        }
+        return Holder.szOID_ECC_CURVE_SECP256K1;
     }
     /**
-     * {@snippet :
-     * #define HORZSIZE 4
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_SECP256R1 "1.2.840.10045.3.1.7"
      * }
      */
-    public static int HORZSIZE() {
-        return (int)4L;
+    public static MemorySegment szOID_ECC_CURVE_SECP256R1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_SECP256R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.7");
+        }
+        return Holder.szOID_ECC_CURVE_SECP256R1;
     }
     /**
-     * {@snippet :
-     * #define VERTSIZE 6
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_SECP384R1 "1.3.132.0.34"
      * }
      */
-    public static int VERTSIZE() {
-        return (int)6L;
+    public static MemorySegment szOID_ECC_CURVE_SECP384R1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_SECP384R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.34");
+        }
+        return Holder.szOID_ECC_CURVE_SECP384R1;
     }
     /**
-     * {@snippet :
-     * #define HORZRES 8
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_SECP521R1 "1.3.132.0.35"
      * }
      */
-    public static int HORZRES() {
-        return (int)8L;
+    public static MemorySegment szOID_ECC_CURVE_SECP521R1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_SECP521R1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.35");
+        }
+        return Holder.szOID_ECC_CURVE_SECP521R1;
     }
     /**
-     * {@snippet :
-     * #define VERTRES 10
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_WTLS7 "1.3.132.0.30"
      * }
      */
-    public static int VERTRES() {
-        return (int)10L;
+    public static MemorySegment szOID_ECC_CURVE_WTLS7() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_WTLS7
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.30");
+        }
+        return Holder.szOID_ECC_CURVE_WTLS7;
     }
     /**
-     * {@snippet :
-     * #define BITSPIXEL 12
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_WTLS9 "2.23.43.1.4.9"
      * }
      */
-    public static int BITSPIXEL() {
-        return (int)12L;
+    public static MemorySegment szOID_ECC_CURVE_WTLS9() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_WTLS9
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.23.43.1.4.9");
+        }
+        return Holder.szOID_ECC_CURVE_WTLS9;
     }
     /**
-     * {@snippet :
-     * #define PLANES 14
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_WTLS12 "1.3.132.0.33"
      * }
      */
-    public static int PLANES() {
-        return (int)14L;
+    public static MemorySegment szOID_ECC_CURVE_WTLS12() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_WTLS12
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.0.33");
+        }
+        return Holder.szOID_ECC_CURVE_WTLS12;
     }
     /**
-     * {@snippet :
-     * #define NUMBRUSHES 16
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_X962P192V1 "1.2.840.10045.3.1.1"
      * }
      */
-    public static int NUMBRUSHES() {
-        return (int)16L;
+    public static MemorySegment szOID_ECC_CURVE_X962P192V1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_X962P192V1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.1");
+        }
+        return Holder.szOID_ECC_CURVE_X962P192V1;
     }
     /**
-     * {@snippet :
-     * #define NUMPENS 18
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_X962P192V2 "1.2.840.10045.3.1.2"
      * }
      */
-    public static int NUMPENS() {
-        return (int)18L;
+    public static MemorySegment szOID_ECC_CURVE_X962P192V2() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_X962P192V2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.2");
+        }
+        return Holder.szOID_ECC_CURVE_X962P192V2;
     }
     /**
-     * {@snippet :
-     * #define NUMMARKERS 20
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_X962P192V3 "1.2.840.10045.3.1.3"
      * }
      */
-    public static int NUMMARKERS() {
-        return (int)20L;
+    public static MemorySegment szOID_ECC_CURVE_X962P192V3() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_X962P192V3
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.3");
+        }
+        return Holder.szOID_ECC_CURVE_X962P192V3;
     }
     /**
-     * {@snippet :
-     * #define NUMFONTS 22
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_X962P239V1 "1.2.840.10045.3.1.4"
      * }
      */
-    public static int NUMFONTS() {
-        return (int)22L;
+    public static MemorySegment szOID_ECC_CURVE_X962P239V1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_X962P239V1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.4");
+        }
+        return Holder.szOID_ECC_CURVE_X962P239V1;
     }
     /**
-     * {@snippet :
-     * #define NUMCOLORS 24
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_X962P239V2 "1.2.840.10045.3.1.5"
      * }
      */
-    public static int NUMCOLORS() {
-        return (int)24L;
+    public static MemorySegment szOID_ECC_CURVE_X962P239V2() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_X962P239V2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.5");
+        }
+        return Holder.szOID_ECC_CURVE_X962P239V2;
     }
     /**
-     * {@snippet :
-     * #define PDEVICESIZE 26
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_X962P239V3 "1.2.840.10045.3.1.6"
      * }
      */
-    public static int PDEVICESIZE() {
-        return (int)26L;
+    public static MemorySegment szOID_ECC_CURVE_X962P239V3() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_X962P239V3
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.6");
+        }
+        return Holder.szOID_ECC_CURVE_X962P239V3;
     }
     /**
-     * {@snippet :
-     * #define CURVECAPS 28
+     * {@snippet lang=c :
+     * #define szOID_ECC_CURVE_X962P256V1 "1.2.840.10045.3.1.7"
      * }
      */
-    public static int CURVECAPS() {
-        return (int)28L;
+    public static MemorySegment szOID_ECC_CURVE_X962P256V1() {
+        class Holder {
+            static final MemorySegment szOID_ECC_CURVE_X962P256V1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.3.1.7");
+        }
+        return Holder.szOID_ECC_CURVE_X962P256V1;
     }
     /**
-     * {@snippet :
-     * #define LINECAPS 30
+     * {@snippet lang=c :
+     * #define szOID_ECDSA_SHA1 "1.2.840.10045.4.1"
      * }
      */
-    public static int LINECAPS() {
-        return (int)30L;
+    public static MemorySegment szOID_ECDSA_SHA1() {
+        class Holder {
+            static final MemorySegment szOID_ECDSA_SHA1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.1");
+        }
+        return Holder.szOID_ECDSA_SHA1;
     }
     /**
-     * {@snippet :
-     * #define POLYGONALCAPS 32
+     * {@snippet lang=c :
+     * #define szOID_ECDSA_SPECIFIED "1.2.840.10045.4.3"
      * }
      */
-    public static int POLYGONALCAPS() {
-        return (int)32L;
+    public static MemorySegment szOID_ECDSA_SPECIFIED() {
+        class Holder {
+            static final MemorySegment szOID_ECDSA_SPECIFIED
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.3");
+        }
+        return Holder.szOID_ECDSA_SPECIFIED;
     }
     /**
-     * {@snippet :
-     * #define TEXTCAPS 34
+     * {@snippet lang=c :
+     * #define szOID_ECDSA_SHA256 "1.2.840.10045.4.3.2"
      * }
      */
-    public static int TEXTCAPS() {
-        return (int)34L;
+    public static MemorySegment szOID_ECDSA_SHA256() {
+        class Holder {
+            static final MemorySegment szOID_ECDSA_SHA256
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.3.2");
+        }
+        return Holder.szOID_ECDSA_SHA256;
     }
     /**
-     * {@snippet :
-     * #define CLIPCAPS 36
+     * {@snippet lang=c :
+     * #define szOID_ECDSA_SHA384 "1.2.840.10045.4.3.3"
      * }
      */
-    public static int CLIPCAPS() {
-        return (int)36L;
+    public static MemorySegment szOID_ECDSA_SHA384() {
+        class Holder {
+            static final MemorySegment szOID_ECDSA_SHA384
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.3.3");
+        }
+        return Holder.szOID_ECDSA_SHA384;
     }
     /**
-     * {@snippet :
-     * #define RASTERCAPS 38
+     * {@snippet lang=c :
+     * #define szOID_ECDSA_SHA512 "1.2.840.10045.4.3.4"
      * }
      */
-    public static int RASTERCAPS() {
-        return (int)38L;
+    public static MemorySegment szOID_ECDSA_SHA512() {
+        class Holder {
+            static final MemorySegment szOID_ECDSA_SHA512
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.10045.4.3.4");
+        }
+        return Holder.szOID_ECDSA_SHA512;
     }
     /**
-     * {@snippet :
-     * #define ASPECTX 40
+     * {@snippet lang=c :
+     * #define szOID_NIST_AES128_CBC "2.16.840.1.101.3.4.1.2"
      * }
      */
-    public static int ASPECTX() {
-        return (int)40L;
+    public static MemorySegment szOID_NIST_AES128_CBC() {
+        class Holder {
+            static final MemorySegment szOID_NIST_AES128_CBC
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.2");
+        }
+        return Holder.szOID_NIST_AES128_CBC;
     }
     /**
-     * {@snippet :
-     * #define ASPECTY 42
+     * {@snippet lang=c :
+     * #define szOID_NIST_AES192_CBC "2.16.840.1.101.3.4.1.22"
      * }
      */
-    public static int ASPECTY() {
-        return (int)42L;
+    public static MemorySegment szOID_NIST_AES192_CBC() {
+        class Holder {
+            static final MemorySegment szOID_NIST_AES192_CBC
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.22");
+        }
+        return Holder.szOID_NIST_AES192_CBC;
     }
     /**
-     * {@snippet :
-     * #define ASPECTXY 44
+     * {@snippet lang=c :
+     * #define szOID_NIST_AES256_CBC "2.16.840.1.101.3.4.1.42"
      * }
      */
-    public static int ASPECTXY() {
-        return (int)44L;
+    public static MemorySegment szOID_NIST_AES256_CBC() {
+        class Holder {
+            static final MemorySegment szOID_NIST_AES256_CBC
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.42");
+        }
+        return Holder.szOID_NIST_AES256_CBC;
     }
     /**
-     * {@snippet :
-     * #define LOGPIXELSX 88
+     * {@snippet lang=c :
+     * #define szOID_NIST_AES128_WRAP "2.16.840.1.101.3.4.1.5"
      * }
      */
-    public static int LOGPIXELSX() {
-        return (int)88L;
+    public static MemorySegment szOID_NIST_AES128_WRAP() {
+        class Holder {
+            static final MemorySegment szOID_NIST_AES128_WRAP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.5");
+        }
+        return Holder.szOID_NIST_AES128_WRAP;
     }
     /**
-     * {@snippet :
-     * #define LOGPIXELSY 90
+     * {@snippet lang=c :
+     * #define szOID_NIST_AES192_WRAP "2.16.840.1.101.3.4.1.25"
      * }
      */
-    public static int LOGPIXELSY() {
-        return (int)90L;
+    public static MemorySegment szOID_NIST_AES192_WRAP() {
+        class Holder {
+            static final MemorySegment szOID_NIST_AES192_WRAP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.25");
+        }
+        return Holder.szOID_NIST_AES192_WRAP;
     }
     /**
-     * {@snippet :
-     * #define SIZEPALETTE 104
+     * {@snippet lang=c :
+     * #define szOID_NIST_AES256_WRAP "2.16.840.1.101.3.4.1.45"
      * }
      */
-    public static int SIZEPALETTE() {
-        return (int)104L;
+    public static MemorySegment szOID_NIST_AES256_WRAP() {
+        class Holder {
+            static final MemorySegment szOID_NIST_AES256_WRAP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.1.45");
+        }
+        return Holder.szOID_NIST_AES256_WRAP;
     }
     /**
-     * {@snippet :
-     * #define NUMRESERVED 106
+     * {@snippet lang=c :
+     * #define szOID_DH_SINGLE_PASS_STDDH_SHA1_KDF "1.3.133.16.840.63.0.2"
      * }
      */
-    public static int NUMRESERVED() {
-        return (int)106L;
+    public static MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA1_KDF() {
+        class Holder {
+            static final MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA1_KDF
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.133.16.840.63.0.2");
+        }
+        return Holder.szOID_DH_SINGLE_PASS_STDDH_SHA1_KDF;
     }
     /**
-     * {@snippet :
-     * #define COLORRES 108
+     * {@snippet lang=c :
+     * #define szOID_DH_SINGLE_PASS_STDDH_SHA256_KDF "1.3.132.1.11.1"
      * }
      */
-    public static int COLORRES() {
-        return (int)108L;
+    public static MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA256_KDF() {
+        class Holder {
+            static final MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA256_KDF
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.1.11.1");
+        }
+        return Holder.szOID_DH_SINGLE_PASS_STDDH_SHA256_KDF;
     }
     /**
-     * {@snippet :
-     * #define PHYSICALWIDTH 110
+     * {@snippet lang=c :
+     * #define szOID_DH_SINGLE_PASS_STDDH_SHA384_KDF "1.3.132.1.11.2"
      * }
      */
-    public static int PHYSICALWIDTH() {
-        return (int)110L;
+    public static MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA384_KDF() {
+        class Holder {
+            static final MemorySegment szOID_DH_SINGLE_PASS_STDDH_SHA384_KDF
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.132.1.11.2");
+        }
+        return Holder.szOID_DH_SINGLE_PASS_STDDH_SHA384_KDF;
     }
     /**
-     * {@snippet :
-     * #define PHYSICALHEIGHT 111
+     * {@snippet lang=c :
+     * #define szOID_DS "2.5"
      * }
      */
-    public static int PHYSICALHEIGHT() {
-        return (int)111L;
+    public static MemorySegment szOID_DS() {
+        class Holder {
+            static final MemorySegment szOID_DS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5");
+        }
+        return Holder.szOID_DS;
     }
     /**
-     * {@snippet :
-     * #define PHYSICALOFFSETX 112
+     * {@snippet lang=c :
+     * #define szOID_DSALG "2.5.8"
      * }
      */
-    public static int PHYSICALOFFSETX() {
-        return (int)112L;
+    public static MemorySegment szOID_DSALG() {
+        class Holder {
+            static final MemorySegment szOID_DSALG
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.8");
+        }
+        return Holder.szOID_DSALG;
     }
     /**
-     * {@snippet :
-     * #define PHYSICALOFFSETY 113
+     * {@snippet lang=c :
+     * #define szOID_DSALG_CRPT "2.5.8.1"
      * }
      */
-    public static int PHYSICALOFFSETY() {
-        return (int)113L;
+    public static MemorySegment szOID_DSALG_CRPT() {
+        class Holder {
+            static final MemorySegment szOID_DSALG_CRPT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.8.1");
+        }
+        return Holder.szOID_DSALG_CRPT;
     }
     /**
-     * {@snippet :
-     * #define SCALINGFACTORX 114
+     * {@snippet lang=c :
+     * #define szOID_DSALG_HASH "2.5.8.2"
      * }
      */
-    public static int SCALINGFACTORX() {
-        return (int)114L;
+    public static MemorySegment szOID_DSALG_HASH() {
+        class Holder {
+            static final MemorySegment szOID_DSALG_HASH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.8.2");
+        }
+        return Holder.szOID_DSALG_HASH;
     }
     /**
-     * {@snippet :
-     * #define SCALINGFACTORY 115
+     * {@snippet lang=c :
+     * #define szOID_DSALG_SIGN "2.5.8.3"
      * }
      */
-    public static int SCALINGFACTORY() {
-        return (int)115L;
+    public static MemorySegment szOID_DSALG_SIGN() {
+        class Holder {
+            static final MemorySegment szOID_DSALG_SIGN
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.8.3");
+        }
+        return Holder.szOID_DSALG_SIGN;
     }
     /**
-     * {@snippet :
-     * #define VREFRESH 116
+     * {@snippet lang=c :
+     * #define szOID_DSALG_RSA "2.5.8.1.1"
      * }
      */
-    public static int VREFRESH() {
-        return (int)116L;
+    public static MemorySegment szOID_DSALG_RSA() {
+        class Holder {
+            static final MemorySegment szOID_DSALG_RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.8.1.1");
+        }
+        return Holder.szOID_DSALG_RSA;
     }
     /**
-     * {@snippet :
-     * #define DESKTOPVERTRES 117
+     * {@snippet lang=c :
+     * #define szOID_OIW "1.3.14"
      * }
      */
-    public static int DESKTOPVERTRES() {
-        return (int)117L;
+    public static MemorySegment szOID_OIW() {
+        class Holder {
+            static final MemorySegment szOID_OIW
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14");
+        }
+        return Holder.szOID_OIW;
     }
     /**
-     * {@snippet :
-     * #define DESKTOPHORZRES 118
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC "1.3.14.3.2"
      * }
      */
-    public static int DESKTOPHORZRES() {
-        return (int)118L;
+    public static MemorySegment szOID_OIWSEC() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2");
+        }
+        return Holder.szOID_OIWSEC;
     }
     /**
-     * {@snippet :
-     * #define BLTALIGNMENT 119
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_md4RSA "1.3.14.3.2.2"
      * }
      */
-    public static int BLTALIGNMENT() {
-        return (int)119L;
+    public static MemorySegment szOID_OIWSEC_md4RSA() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_md4RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.2");
+        }
+        return Holder.szOID_OIWSEC_md4RSA;
     }
     /**
-     * {@snippet :
-     * #define SHADEBLENDCAPS 120
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_md5RSA "1.3.14.3.2.3"
      * }
      */
-    public static int SHADEBLENDCAPS() {
-        return (int)120L;
+    public static MemorySegment szOID_OIWSEC_md5RSA() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_md5RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.3");
+        }
+        return Holder.szOID_OIWSEC_md5RSA;
     }
     /**
-     * {@snippet :
-     * #define COLORMGMTCAPS 121
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_md4RSA2 "1.3.14.3.2.4"
      * }
      */
-    public static int COLORMGMTCAPS() {
-        return (int)121L;
+    public static MemorySegment szOID_OIWSEC_md4RSA2() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_md4RSA2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.4");
+        }
+        return Holder.szOID_OIWSEC_md4RSA2;
     }
     /**
-     * {@snippet :
-     * #define DT_PLOTTER 0
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_desECB "1.3.14.3.2.6"
      * }
      */
-    public static int DT_PLOTTER() {
-        return (int)0L;
+    public static MemorySegment szOID_OIWSEC_desECB() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_desECB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.6");
+        }
+        return Holder.szOID_OIWSEC_desECB;
     }
     /**
-     * {@snippet :
-     * #define DT_RASDISPLAY 1
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_desCBC "1.3.14.3.2.7"
      * }
      */
-    public static int DT_RASDISPLAY() {
-        return (int)1L;
+    public static MemorySegment szOID_OIWSEC_desCBC() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_desCBC
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.7");
+        }
+        return Holder.szOID_OIWSEC_desCBC;
     }
     /**
-     * {@snippet :
-     * #define DT_RASPRINTER 2
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_desOFB "1.3.14.3.2.8"
      * }
      */
-    public static int DT_RASPRINTER() {
-        return (int)2L;
+    public static MemorySegment szOID_OIWSEC_desOFB() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_desOFB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.8");
+        }
+        return Holder.szOID_OIWSEC_desOFB;
     }
     /**
-     * {@snippet :
-     * #define DT_RASCAMERA 3
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_desCFB "1.3.14.3.2.9"
      * }
      */
-    public static int DT_RASCAMERA() {
-        return (int)3L;
+    public static MemorySegment szOID_OIWSEC_desCFB() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_desCFB
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.9");
+        }
+        return Holder.szOID_OIWSEC_desCFB;
     }
     /**
-     * {@snippet :
-     * #define DT_CHARSTREAM 4
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_desMAC "1.3.14.3.2.10"
      * }
      */
-    public static int DT_CHARSTREAM() {
-        return (int)4L;
+    public static MemorySegment szOID_OIWSEC_desMAC() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_desMAC
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.10");
+        }
+        return Holder.szOID_OIWSEC_desMAC;
     }
     /**
-     * {@snippet :
-     * #define DT_METAFILE 5
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_rsaSign "1.3.14.3.2.11"
      * }
      */
-    public static int DT_METAFILE() {
-        return (int)5L;
+    public static MemorySegment szOID_OIWSEC_rsaSign() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_rsaSign
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.11");
+        }
+        return Holder.szOID_OIWSEC_rsaSign;
     }
     /**
-     * {@snippet :
-     * #define DT_DISPFILE 6
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_dsa "1.3.14.3.2.12"
      * }
      */
-    public static int DT_DISPFILE() {
-        return (int)6L;
+    public static MemorySegment szOID_OIWSEC_dsa() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_dsa
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.12");
+        }
+        return Holder.szOID_OIWSEC_dsa;
     }
     /**
-     * {@snippet :
-     * #define CC_NONE 0
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_shaDSA "1.3.14.3.2.13"
      * }
      */
-    public static int CC_NONE() {
-        return (int)0L;
+    public static MemorySegment szOID_OIWSEC_shaDSA() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_shaDSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.13");
+        }
+        return Holder.szOID_OIWSEC_shaDSA;
     }
     /**
-     * {@snippet :
-     * #define CC_CIRCLES 1
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_mdc2RSA "1.3.14.3.2.14"
      * }
      */
-    public static int CC_CIRCLES() {
-        return (int)1L;
+    public static MemorySegment szOID_OIWSEC_mdc2RSA() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_mdc2RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.14");
+        }
+        return Holder.szOID_OIWSEC_mdc2RSA;
     }
     /**
-     * {@snippet :
-     * #define CC_PIE 2
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_shaRSA "1.3.14.3.2.15"
      * }
      */
-    public static int CC_PIE() {
-        return (int)2L;
+    public static MemorySegment szOID_OIWSEC_shaRSA() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_shaRSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.15");
+        }
+        return Holder.szOID_OIWSEC_shaRSA;
     }
     /**
-     * {@snippet :
-     * #define CC_CHORD 4
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_dhCommMod "1.3.14.3.2.16"
      * }
      */
-    public static int CC_CHORD() {
-        return (int)4L;
+    public static MemorySegment szOID_OIWSEC_dhCommMod() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_dhCommMod
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.16");
+        }
+        return Holder.szOID_OIWSEC_dhCommMod;
     }
     /**
-     * {@snippet :
-     * #define CC_ELLIPSES 8
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_desEDE "1.3.14.3.2.17"
      * }
      */
-    public static int CC_ELLIPSES() {
-        return (int)8L;
+    public static MemorySegment szOID_OIWSEC_desEDE() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_desEDE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.17");
+        }
+        return Holder.szOID_OIWSEC_desEDE;
     }
     /**
-     * {@snippet :
-     * #define CC_WIDE 16
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_sha "1.3.14.3.2.18"
      * }
      */
-    public static int CC_WIDE() {
-        return (int)16L;
+    public static MemorySegment szOID_OIWSEC_sha() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_sha
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.18");
+        }
+        return Holder.szOID_OIWSEC_sha;
     }
     /**
-     * {@snippet :
-     * #define CC_STYLED 32
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_mdc2 "1.3.14.3.2.19"
      * }
      */
-    public static int CC_STYLED() {
-        return (int)32L;
+    public static MemorySegment szOID_OIWSEC_mdc2() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_mdc2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.19");
+        }
+        return Holder.szOID_OIWSEC_mdc2;
     }
     /**
-     * {@snippet :
-     * #define CC_WIDESTYLED 64
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_dsaComm "1.3.14.3.2.20"
      * }
      */
-    public static int CC_WIDESTYLED() {
-        return (int)64L;
+    public static MemorySegment szOID_OIWSEC_dsaComm() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_dsaComm
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.20");
+        }
+        return Holder.szOID_OIWSEC_dsaComm;
     }
     /**
-     * {@snippet :
-     * #define CC_INTERIORS 128
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_dsaCommSHA "1.3.14.3.2.21"
      * }
      */
-    public static int CC_INTERIORS() {
-        return (int)128L;
+    public static MemorySegment szOID_OIWSEC_dsaCommSHA() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_dsaCommSHA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.21");
+        }
+        return Holder.szOID_OIWSEC_dsaCommSHA;
     }
     /**
-     * {@snippet :
-     * #define CC_ROUNDRECT 256
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_rsaXchg "1.3.14.3.2.22"
      * }
      */
-    public static int CC_ROUNDRECT() {
-        return (int)256L;
+    public static MemorySegment szOID_OIWSEC_rsaXchg() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_rsaXchg
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.22");
+        }
+        return Holder.szOID_OIWSEC_rsaXchg;
     }
     /**
-     * {@snippet :
-     * #define LC_NONE 0
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_keyHashSeal "1.3.14.3.2.23"
      * }
      */
-    public static int LC_NONE() {
-        return (int)0L;
+    public static MemorySegment szOID_OIWSEC_keyHashSeal() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_keyHashSeal
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.23");
+        }
+        return Holder.szOID_OIWSEC_keyHashSeal;
     }
     /**
-     * {@snippet :
-     * #define LC_POLYLINE 2
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_md2RSASign "1.3.14.3.2.24"
      * }
      */
-    public static int LC_POLYLINE() {
-        return (int)2L;
+    public static MemorySegment szOID_OIWSEC_md2RSASign() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_md2RSASign
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.24");
+        }
+        return Holder.szOID_OIWSEC_md2RSASign;
     }
     /**
-     * {@snippet :
-     * #define LC_MARKER 4
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_md5RSASign "1.3.14.3.2.25"
      * }
      */
-    public static int LC_MARKER() {
-        return (int)4L;
+    public static MemorySegment szOID_OIWSEC_md5RSASign() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_md5RSASign
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.25");
+        }
+        return Holder.szOID_OIWSEC_md5RSASign;
     }
     /**
-     * {@snippet :
-     * #define LC_POLYMARKER 8
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_sha1 "1.3.14.3.2.26"
      * }
      */
-    public static int LC_POLYMARKER() {
-        return (int)8L;
+    public static MemorySegment szOID_OIWSEC_sha1() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_sha1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.26");
+        }
+        return Holder.szOID_OIWSEC_sha1;
     }
     /**
-     * {@snippet :
-     * #define LC_WIDE 16
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_dsaSHA1 "1.3.14.3.2.27"
      * }
      */
-    public static int LC_WIDE() {
-        return (int)16L;
+    public static MemorySegment szOID_OIWSEC_dsaSHA1() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_dsaSHA1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.27");
+        }
+        return Holder.szOID_OIWSEC_dsaSHA1;
     }
     /**
-     * {@snippet :
-     * #define LC_STYLED 32
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_dsaCommSHA1 "1.3.14.3.2.28"
      * }
      */
-    public static int LC_STYLED() {
-        return (int)32L;
+    public static MemorySegment szOID_OIWSEC_dsaCommSHA1() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_dsaCommSHA1
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.28");
+        }
+        return Holder.szOID_OIWSEC_dsaCommSHA1;
     }
     /**
-     * {@snippet :
-     * #define LC_WIDESTYLED 64
+     * {@snippet lang=c :
+     * #define szOID_OIWSEC_sha1RSASign "1.3.14.3.2.29"
      * }
      */
-    public static int LC_WIDESTYLED() {
-        return (int)64L;
+    public static MemorySegment szOID_OIWSEC_sha1RSASign() {
+        class Holder {
+            static final MemorySegment szOID_OIWSEC_sha1RSASign
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.3.2.29");
+        }
+        return Holder.szOID_OIWSEC_sha1RSASign;
     }
     /**
-     * {@snippet :
-     * #define LC_INTERIORS 128
+     * {@snippet lang=c :
+     * #define szOID_OIWDIR "1.3.14.7.2"
      * }
      */
-    public static int LC_INTERIORS() {
-        return (int)128L;
+    public static MemorySegment szOID_OIWDIR() {
+        class Holder {
+            static final MemorySegment szOID_OIWDIR
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.7.2");
+        }
+        return Holder.szOID_OIWDIR;
     }
     /**
-     * {@snippet :
-     * #define PC_NONE 0
+     * {@snippet lang=c :
+     * #define szOID_OIWDIR_CRPT "1.3.14.7.2.1"
      * }
      */
-    public static int PC_NONE() {
-        return (int)0L;
+    public static MemorySegment szOID_OIWDIR_CRPT() {
+        class Holder {
+            static final MemorySegment szOID_OIWDIR_CRPT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.7.2.1");
+        }
+        return Holder.szOID_OIWDIR_CRPT;
     }
     /**
-     * {@snippet :
-     * #define PC_POLYGON 1
+     * {@snippet lang=c :
+     * #define szOID_OIWDIR_HASH "1.3.14.7.2.2"
      * }
      */
-    public static int PC_POLYGON() {
-        return (int)1L;
+    public static MemorySegment szOID_OIWDIR_HASH() {
+        class Holder {
+            static final MemorySegment szOID_OIWDIR_HASH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.7.2.2");
+        }
+        return Holder.szOID_OIWDIR_HASH;
     }
     /**
-     * {@snippet :
-     * #define PC_RECTANGLE 2
+     * {@snippet lang=c :
+     * #define szOID_OIWDIR_SIGN "1.3.14.7.2.3"
      * }
      */
-    public static int PC_RECTANGLE() {
-        return (int)2L;
+    public static MemorySegment szOID_OIWDIR_SIGN() {
+        class Holder {
+            static final MemorySegment szOID_OIWDIR_SIGN
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.7.2.3");
+        }
+        return Holder.szOID_OIWDIR_SIGN;
     }
     /**
-     * {@snippet :
-     * #define PC_WINDPOLYGON 4
+     * {@snippet lang=c :
+     * #define szOID_OIWDIR_md2 "1.3.14.7.2.2.1"
      * }
      */
-    public static int PC_WINDPOLYGON() {
-        return (int)4L;
+    public static MemorySegment szOID_OIWDIR_md2() {
+        class Holder {
+            static final MemorySegment szOID_OIWDIR_md2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.7.2.2.1");
+        }
+        return Holder.szOID_OIWDIR_md2;
     }
     /**
-     * {@snippet :
-     * #define PC_TRAPEZOID 4
+     * {@snippet lang=c :
+     * #define szOID_OIWDIR_md2RSA "1.3.14.7.2.3.1"
      * }
      */
-    public static int PC_TRAPEZOID() {
-        return (int)4L;
+    public static MemorySegment szOID_OIWDIR_md2RSA() {
+        class Holder {
+            static final MemorySegment szOID_OIWDIR_md2RSA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.14.7.2.3.1");
+        }
+        return Holder.szOID_OIWDIR_md2RSA;
     }
     /**
-     * {@snippet :
-     * #define PC_SCANLINE 8
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC "2.16.840.1.101.2.1"
      * }
      */
-    public static int PC_SCANLINE() {
-        return (int)8L;
+    public static MemorySegment szOID_INFOSEC() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1");
+        }
+        return Holder.szOID_INFOSEC;
     }
     /**
-     * {@snippet :
-     * #define PC_WIDE 16
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_sdnsSignature "2.16.840.1.101.2.1.1.1"
      * }
      */
-    public static int PC_WIDE() {
-        return (int)16L;
+    public static MemorySegment szOID_INFOSEC_sdnsSignature() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_sdnsSignature
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.1");
+        }
+        return Holder.szOID_INFOSEC_sdnsSignature;
     }
     /**
-     * {@snippet :
-     * #define PC_STYLED 32
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_mosaicSignature "2.16.840.1.101.2.1.1.2"
      * }
      */
-    public static int PC_STYLED() {
-        return (int)32L;
+    public static MemorySegment szOID_INFOSEC_mosaicSignature() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_mosaicSignature
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.2");
+        }
+        return Holder.szOID_INFOSEC_mosaicSignature;
     }
     /**
-     * {@snippet :
-     * #define PC_WIDESTYLED 64
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_sdnsConfidentiality "2.16.840.1.101.2.1.1.3"
      * }
      */
-    public static int PC_WIDESTYLED() {
-        return (int)64L;
+    public static MemorySegment szOID_INFOSEC_sdnsConfidentiality() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_sdnsConfidentiality
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.3");
+        }
+        return Holder.szOID_INFOSEC_sdnsConfidentiality;
     }
     /**
-     * {@snippet :
-     * #define PC_INTERIORS 128
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_mosaicConfidentiality "2.16.840.1.101.2.1.1.4"
      * }
      */
-    public static int PC_INTERIORS() {
-        return (int)128L;
+    public static MemorySegment szOID_INFOSEC_mosaicConfidentiality() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_mosaicConfidentiality
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.4");
+        }
+        return Holder.szOID_INFOSEC_mosaicConfidentiality;
     }
     /**
-     * {@snippet :
-     * #define PC_POLYPOLYGON 256
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_sdnsIntegrity "2.16.840.1.101.2.1.1.5"
      * }
      */
-    public static int PC_POLYPOLYGON() {
-        return (int)256L;
+    public static MemorySegment szOID_INFOSEC_sdnsIntegrity() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_sdnsIntegrity
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.5");
+        }
+        return Holder.szOID_INFOSEC_sdnsIntegrity;
     }
     /**
-     * {@snippet :
-     * #define PC_PATHS 512
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_mosaicIntegrity "2.16.840.1.101.2.1.1.6"
      * }
      */
-    public static int PC_PATHS() {
-        return (int)512L;
+    public static MemorySegment szOID_INFOSEC_mosaicIntegrity() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_mosaicIntegrity
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.6");
+        }
+        return Holder.szOID_INFOSEC_mosaicIntegrity;
     }
     /**
-     * {@snippet :
-     * #define CP_NONE 0
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_sdnsTokenProtection "2.16.840.1.101.2.1.1.7"
      * }
      */
-    public static int CP_NONE() {
-        return (int)0L;
+    public static MemorySegment szOID_INFOSEC_sdnsTokenProtection() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_sdnsTokenProtection
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.7");
+        }
+        return Holder.szOID_INFOSEC_sdnsTokenProtection;
     }
     /**
-     * {@snippet :
-     * #define CP_RECTANGLE 1
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_mosaicTokenProtection "2.16.840.1.101.2.1.1.8"
      * }
      */
-    public static int CP_RECTANGLE() {
-        return (int)1L;
+    public static MemorySegment szOID_INFOSEC_mosaicTokenProtection() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_mosaicTokenProtection
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.8");
+        }
+        return Holder.szOID_INFOSEC_mosaicTokenProtection;
     }
     /**
-     * {@snippet :
-     * #define CP_REGION 2
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_sdnsKeyManagement "2.16.840.1.101.2.1.1.9"
      * }
      */
-    public static int CP_REGION() {
-        return (int)2L;
+    public static MemorySegment szOID_INFOSEC_sdnsKeyManagement() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_sdnsKeyManagement
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.9");
+        }
+        return Holder.szOID_INFOSEC_sdnsKeyManagement;
     }
     /**
-     * {@snippet :
-     * #define TC_OP_CHARACTER 1
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_mosaicKeyManagement "2.16.840.1.101.2.1.1.10"
      * }
      */
-    public static int TC_OP_CHARACTER() {
-        return (int)1L;
+    public static MemorySegment szOID_INFOSEC_mosaicKeyManagement() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_mosaicKeyManagement
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.10");
+        }
+        return Holder.szOID_INFOSEC_mosaicKeyManagement;
     }
     /**
-     * {@snippet :
-     * #define TC_OP_STROKE 2
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_sdnsKMandSig "2.16.840.1.101.2.1.1.11"
      * }
      */
-    public static int TC_OP_STROKE() {
-        return (int)2L;
+    public static MemorySegment szOID_INFOSEC_sdnsKMandSig() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_sdnsKMandSig
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.11");
+        }
+        return Holder.szOID_INFOSEC_sdnsKMandSig;
     }
     /**
-     * {@snippet :
-     * #define TC_CP_STROKE 4
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_mosaicKMandSig "2.16.840.1.101.2.1.1.12"
      * }
      */
-    public static int TC_CP_STROKE() {
-        return (int)4L;
+    public static MemorySegment szOID_INFOSEC_mosaicKMandSig() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_mosaicKMandSig
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.12");
+        }
+        return Holder.szOID_INFOSEC_mosaicKMandSig;
     }
     /**
-     * {@snippet :
-     * #define TC_CR_90 8
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_SuiteASignature "2.16.840.1.101.2.1.1.13"
      * }
      */
-    public static int TC_CR_90() {
-        return (int)8L;
+    public static MemorySegment szOID_INFOSEC_SuiteASignature() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_SuiteASignature
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.13");
+        }
+        return Holder.szOID_INFOSEC_SuiteASignature;
     }
     /**
-     * {@snippet :
-     * #define TC_CR_ANY 16
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_SuiteAConfidentiality "2.16.840.1.101.2.1.1.14"
      * }
      */
-    public static int TC_CR_ANY() {
-        return (int)16L;
+    public static MemorySegment szOID_INFOSEC_SuiteAConfidentiality() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_SuiteAConfidentiality
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.14");
+        }
+        return Holder.szOID_INFOSEC_SuiteAConfidentiality;
     }
     /**
-     * {@snippet :
-     * #define TC_SF_X_YINDEP 32
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_SuiteAIntegrity "2.16.840.1.101.2.1.1.15"
      * }
      */
-    public static int TC_SF_X_YINDEP() {
-        return (int)32L;
+    public static MemorySegment szOID_INFOSEC_SuiteAIntegrity() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_SuiteAIntegrity
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.15");
+        }
+        return Holder.szOID_INFOSEC_SuiteAIntegrity;
     }
     /**
-     * {@snippet :
-     * #define TC_SA_DOUBLE 64
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_SuiteATokenProtection "2.16.840.1.101.2.1.1.16"
      * }
      */
-    public static int TC_SA_DOUBLE() {
-        return (int)64L;
+    public static MemorySegment szOID_INFOSEC_SuiteATokenProtection() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_SuiteATokenProtection
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.16");
+        }
+        return Holder.szOID_INFOSEC_SuiteATokenProtection;
     }
     /**
-     * {@snippet :
-     * #define TC_SA_INTEGER 128
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_SuiteAKeyManagement "2.16.840.1.101.2.1.1.17"
      * }
      */
-    public static int TC_SA_INTEGER() {
-        return (int)128L;
+    public static MemorySegment szOID_INFOSEC_SuiteAKeyManagement() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_SuiteAKeyManagement
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.17");
+        }
+        return Holder.szOID_INFOSEC_SuiteAKeyManagement;
     }
     /**
-     * {@snippet :
-     * #define TC_SA_CONTIN 256
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_SuiteAKMandSig "2.16.840.1.101.2.1.1.18"
      * }
      */
-    public static int TC_SA_CONTIN() {
-        return (int)256L;
+    public static MemorySegment szOID_INFOSEC_SuiteAKMandSig() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_SuiteAKMandSig
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.18");
+        }
+        return Holder.szOID_INFOSEC_SuiteAKMandSig;
     }
     /**
-     * {@snippet :
-     * #define TC_EA_DOUBLE 512
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_mosaicUpdatedSig "2.16.840.1.101.2.1.1.19"
      * }
      */
-    public static int TC_EA_DOUBLE() {
-        return (int)512L;
+    public static MemorySegment szOID_INFOSEC_mosaicUpdatedSig() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_mosaicUpdatedSig
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.19");
+        }
+        return Holder.szOID_INFOSEC_mosaicUpdatedSig;
     }
     /**
-     * {@snippet :
-     * #define TC_IA_ABLE 1024
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_mosaicKMandUpdSig "2.16.840.1.101.2.1.1.20"
      * }
      */
-    public static int TC_IA_ABLE() {
-        return (int)1024L;
+    public static MemorySegment szOID_INFOSEC_mosaicKMandUpdSig() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_mosaicKMandUpdSig
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.20");
+        }
+        return Holder.szOID_INFOSEC_mosaicKMandUpdSig;
     }
     /**
-     * {@snippet :
-     * #define TC_UA_ABLE 2048
+     * {@snippet lang=c :
+     * #define szOID_INFOSEC_mosaicUpdatedInteg "2.16.840.1.101.2.1.1.21"
      * }
      */
-    public static int TC_UA_ABLE() {
-        return (int)2048L;
+    public static MemorySegment szOID_INFOSEC_mosaicUpdatedInteg() {
+        class Holder {
+            static final MemorySegment szOID_INFOSEC_mosaicUpdatedInteg
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.2.1.1.21");
+        }
+        return Holder.szOID_INFOSEC_mosaicUpdatedInteg;
     }
     /**
-     * {@snippet :
-     * #define TC_SO_ABLE 4096
+     * {@snippet lang=c :
+     * #define szOID_NIST_sha256 "2.16.840.1.101.3.4.2.1"
      * }
      */
-    public static int TC_SO_ABLE() {
-        return (int)4096L;
+    public static MemorySegment szOID_NIST_sha256() {
+        class Holder {
+            static final MemorySegment szOID_NIST_sha256
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.2.1");
+        }
+        return Holder.szOID_NIST_sha256;
     }
     /**
-     * {@snippet :
-     * #define TC_RA_ABLE 8192
+     * {@snippet lang=c :
+     * #define szOID_NIST_sha384 "2.16.840.1.101.3.4.2.2"
      * }
      */
-    public static int TC_RA_ABLE() {
-        return (int)8192L;
+    public static MemorySegment szOID_NIST_sha384() {
+        class Holder {
+            static final MemorySegment szOID_NIST_sha384
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.2.2");
+        }
+        return Holder.szOID_NIST_sha384;
     }
     /**
-     * {@snippet :
-     * #define TC_VA_ABLE 16384
+     * {@snippet lang=c :
+     * #define szOID_NIST_sha512 "2.16.840.1.101.3.4.2.3"
      * }
      */
-    public static int TC_VA_ABLE() {
-        return (int)16384L;
+    public static MemorySegment szOID_NIST_sha512() {
+        class Holder {
+            static final MemorySegment szOID_NIST_sha512
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.16.840.1.101.3.4.2.3");
+        }
+        return Holder.szOID_NIST_sha512;
     }
     /**
-     * {@snippet :
-     * #define TC_RESERVED 32768
+     * {@snippet lang=c :
+     * #define szOID_COMMON_NAME "2.5.4.3"
      * }
      */
-    public static int TC_RESERVED() {
-        return (int)32768L;
+    public static MemorySegment szOID_COMMON_NAME() {
+        class Holder {
+            static final MemorySegment szOID_COMMON_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.3");
+        }
+        return Holder.szOID_COMMON_NAME;
     }
     /**
-     * {@snippet :
-     * #define TC_SCROLLBLT 65536
+     * {@snippet lang=c :
+     * #define szOID_SUR_NAME "2.5.4.4"
      * }
      */
-    public static int TC_SCROLLBLT() {
-        return (int)65536L;
+    public static MemorySegment szOID_SUR_NAME() {
+        class Holder {
+            static final MemorySegment szOID_SUR_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.4");
+        }
+        return Holder.szOID_SUR_NAME;
     }
     /**
-     * {@snippet :
-     * #define RC_BITBLT 1
+     * {@snippet lang=c :
+     * #define szOID_DEVICE_SERIAL_NUMBER "2.5.4.5"
      * }
      */
-    public static int RC_BITBLT() {
-        return (int)1L;
+    public static MemorySegment szOID_DEVICE_SERIAL_NUMBER() {
+        class Holder {
+            static final MemorySegment szOID_DEVICE_SERIAL_NUMBER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.5");
+        }
+        return Holder.szOID_DEVICE_SERIAL_NUMBER;
     }
     /**
-     * {@snippet :
-     * #define RC_BANDING 2
+     * {@snippet lang=c :
+     * #define szOID_COUNTRY_NAME "2.5.4.6"
      * }
      */
-    public static int RC_BANDING() {
-        return (int)2L;
+    public static MemorySegment szOID_COUNTRY_NAME() {
+        class Holder {
+            static final MemorySegment szOID_COUNTRY_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.6");
+        }
+        return Holder.szOID_COUNTRY_NAME;
     }
     /**
-     * {@snippet :
-     * #define RC_SCALING 4
+     * {@snippet lang=c :
+     * #define szOID_LOCALITY_NAME "2.5.4.7"
      * }
      */
-    public static int RC_SCALING() {
-        return (int)4L;
+    public static MemorySegment szOID_LOCALITY_NAME() {
+        class Holder {
+            static final MemorySegment szOID_LOCALITY_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.7");
+        }
+        return Holder.szOID_LOCALITY_NAME;
     }
     /**
-     * {@snippet :
-     * #define RC_BITMAP64 8
+     * {@snippet lang=c :
+     * #define szOID_STATE_OR_PROVINCE_NAME "2.5.4.8"
      * }
      */
-    public static int RC_BITMAP64() {
-        return (int)8L;
+    public static MemorySegment szOID_STATE_OR_PROVINCE_NAME() {
+        class Holder {
+            static final MemorySegment szOID_STATE_OR_PROVINCE_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.8");
+        }
+        return Holder.szOID_STATE_OR_PROVINCE_NAME;
     }
     /**
-     * {@snippet :
-     * #define RC_GDI20_OUTPUT 16
+     * {@snippet lang=c :
+     * #define szOID_STREET_ADDRESS "2.5.4.9"
      * }
      */
-    public static int RC_GDI20_OUTPUT() {
-        return (int)16L;
+    public static MemorySegment szOID_STREET_ADDRESS() {
+        class Holder {
+            static final MemorySegment szOID_STREET_ADDRESS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.9");
+        }
+        return Holder.szOID_STREET_ADDRESS;
     }
     /**
-     * {@snippet :
-     * #define RC_GDI20_STATE 32
+     * {@snippet lang=c :
+     * #define szOID_ORGANIZATION_NAME "2.5.4.10"
      * }
      */
-    public static int RC_GDI20_STATE() {
-        return (int)32L;
+    public static MemorySegment szOID_ORGANIZATION_NAME() {
+        class Holder {
+            static final MemorySegment szOID_ORGANIZATION_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.10");
+        }
+        return Holder.szOID_ORGANIZATION_NAME;
     }
     /**
-     * {@snippet :
-     * #define RC_SAVEBITMAP 64
+     * {@snippet lang=c :
+     * #define szOID_ORGANIZATIONAL_UNIT_NAME "2.5.4.11"
      * }
      */
-    public static int RC_SAVEBITMAP() {
-        return (int)64L;
+    public static MemorySegment szOID_ORGANIZATIONAL_UNIT_NAME() {
+        class Holder {
+            static final MemorySegment szOID_ORGANIZATIONAL_UNIT_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.11");
+        }
+        return Holder.szOID_ORGANIZATIONAL_UNIT_NAME;
     }
     /**
-     * {@snippet :
-     * #define RC_DI_BITMAP 128
+     * {@snippet lang=c :
+     * #define szOID_TITLE "2.5.4.12"
      * }
      */
-    public static int RC_DI_BITMAP() {
-        return (int)128L;
+    public static MemorySegment szOID_TITLE() {
+        class Holder {
+            static final MemorySegment szOID_TITLE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.12");
+        }
+        return Holder.szOID_TITLE;
     }
     /**
-     * {@snippet :
-     * #define RC_PALETTE 256
+     * {@snippet lang=c :
+     * #define szOID_DESCRIPTION "2.5.4.13"
      * }
      */
-    public static int RC_PALETTE() {
-        return (int)256L;
+    public static MemorySegment szOID_DESCRIPTION() {
+        class Holder {
+            static final MemorySegment szOID_DESCRIPTION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.13");
+        }
+        return Holder.szOID_DESCRIPTION;
     }
     /**
-     * {@snippet :
-     * #define RC_DIBTODEV 512
+     * {@snippet lang=c :
+     * #define szOID_SEARCH_GUIDE "2.5.4.14"
      * }
      */
-    public static int RC_DIBTODEV() {
-        return (int)512L;
+    public static MemorySegment szOID_SEARCH_GUIDE() {
+        class Holder {
+            static final MemorySegment szOID_SEARCH_GUIDE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.14");
+        }
+        return Holder.szOID_SEARCH_GUIDE;
     }
     /**
-     * {@snippet :
-     * #define RC_BIGFONT 1024
+     * {@snippet lang=c :
+     * #define szOID_BUSINESS_CATEGORY "2.5.4.15"
      * }
      */
-    public static int RC_BIGFONT() {
-        return (int)1024L;
+    public static MemorySegment szOID_BUSINESS_CATEGORY() {
+        class Holder {
+            static final MemorySegment szOID_BUSINESS_CATEGORY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.15");
+        }
+        return Holder.szOID_BUSINESS_CATEGORY;
     }
     /**
-     * {@snippet :
-     * #define RC_STRETCHBLT 2048
+     * {@snippet lang=c :
+     * #define szOID_POSTAL_ADDRESS "2.5.4.16"
      * }
      */
-    public static int RC_STRETCHBLT() {
-        return (int)2048L;
+    public static MemorySegment szOID_POSTAL_ADDRESS() {
+        class Holder {
+            static final MemorySegment szOID_POSTAL_ADDRESS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.16");
+        }
+        return Holder.szOID_POSTAL_ADDRESS;
     }
     /**
-     * {@snippet :
-     * #define RC_FLOODFILL 4096
+     * {@snippet lang=c :
+     * #define szOID_POSTAL_CODE "2.5.4.17"
      * }
      */
-    public static int RC_FLOODFILL() {
-        return (int)4096L;
+    public static MemorySegment szOID_POSTAL_CODE() {
+        class Holder {
+            static final MemorySegment szOID_POSTAL_CODE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.17");
+        }
+        return Holder.szOID_POSTAL_CODE;
     }
     /**
-     * {@snippet :
-     * #define RC_STRETCHDIB 8192
+     * {@snippet lang=c :
+     * #define szOID_POST_OFFICE_BOX "2.5.4.18"
      * }
      */
-    public static int RC_STRETCHDIB() {
-        return (int)8192L;
+    public static MemorySegment szOID_POST_OFFICE_BOX() {
+        class Holder {
+            static final MemorySegment szOID_POST_OFFICE_BOX
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.18");
+        }
+        return Holder.szOID_POST_OFFICE_BOX;
     }
     /**
-     * {@snippet :
-     * #define RC_OP_DX_OUTPUT 16384
+     * {@snippet lang=c :
+     * #define szOID_PHYSICAL_DELIVERY_OFFICE_NAME "2.5.4.19"
      * }
      */
-    public static int RC_OP_DX_OUTPUT() {
-        return (int)16384L;
+    public static MemorySegment szOID_PHYSICAL_DELIVERY_OFFICE_NAME() {
+        class Holder {
+            static final MemorySegment szOID_PHYSICAL_DELIVERY_OFFICE_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.19");
+        }
+        return Holder.szOID_PHYSICAL_DELIVERY_OFFICE_NAME;
     }
     /**
-     * {@snippet :
-     * #define RC_DEVBITS 32768
+     * {@snippet lang=c :
+     * #define szOID_TELEPHONE_NUMBER "2.5.4.20"
      * }
      */
-    public static int RC_DEVBITS() {
-        return (int)32768L;
+    public static MemorySegment szOID_TELEPHONE_NUMBER() {
+        class Holder {
+            static final MemorySegment szOID_TELEPHONE_NUMBER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.20");
+        }
+        return Holder.szOID_TELEPHONE_NUMBER;
     }
     /**
-     * {@snippet :
-     * #define SB_NONE 0
+     * {@snippet lang=c :
+     * #define szOID_TELEX_NUMBER "2.5.4.21"
      * }
      */
-    public static int SB_NONE() {
-        return (int)0L;
+    public static MemorySegment szOID_TELEX_NUMBER() {
+        class Holder {
+            static final MemorySegment szOID_TELEX_NUMBER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.21");
+        }
+        return Holder.szOID_TELEX_NUMBER;
     }
     /**
-     * {@snippet :
-     * #define SB_CONST_ALPHA 1
+     * {@snippet lang=c :
+     * #define szOID_TELETEXT_TERMINAL_IDENTIFIER "2.5.4.22"
      * }
      */
-    public static int SB_CONST_ALPHA() {
-        return (int)1L;
+    public static MemorySegment szOID_TELETEXT_TERMINAL_IDENTIFIER() {
+        class Holder {
+            static final MemorySegment szOID_TELETEXT_TERMINAL_IDENTIFIER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.22");
+        }
+        return Holder.szOID_TELETEXT_TERMINAL_IDENTIFIER;
     }
     /**
-     * {@snippet :
-     * #define SB_PIXEL_ALPHA 2
+     * {@snippet lang=c :
+     * #define szOID_FACSIMILE_TELEPHONE_NUMBER "2.5.4.23"
      * }
      */
-    public static int SB_PIXEL_ALPHA() {
-        return (int)2L;
+    public static MemorySegment szOID_FACSIMILE_TELEPHONE_NUMBER() {
+        class Holder {
+            static final MemorySegment szOID_FACSIMILE_TELEPHONE_NUMBER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.23");
+        }
+        return Holder.szOID_FACSIMILE_TELEPHONE_NUMBER;
     }
     /**
-     * {@snippet :
-     * #define SB_PREMULT_ALPHA 4
+     * {@snippet lang=c :
+     * #define szOID_X21_ADDRESS "2.5.4.24"
      * }
      */
-    public static int SB_PREMULT_ALPHA() {
-        return (int)4L;
+    public static MemorySegment szOID_X21_ADDRESS() {
+        class Holder {
+            static final MemorySegment szOID_X21_ADDRESS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.24");
+        }
+        return Holder.szOID_X21_ADDRESS;
     }
     /**
-     * {@snippet :
-     * #define SB_GRAD_RECT 16
+     * {@snippet lang=c :
+     * #define szOID_INTERNATIONAL_ISDN_NUMBER "2.5.4.25"
      * }
      */
-    public static int SB_GRAD_RECT() {
-        return (int)16L;
+    public static MemorySegment szOID_INTERNATIONAL_ISDN_NUMBER() {
+        class Holder {
+            static final MemorySegment szOID_INTERNATIONAL_ISDN_NUMBER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.25");
+        }
+        return Holder.szOID_INTERNATIONAL_ISDN_NUMBER;
     }
     /**
-     * {@snippet :
-     * #define SB_GRAD_TRI 32
+     * {@snippet lang=c :
+     * #define szOID_REGISTERED_ADDRESS "2.5.4.26"
      * }
      */
-    public static int SB_GRAD_TRI() {
-        return (int)32L;
+    public static MemorySegment szOID_REGISTERED_ADDRESS() {
+        class Holder {
+            static final MemorySegment szOID_REGISTERED_ADDRESS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.26");
+        }
+        return Holder.szOID_REGISTERED_ADDRESS;
     }
     /**
-     * {@snippet :
-     * #define CM_NONE 0
+     * {@snippet lang=c :
+     * #define szOID_DESTINATION_INDICATOR "2.5.4.27"
      * }
      */
-    public static int CM_NONE() {
-        return (int)0L;
+    public static MemorySegment szOID_DESTINATION_INDICATOR() {
+        class Holder {
+            static final MemorySegment szOID_DESTINATION_INDICATOR
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.27");
+        }
+        return Holder.szOID_DESTINATION_INDICATOR;
     }
     /**
-     * {@snippet :
-     * #define CM_DEVICE_ICM 1
+     * {@snippet lang=c :
+     * #define szOID_PREFERRED_DELIVERY_METHOD "2.5.4.28"
      * }
      */
-    public static int CM_DEVICE_ICM() {
-        return (int)1L;
+    public static MemorySegment szOID_PREFERRED_DELIVERY_METHOD() {
+        class Holder {
+            static final MemorySegment szOID_PREFERRED_DELIVERY_METHOD
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.28");
+        }
+        return Holder.szOID_PREFERRED_DELIVERY_METHOD;
     }
     /**
-     * {@snippet :
-     * #define CM_GAMMA_RAMP 2
+     * {@snippet lang=c :
+     * #define szOID_PRESENTATION_ADDRESS "2.5.4.29"
      * }
      */
-    public static int CM_GAMMA_RAMP() {
-        return (int)2L;
+    public static MemorySegment szOID_PRESENTATION_ADDRESS() {
+        class Holder {
+            static final MemorySegment szOID_PRESENTATION_ADDRESS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.29");
+        }
+        return Holder.szOID_PRESENTATION_ADDRESS;
     }
     /**
-     * {@snippet :
-     * #define CM_CMYK_COLOR 4
+     * {@snippet lang=c :
+     * #define szOID_SUPPORTED_APPLICATION_CONTEXT "2.5.4.30"
      * }
      */
-    public static int CM_CMYK_COLOR() {
-        return (int)4L;
+    public static MemorySegment szOID_SUPPORTED_APPLICATION_CONTEXT() {
+        class Holder {
+            static final MemorySegment szOID_SUPPORTED_APPLICATION_CONTEXT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.30");
+        }
+        return Holder.szOID_SUPPORTED_APPLICATION_CONTEXT;
     }
     /**
-     * {@snippet :
-     * #define DIB_RGB_COLORS 0
+     * {@snippet lang=c :
+     * #define szOID_MEMBER "2.5.4.31"
      * }
      */
-    public static int DIB_RGB_COLORS() {
-        return (int)0L;
+    public static MemorySegment szOID_MEMBER() {
+        class Holder {
+            static final MemorySegment szOID_MEMBER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.31");
+        }
+        return Holder.szOID_MEMBER;
     }
     /**
-     * {@snippet :
-     * #define DIB_PAL_COLORS 1
+     * {@snippet lang=c :
+     * #define szOID_OWNER "2.5.4.32"
      * }
      */
-    public static int DIB_PAL_COLORS() {
-        return (int)1L;
+    public static MemorySegment szOID_OWNER() {
+        class Holder {
+            static final MemorySegment szOID_OWNER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.32");
+        }
+        return Holder.szOID_OWNER;
     }
     /**
-     * {@snippet :
-     * #define SYSPAL_ERROR 0
+     * {@snippet lang=c :
+     * #define szOID_ROLE_OCCUPANT "2.5.4.33"
      * }
      */
-    public static int SYSPAL_ERROR() {
-        return (int)0L;
+    public static MemorySegment szOID_ROLE_OCCUPANT() {
+        class Holder {
+            static final MemorySegment szOID_ROLE_OCCUPANT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.33");
+        }
+        return Holder.szOID_ROLE_OCCUPANT;
     }
     /**
-     * {@snippet :
-     * #define SYSPAL_STATIC 1
+     * {@snippet lang=c :
+     * #define szOID_SEE_ALSO "2.5.4.34"
      * }
      */
-    public static int SYSPAL_STATIC() {
-        return (int)1L;
+    public static MemorySegment szOID_SEE_ALSO() {
+        class Holder {
+            static final MemorySegment szOID_SEE_ALSO
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.34");
+        }
+        return Holder.szOID_SEE_ALSO;
     }
     /**
-     * {@snippet :
-     * #define SYSPAL_NOSTATIC 2
+     * {@snippet lang=c :
+     * #define szOID_USER_PASSWORD "2.5.4.35"
      * }
      */
-    public static int SYSPAL_NOSTATIC() {
-        return (int)2L;
+    public static MemorySegment szOID_USER_PASSWORD() {
+        class Holder {
+            static final MemorySegment szOID_USER_PASSWORD
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.35");
+        }
+        return Holder.szOID_USER_PASSWORD;
     }
     /**
-     * {@snippet :
-     * #define SYSPAL_NOSTATIC256 3
+     * {@snippet lang=c :
+     * #define szOID_USER_CERTIFICATE "2.5.4.36"
      * }
      */
-    public static int SYSPAL_NOSTATIC256() {
-        return (int)3L;
+    public static MemorySegment szOID_USER_CERTIFICATE() {
+        class Holder {
+            static final MemorySegment szOID_USER_CERTIFICATE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.36");
+        }
+        return Holder.szOID_USER_CERTIFICATE;
     }
     /**
-     * {@snippet :
-     * #define FLOODFILLBORDER 0
+     * {@snippet lang=c :
+     * #define szOID_CA_CERTIFICATE "2.5.4.37"
      * }
      */
-    public static int FLOODFILLBORDER() {
-        return (int)0L;
+    public static MemorySegment szOID_CA_CERTIFICATE() {
+        class Holder {
+            static final MemorySegment szOID_CA_CERTIFICATE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.37");
+        }
+        return Holder.szOID_CA_CERTIFICATE;
     }
     /**
-     * {@snippet :
-     * #define FLOODFILLSURFACE 1
+     * {@snippet lang=c :
+     * #define szOID_AUTHORITY_REVOCATION_LIST "2.5.4.38"
      * }
      */
-    public static int FLOODFILLSURFACE() {
-        return (int)1L;
+    public static MemorySegment szOID_AUTHORITY_REVOCATION_LIST() {
+        class Holder {
+            static final MemorySegment szOID_AUTHORITY_REVOCATION_LIST
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.38");
+        }
+        return Holder.szOID_AUTHORITY_REVOCATION_LIST;
     }
     /**
-     * {@snippet :
-     * #define CCHDEVICENAME 32
+     * {@snippet lang=c :
+     * #define szOID_CERTIFICATE_REVOCATION_LIST "2.5.4.39"
      * }
      */
-    public static int CCHDEVICENAME() {
-        return (int)32L;
+    public static MemorySegment szOID_CERTIFICATE_REVOCATION_LIST() {
+        class Holder {
+            static final MemorySegment szOID_CERTIFICATE_REVOCATION_LIST
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.39");
+        }
+        return Holder.szOID_CERTIFICATE_REVOCATION_LIST;
     }
     /**
-     * {@snippet :
-     * #define CCHFORMNAME 32
+     * {@snippet lang=c :
+     * #define szOID_CROSS_CERTIFICATE_PAIR "2.5.4.40"
      * }
      */
-    public static int CCHFORMNAME() {
-        return (int)32L;
+    public static MemorySegment szOID_CROSS_CERTIFICATE_PAIR() {
+        class Holder {
+            static final MemorySegment szOID_CROSS_CERTIFICATE_PAIR
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.40");
+        }
+        return Holder.szOID_CROSS_CERTIFICATE_PAIR;
     }
     /**
-     * {@snippet :
-     * #define DM_SPECVERSION 1025
+     * {@snippet lang=c :
+     * #define szOID_GIVEN_NAME "2.5.4.42"
      * }
      */
-    public static int DM_SPECVERSION() {
-        return (int)1025L;
+    public static MemorySegment szOID_GIVEN_NAME() {
+        class Holder {
+            static final MemorySegment szOID_GIVEN_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.42");
+        }
+        return Holder.szOID_GIVEN_NAME;
     }
     /**
-     * {@snippet :
-     * #define DMORIENT_PORTRAIT 1
+     * {@snippet lang=c :
+     * #define szOID_INITIALS "2.5.4.43"
      * }
      */
-    public static int DMORIENT_PORTRAIT() {
-        return (int)1L;
+    public static MemorySegment szOID_INITIALS() {
+        class Holder {
+            static final MemorySegment szOID_INITIALS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.43");
+        }
+        return Holder.szOID_INITIALS;
     }
     /**
-     * {@snippet :
-     * #define DMORIENT_LANDSCAPE 2
+     * {@snippet lang=c :
+     * #define szOID_DN_QUALIFIER "2.5.4.46"
      * }
      */
-    public static int DMORIENT_LANDSCAPE() {
-        return (int)2L;
+    public static MemorySegment szOID_DN_QUALIFIER() {
+        class Holder {
+            static final MemorySegment szOID_DN_QUALIFIER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.4.46");
+        }
+        return Holder.szOID_DN_QUALIFIER;
     }
     /**
-     * {@snippet :
-     * #define DMPAPER_LETTER 1
+     * {@snippet lang=c :
+     * #define szOID_DOMAIN_COMPONENT "0.9.2342.19200300.100.1.25"
      * }
      */
-    public static int DMPAPER_LETTER() {
-        return (int)1L;
+    public static MemorySegment szOID_DOMAIN_COMPONENT() {
+        class Holder {
+            static final MemorySegment szOID_DOMAIN_COMPONENT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("0.9.2342.19200300.100.1.25");
+        }
+        return Holder.szOID_DOMAIN_COMPONENT;
     }
     /**
-     * {@snippet :
-     * #define DMPAPER_LETTERSMALL 2
+     * {@snippet lang=c :
+     * #define szOID_PKCS_12_FRIENDLY_NAME_ATTR "1.2.840.113549.1.9.20"
      * }
      */
-    public static int DMPAPER_LETTERSMALL() {
-        return (int)2L;
+    public static MemorySegment szOID_PKCS_12_FRIENDLY_NAME_ATTR() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_12_FRIENDLY_NAME_ATTR
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.20");
+        }
+        return Holder.szOID_PKCS_12_FRIENDLY_NAME_ATTR;
     }
     /**
-     * {@snippet :
-     * #define DMPAPER_TABLOID 3
+     * {@snippet lang=c :
+     * #define szOID_PKCS_12_LOCAL_KEY_ID "1.2.840.113549.1.9.21"
      * }
      */
-    public static int DMPAPER_TABLOID() {
-        return (int)3L;
+    public static MemorySegment szOID_PKCS_12_LOCAL_KEY_ID() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_12_LOCAL_KEY_ID
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.9.21");
+        }
+        return Holder.szOID_PKCS_12_LOCAL_KEY_ID;
     }
     /**
-     * {@snippet :
-     * #define DMPAPER_LEDGER 4
+     * {@snippet lang=c :
+     * #define szOID_PKCS_12_KEY_PROVIDER_NAME_ATTR "1.3.6.1.4.1.311.17.1"
      * }
      */
-    public static int DMPAPER_LEDGER() {
-        return (int)4L;
+    public static MemorySegment szOID_PKCS_12_KEY_PROVIDER_NAME_ATTR() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_12_KEY_PROVIDER_NAME_ATTR
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.17.1");
+        }
+        return Holder.szOID_PKCS_12_KEY_PROVIDER_NAME_ATTR;
     }
     /**
-     * {@snippet :
-     * #define DMPAPER_LEGAL 5
+     * {@snippet lang=c :
+     * #define szOID_LOCAL_MACHINE_KEYSET "1.3.6.1.4.1.311.17.2"
      * }
      */
-    public static int DMPAPER_LEGAL() {
-        return (int)5L;
+    public static MemorySegment szOID_LOCAL_MACHINE_KEYSET() {
+        class Holder {
+            static final MemorySegment szOID_LOCAL_MACHINE_KEYSET
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.17.2");
+        }
+        return Holder.szOID_LOCAL_MACHINE_KEYSET;
     }
     /**
-     * {@snippet :
-     * #define DMPAPER_STATEMENT 6
+     * {@snippet lang=c :
+     * #define szOID_PKCS_12_EXTENDED_ATTRIBUTES "1.3.6.1.4.1.311.17.3"
      * }
      */
-    public static int DMPAPER_STATEMENT() {
-        return (int)6L;
+    public static MemorySegment szOID_PKCS_12_EXTENDED_ATTRIBUTES() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_12_EXTENDED_ATTRIBUTES
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.17.3");
+        }
+        return Holder.szOID_PKCS_12_EXTENDED_ATTRIBUTES;
     }
     /**
-     * {@snippet :
-     * #define DMPAPER_EXECUTIVE 7
+     * {@snippet lang=c :
+     * #define szOID_PKCS_12_PROTECTED_PASSWORD_SECRET_BAG_TYPE_ID "1.3.6.1.4.1.311.17.4"
      * }
      */
-    public static int DMPAPER_EXECUTIVE() {
-        return (int)7L;
+    public static MemorySegment szOID_PKCS_12_PROTECTED_PASSWORD_SECRET_BAG_TYPE_ID() {
+        class Holder {
+            static final MemorySegment szOID_PKCS_12_PROTECTED_PASSWORD_SECRET_BAG_TYPE_ID
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.17.4");
+        }
+        return Holder.szOID_PKCS_12_PROTECTED_PASSWORD_SECRET_BAG_TYPE_ID;
     }
     /**
-     * {@snippet :
-     * #define DMPAPER_A3 8
+     * {@snippet lang=c :
+     * #define szOID_KEYID_RDN "1.3.6.1.4.1.311.10.7.1"
      * }
      */
-    public static int DMPAPER_A3() {
-        return (int)8L;
+    public static MemorySegment szOID_KEYID_RDN() {
+        class Holder {
+            static final MemorySegment szOID_KEYID_RDN
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.7.1");
+        }
+        return Holder.szOID_KEYID_RDN;
     }
     /**
-     * {@snippet :
-     * #define DMPAPER_A4 9
+     * {@snippet lang=c :
+     * #define szOID_EV_RDN_LOCALE "1.3.6.1.4.1.311.60.2.1.1"
      * }
      */
-    public static int DMPAPER_A4() {
-        return (int)9L;
+    public static MemorySegment szOID_EV_RDN_LOCALE() {
+        class Holder {
+            static final MemorySegment szOID_EV_RDN_LOCALE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.60.2.1.1");
+        }
+        return Holder.szOID_EV_RDN_LOCALE;
     }
     /**
-     * {@snippet :
-     * #define DMPAPER_A4SMALL 10
+     * {@snippet lang=c :
+     * #define szOID_EV_RDN_STATE_OR_PROVINCE "1.3.6.1.4.1.311.60.2.1.2"
      * }
      */
-    public static int DMPAPER_A4SMALL() {
-        return (int)10L;
+    public static MemorySegment szOID_EV_RDN_STATE_OR_PROVINCE() {
+        class Holder {
+            static final MemorySegment szOID_EV_RDN_STATE_OR_PROVINCE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.60.2.1.2");
+        }
+        return Holder.szOID_EV_RDN_STATE_OR_PROVINCE;
     }
     /**
-     * {@snippet :
-     * #define DMPAPER_A5 11
+     * {@snippet lang=c :
+     * #define szOID_EV_RDN_COUNTRY "1.3.6.1.4.1.311.60.2.1.3"
      * }
      */
-    public static int DMPAPER_A5() {
-        return (int)11L;
+    public static MemorySegment szOID_EV_RDN_COUNTRY() {
+        class Holder {
+            static final MemorySegment szOID_EV_RDN_COUNTRY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.60.2.1.3");
+        }
+        return Holder.szOID_EV_RDN_COUNTRY;
     }
+    private static final int CERT_RDN_FLAGS_MASK = (int)4278190080L;
     /**
-     * {@snippet :
-     * #define DMPAPER_B4 12
+     * {@snippet lang=c :
+     * #define CERT_RDN_FLAGS_MASK 4278190080
      * }
      */
-    public static int DMPAPER_B4() {
-        return (int)12L;
+    public static int CERT_RDN_FLAGS_MASK() {
+        return CERT_RDN_FLAGS_MASK;
     }
+    private static final int CERT_RDN_ENABLE_T61_UNICODE_FLAG = (int)2147483648L;
     /**
-     * {@snippet :
-     * #define DMPAPER_B5 13
+     * {@snippet lang=c :
+     * #define CERT_RDN_ENABLE_T61_UNICODE_FLAG 2147483648
      * }
      */
-    public static int DMPAPER_B5() {
-        return (int)13L;
+    public static int CERT_RDN_ENABLE_T61_UNICODE_FLAG() {
+        return CERT_RDN_ENABLE_T61_UNICODE_FLAG;
     }
     /**
-     * {@snippet :
-     * #define DMPAPER_FOLIO 14
+     * {@snippet lang=c :
+     * #define CERT_RSA_PUBLIC_KEY_OBJID "1.2.840.113549.1.1.1"
      * }
      */
-    public static int DMPAPER_FOLIO() {
-        return (int)14L;
+    public static MemorySegment CERT_RSA_PUBLIC_KEY_OBJID() {
+        class Holder {
+            static final MemorySegment CERT_RSA_PUBLIC_KEY_OBJID
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.1");
+        }
+        return Holder.CERT_RSA_PUBLIC_KEY_OBJID;
     }
     /**
-     * {@snippet :
-     * #define DMPAPER_QUARTO 15
+     * {@snippet lang=c :
+     * #define CERT_DEFAULT_OID_PUBLIC_KEY_SIGN "1.2.840.113549.1.1.1"
      * }
      */
-    public static int DMPAPER_QUARTO() {
-        return (int)15L;
+    public static MemorySegment CERT_DEFAULT_OID_PUBLIC_KEY_SIGN() {
+        class Holder {
+            static final MemorySegment CERT_DEFAULT_OID_PUBLIC_KEY_SIGN
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.1");
+        }
+        return Holder.CERT_DEFAULT_OID_PUBLIC_KEY_SIGN;
     }
     /**
-     * {@snippet :
-     * #define DMPAPER_10X14 16
+     * {@snippet lang=c :
+     * #define CERT_DEFAULT_OID_PUBLIC_KEY_XCHG "1.2.840.113549.1.1.1"
      * }
      */
-    public static int DMPAPER_10X14() {
-        return (int)16L;
+    public static MemorySegment CERT_DEFAULT_OID_PUBLIC_KEY_XCHG() {
+        class Holder {
+            static final MemorySegment CERT_DEFAULT_OID_PUBLIC_KEY_XCHG
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.2.840.113549.1.1.1");
+        }
+        return Holder.CERT_DEFAULT_OID_PUBLIC_KEY_XCHG;
     }
+    private static final int CMSG_ENCODING_TYPE_MASK = (int)4294901760L;
     /**
-     * {@snippet :
-     * #define DMPAPER_11X17 17
+     * {@snippet lang=c :
+     * #define CMSG_ENCODING_TYPE_MASK 4294901760
      * }
      */
-    public static int DMPAPER_11X17() {
-        return (int)17L;
+    public static int CMSG_ENCODING_TYPE_MASK() {
+        return CMSG_ENCODING_TYPE_MASK;
     }
+    private static final int CRYPT_FORMAT_SEMICOLON = (int)256L;
     /**
-     * {@snippet :
-     * #define DMPAPER_NOTE 18
+     * {@snippet lang=c :
+     * #define CRYPT_FORMAT_SEMICOLON 256
      * }
      */
-    public static int DMPAPER_NOTE() {
-        return (int)18L;
+    public static int CRYPT_FORMAT_SEMICOLON() {
+        return CRYPT_FORMAT_SEMICOLON;
     }
+    private static final int CRYPT_FORMAT_CRLF = (int)512L;
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_9 19
+     * {@snippet lang=c :
+     * #define CRYPT_FORMAT_CRLF 512
      * }
      */
-    public static int DMPAPER_ENV_9() {
-        return (int)19L;
+    public static int CRYPT_FORMAT_CRLF() {
+        return CRYPT_FORMAT_CRLF;
     }
+    private static final int CRYPT_UNICODE_NAME_ENCODE_ENABLE_T61_UNICODE_FLAG = (int)2147483648L;
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_10 20
+     * {@snippet lang=c :
+     * #define CRYPT_UNICODE_NAME_ENCODE_ENABLE_T61_UNICODE_FLAG 2147483648
      * }
      */
-    public static int DMPAPER_ENV_10() {
-        return (int)20L;
+    public static int CRYPT_UNICODE_NAME_ENCODE_ENABLE_T61_UNICODE_FLAG() {
+        return CRYPT_UNICODE_NAME_ENCODE_ENABLE_T61_UNICODE_FLAG;
     }
+    private static final int CRYPT_UNICODE_NAME_ENCODE_ENABLE_UTF8_UNICODE_FLAG = (int)536870912L;
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_11 21
+     * {@snippet lang=c :
+     * #define CRYPT_UNICODE_NAME_ENCODE_ENABLE_UTF8_UNICODE_FLAG 536870912
      * }
      */
-    public static int DMPAPER_ENV_11() {
-        return (int)21L;
+    public static int CRYPT_UNICODE_NAME_ENCODE_ENABLE_UTF8_UNICODE_FLAG() {
+        return CRYPT_UNICODE_NAME_ENCODE_ENABLE_UTF8_UNICODE_FLAG;
     }
+    private static final int CRYPT_UNICODE_NAME_ENCODE_FORCE_UTF8_UNICODE_FLAG = (int)268435456L;
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_12 22
+     * {@snippet lang=c :
+     * #define CRYPT_UNICODE_NAME_ENCODE_FORCE_UTF8_UNICODE_FLAG 268435456
      * }
      */
-    public static int DMPAPER_ENV_12() {
-        return (int)22L;
+    public static int CRYPT_UNICODE_NAME_ENCODE_FORCE_UTF8_UNICODE_FLAG() {
+        return CRYPT_UNICODE_NAME_ENCODE_FORCE_UTF8_UNICODE_FLAG;
     }
+    private static final int CRYPT_UNICODE_NAME_ENCODE_DISABLE_CHECK_TYPE_FLAG = (int)1073741824L;
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_14 23
+     * {@snippet lang=c :
+     * #define CRYPT_UNICODE_NAME_ENCODE_DISABLE_CHECK_TYPE_FLAG 1073741824
      * }
      */
-    public static int DMPAPER_ENV_14() {
-        return (int)23L;
+    public static int CRYPT_UNICODE_NAME_ENCODE_DISABLE_CHECK_TYPE_FLAG() {
+        return CRYPT_UNICODE_NAME_ENCODE_DISABLE_CHECK_TYPE_FLAG;
     }
+    private static final int CRYPT_ENCODE_ENABLE_IA5CONVERSION_FLAG = (int)393216L;
     /**
-     * {@snippet :
-     * #define DMPAPER_CSHEET 24
+     * {@snippet lang=c :
+     * #define CRYPT_ENCODE_ENABLE_IA5CONVERSION_FLAG 393216
      * }
      */
-    public static int DMPAPER_CSHEET() {
-        return (int)24L;
+    public static int CRYPT_ENCODE_ENABLE_IA5CONVERSION_FLAG() {
+        return CRYPT_ENCODE_ENABLE_IA5CONVERSION_FLAG;
     }
+    private static final int CRYPT_UNICODE_NAME_DECODE_DISABLE_IE4_UTF8_FLAG = (int)16777216L;
     /**
-     * {@snippet :
-     * #define DMPAPER_DSHEET 25
+     * {@snippet lang=c :
+     * #define CRYPT_UNICODE_NAME_DECODE_DISABLE_IE4_UTF8_FLAG 16777216
      * }
      */
-    public static int DMPAPER_DSHEET() {
-        return (int)25L;
+    public static int CRYPT_UNICODE_NAME_DECODE_DISABLE_IE4_UTF8_FLAG() {
+        return CRYPT_UNICODE_NAME_DECODE_DISABLE_IE4_UTF8_FLAG;
     }
+    private static final int CRYPT_DECODE_ENABLE_IA5CONVERSION_FLAG = (int)100663296L;
     /**
-     * {@snippet :
-     * #define DMPAPER_ESHEET 26
+     * {@snippet lang=c :
+     * #define CRYPT_DECODE_ENABLE_IA5CONVERSION_FLAG 100663296
      * }
      */
-    public static int DMPAPER_ESHEET() {
-        return (int)26L;
+    public static int CRYPT_DECODE_ENABLE_IA5CONVERSION_FLAG() {
+        return CRYPT_DECODE_ENABLE_IA5CONVERSION_FLAG;
     }
+    private static final MemorySegment X509_CERT = MemorySegment.ofAddress(1L);
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_DL 27
+     * {@snippet lang=c :
+     * #define X509_CERT (void*) 1
      * }
      */
-    public static int DMPAPER_ENV_DL() {
-        return (int)27L;
+    public static MemorySegment X509_CERT() {
+        return X509_CERT;
     }
+    private static final MemorySegment X509_CERT_TO_BE_SIGNED = MemorySegment.ofAddress(2L);
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_C5 28
+     * {@snippet lang=c :
+     * #define X509_CERT_TO_BE_SIGNED (void*) 2
      * }
      */
-    public static int DMPAPER_ENV_C5() {
-        return (int)28L;
+    public static MemorySegment X509_CERT_TO_BE_SIGNED() {
+        return X509_CERT_TO_BE_SIGNED;
     }
+    private static final MemorySegment X509_CERT_CRL_TO_BE_SIGNED = MemorySegment.ofAddress(3L);
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_C3 29
+     * {@snippet lang=c :
+     * #define X509_CERT_CRL_TO_BE_SIGNED (void*) 3
      * }
      */
-    public static int DMPAPER_ENV_C3() {
-        return (int)29L;
+    public static MemorySegment X509_CERT_CRL_TO_BE_SIGNED() {
+        return X509_CERT_CRL_TO_BE_SIGNED;
     }
+    private static final MemorySegment X509_CERT_REQUEST_TO_BE_SIGNED = MemorySegment.ofAddress(4L);
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_C4 30
+     * {@snippet lang=c :
+     * #define X509_CERT_REQUEST_TO_BE_SIGNED (void*) 4
      * }
      */
-    public static int DMPAPER_ENV_C4() {
-        return (int)30L;
+    public static MemorySegment X509_CERT_REQUEST_TO_BE_SIGNED() {
+        return X509_CERT_REQUEST_TO_BE_SIGNED;
     }
+    private static final MemorySegment X509_EXTENSIONS = MemorySegment.ofAddress(5L);
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_C6 31
+     * {@snippet lang=c :
+     * #define X509_EXTENSIONS (void*) 5
      * }
      */
-    public static int DMPAPER_ENV_C6() {
-        return (int)31L;
+    public static MemorySegment X509_EXTENSIONS() {
+        return X509_EXTENSIONS;
     }
+    private static final MemorySegment X509_NAME_VALUE = MemorySegment.ofAddress(6L);
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_C65 32
+     * {@snippet lang=c :
+     * #define X509_NAME_VALUE (void*) 6
      * }
      */
-    public static int DMPAPER_ENV_C65() {
-        return (int)32L;
+    public static MemorySegment X509_NAME_VALUE() {
+        return X509_NAME_VALUE;
     }
+    private static final MemorySegment X509_NAME = MemorySegment.ofAddress(7L);
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_B4 33
+     * {@snippet lang=c :
+     * #define X509_NAME (void*) 7
      * }
      */
-    public static int DMPAPER_ENV_B4() {
-        return (int)33L;
+    public static MemorySegment X509_NAME() {
+        return X509_NAME;
     }
+    private static final MemorySegment X509_PUBLIC_KEY_INFO = MemorySegment.ofAddress(8L);
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_B5 34
+     * {@snippet lang=c :
+     * #define X509_PUBLIC_KEY_INFO (void*) 8
      * }
      */
-    public static int DMPAPER_ENV_B5() {
-        return (int)34L;
+    public static MemorySegment X509_PUBLIC_KEY_INFO() {
+        return X509_PUBLIC_KEY_INFO;
     }
+    private static final MemorySegment X509_AUTHORITY_KEY_ID = MemorySegment.ofAddress(9L);
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_B6 35
+     * {@snippet lang=c :
+     * #define X509_AUTHORITY_KEY_ID (void*) 9
      * }
      */
-    public static int DMPAPER_ENV_B6() {
-        return (int)35L;
+    public static MemorySegment X509_AUTHORITY_KEY_ID() {
+        return X509_AUTHORITY_KEY_ID;
     }
+    private static final MemorySegment X509_KEY_ATTRIBUTES = MemorySegment.ofAddress(10L);
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_ITALY 36
+     * {@snippet lang=c :
+     * #define X509_KEY_ATTRIBUTES (void*) 10
      * }
      */
-    public static int DMPAPER_ENV_ITALY() {
-        return (int)36L;
+    public static MemorySegment X509_KEY_ATTRIBUTES() {
+        return X509_KEY_ATTRIBUTES;
     }
+    private static final MemorySegment X509_KEY_USAGE_RESTRICTION = MemorySegment.ofAddress(11L);
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_MONARCH 37
+     * {@snippet lang=c :
+     * #define X509_KEY_USAGE_RESTRICTION (void*) 11
      * }
      */
-    public static int DMPAPER_ENV_MONARCH() {
-        return (int)37L;
+    public static MemorySegment X509_KEY_USAGE_RESTRICTION() {
+        return X509_KEY_USAGE_RESTRICTION;
     }
+    private static final MemorySegment X509_ALTERNATE_NAME = MemorySegment.ofAddress(12L);
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_PERSONAL 38
+     * {@snippet lang=c :
+     * #define X509_ALTERNATE_NAME (void*) 12
      * }
      */
-    public static int DMPAPER_ENV_PERSONAL() {
-        return (int)38L;
+    public static MemorySegment X509_ALTERNATE_NAME() {
+        return X509_ALTERNATE_NAME;
     }
+    private static final MemorySegment X509_BASIC_CONSTRAINTS = MemorySegment.ofAddress(13L);
     /**
-     * {@snippet :
-     * #define DMPAPER_FANFOLD_US 39
+     * {@snippet lang=c :
+     * #define X509_BASIC_CONSTRAINTS (void*) 13
      * }
      */
-    public static int DMPAPER_FANFOLD_US() {
-        return (int)39L;
+    public static MemorySegment X509_BASIC_CONSTRAINTS() {
+        return X509_BASIC_CONSTRAINTS;
     }
+    private static final MemorySegment X509_KEY_USAGE = MemorySegment.ofAddress(14L);
     /**
-     * {@snippet :
-     * #define DMPAPER_FANFOLD_STD_GERMAN 40
+     * {@snippet lang=c :
+     * #define X509_KEY_USAGE (void*) 14
      * }
      */
-    public static int DMPAPER_FANFOLD_STD_GERMAN() {
-        return (int)40L;
+    public static MemorySegment X509_KEY_USAGE() {
+        return X509_KEY_USAGE;
     }
+    private static final MemorySegment X509_BASIC_CONSTRAINTS2 = MemorySegment.ofAddress(15L);
     /**
-     * {@snippet :
-     * #define DMPAPER_FANFOLD_LGL_GERMAN 41
+     * {@snippet lang=c :
+     * #define X509_BASIC_CONSTRAINTS2 (void*) 15
      * }
      */
-    public static int DMPAPER_FANFOLD_LGL_GERMAN() {
-        return (int)41L;
+    public static MemorySegment X509_BASIC_CONSTRAINTS2() {
+        return X509_BASIC_CONSTRAINTS2;
     }
+    private static final MemorySegment X509_CERT_POLICIES = MemorySegment.ofAddress(16L);
     /**
-     * {@snippet :
-     * #define DMPAPER_ISO_B4 42
+     * {@snippet lang=c :
+     * #define X509_CERT_POLICIES (void*) 16
      * }
      */
-    public static int DMPAPER_ISO_B4() {
-        return (int)42L;
+    public static MemorySegment X509_CERT_POLICIES() {
+        return X509_CERT_POLICIES;
     }
+    private static final MemorySegment PKCS_UTC_TIME = MemorySegment.ofAddress(17L);
     /**
-     * {@snippet :
-     * #define DMPAPER_JAPANESE_POSTCARD 43
+     * {@snippet lang=c :
+     * #define PKCS_UTC_TIME (void*) 17
      * }
      */
-    public static int DMPAPER_JAPANESE_POSTCARD() {
-        return (int)43L;
+    public static MemorySegment PKCS_UTC_TIME() {
+        return PKCS_UTC_TIME;
     }
+    private static final MemorySegment PKCS_TIME_REQUEST = MemorySegment.ofAddress(18L);
     /**
-     * {@snippet :
-     * #define DMPAPER_9X11 44
+     * {@snippet lang=c :
+     * #define PKCS_TIME_REQUEST (void*) 18
      * }
      */
-    public static int DMPAPER_9X11() {
-        return (int)44L;
+    public static MemorySegment PKCS_TIME_REQUEST() {
+        return PKCS_TIME_REQUEST;
     }
+    private static final MemorySegment RSA_CSP_PUBLICKEYBLOB = MemorySegment.ofAddress(19L);
     /**
-     * {@snippet :
-     * #define DMPAPER_10X11 45
+     * {@snippet lang=c :
+     * #define RSA_CSP_PUBLICKEYBLOB (void*) 19
      * }
      */
-    public static int DMPAPER_10X11() {
-        return (int)45L;
+    public static MemorySegment RSA_CSP_PUBLICKEYBLOB() {
+        return RSA_CSP_PUBLICKEYBLOB;
     }
+    private static final MemorySegment X509_UNICODE_NAME = MemorySegment.ofAddress(20L);
     /**
-     * {@snippet :
-     * #define DMPAPER_15X11 46
+     * {@snippet lang=c :
+     * #define X509_UNICODE_NAME (void*) 20
      * }
      */
-    public static int DMPAPER_15X11() {
-        return (int)46L;
+    public static MemorySegment X509_UNICODE_NAME() {
+        return X509_UNICODE_NAME;
     }
+    private static final MemorySegment X509_KEYGEN_REQUEST_TO_BE_SIGNED = MemorySegment.ofAddress(21L);
     /**
-     * {@snippet :
-     * #define DMPAPER_ENV_INVITE 47
+     * {@snippet lang=c :
+     * #define X509_KEYGEN_REQUEST_TO_BE_SIGNED (void*) 21
      * }
      */
-    public static int DMPAPER_ENV_INVITE() {
-        return (int)47L;
+    public static MemorySegment X509_KEYGEN_REQUEST_TO_BE_SIGNED() {
+        return X509_KEYGEN_REQUEST_TO_BE_SIGNED;
     }
+    private static final MemorySegment PKCS_ATTRIBUTE = MemorySegment.ofAddress(22L);
     /**
-     * {@snippet :
-     * #define DMPAPER_RESERVED_48 48
+     * {@snippet lang=c :
+     * #define PKCS_ATTRIBUTE (void*) 22
      * }
      */
-    public static int DMPAPER_RESERVED_48() {
-        return (int)48L;
+    public static MemorySegment PKCS_ATTRIBUTE() {
+        return PKCS_ATTRIBUTE;
     }
+    private static final MemorySegment PKCS_CONTENT_INFO_SEQUENCE_OF_ANY = MemorySegment.ofAddress(23L);
     /**
-     * {@snippet :
-     * #define DMPAPER_RESERVED_49 49
+     * {@snippet lang=c :
+     * #define PKCS_CONTENT_INFO_SEQUENCE_OF_ANY (void*) 23
      * }
      */
-    public static int DMPAPER_RESERVED_49() {
-        return (int)49L;
+    public static MemorySegment PKCS_CONTENT_INFO_SEQUENCE_OF_ANY() {
+        return PKCS_CONTENT_INFO_SEQUENCE_OF_ANY;
     }
+    private static final MemorySegment X509_UNICODE_NAME_VALUE = MemorySegment.ofAddress(24L);
     /**
-     * {@snippet :
-     * #define DMPAPER_LETTER_EXTRA 50
+     * {@snippet lang=c :
+     * #define X509_UNICODE_NAME_VALUE (void*) 24
      * }
      */
-    public static int DMPAPER_LETTER_EXTRA() {
-        return (int)50L;
+    public static MemorySegment X509_UNICODE_NAME_VALUE() {
+        return X509_UNICODE_NAME_VALUE;
     }
+    private static final MemorySegment X509_ANY_STRING = MemorySegment.ofAddress(6L);
     /**
-     * {@snippet :
-     * #define DMPAPER_LEGAL_EXTRA 51
+     * {@snippet lang=c :
+     * #define X509_ANY_STRING (void*) 6
      * }
      */
-    public static int DMPAPER_LEGAL_EXTRA() {
-        return (int)51L;
+    public static MemorySegment X509_ANY_STRING() {
+        return X509_ANY_STRING;
     }
+    private static final MemorySegment X509_UNICODE_ANY_STRING = MemorySegment.ofAddress(24L);
     /**
-     * {@snippet :
-     * #define DMPAPER_TABLOID_EXTRA 52
+     * {@snippet lang=c :
+     * #define X509_UNICODE_ANY_STRING (void*) 24
      * }
      */
-    public static int DMPAPER_TABLOID_EXTRA() {
-        return (int)52L;
+    public static MemorySegment X509_UNICODE_ANY_STRING() {
+        return X509_UNICODE_ANY_STRING;
     }
+    private static final MemorySegment X509_OCTET_STRING = MemorySegment.ofAddress(25L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A4_EXTRA 53
+     * {@snippet lang=c :
+     * #define X509_OCTET_STRING (void*) 25
      * }
      */
-    public static int DMPAPER_A4_EXTRA() {
-        return (int)53L;
+    public static MemorySegment X509_OCTET_STRING() {
+        return X509_OCTET_STRING;
     }
+    private static final MemorySegment X509_BITS = MemorySegment.ofAddress(26L);
     /**
-     * {@snippet :
-     * #define DMPAPER_LETTER_TRANSVERSE 54
+     * {@snippet lang=c :
+     * #define X509_BITS (void*) 26
      * }
      */
-    public static int DMPAPER_LETTER_TRANSVERSE() {
-        return (int)54L;
+    public static MemorySegment X509_BITS() {
+        return X509_BITS;
     }
+    private static final MemorySegment X509_INTEGER = MemorySegment.ofAddress(27L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A4_TRANSVERSE 55
+     * {@snippet lang=c :
+     * #define X509_INTEGER (void*) 27
      * }
      */
-    public static int DMPAPER_A4_TRANSVERSE() {
-        return (int)55L;
+    public static MemorySegment X509_INTEGER() {
+        return X509_INTEGER;
     }
+    private static final MemorySegment X509_MULTI_BYTE_INTEGER = MemorySegment.ofAddress(28L);
     /**
-     * {@snippet :
-     * #define DMPAPER_LETTER_EXTRA_TRANSVERSE 56
+     * {@snippet lang=c :
+     * #define X509_MULTI_BYTE_INTEGER (void*) 28
      * }
      */
-    public static int DMPAPER_LETTER_EXTRA_TRANSVERSE() {
-        return (int)56L;
+    public static MemorySegment X509_MULTI_BYTE_INTEGER() {
+        return X509_MULTI_BYTE_INTEGER;
     }
+    private static final MemorySegment X509_ENUMERATED = MemorySegment.ofAddress(29L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A_PLUS 57
+     * {@snippet lang=c :
+     * #define X509_ENUMERATED (void*) 29
      * }
      */
-    public static int DMPAPER_A_PLUS() {
-        return (int)57L;
+    public static MemorySegment X509_ENUMERATED() {
+        return X509_ENUMERATED;
     }
+    private static final MemorySegment X509_CHOICE_OF_TIME = MemorySegment.ofAddress(30L);
     /**
-     * {@snippet :
-     * #define DMPAPER_B_PLUS 58
+     * {@snippet lang=c :
+     * #define X509_CHOICE_OF_TIME (void*) 30
      * }
      */
-    public static int DMPAPER_B_PLUS() {
-        return (int)58L;
+    public static MemorySegment X509_CHOICE_OF_TIME() {
+        return X509_CHOICE_OF_TIME;
     }
+    private static final MemorySegment X509_AUTHORITY_KEY_ID2 = MemorySegment.ofAddress(31L);
     /**
-     * {@snippet :
-     * #define DMPAPER_LETTER_PLUS 59
+     * {@snippet lang=c :
+     * #define X509_AUTHORITY_KEY_ID2 (void*) 31
      * }
      */
-    public static int DMPAPER_LETTER_PLUS() {
-        return (int)59L;
+    public static MemorySegment X509_AUTHORITY_KEY_ID2() {
+        return X509_AUTHORITY_KEY_ID2;
     }
+    private static final MemorySegment X509_AUTHORITY_INFO_ACCESS = MemorySegment.ofAddress(32L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A4_PLUS 60
+     * {@snippet lang=c :
+     * #define X509_AUTHORITY_INFO_ACCESS (void*) 32
      * }
      */
-    public static int DMPAPER_A4_PLUS() {
-        return (int)60L;
+    public static MemorySegment X509_AUTHORITY_INFO_ACCESS() {
+        return X509_AUTHORITY_INFO_ACCESS;
     }
+    private static final MemorySegment X509_SUBJECT_INFO_ACCESS = MemorySegment.ofAddress(32L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A5_TRANSVERSE 61
+     * {@snippet lang=c :
+     * #define X509_SUBJECT_INFO_ACCESS (void*) 32
      * }
      */
-    public static int DMPAPER_A5_TRANSVERSE() {
-        return (int)61L;
+    public static MemorySegment X509_SUBJECT_INFO_ACCESS() {
+        return X509_SUBJECT_INFO_ACCESS;
     }
+    private static final MemorySegment X509_CRL_REASON_CODE = MemorySegment.ofAddress(29L);
     /**
-     * {@snippet :
-     * #define DMPAPER_B5_TRANSVERSE 62
+     * {@snippet lang=c :
+     * #define X509_CRL_REASON_CODE (void*) 29
      * }
      */
-    public static int DMPAPER_B5_TRANSVERSE() {
-        return (int)62L;
+    public static MemorySegment X509_CRL_REASON_CODE() {
+        return X509_CRL_REASON_CODE;
     }
+    private static final MemorySegment PKCS_CONTENT_INFO = MemorySegment.ofAddress(33L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A3_EXTRA 63
+     * {@snippet lang=c :
+     * #define PKCS_CONTENT_INFO (void*) 33
      * }
      */
-    public static int DMPAPER_A3_EXTRA() {
-        return (int)63L;
+    public static MemorySegment PKCS_CONTENT_INFO() {
+        return PKCS_CONTENT_INFO;
     }
+    private static final MemorySegment X509_SEQUENCE_OF_ANY = MemorySegment.ofAddress(34L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A5_EXTRA 64
+     * {@snippet lang=c :
+     * #define X509_SEQUENCE_OF_ANY (void*) 34
      * }
      */
-    public static int DMPAPER_A5_EXTRA() {
-        return (int)64L;
+    public static MemorySegment X509_SEQUENCE_OF_ANY() {
+        return X509_SEQUENCE_OF_ANY;
     }
+    private static final MemorySegment X509_CRL_DIST_POINTS = MemorySegment.ofAddress(35L);
     /**
-     * {@snippet :
-     * #define DMPAPER_B5_EXTRA 65
+     * {@snippet lang=c :
+     * #define X509_CRL_DIST_POINTS (void*) 35
      * }
      */
-    public static int DMPAPER_B5_EXTRA() {
-        return (int)65L;
+    public static MemorySegment X509_CRL_DIST_POINTS() {
+        return X509_CRL_DIST_POINTS;
     }
+    private static final MemorySegment X509_ENHANCED_KEY_USAGE = MemorySegment.ofAddress(36L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A2 66
+     * {@snippet lang=c :
+     * #define X509_ENHANCED_KEY_USAGE (void*) 36
      * }
      */
-    public static int DMPAPER_A2() {
-        return (int)66L;
+    public static MemorySegment X509_ENHANCED_KEY_USAGE() {
+        return X509_ENHANCED_KEY_USAGE;
     }
+    private static final MemorySegment PKCS_CTL = MemorySegment.ofAddress(37L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A3_TRANSVERSE 67
+     * {@snippet lang=c :
+     * #define PKCS_CTL (void*) 37
      * }
      */
-    public static int DMPAPER_A3_TRANSVERSE() {
-        return (int)67L;
+    public static MemorySegment PKCS_CTL() {
+        return PKCS_CTL;
     }
+    private static final MemorySegment X509_MULTI_BYTE_UINT = MemorySegment.ofAddress(38L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A3_EXTRA_TRANSVERSE 68
+     * {@snippet lang=c :
+     * #define X509_MULTI_BYTE_UINT (void*) 38
      * }
      */
-    public static int DMPAPER_A3_EXTRA_TRANSVERSE() {
-        return (int)68L;
+    public static MemorySegment X509_MULTI_BYTE_UINT() {
+        return X509_MULTI_BYTE_UINT;
     }
+    private static final MemorySegment X509_DSS_PUBLICKEY = MemorySegment.ofAddress(38L);
     /**
-     * {@snippet :
-     * #define DMPAPER_DBL_JAPANESE_POSTCARD 69
+     * {@snippet lang=c :
+     * #define X509_DSS_PUBLICKEY (void*) 38
      * }
      */
-    public static int DMPAPER_DBL_JAPANESE_POSTCARD() {
-        return (int)69L;
+    public static MemorySegment X509_DSS_PUBLICKEY() {
+        return X509_DSS_PUBLICKEY;
     }
+    private static final MemorySegment X509_DSS_PARAMETERS = MemorySegment.ofAddress(39L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A6 70
+     * {@snippet lang=c :
+     * #define X509_DSS_PARAMETERS (void*) 39
      * }
      */
-    public static int DMPAPER_A6() {
-        return (int)70L;
+    public static MemorySegment X509_DSS_PARAMETERS() {
+        return X509_DSS_PARAMETERS;
     }
+    private static final MemorySegment X509_DSS_SIGNATURE = MemorySegment.ofAddress(40L);
     /**
-     * {@snippet :
-     * #define DMPAPER_JENV_KAKU2 71
+     * {@snippet lang=c :
+     * #define X509_DSS_SIGNATURE (void*) 40
      * }
      */
-    public static int DMPAPER_JENV_KAKU2() {
-        return (int)71L;
+    public static MemorySegment X509_DSS_SIGNATURE() {
+        return X509_DSS_SIGNATURE;
     }
+    private static final MemorySegment PKCS_RC2_CBC_PARAMETERS = MemorySegment.ofAddress(41L);
     /**
-     * {@snippet :
-     * #define DMPAPER_JENV_KAKU3 72
+     * {@snippet lang=c :
+     * #define PKCS_RC2_CBC_PARAMETERS (void*) 41
      * }
      */
-    public static int DMPAPER_JENV_KAKU3() {
-        return (int)72L;
+    public static MemorySegment PKCS_RC2_CBC_PARAMETERS() {
+        return PKCS_RC2_CBC_PARAMETERS;
     }
+    private static final MemorySegment PKCS_SMIME_CAPABILITIES = MemorySegment.ofAddress(42L);
     /**
-     * {@snippet :
-     * #define DMPAPER_JENV_CHOU3 73
+     * {@snippet lang=c :
+     * #define PKCS_SMIME_CAPABILITIES (void*) 42
      * }
      */
-    public static int DMPAPER_JENV_CHOU3() {
-        return (int)73L;
+    public static MemorySegment PKCS_SMIME_CAPABILITIES() {
+        return PKCS_SMIME_CAPABILITIES;
     }
+    private static final MemorySegment X509_QC_STATEMENTS_EXT = MemorySegment.ofAddress(42L);
     /**
-     * {@snippet :
-     * #define DMPAPER_JENV_CHOU4 74
+     * {@snippet lang=c :
+     * #define X509_QC_STATEMENTS_EXT (void*) 42
      * }
      */
-    public static int DMPAPER_JENV_CHOU4() {
-        return (int)74L;
+    public static MemorySegment X509_QC_STATEMENTS_EXT() {
+        return X509_QC_STATEMENTS_EXT;
     }
+    private static final MemorySegment PKCS_RSA_PRIVATE_KEY = MemorySegment.ofAddress(43L);
     /**
-     * {@snippet :
-     * #define DMPAPER_LETTER_ROTATED 75
+     * {@snippet lang=c :
+     * #define PKCS_RSA_PRIVATE_KEY (void*) 43
      * }
      */
-    public static int DMPAPER_LETTER_ROTATED() {
-        return (int)75L;
+    public static MemorySegment PKCS_RSA_PRIVATE_KEY() {
+        return PKCS_RSA_PRIVATE_KEY;
     }
+    private static final MemorySegment PKCS_PRIVATE_KEY_INFO = MemorySegment.ofAddress(44L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A3_ROTATED 76
+     * {@snippet lang=c :
+     * #define PKCS_PRIVATE_KEY_INFO (void*) 44
      * }
      */
-    public static int DMPAPER_A3_ROTATED() {
-        return (int)76L;
+    public static MemorySegment PKCS_PRIVATE_KEY_INFO() {
+        return PKCS_PRIVATE_KEY_INFO;
     }
+    private static final MemorySegment PKCS_ENCRYPTED_PRIVATE_KEY_INFO = MemorySegment.ofAddress(45L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A4_ROTATED 77
+     * {@snippet lang=c :
+     * #define PKCS_ENCRYPTED_PRIVATE_KEY_INFO (void*) 45
      * }
      */
-    public static int DMPAPER_A4_ROTATED() {
-        return (int)77L;
+    public static MemorySegment PKCS_ENCRYPTED_PRIVATE_KEY_INFO() {
+        return PKCS_ENCRYPTED_PRIVATE_KEY_INFO;
     }
+    private static final MemorySegment X509_PKIX_POLICY_QUALIFIER_USERNOTICE = MemorySegment.ofAddress(46L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A5_ROTATED 78
+     * {@snippet lang=c :
+     * #define X509_PKIX_POLICY_QUALIFIER_USERNOTICE (void*) 46
      * }
      */
-    public static int DMPAPER_A5_ROTATED() {
-        return (int)78L;
+    public static MemorySegment X509_PKIX_POLICY_QUALIFIER_USERNOTICE() {
+        return X509_PKIX_POLICY_QUALIFIER_USERNOTICE;
     }
+    private static final MemorySegment X509_DH_PUBLICKEY = MemorySegment.ofAddress(38L);
     /**
-     * {@snippet :
-     * #define DMPAPER_B4_JIS_ROTATED 79
+     * {@snippet lang=c :
+     * #define X509_DH_PUBLICKEY (void*) 38
      * }
      */
-    public static int DMPAPER_B4_JIS_ROTATED() {
-        return (int)79L;
+    public static MemorySegment X509_DH_PUBLICKEY() {
+        return X509_DH_PUBLICKEY;
     }
+    private static final MemorySegment X509_DH_PARAMETERS = MemorySegment.ofAddress(47L);
     /**
-     * {@snippet :
-     * #define DMPAPER_B5_JIS_ROTATED 80
+     * {@snippet lang=c :
+     * #define X509_DH_PARAMETERS (void*) 47
      * }
      */
-    public static int DMPAPER_B5_JIS_ROTATED() {
-        return (int)80L;
+    public static MemorySegment X509_DH_PARAMETERS() {
+        return X509_DH_PARAMETERS;
     }
+    private static final MemorySegment PKCS_ATTRIBUTES = MemorySegment.ofAddress(48L);
     /**
-     * {@snippet :
-     * #define DMPAPER_JAPANESE_POSTCARD_ROTATED 81
+     * {@snippet lang=c :
+     * #define PKCS_ATTRIBUTES (void*) 48
      * }
      */
-    public static int DMPAPER_JAPANESE_POSTCARD_ROTATED() {
-        return (int)81L;
+    public static MemorySegment PKCS_ATTRIBUTES() {
+        return PKCS_ATTRIBUTES;
     }
+    private static final MemorySegment PKCS_SORTED_CTL = MemorySegment.ofAddress(49L);
     /**
-     * {@snippet :
-     * #define DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED 82
+     * {@snippet lang=c :
+     * #define PKCS_SORTED_CTL (void*) 49
      * }
      */
-    public static int DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED() {
-        return (int)82L;
+    public static MemorySegment PKCS_SORTED_CTL() {
+        return PKCS_SORTED_CTL;
     }
+    private static final MemorySegment X509_ECC_SIGNATURE = MemorySegment.ofAddress(47L);
     /**
-     * {@snippet :
-     * #define DMPAPER_A6_ROTATED 83
+     * {@snippet lang=c :
+     * #define X509_ECC_SIGNATURE (void*) 47
      * }
      */
-    public static int DMPAPER_A6_ROTATED() {
-        return (int)83L;
+    public static MemorySegment X509_ECC_SIGNATURE() {
+        return X509_ECC_SIGNATURE;
     }
+    private static final MemorySegment X942_DH_PARAMETERS = MemorySegment.ofAddress(50L);
     /**
-     * {@snippet :
-     * #define DMPAPER_JENV_KAKU2_ROTATED 84
+     * {@snippet lang=c :
+     * #define X942_DH_PARAMETERS (void*) 50
      * }
      */
-    public static int DMPAPER_JENV_KAKU2_ROTATED() {
-        return (int)84L;
+    public static MemorySegment X942_DH_PARAMETERS() {
+        return X942_DH_PARAMETERS;
     }
+    private static final MemorySegment X509_BITS_WITHOUT_TRAILING_ZEROES = MemorySegment.ofAddress(51L);
     /**
-     * {@snippet :
-     * #define DMPAPER_JENV_KAKU3_ROTATED 85
+     * {@snippet lang=c :
+     * #define X509_BITS_WITHOUT_TRAILING_ZEROES (void*) 51
      * }
      */
-    public static int DMPAPER_JENV_KAKU3_ROTATED() {
-        return (int)85L;
+    public static MemorySegment X509_BITS_WITHOUT_TRAILING_ZEROES() {
+        return X509_BITS_WITHOUT_TRAILING_ZEROES;
     }
+    private static final MemorySegment X942_OTHER_INFO = MemorySegment.ofAddress(52L);
     /**
-     * {@snippet :
-     * #define DMPAPER_JENV_CHOU3_ROTATED 86
+     * {@snippet lang=c :
+     * #define X942_OTHER_INFO (void*) 52
      * }
      */
-    public static int DMPAPER_JENV_CHOU3_ROTATED() {
-        return (int)86L;
+    public static MemorySegment X942_OTHER_INFO() {
+        return X942_OTHER_INFO;
     }
+    private static final MemorySegment X509_CERT_PAIR = MemorySegment.ofAddress(53L);
     /**
-     * {@snippet :
-     * #define DMPAPER_JENV_CHOU4_ROTATED 87
+     * {@snippet lang=c :
+     * #define X509_CERT_PAIR (void*) 53
      * }
      */
-    public static int DMPAPER_JENV_CHOU4_ROTATED() {
-        return (int)87L;
+    public static MemorySegment X509_CERT_PAIR() {
+        return X509_CERT_PAIR;
     }
+    private static final MemorySegment X509_ISSUING_DIST_POINT = MemorySegment.ofAddress(54L);
     /**
-     * {@snippet :
-     * #define DMPAPER_B6_JIS 88
+     * {@snippet lang=c :
+     * #define X509_ISSUING_DIST_POINT (void*) 54
      * }
      */
-    public static int DMPAPER_B6_JIS() {
-        return (int)88L;
+    public static MemorySegment X509_ISSUING_DIST_POINT() {
+        return X509_ISSUING_DIST_POINT;
     }
+    private static final MemorySegment X509_NAME_CONSTRAINTS = MemorySegment.ofAddress(55L);
     /**
-     * {@snippet :
-     * #define DMPAPER_B6_JIS_ROTATED 89
+     * {@snippet lang=c :
+     * #define X509_NAME_CONSTRAINTS (void*) 55
      * }
      */
-    public static int DMPAPER_B6_JIS_ROTATED() {
-        return (int)89L;
+    public static MemorySegment X509_NAME_CONSTRAINTS() {
+        return X509_NAME_CONSTRAINTS;
     }
+    private static final MemorySegment X509_POLICY_MAPPINGS = MemorySegment.ofAddress(56L);
     /**
-     * {@snippet :
-     * #define DMPAPER_12X11 90
+     * {@snippet lang=c :
+     * #define X509_POLICY_MAPPINGS (void*) 56
      * }
      */
-    public static int DMPAPER_12X11() {
-        return (int)90L;
+    public static MemorySegment X509_POLICY_MAPPINGS() {
+        return X509_POLICY_MAPPINGS;
     }
+    private static final MemorySegment X509_POLICY_CONSTRAINTS = MemorySegment.ofAddress(57L);
     /**
-     * {@snippet :
-     * #define DMPAPER_JENV_YOU4 91
+     * {@snippet lang=c :
+     * #define X509_POLICY_CONSTRAINTS (void*) 57
      * }
      */
-    public static int DMPAPER_JENV_YOU4() {
-        return (int)91L;
+    public static MemorySegment X509_POLICY_CONSTRAINTS() {
+        return X509_POLICY_CONSTRAINTS;
     }
+    private static final MemorySegment X509_CROSS_CERT_DIST_POINTS = MemorySegment.ofAddress(58L);
     /**
-     * {@snippet :
-     * #define DMPAPER_JENV_YOU4_ROTATED 92
+     * {@snippet lang=c :
+     * #define X509_CROSS_CERT_DIST_POINTS (void*) 58
      * }
      */
-    public static int DMPAPER_JENV_YOU4_ROTATED() {
-        return (int)92L;
+    public static MemorySegment X509_CROSS_CERT_DIST_POINTS() {
+        return X509_CROSS_CERT_DIST_POINTS;
     }
+    private static final MemorySegment CMC_DATA = MemorySegment.ofAddress(59L);
     /**
-     * {@snippet :
-     * #define DMPAPER_P16K 93
+     * {@snippet lang=c :
+     * #define CMC_DATA (void*) 59
      * }
      */
-    public static int DMPAPER_P16K() {
-        return (int)93L;
+    public static MemorySegment CMC_DATA() {
+        return CMC_DATA;
     }
+    private static final MemorySegment CMC_RESPONSE = MemorySegment.ofAddress(60L);
     /**
-     * {@snippet :
-     * #define DMPAPER_P32K 94
+     * {@snippet lang=c :
+     * #define CMC_RESPONSE (void*) 60
      * }
      */
-    public static int DMPAPER_P32K() {
-        return (int)94L;
+    public static MemorySegment CMC_RESPONSE() {
+        return CMC_RESPONSE;
     }
+    private static final MemorySegment CMC_STATUS = MemorySegment.ofAddress(61L);
     /**
-     * {@snippet :
-     * #define DMPAPER_P32KBIG 95
+     * {@snippet lang=c :
+     * #define CMC_STATUS (void*) 61
      * }
      */
-    public static int DMPAPER_P32KBIG() {
-        return (int)95L;
+    public static MemorySegment CMC_STATUS() {
+        return CMC_STATUS;
     }
+    private static final MemorySegment CMC_ADD_EXTENSIONS = MemorySegment.ofAddress(62L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_1 96
+     * {@snippet lang=c :
+     * #define CMC_ADD_EXTENSIONS (void*) 62
      * }
      */
-    public static int DMPAPER_PENV_1() {
-        return (int)96L;
+    public static MemorySegment CMC_ADD_EXTENSIONS() {
+        return CMC_ADD_EXTENSIONS;
     }
+    private static final MemorySegment CMC_ADD_ATTRIBUTES = MemorySegment.ofAddress(63L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_2 97
+     * {@snippet lang=c :
+     * #define CMC_ADD_ATTRIBUTES (void*) 63
      * }
      */
-    public static int DMPAPER_PENV_2() {
-        return (int)97L;
+    public static MemorySegment CMC_ADD_ATTRIBUTES() {
+        return CMC_ADD_ATTRIBUTES;
     }
+    private static final MemorySegment X509_CERTIFICATE_TEMPLATE = MemorySegment.ofAddress(64L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_3 98
+     * {@snippet lang=c :
+     * #define X509_CERTIFICATE_TEMPLATE (void*) 64
      * }
      */
-    public static int DMPAPER_PENV_3() {
-        return (int)98L;
+    public static MemorySegment X509_CERTIFICATE_TEMPLATE() {
+        return X509_CERTIFICATE_TEMPLATE;
     }
+    private static final MemorySegment OCSP_SIGNED_REQUEST = MemorySegment.ofAddress(65L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_4 99
+     * {@snippet lang=c :
+     * #define OCSP_SIGNED_REQUEST (void*) 65
      * }
      */
-    public static int DMPAPER_PENV_4() {
-        return (int)99L;
+    public static MemorySegment OCSP_SIGNED_REQUEST() {
+        return OCSP_SIGNED_REQUEST;
     }
+    private static final MemorySegment OCSP_REQUEST = MemorySegment.ofAddress(66L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_5 100
+     * {@snippet lang=c :
+     * #define OCSP_REQUEST (void*) 66
      * }
      */
-    public static int DMPAPER_PENV_5() {
-        return (int)100L;
+    public static MemorySegment OCSP_REQUEST() {
+        return OCSP_REQUEST;
     }
+    private static final MemorySegment OCSP_RESPONSE = MemorySegment.ofAddress(67L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_6 101
+     * {@snippet lang=c :
+     * #define OCSP_RESPONSE (void*) 67
      * }
      */
-    public static int DMPAPER_PENV_6() {
-        return (int)101L;
+    public static MemorySegment OCSP_RESPONSE() {
+        return OCSP_RESPONSE;
     }
+    private static final MemorySegment OCSP_BASIC_SIGNED_RESPONSE = MemorySegment.ofAddress(68L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_7 102
+     * {@snippet lang=c :
+     * #define OCSP_BASIC_SIGNED_RESPONSE (void*) 68
      * }
      */
-    public static int DMPAPER_PENV_7() {
-        return (int)102L;
+    public static MemorySegment OCSP_BASIC_SIGNED_RESPONSE() {
+        return OCSP_BASIC_SIGNED_RESPONSE;
     }
+    private static final MemorySegment OCSP_BASIC_RESPONSE = MemorySegment.ofAddress(69L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_8 103
+     * {@snippet lang=c :
+     * #define OCSP_BASIC_RESPONSE (void*) 69
      * }
      */
-    public static int DMPAPER_PENV_8() {
-        return (int)103L;
+    public static MemorySegment OCSP_BASIC_RESPONSE() {
+        return OCSP_BASIC_RESPONSE;
     }
+    private static final MemorySegment X509_LOGOTYPE_EXT = MemorySegment.ofAddress(70L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_9 104
+     * {@snippet lang=c :
+     * #define X509_LOGOTYPE_EXT (void*) 70
      * }
      */
-    public static int DMPAPER_PENV_9() {
-        return (int)104L;
+    public static MemorySegment X509_LOGOTYPE_EXT() {
+        return X509_LOGOTYPE_EXT;
     }
+    private static final MemorySegment X509_BIOMETRIC_EXT = MemorySegment.ofAddress(71L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_10 105
+     * {@snippet lang=c :
+     * #define X509_BIOMETRIC_EXT (void*) 71
      * }
      */
-    public static int DMPAPER_PENV_10() {
-        return (int)105L;
+    public static MemorySegment X509_BIOMETRIC_EXT() {
+        return X509_BIOMETRIC_EXT;
     }
+    private static final MemorySegment CNG_RSA_PUBLIC_KEY_BLOB = MemorySegment.ofAddress(72L);
     /**
-     * {@snippet :
-     * #define DMPAPER_P16K_ROTATED 106
+     * {@snippet lang=c :
+     * #define CNG_RSA_PUBLIC_KEY_BLOB (void*) 72
      * }
      */
-    public static int DMPAPER_P16K_ROTATED() {
-        return (int)106L;
+    public static MemorySegment CNG_RSA_PUBLIC_KEY_BLOB() {
+        return CNG_RSA_PUBLIC_KEY_BLOB;
     }
+    private static final MemorySegment X509_OBJECT_IDENTIFIER = MemorySegment.ofAddress(73L);
     /**
-     * {@snippet :
-     * #define DMPAPER_P32K_ROTATED 107
+     * {@snippet lang=c :
+     * #define X509_OBJECT_IDENTIFIER (void*) 73
      * }
      */
-    public static int DMPAPER_P32K_ROTATED() {
-        return (int)107L;
+    public static MemorySegment X509_OBJECT_IDENTIFIER() {
+        return X509_OBJECT_IDENTIFIER;
     }
+    private static final MemorySegment X509_ALGORITHM_IDENTIFIER = MemorySegment.ofAddress(74L);
     /**
-     * {@snippet :
-     * #define DMPAPER_P32KBIG_ROTATED 108
+     * {@snippet lang=c :
+     * #define X509_ALGORITHM_IDENTIFIER (void*) 74
      * }
      */
-    public static int DMPAPER_P32KBIG_ROTATED() {
-        return (int)108L;
+    public static MemorySegment X509_ALGORITHM_IDENTIFIER() {
+        return X509_ALGORITHM_IDENTIFIER;
     }
+    private static final MemorySegment PKCS_RSA_SSA_PSS_PARAMETERS = MemorySegment.ofAddress(75L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_1_ROTATED 109
+     * {@snippet lang=c :
+     * #define PKCS_RSA_SSA_PSS_PARAMETERS (void*) 75
      * }
      */
-    public static int DMPAPER_PENV_1_ROTATED() {
-        return (int)109L;
+    public static MemorySegment PKCS_RSA_SSA_PSS_PARAMETERS() {
+        return PKCS_RSA_SSA_PSS_PARAMETERS;
     }
+    private static final MemorySegment PKCS_RSAES_OAEP_PARAMETERS = MemorySegment.ofAddress(76L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_2_ROTATED 110
+     * {@snippet lang=c :
+     * #define PKCS_RSAES_OAEP_PARAMETERS (void*) 76
      * }
      */
-    public static int DMPAPER_PENV_2_ROTATED() {
-        return (int)110L;
+    public static MemorySegment PKCS_RSAES_OAEP_PARAMETERS() {
+        return PKCS_RSAES_OAEP_PARAMETERS;
     }
+    private static final MemorySegment ECC_CMS_SHARED_INFO = MemorySegment.ofAddress(77L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_3_ROTATED 111
+     * {@snippet lang=c :
+     * #define ECC_CMS_SHARED_INFO (void*) 77
      * }
      */
-    public static int DMPAPER_PENV_3_ROTATED() {
-        return (int)111L;
+    public static MemorySegment ECC_CMS_SHARED_INFO() {
+        return ECC_CMS_SHARED_INFO;
     }
+    private static final MemorySegment TIMESTAMP_REQUEST = MemorySegment.ofAddress(78L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_4_ROTATED 112
+     * {@snippet lang=c :
+     * #define TIMESTAMP_REQUEST (void*) 78
      * }
      */
-    public static int DMPAPER_PENV_4_ROTATED() {
-        return (int)112L;
+    public static MemorySegment TIMESTAMP_REQUEST() {
+        return TIMESTAMP_REQUEST;
     }
+    private static final MemorySegment TIMESTAMP_RESPONSE = MemorySegment.ofAddress(79L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_5_ROTATED 113
+     * {@snippet lang=c :
+     * #define TIMESTAMP_RESPONSE (void*) 79
      * }
      */
-    public static int DMPAPER_PENV_5_ROTATED() {
-        return (int)113L;
+    public static MemorySegment TIMESTAMP_RESPONSE() {
+        return TIMESTAMP_RESPONSE;
     }
+    private static final MemorySegment TIMESTAMP_INFO = MemorySegment.ofAddress(80L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_6_ROTATED 114
+     * {@snippet lang=c :
+     * #define TIMESTAMP_INFO (void*) 80
      * }
      */
-    public static int DMPAPER_PENV_6_ROTATED() {
-        return (int)114L;
+    public static MemorySegment TIMESTAMP_INFO() {
+        return TIMESTAMP_INFO;
     }
+    private static final MemorySegment X509_CERT_BUNDLE = MemorySegment.ofAddress(81L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_7_ROTATED 115
+     * {@snippet lang=c :
+     * #define X509_CERT_BUNDLE (void*) 81
      * }
      */
-    public static int DMPAPER_PENV_7_ROTATED() {
-        return (int)115L;
+    public static MemorySegment X509_CERT_BUNDLE() {
+        return X509_CERT_BUNDLE;
     }
+    private static final MemorySegment X509_ECC_PRIVATE_KEY = MemorySegment.ofAddress(82L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_8_ROTATED 116
+     * {@snippet lang=c :
+     * #define X509_ECC_PRIVATE_KEY (void*) 82
      * }
      */
-    public static int DMPAPER_PENV_8_ROTATED() {
-        return (int)116L;
+    public static MemorySegment X509_ECC_PRIVATE_KEY() {
+        return X509_ECC_PRIVATE_KEY;
     }
+    private static final MemorySegment CNG_RSA_PRIVATE_KEY_BLOB = MemorySegment.ofAddress(83L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_9_ROTATED 117
+     * {@snippet lang=c :
+     * #define CNG_RSA_PRIVATE_KEY_BLOB (void*) 83
      * }
      */
-    public static int DMPAPER_PENV_9_ROTATED() {
-        return (int)117L;
+    public static MemorySegment CNG_RSA_PRIVATE_KEY_BLOB() {
+        return CNG_RSA_PRIVATE_KEY_BLOB;
     }
+    private static final MemorySegment X509_SUBJECT_DIR_ATTRS = MemorySegment.ofAddress(84L);
     /**
-     * {@snippet :
-     * #define DMPAPER_PENV_10_ROTATED 118
+     * {@snippet lang=c :
+     * #define X509_SUBJECT_DIR_ATTRS (void*) 84
      * }
      */
-    public static int DMPAPER_PENV_10_ROTATED() {
-        return (int)118L;
+    public static MemorySegment X509_SUBJECT_DIR_ATTRS() {
+        return X509_SUBJECT_DIR_ATTRS;
     }
+    private static final MemorySegment X509_ECC_PARAMETERS = MemorySegment.ofAddress(85L);
     /**
-     * {@snippet :
-     * #define DMPAPER_USER 256
+     * {@snippet lang=c :
+     * #define X509_ECC_PARAMETERS (void*) 85
      * }
      */
-    public static int DMPAPER_USER() {
-        return (int)256L;
+    public static MemorySegment X509_ECC_PARAMETERS() {
+        return X509_ECC_PARAMETERS;
     }
+    private static final MemorySegment PKCS7_SIGNER_INFO = MemorySegment.ofAddress(500L);
     /**
-     * {@snippet :
-     * #define DMBIN_UPPER 1
+     * {@snippet lang=c :
+     * #define PKCS7_SIGNER_INFO (void*) 500
      * }
      */
-    public static int DMBIN_UPPER() {
-        return (int)1L;
+    public static MemorySegment PKCS7_SIGNER_INFO() {
+        return PKCS7_SIGNER_INFO;
     }
+    private static final MemorySegment CMS_SIGNER_INFO = MemorySegment.ofAddress(501L);
     /**
-     * {@snippet :
-     * #define DMBIN_ONLYONE 1
+     * {@snippet lang=c :
+     * #define CMS_SIGNER_INFO (void*) 501
      * }
      */
-    public static int DMBIN_ONLYONE() {
-        return (int)1L;
+    public static MemorySegment CMS_SIGNER_INFO() {
+        return CMS_SIGNER_INFO;
     }
     /**
-     * {@snippet :
-     * #define DMBIN_LOWER 2
+     * {@snippet lang=c :
+     * #define szOID_AUTHORITY_KEY_IDENTIFIER "2.5.29.1"
      * }
      */
-    public static int DMBIN_LOWER() {
-        return (int)2L;
+    public static MemorySegment szOID_AUTHORITY_KEY_IDENTIFIER() {
+        class Holder {
+            static final MemorySegment szOID_AUTHORITY_KEY_IDENTIFIER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.1");
+        }
+        return Holder.szOID_AUTHORITY_KEY_IDENTIFIER;
     }
     /**
-     * {@snippet :
-     * #define DMBIN_MIDDLE 3
+     * {@snippet lang=c :
+     * #define szOID_KEY_ATTRIBUTES "2.5.29.2"
      * }
      */
-    public static int DMBIN_MIDDLE() {
-        return (int)3L;
+    public static MemorySegment szOID_KEY_ATTRIBUTES() {
+        class Holder {
+            static final MemorySegment szOID_KEY_ATTRIBUTES
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.2");
+        }
+        return Holder.szOID_KEY_ATTRIBUTES;
     }
     /**
-     * {@snippet :
-     * #define DMBIN_MANUAL 4
+     * {@snippet lang=c :
+     * #define szOID_CERT_POLICIES_95 "2.5.29.3"
      * }
      */
-    public static int DMBIN_MANUAL() {
-        return (int)4L;
+    public static MemorySegment szOID_CERT_POLICIES_95() {
+        class Holder {
+            static final MemorySegment szOID_CERT_POLICIES_95
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.3");
+        }
+        return Holder.szOID_CERT_POLICIES_95;
     }
     /**
-     * {@snippet :
-     * #define DMBIN_ENVELOPE 5
+     * {@snippet lang=c :
+     * #define szOID_KEY_USAGE_RESTRICTION "2.5.29.4"
      * }
      */
-    public static int DMBIN_ENVELOPE() {
-        return (int)5L;
+    public static MemorySegment szOID_KEY_USAGE_RESTRICTION() {
+        class Holder {
+            static final MemorySegment szOID_KEY_USAGE_RESTRICTION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.4");
+        }
+        return Holder.szOID_KEY_USAGE_RESTRICTION;
     }
     /**
-     * {@snippet :
-     * #define DMBIN_ENVMANUAL 6
+     * {@snippet lang=c :
+     * #define szOID_SUBJECT_ALT_NAME "2.5.29.7"
      * }
      */
-    public static int DMBIN_ENVMANUAL() {
-        return (int)6L;
+    public static MemorySegment szOID_SUBJECT_ALT_NAME() {
+        class Holder {
+            static final MemorySegment szOID_SUBJECT_ALT_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.7");
+        }
+        return Holder.szOID_SUBJECT_ALT_NAME;
     }
     /**
-     * {@snippet :
-     * #define DMBIN_AUTO 7
+     * {@snippet lang=c :
+     * #define szOID_ISSUER_ALT_NAME "2.5.29.8"
      * }
      */
-    public static int DMBIN_AUTO() {
-        return (int)7L;
+    public static MemorySegment szOID_ISSUER_ALT_NAME() {
+        class Holder {
+            static final MemorySegment szOID_ISSUER_ALT_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.8");
+        }
+        return Holder.szOID_ISSUER_ALT_NAME;
     }
     /**
-     * {@snippet :
-     * #define DMBIN_TRACTOR 8
+     * {@snippet lang=c :
+     * #define szOID_BASIC_CONSTRAINTS "2.5.29.10"
      * }
      */
-    public static int DMBIN_TRACTOR() {
-        return (int)8L;
+    public static MemorySegment szOID_BASIC_CONSTRAINTS() {
+        class Holder {
+            static final MemorySegment szOID_BASIC_CONSTRAINTS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.10");
+        }
+        return Holder.szOID_BASIC_CONSTRAINTS;
     }
     /**
-     * {@snippet :
-     * #define DMBIN_SMALLFMT 9
+     * {@snippet lang=c :
+     * #define szOID_KEY_USAGE "2.5.29.15"
      * }
      */
-    public static int DMBIN_SMALLFMT() {
-        return (int)9L;
+    public static MemorySegment szOID_KEY_USAGE() {
+        class Holder {
+            static final MemorySegment szOID_KEY_USAGE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.15");
+        }
+        return Holder.szOID_KEY_USAGE;
     }
     /**
-     * {@snippet :
-     * #define DMBIN_LARGEFMT 10
+     * {@snippet lang=c :
+     * #define szOID_PRIVATEKEY_USAGE_PERIOD "2.5.29.16"
      * }
      */
-    public static int DMBIN_LARGEFMT() {
-        return (int)10L;
+    public static MemorySegment szOID_PRIVATEKEY_USAGE_PERIOD() {
+        class Holder {
+            static final MemorySegment szOID_PRIVATEKEY_USAGE_PERIOD
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.16");
+        }
+        return Holder.szOID_PRIVATEKEY_USAGE_PERIOD;
     }
     /**
-     * {@snippet :
-     * #define DMBIN_LARGECAPACITY 11
+     * {@snippet lang=c :
+     * #define szOID_BASIC_CONSTRAINTS2 "2.5.29.19"
      * }
      */
-    public static int DMBIN_LARGECAPACITY() {
-        return (int)11L;
+    public static MemorySegment szOID_BASIC_CONSTRAINTS2() {
+        class Holder {
+            static final MemorySegment szOID_BASIC_CONSTRAINTS2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.19");
+        }
+        return Holder.szOID_BASIC_CONSTRAINTS2;
     }
     /**
-     * {@snippet :
-     * #define DMBIN_CASSETTE 14
+     * {@snippet lang=c :
+     * #define szOID_CERT_POLICIES "2.5.29.32"
      * }
      */
-    public static int DMBIN_CASSETTE() {
-        return (int)14L;
+    public static MemorySegment szOID_CERT_POLICIES() {
+        class Holder {
+            static final MemorySegment szOID_CERT_POLICIES
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.32");
+        }
+        return Holder.szOID_CERT_POLICIES;
     }
     /**
-     * {@snippet :
-     * #define DMBIN_FORMSOURCE 15
+     * {@snippet lang=c :
+     * #define szOID_ANY_CERT_POLICY "2.5.29.32.0"
      * }
      */
-    public static int DMBIN_FORMSOURCE() {
-        return (int)15L;
+    public static MemorySegment szOID_ANY_CERT_POLICY() {
+        class Holder {
+            static final MemorySegment szOID_ANY_CERT_POLICY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.32.0");
+        }
+        return Holder.szOID_ANY_CERT_POLICY;
     }
     /**
-     * {@snippet :
-     * #define DMBIN_USER 256
+     * {@snippet lang=c :
+     * #define szOID_INHIBIT_ANY_POLICY "2.5.29.54"
      * }
      */
-    public static int DMBIN_USER() {
-        return (int)256L;
+    public static MemorySegment szOID_INHIBIT_ANY_POLICY() {
+        class Holder {
+            static final MemorySegment szOID_INHIBIT_ANY_POLICY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.54");
+        }
+        return Holder.szOID_INHIBIT_ANY_POLICY;
     }
     /**
-     * {@snippet :
-     * #define DMCOLOR_MONOCHROME 1
+     * {@snippet lang=c :
+     * #define szOID_AUTHORITY_KEY_IDENTIFIER2 "2.5.29.35"
      * }
      */
-    public static int DMCOLOR_MONOCHROME() {
-        return (int)1L;
+    public static MemorySegment szOID_AUTHORITY_KEY_IDENTIFIER2() {
+        class Holder {
+            static final MemorySegment szOID_AUTHORITY_KEY_IDENTIFIER2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.35");
+        }
+        return Holder.szOID_AUTHORITY_KEY_IDENTIFIER2;
     }
     /**
-     * {@snippet :
-     * #define DMCOLOR_COLOR 2
+     * {@snippet lang=c :
+     * #define szOID_SUBJECT_KEY_IDENTIFIER "2.5.29.14"
      * }
      */
-    public static int DMCOLOR_COLOR() {
-        return (int)2L;
+    public static MemorySegment szOID_SUBJECT_KEY_IDENTIFIER() {
+        class Holder {
+            static final MemorySegment szOID_SUBJECT_KEY_IDENTIFIER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.14");
+        }
+        return Holder.szOID_SUBJECT_KEY_IDENTIFIER;
     }
     /**
-     * {@snippet :
-     * #define DMDUP_SIMPLEX 1
+     * {@snippet lang=c :
+     * #define szOID_SUBJECT_ALT_NAME2 "2.5.29.17"
      * }
      */
-    public static int DMDUP_SIMPLEX() {
-        return (int)1L;
+    public static MemorySegment szOID_SUBJECT_ALT_NAME2() {
+        class Holder {
+            static final MemorySegment szOID_SUBJECT_ALT_NAME2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.17");
+        }
+        return Holder.szOID_SUBJECT_ALT_NAME2;
     }
     /**
-     * {@snippet :
-     * #define DMDUP_VERTICAL 2
+     * {@snippet lang=c :
+     * #define szOID_ISSUER_ALT_NAME2 "2.5.29.18"
      * }
      */
-    public static int DMDUP_VERTICAL() {
-        return (int)2L;
+    public static MemorySegment szOID_ISSUER_ALT_NAME2() {
+        class Holder {
+            static final MemorySegment szOID_ISSUER_ALT_NAME2
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.18");
+        }
+        return Holder.szOID_ISSUER_ALT_NAME2;
     }
     /**
-     * {@snippet :
-     * #define DMDUP_HORIZONTAL 3
+     * {@snippet lang=c :
+     * #define szOID_CRL_REASON_CODE "2.5.29.21"
      * }
      */
-    public static int DMDUP_HORIZONTAL() {
-        return (int)3L;
+    public static MemorySegment szOID_CRL_REASON_CODE() {
+        class Holder {
+            static final MemorySegment szOID_CRL_REASON_CODE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.21");
+        }
+        return Holder.szOID_CRL_REASON_CODE;
     }
     /**
-     * {@snippet :
-     * #define DMTT_BITMAP 1
+     * {@snippet lang=c :
+     * #define szOID_REASON_CODE_HOLD "2.5.29.23"
      * }
      */
-    public static int DMTT_BITMAP() {
-        return (int)1L;
+    public static MemorySegment szOID_REASON_CODE_HOLD() {
+        class Holder {
+            static final MemorySegment szOID_REASON_CODE_HOLD
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.23");
+        }
+        return Holder.szOID_REASON_CODE_HOLD;
     }
     /**
-     * {@snippet :
-     * #define DMTT_DOWNLOAD 2
+     * {@snippet lang=c :
+     * #define szOID_CRL_DIST_POINTS "2.5.29.31"
      * }
      */
-    public static int DMTT_DOWNLOAD() {
-        return (int)2L;
+    public static MemorySegment szOID_CRL_DIST_POINTS() {
+        class Holder {
+            static final MemorySegment szOID_CRL_DIST_POINTS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.31");
+        }
+        return Holder.szOID_CRL_DIST_POINTS;
     }
     /**
-     * {@snippet :
-     * #define DMTT_SUBDEV 3
+     * {@snippet lang=c :
+     * #define szOID_ENHANCED_KEY_USAGE "2.5.29.37"
      * }
      */
-    public static int DMTT_SUBDEV() {
-        return (int)3L;
+    public static MemorySegment szOID_ENHANCED_KEY_USAGE() {
+        class Holder {
+            static final MemorySegment szOID_ENHANCED_KEY_USAGE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.37");
+        }
+        return Holder.szOID_ENHANCED_KEY_USAGE;
     }
     /**
-     * {@snippet :
-     * #define DMTT_DOWNLOAD_OUTLINE 4
+     * {@snippet lang=c :
+     * #define szOID_ANY_ENHANCED_KEY_USAGE "2.5.29.37.0"
      * }
      */
-    public static int DMTT_DOWNLOAD_OUTLINE() {
-        return (int)4L;
+    public static MemorySegment szOID_ANY_ENHANCED_KEY_USAGE() {
+        class Holder {
+            static final MemorySegment szOID_ANY_ENHANCED_KEY_USAGE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.37.0");
+        }
+        return Holder.szOID_ANY_ENHANCED_KEY_USAGE;
     }
     /**
-     * {@snippet :
-     * #define DMCOLLATE_FALSE 0
+     * {@snippet lang=c :
+     * #define szOID_CRL_NUMBER "2.5.29.20"
      * }
      */
-    public static int DMCOLLATE_FALSE() {
-        return (int)0L;
+    public static MemorySegment szOID_CRL_NUMBER() {
+        class Holder {
+            static final MemorySegment szOID_CRL_NUMBER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.20");
+        }
+        return Holder.szOID_CRL_NUMBER;
     }
     /**
-     * {@snippet :
-     * #define DMCOLLATE_TRUE 1
+     * {@snippet lang=c :
+     * #define szOID_DELTA_CRL_INDICATOR "2.5.29.27"
      * }
      */
-    public static int DMCOLLATE_TRUE() {
-        return (int)1L;
+    public static MemorySegment szOID_DELTA_CRL_INDICATOR() {
+        class Holder {
+            static final MemorySegment szOID_DELTA_CRL_INDICATOR
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.27");
+        }
+        return Holder.szOID_DELTA_CRL_INDICATOR;
     }
     /**
-     * {@snippet :
-     * #define DMDO_DEFAULT 0
+     * {@snippet lang=c :
+     * #define szOID_ISSUING_DIST_POINT "2.5.29.28"
      * }
      */
-    public static int DMDO_DEFAULT() {
-        return (int)0L;
+    public static MemorySegment szOID_ISSUING_DIST_POINT() {
+        class Holder {
+            static final MemorySegment szOID_ISSUING_DIST_POINT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.28");
+        }
+        return Holder.szOID_ISSUING_DIST_POINT;
     }
     /**
-     * {@snippet :
-     * #define DMDO_90 1
+     * {@snippet lang=c :
+     * #define szOID_FRESHEST_CRL "2.5.29.46"
      * }
      */
-    public static int DMDO_90() {
-        return (int)1L;
+    public static MemorySegment szOID_FRESHEST_CRL() {
+        class Holder {
+            static final MemorySegment szOID_FRESHEST_CRL
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.46");
+        }
+        return Holder.szOID_FRESHEST_CRL;
     }
     /**
-     * {@snippet :
-     * #define DMDO_180 2
+     * {@snippet lang=c :
+     * #define szOID_NAME_CONSTRAINTS "2.5.29.30"
      * }
      */
-    public static int DMDO_180() {
-        return (int)2L;
+    public static MemorySegment szOID_NAME_CONSTRAINTS() {
+        class Holder {
+            static final MemorySegment szOID_NAME_CONSTRAINTS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.30");
+        }
+        return Holder.szOID_NAME_CONSTRAINTS;
     }
     /**
-     * {@snippet :
-     * #define DMDO_270 3
+     * {@snippet lang=c :
+     * #define szOID_POLICY_MAPPINGS "2.5.29.33"
      * }
      */
-    public static int DMDO_270() {
-        return (int)3L;
+    public static MemorySegment szOID_POLICY_MAPPINGS() {
+        class Holder {
+            static final MemorySegment szOID_POLICY_MAPPINGS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.33");
+        }
+        return Holder.szOID_POLICY_MAPPINGS;
     }
     /**
-     * {@snippet :
-     * #define DMDFO_DEFAULT 0
+     * {@snippet lang=c :
+     * #define szOID_LEGACY_POLICY_MAPPINGS "2.5.29.5"
      * }
      */
-    public static int DMDFO_DEFAULT() {
-        return (int)0L;
+    public static MemorySegment szOID_LEGACY_POLICY_MAPPINGS() {
+        class Holder {
+            static final MemorySegment szOID_LEGACY_POLICY_MAPPINGS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.5");
+        }
+        return Holder.szOID_LEGACY_POLICY_MAPPINGS;
     }
     /**
-     * {@snippet :
-     * #define DMDFO_STRETCH 1
+     * {@snippet lang=c :
+     * #define szOID_POLICY_CONSTRAINTS "2.5.29.36"
      * }
      */
-    public static int DMDFO_STRETCH() {
-        return (int)1L;
+    public static MemorySegment szOID_POLICY_CONSTRAINTS() {
+        class Holder {
+            static final MemorySegment szOID_POLICY_CONSTRAINTS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.36");
+        }
+        return Holder.szOID_POLICY_CONSTRAINTS;
     }
     /**
-     * {@snippet :
-     * #define DMDFO_CENTER 2
+     * {@snippet lang=c :
+     * #define szOID_RENEWAL_CERTIFICATE "1.3.6.1.4.1.311.13.1"
      * }
      */
-    public static int DMDFO_CENTER() {
-        return (int)2L;
+    public static MemorySegment szOID_RENEWAL_CERTIFICATE() {
+        class Holder {
+            static final MemorySegment szOID_RENEWAL_CERTIFICATE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.13.1");
+        }
+        return Holder.szOID_RENEWAL_CERTIFICATE;
     }
     /**
-     * {@snippet :
-     * #define DM_INTERLACED 2
+     * {@snippet lang=c :
+     * #define szOID_ENROLLMENT_NAME_VALUE_PAIR "1.3.6.1.4.1.311.13.2.1"
      * }
      */
-    public static int DM_INTERLACED() {
-        return (int)2L;
+    public static MemorySegment szOID_ENROLLMENT_NAME_VALUE_PAIR() {
+        class Holder {
+            static final MemorySegment szOID_ENROLLMENT_NAME_VALUE_PAIR
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.13.2.1");
+        }
+        return Holder.szOID_ENROLLMENT_NAME_VALUE_PAIR;
     }
     /**
-     * {@snippet :
-     * #define DMDISPLAYFLAGS_TEXTMODE 4
+     * {@snippet lang=c :
+     * #define szOID_ENROLLMENT_CSP_PROVIDER "1.3.6.1.4.1.311.13.2.2"
      * }
      */
-    public static int DMDISPLAYFLAGS_TEXTMODE() {
-        return (int)4L;
+    public static MemorySegment szOID_ENROLLMENT_CSP_PROVIDER() {
+        class Holder {
+            static final MemorySegment szOID_ENROLLMENT_CSP_PROVIDER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.13.2.2");
+        }
+        return Holder.szOID_ENROLLMENT_CSP_PROVIDER;
     }
     /**
-     * {@snippet :
-     * #define DMNUP_SYSTEM 1
+     * {@snippet lang=c :
+     * #define szOID_OS_VERSION "1.3.6.1.4.1.311.13.2.3"
      * }
      */
-    public static int DMNUP_SYSTEM() {
-        return (int)1L;
+    public static MemorySegment szOID_OS_VERSION() {
+        class Holder {
+            static final MemorySegment szOID_OS_VERSION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.13.2.3");
+        }
+        return Holder.szOID_OS_VERSION;
     }
     /**
-     * {@snippet :
-     * #define DMNUP_ONEUP 2
+     * {@snippet lang=c :
+     * #define szOID_ENROLLMENT_AGENT "1.3.6.1.4.1.311.20.2.1"
      * }
      */
-    public static int DMNUP_ONEUP() {
-        return (int)2L;
+    public static MemorySegment szOID_ENROLLMENT_AGENT() {
+        class Holder {
+            static final MemorySegment szOID_ENROLLMENT_AGENT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.2.1");
+        }
+        return Holder.szOID_ENROLLMENT_AGENT;
     }
     /**
-     * {@snippet :
-     * #define DMICMMETHOD_NONE 1
+     * {@snippet lang=c :
+     * #define szOID_PKIX "1.3.6.1.5.5.7"
      * }
      */
-    public static int DMICMMETHOD_NONE() {
-        return (int)1L;
+    public static MemorySegment szOID_PKIX() {
+        class Holder {
+            static final MemorySegment szOID_PKIX
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7");
+        }
+        return Holder.szOID_PKIX;
     }
     /**
-     * {@snippet :
-     * #define DMICMMETHOD_SYSTEM 2
+     * {@snippet lang=c :
+     * #define szOID_PKIX_PE "1.3.6.1.5.5.7.1"
      * }
      */
-    public static int DMICMMETHOD_SYSTEM() {
-        return (int)2L;
+    public static MemorySegment szOID_PKIX_PE() {
+        class Holder {
+            static final MemorySegment szOID_PKIX_PE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1");
+        }
+        return Holder.szOID_PKIX_PE;
     }
     /**
-     * {@snippet :
-     * #define DMICMMETHOD_DRIVER 3
+     * {@snippet lang=c :
+     * #define szOID_AUTHORITY_INFO_ACCESS "1.3.6.1.5.5.7.1.1"
      * }
      */
-    public static int DMICMMETHOD_DRIVER() {
-        return (int)3L;
+    public static MemorySegment szOID_AUTHORITY_INFO_ACCESS() {
+        class Holder {
+            static final MemorySegment szOID_AUTHORITY_INFO_ACCESS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.1");
+        }
+        return Holder.szOID_AUTHORITY_INFO_ACCESS;
     }
     /**
-     * {@snippet :
-     * #define DMICMMETHOD_DEVICE 4
+     * {@snippet lang=c :
+     * #define szOID_SUBJECT_INFO_ACCESS "1.3.6.1.5.5.7.1.11"
      * }
      */
-    public static int DMICMMETHOD_DEVICE() {
-        return (int)4L;
+    public static MemorySegment szOID_SUBJECT_INFO_ACCESS() {
+        class Holder {
+            static final MemorySegment szOID_SUBJECT_INFO_ACCESS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.11");
+        }
+        return Holder.szOID_SUBJECT_INFO_ACCESS;
     }
     /**
-     * {@snippet :
-     * #define DMICMMETHOD_USER 256
+     * {@snippet lang=c :
+     * #define szOID_BIOMETRIC_EXT "1.3.6.1.5.5.7.1.2"
      * }
      */
-    public static int DMICMMETHOD_USER() {
-        return (int)256L;
+    public static MemorySegment szOID_BIOMETRIC_EXT() {
+        class Holder {
+            static final MemorySegment szOID_BIOMETRIC_EXT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.2");
+        }
+        return Holder.szOID_BIOMETRIC_EXT;
     }
     /**
-     * {@snippet :
-     * #define DMICM_SATURATE 1
+     * {@snippet lang=c :
+     * #define szOID_QC_STATEMENTS_EXT "1.3.6.1.5.5.7.1.3"
      * }
      */
-    public static int DMICM_SATURATE() {
-        return (int)1L;
+    public static MemorySegment szOID_QC_STATEMENTS_EXT() {
+        class Holder {
+            static final MemorySegment szOID_QC_STATEMENTS_EXT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.3");
+        }
+        return Holder.szOID_QC_STATEMENTS_EXT;
     }
     /**
-     * {@snippet :
-     * #define DMICM_CONTRAST 2
+     * {@snippet lang=c :
+     * #define szOID_LOGOTYPE_EXT "1.3.6.1.5.5.7.1.12"
      * }
      */
-    public static int DMICM_CONTRAST() {
-        return (int)2L;
+    public static MemorySegment szOID_LOGOTYPE_EXT() {
+        class Holder {
+            static final MemorySegment szOID_LOGOTYPE_EXT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.12");
+        }
+        return Holder.szOID_LOGOTYPE_EXT;
     }
     /**
-     * {@snippet :
-     * #define DMICM_COLORIMETRIC 3
+     * {@snippet lang=c :
+     * #define szOID_TLS_FEATURES_EXT "1.3.6.1.5.5.7.1.24"
      * }
      */
-    public static int DMICM_COLORIMETRIC() {
-        return (int)3L;
+    public static MemorySegment szOID_TLS_FEATURES_EXT() {
+        class Holder {
+            static final MemorySegment szOID_TLS_FEATURES_EXT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.1.24");
+        }
+        return Holder.szOID_TLS_FEATURES_EXT;
     }
     /**
-     * {@snippet :
-     * #define DMICM_ABS_COLORIMETRIC 4
+     * {@snippet lang=c :
+     * #define szOID_CERT_EXTENSIONS "1.3.6.1.4.1.311.2.1.14"
      * }
      */
-    public static int DMICM_ABS_COLORIMETRIC() {
-        return (int)4L;
+    public static MemorySegment szOID_CERT_EXTENSIONS() {
+        class Holder {
+            static final MemorySegment szOID_CERT_EXTENSIONS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.2.1.14");
+        }
+        return Holder.szOID_CERT_EXTENSIONS;
     }
     /**
-     * {@snippet :
-     * #define DMICM_USER 256
+     * {@snippet lang=c :
+     * #define szOID_NEXT_UPDATE_LOCATION "1.3.6.1.4.1.311.10.2"
      * }
      */
-    public static int DMICM_USER() {
-        return (int)256L;
+    public static MemorySegment szOID_NEXT_UPDATE_LOCATION() {
+        class Holder {
+            static final MemorySegment szOID_NEXT_UPDATE_LOCATION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.2");
+        }
+        return Holder.szOID_NEXT_UPDATE_LOCATION;
     }
     /**
-     * {@snippet :
-     * #define DMMEDIA_STANDARD 1
+     * {@snippet lang=c :
+     * #define szOID_REMOVE_CERTIFICATE "1.3.6.1.4.1.311.10.8.1"
      * }
      */
-    public static int DMMEDIA_STANDARD() {
-        return (int)1L;
+    public static MemorySegment szOID_REMOVE_CERTIFICATE() {
+        class Holder {
+            static final MemorySegment szOID_REMOVE_CERTIFICATE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.8.1");
+        }
+        return Holder.szOID_REMOVE_CERTIFICATE;
     }
     /**
-     * {@snippet :
-     * #define DMMEDIA_TRANSPARENCY 2
+     * {@snippet lang=c :
+     * #define szOID_CROSS_CERT_DIST_POINTS "1.3.6.1.4.1.311.10.9.1"
      * }
      */
-    public static int DMMEDIA_TRANSPARENCY() {
-        return (int)2L;
+    public static MemorySegment szOID_CROSS_CERT_DIST_POINTS() {
+        class Holder {
+            static final MemorySegment szOID_CROSS_CERT_DIST_POINTS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.9.1");
+        }
+        return Holder.szOID_CROSS_CERT_DIST_POINTS;
     }
     /**
-     * {@snippet :
-     * #define DMMEDIA_GLOSSY 3
+     * {@snippet lang=c :
+     * #define szOID_CTL "1.3.6.1.4.1.311.10.1"
      * }
      */
-    public static int DMMEDIA_GLOSSY() {
-        return (int)3L;
+    public static MemorySegment szOID_CTL() {
+        class Holder {
+            static final MemorySegment szOID_CTL
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.1");
+        }
+        return Holder.szOID_CTL;
     }
     /**
-     * {@snippet :
-     * #define DMMEDIA_USER 256
+     * {@snippet lang=c :
+     * #define szOID_SORTED_CTL "1.3.6.1.4.1.311.10.1.1"
      * }
      */
-    public static int DMMEDIA_USER() {
-        return (int)256L;
+    public static MemorySegment szOID_SORTED_CTL() {
+        class Holder {
+            static final MemorySegment szOID_SORTED_CTL
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.1.1");
+        }
+        return Holder.szOID_SORTED_CTL;
     }
     /**
-     * {@snippet :
-     * #define DMDITHER_NONE 1
+     * {@snippet lang=c :
+     * #define szOID_SERIALIZED "1.3.6.1.4.1.311.10.3.3.1"
      * }
      */
-    public static int DMDITHER_NONE() {
-        return (int)1L;
+    public static MemorySegment szOID_SERIALIZED() {
+        class Holder {
+            static final MemorySegment szOID_SERIALIZED
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.3.3.1");
+        }
+        return Holder.szOID_SERIALIZED;
     }
     /**
-     * {@snippet :
-     * #define DMDITHER_COARSE 2
+     * {@snippet lang=c :
+     * #define szOID_NT_PRINCIPAL_NAME "1.3.6.1.4.1.311.20.2.3"
      * }
      */
-    public static int DMDITHER_COARSE() {
-        return (int)2L;
+    public static MemorySegment szOID_NT_PRINCIPAL_NAME() {
+        class Holder {
+            static final MemorySegment szOID_NT_PRINCIPAL_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.2.3");
+        }
+        return Holder.szOID_NT_PRINCIPAL_NAME;
     }
     /**
-     * {@snippet :
-     * #define DMDITHER_FINE 3
+     * {@snippet lang=c :
+     * #define szOID_INTERNATIONALIZED_EMAIL_ADDRESS "1.3.6.1.4.1.311.20.2.4"
      * }
      */
-    public static int DMDITHER_FINE() {
-        return (int)3L;
+    public static MemorySegment szOID_INTERNATIONALIZED_EMAIL_ADDRESS() {
+        class Holder {
+            static final MemorySegment szOID_INTERNATIONALIZED_EMAIL_ADDRESS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.2.4");
+        }
+        return Holder.szOID_INTERNATIONALIZED_EMAIL_ADDRESS;
     }
     /**
-     * {@snippet :
-     * #define DMDITHER_LINEART 4
+     * {@snippet lang=c :
+     * #define szOID_PRODUCT_UPDATE "1.3.6.1.4.1.311.31.1"
      * }
      */
-    public static int DMDITHER_LINEART() {
-        return (int)4L;
+    public static MemorySegment szOID_PRODUCT_UPDATE() {
+        class Holder {
+            static final MemorySegment szOID_PRODUCT_UPDATE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.31.1");
+        }
+        return Holder.szOID_PRODUCT_UPDATE;
     }
     /**
-     * {@snippet :
-     * #define DMDITHER_ERRORDIFFUSION 5
+     * {@snippet lang=c :
+     * #define szOID_ANY_APPLICATION_POLICY "1.3.6.1.4.1.311.10.12.1"
      * }
      */
-    public static int DMDITHER_ERRORDIFFUSION() {
-        return (int)5L;
+    public static MemorySegment szOID_ANY_APPLICATION_POLICY() {
+        class Holder {
+            static final MemorySegment szOID_ANY_APPLICATION_POLICY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.10.12.1");
+        }
+        return Holder.szOID_ANY_APPLICATION_POLICY;
     }
     /**
-     * {@snippet :
-     * #define DMDITHER_RESERVED6 6
+     * {@snippet lang=c :
+     * #define szOID_AUTO_ENROLL_CTL_USAGE "1.3.6.1.4.1.311.20.1"
      * }
      */
-    public static int DMDITHER_RESERVED6() {
-        return (int)6L;
+    public static MemorySegment szOID_AUTO_ENROLL_CTL_USAGE() {
+        class Holder {
+            static final MemorySegment szOID_AUTO_ENROLL_CTL_USAGE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.1");
+        }
+        return Holder.szOID_AUTO_ENROLL_CTL_USAGE;
     }
     /**
-     * {@snippet :
-     * #define DMDITHER_RESERVED7 7
+     * {@snippet lang=c :
+     * #define szOID_ENROLL_CERTTYPE_EXTENSION "1.3.6.1.4.1.311.20.2"
      * }
      */
-    public static int DMDITHER_RESERVED7() {
-        return (int)7L;
+    public static MemorySegment szOID_ENROLL_CERTTYPE_EXTENSION() {
+        class Holder {
+            static final MemorySegment szOID_ENROLL_CERTTYPE_EXTENSION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.2");
+        }
+        return Holder.szOID_ENROLL_CERTTYPE_EXTENSION;
     }
     /**
-     * {@snippet :
-     * #define DMDITHER_RESERVED8 8
+     * {@snippet lang=c :
+     * #define szOID_CERT_MANIFOLD "1.3.6.1.4.1.311.20.3"
      * }
      */
-    public static int DMDITHER_RESERVED8() {
-        return (int)8L;
+    public static MemorySegment szOID_CERT_MANIFOLD() {
+        class Holder {
+            static final MemorySegment szOID_CERT_MANIFOLD
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.20.3");
+        }
+        return Holder.szOID_CERT_MANIFOLD;
     }
     /**
-     * {@snippet :
-     * #define DMDITHER_RESERVED9 9
+     * {@snippet lang=c :
+     * #define szOID_CERTSRV_CA_VERSION "1.3.6.1.4.1.311.21.1"
      * }
      */
-    public static int DMDITHER_RESERVED9() {
-        return (int)9L;
+    public static MemorySegment szOID_CERTSRV_CA_VERSION() {
+        class Holder {
+            static final MemorySegment szOID_CERTSRV_CA_VERSION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.1");
+        }
+        return Holder.szOID_CERTSRV_CA_VERSION;
     }
     /**
-     * {@snippet :
-     * #define DMDITHER_GRAYSCALE 10
+     * {@snippet lang=c :
+     * #define szOID_CERTSRV_PREVIOUS_CERT_HASH "1.3.6.1.4.1.311.21.2"
      * }
      */
-    public static int DMDITHER_GRAYSCALE() {
-        return (int)10L;
+    public static MemorySegment szOID_CERTSRV_PREVIOUS_CERT_HASH() {
+        class Holder {
+            static final MemorySegment szOID_CERTSRV_PREVIOUS_CERT_HASH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.2");
+        }
+        return Holder.szOID_CERTSRV_PREVIOUS_CERT_HASH;
     }
     /**
-     * {@snippet :
-     * #define DMDITHER_USER 256
+     * {@snippet lang=c :
+     * #define szOID_CRL_VIRTUAL_BASE "1.3.6.1.4.1.311.21.3"
      * }
      */
-    public static int DMDITHER_USER() {
-        return (int)256L;
+    public static MemorySegment szOID_CRL_VIRTUAL_BASE() {
+        class Holder {
+            static final MemorySegment szOID_CRL_VIRTUAL_BASE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.3");
+        }
+        return Holder.szOID_CRL_VIRTUAL_BASE;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_ATTACHED_TO_DESKTOP 1
+     * {@snippet lang=c :
+     * #define szOID_CRL_NEXT_PUBLISH "1.3.6.1.4.1.311.21.4"
      * }
      */
-    public static int DISPLAY_DEVICE_ATTACHED_TO_DESKTOP() {
-        return (int)1L;
+    public static MemorySegment szOID_CRL_NEXT_PUBLISH() {
+        class Holder {
+            static final MemorySegment szOID_CRL_NEXT_PUBLISH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.4");
+        }
+        return Holder.szOID_CRL_NEXT_PUBLISH;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_MULTI_DRIVER 2
+     * {@snippet lang=c :
+     * #define szOID_KP_CA_EXCHANGE "1.3.6.1.4.1.311.21.5"
      * }
      */
-    public static int DISPLAY_DEVICE_MULTI_DRIVER() {
-        return (int)2L;
+    public static MemorySegment szOID_KP_CA_EXCHANGE() {
+        class Holder {
+            static final MemorySegment szOID_KP_CA_EXCHANGE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.5");
+        }
+        return Holder.szOID_KP_CA_EXCHANGE;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_PRIMARY_DEVICE 4
+     * {@snippet lang=c :
+     * #define szOID_KP_PRIVACY_CA "1.3.6.1.4.1.311.21.36"
      * }
      */
-    public static int DISPLAY_DEVICE_PRIMARY_DEVICE() {
-        return (int)4L;
+    public static MemorySegment szOID_KP_PRIVACY_CA() {
+        class Holder {
+            static final MemorySegment szOID_KP_PRIVACY_CA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.36");
+        }
+        return Holder.szOID_KP_PRIVACY_CA;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_MIRRORING_DRIVER 8
+     * {@snippet lang=c :
+     * #define szOID_KP_KEY_RECOVERY_AGENT "1.3.6.1.4.1.311.21.6"
      * }
      */
-    public static int DISPLAY_DEVICE_MIRRORING_DRIVER() {
-        return (int)8L;
+    public static MemorySegment szOID_KP_KEY_RECOVERY_AGENT() {
+        class Holder {
+            static final MemorySegment szOID_KP_KEY_RECOVERY_AGENT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.6");
+        }
+        return Holder.szOID_KP_KEY_RECOVERY_AGENT;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_VGA_COMPATIBLE 16
+     * {@snippet lang=c :
+     * #define szOID_CERTIFICATE_TEMPLATE "1.3.6.1.4.1.311.21.7"
      * }
      */
-    public static int DISPLAY_DEVICE_VGA_COMPATIBLE() {
-        return (int)16L;
+    public static MemorySegment szOID_CERTIFICATE_TEMPLATE() {
+        class Holder {
+            static final MemorySegment szOID_CERTIFICATE_TEMPLATE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.7");
+        }
+        return Holder.szOID_CERTIFICATE_TEMPLATE;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_REMOVABLE 32
+     * {@snippet lang=c :
+     * #define szOID_ENTERPRISE_OID_ROOT "1.3.6.1.4.1.311.21.8"
      * }
      */
-    public static int DISPLAY_DEVICE_REMOVABLE() {
-        return (int)32L;
+    public static MemorySegment szOID_ENTERPRISE_OID_ROOT() {
+        class Holder {
+            static final MemorySegment szOID_ENTERPRISE_OID_ROOT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.8");
+        }
+        return Holder.szOID_ENTERPRISE_OID_ROOT;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_ACC_DRIVER 64
+     * {@snippet lang=c :
+     * #define szOID_RDN_DUMMY_SIGNER "1.3.6.1.4.1.311.21.9"
      * }
      */
-    public static int DISPLAY_DEVICE_ACC_DRIVER() {
-        return (int)64L;
+    public static MemorySegment szOID_RDN_DUMMY_SIGNER() {
+        class Holder {
+            static final MemorySegment szOID_RDN_DUMMY_SIGNER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.9");
+        }
+        return Holder.szOID_RDN_DUMMY_SIGNER;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_MODESPRUNED 134217728
+     * {@snippet lang=c :
+     * #define szOID_APPLICATION_CERT_POLICIES "1.3.6.1.4.1.311.21.10"
      * }
      */
-    public static int DISPLAY_DEVICE_MODESPRUNED() {
-        return (int)134217728L;
+    public static MemorySegment szOID_APPLICATION_CERT_POLICIES() {
+        class Holder {
+            static final MemorySegment szOID_APPLICATION_CERT_POLICIES
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.10");
+        }
+        return Holder.szOID_APPLICATION_CERT_POLICIES;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_RDPUDD 16777216
+     * {@snippet lang=c :
+     * #define szOID_APPLICATION_POLICY_MAPPINGS "1.3.6.1.4.1.311.21.11"
      * }
      */
-    public static int DISPLAY_DEVICE_RDPUDD() {
-        return (int)16777216L;
+    public static MemorySegment szOID_APPLICATION_POLICY_MAPPINGS() {
+        class Holder {
+            static final MemorySegment szOID_APPLICATION_POLICY_MAPPINGS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.11");
+        }
+        return Holder.szOID_APPLICATION_POLICY_MAPPINGS;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_REMOTE 67108864
+     * {@snippet lang=c :
+     * #define szOID_APPLICATION_POLICY_CONSTRAINTS "1.3.6.1.4.1.311.21.12"
      * }
      */
-    public static int DISPLAY_DEVICE_REMOTE() {
-        return (int)67108864L;
+    public static MemorySegment szOID_APPLICATION_POLICY_CONSTRAINTS() {
+        class Holder {
+            static final MemorySegment szOID_APPLICATION_POLICY_CONSTRAINTS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.12");
+        }
+        return Holder.szOID_APPLICATION_POLICY_CONSTRAINTS;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_DISCONNECT 33554432
+     * {@snippet lang=c :
+     * #define szOID_ARCHIVED_KEY_ATTR "1.3.6.1.4.1.311.21.13"
      * }
      */
-    public static int DISPLAY_DEVICE_DISCONNECT() {
-        return (int)33554432L;
+    public static MemorySegment szOID_ARCHIVED_KEY_ATTR() {
+        class Holder {
+            static final MemorySegment szOID_ARCHIVED_KEY_ATTR
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.13");
+        }
+        return Holder.szOID_ARCHIVED_KEY_ATTR;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_TS_COMPATIBLE 2097152
+     * {@snippet lang=c :
+     * #define szOID_CRL_SELF_CDP "1.3.6.1.4.1.311.21.14"
      * }
      */
-    public static int DISPLAY_DEVICE_TS_COMPATIBLE() {
-        return (int)2097152L;
+    public static MemorySegment szOID_CRL_SELF_CDP() {
+        class Holder {
+            static final MemorySegment szOID_CRL_SELF_CDP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.14");
+        }
+        return Holder.szOID_CRL_SELF_CDP;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_UNSAFE_MODES_ON 524288
+     * {@snippet lang=c :
+     * #define szOID_REQUIRE_CERT_CHAIN_POLICY "1.3.6.1.4.1.311.21.15"
      * }
      */
-    public static int DISPLAY_DEVICE_UNSAFE_MODES_ON() {
-        return (int)524288L;
+    public static MemorySegment szOID_REQUIRE_CERT_CHAIN_POLICY() {
+        class Holder {
+            static final MemorySegment szOID_REQUIRE_CERT_CHAIN_POLICY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.15");
+        }
+        return Holder.szOID_REQUIRE_CERT_CHAIN_POLICY;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_ACTIVE 1
+     * {@snippet lang=c :
+     * #define szOID_ARCHIVED_KEY_CERT_HASH "1.3.6.1.4.1.311.21.16"
      * }
      */
-    public static int DISPLAY_DEVICE_ACTIVE() {
-        return (int)1L;
+    public static MemorySegment szOID_ARCHIVED_KEY_CERT_HASH() {
+        class Holder {
+            static final MemorySegment szOID_ARCHIVED_KEY_CERT_HASH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.16");
+        }
+        return Holder.szOID_ARCHIVED_KEY_CERT_HASH;
     }
     /**
-     * {@snippet :
-     * #define DISPLAY_DEVICE_ATTACHED 2
+     * {@snippet lang=c :
+     * #define szOID_ISSUED_CERT_HASH "1.3.6.1.4.1.311.21.17"
      * }
      */
-    public static int DISPLAY_DEVICE_ATTACHED() {
-        return (int)2L;
+    public static MemorySegment szOID_ISSUED_CERT_HASH() {
+        class Holder {
+            static final MemorySegment szOID_ISSUED_CERT_HASH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.17");
+        }
+        return Holder.szOID_ISSUED_CERT_HASH;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_MAXPATH 1024
+     * {@snippet lang=c :
+     * #define szOID_DS_EMAIL_REPLICATION "1.3.6.1.4.1.311.21.19"
      * }
      */
-    public static int DISPLAYCONFIG_MAXPATH() {
-        return (int)1024L;
+    public static MemorySegment szOID_DS_EMAIL_REPLICATION() {
+        class Holder {
+            static final MemorySegment szOID_DS_EMAIL_REPLICATION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.19");
+        }
+        return Holder.szOID_DS_EMAIL_REPLICATION;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_PATH_TARGET_MODE_IDX_INVALID 65535
+     * {@snippet lang=c :
+     * #define szOID_REQUEST_CLIENT_INFO "1.3.6.1.4.1.311.21.20"
      * }
      */
-    public static int DISPLAYCONFIG_PATH_TARGET_MODE_IDX_INVALID() {
-        return (int)65535L;
+    public static MemorySegment szOID_REQUEST_CLIENT_INFO() {
+        class Holder {
+            static final MemorySegment szOID_REQUEST_CLIENT_INFO
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.20");
+        }
+        return Holder.szOID_REQUEST_CLIENT_INFO;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_PATH_DESKTOP_IMAGE_IDX_INVALID 65535
+     * {@snippet lang=c :
+     * #define szOID_ENCRYPTED_KEY_HASH "1.3.6.1.4.1.311.21.21"
      * }
      */
-    public static int DISPLAYCONFIG_PATH_DESKTOP_IMAGE_IDX_INVALID() {
-        return (int)65535L;
+    public static MemorySegment szOID_ENCRYPTED_KEY_HASH() {
+        class Holder {
+            static final MemorySegment szOID_ENCRYPTED_KEY_HASH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.21");
+        }
+        return Holder.szOID_ENCRYPTED_KEY_HASH;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_PATH_SOURCE_MODE_IDX_INVALID 65535
+     * {@snippet lang=c :
+     * #define szOID_CERTSRV_CROSSCA_VERSION "1.3.6.1.4.1.311.21.22"
      * }
      */
-    public static int DISPLAYCONFIG_PATH_SOURCE_MODE_IDX_INVALID() {
-        return (int)65535L;
+    public static MemorySegment szOID_CERTSRV_CROSSCA_VERSION() {
+        class Holder {
+            static final MemorySegment szOID_CERTSRV_CROSSCA_VERSION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.21.22");
+        }
+        return Holder.szOID_CERTSRV_CROSSCA_VERSION;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_PATH_CLONE_GROUP_INVALID 65535
+     * {@snippet lang=c :
+     * #define szOID_NTDS_REPLICATION "1.3.6.1.4.1.311.25.1"
      * }
      */
-    public static int DISPLAYCONFIG_PATH_CLONE_GROUP_INVALID() {
-        return (int)65535L;
+    public static MemorySegment szOID_NTDS_REPLICATION() {
+        class Holder {
+            static final MemorySegment szOID_NTDS_REPLICATION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.25.1");
+        }
+        return Holder.szOID_NTDS_REPLICATION;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_SOURCE_IN_USE 1
+     * {@snippet lang=c :
+     * #define szOID_NTDS_CA_SECURITY_EXT "1.3.6.1.4.1.311.25.2"
      * }
      */
-    public static int DISPLAYCONFIG_SOURCE_IN_USE() {
-        return (int)1L;
+    public static MemorySegment szOID_NTDS_CA_SECURITY_EXT() {
+        class Holder {
+            static final MemorySegment szOID_NTDS_CA_SECURITY_EXT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.25.2");
+        }
+        return Holder.szOID_NTDS_CA_SECURITY_EXT;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_TARGET_IN_USE 1
+     * {@snippet lang=c :
+     * #define szOID_NTDS_OBJECTSID "1.3.6.1.4.1.311.25.2.1"
      * }
      */
-    public static int DISPLAYCONFIG_TARGET_IN_USE() {
-        return (int)1L;
+    public static MemorySegment szOID_NTDS_OBJECTSID() {
+        class Holder {
+            static final MemorySegment szOID_NTDS_OBJECTSID
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.4.1.311.25.2.1");
+        }
+        return Holder.szOID_NTDS_OBJECTSID;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_TARGET_FORCIBLE 2
+     * {@snippet lang=c :
+     * #define szOID_SUBJECT_DIR_ATTRS "2.5.29.9"
      * }
      */
-    public static int DISPLAYCONFIG_TARGET_FORCIBLE() {
-        return (int)2L;
+    public static MemorySegment szOID_SUBJECT_DIR_ATTRS() {
+        class Holder {
+            static final MemorySegment szOID_SUBJECT_DIR_ATTRS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("2.5.29.9");
+        }
+        return Holder.szOID_SUBJECT_DIR_ATTRS;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_BOOT 4
+     * {@snippet lang=c :
+     * #define szOID_PKIX_KP "1.3.6.1.5.5.7.3"
      * }
      */
-    public static int DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_BOOT() {
-        return (int)4L;
+    public static MemorySegment szOID_PKIX_KP() {
+        class Holder {
+            static final MemorySegment szOID_PKIX_KP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3");
+        }
+        return Holder.szOID_PKIX_KP;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_PATH 8
+     * {@snippet lang=c :
+     * #define szOID_PKIX_KP_SERVER_AUTH "1.3.6.1.5.5.7.3.1"
      * }
      */
-    public static int DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_PATH() {
-        return (int)8L;
+    public static MemorySegment szOID_PKIX_KP_SERVER_AUTH() {
+        class Holder {
+            static final MemorySegment szOID_PKIX_KP_SERVER_AUTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.1");
+        }
+        return Holder.szOID_PKIX_KP_SERVER_AUTH;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_SYSTEM 16
+     * {@snippet lang=c :
+     * #define szOID_PKIX_KP_CLIENT_AUTH "1.3.6.1.5.5.7.3.2"
      * }
      */
-    public static int DISPLAYCONFIG_TARGET_FORCED_AVAILABILITY_SYSTEM() {
-        return (int)16L;
+    public static MemorySegment szOID_PKIX_KP_CLIENT_AUTH() {
+        class Holder {
+            static final MemorySegment szOID_PKIX_KP_CLIENT_AUTH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.2");
+        }
+        return Holder.szOID_PKIX_KP_CLIENT_AUTH;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_TARGET_IS_HMD 32
+     * {@snippet lang=c :
+     * #define szOID_PKIX_KP_CODE_SIGNING "1.3.6.1.5.5.7.3.3"
      * }
      */
-    public static int DISPLAYCONFIG_TARGET_IS_HMD() {
-        return (int)32L;
+    public static MemorySegment szOID_PKIX_KP_CODE_SIGNING() {
+        class Holder {
+            static final MemorySegment szOID_PKIX_KP_CODE_SIGNING
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.3");
+        }
+        return Holder.szOID_PKIX_KP_CODE_SIGNING;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_PATH_ACTIVE 1
+     * {@snippet lang=c :
+     * #define szOID_PKIX_KP_EMAIL_PROTECTION "1.3.6.1.5.5.7.3.4"
      * }
      */
-    public static int DISPLAYCONFIG_PATH_ACTIVE() {
-        return (int)1L;
+    public static MemorySegment szOID_PKIX_KP_EMAIL_PROTECTION() {
+        class Holder {
+            static final MemorySegment szOID_PKIX_KP_EMAIL_PROTECTION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.4");
+        }
+        return Holder.szOID_PKIX_KP_EMAIL_PROTECTION;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_PATH_PREFERRED_UNSCALED 4
+     * {@snippet lang=c :
+     * #define szOID_PKIX_KP_IPSEC_END_SYSTEM "1.3.6.1.5.5.7.3.5"
      * }
      */
-    public static int DISPLAYCONFIG_PATH_PREFERRED_UNSCALED() {
-        return (int)4L;
+    public static MemorySegment szOID_PKIX_KP_IPSEC_END_SYSTEM() {
+        class Holder {
+            static final MemorySegment szOID_PKIX_KP_IPSEC_END_SYSTEM
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.5");
+        }
+        return Holder.szOID_PKIX_KP_IPSEC_END_SYSTEM;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_PATH_SUPPORT_VIRTUAL_MODE 8
+     * {@snippet lang=c :
+     * #define szOID_PKIX_KP_IPSEC_TUNNEL "1.3.6.1.5.5.7.3.6"
      * }
      */
-    public static int DISPLAYCONFIG_PATH_SUPPORT_VIRTUAL_MODE() {
-        return (int)8L;
+    public static MemorySegment szOID_PKIX_KP_IPSEC_TUNNEL() {
+        class Holder {
+            static final MemorySegment szOID_PKIX_KP_IPSEC_TUNNEL
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.6");
+        }
+        return Holder.szOID_PKIX_KP_IPSEC_TUNNEL;
     }
     /**
-     * {@snippet :
-     * #define DISPLAYCONFIG_PATH_VALID_FLAGS 29
+     * {@snippet lang=c :
+     * #define szOID_PKIX_KP_IPSEC_USER "1.3.6.1.5.5.7.3.7"
      * }
      */
-    public static int DISPLAYCONFIG_PATH_VALID_FLAGS() {
-        return (int)29L;
+    public static MemorySegment szOID_PKIX_KP_IPSEC_USER() {
+        class Holder {
+            static final MemorySegment szOID_PKIX_KP_IPSEC_USER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.7");
+        }
+        return Holder.szOID_PKIX_KP_IPSEC_USER;
     }
     /**
-     * {@snippet :
-     * #define QDC_ALL_PATHS 1
+     * {@snippet lang=c :
+     * #define szOID_PKIX_KP_TIMESTAMP_SIGNING "1.3.6.1.5.5.7.3.8"
      * }
      */
-    public static int QDC_ALL_PATHS() {
-        return (int)1L;
+    public static MemorySegment szOID_PKIX_KP_TIMESTAMP_SIGNING() {
+        class Holder {
+            static final MemorySegment szOID_PKIX_KP_TIMESTAMP_SIGNING
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.8");
+        }
+        return Holder.szOID_PKIX_KP_TIMESTAMP_SIGNING;
     }
     /**
-     * {@snippet :
-     * #define QDC_ONLY_ACTIVE_PATHS 2
+     * {@snippet lang=c :
+     * #define szOID_PKIX_KP_OCSP_SIGNING "1.3.6.1.5.5.7.3.9"
      * }
      */
-    public static int QDC_ONLY_ACTIVE_PATHS() {
-        return (int)2L;
+    public static MemorySegment szOID_PKIX_KP_OCSP_SIGNING() {
+        class Holder {
+            static final MemorySegment szOID_PKIX_KP_OCSP_SIGNING
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.3.9");
+        }
+        return Holder.szOID_PKIX_KP_OCSP_SIGNING;
     }
     /**
-     * {@snippet :
-     * #define QDC_DATABASE_CURRENT 4
+     * {@snippet lang=c :
+     * #define szOID_PKIX_OCSP_NOCHECK "1.3.6.1.5.5.7.48.1.5"
      * }
      */
-    public static int QDC_DATABASE_CURRENT() {
-        return (int)4L;
+    public static MemorySegment szOID_PKIX_OCSP_NOCHECK() {
+        class Holder {
+            static final MemorySegment szOID_PKIX_OCSP_NOCHECK
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.48.1.5");
+        }
+        return Holder.szOID_PKIX_OCSP_NOCHECK;
     }
     /**
-     * {@snippet :
-     * #define QDC_VIRTUAL_MODE_AWARE 16
+     * {@snippet lang=c :
+     * #define szOID_PKIX_OCSP_NONCE "1.3.6.1.5.5.7.48.1.2"
      * }
      */
-    public static int QDC_VIRTUAL_MODE_AWARE() {
-        return (int)16L;
+    public static MemorySegment szOID_PKIX_OCSP_NONCE() {
+        class Holder {
+            static final MemorySegment szOID_PKIX_OCSP_NONCE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("1.3.6.1.5.5.7.48.1.2");
+        }
+        return Holder.szOID_PKIX_OCSP_NONCE;
     }
 }
-
 

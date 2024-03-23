@@ -2,20 +2,44 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagRPC_CALL_ATTRIBUTES_V2_A RPC_CALL_ATTRIBUTES_V2_A;
+ * {@snippet lang=c :
+ * typedef struct tagRPC_CALL_ATTRIBUTES_V2_A {
+ *     unsigned int Version;
+ *     unsigned long Flags;
+ *     unsigned long ServerPrincipalNameBufferLength;
+ *     unsigned char *ServerPrincipalName;
+ *     unsigned long ClientPrincipalNameBufferLength;
+ *     unsigned char *ClientPrincipalName;
+ *     unsigned long AuthenticationLevel;
+ *     unsigned long AuthenticationService;
+ *     BOOL NullSession;
+ *     BOOL KernelModeCaller;
+ *     unsigned long ProtocolSequence;
+ *     unsigned long IsClientLocal;
+ *     HANDLE ClientPID;
+ *     unsigned long CallStatus;
+ *     RpcCallType CallType;
+ *     RPC_CALL_LOCAL_ADDRESS_V1 *CallLocalAddress;
+ *     unsigned short OpNum;
+ *     UUID InterfaceUuid;
+ * } RPC_CALL_ATTRIBUTES_V2_A
  * }
  */
-public final class RPC_CALL_ATTRIBUTES_V2_A extends tagRPC_CALL_ATTRIBUTES_V2_A {
+public class RPC_CALL_ATTRIBUTES_V2_A extends tagRPC_CALL_ATTRIBUTES_V2_A {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private RPC_CALL_ATTRIBUTES_V2_A() {}
+    RPC_CALL_ATTRIBUTES_V2_A() {
+        // Should not be called directly
+    }
 }
-
 

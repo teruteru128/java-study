@@ -2,11577 +2,14494 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
-public class Windows_h_18 extends Windows_h_17 {
+import static java.lang.foreign.MemoryLayout.PathElement.*;
 
-    public static MethodHandle RegDeleteKeyValueA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1497.const$3,"RegDeleteKeyValueA");
+public class Windows_h_18 extends Windows_h_19 {
+
+    Windows_h_18() {
+        // Should not be called directly
     }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DATA_SET_SCRUB_OUTPUT {
+     *     DWORDLONG BytesProcessed;
+     *     DWORDLONG BytesRepaired;
+     *     DWORDLONG BytesFailed;
+     * } *PDEVICE_DATA_SET_SCRUB_OUTPUT
+     * }
+     */
+    public static final AddressLayout PDEVICE_DATA_SET_SCRUB_OUTPUT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * LSTATUS RegDeleteKeyValueA(HKEY hKey, LPCSTR lpSubKey, LPCSTR lpValueName);
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DATA_SET_SCRUB_OUTPUT {
+     *     DWORDLONG BytesProcessed;
+     *     DWORDLONG BytesRepaired;
+     *     DWORDLONG BytesFailed;
+     * } *PDEVICE_DSM_SCRUB_OUTPUT
      * }
      */
-    public static int RegDeleteKeyValueA(MemorySegment hKey, MemorySegment lpSubKey, MemorySegment lpValueName) {
-        var mh$ = RegDeleteKeyValueA$MH();
-        try {
-            return (int)mh$.invokeExact(hKey, lpSubKey, lpValueName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RegDeleteKeyValueW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1497.const$4,"RegDeleteKeyValueW");
-    }
+    public static final AddressLayout PDEVICE_DSM_SCRUB_OUTPUT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * LSTATUS RegDeleteKeyValueW(HKEY hKey, LPCWSTR lpSubKey, LPCWSTR lpValueName);
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DATA_SET_SCRUB_EX_OUTPUT {
+     *     DWORDLONG BytesProcessed;
+     *     DWORDLONG BytesRepaired;
+     *     DWORDLONG BytesFailed;
+     *     DEVICE_DSM_RANGE ParityExtent;
+     *     DWORDLONG BytesScrubbed;
+     * } *PDEVICE_DATA_SET_SCRUB_EX_OUTPUT
      * }
      */
-    public static int RegDeleteKeyValueW(MemorySegment hKey, MemorySegment lpSubKey, MemorySegment lpValueName) {
-        var mh$ = RegDeleteKeyValueW$MH();
-        try {
-            return (int)mh$.invokeExact(hKey, lpSubKey, lpValueName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RegSetKeyValueA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1497.const$5,"RegSetKeyValueA");
-    }
+    public static final AddressLayout PDEVICE_DATA_SET_SCRUB_EX_OUTPUT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * LSTATUS RegSetKeyValueA(HKEY hKey, LPCSTR lpSubKey, LPCSTR lpValueName, DWORD dwType, LPCVOID lpData, DWORD cbData);
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DATA_SET_SCRUB_EX_OUTPUT {
+     *     DWORDLONG BytesProcessed;
+     *     DWORDLONG BytesRepaired;
+     *     DWORDLONG BytesFailed;
+     *     DEVICE_DSM_RANGE ParityExtent;
+     *     DWORDLONG BytesScrubbed;
+     * } *PDEVICE_DSM_SCRUB_OUTPUT2
      * }
      */
-    public static int RegSetKeyValueA(MemorySegment hKey, MemorySegment lpSubKey, MemorySegment lpValueName, int dwType, MemorySegment lpData, int cbData) {
-        var mh$ = RegSetKeyValueA$MH();
-        try {
-            return (int)mh$.invokeExact(hKey, lpSubKey, lpValueName, dwType, lpData, cbData);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RegSetKeyValueW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1498.const$0,"RegSetKeyValueW");
-    }
+    public static final AddressLayout PDEVICE_DSM_SCRUB_OUTPUT2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * LSTATUS RegSetKeyValueW(HKEY hKey, LPCWSTR lpSubKey, LPCWSTR lpValueName, DWORD dwType, LPCVOID lpData, DWORD cbData);
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DSM_TIERING_QUERY_INPUT {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     DWORD NumberOfTierIds;
+     *     GUID TierIds[1];
+     * } *PDEVICE_DSM_TIERING_QUERY_INPUT
      * }
      */
-    public static int RegSetKeyValueW(MemorySegment hKey, MemorySegment lpSubKey, MemorySegment lpValueName, int dwType, MemorySegment lpData, int cbData) {
-        var mh$ = RegSetKeyValueW$MH();
-        try {
-            return (int)mh$.invokeExact(hKey, lpSubKey, lpValueName, dwType, lpData, cbData);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RegDeleteTreeA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1498.const$1,"RegDeleteTreeA");
-    }
+    public static final AddressLayout PDEVICE_DSM_TIERING_QUERY_INPUT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * LSTATUS RegDeleteTreeA(HKEY hKey, LPCSTR lpSubKey);
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DSM_TIERING_QUERY_INPUT {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     DWORD NumberOfTierIds;
+     *     GUID TierIds[1];
+     * } *PDEVICE_DSM_TIERING_QUERY_PARAMETERS
      * }
      */
-    public static int RegDeleteTreeA(MemorySegment hKey, MemorySegment lpSubKey) {
-        var mh$ = RegDeleteTreeA$MH();
-        try {
-            return (int)mh$.invokeExact(hKey, lpSubKey);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RegDeleteTreeW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1498.const$2,"RegDeleteTreeW");
-    }
+    public static final AddressLayout PDEVICE_DSM_TIERING_QUERY_PARAMETERS = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * LSTATUS RegDeleteTreeW(HKEY hKey, LPCWSTR lpSubKey);
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_TIER_REGION {
+     *     GUID TierId;
+     *     DWORDLONG Offset;
+     *     DWORDLONG Length;
+     * } *PSTORAGE_TIER_REGION
      * }
      */
-    public static int RegDeleteTreeW(MemorySegment hKey, MemorySegment lpSubKey) {
-        var mh$ = RegDeleteTreeW$MH();
-        try {
-            return (int)mh$.invokeExact(hKey, lpSubKey);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RegCopyTreeA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1498.const$3,"RegCopyTreeA");
-    }
+    public static final AddressLayout PSTORAGE_TIER_REGION = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * LSTATUS RegCopyTreeA(HKEY hKeySrc, LPCSTR lpSubKey, HKEY hKeyDest);
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DSM_TIERING_QUERY_OUTPUT {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     DWORD Reserved;
+     *     DWORDLONG Alignment;
+     *     DWORD TotalNumberOfRegions;
+     *     DWORD NumberOfRegionsReturned;
+     *     STORAGE_TIER_REGION Regions[1];
+     * } *PDEVICE_DSM_TIERING_QUERY_OUTPUT
      * }
      */
-    public static int RegCopyTreeA(MemorySegment hKeySrc, MemorySegment lpSubKey, MemorySegment hKeyDest) {
-        var mh$ = RegCopyTreeA$MH();
-        try {
-            return (int)mh$.invokeExact(hKeySrc, lpSubKey, hKeyDest);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RegGetValueA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1498.const$5,"RegGetValueA");
-    }
+    public static final AddressLayout PDEVICE_DSM_TIERING_QUERY_OUTPUT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * LSTATUS RegGetValueA(HKEY hkey, LPCSTR lpSubKey, LPCSTR lpValue, DWORD dwFlags, LPDWORD pdwType, PVOID pvData, LPDWORD pcbData);
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS {
+     *     DWORD Size;
+     *     BYTE TargetPriority;
+     *     BYTE Reserved[3];
+     * } *PDEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS
      * }
      */
-    public static int RegGetValueA(MemorySegment hkey, MemorySegment lpSubKey, MemorySegment lpValue, int dwFlags, MemorySegment pdwType, MemorySegment pvData, MemorySegment pcbData) {
-        var mh$ = RegGetValueA$MH();
-        try {
-            return (int)mh$.invokeExact(hkey, lpSubKey, lpValue, dwFlags, pdwType, pvData, pcbData);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RegGetValueW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1499.const$0,"RegGetValueW");
-    }
+    public static final AddressLayout PDEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * LSTATUS RegGetValueW(HKEY hkey, LPCWSTR lpSubKey, LPCWSTR lpValue, DWORD dwFlags, LPDWORD pdwType, PVOID pvData, LPDWORD pcbData);
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT {
+     *     DWORDLONG TopologyRangeBytes;
+     *     BYTE TopologyId[16];
+     * } *PDEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT
      * }
      */
-    public static int RegGetValueW(MemorySegment hkey, MemorySegment lpSubKey, MemorySegment lpValue, int dwFlags, MemorySegment pdwType, MemorySegment pvData, MemorySegment pcbData) {
-        var mh$ = RegGetValueW$MH();
-        try {
-            return (int)mh$.invokeExact(hkey, lpSubKey, lpValue, dwFlags, pdwType, pvData, pcbData);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RegCopyTreeW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1499.const$1,"RegCopyTreeW");
-    }
+    public static final AddressLayout PDEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * LSTATUS RegCopyTreeW(HKEY hKeySrc, LPCWSTR lpSubKey, HKEY hKeyDest);
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DATA_SET_TOPOLOGY_ID_QUERY_OUTPUT {
+     *     DWORDLONG TopologyRangeBytes;
+     *     BYTE TopologyId[16];
+     * } *PDEVICE_DSM_TOPOLOGY_ID_QUERY_OUTPUT
      * }
      */
-    public static int RegCopyTreeW(MemorySegment hKeySrc, MemorySegment lpSubKey, MemorySegment hKeyDest) {
-        var mh$ = RegCopyTreeW$MH();
-        try {
-            return (int)mh$.invokeExact(hKeySrc, lpSubKey, hKeyDest);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RegLoadMUIStringA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1499.const$3,"RegLoadMUIStringA");
-    }
+    public static final AddressLayout PDEVICE_DSM_TOPOLOGY_ID_QUERY_OUTPUT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * LSTATUS RegLoadMUIStringA(HKEY hKey, LPCSTR pszValue, LPSTR pszOutBuf, DWORD cbOutBuf, LPDWORD pcbData, DWORD Flags, LPCSTR pszDirectory);
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_STORAGE_ADDRESS_RANGE {
+     *     LONGLONG StartAddress;
+     *     DWORDLONG LengthInBytes;
+     * } *PDEVICE_STORAGE_ADDRESS_RANGE
      * }
      */
-    public static int RegLoadMUIStringA(MemorySegment hKey, MemorySegment pszValue, MemorySegment pszOutBuf, int cbOutBuf, MemorySegment pcbData, int Flags, MemorySegment pszDirectory) {
-        var mh$ = RegLoadMUIStringA$MH();
-        try {
-            return (int)mh$.invokeExact(hKey, pszValue, pszOutBuf, cbOutBuf, pcbData, Flags, pszDirectory);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RegLoadMUIStringW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1499.const$4,"RegLoadMUIStringW");
-    }
+    public static final AddressLayout PDEVICE_STORAGE_ADDRESS_RANGE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * LSTATUS RegLoadMUIStringW(HKEY hKey, LPCWSTR pszValue, LPWSTR pszOutBuf, DWORD cbOutBuf, LPDWORD pcbData, DWORD Flags, LPCWSTR pszDirectory);
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT {
+     *     DWORD Version;
+     *     DWORD Flags;
+     *     DWORD TotalNumberOfRanges;
+     *     DWORD NumberOfRangesReturned;
+     *     DEVICE_STORAGE_ADDRESS_RANGE Ranges[1];
+     * } *PDEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT
      * }
      */
-    public static int RegLoadMUIStringW(MemorySegment hKey, MemorySegment pszValue, MemorySegment pszOutBuf, int cbOutBuf, MemorySegment pcbData, int Flags, MemorySegment pszDirectory) {
-        var mh$ = RegLoadMUIStringW$MH();
-        try {
-            return (int)mh$.invokeExact(hKey, pszValue, pszOutBuf, cbOutBuf, pcbData, Flags, pszDirectory);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RegLoadAppKeyA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1499.const$5,"RegLoadAppKeyA");
-    }
+    public static final AddressLayout PDEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * LSTATUS RegLoadAppKeyA(LPCSTR lpFile, PHKEY phkResult, REGSAM samDesired, DWORD dwOptions, DWORD Reserved);
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DSM_REPORT_ZONES_PARAMETERS {
+     *     DWORD Size;
+     *     BYTE ReportOption;
+     *     BYTE Partial;
+     *     BYTE Reserved[2];
+     * } *PDEVICE_DSM_REPORT_ZONES_PARAMETERS
      * }
      */
-    public static int RegLoadAppKeyA(MemorySegment lpFile, MemorySegment phkResult, int samDesired, int dwOptions, int Reserved) {
-        var mh$ = RegLoadAppKeyA$MH();
-        try {
-            return (int)mh$.invokeExact(lpFile, phkResult, samDesired, dwOptions, Reserved);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RegLoadAppKeyW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1500.const$0,"RegLoadAppKeyW");
-    }
+    public static final AddressLayout PDEVICE_DSM_REPORT_ZONES_PARAMETERS = Windows_h.C_POINTER;
+    private static final int ZonesAttributeTypeAndLengthMayDifferent = (int)0L;
     /**
-     * {@snippet :
-     * LSTATUS RegLoadAppKeyW(LPCWSTR lpFile, PHKEY phkResult, REGSAM samDesired, DWORD dwOptions, DWORD Reserved);
+     * {@snippet lang=c :
+     * enum _STORAGE_ZONES_ATTRIBUTES.ZonesAttributeTypeAndLengthMayDifferent = 0
      * }
      */
-    public static int RegLoadAppKeyW(MemorySegment lpFile, MemorySegment phkResult, int samDesired, int dwOptions, int Reserved) {
-        var mh$ = RegLoadAppKeyW$MH();
-        try {
-            return (int)mh$.invokeExact(lpFile, phkResult, samDesired, dwOptions, Reserved);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static int ZonesAttributeTypeAndLengthMayDifferent() {
+        return ZonesAttributeTypeAndLengthMayDifferent;
     }
-    public static MethodHandle InitiateSystemShutdownA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1500.const$1,"InitiateSystemShutdownA");
-    }
+    private static final int ZonesAttributeTypeSameLengthSame = (int)1L;
     /**
-     * {@snippet :
-     * BOOL InitiateSystemShutdownA(LPSTR lpMachineName, LPSTR lpMessage, DWORD dwTimeout, BOOL bForceAppsClosed, BOOL bRebootAfterShutdown);
+     * {@snippet lang=c :
+     * enum _STORAGE_ZONES_ATTRIBUTES.ZonesAttributeTypeSameLengthSame = 1
      * }
      */
-    public static int InitiateSystemShutdownA(MemorySegment lpMachineName, MemorySegment lpMessage, int dwTimeout, int bForceAppsClosed, int bRebootAfterShutdown) {
-        var mh$ = InitiateSystemShutdownA$MH();
-        try {
-            return (int)mh$.invokeExact(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static int ZonesAttributeTypeSameLengthSame() {
+        return ZonesAttributeTypeSameLengthSame;
     }
-    public static MethodHandle InitiateSystemShutdownW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1500.const$2,"InitiateSystemShutdownW");
-    }
+    private static final int ZonesAttributeTypeSameLastZoneLengthDifferent = (int)2L;
     /**
-     * {@snippet :
-     * BOOL InitiateSystemShutdownW(LPWSTR lpMachineName, LPWSTR lpMessage, DWORD dwTimeout, BOOL bForceAppsClosed, BOOL bRebootAfterShutdown);
+     * {@snippet lang=c :
+     * enum _STORAGE_ZONES_ATTRIBUTES.ZonesAttributeTypeSameLastZoneLengthDifferent = 2
      * }
      */
-    public static int InitiateSystemShutdownW(MemorySegment lpMachineName, MemorySegment lpMessage, int dwTimeout, int bForceAppsClosed, int bRebootAfterShutdown) {
-        var mh$ = InitiateSystemShutdownW$MH();
-        try {
-            return (int)mh$.invokeExact(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static int ZonesAttributeTypeSameLastZoneLengthDifferent() {
+        return ZonesAttributeTypeSameLastZoneLengthDifferent;
     }
-    public static MethodHandle AbortSystemShutdownA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1500.const$3,"AbortSystemShutdownA");
-    }
+    private static final int ZonesAttributeTypeMayDifferentLengthSame = (int)3L;
     /**
-     * {@snippet :
-     * BOOL AbortSystemShutdownA(LPSTR lpMachineName);
+     * {@snippet lang=c :
+     * enum _STORAGE_ZONES_ATTRIBUTES.ZonesAttributeTypeMayDifferentLengthSame = 3
      * }
      */
-    public static int AbortSystemShutdownA(MemorySegment lpMachineName) {
-        var mh$ = AbortSystemShutdownA$MH();
-        try {
-            return (int)mh$.invokeExact(lpMachineName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static int ZonesAttributeTypeMayDifferentLengthSame() {
+        return ZonesAttributeTypeMayDifferentLengthSame;
     }
-    public static MethodHandle AbortSystemShutdownW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1500.const$4,"AbortSystemShutdownW");
-    }
     /**
-     * {@snippet :
-     * BOOL AbortSystemShutdownW(LPWSTR lpMachineName);
+     * {@snippet lang=c :
+     * typedef enum _STORAGE_ZONES_ATTRIBUTES {
+     *     ZonesAttributeTypeAndLengthMayDifferent = 0,
+     *     ZonesAttributeTypeSameLengthSame = 1,
+     *     ZonesAttributeTypeSameLastZoneLengthDifferent = 2,
+     *     ZonesAttributeTypeMayDifferentLengthSame = 3
+     * } *PSTORAGE_ZONES_ATTRIBUTES
      * }
      */
-    public static int AbortSystemShutdownW(MemorySegment lpMachineName) {
-        var mh$ = AbortSystemShutdownW$MH();
-        try {
-            return (int)mh$.invokeExact(lpMachineName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle InitiateSystemShutdownExA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1500.const$6,"InitiateSystemShutdownExA");
-    }
+    public static final AddressLayout PSTORAGE_ZONES_ATTRIBUTES = Windows_h.C_POINTER;
+    private static final int ZoneConditionConventional = (int)0L;
     /**
-     * {@snippet :
-     * BOOL InitiateSystemShutdownExA(LPSTR lpMachineName, LPSTR lpMessage, DWORD dwTimeout, BOOL bForceAppsClosed, BOOL bRebootAfterShutdown, DWORD dwReason);
+     * {@snippet lang=c :
+     * enum _STORAGE_ZONE_CONDITION.ZoneConditionConventional = 0
      * }
      */
-    public static int InitiateSystemShutdownExA(MemorySegment lpMachineName, MemorySegment lpMessage, int dwTimeout, int bForceAppsClosed, int bRebootAfterShutdown, int dwReason) {
-        var mh$ = InitiateSystemShutdownExA$MH();
-        try {
-            return (int)mh$.invokeExact(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown, dwReason);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle InitiateSystemShutdownExW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1501.const$0,"InitiateSystemShutdownExW");
+    public static int ZoneConditionConventional() {
+        return ZoneConditionConventional;
     }
+    private static final int ZoneConditionEmpty = (int)1L;
     /**
-     * {@snippet :
-     * BOOL InitiateSystemShutdownExW(LPWSTR lpMachineName, LPWSTR lpMessage, DWORD dwTimeout, BOOL bForceAppsClosed, BOOL bRebootAfterShutdown, DWORD dwReason);
+     * {@snippet lang=c :
+     * enum _STORAGE_ZONE_CONDITION.ZoneConditionEmpty = 1
      * }
      */
-    public static int InitiateSystemShutdownExW(MemorySegment lpMachineName, MemorySegment lpMessage, int dwTimeout, int bForceAppsClosed, int bRebootAfterShutdown, int dwReason) {
-        var mh$ = InitiateSystemShutdownExW$MH();
-        try {
-            return (int)mh$.invokeExact(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown, dwReason);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle InitiateShutdownA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1501.const$1,"InitiateShutdownA");
+    public static int ZoneConditionEmpty() {
+        return ZoneConditionEmpty;
     }
+    private static final int ZoneConditionImplicitlyOpened = (int)2L;
     /**
-     * {@snippet :
-     * DWORD InitiateShutdownA(LPSTR lpMachineName, LPSTR lpMessage, DWORD dwGracePeriod, DWORD dwShutdownFlags, DWORD dwReason);
+     * {@snippet lang=c :
+     * enum _STORAGE_ZONE_CONDITION.ZoneConditionImplicitlyOpened = 2
      * }
      */
-    public static int InitiateShutdownA(MemorySegment lpMachineName, MemorySegment lpMessage, int dwGracePeriod, int dwShutdownFlags, int dwReason) {
-        var mh$ = InitiateShutdownA$MH();
-        try {
-            return (int)mh$.invokeExact(lpMachineName, lpMessage, dwGracePeriod, dwShutdownFlags, dwReason);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle InitiateShutdownW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1501.const$2,"InitiateShutdownW");
+    public static int ZoneConditionImplicitlyOpened() {
+        return ZoneConditionImplicitlyOpened;
     }
+    private static final int ZoneConditionExplicitlyOpened = (int)3L;
     /**
-     * {@snippet :
-     * DWORD InitiateShutdownW(LPWSTR lpMachineName, LPWSTR lpMessage, DWORD dwGracePeriod, DWORD dwShutdownFlags, DWORD dwReason);
+     * {@snippet lang=c :
+     * enum _STORAGE_ZONE_CONDITION.ZoneConditionExplicitlyOpened = 3
      * }
      */
-    public static int InitiateShutdownW(MemorySegment lpMachineName, MemorySegment lpMessage, int dwGracePeriod, int dwShutdownFlags, int dwReason) {
-        var mh$ = InitiateShutdownW$MH();
-        try {
-            return (int)mh$.invokeExact(lpMachineName, lpMessage, dwGracePeriod, dwShutdownFlags, dwReason);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle CheckForHiberboot$MH() {
-        return RuntimeHelper.requireNonNull(constants$1501.const$3,"CheckForHiberboot");
+    public static int ZoneConditionExplicitlyOpened() {
+        return ZoneConditionExplicitlyOpened;
     }
+    private static final int ZoneConditionClosed = (int)4L;
     /**
-     * {@snippet :
-     * DWORD CheckForHiberboot(PBOOLEAN pHiberboot, BOOLEAN bClearFlag);
+     * {@snippet lang=c :
+     * enum _STORAGE_ZONE_CONDITION.ZoneConditionClosed = 4
      * }
      */
-    public static int CheckForHiberboot(MemorySegment pHiberboot, byte bClearFlag) {
-        var mh$ = CheckForHiberboot$MH();
-        try {
-            return (int)mh$.invokeExact(pHiberboot, bClearFlag);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RegSaveKeyExA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1501.const$4,"RegSaveKeyExA");
+    public static int ZoneConditionClosed() {
+        return ZoneConditionClosed;
     }
+    private static final int ZoneConditionReadOnly = (int)13L;
     /**
-     * {@snippet :
-     * LSTATUS RegSaveKeyExA(HKEY hKey, LPCSTR lpFile, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD Flags);
+     * {@snippet lang=c :
+     * enum _STORAGE_ZONE_CONDITION.ZoneConditionReadOnly = 13
      * }
      */
-    public static int RegSaveKeyExA(MemorySegment hKey, MemorySegment lpFile, MemorySegment lpSecurityAttributes, int Flags) {
-        var mh$ = RegSaveKeyExA$MH();
-        try {
-            return (int)mh$.invokeExact(hKey, lpFile, lpSecurityAttributes, Flags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static int ZoneConditionReadOnly() {
+        return ZoneConditionReadOnly;
     }
-    public static MethodHandle RegSaveKeyExW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1501.const$5,"RegSaveKeyExW");
+    private static final int ZoneConditionFull = (int)14L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_ZONE_CONDITION.ZoneConditionFull = 14
+     * }
+     */
+    public static int ZoneConditionFull() {
+        return ZoneConditionFull;
     }
+    private static final int ZoneConditionOffline = (int)15L;
     /**
-     * {@snippet :
-     * LSTATUS RegSaveKeyExW(HKEY hKey, LPCWSTR lpFile, const LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD Flags);
+     * {@snippet lang=c :
+     * enum _STORAGE_ZONE_CONDITION.ZoneConditionOffline = 15
      * }
      */
-    public static int RegSaveKeyExW(MemorySegment hKey, MemorySegment lpFile, MemorySegment lpSecurityAttributes, int Flags) {
-        var mh$ = RegSaveKeyExW$MH();
-        try {
-            return (int)mh$.invokeExact(hKey, lpFile, lpSecurityAttributes, Flags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static int ZoneConditionOffline() {
+        return ZoneConditionOffline;
     }
     /**
-     * {@snippet :
-     * typedef struct _NETRESOURCEA* LPNETRESOURCEA;
+     * {@snippet lang=c :
+     * typedef enum _STORAGE_ZONE_CONDITION {
+     *     ZoneConditionConventional = 0,
+     *     ZoneConditionEmpty = 1,
+     *     ZoneConditionImplicitlyOpened = 2,
+     *     ZoneConditionExplicitlyOpened = 3,
+     *     ZoneConditionClosed = 4,
+     *     ZoneConditionReadOnly = 13,
+     *     ZoneConditionFull = 14,
+     *     ZoneConditionOffline = 15
+     * } *PSTORAGE_ZONE_CONDITION
      * }
      */
-    public static final AddressLayout LPNETRESOURCEA = RuntimeHelper.POINTER;
+    public static final AddressLayout PSTORAGE_ZONE_CONDITION = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct _NETRESOURCEW* LPNETRESOURCEW;
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_ZONE_DESCRIPTOR {
+     *     DWORD Size;
+     *     STORAGE_ZONE_TYPES ZoneType;
+     *     STORAGE_ZONE_CONDITION ZoneCondition;
+     *     BOOLEAN ResetWritePointerRecommend;
+     *     BYTE Reserved0[3];
+     *     DWORDLONG ZoneSize;
+     *     DWORDLONG WritePointerOffset;
+     * } *PSTORAGE_ZONE_DESCRIPTOR
      * }
      */
-    public static final AddressLayout LPNETRESOURCEW = RuntimeHelper.POINTER;
+    public static final AddressLayout PSTORAGE_ZONE_DESCRIPTOR = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct _NETRESOURCEA* LPNETRESOURCE;
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DSM_REPORT_ZONES_DATA {
+     *     DWORD Size;
+     *     DWORD ZoneCount;
+     *     STORAGE_ZONES_ATTRIBUTES Attributes;
+     *     DWORD Reserved0;
+     *     STORAGE_ZONE_DESCRIPTOR ZoneDescriptors[1];
+     * } *PDEVICE_DSM_REPORT_ZONES_DATA
      * }
      */
-    public static final AddressLayout LPNETRESOURCE = RuntimeHelper.POINTER;
-    public static MethodHandle WNetAddConnectionA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1505.const$0,"WNetAddConnectionA");
-    }
+    public static final AddressLayout PDEVICE_DSM_REPORT_ZONES_DATA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * DWORD WNetAddConnectionA(LPCSTR lpRemoteName, LPCSTR lpPassword, LPCSTR lpLocalName);
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DSM_REPORT_ZONES_DATA {
+     *     DWORD Size;
+     *     DWORD ZoneCount;
+     *     STORAGE_ZONES_ATTRIBUTES Attributes;
+     *     DWORD Reserved0;
+     *     STORAGE_ZONE_DESCRIPTOR ZoneDescriptors[1];
+     * } *PDEVICE_DSM_REPORT_ZONES_OUTPUT
      * }
      */
-    public static int WNetAddConnectionA(MemorySegment lpRemoteName, MemorySegment lpPassword, MemorySegment lpLocalName) {
-        var mh$ = WNetAddConnectionA$MH();
-        try {
-            return (int)mh$.invokeExact(lpRemoteName, lpPassword, lpLocalName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle WNetAddConnectionW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1505.const$1,"WNetAddConnectionW");
-    }
+    public static final AddressLayout PDEVICE_DSM_REPORT_ZONES_OUTPUT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * DWORD WNetAddConnectionW(LPCWSTR lpRemoteName, LPCWSTR lpPassword, LPCWSTR lpLocalName);
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_STORAGE_RANGE_ATTRIBUTES {
+     *     DWORDLONG LengthInBytes;
+     *     union {
+     *         DWORD AllFlags;
+     *         struct {
+     *             DWORD IsRangeBad : 1;
+     *         };
+     *     };
+     *     DWORD Reserved;
+     * } *PDEVICE_STORAGE_RANGE_ATTRIBUTES
      * }
      */
-    public static int WNetAddConnectionW(MemorySegment lpRemoteName, MemorySegment lpPassword, MemorySegment lpLocalName) {
-        var mh$ = WNetAddConnectionW$MH();
-        try {
-            return (int)mh$.invokeExact(lpRemoteName, lpPassword, lpLocalName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static final AddressLayout PDEVICE_STORAGE_RANGE_ATTRIBUTES = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DSM_RANGE_ERROR_INFO {
+     *     DWORD Version;
+     *     DWORD Flags;
+     *     DWORD TotalNumberOfRanges;
+     *     DWORD NumberOfRangesReturned;
+     *     DEVICE_STORAGE_RANGE_ATTRIBUTES Ranges[1];
+     * } *PDEVICE_DSM_RANGE_ERROR_INFO
+     * }
+     */
+    public static final AddressLayout PDEVICE_DSM_RANGE_ERROR_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DSM_RANGE_ERROR_INFO {
+     *     DWORD Version;
+     *     DWORD Flags;
+     *     DWORD TotalNumberOfRanges;
+     *     DWORD NumberOfRangesReturned;
+     *     DEVICE_STORAGE_RANGE_ATTRIBUTES Ranges[1];
+     * } *PDEVICE_DSM_RANGE_ERROR_OUTPUT
+     * }
+     */
+    public static final AddressLayout PDEVICE_DSM_RANGE_ERROR_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DSM_LOST_QUERY_PARAMETERS {
+     *     DWORD Version;
+     *     DWORDLONG Granularity;
+     * } *PDEVICE_DSM_LOST_QUERY_PARAMETERS
+     * }
+     */
+    public static final AddressLayout PDEVICE_DSM_LOST_QUERY_PARAMETERS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DSM_LOST_QUERY_OUTPUT {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORDLONG Alignment;
+     *     DWORD NumberOfBits;
+     *     DWORD BitMap[1];
+     * } *PDEVICE_DSM_LOST_QUERY_OUTPUT
+     * }
+     */
+    public static final AddressLayout PDEVICE_DSM_LOST_QUERY_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DSM_FREE_SPACE_OUTPUT {
+     *     DWORD Version;
+     *     DWORDLONG FreeSpace;
+     * } *PDEVICE_DSM_FREE_SPACE_OUTPUT
+     * }
+     */
+    public static final AddressLayout PDEVICE_DSM_FREE_SPACE_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_DSM_CONVERSION_OUTPUT {
+     *     DWORD Version;
+     *     GUID Source;
+     * } *PDEVICE_DSM_CONVERSION_OUTPUT
+     * }
+     */
+    public static final AddressLayout PDEVICE_DSM_CONVERSION_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_GET_BC_PROPERTIES_OUTPUT {
+     *     DWORD MaximumRequestsPerPeriod;
+     *     DWORD MinimumPeriod;
+     *     DWORDLONG MaximumRequestSize;
+     *     DWORD EstimatedTimePerRequest;
+     *     DWORD NumOutStandingRequests;
+     *     DWORDLONG RequestSize;
+     * } *PSTORAGE_GET_BC_PROPERTIES_OUTPUT
+     * }
+     */
+    public static final AddressLayout PSTORAGE_GET_BC_PROPERTIES_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_ALLOCATE_BC_STREAM_INPUT {
+     *     DWORD Version;
+     *     DWORD RequestsPerPeriod;
+     *     DWORD Period;
+     *     BOOLEAN RetryFailures;
+     *     BOOLEAN Discardable;
+     *     BOOLEAN Reserved1[2];
+     *     DWORD AccessType;
+     *     DWORD AccessMode;
+     * } *PSTORAGE_ALLOCATE_BC_STREAM_INPUT
+     * }
+     */
+    public static final AddressLayout PSTORAGE_ALLOCATE_BC_STREAM_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_ALLOCATE_BC_STREAM_OUTPUT {
+     *     DWORDLONG RequestSize;
+     *     DWORD NumOutStandingRequests;
+     * } *PSTORAGE_ALLOCATE_BC_STREAM_OUTPUT
+     * }
+     */
+    public static final AddressLayout PSTORAGE_ALLOCATE_BC_STREAM_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_PRIORITY_HINT_SUPPORT {
+     *     DWORD SupportFlags;
+     * } *PSTORAGE_PRIORITY_HINT_SUPPORT
+     * }
+     */
+    public static final AddressLayout PSTORAGE_PRIORITY_HINT_SUPPORT = Windows_h.C_POINTER;
+    private static final int StorageDiagnosticLevelDefault = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_DIAGNOSTIC_LEVEL.StorageDiagnosticLevelDefault = 0
+     * }
+     */
+    public static int StorageDiagnosticLevelDefault() {
+        return StorageDiagnosticLevelDefault;
     }
-    public static MethodHandle WNetAddConnection2A$MH() {
-        return RuntimeHelper.requireNonNull(constants$1505.const$2,"WNetAddConnection2A");
+    private static final int StorageDiagnosticLevelMax = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_DIAGNOSTIC_LEVEL.StorageDiagnosticLevelMax = 1
+     * }
+     */
+    public static int StorageDiagnosticLevelMax() {
+        return StorageDiagnosticLevelMax;
     }
     /**
-     * {@snippet :
-     * DWORD WNetAddConnection2A(LPNETRESOURCEA lpNetResource, LPCSTR lpPassword, LPCSTR lpUserName, DWORD dwFlags);
+     * {@snippet lang=c :
+     * typedef enum _STORAGE_DIAGNOSTIC_LEVEL {
+     *     StorageDiagnosticLevelDefault = 0,
+     *     StorageDiagnosticLevelMax
+     * } *PSTORAGE_DIAGNOSTIC_LEVEL
      * }
      */
-    public static int WNetAddConnection2A(MemorySegment lpNetResource, MemorySegment lpPassword, MemorySegment lpUserName, int dwFlags) {
-        var mh$ = WNetAddConnection2A$MH();
-        try {
-            return (int)mh$.invokeExact(lpNetResource, lpPassword, lpUserName, dwFlags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static final AddressLayout PSTORAGE_DIAGNOSTIC_LEVEL = Windows_h.C_POINTER;
+    private static final int StorageDiagnosticTargetTypeUndefined = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_DIAGNOSTIC_TARGET_TYPE.StorageDiagnosticTargetTypeUndefined = 0
+     * }
+     */
+    public static int StorageDiagnosticTargetTypeUndefined() {
+        return StorageDiagnosticTargetTypeUndefined;
     }
-    public static MethodHandle WNetAddConnection2W$MH() {
-        return RuntimeHelper.requireNonNull(constants$1505.const$3,"WNetAddConnection2W");
+    private static final int StorageDiagnosticTargetTypePort = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_DIAGNOSTIC_TARGET_TYPE.StorageDiagnosticTargetTypePort = 1
+     * }
+     */
+    public static int StorageDiagnosticTargetTypePort() {
+        return StorageDiagnosticTargetTypePort;
     }
+    private static final int StorageDiagnosticTargetTypeMiniport = (int)2L;
     /**
-     * {@snippet :
-     * DWORD WNetAddConnection2W(LPNETRESOURCEW lpNetResource, LPCWSTR lpPassword, LPCWSTR lpUserName, DWORD dwFlags);
+     * {@snippet lang=c :
+     * enum _STORAGE_DIAGNOSTIC_TARGET_TYPE.StorageDiagnosticTargetTypeMiniport = 2
      * }
      */
-    public static int WNetAddConnection2W(MemorySegment lpNetResource, MemorySegment lpPassword, MemorySegment lpUserName, int dwFlags) {
-        var mh$ = WNetAddConnection2W$MH();
-        try {
-            return (int)mh$.invokeExact(lpNetResource, lpPassword, lpUserName, dwFlags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static int StorageDiagnosticTargetTypeMiniport() {
+        return StorageDiagnosticTargetTypeMiniport;
     }
-    public static MethodHandle WNetAddConnection3A$MH() {
-        return RuntimeHelper.requireNonNull(constants$1505.const$4,"WNetAddConnection3A");
+    private static final int StorageDiagnosticTargetTypeHbaFirmware = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_DIAGNOSTIC_TARGET_TYPE.StorageDiagnosticTargetTypeHbaFirmware = 3
+     * }
+     */
+    public static int StorageDiagnosticTargetTypeHbaFirmware() {
+        return StorageDiagnosticTargetTypeHbaFirmware;
     }
+    private static final int StorageDiagnosticTargetTypeMax = (int)4L;
     /**
-     * {@snippet :
-     * DWORD WNetAddConnection3A(HWND hwndOwner, LPNETRESOURCEA lpNetResource, LPCSTR lpPassword, LPCSTR lpUserName, DWORD dwFlags);
+     * {@snippet lang=c :
+     * enum _STORAGE_DIAGNOSTIC_TARGET_TYPE.StorageDiagnosticTargetTypeMax = 4
      * }
      */
-    public static int WNetAddConnection3A(MemorySegment hwndOwner, MemorySegment lpNetResource, MemorySegment lpPassword, MemorySegment lpUserName, int dwFlags) {
-        var mh$ = WNetAddConnection3A$MH();
-        try {
-            return (int)mh$.invokeExact(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static int StorageDiagnosticTargetTypeMax() {
+        return StorageDiagnosticTargetTypeMax;
     }
-    public static MethodHandle WNetAddConnection3W$MH() {
-        return RuntimeHelper.requireNonNull(constants$1505.const$5,"WNetAddConnection3W");
+    /**
+     * {@snippet lang=c :
+     * typedef enum _STORAGE_DIAGNOSTIC_TARGET_TYPE {
+     *     StorageDiagnosticTargetTypeUndefined = 0,
+     *     StorageDiagnosticTargetTypePort,
+     *     StorageDiagnosticTargetTypeMiniport,
+     *     StorageDiagnosticTargetTypeHbaFirmware,
+     *     StorageDiagnosticTargetTypeMax
+     * } *PSTORAGE_DIAGNOSTIC_TARGET_TYPE
+     * }
+     */
+    public static final AddressLayout PSTORAGE_DIAGNOSTIC_TARGET_TYPE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_DIAGNOSTIC_REQUEST {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     STORAGE_DIAGNOSTIC_TARGET_TYPE TargetType;
+     *     STORAGE_DIAGNOSTIC_LEVEL Level;
+     * } *PSTORAGE_DIAGNOSTIC_REQUEST
+     * }
+     */
+    public static final AddressLayout PSTORAGE_DIAGNOSTIC_REQUEST = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_DIAGNOSTIC_DATA {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     GUID ProviderId;
+     *     DWORD BufferSize;
+     *     DWORD Reserved;
+     *     BYTE DiagnosticDataBuffer[1];
+     * } *PSTORAGE_DIAGNOSTIC_DATA
+     * }
+     */
+    public static final AddressLayout PSTORAGE_DIAGNOSTIC_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PHYSICAL_ELEMENT_STATUS_REQUEST {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD StartingElement;
+     *     BYTE Filter;
+     *     BYTE ReportType;
+     *     BYTE Reserved[2];
+     * } *PPHYSICAL_ELEMENT_STATUS_REQUEST
+     * }
+     */
+    public static final AddressLayout PPHYSICAL_ELEMENT_STATUS_REQUEST = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PHYSICAL_ELEMENT_STATUS_DESCRIPTOR {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD ElementIdentifier;
+     *     BYTE PhysicalElementType;
+     *     BYTE PhysicalElementHealth;
+     *     BYTE Reserved1[2];
+     *     DWORDLONG AssociatedCapacity;
+     *     DWORD Reserved2[4];
+     * } *PPHYSICAL_ELEMENT_STATUS_DESCRIPTOR
+     * }
+     */
+    public static final AddressLayout PPHYSICAL_ELEMENT_STATUS_DESCRIPTOR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PHYSICAL_ELEMENT_STATUS {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD DescriptorCount;
+     *     DWORD ReturnedDescriptorCount;
+     *     DWORD ElementIdentifierBeingDepoped;
+     *     DWORD Reserved;
+     *     PHYSICAL_ELEMENT_STATUS_DESCRIPTOR Descriptors[1];
+     * } *PPHYSICAL_ELEMENT_STATUS
+     * }
+     */
+    public static final AddressLayout PPHYSICAL_ELEMENT_STATUS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _REMOVE_ELEMENT_AND_TRUNCATE_REQUEST {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORDLONG RequestCapacity;
+     *     DWORD ElementIdentifier;
+     *     DWORD Reserved;
+     * } *PREMOVE_ELEMENT_AND_TRUNCATE_REQUEST
+     * }
+     */
+    public static final AddressLayout PREMOVE_ELEMENT_AND_TRUNCATE_REQUEST = Windows_h.C_POINTER;
+    private static final int DeviceInternalStatusDataRequestTypeUndefined = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE.DeviceInternalStatusDataRequestTypeUndefined = 0
+     * }
+     */
+    public static int DeviceInternalStatusDataRequestTypeUndefined() {
+        return DeviceInternalStatusDataRequestTypeUndefined;
     }
+    private static final int DeviceCurrentInternalStatusDataHeader = (int)1L;
     /**
-     * {@snippet :
-     * DWORD WNetAddConnection3W(HWND hwndOwner, LPNETRESOURCEW lpNetResource, LPCWSTR lpPassword, LPCWSTR lpUserName, DWORD dwFlags);
+     * {@snippet lang=c :
+     * enum _DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE.DeviceCurrentInternalStatusDataHeader = 1
      * }
      */
-    public static int WNetAddConnection3W(MemorySegment hwndOwner, MemorySegment lpNetResource, MemorySegment lpPassword, MemorySegment lpUserName, int dwFlags) {
-        var mh$ = WNetAddConnection3W$MH();
-        try {
-            return (int)mh$.invokeExact(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static int DeviceCurrentInternalStatusDataHeader() {
+        return DeviceCurrentInternalStatusDataHeader;
     }
-    public static MethodHandle WNetAddConnection4A$MH() {
-        return RuntimeHelper.requireNonNull(constants$1506.const$1,"WNetAddConnection4A");
+    private static final int DeviceCurrentInternalStatusData = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE.DeviceCurrentInternalStatusData = 2
+     * }
+     */
+    public static int DeviceCurrentInternalStatusData() {
+        return DeviceCurrentInternalStatusData;
     }
+    private static final int DeviceSavedInternalStatusDataHeader = (int)3L;
     /**
-     * {@snippet :
-     * DWORD WNetAddConnection4A(HWND hwndOwner, LPNETRESOURCEA lpNetResource, PVOID pAuthBuffer, DWORD cbAuthBuffer, DWORD dwFlags, PBYTE lpUseOptions, DWORD cbUseOptions);
+     * {@snippet lang=c :
+     * enum _DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE.DeviceSavedInternalStatusDataHeader = 3
      * }
      */
-    public static int WNetAddConnection4A(MemorySegment hwndOwner, MemorySegment lpNetResource, MemorySegment pAuthBuffer, int cbAuthBuffer, int dwFlags, MemorySegment lpUseOptions, int cbUseOptions) {
-        var mh$ = WNetAddConnection4A$MH();
-        try {
-            return (int)mh$.invokeExact(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static int DeviceSavedInternalStatusDataHeader() {
+        return DeviceSavedInternalStatusDataHeader;
     }
-    public static MethodHandle WNetAddConnection4W$MH() {
-        return RuntimeHelper.requireNonNull(constants$1506.const$2,"WNetAddConnection4W");
+    private static final int DeviceSavedInternalStatusData = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE.DeviceSavedInternalStatusData = 4
+     * }
+     */
+    public static int DeviceSavedInternalStatusData() {
+        return DeviceSavedInternalStatusData;
     }
     /**
-     * {@snippet :
-     * DWORD WNetAddConnection4W(HWND hwndOwner, LPNETRESOURCEW lpNetResource, PVOID pAuthBuffer, DWORD cbAuthBuffer, DWORD dwFlags, PBYTE lpUseOptions, DWORD cbUseOptions);
+     * {@snippet lang=c :
+     * typedef enum _DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE {
+     *     DeviceInternalStatusDataRequestTypeUndefined = 0,
+     *     DeviceCurrentInternalStatusDataHeader,
+     *     DeviceCurrentInternalStatusData,
+     *     DeviceSavedInternalStatusDataHeader,
+     *     DeviceSavedInternalStatusData
+     * } *PDEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE
      * }
      */
-    public static int WNetAddConnection4W(MemorySegment hwndOwner, MemorySegment lpNetResource, MemorySegment pAuthBuffer, int cbAuthBuffer, int dwFlags, MemorySegment lpUseOptions, int cbUseOptions) {
-        var mh$ = WNetAddConnection4W$MH();
-        try {
-            return (int)mh$.invokeExact(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static final AddressLayout PDEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE = Windows_h.C_POINTER;
+    private static final int DeviceStatusDataSetUndefined = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _DEVICE_INTERNAL_STATUS_DATA_SET.DeviceStatusDataSetUndefined = 0
+     * }
+     */
+    public static int DeviceStatusDataSetUndefined() {
+        return DeviceStatusDataSetUndefined;
     }
-    public static MethodHandle WNetCancelConnectionA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1506.const$3,"WNetCancelConnectionA");
+    private static final int DeviceStatusDataSet1 = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _DEVICE_INTERNAL_STATUS_DATA_SET.DeviceStatusDataSet1 = 1
+     * }
+     */
+    public static int DeviceStatusDataSet1() {
+        return DeviceStatusDataSet1;
     }
+    private static final int DeviceStatusDataSet2 = (int)2L;
     /**
-     * {@snippet :
-     * DWORD WNetCancelConnectionA(LPCSTR lpName, BOOL fForce);
+     * {@snippet lang=c :
+     * enum _DEVICE_INTERNAL_STATUS_DATA_SET.DeviceStatusDataSet2 = 2
      * }
      */
-    public static int WNetCancelConnectionA(MemorySegment lpName, int fForce) {
-        var mh$ = WNetCancelConnectionA$MH();
-        try {
-            return (int)mh$.invokeExact(lpName, fForce);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static int DeviceStatusDataSet2() {
+        return DeviceStatusDataSet2;
     }
-    public static MethodHandle WNetCancelConnectionW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1506.const$4,"WNetCancelConnectionW");
+    private static final int DeviceStatusDataSet3 = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _DEVICE_INTERNAL_STATUS_DATA_SET.DeviceStatusDataSet3 = 3
+     * }
+     */
+    public static int DeviceStatusDataSet3() {
+        return DeviceStatusDataSet3;
     }
+    private static final int DeviceStatusDataSet4 = (int)4L;
     /**
-     * {@snippet :
-     * DWORD WNetCancelConnectionW(LPCWSTR lpName, BOOL fForce);
+     * {@snippet lang=c :
+     * enum _DEVICE_INTERNAL_STATUS_DATA_SET.DeviceStatusDataSet4 = 4
      * }
      */
-    public static int WNetCancelConnectionW(MemorySegment lpName, int fForce) {
-        var mh$ = WNetCancelConnectionW$MH();
-        try {
-            return (int)mh$.invokeExact(lpName, fForce);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static int DeviceStatusDataSet4() {
+        return DeviceStatusDataSet4;
     }
-    public static MethodHandle WNetCancelConnection2A$MH() {
-        return RuntimeHelper.requireNonNull(constants$1506.const$5,"WNetCancelConnection2A");
+    private static final int DeviceStatusDataSetMax = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _DEVICE_INTERNAL_STATUS_DATA_SET.DeviceStatusDataSetMax = 5
+     * }
+     */
+    public static int DeviceStatusDataSetMax() {
+        return DeviceStatusDataSetMax;
     }
     /**
-     * {@snippet :
-     * DWORD WNetCancelConnection2A(LPCSTR lpName, DWORD dwFlags, BOOL fForce);
+     * {@snippet lang=c :
+     * typedef enum _DEVICE_INTERNAL_STATUS_DATA_SET {
+     *     DeviceStatusDataSetUndefined = 0,
+     *     DeviceStatusDataSet1,
+     *     DeviceStatusDataSet2,
+     *     DeviceStatusDataSet3,
+     *     DeviceStatusDataSet4,
+     *     DeviceStatusDataSetMax
+     * } *PDEVICE_INTERNAL_STATUS_DATA_SET
      * }
      */
-    public static int WNetCancelConnection2A(MemorySegment lpName, int dwFlags, int fForce) {
-        var mh$ = WNetCancelConnection2A$MH();
-        try {
-            return (int)mh$.invokeExact(lpName, dwFlags, fForce);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static final AddressLayout PDEVICE_INTERNAL_STATUS_DATA_SET = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _GET_DEVICE_INTERNAL_STATUS_DATA_REQUEST {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DEVICE_INTERNAL_STATUS_DATA_REQUEST_TYPE RequestDataType;
+     *     DEVICE_INTERNAL_STATUS_DATA_SET RequestDataSet;
+     * } *PGET_DEVICE_INTERNAL_STATUS_DATA_REQUEST
+     * }
+     */
+    public static final AddressLayout PGET_DEVICE_INTERNAL_STATUS_DATA_REQUEST = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICE_INTERNAL_STATUS_DATA {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORDLONG T10VendorId;
+     *     DWORD DataSet1Length;
+     *     DWORD DataSet2Length;
+     *     DWORD DataSet3Length;
+     *     DWORD DataSet4Length;
+     *     BYTE StatusDataVersion;
+     *     BYTE Reserved[3];
+     *     BYTE ReasonIdentifier[128];
+     *     DWORD StatusDataLength;
+     *     BYTE StatusData[1];
+     * } *PDEVICE_INTERNAL_STATUS_DATA
+     * }
+     */
+    public static final AddressLayout PDEVICE_INTERNAL_STATUS_DATA = Windows_h.C_POINTER;
+    private static final int StorageSanitizeMethodDefault = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_SANITIZE_METHOD.StorageSanitizeMethodDefault = 0
+     * }
+     */
+    public static int StorageSanitizeMethodDefault() {
+        return StorageSanitizeMethodDefault;
     }
-    public static MethodHandle WNetCancelConnection2W$MH() {
-        return RuntimeHelper.requireNonNull(constants$1507.const$0,"WNetCancelConnection2W");
+    private static final int StorageSanitizeMethodBlockErase = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_SANITIZE_METHOD.StorageSanitizeMethodBlockErase = 1
+     * }
+     */
+    public static int StorageSanitizeMethodBlockErase() {
+        return StorageSanitizeMethodBlockErase;
     }
+    private static final int StorageSanitizeMethodCryptoErase = (int)2L;
     /**
-     * {@snippet :
-     * DWORD WNetCancelConnection2W(LPCWSTR lpName, DWORD dwFlags, BOOL fForce);
+     * {@snippet lang=c :
+     * enum _STORAGE_SANITIZE_METHOD.StorageSanitizeMethodCryptoErase = 2
      * }
      */
-    public static int WNetCancelConnection2W(MemorySegment lpName, int dwFlags, int fForce) {
-        var mh$ = WNetCancelConnection2W$MH();
-        try {
-            return (int)mh$.invokeExact(lpName, dwFlags, fForce);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static int StorageSanitizeMethodCryptoErase() {
+        return StorageSanitizeMethodCryptoErase;
     }
-    public static MethodHandle WNetGetConnectionA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1507.const$1,"WNetGetConnectionA");
+    /**
+     * {@snippet lang=c :
+     * typedef enum _STORAGE_SANITIZE_METHOD {
+     *     StorageSanitizeMethodDefault = 0,
+     *     StorageSanitizeMethodBlockErase,
+     *     StorageSanitizeMethodCryptoErase
+     * } *PSTORAGE_SANITIZE_METHOD
+     * }
+     */
+    public static final AddressLayout PSTORAGE_SANITIZE_METHOD = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_REINITIALIZE_MEDIA {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD TimeoutInSeconds;
+     *     struct {
+     *         DWORD SanitizeMethod : 4;
+     *         DWORD DisallowUnrestrictedSanitizeExit : 1;
+     *         DWORD Reserved : 27;
+     *     } SanitizeOption;
+     * } *PSTORAGE_REINITIALIZE_MEDIA
+     * }
+     */
+    public static final AddressLayout PSTORAGE_REINITIALIZE_MEDIA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_MEDIA_SERIAL_NUMBER_DATA {
+     *     WORD Reserved;
+     *     WORD SerialNumberLength;
+     *     BYTE SerialNumber[0];
+     * } *PSTORAGE_MEDIA_SERIAL_NUMBER_DATA
+     * }
+     */
+    public static final AddressLayout PSTORAGE_MEDIA_SERIAL_NUMBER_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_READ_CAPACITY {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD BlockLength;
+     *     LARGE_INTEGER NumberOfBlocks;
+     *     LARGE_INTEGER DiskLength;
+     * } *PSTORAGE_READ_CAPACITY
+     * }
+     */
+    public static final AddressLayout PSTORAGE_READ_CAPACITY = Windows_h.C_POINTER;
+    private static final int WriteCacheTypeUnknown = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _WRITE_CACHE_TYPE.WriteCacheTypeUnknown = 0
+     * }
+     */
+    public static int WriteCacheTypeUnknown() {
+        return WriteCacheTypeUnknown;
+    }
+    private static final int WriteCacheTypeNone = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _WRITE_CACHE_TYPE.WriteCacheTypeNone = 1
+     * }
+     */
+    public static int WriteCacheTypeNone() {
+        return WriteCacheTypeNone;
+    }
+    private static final int WriteCacheTypeWriteBack = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _WRITE_CACHE_TYPE.WriteCacheTypeWriteBack = 2
+     * }
+     */
+    public static int WriteCacheTypeWriteBack() {
+        return WriteCacheTypeWriteBack;
+    }
+    private static final int WriteCacheTypeWriteThrough = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _WRITE_CACHE_TYPE.WriteCacheTypeWriteThrough = 3
+     * }
+     */
+    public static int WriteCacheTypeWriteThrough() {
+        return WriteCacheTypeWriteThrough;
+    }
+    private static final int WriteCacheEnableUnknown = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _WRITE_CACHE_ENABLE.WriteCacheEnableUnknown = 0
+     * }
+     */
+    public static int WriteCacheEnableUnknown() {
+        return WriteCacheEnableUnknown;
+    }
+    private static final int WriteCacheDisabled = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _WRITE_CACHE_ENABLE.WriteCacheDisabled = 1
+     * }
+     */
+    public static int WriteCacheDisabled() {
+        return WriteCacheDisabled;
+    }
+    private static final int WriteCacheEnabled = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _WRITE_CACHE_ENABLE.WriteCacheEnabled = 2
+     * }
+     */
+    public static int WriteCacheEnabled() {
+        return WriteCacheEnabled;
+    }
+    private static final int WriteCacheChangeUnknown = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _WRITE_CACHE_CHANGE.WriteCacheChangeUnknown = 0
+     * }
+     */
+    public static int WriteCacheChangeUnknown() {
+        return WriteCacheChangeUnknown;
+    }
+    private static final int WriteCacheNotChangeable = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _WRITE_CACHE_CHANGE.WriteCacheNotChangeable = 1
+     * }
+     */
+    public static int WriteCacheNotChangeable() {
+        return WriteCacheNotChangeable;
+    }
+    private static final int WriteCacheChangeable = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _WRITE_CACHE_CHANGE.WriteCacheChangeable = 2
+     * }
+     */
+    public static int WriteCacheChangeable() {
+        return WriteCacheChangeable;
+    }
+    private static final int WriteThroughUnknown = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _WRITE_THROUGH.WriteThroughUnknown = 0
+     * }
+     */
+    public static int WriteThroughUnknown() {
+        return WriteThroughUnknown;
+    }
+    private static final int WriteThroughNotSupported = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _WRITE_THROUGH.WriteThroughNotSupported = 1
+     * }
+     */
+    public static int WriteThroughNotSupported() {
+        return WriteThroughNotSupported;
+    }
+    private static final int WriteThroughSupported = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _WRITE_THROUGH.WriteThroughSupported = 2
+     * }
+     */
+    public static int WriteThroughSupported() {
+        return WriteThroughSupported;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_WRITE_CACHE_PROPERTY {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     WRITE_CACHE_TYPE WriteCacheType;
+     *     WRITE_CACHE_ENABLE WriteCacheEnabled;
+     *     WRITE_CACHE_CHANGE WriteCacheChangeable;
+     *     WRITE_THROUGH WriteThroughSupported;
+     *     BOOLEAN FlushCacheSupported;
+     *     BOOLEAN UserDefinedPowerProtection;
+     *     BOOLEAN NVCacheEnabled;
+     * } *PSTORAGE_WRITE_CACHE_PROPERTY
+     * }
+     */
+    public static final AddressLayout PSTORAGE_WRITE_CACHE_PROPERTY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PERSISTENT_RESERVE_COMMAND {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     union {
+     *         struct {
+     *             BYTE ServiceAction : 5;
+     *             BYTE Reserved1 : 3;
+     *             WORD AllocationLength;
+     *         } PR_IN;
+     *         struct {
+     *             BYTE ServiceAction : 5;
+     *             BYTE Reserved1 : 3;
+     *             BYTE Type : 4;
+     *             BYTE Scope : 4;
+     *             BYTE ParameterList[0];
+     *         } PR_OUT;
+     *     };
+     * } *PPERSISTENT_RESERVE_COMMAND
+     * }
+     */
+    public static final AddressLayout PPERSISTENT_RESERVE_COMMAND = Windows_h.C_POINTER;
+    private static final int TCCollectionBugCheck = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _DEVICEDUMP_COLLECTION_TYPE.TCCollectionBugCheck = 1
+     * }
+     */
+    public static int TCCollectionBugCheck() {
+        return TCCollectionBugCheck;
+    }
+    private static final int TCCollectionApplicationRequested = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _DEVICEDUMP_COLLECTION_TYPE.TCCollectionApplicationRequested = 2
+     * }
+     */
+    public static int TCCollectionApplicationRequested() {
+        return TCCollectionApplicationRequested;
+    }
+    private static final int TCCollectionDeviceRequested = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _DEVICEDUMP_COLLECTION_TYPE.TCCollectionDeviceRequested = 3
+     * }
+     */
+    public static int TCCollectionDeviceRequested() {
+        return TCCollectionDeviceRequested;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _DEVICEDUMP_COLLECTION_TYPE {
+     *     TCCollectionBugCheck = 1,
+     *     TCCollectionApplicationRequested,
+     *     TCCollectionDeviceRequested
+     * } *PDEVICEDUMP_COLLECTION_TYPE
+     * }
+     */
+    public static final AddressLayout PDEVICEDUMP_COLLECTION_TYPE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICEDUMP_SUBSECTION_POINTER {
+     *     DWORD dwSize;
+     *     DWORD dwFlags;
+     *     DWORD dwOffset;
+     * } *PDEVICEDUMP_SUBSECTION_POINTER
+     * }
+     */
+    public static final AddressLayout PDEVICEDUMP_SUBSECTION_POINTER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICEDUMP_STRUCTURE_VERSION {
+     *     DWORD dwSignature;
+     *     DWORD dwVersion;
+     *     DWORD dwSize;
+     * } *PDEVICEDUMP_STRUCTURE_VERSION
+     * }
+     */
+    public static final AddressLayout PDEVICEDUMP_STRUCTURE_VERSION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICEDUMP_SECTION_HEADER {
+     *     GUID guidDeviceDataId;
+     *     BYTE sOrganizationID[16];
+     *     DWORD dwFirmwareRevision;
+     *     BYTE sModelNumber[32];
+     *     BYTE szDeviceManufacturingID[32];
+     *     DWORD dwFlags;
+     *     DWORD bRestrictedPrivateDataVersion;
+     *     DWORD dwFirmwareIssueId;
+     *     BYTE szIssueDescriptionString[132];
+     * } *PDEVICEDUMP_SECTION_HEADER
+     * }
+     */
+    public static final AddressLayout PDEVICEDUMP_SECTION_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _GP_LOG_PAGE_DESCRIPTOR {
+     *     WORD LogAddress;
+     *     WORD LogSectors;
+     * } *PGP_LOG_PAGE_DESCRIPTOR
+     * }
+     */
+    public static final AddressLayout PGP_LOG_PAGE_DESCRIPTOR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICEDUMP_PUBLIC_SUBSECTION {
+     *     DWORD dwFlags;
+     *     GP_LOG_PAGE_DESCRIPTOR GPLogTable[16];
+     *     CHAR szDescription[16];
+     *     BYTE bData[1];
+     * } *PDEVICEDUMP_PUBLIC_SUBSECTION
+     * }
+     */
+    public static final AddressLayout PDEVICEDUMP_PUBLIC_SUBSECTION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICEDUMP_RESTRICTED_SUBSECTION {
+     *     BYTE bData[1];
+     * } *PDEVICEDUMP_RESTRICTED_SUBSECTION
+     * }
+     */
+    public static final AddressLayout PDEVICEDUMP_RESTRICTED_SUBSECTION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICEDUMP_PRIVATE_SUBSECTION {
+     *     DWORD dwFlags;
+     *     GP_LOG_PAGE_DESCRIPTOR GPLogId;
+     *     BYTE bData[1];
+     * } *PDEVICEDUMP_PRIVATE_SUBSECTION
+     * }
+     */
+    public static final AddressLayout PDEVICEDUMP_PRIVATE_SUBSECTION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICEDUMP_STORAGEDEVICE_DATA {
+     *     DEVICEDUMP_STRUCTURE_VERSION Descriptor;
+     *     DEVICEDUMP_SECTION_HEADER SectionHeader;
+     *     DWORD dwBufferSize;
+     *     DWORD dwReasonForCollection;
+     *     DEVICEDUMP_SUBSECTION_POINTER PublicData;
+     *     DEVICEDUMP_SUBSECTION_POINTER RestrictedData;
+     *     DEVICEDUMP_SUBSECTION_POINTER PrivateData;
+     * } *PDEVICEDUMP_STORAGEDEVICE_DATA
+     * }
+     */
+    public static final AddressLayout PDEVICEDUMP_STORAGEDEVICE_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD {
+     *     BYTE Cdb[16];
+     *     BYTE Command[16];
+     *     DWORDLONG StartTime;
+     *     DWORDLONG EndTime;
+     *     DWORD OperationStatus;
+     *     DWORD OperationError;
+     *     union {
+     *         struct {
+     *             DWORD dwReserved;
+     *         } ExternalStack;
+     *         struct {
+     *             DWORD dwAtaPortSpecific;
+     *         } AtaPort;
+     *         struct {
+     *             DWORD SrbTag;
+     *         } StorPort;
+     *     } StackSpecific;
+     * } *PDEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD
+     * }
+     */
+    public static final AddressLayout PDEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP {
+     *     DEVICEDUMP_STRUCTURE_VERSION Descriptor;
+     *     DWORD dwReasonForCollection;
+     *     BYTE cDriverName[16];
+     *     DWORD uiNumRecords;
+     *     DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD RecordArray[1];
+     * } *PDEVICEDUMP_STORAGESTACK_PUBLIC_DUMP
+     * }
+     */
+    public static final AddressLayout PDEVICEDUMP_STORAGESTACK_PUBLIC_DUMP = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_IDLE_POWER {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD WakeCapableHint : 1;
+     *     DWORD D3ColdSupported : 1;
+     *     DWORD Reserved : 30;
+     *     DWORD D3IdleTimeout;
+     * } *PSTORAGE_IDLE_POWER
+     * }
+     */
+    public static final AddressLayout PSTORAGE_IDLE_POWER = Windows_h.C_POINTER;
+    private static final int StoragePowerupUnknown = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_POWERUP_REASON_TYPE.StoragePowerupUnknown = 0
+     * }
+     */
+    public static int StoragePowerupUnknown() {
+        return StoragePowerupUnknown;
+    }
+    private static final int StoragePowerupIO = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_POWERUP_REASON_TYPE.StoragePowerupIO = 1
+     * }
+     */
+    public static int StoragePowerupIO() {
+        return StoragePowerupIO;
+    }
+    private static final int StoragePowerupDeviceAttention = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_POWERUP_REASON_TYPE.StoragePowerupDeviceAttention = 2
+     * }
+     */
+    public static int StoragePowerupDeviceAttention() {
+        return StoragePowerupDeviceAttention;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _STORAGE_POWERUP_REASON_TYPE {
+     *     StoragePowerupUnknown = 0,
+     *     StoragePowerupIO,
+     *     StoragePowerupDeviceAttention
+     * } *PSTORAGE_POWERUP_REASON_TYPE
+     * }
+     */
+    public static final AddressLayout PSTORAGE_POWERUP_REASON_TYPE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_IDLE_POWERUP_REASON {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     STORAGE_POWERUP_REASON_TYPE PowerupReason;
+     * } *PSTORAGE_IDLE_POWERUP_REASON
+     * }
+     */
+    public static final AddressLayout PSTORAGE_IDLE_POWERUP_REASON = Windows_h.C_POINTER;
+    private static final int StorageDevicePowerCapUnitsPercent = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_DEVICE_POWER_CAP_UNITS.StorageDevicePowerCapUnitsPercent = 0
+     * }
+     */
+    public static int StorageDevicePowerCapUnitsPercent() {
+        return StorageDevicePowerCapUnitsPercent;
+    }
+    private static final int StorageDevicePowerCapUnitsMilliwatts = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_DEVICE_POWER_CAP_UNITS.StorageDevicePowerCapUnitsMilliwatts = 1
+     * }
+     */
+    public static int StorageDevicePowerCapUnitsMilliwatts() {
+        return StorageDevicePowerCapUnitsMilliwatts;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _STORAGE_DEVICE_POWER_CAP_UNITS {
+     *     StorageDevicePowerCapUnitsPercent,
+     *     StorageDevicePowerCapUnitsMilliwatts
+     * } *PSTORAGE_DEVICE_POWER_CAP_UNITS
+     * }
+     */
+    public static final AddressLayout PSTORAGE_DEVICE_POWER_CAP_UNITS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_DEVICE_POWER_CAP {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     STORAGE_DEVICE_POWER_CAP_UNITS Units;
+     *     DWORDLONG MaxPower;
+     * } *PSTORAGE_DEVICE_POWER_CAP
+     * }
+     */
+    public static final AddressLayout PSTORAGE_DEVICE_POWER_CAP = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_RPMB_DATA_FRAME {
+     *     BYTE Stuff[196];
+     *     BYTE KeyOrMAC[32];
+     *     BYTE Data[256];
+     *     BYTE Nonce[16];
+     *     BYTE WriteCounter[4];
+     *     BYTE Address[2];
+     *     BYTE BlockCount[2];
+     *     BYTE OperationResult[2];
+     *     BYTE RequestOrResponseType[2];
+     * } *PSTORAGE_RPMB_DATA_FRAME
+     * }
+     */
+    public static final AddressLayout PSTORAGE_RPMB_DATA_FRAME = Windows_h.C_POINTER;
+    private static final int StorRpmbProgramAuthKey = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_RPMB_COMMAND_TYPE.StorRpmbProgramAuthKey = 1
+     * }
+     */
+    public static int StorRpmbProgramAuthKey() {
+        return StorRpmbProgramAuthKey;
+    }
+    private static final int StorRpmbQueryWriteCounter = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_RPMB_COMMAND_TYPE.StorRpmbQueryWriteCounter = 2
+     * }
+     */
+    public static int StorRpmbQueryWriteCounter() {
+        return StorRpmbQueryWriteCounter;
+    }
+    private static final int StorRpmbAuthenticatedWrite = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_RPMB_COMMAND_TYPE.StorRpmbAuthenticatedWrite = 3
+     * }
+     */
+    public static int StorRpmbAuthenticatedWrite() {
+        return StorRpmbAuthenticatedWrite;
+    }
+    private static final int StorRpmbAuthenticatedRead = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_RPMB_COMMAND_TYPE.StorRpmbAuthenticatedRead = 4
+     * }
+     */
+    public static int StorRpmbAuthenticatedRead() {
+        return StorRpmbAuthenticatedRead;
+    }
+    private static final int StorRpmbReadResultRequest = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_RPMB_COMMAND_TYPE.StorRpmbReadResultRequest = 5
+     * }
+     */
+    public static int StorRpmbReadResultRequest() {
+        return StorRpmbReadResultRequest;
+    }
+    private static final int StorRpmbAuthenticatedDeviceConfigWrite = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_RPMB_COMMAND_TYPE.StorRpmbAuthenticatedDeviceConfigWrite = 6
+     * }
+     */
+    public static int StorRpmbAuthenticatedDeviceConfigWrite() {
+        return StorRpmbAuthenticatedDeviceConfigWrite;
+    }
+    private static final int StorRpmbAuthenticatedDeviceConfigRead = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_RPMB_COMMAND_TYPE.StorRpmbAuthenticatedDeviceConfigRead = 7
+     * }
+     */
+    public static int StorRpmbAuthenticatedDeviceConfigRead() {
+        return StorRpmbAuthenticatedDeviceConfigRead;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _STORAGE_RPMB_COMMAND_TYPE {
+     *     StorRpmbProgramAuthKey = 1,
+     *     StorRpmbQueryWriteCounter = 2,
+     *     StorRpmbAuthenticatedWrite = 3,
+     *     StorRpmbAuthenticatedRead = 4,
+     *     StorRpmbReadResultRequest = 5,
+     *     StorRpmbAuthenticatedDeviceConfigWrite = 6,
+     *     StorRpmbAuthenticatedDeviceConfigRead = 7
+     * } *PSTORAGE_RPMB_COMMAND_TYPE
+     * }
+     */
+    public static final AddressLayout PSTORAGE_RPMB_COMMAND_TYPE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_EVENT_NOTIFICATION {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORDLONG Events;
+     * } *PSTORAGE_EVENT_NOTIFICATION
+     * }
+     */
+    public static final AddressLayout PSTORAGE_EVENT_NOTIFICATION = Windows_h.C_POINTER;
+    private static final int StorageCounterTypeUnknown = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeUnknown = 0
+     * }
+     */
+    public static int StorageCounterTypeUnknown() {
+        return StorageCounterTypeUnknown;
+    }
+    private static final int StorageCounterTypeTemperatureCelsius = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeTemperatureCelsius = 1
+     * }
+     */
+    public static int StorageCounterTypeTemperatureCelsius() {
+        return StorageCounterTypeTemperatureCelsius;
+    }
+    private static final int StorageCounterTypeTemperatureCelsiusMax = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeTemperatureCelsiusMax = 2
+     * }
+     */
+    public static int StorageCounterTypeTemperatureCelsiusMax() {
+        return StorageCounterTypeTemperatureCelsiusMax;
+    }
+    private static final int StorageCounterTypeReadErrorsTotal = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeReadErrorsTotal = 3
+     * }
+     */
+    public static int StorageCounterTypeReadErrorsTotal() {
+        return StorageCounterTypeReadErrorsTotal;
+    }
+    private static final int StorageCounterTypeReadErrorsCorrected = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeReadErrorsCorrected = 4
+     * }
+     */
+    public static int StorageCounterTypeReadErrorsCorrected() {
+        return StorageCounterTypeReadErrorsCorrected;
+    }
+    private static final int StorageCounterTypeReadErrorsUncorrected = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeReadErrorsUncorrected = 5
+     * }
+     */
+    public static int StorageCounterTypeReadErrorsUncorrected() {
+        return StorageCounterTypeReadErrorsUncorrected;
+    }
+    private static final int StorageCounterTypeWriteErrorsTotal = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeWriteErrorsTotal = 6
+     * }
+     */
+    public static int StorageCounterTypeWriteErrorsTotal() {
+        return StorageCounterTypeWriteErrorsTotal;
+    }
+    private static final int StorageCounterTypeWriteErrorsCorrected = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeWriteErrorsCorrected = 7
+     * }
+     */
+    public static int StorageCounterTypeWriteErrorsCorrected() {
+        return StorageCounterTypeWriteErrorsCorrected;
+    }
+    private static final int StorageCounterTypeWriteErrorsUncorrected = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeWriteErrorsUncorrected = 8
+     * }
+     */
+    public static int StorageCounterTypeWriteErrorsUncorrected() {
+        return StorageCounterTypeWriteErrorsUncorrected;
+    }
+    private static final int StorageCounterTypeManufactureDate = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeManufactureDate = 9
+     * }
+     */
+    public static int StorageCounterTypeManufactureDate() {
+        return StorageCounterTypeManufactureDate;
+    }
+    private static final int StorageCounterTypeStartStopCycleCount = (int)10L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeStartStopCycleCount = 10
+     * }
+     */
+    public static int StorageCounterTypeStartStopCycleCount() {
+        return StorageCounterTypeStartStopCycleCount;
+    }
+    private static final int StorageCounterTypeStartStopCycleCountMax = (int)11L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeStartStopCycleCountMax = 11
+     * }
+     */
+    public static int StorageCounterTypeStartStopCycleCountMax() {
+        return StorageCounterTypeStartStopCycleCountMax;
+    }
+    private static final int StorageCounterTypeLoadUnloadCycleCount = (int)12L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeLoadUnloadCycleCount = 12
+     * }
+     */
+    public static int StorageCounterTypeLoadUnloadCycleCount() {
+        return StorageCounterTypeLoadUnloadCycleCount;
+    }
+    private static final int StorageCounterTypeLoadUnloadCycleCountMax = (int)13L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeLoadUnloadCycleCountMax = 13
+     * }
+     */
+    public static int StorageCounterTypeLoadUnloadCycleCountMax() {
+        return StorageCounterTypeLoadUnloadCycleCountMax;
+    }
+    private static final int StorageCounterTypeWearPercentage = (int)14L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeWearPercentage = 14
+     * }
+     */
+    public static int StorageCounterTypeWearPercentage() {
+        return StorageCounterTypeWearPercentage;
+    }
+    private static final int StorageCounterTypeWearPercentageWarning = (int)15L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeWearPercentageWarning = 15
+     * }
+     */
+    public static int StorageCounterTypeWearPercentageWarning() {
+        return StorageCounterTypeWearPercentageWarning;
+    }
+    private static final int StorageCounterTypeWearPercentageMax = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeWearPercentageMax = 16
+     * }
+     */
+    public static int StorageCounterTypeWearPercentageMax() {
+        return StorageCounterTypeWearPercentageMax;
+    }
+    private static final int StorageCounterTypePowerOnHours = (int)17L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypePowerOnHours = 17
+     * }
+     */
+    public static int StorageCounterTypePowerOnHours() {
+        return StorageCounterTypePowerOnHours;
+    }
+    private static final int StorageCounterTypeReadLatency100NSMax = (int)18L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeReadLatency100NSMax = 18
+     * }
+     */
+    public static int StorageCounterTypeReadLatency100NSMax() {
+        return StorageCounterTypeReadLatency100NSMax;
+    }
+    private static final int StorageCounterTypeWriteLatency100NSMax = (int)19L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeWriteLatency100NSMax = 19
+     * }
+     */
+    public static int StorageCounterTypeWriteLatency100NSMax() {
+        return StorageCounterTypeWriteLatency100NSMax;
+    }
+    private static final int StorageCounterTypeFlushLatency100NSMax = (int)20L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeFlushLatency100NSMax = 20
+     * }
+     */
+    public static int StorageCounterTypeFlushLatency100NSMax() {
+        return StorageCounterTypeFlushLatency100NSMax;
+    }
+    private static final int StorageCounterTypeMax = (int)21L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_COUNTER_TYPE.StorageCounterTypeMax = 21
+     * }
+     */
+    public static int StorageCounterTypeMax() {
+        return StorageCounterTypeMax;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _STORAGE_COUNTER_TYPE {
+     *     StorageCounterTypeUnknown = 0,
+     *     StorageCounterTypeTemperatureCelsius,
+     *     StorageCounterTypeTemperatureCelsiusMax,
+     *     StorageCounterTypeReadErrorsTotal,
+     *     StorageCounterTypeReadErrorsCorrected,
+     *     StorageCounterTypeReadErrorsUncorrected,
+     *     StorageCounterTypeWriteErrorsTotal,
+     *     StorageCounterTypeWriteErrorsCorrected,
+     *     StorageCounterTypeWriteErrorsUncorrected,
+     *     StorageCounterTypeManufactureDate,
+     *     StorageCounterTypeStartStopCycleCount,
+     *     StorageCounterTypeStartStopCycleCountMax,
+     *     StorageCounterTypeLoadUnloadCycleCount,
+     *     StorageCounterTypeLoadUnloadCycleCountMax,
+     *     StorageCounterTypeWearPercentage,
+     *     StorageCounterTypeWearPercentageWarning,
+     *     StorageCounterTypeWearPercentageMax,
+     *     StorageCounterTypePowerOnHours,
+     *     StorageCounterTypeReadLatency100NSMax,
+     *     StorageCounterTypeWriteLatency100NSMax,
+     *     StorageCounterTypeFlushLatency100NSMax,
+     *     StorageCounterTypeMax
+     * } *PSTORAGE_COUNTER_TYPE
+     * }
+     */
+    public static final AddressLayout PSTORAGE_COUNTER_TYPE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_COUNTER {
+     *     STORAGE_COUNTER_TYPE Type;
+     *     union {
+     *         struct {
+     *             DWORD Week;
+     *             DWORD Year;
+     *         } ManufactureDate;
+     *         DWORDLONG AsUlonglong;
+     *     } Value;
+     * } *PSTORAGE_COUNTER
+     * }
+     */
+    public static final AddressLayout PSTORAGE_COUNTER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_COUNTERS {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD NumberOfCounters;
+     *     STORAGE_COUNTER Counters[1];
+     * } *PSTORAGE_COUNTERS
+     * }
+     */
+    public static final AddressLayout PSTORAGE_COUNTERS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_HW_FIRMWARE_INFO_QUERY {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     DWORD Reserved;
+     * } *PSTORAGE_HW_FIRMWARE_INFO_QUERY
+     * }
+     */
+    public static final AddressLayout PSTORAGE_HW_FIRMWARE_INFO_QUERY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_HW_FIRMWARE_SLOT_INFO {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     BYTE SlotNumber;
+     *     BYTE ReadOnly : 1;
+     *     BYTE Reserved0 : 7;
+     *     BYTE Reserved1[6];
+     *     BYTE Revision[16];
+     * } *PSTORAGE_HW_FIRMWARE_SLOT_INFO
+     * }
+     */
+    public static final AddressLayout PSTORAGE_HW_FIRMWARE_SLOT_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_HW_FIRMWARE_INFO {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     BYTE SupportUpgrade : 1;
+     *     BYTE Reserved0 : 7;
+     *     BYTE SlotCount;
+     *     BYTE ActiveSlot;
+     *     BYTE PendingActivateSlot;
+     *     BOOLEAN FirmwareShared;
+     *     BYTE Reserved[3];
+     *     DWORD ImagePayloadAlignment;
+     *     DWORD ImagePayloadMaxSize;
+     *     STORAGE_HW_FIRMWARE_SLOT_INFO Slot[1];
+     * } *PSTORAGE_HW_FIRMWARE_INFO
+     * }
+     */
+    public static final AddressLayout PSTORAGE_HW_FIRMWARE_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_HW_FIRMWARE_DOWNLOAD {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     BYTE Slot;
+     *     BYTE Reserved[3];
+     *     DWORDLONG Offset;
+     *     DWORDLONG BufferSize;
+     *     BYTE ImageBuffer[1];
+     * } *PSTORAGE_HW_FIRMWARE_DOWNLOAD
+     * }
+     */
+    public static final AddressLayout PSTORAGE_HW_FIRMWARE_DOWNLOAD = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_HW_FIRMWARE_DOWNLOAD_V2 {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     BYTE Slot;
+     *     BYTE Reserved[3];
+     *     DWORDLONG Offset;
+     *     DWORDLONG BufferSize;
+     *     DWORD ImageSize;
+     *     DWORD Reserved2;
+     *     BYTE ImageBuffer[1];
+     * } *PSTORAGE_HW_FIRMWARE_DOWNLOAD_V2
+     * }
+     */
+    public static final AddressLayout PSTORAGE_HW_FIRMWARE_DOWNLOAD_V2 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_HW_FIRMWARE_ACTIVATE {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     BYTE Slot;
+     *     BYTE Reserved0[3];
+     * } *PSTORAGE_HW_FIRMWARE_ACTIVATE
+     * }
+     */
+    public static final AddressLayout PSTORAGE_HW_FIRMWARE_ACTIVATE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_PROTOCOL_COMMAND {
+     *     DWORD Version;
+     *     DWORD Length;
+     *     STORAGE_PROTOCOL_TYPE ProtocolType;
+     *     DWORD Flags;
+     *     DWORD ReturnStatus;
+     *     DWORD ErrorCode;
+     *     DWORD CommandLength;
+     *     DWORD ErrorInfoLength;
+     *     DWORD DataToDeviceTransferLength;
+     *     DWORD DataFromDeviceTransferLength;
+     *     DWORD TimeOutValue;
+     *     DWORD ErrorInfoOffset;
+     *     DWORD DataToDeviceBufferOffset;
+     *     DWORD DataFromDeviceBufferOffset;
+     *     DWORD CommandSpecific;
+     *     DWORD Reserved0;
+     *     DWORD FixedProtocolReturnData;
+     *     DWORD Reserved1[3];
+     *     BYTE Command[1];
+     * } *PSTORAGE_PROTOCOL_COMMAND
+     * }
+     */
+    public static final AddressLayout PSTORAGE_PROTOCOL_COMMAND = Windows_h.C_POINTER;
+    private static final int StorAttributeMgmt_ClearAttribute = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_ATTRIBUTE_MGMT_ACTION.StorAttributeMgmt_ClearAttribute = 0
+     * }
+     */
+    public static int StorAttributeMgmt_ClearAttribute() {
+        return StorAttributeMgmt_ClearAttribute;
+    }
+    private static final int StorAttributeMgmt_SetAttribute = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_ATTRIBUTE_MGMT_ACTION.StorAttributeMgmt_SetAttribute = 1
+     * }
+     */
+    public static int StorAttributeMgmt_SetAttribute() {
+        return StorAttributeMgmt_SetAttribute;
+    }
+    private static final int StorAttributeMgmt_ResetAttribute = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_ATTRIBUTE_MGMT_ACTION.StorAttributeMgmt_ResetAttribute = 2
+     * }
+     */
+    public static int StorAttributeMgmt_ResetAttribute() {
+        return StorAttributeMgmt_ResetAttribute;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _STORAGE_ATTRIBUTE_MGMT_ACTION {
+     *     StorAttributeMgmt_ClearAttribute = 0,
+     *     StorAttributeMgmt_SetAttribute = 1,
+     *     StorAttributeMgmt_ResetAttribute = 2
+     * } *PSTORAGE_ATTRIBUTE_MGMT_ACTION
+     * }
+     */
+    public static final AddressLayout PSTORAGE_ATTRIBUTE_MGMT_ACTION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_ATTRIBUTE_MGMT {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     STORAGE_ATTRIBUTE_MGMT_ACTION Action;
+     *     DWORD Attribute;
+     * } *PSTORAGE_ATTRIBUTE_MGMT
+     * }
+     */
+    public static final AddressLayout PSTORAGE_ATTRIBUTE_MGMT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_HEALTH_NOTIFICATION_DATA {
+     *     GUID DeviceGuid;
+     * } *PSCM_PD_HEALTH_NOTIFICATION_DATA
+     * }
+     */
+    public static final AddressLayout PSCM_PD_HEALTH_NOTIFICATION_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_LOGICAL_DEVICE_INSTANCE {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     GUID DeviceGuid;
+     *     WCHAR SymbolicLink[256];
+     * } *PSCM_LOGICAL_DEVICE_INSTANCE
+     * }
+     */
+    public static final AddressLayout PSCM_LOGICAL_DEVICE_INSTANCE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_LOGICAL_DEVICES {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD DeviceCount;
+     *     SCM_LOGICAL_DEVICE_INSTANCE Devices[1];
+     * } *PSCM_LOGICAL_DEVICES
+     * }
+     */
+    public static final AddressLayout PSCM_LOGICAL_DEVICES = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PHYSICAL_DEVICE_INSTANCE {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD NfitHandle;
+     *     WCHAR SymbolicLink[256];
+     * } *PSCM_PHYSICAL_DEVICE_INSTANCE
+     * }
+     */
+    public static final AddressLayout PSCM_PHYSICAL_DEVICE_INSTANCE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PHYSICAL_DEVICES {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD DeviceCount;
+     *     SCM_PHYSICAL_DEVICE_INSTANCE Devices[1];
+     * } *PSCM_PHYSICAL_DEVICES
+     * }
+     */
+    public static final AddressLayout PSCM_PHYSICAL_DEVICES = Windows_h.C_POINTER;
+    private static final int ScmRegionFlagNone = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_REGION_FLAG.ScmRegionFlagNone = 0
+     * }
+     */
+    public static int ScmRegionFlagNone() {
+        return ScmRegionFlagNone;
+    }
+    private static final int ScmRegionFlagLabel = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_REGION_FLAG.ScmRegionFlagLabel = 1
+     * }
+     */
+    public static int ScmRegionFlagLabel() {
+        return ScmRegionFlagLabel;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SCM_REGION_FLAG {
+     *     ScmRegionFlagNone = 0,
+     *     ScmRegionFlagLabel = 1
+     * } *PSCM_REGION_FLAG
+     * }
+     */
+    public static final AddressLayout PSCM_REGION_FLAG = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_REGION {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     DWORD NfitHandle;
+     *     GUID LogicalDeviceGuid;
+     *     GUID AddressRangeType;
+     *     DWORD AssociatedId;
+     *     DWORD64 Length;
+     *     DWORD64 StartingDPA;
+     *     DWORD64 BaseSPA;
+     *     DWORD64 SPAOffset;
+     *     DWORD64 RegionOffset;
+     * } *PSCM_REGION
+     * }
+     */
+    public static final AddressLayout PSCM_REGION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_REGIONS {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD RegionCount;
+     *     SCM_REGION Regions[1];
+     * } *PSCM_REGIONS
+     * }
+     */
+    public static final AddressLayout PSCM_REGIONS = Windows_h.C_POINTER;
+    private static final int ScmBusQuery_Descriptor = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_BUS_QUERY_TYPE.ScmBusQuery_Descriptor = 0
+     * }
+     */
+    public static int ScmBusQuery_Descriptor() {
+        return ScmBusQuery_Descriptor;
+    }
+    private static final int ScmBusQuery_IsSupported = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_BUS_QUERY_TYPE.ScmBusQuery_IsSupported = 1
+     * }
+     */
+    public static int ScmBusQuery_IsSupported() {
+        return ScmBusQuery_IsSupported;
+    }
+    private static final int ScmBusQuery_Max = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_BUS_QUERY_TYPE.ScmBusQuery_Max = 2
+     * }
+     */
+    public static int ScmBusQuery_Max() {
+        return ScmBusQuery_Max;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SCM_BUS_QUERY_TYPE {
+     *     ScmBusQuery_Descriptor = 0,
+     *     ScmBusQuery_IsSupported,
+     *     ScmBusQuery_Max
+     * } *PSCM_BUS_QUERY_TYPE
+     * }
+     */
+    public static final AddressLayout PSCM_BUS_QUERY_TYPE = Windows_h.C_POINTER;
+    private static final int ScmBusSet_Descriptor = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_BUS_SET_TYPE.ScmBusSet_Descriptor = 0
+     * }
+     */
+    public static int ScmBusSet_Descriptor() {
+        return ScmBusSet_Descriptor;
+    }
+    private static final int ScmBusSet_IsSupported = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_BUS_SET_TYPE.ScmBusSet_IsSupported = 1
+     * }
+     */
+    public static int ScmBusSet_IsSupported() {
+        return ScmBusSet_IsSupported;
+    }
+    private static final int ScmBusSet_Max = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_BUS_SET_TYPE.ScmBusSet_Max = 2
+     * }
+     */
+    public static int ScmBusSet_Max() {
+        return ScmBusSet_Max;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SCM_BUS_SET_TYPE {
+     *     ScmBusSet_Descriptor = 0,
+     *     ScmBusSet_IsSupported,
+     *     ScmBusSet_Max
+     * } *PSCM_BUS_SET_TYPE
+     * }
+     */
+    public static final AddressLayout PSCM_BUS_SET_TYPE = Windows_h.C_POINTER;
+    private static final int ScmBusProperty_RuntimeFwActivationInfo = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_BUS_PROPERTY_ID.ScmBusProperty_RuntimeFwActivationInfo = 0
+     * }
+     */
+    public static int ScmBusProperty_RuntimeFwActivationInfo() {
+        return ScmBusProperty_RuntimeFwActivationInfo;
+    }
+    private static final int ScmBusProperty_DedicatedMemoryInfo = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_BUS_PROPERTY_ID.ScmBusProperty_DedicatedMemoryInfo = 1
+     * }
+     */
+    public static int ScmBusProperty_DedicatedMemoryInfo() {
+        return ScmBusProperty_DedicatedMemoryInfo;
+    }
+    private static final int ScmBusProperty_DedicatedMemoryState = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_BUS_PROPERTY_ID.ScmBusProperty_DedicatedMemoryState = 2
+     * }
+     */
+    public static int ScmBusProperty_DedicatedMemoryState() {
+        return ScmBusProperty_DedicatedMemoryState;
+    }
+    private static final int ScmBusProperty_Max = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_BUS_PROPERTY_ID.ScmBusProperty_Max = 3
+     * }
+     */
+    public static int ScmBusProperty_Max() {
+        return ScmBusProperty_Max;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SCM_BUS_PROPERTY_ID {
+     *     ScmBusProperty_RuntimeFwActivationInfo = 0,
+     *     ScmBusProperty_DedicatedMemoryInfo = 1,
+     *     ScmBusProperty_DedicatedMemoryState = 2,
+     *     ScmBusProperty_Max
+     * } *PSCM_BUS_PROPERTY_ID
+     * }
+     */
+    public static final AddressLayout PSCM_BUS_PROPERTY_ID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_BUS_PROPERTY_QUERY {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     SCM_BUS_PROPERTY_ID PropertyId;
+     *     SCM_BUS_QUERY_TYPE QueryType;
+     *     BYTE AdditionalParameters[1];
+     * } *PSCM_BUS_PROPERTY_QUERY
+     * }
+     */
+    public static final AddressLayout PSCM_BUS_PROPERTY_QUERY = Windows_h.C_POINTER;
+    private static final int ScmBusFirmwareActivationState_Idle = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_BUS_FIRMWARE_ACTIVATION_STATE.ScmBusFirmwareActivationState_Idle = 0
+     * }
+     */
+    public static int ScmBusFirmwareActivationState_Idle() {
+        return ScmBusFirmwareActivationState_Idle;
+    }
+    private static final int ScmBusFirmwareActivationState_Armed = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_BUS_FIRMWARE_ACTIVATION_STATE.ScmBusFirmwareActivationState_Armed = 1
+     * }
+     */
+    public static int ScmBusFirmwareActivationState_Armed() {
+        return ScmBusFirmwareActivationState_Armed;
+    }
+    private static final int ScmBusFirmwareActivationState_Busy = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_BUS_FIRMWARE_ACTIVATION_STATE.ScmBusFirmwareActivationState_Busy = 2
+     * }
+     */
+    public static int ScmBusFirmwareActivationState_Busy() {
+        return ScmBusFirmwareActivationState_Busy;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SCM_BUS_FIRMWARE_ACTIVATION_STATE {
+     *     ScmBusFirmwareActivationState_Idle = 0,
+     *     ScmBusFirmwareActivationState_Armed = 1,
+     *     ScmBusFirmwareActivationState_Busy = 2
+     * } *PSCM_BUS_FIRMWARE_ACTIVATION_STATE
+     * }
+     */
+    public static final AddressLayout PSCM_BUS_FIRMWARE_ACTIVATION_STATE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_BUS_RUNTIME_FW_ACTIVATION_INFO {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     BOOLEAN RuntimeFwActivationSupported;
+     *     SCM_BUS_FIRMWARE_ACTIVATION_STATE FirmwareActivationState;
+     *     struct {
+     *         DWORD FwManagedIoQuiesceFwActivationSupported : 1;
+     *         DWORD OsManagedIoQuiesceFwActivationSupported : 1;
+     *         DWORD WarmResetBasedFwActivationSupported : 1;
+     *         DWORD Reserved : 29;
+     *     } FirmwareActivationCapability;
+     *     DWORDLONG EstimatedFirmwareActivationTimeInUSecs;
+     *     DWORDLONG EstimatedProcessorAccessQuiesceTimeInUSecs;
+     *     DWORDLONG EstimatedIOAccessQuiesceTimeInUSecs;
+     *     DWORDLONG PlatformSupportedMaxIOAccessQuiesceTimeInUSecs;
+     * } *PSCM_BUS_RUNTIME_FW_ACTIVATION_INFO
+     * }
+     */
+    public static final AddressLayout PSCM_BUS_RUNTIME_FW_ACTIVATION_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO {
+     *     GUID DeviceGuid;
+     *     DWORD DeviceNumber;
+     *     struct {
+     *         DWORD ForcedByRegistry : 1;
+     *         DWORD Initialized : 1;
+     *         DWORD Reserved : 30;
+     *     } Flags;
+     *     DWORDLONG DeviceSize;
+     * } *PSCM_BUS_DEDICATED_MEMORY_DEVICE_INFO
+     * }
+     */
+    public static final AddressLayout PSCM_BUS_DEDICATED_MEMORY_DEVICE_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_BUS_DEDICATED_MEMORY_DEVICES_INFO {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD DeviceCount;
+     *     SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO Devices[1];
+     * } *PSCM_BUS_DEDICATED_MEMORY_DEVICES_INFO
+     * }
+     */
+    public static final AddressLayout PSCM_BUS_DEDICATED_MEMORY_DEVICES_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_BUS_PROPERTY_SET {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     SCM_BUS_PROPERTY_ID PropertyId;
+     *     SCM_BUS_SET_TYPE SetType;
+     *     BYTE AdditionalParameters[1];
+     * } *PSCM_BUS_PROPERTY_SET
+     * }
+     */
+    public static final AddressLayout PSCM_BUS_PROPERTY_SET = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_BUS_DEDICATED_MEMORY_STATE {
+     *     BOOLEAN ActivateState;
+     * } *PSCM_BUS_DEDICATED_MEMORY_STATE
+     * }
+     */
+    public static final AddressLayout PSCM_BUS_DEDICATED_MEMORY_STATE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_INTERLEAVED_PD_INFO {
+     *     DWORD DeviceHandle;
+     *     GUID DeviceGuid;
+     * } *PSCM_INTERLEAVED_PD_INFO
+     * }
+     */
+    public static final AddressLayout PSCM_INTERLEAVED_PD_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_LD_INTERLEAVE_SET_INFO {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD InterleaveSetSize;
+     *     SCM_INTERLEAVED_PD_INFO InterleaveSet[1];
+     * } *PSCM_LD_INTERLEAVE_SET_INFO
+     * }
+     */
+    public static final AddressLayout PSCM_LD_INTERLEAVE_SET_INFO = Windows_h.C_POINTER;
+    private static final int ScmPhysicalDeviceQuery_Descriptor = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_QUERY_TYPE.ScmPhysicalDeviceQuery_Descriptor = 0
+     * }
+     */
+    public static int ScmPhysicalDeviceQuery_Descriptor() {
+        return ScmPhysicalDeviceQuery_Descriptor;
+    }
+    private static final int ScmPhysicalDeviceQuery_IsSupported = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_QUERY_TYPE.ScmPhysicalDeviceQuery_IsSupported = 1
+     * }
+     */
+    public static int ScmPhysicalDeviceQuery_IsSupported() {
+        return ScmPhysicalDeviceQuery_IsSupported;
+    }
+    private static final int ScmPhysicalDeviceQuery_Max = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_QUERY_TYPE.ScmPhysicalDeviceQuery_Max = 2
+     * }
+     */
+    public static int ScmPhysicalDeviceQuery_Max() {
+        return ScmPhysicalDeviceQuery_Max;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SCM_PD_QUERY_TYPE {
+     *     ScmPhysicalDeviceQuery_Descriptor = 0,
+     *     ScmPhysicalDeviceQuery_IsSupported,
+     *     ScmPhysicalDeviceQuery_Max
+     * } *PSCM_PD_QUERY_TYPE
+     * }
+     */
+    public static final AddressLayout PSCM_PD_QUERY_TYPE = Windows_h.C_POINTER;
+    private static final int ScmPhysicalDeviceSet_Descriptor = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_SET_TYPE.ScmPhysicalDeviceSet_Descriptor = 0
+     * }
+     */
+    public static int ScmPhysicalDeviceSet_Descriptor() {
+        return ScmPhysicalDeviceSet_Descriptor;
+    }
+    private static final int ScmPhysicalDeviceSet_IsSupported = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_SET_TYPE.ScmPhysicalDeviceSet_IsSupported = 1
+     * }
+     */
+    public static int ScmPhysicalDeviceSet_IsSupported() {
+        return ScmPhysicalDeviceSet_IsSupported;
+    }
+    private static final int ScmPhysicalDeviceSet_Max = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_SET_TYPE.ScmPhysicalDeviceSet_Max = 2
+     * }
+     */
+    public static int ScmPhysicalDeviceSet_Max() {
+        return ScmPhysicalDeviceSet_Max;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SCM_PD_SET_TYPE {
+     *     ScmPhysicalDeviceSet_Descriptor = 0,
+     *     ScmPhysicalDeviceSet_IsSupported,
+     *     ScmPhysicalDeviceSet_Max
+     * } *PSCM_PD_SET_TYPE
+     * }
+     */
+    public static final AddressLayout PSCM_PD_SET_TYPE = Windows_h.C_POINTER;
+    private static final int ScmPhysicalDeviceProperty_DeviceInfo = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_PROPERTY_ID.ScmPhysicalDeviceProperty_DeviceInfo = 0
+     * }
+     */
+    public static int ScmPhysicalDeviceProperty_DeviceInfo() {
+        return ScmPhysicalDeviceProperty_DeviceInfo;
+    }
+    private static final int ScmPhysicalDeviceProperty_ManagementStatus = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_PROPERTY_ID.ScmPhysicalDeviceProperty_ManagementStatus = 1
+     * }
+     */
+    public static int ScmPhysicalDeviceProperty_ManagementStatus() {
+        return ScmPhysicalDeviceProperty_ManagementStatus;
+    }
+    private static final int ScmPhysicalDeviceProperty_FirmwareInfo = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_PROPERTY_ID.ScmPhysicalDeviceProperty_FirmwareInfo = 2
+     * }
+     */
+    public static int ScmPhysicalDeviceProperty_FirmwareInfo() {
+        return ScmPhysicalDeviceProperty_FirmwareInfo;
+    }
+    private static final int ScmPhysicalDeviceProperty_LocationString = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_PROPERTY_ID.ScmPhysicalDeviceProperty_LocationString = 3
+     * }
+     */
+    public static int ScmPhysicalDeviceProperty_LocationString() {
+        return ScmPhysicalDeviceProperty_LocationString;
+    }
+    private static final int ScmPhysicalDeviceProperty_DeviceSpecificInfo = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_PROPERTY_ID.ScmPhysicalDeviceProperty_DeviceSpecificInfo = 4
+     * }
+     */
+    public static int ScmPhysicalDeviceProperty_DeviceSpecificInfo() {
+        return ScmPhysicalDeviceProperty_DeviceSpecificInfo;
+    }
+    private static final int ScmPhysicalDeviceProperty_DeviceHandle = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_PROPERTY_ID.ScmPhysicalDeviceProperty_DeviceHandle = 5
+     * }
+     */
+    public static int ScmPhysicalDeviceProperty_DeviceHandle() {
+        return ScmPhysicalDeviceProperty_DeviceHandle;
+    }
+    private static final int ScmPhysicalDeviceProperty_FruIdString = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_PROPERTY_ID.ScmPhysicalDeviceProperty_FruIdString = 6
+     * }
+     */
+    public static int ScmPhysicalDeviceProperty_FruIdString() {
+        return ScmPhysicalDeviceProperty_FruIdString;
+    }
+    private static final int ScmPhysicalDeviceProperty_RuntimeFwActivationInfo = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_PROPERTY_ID.ScmPhysicalDeviceProperty_RuntimeFwActivationInfo = 7
+     * }
+     */
+    public static int ScmPhysicalDeviceProperty_RuntimeFwActivationInfo() {
+        return ScmPhysicalDeviceProperty_RuntimeFwActivationInfo;
+    }
+    private static final int ScmPhysicalDeviceProperty_RuntimeFwActivationArmState = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_PROPERTY_ID.ScmPhysicalDeviceProperty_RuntimeFwActivationArmState = 8
+     * }
+     */
+    public static int ScmPhysicalDeviceProperty_RuntimeFwActivationArmState() {
+        return ScmPhysicalDeviceProperty_RuntimeFwActivationArmState;
+    }
+    private static final int ScmPhysicalDeviceProperty_Max = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_PROPERTY_ID.ScmPhysicalDeviceProperty_Max = 9
+     * }
+     */
+    public static int ScmPhysicalDeviceProperty_Max() {
+        return ScmPhysicalDeviceProperty_Max;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SCM_PD_PROPERTY_ID {
+     *     ScmPhysicalDeviceProperty_DeviceInfo = 0,
+     *     ScmPhysicalDeviceProperty_ManagementStatus,
+     *     ScmPhysicalDeviceProperty_FirmwareInfo,
+     *     ScmPhysicalDeviceProperty_LocationString,
+     *     ScmPhysicalDeviceProperty_DeviceSpecificInfo,
+     *     ScmPhysicalDeviceProperty_DeviceHandle,
+     *     ScmPhysicalDeviceProperty_FruIdString,
+     *     ScmPhysicalDeviceProperty_RuntimeFwActivationInfo,
+     *     ScmPhysicalDeviceProperty_RuntimeFwActivationArmState,
+     *     ScmPhysicalDeviceProperty_Max
+     * } *PSCM_PD_PROPERTY_ID
+     * }
+     */
+    public static final AddressLayout PSCM_PD_PROPERTY_ID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_PROPERTY_QUERY {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     SCM_PD_PROPERTY_ID PropertyId;
+     *     SCM_PD_QUERY_TYPE QueryType;
+     *     BYTE AdditionalParameters[1];
+     * } *PSCM_PD_PROPERTY_QUERY
+     * }
+     */
+    public static final AddressLayout PSCM_PD_PROPERTY_QUERY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_PROPERTY_SET {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     SCM_PD_PROPERTY_ID PropertyId;
+     *     SCM_PD_SET_TYPE SetType;
+     *     BYTE AdditionalParameters[1];
+     * } *PSCM_PD_PROPERTY_SET
+     * }
+     */
+    public static final AddressLayout PSCM_PD_PROPERTY_SET = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE {
+     *     BOOLEAN ArmState;
+     * } *PSCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE
+     * }
+     */
+    public static final AddressLayout PSCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_DESCRIPTOR_HEADER {
+     *     DWORD Version;
+     *     DWORD Size;
+     * } *PSCM_PD_DESCRIPTOR_HEADER
+     * }
+     */
+    public static final AddressLayout PSCM_PD_DESCRIPTOR_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_DEVICE_HANDLE {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     GUID DeviceGuid;
+     *     DWORD DeviceHandle;
+     * } *PSCM_PD_DEVICE_HANDLE
+     * }
+     */
+    public static final AddressLayout PSCM_PD_DEVICE_HANDLE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_DEVICE_INFO {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     GUID DeviceGuid;
+     *     DWORD UnsafeShutdownCount;
+     *     DWORD64 PersistentMemorySizeInBytes;
+     *     DWORD64 VolatileMemorySizeInBytes;
+     *     DWORD64 TotalMemorySizeInBytes;
+     *     DWORD SlotNumber;
+     *     DWORD DeviceHandle;
+     *     WORD PhysicalId;
+     *     BYTE NumberOfFormatInterfaceCodes;
+     *     WORD FormatInterfaceCodes[8];
+     *     DWORD VendorId;
+     *     DWORD ProductId;
+     *     DWORD SubsystemDeviceId;
+     *     DWORD SubsystemVendorId;
+     *     BYTE ManufacturingLocation;
+     *     BYTE ManufacturingWeek;
+     *     BYTE ManufacturingYear;
+     *     DWORD SerialNumber4Byte;
+     *     DWORD SerialNumberLengthInChars;
+     *     CHAR SerialNumber[1];
+     * } *PSCM_PD_DEVICE_INFO
+     * }
+     */
+    public static final AddressLayout PSCM_PD_DEVICE_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_DEVICE_SPECIFIC_PROPERTY {
+     *     WCHAR Name[128];
+     *     LONGLONG Value;
+     * } *PSCM_PD_DEVICE_SPECIFIC_PROPERTY
+     * }
+     */
+    public static final AddressLayout PSCM_PD_DEVICE_SPECIFIC_PROPERTY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_DEVICE_SPECIFIC_INFO {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD NumberOfProperties;
+     *     SCM_PD_DEVICE_SPECIFIC_PROPERTY DeviceSpecificProperties[1];
+     * } *PSCM_PD_DEVICE_SPECIFIC_INFO
+     * }
+     */
+    public static final AddressLayout PSCM_PD_DEVICE_SPECIFIC_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_FIRMWARE_SLOT_INFO {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     BYTE SlotNumber;
+     *     BYTE ReadOnly : 1;
+     *     BYTE Reserved0 : 7;
+     *     BYTE Reserved1[6];
+     *     BYTE Revision[32];
+     * } *PSCM_PD_FIRMWARE_SLOT_INFO
+     * }
+     */
+    public static final AddressLayout PSCM_PD_FIRMWARE_SLOT_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_FIRMWARE_INFO {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     BYTE ActiveSlot;
+     *     BYTE NextActiveSlot;
+     *     BYTE SlotCount;
+     *     SCM_PD_FIRMWARE_SLOT_INFO Slots[1];
+     * } *PSCM_PD_FIRMWARE_INFO
+     * }
+     */
+    public static final AddressLayout PSCM_PD_FIRMWARE_INFO = Windows_h.C_POINTER;
+    private static final int ScmPhysicalDeviceHealth_Unknown = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_HEALTH_STATUS.ScmPhysicalDeviceHealth_Unknown = 0
+     * }
+     */
+    public static int ScmPhysicalDeviceHealth_Unknown() {
+        return ScmPhysicalDeviceHealth_Unknown;
+    }
+    private static final int ScmPhysicalDeviceHealth_Unhealthy = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_HEALTH_STATUS.ScmPhysicalDeviceHealth_Unhealthy = 1
+     * }
+     */
+    public static int ScmPhysicalDeviceHealth_Unhealthy() {
+        return ScmPhysicalDeviceHealth_Unhealthy;
+    }
+    private static final int ScmPhysicalDeviceHealth_Warning = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_HEALTH_STATUS.ScmPhysicalDeviceHealth_Warning = 2
+     * }
+     */
+    public static int ScmPhysicalDeviceHealth_Warning() {
+        return ScmPhysicalDeviceHealth_Warning;
+    }
+    private static final int ScmPhysicalDeviceHealth_Healthy = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_HEALTH_STATUS.ScmPhysicalDeviceHealth_Healthy = 3
+     * }
+     */
+    public static int ScmPhysicalDeviceHealth_Healthy() {
+        return ScmPhysicalDeviceHealth_Healthy;
+    }
+    private static final int ScmPhysicalDeviceHealth_Max = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_HEALTH_STATUS.ScmPhysicalDeviceHealth_Max = 4
+     * }
+     */
+    public static int ScmPhysicalDeviceHealth_Max() {
+        return ScmPhysicalDeviceHealth_Max;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SCM_PD_HEALTH_STATUS {
+     *     ScmPhysicalDeviceHealth_Unknown = 0,
+     *     ScmPhysicalDeviceHealth_Unhealthy,
+     *     ScmPhysicalDeviceHealth_Warning,
+     *     ScmPhysicalDeviceHealth_Healthy,
+     *     ScmPhysicalDeviceHealth_Max
+     * } *PSCM_PD_HEALTH_STATUS
+     * }
+     */
+    public static final AddressLayout PSCM_PD_HEALTH_STATUS = Windows_h.C_POINTER;
+    private static final int ScmPhysicalDeviceOpStatus_Unknown = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS.ScmPhysicalDeviceOpStatus_Unknown = 0
+     * }
+     */
+    public static int ScmPhysicalDeviceOpStatus_Unknown() {
+        return ScmPhysicalDeviceOpStatus_Unknown;
+    }
+    private static final int ScmPhysicalDeviceOpStatus_Ok = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS.ScmPhysicalDeviceOpStatus_Ok = 1
+     * }
+     */
+    public static int ScmPhysicalDeviceOpStatus_Ok() {
+        return ScmPhysicalDeviceOpStatus_Ok;
+    }
+    private static final int ScmPhysicalDeviceOpStatus_PredictingFailure = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS.ScmPhysicalDeviceOpStatus_PredictingFailure = 2
+     * }
+     */
+    public static int ScmPhysicalDeviceOpStatus_PredictingFailure() {
+        return ScmPhysicalDeviceOpStatus_PredictingFailure;
+    }
+    private static final int ScmPhysicalDeviceOpStatus_InService = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS.ScmPhysicalDeviceOpStatus_InService = 3
+     * }
+     */
+    public static int ScmPhysicalDeviceOpStatus_InService() {
+        return ScmPhysicalDeviceOpStatus_InService;
+    }
+    private static final int ScmPhysicalDeviceOpStatus_HardwareError = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS.ScmPhysicalDeviceOpStatus_HardwareError = 4
+     * }
+     */
+    public static int ScmPhysicalDeviceOpStatus_HardwareError() {
+        return ScmPhysicalDeviceOpStatus_HardwareError;
+    }
+    private static final int ScmPhysicalDeviceOpStatus_NotUsable = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS.ScmPhysicalDeviceOpStatus_NotUsable = 5
+     * }
+     */
+    public static int ScmPhysicalDeviceOpStatus_NotUsable() {
+        return ScmPhysicalDeviceOpStatus_NotUsable;
+    }
+    private static final int ScmPhysicalDeviceOpStatus_TransientError = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS.ScmPhysicalDeviceOpStatus_TransientError = 6
+     * }
+     */
+    public static int ScmPhysicalDeviceOpStatus_TransientError() {
+        return ScmPhysicalDeviceOpStatus_TransientError;
+    }
+    private static final int ScmPhysicalDeviceOpStatus_Missing = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS.ScmPhysicalDeviceOpStatus_Missing = 7
+     * }
+     */
+    public static int ScmPhysicalDeviceOpStatus_Missing() {
+        return ScmPhysicalDeviceOpStatus_Missing;
+    }
+    private static final int ScmPhysicalDeviceOpStatus_Max = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS.ScmPhysicalDeviceOpStatus_Max = 8
+     * }
+     */
+    public static int ScmPhysicalDeviceOpStatus_Max() {
+        return ScmPhysicalDeviceOpStatus_Max;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SCM_PD_OPERATIONAL_STATUS {
+     *     ScmPhysicalDeviceOpStatus_Unknown = 0,
+     *     ScmPhysicalDeviceOpStatus_Ok,
+     *     ScmPhysicalDeviceOpStatus_PredictingFailure,
+     *     ScmPhysicalDeviceOpStatus_InService,
+     *     ScmPhysicalDeviceOpStatus_HardwareError,
+     *     ScmPhysicalDeviceOpStatus_NotUsable,
+     *     ScmPhysicalDeviceOpStatus_TransientError,
+     *     ScmPhysicalDeviceOpStatus_Missing,
+     *     ScmPhysicalDeviceOpStatus_Max
+     * } *PSCM_PD_OPERATIONAL_STATUS
+     * }
+     */
+    public static final AddressLayout PSCM_PD_OPERATIONAL_STATUS = Windows_h.C_POINTER;
+    private static final int ScmPhysicalDeviceOpReason_Unknown = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_Unknown = 0
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_Unknown() {
+        return ScmPhysicalDeviceOpReason_Unknown;
+    }
+    private static final int ScmPhysicalDeviceOpReason_Media = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_Media = 1
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_Media() {
+        return ScmPhysicalDeviceOpReason_Media;
+    }
+    private static final int ScmPhysicalDeviceOpReason_ThresholdExceeded = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_ThresholdExceeded = 2
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_ThresholdExceeded() {
+        return ScmPhysicalDeviceOpReason_ThresholdExceeded;
+    }
+    private static final int ScmPhysicalDeviceOpReason_LostData = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_LostData = 3
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_LostData() {
+        return ScmPhysicalDeviceOpReason_LostData;
+    }
+    private static final int ScmPhysicalDeviceOpReason_EnergySource = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_EnergySource = 4
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_EnergySource() {
+        return ScmPhysicalDeviceOpReason_EnergySource;
+    }
+    private static final int ScmPhysicalDeviceOpReason_Configuration = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_Configuration = 5
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_Configuration() {
+        return ScmPhysicalDeviceOpReason_Configuration;
+    }
+    private static final int ScmPhysicalDeviceOpReason_DeviceController = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_DeviceController = 6
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_DeviceController() {
+        return ScmPhysicalDeviceOpReason_DeviceController;
+    }
+    private static final int ScmPhysicalDeviceOpReason_MediaController = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_MediaController = 7
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_MediaController() {
+        return ScmPhysicalDeviceOpReason_MediaController;
+    }
+    private static final int ScmPhysicalDeviceOpReason_Component = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_Component = 8
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_Component() {
+        return ScmPhysicalDeviceOpReason_Component;
+    }
+    private static final int ScmPhysicalDeviceOpReason_BackgroundOperation = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_BackgroundOperation = 9
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_BackgroundOperation() {
+        return ScmPhysicalDeviceOpReason_BackgroundOperation;
+    }
+    private static final int ScmPhysicalDeviceOpReason_InvalidFirmware = (int)10L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_InvalidFirmware = 10
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_InvalidFirmware() {
+        return ScmPhysicalDeviceOpReason_InvalidFirmware;
+    }
+    private static final int ScmPhysicalDeviceOpReason_HealthCheck = (int)11L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_HealthCheck = 11
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_HealthCheck() {
+        return ScmPhysicalDeviceOpReason_HealthCheck;
+    }
+    private static final int ScmPhysicalDeviceOpReason_LostDataPersistence = (int)12L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_LostDataPersistence = 12
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_LostDataPersistence() {
+        return ScmPhysicalDeviceOpReason_LostDataPersistence;
+    }
+    private static final int ScmPhysicalDeviceOpReason_DisabledByPlatform = (int)13L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_DisabledByPlatform = 13
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_DisabledByPlatform() {
+        return ScmPhysicalDeviceOpReason_DisabledByPlatform;
+    }
+    private static final int ScmPhysicalDeviceOpReason_PermanentError = (int)14L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_PermanentError = 14
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_PermanentError() {
+        return ScmPhysicalDeviceOpReason_PermanentError;
+    }
+    private static final int ScmPhysicalDeviceOpReason_LostWritePersistence = (int)15L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_LostWritePersistence = 15
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_LostWritePersistence() {
+        return ScmPhysicalDeviceOpReason_LostWritePersistence;
+    }
+    private static final int ScmPhysicalDeviceOpReason_FatalError = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_FatalError = 16
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_FatalError() {
+        return ScmPhysicalDeviceOpReason_FatalError;
+    }
+    private static final int ScmPhysicalDeviceOpReason_DataPersistenceLossImminent = (int)17L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_DataPersistenceLossImminent = 17
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_DataPersistenceLossImminent() {
+        return ScmPhysicalDeviceOpReason_DataPersistenceLossImminent;
+    }
+    private static final int ScmPhysicalDeviceOpReason_WritePersistenceLossImminent = (int)18L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_WritePersistenceLossImminent = 18
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_WritePersistenceLossImminent() {
+        return ScmPhysicalDeviceOpReason_WritePersistenceLossImminent;
+    }
+    private static final int ScmPhysicalDeviceOpReason_MediaRemainingSpareBlock = (int)19L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_MediaRemainingSpareBlock = 19
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_MediaRemainingSpareBlock() {
+        return ScmPhysicalDeviceOpReason_MediaRemainingSpareBlock;
+    }
+    private static final int ScmPhysicalDeviceOpReason_PerformanceDegradation = (int)20L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_PerformanceDegradation = 20
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_PerformanceDegradation() {
+        return ScmPhysicalDeviceOpReason_PerformanceDegradation;
+    }
+    private static final int ScmPhysicalDeviceOpReason_ExcessiveTemperature = (int)21L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_ExcessiveTemperature = 21
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_ExcessiveTemperature() {
+        return ScmPhysicalDeviceOpReason_ExcessiveTemperature;
+    }
+    private static final int ScmPhysicalDeviceOpReason_InternalFailure = (int)22L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_InternalFailure = 22
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_InternalFailure() {
+        return ScmPhysicalDeviceOpReason_InternalFailure;
+    }
+    private static final int ScmPhysicalDeviceOpReason_Max = (int)23L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_OPERATIONAL_STATUS_REASON.ScmPhysicalDeviceOpReason_Max = 23
+     * }
+     */
+    public static int ScmPhysicalDeviceOpReason_Max() {
+        return ScmPhysicalDeviceOpReason_Max;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SCM_PD_OPERATIONAL_STATUS_REASON {
+     *     ScmPhysicalDeviceOpReason_Unknown = 0,
+     *     ScmPhysicalDeviceOpReason_Media,
+     *     ScmPhysicalDeviceOpReason_ThresholdExceeded,
+     *     ScmPhysicalDeviceOpReason_LostData,
+     *     ScmPhysicalDeviceOpReason_EnergySource,
+     *     ScmPhysicalDeviceOpReason_Configuration,
+     *     ScmPhysicalDeviceOpReason_DeviceController,
+     *     ScmPhysicalDeviceOpReason_MediaController,
+     *     ScmPhysicalDeviceOpReason_Component,
+     *     ScmPhysicalDeviceOpReason_BackgroundOperation,
+     *     ScmPhysicalDeviceOpReason_InvalidFirmware,
+     *     ScmPhysicalDeviceOpReason_HealthCheck,
+     *     ScmPhysicalDeviceOpReason_LostDataPersistence,
+     *     ScmPhysicalDeviceOpReason_DisabledByPlatform,
+     *     ScmPhysicalDeviceOpReason_PermanentError,
+     *     ScmPhysicalDeviceOpReason_LostWritePersistence,
+     *     ScmPhysicalDeviceOpReason_FatalError,
+     *     ScmPhysicalDeviceOpReason_DataPersistenceLossImminent,
+     *     ScmPhysicalDeviceOpReason_WritePersistenceLossImminent,
+     *     ScmPhysicalDeviceOpReason_MediaRemainingSpareBlock,
+     *     ScmPhysicalDeviceOpReason_PerformanceDegradation,
+     *     ScmPhysicalDeviceOpReason_ExcessiveTemperature,
+     *     ScmPhysicalDeviceOpReason_InternalFailure,
+     *     ScmPhysicalDeviceOpReason_Max
+     * } *PSCM_PD_OPERATIONAL_STATUS_REASON
+     * }
+     */
+    public static final AddressLayout PSCM_PD_OPERATIONAL_STATUS_REASON = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_MANAGEMENT_STATUS {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     SCM_PD_HEALTH_STATUS Health;
+     *     DWORD NumberOfOperationalStatus;
+     *     DWORD NumberOfAdditionalReasons;
+     *     SCM_PD_OPERATIONAL_STATUS OperationalStatus[16];
+     *     SCM_PD_OPERATIONAL_STATUS_REASON AdditionalReasons[1];
+     * } *PSCM_PD_MANAGEMENT_STATUS
+     * }
+     */
+    public static final AddressLayout PSCM_PD_MANAGEMENT_STATUS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_LOCATION_STRING {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     WCHAR Location[1];
+     * } *PSCM_PD_LOCATION_STRING
+     * }
+     */
+    public static final AddressLayout PSCM_PD_LOCATION_STRING = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_FRU_ID_STRING {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD IdentifierSize;
+     *     BYTE Identifier[1];
+     * } *PSCM_PD_FRU_ID_STRING
+     * }
+     */
+    public static final AddressLayout PSCM_PD_FRU_ID_STRING = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_FIRMWARE_DOWNLOAD {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     BYTE Slot;
+     *     BYTE Reserved[3];
+     *     DWORD64 Offset;
+     *     DWORD FirmwareImageSizeInBytes;
+     *     BYTE FirmwareImage[1];
+     * } *PSCM_PD_FIRMWARE_DOWNLOAD
+     * }
+     */
+    public static final AddressLayout PSCM_PD_FIRMWARE_DOWNLOAD = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_FIRMWARE_ACTIVATE {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     BYTE Slot;
+     * } *PSCM_PD_FIRMWARE_ACTIVATE
+     * }
+     */
+    public static final AddressLayout PSCM_PD_FIRMWARE_ACTIVATE = Windows_h.C_POINTER;
+    private static final int ScmPdLastFwActivationStatus_None = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_LAST_FW_ACTIVATION_STATUS.ScmPdLastFwActivationStatus_None = 0
+     * }
+     */
+    public static int ScmPdLastFwActivationStatus_None() {
+        return ScmPdLastFwActivationStatus_None;
+    }
+    private static final int ScmPdLastFwActivationStatus_Success = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_LAST_FW_ACTIVATION_STATUS.ScmPdLastFwActivationStatus_Success = 1
+     * }
+     */
+    public static int ScmPdLastFwActivationStatus_Success() {
+        return ScmPdLastFwActivationStatus_Success;
+    }
+    private static final int ScmPdLastFwActivationStatus_FwNotFound = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_LAST_FW_ACTIVATION_STATUS.ScmPdLastFwActivationStatus_FwNotFound = 2
+     * }
+     */
+    public static int ScmPdLastFwActivationStatus_FwNotFound() {
+        return ScmPdLastFwActivationStatus_FwNotFound;
+    }
+    private static final int ScmPdLastFwActivationStatus_ColdRebootRequired = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_LAST_FW_ACTIVATION_STATUS.ScmPdLastFwActivationStatus_ColdRebootRequired = 3
+     * }
+     */
+    public static int ScmPdLastFwActivationStatus_ColdRebootRequired() {
+        return ScmPdLastFwActivationStatus_ColdRebootRequired;
+    }
+    private static final int ScmPdLastFwActivaitonStatus_ActivationInProgress = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_LAST_FW_ACTIVATION_STATUS.ScmPdLastFwActivaitonStatus_ActivationInProgress = 4
+     * }
+     */
+    public static int ScmPdLastFwActivaitonStatus_ActivationInProgress() {
+        return ScmPdLastFwActivaitonStatus_ActivationInProgress;
+    }
+    private static final int ScmPdLastFwActivaitonStatus_Retry = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_LAST_FW_ACTIVATION_STATUS.ScmPdLastFwActivaitonStatus_Retry = 5
+     * }
+     */
+    public static int ScmPdLastFwActivaitonStatus_Retry() {
+        return ScmPdLastFwActivaitonStatus_Retry;
+    }
+    private static final int ScmPdLastFwActivaitonStatus_FwUnsupported = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_LAST_FW_ACTIVATION_STATUS.ScmPdLastFwActivaitonStatus_FwUnsupported = 6
+     * }
+     */
+    public static int ScmPdLastFwActivaitonStatus_FwUnsupported() {
+        return ScmPdLastFwActivaitonStatus_FwUnsupported;
+    }
+    private static final int ScmPdLastFwActivaitonStatus_UnknownError = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_LAST_FW_ACTIVATION_STATUS.ScmPdLastFwActivaitonStatus_UnknownError = 7
+     * }
+     */
+    public static int ScmPdLastFwActivaitonStatus_UnknownError() {
+        return ScmPdLastFwActivaitonStatus_UnknownError;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SCM_PD_LAST_FW_ACTIVATION_STATUS {
+     *     ScmPdLastFwActivationStatus_None = 0,
+     *     ScmPdLastFwActivationStatus_Success = 1,
+     *     ScmPdLastFwActivationStatus_FwNotFound = 2,
+     *     ScmPdLastFwActivationStatus_ColdRebootRequired = 3,
+     *     ScmPdLastFwActivaitonStatus_ActivationInProgress = 4,
+     *     ScmPdLastFwActivaitonStatus_Retry = 5,
+     *     ScmPdLastFwActivaitonStatus_FwUnsupported = 6,
+     *     ScmPdLastFwActivaitonStatus_UnknownError = 7
+     * } *PSCM_PD_LAST_FW_ACTIVATION_STATUS
+     * }
+     */
+    public static final AddressLayout PSCM_PD_LAST_FW_ACTIVATION_STATUS = Windows_h.C_POINTER;
+    private static final int ScmPdFirmwareActivationState_Idle = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_FIRMWARE_ACTIVATION_STATE.ScmPdFirmwareActivationState_Idle = 0
+     * }
+     */
+    public static int ScmPdFirmwareActivationState_Idle() {
+        return ScmPdFirmwareActivationState_Idle;
+    }
+    private static final int ScmPdFirmwareActivationState_Armed = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_FIRMWARE_ACTIVATION_STATE.ScmPdFirmwareActivationState_Armed = 1
+     * }
+     */
+    public static int ScmPdFirmwareActivationState_Armed() {
+        return ScmPdFirmwareActivationState_Armed;
+    }
+    private static final int ScmPdFirmwareActivationState_Busy = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_FIRMWARE_ACTIVATION_STATE.ScmPdFirmwareActivationState_Busy = 2
+     * }
+     */
+    public static int ScmPdFirmwareActivationState_Busy() {
+        return ScmPdFirmwareActivationState_Busy;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SCM_PD_FIRMWARE_ACTIVATION_STATE {
+     *     ScmPdFirmwareActivationState_Idle = 0,
+     *     ScmPdFirmwareActivationState_Armed = 1,
+     *     ScmPdFirmwareActivationState_Busy = 2
+     * } *PSCM_PD_FIRMWARE_ACTIVATION_STATE
+     * }
+     */
+    public static final AddressLayout PSCM_PD_FIRMWARE_ACTIVATION_STATE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_RUNTIME_FW_ACTIVATION_INFO {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     SCM_PD_LAST_FW_ACTIVATION_STATUS LastFirmwareActivationStatus;
+     *     SCM_PD_FIRMWARE_ACTIVATION_STATE FirmwareActivationState;
+     * } *PSCM_PD_RUNTIME_FW_ACTIVATION_INFO
+     * }
+     */
+    public static final AddressLayout PSCM_PD_RUNTIME_FW_ACTIVATION_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_PASSTHROUGH_INPUT {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     GUID ProtocolGuid;
+     *     DWORD DataSize;
+     *     BYTE Data[1];
+     * } *PSCM_PD_PASSTHROUGH_INPUT
+     * }
+     */
+    public static final AddressLayout PSCM_PD_PASSTHROUGH_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_PASSTHROUGH_OUTPUT {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     GUID ProtocolGuid;
+     *     DWORD DataSize;
+     *     BYTE Data[1];
+     * } *PSCM_PD_PASSTHROUGH_OUTPUT
+     * }
+     */
+    public static final AddressLayout PSCM_PD_PASSTHROUGH_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_PASSTHROUGH_INVDIMM_INPUT {
+     *     DWORD Opcode;
+     *     DWORD OpcodeParametersLength;
+     *     BYTE OpcodeParameters[1];
+     * } *PSCM_PD_PASSTHROUGH_INVDIMM_INPUT
+     * }
+     */
+    public static final AddressLayout PSCM_PD_PASSTHROUGH_INVDIMM_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT {
+     *     WORD GeneralStatus;
+     *     WORD ExtendedStatus;
+     *     DWORD OutputDataLength;
+     *     BYTE OutputData[1];
+     * } *PSCM_PD_PASSTHROUGH_INVDIMM_OUTPUT
+     * }
+     */
+    public static final AddressLayout PSCM_PD_PASSTHROUGH_INVDIMM_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_REINITIALIZE_MEDIA_INPUT {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     struct {
+     *         DWORD Overwrite : 1;
+     *     } Options;
+     * } *PSCM_PD_REINITIALIZE_MEDIA_INPUT
+     * }
+     */
+    public static final AddressLayout PSCM_PD_REINITIALIZE_MEDIA_INPUT = Windows_h.C_POINTER;
+    private static final int ScmPhysicalDeviceReinit_Success = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_MEDIA_REINITIALIZATION_STATUS.ScmPhysicalDeviceReinit_Success = 0
+     * }
+     */
+    public static int ScmPhysicalDeviceReinit_Success() {
+        return ScmPhysicalDeviceReinit_Success;
+    }
+    private static final int ScmPhysicalDeviceReinit_RebootNeeded = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_MEDIA_REINITIALIZATION_STATUS.ScmPhysicalDeviceReinit_RebootNeeded = 1
+     * }
+     */
+    public static int ScmPhysicalDeviceReinit_RebootNeeded() {
+        return ScmPhysicalDeviceReinit_RebootNeeded;
+    }
+    private static final int ScmPhysicalDeviceReinit_ColdBootNeeded = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_MEDIA_REINITIALIZATION_STATUS.ScmPhysicalDeviceReinit_ColdBootNeeded = 2
+     * }
+     */
+    public static int ScmPhysicalDeviceReinit_ColdBootNeeded() {
+        return ScmPhysicalDeviceReinit_ColdBootNeeded;
+    }
+    private static final int ScmPhysicalDeviceReinit_Max = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _SCM_PD_MEDIA_REINITIALIZATION_STATUS.ScmPhysicalDeviceReinit_Max = 3
+     * }
+     */
+    public static int ScmPhysicalDeviceReinit_Max() {
+        return ScmPhysicalDeviceReinit_Max;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SCM_PD_MEDIA_REINITIALIZATION_STATUS {
+     *     ScmPhysicalDeviceReinit_Success = 0,
+     *     ScmPhysicalDeviceReinit_RebootNeeded,
+     *     ScmPhysicalDeviceReinit_ColdBootNeeded,
+     *     ScmPhysicalDeviceReinit_Max
+     * } *PSCM_PD_MEDIA_REINITIALIZATION_STATUS
+     * }
+     */
+    public static final AddressLayout PSCM_PD_MEDIA_REINITIALIZATION_STATUS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCM_PD_REINITIALIZE_MEDIA_OUTPUT {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     SCM_PD_MEDIA_REINITIALIZATION_STATUS Status;
+     * } *PSCM_PD_REINITIALIZE_MEDIA_OUTPUT
+     * }
+     */
+    public static final AddressLayout PSCM_PD_REINITIALIZE_MEDIA_OUTPUT = Windows_h.C_POINTER;
+    private static final int Unknown = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.Unknown = 0
+     * }
+     */
+    public static int Unknown() {
+        return Unknown;
+    }
+    private static final int F5_1Pt2_512 = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F5_1Pt2_512 = 1
+     * }
+     */
+    public static int F5_1Pt2_512() {
+        return F5_1Pt2_512;
+    }
+    private static final int F3_1Pt44_512 = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F3_1Pt44_512 = 2
+     * }
+     */
+    public static int F3_1Pt44_512() {
+        return F3_1Pt44_512;
+    }
+    private static final int F3_2Pt88_512 = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F3_2Pt88_512 = 3
+     * }
+     */
+    public static int F3_2Pt88_512() {
+        return F3_2Pt88_512;
+    }
+    private static final int F3_20Pt8_512 = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F3_20Pt8_512 = 4
+     * }
+     */
+    public static int F3_20Pt8_512() {
+        return F3_20Pt8_512;
+    }
+    private static final int F3_720_512 = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F3_720_512 = 5
+     * }
+     */
+    public static int F3_720_512() {
+        return F3_720_512;
+    }
+    private static final int F5_360_512 = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F5_360_512 = 6
+     * }
+     */
+    public static int F5_360_512() {
+        return F5_360_512;
+    }
+    private static final int F5_320_512 = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F5_320_512 = 7
+     * }
+     */
+    public static int F5_320_512() {
+        return F5_320_512;
+    }
+    private static final int F5_320_1024 = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F5_320_1024 = 8
+     * }
+     */
+    public static int F5_320_1024() {
+        return F5_320_1024;
+    }
+    private static final int F5_180_512 = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F5_180_512 = 9
+     * }
+     */
+    public static int F5_180_512() {
+        return F5_180_512;
+    }
+    private static final int F5_160_512 = (int)10L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F5_160_512 = 10
+     * }
+     */
+    public static int F5_160_512() {
+        return F5_160_512;
+    }
+    private static final int RemovableMedia = (int)11L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.RemovableMedia = 11
+     * }
+     */
+    public static int RemovableMedia() {
+        return RemovableMedia;
+    }
+    private static final int FixedMedia = (int)12L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.FixedMedia = 12
+     * }
+     */
+    public static int FixedMedia() {
+        return FixedMedia;
+    }
+    private static final int F3_120M_512 = (int)13L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F3_120M_512 = 13
+     * }
+     */
+    public static int F3_120M_512() {
+        return F3_120M_512;
+    }
+    private static final int F3_640_512 = (int)14L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F3_640_512 = 14
+     * }
+     */
+    public static int F3_640_512() {
+        return F3_640_512;
+    }
+    private static final int F5_640_512 = (int)15L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F5_640_512 = 15
+     * }
+     */
+    public static int F5_640_512() {
+        return F5_640_512;
+    }
+    private static final int F5_720_512 = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F5_720_512 = 16
+     * }
+     */
+    public static int F5_720_512() {
+        return F5_720_512;
+    }
+    private static final int F3_1Pt2_512 = (int)17L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F3_1Pt2_512 = 17
+     * }
+     */
+    public static int F3_1Pt2_512() {
+        return F3_1Pt2_512;
+    }
+    private static final int F3_1Pt23_1024 = (int)18L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F3_1Pt23_1024 = 18
+     * }
+     */
+    public static int F3_1Pt23_1024() {
+        return F3_1Pt23_1024;
+    }
+    private static final int F5_1Pt23_1024 = (int)19L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F5_1Pt23_1024 = 19
+     * }
+     */
+    public static int F5_1Pt23_1024() {
+        return F5_1Pt23_1024;
+    }
+    private static final int F3_128Mb_512 = (int)20L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F3_128Mb_512 = 20
+     * }
+     */
+    public static int F3_128Mb_512() {
+        return F3_128Mb_512;
+    }
+    private static final int F3_230Mb_512 = (int)21L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F3_230Mb_512 = 21
+     * }
+     */
+    public static int F3_230Mb_512() {
+        return F3_230Mb_512;
+    }
+    private static final int F8_256_128 = (int)22L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F8_256_128 = 22
+     * }
+     */
+    public static int F8_256_128() {
+        return F8_256_128;
+    }
+    private static final int F3_200Mb_512 = (int)23L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F3_200Mb_512 = 23
+     * }
+     */
+    public static int F3_200Mb_512() {
+        return F3_200Mb_512;
+    }
+    private static final int F3_240M_512 = (int)24L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F3_240M_512 = 24
+     * }
+     */
+    public static int F3_240M_512() {
+        return F3_240M_512;
+    }
+    private static final int F3_32M_512 = (int)25L;
+    /**
+     * {@snippet lang=c :
+     * enum _MEDIA_TYPE.F3_32M_512 = 25
+     * }
+     */
+    public static int F3_32M_512() {
+        return F3_32M_512;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _MEDIA_TYPE {
+     *     Unknown,
+     *     F5_1Pt2_512,
+     *     F3_1Pt44_512,
+     *     F3_2Pt88_512,
+     *     F3_20Pt8_512,
+     *     F3_720_512,
+     *     F5_360_512,
+     *     F5_320_512,
+     *     F5_320_1024,
+     *     F5_180_512,
+     *     F5_160_512,
+     *     RemovableMedia,
+     *     FixedMedia,
+     *     F3_120M_512,
+     *     F3_640_512,
+     *     F5_640_512,
+     *     F5_720_512,
+     *     F3_1Pt2_512,
+     *     F3_1Pt23_1024,
+     *     F5_1Pt23_1024,
+     *     F3_128Mb_512,
+     *     F3_230Mb_512,
+     *     F8_256_128,
+     *     F3_200Mb_512,
+     *     F3_240M_512,
+     *     F3_32M_512
+     * } *PMEDIA_TYPE
+     * }
+     */
+    public static final AddressLayout PMEDIA_TYPE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FORMAT_PARAMETERS {
+     *     MEDIA_TYPE MediaType;
+     *     DWORD StartCylinderNumber;
+     *     DWORD EndCylinderNumber;
+     *     DWORD StartHeadNumber;
+     *     DWORD EndHeadNumber;
+     * } *PFORMAT_PARAMETERS
+     * }
+     */
+    public static final AddressLayout PFORMAT_PARAMETERS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef WORD BAD_TRACK_NUMBER
+     * }
+     */
+    public static final OfShort BAD_TRACK_NUMBER = Windows_h.C_SHORT;
+    /**
+     * {@snippet lang=c :
+     * typedef WORD *PBAD_TRACK_NUMBER
+     * }
+     */
+    public static final AddressLayout PBAD_TRACK_NUMBER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FORMAT_EX_PARAMETERS {
+     *     MEDIA_TYPE MediaType;
+     *     DWORD StartCylinderNumber;
+     *     DWORD EndCylinderNumber;
+     *     DWORD StartHeadNumber;
+     *     DWORD EndHeadNumber;
+     *     WORD FormatGapLength;
+     *     WORD SectorsPerTrack;
+     *     WORD SectorNumber[1];
+     * } *PFORMAT_EX_PARAMETERS
+     * }
+     */
+    public static final AddressLayout PFORMAT_EX_PARAMETERS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DISK_GEOMETRY {
+     *     LARGE_INTEGER Cylinders;
+     *     MEDIA_TYPE MediaType;
+     *     DWORD TracksPerCylinder;
+     *     DWORD SectorsPerTrack;
+     *     DWORD BytesPerSector;
+     * } *PDISK_GEOMETRY
+     * }
+     */
+    public static final AddressLayout PDISK_GEOMETRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PARTITION_INFORMATION {
+     *     LARGE_INTEGER StartingOffset;
+     *     LARGE_INTEGER PartitionLength;
+     *     DWORD HiddenSectors;
+     *     DWORD PartitionNumber;
+     *     BYTE PartitionType;
+     *     BOOLEAN BootIndicator;
+     *     BOOLEAN RecognizedPartition;
+     *     BOOLEAN RewritePartition;
+     * } *PPARTITION_INFORMATION
+     * }
+     */
+    public static final AddressLayout PPARTITION_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SET_PARTITION_INFORMATION {
+     *     BYTE PartitionType;
+     * } *PSET_PARTITION_INFORMATION
+     * }
+     */
+    public static final AddressLayout PSET_PARTITION_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DRIVE_LAYOUT_INFORMATION {
+     *     DWORD PartitionCount;
+     *     DWORD Signature;
+     *     PARTITION_INFORMATION PartitionEntry[1];
+     * } *PDRIVE_LAYOUT_INFORMATION
+     * }
+     */
+    public static final AddressLayout PDRIVE_LAYOUT_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _VERIFY_INFORMATION {
+     *     LARGE_INTEGER StartingOffset;
+     *     DWORD Length;
+     * } *PVERIFY_INFORMATION
+     * }
+     */
+    public static final AddressLayout PVERIFY_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _REASSIGN_BLOCKS {
+     *     WORD Reserved;
+     *     WORD Count;
+     *     DWORD BlockNumber[1];
+     * } *PREASSIGN_BLOCKS
+     * }
+     */
+    public static final AddressLayout PREASSIGN_BLOCKS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _REASSIGN_BLOCKS_EX {
+     *     WORD Reserved;
+     *     WORD Count;
+     *     LARGE_INTEGER BlockNumber[1];
+     * } *PREASSIGN_BLOCKS_EX
+     * }
+     */
+    public static final AddressLayout PREASSIGN_BLOCKS_EX = Windows_h.C_POINTER;
+    private static final int PARTITION_STYLE_MBR = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _PARTITION_STYLE.PARTITION_STYLE_MBR = 0
+     * }
+     */
+    public static int PARTITION_STYLE_MBR() {
+        return PARTITION_STYLE_MBR;
+    }
+    private static final int PARTITION_STYLE_GPT = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _PARTITION_STYLE.PARTITION_STYLE_GPT = 1
+     * }
+     */
+    public static int PARTITION_STYLE_GPT() {
+        return PARTITION_STYLE_GPT;
+    }
+    private static final int PARTITION_STYLE_RAW = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _PARTITION_STYLE.PARTITION_STYLE_RAW = 2
+     * }
+     */
+    public static int PARTITION_STYLE_RAW() {
+        return PARTITION_STYLE_RAW;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PARTITION_INFORMATION_GPT {
+     *     GUID PartitionType;
+     *     GUID PartitionId;
+     *     DWORD64 Attributes;
+     *     WCHAR Name[36];
+     * } *PPARTITION_INFORMATION_GPT
+     * }
+     */
+    public static final AddressLayout PPARTITION_INFORMATION_GPT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PARTITION_INFORMATION_MBR {
+     *     BYTE PartitionType;
+     *     BOOLEAN BootIndicator;
+     *     BOOLEAN RecognizedPartition;
+     *     DWORD HiddenSectors;
+     *     GUID PartitionId;
+     * } *PPARTITION_INFORMATION_MBR
+     * }
+     */
+    public static final AddressLayout PPARTITION_INFORMATION_MBR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SET_PARTITION_INFORMATION_EX {
+     *     PARTITION_STYLE PartitionStyle;
+     *     union {
+     *         SET_PARTITION_INFORMATION_MBR Mbr;
+     *         SET_PARTITION_INFORMATION_GPT Gpt;
+     *     };
+     * } *PSET_PARTITION_INFORMATION_EX
+     * }
+     */
+    public static final AddressLayout PSET_PARTITION_INFORMATION_EX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CREATE_DISK_GPT {
+     *     GUID DiskId;
+     *     DWORD MaxPartitionCount;
+     * } *PCREATE_DISK_GPT
+     * }
+     */
+    public static final AddressLayout PCREATE_DISK_GPT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CREATE_DISK_MBR {
+     *     DWORD Signature;
+     * } *PCREATE_DISK_MBR
+     * }
+     */
+    public static final AddressLayout PCREATE_DISK_MBR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CREATE_DISK {
+     *     PARTITION_STYLE PartitionStyle;
+     *     union {
+     *         CREATE_DISK_MBR Mbr;
+     *         CREATE_DISK_GPT Gpt;
+     *     };
+     * } *PCREATE_DISK
+     * }
+     */
+    public static final AddressLayout PCREATE_DISK = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _GET_LENGTH_INFORMATION {
+     *     LARGE_INTEGER Length;
+     * } *PGET_LENGTH_INFORMATION
+     * }
+     */
+    public static final AddressLayout PGET_LENGTH_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PARTITION_INFORMATION_EX {
+     *     PARTITION_STYLE PartitionStyle;
+     *     LARGE_INTEGER StartingOffset;
+     *     LARGE_INTEGER PartitionLength;
+     *     DWORD PartitionNumber;
+     *     BOOLEAN RewritePartition;
+     *     BOOLEAN IsServicePartition;
+     *     union {
+     *         PARTITION_INFORMATION_MBR Mbr;
+     *         PARTITION_INFORMATION_GPT Gpt;
+     *     };
+     * } *PPARTITION_INFORMATION_EX
+     * }
+     */
+    public static final AddressLayout PPARTITION_INFORMATION_EX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DRIVE_LAYOUT_INFORMATION_GPT {
+     *     GUID DiskId;
+     *     LARGE_INTEGER StartingUsableOffset;
+     *     LARGE_INTEGER UsableLength;
+     *     DWORD MaxPartitionCount;
+     * } *PDRIVE_LAYOUT_INFORMATION_GPT
+     * }
+     */
+    public static final AddressLayout PDRIVE_LAYOUT_INFORMATION_GPT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DRIVE_LAYOUT_INFORMATION_MBR {
+     *     DWORD Signature;
+     *     DWORD CheckSum;
+     * } *PDRIVE_LAYOUT_INFORMATION_MBR
+     * }
+     */
+    public static final AddressLayout PDRIVE_LAYOUT_INFORMATION_MBR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DRIVE_LAYOUT_INFORMATION_EX {
+     *     DWORD PartitionStyle;
+     *     DWORD PartitionCount;
+     *     union {
+     *         DRIVE_LAYOUT_INFORMATION_MBR Mbr;
+     *         DRIVE_LAYOUT_INFORMATION_GPT Gpt;
+     *     };
+     *     PARTITION_INFORMATION_EX PartitionEntry[1];
+     * } *PDRIVE_LAYOUT_INFORMATION_EX
+     * }
+     */
+    public static final AddressLayout PDRIVE_LAYOUT_INFORMATION_EX = Windows_h.C_POINTER;
+    private static final int DetectNone = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _DETECTION_TYPE.DetectNone = 0
+     * }
+     */
+    public static int DetectNone() {
+        return DetectNone;
+    }
+    private static final int DetectInt13 = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _DETECTION_TYPE.DetectInt13 = 1
+     * }
+     */
+    public static int DetectInt13() {
+        return DetectInt13;
+    }
+    private static final int DetectExInt13 = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _DETECTION_TYPE.DetectExInt13 = 2
+     * }
+     */
+    public static int DetectExInt13() {
+        return DetectExInt13;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DISK_INT13_INFO {
+     *     WORD DriveSelect;
+     *     DWORD MaxCylinders;
+     *     WORD SectorsPerTrack;
+     *     WORD MaxHeads;
+     *     WORD NumberDrives;
+     * } *PDISK_INT13_INFO
+     * }
+     */
+    public static final AddressLayout PDISK_INT13_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DISK_EX_INT13_INFO {
+     *     WORD ExBufferSize;
+     *     WORD ExFlags;
+     *     DWORD ExCylinders;
+     *     DWORD ExHeads;
+     *     DWORD ExSectorsPerTrack;
+     *     DWORD64 ExSectorsPerDrive;
+     *     WORD ExSectorSize;
+     *     WORD ExReserved;
+     * } *PDISK_EX_INT13_INFO
+     * }
+     */
+    public static final AddressLayout PDISK_EX_INT13_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DISK_DETECTION_INFO {
+     *     DWORD SizeOfDetectInfo;
+     *     DETECTION_TYPE DetectionType;
+     *     union {
+     *         struct {
+     *             DISK_INT13_INFO Int13;
+     *             DISK_EX_INT13_INFO ExInt13;
+     *         };
+     *     };
+     * } *PDISK_DETECTION_INFO
+     * }
+     */
+    public static final AddressLayout PDISK_DETECTION_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DISK_PARTITION_INFO {
+     *     DWORD SizeOfPartitionInfo;
+     *     PARTITION_STYLE PartitionStyle;
+     *     union {
+     *         struct {
+     *             DWORD Signature;
+     *             DWORD CheckSum;
+     *         } Mbr;
+     *         struct {
+     *             GUID DiskId;
+     *         } Gpt;
+     *     };
+     * } *PDISK_PARTITION_INFO
+     * }
+     */
+    public static final AddressLayout PDISK_PARTITION_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DISK_GEOMETRY_EX {
+     *     DISK_GEOMETRY Geometry;
+     *     LARGE_INTEGER DiskSize;
+     *     BYTE Data[1];
+     * } *PDISK_GEOMETRY_EX
+     * }
+     */
+    public static final AddressLayout PDISK_GEOMETRY_EX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DISK_CONTROLLER_NUMBER {
+     *     DWORD ControllerNumber;
+     *     DWORD DiskNumber;
+     * } *PDISK_CONTROLLER_NUMBER
+     * }
+     */
+    public static final AddressLayout PDISK_CONTROLLER_NUMBER = Windows_h.C_POINTER;
+    private static final int EqualPriority = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum <anonymous>.EqualPriority = 0
+     * }
+     */
+    public static int EqualPriority() {
+        return EqualPriority;
+    }
+    private static final int KeepPrefetchedData = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum <anonymous>.KeepPrefetchedData = 1
+     * }
+     */
+    public static int KeepPrefetchedData() {
+        return KeepPrefetchedData;
+    }
+    private static final int KeepReadData = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum <anonymous>.KeepReadData = 2
+     * }
+     */
+    public static int KeepReadData() {
+        return KeepReadData;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DISK_CACHE_INFORMATION {
+     *     BOOLEAN ParametersSavable;
+     *     BOOLEAN ReadCacheEnabled;
+     *     BOOLEAN WriteCacheEnabled;
+     *     DISK_CACHE_RETENTION_PRIORITY ReadRetentionPriority;
+     *     DISK_CACHE_RETENTION_PRIORITY WriteRetentionPriority;
+     *     WORD DisablePrefetchTransferLength;
+     *     BOOLEAN PrefetchScalar;
+     *     union {
+     *         struct {
+     *             WORD Minimum;
+     *             WORD Maximum;
+     *             WORD MaximumBlocks;
+     *         } ScalarPrefetch;
+     *         struct {
+     *             WORD Minimum;
+     *             WORD Maximum;
+     *         } BlockPrefetch;
+     *     };
+     * } *PDISK_CACHE_INFORMATION
+     * }
+     */
+    public static final AddressLayout PDISK_CACHE_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DISK_GROW_PARTITION {
+     *     DWORD PartitionNumber;
+     *     LARGE_INTEGER BytesToGrow;
+     * } *PDISK_GROW_PARTITION
+     * }
+     */
+    public static final AddressLayout PDISK_GROW_PARTITION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _HISTOGRAM_BUCKET {
+     *     DWORD Reads;
+     *     DWORD Writes;
+     * } *PHISTOGRAM_BUCKET
+     * }
+     */
+    public static final AddressLayout PHISTOGRAM_BUCKET = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DISK_HISTOGRAM {
+     *     LARGE_INTEGER DiskSize;
+     *     LARGE_INTEGER Start;
+     *     LARGE_INTEGER End;
+     *     LARGE_INTEGER Average;
+     *     LARGE_INTEGER AverageRead;
+     *     LARGE_INTEGER AverageWrite;
+     *     DWORD Granularity;
+     *     DWORD Size;
+     *     DWORD ReadCount;
+     *     DWORD WriteCount;
+     *     PHISTOGRAM_BUCKET Histogram;
+     * } *PDISK_HISTOGRAM
+     * }
+     */
+    public static final AddressLayout PDISK_HISTOGRAM = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DISK_PERFORMANCE {
+     *     LARGE_INTEGER BytesRead;
+     *     LARGE_INTEGER BytesWritten;
+     *     LARGE_INTEGER ReadTime;
+     *     LARGE_INTEGER WriteTime;
+     *     LARGE_INTEGER IdleTime;
+     *     DWORD ReadCount;
+     *     DWORD WriteCount;
+     *     DWORD QueueDepth;
+     *     DWORD SplitCount;
+     *     LARGE_INTEGER QueryTime;
+     *     DWORD StorageDeviceNumber;
+     *     WCHAR StorageManagerName[8];
+     * } *PDISK_PERFORMANCE
+     * }
+     */
+    public static final AddressLayout PDISK_PERFORMANCE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DISK_RECORD {
+     *     LARGE_INTEGER ByteOffset;
+     *     LARGE_INTEGER StartTime;
+     *     LARGE_INTEGER EndTime;
+     *     PVOID VirtualAddress;
+     *     DWORD NumberOfBytes;
+     *     BYTE DeviceNumber;
+     *     BOOLEAN ReadRequest;
+     * } *PDISK_RECORD
+     * }
+     */
+    public static final AddressLayout PDISK_RECORD = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DISK_LOGGING {
+     *     BYTE Function;
+     *     PVOID BufferAddress;
+     *     DWORD BufferSize;
+     * } *PDISK_LOGGING
+     * }
+     */
+    public static final AddressLayout PDISK_LOGGING = Windows_h.C_POINTER;
+    private static final int RequestSize = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _BIN_TYPES.RequestSize = 0
+     * }
+     */
+    public static int RequestSize() {
+        return RequestSize;
+    }
+    private static final int RequestLocation = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _BIN_TYPES.RequestLocation = 1
+     * }
+     */
+    public static int RequestLocation() {
+        return RequestLocation;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _BIN_RANGE {
+     *     LARGE_INTEGER StartValue;
+     *     LARGE_INTEGER Length;
+     * } *PBIN_RANGE
+     * }
+     */
+    public static final AddressLayout PBIN_RANGE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PERF_BIN {
+     *     DWORD NumberOfBins;
+     *     DWORD TypeOfBin;
+     *     BIN_RANGE BinsRanges[1];
+     * } *PPERF_BIN
+     * }
+     */
+    public static final AddressLayout PPERF_BIN = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _BIN_COUNT {
+     *     BIN_RANGE BinRange;
+     *     DWORD BinCount;
+     * } *PBIN_COUNT
+     * }
+     */
+    public static final AddressLayout PBIN_COUNT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _BIN_RESULTS {
+     *     DWORD NumberOfBins;
+     *     BIN_COUNT BinCounts[1];
+     * } *PBIN_RESULTS
+     * }
+     */
+    public static final AddressLayout PBIN_RESULTS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _GETVERSIONINPARAMS {
+     *     BYTE bVersion;
+     *     BYTE bRevision;
+     *     BYTE bReserved;
+     *     BYTE bIDEDeviceMap;
+     *     DWORD fCapabilities;
+     *     DWORD dwReserved[4];
+     * } *PGETVERSIONINPARAMS
+     * }
+     */
+    public static final AddressLayout PGETVERSIONINPARAMS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _GETVERSIONINPARAMS {
+     *     BYTE bVersion;
+     *     BYTE bRevision;
+     *     BYTE bReserved;
+     *     BYTE bIDEDeviceMap;
+     *     DWORD fCapabilities;
+     *     DWORD dwReserved[4];
+     * } *LPGETVERSIONINPARAMS
+     * }
+     */
+    public static final AddressLayout LPGETVERSIONINPARAMS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IDEREGS {
+     *     BYTE bFeaturesReg;
+     *     BYTE bSectorCountReg;
+     *     BYTE bSectorNumberReg;
+     *     BYTE bCylLowReg;
+     *     BYTE bCylHighReg;
+     *     BYTE bDriveHeadReg;
+     *     BYTE bCommandReg;
+     *     BYTE bReserved;
+     * } *PIDEREGS
+     * }
+     */
+    public static final AddressLayout PIDEREGS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IDEREGS {
+     *     BYTE bFeaturesReg;
+     *     BYTE bSectorCountReg;
+     *     BYTE bSectorNumberReg;
+     *     BYTE bCylLowReg;
+     *     BYTE bCylHighReg;
+     *     BYTE bDriveHeadReg;
+     *     BYTE bCommandReg;
+     *     BYTE bReserved;
+     * } *LPIDEREGS
+     * }
+     */
+    public static final AddressLayout LPIDEREGS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SENDCMDINPARAMS {
+     *     DWORD cBufferSize;
+     *     IDEREGS irDriveRegs;
+     *     BYTE bDriveNumber;
+     *     BYTE bReserved[3];
+     *     DWORD dwReserved[4];
+     *     BYTE bBuffer[1];
+     * } *PSENDCMDINPARAMS
+     * }
+     */
+    public static final AddressLayout PSENDCMDINPARAMS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SENDCMDINPARAMS {
+     *     DWORD cBufferSize;
+     *     IDEREGS irDriveRegs;
+     *     BYTE bDriveNumber;
+     *     BYTE bReserved[3];
+     *     DWORD dwReserved[4];
+     *     BYTE bBuffer[1];
+     * } *LPSENDCMDINPARAMS
+     * }
+     */
+    public static final AddressLayout LPSENDCMDINPARAMS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DRIVERSTATUS {
+     *     BYTE bDriverError;
+     *     BYTE bIDEError;
+     *     BYTE bReserved[2];
+     *     DWORD dwReserved[2];
+     * } *PDRIVERSTATUS
+     * }
+     */
+    public static final AddressLayout PDRIVERSTATUS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DRIVERSTATUS {
+     *     BYTE bDriverError;
+     *     BYTE bIDEError;
+     *     BYTE bReserved[2];
+     *     DWORD dwReserved[2];
+     * } *LPDRIVERSTATUS
+     * }
+     */
+    public static final AddressLayout LPDRIVERSTATUS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SENDCMDOUTPARAMS {
+     *     DWORD cBufferSize;
+     *     DRIVERSTATUS DriverStatus;
+     *     BYTE bBuffer[1];
+     * } *PSENDCMDOUTPARAMS
+     * }
+     */
+    public static final AddressLayout PSENDCMDOUTPARAMS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SENDCMDOUTPARAMS {
+     *     DWORD cBufferSize;
+     *     DRIVERSTATUS DriverStatus;
+     *     BYTE bBuffer[1];
+     * } *LPSENDCMDOUTPARAMS
+     * }
+     */
+    public static final AddressLayout LPSENDCMDOUTPARAMS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _GET_DISK_ATTRIBUTES {
+     *     DWORD Version;
+     *     DWORD Reserved1;
+     *     DWORDLONG Attributes;
+     * } *PGET_DISK_ATTRIBUTES
+     * }
+     */
+    public static final AddressLayout PGET_DISK_ATTRIBUTES = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SET_DISK_ATTRIBUTES {
+     *     DWORD Version;
+     *     BOOLEAN Persist;
+     *     BYTE Reserved1[3];
+     *     DWORDLONG Attributes;
+     *     DWORDLONG AttributesMask;
+     *     DWORD Reserved2[4];
+     * } *PSET_DISK_ATTRIBUTES
+     * }
+     */
+    public static final AddressLayout PSET_DISK_ATTRIBUTES = Windows_h.C_POINTER;
+    private static final int AllElements = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _ELEMENT_TYPE.AllElements = 0
+     * }
+     */
+    public static int AllElements() {
+        return AllElements;
+    }
+    private static final int ChangerTransport = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _ELEMENT_TYPE.ChangerTransport = 1
+     * }
+     */
+    public static int ChangerTransport() {
+        return ChangerTransport;
+    }
+    private static final int ChangerSlot = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _ELEMENT_TYPE.ChangerSlot = 2
+     * }
+     */
+    public static int ChangerSlot() {
+        return ChangerSlot;
+    }
+    private static final int ChangerIEPort = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _ELEMENT_TYPE.ChangerIEPort = 3
+     * }
+     */
+    public static int ChangerIEPort() {
+        return ChangerIEPort;
+    }
+    private static final int ChangerDrive = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _ELEMENT_TYPE.ChangerDrive = 4
+     * }
+     */
+    public static int ChangerDrive() {
+        return ChangerDrive;
+    }
+    private static final int ChangerDoor = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _ELEMENT_TYPE.ChangerDoor = 5
+     * }
+     */
+    public static int ChangerDoor() {
+        return ChangerDoor;
+    }
+    private static final int ChangerKeypad = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _ELEMENT_TYPE.ChangerKeypad = 6
+     * }
+     */
+    public static int ChangerKeypad() {
+        return ChangerKeypad;
+    }
+    private static final int ChangerMaxElement = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _ELEMENT_TYPE.ChangerMaxElement = 7
+     * }
+     */
+    public static int ChangerMaxElement() {
+        return ChangerMaxElement;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _ELEMENT_TYPE {
+     *     AllElements,
+     *     ChangerTransport,
+     *     ChangerSlot,
+     *     ChangerIEPort,
+     *     ChangerDrive,
+     *     ChangerDoor,
+     *     ChangerKeypad,
+     *     ChangerMaxElement
+     * } *PELEMENT_TYPE
+     * }
+     */
+    public static final AddressLayout PELEMENT_TYPE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CHANGER_ELEMENT {
+     *     ELEMENT_TYPE ElementType;
+     *     DWORD ElementAddress;
+     * } *PCHANGER_ELEMENT
+     * }
+     */
+    public static final AddressLayout PCHANGER_ELEMENT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CHANGER_ELEMENT_LIST {
+     *     CHANGER_ELEMENT Element;
+     *     DWORD NumberOfElements;
+     * } *PCHANGER_ELEMENT_LIST
+     * }
+     */
+    public static final AddressLayout PCHANGER_ELEMENT_LIST = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _GET_CHANGER_PARAMETERS {
+     *     DWORD Size;
+     *     WORD NumberTransportElements;
+     *     WORD NumberStorageElements;
+     *     WORD NumberCleanerSlots;
+     *     WORD NumberIEElements;
+     *     WORD NumberDataTransferElements;
+     *     WORD NumberOfDoors;
+     *     WORD FirstSlotNumber;
+     *     WORD FirstDriveNumber;
+     *     WORD FirstTransportNumber;
+     *     WORD FirstIEPortNumber;
+     *     WORD FirstCleanerSlotAddress;
+     *     WORD MagazineSize;
+     *     DWORD DriveCleanTimeout;
+     *     DWORD Features0;
+     *     DWORD Features1;
+     *     BYTE MoveFromTransport;
+     *     BYTE MoveFromSlot;
+     *     BYTE MoveFromIePort;
+     *     BYTE MoveFromDrive;
+     *     BYTE ExchangeFromTransport;
+     *     BYTE ExchangeFromSlot;
+     *     BYTE ExchangeFromIePort;
+     *     BYTE ExchangeFromDrive;
+     *     BYTE LockUnlockCapabilities;
+     *     BYTE PositionCapabilities;
+     *     BYTE Reserved1[2];
+     *     DWORD Reserved2[2];
+     * } *PGET_CHANGER_PARAMETERS
+     * }
+     */
+    public static final AddressLayout PGET_CHANGER_PARAMETERS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CHANGER_PRODUCT_DATA {
+     *     BYTE VendorId[8];
+     *     BYTE ProductId[16];
+     *     BYTE Revision[4];
+     *     BYTE SerialNumber[32];
+     *     BYTE DeviceType;
+     * } *PCHANGER_PRODUCT_DATA
+     * }
+     */
+    public static final AddressLayout PCHANGER_PRODUCT_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CHANGER_SET_ACCESS {
+     *     CHANGER_ELEMENT Element;
+     *     DWORD Control;
+     * } *PCHANGER_SET_ACCESS
+     * }
+     */
+    public static final AddressLayout PCHANGER_SET_ACCESS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CHANGER_READ_ELEMENT_STATUS {
+     *     CHANGER_ELEMENT_LIST ElementList;
+     *     BOOLEAN VolumeTagInfo;
+     * } *PCHANGER_READ_ELEMENT_STATUS
+     * }
+     */
+    public static final AddressLayout PCHANGER_READ_ELEMENT_STATUS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CHANGER_ELEMENT_STATUS {
+     *     CHANGER_ELEMENT Element;
+     *     CHANGER_ELEMENT SrcElementAddress;
+     *     DWORD Flags;
+     *     DWORD ExceptionCode;
+     *     BYTE TargetId;
+     *     BYTE Lun;
+     *     WORD Reserved;
+     *     BYTE PrimaryVolumeID[36];
+     *     BYTE AlternateVolumeID[36];
+     * } *PCHANGER_ELEMENT_STATUS
+     * }
+     */
+    public static final AddressLayout PCHANGER_ELEMENT_STATUS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CHANGER_ELEMENT_STATUS_EX {
+     *     CHANGER_ELEMENT Element;
+     *     CHANGER_ELEMENT SrcElementAddress;
+     *     DWORD Flags;
+     *     DWORD ExceptionCode;
+     *     BYTE TargetId;
+     *     BYTE Lun;
+     *     WORD Reserved;
+     *     BYTE PrimaryVolumeID[36];
+     *     BYTE AlternateVolumeID[36];
+     *     BYTE VendorIdentification[8];
+     *     BYTE ProductIdentification[16];
+     *     BYTE SerialNumber[32];
+     * } *PCHANGER_ELEMENT_STATUS_EX
+     * }
+     */
+    public static final AddressLayout PCHANGER_ELEMENT_STATUS_EX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CHANGER_INITIALIZE_ELEMENT_STATUS {
+     *     CHANGER_ELEMENT_LIST ElementList;
+     *     BOOLEAN BarCodeScan;
+     * } *PCHANGER_INITIALIZE_ELEMENT_STATUS
+     * }
+     */
+    public static final AddressLayout PCHANGER_INITIALIZE_ELEMENT_STATUS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CHANGER_SET_POSITION {
+     *     CHANGER_ELEMENT Transport;
+     *     CHANGER_ELEMENT Destination;
+     *     BOOLEAN Flip;
+     * } *PCHANGER_SET_POSITION
+     * }
+     */
+    public static final AddressLayout PCHANGER_SET_POSITION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CHANGER_EXCHANGE_MEDIUM {
+     *     CHANGER_ELEMENT Transport;
+     *     CHANGER_ELEMENT Source;
+     *     CHANGER_ELEMENT Destination1;
+     *     CHANGER_ELEMENT Destination2;
+     *     BOOLEAN Flip1;
+     *     BOOLEAN Flip2;
+     * } *PCHANGER_EXCHANGE_MEDIUM
+     * }
+     */
+    public static final AddressLayout PCHANGER_EXCHANGE_MEDIUM = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CHANGER_MOVE_MEDIUM {
+     *     CHANGER_ELEMENT Transport;
+     *     CHANGER_ELEMENT Source;
+     *     CHANGER_ELEMENT Destination;
+     *     BOOLEAN Flip;
+     * } *PCHANGER_MOVE_MEDIUM
+     * }
+     */
+    public static final AddressLayout PCHANGER_MOVE_MEDIUM = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CHANGER_SEND_VOLUME_TAG_INFORMATION {
+     *     CHANGER_ELEMENT StartingElement;
+     *     DWORD ActionCode;
+     *     BYTE VolumeIDTemplate[40];
+     * } *PCHANGER_SEND_VOLUME_TAG_INFORMATION
+     * }
+     */
+    public static final AddressLayout PCHANGER_SEND_VOLUME_TAG_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _READ_ELEMENT_ADDRESS_INFO {
+     *     DWORD NumberOfElements;
+     *     CHANGER_ELEMENT_STATUS ElementStatus[1];
+     * } *PREAD_ELEMENT_ADDRESS_INFO
+     * }
+     */
+    public static final AddressLayout PREAD_ELEMENT_ADDRESS_INFO = Windows_h.C_POINTER;
+    private static final int DeviceProblemNone = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _CHANGER_DEVICE_PROBLEM_TYPE.DeviceProblemNone = 0
+     * }
+     */
+    public static int DeviceProblemNone() {
+        return DeviceProblemNone;
+    }
+    private static final int DeviceProblemHardware = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _CHANGER_DEVICE_PROBLEM_TYPE.DeviceProblemHardware = 1
+     * }
+     */
+    public static int DeviceProblemHardware() {
+        return DeviceProblemHardware;
+    }
+    private static final int DeviceProblemCHMError = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _CHANGER_DEVICE_PROBLEM_TYPE.DeviceProblemCHMError = 2
+     * }
+     */
+    public static int DeviceProblemCHMError() {
+        return DeviceProblemCHMError;
+    }
+    private static final int DeviceProblemDoorOpen = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _CHANGER_DEVICE_PROBLEM_TYPE.DeviceProblemDoorOpen = 3
+     * }
+     */
+    public static int DeviceProblemDoorOpen() {
+        return DeviceProblemDoorOpen;
+    }
+    private static final int DeviceProblemCalibrationError = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _CHANGER_DEVICE_PROBLEM_TYPE.DeviceProblemCalibrationError = 4
+     * }
+     */
+    public static int DeviceProblemCalibrationError() {
+        return DeviceProblemCalibrationError;
+    }
+    private static final int DeviceProblemTargetFailure = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _CHANGER_DEVICE_PROBLEM_TYPE.DeviceProblemTargetFailure = 5
+     * }
+     */
+    public static int DeviceProblemTargetFailure() {
+        return DeviceProblemTargetFailure;
+    }
+    private static final int DeviceProblemCHMMoveError = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _CHANGER_DEVICE_PROBLEM_TYPE.DeviceProblemCHMMoveError = 6
+     * }
+     */
+    public static int DeviceProblemCHMMoveError() {
+        return DeviceProblemCHMMoveError;
+    }
+    private static final int DeviceProblemCHMZeroError = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _CHANGER_DEVICE_PROBLEM_TYPE.DeviceProblemCHMZeroError = 7
+     * }
+     */
+    public static int DeviceProblemCHMZeroError() {
+        return DeviceProblemCHMZeroError;
+    }
+    private static final int DeviceProblemCartridgeInsertError = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum _CHANGER_DEVICE_PROBLEM_TYPE.DeviceProblemCartridgeInsertError = 8
+     * }
+     */
+    public static int DeviceProblemCartridgeInsertError() {
+        return DeviceProblemCartridgeInsertError;
+    }
+    private static final int DeviceProblemPositionError = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * enum _CHANGER_DEVICE_PROBLEM_TYPE.DeviceProblemPositionError = 9
+     * }
+     */
+    public static int DeviceProblemPositionError() {
+        return DeviceProblemPositionError;
+    }
+    private static final int DeviceProblemSensorError = (int)10L;
+    /**
+     * {@snippet lang=c :
+     * enum _CHANGER_DEVICE_PROBLEM_TYPE.DeviceProblemSensorError = 10
+     * }
+     */
+    public static int DeviceProblemSensorError() {
+        return DeviceProblemSensorError;
+    }
+    private static final int DeviceProblemCartridgeEjectError = (int)11L;
+    /**
+     * {@snippet lang=c :
+     * enum _CHANGER_DEVICE_PROBLEM_TYPE.DeviceProblemCartridgeEjectError = 11
+     * }
+     */
+    public static int DeviceProblemCartridgeEjectError() {
+        return DeviceProblemCartridgeEjectError;
+    }
+    private static final int DeviceProblemGripperError = (int)12L;
+    /**
+     * {@snippet lang=c :
+     * enum _CHANGER_DEVICE_PROBLEM_TYPE.DeviceProblemGripperError = 12
+     * }
+     */
+    public static int DeviceProblemGripperError() {
+        return DeviceProblemGripperError;
+    }
+    private static final int DeviceProblemDriveError = (int)13L;
+    /**
+     * {@snippet lang=c :
+     * enum _CHANGER_DEVICE_PROBLEM_TYPE.DeviceProblemDriveError = 13
+     * }
+     */
+    public static int DeviceProblemDriveError() {
+        return DeviceProblemDriveError;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _CHANGER_DEVICE_PROBLEM_TYPE {
+     *     DeviceProblemNone,
+     *     DeviceProblemHardware,
+     *     DeviceProblemCHMError,
+     *     DeviceProblemDoorOpen,
+     *     DeviceProblemCalibrationError,
+     *     DeviceProblemTargetFailure,
+     *     DeviceProblemCHMMoveError,
+     *     DeviceProblemCHMZeroError,
+     *     DeviceProblemCartridgeInsertError,
+     *     DeviceProblemPositionError,
+     *     DeviceProblemSensorError,
+     *     DeviceProblemCartridgeEjectError,
+     *     DeviceProblemGripperError,
+     *     DeviceProblemDriveError
+     * } *PCHANGER_DEVICE_PROBLEM_TYPE
+     * }
+     */
+    public static final AddressLayout PCHANGER_DEVICE_PROBLEM_TYPE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PATHNAME_BUFFER {
+     *     DWORD PathNameLength;
+     *     WCHAR Name[1];
+     * } *PPATHNAME_BUFFER
+     * }
+     */
+    public static final AddressLayout PPATHNAME_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FSCTL_QUERY_FAT_BPB_BUFFER {
+     *     BYTE First0x24BytesOfBootSector[36];
+     * } *PFSCTL_QUERY_FAT_BPB_BUFFER
+     * }
+     */
+    public static final AddressLayout PFSCTL_QUERY_FAT_BPB_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     LARGE_INTEGER VolumeSerialNumber;
+     *     LARGE_INTEGER NumberSectors;
+     *     LARGE_INTEGER TotalClusters;
+     *     LARGE_INTEGER FreeClusters;
+     *     LARGE_INTEGER TotalReserved;
+     *     DWORD BytesPerSector;
+     *     DWORD BytesPerCluster;
+     *     DWORD BytesPerFileRecordSegment;
+     *     DWORD ClustersPerFileRecordSegment;
+     *     LARGE_INTEGER MftValidDataLength;
+     *     LARGE_INTEGER MftStartLcn;
+     *     LARGE_INTEGER Mft2StartLcn;
+     *     LARGE_INTEGER MftZoneStart;
+     *     LARGE_INTEGER MftZoneEnd;
+     * } *PNTFS_VOLUME_DATA_BUFFER
+     * }
+     */
+    public static final AddressLayout PNTFS_VOLUME_DATA_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD ByteCount;
+     *     WORD MajorVersion;
+     *     WORD MinorVersion;
+     *     DWORD BytesPerPhysicalSector;
+     *     WORD LfsMajorVersion;
+     *     WORD LfsMinorVersion;
+     *     DWORD MaxDeviceTrimExtentCount;
+     *     DWORD MaxDeviceTrimByteCount;
+     *     DWORD MaxVolumeTrimExtentCount;
+     *     DWORD MaxVolumeTrimByteCount;
+     * } *PNTFS_EXTENDED_VOLUME_DATA
+     * }
+     */
+    public static final AddressLayout PNTFS_EXTENDED_VOLUME_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD ByteCount;
+     *     DWORD MajorVersion;
+     *     DWORD MinorVersion;
+     *     DWORD BytesPerPhysicalSector;
+     *     LARGE_INTEGER VolumeSerialNumber;
+     *     LARGE_INTEGER NumberSectors;
+     *     LARGE_INTEGER TotalClusters;
+     *     LARGE_INTEGER FreeClusters;
+     *     LARGE_INTEGER TotalReserved;
+     *     DWORD BytesPerSector;
+     *     DWORD BytesPerCluster;
+     *     LARGE_INTEGER MaximumSizeOfResidentFile;
+     *     WORD FastTierDataFillRatio;
+     *     WORD SlowTierDataFillRatio;
+     *     DWORD DestagesFastTierToSlowTierRate;
+     *     LARGE_INTEGER Reserved[9];
+     * } *PREFS_VOLUME_DATA_BUFFER
+     * }
+     */
+    public static final AddressLayout PREFS_VOLUME_DATA_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     LARGE_INTEGER StartingLcn;
+     * } *PSTARTING_LCN_INPUT_BUFFER
+     * }
+     */
+    public static final AddressLayout PSTARTING_LCN_INPUT_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     LARGE_INTEGER StartingLcn;
+     *     DWORD Flags;
+     * } *PSTARTING_LCN_INPUT_BUFFER_EX
+     * }
+     */
+    public static final AddressLayout PSTARTING_LCN_INPUT_BUFFER_EX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     LARGE_INTEGER StartingLcn;
+     *     LARGE_INTEGER BitmapSize;
+     *     BYTE Buffer[1];
+     * } *PVOLUME_BITMAP_BUFFER
+     * }
+     */
+    public static final AddressLayout PVOLUME_BITMAP_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     LARGE_INTEGER StartingVcn;
+     * } *PSTARTING_VCN_INPUT_BUFFER
+     * }
+     */
+    public static final AddressLayout PSTARTING_VCN_INPUT_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct RETRIEVAL_POINTERS_BUFFER {
+     *     DWORD ExtentCount;
+     *     LARGE_INTEGER StartingVcn;
+     *     struct {
+     *         LARGE_INTEGER NextVcn;
+     *         LARGE_INTEGER Lcn;
+     *     } Extents[1];
+     * } *PRETRIEVAL_POINTERS_BUFFER
+     * }
+     */
+    public static final AddressLayout PRETRIEVAL_POINTERS_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct RETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER {
+     *     DWORD ExtentCount;
+     *     LARGE_INTEGER StartingVcn;
+     *     struct {
+     *         LARGE_INTEGER NextVcn;
+     *         LARGE_INTEGER Lcn;
+     *         DWORD ReferenceCount;
+     *     } Extents[1];
+     * } *PRETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER
+     * }
+     */
+    public static final AddressLayout PRETRIEVAL_POINTERS_AND_REFCOUNT_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct RETRIEVAL_POINTER_COUNT {
+     *     DWORD ExtentCount;
+     * } *PRETRIEVAL_POINTER_COUNT
+     * }
+     */
+    public static final AddressLayout PRETRIEVAL_POINTER_COUNT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     LARGE_INTEGER FileReferenceNumber;
+     * } *PNTFS_FILE_RECORD_INPUT_BUFFER
+     * }
+     */
+    public static final AddressLayout PNTFS_FILE_RECORD_INPUT_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     LARGE_INTEGER FileReferenceNumber;
+     *     DWORD FileRecordLength;
+     *     BYTE FileRecordBuffer[1];
+     * } *PNTFS_FILE_RECORD_OUTPUT_BUFFER
+     * }
+     */
+    public static final AddressLayout PNTFS_FILE_RECORD_OUTPUT_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     HANDLE FileHandle;
+     *     LARGE_INTEGER StartingVcn;
+     *     LARGE_INTEGER StartingLcn;
+     *     DWORD ClusterCount;
+     * } *PMOVE_FILE_DATA
+     * }
+     */
+    public static final AddressLayout PMOVE_FILE_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     HANDLE FileHandle;
+     *     LARGE_INTEGER SourceFileRecord;
+     *     LARGE_INTEGER TargetFileRecord;
+     * } *PMOVE_FILE_RECORD_DATA
+     * }
+     */
+    public static final AddressLayout PMOVE_FILE_RECORD_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _MOVE_FILE_DATA32 {
+     *     UINT32 FileHandle;
+     *     LARGE_INTEGER StartingVcn;
+     *     LARGE_INTEGER StartingLcn;
+     *     DWORD ClusterCount;
+     * } *PMOVE_FILE_DATA32
+     * }
+     */
+    public static final AddressLayout PMOVE_FILE_DATA32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD Restart;
+     *     SID Sid;
+     * } *PFIND_BY_SID_DATA
+     * }
+     */
+    public static final AddressLayout PFIND_BY_SID_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD NextEntryOffset;
+     *     DWORD FileIndex;
+     *     DWORD FileNameLength;
+     *     WCHAR FileName[1];
+     * } *PFIND_BY_SID_OUTPUT
+     * }
+     */
+    public static final AddressLayout PFIND_BY_SID_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORDLONG StartFileReferenceNumber;
+     *     USN LowUsn;
+     *     USN HighUsn;
+     * } *PMFT_ENUM_DATA_V0
+     * }
+     */
+    public static final AddressLayout PMFT_ENUM_DATA_V0 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORDLONG StartFileReferenceNumber;
+     *     USN LowUsn;
+     *     USN HighUsn;
+     *     WORD MinMajorVersion;
+     *     WORD MaxMajorVersion;
+     * } *PMFT_ENUM_DATA_V1
+     * }
+     */
+    public static final AddressLayout PMFT_ENUM_DATA_V1 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef MFT_ENUM_DATA_V1 *PMFT_ENUM_DATA
+     * }
+     */
+    public static final AddressLayout PMFT_ENUM_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORDLONG MaximumSize;
+     *     DWORDLONG AllocationDelta;
+     * } *PCREATE_USN_JOURNAL_DATA
+     * }
+     */
+    public static final AddressLayout PCREATE_USN_JOURNAL_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     WORD MinMajorVersion;
+     *     WORD MaxMajorVersion;
+     * } *PREAD_FILE_USN_DATA
+     * }
+     */
+    public static final AddressLayout PREAD_FILE_USN_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     USN StartUsn;
+     *     DWORD ReasonMask;
+     *     DWORD ReturnOnlyOnClose;
+     *     DWORDLONG Timeout;
+     *     DWORDLONG BytesToWaitFor;
+     *     DWORDLONG UsnJournalID;
+     * } *PREAD_USN_JOURNAL_DATA_V0
+     * }
+     */
+    public static final AddressLayout PREAD_USN_JOURNAL_DATA_V0 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     USN StartUsn;
+     *     DWORD ReasonMask;
+     *     DWORD ReturnOnlyOnClose;
+     *     DWORDLONG Timeout;
+     *     DWORDLONG BytesToWaitFor;
+     *     DWORDLONG UsnJournalID;
+     *     WORD MinMajorVersion;
+     *     WORD MaxMajorVersion;
+     * } *PREAD_USN_JOURNAL_DATA_V1
+     * }
+     */
+    public static final AddressLayout PREAD_USN_JOURNAL_DATA_V1 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef READ_USN_JOURNAL_DATA_V1 *PREAD_USN_JOURNAL_DATA
+     * }
+     */
+    public static final AddressLayout PREAD_USN_JOURNAL_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD Flags;
+     *     DWORD Unused;
+     *     DWORDLONG ChunkSize;
+     *     LONGLONG FileSizeThreshold;
+     * } *PUSN_TRACK_MODIFIED_RANGES
+     * }
+     */
+    public static final AddressLayout PUSN_TRACK_MODIFIED_RANGES = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     USN Usn;
+     * } *PUSN_RANGE_TRACK_OUTPUT
+     * }
+     */
+    public static final AddressLayout PUSN_RANGE_TRACK_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD RecordLength;
+     *     WORD MajorVersion;
+     *     WORD MinorVersion;
+     *     DWORDLONG FileReferenceNumber;
+     *     DWORDLONG ParentFileReferenceNumber;
+     *     USN Usn;
+     *     LARGE_INTEGER TimeStamp;
+     *     DWORD Reason;
+     *     DWORD SourceInfo;
+     *     DWORD SecurityId;
+     *     DWORD FileAttributes;
+     *     WORD FileNameLength;
+     *     WORD FileNameOffset;
+     *     WCHAR FileName[1];
+     * } *PUSN_RECORD_V2
+     * }
+     */
+    public static final AddressLayout PUSN_RECORD_V2 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD RecordLength;
+     *     WORD MajorVersion;
+     *     WORD MinorVersion;
+     *     FILE_ID_128 FileReferenceNumber;
+     *     FILE_ID_128 ParentFileReferenceNumber;
+     *     USN Usn;
+     *     LARGE_INTEGER TimeStamp;
+     *     DWORD Reason;
+     *     DWORD SourceInfo;
+     *     DWORD SecurityId;
+     *     DWORD FileAttributes;
+     *     WORD FileNameLength;
+     *     WORD FileNameOffset;
+     *     WCHAR FileName[1];
+     * } *PUSN_RECORD_V3
+     * }
+     */
+    public static final AddressLayout PUSN_RECORD_V3 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef USN_RECORD_V2 *PUSN_RECORD
+     * }
+     */
+    public static final AddressLayout PUSN_RECORD = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD RecordLength;
+     *     WORD MajorVersion;
+     *     WORD MinorVersion;
+     * } *PUSN_RECORD_COMMON_HEADER
+     * }
+     */
+    public static final AddressLayout PUSN_RECORD_COMMON_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     LONGLONG Offset;
+     *     LONGLONG Length;
+     * } *PUSN_RECORD_EXTENT
+     * }
+     */
+    public static final AddressLayout PUSN_RECORD_EXTENT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     USN_RECORD_COMMON_HEADER Header;
+     *     FILE_ID_128 FileReferenceNumber;
+     *     FILE_ID_128 ParentFileReferenceNumber;
+     *     USN Usn;
+     *     DWORD Reason;
+     *     DWORD SourceInfo;
+     *     DWORD RemainingExtents;
+     *     WORD NumberOfExtents;
+     *     WORD ExtentSize;
+     *     USN_RECORD_EXTENT Extents[1];
+     * } *PUSN_RECORD_V4
+     * }
+     */
+    public static final AddressLayout PUSN_RECORD_V4 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef union {
+     *     USN_RECORD_COMMON_HEADER Header;
+     *     USN_RECORD_V2 V2;
+     *     USN_RECORD_V3 V3;
+     *     USN_RECORD_V4 V4;
+     * } *PUSN_RECORD_UNION
+     * }
+     */
+    public static final AddressLayout PUSN_RECORD_UNION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORDLONG UsnJournalID;
+     *     USN FirstUsn;
+     *     USN NextUsn;
+     *     USN LowestValidUsn;
+     *     USN MaxUsn;
+     *     DWORDLONG MaximumSize;
+     *     DWORDLONG AllocationDelta;
+     * } *PUSN_JOURNAL_DATA_V0
+     * }
+     */
+    public static final AddressLayout PUSN_JOURNAL_DATA_V0 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORDLONG UsnJournalID;
+     *     USN FirstUsn;
+     *     USN NextUsn;
+     *     USN LowestValidUsn;
+     *     USN MaxUsn;
+     *     DWORDLONG MaximumSize;
+     *     DWORDLONG AllocationDelta;
+     *     WORD MinSupportedMajorVersion;
+     *     WORD MaxSupportedMajorVersion;
+     * } *PUSN_JOURNAL_DATA_V1
+     * }
+     */
+    public static final AddressLayout PUSN_JOURNAL_DATA_V1 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORDLONG UsnJournalID;
+     *     USN FirstUsn;
+     *     USN NextUsn;
+     *     USN LowestValidUsn;
+     *     USN MaxUsn;
+     *     DWORDLONG MaximumSize;
+     *     DWORDLONG AllocationDelta;
+     *     WORD MinSupportedMajorVersion;
+     *     WORD MaxSupportedMajorVersion;
+     *     DWORD Flags;
+     *     DWORDLONG RangeTrackChunkSize;
+     *     LONGLONG RangeTrackFileSizeThreshold;
+     * } *PUSN_JOURNAL_DATA_V2
+     * }
+     */
+    public static final AddressLayout PUSN_JOURNAL_DATA_V2 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef USN_JOURNAL_DATA_V1 *PUSN_JOURNAL_DATA
+     * }
+     */
+    public static final AddressLayout PUSN_JOURNAL_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORDLONG UsnJournalID;
+     *     DWORD DeleteFlags;
+     * } *PDELETE_USN_JOURNAL_DATA
+     * }
+     */
+    public static final AddressLayout PDELETE_USN_JOURNAL_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _MARK_HANDLE_INFO {
+     *     union {
+     *         DWORD UsnSourceInfo;
+     *         DWORD CopyNumber;
+     *     };
+     *     HANDLE VolumeHandle;
+     *     DWORD HandleInfo;
+     * } *PMARK_HANDLE_INFO
+     * }
+     */
+    public static final AddressLayout PMARK_HANDLE_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _MARK_HANDLE_INFO32 {
+     *     union {
+     *         DWORD UsnSourceInfo;
+     *         DWORD CopyNumber;
+     *     };
+     *     UINT32 VolumeHandle;
+     *     DWORD HandleInfo;
+     * } *PMARK_HANDLE_INFO32
+     * }
+     */
+    public static final AddressLayout PMARK_HANDLE_INFO32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct {
+     *     ACCESS_MASK DesiredAccess;
+     *     DWORD SecurityIds[1];
+     * } *PBULK_SECURITY_TEST_DATA
+     * }
+     */
+    public static final AddressLayout PBULK_SECURITY_TEST_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_PREFETCH {
+     *     DWORD Type;
+     *     DWORD Count;
+     *     DWORDLONG Prefetch[1];
+     * } *PFILE_PREFETCH
+     * }
+     */
+    public static final AddressLayout PFILE_PREFETCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_PREFETCH_EX {
+     *     DWORD Type;
+     *     DWORD Count;
+     *     PVOID Context;
+     *     DWORDLONG Prefetch[1];
+     * } *PFILE_PREFETCH_EX
+     * }
+     */
+    public static final AddressLayout PFILE_PREFETCH_EX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILESYSTEM_STATISTICS {
+     *     WORD FileSystemType;
+     *     WORD Version;
+     *     DWORD SizeOfCompleteStructure;
+     *     DWORD UserFileReads;
+     *     DWORD UserFileReadBytes;
+     *     DWORD UserDiskReads;
+     *     DWORD UserFileWrites;
+     *     DWORD UserFileWriteBytes;
+     *     DWORD UserDiskWrites;
+     *     DWORD MetaDataReads;
+     *     DWORD MetaDataReadBytes;
+     *     DWORD MetaDataDiskReads;
+     *     DWORD MetaDataWrites;
+     *     DWORD MetaDataWriteBytes;
+     *     DWORD MetaDataDiskWrites;
+     * } *PFILESYSTEM_STATISTICS
+     * }
+     */
+    public static final AddressLayout PFILESYSTEM_STATISTICS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FAT_STATISTICS {
+     *     DWORD CreateHits;
+     *     DWORD SuccessfulCreates;
+     *     DWORD FailedCreates;
+     *     DWORD NonCachedReads;
+     *     DWORD NonCachedReadBytes;
+     *     DWORD NonCachedWrites;
+     *     DWORD NonCachedWriteBytes;
+     *     DWORD NonCachedDiskReads;
+     *     DWORD NonCachedDiskWrites;
+     * } *PFAT_STATISTICS
+     * }
+     */
+    public static final AddressLayout PFAT_STATISTICS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _EXFAT_STATISTICS {
+     *     DWORD CreateHits;
+     *     DWORD SuccessfulCreates;
+     *     DWORD FailedCreates;
+     *     DWORD NonCachedReads;
+     *     DWORD NonCachedReadBytes;
+     *     DWORD NonCachedWrites;
+     *     DWORD NonCachedWriteBytes;
+     *     DWORD NonCachedDiskReads;
+     *     DWORD NonCachedDiskWrites;
+     * } *PEXFAT_STATISTICS
+     * }
+     */
+    public static final AddressLayout PEXFAT_STATISTICS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _NTFS_STATISTICS {
+     *     DWORD LogFileFullExceptions;
+     *     DWORD OtherExceptions;
+     *     DWORD MftReads;
+     *     DWORD MftReadBytes;
+     *     DWORD MftWrites;
+     *     DWORD MftWriteBytes;
+     *     struct {
+     *         WORD Write;
+     *         WORD Create;
+     *         WORD SetInfo;
+     *         WORD Flush;
+     *     } MftWritesUserLevel;
+     *     WORD MftWritesFlushForLogFileFull;
+     *     WORD MftWritesLazyWriter;
+     *     WORD MftWritesUserRequest;
+     *     DWORD Mft2Writes;
+     *     DWORD Mft2WriteBytes;
+     *     struct {
+     *         WORD Write;
+     *         WORD Create;
+     *         WORD SetInfo;
+     *         WORD Flush;
+     *     } Mft2WritesUserLevel;
+     *     WORD Mft2WritesFlushForLogFileFull;
+     *     WORD Mft2WritesLazyWriter;
+     *     WORD Mft2WritesUserRequest;
+     *     DWORD RootIndexReads;
+     *     DWORD RootIndexReadBytes;
+     *     DWORD RootIndexWrites;
+     *     DWORD RootIndexWriteBytes;
+     *     DWORD BitmapReads;
+     *     DWORD BitmapReadBytes;
+     *     DWORD BitmapWrites;
+     *     DWORD BitmapWriteBytes;
+     *     WORD BitmapWritesFlushForLogFileFull;
+     *     WORD BitmapWritesLazyWriter;
+     *     WORD BitmapWritesUserRequest;
+     *     struct {
+     *         WORD Write;
+     *         WORD Create;
+     *         WORD SetInfo;
+     *     } BitmapWritesUserLevel;
+     *     DWORD MftBitmapReads;
+     *     DWORD MftBitmapReadBytes;
+     *     DWORD MftBitmapWrites;
+     *     DWORD MftBitmapWriteBytes;
+     *     WORD MftBitmapWritesFlushForLogFileFull;
+     *     WORD MftBitmapWritesLazyWriter;
+     *     WORD MftBitmapWritesUserRequest;
+     *     struct {
+     *         WORD Write;
+     *         WORD Create;
+     *         WORD SetInfo;
+     *         WORD Flush;
+     *     } MftBitmapWritesUserLevel;
+     *     DWORD UserIndexReads;
+     *     DWORD UserIndexReadBytes;
+     *     DWORD UserIndexWrites;
+     *     DWORD UserIndexWriteBytes;
+     *     DWORD LogFileReads;
+     *     DWORD LogFileReadBytes;
+     *     DWORD LogFileWrites;
+     *     DWORD LogFileWriteBytes;
+     *     struct {
+     *         DWORD Calls;
+     *         DWORD Clusters;
+     *         DWORD Hints;
+     *         DWORD RunsReturned;
+     *         DWORD HintsHonored;
+     *         DWORD HintsClusters;
+     *         DWORD Cache;
+     *         DWORD CacheClusters;
+     *         DWORD CacheMiss;
+     *         DWORD CacheMissClusters;
+     *     } Allocate;
+     *     DWORD DiskResourcesExhausted;
+     * } *PNTFS_STATISTICS
+     * }
+     */
+    public static final AddressLayout PNTFS_STATISTICS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILESYSTEM_STATISTICS_EX {
+     *     WORD FileSystemType;
+     *     WORD Version;
+     *     DWORD SizeOfCompleteStructure;
+     *     DWORDLONG UserFileReads;
+     *     DWORDLONG UserFileReadBytes;
+     *     DWORDLONG UserDiskReads;
+     *     DWORDLONG UserFileWrites;
+     *     DWORDLONG UserFileWriteBytes;
+     *     DWORDLONG UserDiskWrites;
+     *     DWORDLONG MetaDataReads;
+     *     DWORDLONG MetaDataReadBytes;
+     *     DWORDLONG MetaDataDiskReads;
+     *     DWORDLONG MetaDataWrites;
+     *     DWORDLONG MetaDataWriteBytes;
+     *     DWORDLONG MetaDataDiskWrites;
+     * } *PFILESYSTEM_STATISTICS_EX
+     * }
+     */
+    public static final AddressLayout PFILESYSTEM_STATISTICS_EX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _NTFS_STATISTICS_EX {
+     *     DWORD LogFileFullExceptions;
+     *     DWORD OtherExceptions;
+     *     DWORDLONG MftReads;
+     *     DWORDLONG MftReadBytes;
+     *     DWORDLONG MftWrites;
+     *     DWORDLONG MftWriteBytes;
+     *     struct {
+     *         DWORD Write;
+     *         DWORD Create;
+     *         DWORD SetInfo;
+     *         DWORD Flush;
+     *     } MftWritesUserLevel;
+     *     DWORD MftWritesFlushForLogFileFull;
+     *     DWORD MftWritesLazyWriter;
+     *     DWORD MftWritesUserRequest;
+     *     DWORDLONG Mft2Writes;
+     *     DWORDLONG Mft2WriteBytes;
+     *     struct {
+     *         DWORD Write;
+     *         DWORD Create;
+     *         DWORD SetInfo;
+     *         DWORD Flush;
+     *     } Mft2WritesUserLevel;
+     *     DWORD Mft2WritesFlushForLogFileFull;
+     *     DWORD Mft2WritesLazyWriter;
+     *     DWORD Mft2WritesUserRequest;
+     *     DWORDLONG RootIndexReads;
+     *     DWORDLONG RootIndexReadBytes;
+     *     DWORDLONG RootIndexWrites;
+     *     DWORDLONG RootIndexWriteBytes;
+     *     DWORDLONG BitmapReads;
+     *     DWORDLONG BitmapReadBytes;
+     *     DWORDLONG BitmapWrites;
+     *     DWORDLONG BitmapWriteBytes;
+     *     DWORD BitmapWritesFlushForLogFileFull;
+     *     DWORD BitmapWritesLazyWriter;
+     *     DWORD BitmapWritesUserRequest;
+     *     struct {
+     *         DWORD Write;
+     *         DWORD Create;
+     *         DWORD SetInfo;
+     *         DWORD Flush;
+     *     } BitmapWritesUserLevel;
+     *     DWORDLONG MftBitmapReads;
+     *     DWORDLONG MftBitmapReadBytes;
+     *     DWORDLONG MftBitmapWrites;
+     *     DWORDLONG MftBitmapWriteBytes;
+     *     DWORD MftBitmapWritesFlushForLogFileFull;
+     *     DWORD MftBitmapWritesLazyWriter;
+     *     DWORD MftBitmapWritesUserRequest;
+     *     struct {
+     *         DWORD Write;
+     *         DWORD Create;
+     *         DWORD SetInfo;
+     *         DWORD Flush;
+     *     } MftBitmapWritesUserLevel;
+     *     DWORDLONG UserIndexReads;
+     *     DWORDLONG UserIndexReadBytes;
+     *     DWORDLONG UserIndexWrites;
+     *     DWORDLONG UserIndexWriteBytes;
+     *     DWORDLONG LogFileReads;
+     *     DWORDLONG LogFileReadBytes;
+     *     DWORDLONG LogFileWrites;
+     *     DWORDLONG LogFileWriteBytes;
+     *     struct {
+     *         DWORD Calls;
+     *         DWORD RunsReturned;
+     *         DWORD Hints;
+     *         DWORD HintsHonored;
+     *         DWORD Cache;
+     *         DWORD CacheMiss;
+     *         DWORDLONG Clusters;
+     *         DWORDLONG HintsClusters;
+     *         DWORDLONG CacheClusters;
+     *         DWORDLONG CacheMissClusters;
+     *     } Allocate;
+     *     DWORD DiskResourcesExhausted;
+     *     DWORDLONG VolumeTrimCount;
+     *     DWORDLONG VolumeTrimTime;
+     *     DWORDLONG VolumeTrimByteCount;
+     *     DWORDLONG FileLevelTrimCount;
+     *     DWORDLONG FileLevelTrimTime;
+     *     DWORDLONG FileLevelTrimByteCount;
+     *     DWORDLONG VolumeTrimSkippedCount;
+     *     DWORDLONG VolumeTrimSkippedByteCount;
+     *     DWORDLONG NtfsFillStatInfoFromMftRecordCalledCount;
+     *     DWORDLONG NtfsFillStatInfoFromMftRecordBailedBecauseOfAttributeListCount;
+     *     DWORDLONG NtfsFillStatInfoFromMftRecordBailedBecauseOfNonResReparsePointCount;
+     * } *PNTFS_STATISTICS_EX
+     * }
+     */
+    public static final AddressLayout PNTFS_STATISTICS_EX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_OBJECTID_BUFFER {
+     *     BYTE ObjectId[16];
+     *     union {
+     *         struct {
+     *             BYTE BirthVolumeId[16];
+     *             BYTE BirthObjectId[16];
+     *             BYTE DomainId[16];
+     *         };
+     *         BYTE ExtendedInfo[48];
+     *     };
+     * } *PFILE_OBJECTID_BUFFER
+     * }
+     */
+    public static final AddressLayout PFILE_OBJECTID_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_SET_SPARSE_BUFFER {
+     *     BOOLEAN SetSparse;
+     * } *PFILE_SET_SPARSE_BUFFER
+     * }
+     */
+    public static final AddressLayout PFILE_SET_SPARSE_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_ZERO_DATA_INFORMATION {
+     *     LARGE_INTEGER FileOffset;
+     *     LARGE_INTEGER BeyondFinalZero;
+     * } *PFILE_ZERO_DATA_INFORMATION
+     * }
+     */
+    public static final AddressLayout PFILE_ZERO_DATA_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_ZERO_DATA_INFORMATION_EX {
+     *     LARGE_INTEGER FileOffset;
+     *     LARGE_INTEGER BeyondFinalZero;
+     *     DWORD Flags;
+     * } *PFILE_ZERO_DATA_INFORMATION_EX
+     * }
+     */
+    public static final AddressLayout PFILE_ZERO_DATA_INFORMATION_EX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_ALLOCATED_RANGE_BUFFER {
+     *     LARGE_INTEGER FileOffset;
+     *     LARGE_INTEGER Length;
+     * } *PFILE_ALLOCATED_RANGE_BUFFER
+     * }
+     */
+    public static final AddressLayout PFILE_ALLOCATED_RANGE_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _ENCRYPTION_BUFFER {
+     *     DWORD EncryptionOperation;
+     *     BYTE Private[1];
+     * } *PENCRYPTION_BUFFER
+     * }
+     */
+    public static final AddressLayout PENCRYPTION_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DECRYPTION_STATUS_BUFFER {
+     *     BOOLEAN NoEncryptedStreams;
+     * } *PDECRYPTION_STATUS_BUFFER
+     * }
+     */
+    public static final AddressLayout PDECRYPTION_STATUS_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _REQUEST_RAW_ENCRYPTED_DATA {
+     *     LONGLONG FileOffset;
+     *     DWORD Length;
+     * } *PREQUEST_RAW_ENCRYPTED_DATA
+     * }
+     */
+    public static final AddressLayout PREQUEST_RAW_ENCRYPTED_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _ENCRYPTED_DATA_INFO {
+     *     DWORDLONG StartingFileOffset;
+     *     DWORD OutputBufferOffset;
+     *     DWORD BytesWithinFileSize;
+     *     DWORD BytesWithinValidDataLength;
+     *     WORD CompressionFormat;
+     *     BYTE DataUnitShift;
+     *     BYTE ChunkShift;
+     *     BYTE ClusterShift;
+     *     BYTE EncryptionFormat;
+     *     WORD NumberOfDataBlocks;
+     *     DWORD DataBlockSize[1];
+     * } *PENCRYPTED_DATA_INFO
+     * }
+     */
+    public static final AddressLayout PENCRYPTED_DATA_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _EXTENDED_ENCRYPTED_DATA_INFO {
+     *     DWORD ExtendedCode;
+     *     DWORD Length;
+     *     DWORD Flags;
+     *     DWORD Reserved;
+     * } *PEXTENDED_ENCRYPTED_DATA_INFO
+     * }
+     */
+    public static final AddressLayout PEXTENDED_ENCRYPTED_DATA_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PLEX_READ_DATA_REQUEST {
+     *     LARGE_INTEGER ByteOffset;
+     *     DWORD ByteLength;
+     *     DWORD PlexNumber;
+     * } *PPLEX_READ_DATA_REQUEST
+     * }
+     */
+    public static final AddressLayout PPLEX_READ_DATA_REQUEST = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SI_COPYFILE {
+     *     DWORD SourceFileNameLength;
+     *     DWORD DestinationFileNameLength;
+     *     DWORD Flags;
+     *     WCHAR FileNameBuffer[1];
+     * } *PSI_COPYFILE
+     * }
+     */
+    public static final AddressLayout PSI_COPYFILE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_MAKE_COMPATIBLE_BUFFER {
+     *     BOOLEAN CloseDisc;
+     * } *PFILE_MAKE_COMPATIBLE_BUFFER
+     * }
+     */
+    public static final AddressLayout PFILE_MAKE_COMPATIBLE_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_SET_DEFECT_MGMT_BUFFER {
+     *     BOOLEAN Disable;
+     * } *PFILE_SET_DEFECT_MGMT_BUFFER
+     * }
+     */
+    public static final AddressLayout PFILE_SET_DEFECT_MGMT_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_QUERY_SPARING_BUFFER {
+     *     DWORD SparingUnitBytes;
+     *     BOOLEAN SoftwareSparing;
+     *     DWORD TotalSpareBlocks;
+     *     DWORD FreeSpareBlocks;
+     * } *PFILE_QUERY_SPARING_BUFFER
+     * }
+     */
+    public static final AddressLayout PFILE_QUERY_SPARING_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_QUERY_ON_DISK_VOL_INFO_BUFFER {
+     *     LARGE_INTEGER DirectoryCount;
+     *     LARGE_INTEGER FileCount;
+     *     WORD FsFormatMajVersion;
+     *     WORD FsFormatMinVersion;
+     *     WCHAR FsFormatName[12];
+     *     LARGE_INTEGER FormatTime;
+     *     LARGE_INTEGER LastUpdateTime;
+     *     WCHAR CopyrightInfo[34];
+     *     WCHAR AbstractInfo[34];
+     *     WCHAR FormattingImplementationInfo[34];
+     *     WCHAR LastModifyingImplementationInfo[34];
+     * } *PFILE_QUERY_ON_DISK_VOL_INFO_BUFFER
+     * }
+     */
+    public static final AddressLayout PFILE_QUERY_ON_DISK_VOL_INFO_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef DWORDLONG CLSN
+     * }
+     */
+    public static final OfLong CLSN = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_INITIATE_REPAIR_OUTPUT_BUFFER {
+     *     DWORDLONG Hint1;
+     *     DWORDLONG Hint2;
+     *     CLSN Clsn;
+     *     DWORD Status;
+     * } *PFILE_INITIATE_REPAIR_OUTPUT_BUFFER
+     * }
+     */
+    public static final AddressLayout PFILE_INITIATE_REPAIR_OUTPUT_BUFFER = Windows_h.C_POINTER;
+    private static final int ShrinkPrepare = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _SHRINK_VOLUME_REQUEST_TYPES.ShrinkPrepare = 1
+     * }
+     */
+    public static int ShrinkPrepare() {
+        return ShrinkPrepare;
+    }
+    private static final int ShrinkCommit = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _SHRINK_VOLUME_REQUEST_TYPES.ShrinkCommit = 2
+     * }
+     */
+    public static int ShrinkCommit() {
+        return ShrinkCommit;
+    }
+    private static final int ShrinkAbort = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _SHRINK_VOLUME_REQUEST_TYPES.ShrinkAbort = 3
+     * }
+     */
+    public static int ShrinkAbort() {
+        return ShrinkAbort;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _SHRINK_VOLUME_REQUEST_TYPES {
+     *     ShrinkPrepare = 1,
+     *     ShrinkCommit,
+     *     ShrinkAbort
+     * } *PSHRINK_VOLUME_REQUEST_TYPES
+     * }
+     */
+    public static final AddressLayout PSHRINK_VOLUME_REQUEST_TYPES = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SHRINK_VOLUME_INFORMATION {
+     *     SHRINK_VOLUME_REQUEST_TYPES ShrinkRequestType;
+     *     DWORDLONG Flags;
+     *     LONGLONG NewNumberOfSectors;
+     * } *PSHRINK_VOLUME_INFORMATION
+     * }
+     */
+    public static final AddressLayout PSHRINK_VOLUME_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_MODIFY_RM {
+     *     DWORD Flags;
+     *     DWORD LogContainerCountMax;
+     *     DWORD LogContainerCountMin;
+     *     DWORD LogContainerCount;
+     *     DWORD LogGrowthIncrement;
+     *     DWORD LogAutoShrinkPercentage;
+     *     DWORDLONG Reserved;
+     *     WORD LoggingMode;
+     * } *PTXFS_MODIFY_RM
+     * }
+     */
+    public static final AddressLayout PTXFS_MODIFY_RM = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_QUERY_RM_INFORMATION {
+     *     DWORD BytesRequired;
+     *     DWORDLONG TailLsn;
+     *     DWORDLONG CurrentLsn;
+     *     DWORDLONG ArchiveTailLsn;
+     *     DWORDLONG LogContainerSize;
+     *     LARGE_INTEGER HighestVirtualClock;
+     *     DWORD LogContainerCount;
+     *     DWORD LogContainerCountMax;
+     *     DWORD LogContainerCountMin;
+     *     DWORD LogGrowthIncrement;
+     *     DWORD LogAutoShrinkPercentage;
+     *     DWORD Flags;
+     *     WORD LoggingMode;
+     *     WORD Reserved;
+     *     DWORD RmState;
+     *     DWORDLONG LogCapacity;
+     *     DWORDLONG LogFree;
+     *     DWORDLONG TopsSize;
+     *     DWORDLONG TopsUsed;
+     *     DWORDLONG TransactionCount;
+     *     DWORDLONG OnePCCount;
+     *     DWORDLONG TwoPCCount;
+     *     DWORDLONG NumberLogFileFull;
+     *     DWORDLONG OldestTransactionAge;
+     *     GUID RMName;
+     *     DWORD TmLogPathOffset;
+     * } *PTXFS_QUERY_RM_INFORMATION
+     * }
+     */
+    public static final AddressLayout PTXFS_QUERY_RM_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_ROLLFORWARD_REDO_INFORMATION {
+     *     LARGE_INTEGER LastVirtualClock;
+     *     DWORDLONG LastRedoLsn;
+     *     DWORDLONG HighestRecoveryLsn;
+     *     DWORD Flags;
+     * } *PTXFS_ROLLFORWARD_REDO_INFORMATION
+     * }
+     */
+    public static final AddressLayout PTXFS_ROLLFORWARD_REDO_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_START_RM_INFORMATION {
+     *     DWORD Flags;
+     *     DWORDLONG LogContainerSize;
+     *     DWORD LogContainerCountMin;
+     *     DWORD LogContainerCountMax;
+     *     DWORD LogGrowthIncrement;
+     *     DWORD LogAutoShrinkPercentage;
+     *     DWORD TmLogPathOffset;
+     *     WORD TmLogPathLength;
+     *     WORD LoggingMode;
+     *     WORD LogPathLength;
+     *     WORD Reserved;
+     *     WCHAR LogPath[1];
+     * } *PTXFS_START_RM_INFORMATION
+     * }
+     */
+    public static final AddressLayout PTXFS_START_RM_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_GET_METADATA_INFO_OUT {
+     *     struct {
+     *         LONGLONG LowPart;
+     *         LONGLONG HighPart;
+     *     } TxfFileId;
+     *     GUID LockingTransaction;
+     *     DWORDLONG LastLsn;
+     *     DWORD TransactionState;
+     * } *PTXFS_GET_METADATA_INFO_OUT
+     * }
+     */
+    public static final AddressLayout PTXFS_GET_METADATA_INFO_OUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY {
+     *     DWORDLONG Offset;
+     *     DWORD NameFlags;
+     *     LONGLONG FileId;
+     *     DWORD Reserved1;
+     *     DWORD Reserved2;
+     *     LONGLONG Reserved3;
+     *     WCHAR FileName[1];
+     * } *PTXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY
+     * }
+     */
+    public static final AddressLayout PTXFS_LIST_TRANSACTION_LOCKED_FILES_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_LIST_TRANSACTION_LOCKED_FILES {
+     *     GUID KtmTransaction;
+     *     DWORDLONG NumberOfFiles;
+     *     DWORDLONG BufferSizeRequired;
+     *     DWORDLONG Offset;
+     * } *PTXFS_LIST_TRANSACTION_LOCKED_FILES
+     * }
+     */
+    public static final AddressLayout PTXFS_LIST_TRANSACTION_LOCKED_FILES = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_LIST_TRANSACTIONS_ENTRY {
+     *     GUID TransactionId;
+     *     DWORD TransactionState;
+     *     DWORD Reserved1;
+     *     DWORD Reserved2;
+     *     LONGLONG Reserved3;
+     * } *PTXFS_LIST_TRANSACTIONS_ENTRY
+     * }
+     */
+    public static final AddressLayout PTXFS_LIST_TRANSACTIONS_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_LIST_TRANSACTIONS {
+     *     DWORDLONG NumberOfTransactions;
+     *     DWORDLONG BufferSizeRequired;
+     * } *PTXFS_LIST_TRANSACTIONS
+     * }
+     */
+    public static final AddressLayout PTXFS_LIST_TRANSACTIONS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_READ_BACKUP_INFORMATION_OUT {
+     *     union {
+     *         DWORD BufferLength;
+     *         BYTE Buffer[1];
+     *     };
+     * } *PTXFS_READ_BACKUP_INFORMATION_OUT
+     * }
+     */
+    public static final AddressLayout PTXFS_READ_BACKUP_INFORMATION_OUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_WRITE_BACKUP_INFORMATION {
+     *     BYTE Buffer[1];
+     * } *PTXFS_WRITE_BACKUP_INFORMATION
+     * }
+     */
+    public static final AddressLayout PTXFS_WRITE_BACKUP_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_GET_TRANSACTED_VERSION {
+     *     DWORD ThisBaseVersion;
+     *     DWORD LatestVersion;
+     *     WORD ThisMiniVersion;
+     *     WORD FirstMiniVersion;
+     *     WORD LatestMiniVersion;
+     * } *PTXFS_GET_TRANSACTED_VERSION
+     * }
+     */
+    public static final AddressLayout PTXFS_GET_TRANSACTED_VERSION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_SAVEPOINT_INFORMATION {
+     *     HANDLE KtmTransaction;
+     *     DWORD ActionCode;
+     *     DWORD SavepointId;
+     * } *PTXFS_SAVEPOINT_INFORMATION
+     * }
+     */
+    public static final AddressLayout PTXFS_SAVEPOINT_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_CREATE_MINIVERSION_INFO {
+     *     WORD StructureVersion;
+     *     WORD StructureLength;
+     *     DWORD BaseVersion;
+     *     WORD MiniVersion;
+     * } *PTXFS_CREATE_MINIVERSION_INFO
+     * }
+     */
+    public static final AddressLayout PTXFS_CREATE_MINIVERSION_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _TXFS_TRANSACTION_ACTIVE_INFO {
+     *     BOOLEAN TransactionsActiveAtSnapshot;
+     * } *PTXFS_TRANSACTION_ACTIVE_INFO
+     * }
+     */
+    public static final AddressLayout PTXFS_TRANSACTION_ACTIVE_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _BOOT_AREA_INFO {
+     *     DWORD BootSectorCount;
+     *     struct {
+     *         LARGE_INTEGER Offset;
+     *     } BootSectors[2];
+     * } *PBOOT_AREA_INFO
+     * }
+     */
+    public static final AddressLayout PBOOT_AREA_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _RETRIEVAL_POINTER_BASE {
+     *     LARGE_INTEGER FileAreaOffset;
+     * } *PRETRIEVAL_POINTER_BASE
+     * }
+     */
+    public static final AddressLayout PRETRIEVAL_POINTER_BASE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_FS_PERSISTENT_VOLUME_INFORMATION {
+     *     DWORD VolumeFlags;
+     *     DWORD FlagMask;
+     *     DWORD Version;
+     *     DWORD Reserved;
+     * } *PFILE_FS_PERSISTENT_VOLUME_INFORMATION
+     * }
+     */
+    public static final AddressLayout PFILE_FS_PERSISTENT_VOLUME_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_SYSTEM_RECOGNITION_INFORMATION {
+     *     CHAR FileSystem[9];
+     * } *PFILE_SYSTEM_RECOGNITION_INFORMATION
+     * }
+     */
+    public static final AddressLayout PFILE_SYSTEM_RECOGNITION_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _REQUEST_OPLOCK_INPUT_BUFFER {
+     *     WORD StructureVersion;
+     *     WORD StructureLength;
+     *     DWORD RequestedOplockLevel;
+     *     DWORD Flags;
+     * } *PREQUEST_OPLOCK_INPUT_BUFFER
+     * }
+     */
+    public static final AddressLayout PREQUEST_OPLOCK_INPUT_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _REQUEST_OPLOCK_OUTPUT_BUFFER {
+     *     WORD StructureVersion;
+     *     WORD StructureLength;
+     *     DWORD OriginalOplockLevel;
+     *     DWORD NewOplockLevel;
+     *     DWORD Flags;
+     *     ACCESS_MASK AccessMode;
+     *     WORD ShareMode;
+     * } *PREQUEST_OPLOCK_OUTPUT_BUFFER
+     * }
+     */
+    public static final AddressLayout PREQUEST_OPLOCK_OUTPUT_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _VIRTUAL_STORAGE_TYPE {
+     *     DWORD DeviceId;
+     *     GUID VendorId;
+     * } *PVIRTUAL_STORAGE_TYPE
+     * }
+     */
+    public static final AddressLayout PVIRTUAL_STORAGE_TYPE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_QUERY_DEPENDENT_VOLUME_REQUEST {
+     *     DWORD RequestLevel;
+     *     DWORD RequestFlags;
+     * } *PSTORAGE_QUERY_DEPENDENT_VOLUME_REQUEST
+     * }
+     */
+    public static final AddressLayout PSTORAGE_QUERY_DEPENDENT_VOLUME_REQUEST = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY {
+     *     DWORD EntryLength;
+     *     DWORD DependencyTypeFlags;
+     *     DWORD ProviderSpecificFlags;
+     *     VIRTUAL_STORAGE_TYPE VirtualStorageType;
+     * } *PSTORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY
+     * }
+     */
+    public static final AddressLayout PSTORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY {
+     *     DWORD EntryLength;
+     *     DWORD DependencyTypeFlags;
+     *     DWORD ProviderSpecificFlags;
+     *     VIRTUAL_STORAGE_TYPE VirtualStorageType;
+     *     DWORD AncestorLevel;
+     *     DWORD HostVolumeNameOffset;
+     *     DWORD HostVolumeNameSize;
+     *     DWORD DependentVolumeNameOffset;
+     *     DWORD DependentVolumeNameSize;
+     *     DWORD RelativePathOffset;
+     *     DWORD RelativePathSize;
+     *     DWORD DependentDeviceNameOffset;
+     *     DWORD DependentDeviceNameSize;
+     * } *PSTORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY
+     * }
+     */
+    public static final AddressLayout PSTORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE {
+     *     DWORD ResponseLevel;
+     *     DWORD NumberEntries;
+     *     union {
+     *         STORAGE_QUERY_DEPENDENT_VOLUME_LEV1_ENTRY Lev1Depends[];
+     *         STORAGE_QUERY_DEPENDENT_VOLUME_LEV2_ENTRY Lev2Depends[];
+     *     };
+     * } *PSTORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE
+     * }
+     */
+    public static final AddressLayout PSTORAGE_QUERY_DEPENDENT_VOLUME_RESPONSE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SD_CHANGE_MACHINE_SID_INPUT {
+     *     WORD CurrentMachineSIDOffset;
+     *     WORD CurrentMachineSIDLength;
+     *     WORD NewMachineSIDOffset;
+     *     WORD NewMachineSIDLength;
+     * } *PSD_CHANGE_MACHINE_SID_INPUT
+     * }
+     */
+    public static final AddressLayout PSD_CHANGE_MACHINE_SID_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SD_CHANGE_MACHINE_SID_OUTPUT {
+     *     DWORDLONG NumSDChangedSuccess;
+     *     DWORDLONG NumSDChangedFail;
+     *     DWORDLONG NumSDUnused;
+     *     DWORDLONG NumSDTotal;
+     *     DWORDLONG NumMftSDChangedSuccess;
+     *     DWORDLONG NumMftSDChangedFail;
+     *     DWORDLONG NumMftSDTotal;
+     * } *PSD_CHANGE_MACHINE_SID_OUTPUT
+     * }
+     */
+    public static final AddressLayout PSD_CHANGE_MACHINE_SID_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SD_QUERY_STATS_INPUT {
+     *     DWORD Reserved;
+     * } *PSD_QUERY_STATS_INPUT
+     * }
+     */
+    public static final AddressLayout PSD_QUERY_STATS_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SD_QUERY_STATS_OUTPUT {
+     *     DWORDLONG SdsStreamSize;
+     *     DWORDLONG SdsAllocationSize;
+     *     DWORDLONG SiiStreamSize;
+     *     DWORDLONG SiiAllocationSize;
+     *     DWORDLONG SdhStreamSize;
+     *     DWORDLONG SdhAllocationSize;
+     *     DWORDLONG NumSDTotal;
+     *     DWORDLONG NumSDUnused;
+     * } *PSD_QUERY_STATS_OUTPUT
+     * }
+     */
+    public static final AddressLayout PSD_QUERY_STATS_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SD_ENUM_SDS_INPUT {
+     *     DWORDLONG StartingOffset;
+     *     DWORDLONG MaxSDEntriesToReturn;
+     * } *PSD_ENUM_SDS_INPUT
+     * }
+     */
+    public static final AddressLayout PSD_ENUM_SDS_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SD_ENUM_SDS_ENTRY {
+     *     DWORD Hash;
+     *     DWORD SecurityId;
+     *     DWORDLONG Offset;
+     *     DWORD Length;
+     *     BYTE Descriptor[1];
+     * } *PSD_ENUM_SDS_ENTRY
+     * }
+     */
+    public static final AddressLayout PSD_ENUM_SDS_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SD_ENUM_SDS_OUTPUT {
+     *     DWORDLONG NextOffset;
+     *     DWORDLONG NumSDEntriesReturned;
+     *     DWORDLONG NumSDBytesReturned;
+     *     SD_ENUM_SDS_ENTRY SDEntry[1];
+     * } *PSD_ENUM_SDS_OUTPUT
+     * }
+     */
+    public static final AddressLayout PSD_ENUM_SDS_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SD_GLOBAL_CHANGE_INPUT {
+     *     DWORD Flags;
+     *     DWORD ChangeType;
+     *     union {
+     *         SD_CHANGE_MACHINE_SID_INPUT SdChange;
+     *         SD_QUERY_STATS_INPUT SdQueryStats;
+     *         SD_ENUM_SDS_INPUT SdEnumSds;
+     *     };
+     * } *PSD_GLOBAL_CHANGE_INPUT
+     * }
+     */
+    public static final AddressLayout PSD_GLOBAL_CHANGE_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SD_GLOBAL_CHANGE_OUTPUT {
+     *     DWORD Flags;
+     *     DWORD ChangeType;
+     *     union {
+     *         SD_CHANGE_MACHINE_SID_OUTPUT SdChange;
+     *         SD_QUERY_STATS_OUTPUT SdQueryStats;
+     *         SD_ENUM_SDS_OUTPUT SdEnumSds;
+     *     };
+     * } *PSD_GLOBAL_CHANGE_OUTPUT
+     * }
+     */
+    public static final AddressLayout PSD_GLOBAL_CHANGE_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _LOOKUP_STREAM_FROM_CLUSTER_INPUT {
+     *     DWORD Flags;
+     *     DWORD NumberOfClusters;
+     *     LARGE_INTEGER Cluster[1];
+     * } *PLOOKUP_STREAM_FROM_CLUSTER_INPUT
+     * }
+     */
+    public static final AddressLayout PLOOKUP_STREAM_FROM_CLUSTER_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _LOOKUP_STREAM_FROM_CLUSTER_OUTPUT {
+     *     DWORD Offset;
+     *     DWORD NumberOfMatches;
+     *     DWORD BufferSizeRequired;
+     * } *PLOOKUP_STREAM_FROM_CLUSTER_OUTPUT
+     * }
+     */
+    public static final AddressLayout PLOOKUP_STREAM_FROM_CLUSTER_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _LOOKUP_STREAM_FROM_CLUSTER_ENTRY {
+     *     DWORD OffsetToNext;
+     *     DWORD Flags;
+     *     LARGE_INTEGER Reserved;
+     *     LARGE_INTEGER Cluster;
+     *     WCHAR FileName[1];
+     * } *PLOOKUP_STREAM_FROM_CLUSTER_ENTRY
+     * }
+     */
+    public static final AddressLayout PLOOKUP_STREAM_FROM_CLUSTER_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_TYPE_NOTIFICATION_INPUT {
+     *     DWORD Flags;
+     *     DWORD NumFileTypeIDs;
+     *     GUID FileTypeID[1];
+     * } *PFILE_TYPE_NOTIFICATION_INPUT
+     * }
+     */
+    public static final AddressLayout PFILE_TYPE_NOTIFICATION_INPUT = Windows_h.C_POINTER;
+
+    private static class FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE").reinterpret(LAYOUT.byteSize());
+    }
+
+    /**
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE
+     * }
+     */
+    public static GroupLayout FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE$layout() {
+        return FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE$constants.LAYOUT;
+    }
+
+    /**
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE
+     * }
+     */
+    public static MemorySegment FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE() {
+        return FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE$constants.SEGMENT;
+    }
+
+    /**
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE
+     * }
+     */
+    public static void FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE$constants.SEGMENT, 0L, FILE_TYPE_NOTIFICATION_GUID_PAGE_FILE$constants.LAYOUT.byteSize());
+    }
+
+    private static class FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE").reinterpret(LAYOUT.byteSize());
+    }
+
+    /**
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE
+     * }
+     */
+    public static GroupLayout FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE$layout() {
+        return FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE$constants.LAYOUT;
+    }
+
+    /**
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE
+     * }
+     */
+    public static MemorySegment FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE() {
+        return FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE$constants.SEGMENT;
+    }
+
+    /**
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE
+     * }
+     */
+    public static void FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE$constants.SEGMENT, 0L, FILE_TYPE_NOTIFICATION_GUID_HIBERNATION_FILE$constants.LAYOUT.byteSize());
+    }
+
+    private static class FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE").reinterpret(LAYOUT.byteSize());
+    }
+
+    /**
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE
+     * }
+     */
+    public static GroupLayout FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE$layout() {
+        return FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE$constants.LAYOUT;
+    }
+
+    /**
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE
+     * }
+     */
+    public static MemorySegment FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE() {
+        return FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE$constants.SEGMENT;
+    }
+
+    /**
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE
+     * }
+     */
+    public static void FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE$constants.SEGMENT, 0L, FILE_TYPE_NOTIFICATION_GUID_CRASHDUMP_FILE$constants.LAYOUT.byteSize());
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CSV_MGMT_LOCK {
+     *     DWORD Flags;
+     * } *PCSV_MGMT_LOCK
+     * }
+     */
+    public static final AddressLayout PCSV_MGMT_LOCK = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CSV_NAMESPACE_INFO {
+     *     DWORD Version;
+     *     DWORD DeviceNumber;
+     *     LARGE_INTEGER StartingOffset;
+     *     DWORD SectorSize;
+     * } *PCSV_NAMESPACE_INFO
+     * }
+     */
+    public static final AddressLayout PCSV_NAMESPACE_INFO = Windows_h.C_POINTER;
+    private static final int CsvControlStartRedirectFile = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlStartRedirectFile = 2
+     * }
+     */
+    public static int CsvControlStartRedirectFile() {
+        return CsvControlStartRedirectFile;
+    }
+    private static final int CsvControlStopRedirectFile = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlStopRedirectFile = 3
+     * }
+     */
+    public static int CsvControlStopRedirectFile() {
+        return CsvControlStopRedirectFile;
+    }
+    private static final int CsvControlQueryRedirectState = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlQueryRedirectState = 4
+     * }
+     */
+    public static int CsvControlQueryRedirectState() {
+        return CsvControlQueryRedirectState;
+    }
+    private static final int CsvControlQueryFileRevision = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlQueryFileRevision = 6
+     * }
+     */
+    public static int CsvControlQueryFileRevision() {
+        return CsvControlQueryFileRevision;
+    }
+    private static final int CsvControlQueryMdsPath = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlQueryMdsPath = 8
+     * }
+     */
+    public static int CsvControlQueryMdsPath() {
+        return CsvControlQueryMdsPath;
+    }
+    private static final int CsvControlQueryFileRevisionFileId128 = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlQueryFileRevisionFileId128 = 9
+     * }
+     */
+    public static int CsvControlQueryFileRevisionFileId128() {
+        return CsvControlQueryFileRevisionFileId128;
+    }
+    private static final int CsvControlQueryVolumeRedirectState = (int)10L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlQueryVolumeRedirectState = 10
+     * }
+     */
+    public static int CsvControlQueryVolumeRedirectState() {
+        return CsvControlQueryVolumeRedirectState;
+    }
+    private static final int CsvControlEnableUSNRangeModificationTracking = (int)13L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlEnableUSNRangeModificationTracking = 13
+     * }
+     */
+    public static int CsvControlEnableUSNRangeModificationTracking() {
+        return CsvControlEnableUSNRangeModificationTracking;
+    }
+    private static final int CsvControlMarkHandleLocalVolumeMount = (int)14L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlMarkHandleLocalVolumeMount = 14
+     * }
+     */
+    public static int CsvControlMarkHandleLocalVolumeMount() {
+        return CsvControlMarkHandleLocalVolumeMount;
+    }
+    private static final int CsvControlUnmarkHandleLocalVolumeMount = (int)15L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlUnmarkHandleLocalVolumeMount = 15
+     * }
+     */
+    public static int CsvControlUnmarkHandleLocalVolumeMount() {
+        return CsvControlUnmarkHandleLocalVolumeMount;
+    }
+    private static final int CsvControlGetCsvFsMdsPathV2 = (int)18L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlGetCsvFsMdsPathV2 = 18
+     * }
+     */
+    public static int CsvControlGetCsvFsMdsPathV2() {
+        return CsvControlGetCsvFsMdsPathV2;
+    }
+    private static final int CsvControlDisableCaching = (int)19L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlDisableCaching = 19
+     * }
+     */
+    public static int CsvControlDisableCaching() {
+        return CsvControlDisableCaching;
+    }
+    private static final int CsvControlEnableCaching = (int)20L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlEnableCaching = 20
+     * }
+     */
+    public static int CsvControlEnableCaching() {
+        return CsvControlEnableCaching;
+    }
+    private static final int CsvControlStartForceDFO = (int)21L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlStartForceDFO = 21
+     * }
+     */
+    public static int CsvControlStartForceDFO() {
+        return CsvControlStartForceDFO;
+    }
+    private static final int CsvControlStopForceDFO = (int)22L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlStopForceDFO = 22
+     * }
+     */
+    public static int CsvControlStopForceDFO() {
+        return CsvControlStopForceDFO;
+    }
+    private static final int CsvControlQueryMdsPathNoPause = (int)23L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlQueryMdsPathNoPause = 23
+     * }
+     */
+    public static int CsvControlQueryMdsPathNoPause() {
+        return CsvControlQueryMdsPathNoPause;
+    }
+    private static final int CsvControlSetVolumeId = (int)24L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlSetVolumeId = 24
+     * }
+     */
+    public static int CsvControlSetVolumeId() {
+        return CsvControlSetVolumeId;
+    }
+    private static final int CsvControlQueryVolumeId = (int)25L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSV_CONTROL_OP.CsvControlQueryVolumeId = 25
+     * }
+     */
+    public static int CsvControlQueryVolumeId() {
+        return CsvControlQueryVolumeId;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _CSV_CONTROL_OP {
+     *     CsvControlStartRedirectFile = 2,
+     *     CsvControlStopRedirectFile = 3,
+     *     CsvControlQueryRedirectState = 4,
+     *     CsvControlQueryFileRevision = 6,
+     *     CsvControlQueryMdsPath = 8,
+     *     CsvControlQueryFileRevisionFileId128 = 9,
+     *     CsvControlQueryVolumeRedirectState = 10,
+     *     CsvControlEnableUSNRangeModificationTracking = 13,
+     *     CsvControlMarkHandleLocalVolumeMount = 14,
+     *     CsvControlUnmarkHandleLocalVolumeMount = 15,
+     *     CsvControlGetCsvFsMdsPathV2 = 18,
+     *     CsvControlDisableCaching = 19,
+     *     CsvControlEnableCaching = 20,
+     *     CsvControlStartForceDFO = 21,
+     *     CsvControlStopForceDFO = 22,
+     *     CsvControlQueryMdsPathNoPause = 23,
+     *     CsvControlSetVolumeId = 24,
+     *     CsvControlQueryVolumeId = 25
+     * } *PCSV_CONTROL_OP
+     * }
+     */
+    public static final AddressLayout PCSV_CONTROL_OP = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CSV_CONTROL_PARAM {
+     *     CSV_CONTROL_OP Operation;
+     *     LONGLONG Unused;
+     * } *PCSV_CONTROL_PARAM
+     * }
+     */
+    public static final AddressLayout PCSV_CONTROL_PARAM = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CSV_QUERY_REDIRECT_STATE {
+     *     DWORD MdsNodeId;
+     *     DWORD DsNodeId;
+     *     BOOLEAN FileRedirected;
+     * } *PCSV_QUERY_REDIRECT_STATE
+     * }
+     */
+    public static final AddressLayout PCSV_QUERY_REDIRECT_STATE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CSV_QUERY_FILE_REVISION {
+     *     LONGLONG FileId;
+     *     LONGLONG FileRevision[3];
+     * } *PCSV_QUERY_FILE_REVISION
+     * }
+     */
+    public static final AddressLayout PCSV_QUERY_FILE_REVISION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CSV_QUERY_FILE_REVISION_FILE_ID_128 {
+     *     FILE_ID_128 FileId;
+     *     LONGLONG FileRevision[3];
+     * } *PCSV_QUERY_FILE_REVISION_FILE_ID_128
+     * }
+     */
+    public static final AddressLayout PCSV_QUERY_FILE_REVISION_FILE_ID_128 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CSV_QUERY_MDS_PATH {
+     *     DWORD MdsNodeId;
+     *     DWORD DsNodeId;
+     *     DWORD PathLength;
+     *     WCHAR Path[1];
+     * } *PCSV_QUERY_MDS_PATH
+     * }
+     */
+    public static final AddressLayout PCSV_QUERY_MDS_PATH = Windows_h.C_POINTER;
+    private static final int CsvFsDiskConnectivityNone = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSVFS_DISK_CONNECTIVITY.CsvFsDiskConnectivityNone = 0
+     * }
+     */
+    public static int CsvFsDiskConnectivityNone() {
+        return CsvFsDiskConnectivityNone;
+    }
+    private static final int CsvFsDiskConnectivityMdsNodeOnly = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSVFS_DISK_CONNECTIVITY.CsvFsDiskConnectivityMdsNodeOnly = 1
+     * }
+     */
+    public static int CsvFsDiskConnectivityMdsNodeOnly() {
+        return CsvFsDiskConnectivityMdsNodeOnly;
+    }
+    private static final int CsvFsDiskConnectivitySubsetOfNodes = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSVFS_DISK_CONNECTIVITY.CsvFsDiskConnectivitySubsetOfNodes = 2
+     * }
+     */
+    public static int CsvFsDiskConnectivitySubsetOfNodes() {
+        return CsvFsDiskConnectivitySubsetOfNodes;
+    }
+    private static final int CsvFsDiskConnectivityAllNodes = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _CSVFS_DISK_CONNECTIVITY.CsvFsDiskConnectivityAllNodes = 3
+     * }
+     */
+    public static int CsvFsDiskConnectivityAllNodes() {
+        return CsvFsDiskConnectivityAllNodes;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _CSVFS_DISK_CONNECTIVITY {
+     *     CsvFsDiskConnectivityNone = 0,
+     *     CsvFsDiskConnectivityMdsNodeOnly = 1,
+     *     CsvFsDiskConnectivitySubsetOfNodes = 2,
+     *     CsvFsDiskConnectivityAllNodes = 3
+     * } *PCSVFS_DISK_CONNECTIVITY
+     * }
+     */
+    public static final AddressLayout PCSVFS_DISK_CONNECTIVITY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CSV_QUERY_VOLUME_REDIRECT_STATE {
+     *     DWORD MdsNodeId;
+     *     DWORD DsNodeId;
+     *     BOOLEAN IsDiskConnected;
+     *     BOOLEAN ClusterEnableDirectIo;
+     *     CSVFS_DISK_CONNECTIVITY DiskConnectivity;
+     * } *PCSV_QUERY_VOLUME_REDIRECT_STATE
+     * }
+     */
+    public static final AddressLayout PCSV_QUERY_VOLUME_REDIRECT_STATE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CSV_QUERY_MDS_PATH_V2 {
+     *     LONGLONG Version;
+     *     DWORD RequiredSize;
+     *     DWORD MdsNodeId;
+     *     DWORD DsNodeId;
+     *     DWORD Flags;
+     *     CSVFS_DISK_CONNECTIVITY DiskConnectivity;
+     *     GUID VolumeId;
+     *     DWORD IpAddressOffset;
+     *     DWORD IpAddressLength;
+     *     DWORD PathOffset;
+     *     DWORD PathLength;
+     * } *PCSV_QUERY_MDS_PATH_V2
+     * }
+     */
+    public static final AddressLayout PCSV_QUERY_MDS_PATH_V2 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CSV_SET_VOLUME_ID {
+     *     GUID VolumeId;
+     * } *PCSV_SET_VOLUME_ID
+     * }
+     */
+    public static final AddressLayout PCSV_SET_VOLUME_ID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CSV_QUERY_VOLUME_ID {
+     *     GUID VolumeId;
+     * } *PCSV_QUERY_VOLUME_ID
+     * }
+     */
+    public static final AddressLayout PCSV_QUERY_VOLUME_ID = Windows_h.C_POINTER;
+    private static final int LMRQuerySessionInfo = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _LMR_QUERY_INFO_CLASS.LMRQuerySessionInfo = 1
+     * }
+     */
+    public static int LMRQuerySessionInfo() {
+        return LMRQuerySessionInfo;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _LMR_QUERY_INFO_CLASS {
+     *     LMRQuerySessionInfo = 1
+     * } *PLMR_QUERY_INFO_CLASS
+     * }
+     */
+    public static final AddressLayout PLMR_QUERY_INFO_CLASS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _LMR_QUERY_INFO_PARAM {
+     *     LMR_QUERY_INFO_CLASS Operation;
+     * } *PLMR_QUERY_INFO_PARAM
+     * }
+     */
+    public static final AddressLayout PLMR_QUERY_INFO_PARAM = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _LMR_QUERY_SESSION_INFO {
+     *     UINT64 SessionId;
+     * } *PLMR_QUERY_SESSION_INFO
+     * }
+     */
+    public static final AddressLayout PLMR_QUERY_SESSION_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT {
+     *     DWORDLONG VetoedFromAltitudeIntegral;
+     *     DWORDLONG VetoedFromAltitudeDecimal;
+     *     WCHAR Reason[256];
+     * } *PCSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT
+     * }
+     */
+    public static final AddressLayout PCSV_QUERY_VETO_FILE_DIRECT_IO_OUTPUT = Windows_h.C_POINTER;
+    private static final int StorageReserveIdNone = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_RESERVE_ID.StorageReserveIdNone = 0
+     * }
+     */
+    public static int StorageReserveIdNone() {
+        return StorageReserveIdNone;
+    }
+    private static final int StorageReserveIdHard = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_RESERVE_ID.StorageReserveIdHard = 1
+     * }
+     */
+    public static int StorageReserveIdHard() {
+        return StorageReserveIdHard;
+    }
+    private static final int StorageReserveIdSoft = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_RESERVE_ID.StorageReserveIdSoft = 2
+     * }
+     */
+    public static int StorageReserveIdSoft() {
+        return StorageReserveIdSoft;
+    }
+    private static final int StorageReserveIdUpdateScratch = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_RESERVE_ID.StorageReserveIdUpdateScratch = 3
+     * }
+     */
+    public static int StorageReserveIdUpdateScratch() {
+        return StorageReserveIdUpdateScratch;
+    }
+    private static final int StorageReserveIdMax = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _STORAGE_RESERVE_ID.StorageReserveIdMax = 4
+     * }
+     */
+    public static int StorageReserveIdMax() {
+        return StorageReserveIdMax;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _STORAGE_RESERVE_ID {
+     *     StorageReserveIdNone = 0,
+     *     StorageReserveIdHard,
+     *     StorageReserveIdSoft,
+     *     StorageReserveIdUpdateScratch,
+     *     StorageReserveIdMax
+     * } *PSTORAGE_RESERVE_ID
+     * }
+     */
+    public static final AddressLayout PSTORAGE_RESERVE_ID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CSV_IS_OWNED_BY_CSVFS {
+     *     BOOLEAN OwnedByCSVFS;
+     * } *PCSV_IS_OWNED_BY_CSVFS
+     * }
+     */
+    public static final AddressLayout PCSV_IS_OWNED_BY_CSVFS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_LEVEL_TRIM_RANGE {
+     *     DWORDLONG Offset;
+     *     DWORDLONG Length;
+     * } *PFILE_LEVEL_TRIM_RANGE
+     * }
+     */
+    public static final AddressLayout PFILE_LEVEL_TRIM_RANGE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_LEVEL_TRIM {
+     *     DWORD Key;
+     *     DWORD NumRanges;
+     *     FILE_LEVEL_TRIM_RANGE Ranges[1];
+     * } *PFILE_LEVEL_TRIM
+     * }
+     */
+    public static final AddressLayout PFILE_LEVEL_TRIM = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_LEVEL_TRIM_OUTPUT {
+     *     DWORD NumRangesProcessed;
+     * } *PFILE_LEVEL_TRIM_OUTPUT
+     * }
+     */
+    public static final AddressLayout PFILE_LEVEL_TRIM_OUTPUT = Windows_h.C_POINTER;
+    private static final int QUERY_FILE_LAYOUT_FILTER_TYPE_NONE = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _QUERY_FILE_LAYOUT_FILTER_TYPE.QUERY_FILE_LAYOUT_FILTER_TYPE_NONE = 0
+     * }
+     */
+    public static int QUERY_FILE_LAYOUT_FILTER_TYPE_NONE() {
+        return QUERY_FILE_LAYOUT_FILTER_TYPE_NONE;
+    }
+    private static final int QUERY_FILE_LAYOUT_FILTER_TYPE_CLUSTERS = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _QUERY_FILE_LAYOUT_FILTER_TYPE.QUERY_FILE_LAYOUT_FILTER_TYPE_CLUSTERS = 1
+     * }
+     */
+    public static int QUERY_FILE_LAYOUT_FILTER_TYPE_CLUSTERS() {
+        return QUERY_FILE_LAYOUT_FILTER_TYPE_CLUSTERS;
+    }
+    private static final int QUERY_FILE_LAYOUT_FILTER_TYPE_FILEID = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _QUERY_FILE_LAYOUT_FILTER_TYPE.QUERY_FILE_LAYOUT_FILTER_TYPE_FILEID = 2
+     * }
+     */
+    public static int QUERY_FILE_LAYOUT_FILTER_TYPE_FILEID() {
+        return QUERY_FILE_LAYOUT_FILTER_TYPE_FILEID;
+    }
+    private static final int QUERY_FILE_LAYOUT_FILTER_TYPE_STORAGE_RESERVE_ID = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _QUERY_FILE_LAYOUT_FILTER_TYPE.QUERY_FILE_LAYOUT_FILTER_TYPE_STORAGE_RESERVE_ID = 3
+     * }
+     */
+    public static int QUERY_FILE_LAYOUT_FILTER_TYPE_STORAGE_RESERVE_ID() {
+        return QUERY_FILE_LAYOUT_FILTER_TYPE_STORAGE_RESERVE_ID;
+    }
+    private static final int QUERY_FILE_LAYOUT_NUM_FILTER_TYPES = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _QUERY_FILE_LAYOUT_FILTER_TYPE.QUERY_FILE_LAYOUT_NUM_FILTER_TYPES = 4
+     * }
+     */
+    public static int QUERY_FILE_LAYOUT_NUM_FILTER_TYPES() {
+        return QUERY_FILE_LAYOUT_NUM_FILTER_TYPES;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CLUSTER_RANGE {
+     *     LARGE_INTEGER StartingCluster;
+     *     LARGE_INTEGER ClusterCount;
+     * } *PCLUSTER_RANGE
+     * }
+     */
+    public static final AddressLayout PCLUSTER_RANGE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_REFERENCE_RANGE {
+     *     DWORDLONG StartingFileReferenceNumber;
+     *     DWORDLONG EndingFileReferenceNumber;
+     * } *PFILE_REFERENCE_RANGE
+     * }
+     */
+    public static final AddressLayout PFILE_REFERENCE_RANGE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _QUERY_FILE_LAYOUT_INPUT {
+     *     union {
+     *         DWORD FilterEntryCount;
+     *         DWORD NumberOfPairs;
+     *     };
+     *     DWORD Flags;
+     *     QUERY_FILE_LAYOUT_FILTER_TYPE FilterType;
+     *     DWORD Reserved;
+     *     union {
+     *         CLUSTER_RANGE ClusterRanges[1];
+     *         FILE_REFERENCE_RANGE FileReferenceRanges[1];
+     *         STORAGE_RESERVE_ID StorageReserveIds[1];
+     *     } Filter;
+     * } *PQUERY_FILE_LAYOUT_INPUT
+     * }
+     */
+    public static final AddressLayout PQUERY_FILE_LAYOUT_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _QUERY_FILE_LAYOUT_OUTPUT {
+     *     DWORD FileEntryCount;
+     *     DWORD FirstFileOffset;
+     *     DWORD Flags;
+     *     DWORD Reserved;
+     * } *PQUERY_FILE_LAYOUT_OUTPUT
+     * }
+     */
+    public static final AddressLayout PQUERY_FILE_LAYOUT_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_LAYOUT_ENTRY {
+     *     DWORD Version;
+     *     DWORD NextFileOffset;
+     *     DWORD Flags;
+     *     DWORD FileAttributes;
+     *     DWORDLONG FileReferenceNumber;
+     *     DWORD FirstNameOffset;
+     *     DWORD FirstStreamOffset;
+     *     DWORD ExtraInfoOffset;
+     *     DWORD ExtraInfoLength;
+     * } *PFILE_LAYOUT_ENTRY
+     * }
+     */
+    public static final AddressLayout PFILE_LAYOUT_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_LAYOUT_NAME_ENTRY {
+     *     DWORD NextNameOffset;
+     *     DWORD Flags;
+     *     DWORDLONG ParentFileReferenceNumber;
+     *     DWORD FileNameLength;
+     *     DWORD Reserved;
+     *     WCHAR FileName[1];
+     * } *PFILE_LAYOUT_NAME_ENTRY
+     * }
+     */
+    public static final AddressLayout PFILE_LAYOUT_NAME_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_LAYOUT_INFO_ENTRY {
+     *     struct {
+     *         LARGE_INTEGER CreationTime;
+     *         LARGE_INTEGER LastAccessTime;
+     *         LARGE_INTEGER LastWriteTime;
+     *         LARGE_INTEGER ChangeTime;
+     *         DWORD FileAttributes;
+     *     } BasicInformation;
+     *     DWORD OwnerId;
+     *     DWORD SecurityId;
+     *     USN Usn;
+     *     STORAGE_RESERVE_ID StorageReserveId;
+     * } *PFILE_LAYOUT_INFO_ENTRY
+     * }
+     */
+    public static final AddressLayout PFILE_LAYOUT_INFO_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STREAM_LAYOUT_ENTRY {
+     *     DWORD Version;
+     *     DWORD NextStreamOffset;
+     *     DWORD Flags;
+     *     DWORD ExtentInformationOffset;
+     *     LARGE_INTEGER AllocationSize;
+     *     LARGE_INTEGER EndOfFile;
+     *     DWORD StreamInformationOffset;
+     *     DWORD AttributeTypeCode;
+     *     DWORD AttributeFlags;
+     *     DWORD StreamIdentifierLength;
+     *     WCHAR StreamIdentifier[1];
+     * } *PSTREAM_LAYOUT_ENTRY
+     * }
+     */
+    public static final AddressLayout PSTREAM_LAYOUT_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STREAM_EXTENT_ENTRY {
+     *     DWORD Flags;
+     *     union {
+     *         RETRIEVAL_POINTERS_BUFFER RetrievalPointers;
+     *     } ExtentInformation;
+     * } *PSTREAM_EXTENT_ENTRY
+     * }
+     */
+    public static final AddressLayout PSTREAM_EXTENT_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FSCTL_GET_INTEGRITY_INFORMATION_BUFFER {
+     *     WORD ChecksumAlgorithm;
+     *     WORD Reserved;
+     *     DWORD Flags;
+     *     DWORD ChecksumChunkSizeInBytes;
+     *     DWORD ClusterSizeInBytes;
+     * } *PFSCTL_GET_INTEGRITY_INFORMATION_BUFFER
+     * }
+     */
+    public static final AddressLayout PFSCTL_GET_INTEGRITY_INFORMATION_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FSCTL_SET_INTEGRITY_INFORMATION_BUFFER {
+     *     WORD ChecksumAlgorithm;
+     *     WORD Reserved;
+     *     DWORD Flags;
+     * } *PFSCTL_SET_INTEGRITY_INFORMATION_BUFFER
+     * }
+     */
+    public static final AddressLayout PFSCTL_SET_INTEGRITY_INFORMATION_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX {
+     *     BYTE EnableIntegrity;
+     *     BYTE KeepIntegrityStateUnchanged;
+     *     WORD Reserved;
+     *     DWORD Flags;
+     *     BYTE Version;
+     *     BYTE Reserved2[7];
+     * } *PFSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX
+     * }
+     */
+    public static final AddressLayout PFSCTL_SET_INTEGRITY_INFORMATION_BUFFER_EX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FSCTL_OFFLOAD_READ_INPUT {
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     DWORD TokenTimeToLive;
+     *     DWORD Reserved;
+     *     DWORDLONG FileOffset;
+     *     DWORDLONG CopyLength;
+     * } *PFSCTL_OFFLOAD_READ_INPUT
+     * }
+     */
+    public static final AddressLayout PFSCTL_OFFLOAD_READ_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FSCTL_OFFLOAD_READ_OUTPUT {
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     DWORDLONG TransferLength;
+     *     BYTE Token[512];
+     * } *PFSCTL_OFFLOAD_READ_OUTPUT
+     * }
+     */
+    public static final AddressLayout PFSCTL_OFFLOAD_READ_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FSCTL_OFFLOAD_WRITE_INPUT {
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     DWORDLONG FileOffset;
+     *     DWORDLONG CopyLength;
+     *     DWORDLONG TransferOffset;
+     *     BYTE Token[512];
+     * } *PFSCTL_OFFLOAD_WRITE_INPUT
+     * }
+     */
+    public static final AddressLayout PFSCTL_OFFLOAD_WRITE_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FSCTL_OFFLOAD_WRITE_OUTPUT {
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     DWORDLONG LengthWritten;
+     * } *PFSCTL_OFFLOAD_WRITE_OUTPUT
+     * }
+     */
+    public static final AddressLayout PFSCTL_OFFLOAD_WRITE_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SET_PURGE_FAILURE_MODE_INPUT {
+     *     DWORD Flags;
+     * } *PSET_PURGE_FAILURE_MODE_INPUT
+     * }
+     */
+    public static final AddressLayout PSET_PURGE_FAILURE_MODE_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _REPAIR_COPIES_INPUT {
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     LARGE_INTEGER FileOffset;
+     *     DWORD Length;
+     *     DWORD SourceCopy;
+     *     DWORD NumberOfRepairCopies;
+     *     DWORD RepairCopies[1];
+     * } *PREPAIR_COPIES_INPUT
+     * }
+     */
+    public static final AddressLayout PREPAIR_COPIES_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _REPAIR_COPIES_OUTPUT {
+     *     DWORD Size;
+     *     DWORD Status;
+     *     LARGE_INTEGER ResumeFileOffset;
+     * } *PREPAIR_COPIES_OUTPUT
+     * }
+     */
+    public static final AddressLayout PREPAIR_COPIES_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_REGION_INFO {
+     *     LONGLONG FileOffset;
+     *     LONGLONG Length;
+     *     DWORD Usage;
+     *     DWORD Reserved;
+     * } *PFILE_REGION_INFO
+     * }
+     */
+    public static final AddressLayout PFILE_REGION_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_REGION_OUTPUT {
+     *     DWORD Flags;
+     *     DWORD TotalRegionEntryCount;
+     *     DWORD RegionEntryCount;
+     *     DWORD Reserved;
+     *     FILE_REGION_INFO Region[1];
+     * } *PFILE_REGION_OUTPUT
+     * }
+     */
+    public static final AddressLayout PFILE_REGION_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_REGION_INPUT {
+     *     LONGLONG FileOffset;
+     *     LONGLONG Length;
+     *     DWORD DesiredUsage;
+     * } *PFILE_REGION_INPUT
+     * }
+     */
+    public static final AddressLayout PFILE_REGION_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _WRITE_USN_REASON_INPUT {
+     *     DWORD Flags;
+     *     DWORD UsnReasonToWrite;
+     * } *PWRITE_USN_REASON_INPUT
+     * }
+     */
+    public static final AddressLayout PWRITE_USN_REASON_INPUT = Windows_h.C_POINTER;
+    private static final int FileStorageTierMediaTypeUnspecified = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _FILE_STORAGE_TIER_MEDIA_TYPE.FileStorageTierMediaTypeUnspecified = 0
+     * }
+     */
+    public static int FileStorageTierMediaTypeUnspecified() {
+        return FileStorageTierMediaTypeUnspecified;
+    }
+    private static final int FileStorageTierMediaTypeDisk = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _FILE_STORAGE_TIER_MEDIA_TYPE.FileStorageTierMediaTypeDisk = 1
+     * }
+     */
+    public static int FileStorageTierMediaTypeDisk() {
+        return FileStorageTierMediaTypeDisk;
+    }
+    private static final int FileStorageTierMediaTypeSsd = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _FILE_STORAGE_TIER_MEDIA_TYPE.FileStorageTierMediaTypeSsd = 2
+     * }
+     */
+    public static int FileStorageTierMediaTypeSsd() {
+        return FileStorageTierMediaTypeSsd;
+    }
+    private static final int FileStorageTierMediaTypeScm = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _FILE_STORAGE_TIER_MEDIA_TYPE.FileStorageTierMediaTypeScm = 4
+     * }
+     */
+    public static int FileStorageTierMediaTypeScm() {
+        return FileStorageTierMediaTypeScm;
+    }
+    private static final int FileStorageTierMediaTypeMax = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _FILE_STORAGE_TIER_MEDIA_TYPE.FileStorageTierMediaTypeMax = 5
+     * }
+     */
+    public static int FileStorageTierMediaTypeMax() {
+        return FileStorageTierMediaTypeMax;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _FILE_STORAGE_TIER_MEDIA_TYPE {
+     *     FileStorageTierMediaTypeUnspecified = 0,
+     *     FileStorageTierMediaTypeDisk = 1,
+     *     FileStorageTierMediaTypeSsd = 2,
+     *     FileStorageTierMediaTypeScm = 4,
+     *     FileStorageTierMediaTypeMax
+     * } *PFILE_STORAGE_TIER_MEDIA_TYPE
+     * }
+     */
+    public static final AddressLayout PFILE_STORAGE_TIER_MEDIA_TYPE = Windows_h.C_POINTER;
+    private static final int FileStorageTierClassUnspecified = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _FILE_STORAGE_TIER_CLASS.FileStorageTierClassUnspecified = 0
+     * }
+     */
+    public static int FileStorageTierClassUnspecified() {
+        return FileStorageTierClassUnspecified;
+    }
+    private static final int FileStorageTierClassCapacity = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _FILE_STORAGE_TIER_CLASS.FileStorageTierClassCapacity = 1
+     * }
+     */
+    public static int FileStorageTierClassCapacity() {
+        return FileStorageTierClassCapacity;
+    }
+    private static final int FileStorageTierClassPerformance = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _FILE_STORAGE_TIER_CLASS.FileStorageTierClassPerformance = 2
+     * }
+     */
+    public static int FileStorageTierClassPerformance() {
+        return FileStorageTierClassPerformance;
+    }
+    private static final int FileStorageTierClassMax = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _FILE_STORAGE_TIER_CLASS.FileStorageTierClassMax = 3
+     * }
+     */
+    public static int FileStorageTierClassMax() {
+        return FileStorageTierClassMax;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _FILE_STORAGE_TIER_CLASS {
+     *     FileStorageTierClassUnspecified = 0,
+     *     FileStorageTierClassCapacity,
+     *     FileStorageTierClassPerformance,
+     *     FileStorageTierClassMax
+     * } *PFILE_STORAGE_TIER_CLASS
+     * }
+     */
+    public static final AddressLayout PFILE_STORAGE_TIER_CLASS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_STORAGE_TIER {
+     *     GUID Id;
+     *     WCHAR Name[256];
+     *     WCHAR Description[256];
+     *     DWORDLONG Flags;
+     *     DWORDLONG ProvisionedCapacity;
+     *     FILE_STORAGE_TIER_MEDIA_TYPE MediaType;
+     *     FILE_STORAGE_TIER_CLASS Class;
+     * } *PFILE_STORAGE_TIER
+     * }
+     */
+    public static final AddressLayout PFILE_STORAGE_TIER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FSCTL_QUERY_STORAGE_CLASSES_OUTPUT {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     DWORD TotalNumberOfTiers;
+     *     DWORD NumberOfTiersReturned;
+     *     FILE_STORAGE_TIER Tiers[1];
+     * } *PFSCTL_QUERY_STORAGE_CLASSES_OUTPUT
+     * }
+     */
+    public static final AddressLayout PFSCTL_QUERY_STORAGE_CLASSES_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STREAM_INFORMATION_ENTRY {
+     *     DWORD Version;
+     *     DWORD Flags;
+     *     union _StreamInformation {
+     *         struct _DesiredStorageClass {
+     *             FILE_STORAGE_TIER_CLASS Class;
+     *             DWORD Flags;
+     *         } DesiredStorageClass;
+     *         struct _DataStream {
+     *             WORD Length;
+     *             WORD Flags;
+     *             DWORD Reserved;
+     *             DWORDLONG Vdl;
+     *         } DataStream;
+     *         struct _Reparse {
+     *             WORD Length;
+     *             WORD Flags;
+     *             DWORD ReparseDataSize;
+     *             DWORD ReparseDataOffset;
+     *         } Reparse;
+     *         struct _Ea {
+     *             WORD Length;
+     *             WORD Flags;
+     *             DWORD EaSize;
+     *             DWORD EaInformationOffset;
+     *         } Ea;
+     *     } StreamInformation;
+     * } *PSTREAM_INFORMATION_ENTRY
+     * }
+     */
+    public static final AddressLayout PSTREAM_INFORMATION_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FSCTL_QUERY_REGION_INFO_INPUT {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     DWORD NumberOfTierIds;
+     *     GUID TierIds[1];
+     * } *PFSCTL_QUERY_REGION_INFO_INPUT
+     * }
+     */
+    public static final AddressLayout PFSCTL_QUERY_REGION_INFO_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_STORAGE_TIER_REGION {
+     *     GUID TierId;
+     *     DWORDLONG Offset;
+     *     DWORDLONG Length;
+     * } *PFILE_STORAGE_TIER_REGION
+     * }
+     */
+    public static final AddressLayout PFILE_STORAGE_TIER_REGION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FSCTL_QUERY_REGION_INFO_OUTPUT {
+     *     DWORD Version;
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     DWORD Reserved;
+     *     DWORDLONG Alignment;
+     *     DWORD TotalNumberOfRegions;
+     *     DWORD NumberOfRegionsReturned;
+     *     FILE_STORAGE_TIER_REGION Regions[1];
+     * } *PFSCTL_QUERY_REGION_INFO_OUTPUT
+     * }
+     */
+    public static final AddressLayout PFSCTL_QUERY_REGION_INFO_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_DESIRED_STORAGE_CLASS_INFORMATION {
+     *     FILE_STORAGE_TIER_CLASS Class;
+     *     DWORD Flags;
+     * } *PFILE_DESIRED_STORAGE_CLASS_INFORMATION
+     * }
+     */
+    public static final AddressLayout PFILE_DESIRED_STORAGE_CLASS_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DUPLICATE_EXTENTS_DATA {
+     *     HANDLE FileHandle;
+     *     LARGE_INTEGER SourceFileOffset;
+     *     LARGE_INTEGER TargetFileOffset;
+     *     LARGE_INTEGER ByteCount;
+     * } *PDUPLICATE_EXTENTS_DATA
+     * }
+     */
+    public static final AddressLayout PDUPLICATE_EXTENTS_DATA = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DUPLICATE_EXTENTS_DATA32 {
+     *     UINT32 FileHandle;
+     *     LARGE_INTEGER SourceFileOffset;
+     *     LARGE_INTEGER TargetFileOffset;
+     *     LARGE_INTEGER ByteCount;
+     * } *PDUPLICATE_EXTENTS_DATA32
+     * }
+     */
+    public static final AddressLayout PDUPLICATE_EXTENTS_DATA32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DUPLICATE_EXTENTS_DATA_EX {
+     *     SIZE_T Size;
+     *     HANDLE FileHandle;
+     *     LARGE_INTEGER SourceFileOffset;
+     *     LARGE_INTEGER TargetFileOffset;
+     *     LARGE_INTEGER ByteCount;
+     *     DWORD Flags;
+     * } *PDUPLICATE_EXTENTS_DATA_EX
+     * }
+     */
+    public static final AddressLayout PDUPLICATE_EXTENTS_DATA_EX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DUPLICATE_EXTENTS_DATA_EX32 {
+     *     DWORD32 Size;
+     *     DWORD32 FileHandle;
+     *     LARGE_INTEGER SourceFileOffset;
+     *     LARGE_INTEGER TargetFileOffset;
+     *     LARGE_INTEGER ByteCount;
+     *     DWORD Flags;
+     * } *PDUPLICATE_EXTENTS_DATA_EX32
+     * }
+     */
+    public static final AddressLayout PDUPLICATE_EXTENTS_DATA_EX32 = Windows_h.C_POINTER;
+    private static final int FileSnapStateInactive = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _DUPLICATE_EXTENTS_STATE.FileSnapStateInactive = 0
+     * }
+     */
+    public static int FileSnapStateInactive() {
+        return FileSnapStateInactive;
+    }
+    private static final int FileSnapStateSource = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _DUPLICATE_EXTENTS_STATE.FileSnapStateSource = 1
+     * }
+     */
+    public static int FileSnapStateSource() {
+        return FileSnapStateSource;
+    }
+    private static final int FileSnapStateTarget = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _DUPLICATE_EXTENTS_STATE.FileSnapStateTarget = 2
+     * }
+     */
+    public static int FileSnapStateTarget() {
+        return FileSnapStateTarget;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _DUPLICATE_EXTENTS_STATE {
+     *     FileSnapStateInactive = 0,
+     *     FileSnapStateSource,
+     *     FileSnapStateTarget
+     * } *PDUPLICATE_EXTENTS_STATE
+     * }
+     */
+    public static final AddressLayout PDUPLICATE_EXTENTS_STATE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _ASYNC_DUPLICATE_EXTENTS_STATUS {
+     *     DWORD Version;
+     *     DUPLICATE_EXTENTS_STATE State;
+     *     DWORDLONG SourceFileOffset;
+     *     DWORDLONG TargetFileOffset;
+     *     DWORDLONG ByteCount;
+     *     DWORDLONG BytesDuplicated;
+     * } *PASYNC_DUPLICATE_EXTENTS_STATUS
+     * }
+     */
+    public static final AddressLayout PASYNC_DUPLICATE_EXTENTS_STATUS = Windows_h.C_POINTER;
+    private static final int SmrGcStateInactive = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _REFS_SMR_VOLUME_GC_STATE.SmrGcStateInactive = 0
+     * }
+     */
+    public static int SmrGcStateInactive() {
+        return SmrGcStateInactive;
+    }
+    private static final int SmrGcStatePaused = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _REFS_SMR_VOLUME_GC_STATE.SmrGcStatePaused = 1
+     * }
+     */
+    public static int SmrGcStatePaused() {
+        return SmrGcStatePaused;
+    }
+    private static final int SmrGcStateActive = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _REFS_SMR_VOLUME_GC_STATE.SmrGcStateActive = 2
+     * }
+     */
+    public static int SmrGcStateActive() {
+        return SmrGcStateActive;
+    }
+    private static final int SmrGcStateActiveFullSpeed = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _REFS_SMR_VOLUME_GC_STATE.SmrGcStateActiveFullSpeed = 3
+     * }
+     */
+    public static int SmrGcStateActiveFullSpeed() {
+        return SmrGcStateActiveFullSpeed;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _REFS_SMR_VOLUME_GC_STATE {
+     *     SmrGcStateInactive = 0,
+     *     SmrGcStatePaused = 1,
+     *     SmrGcStateActive = 2,
+     *     SmrGcStateActiveFullSpeed = 3
+     * } *PREFS_SMR_VOLUME_GC_STATE
+     * }
+     */
+    public static final AddressLayout PREFS_SMR_VOLUME_GC_STATE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _REFS_SMR_VOLUME_INFO_OUTPUT {
+     *     DWORD Version;
+     *     DWORD Flags;
+     *     LARGE_INTEGER SizeOfRandomlyWritableTier;
+     *     LARGE_INTEGER FreeSpaceInRandomlyWritableTier;
+     *     LARGE_INTEGER SizeofSMRTier;
+     *     LARGE_INTEGER FreeSpaceInSMRTier;
+     *     LARGE_INTEGER UsableFreeSpaceInSMRTier;
+     *     REFS_SMR_VOLUME_GC_STATE VolumeGcState;
+     *     DWORD VolumeGcLastStatus;
+     *     DWORD CurrentGcBandFillPercentage;
+     *     DWORDLONG Unused[6];
+     * } *PREFS_SMR_VOLUME_INFO_OUTPUT
+     * }
+     */
+    public static final AddressLayout PREFS_SMR_VOLUME_INFO_OUTPUT = Windows_h.C_POINTER;
+    private static final int SmrGcActionStart = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _REFS_SMR_VOLUME_GC_ACTION.SmrGcActionStart = 1
+     * }
+     */
+    public static int SmrGcActionStart() {
+        return SmrGcActionStart;
+    }
+    private static final int SmrGcActionStartFullSpeed = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _REFS_SMR_VOLUME_GC_ACTION.SmrGcActionStartFullSpeed = 2
+     * }
+     */
+    public static int SmrGcActionStartFullSpeed() {
+        return SmrGcActionStartFullSpeed;
+    }
+    private static final int SmrGcActionPause = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _REFS_SMR_VOLUME_GC_ACTION.SmrGcActionPause = 3
+     * }
+     */
+    public static int SmrGcActionPause() {
+        return SmrGcActionPause;
+    }
+    private static final int SmrGcActionStop = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _REFS_SMR_VOLUME_GC_ACTION.SmrGcActionStop = 4
+     * }
+     */
+    public static int SmrGcActionStop() {
+        return SmrGcActionStop;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _REFS_SMR_VOLUME_GC_ACTION {
+     *     SmrGcActionStart = 1,
+     *     SmrGcActionStartFullSpeed = 2,
+     *     SmrGcActionPause = 3,
+     *     SmrGcActionStop = 4
+     * } *PREFS_SMR_VOLUME_GC_ACTION
+     * }
+     */
+    public static final AddressLayout PREFS_SMR_VOLUME_GC_ACTION = Windows_h.C_POINTER;
+    private static final int SmrGcMethodCompaction = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _REFS_SMR_VOLUME_GC_METHOD.SmrGcMethodCompaction = 1
+     * }
+     */
+    public static int SmrGcMethodCompaction() {
+        return SmrGcMethodCompaction;
+    }
+    private static final int SmrGcMethodCompression = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _REFS_SMR_VOLUME_GC_METHOD.SmrGcMethodCompression = 2
+     * }
+     */
+    public static int SmrGcMethodCompression() {
+        return SmrGcMethodCompression;
+    }
+    private static final int SmrGcMethodRotation = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _REFS_SMR_VOLUME_GC_METHOD.SmrGcMethodRotation = 3
+     * }
+     */
+    public static int SmrGcMethodRotation() {
+        return SmrGcMethodRotation;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _REFS_SMR_VOLUME_GC_METHOD {
+     *     SmrGcMethodCompaction = 1,
+     *     SmrGcMethodCompression = 2,
+     *     SmrGcMethodRotation = 3
+     * } *PREFS_SMR_VOLUME_GC_METHOD
+     * }
+     */
+    public static final AddressLayout PREFS_SMR_VOLUME_GC_METHOD = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _REFS_SMR_VOLUME_GC_PARAMETERS {
+     *     DWORD Version;
+     *     DWORD Flags;
+     *     REFS_SMR_VOLUME_GC_ACTION Action;
+     *     REFS_SMR_VOLUME_GC_METHOD Method;
+     *     DWORD IoGranularity;
+     *     DWORD CompressionFormat;
+     *     DWORDLONG Unused[8];
+     * } *PREFS_SMR_VOLUME_GC_PARAMETERS
+     * }
+     */
+    public static final AddressLayout PREFS_SMR_VOLUME_GC_PARAMETERS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER {
+     *     DWORD OptimalWriteSize;
+     *     DWORD StreamGranularitySize;
+     *     DWORD StreamIdMin;
+     *     DWORD StreamIdMax;
+     * } *PSTREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER
+     * }
+     */
+    public static final AddressLayout PSTREAMS_QUERY_PARAMETERS_OUTPUT_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STREAMS_ASSOCIATE_ID_INPUT_BUFFER {
+     *     DWORD Flags;
+     *     DWORD StreamId;
+     * } *PSTREAMS_ASSOCIATE_ID_INPUT_BUFFER
+     * }
+     */
+    public static final AddressLayout PSTREAMS_ASSOCIATE_ID_INPUT_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _STREAMS_QUERY_ID_OUTPUT_BUFFER {
+     *     DWORD StreamId;
+     * } *PSTREAMS_QUERY_ID_OUTPUT_BUFFER
+     * }
+     */
+    public static final AddressLayout PSTREAMS_QUERY_ID_OUTPUT_BUFFER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _QUERY_BAD_RANGES_INPUT_RANGE {
+     *     DWORDLONG StartOffset;
+     *     DWORDLONG LengthInBytes;
+     * } *PQUERY_BAD_RANGES_INPUT_RANGE
+     * }
+     */
+    public static final AddressLayout PQUERY_BAD_RANGES_INPUT_RANGE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _QUERY_BAD_RANGES_INPUT {
+     *     DWORD Flags;
+     *     DWORD NumRanges;
+     *     QUERY_BAD_RANGES_INPUT_RANGE Ranges[1];
+     * } *PQUERY_BAD_RANGES_INPUT
+     * }
+     */
+    public static final AddressLayout PQUERY_BAD_RANGES_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _QUERY_BAD_RANGES_OUTPUT_RANGE {
+     *     DWORD Flags;
+     *     DWORD Reserved;
+     *     DWORDLONG StartOffset;
+     *     DWORDLONG LengthInBytes;
+     * } *PQUERY_BAD_RANGES_OUTPUT_RANGE
+     * }
+     */
+    public static final AddressLayout PQUERY_BAD_RANGES_OUTPUT_RANGE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _QUERY_BAD_RANGES_OUTPUT {
+     *     DWORD Flags;
+     *     DWORD NumBadRanges;
+     *     DWORDLONG NextOffsetToLookUp;
+     *     QUERY_BAD_RANGES_OUTPUT_RANGE BadRanges[1];
+     * } *PQUERY_BAD_RANGES_OUTPUT
+     * }
+     */
+    public static final AddressLayout PQUERY_BAD_RANGES_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SET_DAX_ALLOC_ALIGNMENT_HINT_INPUT {
+     *     DWORD Flags;
+     *     DWORD AlignmentShift;
+     *     DWORDLONG FileOffsetToAlign;
+     *     DWORD FallbackAlignmentShift;
+     * } *PSET_DAX_ALLOC_ALIGNMENT_HINT_INPUT
+     * }
+     */
+    public static final AddressLayout PSET_DAX_ALLOC_ALIGNMENT_HINT_INPUT = Windows_h.C_POINTER;
+    private static final int VirtualStorageBehaviorUndefined = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _VIRTUAL_STORAGE_BEHAVIOR_CODE.VirtualStorageBehaviorUndefined = 0
+     * }
+     */
+    public static int VirtualStorageBehaviorUndefined() {
+        return VirtualStorageBehaviorUndefined;
+    }
+    private static final int VirtualStorageBehaviorCacheWriteThrough = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _VIRTUAL_STORAGE_BEHAVIOR_CODE.VirtualStorageBehaviorCacheWriteThrough = 1
+     * }
+     */
+    public static int VirtualStorageBehaviorCacheWriteThrough() {
+        return VirtualStorageBehaviorCacheWriteThrough;
+    }
+    private static final int VirtualStorageBehaviorCacheWriteBack = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _VIRTUAL_STORAGE_BEHAVIOR_CODE.VirtualStorageBehaviorCacheWriteBack = 2
+     * }
+     */
+    public static int VirtualStorageBehaviorCacheWriteBack() {
+        return VirtualStorageBehaviorCacheWriteBack;
+    }
+    private static final int VirtualStorageBehaviorStopIoProcessing = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _VIRTUAL_STORAGE_BEHAVIOR_CODE.VirtualStorageBehaviorStopIoProcessing = 3
+     * }
+     */
+    public static int VirtualStorageBehaviorStopIoProcessing() {
+        return VirtualStorageBehaviorStopIoProcessing;
+    }
+    private static final int VirtualStorageBehaviorRestartIoProcessing = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _VIRTUAL_STORAGE_BEHAVIOR_CODE.VirtualStorageBehaviorRestartIoProcessing = 4
+     * }
+     */
+    public static int VirtualStorageBehaviorRestartIoProcessing() {
+        return VirtualStorageBehaviorRestartIoProcessing;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum _VIRTUAL_STORAGE_BEHAVIOR_CODE {
+     *     VirtualStorageBehaviorUndefined = 0,
+     *     VirtualStorageBehaviorCacheWriteThrough = 1,
+     *     VirtualStorageBehaviorCacheWriteBack = 2,
+     *     VirtualStorageBehaviorStopIoProcessing = 3,
+     *     VirtualStorageBehaviorRestartIoProcessing = 4
+     * } *PVIRTUAL_STORAGE_BEHAVIOR_CODE
+     * }
+     */
+    public static final AddressLayout PVIRTUAL_STORAGE_BEHAVIOR_CODE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _VIRTUAL_STORAGE_SET_BEHAVIOR_INPUT {
+     *     DWORD Size;
+     *     VIRTUAL_STORAGE_BEHAVIOR_CODE BehaviorCode;
+     * } *PVIRTUAL_STORAGE_SET_BEHAVIOR_INPUT
+     * }
+     */
+    public static final AddressLayout PVIRTUAL_STORAGE_SET_BEHAVIOR_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _ENCRYPTION_KEY_CTRL_INPUT {
+     *     DWORD HeaderSize;
+     *     DWORD StructureSize;
+     *     WORD KeyOffset;
+     *     WORD KeySize;
+     *     DWORD DplLock;
+     *     DWORDLONG DplUserId;
+     *     DWORDLONG DplCredentialId;
+     * } *PENCRYPTION_KEY_CTRL_INPUT
+     * }
+     */
+    public static final AddressLayout PENCRYPTION_KEY_CTRL_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _WOF_EXTERNAL_INFO {
+     *     DWORD Version;
+     *     DWORD Provider;
+     * } *PWOF_EXTERNAL_INFO
+     * }
+     */
+    public static final AddressLayout PWOF_EXTERNAL_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _WOF_EXTERNAL_FILE_ID {
+     *     FILE_ID_128 FileId;
+     * } *PWOF_EXTERNAL_FILE_ID
+     * }
+     */
+    public static final AddressLayout PWOF_EXTERNAL_FILE_ID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _WOF_VERSION_INFO {
+     *     DWORD WofVersion;
+     * } *PWOF_VERSION_INFO
+     * }
+     */
+    public static final AddressLayout PWOF_VERSION_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _WIM_PROVIDER_EXTERNAL_INFO {
+     *     DWORD Version;
+     *     DWORD Flags;
+     *     LARGE_INTEGER DataSourceId;
+     *     BYTE ResourceHash[20];
+     * } *PWIM_PROVIDER_EXTERNAL_INFO
+     * }
+     */
+    public static final AddressLayout PWIM_PROVIDER_EXTERNAL_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _WIM_PROVIDER_ADD_OVERLAY_INPUT {
+     *     DWORD WimType;
+     *     DWORD WimIndex;
+     *     DWORD WimFileNameOffset;
+     *     DWORD WimFileNameLength;
+     * } *PWIM_PROVIDER_ADD_OVERLAY_INPUT
+     * }
+     */
+    public static final AddressLayout PWIM_PROVIDER_ADD_OVERLAY_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _WIM_PROVIDER_UPDATE_OVERLAY_INPUT {
+     *     LARGE_INTEGER DataSourceId;
+     *     DWORD WimFileNameOffset;
+     *     DWORD WimFileNameLength;
+     * } *PWIM_PROVIDER_UPDATE_OVERLAY_INPUT
+     * }
+     */
+    public static final AddressLayout PWIM_PROVIDER_UPDATE_OVERLAY_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _WIM_PROVIDER_REMOVE_OVERLAY_INPUT {
+     *     LARGE_INTEGER DataSourceId;
+     * } *PWIM_PROVIDER_REMOVE_OVERLAY_INPUT
+     * }
+     */
+    public static final AddressLayout PWIM_PROVIDER_REMOVE_OVERLAY_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _WIM_PROVIDER_SUSPEND_OVERLAY_INPUT {
+     *     LARGE_INTEGER DataSourceId;
+     * } *PWIM_PROVIDER_SUSPEND_OVERLAY_INPUT
+     * }
+     */
+    public static final AddressLayout PWIM_PROVIDER_SUSPEND_OVERLAY_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _WIM_PROVIDER_OVERLAY_ENTRY {
+     *     DWORD NextEntryOffset;
+     *     LARGE_INTEGER DataSourceId;
+     *     GUID WimGuid;
+     *     DWORD WimFileNameOffset;
+     *     DWORD WimType;
+     *     DWORD WimIndex;
+     *     DWORD Flags;
+     * } *PWIM_PROVIDER_OVERLAY_ENTRY
+     * }
+     */
+    public static final AddressLayout PWIM_PROVIDER_OVERLAY_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_PROVIDER_EXTERNAL_INFO_V0 {
+     *     DWORD Version;
+     *     DWORD Algorithm;
+     * } *PFILE_PROVIDER_EXTERNAL_INFO_V0
+     * }
+     */
+    public static final AddressLayout PFILE_PROVIDER_EXTERNAL_INFO_V0 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FILE_PROVIDER_EXTERNAL_INFO_V1 {
+     *     DWORD Version;
+     *     DWORD Algorithm;
+     *     DWORD Flags;
+     * } *PFILE_PROVIDER_EXTERNAL_INFO_V1
+     * }
+     */
+    public static final AddressLayout PFILE_PROVIDER_EXTERNAL_INFO_V1 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PFILE_PROVIDER_EXTERNAL_INFO_V1 PFILE_PROVIDER_EXTERNAL_INFO
+     * }
+     */
+    public static final AddressLayout PFILE_PROVIDER_EXTERNAL_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CONTAINER_VOLUME_STATE {
+     *     DWORD Flags;
+     * } *PCONTAINER_VOLUME_STATE
+     * }
+     */
+    public static final AddressLayout PCONTAINER_VOLUME_STATE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CONTAINER_ROOT_INFO_INPUT {
+     *     DWORD Flags;
+     * } *PCONTAINER_ROOT_INFO_INPUT
+     * }
+     */
+    public static final AddressLayout PCONTAINER_ROOT_INFO_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _CONTAINER_ROOT_INFO_OUTPUT {
+     *     WORD ContainerRootIdLength;
+     *     BYTE ContainerRootId[1];
+     * } *PCONTAINER_ROOT_INFO_OUTPUT
+     * }
+     */
+    public static final AddressLayout PCONTAINER_ROOT_INFO_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _VIRTUALIZATION_INSTANCE_INFO_INPUT {
+     *     DWORD NumberOfWorkerThreads;
+     *     DWORD Flags;
+     * } *PVIRTUALIZATION_INSTANCE_INFO_INPUT
+     * }
+     */
+    public static final AddressLayout PVIRTUALIZATION_INSTANCE_INFO_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _VIRTUALIZATION_INSTANCE_INFO_INPUT_EX {
+     *     WORD HeaderSize;
+     *     DWORD Flags;
+     *     DWORD NotificationInfoSize;
+     *     WORD NotificationInfoOffset;
+     *     WORD ProviderMajorVersion;
+     * } *PVIRTUALIZATION_INSTANCE_INFO_INPUT_EX
+     * }
+     */
+    public static final AddressLayout PVIRTUALIZATION_INSTANCE_INFO_INPUT_EX = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _VIRTUALIZATION_INSTANCE_INFO_OUTPUT {
+     *     GUID VirtualizationInstanceID;
+     * } *PVIRTUALIZATION_INSTANCE_INFO_OUTPUT
+     * }
+     */
+    public static final AddressLayout PVIRTUALIZATION_INSTANCE_INFO_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _GET_FILTER_FILE_IDENTIFIER_INPUT {
+     *     WORD AltitudeLength;
+     *     WCHAR Altitude[1];
+     * } *PGET_FILTER_FILE_IDENTIFIER_INPUT
+     * }
+     */
+    public static final AddressLayout PGET_FILTER_FILE_IDENTIFIER_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _GET_FILTER_FILE_IDENTIFIER_OUTPUT {
+     *     WORD FilterFileIdentifierLength;
+     *     BYTE FilterFileIdentifier[1];
+     * } *PGET_FILTER_FILE_IDENTIFIER_OUTPUT
+     * }
+     */
+    public static final AddressLayout PGET_FILTER_FILE_IDENTIFIER_OUTPUT = Windows_h.C_POINTER;
+    private static final int FS_BPIO_OP_ENABLE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_OPERATIONS.FS_BPIO_OP_ENABLE = 1
+     * }
+     */
+    public static int FS_BPIO_OP_ENABLE() {
+        return FS_BPIO_OP_ENABLE;
+    }
+    private static final int FS_BPIO_OP_DISABLE = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_OPERATIONS.FS_BPIO_OP_DISABLE = 2
+     * }
+     */
+    public static int FS_BPIO_OP_DISABLE() {
+        return FS_BPIO_OP_DISABLE;
+    }
+    private static final int FS_BPIO_OP_QUERY = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_OPERATIONS.FS_BPIO_OP_QUERY = 3
+     * }
+     */
+    public static int FS_BPIO_OP_QUERY() {
+        return FS_BPIO_OP_QUERY;
+    }
+    private static final int FS_BPIO_OP_VOLUME_STACK_PAUSE = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_OPERATIONS.FS_BPIO_OP_VOLUME_STACK_PAUSE = 4
+     * }
+     */
+    public static int FS_BPIO_OP_VOLUME_STACK_PAUSE() {
+        return FS_BPIO_OP_VOLUME_STACK_PAUSE;
+    }
+    private static final int FS_BPIO_OP_VOLUME_STACK_RESUME = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_OPERATIONS.FS_BPIO_OP_VOLUME_STACK_RESUME = 5
+     * }
+     */
+    public static int FS_BPIO_OP_VOLUME_STACK_RESUME() {
+        return FS_BPIO_OP_VOLUME_STACK_RESUME;
+    }
+    private static final int FS_BPIO_OP_STREAM_PAUSE = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_OPERATIONS.FS_BPIO_OP_STREAM_PAUSE = 6
+     * }
+     */
+    public static int FS_BPIO_OP_STREAM_PAUSE() {
+        return FS_BPIO_OP_STREAM_PAUSE;
+    }
+    private static final int FS_BPIO_OP_STREAM_RESUME = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_OPERATIONS.FS_BPIO_OP_STREAM_RESUME = 7
+     * }
+     */
+    public static int FS_BPIO_OP_STREAM_RESUME() {
+        return FS_BPIO_OP_STREAM_RESUME;
+    }
+    private static final int FS_BPIO_OP_GET_INFO = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_OPERATIONS.FS_BPIO_OP_GET_INFO = 8
+     * }
+     */
+    public static int FS_BPIO_OP_GET_INFO() {
+        return FS_BPIO_OP_GET_INFO;
+    }
+    private static final int FS_BPIO_OP_MAX_OPERATION = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_OPERATIONS.FS_BPIO_OP_MAX_OPERATION = 9
+     * }
+     */
+    public static int FS_BPIO_OP_MAX_OPERATION() {
+        return FS_BPIO_OP_MAX_OPERATION;
+    }
+    private static final int FSBPIO_INFL_None = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_INFLAGS.FSBPIO_INFL_None = 0
+     * }
+     */
+    public static int FSBPIO_INFL_None() {
+        return FSBPIO_INFL_None;
+    }
+    private static final int FSBPIO_INFL_SKIP_STORAGE_STACK_QUERY = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_INFLAGS.FSBPIO_INFL_SKIP_STORAGE_STACK_QUERY = 1
+     * }
+     */
+    public static int FSBPIO_INFL_SKIP_STORAGE_STACK_QUERY() {
+        return FSBPIO_INFL_SKIP_STORAGE_STACK_QUERY;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FS_BPIO_INPUT {
+     *     FS_BPIO_OPERATIONS Operation;
+     *     FS_BPIO_INFLAGS InFlags;
+     *     DWORDLONG Reserved1;
+     *     DWORDLONG Reserved2;
+     * } *PFS_BPIO_INPUT
+     * }
+     */
+    public static final AddressLayout PFS_BPIO_INPUT = Windows_h.C_POINTER;
+    private static final int FSBPIO_OUTFL_None = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_OUTFLAGS.FSBPIO_OUTFL_None = 0
+     * }
+     */
+    public static int FSBPIO_OUTFL_None() {
+        return FSBPIO_OUTFL_None;
+    }
+    private static final int FSBPIO_OUTFL_VOLUME_STACK_BYPASS_PAUSED = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_OUTFLAGS.FSBPIO_OUTFL_VOLUME_STACK_BYPASS_PAUSED = 1
+     * }
+     */
+    public static int FSBPIO_OUTFL_VOLUME_STACK_BYPASS_PAUSED() {
+        return FSBPIO_OUTFL_VOLUME_STACK_BYPASS_PAUSED;
+    }
+    private static final int FSBPIO_OUTFL_STREAM_BYPASS_PAUSED = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_OUTFLAGS.FSBPIO_OUTFL_STREAM_BYPASS_PAUSED = 2
+     * }
+     */
+    public static int FSBPIO_OUTFL_STREAM_BYPASS_PAUSED() {
+        return FSBPIO_OUTFL_STREAM_BYPASS_PAUSED;
+    }
+    private static final int FSBPIO_OUTFL_FILTER_ATTACH_BLOCKED = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_OUTFLAGS.FSBPIO_OUTFL_FILTER_ATTACH_BLOCKED = 4
+     * }
+     */
+    public static int FSBPIO_OUTFL_FILTER_ATTACH_BLOCKED() {
+        return FSBPIO_OUTFL_FILTER_ATTACH_BLOCKED;
+    }
+    private static final int FSBPIO_OUTFL_COMPATIBLE_STORAGE_DRIVER = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * enum _FS_BPIO_OUTFLAGS.FSBPIO_OUTFL_COMPATIBLE_STORAGE_DRIVER = 8
+     * }
+     */
+    public static int FSBPIO_OUTFL_COMPATIBLE_STORAGE_DRIVER() {
+        return FSBPIO_OUTFL_COMPATIBLE_STORAGE_DRIVER;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FS_BPIO_RESULTS {
+     *     DWORD OpStatus;
+     *     WORD FailingDriverNameLen;
+     *     WCHAR FailingDriverName[32];
+     *     WORD FailureReasonLen;
+     *     WCHAR FailureReason[128];
+     * } *PFS_BPIO_RESULTS
+     * }
+     */
+    public static final AddressLayout PFS_BPIO_RESULTS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FS_BPIO_INFO {
+     *     DWORD ActiveBypassIoCount;
+     *     WORD StorageDriverNameLen;
+     *     WCHAR StorageDriverName[32];
+     * } *PFS_BPIO_INFO
+     * }
+     */
+    public static final AddressLayout PFS_BPIO_INFO = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _FS_BPIO_OUTPUT {
+     *     FS_BPIO_OPERATIONS Operation;
+     *     FS_BPIO_OUTFLAGS OutFlags;
+     *     DWORDLONG Reserved1;
+     *     DWORDLONG Reserved2;
+     *     union {
+     *         FS_BPIO_RESULTS Enable;
+     *         FS_BPIO_RESULTS Query;
+     *         FS_BPIO_RESULTS VolumeStackResume;
+     *         FS_BPIO_RESULTS StreamResume;
+     *         FS_BPIO_INFO GetInfo;
+     *     };
+     * } *PFS_BPIO_OUTPUT
+     * }
+     */
+    public static final AddressLayout PFS_BPIO_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SMB_SHARE_FLUSH_AND_PURGE_INPUT {
+     *     WORD Version;
+     * } *PSMB_SHARE_FLUSH_AND_PURGE_INPUT
+     * }
+     */
+    public static final AddressLayout PSMB_SHARE_FLUSH_AND_PURGE_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const struct _SMB_SHARE_FLUSH_AND_PURGE_INPUT {
+     *     WORD Version;
+     * } *PCSMB_SHARE_FLUSH_AND_PURGE_INPUT
+     * }
+     */
+    public static final AddressLayout PCSMB_SHARE_FLUSH_AND_PURGE_INPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SMB_SHARE_FLUSH_AND_PURGE_OUTPUT {
+     *     DWORD cEntriesPurged;
+     * } *PSMB_SHARE_FLUSH_AND_PURGE_OUTPUT
+     * }
+     */
+    public static final AddressLayout PSMB_SHARE_FLUSH_AND_PURGE_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const struct _SMB_SHARE_FLUSH_AND_PURGE_OUTPUT {
+     *     DWORD cEntriesPurged;
+     * } *PCSMB_SHARE_FLUSH_AND_PURGE_OUTPUT
+     * }
+     */
+    public static final AddressLayout PCSMB_SHARE_FLUSH_AND_PURGE_OUTPUT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _DISK_EXTENT {
+     *     DWORD DiskNumber;
+     *     LARGE_INTEGER StartingOffset;
+     *     LARGE_INTEGER ExtentLength;
+     * } *PDISK_EXTENT
+     * }
+     */
+    public static final AddressLayout PDISK_EXTENT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _VOLUME_DISK_EXTENTS {
+     *     DWORD NumberOfDiskExtents;
+     *     DISK_EXTENT Extents[1];
+     * } *PVOLUME_DISK_EXTENTS
+     * }
+     */
+    public static final AddressLayout PVOLUME_DISK_EXTENTS = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _VOLUME_GET_GPT_ATTRIBUTES_INFORMATION {
+     *     DWORDLONG GptAttributes;
+     * } *PVOLUME_GET_GPT_ATTRIBUTES_INFORMATION
+     * }
+     */
+    public static final AddressLayout PVOLUME_GET_GPT_ATTRIBUTES_INFORMATION = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _IO_IRP_EXT_TRACK_OFFSET_HEADER {
+     *     WORD Validation;
+     *     WORD Flags;
+     *     PIO_IRP_EXT_PROCESS_TRACKED_OFFSET_CALLBACK TrackedOffsetCallback;
+     * } *PIO_IRP_EXT_TRACK_OFFSET_HEADER
+     * }
+     */
+    public static final AddressLayout PIO_IRP_EXT_TRACK_OFFSET_HEADER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef WORD UWORD
+     * }
+     */
+    public static final OfShort UWORD = Windows_h.C_SHORT;
+
+    private static class GUID_DEVINTERFACE_SMARTCARD_READER$constants {
+        public static final GroupLayout LAYOUT = _GUID.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("GUID_DEVINTERFACE_SMARTCARD_READER").reinterpret(LAYOUT.byteSize());
+    }
+
+    /**
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEVINTERFACE_SMARTCARD_READER
+     * }
+     */
+    public static GroupLayout GUID_DEVINTERFACE_SMARTCARD_READER$layout() {
+        return GUID_DEVINTERFACE_SMARTCARD_READER$constants.LAYOUT;
+    }
+
+    /**
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEVINTERFACE_SMARTCARD_READER
+     * }
+     */
+    public static MemorySegment GUID_DEVINTERFACE_SMARTCARD_READER() {
+        return GUID_DEVINTERFACE_SMARTCARD_READER$constants.SEGMENT;
+    }
+
+    /**
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const GUID GUID_DEVINTERFACE_SMARTCARD_READER
+     * }
+     */
+    public static void GUID_DEVINTERFACE_SMARTCARD_READER(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, GUID_DEVINTERFACE_SMARTCARD_READER$constants.SEGMENT, 0L, GUID_DEVINTERFACE_SMARTCARD_READER$constants.LAYOUT.byteSize());
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCARD_IO_REQUEST {
+     *     DWORD dwProtocol;
+     *     DWORD cbPciLength;
+     * } *PSCARD_IO_REQUEST
+     * }
+     */
+    public static final AddressLayout PSCARD_IO_REQUEST = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCARD_IO_REQUEST {
+     *     DWORD dwProtocol;
+     *     DWORD cbPciLength;
+     * } *LPSCARD_IO_REQUEST
+     * }
+     */
+    public static final AddressLayout LPSCARD_IO_REQUEST = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const SCARD_IO_REQUEST *LPCSCARD_IO_REQUEST
+     * }
+     */
+    public static final AddressLayout LPCSCARD_IO_REQUEST = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SCARD_T0_COMMAND {
+     *     BYTE bCla;
+     *     BYTE bIns;
+     *     BYTE bP1;
+     *     BYTE bP2;
+     *     BYTE bP3;
+     * } *LPSCARD_T0_COMMAND
+     * }
+     */
+    public static final AddressLayout LPSCARD_T0_COMMAND = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef SCARD_T0_REQUEST *PSCARD_T0_REQUEST
+     * }
+     */
+    public static final AddressLayout PSCARD_T0_REQUEST = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef SCARD_T0_REQUEST *LPSCARD_T0_REQUEST
+     * }
+     */
+    public static final AddressLayout LPSCARD_T0_REQUEST = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef SCARD_T1_REQUEST *PSCARD_T1_REQUEST
+     * }
+     */
+    public static final AddressLayout PSCARD_T1_REQUEST = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef SCARD_T1_REQUEST *LPSCARD_T1_REQUEST
+     * }
+     */
+    public static final AddressLayout LPSCARD_T1_REQUEST = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const BYTE *LPCBYTE
+     * }
+     */
+    public static final AddressLayout LPCBYTE = Windows_h.C_POINTER;
+
+    private static class g_rgSCardT0Pci$constants {
+        public static final GroupLayout LAYOUT = _SCARD_IO_REQUEST.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("g_rgSCardT0Pci").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetGetConnectionA(LPCSTR lpLocalName, LPSTR lpRemoteName, LPDWORD lpnLength);
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const SCARD_IO_REQUEST g_rgSCardT0Pci
      * }
      */
-    public static int WNetGetConnectionA(MemorySegment lpLocalName, MemorySegment lpRemoteName, MemorySegment lpnLength) {
-        var mh$ = WNetGetConnectionA$MH();
-        try {
-            return (int)mh$.invokeExact(lpLocalName, lpRemoteName, lpnLength);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle WNetGetConnectionW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1507.const$2,"WNetGetConnectionW");
+    public static GroupLayout g_rgSCardT0Pci$layout() {
+        return g_rgSCardT0Pci$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetGetConnectionW(LPCWSTR lpLocalName, LPWSTR lpRemoteName, LPDWORD lpnLength);
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const SCARD_IO_REQUEST g_rgSCardT0Pci
      * }
      */
-    public static int WNetGetConnectionW(MemorySegment lpLocalName, MemorySegment lpRemoteName, MemorySegment lpnLength) {
-        var mh$ = WNetGetConnectionW$MH();
-        try {
-            return (int)mh$.invokeExact(lpLocalName, lpRemoteName, lpnLength);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle WNetRestoreSingleConnectionW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1507.const$3,"WNetRestoreSingleConnectionW");
+    public static MemorySegment g_rgSCardT0Pci() {
+        return g_rgSCardT0Pci$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetRestoreSingleConnectionW(HWND hwndParent, LPCWSTR lpDevice, BOOL fUseUI);
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const SCARD_IO_REQUEST g_rgSCardT0Pci
      * }
      */
-    public static int WNetRestoreSingleConnectionW(MemorySegment hwndParent, MemorySegment lpDevice, int fUseUI) {
-        var mh$ = WNetRestoreSingleConnectionW$MH();
-        try {
-            return (int)mh$.invokeExact(hwndParent, lpDevice, fUseUI);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static void g_rgSCardT0Pci(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, g_rgSCardT0Pci$constants.SEGMENT, 0L, g_rgSCardT0Pci$constants.LAYOUT.byteSize());
     }
-    public static MethodHandle WNetUseConnectionA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1507.const$5,"WNetUseConnectionA");
+
+    private static class g_rgSCardT1Pci$constants {
+        public static final GroupLayout LAYOUT = _SCARD_IO_REQUEST.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("g_rgSCardT1Pci").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetUseConnectionA(HWND hwndOwner, LPNETRESOURCEA lpNetResource, LPCSTR lpPassword, LPCSTR lpUserId, DWORD dwFlags, LPSTR lpAccessName, LPDWORD lpBufferSize, LPDWORD lpResult);
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const SCARD_IO_REQUEST g_rgSCardT1Pci
      * }
      */
-    public static int WNetUseConnectionA(MemorySegment hwndOwner, MemorySegment lpNetResource, MemorySegment lpPassword, MemorySegment lpUserId, int dwFlags, MemorySegment lpAccessName, MemorySegment lpBufferSize, MemorySegment lpResult) {
-        var mh$ = WNetUseConnectionA$MH();
-        try {
-            return (int)mh$.invokeExact(hwndOwner, lpNetResource, lpPassword, lpUserId, dwFlags, lpAccessName, lpBufferSize, lpResult);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static GroupLayout g_rgSCardT1Pci$layout() {
+        return g_rgSCardT1Pci$constants.LAYOUT;
     }
-    public static MethodHandle WNetUseConnectionW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1508.const$0,"WNetUseConnectionW");
-    }
+
     /**
-     * {@snippet :
-     * DWORD WNetUseConnectionW(HWND hwndOwner, LPNETRESOURCEW lpNetResource, LPCWSTR lpPassword, LPCWSTR lpUserId, DWORD dwFlags, LPWSTR lpAccessName, LPDWORD lpBufferSize, LPDWORD lpResult);
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const SCARD_IO_REQUEST g_rgSCardT1Pci
      * }
      */
-    public static int WNetUseConnectionW(MemorySegment hwndOwner, MemorySegment lpNetResource, MemorySegment lpPassword, MemorySegment lpUserId, int dwFlags, MemorySegment lpAccessName, MemorySegment lpBufferSize, MemorySegment lpResult) {
-        var mh$ = WNetUseConnectionW$MH();
-        try {
-            return (int)mh$.invokeExact(hwndOwner, lpNetResource, lpPassword, lpUserId, dwFlags, lpAccessName, lpBufferSize, lpResult);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MemorySegment g_rgSCardT1Pci() {
+        return g_rgSCardT1Pci$constants.SEGMENT;
     }
-    public static MethodHandle WNetUseConnection4A$MH() {
-        return RuntimeHelper.requireNonNull(constants$1508.const$2,"WNetUseConnection4A");
-    }
+
     /**
-     * {@snippet :
-     * DWORD WNetUseConnection4A(HWND hwndOwner, LPNETRESOURCEA lpNetResource, PVOID pAuthBuffer, DWORD cbAuthBuffer, DWORD dwFlags, PBYTE lpUseOptions, DWORD cbUseOptions, LPSTR lpAccessName, LPDWORD lpBufferSize, LPDWORD lpResult);
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const SCARD_IO_REQUEST g_rgSCardT1Pci
      * }
      */
-    public static int WNetUseConnection4A(MemorySegment hwndOwner, MemorySegment lpNetResource, MemorySegment pAuthBuffer, int cbAuthBuffer, int dwFlags, MemorySegment lpUseOptions, int cbUseOptions, MemorySegment lpAccessName, MemorySegment lpBufferSize, MemorySegment lpResult) {
-        var mh$ = WNetUseConnection4A$MH();
-        try {
-            return (int)mh$.invokeExact(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions, lpAccessName, lpBufferSize, lpResult);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static void g_rgSCardT1Pci(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, g_rgSCardT1Pci$constants.SEGMENT, 0L, g_rgSCardT1Pci$constants.LAYOUT.byteSize());
     }
-    public static MethodHandle WNetUseConnection4W$MH() {
-        return RuntimeHelper.requireNonNull(constants$1508.const$3,"WNetUseConnection4W");
+
+    private static class g_rgSCardRawPci$constants {
+        public static final GroupLayout LAYOUT = _SCARD_IO_REQUEST.layout();
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("g_rgSCardRawPci").reinterpret(LAYOUT.byteSize());
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetUseConnection4W(HWND hwndOwner, LPNETRESOURCEW lpNetResource, PVOID pAuthBuffer, DWORD cbAuthBuffer, DWORD dwFlags, PBYTE lpUseOptions, DWORD cbUseOptions, LPWSTR lpAccessName, LPDWORD lpBufferSize, LPDWORD lpResult);
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern const SCARD_IO_REQUEST g_rgSCardRawPci
      * }
      */
-    public static int WNetUseConnection4W(MemorySegment hwndOwner, MemorySegment lpNetResource, MemorySegment pAuthBuffer, int cbAuthBuffer, int dwFlags, MemorySegment lpUseOptions, int cbUseOptions, MemorySegment lpAccessName, MemorySegment lpBufferSize, MemorySegment lpResult) {
-        var mh$ = WNetUseConnection4W$MH();
-        try {
-            return (int)mh$.invokeExact(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions, lpAccessName, lpBufferSize, lpResult);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle WNetConnectionDialog$MH() {
-        return RuntimeHelper.requireNonNull(constants$1508.const$4,"WNetConnectionDialog");
+    public static GroupLayout g_rgSCardRawPci$layout() {
+        return g_rgSCardRawPci$constants.LAYOUT;
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetConnectionDialog(HWND hwnd, DWORD dwType);
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern const SCARD_IO_REQUEST g_rgSCardRawPci
      * }
      */
-    public static int WNetConnectionDialog(MemorySegment hwnd, int dwType) {
-        var mh$ = WNetConnectionDialog$MH();
-        try {
-            return (int)mh$.invokeExact(hwnd, dwType);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle WNetDisconnectDialog$MH() {
-        return RuntimeHelper.requireNonNull(constants$1508.const$5,"WNetDisconnectDialog");
+    public static MemorySegment g_rgSCardRawPci() {
+        return g_rgSCardRawPci$constants.SEGMENT;
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetDisconnectDialog(HWND hwnd, DWORD dwType);
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern const SCARD_IO_REQUEST g_rgSCardRawPci
      * }
      */
-    public static int WNetDisconnectDialog(MemorySegment hwnd, int dwType) {
-        var mh$ = WNetDisconnectDialog$MH();
-        try {
-            return (int)mh$.invokeExact(hwnd, dwType);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static void g_rgSCardRawPci(MemorySegment varValue) {
+        MemorySegment.copy(varValue, 0L, g_rgSCardRawPci$constants.SEGMENT, 0L, g_rgSCardRawPci$constants.LAYOUT.byteSize());
     }
     /**
-     * {@snippet :
-     * typedef struct _CONNECTDLGSTRUCTA* LPCONNECTDLGSTRUCTA;
+     * {@snippet lang=c :
+     * typedef ULONG_PTR SCARDCONTEXT
      * }
      */
-    public static final AddressLayout LPCONNECTDLGSTRUCTA = RuntimeHelper.POINTER;
+    public static final OfLong SCARDCONTEXT = Windows_h.C_LONG_LONG;
     /**
-     * {@snippet :
-     * typedef struct _CONNECTDLGSTRUCTW* LPCONNECTDLGSTRUCTW;
+     * {@snippet lang=c :
+     * typedef SCARDCONTEXT *PSCARDCONTEXT
      * }
      */
-    public static final AddressLayout LPCONNECTDLGSTRUCTW = RuntimeHelper.POINTER;
+    public static final AddressLayout PSCARDCONTEXT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct _CONNECTDLGSTRUCTA* LPCONNECTDLGSTRUCT;
+     * {@snippet lang=c :
+     * typedef SCARDCONTEXT *LPSCARDCONTEXT
      * }
      */
-    public static final AddressLayout LPCONNECTDLGSTRUCT = RuntimeHelper.POINTER;
-    public static MethodHandle WNetConnectionDialog1A$MH() {
-        return RuntimeHelper.requireNonNull(constants$1511.const$0,"WNetConnectionDialog1A");
-    }
+    public static final AddressLayout LPSCARDCONTEXT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * DWORD WNetConnectionDialog1A(LPCONNECTDLGSTRUCTA lpConnDlgStruct);
+     * {@snippet lang=c :
+     * typedef ULONG_PTR SCARDHANDLE
      * }
      */
-    public static int WNetConnectionDialog1A(MemorySegment lpConnDlgStruct) {
-        var mh$ = WNetConnectionDialog1A$MH();
-        try {
-            return (int)mh$.invokeExact(lpConnDlgStruct);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle WNetConnectionDialog1W$MH() {
-        return RuntimeHelper.requireNonNull(constants$1511.const$1,"WNetConnectionDialog1W");
-    }
+    public static final OfLong SCARDHANDLE = Windows_h.C_LONG_LONG;
     /**
-     * {@snippet :
-     * DWORD WNetConnectionDialog1W(LPCONNECTDLGSTRUCTW lpConnDlgStruct);
+     * {@snippet lang=c :
+     * typedef SCARDHANDLE *PSCARDHANDLE
      * }
      */
-    public static int WNetConnectionDialog1W(MemorySegment lpConnDlgStruct) {
-        var mh$ = WNetConnectionDialog1W$MH();
-        try {
-            return (int)mh$.invokeExact(lpConnDlgStruct);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
+    public static final AddressLayout PSCARDHANDLE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct _DISCDLGSTRUCTA* LPDISCDLGSTRUCTA;
+     * {@snippet lang=c :
+     * typedef SCARDHANDLE *LPSCARDHANDLE
      * }
      */
-    public static final AddressLayout LPDISCDLGSTRUCTA = RuntimeHelper.POINTER;
+    public static final AddressLayout LPSCARDHANDLE = Windows_h.C_POINTER;
+
+    private static class SCardEstablishContext {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardEstablishContext"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct _DISCDLGSTRUCTW* LPDISCDLGSTRUCTW;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardEstablishContext(DWORD dwScope, LPCVOID pvReserved1, LPCVOID pvReserved2, LPSCARDCONTEXT phContext)
      * }
      */
-    public static final AddressLayout LPDISCDLGSTRUCTW = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardEstablishContext$descriptor() {
+        return SCardEstablishContext.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct _DISCDLGSTRUCTA* LPDISCDLGSTRUCT;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardEstablishContext(DWORD dwScope, LPCVOID pvReserved1, LPCVOID pvReserved2, LPSCARDCONTEXT phContext)
      * }
      */
-    public static final AddressLayout LPDISCDLGSTRUCT = RuntimeHelper.POINTER;
-    public static MethodHandle WNetDisconnectDialog1A$MH() {
-        return RuntimeHelper.requireNonNull(constants$1513.const$2,"WNetDisconnectDialog1A");
+    public static MethodHandle SCardEstablishContext$handle() {
+        return SCardEstablishContext.HANDLE;
     }
     /**
-     * {@snippet :
-     * DWORD WNetDisconnectDialog1A(LPDISCDLGSTRUCTA lpConnDlgStruct);
+     * {@snippet lang=c :
+     * extern LONG SCardEstablishContext(DWORD dwScope, LPCVOID pvReserved1, LPCVOID pvReserved2, LPSCARDCONTEXT phContext)
      * }
      */
-    public static int WNetDisconnectDialog1A(MemorySegment lpConnDlgStruct) {
-        var mh$ = WNetDisconnectDialog1A$MH();
+    public static int SCardEstablishContext(int dwScope, MemorySegment pvReserved1, MemorySegment pvReserved2, MemorySegment phContext) {
+        var mh$ = SCardEstablishContext.HANDLE;
         try {
-            return (int)mh$.invokeExact(lpConnDlgStruct);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardEstablishContext", dwScope, pvReserved1, pvReserved2, phContext);
+            }
+            return (int)mh$.invokeExact(dwScope, pvReserved1, pvReserved2, phContext);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle WNetDisconnectDialog1W$MH() {
-        return RuntimeHelper.requireNonNull(constants$1513.const$3,"WNetDisconnectDialog1W");
+
+    private static class SCardReleaseContext {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardReleaseContext"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetDisconnectDialog1W(LPDISCDLGSTRUCTW lpConnDlgStruct);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardReleaseContext(SCARDCONTEXT hContext)
      * }
      */
-    public static int WNetDisconnectDialog1W(MemorySegment lpConnDlgStruct) {
-        var mh$ = WNetDisconnectDialog1W$MH();
-        try {
-            return (int)mh$.invokeExact(lpConnDlgStruct);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardReleaseContext$descriptor() {
+        return SCardReleaseContext.DESC;
     }
-    public static MethodHandle WNetOpenEnumA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1513.const$4,"WNetOpenEnumA");
-    }
+
     /**
-     * {@snippet :
-     * DWORD WNetOpenEnumA(DWORD dwScope, DWORD dwType, DWORD dwUsage, LPNETRESOURCEA lpNetResource, LPHANDLE lphEnum);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardReleaseContext(SCARDCONTEXT hContext)
      * }
      */
-    public static int WNetOpenEnumA(int dwScope, int dwType, int dwUsage, MemorySegment lpNetResource, MemorySegment lphEnum) {
-        var mh$ = WNetOpenEnumA$MH();
-        try {
-            return (int)mh$.invokeExact(dwScope, dwType, dwUsage, lpNetResource, lphEnum);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MethodHandle SCardReleaseContext$handle() {
+        return SCardReleaseContext.HANDLE;
     }
-    public static MethodHandle WNetOpenEnumW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1513.const$5,"WNetOpenEnumW");
-    }
     /**
-     * {@snippet :
-     * DWORD WNetOpenEnumW(DWORD dwScope, DWORD dwType, DWORD dwUsage, LPNETRESOURCEW lpNetResource, LPHANDLE lphEnum);
+     * {@snippet lang=c :
+     * extern LONG SCardReleaseContext(SCARDCONTEXT hContext)
      * }
      */
-    public static int WNetOpenEnumW(int dwScope, int dwType, int dwUsage, MemorySegment lpNetResource, MemorySegment lphEnum) {
-        var mh$ = WNetOpenEnumW$MH();
+    public static int SCardReleaseContext(long hContext) {
+        var mh$ = SCardReleaseContext.HANDLE;
         try {
-            return (int)mh$.invokeExact(dwScope, dwType, dwUsage, lpNetResource, lphEnum);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardReleaseContext", hContext);
+            }
+            return (int)mh$.invokeExact(hContext);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle WNetEnumResourceA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1514.const$0,"WNetEnumResourceA");
+
+    private static class SCardIsValidContext {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardIsValidContext"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetEnumResourceA(HANDLE hEnum, LPDWORD lpcCount, LPVOID lpBuffer, LPDWORD lpBufferSize);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardIsValidContext(SCARDCONTEXT hContext)
      * }
      */
-    public static int WNetEnumResourceA(MemorySegment hEnum, MemorySegment lpcCount, MemorySegment lpBuffer, MemorySegment lpBufferSize) {
-        var mh$ = WNetEnumResourceA$MH();
-        try {
-            return (int)mh$.invokeExact(hEnum, lpcCount, lpBuffer, lpBufferSize);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardIsValidContext$descriptor() {
+        return SCardIsValidContext.DESC;
     }
-    public static MethodHandle WNetEnumResourceW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1514.const$1,"WNetEnumResourceW");
-    }
+
     /**
-     * {@snippet :
-     * DWORD WNetEnumResourceW(HANDLE hEnum, LPDWORD lpcCount, LPVOID lpBuffer, LPDWORD lpBufferSize);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardIsValidContext(SCARDCONTEXT hContext)
      * }
      */
-    public static int WNetEnumResourceW(MemorySegment hEnum, MemorySegment lpcCount, MemorySegment lpBuffer, MemorySegment lpBufferSize) {
-        var mh$ = WNetEnumResourceW$MH();
-        try {
-            return (int)mh$.invokeExact(hEnum, lpcCount, lpBuffer, lpBufferSize);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MethodHandle SCardIsValidContext$handle() {
+        return SCardIsValidContext.HANDLE;
     }
-    public static MethodHandle WNetCloseEnum$MH() {
-        return RuntimeHelper.requireNonNull(constants$1514.const$2,"WNetCloseEnum");
-    }
     /**
-     * {@snippet :
-     * DWORD WNetCloseEnum(HANDLE hEnum);
+     * {@snippet lang=c :
+     * extern LONG SCardIsValidContext(SCARDCONTEXT hContext)
      * }
      */
-    public static int WNetCloseEnum(MemorySegment hEnum) {
-        var mh$ = WNetCloseEnum$MH();
+    public static int SCardIsValidContext(long hContext) {
+        var mh$ = SCardIsValidContext.HANDLE;
         try {
-            return (int)mh$.invokeExact(hEnum);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardIsValidContext", hContext);
+            }
+            return (int)mh$.invokeExact(hContext);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle WNetGetResourceParentA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1514.const$3,"WNetGetResourceParentA");
+
+    private static class SCardListReaderGroupsA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardListReaderGroupsA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetGetResourceParentA(LPNETRESOURCEA lpNetResource, LPVOID lpBuffer, LPDWORD lpcbBuffer);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardListReaderGroupsA(SCARDCONTEXT hContext, LPSTR mszGroups, LPDWORD pcchGroups)
      * }
      */
-    public static int WNetGetResourceParentA(MemorySegment lpNetResource, MemorySegment lpBuffer, MemorySegment lpcbBuffer) {
-        var mh$ = WNetGetResourceParentA$MH();
-        try {
-            return (int)mh$.invokeExact(lpNetResource, lpBuffer, lpcbBuffer);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardListReaderGroupsA$descriptor() {
+        return SCardListReaderGroupsA.DESC;
     }
-    public static MethodHandle WNetGetResourceParentW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1514.const$4,"WNetGetResourceParentW");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardListReaderGroupsA(SCARDCONTEXT hContext, LPSTR mszGroups, LPDWORD pcchGroups)
+     * }
+     */
+    public static MethodHandle SCardListReaderGroupsA$handle() {
+        return SCardListReaderGroupsA.HANDLE;
     }
     /**
-     * {@snippet :
-     * DWORD WNetGetResourceParentW(LPNETRESOURCEW lpNetResource, LPVOID lpBuffer, LPDWORD lpcbBuffer);
+     * {@snippet lang=c :
+     * extern LONG SCardListReaderGroupsA(SCARDCONTEXT hContext, LPSTR mszGroups, LPDWORD pcchGroups)
      * }
      */
-    public static int WNetGetResourceParentW(MemorySegment lpNetResource, MemorySegment lpBuffer, MemorySegment lpcbBuffer) {
-        var mh$ = WNetGetResourceParentW$MH();
+    public static int SCardListReaderGroupsA(long hContext, MemorySegment mszGroups, MemorySegment pcchGroups) {
+        var mh$ = SCardListReaderGroupsA.HANDLE;
         try {
-            return (int)mh$.invokeExact(lpNetResource, lpBuffer, lpcbBuffer);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardListReaderGroupsA", hContext, mszGroups, pcchGroups);
+            }
+            return (int)mh$.invokeExact(hContext, mszGroups, pcchGroups);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle WNetGetResourceInformationA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1514.const$5,"WNetGetResourceInformationA");
+
+    private static class SCardListReaderGroupsW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardListReaderGroupsW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetGetResourceInformationA(LPNETRESOURCEA lpNetResource, LPVOID lpBuffer, LPDWORD lpcbBuffer, LPSTR* lplpSystem);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardListReaderGroupsW(SCARDCONTEXT hContext, LPWSTR mszGroups, LPDWORD pcchGroups)
      * }
      */
-    public static int WNetGetResourceInformationA(MemorySegment lpNetResource, MemorySegment lpBuffer, MemorySegment lpcbBuffer, MemorySegment lplpSystem) {
-        var mh$ = WNetGetResourceInformationA$MH();
-        try {
-            return (int)mh$.invokeExact(lpNetResource, lpBuffer, lpcbBuffer, lplpSystem);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardListReaderGroupsW$descriptor() {
+        return SCardListReaderGroupsW.DESC;
     }
-    public static MethodHandle WNetGetResourceInformationW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1515.const$0,"WNetGetResourceInformationW");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardListReaderGroupsW(SCARDCONTEXT hContext, LPWSTR mszGroups, LPDWORD pcchGroups)
+     * }
+     */
+    public static MethodHandle SCardListReaderGroupsW$handle() {
+        return SCardListReaderGroupsW.HANDLE;
     }
     /**
-     * {@snippet :
-     * DWORD WNetGetResourceInformationW(LPNETRESOURCEW lpNetResource, LPVOID lpBuffer, LPDWORD lpcbBuffer, LPWSTR* lplpSystem);
+     * {@snippet lang=c :
+     * extern LONG SCardListReaderGroupsW(SCARDCONTEXT hContext, LPWSTR mszGroups, LPDWORD pcchGroups)
      * }
      */
-    public static int WNetGetResourceInformationW(MemorySegment lpNetResource, MemorySegment lpBuffer, MemorySegment lpcbBuffer, MemorySegment lplpSystem) {
-        var mh$ = WNetGetResourceInformationW$MH();
+    public static int SCardListReaderGroupsW(long hContext, MemorySegment mszGroups, MemorySegment pcchGroups) {
+        var mh$ = SCardListReaderGroupsW.HANDLE;
         try {
-            return (int)mh$.invokeExact(lpNetResource, lpBuffer, lpcbBuffer, lplpSystem);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardListReaderGroupsW", hContext, mszGroups, pcchGroups);
+            }
+            return (int)mh$.invokeExact(hContext, mszGroups, pcchGroups);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    /**
-     * {@snippet :
-     * typedef struct _UNIVERSAL_NAME_INFOA* LPUNIVERSAL_NAME_INFOA;
-     * }
-     */
-    public static final AddressLayout LPUNIVERSAL_NAME_INFOA = RuntimeHelper.POINTER;
+
+    private static class SCardListReadersA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardListReadersA"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct _UNIVERSAL_NAME_INFOW* LPUNIVERSAL_NAME_INFOW;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardListReadersA(SCARDCONTEXT hContext, LPCSTR mszGroups, LPSTR mszReaders, LPDWORD pcchReaders)
      * }
      */
-    public static final AddressLayout LPUNIVERSAL_NAME_INFOW = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardListReadersA$descriptor() {
+        return SCardListReadersA.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct _UNIVERSAL_NAME_INFOA* LPUNIVERSAL_NAME_INFO;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardListReadersA(SCARDCONTEXT hContext, LPCSTR mszGroups, LPSTR mszReaders, LPDWORD pcchReaders)
      * }
      */
-    public static final AddressLayout LPUNIVERSAL_NAME_INFO = RuntimeHelper.POINTER;
+    public static MethodHandle SCardListReadersA$handle() {
+        return SCardListReadersA.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct _REMOTE_NAME_INFOA* LPREMOTE_NAME_INFOA;
+     * {@snippet lang=c :
+     * extern LONG SCardListReadersA(SCARDCONTEXT hContext, LPCSTR mszGroups, LPSTR mszReaders, LPDWORD pcchReaders)
      * }
      */
-    public static final AddressLayout LPREMOTE_NAME_INFOA = RuntimeHelper.POINTER;
+    public static int SCardListReadersA(long hContext, MemorySegment mszGroups, MemorySegment mszReaders, MemorySegment pcchReaders) {
+        var mh$ = SCardListReadersA.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardListReadersA", hContext, mszGroups, mszReaders, pcchReaders);
+            }
+            return (int)mh$.invokeExact(hContext, mszGroups, mszReaders, pcchReaders);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class SCardListReadersW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardListReadersW"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct _REMOTE_NAME_INFOW* LPREMOTE_NAME_INFOW;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardListReadersW(SCARDCONTEXT hContext, LPCWSTR mszGroups, LPWSTR mszReaders, LPDWORD pcchReaders)
      * }
      */
-    public static final AddressLayout LPREMOTE_NAME_INFOW = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardListReadersW$descriptor() {
+        return SCardListReadersW.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct _REMOTE_NAME_INFOA* LPREMOTE_NAME_INFO;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardListReadersW(SCARDCONTEXT hContext, LPCWSTR mszGroups, LPWSTR mszReaders, LPDWORD pcchReaders)
      * }
      */
-    public static final AddressLayout LPREMOTE_NAME_INFO = RuntimeHelper.POINTER;
-    public static MethodHandle WNetGetUniversalNameA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1517.const$1,"WNetGetUniversalNameA");
+    public static MethodHandle SCardListReadersW$handle() {
+        return SCardListReadersW.HANDLE;
     }
     /**
-     * {@snippet :
-     * DWORD WNetGetUniversalNameA(LPCSTR lpLocalPath, DWORD dwInfoLevel, LPVOID lpBuffer, LPDWORD lpBufferSize);
+     * {@snippet lang=c :
+     * extern LONG SCardListReadersW(SCARDCONTEXT hContext, LPCWSTR mszGroups, LPWSTR mszReaders, LPDWORD pcchReaders)
      * }
      */
-    public static int WNetGetUniversalNameA(MemorySegment lpLocalPath, int dwInfoLevel, MemorySegment lpBuffer, MemorySegment lpBufferSize) {
-        var mh$ = WNetGetUniversalNameA$MH();
+    public static int SCardListReadersW(long hContext, MemorySegment mszGroups, MemorySegment mszReaders, MemorySegment pcchReaders) {
+        var mh$ = SCardListReadersW.HANDLE;
         try {
-            return (int)mh$.invokeExact(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardListReadersW", hContext, mszGroups, mszReaders, pcchReaders);
+            }
+            return (int)mh$.invokeExact(hContext, mszGroups, mszReaders, pcchReaders);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle WNetGetUniversalNameW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1517.const$2,"WNetGetUniversalNameW");
+
+    private static class SCardListCardsA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardListCardsA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetGetUniversalNameW(LPCWSTR lpLocalPath, DWORD dwInfoLevel, LPVOID lpBuffer, LPDWORD lpBufferSize);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardListCardsA(SCARDCONTEXT hContext, LPCBYTE pbAtr, LPCGUID rgquidInterfaces, DWORD cguidInterfaceCount, CHAR *mszCards, LPDWORD pcchCards)
      * }
      */
-    public static int WNetGetUniversalNameW(MemorySegment lpLocalPath, int dwInfoLevel, MemorySegment lpBuffer, MemorySegment lpBufferSize) {
-        var mh$ = WNetGetUniversalNameW$MH();
-        try {
-            return (int)mh$.invokeExact(lpLocalPath, dwInfoLevel, lpBuffer, lpBufferSize);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardListCardsA$descriptor() {
+        return SCardListCardsA.DESC;
     }
-    public static MethodHandle WNetGetUserA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1517.const$3,"WNetGetUserA");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardListCardsA(SCARDCONTEXT hContext, LPCBYTE pbAtr, LPCGUID rgquidInterfaces, DWORD cguidInterfaceCount, CHAR *mszCards, LPDWORD pcchCards)
+     * }
+     */
+    public static MethodHandle SCardListCardsA$handle() {
+        return SCardListCardsA.HANDLE;
     }
     /**
-     * {@snippet :
-     * DWORD WNetGetUserA(LPCSTR lpName, LPSTR lpUserName, LPDWORD lpnLength);
+     * {@snippet lang=c :
+     * extern LONG SCardListCardsA(SCARDCONTEXT hContext, LPCBYTE pbAtr, LPCGUID rgquidInterfaces, DWORD cguidInterfaceCount, CHAR *mszCards, LPDWORD pcchCards)
      * }
      */
-    public static int WNetGetUserA(MemorySegment lpName, MemorySegment lpUserName, MemorySegment lpnLength) {
-        var mh$ = WNetGetUserA$MH();
+    public static int SCardListCardsA(long hContext, MemorySegment pbAtr, MemorySegment rgquidInterfaces, int cguidInterfaceCount, MemorySegment mszCards, MemorySegment pcchCards) {
+        var mh$ = SCardListCardsA.HANDLE;
         try {
-            return (int)mh$.invokeExact(lpName, lpUserName, lpnLength);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardListCardsA", hContext, pbAtr, rgquidInterfaces, cguidInterfaceCount, mszCards, pcchCards);
+            }
+            return (int)mh$.invokeExact(hContext, pbAtr, rgquidInterfaces, cguidInterfaceCount, mszCards, pcchCards);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle WNetGetUserW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1517.const$4,"WNetGetUserW");
+
+    private static class SCardListCardsW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardListCardsW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetGetUserW(LPCWSTR lpName, LPWSTR lpUserName, LPDWORD lpnLength);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardListCardsW(SCARDCONTEXT hContext, LPCBYTE pbAtr, LPCGUID rgquidInterfaces, DWORD cguidInterfaceCount, WCHAR *mszCards, LPDWORD pcchCards)
      * }
      */
-    public static int WNetGetUserW(MemorySegment lpName, MemorySegment lpUserName, MemorySegment lpnLength) {
-        var mh$ = WNetGetUserW$MH();
-        try {
-            return (int)mh$.invokeExact(lpName, lpUserName, lpnLength);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardListCardsW$descriptor() {
+        return SCardListCardsW.DESC;
     }
-    public static MethodHandle WNetGetProviderNameA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1517.const$5,"WNetGetProviderNameA");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardListCardsW(SCARDCONTEXT hContext, LPCBYTE pbAtr, LPCGUID rgquidInterfaces, DWORD cguidInterfaceCount, WCHAR *mszCards, LPDWORD pcchCards)
+     * }
+     */
+    public static MethodHandle SCardListCardsW$handle() {
+        return SCardListCardsW.HANDLE;
     }
     /**
-     * {@snippet :
-     * DWORD WNetGetProviderNameA(DWORD dwNetType, LPSTR lpProviderName, LPDWORD lpBufferSize);
+     * {@snippet lang=c :
+     * extern LONG SCardListCardsW(SCARDCONTEXT hContext, LPCBYTE pbAtr, LPCGUID rgquidInterfaces, DWORD cguidInterfaceCount, WCHAR *mszCards, LPDWORD pcchCards)
      * }
      */
-    public static int WNetGetProviderNameA(int dwNetType, MemorySegment lpProviderName, MemorySegment lpBufferSize) {
-        var mh$ = WNetGetProviderNameA$MH();
+    public static int SCardListCardsW(long hContext, MemorySegment pbAtr, MemorySegment rgquidInterfaces, int cguidInterfaceCount, MemorySegment mszCards, MemorySegment pcchCards) {
+        var mh$ = SCardListCardsW.HANDLE;
         try {
-            return (int)mh$.invokeExact(dwNetType, lpProviderName, lpBufferSize);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardListCardsW", hContext, pbAtr, rgquidInterfaces, cguidInterfaceCount, mszCards, pcchCards);
+            }
+            return (int)mh$.invokeExact(hContext, pbAtr, rgquidInterfaces, cguidInterfaceCount, mszCards, pcchCards);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle WNetGetProviderNameW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1518.const$0,"WNetGetProviderNameW");
+
+    private static class SCardListInterfacesA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardListInterfacesA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetGetProviderNameW(DWORD dwNetType, LPWSTR lpProviderName, LPDWORD lpBufferSize);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardListInterfacesA(SCARDCONTEXT hContext, LPCSTR szCard, LPGUID pguidInterfaces, LPDWORD pcguidInterfaces)
      * }
      */
-    public static int WNetGetProviderNameW(int dwNetType, MemorySegment lpProviderName, MemorySegment lpBufferSize) {
-        var mh$ = WNetGetProviderNameW$MH();
-        try {
-            return (int)mh$.invokeExact(dwNetType, lpProviderName, lpBufferSize);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardListInterfacesA$descriptor() {
+        return SCardListInterfacesA.DESC;
     }
+
     /**
-     * {@snippet :
-     * typedef struct _NETINFOSTRUCT* LPNETINFOSTRUCT;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardListInterfacesA(SCARDCONTEXT hContext, LPCSTR szCard, LPGUID pguidInterfaces, LPDWORD pcguidInterfaces)
      * }
      */
-    public static final AddressLayout LPNETINFOSTRUCT = RuntimeHelper.POINTER;
-    public static MethodHandle WNetGetNetworkInformationA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1519.const$4,"WNetGetNetworkInformationA");
+    public static MethodHandle SCardListInterfacesA$handle() {
+        return SCardListInterfacesA.HANDLE;
     }
     /**
-     * {@snippet :
-     * DWORD WNetGetNetworkInformationA(LPCSTR lpProvider, LPNETINFOSTRUCT lpNetInfoStruct);
+     * {@snippet lang=c :
+     * extern LONG SCardListInterfacesA(SCARDCONTEXT hContext, LPCSTR szCard, LPGUID pguidInterfaces, LPDWORD pcguidInterfaces)
      * }
      */
-    public static int WNetGetNetworkInformationA(MemorySegment lpProvider, MemorySegment lpNetInfoStruct) {
-        var mh$ = WNetGetNetworkInformationA$MH();
+    public static int SCardListInterfacesA(long hContext, MemorySegment szCard, MemorySegment pguidInterfaces, MemorySegment pcguidInterfaces) {
+        var mh$ = SCardListInterfacesA.HANDLE;
         try {
-            return (int)mh$.invokeExact(lpProvider, lpNetInfoStruct);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardListInterfacesA", hContext, szCard, pguidInterfaces, pcguidInterfaces);
+            }
+            return (int)mh$.invokeExact(hContext, szCard, pguidInterfaces, pcguidInterfaces);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle WNetGetNetworkInformationW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1519.const$5,"WNetGetNetworkInformationW");
+
+    private static class SCardListInterfacesW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardListInterfacesW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetGetNetworkInformationW(LPCWSTR lpProvider, LPNETINFOSTRUCT lpNetInfoStruct);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardListInterfacesW(SCARDCONTEXT hContext, LPCWSTR szCard, LPGUID pguidInterfaces, LPDWORD pcguidInterfaces)
      * }
      */
-    public static int WNetGetNetworkInformationW(MemorySegment lpProvider, MemorySegment lpNetInfoStruct) {
-        var mh$ = WNetGetNetworkInformationW$MH();
-        try {
-            return (int)mh$.invokeExact(lpProvider, lpNetInfoStruct);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardListInterfacesW$descriptor() {
+        return SCardListInterfacesW.DESC;
     }
-    public static MethodHandle WNetGetLastErrorA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1520.const$0,"WNetGetLastErrorA");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardListInterfacesW(SCARDCONTEXT hContext, LPCWSTR szCard, LPGUID pguidInterfaces, LPDWORD pcguidInterfaces)
+     * }
+     */
+    public static MethodHandle SCardListInterfacesW$handle() {
+        return SCardListInterfacesW.HANDLE;
     }
     /**
-     * {@snippet :
-     * DWORD WNetGetLastErrorA(LPDWORD lpError, LPSTR lpErrorBuf, DWORD nErrorBufSize, LPSTR lpNameBuf, DWORD nNameBufSize);
+     * {@snippet lang=c :
+     * extern LONG SCardListInterfacesW(SCARDCONTEXT hContext, LPCWSTR szCard, LPGUID pguidInterfaces, LPDWORD pcguidInterfaces)
      * }
      */
-    public static int WNetGetLastErrorA(MemorySegment lpError, MemorySegment lpErrorBuf, int nErrorBufSize, MemorySegment lpNameBuf, int nNameBufSize) {
-        var mh$ = WNetGetLastErrorA$MH();
+    public static int SCardListInterfacesW(long hContext, MemorySegment szCard, MemorySegment pguidInterfaces, MemorySegment pcguidInterfaces) {
+        var mh$ = SCardListInterfacesW.HANDLE;
         try {
-            return (int)mh$.invokeExact(lpError, lpErrorBuf, nErrorBufSize, lpNameBuf, nNameBufSize);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardListInterfacesW", hContext, szCard, pguidInterfaces, pcguidInterfaces);
+            }
+            return (int)mh$.invokeExact(hContext, szCard, pguidInterfaces, pcguidInterfaces);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle WNetGetLastErrorW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1520.const$1,"WNetGetLastErrorW");
+
+    private static class SCardGetProviderIdA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardGetProviderIdA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * DWORD WNetGetLastErrorW(LPDWORD lpError, LPWSTR lpErrorBuf, DWORD nErrorBufSize, LPWSTR lpNameBuf, DWORD nNameBufSize);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetProviderIdA(SCARDCONTEXT hContext, LPCSTR szCard, LPGUID pguidProviderId)
      * }
      */
-    public static int WNetGetLastErrorW(MemorySegment lpError, MemorySegment lpErrorBuf, int nErrorBufSize, MemorySegment lpNameBuf, int nNameBufSize) {
-        var mh$ = WNetGetLastErrorW$MH();
-        try {
-            return (int)mh$.invokeExact(lpError, lpErrorBuf, nErrorBufSize, lpNameBuf, nNameBufSize);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardGetProviderIdA$descriptor() {
+        return SCardGetProviderIdA.DESC;
     }
+
     /**
-     * {@snippet :
-     * typedef struct _NETCONNECTINFOSTRUCT* LPNETCONNECTINFOSTRUCT;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetProviderIdA(SCARDCONTEXT hContext, LPCSTR szCard, LPGUID pguidProviderId)
      * }
      */
-    public static final AddressLayout LPNETCONNECTINFOSTRUCT = RuntimeHelper.POINTER;
-    public static MethodHandle MultinetGetConnectionPerformanceA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1521.const$2,"MultinetGetConnectionPerformanceA");
+    public static MethodHandle SCardGetProviderIdA$handle() {
+        return SCardGetProviderIdA.HANDLE;
     }
     /**
-     * {@snippet :
-     * DWORD MultinetGetConnectionPerformanceA(LPNETRESOURCEA lpNetResource, LPNETCONNECTINFOSTRUCT lpNetConnectInfoStruct);
+     * {@snippet lang=c :
+     * extern LONG SCardGetProviderIdA(SCARDCONTEXT hContext, LPCSTR szCard, LPGUID pguidProviderId)
      * }
      */
-    public static int MultinetGetConnectionPerformanceA(MemorySegment lpNetResource, MemorySegment lpNetConnectInfoStruct) {
-        var mh$ = MultinetGetConnectionPerformanceA$MH();
+    public static int SCardGetProviderIdA(long hContext, MemorySegment szCard, MemorySegment pguidProviderId) {
+        var mh$ = SCardGetProviderIdA.HANDLE;
         try {
-            return (int)mh$.invokeExact(lpNetResource, lpNetConnectInfoStruct);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardGetProviderIdA", hContext, szCard, pguidProviderId);
+            }
+            return (int)mh$.invokeExact(hContext, szCard, pguidProviderId);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle MultinetGetConnectionPerformanceW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1521.const$3,"MultinetGetConnectionPerformanceW");
+
+    private static class SCardGetProviderIdW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardGetProviderIdW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * DWORD MultinetGetConnectionPerformanceW(LPNETRESOURCEW lpNetResource, LPNETCONNECTINFOSTRUCT lpNetConnectInfoStruct);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetProviderIdW(SCARDCONTEXT hContext, LPCWSTR szCard, LPGUID pguidProviderId)
      * }
      */
-    public static int MultinetGetConnectionPerformanceW(MemorySegment lpNetResource, MemorySegment lpNetConnectInfoStruct) {
-        var mh$ = MultinetGetConnectionPerformanceW$MH();
-        try {
-            return (int)mh$.invokeExact(lpNetResource, lpNetConnectInfoStruct);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardGetProviderIdW$descriptor() {
+        return SCardGetProviderIdW.DESC;
     }
-    public static MethodHandle DdeSetQualityOfService$MH() {
-        return RuntimeHelper.requireNonNull(constants$1523.const$1,"DdeSetQualityOfService");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetProviderIdW(SCARDCONTEXT hContext, LPCWSTR szCard, LPGUID pguidProviderId)
+     * }
+     */
+    public static MethodHandle SCardGetProviderIdW$handle() {
+        return SCardGetProviderIdW.HANDLE;
     }
     /**
-     * {@snippet :
-     * BOOL DdeSetQualityOfService(HWND hwndClient, const SECURITY_QUALITY_OF_SERVICE* pqosNew, PSECURITY_QUALITY_OF_SERVICE pqosPrev);
+     * {@snippet lang=c :
+     * extern LONG SCardGetProviderIdW(SCARDCONTEXT hContext, LPCWSTR szCard, LPGUID pguidProviderId)
      * }
      */
-    public static int DdeSetQualityOfService(MemorySegment hwndClient, MemorySegment pqosNew, MemorySegment pqosPrev) {
-        var mh$ = DdeSetQualityOfService$MH();
+    public static int SCardGetProviderIdW(long hContext, MemorySegment szCard, MemorySegment pguidProviderId) {
+        var mh$ = SCardGetProviderIdW.HANDLE;
         try {
-            return (int)mh$.invokeExact(hwndClient, pqosNew, pqosPrev);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardGetProviderIdW", hContext, szCard, pguidProviderId);
+            }
+            return (int)mh$.invokeExact(hContext, szCard, pguidProviderId);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle ImpersonateDdeClientWindow$MH() {
-        return RuntimeHelper.requireNonNull(constants$1523.const$2,"ImpersonateDdeClientWindow");
+
+    private static class SCardGetCardTypeProviderNameA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardGetCardTypeProviderNameA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * BOOL ImpersonateDdeClientWindow(HWND hWndClient, HWND hWndServer);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetCardTypeProviderNameA(SCARDCONTEXT hContext, LPCSTR szCardName, DWORD dwProviderId, CHAR *szProvider, LPDWORD pcchProvider)
      * }
      */
-    public static int ImpersonateDdeClientWindow(MemorySegment hWndClient, MemorySegment hWndServer) {
-        var mh$ = ImpersonateDdeClientWindow$MH();
-        try {
-            return (int)mh$.invokeExact(hWndClient, hWndServer);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardGetCardTypeProviderNameA$descriptor() {
+        return SCardGetCardTypeProviderNameA.DESC;
     }
-    public static MethodHandle PackDDElParam$MH() {
-        return RuntimeHelper.requireNonNull(constants$1523.const$3,"PackDDElParam");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetCardTypeProviderNameA(SCARDCONTEXT hContext, LPCSTR szCardName, DWORD dwProviderId, CHAR *szProvider, LPDWORD pcchProvider)
+     * }
+     */
+    public static MethodHandle SCardGetCardTypeProviderNameA$handle() {
+        return SCardGetCardTypeProviderNameA.HANDLE;
     }
     /**
-     * {@snippet :
-     * LPARAM PackDDElParam(UINT msg, UINT_PTR uiLo, UINT_PTR uiHi);
+     * {@snippet lang=c :
+     * extern LONG SCardGetCardTypeProviderNameA(SCARDCONTEXT hContext, LPCSTR szCardName, DWORD dwProviderId, CHAR *szProvider, LPDWORD pcchProvider)
      * }
      */
-    public static long PackDDElParam(int msg, long uiLo, long uiHi) {
-        var mh$ = PackDDElParam$MH();
+    public static int SCardGetCardTypeProviderNameA(long hContext, MemorySegment szCardName, int dwProviderId, MemorySegment szProvider, MemorySegment pcchProvider) {
+        var mh$ = SCardGetCardTypeProviderNameA.HANDLE;
         try {
-            return (long)mh$.invokeExact(msg, uiLo, uiHi);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardGetCardTypeProviderNameA", hContext, szCardName, dwProviderId, szProvider, pcchProvider);
+            }
+            return (int)mh$.invokeExact(hContext, szCardName, dwProviderId, szProvider, pcchProvider);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle UnpackDDElParam$MH() {
-        return RuntimeHelper.requireNonNull(constants$1523.const$5,"UnpackDDElParam");
+
+    private static class SCardGetCardTypeProviderNameW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardGetCardTypeProviderNameW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * BOOL UnpackDDElParam(UINT msg, LPARAM lParam, PUINT_PTR puiLo, PUINT_PTR puiHi);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetCardTypeProviderNameW(SCARDCONTEXT hContext, LPCWSTR szCardName, DWORD dwProviderId, WCHAR *szProvider, LPDWORD pcchProvider)
      * }
      */
-    public static int UnpackDDElParam(int msg, long lParam, MemorySegment puiLo, MemorySegment puiHi) {
-        var mh$ = UnpackDDElParam$MH();
-        try {
-            return (int)mh$.invokeExact(msg, lParam, puiLo, puiHi);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardGetCardTypeProviderNameW$descriptor() {
+        return SCardGetCardTypeProviderNameW.DESC;
     }
-    public static MethodHandle FreeDDElParam$MH() {
-        return RuntimeHelper.requireNonNull(constants$1524.const$0,"FreeDDElParam");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetCardTypeProviderNameW(SCARDCONTEXT hContext, LPCWSTR szCardName, DWORD dwProviderId, WCHAR *szProvider, LPDWORD pcchProvider)
+     * }
+     */
+    public static MethodHandle SCardGetCardTypeProviderNameW$handle() {
+        return SCardGetCardTypeProviderNameW.HANDLE;
     }
     /**
-     * {@snippet :
-     * BOOL FreeDDElParam(UINT msg, LPARAM lParam);
+     * {@snippet lang=c :
+     * extern LONG SCardGetCardTypeProviderNameW(SCARDCONTEXT hContext, LPCWSTR szCardName, DWORD dwProviderId, WCHAR *szProvider, LPDWORD pcchProvider)
      * }
      */
-    public static int FreeDDElParam(int msg, long lParam) {
-        var mh$ = FreeDDElParam$MH();
+    public static int SCardGetCardTypeProviderNameW(long hContext, MemorySegment szCardName, int dwProviderId, MemorySegment szProvider, MemorySegment pcchProvider) {
+        var mh$ = SCardGetCardTypeProviderNameW.HANDLE;
         try {
-            return (int)mh$.invokeExact(msg, lParam);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardGetCardTypeProviderNameW", hContext, szCardName, dwProviderId, szProvider, pcchProvider);
+            }
+            return (int)mh$.invokeExact(hContext, szCardName, dwProviderId, szProvider, pcchProvider);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle ReuseDDElParam$MH() {
-        return RuntimeHelper.requireNonNull(constants$1524.const$2,"ReuseDDElParam");
+
+    private static class SCardIntroduceReaderGroupA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardIntroduceReaderGroupA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * LPARAM ReuseDDElParam(LPARAM lParam, UINT msgIn, UINT msgOut, UINT_PTR uiLo, UINT_PTR uiHi);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceReaderGroupA(SCARDCONTEXT hContext, LPCSTR szGroupName)
      * }
      */
-    public static long ReuseDDElParam(long lParam, int msgIn, int msgOut, long uiLo, long uiHi) {
-        var mh$ = ReuseDDElParam$MH();
-        try {
-            return (long)mh$.invokeExact(lParam, msgIn, msgOut, uiLo, uiHi);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardIntroduceReaderGroupA$descriptor() {
+        return SCardIntroduceReaderGroupA.DESC;
     }
+
     /**
-     * {@snippet :
-     * typedef struct HCONVLIST__* HCONVLIST;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceReaderGroupA(SCARDCONTEXT hContext, LPCSTR szGroupName)
      * }
      */
-    public static final AddressLayout HCONVLIST = RuntimeHelper.POINTER;
+    public static MethodHandle SCardIntroduceReaderGroupA$handle() {
+        return SCardIntroduceReaderGroupA.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct HCONV__* HCONV;
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceReaderGroupA(SCARDCONTEXT hContext, LPCSTR szGroupName)
      * }
      */
-    public static final AddressLayout HCONV = RuntimeHelper.POINTER;
+    public static int SCardIntroduceReaderGroupA(long hContext, MemorySegment szGroupName) {
+        var mh$ = SCardIntroduceReaderGroupA.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardIntroduceReaderGroupA", hContext, szGroupName);
+            }
+            return (int)mh$.invokeExact(hContext, szGroupName);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class SCardIntroduceReaderGroupW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardIntroduceReaderGroupW"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct HSZ__* HSZ;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceReaderGroupW(SCARDCONTEXT hContext, LPCWSTR szGroupName)
      * }
      */
-    public static final AddressLayout HSZ = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardIntroduceReaderGroupW$descriptor() {
+        return SCardIntroduceReaderGroupW.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct HDDEDATA__* HDDEDATA;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceReaderGroupW(SCARDCONTEXT hContext, LPCWSTR szGroupName)
      * }
      */
-    public static final AddressLayout HDDEDATA = RuntimeHelper.POINTER;
+    public static MethodHandle SCardIntroduceReaderGroupW$handle() {
+        return SCardIntroduceReaderGroupW.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct tagHSZPAIR* PHSZPAIR;
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceReaderGroupW(SCARDCONTEXT hContext, LPCWSTR szGroupName)
      * }
      */
-    public static final AddressLayout PHSZPAIR = RuntimeHelper.POINTER;
+    public static int SCardIntroduceReaderGroupW(long hContext, MemorySegment szGroupName) {
+        var mh$ = SCardIntroduceReaderGroupW.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardIntroduceReaderGroupW", hContext, szGroupName);
+            }
+            return (int)mh$.invokeExact(hContext, szGroupName);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class SCardForgetReaderGroupA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardForgetReaderGroupA"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagCONVCONTEXT* PCONVCONTEXT;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardForgetReaderGroupA(SCARDCONTEXT hContext, LPCSTR szGroupName)
      * }
      */
-    public static final AddressLayout PCONVCONTEXT = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardForgetReaderGroupA$descriptor() {
+        return SCardForgetReaderGroupA.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagCONVINFO* PCONVINFO;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardForgetReaderGroupA(SCARDCONTEXT hContext, LPCSTR szGroupName)
      * }
      */
-    public static final AddressLayout PCONVINFO = RuntimeHelper.POINTER;
-    public static MethodHandle DdeInitializeA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1530.const$5,"DdeInitializeA");
+    public static MethodHandle SCardForgetReaderGroupA$handle() {
+        return SCardForgetReaderGroupA.HANDLE;
     }
     /**
-     * {@snippet :
-     * UINT DdeInitializeA(LPDWORD pidInst, PFNCALLBACK pfnCallback, DWORD afCmd, DWORD ulRes);
+     * {@snippet lang=c :
+     * extern LONG SCardForgetReaderGroupA(SCARDCONTEXT hContext, LPCSTR szGroupName)
      * }
      */
-    public static int DdeInitializeA(MemorySegment pidInst, MemorySegment pfnCallback, int afCmd, int ulRes) {
-        var mh$ = DdeInitializeA$MH();
+    public static int SCardForgetReaderGroupA(long hContext, MemorySegment szGroupName) {
+        var mh$ = SCardForgetReaderGroupA.HANDLE;
         try {
-            return (int)mh$.invokeExact(pidInst, pfnCallback, afCmd, ulRes);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardForgetReaderGroupA", hContext, szGroupName);
+            }
+            return (int)mh$.invokeExact(hContext, szGroupName);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdeInitializeW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1531.const$0,"DdeInitializeW");
+
+    private static class SCardForgetReaderGroupW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardForgetReaderGroupW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * UINT DdeInitializeW(LPDWORD pidInst, PFNCALLBACK pfnCallback, DWORD afCmd, DWORD ulRes);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardForgetReaderGroupW(SCARDCONTEXT hContext, LPCWSTR szGroupName)
      * }
      */
-    public static int DdeInitializeW(MemorySegment pidInst, MemorySegment pfnCallback, int afCmd, int ulRes) {
-        var mh$ = DdeInitializeW$MH();
-        try {
-            return (int)mh$.invokeExact(pidInst, pfnCallback, afCmd, ulRes);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle DdeUninitialize$MH() {
-        return RuntimeHelper.requireNonNull(constants$1531.const$1,"DdeUninitialize");
+    public static FunctionDescriptor SCardForgetReaderGroupW$descriptor() {
+        return SCardForgetReaderGroupW.DESC;
     }
+
     /**
-     * {@snippet :
-     * BOOL DdeUninitialize(DWORD idInst);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardForgetReaderGroupW(SCARDCONTEXT hContext, LPCWSTR szGroupName)
      * }
      */
-    public static int DdeUninitialize(int idInst) {
-        var mh$ = DdeUninitialize$MH();
-        try {
-            return (int)mh$.invokeExact(idInst);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle DdeConnectList$MH() {
-        return RuntimeHelper.requireNonNull(constants$1531.const$3,"DdeConnectList");
+    public static MethodHandle SCardForgetReaderGroupW$handle() {
+        return SCardForgetReaderGroupW.HANDLE;
     }
     /**
-     * {@snippet :
-     * HCONVLIST DdeConnectList(DWORD idInst, HSZ hszService, HSZ hszTopic, HCONVLIST hConvList, PCONVCONTEXT pCC);
+     * {@snippet lang=c :
+     * extern LONG SCardForgetReaderGroupW(SCARDCONTEXT hContext, LPCWSTR szGroupName)
      * }
      */
-    public static MemorySegment DdeConnectList(int idInst, MemorySegment hszService, MemorySegment hszTopic, MemorySegment hConvList, MemorySegment pCC) {
-        var mh$ = DdeConnectList$MH();
+    public static int SCardForgetReaderGroupW(long hContext, MemorySegment szGroupName) {
+        var mh$ = SCardForgetReaderGroupW.HANDLE;
         try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(idInst, hszService, hszTopic, hConvList, pCC);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardForgetReaderGroupW", hContext, szGroupName);
+            }
+            return (int)mh$.invokeExact(hContext, szGroupName);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdeQueryNextServer$MH() {
-        return RuntimeHelper.requireNonNull(constants$1531.const$4,"DdeQueryNextServer");
+
+    private static class SCardIntroduceReaderA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardIntroduceReaderA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * HCONV DdeQueryNextServer(HCONVLIST hConvList, HCONV hConvPrev);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceReaderA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPCSTR szDeviceName)
      * }
      */
-    public static MemorySegment DdeQueryNextServer(MemorySegment hConvList, MemorySegment hConvPrev) {
-        var mh$ = DdeQueryNextServer$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(hConvList, hConvPrev);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardIntroduceReaderA$descriptor() {
+        return SCardIntroduceReaderA.DESC;
     }
-    public static MethodHandle DdeDisconnectList$MH() {
-        return RuntimeHelper.requireNonNull(constants$1531.const$5,"DdeDisconnectList");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceReaderA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPCSTR szDeviceName)
+     * }
+     */
+    public static MethodHandle SCardIntroduceReaderA$handle() {
+        return SCardIntroduceReaderA.HANDLE;
     }
     /**
-     * {@snippet :
-     * BOOL DdeDisconnectList(HCONVLIST hConvList);
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceReaderA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPCSTR szDeviceName)
      * }
      */
-    public static int DdeDisconnectList(MemorySegment hConvList) {
-        var mh$ = DdeDisconnectList$MH();
+    public static int SCardIntroduceReaderA(long hContext, MemorySegment szReaderName, MemorySegment szDeviceName) {
+        var mh$ = SCardIntroduceReaderA.HANDLE;
         try {
-            return (int)mh$.invokeExact(hConvList);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardIntroduceReaderA", hContext, szReaderName, szDeviceName);
+            }
+            return (int)mh$.invokeExact(hContext, szReaderName, szDeviceName);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdeConnect$MH() {
-        return RuntimeHelper.requireNonNull(constants$1532.const$0,"DdeConnect");
+
+    private static class SCardIntroduceReaderW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardIntroduceReaderW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * HCONV DdeConnect(DWORD idInst, HSZ hszService, HSZ hszTopic, PCONVCONTEXT pCC);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceReaderW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPCWSTR szDeviceName)
      * }
      */
-    public static MemorySegment DdeConnect(int idInst, MemorySegment hszService, MemorySegment hszTopic, MemorySegment pCC) {
-        var mh$ = DdeConnect$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(idInst, hszService, hszTopic, pCC);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardIntroduceReaderW$descriptor() {
+        return SCardIntroduceReaderW.DESC;
     }
-    public static MethodHandle DdeDisconnect$MH() {
-        return RuntimeHelper.requireNonNull(constants$1532.const$1,"DdeDisconnect");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceReaderW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPCWSTR szDeviceName)
+     * }
+     */
+    public static MethodHandle SCardIntroduceReaderW$handle() {
+        return SCardIntroduceReaderW.HANDLE;
     }
     /**
-     * {@snippet :
-     * BOOL DdeDisconnect(HCONV hConv);
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceReaderW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPCWSTR szDeviceName)
      * }
      */
-    public static int DdeDisconnect(MemorySegment hConv) {
-        var mh$ = DdeDisconnect$MH();
+    public static int SCardIntroduceReaderW(long hContext, MemorySegment szReaderName, MemorySegment szDeviceName) {
+        var mh$ = SCardIntroduceReaderW.HANDLE;
         try {
-            return (int)mh$.invokeExact(hConv);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardIntroduceReaderW", hContext, szReaderName, szDeviceName);
+            }
+            return (int)mh$.invokeExact(hContext, szReaderName, szDeviceName);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdeReconnect$MH() {
-        return RuntimeHelper.requireNonNull(constants$1532.const$2,"DdeReconnect");
+
+    private static class SCardForgetReaderA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardForgetReaderA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * HCONV DdeReconnect(HCONV hConv);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardForgetReaderA(SCARDCONTEXT hContext, LPCSTR szReaderName)
      * }
      */
-    public static MemorySegment DdeReconnect(MemorySegment hConv) {
-        var mh$ = DdeReconnect$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(hConv);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardForgetReaderA$descriptor() {
+        return SCardForgetReaderA.DESC;
     }
-    public static MethodHandle DdeQueryConvInfo$MH() {
-        return RuntimeHelper.requireNonNull(constants$1532.const$3,"DdeQueryConvInfo");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardForgetReaderA(SCARDCONTEXT hContext, LPCSTR szReaderName)
+     * }
+     */
+    public static MethodHandle SCardForgetReaderA$handle() {
+        return SCardForgetReaderA.HANDLE;
     }
     /**
-     * {@snippet :
-     * UINT DdeQueryConvInfo(HCONV hConv, DWORD idTransaction, PCONVINFO pConvInfo);
+     * {@snippet lang=c :
+     * extern LONG SCardForgetReaderA(SCARDCONTEXT hContext, LPCSTR szReaderName)
      * }
      */
-    public static int DdeQueryConvInfo(MemorySegment hConv, int idTransaction, MemorySegment pConvInfo) {
-        var mh$ = DdeQueryConvInfo$MH();
+    public static int SCardForgetReaderA(long hContext, MemorySegment szReaderName) {
+        var mh$ = SCardForgetReaderA.HANDLE;
         try {
-            return (int)mh$.invokeExact(hConv, idTransaction, pConvInfo);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardForgetReaderA", hContext, szReaderName);
+            }
+            return (int)mh$.invokeExact(hContext, szReaderName);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdeSetUserHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1532.const$4,"DdeSetUserHandle");
+
+    private static class SCardForgetReaderW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardForgetReaderW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * BOOL DdeSetUserHandle(HCONV hConv, DWORD id, DWORD_PTR hUser);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardForgetReaderW(SCARDCONTEXT hContext, LPCWSTR szReaderName)
      * }
      */
-    public static int DdeSetUserHandle(MemorySegment hConv, int id, long hUser) {
-        var mh$ = DdeSetUserHandle$MH();
-        try {
-            return (int)mh$.invokeExact(hConv, id, hUser);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardForgetReaderW$descriptor() {
+        return SCardForgetReaderW.DESC;
     }
-    public static MethodHandle DdeAbandonTransaction$MH() {
-        return RuntimeHelper.requireNonNull(constants$1532.const$5,"DdeAbandonTransaction");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardForgetReaderW(SCARDCONTEXT hContext, LPCWSTR szReaderName)
+     * }
+     */
+    public static MethodHandle SCardForgetReaderW$handle() {
+        return SCardForgetReaderW.HANDLE;
     }
     /**
-     * {@snippet :
-     * BOOL DdeAbandonTransaction(DWORD idInst, HCONV hConv, DWORD idTransaction);
+     * {@snippet lang=c :
+     * extern LONG SCardForgetReaderW(SCARDCONTEXT hContext, LPCWSTR szReaderName)
      * }
      */
-    public static int DdeAbandonTransaction(int idInst, MemorySegment hConv, int idTransaction) {
-        var mh$ = DdeAbandonTransaction$MH();
+    public static int SCardForgetReaderW(long hContext, MemorySegment szReaderName) {
+        var mh$ = SCardForgetReaderW.HANDLE;
         try {
-            return (int)mh$.invokeExact(idInst, hConv, idTransaction);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardForgetReaderW", hContext, szReaderName);
+            }
+            return (int)mh$.invokeExact(hContext, szReaderName);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdePostAdvise$MH() {
-        return RuntimeHelper.requireNonNull(constants$1533.const$0,"DdePostAdvise");
+
+    private static class SCardAddReaderToGroupA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardAddReaderToGroupA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * BOOL DdePostAdvise(DWORD idInst, HSZ hszTopic, HSZ hszItem);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardAddReaderToGroupA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPCSTR szGroupName)
      * }
      */
-    public static int DdePostAdvise(int idInst, MemorySegment hszTopic, MemorySegment hszItem) {
-        var mh$ = DdePostAdvise$MH();
-        try {
-            return (int)mh$.invokeExact(idInst, hszTopic, hszItem);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardAddReaderToGroupA$descriptor() {
+        return SCardAddReaderToGroupA.DESC;
     }
-    public static MethodHandle DdeEnableCallback$MH() {
-        return RuntimeHelper.requireNonNull(constants$1533.const$1,"DdeEnableCallback");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardAddReaderToGroupA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPCSTR szGroupName)
+     * }
+     */
+    public static MethodHandle SCardAddReaderToGroupA$handle() {
+        return SCardAddReaderToGroupA.HANDLE;
     }
     /**
-     * {@snippet :
-     * BOOL DdeEnableCallback(DWORD idInst, HCONV hConv, UINT wCmd);
+     * {@snippet lang=c :
+     * extern LONG SCardAddReaderToGroupA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPCSTR szGroupName)
      * }
      */
-    public static int DdeEnableCallback(int idInst, MemorySegment hConv, int wCmd) {
-        var mh$ = DdeEnableCallback$MH();
+    public static int SCardAddReaderToGroupA(long hContext, MemorySegment szReaderName, MemorySegment szGroupName) {
+        var mh$ = SCardAddReaderToGroupA.HANDLE;
         try {
-            return (int)mh$.invokeExact(idInst, hConv, wCmd);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardAddReaderToGroupA", hContext, szReaderName, szGroupName);
+            }
+            return (int)mh$.invokeExact(hContext, szReaderName, szGroupName);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdeImpersonateClient$MH() {
-        return RuntimeHelper.requireNonNull(constants$1533.const$2,"DdeImpersonateClient");
+
+    private static class SCardAddReaderToGroupW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardAddReaderToGroupW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * BOOL DdeImpersonateClient(HCONV hConv);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardAddReaderToGroupW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPCWSTR szGroupName)
      * }
      */
-    public static int DdeImpersonateClient(MemorySegment hConv) {
-        var mh$ = DdeImpersonateClient$MH();
-        try {
-            return (int)mh$.invokeExact(hConv);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardAddReaderToGroupW$descriptor() {
+        return SCardAddReaderToGroupW.DESC;
     }
-    public static MethodHandle DdeNameService$MH() {
-        return RuntimeHelper.requireNonNull(constants$1533.const$3,"DdeNameService");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardAddReaderToGroupW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPCWSTR szGroupName)
+     * }
+     */
+    public static MethodHandle SCardAddReaderToGroupW$handle() {
+        return SCardAddReaderToGroupW.HANDLE;
     }
     /**
-     * {@snippet :
-     * HDDEDATA DdeNameService(DWORD idInst, HSZ hsz1, HSZ hsz2, UINT afCmd);
+     * {@snippet lang=c :
+     * extern LONG SCardAddReaderToGroupW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPCWSTR szGroupName)
      * }
      */
-    public static MemorySegment DdeNameService(int idInst, MemorySegment hsz1, MemorySegment hsz2, int afCmd) {
-        var mh$ = DdeNameService$MH();
+    public static int SCardAddReaderToGroupW(long hContext, MemorySegment szReaderName, MemorySegment szGroupName) {
+        var mh$ = SCardAddReaderToGroupW.HANDLE;
         try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(idInst, hsz1, hsz2, afCmd);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardAddReaderToGroupW", hContext, szReaderName, szGroupName);
+            }
+            return (int)mh$.invokeExact(hContext, szReaderName, szGroupName);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdeClientTransaction$MH() {
-        return RuntimeHelper.requireNonNull(constants$1533.const$5,"DdeClientTransaction");
+
+    private static class SCardRemoveReaderFromGroupA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardRemoveReaderFromGroupA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * HDDEDATA DdeClientTransaction(LPBYTE pData, DWORD cbData, HCONV hConv, HSZ hszItem, UINT wFmt, UINT wType, DWORD dwTimeout, LPDWORD pdwResult);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardRemoveReaderFromGroupA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPCSTR szGroupName)
      * }
      */
-    public static MemorySegment DdeClientTransaction(MemorySegment pData, int cbData, MemorySegment hConv, MemorySegment hszItem, int wFmt, int wType, int dwTimeout, MemorySegment pdwResult) {
-        var mh$ = DdeClientTransaction$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(pData, cbData, hConv, hszItem, wFmt, wType, dwTimeout, pdwResult);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardRemoveReaderFromGroupA$descriptor() {
+        return SCardRemoveReaderFromGroupA.DESC;
     }
-    public static MethodHandle DdeCreateDataHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1534.const$1,"DdeCreateDataHandle");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardRemoveReaderFromGroupA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPCSTR szGroupName)
+     * }
+     */
+    public static MethodHandle SCardRemoveReaderFromGroupA$handle() {
+        return SCardRemoveReaderFromGroupA.HANDLE;
     }
     /**
-     * {@snippet :
-     * HDDEDATA DdeCreateDataHandle(DWORD idInst, LPBYTE pSrc, DWORD cb, DWORD cbOff, HSZ hszItem, UINT wFmt, UINT afCmd);
+     * {@snippet lang=c :
+     * extern LONG SCardRemoveReaderFromGroupA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPCSTR szGroupName)
      * }
      */
-    public static MemorySegment DdeCreateDataHandle(int idInst, MemorySegment pSrc, int cb, int cbOff, MemorySegment hszItem, int wFmt, int afCmd) {
-        var mh$ = DdeCreateDataHandle$MH();
+    public static int SCardRemoveReaderFromGroupA(long hContext, MemorySegment szReaderName, MemorySegment szGroupName) {
+        var mh$ = SCardRemoveReaderFromGroupA.HANDLE;
         try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(idInst, pSrc, cb, cbOff, hszItem, wFmt, afCmd);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardRemoveReaderFromGroupA", hContext, szReaderName, szGroupName);
+            }
+            return (int)mh$.invokeExact(hContext, szReaderName, szGroupName);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdeAddData$MH() {
-        return RuntimeHelper.requireNonNull(constants$1534.const$2,"DdeAddData");
+
+    private static class SCardRemoveReaderFromGroupW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardRemoveReaderFromGroupW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * HDDEDATA DdeAddData(HDDEDATA hData, LPBYTE pSrc, DWORD cb, DWORD cbOff);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardRemoveReaderFromGroupW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPCWSTR szGroupName)
      * }
      */
-    public static MemorySegment DdeAddData(MemorySegment hData, MemorySegment pSrc, int cb, int cbOff) {
-        var mh$ = DdeAddData$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(hData, pSrc, cb, cbOff);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardRemoveReaderFromGroupW$descriptor() {
+        return SCardRemoveReaderFromGroupW.DESC;
     }
-    public static MethodHandle DdeGetData$MH() {
-        return RuntimeHelper.requireNonNull(constants$1534.const$3,"DdeGetData");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardRemoveReaderFromGroupW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPCWSTR szGroupName)
+     * }
+     */
+    public static MethodHandle SCardRemoveReaderFromGroupW$handle() {
+        return SCardRemoveReaderFromGroupW.HANDLE;
     }
     /**
-     * {@snippet :
-     * DWORD DdeGetData(HDDEDATA hData, LPBYTE pDst, DWORD cbMax, DWORD cbOff);
+     * {@snippet lang=c :
+     * extern LONG SCardRemoveReaderFromGroupW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPCWSTR szGroupName)
      * }
      */
-    public static int DdeGetData(MemorySegment hData, MemorySegment pDst, int cbMax, int cbOff) {
-        var mh$ = DdeGetData$MH();
+    public static int SCardRemoveReaderFromGroupW(long hContext, MemorySegment szReaderName, MemorySegment szGroupName) {
+        var mh$ = SCardRemoveReaderFromGroupW.HANDLE;
         try {
-            return (int)mh$.invokeExact(hData, pDst, cbMax, cbOff);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardRemoveReaderFromGroupW", hContext, szReaderName, szGroupName);
+            }
+            return (int)mh$.invokeExact(hContext, szReaderName, szGroupName);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdeAccessData$MH() {
-        return RuntimeHelper.requireNonNull(constants$1534.const$4,"DdeAccessData");
+
+    private static class SCardIntroduceCardTypeA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardIntroduceCardTypeA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * LPBYTE DdeAccessData(HDDEDATA hData, LPDWORD pcbDataSize);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceCardTypeA(SCARDCONTEXT hContext, LPCSTR szCardName, LPCGUID pguidPrimaryProvider, LPCGUID rgguidInterfaces, DWORD dwInterfaceCount, LPCBYTE pbAtr, LPCBYTE pbAtrMask, DWORD cbAtrLen)
      * }
      */
-    public static MemorySegment DdeAccessData(MemorySegment hData, MemorySegment pcbDataSize) {
-        var mh$ = DdeAccessData$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(hData, pcbDataSize);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardIntroduceCardTypeA$descriptor() {
+        return SCardIntroduceCardTypeA.DESC;
     }
-    public static MethodHandle DdeUnaccessData$MH() {
-        return RuntimeHelper.requireNonNull(constants$1534.const$5,"DdeUnaccessData");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceCardTypeA(SCARDCONTEXT hContext, LPCSTR szCardName, LPCGUID pguidPrimaryProvider, LPCGUID rgguidInterfaces, DWORD dwInterfaceCount, LPCBYTE pbAtr, LPCBYTE pbAtrMask, DWORD cbAtrLen)
+     * }
+     */
+    public static MethodHandle SCardIntroduceCardTypeA$handle() {
+        return SCardIntroduceCardTypeA.HANDLE;
     }
     /**
-     * {@snippet :
-     * BOOL DdeUnaccessData(HDDEDATA hData);
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceCardTypeA(SCARDCONTEXT hContext, LPCSTR szCardName, LPCGUID pguidPrimaryProvider, LPCGUID rgguidInterfaces, DWORD dwInterfaceCount, LPCBYTE pbAtr, LPCBYTE pbAtrMask, DWORD cbAtrLen)
      * }
      */
-    public static int DdeUnaccessData(MemorySegment hData) {
-        var mh$ = DdeUnaccessData$MH();
+    public static int SCardIntroduceCardTypeA(long hContext, MemorySegment szCardName, MemorySegment pguidPrimaryProvider, MemorySegment rgguidInterfaces, int dwInterfaceCount, MemorySegment pbAtr, MemorySegment pbAtrMask, int cbAtrLen) {
+        var mh$ = SCardIntroduceCardTypeA.HANDLE;
         try {
-            return (int)mh$.invokeExact(hData);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardIntroduceCardTypeA", hContext, szCardName, pguidPrimaryProvider, rgguidInterfaces, dwInterfaceCount, pbAtr, pbAtrMask, cbAtrLen);
+            }
+            return (int)mh$.invokeExact(hContext, szCardName, pguidPrimaryProvider, rgguidInterfaces, dwInterfaceCount, pbAtr, pbAtrMask, cbAtrLen);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdeFreeDataHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1535.const$0,"DdeFreeDataHandle");
+
+    private static class SCardIntroduceCardTypeW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardIntroduceCardTypeW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * BOOL DdeFreeDataHandle(HDDEDATA hData);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceCardTypeW(SCARDCONTEXT hContext, LPCWSTR szCardName, LPCGUID pguidPrimaryProvider, LPCGUID rgguidInterfaces, DWORD dwInterfaceCount, LPCBYTE pbAtr, LPCBYTE pbAtrMask, DWORD cbAtrLen)
      * }
      */
-    public static int DdeFreeDataHandle(MemorySegment hData) {
-        var mh$ = DdeFreeDataHandle$MH();
-        try {
-            return (int)mh$.invokeExact(hData);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardIntroduceCardTypeW$descriptor() {
+        return SCardIntroduceCardTypeW.DESC;
     }
-    public static MethodHandle DdeGetLastError$MH() {
-        return RuntimeHelper.requireNonNull(constants$1535.const$1,"DdeGetLastError");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceCardTypeW(SCARDCONTEXT hContext, LPCWSTR szCardName, LPCGUID pguidPrimaryProvider, LPCGUID rgguidInterfaces, DWORD dwInterfaceCount, LPCBYTE pbAtr, LPCBYTE pbAtrMask, DWORD cbAtrLen)
+     * }
+     */
+    public static MethodHandle SCardIntroduceCardTypeW$handle() {
+        return SCardIntroduceCardTypeW.HANDLE;
     }
     /**
-     * {@snippet :
-     * UINT DdeGetLastError(DWORD idInst);
+     * {@snippet lang=c :
+     * extern LONG SCardIntroduceCardTypeW(SCARDCONTEXT hContext, LPCWSTR szCardName, LPCGUID pguidPrimaryProvider, LPCGUID rgguidInterfaces, DWORD dwInterfaceCount, LPCBYTE pbAtr, LPCBYTE pbAtrMask, DWORD cbAtrLen)
      * }
      */
-    public static int DdeGetLastError(int idInst) {
-        var mh$ = DdeGetLastError$MH();
+    public static int SCardIntroduceCardTypeW(long hContext, MemorySegment szCardName, MemorySegment pguidPrimaryProvider, MemorySegment rgguidInterfaces, int dwInterfaceCount, MemorySegment pbAtr, MemorySegment pbAtrMask, int cbAtrLen) {
+        var mh$ = SCardIntroduceCardTypeW.HANDLE;
         try {
-            return (int)mh$.invokeExact(idInst);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardIntroduceCardTypeW", hContext, szCardName, pguidPrimaryProvider, rgguidInterfaces, dwInterfaceCount, pbAtr, pbAtrMask, cbAtrLen);
+            }
+            return (int)mh$.invokeExact(hContext, szCardName, pguidPrimaryProvider, rgguidInterfaces, dwInterfaceCount, pbAtr, pbAtrMask, cbAtrLen);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdeCreateStringHandleA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1535.const$3,"DdeCreateStringHandleA");
+
+    private static class SCardSetCardTypeProviderNameA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardSetCardTypeProviderNameA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * HSZ DdeCreateStringHandleA(DWORD idInst, LPCSTR psz, int iCodePage);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardSetCardTypeProviderNameA(SCARDCONTEXT hContext, LPCSTR szCardName, DWORD dwProviderId, LPCSTR szProvider)
      * }
      */
-    public static MemorySegment DdeCreateStringHandleA(int idInst, MemorySegment psz, int iCodePage) {
-        var mh$ = DdeCreateStringHandleA$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(idInst, psz, iCodePage);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardSetCardTypeProviderNameA$descriptor() {
+        return SCardSetCardTypeProviderNameA.DESC;
     }
-    public static MethodHandle DdeCreateStringHandleW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1535.const$4,"DdeCreateStringHandleW");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardSetCardTypeProviderNameA(SCARDCONTEXT hContext, LPCSTR szCardName, DWORD dwProviderId, LPCSTR szProvider)
+     * }
+     */
+    public static MethodHandle SCardSetCardTypeProviderNameA$handle() {
+        return SCardSetCardTypeProviderNameA.HANDLE;
     }
     /**
-     * {@snippet :
-     * HSZ DdeCreateStringHandleW(DWORD idInst, LPCWSTR psz, int iCodePage);
+     * {@snippet lang=c :
+     * extern LONG SCardSetCardTypeProviderNameA(SCARDCONTEXT hContext, LPCSTR szCardName, DWORD dwProviderId, LPCSTR szProvider)
      * }
      */
-    public static MemorySegment DdeCreateStringHandleW(int idInst, MemorySegment psz, int iCodePage) {
-        var mh$ = DdeCreateStringHandleW$MH();
+    public static int SCardSetCardTypeProviderNameA(long hContext, MemorySegment szCardName, int dwProviderId, MemorySegment szProvider) {
+        var mh$ = SCardSetCardTypeProviderNameA.HANDLE;
         try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(idInst, psz, iCodePage);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardSetCardTypeProviderNameA", hContext, szCardName, dwProviderId, szProvider);
+            }
+            return (int)mh$.invokeExact(hContext, szCardName, dwProviderId, szProvider);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdeQueryStringA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1535.const$5,"DdeQueryStringA");
+
+    private static class SCardSetCardTypeProviderNameW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardSetCardTypeProviderNameW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * DWORD DdeQueryStringA(DWORD idInst, HSZ hsz, LPSTR psz, DWORD cchMax, int iCodePage);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardSetCardTypeProviderNameW(SCARDCONTEXT hContext, LPCWSTR szCardName, DWORD dwProviderId, LPCWSTR szProvider)
      * }
      */
-    public static int DdeQueryStringA(int idInst, MemorySegment hsz, MemorySegment psz, int cchMax, int iCodePage) {
-        var mh$ = DdeQueryStringA$MH();
-        try {
-            return (int)mh$.invokeExact(idInst, hsz, psz, cchMax, iCodePage);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardSetCardTypeProviderNameW$descriptor() {
+        return SCardSetCardTypeProviderNameW.DESC;
     }
-    public static MethodHandle DdeQueryStringW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1536.const$0,"DdeQueryStringW");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardSetCardTypeProviderNameW(SCARDCONTEXT hContext, LPCWSTR szCardName, DWORD dwProviderId, LPCWSTR szProvider)
+     * }
+     */
+    public static MethodHandle SCardSetCardTypeProviderNameW$handle() {
+        return SCardSetCardTypeProviderNameW.HANDLE;
     }
     /**
-     * {@snippet :
-     * DWORD DdeQueryStringW(DWORD idInst, HSZ hsz, LPWSTR psz, DWORD cchMax, int iCodePage);
+     * {@snippet lang=c :
+     * extern LONG SCardSetCardTypeProviderNameW(SCARDCONTEXT hContext, LPCWSTR szCardName, DWORD dwProviderId, LPCWSTR szProvider)
      * }
      */
-    public static int DdeQueryStringW(int idInst, MemorySegment hsz, MemorySegment psz, int cchMax, int iCodePage) {
-        var mh$ = DdeQueryStringW$MH();
+    public static int SCardSetCardTypeProviderNameW(long hContext, MemorySegment szCardName, int dwProviderId, MemorySegment szProvider) {
+        var mh$ = SCardSetCardTypeProviderNameW.HANDLE;
         try {
-            return (int)mh$.invokeExact(idInst, hsz, psz, cchMax, iCodePage);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardSetCardTypeProviderNameW", hContext, szCardName, dwProviderId, szProvider);
+            }
+            return (int)mh$.invokeExact(hContext, szCardName, dwProviderId, szProvider);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdeFreeStringHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1536.const$1,"DdeFreeStringHandle");
+
+    private static class SCardForgetCardTypeA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardForgetCardTypeA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * BOOL DdeFreeStringHandle(DWORD idInst, HSZ hsz);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardForgetCardTypeA(SCARDCONTEXT hContext, LPCSTR szCardName)
      * }
      */
-    public static int DdeFreeStringHandle(int idInst, MemorySegment hsz) {
-        var mh$ = DdeFreeStringHandle$MH();
-        try {
-            return (int)mh$.invokeExact(idInst, hsz);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardForgetCardTypeA$descriptor() {
+        return SCardForgetCardTypeA.DESC;
     }
-    public static MethodHandle DdeKeepStringHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1536.const$2,"DdeKeepStringHandle");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardForgetCardTypeA(SCARDCONTEXT hContext, LPCSTR szCardName)
+     * }
+     */
+    public static MethodHandle SCardForgetCardTypeA$handle() {
+        return SCardForgetCardTypeA.HANDLE;
     }
     /**
-     * {@snippet :
-     * BOOL DdeKeepStringHandle(DWORD idInst, HSZ hsz);
+     * {@snippet lang=c :
+     * extern LONG SCardForgetCardTypeA(SCARDCONTEXT hContext, LPCSTR szCardName)
      * }
      */
-    public static int DdeKeepStringHandle(int idInst, MemorySegment hsz) {
-        var mh$ = DdeKeepStringHandle$MH();
+    public static int SCardForgetCardTypeA(long hContext, MemorySegment szCardName) {
+        var mh$ = SCardForgetCardTypeA.HANDLE;
         try {
-            return (int)mh$.invokeExact(idInst, hsz);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardForgetCardTypeA", hContext, szCardName);
+            }
+            return (int)mh$.invokeExact(hContext, szCardName);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle DdeCmpStringHandles$MH() {
-        return RuntimeHelper.requireNonNull(constants$1536.const$3,"DdeCmpStringHandles");
+
+    private static class SCardForgetCardTypeW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardForgetCardTypeW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * int DdeCmpStringHandles(HSZ hsz1, HSZ hsz2);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardForgetCardTypeW(SCARDCONTEXT hContext, LPCWSTR szCardName)
      * }
      */
-    public static int DdeCmpStringHandles(MemorySegment hsz1, MemorySegment hsz2) {
-        var mh$ = DdeCmpStringHandles$MH();
-        try {
-            return (int)mh$.invokeExact(hsz1, hsz2);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardForgetCardTypeW$descriptor() {
+        return SCardForgetCardTypeW.DESC;
     }
+
     /**
-     * {@snippet :
-     * typedef struct tagDDEML_MSG_HOOK_DATA* PDDEML_MSG_HOOK_DATA;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardForgetCardTypeW(SCARDCONTEXT hContext, LPCWSTR szCardName)
      * }
      */
-    public static final AddressLayout PDDEML_MSG_HOOK_DATA = RuntimeHelper.POINTER;
+    public static MethodHandle SCardForgetCardTypeW$handle() {
+        return SCardForgetCardTypeW.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct tagMONMSGSTRUCT* PMONMSGSTRUCT;
+     * {@snippet lang=c :
+     * extern LONG SCardForgetCardTypeW(SCARDCONTEXT hContext, LPCWSTR szCardName)
      * }
      */
-    public static final AddressLayout PMONMSGSTRUCT = RuntimeHelper.POINTER;
+    public static int SCardForgetCardTypeW(long hContext, MemorySegment szCardName) {
+        var mh$ = SCardForgetCardTypeW.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardForgetCardTypeW", hContext, szCardName);
+            }
+            return (int)mh$.invokeExact(hContext, szCardName);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class SCardFreeMemory {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardFreeMemory"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagMONCBSTRUCT* PMONCBSTRUCT;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardFreeMemory(SCARDCONTEXT hContext, LPCVOID pvMem)
      * }
      */
-    public static final AddressLayout PMONCBSTRUCT = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardFreeMemory$descriptor() {
+        return SCardFreeMemory.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagMONHSZSTRUCTA* PMONHSZSTRUCTA;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardFreeMemory(SCARDCONTEXT hContext, LPCVOID pvMem)
      * }
      */
-    public static final AddressLayout PMONHSZSTRUCTA = RuntimeHelper.POINTER;
+    public static MethodHandle SCardFreeMemory$handle() {
+        return SCardFreeMemory.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct tagMONHSZSTRUCTW* PMONHSZSTRUCTW;
+     * {@snippet lang=c :
+     * extern LONG SCardFreeMemory(SCARDCONTEXT hContext, LPCVOID pvMem)
      * }
      */
-    public static final AddressLayout PMONHSZSTRUCTW = RuntimeHelper.POINTER;
+    public static int SCardFreeMemory(long hContext, MemorySegment pvMem) {
+        var mh$ = SCardFreeMemory.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardFreeMemory", hContext, pvMem);
+            }
+            return (int)mh$.invokeExact(hContext, pvMem);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class SCardAccessStartedEvent {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardAccessStartedEvent"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagMONHSZSTRUCTA* PMONHSZSTRUCT;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern HANDLE SCardAccessStartedEvent()
      * }
      */
-    public static final AddressLayout PMONHSZSTRUCT = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardAccessStartedEvent$descriptor() {
+        return SCardAccessStartedEvent.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagMONERRSTRUCT* PMONERRSTRUCT;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern HANDLE SCardAccessStartedEvent()
      * }
      */
-    public static final AddressLayout PMONERRSTRUCT = RuntimeHelper.POINTER;
+    public static MethodHandle SCardAccessStartedEvent$handle() {
+        return SCardAccessStartedEvent.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct tagMONLINKSTRUCT* PMONLINKSTRUCT;
+     * {@snippet lang=c :
+     * extern HANDLE SCardAccessStartedEvent()
      * }
      */
-    public static final AddressLayout PMONLINKSTRUCT = RuntimeHelper.POINTER;
+    public static MemorySegment SCardAccessStartedEvent() {
+        var mh$ = SCardAccessStartedEvent.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardAccessStartedEvent");
+            }
+            return (MemorySegment)mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class SCardReleaseStartedEvent {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardReleaseStartedEvent"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagMONCONVSTRUCT* PMONCONVSTRUCT;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern void SCardReleaseStartedEvent()
      * }
      */
-    public static final AddressLayout PMONCONVSTRUCT = RuntimeHelper.POINTER;
-    public static MethodHandle LZStart$MH() {
-        return RuntimeHelper.requireNonNull(constants$1548.const$2,"LZStart");
+    public static FunctionDescriptor SCardReleaseStartedEvent$descriptor() {
+        return SCardReleaseStartedEvent.DESC;
     }
+
     /**
-     * {@snippet :
-     * INT LZStart();
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern void SCardReleaseStartedEvent()
      * }
      */
-    public static int LZStart() {
-        var mh$ = LZStart$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle LZDone$MH() {
-        return RuntimeHelper.requireNonNull(constants$1548.const$3,"LZDone");
+    public static MethodHandle SCardReleaseStartedEvent$handle() {
+        return SCardReleaseStartedEvent.HANDLE;
     }
     /**
-     * {@snippet :
-     * void LZDone();
+     * {@snippet lang=c :
+     * extern void SCardReleaseStartedEvent()
      * }
      */
-    public static void LZDone() {
-        var mh$ = LZDone$MH();
+    public static void SCardReleaseStartedEvent() {
+        var mh$ = SCardReleaseStartedEvent.HANDLE;
         try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardReleaseStartedEvent");
+            }
             mh$.invokeExact();
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle CopyLZFile$MH() {
-        return RuntimeHelper.requireNonNull(constants$1548.const$4,"CopyLZFile");
-    }
-    /**
-     * {@snippet :
-     * LONG CopyLZFile(INT hfSource, INT hfDest);
-     * }
-     */
-    public static int CopyLZFile(int hfSource, int hfDest) {
-        var mh$ = CopyLZFile$MH();
-        try {
-            return (int)mh$.invokeExact(hfSource, hfDest);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle LZCopy$MH() {
-        return RuntimeHelper.requireNonNull(constants$1548.const$5,"LZCopy");
-    }
-    /**
-     * {@snippet :
-     * LONG LZCopy(INT hfSource, INT hfDest);
-     * }
-     */
-    public static int LZCopy(int hfSource, int hfDest) {
-        var mh$ = LZCopy$MH();
-        try {
-            return (int)mh$.invokeExact(hfSource, hfDest);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle LZInit$MH() {
-        return RuntimeHelper.requireNonNull(constants$1549.const$0,"LZInit");
-    }
-    /**
-     * {@snippet :
-     * INT LZInit(INT hfSource);
-     * }
-     */
-    public static int LZInit(int hfSource) {
-        var mh$ = LZInit$MH();
-        try {
-            return (int)mh$.invokeExact(hfSource);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle GetExpandedNameA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1549.const$1,"GetExpandedNameA");
-    }
-    /**
-     * {@snippet :
-     * INT GetExpandedNameA(LPSTR lpszSource, LPSTR lpszBuffer);
-     * }
-     */
-    public static int GetExpandedNameA(MemorySegment lpszSource, MemorySegment lpszBuffer) {
-        var mh$ = GetExpandedNameA$MH();
-        try {
-            return (int)mh$.invokeExact(lpszSource, lpszBuffer);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle GetExpandedNameW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1549.const$2,"GetExpandedNameW");
-    }
-    /**
-     * {@snippet :
-     * INT GetExpandedNameW(LPWSTR lpszSource, LPWSTR lpszBuffer);
-     * }
-     */
-    public static int GetExpandedNameW(MemorySegment lpszSource, MemorySegment lpszBuffer) {
-        var mh$ = GetExpandedNameW$MH();
-        try {
-            return (int)mh$.invokeExact(lpszSource, lpszBuffer);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle LZOpenFileA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1549.const$3,"LZOpenFileA");
-    }
-    /**
-     * {@snippet :
-     * INT LZOpenFileA(LPSTR lpFileName, LPOFSTRUCT lpReOpenBuf, WORD wStyle);
-     * }
-     */
-    public static int LZOpenFileA(MemorySegment lpFileName, MemorySegment lpReOpenBuf, short wStyle) {
-        var mh$ = LZOpenFileA$MH();
-        try {
-            return (int)mh$.invokeExact(lpFileName, lpReOpenBuf, wStyle);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle LZOpenFileW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1549.const$4,"LZOpenFileW");
-    }
-    /**
-     * {@snippet :
-     * INT LZOpenFileW(LPWSTR lpFileName, LPOFSTRUCT lpReOpenBuf, WORD wStyle);
-     * }
-     */
-    public static int LZOpenFileW(MemorySegment lpFileName, MemorySegment lpReOpenBuf, short wStyle) {
-        var mh$ = LZOpenFileW$MH();
-        try {
-            return (int)mh$.invokeExact(lpFileName, lpReOpenBuf, wStyle);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle LZSeek$MH() {
-        return RuntimeHelper.requireNonNull(constants$1549.const$5,"LZSeek");
-    }
-    /**
-     * {@snippet :
-     * LONG LZSeek(INT hFile, LONG lOffset, INT iOrigin);
-     * }
-     */
-    public static int LZSeek(int hFile, int lOffset, int iOrigin) {
-        var mh$ = LZSeek$MH();
-        try {
-            return (int)mh$.invokeExact(hFile, lOffset, iOrigin);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle LZRead$MH() {
-        return RuntimeHelper.requireNonNull(constants$1550.const$0,"LZRead");
-    }
-    /**
-     * {@snippet :
-     * INT LZRead(INT hFile, CHAR* lpBuffer, INT cbRead);
-     * }
-     */
-    public static int LZRead(int hFile, MemorySegment lpBuffer, int cbRead) {
-        var mh$ = LZRead$MH();
-        try {
-            return (int)mh$.invokeExact(hFile, lpBuffer, cbRead);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle LZClose$MH() {
-        return RuntimeHelper.requireNonNull(constants$1550.const$1,"LZClose");
-    }
-    /**
-     * {@snippet :
-     * void LZClose(INT hFile);
-     * }
-     */
-    public static void LZClose(int hFile) {
-        var mh$ = LZClose$MH();
-        try {
-            mh$.invokeExact(hFile);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * typedef unsigned int MMVERSION;
-     * }
-     */
-    public static final OfInt MMVERSION = JAVA_INT;
-    /**
-     * {@snippet :
-     * typedef unsigned int MMRESULT;
-     * }
-     */
-    public static final OfInt MMRESULT = JAVA_INT;
-    /**
-     * {@snippet :
-     * typedef unsigned int* LPUINT;
-     * }
-     */
-    public static final AddressLayout LPUINT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct mmtime_tag* PMMTIME;
-     * }
-     */
-    public static final AddressLayout PMMTIME = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct mmtime_tag* NPMMTIME;
-     * }
-     */
-    public static final AddressLayout NPMMTIME = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct mmtime_tag* LPMMTIME;
-     * }
-     */
-    public static final AddressLayout LPMMTIME = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct HDRVR__* HDRVR;
-     * }
-     */
-    public static final AddressLayout HDRVR = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef unsigned long MCIERROR;
-     * }
-     */
-    public static final OfInt MCIERROR = JAVA_INT;
-    /**
-     * {@snippet :
-     * typedef unsigned int MCIDEVICEID;
-     * }
-     */
-    public static final OfInt MCIDEVICEID = JAVA_INT;
-    public static MethodHandle mciSendCommandA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1554.const$3,"mciSendCommandA");
-    }
-    /**
-     * {@snippet :
-     * MCIERROR mciSendCommandA(MCIDEVICEID mciId, UINT uMsg, DWORD_PTR dwParam1, DWORD_PTR dwParam2);
-     * }
-     */
-    public static int mciSendCommandA(int mciId, int uMsg, long dwParam1, long dwParam2) {
-        var mh$ = mciSendCommandA$MH();
-        try {
-            return (int)mh$.invokeExact(mciId, uMsg, dwParam1, dwParam2);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mciSendCommandW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1554.const$4,"mciSendCommandW");
-    }
-    /**
-     * {@snippet :
-     * MCIERROR mciSendCommandW(MCIDEVICEID mciId, UINT uMsg, DWORD_PTR dwParam1, DWORD_PTR dwParam2);
-     * }
-     */
-    public static int mciSendCommandW(int mciId, int uMsg, long dwParam1, long dwParam2) {
-        var mh$ = mciSendCommandW$MH();
-        try {
-            return (int)mh$.invokeExact(mciId, uMsg, dwParam1, dwParam2);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mciSendStringA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1554.const$5,"mciSendStringA");
-    }
-    /**
-     * {@snippet :
-     * MCIERROR mciSendStringA(LPCSTR lpstrCommand, LPSTR lpstrReturnString, UINT uReturnLength, HWND hwndCallback);
-     * }
-     */
-    public static int mciSendStringA(MemorySegment lpstrCommand, MemorySegment lpstrReturnString, int uReturnLength, MemorySegment hwndCallback) {
-        var mh$ = mciSendStringA$MH();
-        try {
-            return (int)mh$.invokeExact(lpstrCommand, lpstrReturnString, uReturnLength, hwndCallback);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mciSendStringW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1555.const$0,"mciSendStringW");
-    }
-    /**
-     * {@snippet :
-     * MCIERROR mciSendStringW(LPCWSTR lpstrCommand, LPWSTR lpstrReturnString, UINT uReturnLength, HWND hwndCallback);
-     * }
-     */
-    public static int mciSendStringW(MemorySegment lpstrCommand, MemorySegment lpstrReturnString, int uReturnLength, MemorySegment hwndCallback) {
-        var mh$ = mciSendStringW$MH();
-        try {
-            return (int)mh$.invokeExact(lpstrCommand, lpstrReturnString, uReturnLength, hwndCallback);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mciGetDeviceIDA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1555.const$1,"mciGetDeviceIDA");
-    }
-    /**
-     * {@snippet :
-     * MCIDEVICEID mciGetDeviceIDA(LPCSTR pszDevice);
-     * }
-     */
-    public static int mciGetDeviceIDA(MemorySegment pszDevice) {
-        var mh$ = mciGetDeviceIDA$MH();
-        try {
-            return (int)mh$.invokeExact(pszDevice);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mciGetDeviceIDW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1555.const$2,"mciGetDeviceIDW");
-    }
-    /**
-     * {@snippet :
-     * MCIDEVICEID mciGetDeviceIDW(LPCWSTR pszDevice);
-     * }
-     */
-    public static int mciGetDeviceIDW(MemorySegment pszDevice) {
-        var mh$ = mciGetDeviceIDW$MH();
-        try {
-            return (int)mh$.invokeExact(pszDevice);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mciGetDeviceIDFromElementIDA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1555.const$3,"mciGetDeviceIDFromElementIDA");
-    }
-    /**
-     * {@snippet :
-     * MCIDEVICEID mciGetDeviceIDFromElementIDA(DWORD dwElementID, LPCSTR lpstrType);
-     * }
-     */
-    public static int mciGetDeviceIDFromElementIDA(int dwElementID, MemorySegment lpstrType) {
-        var mh$ = mciGetDeviceIDFromElementIDA$MH();
-        try {
-            return (int)mh$.invokeExact(dwElementID, lpstrType);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mciGetDeviceIDFromElementIDW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1555.const$4,"mciGetDeviceIDFromElementIDW");
-    }
-    /**
-     * {@snippet :
-     * MCIDEVICEID mciGetDeviceIDFromElementIDW(DWORD dwElementID, LPCWSTR lpstrType);
-     * }
-     */
-    public static int mciGetDeviceIDFromElementIDW(int dwElementID, MemorySegment lpstrType) {
-        var mh$ = mciGetDeviceIDFromElementIDW$MH();
-        try {
-            return (int)mh$.invokeExact(dwElementID, lpstrType);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mciGetErrorStringA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1555.const$5,"mciGetErrorStringA");
-    }
-    /**
-     * {@snippet :
-     * BOOL mciGetErrorStringA(MCIERROR mcierr, LPSTR pszText, UINT cchText);
-     * }
-     */
-    public static int mciGetErrorStringA(int mcierr, MemorySegment pszText, int cchText) {
-        var mh$ = mciGetErrorStringA$MH();
-        try {
-            return (int)mh$.invokeExact(mcierr, pszText, cchText);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mciGetErrorStringW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1556.const$0,"mciGetErrorStringW");
-    }
-    /**
-     * {@snippet :
-     * BOOL mciGetErrorStringW(MCIERROR mcierr, LPWSTR pszText, UINT cchText);
-     * }
-     */
-    public static int mciGetErrorStringW(int mcierr, MemorySegment pszText, int cchText) {
-        var mh$ = mciGetErrorStringW$MH();
-        try {
-            return (int)mh$.invokeExact(mcierr, pszText, cchText);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mciSetYieldProc$MH() {
-        return RuntimeHelper.requireNonNull(constants$1556.const$1,"mciSetYieldProc");
-    }
-    /**
-     * {@snippet :
-     * BOOL mciSetYieldProc(MCIDEVICEID mciId, YIELDPROC fpYieldProc, DWORD dwYieldData);
-     * }
-     */
-    public static int mciSetYieldProc(int mciId, MemorySegment fpYieldProc, int dwYieldData) {
-        var mh$ = mciSetYieldProc$MH();
-        try {
-            return (int)mh$.invokeExact(mciId, fpYieldProc, dwYieldData);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mciGetCreatorTask$MH() {
-        return RuntimeHelper.requireNonNull(constants$1556.const$2,"mciGetCreatorTask");
-    }
-    /**
-     * {@snippet :
-     * HTASK mciGetCreatorTask(MCIDEVICEID mciId);
-     * }
-     */
-    public static MemorySegment mciGetCreatorTask(int mciId) {
-        var mh$ = mciGetCreatorTask$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(mciId);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mciGetYieldProc$MH() {
-        return RuntimeHelper.requireNonNull(constants$1556.const$3,"mciGetYieldProc");
-    }
-    /**
-     * {@snippet :
-     * YIELDPROC mciGetYieldProc(MCIDEVICEID mciId, LPDWORD pdwYieldData);
-     * }
-     */
-    public static MemorySegment mciGetYieldProc(int mciId, MemorySegment pdwYieldData) {
-        var mh$ = mciGetYieldProc$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(mciId, pdwYieldData);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_GENERIC_PARMS* PMCI_GENERIC_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_GENERIC_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_GENERIC_PARMS* LPMCI_GENERIC_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_GENERIC_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OPEN_PARMSA* PMCI_OPEN_PARMSA;
-     * }
-     */
-    public static final AddressLayout PMCI_OPEN_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OPEN_PARMSA* LPMCI_OPEN_PARMSA;
-     * }
-     */
-    public static final AddressLayout LPMCI_OPEN_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OPEN_PARMSW* PMCI_OPEN_PARMSW;
-     * }
-     */
-    public static final AddressLayout PMCI_OPEN_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OPEN_PARMSW* LPMCI_OPEN_PARMSW;
-     * }
-     */
-    public static final AddressLayout LPMCI_OPEN_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OPEN_PARMSA* PMCI_OPEN_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_OPEN_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OPEN_PARMSA* LPMCI_OPEN_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_OPEN_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_PLAY_PARMS* PMCI_PLAY_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_PLAY_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_PLAY_PARMS* LPMCI_PLAY_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_PLAY_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SEEK_PARMS* PMCI_SEEK_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_SEEK_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SEEK_PARMS* LPMCI_SEEK_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_SEEK_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_STATUS_PARMS* PMCI_STATUS_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_STATUS_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_STATUS_PARMS* LPMCI_STATUS_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_STATUS_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_INFO_PARMSA* LPMCI_INFO_PARMSA;
-     * }
-     */
-    public static final AddressLayout LPMCI_INFO_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_INFO_PARMSW* LPMCI_INFO_PARMSW;
-     * }
-     */
-    public static final AddressLayout LPMCI_INFO_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_INFO_PARMSA* LPMCI_INFO_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_INFO_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_GETDEVCAPS_PARMS* PMCI_GETDEVCAPS_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_GETDEVCAPS_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_GETDEVCAPS_PARMS* LPMCI_GETDEVCAPS_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_GETDEVCAPS_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SYSINFO_PARMSA* PMCI_SYSINFO_PARMSA;
-     * }
-     */
-    public static final AddressLayout PMCI_SYSINFO_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SYSINFO_PARMSA* LPMCI_SYSINFO_PARMSA;
-     * }
-     */
-    public static final AddressLayout LPMCI_SYSINFO_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SYSINFO_PARMSW* PMCI_SYSINFO_PARMSW;
-     * }
-     */
-    public static final AddressLayout PMCI_SYSINFO_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SYSINFO_PARMSW* LPMCI_SYSINFO_PARMSW;
-     * }
-     */
-    public static final AddressLayout LPMCI_SYSINFO_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SYSINFO_PARMSA* PMCI_SYSINFO_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_SYSINFO_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SYSINFO_PARMSA* LPMCI_SYSINFO_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_SYSINFO_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SET_PARMS* PMCI_SET_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_SET_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SET_PARMS* LPMCI_SET_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_SET_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_BREAK_PARMS* PMCI_BREAK_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_BREAK_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_BREAK_PARMS* LPMCI_BREAK_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_BREAK_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SAVE_PARMSA* PMCI_SAVE_PARMSA;
-     * }
-     */
-    public static final AddressLayout PMCI_SAVE_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SAVE_PARMSA* LPMCI_SAVE_PARMSA;
-     * }
-     */
-    public static final AddressLayout LPMCI_SAVE_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SAVE_PARMSW* PMCI_SAVE_PARMSW;
-     * }
-     */
-    public static final AddressLayout PMCI_SAVE_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SAVE_PARMSW* LPMCI_SAVE_PARMSW;
-     * }
-     */
-    public static final AddressLayout LPMCI_SAVE_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SAVE_PARMSA* PMCI_SAVE_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_SAVE_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SAVE_PARMSA* LPMCI_SAVE_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_SAVE_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_LOAD_PARMSA* PMCI_LOAD_PARMSA;
-     * }
-     */
-    public static final AddressLayout PMCI_LOAD_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_LOAD_PARMSA* LPMCI_LOAD_PARMSA;
-     * }
-     */
-    public static final AddressLayout LPMCI_LOAD_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_LOAD_PARMSW* PMCI_LOAD_PARMSW;
-     * }
-     */
-    public static final AddressLayout PMCI_LOAD_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_LOAD_PARMSW* LPMCI_LOAD_PARMSW;
-     * }
-     */
-    public static final AddressLayout LPMCI_LOAD_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_LOAD_PARMSA* PMCI_LOAD_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_LOAD_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_LOAD_PARMSA* LPMCI_LOAD_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_LOAD_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_RECORD_PARMS* LPMCI_RECORD_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_RECORD_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_VD_PLAY_PARMS* PMCI_VD_PLAY_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_VD_PLAY_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_VD_PLAY_PARMS* LPMCI_VD_PLAY_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_VD_PLAY_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_VD_STEP_PARMS* PMCI_VD_STEP_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_VD_STEP_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_VD_STEP_PARMS* LPMCI_VD_STEP_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_VD_STEP_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_VD_ESCAPE_PARMSA* PMCI_VD_ESCAPE_PARMSA;
-     * }
-     */
-    public static final AddressLayout PMCI_VD_ESCAPE_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_VD_ESCAPE_PARMSA* LPMCI_VD_ESCAPE_PARMSA;
-     * }
-     */
-    public static final AddressLayout LPMCI_VD_ESCAPE_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_VD_ESCAPE_PARMSW* PMCI_VD_ESCAPE_PARMSW;
-     * }
-     */
-    public static final AddressLayout PMCI_VD_ESCAPE_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_VD_ESCAPE_PARMSW* LPMCI_VD_ESCAPE_PARMSW;
-     * }
-     */
-    public static final AddressLayout LPMCI_VD_ESCAPE_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_VD_ESCAPE_PARMSA* PMCI_VD_ESCAPE_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_VD_ESCAPE_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_VD_ESCAPE_PARMSA* LPMCI_VD_ESCAPE_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_VD_ESCAPE_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_WAVE_OPEN_PARMSA* PMCI_WAVE_OPEN_PARMSA;
-     * }
-     */
-    public static final AddressLayout PMCI_WAVE_OPEN_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_WAVE_OPEN_PARMSA* LPMCI_WAVE_OPEN_PARMSA;
-     * }
-     */
-    public static final AddressLayout LPMCI_WAVE_OPEN_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_WAVE_OPEN_PARMSW* PMCI_WAVE_OPEN_PARMSW;
-     * }
-     */
-    public static final AddressLayout PMCI_WAVE_OPEN_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_WAVE_OPEN_PARMSW* LPMCI_WAVE_OPEN_PARMSW;
-     * }
-     */
-    public static final AddressLayout LPMCI_WAVE_OPEN_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_WAVE_OPEN_PARMSA* PMCI_WAVE_OPEN_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_WAVE_OPEN_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_WAVE_OPEN_PARMSA* LPMCI_WAVE_OPEN_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_WAVE_OPEN_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_WAVE_DELETE_PARMS* PMCI_WAVE_DELETE_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_WAVE_DELETE_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_WAVE_DELETE_PARMS* LPMCI_WAVE_DELETE_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_WAVE_DELETE_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_WAVE_SET_PARMS* PMCI_WAVE_SET_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_WAVE_SET_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_WAVE_SET_PARMS* LPMCI_WAVE_SET_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_WAVE_SET_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SEQ_SET_PARMS* PMCI_SEQ_SET_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_SEQ_SET_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_SEQ_SET_PARMS* LPMCI_SEQ_SET_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_SEQ_SET_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_OPEN_PARMSA* PMCI_ANIM_OPEN_PARMSA;
-     * }
-     */
-    public static final AddressLayout PMCI_ANIM_OPEN_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_OPEN_PARMSA* LPMCI_ANIM_OPEN_PARMSA;
-     * }
-     */
-    public static final AddressLayout LPMCI_ANIM_OPEN_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_OPEN_PARMSW* PMCI_ANIM_OPEN_PARMSW;
-     * }
-     */
-    public static final AddressLayout PMCI_ANIM_OPEN_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_OPEN_PARMSW* LPMCI_ANIM_OPEN_PARMSW;
-     * }
-     */
-    public static final AddressLayout LPMCI_ANIM_OPEN_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_OPEN_PARMSA* PMCI_ANIM_OPEN_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_ANIM_OPEN_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_OPEN_PARMSA* LPMCI_ANIM_OPEN_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_ANIM_OPEN_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_PLAY_PARMS* PMCI_ANIM_PLAY_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_ANIM_PLAY_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_PLAY_PARMS* LPMCI_ANIM_PLAY_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_ANIM_PLAY_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_STEP_PARMS* PMCI_ANIM_STEP_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_ANIM_STEP_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_STEP_PARMS* LPMCI_ANIM_STEP_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_ANIM_STEP_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_WINDOW_PARMSA* PMCI_ANIM_WINDOW_PARMSA;
-     * }
-     */
-    public static final AddressLayout PMCI_ANIM_WINDOW_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_WINDOW_PARMSA* LPMCI_ANIM_WINDOW_PARMSA;
-     * }
-     */
-    public static final AddressLayout LPMCI_ANIM_WINDOW_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_WINDOW_PARMSW* PMCI_ANIM_WINDOW_PARMSW;
-     * }
-     */
-    public static final AddressLayout PMCI_ANIM_WINDOW_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_WINDOW_PARMSW* LPMCI_ANIM_WINDOW_PARMSW;
-     * }
-     */
-    public static final AddressLayout LPMCI_ANIM_WINDOW_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_WINDOW_PARMSA* PMCI_ANIM_WINDOW_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_ANIM_WINDOW_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_WINDOW_PARMSA* LPMCI_ANIM_WINDOW_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_ANIM_WINDOW_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_RECT_PARMS* PMCI_ANIM_RECT_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_ANIM_RECT_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_RECT_PARMS* LPMCI_ANIM_RECT_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_ANIM_RECT_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_UPDATE_PARMS* PMCI_ANIM_UPDATE_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_ANIM_UPDATE_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_ANIM_UPDATE_PARMS* LPMCI_ANIM_UPDATE_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_ANIM_UPDATE_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_OPEN_PARMSA* PMCI_OVLY_OPEN_PARMSA;
-     * }
-     */
-    public static final AddressLayout PMCI_OVLY_OPEN_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_OPEN_PARMSA* LPMCI_OVLY_OPEN_PARMSA;
-     * }
-     */
-    public static final AddressLayout LPMCI_OVLY_OPEN_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_OPEN_PARMSW* PMCI_OVLY_OPEN_PARMSW;
-     * }
-     */
-    public static final AddressLayout PMCI_OVLY_OPEN_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_OPEN_PARMSW* LPMCI_OVLY_OPEN_PARMSW;
-     * }
-     */
-    public static final AddressLayout LPMCI_OVLY_OPEN_PARMSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_OPEN_PARMSA* PMCI_OVLY_OPEN_PARMS;
-     * }
-     */
-    public static final AddressLayout PMCI_OVLY_OPEN_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_OPEN_PARMSA* LPMCI_OVLY_OPEN_PARMS;
-     * }
-     */
-    public static final AddressLayout LPMCI_OVLY_OPEN_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_WINDOW_PARMSA* PMCI_OVLY_WINDOW_PARMSA;
-     * }
-     */
-    public static final AddressLayout PMCI_OVLY_WINDOW_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_WINDOW_PARMSA* LPMCI_OVLY_WINDOW_PARMSA;
-     * }
-     */
-    public static final AddressLayout LPMCI_OVLY_WINDOW_PARMSA = RuntimeHelper.POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_WINDOW_PARMSW* PMCI_OVLY_WINDOW_PARMSW;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     LPCSTR szReader;
+     *     LPVOID pvUserData;
+     *     DWORD dwCurrentState;
+     *     DWORD dwEventState;
+     *     DWORD cbAtr;
+     *     BYTE rgbAtr[36];
+     * } *PSCARD_READERSTATEA
      * }
      */
-    public static final AddressLayout PMCI_OVLY_WINDOW_PARMSW = RuntimeHelper.POINTER;
+    public static final AddressLayout PSCARD_READERSTATEA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_WINDOW_PARMSW* LPMCI_OVLY_WINDOW_PARMSW;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     LPCSTR szReader;
+     *     LPVOID pvUserData;
+     *     DWORD dwCurrentState;
+     *     DWORD dwEventState;
+     *     DWORD cbAtr;
+     *     BYTE rgbAtr[36];
+     * } *LPSCARD_READERSTATEA
      * }
      */
-    public static final AddressLayout LPMCI_OVLY_WINDOW_PARMSW = RuntimeHelper.POINTER;
+    public static final AddressLayout LPSCARD_READERSTATEA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_WINDOW_PARMSA* PMCI_OVLY_WINDOW_PARMS;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     LPCWSTR szReader;
+     *     LPVOID pvUserData;
+     *     DWORD dwCurrentState;
+     *     DWORD dwEventState;
+     *     DWORD cbAtr;
+     *     BYTE rgbAtr[36];
+     * } *PSCARD_READERSTATEW
      * }
      */
-    public static final AddressLayout PMCI_OVLY_WINDOW_PARMS = RuntimeHelper.POINTER;
+    public static final AddressLayout PSCARD_READERSTATEW = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_WINDOW_PARMSA* LPMCI_OVLY_WINDOW_PARMS;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     LPCWSTR szReader;
+     *     LPVOID pvUserData;
+     *     DWORD dwCurrentState;
+     *     DWORD dwEventState;
+     *     DWORD cbAtr;
+     *     BYTE rgbAtr[36];
+     * } *LPSCARD_READERSTATEW
      * }
      */
-    public static final AddressLayout LPMCI_OVLY_WINDOW_PARMS = RuntimeHelper.POINTER;
+    public static final AddressLayout LPSCARD_READERSTATEW = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_RECT_PARMS* PMCI_OVLY_RECT_PARMS;
+     * {@snippet lang=c :
+     * typedef PSCARD_READERSTATEA PSCARD_READERSTATE
      * }
      */
-    public static final AddressLayout PMCI_OVLY_RECT_PARMS = RuntimeHelper.POINTER;
+    public static final AddressLayout PSCARD_READERSTATE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_RECT_PARMS* LPMCI_OVLY_RECT_PARMS;
+     * {@snippet lang=c :
+     * typedef LPSCARD_READERSTATEA LPSCARD_READERSTATE
      * }
      */
-    public static final AddressLayout LPMCI_OVLY_RECT_PARMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_SAVE_PARMSA* PMCI_OVLY_SAVE_PARMSA;
-     * }
-     */
-    public static final AddressLayout PMCI_OVLY_SAVE_PARMSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_SAVE_PARMSA* LPMCI_OVLY_SAVE_PARMSA;
-     * }
-     */
-    public static final AddressLayout LPMCI_OVLY_SAVE_PARMSA = RuntimeHelper.POINTER;
+    public static final AddressLayout LPSCARD_READERSTATE = Windows_h.C_POINTER;
+
+    private static class SCardLocateCardsA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardLocateCardsA"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_SAVE_PARMSW* PMCI_OVLY_SAVE_PARMSW;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardLocateCardsA(SCARDCONTEXT hContext, LPCSTR mszCards, LPSCARD_READERSTATEA rgReaderStates, DWORD cReaders)
      * }
      */
-    public static final AddressLayout PMCI_OVLY_SAVE_PARMSW = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardLocateCardsA$descriptor() {
+        return SCardLocateCardsA.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_SAVE_PARMSW* LPMCI_OVLY_SAVE_PARMSW;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardLocateCardsA(SCARDCONTEXT hContext, LPCSTR mszCards, LPSCARD_READERSTATEA rgReaderStates, DWORD cReaders)
      * }
      */
-    public static final AddressLayout LPMCI_OVLY_SAVE_PARMSW = RuntimeHelper.POINTER;
+    public static MethodHandle SCardLocateCardsA$handle() {
+        return SCardLocateCardsA.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_SAVE_PARMSA* PMCI_OVLY_SAVE_PARMS;
+     * {@snippet lang=c :
+     * extern LONG SCardLocateCardsA(SCARDCONTEXT hContext, LPCSTR mszCards, LPSCARD_READERSTATEA rgReaderStates, DWORD cReaders)
      * }
      */
-    public static final AddressLayout PMCI_OVLY_SAVE_PARMS = RuntimeHelper.POINTER;
+    public static int SCardLocateCardsA(long hContext, MemorySegment mszCards, MemorySegment rgReaderStates, int cReaders) {
+        var mh$ = SCardLocateCardsA.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardLocateCardsA", hContext, mszCards, rgReaderStates, cReaders);
+            }
+            return (int)mh$.invokeExact(hContext, mszCards, rgReaderStates, cReaders);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class SCardLocateCardsW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardLocateCardsW"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_SAVE_PARMSA* LPMCI_OVLY_SAVE_PARMS;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardLocateCardsW(SCARDCONTEXT hContext, LPCWSTR mszCards, LPSCARD_READERSTATEW rgReaderStates, DWORD cReaders)
      * }
      */
-    public static final AddressLayout LPMCI_OVLY_SAVE_PARMS = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardLocateCardsW$descriptor() {
+        return SCardLocateCardsW.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_LOAD_PARMSA* PMCI_OVLY_LOAD_PARMSA;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardLocateCardsW(SCARDCONTEXT hContext, LPCWSTR mszCards, LPSCARD_READERSTATEW rgReaderStates, DWORD cReaders)
      * }
      */
-    public static final AddressLayout PMCI_OVLY_LOAD_PARMSA = RuntimeHelper.POINTER;
+    public static MethodHandle SCardLocateCardsW$handle() {
+        return SCardLocateCardsW.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_LOAD_PARMSA* LPMCI_OVLY_LOAD_PARMSA;
+     * {@snippet lang=c :
+     * extern LONG SCardLocateCardsW(SCARDCONTEXT hContext, LPCWSTR mszCards, LPSCARD_READERSTATEW rgReaderStates, DWORD cReaders)
      * }
      */
-    public static final AddressLayout LPMCI_OVLY_LOAD_PARMSA = RuntimeHelper.POINTER;
+    public static int SCardLocateCardsW(long hContext, MemorySegment mszCards, MemorySegment rgReaderStates, int cReaders) {
+        var mh$ = SCardLocateCardsW.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardLocateCardsW", hContext, mszCards, rgReaderStates, cReaders);
+            }
+            return (int)mh$.invokeExact(hContext, mszCards, rgReaderStates, cReaders);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_LOAD_PARMSW* PMCI_OVLY_LOAD_PARMSW;
+     * {@snippet lang=c :
+     * typedef struct _SCARD_ATRMASK {
+     *     DWORD cbAtr;
+     *     BYTE rgbAtr[36];
+     *     BYTE rgbMask[36];
+     * } *PSCARD_ATRMASK
      * }
      */
-    public static final AddressLayout PMCI_OVLY_LOAD_PARMSW = RuntimeHelper.POINTER;
+    public static final AddressLayout PSCARD_ATRMASK = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_LOAD_PARMSW* LPMCI_OVLY_LOAD_PARMSW;
+     * {@snippet lang=c :
+     * typedef struct _SCARD_ATRMASK {
+     *     DWORD cbAtr;
+     *     BYTE rgbAtr[36];
+     *     BYTE rgbMask[36];
+     * } *LPSCARD_ATRMASK
      * }
      */
-    public static final AddressLayout LPMCI_OVLY_LOAD_PARMSW = RuntimeHelper.POINTER;
+    public static final AddressLayout LPSCARD_ATRMASK = Windows_h.C_POINTER;
+
+    private static class SCardLocateCardsByATRA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardLocateCardsByATRA"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_LOAD_PARMSA* PMCI_OVLY_LOAD_PARMS;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardLocateCardsByATRA(SCARDCONTEXT hContext, LPSCARD_ATRMASK rgAtrMasks, DWORD cAtrs, LPSCARD_READERSTATEA rgReaderStates, DWORD cReaders)
      * }
      */
-    public static final AddressLayout PMCI_OVLY_LOAD_PARMS = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardLocateCardsByATRA$descriptor() {
+        return SCardLocateCardsByATRA.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagMCI_OVLY_LOAD_PARMSA* LPMCI_OVLY_LOAD_PARMS;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardLocateCardsByATRA(SCARDCONTEXT hContext, LPSCARD_ATRMASK rgAtrMasks, DWORD cAtrs, LPSCARD_READERSTATEA rgReaderStates, DWORD cReaders)
      * }
      */
-    public static final AddressLayout LPMCI_OVLY_LOAD_PARMS = RuntimeHelper.POINTER;
-    public static MethodHandle mciGetDriverData$MH() {
-        return RuntimeHelper.requireNonNull(constants$1591.const$4,"mciGetDriverData");
+    public static MethodHandle SCardLocateCardsByATRA$handle() {
+        return SCardLocateCardsByATRA.HANDLE;
     }
     /**
-     * {@snippet :
-     * DWORD_PTR mciGetDriverData(MCIDEVICEID wDeviceID);
+     * {@snippet lang=c :
+     * extern LONG SCardLocateCardsByATRA(SCARDCONTEXT hContext, LPSCARD_ATRMASK rgAtrMasks, DWORD cAtrs, LPSCARD_READERSTATEA rgReaderStates, DWORD cReaders)
      * }
      */
-    public static long mciGetDriverData(int wDeviceID) {
-        var mh$ = mciGetDriverData$MH();
+    public static int SCardLocateCardsByATRA(long hContext, MemorySegment rgAtrMasks, int cAtrs, MemorySegment rgReaderStates, int cReaders) {
+        var mh$ = SCardLocateCardsByATRA.HANDLE;
         try {
-            return (long)mh$.invokeExact(wDeviceID);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardLocateCardsByATRA", hContext, rgAtrMasks, cAtrs, rgReaderStates, cReaders);
+            }
+            return (int)mh$.invokeExact(hContext, rgAtrMasks, cAtrs, rgReaderStates, cReaders);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle mciLoadCommandResource$MH() {
-        return RuntimeHelper.requireNonNull(constants$1591.const$5,"mciLoadCommandResource");
+
+    private static class SCardLocateCardsByATRW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardLocateCardsByATRW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * UINT mciLoadCommandResource(HANDLE hInstance, LPCWSTR lpResName, UINT wType);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardLocateCardsByATRW(SCARDCONTEXT hContext, LPSCARD_ATRMASK rgAtrMasks, DWORD cAtrs, LPSCARD_READERSTATEW rgReaderStates, DWORD cReaders)
      * }
      */
-    public static int mciLoadCommandResource(MemorySegment hInstance, MemorySegment lpResName, int wType) {
-        var mh$ = mciLoadCommandResource$MH();
-        try {
-            return (int)mh$.invokeExact(hInstance, lpResName, wType);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mciSetDriverData$MH() {
-        return RuntimeHelper.requireNonNull(constants$1592.const$0,"mciSetDriverData");
+    public static FunctionDescriptor SCardLocateCardsByATRW$descriptor() {
+        return SCardLocateCardsByATRW.DESC;
     }
+
     /**
-     * {@snippet :
-     * BOOL mciSetDriverData(MCIDEVICEID wDeviceID, DWORD_PTR dwData);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardLocateCardsByATRW(SCARDCONTEXT hContext, LPSCARD_ATRMASK rgAtrMasks, DWORD cAtrs, LPSCARD_READERSTATEW rgReaderStates, DWORD cReaders)
      * }
      */
-    public static int mciSetDriverData(int wDeviceID, long dwData) {
-        var mh$ = mciSetDriverData$MH();
-        try {
-            return (int)mh$.invokeExact(wDeviceID, dwData);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mciDriverYield$MH() {
-        return RuntimeHelper.requireNonNull(constants$1592.const$1,"mciDriverYield");
+    public static MethodHandle SCardLocateCardsByATRW$handle() {
+        return SCardLocateCardsByATRW.HANDLE;
     }
     /**
-     * {@snippet :
-     * UINT mciDriverYield(MCIDEVICEID wDeviceID);
+     * {@snippet lang=c :
+     * extern LONG SCardLocateCardsByATRW(SCARDCONTEXT hContext, LPSCARD_ATRMASK rgAtrMasks, DWORD cAtrs, LPSCARD_READERSTATEW rgReaderStates, DWORD cReaders)
      * }
      */
-    public static int mciDriverYield(int wDeviceID) {
-        var mh$ = mciDriverYield$MH();
+    public static int SCardLocateCardsByATRW(long hContext, MemorySegment rgAtrMasks, int cAtrs, MemorySegment rgReaderStates, int cReaders) {
+        var mh$ = SCardLocateCardsByATRW.HANDLE;
         try {
-            return (int)mh$.invokeExact(wDeviceID);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardLocateCardsByATRW", hContext, rgAtrMasks, cAtrs, rgReaderStates, cReaders);
+            }
+            return (int)mh$.invokeExact(hContext, rgAtrMasks, cAtrs, rgReaderStates, cReaders);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle mciDriverNotify$MH() {
-        return RuntimeHelper.requireNonNull(constants$1592.const$2,"mciDriverNotify");
+
+    private static class SCardGetStatusChangeA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardGetStatusChangeA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * BOOL mciDriverNotify(HANDLE hwndCallback, MCIDEVICEID wDeviceID, UINT uStatus);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetStatusChangeA(SCARDCONTEXT hContext, DWORD dwTimeout, LPSCARD_READERSTATEA rgReaderStates, DWORD cReaders)
      * }
      */
-    public static int mciDriverNotify(MemorySegment hwndCallback, int wDeviceID, int uStatus) {
-        var mh$ = mciDriverNotify$MH();
-        try {
-            return (int)mh$.invokeExact(hwndCallback, wDeviceID, uStatus);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardGetStatusChangeA$descriptor() {
+        return SCardGetStatusChangeA.DESC;
     }
-    public static MethodHandle mciFreeCommandResource$MH() {
-        return RuntimeHelper.requireNonNull(constants$1592.const$3,"mciFreeCommandResource");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetStatusChangeA(SCARDCONTEXT hContext, DWORD dwTimeout, LPSCARD_READERSTATEA rgReaderStates, DWORD cReaders)
+     * }
+     */
+    public static MethodHandle SCardGetStatusChangeA$handle() {
+        return SCardGetStatusChangeA.HANDLE;
     }
     /**
-     * {@snippet :
-     * BOOL mciFreeCommandResource(UINT wTable);
+     * {@snippet lang=c :
+     * extern LONG SCardGetStatusChangeA(SCARDCONTEXT hContext, DWORD dwTimeout, LPSCARD_READERSTATEA rgReaderStates, DWORD cReaders)
      * }
      */
-    public static int mciFreeCommandResource(int wTable) {
-        var mh$ = mciFreeCommandResource$MH();
+    public static int SCardGetStatusChangeA(long hContext, int dwTimeout, MemorySegment rgReaderStates, int cReaders) {
+        var mh$ = SCardGetStatusChangeA.HANDLE;
         try {
-            return (int)mh$.invokeExact(wTable);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardGetStatusChangeA", hContext, dwTimeout, rgReaderStates, cReaders);
+            }
+            return (int)mh$.invokeExact(hContext, dwTimeout, rgReaderStates, cReaders);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    /**
-     * {@snippet :
-     * typedef struct DRVCONFIGINFOEX* PDRVCONFIGINFOEX;
-     * }
-     */
-    public static final AddressLayout PDRVCONFIGINFOEX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct DRVCONFIGINFOEX* NPDRVCONFIGINFOEX;
-     * }
-     */
-    public static final AddressLayout NPDRVCONFIGINFOEX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct DRVCONFIGINFOEX* LPDRVCONFIGINFOEX;
-     * }
-     */
-    public static final AddressLayout LPDRVCONFIGINFOEX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagDRVCONFIGINFO* PDRVCONFIGINFO;
-     * }
-     */
-    public static final AddressLayout PDRVCONFIGINFO = RuntimeHelper.POINTER;
+
+    private static class SCardGetStatusChangeW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardGetStatusChangeW"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagDRVCONFIGINFO* NPDRVCONFIGINFO;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetStatusChangeW(SCARDCONTEXT hContext, DWORD dwTimeout, LPSCARD_READERSTATEW rgReaderStates, DWORD cReaders)
      * }
      */
-    public static final AddressLayout NPDRVCONFIGINFO = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardGetStatusChangeW$descriptor() {
+        return SCardGetStatusChangeW.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagDRVCONFIGINFO* LPDRVCONFIGINFO;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetStatusChangeW(SCARDCONTEXT hContext, DWORD dwTimeout, LPSCARD_READERSTATEW rgReaderStates, DWORD cReaders)
      * }
      */
-    public static final AddressLayout LPDRVCONFIGINFO = RuntimeHelper.POINTER;
-    public static MethodHandle CloseDriver$MH() {
-        return RuntimeHelper.requireNonNull(constants$1594.const$4,"CloseDriver");
+    public static MethodHandle SCardGetStatusChangeW$handle() {
+        return SCardGetStatusChangeW.HANDLE;
     }
     /**
-     * {@snippet :
-     * LRESULT CloseDriver(HDRVR hDriver, LPARAM lParam1, LPARAM lParam2);
+     * {@snippet lang=c :
+     * extern LONG SCardGetStatusChangeW(SCARDCONTEXT hContext, DWORD dwTimeout, LPSCARD_READERSTATEW rgReaderStates, DWORD cReaders)
      * }
      */
-    public static long CloseDriver(MemorySegment hDriver, long lParam1, long lParam2) {
-        var mh$ = CloseDriver$MH();
+    public static int SCardGetStatusChangeW(long hContext, int dwTimeout, MemorySegment rgReaderStates, int cReaders) {
+        var mh$ = SCardGetStatusChangeW.HANDLE;
         try {
-            return (long)mh$.invokeExact(hDriver, lParam1, lParam2);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardGetStatusChangeW", hContext, dwTimeout, rgReaderStates, cReaders);
+            }
+            return (int)mh$.invokeExact(hContext, dwTimeout, rgReaderStates, cReaders);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle OpenDriver$MH() {
-        return RuntimeHelper.requireNonNull(constants$1594.const$5,"OpenDriver");
+
+    private static class SCardCancel {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardCancel"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * HDRVR OpenDriver(LPCWSTR szDriverName, LPCWSTR szSectionName, LPARAM lParam2);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardCancel(SCARDCONTEXT hContext)
      * }
      */
-    public static MemorySegment OpenDriver(MemorySegment szDriverName, MemorySegment szSectionName, long lParam2) {
-        var mh$ = OpenDriver$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(szDriverName, szSectionName, lParam2);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle SendDriverMessage$MH() {
-        return RuntimeHelper.requireNonNull(constants$1595.const$0,"SendDriverMessage");
+    public static FunctionDescriptor SCardCancel$descriptor() {
+        return SCardCancel.DESC;
     }
+
     /**
-     * {@snippet :
-     * LRESULT SendDriverMessage(HDRVR hDriver, UINT message, LPARAM lParam1, LPARAM lParam2);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardCancel(SCARDCONTEXT hContext)
      * }
      */
-    public static long SendDriverMessage(MemorySegment hDriver, int message, long lParam1, long lParam2) {
-        var mh$ = SendDriverMessage$MH();
-        try {
-            return (long)mh$.invokeExact(hDriver, message, lParam1, lParam2);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle DrvGetModuleHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1595.const$1,"DrvGetModuleHandle");
+    public static MethodHandle SCardCancel$handle() {
+        return SCardCancel.HANDLE;
     }
     /**
-     * {@snippet :
-     * HMODULE DrvGetModuleHandle(HDRVR hDriver);
+     * {@snippet lang=c :
+     * extern LONG SCardCancel(SCARDCONTEXT hContext)
      * }
      */
-    public static MemorySegment DrvGetModuleHandle(MemorySegment hDriver) {
-        var mh$ = DrvGetModuleHandle$MH();
+    public static int SCardCancel(long hContext) {
+        var mh$ = SCardCancel.HANDLE;
         try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(hDriver);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardCancel", hContext);
+            }
+            return (int)mh$.invokeExact(hContext);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle GetDriverModuleHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1595.const$2,"GetDriverModuleHandle");
+
+    private static class SCardConnectA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardConnectA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * HMODULE GetDriverModuleHandle(HDRVR hDriver);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardConnectA(SCARDCONTEXT hContext, LPCSTR szReader, DWORD dwShareMode, DWORD dwPreferredProtocols, LPSCARDHANDLE phCard, LPDWORD pdwActiveProtocol)
      * }
      */
-    public static MemorySegment GetDriverModuleHandle(MemorySegment hDriver) {
-        var mh$ = GetDriverModuleHandle$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(hDriver);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle DefDriverProc$MH() {
-        return RuntimeHelper.requireNonNull(constants$1595.const$3,"DefDriverProc");
+    public static FunctionDescriptor SCardConnectA$descriptor() {
+        return SCardConnectA.DESC;
     }
+
     /**
-     * {@snippet :
-     * LRESULT DefDriverProc(DWORD_PTR dwDriverIdentifier, HDRVR hdrvr, UINT uMsg, LPARAM lParam1, LPARAM lParam2);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardConnectA(SCARDCONTEXT hContext, LPCSTR szReader, DWORD dwShareMode, DWORD dwPreferredProtocols, LPSCARDHANDLE phCard, LPDWORD pdwActiveProtocol)
      * }
      */
-    public static long DefDriverProc(long dwDriverIdentifier, MemorySegment hdrvr, int uMsg, long lParam1, long lParam2) {
-        var mh$ = DefDriverProc$MH();
-        try {
-            return (long)mh$.invokeExact(dwDriverIdentifier, hdrvr, uMsg, lParam1, lParam2);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle DriverCallback$MH() {
-        return RuntimeHelper.requireNonNull(constants$1595.const$5,"DriverCallback");
+    public static MethodHandle SCardConnectA$handle() {
+        return SCardConnectA.HANDLE;
     }
     /**
-     * {@snippet :
-     * BOOL DriverCallback(DWORD_PTR dwCallback, DWORD dwFlags, HDRVR hDevice, DWORD dwMsg, DWORD_PTR dwUser, DWORD_PTR dwParam1, DWORD_PTR dwParam2);
+     * {@snippet lang=c :
+     * extern LONG SCardConnectA(SCARDCONTEXT hContext, LPCSTR szReader, DWORD dwShareMode, DWORD dwPreferredProtocols, LPSCARDHANDLE phCard, LPDWORD pdwActiveProtocol)
      * }
      */
-    public static int DriverCallback(long dwCallback, int dwFlags, MemorySegment hDevice, int dwMsg, long dwUser, long dwParam1, long dwParam2) {
-        var mh$ = DriverCallback$MH();
+    public static int SCardConnectA(long hContext, MemorySegment szReader, int dwShareMode, int dwPreferredProtocols, MemorySegment phCard, MemorySegment pdwActiveProtocol) {
+        var mh$ = SCardConnectA.HANDLE;
         try {
-            return (int)mh$.invokeExact(dwCallback, dwFlags, hDevice, dwMsg, dwUser, dwParam1, dwParam2);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardConnectA", hContext, szReader, dwShareMode, dwPreferredProtocols, phCard, pdwActiveProtocol);
+            }
+            return (int)mh$.invokeExact(hContext, szReader, dwShareMode, dwPreferredProtocols, phCard, pdwActiveProtocol);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle sndOpenSound$MH() {
-        return RuntimeHelper.requireNonNull(constants$1596.const$0,"sndOpenSound");
+
+    private static class SCardConnectW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardConnectW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * LONG sndOpenSound(LPCWSTR EventName, LPCWSTR AppName, INT32 Flags, PHANDLE FileHandle);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardConnectW(SCARDCONTEXT hContext, LPCWSTR szReader, DWORD dwShareMode, DWORD dwPreferredProtocols, LPSCARDHANDLE phCard, LPDWORD pdwActiveProtocol)
      * }
      */
-    public static int sndOpenSound(MemorySegment EventName, MemorySegment AppName, int Flags, MemorySegment FileHandle) {
-        var mh$ = sndOpenSound$MH();
-        try {
-            return (int)mh$.invokeExact(EventName, AppName, Flags, FileHandle);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardConnectW$descriptor() {
+        return SCardConnectW.DESC;
     }
-    public static MethodHandle mmDrvInstall$MH() {
-        return RuntimeHelper.requireNonNull(constants$1596.const$4,"mmDrvInstall");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardConnectW(SCARDCONTEXT hContext, LPCWSTR szReader, DWORD dwShareMode, DWORD dwPreferredProtocols, LPSCARDHANDLE phCard, LPDWORD pdwActiveProtocol)
+     * }
+     */
+    public static MethodHandle SCardConnectW$handle() {
+        return SCardConnectW.HANDLE;
     }
     /**
-     * {@snippet :
-     * UINT mmDrvInstall(HDRVR hDriver, LPCWSTR wszDrvEntry, DRIVERMSGPROC drvMessage, UINT wFlags);
+     * {@snippet lang=c :
+     * extern LONG SCardConnectW(SCARDCONTEXT hContext, LPCWSTR szReader, DWORD dwShareMode, DWORD dwPreferredProtocols, LPSCARDHANDLE phCard, LPDWORD pdwActiveProtocol)
      * }
      */
-    public static int mmDrvInstall(MemorySegment hDriver, MemorySegment wszDrvEntry, MemorySegment drvMessage, int wFlags) {
-        var mh$ = mmDrvInstall$MH();
+    public static int SCardConnectW(long hContext, MemorySegment szReader, int dwShareMode, int dwPreferredProtocols, MemorySegment phCard, MemorySegment pdwActiveProtocol) {
+        var mh$ = SCardConnectW.HANDLE;
         try {
-            return (int)mh$.invokeExact(hDriver, wszDrvEntry, drvMessage, wFlags);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardConnectW", hContext, szReader, dwShareMode, dwPreferredProtocols, phCard, pdwActiveProtocol);
+            }
+            return (int)mh$.invokeExact(hContext, szReader, dwShareMode, dwPreferredProtocols, phCard, pdwActiveProtocol);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    /**
-     * {@snippet :
-     * typedef unsigned long FOURCC;
-     * }
-     */
-    public static final OfInt FOURCC = JAVA_INT;
-    /**
-     * {@snippet :
-     * typedef char* HPSTR;
-     * }
-     */
-    public static final AddressLayout HPSTR = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct HMMIO__* HMMIO;
-     * }
-     */
-    public static final AddressLayout HMMIO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _MMIOINFO* PMMIOINFO;
-     * }
-     */
-    public static final AddressLayout PMMIOINFO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _MMIOINFO* NPMMIOINFO;
-     * }
-     */
-    public static final AddressLayout NPMMIOINFO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _MMIOINFO* LPMMIOINFO;
-     * }
-     */
-    public static final AddressLayout LPMMIOINFO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _MMIOINFO* LPCMMIOINFO;
-     * }
-     */
-    public static final AddressLayout LPCMMIOINFO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _MMCKINFO* PMMCKINFO;
-     * }
-     */
-    public static final AddressLayout PMMCKINFO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _MMCKINFO* NPMMCKINFO;
-     * }
-     */
-    public static final AddressLayout NPMMCKINFO = RuntimeHelper.POINTER;
+
+    private static class SCardReconnect {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardReconnect"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct _MMCKINFO* LPMMCKINFO;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardReconnect(SCARDHANDLE hCard, DWORD dwShareMode, DWORD dwPreferredProtocols, DWORD dwInitialization, LPDWORD pdwActiveProtocol)
      * }
      */
-    public static final AddressLayout LPMMCKINFO = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardReconnect$descriptor() {
+        return SCardReconnect.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct _MMCKINFO* LPCMMCKINFO;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardReconnect(SCARDHANDLE hCard, DWORD dwShareMode, DWORD dwPreferredProtocols, DWORD dwInitialization, LPDWORD pdwActiveProtocol)
      * }
      */
-    public static final AddressLayout LPCMMCKINFO = RuntimeHelper.POINTER;
-    public static MethodHandle mmioStringToFOURCCA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1601.const$1,"mmioStringToFOURCCA");
+    public static MethodHandle SCardReconnect$handle() {
+        return SCardReconnect.HANDLE;
     }
     /**
-     * {@snippet :
-     * FOURCC mmioStringToFOURCCA(LPCSTR sz, UINT uFlags);
+     * {@snippet lang=c :
+     * extern LONG SCardReconnect(SCARDHANDLE hCard, DWORD dwShareMode, DWORD dwPreferredProtocols, DWORD dwInitialization, LPDWORD pdwActiveProtocol)
      * }
      */
-    public static int mmioStringToFOURCCA(MemorySegment sz, int uFlags) {
-        var mh$ = mmioStringToFOURCCA$MH();
+    public static int SCardReconnect(long hCard, int dwShareMode, int dwPreferredProtocols, int dwInitialization, MemorySegment pdwActiveProtocol) {
+        var mh$ = SCardReconnect.HANDLE;
         try {
-            return (int)mh$.invokeExact(sz, uFlags);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardReconnect", hCard, dwShareMode, dwPreferredProtocols, dwInitialization, pdwActiveProtocol);
+            }
+            return (int)mh$.invokeExact(hCard, dwShareMode, dwPreferredProtocols, dwInitialization, pdwActiveProtocol);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle mmioStringToFOURCCW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1601.const$2,"mmioStringToFOURCCW");
+
+    private static class SCardDisconnect {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardDisconnect"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * FOURCC mmioStringToFOURCCW(LPCWSTR sz, UINT uFlags);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardDisconnect(SCARDHANDLE hCard, DWORD dwDisposition)
      * }
      */
-    public static int mmioStringToFOURCCW(MemorySegment sz, int uFlags) {
-        var mh$ = mmioStringToFOURCCW$MH();
-        try {
-            return (int)mh$.invokeExact(sz, uFlags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardDisconnect$descriptor() {
+        return SCardDisconnect.DESC;
     }
-    public static MethodHandle mmioInstallIOProcA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1601.const$3,"mmioInstallIOProcA");
-    }
+
     /**
-     * {@snippet :
-     * LPMMIOPROC mmioInstallIOProcA(FOURCC fccIOProc, LPMMIOPROC pIOProc, DWORD dwFlags);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardDisconnect(SCARDHANDLE hCard, DWORD dwDisposition)
      * }
      */
-    public static MemorySegment mmioInstallIOProcA(int fccIOProc, MemorySegment pIOProc, int dwFlags) {
-        var mh$ = mmioInstallIOProcA$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(fccIOProc, pIOProc, dwFlags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MethodHandle SCardDisconnect$handle() {
+        return SCardDisconnect.HANDLE;
     }
-    public static MethodHandle mmioInstallIOProcW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1601.const$4,"mmioInstallIOProcW");
-    }
     /**
-     * {@snippet :
-     * LPMMIOPROC mmioInstallIOProcW(FOURCC fccIOProc, LPMMIOPROC pIOProc, DWORD dwFlags);
+     * {@snippet lang=c :
+     * extern LONG SCardDisconnect(SCARDHANDLE hCard, DWORD dwDisposition)
      * }
      */
-    public static MemorySegment mmioInstallIOProcW(int fccIOProc, MemorySegment pIOProc, int dwFlags) {
-        var mh$ = mmioInstallIOProcW$MH();
+    public static int SCardDisconnect(long hCard, int dwDisposition) {
+        var mh$ = SCardDisconnect.HANDLE;
         try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(fccIOProc, pIOProc, dwFlags);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardDisconnect", hCard, dwDisposition);
+            }
+            return (int)mh$.invokeExact(hCard, dwDisposition);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle mmioOpenA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1601.const$5,"mmioOpenA");
+
+    private static class SCardBeginTransaction {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardBeginTransaction"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * HMMIO mmioOpenA(LPSTR pszFileName, LPMMIOINFO pmmioinfo, DWORD fdwOpen);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardBeginTransaction(SCARDHANDLE hCard)
      * }
      */
-    public static MemorySegment mmioOpenA(MemorySegment pszFileName, MemorySegment pmmioinfo, int fdwOpen) {
-        var mh$ = mmioOpenA$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(pszFileName, pmmioinfo, fdwOpen);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardBeginTransaction$descriptor() {
+        return SCardBeginTransaction.DESC;
     }
-    public static MethodHandle mmioOpenW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1602.const$0,"mmioOpenW");
-    }
+
     /**
-     * {@snippet :
-     * HMMIO mmioOpenW(LPWSTR pszFileName, LPMMIOINFO pmmioinfo, DWORD fdwOpen);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardBeginTransaction(SCARDHANDLE hCard)
      * }
      */
-    public static MemorySegment mmioOpenW(MemorySegment pszFileName, MemorySegment pmmioinfo, int fdwOpen) {
-        var mh$ = mmioOpenW$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(pszFileName, pmmioinfo, fdwOpen);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MethodHandle SCardBeginTransaction$handle() {
+        return SCardBeginTransaction.HANDLE;
     }
-    public static MethodHandle mmioRenameA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1602.const$1,"mmioRenameA");
-    }
     /**
-     * {@snippet :
-     * MMRESULT mmioRenameA(LPCSTR pszFileName, LPCSTR pszNewFileName, LPCMMIOINFO pmmioinfo, DWORD fdwRename);
+     * {@snippet lang=c :
+     * extern LONG SCardBeginTransaction(SCARDHANDLE hCard)
      * }
      */
-    public static int mmioRenameA(MemorySegment pszFileName, MemorySegment pszNewFileName, MemorySegment pmmioinfo, int fdwRename) {
-        var mh$ = mmioRenameA$MH();
+    public static int SCardBeginTransaction(long hCard) {
+        var mh$ = SCardBeginTransaction.HANDLE;
         try {
-            return (int)mh$.invokeExact(pszFileName, pszNewFileName, pmmioinfo, fdwRename);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardBeginTransaction", hCard);
+            }
+            return (int)mh$.invokeExact(hCard);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle mmioRenameW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1602.const$2,"mmioRenameW");
+
+    private static class SCardEndTransaction {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardEndTransaction"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT mmioRenameW(LPCWSTR pszFileName, LPCWSTR pszNewFileName, LPCMMIOINFO pmmioinfo, DWORD fdwRename);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardEndTransaction(SCARDHANDLE hCard, DWORD dwDisposition)
      * }
      */
-    public static int mmioRenameW(MemorySegment pszFileName, MemorySegment pszNewFileName, MemorySegment pmmioinfo, int fdwRename) {
-        var mh$ = mmioRenameW$MH();
-        try {
-            return (int)mh$.invokeExact(pszFileName, pszNewFileName, pmmioinfo, fdwRename);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardEndTransaction$descriptor() {
+        return SCardEndTransaction.DESC;
     }
-    public static MethodHandle mmioClose$MH() {
-        return RuntimeHelper.requireNonNull(constants$1602.const$3,"mmioClose");
-    }
+
     /**
-     * {@snippet :
-     * MMRESULT mmioClose(HMMIO hmmio, UINT fuClose);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardEndTransaction(SCARDHANDLE hCard, DWORD dwDisposition)
      * }
      */
-    public static int mmioClose(MemorySegment hmmio, int fuClose) {
-        var mh$ = mmioClose$MH();
-        try {
-            return (int)mh$.invokeExact(hmmio, fuClose);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MethodHandle SCardEndTransaction$handle() {
+        return SCardEndTransaction.HANDLE;
     }
-    public static MethodHandle mmioRead$MH() {
-        return RuntimeHelper.requireNonNull(constants$1602.const$4,"mmioRead");
-    }
     /**
-     * {@snippet :
-     * LONG mmioRead(HMMIO hmmio, HPSTR pch, LONG cch);
+     * {@snippet lang=c :
+     * extern LONG SCardEndTransaction(SCARDHANDLE hCard, DWORD dwDisposition)
      * }
      */
-    public static int mmioRead(MemorySegment hmmio, MemorySegment pch, int cch) {
-        var mh$ = mmioRead$MH();
+    public static int SCardEndTransaction(long hCard, int dwDisposition) {
+        var mh$ = SCardEndTransaction.HANDLE;
         try {
-            return (int)mh$.invokeExact(hmmio, pch, cch);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardEndTransaction", hCard, dwDisposition);
+            }
+            return (int)mh$.invokeExact(hCard, dwDisposition);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle mmioWrite$MH() {
-        return RuntimeHelper.requireNonNull(constants$1602.const$5,"mmioWrite");
+
+    private static class SCardCancelTransaction {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardCancelTransaction"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * LONG mmioWrite(HMMIO hmmio, char* pch, LONG cch);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardCancelTransaction(SCARDHANDLE hCard)
      * }
      */
-    public static int mmioWrite(MemorySegment hmmio, MemorySegment pch, int cch) {
-        var mh$ = mmioWrite$MH();
-        try {
-            return (int)mh$.invokeExact(hmmio, pch, cch);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardCancelTransaction$descriptor() {
+        return SCardCancelTransaction.DESC;
     }
-    public static MethodHandle mmioSeek$MH() {
-        return RuntimeHelper.requireNonNull(constants$1603.const$0,"mmioSeek");
-    }
+
     /**
-     * {@snippet :
-     * LONG mmioSeek(HMMIO hmmio, LONG lOffset, int iOrigin);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardCancelTransaction(SCARDHANDLE hCard)
      * }
      */
-    public static int mmioSeek(MemorySegment hmmio, int lOffset, int iOrigin) {
-        var mh$ = mmioSeek$MH();
-        try {
-            return (int)mh$.invokeExact(hmmio, lOffset, iOrigin);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MethodHandle SCardCancelTransaction$handle() {
+        return SCardCancelTransaction.HANDLE;
     }
-    public static MethodHandle mmioGetInfo$MH() {
-        return RuntimeHelper.requireNonNull(constants$1603.const$1,"mmioGetInfo");
-    }
     /**
-     * {@snippet :
-     * MMRESULT mmioGetInfo(HMMIO hmmio, LPMMIOINFO pmmioinfo, UINT fuInfo);
+     * {@snippet lang=c :
+     * extern LONG SCardCancelTransaction(SCARDHANDLE hCard)
      * }
      */
-    public static int mmioGetInfo(MemorySegment hmmio, MemorySegment pmmioinfo, int fuInfo) {
-        var mh$ = mmioGetInfo$MH();
+    public static int SCardCancelTransaction(long hCard) {
+        var mh$ = SCardCancelTransaction.HANDLE;
         try {
-            return (int)mh$.invokeExact(hmmio, pmmioinfo, fuInfo);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardCancelTransaction", hCard);
+            }
+            return (int)mh$.invokeExact(hCard);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle mmioSetInfo$MH() {
-        return RuntimeHelper.requireNonNull(constants$1603.const$2,"mmioSetInfo");
+
+    private static class SCardState {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardState"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT mmioSetInfo(HMMIO hmmio, LPCMMIOINFO pmmioinfo, UINT fuInfo);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardState(SCARDHANDLE hCard, LPDWORD pdwState, LPDWORD pdwProtocol, LPBYTE pbAtr, LPDWORD pcbAtrLen)
      * }
      */
-    public static int mmioSetInfo(MemorySegment hmmio, MemorySegment pmmioinfo, int fuInfo) {
-        var mh$ = mmioSetInfo$MH();
-        try {
-            return (int)mh$.invokeExact(hmmio, pmmioinfo, fuInfo);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardState$descriptor() {
+        return SCardState.DESC;
     }
-    public static MethodHandle mmioSetBuffer$MH() {
-        return RuntimeHelper.requireNonNull(constants$1603.const$3,"mmioSetBuffer");
-    }
+
     /**
-     * {@snippet :
-     * MMRESULT mmioSetBuffer(HMMIO hmmio, LPSTR pchBuffer, LONG cchBuffer, UINT fuBuffer);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardState(SCARDHANDLE hCard, LPDWORD pdwState, LPDWORD pdwProtocol, LPBYTE pbAtr, LPDWORD pcbAtrLen)
      * }
      */
-    public static int mmioSetBuffer(MemorySegment hmmio, MemorySegment pchBuffer, int cchBuffer, int fuBuffer) {
-        var mh$ = mmioSetBuffer$MH();
-        try {
-            return (int)mh$.invokeExact(hmmio, pchBuffer, cchBuffer, fuBuffer);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MethodHandle SCardState$handle() {
+        return SCardState.HANDLE;
     }
-    public static MethodHandle mmioFlush$MH() {
-        return RuntimeHelper.requireNonNull(constants$1603.const$4,"mmioFlush");
-    }
     /**
-     * {@snippet :
-     * MMRESULT mmioFlush(HMMIO hmmio, UINT fuFlush);
+     * {@snippet lang=c :
+     * extern LONG SCardState(SCARDHANDLE hCard, LPDWORD pdwState, LPDWORD pdwProtocol, LPBYTE pbAtr, LPDWORD pcbAtrLen)
      * }
      */
-    public static int mmioFlush(MemorySegment hmmio, int fuFlush) {
-        var mh$ = mmioFlush$MH();
+    public static int SCardState(long hCard, MemorySegment pdwState, MemorySegment pdwProtocol, MemorySegment pbAtr, MemorySegment pcbAtrLen) {
+        var mh$ = SCardState.HANDLE;
         try {
-            return (int)mh$.invokeExact(hmmio, fuFlush);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardState", hCard, pdwState, pdwProtocol, pbAtr, pcbAtrLen);
+            }
+            return (int)mh$.invokeExact(hCard, pdwState, pdwProtocol, pbAtr, pcbAtrLen);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle mmioAdvance$MH() {
-        return RuntimeHelper.requireNonNull(constants$1603.const$5,"mmioAdvance");
+
+    private static class SCardStatusA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardStatusA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT mmioAdvance(HMMIO hmmio, LPMMIOINFO pmmioinfo, UINT fuAdvance);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardStatusA(SCARDHANDLE hCard, LPSTR mszReaderNames, LPDWORD pcchReaderLen, LPDWORD pdwState, LPDWORD pdwProtocol, LPBYTE pbAtr, LPDWORD pcbAtrLen)
      * }
      */
-    public static int mmioAdvance(MemorySegment hmmio, MemorySegment pmmioinfo, int fuAdvance) {
-        var mh$ = mmioAdvance$MH();
-        try {
-            return (int)mh$.invokeExact(hmmio, pmmioinfo, fuAdvance);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardStatusA$descriptor() {
+        return SCardStatusA.DESC;
     }
-    public static MethodHandle mmioSendMessage$MH() {
-        return RuntimeHelper.requireNonNull(constants$1604.const$0,"mmioSendMessage");
-    }
+
     /**
-     * {@snippet :
-     * LRESULT mmioSendMessage(HMMIO hmmio, UINT uMsg, LPARAM lParam1, LPARAM lParam2);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardStatusA(SCARDHANDLE hCard, LPSTR mszReaderNames, LPDWORD pcchReaderLen, LPDWORD pdwState, LPDWORD pdwProtocol, LPBYTE pbAtr, LPDWORD pcbAtrLen)
      * }
      */
-    public static long mmioSendMessage(MemorySegment hmmio, int uMsg, long lParam1, long lParam2) {
-        var mh$ = mmioSendMessage$MH();
-        try {
-            return (long)mh$.invokeExact(hmmio, uMsg, lParam1, lParam2);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MethodHandle SCardStatusA$handle() {
+        return SCardStatusA.HANDLE;
     }
-    public static MethodHandle mmioDescend$MH() {
-        return RuntimeHelper.requireNonNull(constants$1604.const$1,"mmioDescend");
-    }
     /**
-     * {@snippet :
-     * MMRESULT mmioDescend(HMMIO hmmio, LPMMCKINFO pmmcki, const MMCKINFO* pmmckiParent, UINT fuDescend);
+     * {@snippet lang=c :
+     * extern LONG SCardStatusA(SCARDHANDLE hCard, LPSTR mszReaderNames, LPDWORD pcchReaderLen, LPDWORD pdwState, LPDWORD pdwProtocol, LPBYTE pbAtr, LPDWORD pcbAtrLen)
      * }
      */
-    public static int mmioDescend(MemorySegment hmmio, MemorySegment pmmcki, MemorySegment pmmckiParent, int fuDescend) {
-        var mh$ = mmioDescend$MH();
+    public static int SCardStatusA(long hCard, MemorySegment mszReaderNames, MemorySegment pcchReaderLen, MemorySegment pdwState, MemorySegment pdwProtocol, MemorySegment pbAtr, MemorySegment pcbAtrLen) {
+        var mh$ = SCardStatusA.HANDLE;
         try {
-            return (int)mh$.invokeExact(hmmio, pmmcki, pmmckiParent, fuDescend);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardStatusA", hCard, mszReaderNames, pcchReaderLen, pdwState, pdwProtocol, pbAtr, pcbAtrLen);
+            }
+            return (int)mh$.invokeExact(hCard, mszReaderNames, pcchReaderLen, pdwState, pdwProtocol, pbAtr, pcbAtrLen);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle mmioAscend$MH() {
-        return RuntimeHelper.requireNonNull(constants$1604.const$2,"mmioAscend");
+
+    private static class SCardStatusW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardStatusW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT mmioAscend(HMMIO hmmio, LPMMCKINFO pmmcki, UINT fuAscend);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardStatusW(SCARDHANDLE hCard, LPWSTR mszReaderNames, LPDWORD pcchReaderLen, LPDWORD pdwState, LPDWORD pdwProtocol, LPBYTE pbAtr, LPDWORD pcbAtrLen)
      * }
      */
-    public static int mmioAscend(MemorySegment hmmio, MemorySegment pmmcki, int fuAscend) {
-        var mh$ = mmioAscend$MH();
-        try {
-            return (int)mh$.invokeExact(hmmio, pmmcki, fuAscend);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardStatusW$descriptor() {
+        return SCardStatusW.DESC;
     }
-    public static MethodHandle mmioCreateChunk$MH() {
-        return RuntimeHelper.requireNonNull(constants$1604.const$3,"mmioCreateChunk");
-    }
+
     /**
-     * {@snippet :
-     * MMRESULT mmioCreateChunk(HMMIO hmmio, LPMMCKINFO pmmcki, UINT fuCreate);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardStatusW(SCARDHANDLE hCard, LPWSTR mszReaderNames, LPDWORD pcchReaderLen, LPDWORD pdwState, LPDWORD pdwProtocol, LPBYTE pbAtr, LPDWORD pcbAtrLen)
      * }
      */
-    public static int mmioCreateChunk(MemorySegment hmmio, MemorySegment pmmcki, int fuCreate) {
-        var mh$ = mmioCreateChunk$MH();
-        try {
-            return (int)mh$.invokeExact(hmmio, pmmcki, fuCreate);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MethodHandle SCardStatusW$handle() {
+        return SCardStatusW.HANDLE;
     }
-    public static MethodHandle timeSetEvent$MH() {
-        return RuntimeHelper.requireNonNull(constants$1605.const$3,"timeSetEvent");
-    }
     /**
-     * {@snippet :
-     * MMRESULT timeSetEvent(UINT uDelay, UINT uResolution, LPTIMECALLBACK fptc, DWORD_PTR dwUser, UINT fuEvent);
+     * {@snippet lang=c :
+     * extern LONG SCardStatusW(SCARDHANDLE hCard, LPWSTR mszReaderNames, LPDWORD pcchReaderLen, LPDWORD pdwState, LPDWORD pdwProtocol, LPBYTE pbAtr, LPDWORD pcbAtrLen)
      * }
      */
-    public static int timeSetEvent(int uDelay, int uResolution, MemorySegment fptc, long dwUser, int fuEvent) {
-        var mh$ = timeSetEvent$MH();
+    public static int SCardStatusW(long hCard, MemorySegment mszReaderNames, MemorySegment pcchReaderLen, MemorySegment pdwState, MemorySegment pdwProtocol, MemorySegment pbAtr, MemorySegment pcbAtrLen) {
+        var mh$ = SCardStatusW.HANDLE;
         try {
-            return (int)mh$.invokeExact(uDelay, uResolution, fptc, dwUser, fuEvent);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardStatusW", hCard, mszReaderNames, pcchReaderLen, pdwState, pdwProtocol, pbAtr, pcbAtrLen);
+            }
+            return (int)mh$.invokeExact(hCard, mszReaderNames, pcchReaderLen, pdwState, pdwProtocol, pbAtr, pcbAtrLen);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle timeKillEvent$MH() {
-        return RuntimeHelper.requireNonNull(constants$1605.const$4,"timeKillEvent");
+
+    private static class SCardTransmit {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardTransmit"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT timeKillEvent(UINT uTimerID);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardTransmit(SCARDHANDLE hCard, LPCSCARD_IO_REQUEST pioSendPci, LPCBYTE pbSendBuffer, DWORD cbSendLength, LPSCARD_IO_REQUEST pioRecvPci, LPBYTE pbRecvBuffer, LPDWORD pcbRecvLength)
      * }
      */
-    public static int timeKillEvent(int uTimerID) {
-        var mh$ = timeKillEvent$MH();
-        try {
-            return (int)mh$.invokeExact(uTimerID);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardTransmit$descriptor() {
+        return SCardTransmit.DESC;
     }
-    public static MethodHandle sndPlaySoundA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1605.const$5,"sndPlaySoundA");
-    }
+
     /**
-     * {@snippet :
-     * BOOL sndPlaySoundA(LPCSTR pszSound, UINT fuSound);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardTransmit(SCARDHANDLE hCard, LPCSCARD_IO_REQUEST pioSendPci, LPCBYTE pbSendBuffer, DWORD cbSendLength, LPSCARD_IO_REQUEST pioRecvPci, LPBYTE pbRecvBuffer, LPDWORD pcbRecvLength)
      * }
      */
-    public static int sndPlaySoundA(MemorySegment pszSound, int fuSound) {
-        var mh$ = sndPlaySoundA$MH();
-        try {
-            return (int)mh$.invokeExact(pszSound, fuSound);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MethodHandle SCardTransmit$handle() {
+        return SCardTransmit.HANDLE;
     }
-    public static MethodHandle sndPlaySoundW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1606.const$0,"sndPlaySoundW");
-    }
     /**
-     * {@snippet :
-     * BOOL sndPlaySoundW(LPCWSTR pszSound, UINT fuSound);
+     * {@snippet lang=c :
+     * extern LONG SCardTransmit(SCARDHANDLE hCard, LPCSCARD_IO_REQUEST pioSendPci, LPCBYTE pbSendBuffer, DWORD cbSendLength, LPSCARD_IO_REQUEST pioRecvPci, LPBYTE pbRecvBuffer, LPDWORD pcbRecvLength)
      * }
      */
-    public static int sndPlaySoundW(MemorySegment pszSound, int fuSound) {
-        var mh$ = sndPlaySoundW$MH();
+    public static int SCardTransmit(long hCard, MemorySegment pioSendPci, MemorySegment pbSendBuffer, int cbSendLength, MemorySegment pioRecvPci, MemorySegment pbRecvBuffer, MemorySegment pcbRecvLength) {
+        var mh$ = SCardTransmit.HANDLE;
         try {
-            return (int)mh$.invokeExact(pszSound, fuSound);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardTransmit", hCard, pioSendPci, pbSendBuffer, cbSendLength, pioRecvPci, pbRecvBuffer, pcbRecvLength);
+            }
+            return (int)mh$.invokeExact(hCard, pioSendPci, pbSendBuffer, cbSendLength, pioRecvPci, pbRecvBuffer, pcbRecvLength);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle PlaySoundA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1606.const$1,"PlaySoundA");
+
+    private static class SCardGetTransmitCount {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardGetTransmitCount"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * BOOL PlaySoundA(LPCSTR pszSound, HMODULE hmod, DWORD fdwSound);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetTransmitCount(SCARDHANDLE hCard, LPDWORD pcTransmitCount)
      * }
      */
-    public static int PlaySoundA(MemorySegment pszSound, MemorySegment hmod, int fdwSound) {
-        var mh$ = PlaySoundA$MH();
-        try {
-            return (int)mh$.invokeExact(pszSound, hmod, fdwSound);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardGetTransmitCount$descriptor() {
+        return SCardGetTransmitCount.DESC;
     }
-    public static MethodHandle PlaySoundW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1606.const$2,"PlaySoundW");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetTransmitCount(SCARDHANDLE hCard, LPDWORD pcTransmitCount)
+     * }
+     */
+    public static MethodHandle SCardGetTransmitCount$handle() {
+        return SCardGetTransmitCount.HANDLE;
     }
     /**
-     * {@snippet :
-     * BOOL PlaySoundW(LPCWSTR pszSound, HMODULE hmod, DWORD fdwSound);
+     * {@snippet lang=c :
+     * extern LONG SCardGetTransmitCount(SCARDHANDLE hCard, LPDWORD pcTransmitCount)
      * }
      */
-    public static int PlaySoundW(MemorySegment pszSound, MemorySegment hmod, int fdwSound) {
-        var mh$ = PlaySoundW$MH();
+    public static int SCardGetTransmitCount(long hCard, MemorySegment pcTransmitCount) {
+        var mh$ = SCardGetTransmitCount.HANDLE;
         try {
-            return (int)mh$.invokeExact(pszSound, hmod, fdwSound);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardGetTransmitCount", hCard, pcTransmitCount);
+            }
+            return (int)mh$.invokeExact(hCard, pcTransmitCount);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    /**
-     * {@snippet :
-     * typedef struct HWAVE__* HWAVE;
-     * }
-     */
-    public static final AddressLayout HWAVE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct HWAVEIN__* HWAVEIN;
-     * }
-     */
-    public static final AddressLayout HWAVEIN = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct HWAVEOUT__* HWAVEOUT;
-     * }
-     */
-    public static final AddressLayout HWAVEOUT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct HWAVEIN__** LPHWAVEIN;
-     * }
-     */
-    public static final AddressLayout LPHWAVEIN = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct HWAVEOUT__** LPHWAVEOUT;
-     * }
-     */
-    public static final AddressLayout LPHWAVEOUT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct wavehdr_tag* PWAVEHDR;
-     * }
-     */
-    public static final AddressLayout PWAVEHDR = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct wavehdr_tag* NPWAVEHDR;
-     * }
-     */
-    public static final AddressLayout NPWAVEHDR = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct wavehdr_tag* LPWAVEHDR;
-     * }
-     */
-    public static final AddressLayout LPWAVEHDR = RuntimeHelper.POINTER;
+
+    private static class SCardControl {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardControl"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPSA* PWAVEOUTCAPSA;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardControl(SCARDHANDLE hCard, DWORD dwControlCode, LPCVOID lpInBuffer, DWORD cbInBufferSize, LPVOID lpOutBuffer, DWORD cbOutBufferSize, LPDWORD lpBytesReturned)
      * }
      */
-    public static final AddressLayout PWAVEOUTCAPSA = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardControl$descriptor() {
+        return SCardControl.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPSA* NPWAVEOUTCAPSA;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardControl(SCARDHANDLE hCard, DWORD dwControlCode, LPCVOID lpInBuffer, DWORD cbInBufferSize, LPVOID lpOutBuffer, DWORD cbOutBufferSize, LPDWORD lpBytesReturned)
      * }
      */
-    public static final AddressLayout NPWAVEOUTCAPSA = RuntimeHelper.POINTER;
+    public static MethodHandle SCardControl$handle() {
+        return SCardControl.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPSA* LPWAVEOUTCAPSA;
+     * {@snippet lang=c :
+     * extern LONG SCardControl(SCARDHANDLE hCard, DWORD dwControlCode, LPCVOID lpInBuffer, DWORD cbInBufferSize, LPVOID lpOutBuffer, DWORD cbOutBufferSize, LPDWORD lpBytesReturned)
      * }
      */
-    public static final AddressLayout LPWAVEOUTCAPSA = RuntimeHelper.POINTER;
+    public static int SCardControl(long hCard, int dwControlCode, MemorySegment lpInBuffer, int cbInBufferSize, MemorySegment lpOutBuffer, int cbOutBufferSize, MemorySegment lpBytesReturned) {
+        var mh$ = SCardControl.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardControl", hCard, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned);
+            }
+            return (int)mh$.invokeExact(hCard, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class SCardGetAttrib {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardGetAttrib"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPSW* PWAVEOUTCAPSW;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetAttrib(SCARDHANDLE hCard, DWORD dwAttrId, LPBYTE pbAttr, LPDWORD pcbAttrLen)
      * }
      */
-    public static final AddressLayout PWAVEOUTCAPSW = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardGetAttrib$descriptor() {
+        return SCardGetAttrib.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPSW* NPWAVEOUTCAPSW;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetAttrib(SCARDHANDLE hCard, DWORD dwAttrId, LPBYTE pbAttr, LPDWORD pcbAttrLen)
      * }
      */
-    public static final AddressLayout NPWAVEOUTCAPSW = RuntimeHelper.POINTER;
+    public static MethodHandle SCardGetAttrib$handle() {
+        return SCardGetAttrib.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPSW* LPWAVEOUTCAPSW;
+     * {@snippet lang=c :
+     * extern LONG SCardGetAttrib(SCARDHANDLE hCard, DWORD dwAttrId, LPBYTE pbAttr, LPDWORD pcbAttrLen)
      * }
      */
-    public static final AddressLayout LPWAVEOUTCAPSW = RuntimeHelper.POINTER;
+    public static int SCardGetAttrib(long hCard, int dwAttrId, MemorySegment pbAttr, MemorySegment pcbAttrLen) {
+        var mh$ = SCardGetAttrib.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardGetAttrib", hCard, dwAttrId, pbAttr, pcbAttrLen);
+            }
+            return (int)mh$.invokeExact(hCard, dwAttrId, pbAttr, pcbAttrLen);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class SCardSetAttrib {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardSetAttrib"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPSA* PWAVEOUTCAPS;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardSetAttrib(SCARDHANDLE hCard, DWORD dwAttrId, LPCBYTE pbAttr, DWORD cbAttrLen)
      * }
      */
-    public static final AddressLayout PWAVEOUTCAPS = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardSetAttrib$descriptor() {
+        return SCardSetAttrib.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPSA* NPWAVEOUTCAPS;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardSetAttrib(SCARDHANDLE hCard, DWORD dwAttrId, LPCBYTE pbAttr, DWORD cbAttrLen)
      * }
      */
-    public static final AddressLayout NPWAVEOUTCAPS = RuntimeHelper.POINTER;
+    public static MethodHandle SCardSetAttrib$handle() {
+        return SCardSetAttrib.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPSA* LPWAVEOUTCAPS;
+     * {@snippet lang=c :
+     * extern LONG SCardSetAttrib(SCARDHANDLE hCard, DWORD dwAttrId, LPCBYTE pbAttr, DWORD cbAttrLen)
      * }
      */
-    public static final AddressLayout LPWAVEOUTCAPS = RuntimeHelper.POINTER;
+    public static int SCardSetAttrib(long hCard, int dwAttrId, MemorySegment pbAttr, int cbAttrLen) {
+        var mh$ = SCardSetAttrib.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardSetAttrib", hCard, dwAttrId, pbAttr, cbAttrLen);
+            }
+            return (int)mh$.invokeExact(hCard, dwAttrId, pbAttr, cbAttrLen);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPS2A* PWAVEOUTCAPS2A;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD dwStructSize;
+     *     LPSTR lpstrGroupNames;
+     *     DWORD nMaxGroupNames;
+     *     LPCGUID rgguidInterfaces;
+     *     DWORD cguidInterfaces;
+     *     LPSTR lpstrCardNames;
+     *     DWORD nMaxCardNames;
+     *     LPOCNCHKPROC lpfnCheck;
+     *     LPOCNCONNPROCA lpfnConnect;
+     *     LPOCNDSCPROC lpfnDisconnect;
+     *     LPVOID pvUserData;
+     *     DWORD dwShareMode;
+     *     DWORD dwPreferredProtocols;
+     * } *POPENCARD_SEARCH_CRITERIAA
      * }
      */
-    public static final AddressLayout PWAVEOUTCAPS2A = RuntimeHelper.POINTER;
+    public static final AddressLayout POPENCARD_SEARCH_CRITERIAA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPS2A* NPWAVEOUTCAPS2A;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD dwStructSize;
+     *     LPSTR lpstrGroupNames;
+     *     DWORD nMaxGroupNames;
+     *     LPCGUID rgguidInterfaces;
+     *     DWORD cguidInterfaces;
+     *     LPSTR lpstrCardNames;
+     *     DWORD nMaxCardNames;
+     *     LPOCNCHKPROC lpfnCheck;
+     *     LPOCNCONNPROCA lpfnConnect;
+     *     LPOCNDSCPROC lpfnDisconnect;
+     *     LPVOID pvUserData;
+     *     DWORD dwShareMode;
+     *     DWORD dwPreferredProtocols;
+     * } *LPOPENCARD_SEARCH_CRITERIAA
      * }
      */
-    public static final AddressLayout NPWAVEOUTCAPS2A = RuntimeHelper.POINTER;
+    public static final AddressLayout LPOPENCARD_SEARCH_CRITERIAA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPS2A* LPWAVEOUTCAPS2A;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD dwStructSize;
+     *     LPWSTR lpstrGroupNames;
+     *     DWORD nMaxGroupNames;
+     *     LPCGUID rgguidInterfaces;
+     *     DWORD cguidInterfaces;
+     *     LPWSTR lpstrCardNames;
+     *     DWORD nMaxCardNames;
+     *     LPOCNCHKPROC lpfnCheck;
+     *     LPOCNCONNPROCW lpfnConnect;
+     *     LPOCNDSCPROC lpfnDisconnect;
+     *     LPVOID pvUserData;
+     *     DWORD dwShareMode;
+     *     DWORD dwPreferredProtocols;
+     * } *POPENCARD_SEARCH_CRITERIAW
      * }
      */
-    public static final AddressLayout LPWAVEOUTCAPS2A = RuntimeHelper.POINTER;
+    public static final AddressLayout POPENCARD_SEARCH_CRITERIAW = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPS2W* PWAVEOUTCAPS2W;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD dwStructSize;
+     *     LPWSTR lpstrGroupNames;
+     *     DWORD nMaxGroupNames;
+     *     LPCGUID rgguidInterfaces;
+     *     DWORD cguidInterfaces;
+     *     LPWSTR lpstrCardNames;
+     *     DWORD nMaxCardNames;
+     *     LPOCNCHKPROC lpfnCheck;
+     *     LPOCNCONNPROCW lpfnConnect;
+     *     LPOCNDSCPROC lpfnDisconnect;
+     *     LPVOID pvUserData;
+     *     DWORD dwShareMode;
+     *     DWORD dwPreferredProtocols;
+     * } *LPOPENCARD_SEARCH_CRITERIAW
      * }
      */
-    public static final AddressLayout PWAVEOUTCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout LPOPENCARD_SEARCH_CRITERIAW = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPS2W* NPWAVEOUTCAPS2W;
+     * {@snippet lang=c :
+     * typedef POPENCARD_SEARCH_CRITERIAA POPENCARD_SEARCH_CRITERIA
      * }
      */
-    public static final AddressLayout NPWAVEOUTCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout POPENCARD_SEARCH_CRITERIA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPS2W* LPWAVEOUTCAPS2W;
+     * {@snippet lang=c :
+     * typedef LPOPENCARD_SEARCH_CRITERIAA LPOPENCARD_SEARCH_CRITERIA
      * }
      */
-    public static final AddressLayout LPWAVEOUTCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout LPOPENCARD_SEARCH_CRITERIA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPS2A* PWAVEOUTCAPS2;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD dwStructSize;
+     *     SCARDCONTEXT hSCardContext;
+     *     HWND hwndOwner;
+     *     DWORD dwFlags;
+     *     LPCSTR lpstrTitle;
+     *     LPCSTR lpstrSearchDesc;
+     *     HICON hIcon;
+     *     POPENCARD_SEARCH_CRITERIAA pOpenCardSearchCriteria;
+     *     LPOCNCONNPROCA lpfnConnect;
+     *     LPVOID pvUserData;
+     *     DWORD dwShareMode;
+     *     DWORD dwPreferredProtocols;
+     *     LPSTR lpstrRdr;
+     *     DWORD nMaxRdr;
+     *     LPSTR lpstrCard;
+     *     DWORD nMaxCard;
+     *     DWORD dwActiveProtocol;
+     *     SCARDHANDLE hCardHandle;
+     * } *POPENCARDNAME_EXA
      * }
      */
-    public static final AddressLayout PWAVEOUTCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout POPENCARDNAME_EXA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPS2A* NPWAVEOUTCAPS2;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD dwStructSize;
+     *     SCARDCONTEXT hSCardContext;
+     *     HWND hwndOwner;
+     *     DWORD dwFlags;
+     *     LPCSTR lpstrTitle;
+     *     LPCSTR lpstrSearchDesc;
+     *     HICON hIcon;
+     *     POPENCARD_SEARCH_CRITERIAA pOpenCardSearchCriteria;
+     *     LPOCNCONNPROCA lpfnConnect;
+     *     LPVOID pvUserData;
+     *     DWORD dwShareMode;
+     *     DWORD dwPreferredProtocols;
+     *     LPSTR lpstrRdr;
+     *     DWORD nMaxRdr;
+     *     LPSTR lpstrCard;
+     *     DWORD nMaxCard;
+     *     DWORD dwActiveProtocol;
+     *     SCARDHANDLE hCardHandle;
+     * } *LPOPENCARDNAME_EXA
      * }
      */
-    public static final AddressLayout NPWAVEOUTCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout LPOPENCARDNAME_EXA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEOUTCAPS2A* LPWAVEOUTCAPS2;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD dwStructSize;
+     *     SCARDCONTEXT hSCardContext;
+     *     HWND hwndOwner;
+     *     DWORD dwFlags;
+     *     LPCWSTR lpstrTitle;
+     *     LPCWSTR lpstrSearchDesc;
+     *     HICON hIcon;
+     *     POPENCARD_SEARCH_CRITERIAW pOpenCardSearchCriteria;
+     *     LPOCNCONNPROCW lpfnConnect;
+     *     LPVOID pvUserData;
+     *     DWORD dwShareMode;
+     *     DWORD dwPreferredProtocols;
+     *     LPWSTR lpstrRdr;
+     *     DWORD nMaxRdr;
+     *     LPWSTR lpstrCard;
+     *     DWORD nMaxCard;
+     *     DWORD dwActiveProtocol;
+     *     SCARDHANDLE hCardHandle;
+     * } *POPENCARDNAME_EXW
      * }
      */
-    public static final AddressLayout LPWAVEOUTCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout POPENCARDNAME_EXW = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPSA* PWAVEINCAPSA;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD dwStructSize;
+     *     SCARDCONTEXT hSCardContext;
+     *     HWND hwndOwner;
+     *     DWORD dwFlags;
+     *     LPCWSTR lpstrTitle;
+     *     LPCWSTR lpstrSearchDesc;
+     *     HICON hIcon;
+     *     POPENCARD_SEARCH_CRITERIAW pOpenCardSearchCriteria;
+     *     LPOCNCONNPROCW lpfnConnect;
+     *     LPVOID pvUserData;
+     *     DWORD dwShareMode;
+     *     DWORD dwPreferredProtocols;
+     *     LPWSTR lpstrRdr;
+     *     DWORD nMaxRdr;
+     *     LPWSTR lpstrCard;
+     *     DWORD nMaxCard;
+     *     DWORD dwActiveProtocol;
+     *     SCARDHANDLE hCardHandle;
+     * } *LPOPENCARDNAME_EXW
      * }
      */
-    public static final AddressLayout PWAVEINCAPSA = RuntimeHelper.POINTER;
+    public static final AddressLayout LPOPENCARDNAME_EXW = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPSA* NPWAVEINCAPSA;
+     * {@snippet lang=c :
+     * typedef POPENCARDNAME_EXA POPENCARDNAME_EX
      * }
      */
-    public static final AddressLayout NPWAVEINCAPSA = RuntimeHelper.POINTER;
+    public static final AddressLayout POPENCARDNAME_EX = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPSA* LPWAVEINCAPSA;
+     * {@snippet lang=c :
+     * typedef LPOPENCARDNAME_EXA LPOPENCARDNAME_EX
      * }
      */
-    public static final AddressLayout LPWAVEINCAPSA = RuntimeHelper.POINTER;
+    public static final AddressLayout LPOPENCARDNAME_EX = Windows_h.C_POINTER;
+    private static final int RSR_MATCH_TYPE_READER_AND_CONTAINER = (int)1L;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPSW* PWAVEINCAPSW;
+     * {@snippet lang=c :
+     * enum <anonymous>.RSR_MATCH_TYPE_READER_AND_CONTAINER = 1
      * }
      */
-    public static final AddressLayout PWAVEINCAPSW = RuntimeHelper.POINTER;
+    public static int RSR_MATCH_TYPE_READER_AND_CONTAINER() {
+        return RSR_MATCH_TYPE_READER_AND_CONTAINER;
+    }
+    private static final int RSR_MATCH_TYPE_SERIAL_NUMBER = (int)2L;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPSW* NPWAVEINCAPSW;
+     * {@snippet lang=c :
+     * enum <anonymous>.RSR_MATCH_TYPE_SERIAL_NUMBER = 2
      * }
      */
-    public static final AddressLayout NPWAVEINCAPSW = RuntimeHelper.POINTER;
+    public static int RSR_MATCH_TYPE_SERIAL_NUMBER() {
+        return RSR_MATCH_TYPE_SERIAL_NUMBER;
+    }
+    private static final int RSR_MATCH_TYPE_ALL_CARDS = (int)3L;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPSW* LPWAVEINCAPSW;
+     * {@snippet lang=c :
+     * enum <anonymous>.RSR_MATCH_TYPE_ALL_CARDS = 3
      * }
      */
-    public static final AddressLayout LPWAVEINCAPSW = RuntimeHelper.POINTER;
+    public static int RSR_MATCH_TYPE_ALL_CARDS() {
+        return RSR_MATCH_TYPE_ALL_CARDS;
+    }
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPSA* PWAVEINCAPS;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD dwShareMode;
+     *     DWORD dwPreferredProtocols;
+     *     READER_SEL_REQUEST_MATCH_TYPE MatchType;
+     *     union {
+     *         struct {
+     *             DWORD cbReaderNameOffset;
+     *             DWORD cchReaderNameLength;
+     *             DWORD cbContainerNameOffset;
+     *             DWORD cchContainerNameLength;
+     *             DWORD dwDesiredCardModuleVersion;
+     *             DWORD dwCspFlags;
+     *         } ReaderAndContainerParameter;
+     *         struct {
+     *             DWORD cbSerialNumberOffset;
+     *             DWORD cbSerialNumberLength;
+     *             DWORD dwDesiredCardModuleVersion;
+     *         } SerialNumberParameter;
+     *     };
+     * } *PREADER_SEL_REQUEST
      * }
      */
-    public static final AddressLayout PWAVEINCAPS = RuntimeHelper.POINTER;
+    public static final AddressLayout PREADER_SEL_REQUEST = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPSA* NPWAVEINCAPS;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD cbReaderNameOffset;
+     *     DWORD cchReaderNameLength;
+     *     DWORD cbCardNameOffset;
+     *     DWORD cchCardNameLength;
+     * } *PREADER_SEL_RESPONSE
      * }
      */
-    public static final AddressLayout NPWAVEINCAPS = RuntimeHelper.POINTER;
+    public static final AddressLayout PREADER_SEL_RESPONSE = Windows_h.C_POINTER;
+
+    private static class SCardUIDlgSelectCardA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardUIDlgSelectCardA"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPSA* LPWAVEINCAPS;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardUIDlgSelectCardA(LPOPENCARDNAME_EXA)
      * }
      */
-    public static final AddressLayout LPWAVEINCAPS = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardUIDlgSelectCardA$descriptor() {
+        return SCardUIDlgSelectCardA.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPS2A* PWAVEINCAPS2A;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardUIDlgSelectCardA(LPOPENCARDNAME_EXA)
      * }
      */
-    public static final AddressLayout PWAVEINCAPS2A = RuntimeHelper.POINTER;
+    public static MethodHandle SCardUIDlgSelectCardA$handle() {
+        return SCardUIDlgSelectCardA.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPS2A* NPWAVEINCAPS2A;
+     * {@snippet lang=c :
+     * extern LONG SCardUIDlgSelectCardA(LPOPENCARDNAME_EXA)
      * }
      */
-    public static final AddressLayout NPWAVEINCAPS2A = RuntimeHelper.POINTER;
+    public static int SCardUIDlgSelectCardA(MemorySegment x0) {
+        var mh$ = SCardUIDlgSelectCardA.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardUIDlgSelectCardA", x0);
+            }
+            return (int)mh$.invokeExact(x0);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class SCardUIDlgSelectCardW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardUIDlgSelectCardW"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPS2A* LPWAVEINCAPS2A;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardUIDlgSelectCardW(LPOPENCARDNAME_EXW)
      * }
      */
-    public static final AddressLayout LPWAVEINCAPS2A = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardUIDlgSelectCardW$descriptor() {
+        return SCardUIDlgSelectCardW.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPS2W* PWAVEINCAPS2W;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardUIDlgSelectCardW(LPOPENCARDNAME_EXW)
      * }
      */
-    public static final AddressLayout PWAVEINCAPS2W = RuntimeHelper.POINTER;
+    public static MethodHandle SCardUIDlgSelectCardW$handle() {
+        return SCardUIDlgSelectCardW.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPS2W* NPWAVEINCAPS2W;
+     * {@snippet lang=c :
+     * extern LONG SCardUIDlgSelectCardW(LPOPENCARDNAME_EXW)
      * }
      */
-    public static final AddressLayout NPWAVEINCAPS2W = RuntimeHelper.POINTER;
+    public static int SCardUIDlgSelectCardW(MemorySegment x0) {
+        var mh$ = SCardUIDlgSelectCardW.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardUIDlgSelectCardW", x0);
+            }
+            return (int)mh$.invokeExact(x0);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPS2W* LPWAVEINCAPS2W;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD dwStructSize;
+     *     HWND hwndOwner;
+     *     SCARDCONTEXT hSCardContext;
+     *     LPSTR lpstrGroupNames;
+     *     DWORD nMaxGroupNames;
+     *     LPSTR lpstrCardNames;
+     *     DWORD nMaxCardNames;
+     *     LPCGUID rgguidInterfaces;
+     *     DWORD cguidInterfaces;
+     *     LPSTR lpstrRdr;
+     *     DWORD nMaxRdr;
+     *     LPSTR lpstrCard;
+     *     DWORD nMaxCard;
+     *     LPCSTR lpstrTitle;
+     *     DWORD dwFlags;
+     *     LPVOID pvUserData;
+     *     DWORD dwShareMode;
+     *     DWORD dwPreferredProtocols;
+     *     DWORD dwActiveProtocol;
+     *     LPOCNCONNPROCA lpfnConnect;
+     *     LPOCNCHKPROC lpfnCheck;
+     *     LPOCNDSCPROC lpfnDisconnect;
+     *     SCARDHANDLE hCardHandle;
+     * } *POPENCARDNAMEA
      * }
      */
-    public static final AddressLayout LPWAVEINCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout POPENCARDNAMEA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPS2A* PWAVEINCAPS2;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD dwStructSize;
+     *     HWND hwndOwner;
+     *     SCARDCONTEXT hSCardContext;
+     *     LPSTR lpstrGroupNames;
+     *     DWORD nMaxGroupNames;
+     *     LPSTR lpstrCardNames;
+     *     DWORD nMaxCardNames;
+     *     LPCGUID rgguidInterfaces;
+     *     DWORD cguidInterfaces;
+     *     LPSTR lpstrRdr;
+     *     DWORD nMaxRdr;
+     *     LPSTR lpstrCard;
+     *     DWORD nMaxCard;
+     *     LPCSTR lpstrTitle;
+     *     DWORD dwFlags;
+     *     LPVOID pvUserData;
+     *     DWORD dwShareMode;
+     *     DWORD dwPreferredProtocols;
+     *     DWORD dwActiveProtocol;
+     *     LPOCNCONNPROCA lpfnConnect;
+     *     LPOCNCHKPROC lpfnCheck;
+     *     LPOCNDSCPROC lpfnDisconnect;
+     *     SCARDHANDLE hCardHandle;
+     * } *LPOPENCARDNAMEA
      * }
      */
-    public static final AddressLayout PWAVEINCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout LPOPENCARDNAMEA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPS2A* NPWAVEINCAPS2;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD dwStructSize;
+     *     HWND hwndOwner;
+     *     SCARDCONTEXT hSCardContext;
+     *     LPWSTR lpstrGroupNames;
+     *     DWORD nMaxGroupNames;
+     *     LPWSTR lpstrCardNames;
+     *     DWORD nMaxCardNames;
+     *     LPCGUID rgguidInterfaces;
+     *     DWORD cguidInterfaces;
+     *     LPWSTR lpstrRdr;
+     *     DWORD nMaxRdr;
+     *     LPWSTR lpstrCard;
+     *     DWORD nMaxCard;
+     *     LPCWSTR lpstrTitle;
+     *     DWORD dwFlags;
+     *     LPVOID pvUserData;
+     *     DWORD dwShareMode;
+     *     DWORD dwPreferredProtocols;
+     *     DWORD dwActiveProtocol;
+     *     LPOCNCONNPROCW lpfnConnect;
+     *     LPOCNCHKPROC lpfnCheck;
+     *     LPOCNDSCPROC lpfnDisconnect;
+     *     SCARDHANDLE hCardHandle;
+     * } *POPENCARDNAMEW
      * }
      */
-    public static final AddressLayout NPWAVEINCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout POPENCARDNAMEW = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagWAVEINCAPS2A* LPWAVEINCAPS2;
+     * {@snippet lang=c :
+     * typedef struct {
+     *     DWORD dwStructSize;
+     *     HWND hwndOwner;
+     *     SCARDCONTEXT hSCardContext;
+     *     LPWSTR lpstrGroupNames;
+     *     DWORD nMaxGroupNames;
+     *     LPWSTR lpstrCardNames;
+     *     DWORD nMaxCardNames;
+     *     LPCGUID rgguidInterfaces;
+     *     DWORD cguidInterfaces;
+     *     LPWSTR lpstrRdr;
+     *     DWORD nMaxRdr;
+     *     LPWSTR lpstrCard;
+     *     DWORD nMaxCard;
+     *     LPCWSTR lpstrTitle;
+     *     DWORD dwFlags;
+     *     LPVOID pvUserData;
+     *     DWORD dwShareMode;
+     *     DWORD dwPreferredProtocols;
+     *     DWORD dwActiveProtocol;
+     *     LPOCNCONNPROCW lpfnConnect;
+     *     LPOCNCHKPROC lpfnCheck;
+     *     LPOCNDSCPROC lpfnDisconnect;
+     *     SCARDHANDLE hCardHandle;
+     * } *LPOPENCARDNAMEW
      * }
      */
-    public static final AddressLayout LPWAVEINCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout LPOPENCARDNAMEW = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct waveformat_tag* PWAVEFORMAT;
+     * {@snippet lang=c :
+     * typedef POPENCARDNAMEA POPENCARDNAME
      * }
      */
-    public static final AddressLayout PWAVEFORMAT = RuntimeHelper.POINTER;
+    public static final AddressLayout POPENCARDNAME = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct waveformat_tag* NPWAVEFORMAT;
+     * {@snippet lang=c :
+     * typedef LPOPENCARDNAMEA LPOPENCARDNAME
      * }
      */
-    public static final AddressLayout NPWAVEFORMAT = RuntimeHelper.POINTER;
+    public static final AddressLayout LPOPENCARDNAME = Windows_h.C_POINTER;
+
+    private static class GetOpenCardNameA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("GetOpenCardNameA"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct waveformat_tag* LPWAVEFORMAT;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG GetOpenCardNameA(LPOPENCARDNAMEA)
      * }
      */
-    public static final AddressLayout LPWAVEFORMAT = RuntimeHelper.POINTER;
+    public static FunctionDescriptor GetOpenCardNameA$descriptor() {
+        return GetOpenCardNameA.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct pcmwaveformat_tag* PPCMWAVEFORMAT;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG GetOpenCardNameA(LPOPENCARDNAMEA)
      * }
      */
-    public static final AddressLayout PPCMWAVEFORMAT = RuntimeHelper.POINTER;
+    public static MethodHandle GetOpenCardNameA$handle() {
+        return GetOpenCardNameA.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct pcmwaveformat_tag* NPPCMWAVEFORMAT;
+     * {@snippet lang=c :
+     * extern LONG GetOpenCardNameA(LPOPENCARDNAMEA)
      * }
      */
-    public static final AddressLayout NPPCMWAVEFORMAT = RuntimeHelper.POINTER;
+    public static int GetOpenCardNameA(MemorySegment x0) {
+        var mh$ = GetOpenCardNameA.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("GetOpenCardNameA", x0);
+            }
+            return (int)mh$.invokeExact(x0);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class GetOpenCardNameW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("GetOpenCardNameW"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct pcmwaveformat_tag* LPPCMWAVEFORMAT;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG GetOpenCardNameW(LPOPENCARDNAMEW)
      * }
      */
-    public static final AddressLayout LPPCMWAVEFORMAT = RuntimeHelper.POINTER;
+    public static FunctionDescriptor GetOpenCardNameW$descriptor() {
+        return GetOpenCardNameW.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tWAVEFORMATEX* PWAVEFORMATEX;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG GetOpenCardNameW(LPOPENCARDNAMEW)
      * }
      */
-    public static final AddressLayout PWAVEFORMATEX = RuntimeHelper.POINTER;
+    public static MethodHandle GetOpenCardNameW$handle() {
+        return GetOpenCardNameW.HANDLE;
+    }
     /**
-     * {@snippet :
-     * typedef struct tWAVEFORMATEX* NPWAVEFORMATEX;
+     * {@snippet lang=c :
+     * extern LONG GetOpenCardNameW(LPOPENCARDNAMEW)
      * }
      */
-    public static final AddressLayout NPWAVEFORMATEX = RuntimeHelper.POINTER;
+    public static int GetOpenCardNameW(MemorySegment x0) {
+        var mh$ = GetOpenCardNameW.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("GetOpenCardNameW", x0);
+            }
+            return (int)mh$.invokeExact(x0);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class SCardDlgExtendedError {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardDlgExtendedError"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tWAVEFORMATEX* LPWAVEFORMATEX;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardDlgExtendedError()
      * }
      */
-    public static final AddressLayout LPWAVEFORMATEX = RuntimeHelper.POINTER;
+    public static FunctionDescriptor SCardDlgExtendedError$descriptor() {
+        return SCardDlgExtendedError.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct tWAVEFORMATEX* LPCWAVEFORMATEX;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardDlgExtendedError()
      * }
      */
-    public static final AddressLayout LPCWAVEFORMATEX = RuntimeHelper.POINTER;
-    public static MethodHandle waveOutGetNumDevs$MH() {
-        return RuntimeHelper.requireNonNull(constants$1622.const$0,"waveOutGetNumDevs");
+    public static MethodHandle SCardDlgExtendedError$handle() {
+        return SCardDlgExtendedError.HANDLE;
     }
     /**
-     * {@snippet :
-     * UINT waveOutGetNumDevs();
+     * {@snippet lang=c :
+     * extern LONG SCardDlgExtendedError()
      * }
      */
-    public static int waveOutGetNumDevs() {
-        var mh$ = waveOutGetNumDevs$MH();
+    public static int SCardDlgExtendedError() {
+        var mh$ = SCardDlgExtendedError.HANDLE;
         try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardDlgExtendedError");
+            }
             return (int)mh$.invokeExact();
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle waveOutGetDevCapsA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1622.const$2,"waveOutGetDevCapsA");
+
+    private static class SCardReadCacheA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardReadCacheA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutGetDevCapsA(UINT_PTR uDeviceID, LPWAVEOUTCAPSA pwoc, UINT cbwoc);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardReadCacheA(SCARDCONTEXT hContext, UUID *CardIdentifier, DWORD FreshnessCounter, LPSTR LookupName, PBYTE Data, DWORD *DataLen)
      * }
      */
-    public static int waveOutGetDevCapsA(long uDeviceID, MemorySegment pwoc, int cbwoc) {
-        var mh$ = waveOutGetDevCapsA$MH();
-        try {
-            return (int)mh$.invokeExact(uDeviceID, pwoc, cbwoc);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveOutGetDevCapsW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1622.const$3,"waveOutGetDevCapsW");
+    public static FunctionDescriptor SCardReadCacheA$descriptor() {
+        return SCardReadCacheA.DESC;
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutGetDevCapsW(UINT_PTR uDeviceID, LPWAVEOUTCAPSW pwoc, UINT cbwoc);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardReadCacheA(SCARDCONTEXT hContext, UUID *CardIdentifier, DWORD FreshnessCounter, LPSTR LookupName, PBYTE Data, DWORD *DataLen)
      * }
      */
-    public static int waveOutGetDevCapsW(long uDeviceID, MemorySegment pwoc, int cbwoc) {
-        var mh$ = waveOutGetDevCapsW$MH();
-        try {
-            return (int)mh$.invokeExact(uDeviceID, pwoc, cbwoc);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveOutGetVolume$MH() {
-        return RuntimeHelper.requireNonNull(constants$1622.const$4,"waveOutGetVolume");
+    public static MethodHandle SCardReadCacheA$handle() {
+        return SCardReadCacheA.HANDLE;
     }
     /**
-     * {@snippet :
-     * MMRESULT waveOutGetVolume(HWAVEOUT hwo, LPDWORD pdwVolume);
+     * {@snippet lang=c :
+     * extern LONG SCardReadCacheA(SCARDCONTEXT hContext, UUID *CardIdentifier, DWORD FreshnessCounter, LPSTR LookupName, PBYTE Data, DWORD *DataLen)
      * }
      */
-    public static int waveOutGetVolume(MemorySegment hwo, MemorySegment pdwVolume) {
-        var mh$ = waveOutGetVolume$MH();
+    public static int SCardReadCacheA(long hContext, MemorySegment CardIdentifier, int FreshnessCounter, MemorySegment LookupName, MemorySegment Data, MemorySegment DataLen) {
+        var mh$ = SCardReadCacheA.HANDLE;
         try {
-            return (int)mh$.invokeExact(hwo, pdwVolume);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardReadCacheA", hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen);
+            }
+            return (int)mh$.invokeExact(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle waveOutSetVolume$MH() {
-        return RuntimeHelper.requireNonNull(constants$1622.const$5,"waveOutSetVolume");
+
+    private static class SCardReadCacheW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardReadCacheW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutSetVolume(HWAVEOUT hwo, DWORD dwVolume);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardReadCacheW(SCARDCONTEXT hContext, UUID *CardIdentifier, DWORD FreshnessCounter, LPWSTR LookupName, PBYTE Data, DWORD *DataLen)
      * }
      */
-    public static int waveOutSetVolume(MemorySegment hwo, int dwVolume) {
-        var mh$ = waveOutSetVolume$MH();
-        try {
-            return (int)mh$.invokeExact(hwo, dwVolume);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveOutGetErrorTextA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1623.const$0,"waveOutGetErrorTextA");
+    public static FunctionDescriptor SCardReadCacheW$descriptor() {
+        return SCardReadCacheW.DESC;
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutGetErrorTextA(MMRESULT mmrError, LPSTR pszText, UINT cchText);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardReadCacheW(SCARDCONTEXT hContext, UUID *CardIdentifier, DWORD FreshnessCounter, LPWSTR LookupName, PBYTE Data, DWORD *DataLen)
      * }
      */
-    public static int waveOutGetErrorTextA(int mmrError, MemorySegment pszText, int cchText) {
-        var mh$ = waveOutGetErrorTextA$MH();
-        try {
-            return (int)mh$.invokeExact(mmrError, pszText, cchText);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveOutGetErrorTextW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1623.const$1,"waveOutGetErrorTextW");
+    public static MethodHandle SCardReadCacheW$handle() {
+        return SCardReadCacheW.HANDLE;
     }
     /**
-     * {@snippet :
-     * MMRESULT waveOutGetErrorTextW(MMRESULT mmrError, LPWSTR pszText, UINT cchText);
+     * {@snippet lang=c :
+     * extern LONG SCardReadCacheW(SCARDCONTEXT hContext, UUID *CardIdentifier, DWORD FreshnessCounter, LPWSTR LookupName, PBYTE Data, DWORD *DataLen)
      * }
      */
-    public static int waveOutGetErrorTextW(int mmrError, MemorySegment pszText, int cchText) {
-        var mh$ = waveOutGetErrorTextW$MH();
+    public static int SCardReadCacheW(long hContext, MemorySegment CardIdentifier, int FreshnessCounter, MemorySegment LookupName, MemorySegment Data, MemorySegment DataLen) {
+        var mh$ = SCardReadCacheW.HANDLE;
         try {
-            return (int)mh$.invokeExact(mmrError, pszText, cchText);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardReadCacheW", hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen);
+            }
+            return (int)mh$.invokeExact(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle waveOutOpen$MH() {
-        return RuntimeHelper.requireNonNull(constants$1623.const$3,"waveOutOpen");
+
+    private static class SCardWriteCacheA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardWriteCacheA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutOpen(LPHWAVEOUT phwo, UINT uDeviceID, LPCWAVEFORMATEX pwfx, DWORD_PTR dwCallback, DWORD_PTR dwInstance, DWORD fdwOpen);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardWriteCacheA(SCARDCONTEXT hContext, UUID *CardIdentifier, DWORD FreshnessCounter, LPSTR LookupName, PBYTE Data, DWORD DataLen)
      * }
      */
-    public static int waveOutOpen(MemorySegment phwo, int uDeviceID, MemorySegment pwfx, long dwCallback, long dwInstance, int fdwOpen) {
-        var mh$ = waveOutOpen$MH();
-        try {
-            return (int)mh$.invokeExact(phwo, uDeviceID, pwfx, dwCallback, dwInstance, fdwOpen);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveOutClose$MH() {
-        return RuntimeHelper.requireNonNull(constants$1623.const$4,"waveOutClose");
+    public static FunctionDescriptor SCardWriteCacheA$descriptor() {
+        return SCardWriteCacheA.DESC;
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutClose(HWAVEOUT hwo);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardWriteCacheA(SCARDCONTEXT hContext, UUID *CardIdentifier, DWORD FreshnessCounter, LPSTR LookupName, PBYTE Data, DWORD DataLen)
      * }
      */
-    public static int waveOutClose(MemorySegment hwo) {
-        var mh$ = waveOutClose$MH();
-        try {
-            return (int)mh$.invokeExact(hwo);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveOutPrepareHeader$MH() {
-        return RuntimeHelper.requireNonNull(constants$1623.const$5,"waveOutPrepareHeader");
+    public static MethodHandle SCardWriteCacheA$handle() {
+        return SCardWriteCacheA.HANDLE;
     }
     /**
-     * {@snippet :
-     * MMRESULT waveOutPrepareHeader(HWAVEOUT hwo, LPWAVEHDR pwh, UINT cbwh);
+     * {@snippet lang=c :
+     * extern LONG SCardWriteCacheA(SCARDCONTEXT hContext, UUID *CardIdentifier, DWORD FreshnessCounter, LPSTR LookupName, PBYTE Data, DWORD DataLen)
      * }
      */
-    public static int waveOutPrepareHeader(MemorySegment hwo, MemorySegment pwh, int cbwh) {
-        var mh$ = waveOutPrepareHeader$MH();
+    public static int SCardWriteCacheA(long hContext, MemorySegment CardIdentifier, int FreshnessCounter, MemorySegment LookupName, MemorySegment Data, int DataLen) {
+        var mh$ = SCardWriteCacheA.HANDLE;
         try {
-            return (int)mh$.invokeExact(hwo, pwh, cbwh);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardWriteCacheA", hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen);
+            }
+            return (int)mh$.invokeExact(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle waveOutUnprepareHeader$MH() {
-        return RuntimeHelper.requireNonNull(constants$1624.const$0,"waveOutUnprepareHeader");
+
+    private static class SCardWriteCacheW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardWriteCacheW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutUnprepareHeader(HWAVEOUT hwo, LPWAVEHDR pwh, UINT cbwh);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardWriteCacheW(SCARDCONTEXT hContext, UUID *CardIdentifier, DWORD FreshnessCounter, LPWSTR LookupName, PBYTE Data, DWORD DataLen)
      * }
      */
-    public static int waveOutUnprepareHeader(MemorySegment hwo, MemorySegment pwh, int cbwh) {
-        var mh$ = waveOutUnprepareHeader$MH();
-        try {
-            return (int)mh$.invokeExact(hwo, pwh, cbwh);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveOutWrite$MH() {
-        return RuntimeHelper.requireNonNull(constants$1624.const$1,"waveOutWrite");
+    public static FunctionDescriptor SCardWriteCacheW$descriptor() {
+        return SCardWriteCacheW.DESC;
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutWrite(HWAVEOUT hwo, LPWAVEHDR pwh, UINT cbwh);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardWriteCacheW(SCARDCONTEXT hContext, UUID *CardIdentifier, DWORD FreshnessCounter, LPWSTR LookupName, PBYTE Data, DWORD DataLen)
      * }
      */
-    public static int waveOutWrite(MemorySegment hwo, MemorySegment pwh, int cbwh) {
-        var mh$ = waveOutWrite$MH();
-        try {
-            return (int)mh$.invokeExact(hwo, pwh, cbwh);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveOutPause$MH() {
-        return RuntimeHelper.requireNonNull(constants$1624.const$2,"waveOutPause");
+    public static MethodHandle SCardWriteCacheW$handle() {
+        return SCardWriteCacheW.HANDLE;
     }
     /**
-     * {@snippet :
-     * MMRESULT waveOutPause(HWAVEOUT hwo);
+     * {@snippet lang=c :
+     * extern LONG SCardWriteCacheW(SCARDCONTEXT hContext, UUID *CardIdentifier, DWORD FreshnessCounter, LPWSTR LookupName, PBYTE Data, DWORD DataLen)
      * }
      */
-    public static int waveOutPause(MemorySegment hwo) {
-        var mh$ = waveOutPause$MH();
+    public static int SCardWriteCacheW(long hContext, MemorySegment CardIdentifier, int FreshnessCounter, MemorySegment LookupName, MemorySegment Data, int DataLen) {
+        var mh$ = SCardWriteCacheW.HANDLE;
         try {
-            return (int)mh$.invokeExact(hwo);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardWriteCacheW", hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen);
+            }
+            return (int)mh$.invokeExact(hContext, CardIdentifier, FreshnessCounter, LookupName, Data, DataLen);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle waveOutRestart$MH() {
-        return RuntimeHelper.requireNonNull(constants$1624.const$3,"waveOutRestart");
+
+    private static class SCardGetReaderIconA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardGetReaderIconA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutRestart(HWAVEOUT hwo);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetReaderIconA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPBYTE pbIcon, LPDWORD pcbIcon)
      * }
      */
-    public static int waveOutRestart(MemorySegment hwo) {
-        var mh$ = waveOutRestart$MH();
-        try {
-            return (int)mh$.invokeExact(hwo);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveOutReset$MH() {
-        return RuntimeHelper.requireNonNull(constants$1624.const$4,"waveOutReset");
+    public static FunctionDescriptor SCardGetReaderIconA$descriptor() {
+        return SCardGetReaderIconA.DESC;
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutReset(HWAVEOUT hwo);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetReaderIconA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPBYTE pbIcon, LPDWORD pcbIcon)
      * }
      */
-    public static int waveOutReset(MemorySegment hwo) {
-        var mh$ = waveOutReset$MH();
-        try {
-            return (int)mh$.invokeExact(hwo);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveOutBreakLoop$MH() {
-        return RuntimeHelper.requireNonNull(constants$1624.const$5,"waveOutBreakLoop");
+    public static MethodHandle SCardGetReaderIconA$handle() {
+        return SCardGetReaderIconA.HANDLE;
     }
     /**
-     * {@snippet :
-     * MMRESULT waveOutBreakLoop(HWAVEOUT hwo);
+     * {@snippet lang=c :
+     * extern LONG SCardGetReaderIconA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPBYTE pbIcon, LPDWORD pcbIcon)
      * }
      */
-    public static int waveOutBreakLoop(MemorySegment hwo) {
-        var mh$ = waveOutBreakLoop$MH();
+    public static int SCardGetReaderIconA(long hContext, MemorySegment szReaderName, MemorySegment pbIcon, MemorySegment pcbIcon) {
+        var mh$ = SCardGetReaderIconA.HANDLE;
         try {
-            return (int)mh$.invokeExact(hwo);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardGetReaderIconA", hContext, szReaderName, pbIcon, pcbIcon);
+            }
+            return (int)mh$.invokeExact(hContext, szReaderName, pbIcon, pcbIcon);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle waveOutGetPosition$MH() {
-        return RuntimeHelper.requireNonNull(constants$1625.const$0,"waveOutGetPosition");
+
+    private static class SCardGetReaderIconW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardGetReaderIconW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutGetPosition(HWAVEOUT hwo, LPMMTIME pmmt, UINT cbmmt);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetReaderIconW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPBYTE pbIcon, LPDWORD pcbIcon)
      * }
      */
-    public static int waveOutGetPosition(MemorySegment hwo, MemorySegment pmmt, int cbmmt) {
-        var mh$ = waveOutGetPosition$MH();
-        try {
-            return (int)mh$.invokeExact(hwo, pmmt, cbmmt);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveOutGetPitch$MH() {
-        return RuntimeHelper.requireNonNull(constants$1625.const$1,"waveOutGetPitch");
+    public static FunctionDescriptor SCardGetReaderIconW$descriptor() {
+        return SCardGetReaderIconW.DESC;
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutGetPitch(HWAVEOUT hwo, LPDWORD pdwPitch);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetReaderIconW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPBYTE pbIcon, LPDWORD pcbIcon)
      * }
      */
-    public static int waveOutGetPitch(MemorySegment hwo, MemorySegment pdwPitch) {
-        var mh$ = waveOutGetPitch$MH();
-        try {
-            return (int)mh$.invokeExact(hwo, pdwPitch);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveOutSetPitch$MH() {
-        return RuntimeHelper.requireNonNull(constants$1625.const$2,"waveOutSetPitch");
+    public static MethodHandle SCardGetReaderIconW$handle() {
+        return SCardGetReaderIconW.HANDLE;
     }
     /**
-     * {@snippet :
-     * MMRESULT waveOutSetPitch(HWAVEOUT hwo, DWORD dwPitch);
+     * {@snippet lang=c :
+     * extern LONG SCardGetReaderIconW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPBYTE pbIcon, LPDWORD pcbIcon)
      * }
      */
-    public static int waveOutSetPitch(MemorySegment hwo, int dwPitch) {
-        var mh$ = waveOutSetPitch$MH();
+    public static int SCardGetReaderIconW(long hContext, MemorySegment szReaderName, MemorySegment pbIcon, MemorySegment pcbIcon) {
+        var mh$ = SCardGetReaderIconW.HANDLE;
         try {
-            return (int)mh$.invokeExact(hwo, dwPitch);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardGetReaderIconW", hContext, szReaderName, pbIcon, pcbIcon);
+            }
+            return (int)mh$.invokeExact(hContext, szReaderName, pbIcon, pcbIcon);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle waveOutGetPlaybackRate$MH() {
-        return RuntimeHelper.requireNonNull(constants$1625.const$3,"waveOutGetPlaybackRate");
+
+    private static class SCardGetDeviceTypeIdA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardGetDeviceTypeIdA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutGetPlaybackRate(HWAVEOUT hwo, LPDWORD pdwRate);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetDeviceTypeIdA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPDWORD pdwDeviceTypeId)
      * }
      */
-    public static int waveOutGetPlaybackRate(MemorySegment hwo, MemorySegment pdwRate) {
-        var mh$ = waveOutGetPlaybackRate$MH();
-        try {
-            return (int)mh$.invokeExact(hwo, pdwRate);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveOutSetPlaybackRate$MH() {
-        return RuntimeHelper.requireNonNull(constants$1625.const$4,"waveOutSetPlaybackRate");
+    public static FunctionDescriptor SCardGetDeviceTypeIdA$descriptor() {
+        return SCardGetDeviceTypeIdA.DESC;
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutSetPlaybackRate(HWAVEOUT hwo, DWORD dwRate);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetDeviceTypeIdA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPDWORD pdwDeviceTypeId)
      * }
      */
-    public static int waveOutSetPlaybackRate(MemorySegment hwo, int dwRate) {
-        var mh$ = waveOutSetPlaybackRate$MH();
-        try {
-            return (int)mh$.invokeExact(hwo, dwRate);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveOutGetID$MH() {
-        return RuntimeHelper.requireNonNull(constants$1625.const$5,"waveOutGetID");
+    public static MethodHandle SCardGetDeviceTypeIdA$handle() {
+        return SCardGetDeviceTypeIdA.HANDLE;
     }
     /**
-     * {@snippet :
-     * MMRESULT waveOutGetID(HWAVEOUT hwo, LPUINT puDeviceID);
+     * {@snippet lang=c :
+     * extern LONG SCardGetDeviceTypeIdA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPDWORD pdwDeviceTypeId)
      * }
      */
-    public static int waveOutGetID(MemorySegment hwo, MemorySegment puDeviceID) {
-        var mh$ = waveOutGetID$MH();
+    public static int SCardGetDeviceTypeIdA(long hContext, MemorySegment szReaderName, MemorySegment pdwDeviceTypeId) {
+        var mh$ = SCardGetDeviceTypeIdA.HANDLE;
         try {
-            return (int)mh$.invokeExact(hwo, puDeviceID);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardGetDeviceTypeIdA", hContext, szReaderName, pdwDeviceTypeId);
+            }
+            return (int)mh$.invokeExact(hContext, szReaderName, pdwDeviceTypeId);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle waveOutMessage$MH() {
-        return RuntimeHelper.requireNonNull(constants$1626.const$0,"waveOutMessage");
+
+    private static class SCardGetDeviceTypeIdW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardGetDeviceTypeIdW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveOutMessage(HWAVEOUT hwo, UINT uMsg, DWORD_PTR dw1, DWORD_PTR dw2);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetDeviceTypeIdW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPDWORD pdwDeviceTypeId)
      * }
      */
-    public static int waveOutMessage(MemorySegment hwo, int uMsg, long dw1, long dw2) {
-        var mh$ = waveOutMessage$MH();
-        try {
-            return (int)mh$.invokeExact(hwo, uMsg, dw1, dw2);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveInGetNumDevs$MH() {
-        return RuntimeHelper.requireNonNull(constants$1626.const$1,"waveInGetNumDevs");
+    public static FunctionDescriptor SCardGetDeviceTypeIdW$descriptor() {
+        return SCardGetDeviceTypeIdW.DESC;
     }
+
     /**
-     * {@snippet :
-     * UINT waveInGetNumDevs();
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetDeviceTypeIdW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPDWORD pdwDeviceTypeId)
      * }
      */
-    public static int waveInGetNumDevs() {
-        var mh$ = waveInGetNumDevs$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveInGetDevCapsA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1626.const$2,"waveInGetDevCapsA");
+    public static MethodHandle SCardGetDeviceTypeIdW$handle() {
+        return SCardGetDeviceTypeIdW.HANDLE;
     }
     /**
-     * {@snippet :
-     * MMRESULT waveInGetDevCapsA(UINT_PTR uDeviceID, LPWAVEINCAPSA pwic, UINT cbwic);
+     * {@snippet lang=c :
+     * extern LONG SCardGetDeviceTypeIdW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPDWORD pdwDeviceTypeId)
      * }
      */
-    public static int waveInGetDevCapsA(long uDeviceID, MemorySegment pwic, int cbwic) {
-        var mh$ = waveInGetDevCapsA$MH();
+    public static int SCardGetDeviceTypeIdW(long hContext, MemorySegment szReaderName, MemorySegment pdwDeviceTypeId) {
+        var mh$ = SCardGetDeviceTypeIdW.HANDLE;
         try {
-            return (int)mh$.invokeExact(uDeviceID, pwic, cbwic);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardGetDeviceTypeIdW", hContext, szReaderName, pdwDeviceTypeId);
+            }
+            return (int)mh$.invokeExact(hContext, szReaderName, pdwDeviceTypeId);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle waveInGetDevCapsW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1626.const$3,"waveInGetDevCapsW");
+
+    private static class SCardGetReaderDeviceInstanceIdA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardGetReaderDeviceInstanceIdA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveInGetDevCapsW(UINT_PTR uDeviceID, LPWAVEINCAPSW pwic, UINT cbwic);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetReaderDeviceInstanceIdA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPSTR szDeviceInstanceId, LPDWORD pcchDeviceInstanceId)
      * }
      */
-    public static int waveInGetDevCapsW(long uDeviceID, MemorySegment pwic, int cbwic) {
-        var mh$ = waveInGetDevCapsW$MH();
-        try {
-            return (int)mh$.invokeExact(uDeviceID, pwic, cbwic);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveInGetErrorTextA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1626.const$4,"waveInGetErrorTextA");
+    public static FunctionDescriptor SCardGetReaderDeviceInstanceIdA$descriptor() {
+        return SCardGetReaderDeviceInstanceIdA.DESC;
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveInGetErrorTextA(MMRESULT mmrError, LPSTR pszText, UINT cchText);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetReaderDeviceInstanceIdA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPSTR szDeviceInstanceId, LPDWORD pcchDeviceInstanceId)
      * }
      */
-    public static int waveInGetErrorTextA(int mmrError, MemorySegment pszText, int cchText) {
-        var mh$ = waveInGetErrorTextA$MH();
-        try {
-            return (int)mh$.invokeExact(mmrError, pszText, cchText);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveInGetErrorTextW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1626.const$5,"waveInGetErrorTextW");
+    public static MethodHandle SCardGetReaderDeviceInstanceIdA$handle() {
+        return SCardGetReaderDeviceInstanceIdA.HANDLE;
     }
     /**
-     * {@snippet :
-     * MMRESULT waveInGetErrorTextW(MMRESULT mmrError, LPWSTR pszText, UINT cchText);
+     * {@snippet lang=c :
+     * extern LONG SCardGetReaderDeviceInstanceIdA(SCARDCONTEXT hContext, LPCSTR szReaderName, LPSTR szDeviceInstanceId, LPDWORD pcchDeviceInstanceId)
      * }
      */
-    public static int waveInGetErrorTextW(int mmrError, MemorySegment pszText, int cchText) {
-        var mh$ = waveInGetErrorTextW$MH();
+    public static int SCardGetReaderDeviceInstanceIdA(long hContext, MemorySegment szReaderName, MemorySegment szDeviceInstanceId, MemorySegment pcchDeviceInstanceId) {
+        var mh$ = SCardGetReaderDeviceInstanceIdA.HANDLE;
         try {
-            return (int)mh$.invokeExact(mmrError, pszText, cchText);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardGetReaderDeviceInstanceIdA", hContext, szReaderName, szDeviceInstanceId, pcchDeviceInstanceId);
+            }
+            return (int)mh$.invokeExact(hContext, szReaderName, szDeviceInstanceId, pcchDeviceInstanceId);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle waveInOpen$MH() {
-        return RuntimeHelper.requireNonNull(constants$1627.const$0,"waveInOpen");
+
+    private static class SCardGetReaderDeviceInstanceIdW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardGetReaderDeviceInstanceIdW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveInOpen(LPHWAVEIN phwi, UINT uDeviceID, LPCWAVEFORMATEX pwfx, DWORD_PTR dwCallback, DWORD_PTR dwInstance, DWORD fdwOpen);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetReaderDeviceInstanceIdW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPWSTR szDeviceInstanceId, LPDWORD pcchDeviceInstanceId)
      * }
      */
-    public static int waveInOpen(MemorySegment phwi, int uDeviceID, MemorySegment pwfx, long dwCallback, long dwInstance, int fdwOpen) {
-        var mh$ = waveInOpen$MH();
-        try {
-            return (int)mh$.invokeExact(phwi, uDeviceID, pwfx, dwCallback, dwInstance, fdwOpen);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveInClose$MH() {
-        return RuntimeHelper.requireNonNull(constants$1627.const$1,"waveInClose");
+    public static FunctionDescriptor SCardGetReaderDeviceInstanceIdW$descriptor() {
+        return SCardGetReaderDeviceInstanceIdW.DESC;
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveInClose(HWAVEIN hwi);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardGetReaderDeviceInstanceIdW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPWSTR szDeviceInstanceId, LPDWORD pcchDeviceInstanceId)
      * }
      */
-    public static int waveInClose(MemorySegment hwi) {
-        var mh$ = waveInClose$MH();
-        try {
-            return (int)mh$.invokeExact(hwi);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveInPrepareHeader$MH() {
-        return RuntimeHelper.requireNonNull(constants$1627.const$2,"waveInPrepareHeader");
+    public static MethodHandle SCardGetReaderDeviceInstanceIdW$handle() {
+        return SCardGetReaderDeviceInstanceIdW.HANDLE;
     }
     /**
-     * {@snippet :
-     * MMRESULT waveInPrepareHeader(HWAVEIN hwi, LPWAVEHDR pwh, UINT cbwh);
+     * {@snippet lang=c :
+     * extern LONG SCardGetReaderDeviceInstanceIdW(SCARDCONTEXT hContext, LPCWSTR szReaderName, LPWSTR szDeviceInstanceId, LPDWORD pcchDeviceInstanceId)
      * }
      */
-    public static int waveInPrepareHeader(MemorySegment hwi, MemorySegment pwh, int cbwh) {
-        var mh$ = waveInPrepareHeader$MH();
+    public static int SCardGetReaderDeviceInstanceIdW(long hContext, MemorySegment szReaderName, MemorySegment szDeviceInstanceId, MemorySegment pcchDeviceInstanceId) {
+        var mh$ = SCardGetReaderDeviceInstanceIdW.HANDLE;
         try {
-            return (int)mh$.invokeExact(hwi, pwh, cbwh);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardGetReaderDeviceInstanceIdW", hContext, szReaderName, szDeviceInstanceId, pcchDeviceInstanceId);
+            }
+            return (int)mh$.invokeExact(hContext, szReaderName, szDeviceInstanceId, pcchDeviceInstanceId);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle waveInUnprepareHeader$MH() {
-        return RuntimeHelper.requireNonNull(constants$1627.const$3,"waveInUnprepareHeader");
+
+    private static class SCardListReadersWithDeviceInstanceIdA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardListReadersWithDeviceInstanceIdA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveInUnprepareHeader(HWAVEIN hwi, LPWAVEHDR pwh, UINT cbwh);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardListReadersWithDeviceInstanceIdA(SCARDCONTEXT hContext, LPCSTR szDeviceInstanceId, LPSTR mszReaders, LPDWORD pcchReaders)
      * }
      */
-    public static int waveInUnprepareHeader(MemorySegment hwi, MemorySegment pwh, int cbwh) {
-        var mh$ = waveInUnprepareHeader$MH();
-        try {
-            return (int)mh$.invokeExact(hwi, pwh, cbwh);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveInAddBuffer$MH() {
-        return RuntimeHelper.requireNonNull(constants$1627.const$4,"waveInAddBuffer");
+    public static FunctionDescriptor SCardListReadersWithDeviceInstanceIdA$descriptor() {
+        return SCardListReadersWithDeviceInstanceIdA.DESC;
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveInAddBuffer(HWAVEIN hwi, LPWAVEHDR pwh, UINT cbwh);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardListReadersWithDeviceInstanceIdA(SCARDCONTEXT hContext, LPCSTR szDeviceInstanceId, LPSTR mszReaders, LPDWORD pcchReaders)
      * }
      */
-    public static int waveInAddBuffer(MemorySegment hwi, MemorySegment pwh, int cbwh) {
-        var mh$ = waveInAddBuffer$MH();
-        try {
-            return (int)mh$.invokeExact(hwi, pwh, cbwh);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveInStart$MH() {
-        return RuntimeHelper.requireNonNull(constants$1627.const$5,"waveInStart");
+    public static MethodHandle SCardListReadersWithDeviceInstanceIdA$handle() {
+        return SCardListReadersWithDeviceInstanceIdA.HANDLE;
     }
     /**
-     * {@snippet :
-     * MMRESULT waveInStart(HWAVEIN hwi);
+     * {@snippet lang=c :
+     * extern LONG SCardListReadersWithDeviceInstanceIdA(SCARDCONTEXT hContext, LPCSTR szDeviceInstanceId, LPSTR mszReaders, LPDWORD pcchReaders)
      * }
      */
-    public static int waveInStart(MemorySegment hwi) {
-        var mh$ = waveInStart$MH();
+    public static int SCardListReadersWithDeviceInstanceIdA(long hContext, MemorySegment szDeviceInstanceId, MemorySegment mszReaders, MemorySegment pcchReaders) {
+        var mh$ = SCardListReadersWithDeviceInstanceIdA.HANDLE;
         try {
-            return (int)mh$.invokeExact(hwi);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardListReadersWithDeviceInstanceIdA", hContext, szDeviceInstanceId, mszReaders, pcchReaders);
+            }
+            return (int)mh$.invokeExact(hContext, szDeviceInstanceId, mszReaders, pcchReaders);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle waveInStop$MH() {
-        return RuntimeHelper.requireNonNull(constants$1628.const$0,"waveInStop");
+
+    private static class SCardListReadersWithDeviceInstanceIdW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardListReadersWithDeviceInstanceIdW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveInStop(HWAVEIN hwi);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardListReadersWithDeviceInstanceIdW(SCARDCONTEXT hContext, LPCWSTR szDeviceInstanceId, LPWSTR mszReaders, LPDWORD pcchReaders)
      * }
      */
-    public static int waveInStop(MemorySegment hwi) {
-        var mh$ = waveInStop$MH();
-        try {
-            return (int)mh$.invokeExact(hwi);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveInReset$MH() {
-        return RuntimeHelper.requireNonNull(constants$1628.const$1,"waveInReset");
+    public static FunctionDescriptor SCardListReadersWithDeviceInstanceIdW$descriptor() {
+        return SCardListReadersWithDeviceInstanceIdW.DESC;
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveInReset(HWAVEIN hwi);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardListReadersWithDeviceInstanceIdW(SCARDCONTEXT hContext, LPCWSTR szDeviceInstanceId, LPWSTR mszReaders, LPDWORD pcchReaders)
      * }
      */
-    public static int waveInReset(MemorySegment hwi) {
-        var mh$ = waveInReset$MH();
-        try {
-            return (int)mh$.invokeExact(hwi);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle waveInGetPosition$MH() {
-        return RuntimeHelper.requireNonNull(constants$1628.const$2,"waveInGetPosition");
+    public static MethodHandle SCardListReadersWithDeviceInstanceIdW$handle() {
+        return SCardListReadersWithDeviceInstanceIdW.HANDLE;
     }
     /**
-     * {@snippet :
-     * MMRESULT waveInGetPosition(HWAVEIN hwi, LPMMTIME pmmt, UINT cbmmt);
+     * {@snippet lang=c :
+     * extern LONG SCardListReadersWithDeviceInstanceIdW(SCARDCONTEXT hContext, LPCWSTR szDeviceInstanceId, LPWSTR mszReaders, LPDWORD pcchReaders)
      * }
      */
-    public static int waveInGetPosition(MemorySegment hwi, MemorySegment pmmt, int cbmmt) {
-        var mh$ = waveInGetPosition$MH();
+    public static int SCardListReadersWithDeviceInstanceIdW(long hContext, MemorySegment szDeviceInstanceId, MemorySegment mszReaders, MemorySegment pcchReaders) {
+        var mh$ = SCardListReadersWithDeviceInstanceIdW.HANDLE;
         try {
-            return (int)mh$.invokeExact(hwi, pmmt, cbmmt);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardListReadersWithDeviceInstanceIdW", hContext, szDeviceInstanceId, mszReaders, pcchReaders);
+            }
+            return (int)mh$.invokeExact(hContext, szDeviceInstanceId, mszReaders, pcchReaders);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle waveInGetID$MH() {
-        return RuntimeHelper.requireNonNull(constants$1628.const$3,"waveInGetID");
+
+    private static class SCardAudit {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("SCardAudit"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT waveInGetID(HWAVEIN hwi, LPUINT puDeviceID);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * extern LONG SCardAudit(SCARDCONTEXT hContext, DWORD dwEvent)
      * }
      */
-    public static int waveInGetID(MemorySegment hwi, MemorySegment puDeviceID) {
-        var mh$ = waveInGetID$MH();
-        try {
-            return (int)mh$.invokeExact(hwi, puDeviceID);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor SCardAudit$descriptor() {
+        return SCardAudit.DESC;
     }
-    public static MethodHandle waveInMessage$MH() {
-        return RuntimeHelper.requireNonNull(constants$1628.const$4,"waveInMessage");
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * extern LONG SCardAudit(SCARDCONTEXT hContext, DWORD dwEvent)
+     * }
+     */
+    public static MethodHandle SCardAudit$handle() {
+        return SCardAudit.HANDLE;
     }
     /**
-     * {@snippet :
-     * MMRESULT waveInMessage(HWAVEIN hwi, UINT uMsg, DWORD_PTR dw1, DWORD_PTR dw2);
+     * {@snippet lang=c :
+     * extern LONG SCardAudit(SCARDCONTEXT hContext, DWORD dwEvent)
      * }
      */
-    public static int waveInMessage(MemorySegment hwi, int uMsg, long dw1, long dw2) {
-        var mh$ = waveInMessage$MH();
+    public static int SCardAudit(long hContext, int dwEvent) {
+        var mh$ = SCardAudit.HANDLE;
         try {
-            return (int)mh$.invokeExact(hwi, uMsg, dw1, dw2);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("SCardAudit", hContext, dwEvent);
+            }
+            return (int)mh$.invokeExact(hContext, dwEvent);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    /**
-     * {@snippet :
-     * typedef struct HMIDI__* HMIDI;
-     * }
-     */
-    public static final AddressLayout HMIDI = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct HMIDIIN__* HMIDIIN;
-     * }
-     */
-    public static final AddressLayout HMIDIIN = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct HMIDIOUT__* HMIDIOUT;
-     * }
-     */
-    public static final AddressLayout HMIDIOUT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct HMIDISTRM__* HMIDISTRM;
-     * }
-     */
-    public static final AddressLayout HMIDISTRM = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct HMIDI__** LPHMIDI;
-     * }
-     */
-    public static final AddressLayout LPHMIDI = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct HMIDIIN__** LPHMIDIIN;
-     * }
-     */
-    public static final AddressLayout LPHMIDIIN = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct HMIDIOUT__** LPHMIDIOUT;
-     * }
-     */
-    public static final AddressLayout LPHMIDIOUT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct HMIDISTRM__** LPHMIDISTRM;
-     * }
-     */
-    public static final AddressLayout LPHMIDISTRM = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef unsigned short* LPPATCHARRAY;
-     * }
-     */
-    public static final AddressLayout LPPATCHARRAY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef unsigned short* LPKEYARRAY;
-     * }
-     */
-    public static final AddressLayout LPKEYARRAY = RuntimeHelper.POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPSA* PMIDIOUTCAPSA;
+     * {@snippet lang=c :
+     * typedef struct _PSP *HPROPSHEETPAGE
      * }
      */
-    public static final AddressLayout PMIDIOUTCAPSA = RuntimeHelper.POINTER;
+    public static final AddressLayout HPROPSHEETPAGE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPSA* NPMIDIOUTCAPSA;
+     * {@snippet lang=c :
+     * typedef LPCDLGTEMPLATE PROPSHEETPAGE_RESOURCE
      * }
      */
-    public static final AddressLayout NPMIDIOUTCAPSA = RuntimeHelper.POINTER;
+    public static final AddressLayout PROPSHEETPAGE_RESOURCE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPSA* LPMIDIOUTCAPSA;
+     * {@snippet lang=c :
+     * typedef struct _PROPSHEETPAGEA_V1 {
+     *     DWORD dwSize;
+     *     DWORD dwFlags;
+     *     HINSTANCE hInstance;
+     *     union {
+     *         LPCSTR pszTemplate;
+     *         PROPSHEETPAGE_RESOURCE pResource;
+     *     };
+     *     union {
+     *         HICON hIcon;
+     *         LPCSTR pszIcon;
+     *     };
+     *     LPCSTR pszTitle;
+     *     DLGPROC pfnDlgProc;
+     *     LPARAM lParam;
+     *     LPFNPSPCALLBACKA pfnCallback;
+     *     UINT *pcRefParent;
+     * } *LPPROPSHEETPAGEA_V1
      * }
      */
-    public static final AddressLayout LPMIDIOUTCAPSA = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEA_V1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPSW* PMIDIOUTCAPSW;
+     * {@snippet lang=c :
+     * typedef const PROPSHEETPAGEA_V1 *LPCPROPSHEETPAGEA_V1
      * }
      */
-    public static final AddressLayout PMIDIOUTCAPSW = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEA_V1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPSW* NPMIDIOUTCAPSW;
+     * {@snippet lang=c :
+     * typedef struct _PROPSHEETPAGEA_V2 {
+     *     DWORD dwSize;
+     *     DWORD dwFlags;
+     *     HINSTANCE hInstance;
+     *     union {
+     *         LPCSTR pszTemplate;
+     *         PROPSHEETPAGE_RESOURCE pResource;
+     *     };
+     *     union {
+     *         HICON hIcon;
+     *         LPCSTR pszIcon;
+     *     };
+     *     LPCSTR pszTitle;
+     *     DLGPROC pfnDlgProc;
+     *     LPARAM lParam;
+     *     LPFNPSPCALLBACKA pfnCallback;
+     *     UINT *pcRefParent;
+     *     LPCSTR pszHeaderTitle;
+     *     LPCSTR pszHeaderSubTitle;
+     * } *LPPROPSHEETPAGEA_V2
      * }
      */
-    public static final AddressLayout NPMIDIOUTCAPSW = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEA_V2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPSW* LPMIDIOUTCAPSW;
+     * {@snippet lang=c :
+     * typedef const PROPSHEETPAGEA_V2 *LPCPROPSHEETPAGEA_V2
      * }
      */
-    public static final AddressLayout LPMIDIOUTCAPSW = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEA_V2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPSA* PMIDIOUTCAPS;
+     * {@snippet lang=c :
+     * typedef struct _PROPSHEETPAGEA_V3 {
+     *     DWORD dwSize;
+     *     DWORD dwFlags;
+     *     HINSTANCE hInstance;
+     *     union {
+     *         LPCSTR pszTemplate;
+     *         PROPSHEETPAGE_RESOURCE pResource;
+     *     };
+     *     union {
+     *         HICON hIcon;
+     *         LPCSTR pszIcon;
+     *     };
+     *     LPCSTR pszTitle;
+     *     DLGPROC pfnDlgProc;
+     *     LPARAM lParam;
+     *     LPFNPSPCALLBACKA pfnCallback;
+     *     UINT *pcRefParent;
+     *     LPCSTR pszHeaderTitle;
+     *     LPCSTR pszHeaderSubTitle;
+     *     HANDLE hActCtx;
+     * } *LPPROPSHEETPAGEA_V3
      * }
      */
-    public static final AddressLayout PMIDIOUTCAPS = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEA_V3 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPSA* NPMIDIOUTCAPS;
+     * {@snippet lang=c :
+     * typedef const PROPSHEETPAGEA_V3 *LPCPROPSHEETPAGEA_V3
      * }
      */
-    public static final AddressLayout NPMIDIOUTCAPS = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEA_V3 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPSA* LPMIDIOUTCAPS;
+     * {@snippet lang=c :
+     * typedef struct _PROPSHEETPAGEA {
+     *     DWORD dwSize;
+     *     DWORD dwFlags;
+     *     HINSTANCE hInstance;
+     *     union {
+     *         LPCSTR pszTemplate;
+     *         PROPSHEETPAGE_RESOURCE pResource;
+     *     };
+     *     union {
+     *         HICON hIcon;
+     *         LPCSTR pszIcon;
+     *     };
+     *     LPCSTR pszTitle;
+     *     DLGPROC pfnDlgProc;
+     *     LPARAM lParam;
+     *     LPFNPSPCALLBACKA pfnCallback;
+     *     UINT *pcRefParent;
+     *     LPCSTR pszHeaderTitle;
+     *     LPCSTR pszHeaderSubTitle;
+     *     HANDLE hActCtx;
+     *     union {
+     *         HBITMAP hbmHeader;
+     *         LPCSTR pszbmHeader;
+     *     };
+     * } *LPPROPSHEETPAGEA_V4
      * }
      */
-    public static final AddressLayout LPMIDIOUTCAPS = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEA_V4 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPS2A* PMIDIOUTCAPS2A;
+     * {@snippet lang=c :
+     * typedef const PROPSHEETPAGEA_V4 *LPCPROPSHEETPAGEA_V4
      * }
      */
-    public static final AddressLayout PMIDIOUTCAPS2A = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEA_V4 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPS2A* NPMIDIOUTCAPS2A;
+     * {@snippet lang=c :
+     * typedef struct _PROPSHEETPAGEW_V1 {
+     *     DWORD dwSize;
+     *     DWORD dwFlags;
+     *     HINSTANCE hInstance;
+     *     union {
+     *         LPCWSTR pszTemplate;
+     *         PROPSHEETPAGE_RESOURCE pResource;
+     *     };
+     *     union {
+     *         HICON hIcon;
+     *         LPCWSTR pszIcon;
+     *     };
+     *     LPCWSTR pszTitle;
+     *     DLGPROC pfnDlgProc;
+     *     LPARAM lParam;
+     *     LPFNPSPCALLBACKW pfnCallback;
+     *     UINT *pcRefParent;
+     * } *LPPROPSHEETPAGEW_V1
      * }
      */
-    public static final AddressLayout NPMIDIOUTCAPS2A = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEW_V1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPS2A* LPMIDIOUTCAPS2A;
+     * {@snippet lang=c :
+     * typedef const PROPSHEETPAGEW_V1 *LPCPROPSHEETPAGEW_V1
      * }
      */
-    public static final AddressLayout LPMIDIOUTCAPS2A = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEW_V1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPS2W* PMIDIOUTCAPS2W;
+     * {@snippet lang=c :
+     * typedef struct _PROPSHEETPAGEW_V2 {
+     *     DWORD dwSize;
+     *     DWORD dwFlags;
+     *     HINSTANCE hInstance;
+     *     union {
+     *         LPCWSTR pszTemplate;
+     *         PROPSHEETPAGE_RESOURCE pResource;
+     *     };
+     *     union {
+     *         HICON hIcon;
+     *         LPCWSTR pszIcon;
+     *     };
+     *     LPCWSTR pszTitle;
+     *     DLGPROC pfnDlgProc;
+     *     LPARAM lParam;
+     *     LPFNPSPCALLBACKW pfnCallback;
+     *     UINT *pcRefParent;
+     *     LPCWSTR pszHeaderTitle;
+     *     LPCWSTR pszHeaderSubTitle;
+     * } *LPPROPSHEETPAGEW_V2
      * }
      */
-    public static final AddressLayout PMIDIOUTCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEW_V2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPS2W* NPMIDIOUTCAPS2W;
+     * {@snippet lang=c :
+     * typedef const PROPSHEETPAGEW_V2 *LPCPROPSHEETPAGEW_V2
      * }
      */
-    public static final AddressLayout NPMIDIOUTCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEW_V2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPS2W* LPMIDIOUTCAPS2W;
+     * {@snippet lang=c :
+     * typedef struct _PROPSHEETPAGEW_V3 {
+     *     DWORD dwSize;
+     *     DWORD dwFlags;
+     *     HINSTANCE hInstance;
+     *     union {
+     *         LPCWSTR pszTemplate;
+     *         PROPSHEETPAGE_RESOURCE pResource;
+     *     };
+     *     union {
+     *         HICON hIcon;
+     *         LPCWSTR pszIcon;
+     *     };
+     *     LPCWSTR pszTitle;
+     *     DLGPROC pfnDlgProc;
+     *     LPARAM lParam;
+     *     LPFNPSPCALLBACKW pfnCallback;
+     *     UINT *pcRefParent;
+     *     LPCWSTR pszHeaderTitle;
+     *     LPCWSTR pszHeaderSubTitle;
+     *     HANDLE hActCtx;
+     * } *LPPROPSHEETPAGEW_V3
      * }
      */
-    public static final AddressLayout LPMIDIOUTCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEW_V3 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPS2A* PMIDIOUTCAPS2;
+     * {@snippet lang=c :
+     * typedef const PROPSHEETPAGEW_V3 *LPCPROPSHEETPAGEW_V3
      * }
      */
-    public static final AddressLayout PMIDIOUTCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEW_V3 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPS2A* NPMIDIOUTCAPS2;
+     * {@snippet lang=c :
+     * typedef struct _PROPSHEETPAGEW {
+     *     DWORD dwSize;
+     *     DWORD dwFlags;
+     *     HINSTANCE hInstance;
+     *     union {
+     *         LPCWSTR pszTemplate;
+     *         PROPSHEETPAGE_RESOURCE pResource;
+     *     };
+     *     union {
+     *         HICON hIcon;
+     *         LPCWSTR pszIcon;
+     *     };
+     *     LPCWSTR pszTitle;
+     *     DLGPROC pfnDlgProc;
+     *     LPARAM lParam;
+     *     LPFNPSPCALLBACKW pfnCallback;
+     *     UINT *pcRefParent;
+     *     LPCWSTR pszHeaderTitle;
+     *     LPCWSTR pszHeaderSubTitle;
+     *     HANDLE hActCtx;
+     *     union {
+     *         HBITMAP hbmHeader;
+     *         LPCWSTR pszbmHeader;
+     *     };
+     * } *LPPROPSHEETPAGEW_V4
      * }
      */
-    public static final AddressLayout NPMIDIOUTCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEW_V4 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIOUTCAPS2A* LPMIDIOUTCAPS2;
+     * {@snippet lang=c :
+     * typedef const PROPSHEETPAGEW_V4 *LPCPROPSHEETPAGEW_V4
      * }
      */
-    public static final AddressLayout LPMIDIOUTCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEW_V4 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPSA* PMIDIINCAPSA;
+     * {@snippet lang=c :
+     * typedef LPPROPSHEETPAGEA_V4 LPPROPSHEETPAGEA_LATEST
      * }
      */
-    public static final AddressLayout PMIDIINCAPSA = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEA_LATEST = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPSA* NPMIDIINCAPSA;
+     * {@snippet lang=c :
+     * typedef LPPROPSHEETPAGEW_V4 LPPROPSHEETPAGEW_LATEST
      * }
      */
-    public static final AddressLayout NPMIDIINCAPSA = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEW_LATEST = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPSA* LPMIDIINCAPSA;
+     * {@snippet lang=c :
+     * typedef LPCPROPSHEETPAGEA_V4 LPCPROPSHEETPAGEA_LATEST
      * }
      */
-    public static final AddressLayout LPMIDIINCAPSA = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEA_LATEST = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPSW* PMIDIINCAPSW;
+     * {@snippet lang=c :
+     * typedef LPCPROPSHEETPAGEW_V4 LPCPROPSHEETPAGEW_LATEST
      * }
      */
-    public static final AddressLayout PMIDIINCAPSW = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEW_LATEST = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPSW* NPMIDIINCAPSW;
+     * {@snippet lang=c :
+     * typedef LPPROPSHEETPAGEA_V4 LPPROPSHEETPAGEA
      * }
      */
-    public static final AddressLayout NPMIDIINCAPSW = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPSW* LPMIDIINCAPSW;
+     * {@snippet lang=c :
+     * typedef LPPROPSHEETPAGEW_V4 LPPROPSHEETPAGEW
      * }
      */
-    public static final AddressLayout LPMIDIINCAPSW = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETPAGEW = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPSA* PMIDIINCAPS;
+     * {@snippet lang=c :
+     * typedef LPCPROPSHEETPAGEA_V4 LPCPROPSHEETPAGEA
      * }
      */
-    public static final AddressLayout PMIDIINCAPS = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPSA* NPMIDIINCAPS;
+     * {@snippet lang=c :
+     * typedef LPCPROPSHEETPAGEW_V4 LPCPROPSHEETPAGEW
      * }
      */
-    public static final AddressLayout NPMIDIINCAPS = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETPAGEW = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPSA* LPMIDIINCAPS;
+     * {@snippet lang=c :
+     * typedef struct _PROPSHEETHEADERA_V1 {
+     *     DWORD dwSize;
+     *     DWORD dwFlags;
+     *     HWND hwndParent;
+     *     HINSTANCE hInstance;
+     *     union {
+     *         HICON hIcon;
+     *         LPCSTR pszIcon;
+     *     };
+     *     LPCSTR pszCaption;
+     *     UINT nPages;
+     *     union {
+     *         UINT nStartPage;
+     *         LPCSTR pStartPage;
+     *     };
+     *     union {
+     *         LPCPROPSHEETPAGEA ppsp;
+     *         HPROPSHEETPAGE *phpage;
+     *     };
+     *     PFNPROPSHEETCALLBACK pfnCallback;
+     * } *LPPROPSHEETHEADERA_V1
      * }
      */
-    public static final AddressLayout LPMIDIINCAPS = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETHEADERA_V1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPS2A* PMIDIINCAPS2A;
+     * {@snippet lang=c :
+     * typedef const PROPSHEETHEADERA_V1 *LPCPROPSHEETHEADERA_V1
      * }
      */
-    public static final AddressLayout PMIDIINCAPS2A = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETHEADERA_V1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPS2A* NPMIDIINCAPS2A;
+     * {@snippet lang=c :
+     * typedef struct _PROPSHEETHEADERA_V2 {
+     *     DWORD dwSize;
+     *     DWORD dwFlags;
+     *     HWND hwndParent;
+     *     HINSTANCE hInstance;
+     *     union {
+     *         HICON hIcon;
+     *         LPCSTR pszIcon;
+     *     };
+     *     LPCSTR pszCaption;
+     *     UINT nPages;
+     *     union {
+     *         UINT nStartPage;
+     *         LPCSTR pStartPage;
+     *     };
+     *     union {
+     *         LPCPROPSHEETPAGEA ppsp;
+     *         HPROPSHEETPAGE *phpage;
+     *     };
+     *     PFNPROPSHEETCALLBACK pfnCallback;
+     *     union {
+     *         HBITMAP hbmWatermark;
+     *         LPCSTR pszbmWatermark;
+     *     };
+     *     HPALETTE hplWatermark;
+     *     union {
+     *         HBITMAP hbmHeader;
+     *         LPCSTR pszbmHeader;
+     *     };
+     * } *LPPROPSHEETHEADERA_V2
      * }
      */
-    public static final AddressLayout NPMIDIINCAPS2A = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETHEADERA_V2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPS2A* LPMIDIINCAPS2A;
+     * {@snippet lang=c :
+     * typedef const PROPSHEETHEADERA_V2 *LPCPROPSHEETHEADERA_V2
      * }
      */
-    public static final AddressLayout LPMIDIINCAPS2A = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETHEADERA_V2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPS2W* PMIDIINCAPS2W;
+     * {@snippet lang=c :
+     * typedef struct _PROPSHEETHEADERW_V1 {
+     *     DWORD dwSize;
+     *     DWORD dwFlags;
+     *     HWND hwndParent;
+     *     HINSTANCE hInstance;
+     *     union {
+     *         HICON hIcon;
+     *         LPCWSTR pszIcon;
+     *     };
+     *     LPCWSTR pszCaption;
+     *     UINT nPages;
+     *     union {
+     *         UINT nStartPage;
+     *         LPCWSTR pStartPage;
+     *     };
+     *     union {
+     *         LPCPROPSHEETPAGEW ppsp;
+     *         HPROPSHEETPAGE *phpage;
+     *     };
+     *     PFNPROPSHEETCALLBACK pfnCallback;
+     * } *LPPROPSHEETHEADERW_V1
      * }
      */
-    public static final AddressLayout PMIDIINCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETHEADERW_V1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPS2W* NPMIDIINCAPS2W;
+     * {@snippet lang=c :
+     * typedef const PROPSHEETHEADERW_V1 *LPCPROPSHEETHEADERW_V1
      * }
      */
-    public static final AddressLayout NPMIDIINCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETHEADERW_V1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPS2W* LPMIDIINCAPS2W;
+     * {@snippet lang=c :
+     * typedef struct _PROPSHEETHEADERW_V2 {
+     *     DWORD dwSize;
+     *     DWORD dwFlags;
+     *     HWND hwndParent;
+     *     HINSTANCE hInstance;
+     *     union {
+     *         HICON hIcon;
+     *         LPCWSTR pszIcon;
+     *     };
+     *     LPCWSTR pszCaption;
+     *     UINT nPages;
+     *     union {
+     *         UINT nStartPage;
+     *         LPCWSTR pStartPage;
+     *     };
+     *     union {
+     *         LPCPROPSHEETPAGEW ppsp;
+     *         HPROPSHEETPAGE *phpage;
+     *     };
+     *     PFNPROPSHEETCALLBACK pfnCallback;
+     *     union {
+     *         HBITMAP hbmWatermark;
+     *         LPCWSTR pszbmWatermark;
+     *     };
+     *     HPALETTE hplWatermark;
+     *     union {
+     *         HBITMAP hbmHeader;
+     *         LPCWSTR pszbmHeader;
+     *     };
+     * } *LPPROPSHEETHEADERW_V2
      * }
      */
-    public static final AddressLayout LPMIDIINCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETHEADERW_V2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPS2A* PMIDIINCAPS2;
+     * {@snippet lang=c :
+     * typedef const PROPSHEETHEADERW_V2 *LPCPROPSHEETHEADERW_V2
      * }
      */
-    public static final AddressLayout PMIDIINCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETHEADERW_V2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPS2A* NPMIDIINCAPS2;
+     * {@snippet lang=c :
+     * typedef LPPROPSHEETHEADERA_V2 LPPROPSHEETHEADERA
      * }
      */
-    public static final AddressLayout NPMIDIINCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETHEADERA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIDIINCAPS2A* LPMIDIINCAPS2;
+     * {@snippet lang=c :
+     * typedef LPPROPSHEETHEADERW_V2 LPPROPSHEETHEADERW
      * }
      */
-    public static final AddressLayout LPMIDIINCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPROPSHEETHEADERW = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct midihdr_tag* PMIDIHDR;
+     * {@snippet lang=c :
+     * typedef LPCPROPSHEETHEADERA_V2 LPCPROPSHEETHEADERA
      * }
      */
-    public static final AddressLayout PMIDIHDR = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETHEADERA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct midihdr_tag* NPMIDIHDR;
+     * {@snippet lang=c :
+     * typedef LPCPROPSHEETHEADERW_V2 LPCPROPSHEETHEADERW
      * }
      */
-    public static final AddressLayout NPMIDIHDR = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct midihdr_tag* LPMIDIHDR;
-     * }
-     */
-    public static final AddressLayout LPMIDIHDR = RuntimeHelper.POINTER;
+    public static final AddressLayout LPCPROPSHEETHEADERW = Windows_h.C_POINTER;
+
+    private static class CreatePropertySheetPageA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("CreatePropertySheetPageA"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * typedef struct midiproptimediv_tag* LPMIDIPROPTIMEDIV;
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * HPROPSHEETPAGE CreatePropertySheetPageA(LPCPROPSHEETPAGEA constPropSheetPagePointer)
      * }
      */
-    public static final AddressLayout LPMIDIPROPTIMEDIV = RuntimeHelper.POINTER;
+    public static FunctionDescriptor CreatePropertySheetPageA$descriptor() {
+        return CreatePropertySheetPageA.DESC;
+    }
+
     /**
-     * {@snippet :
-     * typedef struct midiproptempo_tag* LPMIDIPROPTEMPO;
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * HPROPSHEETPAGE CreatePropertySheetPageA(LPCPROPSHEETPAGEA constPropSheetPagePointer)
      * }
      */
-    public static final AddressLayout LPMIDIPROPTEMPO = RuntimeHelper.POINTER;
-    public static MethodHandle midiOutGetNumDevs$MH() {
-        return RuntimeHelper.requireNonNull(constants$1643.const$4,"midiOutGetNumDevs");
+    public static MethodHandle CreatePropertySheetPageA$handle() {
+        return CreatePropertySheetPageA.HANDLE;
     }
     /**
-     * {@snippet :
-     * UINT midiOutGetNumDevs();
+     * {@snippet lang=c :
+     * HPROPSHEETPAGE CreatePropertySheetPageA(LPCPROPSHEETPAGEA constPropSheetPagePointer)
      * }
      */
-    public static int midiOutGetNumDevs() {
-        var mh$ = midiOutGetNumDevs$MH();
+    public static MemorySegment CreatePropertySheetPageA(MemorySegment constPropSheetPagePointer) {
+        var mh$ = CreatePropertySheetPageA.HANDLE;
         try {
-            return (int)mh$.invokeExact();
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("CreatePropertySheetPageA", constPropSheetPagePointer);
+            }
+            return (MemorySegment)mh$.invokeExact(constPropSheetPagePointer);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle midiStreamOpen$MH() {
-        return RuntimeHelper.requireNonNull(constants$1643.const$6,"midiStreamOpen");
+
+    private static class CreatePropertySheetPageW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("CreatePropertySheetPageW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT midiStreamOpen(LPHMIDISTRM phms, LPUINT puDeviceID, DWORD cMidi, DWORD_PTR dwCallback, DWORD_PTR dwInstance, DWORD fdwOpen);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * HPROPSHEETPAGE CreatePropertySheetPageW(LPCPROPSHEETPAGEW constPropSheetPagePointer)
      * }
      */
-    public static int midiStreamOpen(MemorySegment phms, MemorySegment puDeviceID, int cMidi, long dwCallback, long dwInstance, int fdwOpen) {
-        var mh$ = midiStreamOpen$MH();
-        try {
-            return (int)mh$.invokeExact(phms, puDeviceID, cMidi, dwCallback, dwInstance, fdwOpen);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor CreatePropertySheetPageW$descriptor() {
+        return CreatePropertySheetPageW.DESC;
     }
-    public static MethodHandle midiStreamClose$MH() {
-        return RuntimeHelper.requireNonNull(constants$1644.const$0,"midiStreamClose");
-    }
+
     /**
-     * {@snippet :
-     * MMRESULT midiStreamClose(HMIDISTRM hms);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * HPROPSHEETPAGE CreatePropertySheetPageW(LPCPROPSHEETPAGEW constPropSheetPagePointer)
      * }
      */
-    public static int midiStreamClose(MemorySegment hms) {
-        var mh$ = midiStreamClose$MH();
-        try {
-            return (int)mh$.invokeExact(hms);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MethodHandle CreatePropertySheetPageW$handle() {
+        return CreatePropertySheetPageW.HANDLE;
     }
-    public static MethodHandle midiStreamProperty$MH() {
-        return RuntimeHelper.requireNonNull(constants$1644.const$1,"midiStreamProperty");
-    }
     /**
-     * {@snippet :
-     * MMRESULT midiStreamProperty(HMIDISTRM hms, LPBYTE lppropdata, DWORD dwProperty);
+     * {@snippet lang=c :
+     * HPROPSHEETPAGE CreatePropertySheetPageW(LPCPROPSHEETPAGEW constPropSheetPagePointer)
      * }
      */
-    public static int midiStreamProperty(MemorySegment hms, MemorySegment lppropdata, int dwProperty) {
-        var mh$ = midiStreamProperty$MH();
+    public static MemorySegment CreatePropertySheetPageW(MemorySegment constPropSheetPagePointer) {
+        var mh$ = CreatePropertySheetPageW.HANDLE;
         try {
-            return (int)mh$.invokeExact(hms, lppropdata, dwProperty);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("CreatePropertySheetPageW", constPropSheetPagePointer);
+            }
+            return (MemorySegment)mh$.invokeExact(constPropSheetPagePointer);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle midiStreamPosition$MH() {
-        return RuntimeHelper.requireNonNull(constants$1644.const$2,"midiStreamPosition");
+
+    private static class DestroyPropertySheetPage {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("DestroyPropertySheetPage"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT midiStreamPosition(HMIDISTRM hms, LPMMTIME lpmmt, UINT cbmmt);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * BOOL DestroyPropertySheetPage(HPROPSHEETPAGE)
      * }
      */
-    public static int midiStreamPosition(MemorySegment hms, MemorySegment lpmmt, int cbmmt) {
-        var mh$ = midiStreamPosition$MH();
-        try {
-            return (int)mh$.invokeExact(hms, lpmmt, cbmmt);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor DestroyPropertySheetPage$descriptor() {
+        return DestroyPropertySheetPage.DESC;
     }
-    public static MethodHandle midiStreamOut$MH() {
-        return RuntimeHelper.requireNonNull(constants$1644.const$3,"midiStreamOut");
-    }
+
     /**
-     * {@snippet :
-     * MMRESULT midiStreamOut(HMIDISTRM hms, LPMIDIHDR pmh, UINT cbmh);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * BOOL DestroyPropertySheetPage(HPROPSHEETPAGE)
      * }
      */
-    public static int midiStreamOut(MemorySegment hms, MemorySegment pmh, int cbmh) {
-        var mh$ = midiStreamOut$MH();
-        try {
-            return (int)mh$.invokeExact(hms, pmh, cbmh);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MethodHandle DestroyPropertySheetPage$handle() {
+        return DestroyPropertySheetPage.HANDLE;
     }
-    public static MethodHandle midiStreamPause$MH() {
-        return RuntimeHelper.requireNonNull(constants$1644.const$4,"midiStreamPause");
-    }
     /**
-     * {@snippet :
-     * MMRESULT midiStreamPause(HMIDISTRM hms);
+     * {@snippet lang=c :
+     * BOOL DestroyPropertySheetPage(HPROPSHEETPAGE)
      * }
      */
-    public static int midiStreamPause(MemorySegment hms) {
-        var mh$ = midiStreamPause$MH();
+    public static int DestroyPropertySheetPage(MemorySegment x0) {
+        var mh$ = DestroyPropertySheetPage.HANDLE;
         try {
-            return (int)mh$.invokeExact(hms);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("DestroyPropertySheetPage", x0);
+            }
+            return (int)mh$.invokeExact(x0);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle midiStreamRestart$MH() {
-        return RuntimeHelper.requireNonNull(constants$1644.const$5,"midiStreamRestart");
+
+    private static class PropertySheetA {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("PropertySheetA"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT midiStreamRestart(HMIDISTRM hms);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * INT_PTR PropertySheetA(LPCPROPSHEETHEADERA)
      * }
      */
-    public static int midiStreamRestart(MemorySegment hms) {
-        var mh$ = midiStreamRestart$MH();
-        try {
-            return (int)mh$.invokeExact(hms);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor PropertySheetA$descriptor() {
+        return PropertySheetA.DESC;
     }
-    public static MethodHandle midiStreamStop$MH() {
-        return RuntimeHelper.requireNonNull(constants$1645.const$0,"midiStreamStop");
-    }
+
     /**
-     * {@snippet :
-     * MMRESULT midiStreamStop(HMIDISTRM hms);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * INT_PTR PropertySheetA(LPCPROPSHEETHEADERA)
      * }
      */
-    public static int midiStreamStop(MemorySegment hms) {
-        var mh$ = midiStreamStop$MH();
-        try {
-            return (int)mh$.invokeExact(hms);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MethodHandle PropertySheetA$handle() {
+        return PropertySheetA.HANDLE;
     }
-    public static MethodHandle midiConnect$MH() {
-        return RuntimeHelper.requireNonNull(constants$1645.const$1,"midiConnect");
-    }
     /**
-     * {@snippet :
-     * MMRESULT midiConnect(HMIDI hmi, HMIDIOUT hmo, LPVOID pReserved);
+     * {@snippet lang=c :
+     * INT_PTR PropertySheetA(LPCPROPSHEETHEADERA)
      * }
      */
-    public static int midiConnect(MemorySegment hmi, MemorySegment hmo, MemorySegment pReserved) {
-        var mh$ = midiConnect$MH();
+    public static long PropertySheetA(MemorySegment x0) {
+        var mh$ = PropertySheetA.HANDLE;
         try {
-            return (int)mh$.invokeExact(hmi, hmo, pReserved);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("PropertySheetA", x0);
+            }
+            return (long)mh$.invokeExact(x0);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
     }
-    public static MethodHandle midiDisconnect$MH() {
-        return RuntimeHelper.requireNonNull(constants$1645.const$2,"midiDisconnect");
+
+    private static class PropertySheetW {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("PropertySheetW"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * MMRESULT midiDisconnect(HMIDI hmi, HMIDIOUT hmo, LPVOID pReserved);
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * INT_PTR PropertySheetW(LPCPROPSHEETHEADERW)
      * }
      */
-    public static int midiDisconnect(MemorySegment hmi, MemorySegment hmo, MemorySegment pReserved) {
-        var mh$ = midiDisconnect$MH();
-        try {
-            return (int)mh$.invokeExact(hmi, hmo, pReserved);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static FunctionDescriptor PropertySheetW$descriptor() {
+        return PropertySheetW.DESC;
     }
-    public static MethodHandle midiOutGetDevCapsA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1645.const$3,"midiOutGetDevCapsA");
-    }
+
     /**
-     * {@snippet :
-     * MMRESULT midiOutGetDevCapsA(UINT_PTR uDeviceID, LPMIDIOUTCAPSA pmoc, UINT cbmoc);
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * INT_PTR PropertySheetW(LPCPROPSHEETHEADERW)
      * }
      */
-    public static int midiOutGetDevCapsA(long uDeviceID, MemorySegment pmoc, int cbmoc) {
-        var mh$ = midiOutGetDevCapsA$MH();
-        try {
-            return (int)mh$.invokeExact(uDeviceID, pmoc, cbmoc);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
+    public static MethodHandle PropertySheetW$handle() {
+        return PropertySheetW.HANDLE;
     }
-    public static MethodHandle midiOutGetDevCapsW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1645.const$4,"midiOutGetDevCapsW");
-    }
     /**
-     * {@snippet :
-     * MMRESULT midiOutGetDevCapsW(UINT_PTR uDeviceID, LPMIDIOUTCAPSW pmoc, UINT cbmoc);
+     * {@snippet lang=c :
+     * INT_PTR PropertySheetW(LPCPROPSHEETHEADERW)
      * }
      */
-    public static int midiOutGetDevCapsW(long uDeviceID, MemorySegment pmoc, int cbmoc) {
-        var mh$ = midiOutGetDevCapsW$MH();
+    public static long PropertySheetW(MemorySegment x0) {
+        var mh$ = PropertySheetW.HANDLE;
         try {
-            return (int)mh$.invokeExact(uDeviceID, pmoc, cbmoc);
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("PropertySheetW", x0);
+            }
+            return (long)mh$.invokeExact(x0);
         } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+           throw new AssertionError("should not reach here", ex$);
         }
-    }
-    public static MethodHandle midiOutGetVolume$MH() {
-        return RuntimeHelper.requireNonNull(constants$1645.const$5,"midiOutGetVolume");
     }
     /**
-     * {@snippet :
-     * MMRESULT midiOutGetVolume(HMIDIOUT hmo, LPDWORD pdwVolume);
+     * {@snippet lang=c :
+     * typedef struct _PSHNOTIFY {
+     *     NMHDR hdr;
+     *     LPARAM lParam;
+     * } *LPPSHNOTIFY
      * }
      */
-    public static int midiOutGetVolume(MemorySegment hmo, MemorySegment pdwVolume) {
-        var mh$ = midiOutGetVolume$MH();
-        try {
-            return (int)mh$.invokeExact(hmo, pdwVolume);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiOutSetVolume$MH() {
-        return RuntimeHelper.requireNonNull(constants$1646.const$0,"midiOutSetVolume");
-    }
+    public static final AddressLayout LPPSHNOTIFY = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiOutSetVolume(HMIDIOUT hmo, DWORD dwVolume);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_1A {
+     *     DWORD Flags;
+     *     LPSTR pDescription;
+     *     LPSTR pName;
+     *     LPSTR pComment;
+     * } *PPRINTER_INFO_1A
      * }
      */
-    public static int midiOutSetVolume(MemorySegment hmo, int dwVolume) {
-        var mh$ = midiOutSetVolume$MH();
-        try {
-            return (int)mh$.invokeExact(hmo, dwVolume);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiOutGetErrorTextA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1646.const$1,"midiOutGetErrorTextA");
-    }
+    public static final AddressLayout PPRINTER_INFO_1A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiOutGetErrorTextA(MMRESULT mmrError, LPSTR pszText, UINT cchText);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_1A {
+     *     DWORD Flags;
+     *     LPSTR pDescription;
+     *     LPSTR pName;
+     *     LPSTR pComment;
+     * } *LPPRINTER_INFO_1A
      * }
      */
-    public static int midiOutGetErrorTextA(int mmrError, MemorySegment pszText, int cchText) {
-        var mh$ = midiOutGetErrorTextA$MH();
-        try {
-            return (int)mh$.invokeExact(mmrError, pszText, cchText);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiOutGetErrorTextW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1646.const$2,"midiOutGetErrorTextW");
-    }
+    public static final AddressLayout LPPRINTER_INFO_1A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiOutGetErrorTextW(MMRESULT mmrError, LPWSTR pszText, UINT cchText);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_1W {
+     *     DWORD Flags;
+     *     LPWSTR pDescription;
+     *     LPWSTR pName;
+     *     LPWSTR pComment;
+     * } *PPRINTER_INFO_1W
      * }
      */
-    public static int midiOutGetErrorTextW(int mmrError, MemorySegment pszText, int cchText) {
-        var mh$ = midiOutGetErrorTextW$MH();
-        try {
-            return (int)mh$.invokeExact(mmrError, pszText, cchText);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiOutOpen$MH() {
-        return RuntimeHelper.requireNonNull(constants$1646.const$4,"midiOutOpen");
-    }
+    public static final AddressLayout PPRINTER_INFO_1W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiOutOpen(LPHMIDIOUT phmo, UINT uDeviceID, DWORD_PTR dwCallback, DWORD_PTR dwInstance, DWORD fdwOpen);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_1W {
+     *     DWORD Flags;
+     *     LPWSTR pDescription;
+     *     LPWSTR pName;
+     *     LPWSTR pComment;
+     * } *LPPRINTER_INFO_1W
      * }
      */
-    public static int midiOutOpen(MemorySegment phmo, int uDeviceID, long dwCallback, long dwInstance, int fdwOpen) {
-        var mh$ = midiOutOpen$MH();
-        try {
-            return (int)mh$.invokeExact(phmo, uDeviceID, dwCallback, dwInstance, fdwOpen);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiOutClose$MH() {
-        return RuntimeHelper.requireNonNull(constants$1646.const$5,"midiOutClose");
-    }
+    public static final AddressLayout LPPRINTER_INFO_1W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiOutClose(HMIDIOUT hmo);
+     * {@snippet lang=c :
+     * typedef PPRINTER_INFO_1A PPRINTER_INFO_1
      * }
      */
-    public static int midiOutClose(MemorySegment hmo) {
-        var mh$ = midiOutClose$MH();
-        try {
-            return (int)mh$.invokeExact(hmo);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiOutPrepareHeader$MH() {
-        return RuntimeHelper.requireNonNull(constants$1647.const$0,"midiOutPrepareHeader");
-    }
+    public static final AddressLayout PPRINTER_INFO_1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiOutPrepareHeader(HMIDIOUT hmo, LPMIDIHDR pmh, UINT cbmh);
+     * {@snippet lang=c :
+     * typedef LPPRINTER_INFO_1A LPPRINTER_INFO_1
      * }
      */
-    public static int midiOutPrepareHeader(MemorySegment hmo, MemorySegment pmh, int cbmh) {
-        var mh$ = midiOutPrepareHeader$MH();
-        try {
-            return (int)mh$.invokeExact(hmo, pmh, cbmh);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiOutUnprepareHeader$MH() {
-        return RuntimeHelper.requireNonNull(constants$1647.const$1,"midiOutUnprepareHeader");
-    }
+    public static final AddressLayout LPPRINTER_INFO_1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiOutUnprepareHeader(HMIDIOUT hmo, LPMIDIHDR pmh, UINT cbmh);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_2A {
+     *     LPSTR pServerName;
+     *     LPSTR pPrinterName;
+     *     LPSTR pShareName;
+     *     LPSTR pPortName;
+     *     LPSTR pDriverName;
+     *     LPSTR pComment;
+     *     LPSTR pLocation;
+     *     LPDEVMODEA pDevMode;
+     *     LPSTR pSepFile;
+     *     LPSTR pPrintProcessor;
+     *     LPSTR pDatatype;
+     *     LPSTR pParameters;
+     *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+     *     DWORD Attributes;
+     *     DWORD Priority;
+     *     DWORD DefaultPriority;
+     *     DWORD StartTime;
+     *     DWORD UntilTime;
+     *     DWORD Status;
+     *     DWORD cJobs;
+     *     DWORD AveragePPM;
+     * } *PPRINTER_INFO_2A
      * }
      */
-    public static int midiOutUnprepareHeader(MemorySegment hmo, MemorySegment pmh, int cbmh) {
-        var mh$ = midiOutUnprepareHeader$MH();
-        try {
-            return (int)mh$.invokeExact(hmo, pmh, cbmh);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiOutShortMsg$MH() {
-        return RuntimeHelper.requireNonNull(constants$1647.const$2,"midiOutShortMsg");
-    }
+    public static final AddressLayout PPRINTER_INFO_2A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiOutShortMsg(HMIDIOUT hmo, DWORD dwMsg);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_2A {
+     *     LPSTR pServerName;
+     *     LPSTR pPrinterName;
+     *     LPSTR pShareName;
+     *     LPSTR pPortName;
+     *     LPSTR pDriverName;
+     *     LPSTR pComment;
+     *     LPSTR pLocation;
+     *     LPDEVMODEA pDevMode;
+     *     LPSTR pSepFile;
+     *     LPSTR pPrintProcessor;
+     *     LPSTR pDatatype;
+     *     LPSTR pParameters;
+     *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+     *     DWORD Attributes;
+     *     DWORD Priority;
+     *     DWORD DefaultPriority;
+     *     DWORD StartTime;
+     *     DWORD UntilTime;
+     *     DWORD Status;
+     *     DWORD cJobs;
+     *     DWORD AveragePPM;
+     * } *LPPRINTER_INFO_2A
      * }
      */
-    public static int midiOutShortMsg(MemorySegment hmo, int dwMsg) {
-        var mh$ = midiOutShortMsg$MH();
-        try {
-            return (int)mh$.invokeExact(hmo, dwMsg);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiOutLongMsg$MH() {
-        return RuntimeHelper.requireNonNull(constants$1647.const$3,"midiOutLongMsg");
-    }
+    public static final AddressLayout LPPRINTER_INFO_2A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiOutLongMsg(HMIDIOUT hmo, LPMIDIHDR pmh, UINT cbmh);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_2W {
+     *     LPWSTR pServerName;
+     *     LPWSTR pPrinterName;
+     *     LPWSTR pShareName;
+     *     LPWSTR pPortName;
+     *     LPWSTR pDriverName;
+     *     LPWSTR pComment;
+     *     LPWSTR pLocation;
+     *     LPDEVMODEW pDevMode;
+     *     LPWSTR pSepFile;
+     *     LPWSTR pPrintProcessor;
+     *     LPWSTR pDatatype;
+     *     LPWSTR pParameters;
+     *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+     *     DWORD Attributes;
+     *     DWORD Priority;
+     *     DWORD DefaultPriority;
+     *     DWORD StartTime;
+     *     DWORD UntilTime;
+     *     DWORD Status;
+     *     DWORD cJobs;
+     *     DWORD AveragePPM;
+     * } *PPRINTER_INFO_2W
      * }
      */
-    public static int midiOutLongMsg(MemorySegment hmo, MemorySegment pmh, int cbmh) {
-        var mh$ = midiOutLongMsg$MH();
-        try {
-            return (int)mh$.invokeExact(hmo, pmh, cbmh);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiOutReset$MH() {
-        return RuntimeHelper.requireNonNull(constants$1647.const$4,"midiOutReset");
-    }
+    public static final AddressLayout PPRINTER_INFO_2W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiOutReset(HMIDIOUT hmo);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_2W {
+     *     LPWSTR pServerName;
+     *     LPWSTR pPrinterName;
+     *     LPWSTR pShareName;
+     *     LPWSTR pPortName;
+     *     LPWSTR pDriverName;
+     *     LPWSTR pComment;
+     *     LPWSTR pLocation;
+     *     LPDEVMODEW pDevMode;
+     *     LPWSTR pSepFile;
+     *     LPWSTR pPrintProcessor;
+     *     LPWSTR pDatatype;
+     *     LPWSTR pParameters;
+     *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+     *     DWORD Attributes;
+     *     DWORD Priority;
+     *     DWORD DefaultPriority;
+     *     DWORD StartTime;
+     *     DWORD UntilTime;
+     *     DWORD Status;
+     *     DWORD cJobs;
+     *     DWORD AveragePPM;
+     * } *LPPRINTER_INFO_2W
      * }
      */
-    public static int midiOutReset(MemorySegment hmo) {
-        var mh$ = midiOutReset$MH();
-        try {
-            return (int)mh$.invokeExact(hmo);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiOutCachePatches$MH() {
-        return RuntimeHelper.requireNonNull(constants$1647.const$5,"midiOutCachePatches");
-    }
+    public static final AddressLayout LPPRINTER_INFO_2W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiOutCachePatches(HMIDIOUT hmo, UINT uBank, LPWORD pwpa, UINT fuCache);
+     * {@snippet lang=c :
+     * typedef PPRINTER_INFO_2A PPRINTER_INFO_2
      * }
      */
-    public static int midiOutCachePatches(MemorySegment hmo, int uBank, MemorySegment pwpa, int fuCache) {
-        var mh$ = midiOutCachePatches$MH();
-        try {
-            return (int)mh$.invokeExact(hmo, uBank, pwpa, fuCache);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiOutCacheDrumPatches$MH() {
-        return RuntimeHelper.requireNonNull(constants$1648.const$0,"midiOutCacheDrumPatches");
-    }
+    public static final AddressLayout PPRINTER_INFO_2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiOutCacheDrumPatches(HMIDIOUT hmo, UINT uPatch, LPWORD pwkya, UINT fuCache);
+     * {@snippet lang=c :
+     * typedef LPPRINTER_INFO_2A LPPRINTER_INFO_2
      * }
      */
-    public static int midiOutCacheDrumPatches(MemorySegment hmo, int uPatch, MemorySegment pwkya, int fuCache) {
-        var mh$ = midiOutCacheDrumPatches$MH();
-        try {
-            return (int)mh$.invokeExact(hmo, uPatch, pwkya, fuCache);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiOutGetID$MH() {
-        return RuntimeHelper.requireNonNull(constants$1648.const$1,"midiOutGetID");
-    }
+    public static final AddressLayout LPPRINTER_INFO_2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiOutGetID(HMIDIOUT hmo, LPUINT puDeviceID);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_3 {
+     *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+     * } *PPRINTER_INFO_3
      * }
      */
-    public static int midiOutGetID(MemorySegment hmo, MemorySegment puDeviceID) {
-        var mh$ = midiOutGetID$MH();
-        try {
-            return (int)mh$.invokeExact(hmo, puDeviceID);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiOutMessage$MH() {
-        return RuntimeHelper.requireNonNull(constants$1648.const$2,"midiOutMessage");
-    }
+    public static final AddressLayout PPRINTER_INFO_3 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiOutMessage(HMIDIOUT hmo, UINT uMsg, DWORD_PTR dw1, DWORD_PTR dw2);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_3 {
+     *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+     * } *LPPRINTER_INFO_3
      * }
      */
-    public static int midiOutMessage(MemorySegment hmo, int uMsg, long dw1, long dw2) {
-        var mh$ = midiOutMessage$MH();
-        try {
-            return (int)mh$.invokeExact(hmo, uMsg, dw1, dw2);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInGetNumDevs$MH() {
-        return RuntimeHelper.requireNonNull(constants$1648.const$3,"midiInGetNumDevs");
-    }
+    public static final AddressLayout LPPRINTER_INFO_3 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * UINT midiInGetNumDevs();
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_4A {
+     *     LPSTR pPrinterName;
+     *     LPSTR pServerName;
+     *     DWORD Attributes;
+     * } *PPRINTER_INFO_4A
      * }
      */
-    public static int midiInGetNumDevs() {
-        var mh$ = midiInGetNumDevs$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInGetDevCapsA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1648.const$4,"midiInGetDevCapsA");
-    }
+    public static final AddressLayout PPRINTER_INFO_4A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiInGetDevCapsA(UINT_PTR uDeviceID, LPMIDIINCAPSA pmic, UINT cbmic);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_4A {
+     *     LPSTR pPrinterName;
+     *     LPSTR pServerName;
+     *     DWORD Attributes;
+     * } *LPPRINTER_INFO_4A
      * }
      */
-    public static int midiInGetDevCapsA(long uDeviceID, MemorySegment pmic, int cbmic) {
-        var mh$ = midiInGetDevCapsA$MH();
-        try {
-            return (int)mh$.invokeExact(uDeviceID, pmic, cbmic);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInGetDevCapsW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1648.const$5,"midiInGetDevCapsW");
-    }
+    public static final AddressLayout LPPRINTER_INFO_4A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT midiInGetDevCapsW(UINT_PTR uDeviceID, LPMIDIINCAPSW pmic, UINT cbmic);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_4W {
+     *     LPWSTR pPrinterName;
+     *     LPWSTR pServerName;
+     *     DWORD Attributes;
+     * } *PPRINTER_INFO_4W
      * }
      */
-    public static int midiInGetDevCapsW(long uDeviceID, MemorySegment pmic, int cbmic) {
-        var mh$ = midiInGetDevCapsW$MH();
-        try {
-            return (int)mh$.invokeExact(uDeviceID, pmic, cbmic);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInGetErrorTextA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1649.const$0,"midiInGetErrorTextA");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT midiInGetErrorTextA(MMRESULT mmrError, LPSTR pszText, UINT cchText);
-     * }
-     */
-    public static int midiInGetErrorTextA(int mmrError, MemorySegment pszText, int cchText) {
-        var mh$ = midiInGetErrorTextA$MH();
-        try {
-            return (int)mh$.invokeExact(mmrError, pszText, cchText);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInGetErrorTextW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1649.const$1,"midiInGetErrorTextW");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT midiInGetErrorTextW(MMRESULT mmrError, LPWSTR pszText, UINT cchText);
-     * }
-     */
-    public static int midiInGetErrorTextW(int mmrError, MemorySegment pszText, int cchText) {
-        var mh$ = midiInGetErrorTextW$MH();
-        try {
-            return (int)mh$.invokeExact(mmrError, pszText, cchText);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInOpen$MH() {
-        return RuntimeHelper.requireNonNull(constants$1649.const$2,"midiInOpen");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT midiInOpen(LPHMIDIIN phmi, UINT uDeviceID, DWORD_PTR dwCallback, DWORD_PTR dwInstance, DWORD fdwOpen);
-     * }
-     */
-    public static int midiInOpen(MemorySegment phmi, int uDeviceID, long dwCallback, long dwInstance, int fdwOpen) {
-        var mh$ = midiInOpen$MH();
-        try {
-            return (int)mh$.invokeExact(phmi, uDeviceID, dwCallback, dwInstance, fdwOpen);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInClose$MH() {
-        return RuntimeHelper.requireNonNull(constants$1649.const$3,"midiInClose");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT midiInClose(HMIDIIN hmi);
-     * }
-     */
-    public static int midiInClose(MemorySegment hmi) {
-        var mh$ = midiInClose$MH();
-        try {
-            return (int)mh$.invokeExact(hmi);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInPrepareHeader$MH() {
-        return RuntimeHelper.requireNonNull(constants$1649.const$4,"midiInPrepareHeader");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT midiInPrepareHeader(HMIDIIN hmi, LPMIDIHDR pmh, UINT cbmh);
-     * }
-     */
-    public static int midiInPrepareHeader(MemorySegment hmi, MemorySegment pmh, int cbmh) {
-        var mh$ = midiInPrepareHeader$MH();
-        try {
-            return (int)mh$.invokeExact(hmi, pmh, cbmh);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInUnprepareHeader$MH() {
-        return RuntimeHelper.requireNonNull(constants$1649.const$5,"midiInUnprepareHeader");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT midiInUnprepareHeader(HMIDIIN hmi, LPMIDIHDR pmh, UINT cbmh);
-     * }
-     */
-    public static int midiInUnprepareHeader(MemorySegment hmi, MemorySegment pmh, int cbmh) {
-        var mh$ = midiInUnprepareHeader$MH();
-        try {
-            return (int)mh$.invokeExact(hmi, pmh, cbmh);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInAddBuffer$MH() {
-        return RuntimeHelper.requireNonNull(constants$1650.const$0,"midiInAddBuffer");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT midiInAddBuffer(HMIDIIN hmi, LPMIDIHDR pmh, UINT cbmh);
-     * }
-     */
-    public static int midiInAddBuffer(MemorySegment hmi, MemorySegment pmh, int cbmh) {
-        var mh$ = midiInAddBuffer$MH();
-        try {
-            return (int)mh$.invokeExact(hmi, pmh, cbmh);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInStart$MH() {
-        return RuntimeHelper.requireNonNull(constants$1650.const$1,"midiInStart");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT midiInStart(HMIDIIN hmi);
-     * }
-     */
-    public static int midiInStart(MemorySegment hmi) {
-        var mh$ = midiInStart$MH();
-        try {
-            return (int)mh$.invokeExact(hmi);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInStop$MH() {
-        return RuntimeHelper.requireNonNull(constants$1650.const$2,"midiInStop");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT midiInStop(HMIDIIN hmi);
-     * }
-     */
-    public static int midiInStop(MemorySegment hmi) {
-        var mh$ = midiInStop$MH();
-        try {
-            return (int)mh$.invokeExact(hmi);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInReset$MH() {
-        return RuntimeHelper.requireNonNull(constants$1650.const$3,"midiInReset");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT midiInReset(HMIDIIN hmi);
-     * }
-     */
-    public static int midiInReset(MemorySegment hmi) {
-        var mh$ = midiInReset$MH();
-        try {
-            return (int)mh$.invokeExact(hmi);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInGetID$MH() {
-        return RuntimeHelper.requireNonNull(constants$1650.const$4,"midiInGetID");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT midiInGetID(HMIDIIN hmi, LPUINT puDeviceID);
-     * }
-     */
-    public static int midiInGetID(MemorySegment hmi, MemorySegment puDeviceID) {
-        var mh$ = midiInGetID$MH();
-        try {
-            return (int)mh$.invokeExact(hmi, puDeviceID);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle midiInMessage$MH() {
-        return RuntimeHelper.requireNonNull(constants$1650.const$5,"midiInMessage");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT midiInMessage(HMIDIIN hmi, UINT uMsg, DWORD_PTR dw1, DWORD_PTR dw2);
-     * }
-     */
-    public static int midiInMessage(MemorySegment hmi, int uMsg, long dw1, long dw2) {
-        var mh$ = midiInMessage$MH();
-        try {
-            return (int)mh$.invokeExact(hmi, uMsg, dw1, dw2);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * typedef struct tagAUXCAPSA* PAUXCAPSA;
-     * }
-     */
-    public static final AddressLayout PAUXCAPSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagAUXCAPSA* NPAUXCAPSA;
-     * }
-     */
-    public static final AddressLayout NPAUXCAPSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagAUXCAPSA* LPAUXCAPSA;
-     * }
-     */
-    public static final AddressLayout LPAUXCAPSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagAUXCAPSW* PAUXCAPSW;
-     * }
-     */
-    public static final AddressLayout PAUXCAPSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagAUXCAPSW* NPAUXCAPSW;
-     * }
-     */
-    public static final AddressLayout NPAUXCAPSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagAUXCAPSW* LPAUXCAPSW;
-     * }
-     */
-    public static final AddressLayout LPAUXCAPSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagAUXCAPSA* PAUXCAPS;
-     * }
-     */
-    public static final AddressLayout PAUXCAPS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagAUXCAPSA* NPAUXCAPS;
-     * }
-     */
-    public static final AddressLayout NPAUXCAPS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagAUXCAPSA* LPAUXCAPS;
-     * }
-     */
-    public static final AddressLayout LPAUXCAPS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagAUXCAPS2A* PAUXCAPS2A;
-     * }
-     */
-    public static final AddressLayout PAUXCAPS2A = RuntimeHelper.POINTER;
+    public static final AddressLayout PPRINTER_INFO_4W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagAUXCAPS2A* NPAUXCAPS2A;
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_4W {
+     *     LPWSTR pPrinterName;
+     *     LPWSTR pServerName;
+     *     DWORD Attributes;
+     * } *LPPRINTER_INFO_4W
      * }
      */
-    public static final AddressLayout NPAUXCAPS2A = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPRINTER_INFO_4W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagAUXCAPS2A* LPAUXCAPS2A;
+     * {@snippet lang=c :
+     * typedef PPRINTER_INFO_4A PPRINTER_INFO_4
      * }
      */
-    public static final AddressLayout LPAUXCAPS2A = RuntimeHelper.POINTER;
+    public static final AddressLayout PPRINTER_INFO_4 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagAUXCAPS2W* PAUXCAPS2W;
+     * {@snippet lang=c :
+     * typedef LPPRINTER_INFO_4A LPPRINTER_INFO_4
      * }
      */
-    public static final AddressLayout PAUXCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPRINTER_INFO_4 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagAUXCAPS2W* NPAUXCAPS2W;
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_5A {
+     *     LPSTR pPrinterName;
+     *     LPSTR pPortName;
+     *     DWORD Attributes;
+     *     DWORD DeviceNotSelectedTimeout;
+     *     DWORD TransmissionRetryTimeout;
+     * } *PPRINTER_INFO_5A
      * }
      */
-    public static final AddressLayout NPAUXCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout PPRINTER_INFO_5A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagAUXCAPS2W* LPAUXCAPS2W;
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_5A {
+     *     LPSTR pPrinterName;
+     *     LPSTR pPortName;
+     *     DWORD Attributes;
+     *     DWORD DeviceNotSelectedTimeout;
+     *     DWORD TransmissionRetryTimeout;
+     * } *LPPRINTER_INFO_5A
      * }
      */
-    public static final AddressLayout LPAUXCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPRINTER_INFO_5A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagAUXCAPS2A* PAUXCAPS2;
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_5W {
+     *     LPWSTR pPrinterName;
+     *     LPWSTR pPortName;
+     *     DWORD Attributes;
+     *     DWORD DeviceNotSelectedTimeout;
+     *     DWORD TransmissionRetryTimeout;
+     * } *PPRINTER_INFO_5W
      * }
      */
-    public static final AddressLayout PAUXCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout PPRINTER_INFO_5W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagAUXCAPS2A* NPAUXCAPS2;
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_5W {
+     *     LPWSTR pPrinterName;
+     *     LPWSTR pPortName;
+     *     DWORD Attributes;
+     *     DWORD DeviceNotSelectedTimeout;
+     *     DWORD TransmissionRetryTimeout;
+     * } *LPPRINTER_INFO_5W
      * }
      */
-    public static final AddressLayout NPAUXCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPRINTER_INFO_5W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagAUXCAPS2A* LPAUXCAPS2;
+     * {@snippet lang=c :
+     * typedef PPRINTER_INFO_5A PPRINTER_INFO_5
      * }
      */
-    public static final AddressLayout LPAUXCAPS2 = RuntimeHelper.POINTER;
-    public static MethodHandle auxGetNumDevs$MH() {
-        return RuntimeHelper.requireNonNull(constants$1655.const$4,"auxGetNumDevs");
-    }
-    /**
-     * {@snippet :
-     * UINT auxGetNumDevs();
-     * }
-     */
-    public static int auxGetNumDevs() {
-        var mh$ = auxGetNumDevs$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle auxGetDevCapsA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1655.const$5,"auxGetDevCapsA");
-    }
+    public static final AddressLayout PPRINTER_INFO_5 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT auxGetDevCapsA(UINT_PTR uDeviceID, LPAUXCAPSA pac, UINT cbac);
+     * {@snippet lang=c :
+     * typedef LPPRINTER_INFO_5A LPPRINTER_INFO_5
      * }
      */
-    public static int auxGetDevCapsA(long uDeviceID, MemorySegment pac, int cbac) {
-        var mh$ = auxGetDevCapsA$MH();
-        try {
-            return (int)mh$.invokeExact(uDeviceID, pac, cbac);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle auxGetDevCapsW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1656.const$0,"auxGetDevCapsW");
-    }
+    public static final AddressLayout LPPRINTER_INFO_5 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT auxGetDevCapsW(UINT_PTR uDeviceID, LPAUXCAPSW pac, UINT cbac);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_6 {
+     *     DWORD dwStatus;
+     * } *PPRINTER_INFO_6
      * }
      */
-    public static int auxGetDevCapsW(long uDeviceID, MemorySegment pac, int cbac) {
-        var mh$ = auxGetDevCapsW$MH();
-        try {
-            return (int)mh$.invokeExact(uDeviceID, pac, cbac);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle auxSetVolume$MH() {
-        return RuntimeHelper.requireNonNull(constants$1656.const$1,"auxSetVolume");
-    }
+    public static final AddressLayout PPRINTER_INFO_6 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT auxSetVolume(UINT uDeviceID, DWORD dwVolume);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_6 {
+     *     DWORD dwStatus;
+     * } *LPPRINTER_INFO_6
      * }
      */
-    public static int auxSetVolume(int uDeviceID, int dwVolume) {
-        var mh$ = auxSetVolume$MH();
-        try {
-            return (int)mh$.invokeExact(uDeviceID, dwVolume);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle auxGetVolume$MH() {
-        return RuntimeHelper.requireNonNull(constants$1656.const$2,"auxGetVolume");
-    }
+    public static final AddressLayout LPPRINTER_INFO_6 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT auxGetVolume(UINT uDeviceID, LPDWORD pdwVolume);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_7A {
+     *     LPSTR pszObjectGUID;
+     *     DWORD dwAction;
+     * } *PPRINTER_INFO_7A
      * }
      */
-    public static int auxGetVolume(int uDeviceID, MemorySegment pdwVolume) {
-        var mh$ = auxGetVolume$MH();
-        try {
-            return (int)mh$.invokeExact(uDeviceID, pdwVolume);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle auxOutMessage$MH() {
-        return RuntimeHelper.requireNonNull(constants$1656.const$3,"auxOutMessage");
-    }
+    public static final AddressLayout PPRINTER_INFO_7A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT auxOutMessage(UINT uDeviceID, UINT uMsg, DWORD_PTR dw1, DWORD_PTR dw2);
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_7A {
+     *     LPSTR pszObjectGUID;
+     *     DWORD dwAction;
+     * } *LPPRINTER_INFO_7A
      * }
      */
-    public static int auxOutMessage(int uDeviceID, int uMsg, long dw1, long dw2) {
-        var mh$ = auxOutMessage$MH();
-        try {
-            return (int)mh$.invokeExact(uDeviceID, uMsg, dw1, dw2);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
+    public static final AddressLayout LPPRINTER_INFO_7A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct HMIXEROBJ__* HMIXEROBJ;
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_7W {
+     *     LPWSTR pszObjectGUID;
+     *     DWORD dwAction;
+     * } *PPRINTER_INFO_7W
      * }
      */
-    public static final AddressLayout HMIXEROBJ = RuntimeHelper.POINTER;
+    public static final AddressLayout PPRINTER_INFO_7W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct HMIXEROBJ__** LPHMIXEROBJ;
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_7W {
+     *     LPWSTR pszObjectGUID;
+     *     DWORD dwAction;
+     * } *LPPRINTER_INFO_7W
      * }
      */
-    public static final AddressLayout LPHMIXEROBJ = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPRINTER_INFO_7W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct HMIXER__* HMIXER;
+     * {@snippet lang=c :
+     * typedef PPRINTER_INFO_7A PPRINTER_INFO_7
      * }
      */
-    public static final AddressLayout HMIXER = RuntimeHelper.POINTER;
+    public static final AddressLayout PPRINTER_INFO_7 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct HMIXER__** LPHMIXER;
+     * {@snippet lang=c :
+     * typedef LPPRINTER_INFO_7A LPPRINTER_INFO_7
      * }
      */
-    public static final AddressLayout LPHMIXER = RuntimeHelper.POINTER;
-    public static MethodHandle mixerGetNumDevs$MH() {
-        return RuntimeHelper.requireNonNull(constants$1657.const$2,"mixerGetNumDevs");
-    }
+    public static final AddressLayout LPPRINTER_INFO_7 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * UINT mixerGetNumDevs();
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_8A {
+     *     LPDEVMODEA pDevMode;
+     * } *PPRINTER_INFO_8A
      * }
      */
-    public static int mixerGetNumDevs() {
-        var mh$ = mixerGetNumDevs$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
+    public static final AddressLayout PPRINTER_INFO_8A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCAPSA* PMIXERCAPSA;
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_8A {
+     *     LPDEVMODEA pDevMode;
+     * } *LPPRINTER_INFO_8A
      * }
      */
-    public static final AddressLayout PMIXERCAPSA = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPRINTER_INFO_8A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCAPSA* LPMIXERCAPSA;
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_8W {
+     *     LPDEVMODEW pDevMode;
+     * } *PPRINTER_INFO_8W
      * }
      */
-    public static final AddressLayout LPMIXERCAPSA = RuntimeHelper.POINTER;
+    public static final AddressLayout PPRINTER_INFO_8W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCAPSW* PMIXERCAPSW;
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_8W {
+     *     LPDEVMODEW pDevMode;
+     * } *LPPRINTER_INFO_8W
      * }
      */
-    public static final AddressLayout PMIXERCAPSW = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPRINTER_INFO_8W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCAPSW* LPMIXERCAPSW;
+     * {@snippet lang=c :
+     * typedef PPRINTER_INFO_8A PPRINTER_INFO_8
      * }
      */
-    public static final AddressLayout LPMIXERCAPSW = RuntimeHelper.POINTER;
+    public static final AddressLayout PPRINTER_INFO_8 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCAPSA* PMIXERCAPS;
+     * {@snippet lang=c :
+     * typedef LPPRINTER_INFO_8A LPPRINTER_INFO_8
      * }
      */
-    public static final AddressLayout PMIXERCAPS = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPRINTER_INFO_8 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCAPSA* LPMIXERCAPS;
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_9A {
+     *     LPDEVMODEA pDevMode;
+     * } *PPRINTER_INFO_9A
      * }
      */
-    public static final AddressLayout LPMIXERCAPS = RuntimeHelper.POINTER;
+    public static final AddressLayout PPRINTER_INFO_9A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCAPS2A* PMIXERCAPS2A;
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_9A {
+     *     LPDEVMODEA pDevMode;
+     * } *LPPRINTER_INFO_9A
      * }
      */
-    public static final AddressLayout PMIXERCAPS2A = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPRINTER_INFO_9A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCAPS2A* LPMIXERCAPS2A;
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_9W {
+     *     LPDEVMODEW pDevMode;
+     * } *PPRINTER_INFO_9W
      * }
      */
-    public static final AddressLayout LPMIXERCAPS2A = RuntimeHelper.POINTER;
+    public static final AddressLayout PPRINTER_INFO_9W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCAPS2W* PMIXERCAPS2W;
+     * {@snippet lang=c :
+     * typedef struct _PRINTER_INFO_9W {
+     *     LPDEVMODEW pDevMode;
+     * } *LPPRINTER_INFO_9W
      * }
      */
-    public static final AddressLayout PMIXERCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPRINTER_INFO_9W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCAPS2W* LPMIXERCAPS2W;
+     * {@snippet lang=c :
+     * typedef PPRINTER_INFO_9A PPRINTER_INFO_9
      * }
      */
-    public static final AddressLayout LPMIXERCAPS2W = RuntimeHelper.POINTER;
+    public static final AddressLayout PPRINTER_INFO_9 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCAPS2A* PMIXERCAPS2;
+     * {@snippet lang=c :
+     * typedef LPPRINTER_INFO_9A LPPRINTER_INFO_9
      * }
      */
-    public static final AddressLayout PMIXERCAPS2 = RuntimeHelper.POINTER;
+    public static final AddressLayout LPPRINTER_INFO_9 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCAPS2A* LPMIXERCAPS2;
+     * {@snippet lang=c :
+     * typedef struct _JOB_INFO_1A {
+     *     DWORD JobId;
+     *     LPSTR pPrinterName;
+     *     LPSTR pMachineName;
+     *     LPSTR pUserName;
+     *     LPSTR pDocument;
+     *     LPSTR pDatatype;
+     *     LPSTR pStatus;
+     *     DWORD Status;
+     *     DWORD Priority;
+     *     DWORD Position;
+     *     DWORD TotalPages;
+     *     DWORD PagesPrinted;
+     *     SYSTEMTIME Submitted;
+     * } *PJOB_INFO_1A
      * }
      */
-    public static final AddressLayout LPMIXERCAPS2 = RuntimeHelper.POINTER;
-    public static MethodHandle mixerGetDevCapsA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1661.const$3,"mixerGetDevCapsA");
-    }
+    public static final AddressLayout PJOB_INFO_1A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT mixerGetDevCapsA(UINT_PTR uMxId, LPMIXERCAPSA pmxcaps, UINT cbmxcaps);
+     * {@snippet lang=c :
+     * typedef struct _JOB_INFO_1A {
+     *     DWORD JobId;
+     *     LPSTR pPrinterName;
+     *     LPSTR pMachineName;
+     *     LPSTR pUserName;
+     *     LPSTR pDocument;
+     *     LPSTR pDatatype;
+     *     LPSTR pStatus;
+     *     DWORD Status;
+     *     DWORD Priority;
+     *     DWORD Position;
+     *     DWORD TotalPages;
+     *     DWORD PagesPrinted;
+     *     SYSTEMTIME Submitted;
+     * } *LPJOB_INFO_1A
      * }
      */
-    public static int mixerGetDevCapsA(long uMxId, MemorySegment pmxcaps, int cbmxcaps) {
-        var mh$ = mixerGetDevCapsA$MH();
-        try {
-            return (int)mh$.invokeExact(uMxId, pmxcaps, cbmxcaps);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mixerGetDevCapsW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1661.const$4,"mixerGetDevCapsW");
-    }
+    public static final AddressLayout LPJOB_INFO_1A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT mixerGetDevCapsW(UINT_PTR uMxId, LPMIXERCAPSW pmxcaps, UINT cbmxcaps);
+     * {@snippet lang=c :
+     * typedef struct _JOB_INFO_1W {
+     *     DWORD JobId;
+     *     LPWSTR pPrinterName;
+     *     LPWSTR pMachineName;
+     *     LPWSTR pUserName;
+     *     LPWSTR pDocument;
+     *     LPWSTR pDatatype;
+     *     LPWSTR pStatus;
+     *     DWORD Status;
+     *     DWORD Priority;
+     *     DWORD Position;
+     *     DWORD TotalPages;
+     *     DWORD PagesPrinted;
+     *     SYSTEMTIME Submitted;
+     * } *PJOB_INFO_1W
      * }
      */
-    public static int mixerGetDevCapsW(long uMxId, MemorySegment pmxcaps, int cbmxcaps) {
-        var mh$ = mixerGetDevCapsW$MH();
-        try {
-            return (int)mh$.invokeExact(uMxId, pmxcaps, cbmxcaps);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mixerOpen$MH() {
-        return RuntimeHelper.requireNonNull(constants$1661.const$5,"mixerOpen");
-    }
+    public static final AddressLayout PJOB_INFO_1W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT mixerOpen(LPHMIXER phmx, UINT uMxId, DWORD_PTR dwCallback, DWORD_PTR dwInstance, DWORD fdwOpen);
+     * {@snippet lang=c :
+     * typedef struct _JOB_INFO_1W {
+     *     DWORD JobId;
+     *     LPWSTR pPrinterName;
+     *     LPWSTR pMachineName;
+     *     LPWSTR pUserName;
+     *     LPWSTR pDocument;
+     *     LPWSTR pDatatype;
+     *     LPWSTR pStatus;
+     *     DWORD Status;
+     *     DWORD Priority;
+     *     DWORD Position;
+     *     DWORD TotalPages;
+     *     DWORD PagesPrinted;
+     *     SYSTEMTIME Submitted;
+     * } *LPJOB_INFO_1W
      * }
      */
-    public static int mixerOpen(MemorySegment phmx, int uMxId, long dwCallback, long dwInstance, int fdwOpen) {
-        var mh$ = mixerOpen$MH();
-        try {
-            return (int)mh$.invokeExact(phmx, uMxId, dwCallback, dwInstance, fdwOpen);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mixerClose$MH() {
-        return RuntimeHelper.requireNonNull(constants$1662.const$0,"mixerClose");
-    }
+    public static final AddressLayout LPJOB_INFO_1W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT mixerClose(HMIXER hmx);
+     * {@snippet lang=c :
+     * typedef PJOB_INFO_1A PJOB_INFO_1
      * }
      */
-    public static int mixerClose(MemorySegment hmx) {
-        var mh$ = mixerClose$MH();
-        try {
-            return (int)mh$.invokeExact(hmx);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mixerMessage$MH() {
-        return RuntimeHelper.requireNonNull(constants$1662.const$1,"mixerMessage");
-    }
+    public static final AddressLayout PJOB_INFO_1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * DWORD mixerMessage(HMIXER hmx, UINT uMsg, DWORD_PTR dwParam1, DWORD_PTR dwParam2);
+     * {@snippet lang=c :
+     * typedef LPJOB_INFO_1A LPJOB_INFO_1
      * }
      */
-    public static int mixerMessage(MemorySegment hmx, int uMsg, long dwParam1, long dwParam2) {
-        var mh$ = mixerMessage$MH();
-        try {
-            return (int)mh$.invokeExact(hmx, uMsg, dwParam1, dwParam2);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
+    public static final AddressLayout LPJOB_INFO_1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERLINEA* PMIXERLINEA;
+     * {@snippet lang=c :
+     * typedef struct _JOB_INFO_2A {
+     *     DWORD JobId;
+     *     LPSTR pPrinterName;
+     *     LPSTR pMachineName;
+     *     LPSTR pUserName;
+     *     LPSTR pDocument;
+     *     LPSTR pNotifyName;
+     *     LPSTR pDatatype;
+     *     LPSTR pPrintProcessor;
+     *     LPSTR pParameters;
+     *     LPSTR pDriverName;
+     *     LPDEVMODEA pDevMode;
+     *     LPSTR pStatus;
+     *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+     *     DWORD Status;
+     *     DWORD Priority;
+     *     DWORD Position;
+     *     DWORD StartTime;
+     *     DWORD UntilTime;
+     *     DWORD TotalPages;
+     *     DWORD Size;
+     *     SYSTEMTIME Submitted;
+     *     DWORD Time;
+     *     DWORD PagesPrinted;
+     * } *PJOB_INFO_2A
      * }
      */
-    public static final AddressLayout PMIXERLINEA = RuntimeHelper.POINTER;
+    public static final AddressLayout PJOB_INFO_2A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERLINEA* LPMIXERLINEA;
+     * {@snippet lang=c :
+     * typedef struct _JOB_INFO_2A {
+     *     DWORD JobId;
+     *     LPSTR pPrinterName;
+     *     LPSTR pMachineName;
+     *     LPSTR pUserName;
+     *     LPSTR pDocument;
+     *     LPSTR pNotifyName;
+     *     LPSTR pDatatype;
+     *     LPSTR pPrintProcessor;
+     *     LPSTR pParameters;
+     *     LPSTR pDriverName;
+     *     LPDEVMODEA pDevMode;
+     *     LPSTR pStatus;
+     *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+     *     DWORD Status;
+     *     DWORD Priority;
+     *     DWORD Position;
+     *     DWORD StartTime;
+     *     DWORD UntilTime;
+     *     DWORD TotalPages;
+     *     DWORD Size;
+     *     SYSTEMTIME Submitted;
+     *     DWORD Time;
+     *     DWORD PagesPrinted;
+     * } *LPJOB_INFO_2A
      * }
      */
-    public static final AddressLayout LPMIXERLINEA = RuntimeHelper.POINTER;
+    public static final AddressLayout LPJOB_INFO_2A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERLINEW* PMIXERLINEW;
+     * {@snippet lang=c :
+     * typedef struct _JOB_INFO_2W {
+     *     DWORD JobId;
+     *     LPWSTR pPrinterName;
+     *     LPWSTR pMachineName;
+     *     LPWSTR pUserName;
+     *     LPWSTR pDocument;
+     *     LPWSTR pNotifyName;
+     *     LPWSTR pDatatype;
+     *     LPWSTR pPrintProcessor;
+     *     LPWSTR pParameters;
+     *     LPWSTR pDriverName;
+     *     LPDEVMODEW pDevMode;
+     *     LPWSTR pStatus;
+     *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+     *     DWORD Status;
+     *     DWORD Priority;
+     *     DWORD Position;
+     *     DWORD StartTime;
+     *     DWORD UntilTime;
+     *     DWORD TotalPages;
+     *     DWORD Size;
+     *     SYSTEMTIME Submitted;
+     *     DWORD Time;
+     *     DWORD PagesPrinted;
+     * } *PJOB_INFO_2W
      * }
      */
-    public static final AddressLayout PMIXERLINEW = RuntimeHelper.POINTER;
+    public static final AddressLayout PJOB_INFO_2W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERLINEW* LPMIXERLINEW;
+     * {@snippet lang=c :
+     * typedef struct _JOB_INFO_2W {
+     *     DWORD JobId;
+     *     LPWSTR pPrinterName;
+     *     LPWSTR pMachineName;
+     *     LPWSTR pUserName;
+     *     LPWSTR pDocument;
+     *     LPWSTR pNotifyName;
+     *     LPWSTR pDatatype;
+     *     LPWSTR pPrintProcessor;
+     *     LPWSTR pParameters;
+     *     LPWSTR pDriverName;
+     *     LPDEVMODEW pDevMode;
+     *     LPWSTR pStatus;
+     *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+     *     DWORD Status;
+     *     DWORD Priority;
+     *     DWORD Position;
+     *     DWORD StartTime;
+     *     DWORD UntilTime;
+     *     DWORD TotalPages;
+     *     DWORD Size;
+     *     SYSTEMTIME Submitted;
+     *     DWORD Time;
+     *     DWORD PagesPrinted;
+     * } *LPJOB_INFO_2W
      * }
      */
-    public static final AddressLayout LPMIXERLINEW = RuntimeHelper.POINTER;
+    public static final AddressLayout LPJOB_INFO_2W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERLINEA* PMIXERLINE;
+     * {@snippet lang=c :
+     * typedef PJOB_INFO_2A PJOB_INFO_2
      * }
      */
-    public static final AddressLayout PMIXERLINE = RuntimeHelper.POINTER;
+    public static final AddressLayout PJOB_INFO_2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERLINEA* LPMIXERLINE;
+     * {@snippet lang=c :
+     * typedef LPJOB_INFO_2A LPJOB_INFO_2
      * }
      */
-    public static final AddressLayout LPMIXERLINE = RuntimeHelper.POINTER;
-    public static MethodHandle mixerGetLineInfoA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1668.const$0,"mixerGetLineInfoA");
-    }
+    public static final AddressLayout LPJOB_INFO_2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT mixerGetLineInfoA(HMIXEROBJ hmxobj, LPMIXERLINEA pmxl, DWORD fdwInfo);
+     * {@snippet lang=c :
+     * typedef struct _JOB_INFO_3 {
+     *     DWORD JobId;
+     *     DWORD NextJobId;
+     *     DWORD Reserved;
+     * } *PJOB_INFO_3
      * }
      */
-    public static int mixerGetLineInfoA(MemorySegment hmxobj, MemorySegment pmxl, int fdwInfo) {
-        var mh$ = mixerGetLineInfoA$MH();
-        try {
-            return (int)mh$.invokeExact(hmxobj, pmxl, fdwInfo);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mixerGetLineInfoW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1668.const$1,"mixerGetLineInfoW");
-    }
+    public static final AddressLayout PJOB_INFO_3 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT mixerGetLineInfoW(HMIXEROBJ hmxobj, LPMIXERLINEW pmxl, DWORD fdwInfo);
+     * {@snippet lang=c :
+     * typedef struct _JOB_INFO_3 {
+     *     DWORD JobId;
+     *     DWORD NextJobId;
+     *     DWORD Reserved;
+     * } *LPJOB_INFO_3
      * }
      */
-    public static int mixerGetLineInfoW(MemorySegment hmxobj, MemorySegment pmxl, int fdwInfo) {
-        var mh$ = mixerGetLineInfoW$MH();
-        try {
-            return (int)mh$.invokeExact(hmxobj, pmxl, fdwInfo);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mixerGetID$MH() {
-        return RuntimeHelper.requireNonNull(constants$1668.const$2,"mixerGetID");
-    }
+    public static final AddressLayout LPJOB_INFO_3 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT mixerGetID(HMIXEROBJ hmxobj, UINT* puMxId, DWORD fdwId);
+     * {@snippet lang=c :
+     * typedef struct _JOB_INFO_4A {
+     *     DWORD JobId;
+     *     LPSTR pPrinterName;
+     *     LPSTR pMachineName;
+     *     LPSTR pUserName;
+     *     LPSTR pDocument;
+     *     LPSTR pNotifyName;
+     *     LPSTR pDatatype;
+     *     LPSTR pPrintProcessor;
+     *     LPSTR pParameters;
+     *     LPSTR pDriverName;
+     *     LPDEVMODEA pDevMode;
+     *     LPSTR pStatus;
+     *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+     *     DWORD Status;
+     *     DWORD Priority;
+     *     DWORD Position;
+     *     DWORD StartTime;
+     *     DWORD UntilTime;
+     *     DWORD TotalPages;
+     *     DWORD Size;
+     *     SYSTEMTIME Submitted;
+     *     DWORD Time;
+     *     DWORD PagesPrinted;
+     *     LONG SizeHigh;
+     * } *PJOB_INFO_4A
      * }
      */
-    public static int mixerGetID(MemorySegment hmxobj, MemorySegment puMxId, int fdwId) {
-        var mh$ = mixerGetID$MH();
-        try {
-            return (int)mh$.invokeExact(hmxobj, puMxId, fdwId);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
+    public static final AddressLayout PJOB_INFO_4A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCONTROLA* PMIXERCONTROLA;
+     * {@snippet lang=c :
+     * typedef struct _JOB_INFO_4A {
+     *     DWORD JobId;
+     *     LPSTR pPrinterName;
+     *     LPSTR pMachineName;
+     *     LPSTR pUserName;
+     *     LPSTR pDocument;
+     *     LPSTR pNotifyName;
+     *     LPSTR pDatatype;
+     *     LPSTR pPrintProcessor;
+     *     LPSTR pParameters;
+     *     LPSTR pDriverName;
+     *     LPDEVMODEA pDevMode;
+     *     LPSTR pStatus;
+     *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+     *     DWORD Status;
+     *     DWORD Priority;
+     *     DWORD Position;
+     *     DWORD StartTime;
+     *     DWORD UntilTime;
+     *     DWORD TotalPages;
+     *     DWORD Size;
+     *     SYSTEMTIME Submitted;
+     *     DWORD Time;
+     *     DWORD PagesPrinted;
+     *     LONG SizeHigh;
+     * } *LPJOB_INFO_4A
      * }
      */
-    public static final AddressLayout PMIXERCONTROLA = RuntimeHelper.POINTER;
+    public static final AddressLayout LPJOB_INFO_4A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCONTROLA* LPMIXERCONTROLA;
+     * {@snippet lang=c :
+     * typedef struct _JOB_INFO_4W {
+     *     DWORD JobId;
+     *     LPWSTR pPrinterName;
+     *     LPWSTR pMachineName;
+     *     LPWSTR pUserName;
+     *     LPWSTR pDocument;
+     *     LPWSTR pNotifyName;
+     *     LPWSTR pDatatype;
+     *     LPWSTR pPrintProcessor;
+     *     LPWSTR pParameters;
+     *     LPWSTR pDriverName;
+     *     LPDEVMODEW pDevMode;
+     *     LPWSTR pStatus;
+     *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+     *     DWORD Status;
+     *     DWORD Priority;
+     *     DWORD Position;
+     *     DWORD StartTime;
+     *     DWORD UntilTime;
+     *     DWORD TotalPages;
+     *     DWORD Size;
+     *     SYSTEMTIME Submitted;
+     *     DWORD Time;
+     *     DWORD PagesPrinted;
+     *     LONG SizeHigh;
+     * } *PJOB_INFO_4W
      * }
      */
-    public static final AddressLayout LPMIXERCONTROLA = RuntimeHelper.POINTER;
+    public static final AddressLayout PJOB_INFO_4W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCONTROLW* PMIXERCONTROLW;
+     * {@snippet lang=c :
+     * typedef struct _JOB_INFO_4W {
+     *     DWORD JobId;
+     *     LPWSTR pPrinterName;
+     *     LPWSTR pMachineName;
+     *     LPWSTR pUserName;
+     *     LPWSTR pDocument;
+     *     LPWSTR pNotifyName;
+     *     LPWSTR pDatatype;
+     *     LPWSTR pPrintProcessor;
+     *     LPWSTR pParameters;
+     *     LPWSTR pDriverName;
+     *     LPDEVMODEW pDevMode;
+     *     LPWSTR pStatus;
+     *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+     *     DWORD Status;
+     *     DWORD Priority;
+     *     DWORD Position;
+     *     DWORD StartTime;
+     *     DWORD UntilTime;
+     *     DWORD TotalPages;
+     *     DWORD Size;
+     *     SYSTEMTIME Submitted;
+     *     DWORD Time;
+     *     DWORD PagesPrinted;
+     *     LONG SizeHigh;
+     * } *LPJOB_INFO_4W
      * }
      */
-    public static final AddressLayout PMIXERCONTROLW = RuntimeHelper.POINTER;
+    public static final AddressLayout LPJOB_INFO_4W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCONTROLW* LPMIXERCONTROLW;
+     * {@snippet lang=c :
+     * typedef PJOB_INFO_4A PJOB_INFO_4
      * }
      */
-    public static final AddressLayout LPMIXERCONTROLW = RuntimeHelper.POINTER;
+    public static final AddressLayout PJOB_INFO_4 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCONTROLA* PMIXERCONTROL;
+     * {@snippet lang=c :
+     * typedef LPJOB_INFO_4A LPJOB_INFO_4
      * }
      */
-    public static final AddressLayout PMIXERCONTROL = RuntimeHelper.POINTER;
+    public static final AddressLayout LPJOB_INFO_4 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCONTROLA* LPMIXERCONTROL;
+     * {@snippet lang=c :
+     * typedef struct _ADDJOB_INFO_1A {
+     *     LPSTR Path;
+     *     DWORD JobId;
+     * } *PADDJOB_INFO_1A
      * }
      */
-    public static final AddressLayout LPMIXERCONTROL = RuntimeHelper.POINTER;
+    public static final AddressLayout PADDJOB_INFO_1A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERLINECONTROLSA* PMIXERLINECONTROLSA;
+     * {@snippet lang=c :
+     * typedef struct _ADDJOB_INFO_1A {
+     *     LPSTR Path;
+     *     DWORD JobId;
+     * } *LPADDJOB_INFO_1A
      * }
      */
-    public static final AddressLayout PMIXERLINECONTROLSA = RuntimeHelper.POINTER;
+    public static final AddressLayout LPADDJOB_INFO_1A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERLINECONTROLSA* LPMIXERLINECONTROLSA;
+     * {@snippet lang=c :
+     * typedef struct _ADDJOB_INFO_1W {
+     *     LPWSTR Path;
+     *     DWORD JobId;
+     * } *PADDJOB_INFO_1W
      * }
      */
-    public static final AddressLayout LPMIXERLINECONTROLSA = RuntimeHelper.POINTER;
+    public static final AddressLayout PADDJOB_INFO_1W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERLINECONTROLSW* PMIXERLINECONTROLSW;
+     * {@snippet lang=c :
+     * typedef struct _ADDJOB_INFO_1W {
+     *     LPWSTR Path;
+     *     DWORD JobId;
+     * } *LPADDJOB_INFO_1W
      * }
      */
-    public static final AddressLayout PMIXERLINECONTROLSW = RuntimeHelper.POINTER;
+    public static final AddressLayout LPADDJOB_INFO_1W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERLINECONTROLSW* LPMIXERLINECONTROLSW;
+     * {@snippet lang=c :
+     * typedef PADDJOB_INFO_1A PADDJOB_INFO_1
      * }
      */
-    public static final AddressLayout LPMIXERLINECONTROLSW = RuntimeHelper.POINTER;
+    public static final AddressLayout PADDJOB_INFO_1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERLINECONTROLSA* PMIXERLINECONTROLS;
+     * {@snippet lang=c :
+     * typedef LPADDJOB_INFO_1A LPADDJOB_INFO_1
      * }
      */
-    public static final AddressLayout PMIXERLINECONTROLS = RuntimeHelper.POINTER;
+    public static final AddressLayout LPADDJOB_INFO_1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERLINECONTROLSA* LPMIXERLINECONTROLS;
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_1A {
+     *     LPSTR pName;
+     * } *PDRIVER_INFO_1A
      * }
      */
-    public static final AddressLayout LPMIXERLINECONTROLS = RuntimeHelper.POINTER;
-    public static MethodHandle mixerGetLineControlsA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1675.const$3,"mixerGetLineControlsA");
-    }
+    public static final AddressLayout PDRIVER_INFO_1A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT mixerGetLineControlsA(HMIXEROBJ hmxobj, LPMIXERLINECONTROLSA pmxlc, DWORD fdwControls);
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_1A {
+     *     LPSTR pName;
+     * } *LPDRIVER_INFO_1A
      * }
      */
-    public static int mixerGetLineControlsA(MemorySegment hmxobj, MemorySegment pmxlc, int fdwControls) {
-        var mh$ = mixerGetLineControlsA$MH();
-        try {
-            return (int)mh$.invokeExact(hmxobj, pmxlc, fdwControls);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mixerGetLineControlsW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1675.const$4,"mixerGetLineControlsW");
-    }
+    public static final AddressLayout LPDRIVER_INFO_1A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT mixerGetLineControlsW(HMIXEROBJ hmxobj, LPMIXERLINECONTROLSW pmxlc, DWORD fdwControls);
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_1W {
+     *     LPWSTR pName;
+     * } *PDRIVER_INFO_1W
      * }
      */
-    public static int mixerGetLineControlsW(MemorySegment hmxobj, MemorySegment pmxlc, int fdwControls) {
-        var mh$ = mixerGetLineControlsW$MH();
-        try {
-            return (int)mh$.invokeExact(hmxobj, pmxlc, fdwControls);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
+    public static final AddressLayout PDRIVER_INFO_1W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tMIXERCONTROLDETAILS* PMIXERCONTROLDETAILS;
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_1W {
+     *     LPWSTR pName;
+     * } *LPDRIVER_INFO_1W
      * }
      */
-    public static final AddressLayout PMIXERCONTROLDETAILS = RuntimeHelper.POINTER;
+    public static final AddressLayout LPDRIVER_INFO_1W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tMIXERCONTROLDETAILS* LPMIXERCONTROLDETAILS;
+     * {@snippet lang=c :
+     * typedef PDRIVER_INFO_1A PDRIVER_INFO_1
      * }
      */
-    public static final AddressLayout LPMIXERCONTROLDETAILS = RuntimeHelper.POINTER;
+    public static final AddressLayout PDRIVER_INFO_1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCONTROLDETAILS_LISTTEXTA* PMIXERCONTROLDETAILS_LISTTEXTA;
+     * {@snippet lang=c :
+     * typedef LPDRIVER_INFO_1A LPDRIVER_INFO_1
      * }
      */
-    public static final AddressLayout PMIXERCONTROLDETAILS_LISTTEXTA = RuntimeHelper.POINTER;
+    public static final AddressLayout LPDRIVER_INFO_1 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCONTROLDETAILS_LISTTEXTA* LPMIXERCONTROLDETAILS_LISTTEXTA;
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_2A {
+     *     DWORD cVersion;
+     *     LPSTR pName;
+     *     LPSTR pEnvironment;
+     *     LPSTR pDriverPath;
+     *     LPSTR pDataFile;
+     *     LPSTR pConfigFile;
+     * } *PDRIVER_INFO_2A
      * }
      */
-    public static final AddressLayout LPMIXERCONTROLDETAILS_LISTTEXTA = RuntimeHelper.POINTER;
+    public static final AddressLayout PDRIVER_INFO_2A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCONTROLDETAILS_LISTTEXTW* PMIXERCONTROLDETAILS_LISTTEXTW;
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_2A {
+     *     DWORD cVersion;
+     *     LPSTR pName;
+     *     LPSTR pEnvironment;
+     *     LPSTR pDriverPath;
+     *     LPSTR pDataFile;
+     *     LPSTR pConfigFile;
+     * } *LPDRIVER_INFO_2A
      * }
      */
-    public static final AddressLayout PMIXERCONTROLDETAILS_LISTTEXTW = RuntimeHelper.POINTER;
+    public static final AddressLayout LPDRIVER_INFO_2A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCONTROLDETAILS_LISTTEXTW* LPMIXERCONTROLDETAILS_LISTTEXTW;
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_2W {
+     *     DWORD cVersion;
+     *     LPWSTR pName;
+     *     LPWSTR pEnvironment;
+     *     LPWSTR pDriverPath;
+     *     LPWSTR pDataFile;
+     *     LPWSTR pConfigFile;
+     * } *PDRIVER_INFO_2W
      * }
      */
-    public static final AddressLayout LPMIXERCONTROLDETAILS_LISTTEXTW = RuntimeHelper.POINTER;
+    public static final AddressLayout PDRIVER_INFO_2W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCONTROLDETAILS_LISTTEXTA* PMIXERCONTROLDETAILS_LISTTEXT;
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_2W {
+     *     DWORD cVersion;
+     *     LPWSTR pName;
+     *     LPWSTR pEnvironment;
+     *     LPWSTR pDriverPath;
+     *     LPWSTR pDataFile;
+     *     LPWSTR pConfigFile;
+     * } *LPDRIVER_INFO_2W
      * }
      */
-    public static final AddressLayout PMIXERCONTROLDETAILS_LISTTEXT = RuntimeHelper.POINTER;
+    public static final AddressLayout LPDRIVER_INFO_2W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tagMIXERCONTROLDETAILS_LISTTEXTA* LPMIXERCONTROLDETAILS_LISTTEXT;
+     * {@snippet lang=c :
+     * typedef PDRIVER_INFO_2A PDRIVER_INFO_2
      * }
      */
-    public static final AddressLayout LPMIXERCONTROLDETAILS_LISTTEXT = RuntimeHelper.POINTER;
+    public static final AddressLayout PDRIVER_INFO_2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tMIXERCONTROLDETAILS_BOOLEAN* PMIXERCONTROLDETAILS_BOOLEAN;
+     * {@snippet lang=c :
+     * typedef LPDRIVER_INFO_2A LPDRIVER_INFO_2
      * }
      */
-    public static final AddressLayout PMIXERCONTROLDETAILS_BOOLEAN = RuntimeHelper.POINTER;
+    public static final AddressLayout LPDRIVER_INFO_2 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tMIXERCONTROLDETAILS_BOOLEAN* LPMIXERCONTROLDETAILS_BOOLEAN;
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_3A {
+     *     DWORD cVersion;
+     *     LPSTR pName;
+     *     LPSTR pEnvironment;
+     *     LPSTR pDriverPath;
+     *     LPSTR pDataFile;
+     *     LPSTR pConfigFile;
+     *     LPSTR pHelpFile;
+     *     LPSTR pDependentFiles;
+     *     LPSTR pMonitorName;
+     *     LPSTR pDefaultDataType;
+     * } *PDRIVER_INFO_3A
      * }
      */
-    public static final AddressLayout LPMIXERCONTROLDETAILS_BOOLEAN = RuntimeHelper.POINTER;
+    public static final AddressLayout PDRIVER_INFO_3A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tMIXERCONTROLDETAILS_SIGNED* PMIXERCONTROLDETAILS_SIGNED;
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_3A {
+     *     DWORD cVersion;
+     *     LPSTR pName;
+     *     LPSTR pEnvironment;
+     *     LPSTR pDriverPath;
+     *     LPSTR pDataFile;
+     *     LPSTR pConfigFile;
+     *     LPSTR pHelpFile;
+     *     LPSTR pDependentFiles;
+     *     LPSTR pMonitorName;
+     *     LPSTR pDefaultDataType;
+     * } *LPDRIVER_INFO_3A
      * }
      */
-    public static final AddressLayout PMIXERCONTROLDETAILS_SIGNED = RuntimeHelper.POINTER;
+    public static final AddressLayout LPDRIVER_INFO_3A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tMIXERCONTROLDETAILS_SIGNED* LPMIXERCONTROLDETAILS_SIGNED;
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_3W {
+     *     DWORD cVersion;
+     *     LPWSTR pName;
+     *     LPWSTR pEnvironment;
+     *     LPWSTR pDriverPath;
+     *     LPWSTR pDataFile;
+     *     LPWSTR pConfigFile;
+     *     LPWSTR pHelpFile;
+     *     LPWSTR pDependentFiles;
+     *     LPWSTR pMonitorName;
+     *     LPWSTR pDefaultDataType;
+     * } *PDRIVER_INFO_3W
      * }
      */
-    public static final AddressLayout LPMIXERCONTROLDETAILS_SIGNED = RuntimeHelper.POINTER;
+    public static final AddressLayout PDRIVER_INFO_3W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tMIXERCONTROLDETAILS_UNSIGNED* PMIXERCONTROLDETAILS_UNSIGNED;
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_3W {
+     *     DWORD cVersion;
+     *     LPWSTR pName;
+     *     LPWSTR pEnvironment;
+     *     LPWSTR pDriverPath;
+     *     LPWSTR pDataFile;
+     *     LPWSTR pConfigFile;
+     *     LPWSTR pHelpFile;
+     *     LPWSTR pDependentFiles;
+     *     LPWSTR pMonitorName;
+     *     LPWSTR pDefaultDataType;
+     * } *LPDRIVER_INFO_3W
      * }
      */
-    public static final AddressLayout PMIXERCONTROLDETAILS_UNSIGNED = RuntimeHelper.POINTER;
+    public static final AddressLayout LPDRIVER_INFO_3W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct tMIXERCONTROLDETAILS_UNSIGNED* LPMIXERCONTROLDETAILS_UNSIGNED;
+     * {@snippet lang=c :
+     * typedef PDRIVER_INFO_3A PDRIVER_INFO_3
      * }
      */
-    public static final AddressLayout LPMIXERCONTROLDETAILS_UNSIGNED = RuntimeHelper.POINTER;
-    public static MethodHandle mixerGetControlDetailsA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1679.const$1,"mixerGetControlDetailsA");
-    }
+    public static final AddressLayout PDRIVER_INFO_3 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT mixerGetControlDetailsA(HMIXEROBJ hmxobj, LPMIXERCONTROLDETAILS pmxcd, DWORD fdwDetails);
+     * {@snippet lang=c :
+     * typedef LPDRIVER_INFO_3A LPDRIVER_INFO_3
      * }
      */
-    public static int mixerGetControlDetailsA(MemorySegment hmxobj, MemorySegment pmxcd, int fdwDetails) {
-        var mh$ = mixerGetControlDetailsA$MH();
-        try {
-            return (int)mh$.invokeExact(hmxobj, pmxcd, fdwDetails);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mixerGetControlDetailsW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1679.const$2,"mixerGetControlDetailsW");
-    }
+    public static final AddressLayout LPDRIVER_INFO_3 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT mixerGetControlDetailsW(HMIXEROBJ hmxobj, LPMIXERCONTROLDETAILS pmxcd, DWORD fdwDetails);
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_4A {
+     *     DWORD cVersion;
+     *     LPSTR pName;
+     *     LPSTR pEnvironment;
+     *     LPSTR pDriverPath;
+     *     LPSTR pDataFile;
+     *     LPSTR pConfigFile;
+     *     LPSTR pHelpFile;
+     *     LPSTR pDependentFiles;
+     *     LPSTR pMonitorName;
+     *     LPSTR pDefaultDataType;
+     *     LPSTR pszzPreviousNames;
+     * } *PDRIVER_INFO_4A
      * }
      */
-    public static int mixerGetControlDetailsW(MemorySegment hmxobj, MemorySegment pmxcd, int fdwDetails) {
-        var mh$ = mixerGetControlDetailsW$MH();
-        try {
-            return (int)mh$.invokeExact(hmxobj, pmxcd, fdwDetails);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle mixerSetControlDetails$MH() {
-        return RuntimeHelper.requireNonNull(constants$1679.const$3,"mixerSetControlDetails");
-    }
+    public static final AddressLayout PDRIVER_INFO_4A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT mixerSetControlDetails(HMIXEROBJ hmxobj, LPMIXERCONTROLDETAILS pmxcd, DWORD fdwDetails);
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_4A {
+     *     DWORD cVersion;
+     *     LPSTR pName;
+     *     LPSTR pEnvironment;
+     *     LPSTR pDriverPath;
+     *     LPSTR pDataFile;
+     *     LPSTR pConfigFile;
+     *     LPSTR pHelpFile;
+     *     LPSTR pDependentFiles;
+     *     LPSTR pMonitorName;
+     *     LPSTR pDefaultDataType;
+     *     LPSTR pszzPreviousNames;
+     * } *LPDRIVER_INFO_4A
      * }
      */
-    public static int mixerSetControlDetails(MemorySegment hmxobj, MemorySegment pmxcd, int fdwDetails) {
-        var mh$ = mixerSetControlDetails$MH();
-        try {
-            return (int)mh$.invokeExact(hmxobj, pmxcd, fdwDetails);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
+    public static final AddressLayout LPDRIVER_INFO_4A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct timecaps_tag* PTIMECAPS;
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_4W {
+     *     DWORD cVersion;
+     *     LPWSTR pName;
+     *     LPWSTR pEnvironment;
+     *     LPWSTR pDriverPath;
+     *     LPWSTR pDataFile;
+     *     LPWSTR pConfigFile;
+     *     LPWSTR pHelpFile;
+     *     LPWSTR pDependentFiles;
+     *     LPWSTR pMonitorName;
+     *     LPWSTR pDefaultDataType;
+     *     LPWSTR pszzPreviousNames;
+     * } *PDRIVER_INFO_4W
      * }
      */
-    public static final AddressLayout PTIMECAPS = RuntimeHelper.POINTER;
+    public static final AddressLayout PDRIVER_INFO_4W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct timecaps_tag* NPTIMECAPS;
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_4W {
+     *     DWORD cVersion;
+     *     LPWSTR pName;
+     *     LPWSTR pEnvironment;
+     *     LPWSTR pDriverPath;
+     *     LPWSTR pDataFile;
+     *     LPWSTR pConfigFile;
+     *     LPWSTR pHelpFile;
+     *     LPWSTR pDependentFiles;
+     *     LPWSTR pMonitorName;
+     *     LPWSTR pDefaultDataType;
+     *     LPWSTR pszzPreviousNames;
+     * } *LPDRIVER_INFO_4W
      * }
      */
-    public static final AddressLayout NPTIMECAPS = RuntimeHelper.POINTER;
+    public static final AddressLayout LPDRIVER_INFO_4W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * typedef struct timecaps_tag* LPTIMECAPS;
+     * {@snippet lang=c :
+     * typedef PDRIVER_INFO_4A PDRIVER_INFO_4
      * }
      */
-    public static final AddressLayout LPTIMECAPS = RuntimeHelper.POINTER;
-    public static MethodHandle timeGetSystemTime$MH() {
-        return RuntimeHelper.requireNonNull(constants$1680.const$1,"timeGetSystemTime");
-    }
+    public static final AddressLayout PDRIVER_INFO_4 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT timeGetSystemTime(LPMMTIME pmmt, UINT cbmmt);
+     * {@snippet lang=c :
+     * typedef LPDRIVER_INFO_4A LPDRIVER_INFO_4
      * }
      */
-    public static int timeGetSystemTime(MemorySegment pmmt, int cbmmt) {
-        var mh$ = timeGetSystemTime$MH();
-        try {
-            return (int)mh$.invokeExact(pmmt, cbmmt);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle timeGetTime$MH() {
-        return RuntimeHelper.requireNonNull(constants$1680.const$2,"timeGetTime");
-    }
+    public static final AddressLayout LPDRIVER_INFO_4 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * DWORD timeGetTime();
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_5A {
+     *     DWORD cVersion;
+     *     LPSTR pName;
+     *     LPSTR pEnvironment;
+     *     LPSTR pDriverPath;
+     *     LPSTR pDataFile;
+     *     LPSTR pConfigFile;
+     *     DWORD dwDriverAttributes;
+     *     DWORD dwConfigVersion;
+     *     DWORD dwDriverVersion;
+     * } *PDRIVER_INFO_5A
      * }
      */
-    public static int timeGetTime() {
-        var mh$ = timeGetTime$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle timeGetDevCaps$MH() {
-        return RuntimeHelper.requireNonNull(constants$1680.const$3,"timeGetDevCaps");
-    }
+    public static final AddressLayout PDRIVER_INFO_5A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT timeGetDevCaps(LPTIMECAPS ptc, UINT cbtc);
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_5A {
+     *     DWORD cVersion;
+     *     LPSTR pName;
+     *     LPSTR pEnvironment;
+     *     LPSTR pDriverPath;
+     *     LPSTR pDataFile;
+     *     LPSTR pConfigFile;
+     *     DWORD dwDriverAttributes;
+     *     DWORD dwConfigVersion;
+     *     DWORD dwDriverVersion;
+     * } *LPDRIVER_INFO_5A
      * }
      */
-    public static int timeGetDevCaps(MemorySegment ptc, int cbtc) {
-        var mh$ = timeGetDevCaps$MH();
-        try {
-            return (int)mh$.invokeExact(ptc, cbtc);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle timeBeginPeriod$MH() {
-        return RuntimeHelper.requireNonNull(constants$1680.const$4,"timeBeginPeriod");
-    }
+    public static final AddressLayout LPDRIVER_INFO_5A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT timeBeginPeriod(UINT uPeriod);
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_5W {
+     *     DWORD cVersion;
+     *     LPWSTR pName;
+     *     LPWSTR pEnvironment;
+     *     LPWSTR pDriverPath;
+     *     LPWSTR pDataFile;
+     *     LPWSTR pConfigFile;
+     *     DWORD dwDriverAttributes;
+     *     DWORD dwConfigVersion;
+     *     DWORD dwDriverVersion;
+     * } *PDRIVER_INFO_5W
      * }
      */
-    public static int timeBeginPeriod(int uPeriod) {
-        var mh$ = timeBeginPeriod$MH();
-        try {
-            return (int)mh$.invokeExact(uPeriod);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle timeEndPeriod$MH() {
-        return RuntimeHelper.requireNonNull(constants$1680.const$5,"timeEndPeriod");
-    }
+    public static final AddressLayout PDRIVER_INFO_5W = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * MMRESULT timeEndPeriod(UINT uPeriod);
+     * {@snippet lang=c :
+     * typedef struct _DRIVER_INFO_5W {
+     *     DWORD cVersion;
+     *     LPWSTR pName;
+     *     LPWSTR pEnvironment;
+     *     LPWSTR pDriverPath;
+     *     LPWSTR pDataFile;
+     *     LPWSTR pConfigFile;
+     *     DWORD dwDriverAttributes;
+     *     DWORD dwConfigVersion;
+     *     DWORD dwDriverVersion;
+     * } *LPDRIVER_INFO_5W
      * }
      */
-    public static int timeEndPeriod(int uPeriod) {
-        var mh$ = timeEndPeriod$MH();
-        try {
-            return (int)mh$.invokeExact(uPeriod);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPSA* PJOYCAPSA;
-     * }
-     */
-    public static final AddressLayout PJOYCAPSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPSA* NPJOYCAPSA;
-     * }
-     */
-    public static final AddressLayout NPJOYCAPSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPSA* LPJOYCAPSA;
-     * }
-     */
-    public static final AddressLayout LPJOYCAPSA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPSW* PJOYCAPSW;
-     * }
-     */
-    public static final AddressLayout PJOYCAPSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPSW* NPJOYCAPSW;
-     * }
-     */
-    public static final AddressLayout NPJOYCAPSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPSW* LPJOYCAPSW;
-     * }
-     */
-    public static final AddressLayout LPJOYCAPSW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPSA* PJOYCAPS;
-     * }
-     */
-    public static final AddressLayout PJOYCAPS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPSA* NPJOYCAPS;
-     * }
-     */
-    public static final AddressLayout NPJOYCAPS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPSA* LPJOYCAPS;
-     * }
-     */
-    public static final AddressLayout LPJOYCAPS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPS2A* PJOYCAPS2A;
-     * }
-     */
-    public static final AddressLayout PJOYCAPS2A = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPS2A* NPJOYCAPS2A;
-     * }
-     */
-    public static final AddressLayout NPJOYCAPS2A = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPS2A* LPJOYCAPS2A;
-     * }
-     */
-    public static final AddressLayout LPJOYCAPS2A = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPS2W* PJOYCAPS2W;
-     * }
-     */
-    public static final AddressLayout PJOYCAPS2W = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPS2W* NPJOYCAPS2W;
-     * }
-     */
-    public static final AddressLayout NPJOYCAPS2W = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPS2W* LPJOYCAPS2W;
-     * }
-     */
-    public static final AddressLayout LPJOYCAPS2W = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPS2A* PJOYCAPS2;
-     * }
-     */
-    public static final AddressLayout PJOYCAPS2 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPS2A* NPJOYCAPS2;
-     * }
-     */
-    public static final AddressLayout NPJOYCAPS2 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct tagJOYCAPS2A* LPJOYCAPS2;
-     * }
-     */
-    public static final AddressLayout LPJOYCAPS2 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct joyinfo_tag* PJOYINFO;
-     * }
-     */
-    public static final AddressLayout PJOYINFO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct joyinfo_tag* NPJOYINFO;
-     * }
-     */
-    public static final AddressLayout NPJOYINFO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct joyinfo_tag* LPJOYINFO;
-     * }
-     */
-    public static final AddressLayout LPJOYINFO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct joyinfoex_tag* PJOYINFOEX;
-     * }
-     */
-    public static final AddressLayout PJOYINFOEX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct joyinfoex_tag* NPJOYINFOEX;
-     * }
-     */
-    public static final AddressLayout NPJOYINFOEX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct joyinfoex_tag* LPJOYINFOEX;
-     * }
-     */
-    public static final AddressLayout LPJOYINFOEX = RuntimeHelper.POINTER;
-    public static MethodHandle joyGetPosEx$MH() {
-        return RuntimeHelper.requireNonNull(constants$1698.const$5,"joyGetPosEx");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT joyGetPosEx(UINT uJoyID, LPJOYINFOEX pji);
-     * }
-     */
-    public static int joyGetPosEx(int uJoyID, MemorySegment pji) {
-        var mh$ = joyGetPosEx$MH();
-        try {
-            return (int)mh$.invokeExact(uJoyID, pji);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle joyGetNumDevs$MH() {
-        return RuntimeHelper.requireNonNull(constants$1699.const$0,"joyGetNumDevs");
-    }
-    /**
-     * {@snippet :
-     * UINT joyGetNumDevs();
-     * }
-     */
-    public static int joyGetNumDevs() {
-        var mh$ = joyGetNumDevs$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle joyGetDevCapsA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1699.const$1,"joyGetDevCapsA");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT joyGetDevCapsA(UINT_PTR uJoyID, LPJOYCAPSA pjc, UINT cbjc);
-     * }
-     */
-    public static int joyGetDevCapsA(long uJoyID, MemorySegment pjc, int cbjc) {
-        var mh$ = joyGetDevCapsA$MH();
-        try {
-            return (int)mh$.invokeExact(uJoyID, pjc, cbjc);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle joyGetDevCapsW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1699.const$2,"joyGetDevCapsW");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT joyGetDevCapsW(UINT_PTR uJoyID, LPJOYCAPSW pjc, UINT cbjc);
-     * }
-     */
-    public static int joyGetDevCapsW(long uJoyID, MemorySegment pjc, int cbjc) {
-        var mh$ = joyGetDevCapsW$MH();
-        try {
-            return (int)mh$.invokeExact(uJoyID, pjc, cbjc);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle joyGetPos$MH() {
-        return RuntimeHelper.requireNonNull(constants$1699.const$3,"joyGetPos");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT joyGetPos(UINT uJoyID, LPJOYINFO pji);
-     * }
-     */
-    public static int joyGetPos(int uJoyID, MemorySegment pji) {
-        var mh$ = joyGetPos$MH();
-        try {
-            return (int)mh$.invokeExact(uJoyID, pji);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle joyGetThreshold$MH() {
-        return RuntimeHelper.requireNonNull(constants$1699.const$4,"joyGetThreshold");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT joyGetThreshold(UINT uJoyID, LPUINT puThreshold);
-     * }
-     */
-    public static int joyGetThreshold(int uJoyID, MemorySegment puThreshold) {
-        var mh$ = joyGetThreshold$MH();
-        try {
-            return (int)mh$.invokeExact(uJoyID, puThreshold);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle joyReleaseCapture$MH() {
-        return RuntimeHelper.requireNonNull(constants$1699.const$5,"joyReleaseCapture");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT joyReleaseCapture(UINT uJoyID);
-     * }
-     */
-    public static int joyReleaseCapture(int uJoyID) {
-        var mh$ = joyReleaseCapture$MH();
-        try {
-            return (int)mh$.invokeExact(uJoyID);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle joySetCapture$MH() {
-        return RuntimeHelper.requireNonNull(constants$1700.const$0,"joySetCapture");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT joySetCapture(HWND hwnd, UINT uJoyID, UINT uPeriod, BOOL fChanged);
-     * }
-     */
-    public static int joySetCapture(MemorySegment hwnd, int uJoyID, int uPeriod, int fChanged) {
-        var mh$ = joySetCapture$MH();
-        try {
-            return (int)mh$.invokeExact(hwnd, uJoyID, uPeriod, fChanged);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle joySetThreshold$MH() {
-        return RuntimeHelper.requireNonNull(constants$1700.const$1,"joySetThreshold");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT joySetThreshold(UINT uJoyID, UINT uThreshold);
-     * }
-     */
-    public static int joySetThreshold(int uJoyID, int uThreshold) {
-        var mh$ = joySetThreshold$MH();
-        try {
-            return (int)mh$.invokeExact(uJoyID, uThreshold);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle joyConfigChanged$MH() {
-        return RuntimeHelper.requireNonNull(constants$1700.const$2,"joyConfigChanged");
-    }
-    /**
-     * {@snippet :
-     * MMRESULT joyConfigChanged(DWORD dwFlags);
-     * }
-     */
-    public static int joyConfigChanged(int dwFlags) {
-        var mh$ = joyConfigChanged$MH();
-        try {
-            return (int)mh$.invokeExact(dwFlags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * typedef struct _NCB* PNCB;
-     * }
-     */
-    public static final AddressLayout PNCB = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _ADAPTER_STATUS* PADAPTER_STATUS;
-     * }
-     */
-    public static final AddressLayout PADAPTER_STATUS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _NAME_BUFFER* PNAME_BUFFER;
-     * }
-     */
-    public static final AddressLayout PNAME_BUFFER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _SESSION_HEADER* PSESSION_HEADER;
-     * }
-     */
-    public static final AddressLayout PSESSION_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _SESSION_BUFFER* PSESSION_BUFFER;
-     * }
-     */
-    public static final AddressLayout PSESSION_BUFFER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _LANA_ENUM* PLANA_ENUM;
-     * }
-     */
-    public static final AddressLayout PLANA_ENUM = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _FIND_NAME_HEADER* PFIND_NAME_HEADER;
-     * }
-     */
-    public static final AddressLayout PFIND_NAME_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _FIND_NAME_BUFFER* PFIND_NAME_BUFFER;
-     * }
-     */
-    public static final AddressLayout PFIND_NAME_BUFFER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _ACTION_HEADER* PACTION_HEADER;
-     * }
-     */
-    public static final AddressLayout PACTION_HEADER = RuntimeHelper.POINTER;
-    public static MethodHandle Netbios$MH() {
-        return RuntimeHelper.requireNonNull(constants$1711.const$5,"Netbios");
-    }
-    /**
-     * {@snippet :
-     * UCHAR Netbios(PNCB pncb);
-     * }
-     */
-    public static byte Netbios(MemorySegment pncb) {
-        var mh$ = Netbios$MH();
-        try {
-            return (byte)mh$.invokeExact(pncb);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * typedef void* I_RPC_HANDLE;
-     * }
-     */
-    public static final AddressLayout I_RPC_HANDLE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef long RPC_STATUS;
-     * }
-     */
-    public static final OfInt RPC_STATUS = JAVA_INT;
-    /**
-     * {@snippet :
-     * typedef unsigned char* RPC_CSTR;
-     * }
-     */
-    public static final AddressLayout RPC_CSTR = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef unsigned short* RPC_WSTR;
-     * }
-     */
-    public static final AddressLayout RPC_WSTR = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef unsigned short* RPC_CWSTR;
-     * }
-     */
-    public static final AddressLayout RPC_CWSTR = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef void* RPC_BINDING_HANDLE;
-     * }
-     */
-    public static final AddressLayout RPC_BINDING_HANDLE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef void* handle_t;
-     * }
-     */
-    public static final AddressLayout handle_t = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef void* RPC_IF_HANDLE;
-     * }
-     */
-    public static final AddressLayout RPC_IF_HANDLE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_POLICY* PRPC_POLICY;
-     * }
-     */
-    public static final AddressLayout PRPC_POLICY = RuntimeHelper.POINTER;
-    public static MethodHandle RpcBindingCopy$MH() {
-        return RuntimeHelper.requireNonNull(constants$1715.const$4,"RpcBindingCopy");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingCopy(RPC_BINDING_HANDLE SourceBinding, RPC_BINDING_HANDLE* DestinationBinding);
-     * }
-     */
-    public static int RpcBindingCopy(MemorySegment SourceBinding, MemorySegment DestinationBinding) {
-        var mh$ = RpcBindingCopy$MH();
-        try {
-            return (int)mh$.invokeExact(SourceBinding, DestinationBinding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingFree$MH() {
-        return RuntimeHelper.requireNonNull(constants$1715.const$5,"RpcBindingFree");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingFree(RPC_BINDING_HANDLE* Binding);
-     * }
-     */
-    public static int RpcBindingFree(MemorySegment Binding) {
-        var mh$ = RpcBindingFree$MH();
-        try {
-            return (int)mh$.invokeExact(Binding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingSetOption$MH() {
-        return RuntimeHelper.requireNonNull(constants$1716.const$0,"RpcBindingSetOption");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingSetOption(RPC_BINDING_HANDLE hBinding, unsigned long option, ULONG_PTR optionValue);
-     * }
-     */
-    public static int RpcBindingSetOption(MemorySegment hBinding, int option, long optionValue) {
-        var mh$ = RpcBindingSetOption$MH();
-        try {
-            return (int)mh$.invokeExact(hBinding, option, optionValue);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingInqOption$MH() {
-        return RuntimeHelper.requireNonNull(constants$1716.const$1,"RpcBindingInqOption");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingInqOption(RPC_BINDING_HANDLE hBinding, unsigned long option, ULONG_PTR* pOptionValue);
-     * }
-     */
-    public static int RpcBindingInqOption(MemorySegment hBinding, int option, MemorySegment pOptionValue) {
-        var mh$ = RpcBindingInqOption$MH();
-        try {
-            return (int)mh$.invokeExact(hBinding, option, pOptionValue);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingFromStringBindingA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1716.const$2,"RpcBindingFromStringBindingA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingFromStringBindingA(RPC_CSTR StringBinding, RPC_BINDING_HANDLE* Binding);
-     * }
-     */
-    public static int RpcBindingFromStringBindingA(MemorySegment StringBinding, MemorySegment Binding) {
-        var mh$ = RpcBindingFromStringBindingA$MH();
-        try {
-            return (int)mh$.invokeExact(StringBinding, Binding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingFromStringBindingW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1716.const$3,"RpcBindingFromStringBindingW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingFromStringBindingW(RPC_WSTR StringBinding, RPC_BINDING_HANDLE* Binding);
-     * }
-     */
-    public static int RpcBindingFromStringBindingW(MemorySegment StringBinding, MemorySegment Binding) {
-        var mh$ = RpcBindingFromStringBindingW$MH();
-        try {
-            return (int)mh$.invokeExact(StringBinding, Binding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcSsGetContextBinding$MH() {
-        return RuntimeHelper.requireNonNull(constants$1716.const$4,"RpcSsGetContextBinding");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcSsGetContextBinding(void* ContextHandle, RPC_BINDING_HANDLE* Binding);
-     * }
-     */
-    public static int RpcSsGetContextBinding(MemorySegment ContextHandle, MemorySegment Binding) {
-        var mh$ = RpcSsGetContextBinding$MH();
-        try {
-            return (int)mh$.invokeExact(ContextHandle, Binding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingInqMaxCalls$MH() {
-        return RuntimeHelper.requireNonNull(constants$1716.const$5,"RpcBindingInqMaxCalls");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingInqMaxCalls(RPC_BINDING_HANDLE Binding, unsigned int* MaxCalls);
-     * }
-     */
-    public static int RpcBindingInqMaxCalls(MemorySegment Binding, MemorySegment MaxCalls) {
-        var mh$ = RpcBindingInqMaxCalls$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, MaxCalls);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingInqObject$MH() {
-        return RuntimeHelper.requireNonNull(constants$1717.const$0,"RpcBindingInqObject");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingInqObject(RPC_BINDING_HANDLE Binding, UUID* ObjectUuid);
-     * }
-     */
-    public static int RpcBindingInqObject(MemorySegment Binding, MemorySegment ObjectUuid) {
-        var mh$ = RpcBindingInqObject$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, ObjectUuid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingReset$MH() {
-        return RuntimeHelper.requireNonNull(constants$1717.const$1,"RpcBindingReset");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingReset(RPC_BINDING_HANDLE Binding);
-     * }
-     */
-    public static int RpcBindingReset(MemorySegment Binding) {
-        var mh$ = RpcBindingReset$MH();
-        try {
-            return (int)mh$.invokeExact(Binding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingSetObject$MH() {
-        return RuntimeHelper.requireNonNull(constants$1717.const$2,"RpcBindingSetObject");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingSetObject(RPC_BINDING_HANDLE Binding, UUID* ObjectUuid);
-     * }
-     */
-    public static int RpcBindingSetObject(MemorySegment Binding, MemorySegment ObjectUuid) {
-        var mh$ = RpcBindingSetObject$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, ObjectUuid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtInqDefaultProtectLevel$MH() {
-        return RuntimeHelper.requireNonNull(constants$1717.const$3,"RpcMgmtInqDefaultProtectLevel");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtInqDefaultProtectLevel(unsigned long AuthnSvc, unsigned long* AuthnLevel);
-     * }
-     */
-    public static int RpcMgmtInqDefaultProtectLevel(int AuthnSvc, MemorySegment AuthnLevel) {
-        var mh$ = RpcMgmtInqDefaultProtectLevel$MH();
-        try {
-            return (int)mh$.invokeExact(AuthnSvc, AuthnLevel);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingToStringBindingA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1717.const$4,"RpcBindingToStringBindingA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingToStringBindingA(RPC_BINDING_HANDLE Binding, RPC_CSTR* StringBinding);
-     * }
-     */
-    public static int RpcBindingToStringBindingA(MemorySegment Binding, MemorySegment StringBinding) {
-        var mh$ = RpcBindingToStringBindingA$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, StringBinding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingToStringBindingW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1717.const$5,"RpcBindingToStringBindingW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingToStringBindingW(RPC_BINDING_HANDLE Binding, RPC_WSTR* StringBinding);
-     * }
-     */
-    public static int RpcBindingToStringBindingW(MemorySegment Binding, MemorySegment StringBinding) {
-        var mh$ = RpcBindingToStringBindingW$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, StringBinding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingVectorFree$MH() {
-        return RuntimeHelper.requireNonNull(constants$1718.const$0,"RpcBindingVectorFree");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingVectorFree(RPC_BINDING_VECTOR** BindingVector);
-     * }
-     */
-    public static int RpcBindingVectorFree(MemorySegment BindingVector) {
-        var mh$ = RpcBindingVectorFree$MH();
-        try {
-            return (int)mh$.invokeExact(BindingVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcStringBindingComposeA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1718.const$1,"RpcStringBindingComposeA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcStringBindingComposeA(RPC_CSTR ObjUuid, RPC_CSTR ProtSeq, RPC_CSTR NetworkAddr, RPC_CSTR Endpoint, RPC_CSTR Options, RPC_CSTR* StringBinding);
-     * }
-     */
-    public static int RpcStringBindingComposeA(MemorySegment ObjUuid, MemorySegment ProtSeq, MemorySegment NetworkAddr, MemorySegment Endpoint, MemorySegment Options, MemorySegment StringBinding) {
-        var mh$ = RpcStringBindingComposeA$MH();
-        try {
-            return (int)mh$.invokeExact(ObjUuid, ProtSeq, NetworkAddr, Endpoint, Options, StringBinding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcStringBindingComposeW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1718.const$2,"RpcStringBindingComposeW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcStringBindingComposeW(RPC_WSTR ObjUuid, RPC_WSTR ProtSeq, RPC_WSTR NetworkAddr, RPC_WSTR Endpoint, RPC_WSTR Options, RPC_WSTR* StringBinding);
-     * }
-     */
-    public static int RpcStringBindingComposeW(MemorySegment ObjUuid, MemorySegment ProtSeq, MemorySegment NetworkAddr, MemorySegment Endpoint, MemorySegment Options, MemorySegment StringBinding) {
-        var mh$ = RpcStringBindingComposeW$MH();
-        try {
-            return (int)mh$.invokeExact(ObjUuid, ProtSeq, NetworkAddr, Endpoint, Options, StringBinding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcStringBindingParseA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1718.const$3,"RpcStringBindingParseA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcStringBindingParseA(RPC_CSTR StringBinding, RPC_CSTR* ObjUuid, RPC_CSTR* Protseq, RPC_CSTR* NetworkAddr, RPC_CSTR* Endpoint, RPC_CSTR* NetworkOptions);
-     * }
-     */
-    public static int RpcStringBindingParseA(MemorySegment StringBinding, MemorySegment ObjUuid, MemorySegment Protseq, MemorySegment NetworkAddr, MemorySegment Endpoint, MemorySegment NetworkOptions) {
-        var mh$ = RpcStringBindingParseA$MH();
-        try {
-            return (int)mh$.invokeExact(StringBinding, ObjUuid, Protseq, NetworkAddr, Endpoint, NetworkOptions);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcStringBindingParseW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1718.const$4,"RpcStringBindingParseW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcStringBindingParseW(RPC_WSTR StringBinding, RPC_WSTR* ObjUuid, RPC_WSTR* Protseq, RPC_WSTR* NetworkAddr, RPC_WSTR* Endpoint, RPC_WSTR* NetworkOptions);
-     * }
-     */
-    public static int RpcStringBindingParseW(MemorySegment StringBinding, MemorySegment ObjUuid, MemorySegment Protseq, MemorySegment NetworkAddr, MemorySegment Endpoint, MemorySegment NetworkOptions) {
-        var mh$ = RpcStringBindingParseW$MH();
-        try {
-            return (int)mh$.invokeExact(StringBinding, ObjUuid, Protseq, NetworkAddr, Endpoint, NetworkOptions);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcStringFreeA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1718.const$5,"RpcStringFreeA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcStringFreeA(RPC_CSTR* String);
-     * }
-     */
-    public static int RpcStringFreeA(MemorySegment String_) {
-        var mh$ = RpcStringFreeA$MH();
-        try {
-            return (int)mh$.invokeExact(String_);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcStringFreeW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1719.const$0,"RpcStringFreeW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcStringFreeW(RPC_WSTR* String);
-     * }
-     */
-    public static int RpcStringFreeW(MemorySegment String_) {
-        var mh$ = RpcStringFreeW$MH();
-        try {
-            return (int)mh$.invokeExact(String_);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcIfInqId$MH() {
-        return RuntimeHelper.requireNonNull(constants$1719.const$1,"RpcIfInqId");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcIfInqId(RPC_IF_HANDLE RpcIfHandle, RPC_IF_ID* RpcIfId);
-     * }
-     */
-    public static int RpcIfInqId(MemorySegment RpcIfHandle, MemorySegment RpcIfId) {
-        var mh$ = RpcIfInqId$MH();
-        try {
-            return (int)mh$.invokeExact(RpcIfHandle, RpcIfId);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNetworkIsProtseqValidA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1719.const$2,"RpcNetworkIsProtseqValidA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNetworkIsProtseqValidA(RPC_CSTR Protseq);
-     * }
-     */
-    public static int RpcNetworkIsProtseqValidA(MemorySegment Protseq) {
-        var mh$ = RpcNetworkIsProtseqValidA$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNetworkIsProtseqValidW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1719.const$3,"RpcNetworkIsProtseqValidW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNetworkIsProtseqValidW(RPC_WSTR Protseq);
-     * }
-     */
-    public static int RpcNetworkIsProtseqValidW(MemorySegment Protseq) {
-        var mh$ = RpcNetworkIsProtseqValidW$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtInqComTimeout$MH() {
-        return RuntimeHelper.requireNonNull(constants$1719.const$4,"RpcMgmtInqComTimeout");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtInqComTimeout(RPC_BINDING_HANDLE Binding, unsigned int* Timeout);
-     * }
-     */
-    public static int RpcMgmtInqComTimeout(MemorySegment Binding, MemorySegment Timeout) {
-        var mh$ = RpcMgmtInqComTimeout$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, Timeout);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtSetComTimeout$MH() {
-        return RuntimeHelper.requireNonNull(constants$1719.const$5,"RpcMgmtSetComTimeout");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtSetComTimeout(RPC_BINDING_HANDLE Binding, unsigned int Timeout);
-     * }
-     */
-    public static int RpcMgmtSetComTimeout(MemorySegment Binding, int Timeout) {
-        var mh$ = RpcMgmtSetComTimeout$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, Timeout);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtSetCancelTimeout$MH() {
-        return RuntimeHelper.requireNonNull(constants$1720.const$0,"RpcMgmtSetCancelTimeout");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtSetCancelTimeout(long Timeout);
-     * }
-     */
-    public static int RpcMgmtSetCancelTimeout(int Timeout) {
-        var mh$ = RpcMgmtSetCancelTimeout$MH();
-        try {
-            return (int)mh$.invokeExact(Timeout);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNetworkInqProtseqsA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1720.const$1,"RpcNetworkInqProtseqsA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNetworkInqProtseqsA(RPC_PROTSEQ_VECTORA** ProtseqVector);
-     * }
-     */
-    public static int RpcNetworkInqProtseqsA(MemorySegment ProtseqVector) {
-        var mh$ = RpcNetworkInqProtseqsA$MH();
-        try {
-            return (int)mh$.invokeExact(ProtseqVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNetworkInqProtseqsW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1720.const$2,"RpcNetworkInqProtseqsW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNetworkInqProtseqsW(RPC_PROTSEQ_VECTORW** ProtseqVector);
-     * }
-     */
-    public static int RpcNetworkInqProtseqsW(MemorySegment ProtseqVector) {
-        var mh$ = RpcNetworkInqProtseqsW$MH();
-        try {
-            return (int)mh$.invokeExact(ProtseqVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcObjectInqType$MH() {
-        return RuntimeHelper.requireNonNull(constants$1720.const$3,"RpcObjectInqType");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcObjectInqType(UUID* ObjUuid, UUID* TypeUuid);
-     * }
-     */
-    public static int RpcObjectInqType(MemorySegment ObjUuid, MemorySegment TypeUuid) {
-        var mh$ = RpcObjectInqType$MH();
-        try {
-            return (int)mh$.invokeExact(ObjUuid, TypeUuid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcObjectSetInqFn$MH() {
-        return RuntimeHelper.requireNonNull(constants$1720.const$5,"RpcObjectSetInqFn");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcObjectSetInqFn(void (*InquiryFn)(UUID*,UUID*,RPC_STATUS*));
-     * }
-     */
-    public static int RpcObjectSetInqFn(MemorySegment InquiryFn) {
-        var mh$ = RpcObjectSetInqFn$MH();
-        try {
-            return (int)mh$.invokeExact(InquiryFn);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcObjectSetType$MH() {
-        return RuntimeHelper.requireNonNull(constants$1721.const$0,"RpcObjectSetType");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcObjectSetType(UUID* ObjUuid, UUID* TypeUuid);
-     * }
-     */
-    public static int RpcObjectSetType(MemorySegment ObjUuid, MemorySegment TypeUuid) {
-        var mh$ = RpcObjectSetType$MH();
-        try {
-            return (int)mh$.invokeExact(ObjUuid, TypeUuid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcProtseqVectorFreeA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1721.const$1,"RpcProtseqVectorFreeA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcProtseqVectorFreeA(RPC_PROTSEQ_VECTORA** ProtseqVector);
-     * }
-     */
-    public static int RpcProtseqVectorFreeA(MemorySegment ProtseqVector) {
-        var mh$ = RpcProtseqVectorFreeA$MH();
-        try {
-            return (int)mh$.invokeExact(ProtseqVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcProtseqVectorFreeW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1721.const$2,"RpcProtseqVectorFreeW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcProtseqVectorFreeW(RPC_PROTSEQ_VECTORW** ProtseqVector);
-     * }
-     */
-    public static int RpcProtseqVectorFreeW(MemorySegment ProtseqVector) {
-        var mh$ = RpcProtseqVectorFreeW$MH();
-        try {
-            return (int)mh$.invokeExact(ProtseqVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerInqBindings$MH() {
-        return RuntimeHelper.requireNonNull(constants$1721.const$3,"RpcServerInqBindings");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerInqBindings(RPC_BINDING_VECTOR** BindingVector);
-     * }
-     */
-    public static int RpcServerInqBindings(MemorySegment BindingVector) {
-        var mh$ = RpcServerInqBindings$MH();
-        try {
-            return (int)mh$.invokeExact(BindingVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerInqBindingsEx$MH() {
-        return RuntimeHelper.requireNonNull(constants$1721.const$4,"RpcServerInqBindingsEx");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerInqBindingsEx(void* SecurityDescriptor, RPC_BINDING_VECTOR** BindingVector);
-     * }
-     */
-    public static int RpcServerInqBindingsEx(MemorySegment SecurityDescriptor, MemorySegment BindingVector) {
-        var mh$ = RpcServerInqBindingsEx$MH();
-        try {
-            return (int)mh$.invokeExact(SecurityDescriptor, BindingVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerInqIf$MH() {
-        return RuntimeHelper.requireNonNull(constants$1721.const$5,"RpcServerInqIf");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerInqIf(RPC_IF_HANDLE IfSpec, UUID* MgrTypeUuid, void** MgrEpv);
-     * }
-     */
-    public static int RpcServerInqIf(MemorySegment IfSpec, MemorySegment MgrTypeUuid, MemorySegment MgrEpv) {
-        var mh$ = RpcServerInqIf$MH();
-        try {
-            return (int)mh$.invokeExact(IfSpec, MgrTypeUuid, MgrEpv);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerListen$MH() {
-        return RuntimeHelper.requireNonNull(constants$1722.const$0,"RpcServerListen");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerListen(unsigned int MinimumCallThreads, unsigned int MaxCalls, unsigned int DontWait);
-     * }
-     */
-    public static int RpcServerListen(int MinimumCallThreads, int MaxCalls, int DontWait) {
-        var mh$ = RpcServerListen$MH();
-        try {
-            return (int)mh$.invokeExact(MinimumCallThreads, MaxCalls, DontWait);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerRegisterIf$MH() {
-        return RuntimeHelper.requireNonNull(constants$1722.const$1,"RpcServerRegisterIf");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerRegisterIf(RPC_IF_HANDLE IfSpec, UUID* MgrTypeUuid, void* MgrEpv);
-     * }
-     */
-    public static int RpcServerRegisterIf(MemorySegment IfSpec, MemorySegment MgrTypeUuid, MemorySegment MgrEpv) {
-        var mh$ = RpcServerRegisterIf$MH();
-        try {
-            return (int)mh$.invokeExact(IfSpec, MgrTypeUuid, MgrEpv);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerRegisterIfEx$MH() {
-        return RuntimeHelper.requireNonNull(constants$1722.const$3,"RpcServerRegisterIfEx");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerRegisterIfEx(RPC_IF_HANDLE IfSpec, UUID* MgrTypeUuid, void* MgrEpv, unsigned int Flags, unsigned int MaxCalls, RPC_STATUS (*IfCallback)(RPC_IF_HANDLE,void*));
-     * }
-     */
-    public static int RpcServerRegisterIfEx(MemorySegment IfSpec, MemorySegment MgrTypeUuid, MemorySegment MgrEpv, int Flags, int MaxCalls, MemorySegment IfCallback) {
-        var mh$ = RpcServerRegisterIfEx$MH();
-        try {
-            return (int)mh$.invokeExact(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, IfCallback);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerRegisterIf2$MH() {
-        return RuntimeHelper.requireNonNull(constants$1722.const$6,"RpcServerRegisterIf2");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerRegisterIf2(RPC_IF_HANDLE IfSpec, UUID* MgrTypeUuid, void* MgrEpv, unsigned int Flags, unsigned int MaxCalls, unsigned int MaxRpcSize, RPC_STATUS (*IfCallbackFn)(RPC_IF_HANDLE,void*));
-     * }
-     */
-    public static int RpcServerRegisterIf2(MemorySegment IfSpec, MemorySegment MgrTypeUuid, MemorySegment MgrEpv, int Flags, int MaxCalls, int MaxRpcSize, MemorySegment IfCallbackFn) {
-        var mh$ = RpcServerRegisterIf2$MH();
-        try {
-            return (int)mh$.invokeExact(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, MaxRpcSize, IfCallbackFn);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerRegisterIf3$MH() {
-        return RuntimeHelper.requireNonNull(constants$1723.const$2,"RpcServerRegisterIf3");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerRegisterIf3(RPC_IF_HANDLE IfSpec, UUID* MgrTypeUuid, void* MgrEpv, unsigned int Flags, unsigned int MaxCalls, unsigned int MaxRpcSize, RPC_STATUS (*IfCallback)(RPC_IF_HANDLE,void*), void* SecurityDescriptor);
-     * }
-     */
-    public static int RpcServerRegisterIf3(MemorySegment IfSpec, MemorySegment MgrTypeUuid, MemorySegment MgrEpv, int Flags, int MaxCalls, int MaxRpcSize, MemorySegment IfCallback, MemorySegment SecurityDescriptor) {
-        var mh$ = RpcServerRegisterIf3$MH();
-        try {
-            return (int)mh$.invokeExact(IfSpec, MgrTypeUuid, MgrEpv, Flags, MaxCalls, MaxRpcSize, IfCallback, SecurityDescriptor);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUnregisterIf$MH() {
-        return RuntimeHelper.requireNonNull(constants$1723.const$3,"RpcServerUnregisterIf");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUnregisterIf(RPC_IF_HANDLE IfSpec, UUID* MgrTypeUuid, unsigned int WaitForCallsToComplete);
-     * }
-     */
-    public static int RpcServerUnregisterIf(MemorySegment IfSpec, MemorySegment MgrTypeUuid, int WaitForCallsToComplete) {
-        var mh$ = RpcServerUnregisterIf$MH();
-        try {
-            return (int)mh$.invokeExact(IfSpec, MgrTypeUuid, WaitForCallsToComplete);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUnregisterIfEx$MH() {
-        return RuntimeHelper.requireNonNull(constants$1723.const$4,"RpcServerUnregisterIfEx");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUnregisterIfEx(RPC_IF_HANDLE IfSpec, UUID* MgrTypeUuid, int RundownContextHandles);
-     * }
-     */
-    public static int RpcServerUnregisterIfEx(MemorySegment IfSpec, MemorySegment MgrTypeUuid, int RundownContextHandles) {
-        var mh$ = RpcServerUnregisterIfEx$MH();
-        try {
-            return (int)mh$.invokeExact(IfSpec, MgrTypeUuid, RundownContextHandles);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseAllProtseqs$MH() {
-        return RuntimeHelper.requireNonNull(constants$1723.const$5,"RpcServerUseAllProtseqs");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseAllProtseqs(unsigned int MaxCalls, void* SecurityDescriptor);
-     * }
-     */
-    public static int RpcServerUseAllProtseqs(int MaxCalls, MemorySegment SecurityDescriptor) {
-        var mh$ = RpcServerUseAllProtseqs$MH();
-        try {
-            return (int)mh$.invokeExact(MaxCalls, SecurityDescriptor);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseAllProtseqsEx$MH() {
-        return RuntimeHelper.requireNonNull(constants$1724.const$0,"RpcServerUseAllProtseqsEx");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseAllProtseqsEx(unsigned int MaxCalls, void* SecurityDescriptor, PRPC_POLICY Policy);
-     * }
-     */
-    public static int RpcServerUseAllProtseqsEx(int MaxCalls, MemorySegment SecurityDescriptor, MemorySegment Policy) {
-        var mh$ = RpcServerUseAllProtseqsEx$MH();
-        try {
-            return (int)mh$.invokeExact(MaxCalls, SecurityDescriptor, Policy);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseAllProtseqsIf$MH() {
-        return RuntimeHelper.requireNonNull(constants$1724.const$1,"RpcServerUseAllProtseqsIf");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseAllProtseqsIf(unsigned int MaxCalls, RPC_IF_HANDLE IfSpec, void* SecurityDescriptor);
-     * }
-     */
-    public static int RpcServerUseAllProtseqsIf(int MaxCalls, MemorySegment IfSpec, MemorySegment SecurityDescriptor) {
-        var mh$ = RpcServerUseAllProtseqsIf$MH();
-        try {
-            return (int)mh$.invokeExact(MaxCalls, IfSpec, SecurityDescriptor);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseAllProtseqsIfEx$MH() {
-        return RuntimeHelper.requireNonNull(constants$1724.const$2,"RpcServerUseAllProtseqsIfEx");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseAllProtseqsIfEx(unsigned int MaxCalls, RPC_IF_HANDLE IfSpec, void* SecurityDescriptor, PRPC_POLICY Policy);
-     * }
-     */
-    public static int RpcServerUseAllProtseqsIfEx(int MaxCalls, MemorySegment IfSpec, MemorySegment SecurityDescriptor, MemorySegment Policy) {
-        var mh$ = RpcServerUseAllProtseqsIfEx$MH();
-        try {
-            return (int)mh$.invokeExact(MaxCalls, IfSpec, SecurityDescriptor, Policy);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseProtseqA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1724.const$3,"RpcServerUseProtseqA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseProtseqA(RPC_CSTR Protseq, unsigned int MaxCalls, void* SecurityDescriptor);
-     * }
-     */
-    public static int RpcServerUseProtseqA(MemorySegment Protseq, int MaxCalls, MemorySegment SecurityDescriptor) {
-        var mh$ = RpcServerUseProtseqA$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, MaxCalls, SecurityDescriptor);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseProtseqExA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1724.const$4,"RpcServerUseProtseqExA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseProtseqExA(RPC_CSTR Protseq, unsigned int MaxCalls, void* SecurityDescriptor, PRPC_POLICY Policy);
-     * }
-     */
-    public static int RpcServerUseProtseqExA(MemorySegment Protseq, int MaxCalls, MemorySegment SecurityDescriptor, MemorySegment Policy) {
-        var mh$ = RpcServerUseProtseqExA$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, MaxCalls, SecurityDescriptor, Policy);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseProtseqW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1724.const$5,"RpcServerUseProtseqW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseProtseqW(RPC_WSTR Protseq, unsigned int MaxCalls, void* SecurityDescriptor);
-     * }
-     */
-    public static int RpcServerUseProtseqW(MemorySegment Protseq, int MaxCalls, MemorySegment SecurityDescriptor) {
-        var mh$ = RpcServerUseProtseqW$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, MaxCalls, SecurityDescriptor);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseProtseqExW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1725.const$0,"RpcServerUseProtseqExW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseProtseqExW(RPC_WSTR Protseq, unsigned int MaxCalls, void* SecurityDescriptor, PRPC_POLICY Policy);
-     * }
-     */
-    public static int RpcServerUseProtseqExW(MemorySegment Protseq, int MaxCalls, MemorySegment SecurityDescriptor, MemorySegment Policy) {
-        var mh$ = RpcServerUseProtseqExW$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, MaxCalls, SecurityDescriptor, Policy);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseProtseqEpA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1725.const$1,"RpcServerUseProtseqEpA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseProtseqEpA(RPC_CSTR Protseq, unsigned int MaxCalls, RPC_CSTR Endpoint, void* SecurityDescriptor);
-     * }
-     */
-    public static int RpcServerUseProtseqEpA(MemorySegment Protseq, int MaxCalls, MemorySegment Endpoint, MemorySegment SecurityDescriptor) {
-        var mh$ = RpcServerUseProtseqEpA$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, MaxCalls, Endpoint, SecurityDescriptor);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseProtseqEpExA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1725.const$2,"RpcServerUseProtseqEpExA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseProtseqEpExA(RPC_CSTR Protseq, unsigned int MaxCalls, RPC_CSTR Endpoint, void* SecurityDescriptor, PRPC_POLICY Policy);
-     * }
-     */
-    public static int RpcServerUseProtseqEpExA(MemorySegment Protseq, int MaxCalls, MemorySegment Endpoint, MemorySegment SecurityDescriptor, MemorySegment Policy) {
-        var mh$ = RpcServerUseProtseqEpExA$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, MaxCalls, Endpoint, SecurityDescriptor, Policy);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseProtseqEpW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1725.const$3,"RpcServerUseProtseqEpW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseProtseqEpW(RPC_WSTR Protseq, unsigned int MaxCalls, RPC_WSTR Endpoint, void* SecurityDescriptor);
-     * }
-     */
-    public static int RpcServerUseProtseqEpW(MemorySegment Protseq, int MaxCalls, MemorySegment Endpoint, MemorySegment SecurityDescriptor) {
-        var mh$ = RpcServerUseProtseqEpW$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, MaxCalls, Endpoint, SecurityDescriptor);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseProtseqEpExW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1725.const$4,"RpcServerUseProtseqEpExW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseProtseqEpExW(RPC_WSTR Protseq, unsigned int MaxCalls, RPC_WSTR Endpoint, void* SecurityDescriptor, PRPC_POLICY Policy);
-     * }
-     */
-    public static int RpcServerUseProtseqEpExW(MemorySegment Protseq, int MaxCalls, MemorySegment Endpoint, MemorySegment SecurityDescriptor, MemorySegment Policy) {
-        var mh$ = RpcServerUseProtseqEpExW$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, MaxCalls, Endpoint, SecurityDescriptor, Policy);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseProtseqIfA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1725.const$5,"RpcServerUseProtseqIfA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseProtseqIfA(RPC_CSTR Protseq, unsigned int MaxCalls, RPC_IF_HANDLE IfSpec, void* SecurityDescriptor);
-     * }
-     */
-    public static int RpcServerUseProtseqIfA(MemorySegment Protseq, int MaxCalls, MemorySegment IfSpec, MemorySegment SecurityDescriptor) {
-        var mh$ = RpcServerUseProtseqIfA$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, MaxCalls, IfSpec, SecurityDescriptor);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseProtseqIfExA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1726.const$0,"RpcServerUseProtseqIfExA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseProtseqIfExA(RPC_CSTR Protseq, unsigned int MaxCalls, RPC_IF_HANDLE IfSpec, void* SecurityDescriptor, PRPC_POLICY Policy);
-     * }
-     */
-    public static int RpcServerUseProtseqIfExA(MemorySegment Protseq, int MaxCalls, MemorySegment IfSpec, MemorySegment SecurityDescriptor, MemorySegment Policy) {
-        var mh$ = RpcServerUseProtseqIfExA$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, MaxCalls, IfSpec, SecurityDescriptor, Policy);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseProtseqIfW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1726.const$1,"RpcServerUseProtseqIfW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseProtseqIfW(RPC_WSTR Protseq, unsigned int MaxCalls, RPC_IF_HANDLE IfSpec, void* SecurityDescriptor);
-     * }
-     */
-    public static int RpcServerUseProtseqIfW(MemorySegment Protseq, int MaxCalls, MemorySegment IfSpec, MemorySegment SecurityDescriptor) {
-        var mh$ = RpcServerUseProtseqIfW$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, MaxCalls, IfSpec, SecurityDescriptor);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerUseProtseqIfExW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1726.const$2,"RpcServerUseProtseqIfExW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerUseProtseqIfExW(RPC_WSTR Protseq, unsigned int MaxCalls, RPC_IF_HANDLE IfSpec, void* SecurityDescriptor, PRPC_POLICY Policy);
-     * }
-     */
-    public static int RpcServerUseProtseqIfExW(MemorySegment Protseq, int MaxCalls, MemorySegment IfSpec, MemorySegment SecurityDescriptor, MemorySegment Policy) {
-        var mh$ = RpcServerUseProtseqIfExW$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, MaxCalls, IfSpec, SecurityDescriptor, Policy);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerYield$MH() {
-        return RuntimeHelper.requireNonNull(constants$1726.const$3,"RpcServerYield");
-    }
-    /**
-     * {@snippet :
-     * void RpcServerYield();
-     * }
-     */
-    public static void RpcServerYield() {
-        var mh$ = RpcServerYield$MH();
-        try {
-            mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtStatsVectorFree$MH() {
-        return RuntimeHelper.requireNonNull(constants$1726.const$4,"RpcMgmtStatsVectorFree");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtStatsVectorFree(RPC_STATS_VECTOR** StatsVector);
-     * }
-     */
-    public static int RpcMgmtStatsVectorFree(MemorySegment StatsVector) {
-        var mh$ = RpcMgmtStatsVectorFree$MH();
-        try {
-            return (int)mh$.invokeExact(StatsVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtInqStats$MH() {
-        return RuntimeHelper.requireNonNull(constants$1726.const$5,"RpcMgmtInqStats");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtInqStats(RPC_BINDING_HANDLE Binding, RPC_STATS_VECTOR** Statistics);
-     * }
-     */
-    public static int RpcMgmtInqStats(MemorySegment Binding, MemorySegment Statistics) {
-        var mh$ = RpcMgmtInqStats$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, Statistics);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtIsServerListening$MH() {
-        return RuntimeHelper.requireNonNull(constants$1727.const$0,"RpcMgmtIsServerListening");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtIsServerListening(RPC_BINDING_HANDLE Binding);
-     * }
-     */
-    public static int RpcMgmtIsServerListening(MemorySegment Binding) {
-        var mh$ = RpcMgmtIsServerListening$MH();
-        try {
-            return (int)mh$.invokeExact(Binding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtStopServerListening$MH() {
-        return RuntimeHelper.requireNonNull(constants$1727.const$1,"RpcMgmtStopServerListening");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtStopServerListening(RPC_BINDING_HANDLE Binding);
-     * }
-     */
-    public static int RpcMgmtStopServerListening(MemorySegment Binding) {
-        var mh$ = RpcMgmtStopServerListening$MH();
-        try {
-            return (int)mh$.invokeExact(Binding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtWaitServerListen$MH() {
-        return RuntimeHelper.requireNonNull(constants$1727.const$2,"RpcMgmtWaitServerListen");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtWaitServerListen();
-     * }
-     */
-    public static int RpcMgmtWaitServerListen() {
-        var mh$ = RpcMgmtWaitServerListen$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtSetServerStackSize$MH() {
-        return RuntimeHelper.requireNonNull(constants$1727.const$3,"RpcMgmtSetServerStackSize");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtSetServerStackSize(unsigned long ThreadStackSize);
-     * }
-     */
-    public static int RpcMgmtSetServerStackSize(int ThreadStackSize) {
-        var mh$ = RpcMgmtSetServerStackSize$MH();
-        try {
-            return (int)mh$.invokeExact(ThreadStackSize);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcSsDontSerializeContext$MH() {
-        return RuntimeHelper.requireNonNull(constants$1727.const$4,"RpcSsDontSerializeContext");
-    }
-    /**
-     * {@snippet :
-     * void RpcSsDontSerializeContext();
-     * }
-     */
-    public static void RpcSsDontSerializeContext() {
-        var mh$ = RpcSsDontSerializeContext$MH();
-        try {
-            mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtEnableIdleCleanup$MH() {
-        return RuntimeHelper.requireNonNull(constants$1727.const$5,"RpcMgmtEnableIdleCleanup");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtEnableIdleCleanup();
-     * }
-     */
-    public static int RpcMgmtEnableIdleCleanup() {
-        var mh$ = RpcMgmtEnableIdleCleanup$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtInqIfIds$MH() {
-        return RuntimeHelper.requireNonNull(constants$1728.const$0,"RpcMgmtInqIfIds");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtInqIfIds(RPC_BINDING_HANDLE Binding, RPC_IF_ID_VECTOR** IfIdVector);
-     * }
-     */
-    public static int RpcMgmtInqIfIds(MemorySegment Binding, MemorySegment IfIdVector) {
-        var mh$ = RpcMgmtInqIfIds$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, IfIdVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcIfIdVectorFree$MH() {
-        return RuntimeHelper.requireNonNull(constants$1728.const$1,"RpcIfIdVectorFree");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcIfIdVectorFree(RPC_IF_ID_VECTOR** IfIdVector);
-     * }
-     */
-    public static int RpcIfIdVectorFree(MemorySegment IfIdVector) {
-        var mh$ = RpcIfIdVectorFree$MH();
-        try {
-            return (int)mh$.invokeExact(IfIdVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtInqServerPrincNameA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1728.const$2,"RpcMgmtInqServerPrincNameA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtInqServerPrincNameA(RPC_BINDING_HANDLE Binding, unsigned long AuthnSvc, RPC_CSTR* ServerPrincName);
-     * }
-     */
-    public static int RpcMgmtInqServerPrincNameA(MemorySegment Binding, int AuthnSvc, MemorySegment ServerPrincName) {
-        var mh$ = RpcMgmtInqServerPrincNameA$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, AuthnSvc, ServerPrincName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtInqServerPrincNameW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1728.const$3,"RpcMgmtInqServerPrincNameW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtInqServerPrincNameW(RPC_BINDING_HANDLE Binding, unsigned long AuthnSvc, RPC_WSTR* ServerPrincName);
-     * }
-     */
-    public static int RpcMgmtInqServerPrincNameW(MemorySegment Binding, int AuthnSvc, MemorySegment ServerPrincName) {
-        var mh$ = RpcMgmtInqServerPrincNameW$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, AuthnSvc, ServerPrincName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerInqDefaultPrincNameA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1728.const$4,"RpcServerInqDefaultPrincNameA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerInqDefaultPrincNameA(unsigned long AuthnSvc, RPC_CSTR* PrincName);
-     * }
-     */
-    public static int RpcServerInqDefaultPrincNameA(int AuthnSvc, MemorySegment PrincName) {
-        var mh$ = RpcServerInqDefaultPrincNameA$MH();
-        try {
-            return (int)mh$.invokeExact(AuthnSvc, PrincName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerInqDefaultPrincNameW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1728.const$5,"RpcServerInqDefaultPrincNameW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerInqDefaultPrincNameW(unsigned long AuthnSvc, RPC_WSTR* PrincName);
-     * }
-     */
-    public static int RpcServerInqDefaultPrincNameW(int AuthnSvc, MemorySegment PrincName) {
-        var mh$ = RpcServerInqDefaultPrincNameW$MH();
-        try {
-            return (int)mh$.invokeExact(AuthnSvc, PrincName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcEpResolveBinding$MH() {
-        return RuntimeHelper.requireNonNull(constants$1729.const$0,"RpcEpResolveBinding");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcEpResolveBinding(RPC_BINDING_HANDLE Binding, RPC_IF_HANDLE IfSpec);
-     * }
-     */
-    public static int RpcEpResolveBinding(MemorySegment Binding, MemorySegment IfSpec) {
-        var mh$ = RpcEpResolveBinding$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, IfSpec);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsBindingInqEntryNameA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1729.const$1,"RpcNsBindingInqEntryNameA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsBindingInqEntryNameA(RPC_BINDING_HANDLE Binding, unsigned long EntryNameSyntax, RPC_CSTR* EntryName);
-     * }
-     */
-    public static int RpcNsBindingInqEntryNameA(MemorySegment Binding, int EntryNameSyntax, MemorySegment EntryName) {
-        var mh$ = RpcNsBindingInqEntryNameA$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, EntryNameSyntax, EntryName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsBindingInqEntryNameW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1729.const$2,"RpcNsBindingInqEntryNameW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsBindingInqEntryNameW(RPC_BINDING_HANDLE Binding, unsigned long EntryNameSyntax, RPC_WSTR* EntryName);
-     * }
-     */
-    public static int RpcNsBindingInqEntryNameW(MemorySegment Binding, int EntryNameSyntax, MemorySegment EntryName) {
-        var mh$ = RpcNsBindingInqEntryNameW$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, EntryNameSyntax, EntryName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * typedef void* RPC_AUTH_IDENTITY_HANDLE;
-     * }
-     */
-    public static final AddressLayout RPC_AUTH_IDENTITY_HANDLE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef void* RPC_AUTHZ_HANDLE;
-     * }
-     */
-    public static final AddressLayout RPC_AUTHZ_HANDLE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_SECURITY_QOS* PRPC_SECURITY_QOS;
-     * }
-     */
-    public static final AddressLayout PRPC_SECURITY_QOS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _SEC_WINNT_AUTH_IDENTITY_W* PSEC_WINNT_AUTH_IDENTITY_W;
-     * }
-     */
-    public static final AddressLayout PSEC_WINNT_AUTH_IDENTITY_W = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _SEC_WINNT_AUTH_IDENTITY_A* PSEC_WINNT_AUTH_IDENTITY_A;
-     * }
-     */
-    public static final AddressLayout PSEC_WINNT_AUTH_IDENTITY_A = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_HTTP_TRANSPORT_CREDENTIALS_W* PRPC_HTTP_TRANSPORT_CREDENTIALS_W;
-     * }
-     */
-    public static final AddressLayout PRPC_HTTP_TRANSPORT_CREDENTIALS_W = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_HTTP_TRANSPORT_CREDENTIALS_A* PRPC_HTTP_TRANSPORT_CREDENTIALS_A;
-     * }
-     */
-    public static final AddressLayout PRPC_HTTP_TRANSPORT_CREDENTIALS_A = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_HTTP_TRANSPORT_CREDENTIALS_V2_W* PRPC_HTTP_TRANSPORT_CREDENTIALS_V2_W;
-     * }
-     */
-    public static final AddressLayout PRPC_HTTP_TRANSPORT_CREDENTIALS_V2_W = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_HTTP_TRANSPORT_CREDENTIALS_V2_A* PRPC_HTTP_TRANSPORT_CREDENTIALS_V2_A;
-     * }
-     */
-    public static final AddressLayout PRPC_HTTP_TRANSPORT_CREDENTIALS_V2_A = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_HTTP_TRANSPORT_CREDENTIALS_V3_W* PRPC_HTTP_TRANSPORT_CREDENTIALS_V3_W;
-     * }
-     */
-    public static final AddressLayout PRPC_HTTP_TRANSPORT_CREDENTIALS_V3_W = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_HTTP_TRANSPORT_CREDENTIALS_V3_A* PRPC_HTTP_TRANSPORT_CREDENTIALS_V3_A;
-     * }
-     */
-    public static final AddressLayout PRPC_HTTP_TRANSPORT_CREDENTIALS_V3_A = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_SECURITY_QOS_V2_W* PRPC_SECURITY_QOS_V2_W;
-     * }
-     */
-    public static final AddressLayout PRPC_SECURITY_QOS_V2_W = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_SECURITY_QOS_V2_A* PRPC_SECURITY_QOS_V2_A;
-     * }
-     */
-    public static final AddressLayout PRPC_SECURITY_QOS_V2_A = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_SECURITY_QOS_V3_W* PRPC_SECURITY_QOS_V3_W;
-     * }
-     */
-    public static final AddressLayout PRPC_SECURITY_QOS_V3_W = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_SECURITY_QOS_V3_A* PRPC_SECURITY_QOS_V3_A;
-     * }
-     */
-    public static final AddressLayout PRPC_SECURITY_QOS_V3_A = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_SECURITY_QOS_V4_W* PRPC_SECURITY_QOS_V4_W;
-     * }
-     */
-    public static final AddressLayout PRPC_SECURITY_QOS_V4_W = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_SECURITY_QOS_V4_A* PRPC_SECURITY_QOS_V4_A;
-     * }
-     */
-    public static final AddressLayout PRPC_SECURITY_QOS_V4_A = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_SECURITY_QOS_V5_W* PRPC_SECURITY_QOS_V5_W;
-     * }
-     */
-    public static final AddressLayout PRPC_SECURITY_QOS_V5_W = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_SECURITY_QOS_V5_A* PRPC_SECURITY_QOS_V5_A;
-     * }
-     */
-    public static final AddressLayout PRPC_SECURITY_QOS_V5_A = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_BINDING_HANDLE_TEMPLATE_V1_W* PRPC_BINDING_HANDLE_TEMPLATE_V1_W;
-     * }
-     */
-    public static final AddressLayout PRPC_BINDING_HANDLE_TEMPLATE_V1_W = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_BINDING_HANDLE_TEMPLATE_V1_A* PRPC_BINDING_HANDLE_TEMPLATE_V1_A;
-     * }
-     */
-    public static final AddressLayout PRPC_BINDING_HANDLE_TEMPLATE_V1_A = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_BINDING_HANDLE_SECURITY_V1_W* PRPC_BINDING_HANDLE_SECURITY_V1_W;
-     * }
-     */
-    public static final AddressLayout PRPC_BINDING_HANDLE_SECURITY_V1_W = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_BINDING_HANDLE_SECURITY_V1_A* PRPC_BINDING_HANDLE_SECURITY_V1_A;
-     * }
-     */
-    public static final AddressLayout PRPC_BINDING_HANDLE_SECURITY_V1_A = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_BINDING_HANDLE_OPTIONS_V1* PRPC_BINDING_HANDLE_OPTIONS_V1;
-     * }
-     */
-    public static final AddressLayout PRPC_BINDING_HANDLE_OPTIONS_V1 = RuntimeHelper.POINTER;
-    public static MethodHandle RpcBindingCreateA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1759.const$1,"RpcBindingCreateA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingCreateA(RPC_BINDING_HANDLE_TEMPLATE_V1_A* Template, RPC_BINDING_HANDLE_SECURITY_V1_A* Security, RPC_BINDING_HANDLE_OPTIONS_V1* Options, RPC_BINDING_HANDLE* Binding);
-     * }
-     */
-    public static int RpcBindingCreateA(MemorySegment Template, MemorySegment Security, MemorySegment Options, MemorySegment Binding) {
-        var mh$ = RpcBindingCreateA$MH();
-        try {
-            return (int)mh$.invokeExact(Template, Security, Options, Binding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingCreateW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1759.const$2,"RpcBindingCreateW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingCreateW(RPC_BINDING_HANDLE_TEMPLATE_V1_W* Template, RPC_BINDING_HANDLE_SECURITY_V1_W* Security, RPC_BINDING_HANDLE_OPTIONS_V1* Options, RPC_BINDING_HANDLE* Binding);
-     * }
-     */
-    public static int RpcBindingCreateW(MemorySegment Template, MemorySegment Security, MemorySegment Options, MemorySegment Binding) {
-        var mh$ = RpcBindingCreateW$MH();
-        try {
-            return (int)mh$.invokeExact(Template, Security, Options, Binding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingGetTrainingContextHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1759.const$3,"RpcBindingGetTrainingContextHandle");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingGetTrainingContextHandle(RPC_BINDING_HANDLE Binding, void** ContextHandle);
-     * }
-     */
-    public static int RpcBindingGetTrainingContextHandle(MemorySegment Binding, MemorySegment ContextHandle) {
-        var mh$ = RpcBindingGetTrainingContextHandle$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, ContextHandle);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerInqBindingHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1759.const$4,"RpcServerInqBindingHandle");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerInqBindingHandle(RPC_BINDING_HANDLE* Binding);
-     * }
-     */
-    public static int RpcServerInqBindingHandle(MemorySegment Binding) {
-        var mh$ = RpcServerInqBindingHandle$MH();
-        try {
-            return (int)mh$.invokeExact(Binding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * enum _RPC_HTTP_REDIRECTOR_STAGE.RPCHTTP_RS_REDIRECT = 1;
-     * }
-     */
-    public static int RPCHTTP_RS_REDIRECT() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _RPC_HTTP_REDIRECTOR_STAGE.RPCHTTP_RS_ACCESS_1 = 2;
-     * }
-     */
-    public static int RPCHTTP_RS_ACCESS_1() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum _RPC_HTTP_REDIRECTOR_STAGE.RPCHTTP_RS_SESSION = 3;
-     * }
-     */
-    public static int RPCHTTP_RS_SESSION() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum _RPC_HTTP_REDIRECTOR_STAGE.RPCHTTP_RS_ACCESS_2 = 4;
-     * }
-     */
-    public static int RPCHTTP_RS_ACCESS_2() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * enum _RPC_HTTP_REDIRECTOR_STAGE.RPCHTTP_RS_INTERFACE = 5;
-     * }
-     */
-    public static int RPCHTTP_RS_INTERFACE() {
-        return (int)5L;
-    }
-    public static MethodHandle RpcImpersonateClient$MH() {
-        return RuntimeHelper.requireNonNull(constants$1760.const$3,"RpcImpersonateClient");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcImpersonateClient(RPC_BINDING_HANDLE BindingHandle);
-     * }
-     */
-    public static int RpcImpersonateClient(MemorySegment BindingHandle) {
-        var mh$ = RpcImpersonateClient$MH();
-        try {
-            return (int)mh$.invokeExact(BindingHandle);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcImpersonateClient2$MH() {
-        return RuntimeHelper.requireNonNull(constants$1760.const$4,"RpcImpersonateClient2");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcImpersonateClient2(RPC_BINDING_HANDLE BindingHandle);
-     * }
-     */
-    public static int RpcImpersonateClient2(MemorySegment BindingHandle) {
-        var mh$ = RpcImpersonateClient2$MH();
-        try {
-            return (int)mh$.invokeExact(BindingHandle);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcRevertToSelfEx$MH() {
-        return RuntimeHelper.requireNonNull(constants$1760.const$5,"RpcRevertToSelfEx");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcRevertToSelfEx(RPC_BINDING_HANDLE BindingHandle);
-     * }
-     */
-    public static int RpcRevertToSelfEx(MemorySegment BindingHandle) {
-        var mh$ = RpcRevertToSelfEx$MH();
-        try {
-            return (int)mh$.invokeExact(BindingHandle);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcRevertToSelf$MH() {
-        return RuntimeHelper.requireNonNull(constants$1761.const$0,"RpcRevertToSelf");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcRevertToSelf();
-     * }
-     */
-    public static int RpcRevertToSelf() {
-        var mh$ = RpcRevertToSelf$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcImpersonateClientContainer$MH() {
-        return RuntimeHelper.requireNonNull(constants$1761.const$1,"RpcImpersonateClientContainer");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcImpersonateClientContainer(RPC_BINDING_HANDLE BindingHandle);
-     * }
-     */
-    public static int RpcImpersonateClientContainer(MemorySegment BindingHandle) {
-        var mh$ = RpcImpersonateClientContainer$MH();
-        try {
-            return (int)mh$.invokeExact(BindingHandle);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcRevertContainerImpersonation$MH() {
-        return RuntimeHelper.requireNonNull(constants$1761.const$2,"RpcRevertContainerImpersonation");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcRevertContainerImpersonation();
-     * }
-     */
-    public static int RpcRevertContainerImpersonation() {
-        var mh$ = RpcRevertContainerImpersonation$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingInqAuthClientA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1761.const$3,"RpcBindingInqAuthClientA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingInqAuthClientA(RPC_BINDING_HANDLE ClientBinding, RPC_AUTHZ_HANDLE* Privs, RPC_CSTR* ServerPrincName, unsigned long* AuthnLevel, unsigned long* AuthnSvc, unsigned long* AuthzSvc);
-     * }
-     */
-    public static int RpcBindingInqAuthClientA(MemorySegment ClientBinding, MemorySegment Privs, MemorySegment ServerPrincName, MemorySegment AuthnLevel, MemorySegment AuthnSvc, MemorySegment AuthzSvc) {
-        var mh$ = RpcBindingInqAuthClientA$MH();
-        try {
-            return (int)mh$.invokeExact(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingInqAuthClientW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1761.const$4,"RpcBindingInqAuthClientW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingInqAuthClientW(RPC_BINDING_HANDLE ClientBinding, RPC_AUTHZ_HANDLE* Privs, RPC_WSTR* ServerPrincName, unsigned long* AuthnLevel, unsigned long* AuthnSvc, unsigned long* AuthzSvc);
-     * }
-     */
-    public static int RpcBindingInqAuthClientW(MemorySegment ClientBinding, MemorySegment Privs, MemorySegment ServerPrincName, MemorySegment AuthnLevel, MemorySegment AuthnSvc, MemorySegment AuthzSvc) {
-        var mh$ = RpcBindingInqAuthClientW$MH();
-        try {
-            return (int)mh$.invokeExact(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingInqAuthClientExA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1761.const$5,"RpcBindingInqAuthClientExA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingInqAuthClientExA(RPC_BINDING_HANDLE ClientBinding, RPC_AUTHZ_HANDLE* Privs, RPC_CSTR* ServerPrincName, unsigned long* AuthnLevel, unsigned long* AuthnSvc, unsigned long* AuthzSvc, unsigned long Flags);
-     * }
-     */
-    public static int RpcBindingInqAuthClientExA(MemorySegment ClientBinding, MemorySegment Privs, MemorySegment ServerPrincName, MemorySegment AuthnLevel, MemorySegment AuthnSvc, MemorySegment AuthzSvc, int Flags) {
-        var mh$ = RpcBindingInqAuthClientExA$MH();
-        try {
-            return (int)mh$.invokeExact(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc, Flags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingInqAuthClientExW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1762.const$0,"RpcBindingInqAuthClientExW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingInqAuthClientExW(RPC_BINDING_HANDLE ClientBinding, RPC_AUTHZ_HANDLE* Privs, RPC_WSTR* ServerPrincName, unsigned long* AuthnLevel, unsigned long* AuthnSvc, unsigned long* AuthzSvc, unsigned long Flags);
-     * }
-     */
-    public static int RpcBindingInqAuthClientExW(MemorySegment ClientBinding, MemorySegment Privs, MemorySegment ServerPrincName, MemorySegment AuthnLevel, MemorySegment AuthnSvc, MemorySegment AuthzSvc, int Flags) {
-        var mh$ = RpcBindingInqAuthClientExW$MH();
-        try {
-            return (int)mh$.invokeExact(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc, Flags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingInqAuthInfoA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1762.const$1,"RpcBindingInqAuthInfoA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingInqAuthInfoA(RPC_BINDING_HANDLE Binding, RPC_CSTR* ServerPrincName, unsigned long* AuthnLevel, unsigned long* AuthnSvc, RPC_AUTH_IDENTITY_HANDLE* AuthIdentity, unsigned long* AuthzSvc);
-     * }
-     */
-    public static int RpcBindingInqAuthInfoA(MemorySegment Binding, MemorySegment ServerPrincName, MemorySegment AuthnLevel, MemorySegment AuthnSvc, MemorySegment AuthIdentity, MemorySegment AuthzSvc) {
-        var mh$ = RpcBindingInqAuthInfoA$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingInqAuthInfoW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1762.const$2,"RpcBindingInqAuthInfoW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingInqAuthInfoW(RPC_BINDING_HANDLE Binding, RPC_WSTR* ServerPrincName, unsigned long* AuthnLevel, unsigned long* AuthnSvc, RPC_AUTH_IDENTITY_HANDLE* AuthIdentity, unsigned long* AuthzSvc);
-     * }
-     */
-    public static int RpcBindingInqAuthInfoW(MemorySegment Binding, MemorySegment ServerPrincName, MemorySegment AuthnLevel, MemorySegment AuthnSvc, MemorySegment AuthIdentity, MemorySegment AuthzSvc) {
-        var mh$ = RpcBindingInqAuthInfoW$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingSetAuthInfoA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1762.const$3,"RpcBindingSetAuthInfoA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingSetAuthInfoA(RPC_BINDING_HANDLE Binding, RPC_CSTR ServerPrincName, unsigned long AuthnLevel, unsigned long AuthnSvc, RPC_AUTH_IDENTITY_HANDLE AuthIdentity, unsigned long AuthzSvc);
-     * }
-     */
-    public static int RpcBindingSetAuthInfoA(MemorySegment Binding, MemorySegment ServerPrincName, int AuthnLevel, int AuthnSvc, MemorySegment AuthIdentity, int AuthzSvc) {
-        var mh$ = RpcBindingSetAuthInfoA$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingSetAuthInfoExA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1762.const$5,"RpcBindingSetAuthInfoExA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingSetAuthInfoExA(RPC_BINDING_HANDLE Binding, RPC_CSTR ServerPrincName, unsigned long AuthnLevel, unsigned long AuthnSvc, RPC_AUTH_IDENTITY_HANDLE AuthIdentity, unsigned long AuthzSvc, RPC_SECURITY_QOS* SecurityQos);
-     * }
-     */
-    public static int RpcBindingSetAuthInfoExA(MemorySegment Binding, MemorySegment ServerPrincName, int AuthnLevel, int AuthnSvc, MemorySegment AuthIdentity, int AuthzSvc, MemorySegment SecurityQos) {
-        var mh$ = RpcBindingSetAuthInfoExA$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, SecurityQos);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingSetAuthInfoW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1763.const$0,"RpcBindingSetAuthInfoW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingSetAuthInfoW(RPC_BINDING_HANDLE Binding, RPC_WSTR ServerPrincName, unsigned long AuthnLevel, unsigned long AuthnSvc, RPC_AUTH_IDENTITY_HANDLE AuthIdentity, unsigned long AuthzSvc);
-     * }
-     */
-    public static int RpcBindingSetAuthInfoW(MemorySegment Binding, MemorySegment ServerPrincName, int AuthnLevel, int AuthnSvc, MemorySegment AuthIdentity, int AuthzSvc) {
-        var mh$ = RpcBindingSetAuthInfoW$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingSetAuthInfoExW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1763.const$1,"RpcBindingSetAuthInfoExW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingSetAuthInfoExW(RPC_BINDING_HANDLE Binding, RPC_WSTR ServerPrincName, unsigned long AuthnLevel, unsigned long AuthnSvc, RPC_AUTH_IDENTITY_HANDLE AuthIdentity, unsigned long AuthzSvc, RPC_SECURITY_QOS* SecurityQOS);
-     * }
-     */
-    public static int RpcBindingSetAuthInfoExW(MemorySegment Binding, MemorySegment ServerPrincName, int AuthnLevel, int AuthnSvc, MemorySegment AuthIdentity, int AuthzSvc, MemorySegment SecurityQOS) {
-        var mh$ = RpcBindingSetAuthInfoExW$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, SecurityQOS);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingInqAuthInfoExA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1763.const$3,"RpcBindingInqAuthInfoExA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingInqAuthInfoExA(RPC_BINDING_HANDLE Binding, RPC_CSTR* ServerPrincName, unsigned long* AuthnLevel, unsigned long* AuthnSvc, RPC_AUTH_IDENTITY_HANDLE* AuthIdentity, unsigned long* AuthzSvc, unsigned long RpcQosVersion, RPC_SECURITY_QOS* SecurityQOS);
-     * }
-     */
-    public static int RpcBindingInqAuthInfoExA(MemorySegment Binding, MemorySegment ServerPrincName, MemorySegment AuthnLevel, MemorySegment AuthnSvc, MemorySegment AuthIdentity, MemorySegment AuthzSvc, int RpcQosVersion, MemorySegment SecurityQOS) {
-        var mh$ = RpcBindingInqAuthInfoExA$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, RpcQosVersion, SecurityQOS);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcBindingInqAuthInfoExW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1763.const$4,"RpcBindingInqAuthInfoExW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingInqAuthInfoExW(RPC_BINDING_HANDLE Binding, RPC_WSTR* ServerPrincName, unsigned long* AuthnLevel, unsigned long* AuthnSvc, RPC_AUTH_IDENTITY_HANDLE* AuthIdentity, unsigned long* AuthzSvc, unsigned long RpcQosVersion, RPC_SECURITY_QOS* SecurityQOS);
-     * }
-     */
-    public static int RpcBindingInqAuthInfoExW(MemorySegment Binding, MemorySegment ServerPrincName, MemorySegment AuthnLevel, MemorySegment AuthnSvc, MemorySegment AuthIdentity, MemorySegment AuthzSvc, int RpcQosVersion, MemorySegment SecurityQOS) {
-        var mh$ = RpcBindingInqAuthInfoExW$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, RpcQosVersion, SecurityQOS);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerCompleteSecurityCallback$MH() {
-        return RuntimeHelper.requireNonNull(constants$1764.const$2,"RpcServerCompleteSecurityCallback");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerCompleteSecurityCallback(RPC_BINDING_HANDLE BindingHandle, RPC_STATUS Status);
-     * }
-     */
-    public static int RpcServerCompleteSecurityCallback(MemorySegment BindingHandle, int Status) {
-        var mh$ = RpcServerCompleteSecurityCallback$MH();
-        try {
-            return (int)mh$.invokeExact(BindingHandle, Status);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerRegisterAuthInfoA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1764.const$3,"RpcServerRegisterAuthInfoA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerRegisterAuthInfoA(RPC_CSTR ServerPrincName, unsigned long AuthnSvc, RPC_AUTH_KEY_RETRIEVAL_FN GetKeyFn, void* Arg);
-     * }
-     */
-    public static int RpcServerRegisterAuthInfoA(MemorySegment ServerPrincName, int AuthnSvc, MemorySegment GetKeyFn, MemorySegment Arg) {
-        var mh$ = RpcServerRegisterAuthInfoA$MH();
-        try {
-            return (int)mh$.invokeExact(ServerPrincName, AuthnSvc, GetKeyFn, Arg);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerRegisterAuthInfoW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1764.const$4,"RpcServerRegisterAuthInfoW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerRegisterAuthInfoW(RPC_WSTR ServerPrincName, unsigned long AuthnSvc, RPC_AUTH_KEY_RETRIEVAL_FN GetKeyFn, void* Arg);
-     * }
-     */
-    public static int RpcServerRegisterAuthInfoW(MemorySegment ServerPrincName, int AuthnSvc, MemorySegment GetKeyFn, MemorySegment Arg) {
-        var mh$ = RpcServerRegisterAuthInfoW$MH();
-        try {
-            return (int)mh$.invokeExact(ServerPrincName, AuthnSvc, GetKeyFn, Arg);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * typedef struct * PRPC_CLIENT_INFORMATION1;
-     * }
-     */
-    public static final AddressLayout PRPC_CLIENT_INFORMATION1 = RuntimeHelper.POINTER;
-    public static MethodHandle RpcBindingServerFromClient$MH() {
-        return RuntimeHelper.requireNonNull(constants$1765.const$4,"RpcBindingServerFromClient");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcBindingServerFromClient(RPC_BINDING_HANDLE ClientBinding, RPC_BINDING_HANDLE* ServerBinding);
-     * }
-     */
-    public static int RpcBindingServerFromClient(MemorySegment ClientBinding, MemorySegment ServerBinding) {
-        var mh$ = RpcBindingServerFromClient$MH();
-        try {
-            return (int)mh$.invokeExact(ClientBinding, ServerBinding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcRaiseException$MH() {
-        return RuntimeHelper.requireNonNull(constants$1765.const$5,"RpcRaiseException");
-    }
-    /**
-     * {@snippet :
-     * void RpcRaiseException(RPC_STATUS exception);
-     * }
-     */
-    public static void RpcRaiseException(int exception) {
-        var mh$ = RpcRaiseException$MH();
-        try {
-            mh$.invokeExact(exception);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcTestCancel$MH() {
-        return RuntimeHelper.requireNonNull(constants$1766.const$0,"RpcTestCancel");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcTestCancel();
-     * }
-     */
-    public static int RpcTestCancel() {
-        var mh$ = RpcTestCancel$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerTestCancel$MH() {
-        return RuntimeHelper.requireNonNull(constants$1766.const$1,"RpcServerTestCancel");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerTestCancel(RPC_BINDING_HANDLE BindingHandle);
-     * }
-     */
-    public static int RpcServerTestCancel(MemorySegment BindingHandle) {
-        var mh$ = RpcServerTestCancel$MH();
-        try {
-            return (int)mh$.invokeExact(BindingHandle);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcCancelThread$MH() {
-        return RuntimeHelper.requireNonNull(constants$1766.const$2,"RpcCancelThread");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcCancelThread(void* Thread);
-     * }
-     */
-    public static int RpcCancelThread(MemorySegment Thread) {
-        var mh$ = RpcCancelThread$MH();
-        try {
-            return (int)mh$.invokeExact(Thread);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcCancelThreadEx$MH() {
-        return RuntimeHelper.requireNonNull(constants$1766.const$3,"RpcCancelThreadEx");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcCancelThreadEx(void* Thread, long Timeout);
-     * }
-     */
-    public static int RpcCancelThreadEx(MemorySegment Thread, int Timeout) {
-        var mh$ = RpcCancelThreadEx$MH();
-        try {
-            return (int)mh$.invokeExact(Thread, Timeout);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle UuidCreate$MH() {
-        return RuntimeHelper.requireNonNull(constants$1766.const$4,"UuidCreate");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS UuidCreate(UUID* Uuid);
-     * }
-     */
-    public static int UuidCreate(MemorySegment Uuid) {
-        var mh$ = UuidCreate$MH();
-        try {
-            return (int)mh$.invokeExact(Uuid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle UuidCreateSequential$MH() {
-        return RuntimeHelper.requireNonNull(constants$1766.const$5,"UuidCreateSequential");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS UuidCreateSequential(UUID* Uuid);
-     * }
-     */
-    public static int UuidCreateSequential(MemorySegment Uuid) {
-        var mh$ = UuidCreateSequential$MH();
-        try {
-            return (int)mh$.invokeExact(Uuid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle UuidToStringA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1767.const$0,"UuidToStringA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS UuidToStringA(const UUID* Uuid, RPC_CSTR* StringUuid);
-     * }
-     */
-    public static int UuidToStringA(MemorySegment Uuid, MemorySegment StringUuid) {
-        var mh$ = UuidToStringA$MH();
-        try {
-            return (int)mh$.invokeExact(Uuid, StringUuid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle UuidFromStringA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1767.const$1,"UuidFromStringA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS UuidFromStringA(RPC_CSTR StringUuid, UUID* Uuid);
-     * }
-     */
-    public static int UuidFromStringA(MemorySegment StringUuid, MemorySegment Uuid) {
-        var mh$ = UuidFromStringA$MH();
-        try {
-            return (int)mh$.invokeExact(StringUuid, Uuid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle UuidToStringW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1767.const$2,"UuidToStringW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS UuidToStringW(const UUID* Uuid, RPC_WSTR* StringUuid);
-     * }
-     */
-    public static int UuidToStringW(MemorySegment Uuid, MemorySegment StringUuid) {
-        var mh$ = UuidToStringW$MH();
-        try {
-            return (int)mh$.invokeExact(Uuid, StringUuid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle UuidFromStringW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1767.const$3,"UuidFromStringW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS UuidFromStringW(RPC_WSTR StringUuid, UUID* Uuid);
-     * }
-     */
-    public static int UuidFromStringW(MemorySegment StringUuid, MemorySegment Uuid) {
-        var mh$ = UuidFromStringW$MH();
-        try {
-            return (int)mh$.invokeExact(StringUuid, Uuid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle UuidCompare$MH() {
-        return RuntimeHelper.requireNonNull(constants$1767.const$4,"UuidCompare");
-    }
-    /**
-     * {@snippet :
-     * int UuidCompare(UUID* Uuid1, UUID* Uuid2, RPC_STATUS* Status);
-     * }
-     */
-    public static int UuidCompare(MemorySegment Uuid1, MemorySegment Uuid2, MemorySegment Status) {
-        var mh$ = UuidCompare$MH();
-        try {
-            return (int)mh$.invokeExact(Uuid1, Uuid2, Status);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle UuidCreateNil$MH() {
-        return RuntimeHelper.requireNonNull(constants$1767.const$5,"UuidCreateNil");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS UuidCreateNil(UUID* NilUuid);
-     * }
-     */
-    public static int UuidCreateNil(MemorySegment NilUuid) {
-        var mh$ = UuidCreateNil$MH();
-        try {
-            return (int)mh$.invokeExact(NilUuid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle UuidEqual$MH() {
-        return RuntimeHelper.requireNonNull(constants$1768.const$0,"UuidEqual");
-    }
-    /**
-     * {@snippet :
-     * int UuidEqual(UUID* Uuid1, UUID* Uuid2, RPC_STATUS* Status);
-     * }
-     */
-    public static int UuidEqual(MemorySegment Uuid1, MemorySegment Uuid2, MemorySegment Status) {
-        var mh$ = UuidEqual$MH();
-        try {
-            return (int)mh$.invokeExact(Uuid1, Uuid2, Status);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle UuidHash$MH() {
-        return RuntimeHelper.requireNonNull(constants$1768.const$2,"UuidHash");
-    }
-    /**
-     * {@snippet :
-     * unsigned short UuidHash(UUID* Uuid, RPC_STATUS* Status);
-     * }
-     */
-    public static short UuidHash(MemorySegment Uuid, MemorySegment Status) {
-        var mh$ = UuidHash$MH();
-        try {
-            return (short)mh$.invokeExact(Uuid, Status);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle UuidIsNil$MH() {
-        return RuntimeHelper.requireNonNull(constants$1768.const$3,"UuidIsNil");
-    }
-    /**
-     * {@snippet :
-     * int UuidIsNil(UUID* Uuid, RPC_STATUS* Status);
-     * }
-     */
-    public static int UuidIsNil(MemorySegment Uuid, MemorySegment Status) {
-        var mh$ = UuidIsNil$MH();
-        try {
-            return (int)mh$.invokeExact(Uuid, Status);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcEpRegisterNoReplaceA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1768.const$4,"RpcEpRegisterNoReplaceA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcEpRegisterNoReplaceA(RPC_IF_HANDLE IfSpec, RPC_BINDING_VECTOR* BindingVector, UUID_VECTOR* UuidVector, RPC_CSTR Annotation);
-     * }
-     */
-    public static int RpcEpRegisterNoReplaceA(MemorySegment IfSpec, MemorySegment BindingVector, MemorySegment UuidVector, MemorySegment Annotation) {
-        var mh$ = RpcEpRegisterNoReplaceA$MH();
-        try {
-            return (int)mh$.invokeExact(IfSpec, BindingVector, UuidVector, Annotation);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcEpRegisterNoReplaceW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1768.const$5,"RpcEpRegisterNoReplaceW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcEpRegisterNoReplaceW(RPC_IF_HANDLE IfSpec, RPC_BINDING_VECTOR* BindingVector, UUID_VECTOR* UuidVector, RPC_WSTR Annotation);
-     * }
-     */
-    public static int RpcEpRegisterNoReplaceW(MemorySegment IfSpec, MemorySegment BindingVector, MemorySegment UuidVector, MemorySegment Annotation) {
-        var mh$ = RpcEpRegisterNoReplaceW$MH();
-        try {
-            return (int)mh$.invokeExact(IfSpec, BindingVector, UuidVector, Annotation);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcEpRegisterA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1769.const$0,"RpcEpRegisterA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcEpRegisterA(RPC_IF_HANDLE IfSpec, RPC_BINDING_VECTOR* BindingVector, UUID_VECTOR* UuidVector, RPC_CSTR Annotation);
-     * }
-     */
-    public static int RpcEpRegisterA(MemorySegment IfSpec, MemorySegment BindingVector, MemorySegment UuidVector, MemorySegment Annotation) {
-        var mh$ = RpcEpRegisterA$MH();
-        try {
-            return (int)mh$.invokeExact(IfSpec, BindingVector, UuidVector, Annotation);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcEpRegisterW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1769.const$1,"RpcEpRegisterW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcEpRegisterW(RPC_IF_HANDLE IfSpec, RPC_BINDING_VECTOR* BindingVector, UUID_VECTOR* UuidVector, RPC_WSTR Annotation);
-     * }
-     */
-    public static int RpcEpRegisterW(MemorySegment IfSpec, MemorySegment BindingVector, MemorySegment UuidVector, MemorySegment Annotation) {
-        var mh$ = RpcEpRegisterW$MH();
-        try {
-            return (int)mh$.invokeExact(IfSpec, BindingVector, UuidVector, Annotation);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcEpUnregister$MH() {
-        return RuntimeHelper.requireNonNull(constants$1769.const$2,"RpcEpUnregister");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcEpUnregister(RPC_IF_HANDLE IfSpec, RPC_BINDING_VECTOR* BindingVector, UUID_VECTOR* UuidVector);
-     * }
-     */
-    public static int RpcEpUnregister(MemorySegment IfSpec, MemorySegment BindingVector, MemorySegment UuidVector) {
-        var mh$ = RpcEpUnregister$MH();
-        try {
-            return (int)mh$.invokeExact(IfSpec, BindingVector, UuidVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle DceErrorInqTextA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1769.const$3,"DceErrorInqTextA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS DceErrorInqTextA(RPC_STATUS RpcStatus, RPC_CSTR ErrorText);
-     * }
-     */
-    public static int DceErrorInqTextA(int RpcStatus, MemorySegment ErrorText) {
-        var mh$ = DceErrorInqTextA$MH();
-        try {
-            return (int)mh$.invokeExact(RpcStatus, ErrorText);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle DceErrorInqTextW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1769.const$4,"DceErrorInqTextW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS DceErrorInqTextW(RPC_STATUS RpcStatus, RPC_WSTR ErrorText);
-     * }
-     */
-    public static int DceErrorInqTextW(int RpcStatus, MemorySegment ErrorText) {
-        var mh$ = DceErrorInqTextW$MH();
-        try {
-            return (int)mh$.invokeExact(RpcStatus, ErrorText);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * typedef void** RPC_EP_INQ_HANDLE;
-     * }
-     */
-    public static final AddressLayout RPC_EP_INQ_HANDLE = RuntimeHelper.POINTER;
-    public static MethodHandle RpcMgmtEpEltInqBegin$MH() {
-        return RuntimeHelper.requireNonNull(constants$1769.const$5,"RpcMgmtEpEltInqBegin");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtEpEltInqBegin(RPC_BINDING_HANDLE EpBinding, unsigned long InquiryType, RPC_IF_ID* IfId, unsigned long VersOption, UUID* ObjectUuid, RPC_EP_INQ_HANDLE* InquiryContext);
-     * }
-     */
-    public static int RpcMgmtEpEltInqBegin(MemorySegment EpBinding, int InquiryType, MemorySegment IfId, int VersOption, MemorySegment ObjectUuid, MemorySegment InquiryContext) {
-        var mh$ = RpcMgmtEpEltInqBegin$MH();
-        try {
-            return (int)mh$.invokeExact(EpBinding, InquiryType, IfId, VersOption, ObjectUuid, InquiryContext);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtEpEltInqDone$MH() {
-        return RuntimeHelper.requireNonNull(constants$1770.const$0,"RpcMgmtEpEltInqDone");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtEpEltInqDone(RPC_EP_INQ_HANDLE* InquiryContext);
-     * }
-     */
-    public static int RpcMgmtEpEltInqDone(MemorySegment InquiryContext) {
-        var mh$ = RpcMgmtEpEltInqDone$MH();
-        try {
-            return (int)mh$.invokeExact(InquiryContext);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtEpEltInqNextA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1770.const$1,"RpcMgmtEpEltInqNextA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtEpEltInqNextA(RPC_EP_INQ_HANDLE InquiryContext, RPC_IF_ID* IfId, RPC_BINDING_HANDLE* Binding, UUID* ObjectUuid, RPC_CSTR* Annotation);
-     * }
-     */
-    public static int RpcMgmtEpEltInqNextA(MemorySegment InquiryContext, MemorySegment IfId, MemorySegment Binding, MemorySegment ObjectUuid, MemorySegment Annotation) {
-        var mh$ = RpcMgmtEpEltInqNextA$MH();
-        try {
-            return (int)mh$.invokeExact(InquiryContext, IfId, Binding, ObjectUuid, Annotation);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtEpEltInqNextW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1770.const$2,"RpcMgmtEpEltInqNextW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtEpEltInqNextW(RPC_EP_INQ_HANDLE InquiryContext, RPC_IF_ID* IfId, RPC_BINDING_HANDLE* Binding, UUID* ObjectUuid, RPC_WSTR* Annotation);
-     * }
-     */
-    public static int RpcMgmtEpEltInqNextW(MemorySegment InquiryContext, MemorySegment IfId, MemorySegment Binding, MemorySegment ObjectUuid, MemorySegment Annotation) {
-        var mh$ = RpcMgmtEpEltInqNextW$MH();
-        try {
-            return (int)mh$.invokeExact(InquiryContext, IfId, Binding, ObjectUuid, Annotation);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtEpUnregister$MH() {
-        return RuntimeHelper.requireNonNull(constants$1770.const$3,"RpcMgmtEpUnregister");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtEpUnregister(RPC_BINDING_HANDLE EpBinding, RPC_IF_ID* IfId, RPC_BINDING_HANDLE Binding, UUID* ObjectUuid);
-     * }
-     */
-    public static int RpcMgmtEpUnregister(MemorySegment EpBinding, MemorySegment IfId, MemorySegment Binding, MemorySegment ObjectUuid) {
-        var mh$ = RpcMgmtEpUnregister$MH();
-        try {
-            return (int)mh$.invokeExact(EpBinding, IfId, Binding, ObjectUuid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcMgmtSetAuthorizationFn$MH() {
-        return RuntimeHelper.requireNonNull(constants$1771.const$0,"RpcMgmtSetAuthorizationFn");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcMgmtSetAuthorizationFn(RPC_MGMT_AUTHORIZATION_FN AuthorizationFn);
-     * }
-     */
-    public static int RpcMgmtSetAuthorizationFn(MemorySegment AuthorizationFn) {
-        var mh$ = RpcMgmtSetAuthorizationFn$MH();
-        try {
-            return (int)mh$.invokeExact(AuthorizationFn);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcExceptionFilter$MH() {
-        return RuntimeHelper.requireNonNull(constants$1771.const$1,"RpcExceptionFilter");
-    }
-    /**
-     * {@snippet :
-     * int RpcExceptionFilter(unsigned long ExceptionCode);
-     * }
-     */
-    public static int RpcExceptionFilter(int ExceptionCode) {
-        var mh$ = RpcExceptionFilter$MH();
-        try {
-            return (int)mh$.invokeExact(ExceptionCode);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * typedef void* RPC_INTERFACE_GROUP;
-     * }
-     */
-    public static final AddressLayout RPC_INTERFACE_GROUP = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef void** PRPC_INTERFACE_GROUP;
-     * }
-     */
-    public static final AddressLayout PRPC_INTERFACE_GROUP = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PRPC_ENDPOINT_TEMPLATEW;
-     * }
-     */
-    public static final AddressLayout PRPC_ENDPOINT_TEMPLATEW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PRPC_ENDPOINT_TEMPLATEA;
-     * }
-     */
-    public static final AddressLayout PRPC_ENDPOINT_TEMPLATEA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PRPC_INTERFACE_TEMPLATEA;
-     * }
-     */
-    public static final AddressLayout PRPC_INTERFACE_TEMPLATEA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PRPC_INTERFACE_TEMPLATEW;
-     * }
-     */
-    public static final AddressLayout PRPC_INTERFACE_TEMPLATEW = RuntimeHelper.POINTER;
-    public static MethodHandle RpcServerInterfaceGroupCreateW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1777.const$6,"RpcServerInterfaceGroupCreateW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerInterfaceGroupCreateW(RPC_INTERFACE_TEMPLATEW* Interfaces, unsigned long NumIfs, RPC_ENDPOINT_TEMPLATEW* Endpoints, unsigned long NumEndpoints, unsigned long IdlePeriod, void (IdleCallbackFn)(RPC_INTERFACE_GROUP,void*,unsigned long), void* IdleCallbackContext, PRPC_INTERFACE_GROUP IfGroup);
-     * }
-     */
-    public static int RpcServerInterfaceGroupCreateW(MemorySegment Interfaces, int NumIfs, MemorySegment Endpoints, int NumEndpoints, int IdlePeriod, MemorySegment IdleCallbackFn, MemorySegment IdleCallbackContext, MemorySegment IfGroup) {
-        var mh$ = RpcServerInterfaceGroupCreateW$MH();
-        try {
-            return (int)mh$.invokeExact(Interfaces, NumIfs, Endpoints, NumEndpoints, IdlePeriod, IdleCallbackFn, IdleCallbackContext, IfGroup);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerInterfaceGroupCreateA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1778.const$1,"RpcServerInterfaceGroupCreateA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerInterfaceGroupCreateA(RPC_INTERFACE_TEMPLATEA* Interfaces, unsigned long NumIfs, RPC_ENDPOINT_TEMPLATEA* Endpoints, unsigned long NumEndpoints, unsigned long IdlePeriod, void (IdleCallbackFn)(RPC_INTERFACE_GROUP,void*,unsigned long), void* IdleCallbackContext, PRPC_INTERFACE_GROUP IfGroup);
-     * }
-     */
-    public static int RpcServerInterfaceGroupCreateA(MemorySegment Interfaces, int NumIfs, MemorySegment Endpoints, int NumEndpoints, int IdlePeriod, MemorySegment IdleCallbackFn, MemorySegment IdleCallbackContext, MemorySegment IfGroup) {
-        var mh$ = RpcServerInterfaceGroupCreateA$MH();
-        try {
-            return (int)mh$.invokeExact(Interfaces, NumIfs, Endpoints, NumEndpoints, IdlePeriod, IdleCallbackFn, IdleCallbackContext, IfGroup);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerInterfaceGroupClose$MH() {
-        return RuntimeHelper.requireNonNull(constants$1778.const$2,"RpcServerInterfaceGroupClose");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerInterfaceGroupClose(RPC_INTERFACE_GROUP IfGroup);
-     * }
-     */
-    public static int RpcServerInterfaceGroupClose(MemorySegment IfGroup) {
-        var mh$ = RpcServerInterfaceGroupClose$MH();
-        try {
-            return (int)mh$.invokeExact(IfGroup);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerInterfaceGroupActivate$MH() {
-        return RuntimeHelper.requireNonNull(constants$1778.const$3,"RpcServerInterfaceGroupActivate");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerInterfaceGroupActivate(RPC_INTERFACE_GROUP IfGroup);
-     * }
-     */
-    public static int RpcServerInterfaceGroupActivate(MemorySegment IfGroup) {
-        var mh$ = RpcServerInterfaceGroupActivate$MH();
-        try {
-            return (int)mh$.invokeExact(IfGroup);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerInterfaceGroupDeactivate$MH() {
-        return RuntimeHelper.requireNonNull(constants$1778.const$4,"RpcServerInterfaceGroupDeactivate");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerInterfaceGroupDeactivate(RPC_INTERFACE_GROUP IfGroup, unsigned long ForceDeactivation);
-     * }
-     */
-    public static int RpcServerInterfaceGroupDeactivate(MemorySegment IfGroup, int ForceDeactivation) {
-        var mh$ = RpcServerInterfaceGroupDeactivate$MH();
-        try {
-            return (int)mh$.invokeExact(IfGroup, ForceDeactivation);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcServerInterfaceGroupInqBindings$MH() {
-        return RuntimeHelper.requireNonNull(constants$1778.const$5,"RpcServerInterfaceGroupInqBindings");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcServerInterfaceGroupInqBindings(RPC_INTERFACE_GROUP IfGroup, RPC_BINDING_VECTOR** BindingVector);
-     * }
-     */
-    public static int RpcServerInterfaceGroupInqBindings(MemorySegment IfGroup, MemorySegment BindingVector) {
-        var mh$ = RpcServerInterfaceGroupInqBindings$MH();
-        try {
-            return (int)mh$.invokeExact(IfGroup, BindingVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * typedef struct _RPC_SYNTAX_IDENTIFIER* PRPC_SYNTAX_IDENTIFIER;
-     * }
-     */
-    public static final AddressLayout PRPC_SYNTAX_IDENTIFIER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_MESSAGE* PRPC_MESSAGE;
-     * }
-     */
-    public static final AddressLayout PRPC_MESSAGE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum RPC_ADDRESS_CHANGE_TYPE.PROTOCOL_NOT_LOADED = 1;
-     * }
-     */
-    public static int PROTOCOL_NOT_LOADED() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum RPC_ADDRESS_CHANGE_TYPE.PROTOCOL_LOADED = 2;
-     * }
-     */
-    public static int PROTOCOL_LOADED() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum RPC_ADDRESS_CHANGE_TYPE.PROTOCOL_ADDRESS_CHANGE = 3;
-     * }
-     */
-    public static int PROTOCOL_ADDRESS_CHANGE() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * typedef struct * PRPC_DISPATCH_TABLE;
-     * }
-     */
-    public static final AddressLayout PRPC_DISPATCH_TABLE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_PROTSEQ_ENDPOINT* PRPC_PROTSEQ_ENDPOINT;
-     * }
-     */
-    public static final AddressLayout PRPC_PROTSEQ_ENDPOINT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_SERVER_INTERFACE* PRPC_SERVER_INTERFACE;
-     * }
-     */
-    public static final AddressLayout PRPC_SERVER_INTERFACE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RPC_CLIENT_INTERFACE* PRPC_CLIENT_INTERFACE;
-     * }
-     */
-    public static final AddressLayout PRPC_CLIENT_INTERFACE = RuntimeHelper.POINTER;
-    public static MethodHandle I_RpcNegotiateTransferSyntax$MH() {
-        return RuntimeHelper.requireNonNull(constants$1786.const$1,"I_RpcNegotiateTransferSyntax");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcNegotiateTransferSyntax(RPC_MESSAGE* Message);
-     * }
-     */
-    public static int I_RpcNegotiateTransferSyntax(MemorySegment Message) {
-        var mh$ = I_RpcNegotiateTransferSyntax$MH();
-        try {
-            return (int)mh$.invokeExact(Message);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcGetBuffer$MH() {
-        return RuntimeHelper.requireNonNull(constants$1786.const$2,"I_RpcGetBuffer");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcGetBuffer(RPC_MESSAGE* Message);
-     * }
-     */
-    public static int I_RpcGetBuffer(MemorySegment Message) {
-        var mh$ = I_RpcGetBuffer$MH();
-        try {
-            return (int)mh$.invokeExact(Message);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcGetBufferWithObject$MH() {
-        return RuntimeHelper.requireNonNull(constants$1786.const$3,"I_RpcGetBufferWithObject");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcGetBufferWithObject(RPC_MESSAGE* Message, UUID* ObjectUuid);
-     * }
-     */
-    public static int I_RpcGetBufferWithObject(MemorySegment Message, MemorySegment ObjectUuid) {
-        var mh$ = I_RpcGetBufferWithObject$MH();
-        try {
-            return (int)mh$.invokeExact(Message, ObjectUuid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcSendReceive$MH() {
-        return RuntimeHelper.requireNonNull(constants$1786.const$4,"I_RpcSendReceive");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcSendReceive(RPC_MESSAGE* Message);
-     * }
-     */
-    public static int I_RpcSendReceive(MemorySegment Message) {
-        var mh$ = I_RpcSendReceive$MH();
-        try {
-            return (int)mh$.invokeExact(Message);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcFreeBuffer$MH() {
-        return RuntimeHelper.requireNonNull(constants$1786.const$5,"I_RpcFreeBuffer");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcFreeBuffer(RPC_MESSAGE* Message);
-     * }
-     */
-    public static int I_RpcFreeBuffer(MemorySegment Message) {
-        var mh$ = I_RpcFreeBuffer$MH();
-        try {
-            return (int)mh$.invokeExact(Message);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcSend$MH() {
-        return RuntimeHelper.requireNonNull(constants$1787.const$0,"I_RpcSend");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcSend(PRPC_MESSAGE Message);
-     * }
-     */
-    public static int I_RpcSend(MemorySegment Message) {
-        var mh$ = I_RpcSend$MH();
-        try {
-            return (int)mh$.invokeExact(Message);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcReceive$MH() {
-        return RuntimeHelper.requireNonNull(constants$1787.const$1,"I_RpcReceive");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcReceive(PRPC_MESSAGE Message, unsigned int Size);
-     * }
-     */
-    public static int I_RpcReceive(MemorySegment Message, int Size) {
-        var mh$ = I_RpcReceive$MH();
-        try {
-            return (int)mh$.invokeExact(Message, Size);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcFreePipeBuffer$MH() {
-        return RuntimeHelper.requireNonNull(constants$1787.const$2,"I_RpcFreePipeBuffer");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcFreePipeBuffer(RPC_MESSAGE* Message);
-     * }
-     */
-    public static int I_RpcFreePipeBuffer(MemorySegment Message) {
-        var mh$ = I_RpcFreePipeBuffer$MH();
-        try {
-            return (int)mh$.invokeExact(Message);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcReallocPipeBuffer$MH() {
-        return RuntimeHelper.requireNonNull(constants$1787.const$3,"I_RpcReallocPipeBuffer");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcReallocPipeBuffer(PRPC_MESSAGE Message, unsigned int NewSize);
-     * }
-     */
-    public static int I_RpcReallocPipeBuffer(MemorySegment Message, int NewSize) {
-        var mh$ = I_RpcReallocPipeBuffer$MH();
-        try {
-            return (int)mh$.invokeExact(Message, NewSize);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * typedef void* I_RPC_MUTEX;
-     * }
-     */
-    public static final AddressLayout I_RPC_MUTEX = RuntimeHelper.POINTER;
-    public static MethodHandle I_RpcRequestMutex$MH() {
-        return RuntimeHelper.requireNonNull(constants$1787.const$4,"I_RpcRequestMutex");
-    }
-    /**
-     * {@snippet :
-     * void I_RpcRequestMutex(I_RPC_MUTEX* Mutex);
-     * }
-     */
-    public static void I_RpcRequestMutex(MemorySegment Mutex) {
-        var mh$ = I_RpcRequestMutex$MH();
-        try {
-            mh$.invokeExact(Mutex);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcClearMutex$MH() {
-        return RuntimeHelper.requireNonNull(constants$1787.const$5,"I_RpcClearMutex");
-    }
-    /**
-     * {@snippet :
-     * void I_RpcClearMutex(I_RPC_MUTEX Mutex);
-     * }
-     */
-    public static void I_RpcClearMutex(MemorySegment Mutex) {
-        var mh$ = I_RpcClearMutex$MH();
-        try {
-            mh$.invokeExact(Mutex);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcDeleteMutex$MH() {
-        return RuntimeHelper.requireNonNull(constants$1788.const$0,"I_RpcDeleteMutex");
-    }
-    /**
-     * {@snippet :
-     * void I_RpcDeleteMutex(I_RPC_MUTEX Mutex);
-     * }
-     */
-    public static void I_RpcDeleteMutex(MemorySegment Mutex) {
-        var mh$ = I_RpcDeleteMutex$MH();
-        try {
-            mh$.invokeExact(Mutex);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcAllocate$MH() {
-        return RuntimeHelper.requireNonNull(constants$1788.const$1,"I_RpcAllocate");
-    }
-    /**
-     * {@snippet :
-     * void* I_RpcAllocate(unsigned int Size);
-     * }
-     */
-    public static MemorySegment I_RpcAllocate(int Size) {
-        var mh$ = I_RpcAllocate$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(Size);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcFree$MH() {
-        return RuntimeHelper.requireNonNull(constants$1788.const$2,"I_RpcFree");
-    }
-    /**
-     * {@snippet :
-     * void I_RpcFree(void* Object);
-     * }
-     */
-    public static void I_RpcFree(MemorySegment Object) {
-        var mh$ = I_RpcFree$MH();
-        try {
-            mh$.invokeExact(Object);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcFreeSystemHandleCollection$MH() {
-        return RuntimeHelper.requireNonNull(constants$1788.const$3,"I_RpcFreeSystemHandleCollection");
-    }
-    /**
-     * {@snippet :
-     * unsigned long I_RpcFreeSystemHandleCollection(void* CallObj, unsigned long FreeFlags);
-     * }
-     */
-    public static int I_RpcFreeSystemHandleCollection(MemorySegment CallObj, int FreeFlags) {
-        var mh$ = I_RpcFreeSystemHandleCollection$MH();
-        try {
-            return (int)mh$.invokeExact(CallObj, FreeFlags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcSetSystemHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1788.const$5,"I_RpcSetSystemHandle");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcSetSystemHandle(void* Handle, unsigned char Type, unsigned long AccessMask, void* CallObj, unsigned long* HandleIndex);
-     * }
-     */
-    public static int I_RpcSetSystemHandle(MemorySegment Handle, byte Type, int AccessMask, MemorySegment CallObj, MemorySegment HandleIndex) {
-        var mh$ = I_RpcSetSystemHandle$MH();
-        try {
-            return (int)mh$.invokeExact(Handle, Type, AccessMask, CallObj, HandleIndex);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcGetSystemHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1789.const$1,"I_RpcGetSystemHandle");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcGetSystemHandle(unsigned char* pMemory, unsigned char Type, unsigned long AccessMask, unsigned long HandleIndex, void* CallObj);
-     * }
-     */
-    public static int I_RpcGetSystemHandle(MemorySegment pMemory, byte Type, int AccessMask, int HandleIndex, MemorySegment CallObj) {
-        var mh$ = I_RpcGetSystemHandle$MH();
-        try {
-            return (int)mh$.invokeExact(pMemory, Type, AccessMask, HandleIndex, CallObj);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcFreeSystemHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1789.const$2,"I_RpcFreeSystemHandle");
-    }
-    /**
-     * {@snippet :
-     * void I_RpcFreeSystemHandle(unsigned char Type, void* Handle);
-     * }
-     */
-    public static void I_RpcFreeSystemHandle(byte Type, MemorySegment Handle) {
-        var mh$ = I_RpcFreeSystemHandle$MH();
-        try {
-            mh$.invokeExact(Type, Handle);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcPauseExecution$MH() {
-        return RuntimeHelper.requireNonNull(constants$1789.const$3,"I_RpcPauseExecution");
-    }
-    /**
-     * {@snippet :
-     * void I_RpcPauseExecution(unsigned long Milliseconds);
-     * }
-     */
-    public static void I_RpcPauseExecution(int Milliseconds) {
-        var mh$ = I_RpcPauseExecution$MH();
-        try {
-            mh$.invokeExact(Milliseconds);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcGetExtendedError$MH() {
-        return RuntimeHelper.requireNonNull(constants$1789.const$4,"I_RpcGetExtendedError");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcGetExtendedError();
-     * }
-     */
-    public static int I_RpcGetExtendedError() {
-        var mh$ = I_RpcGetExtendedError$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * enum _LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION.MarshalDirectionMarshal = 0;
-     * }
-     */
-    public static int MarshalDirectionMarshal() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum _LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION.MarshalDirectionUnmarshal = 1;
-     * }
-     */
-    public static int MarshalDirectionUnmarshal() {
-        return (int)1L;
-    }
-    public static MethodHandle I_RpcSystemHandleTypeSpecificWork$MH() {
-        return RuntimeHelper.requireNonNull(constants$1789.const$6,"I_RpcSystemHandleTypeSpecificWork");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcSystemHandleTypeSpecificWork(void* Handle, unsigned char ActualType, unsigned char IdlType, LRPC_SYSTEM_HANDLE_MARSHAL_DIRECTION MarshalDirection);
-     * }
-     */
-    public static int I_RpcSystemHandleTypeSpecificWork(MemorySegment Handle, byte ActualType, byte IdlType, int MarshalDirection) {
-        var mh$ = I_RpcSystemHandleTypeSpecificWork$MH();
-        try {
-            return (int)mh$.invokeExact(Handle, ActualType, IdlType, MarshalDirection);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcMonitorAssociation$MH() {
-        return RuntimeHelper.requireNonNull(constants$1790.const$1,"I_RpcMonitorAssociation");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcMonitorAssociation(RPC_BINDING_HANDLE Handle, PRPC_RUNDOWN RundownRoutine, void* Context);
-     * }
-     */
-    public static int I_RpcMonitorAssociation(MemorySegment Handle, MemorySegment RundownRoutine, MemorySegment Context) {
-        var mh$ = I_RpcMonitorAssociation$MH();
-        try {
-            return (int)mh$.invokeExact(Handle, RundownRoutine, Context);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcStopMonitorAssociation$MH() {
-        return RuntimeHelper.requireNonNull(constants$1790.const$2,"I_RpcStopMonitorAssociation");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcStopMonitorAssociation(RPC_BINDING_HANDLE Handle);
-     * }
-     */
-    public static int I_RpcStopMonitorAssociation(MemorySegment Handle) {
-        var mh$ = I_RpcStopMonitorAssociation$MH();
-        try {
-            return (int)mh$.invokeExact(Handle);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcGetCurrentCallHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1790.const$3,"I_RpcGetCurrentCallHandle");
-    }
-    /**
-     * {@snippet :
-     * RPC_BINDING_HANDLE I_RpcGetCurrentCallHandle();
-     * }
-     */
-    public static MemorySegment I_RpcGetCurrentCallHandle() {
-        var mh$ = I_RpcGetCurrentCallHandle$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcGetAssociationContext$MH() {
-        return RuntimeHelper.requireNonNull(constants$1790.const$4,"I_RpcGetAssociationContext");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcGetAssociationContext(RPC_BINDING_HANDLE BindingHandle, void** AssociationContext);
-     * }
-     */
-    public static int I_RpcGetAssociationContext(MemorySegment BindingHandle, MemorySegment AssociationContext) {
-        var mh$ = I_RpcGetAssociationContext$MH();
-        try {
-            return (int)mh$.invokeExact(BindingHandle, AssociationContext);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcGetServerContextList$MH() {
-        return RuntimeHelper.requireNonNull(constants$1790.const$5,"I_RpcGetServerContextList");
-    }
-    /**
-     * {@snippet :
-     * void* I_RpcGetServerContextList(RPC_BINDING_HANDLE BindingHandle);
-     * }
-     */
-    public static MemorySegment I_RpcGetServerContextList(MemorySegment BindingHandle) {
-        var mh$ = I_RpcGetServerContextList$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(BindingHandle);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcSetServerContextList$MH() {
-        return RuntimeHelper.requireNonNull(constants$1791.const$0,"I_RpcSetServerContextList");
-    }
-    /**
-     * {@snippet :
-     * void I_RpcSetServerContextList(RPC_BINDING_HANDLE BindingHandle, void* ServerContextList);
-     * }
-     */
-    public static void I_RpcSetServerContextList(MemorySegment BindingHandle, MemorySegment ServerContextList) {
-        var mh$ = I_RpcSetServerContextList$MH();
-        try {
-            mh$.invokeExact(BindingHandle, ServerContextList);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcNsInterfaceExported$MH() {
-        return RuntimeHelper.requireNonNull(constants$1791.const$1,"I_RpcNsInterfaceExported");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcNsInterfaceExported(unsigned long EntryNameSyntax, unsigned short* EntryName, RPC_SERVER_INTERFACE* RpcInterfaceInformation);
-     * }
-     */
-    public static int I_RpcNsInterfaceExported(int EntryNameSyntax, MemorySegment EntryName, MemorySegment RpcInterfaceInformation) {
-        var mh$ = I_RpcNsInterfaceExported$MH();
-        try {
-            return (int)mh$.invokeExact(EntryNameSyntax, EntryName, RpcInterfaceInformation);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcNsInterfaceUnexported$MH() {
-        return RuntimeHelper.requireNonNull(constants$1791.const$2,"I_RpcNsInterfaceUnexported");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcNsInterfaceUnexported(unsigned long EntryNameSyntax, unsigned short* EntryName, RPC_SERVER_INTERFACE* RpcInterfaceInformation);
-     * }
-     */
-    public static int I_RpcNsInterfaceUnexported(int EntryNameSyntax, MemorySegment EntryName, MemorySegment RpcInterfaceInformation) {
-        var mh$ = I_RpcNsInterfaceUnexported$MH();
-        try {
-            return (int)mh$.invokeExact(EntryNameSyntax, EntryName, RpcInterfaceInformation);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingToStaticStringBindingW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1791.const$3,"I_RpcBindingToStaticStringBindingW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingToStaticStringBindingW(RPC_BINDING_HANDLE Binding, unsigned short** StringBinding);
-     * }
-     */
-    public static int I_RpcBindingToStaticStringBindingW(MemorySegment Binding, MemorySegment StringBinding) {
-        var mh$ = I_RpcBindingToStaticStringBindingW$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, StringBinding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingInqSecurityContext$MH() {
-        return RuntimeHelper.requireNonNull(constants$1791.const$4,"I_RpcBindingInqSecurityContext");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingInqSecurityContext(RPC_BINDING_HANDLE Binding, void** SecurityContextHandle);
-     * }
-     */
-    public static int I_RpcBindingInqSecurityContext(MemorySegment Binding, MemorySegment SecurityContextHandle) {
-        var mh$ = I_RpcBindingInqSecurityContext$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, SecurityContextHandle);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * typedef struct _RPC_SEC_CONTEXT_KEY_INFO* PRPC_SEC_CONTEXT_KEY_INFO;
-     * }
-     */
-    public static final AddressLayout PRPC_SEC_CONTEXT_KEY_INFO = RuntimeHelper.POINTER;
-    public static MethodHandle I_RpcBindingInqSecurityContextKeyInfo$MH() {
-        return RuntimeHelper.requireNonNull(constants$1792.const$3,"I_RpcBindingInqSecurityContextKeyInfo");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingInqSecurityContextKeyInfo(RPC_BINDING_HANDLE Binding, void* KeyInfo);
-     * }
-     */
-    public static int I_RpcBindingInqSecurityContextKeyInfo(MemorySegment Binding, MemorySegment KeyInfo) {
-        var mh$ = I_RpcBindingInqSecurityContextKeyInfo$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, KeyInfo);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingInqWireIdForSnego$MH() {
-        return RuntimeHelper.requireNonNull(constants$1792.const$4,"I_RpcBindingInqWireIdForSnego");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingInqWireIdForSnego(RPC_BINDING_HANDLE Binding, unsigned char* WireId);
-     * }
-     */
-    public static int I_RpcBindingInqWireIdForSnego(MemorySegment Binding, MemorySegment WireId) {
-        var mh$ = I_RpcBindingInqWireIdForSnego$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, WireId);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingInqMarshalledTargetInfo$MH() {
-        return RuntimeHelper.requireNonNull(constants$1792.const$5,"I_RpcBindingInqMarshalledTargetInfo");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingInqMarshalledTargetInfo(RPC_BINDING_HANDLE Binding, unsigned long* MarshalledTargetInfoSize, RPC_CSTR* MarshalledTargetInfo);
-     * }
-     */
-    public static int I_RpcBindingInqMarshalledTargetInfo(MemorySegment Binding, MemorySegment MarshalledTargetInfoSize, MemorySegment MarshalledTargetInfo) {
-        var mh$ = I_RpcBindingInqMarshalledTargetInfo$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, MarshalledTargetInfoSize, MarshalledTargetInfo);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingInqLocalClientPID$MH() {
-        return RuntimeHelper.requireNonNull(constants$1793.const$0,"I_RpcBindingInqLocalClientPID");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingInqLocalClientPID(RPC_BINDING_HANDLE Binding, unsigned long* Pid);
-     * }
-     */
-    public static int I_RpcBindingInqLocalClientPID(MemorySegment Binding, MemorySegment Pid) {
-        var mh$ = I_RpcBindingInqLocalClientPID$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, Pid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingHandleToAsyncHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1793.const$1,"I_RpcBindingHandleToAsyncHandle");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingHandleToAsyncHandle(RPC_BINDING_HANDLE Binding, void** AsyncHandle);
-     * }
-     */
-    public static int I_RpcBindingHandleToAsyncHandle(MemorySegment Binding, MemorySegment AsyncHandle) {
-        var mh$ = I_RpcBindingHandleToAsyncHandle$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, AsyncHandle);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcNsBindingSetEntryNameW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1793.const$2,"I_RpcNsBindingSetEntryNameW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcNsBindingSetEntryNameW(RPC_BINDING_HANDLE Binding, unsigned long EntryNameSyntax, RPC_WSTR EntryName);
-     * }
-     */
-    public static int I_RpcNsBindingSetEntryNameW(MemorySegment Binding, int EntryNameSyntax, MemorySegment EntryName) {
-        var mh$ = I_RpcNsBindingSetEntryNameW$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, EntryNameSyntax, EntryName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcNsBindingSetEntryNameA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1793.const$3,"I_RpcNsBindingSetEntryNameA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcNsBindingSetEntryNameA(RPC_BINDING_HANDLE Binding, unsigned long EntryNameSyntax, RPC_CSTR EntryName);
-     * }
-     */
-    public static int I_RpcNsBindingSetEntryNameA(MemorySegment Binding, int EntryNameSyntax, MemorySegment EntryName) {
-        var mh$ = I_RpcNsBindingSetEntryNameA$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, EntryNameSyntax, EntryName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerUseProtseqEp2A$MH() {
-        return RuntimeHelper.requireNonNull(constants$1793.const$4,"I_RpcServerUseProtseqEp2A");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerUseProtseqEp2A(RPC_CSTR NetworkAddress, RPC_CSTR Protseq, unsigned int MaxCalls, RPC_CSTR Endpoint, void* SecurityDescriptor, void* Policy);
-     * }
-     */
-    public static int I_RpcServerUseProtseqEp2A(MemorySegment NetworkAddress, MemorySegment Protseq, int MaxCalls, MemorySegment Endpoint, MemorySegment SecurityDescriptor, MemorySegment Policy) {
-        var mh$ = I_RpcServerUseProtseqEp2A$MH();
-        try {
-            return (int)mh$.invokeExact(NetworkAddress, Protseq, MaxCalls, Endpoint, SecurityDescriptor, Policy);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerUseProtseqEp2W$MH() {
-        return RuntimeHelper.requireNonNull(constants$1793.const$5,"I_RpcServerUseProtseqEp2W");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerUseProtseqEp2W(RPC_WSTR NetworkAddress, RPC_WSTR Protseq, unsigned int MaxCalls, RPC_WSTR Endpoint, void* SecurityDescriptor, void* Policy);
-     * }
-     */
-    public static int I_RpcServerUseProtseqEp2W(MemorySegment NetworkAddress, MemorySegment Protseq, int MaxCalls, MemorySegment Endpoint, MemorySegment SecurityDescriptor, MemorySegment Policy) {
-        var mh$ = I_RpcServerUseProtseqEp2W$MH();
-        try {
-            return (int)mh$.invokeExact(NetworkAddress, Protseq, MaxCalls, Endpoint, SecurityDescriptor, Policy);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerUseProtseq2W$MH() {
-        return RuntimeHelper.requireNonNull(constants$1794.const$0,"I_RpcServerUseProtseq2W");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerUseProtseq2W(RPC_WSTR NetworkAddress, RPC_WSTR Protseq, unsigned int MaxCalls, void* SecurityDescriptor, void* Policy);
-     * }
-     */
-    public static int I_RpcServerUseProtseq2W(MemorySegment NetworkAddress, MemorySegment Protseq, int MaxCalls, MemorySegment SecurityDescriptor, MemorySegment Policy) {
-        var mh$ = I_RpcServerUseProtseq2W$MH();
-        try {
-            return (int)mh$.invokeExact(NetworkAddress, Protseq, MaxCalls, SecurityDescriptor, Policy);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerUseProtseq2A$MH() {
-        return RuntimeHelper.requireNonNull(constants$1794.const$1,"I_RpcServerUseProtseq2A");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerUseProtseq2A(RPC_CSTR NetworkAddress, RPC_CSTR Protseq, unsigned int MaxCalls, void* SecurityDescriptor, void* Policy);
-     * }
-     */
-    public static int I_RpcServerUseProtseq2A(MemorySegment NetworkAddress, MemorySegment Protseq, int MaxCalls, MemorySegment SecurityDescriptor, MemorySegment Policy) {
-        var mh$ = I_RpcServerUseProtseq2A$MH();
-        try {
-            return (int)mh$.invokeExact(NetworkAddress, Protseq, MaxCalls, SecurityDescriptor, Policy);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerStartService$MH() {
-        return RuntimeHelper.requireNonNull(constants$1794.const$2,"I_RpcServerStartService");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerStartService(RPC_WSTR Protseq, RPC_WSTR Endpoint, RPC_IF_HANDLE IfSpec);
-     * }
-     */
-    public static int I_RpcServerStartService(MemorySegment Protseq, MemorySegment Endpoint, MemorySegment IfSpec) {
-        var mh$ = I_RpcServerStartService$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, Endpoint, IfSpec);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingInqDynamicEndpointW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1794.const$3,"I_RpcBindingInqDynamicEndpointW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingInqDynamicEndpointW(RPC_BINDING_HANDLE Binding, RPC_WSTR* DynamicEndpoint);
-     * }
-     */
-    public static int I_RpcBindingInqDynamicEndpointW(MemorySegment Binding, MemorySegment DynamicEndpoint) {
-        var mh$ = I_RpcBindingInqDynamicEndpointW$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, DynamicEndpoint);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingInqDynamicEndpointA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1794.const$4,"I_RpcBindingInqDynamicEndpointA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingInqDynamicEndpointA(RPC_BINDING_HANDLE Binding, RPC_CSTR* DynamicEndpoint);
-     * }
-     */
-    public static int I_RpcBindingInqDynamicEndpointA(MemorySegment Binding, MemorySegment DynamicEndpoint) {
-        var mh$ = I_RpcBindingInqDynamicEndpointA$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, DynamicEndpoint);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerCheckClientRestriction$MH() {
-        return RuntimeHelper.requireNonNull(constants$1794.const$5,"I_RpcServerCheckClientRestriction");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerCheckClientRestriction(RPC_BINDING_HANDLE Context);
-     * }
-     */
-    public static int I_RpcServerCheckClientRestriction(MemorySegment Context) {
-        var mh$ = I_RpcServerCheckClientRestriction$MH();
-        try {
-            return (int)mh$.invokeExact(Context);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingInqTransportType$MH() {
-        return RuntimeHelper.requireNonNull(constants$1795.const$0,"I_RpcBindingInqTransportType");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingInqTransportType(RPC_BINDING_HANDLE Binding, unsigned int* Type);
-     * }
-     */
-    public static int I_RpcBindingInqTransportType(MemorySegment Binding, MemorySegment Type) {
-        var mh$ = I_RpcBindingInqTransportType$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, Type);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcIfInqTransferSyntaxes$MH() {
-        return RuntimeHelper.requireNonNull(constants$1795.const$4,"I_RpcIfInqTransferSyntaxes");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcIfInqTransferSyntaxes(RPC_IF_HANDLE RpcIfHandle, RPC_TRANSFER_SYNTAX* TransferSyntaxes, unsigned int TransferSyntaxSize, unsigned int* TransferSyntaxCount);
-     * }
-     */
-    public static int I_RpcIfInqTransferSyntaxes(MemorySegment RpcIfHandle, MemorySegment TransferSyntaxes, int TransferSyntaxSize, MemorySegment TransferSyntaxCount) {
-        var mh$ = I_RpcIfInqTransferSyntaxes$MH();
-        try {
-            return (int)mh$.invokeExact(RpcIfHandle, TransferSyntaxes, TransferSyntaxSize, TransferSyntaxCount);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_UuidCreate$MH() {
-        return RuntimeHelper.requireNonNull(constants$1795.const$5,"I_UuidCreate");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_UuidCreate(UUID* Uuid);
-     * }
-     */
-    public static int I_UuidCreate(MemorySegment Uuid) {
-        var mh$ = I_UuidCreate$MH();
-        try {
-            return (int)mh$.invokeExact(Uuid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcUninitializeNdrOle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1796.const$0,"I_RpcUninitializeNdrOle");
-    }
-    /**
-     * {@snippet :
-     * void I_RpcUninitializeNdrOle();
-     * }
-     */
-    public static void I_RpcUninitializeNdrOle() {
-        var mh$ = I_RpcUninitializeNdrOle$MH();
-        try {
-            mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingCopy$MH() {
-        return RuntimeHelper.requireNonNull(constants$1796.const$1,"I_RpcBindingCopy");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingCopy(RPC_BINDING_HANDLE SourceBinding, RPC_BINDING_HANDLE* DestinationBinding);
-     * }
-     */
-    public static int I_RpcBindingCopy(MemorySegment SourceBinding, MemorySegment DestinationBinding) {
-        var mh$ = I_RpcBindingCopy$MH();
-        try {
-            return (int)mh$.invokeExact(SourceBinding, DestinationBinding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingIsClientLocal$MH() {
-        return RuntimeHelper.requireNonNull(constants$1796.const$2,"I_RpcBindingIsClientLocal");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingIsClientLocal(RPC_BINDING_HANDLE BindingHandle, unsigned int* ClientLocalFlag);
-     * }
-     */
-    public static int I_RpcBindingIsClientLocal(MemorySegment BindingHandle, MemorySegment ClientLocalFlag) {
-        var mh$ = I_RpcBindingIsClientLocal$MH();
-        try {
-            return (int)mh$.invokeExact(BindingHandle, ClientLocalFlag);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingInqConnId$MH() {
-        return RuntimeHelper.requireNonNull(constants$1796.const$3,"I_RpcBindingInqConnId");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingInqConnId(RPC_BINDING_HANDLE Binding, void** ConnId, int* pfFirstCall);
-     * }
-     */
-    public static int I_RpcBindingInqConnId(MemorySegment Binding, MemorySegment ConnId, MemorySegment pfFirstCall) {
-        var mh$ = I_RpcBindingInqConnId$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, ConnId, pfFirstCall);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingCreateNP$MH() {
-        return RuntimeHelper.requireNonNull(constants$1796.const$4,"I_RpcBindingCreateNP");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingCreateNP(RPC_WSTR ServerName, RPC_WSTR ServiceName, RPC_WSTR NetworkOptions, RPC_BINDING_HANDLE* Binding);
-     * }
-     */
-    public static int I_RpcBindingCreateNP(MemorySegment ServerName, MemorySegment ServiceName, MemorySegment NetworkOptions, MemorySegment Binding) {
-        var mh$ = I_RpcBindingCreateNP$MH();
-        try {
-            return (int)mh$.invokeExact(ServerName, ServiceName, NetworkOptions, Binding);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcSsDontSerializeContext$MH() {
-        return RuntimeHelper.requireNonNull(constants$1796.const$5,"I_RpcSsDontSerializeContext");
-    }
-    /**
-     * {@snippet :
-     * void I_RpcSsDontSerializeContext();
-     * }
-     */
-    public static void I_RpcSsDontSerializeContext() {
-        var mh$ = I_RpcSsDontSerializeContext$MH();
-        try {
-            mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcLaunchDatagramReceiveThread$MH() {
-        return RuntimeHelper.requireNonNull(constants$1797.const$0,"I_RpcLaunchDatagramReceiveThread");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcLaunchDatagramReceiveThread(void* pAddress);
-     * }
-     */
-    public static int I_RpcLaunchDatagramReceiveThread(MemorySegment pAddress) {
-        var mh$ = I_RpcLaunchDatagramReceiveThread$MH();
-        try {
-            return (int)mh$.invokeExact(pAddress);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerRegisterForwardFunction$MH() {
-        return RuntimeHelper.requireNonNull(constants$1797.const$2,"I_RpcServerRegisterForwardFunction");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerRegisterForwardFunction(RPC_STATUS (*pForwardFunction)(UUID*,RPC_VERSION*,UUID*,unsigned char*,void**));
-     * }
-     */
-    public static int I_RpcServerRegisterForwardFunction(MemorySegment pForwardFunction) {
-        var mh$ = I_RpcServerRegisterForwardFunction$MH();
-        try {
-            return (int)mh$.invokeExact(pForwardFunction);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerInqAddressChangeFn$MH() {
-        return RuntimeHelper.requireNonNull(constants$1797.const$4,"I_RpcServerInqAddressChangeFn");
-    }
-    /**
-     * {@snippet :
-     * void (*I_RpcServerInqAddressChangeFn())(void*);
-     * }
-     */
-    public static MemorySegment I_RpcServerInqAddressChangeFn() {
-        var mh$ = I_RpcServerInqAddressChangeFn$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerSetAddressChangeFn$MH() {
-        return RuntimeHelper.requireNonNull(constants$1798.const$0,"I_RpcServerSetAddressChangeFn");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerSetAddressChangeFn(void (*pAddressChangeFn)(void*));
-     * }
-     */
-    public static int I_RpcServerSetAddressChangeFn(MemorySegment pAddressChangeFn) {
-        var mh$ = I_RpcServerSetAddressChangeFn$MH();
-        try {
-            return (int)mh$.invokeExact(pAddressChangeFn);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerInqLocalConnAddress$MH() {
-        return RuntimeHelper.requireNonNull(constants$1798.const$1,"I_RpcServerInqLocalConnAddress");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerInqLocalConnAddress(RPC_BINDING_HANDLE Binding, void* Buffer, unsigned long* BufferSize, unsigned long* AddressFormat);
-     * }
-     */
-    public static int I_RpcServerInqLocalConnAddress(MemorySegment Binding, MemorySegment Buffer, MemorySegment BufferSize, MemorySegment AddressFormat) {
-        var mh$ = I_RpcServerInqLocalConnAddress$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, Buffer, BufferSize, AddressFormat);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerInqRemoteConnAddress$MH() {
-        return RuntimeHelper.requireNonNull(constants$1798.const$2,"I_RpcServerInqRemoteConnAddress");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerInqRemoteConnAddress(RPC_BINDING_HANDLE Binding, void* Buffer, unsigned long* BufferSize, unsigned long* AddressFormat);
-     * }
-     */
-    public static int I_RpcServerInqRemoteConnAddress(MemorySegment Binding, MemorySegment Buffer, MemorySegment BufferSize, MemorySegment AddressFormat) {
-        var mh$ = I_RpcServerInqRemoteConnAddress$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, Buffer, BufferSize, AddressFormat);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcSessionStrictContextHandle$MH() {
-        return RuntimeHelper.requireNonNull(constants$1798.const$3,"I_RpcSessionStrictContextHandle");
-    }
-    /**
-     * {@snippet :
-     * void I_RpcSessionStrictContextHandle();
-     * }
-     */
-    public static void I_RpcSessionStrictContextHandle() {
-        var mh$ = I_RpcSessionStrictContextHandle$MH();
-        try {
-            mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcTurnOnEEInfoPropagation$MH() {
-        return RuntimeHelper.requireNonNull(constants$1798.const$4,"I_RpcTurnOnEEInfoPropagation");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcTurnOnEEInfoPropagation();
-     * }
-     */
-    public static int I_RpcTurnOnEEInfoPropagation() {
-        var mh$ = I_RpcTurnOnEEInfoPropagation$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcConnectionInqSockBuffSize$MH() {
-        return RuntimeHelper.requireNonNull(constants$1798.const$5,"I_RpcConnectionInqSockBuffSize");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcConnectionInqSockBuffSize(unsigned long* RecvBuffSize, unsigned long* SendBuffSize);
-     * }
-     */
-    public static int I_RpcConnectionInqSockBuffSize(MemorySegment RecvBuffSize, MemorySegment SendBuffSize) {
-        var mh$ = I_RpcConnectionInqSockBuffSize$MH();
-        try {
-            return (int)mh$.invokeExact(RecvBuffSize, SendBuffSize);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcConnectionSetSockBuffSize$MH() {
-        return RuntimeHelper.requireNonNull(constants$1799.const$0,"I_RpcConnectionSetSockBuffSize");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcConnectionSetSockBuffSize(unsigned long RecvBuffSize, unsigned long SendBuffSize);
-     * }
-     */
-    public static int I_RpcConnectionSetSockBuffSize(int RecvBuffSize, int SendBuffSize) {
-        var mh$ = I_RpcConnectionSetSockBuffSize$MH();
-        try {
-            return (int)mh$.invokeExact(RecvBuffSize, SendBuffSize);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerStartListening$MH() {
-        return RuntimeHelper.requireNonNull(constants$1799.const$3,"I_RpcServerStartListening");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerStartListening(void* hWnd);
-     * }
-     */
-    public static int I_RpcServerStartListening(MemorySegment hWnd) {
-        var mh$ = I_RpcServerStartListening$MH();
-        try {
-            return (int)mh$.invokeExact(hWnd);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerStopListening$MH() {
-        return RuntimeHelper.requireNonNull(constants$1799.const$4,"I_RpcServerStopListening");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerStopListening();
-     * }
-     */
-    public static int I_RpcServerStopListening() {
-        var mh$ = I_RpcServerStopListening$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingSetAsync$MH() {
-        return RuntimeHelper.requireNonNull(constants$1800.const$0,"I_RpcBindingSetAsync");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingSetAsync(RPC_BINDING_HANDLE Binding, RPC_BLOCKING_FN BlockingFn, unsigned long ServerTid);
-     * }
-     */
-    public static int I_RpcBindingSetAsync(MemorySegment Binding, MemorySegment BlockingFn, int ServerTid) {
-        var mh$ = I_RpcBindingSetAsync$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, BlockingFn, ServerTid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcSetThreadParams$MH() {
-        return RuntimeHelper.requireNonNull(constants$1800.const$1,"I_RpcSetThreadParams");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcSetThreadParams(int fClientFree, void* Context, void* hWndClient);
-     * }
-     */
-    public static int I_RpcSetThreadParams(int fClientFree, MemorySegment Context, MemorySegment hWndClient) {
-        var mh$ = I_RpcSetThreadParams$MH();
-        try {
-            return (int)mh$.invokeExact(fClientFree, Context, hWndClient);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcWindowProc$MH() {
-        return RuntimeHelper.requireNonNull(constants$1800.const$2,"I_RpcWindowProc");
-    }
-    /**
-     * {@snippet :
-     * unsigned int I_RpcWindowProc(void* hWnd, unsigned int Message, unsigned int wParam, unsigned long lParam);
-     * }
-     */
-    public static int I_RpcWindowProc(MemorySegment hWnd, int Message, int wParam, int lParam) {
-        var mh$ = I_RpcWindowProc$MH();
-        try {
-            return (int)mh$.invokeExact(hWnd, Message, wParam, lParam);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerUnregisterEndpointA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1800.const$3,"I_RpcServerUnregisterEndpointA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerUnregisterEndpointA(RPC_CSTR Protseq, RPC_CSTR Endpoint);
-     * }
-     */
-    public static int I_RpcServerUnregisterEndpointA(MemorySegment Protseq, MemorySegment Endpoint) {
-        var mh$ = I_RpcServerUnregisterEndpointA$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, Endpoint);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerUnregisterEndpointW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1800.const$4,"I_RpcServerUnregisterEndpointW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerUnregisterEndpointW(RPC_WSTR Protseq, RPC_WSTR Endpoint);
-     * }
-     */
-    public static int I_RpcServerUnregisterEndpointW(MemorySegment Protseq, MemorySegment Endpoint) {
-        var mh$ = I_RpcServerUnregisterEndpointW$MH();
-        try {
-            return (int)mh$.invokeExact(Protseq, Endpoint);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerInqTransportType$MH() {
-        return RuntimeHelper.requireNonNull(constants$1800.const$5,"I_RpcServerInqTransportType");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerInqTransportType(unsigned int* Type);
-     * }
-     */
-    public static int I_RpcServerInqTransportType(MemorySegment Type) {
-        var mh$ = I_RpcServerInqTransportType$MH();
-        try {
-            return (int)mh$.invokeExact(Type);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcMapWin32Status$MH() {
-        return RuntimeHelper.requireNonNull(constants$1801.const$0,"I_RpcMapWin32Status");
-    }
-    /**
-     * {@snippet :
-     * long I_RpcMapWin32Status(RPC_STATUS Status);
-     * }
-     */
-    public static int I_RpcMapWin32Status(int Status) {
-        var mh$ = I_RpcMapWin32Status$MH();
-        try {
-            return (int)mh$.invokeExact(Status);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * enum RpcProxyPerfCounters.RpcCurrentUniqueUser = 1;
-     * }
-     */
-    public static int RpcCurrentUniqueUser() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum RpcProxyPerfCounters.RpcBackEndConnectionAttempts = 2;
-     * }
-     */
-    public static int RpcBackEndConnectionAttempts() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum RpcProxyPerfCounters.RpcBackEndConnectionFailed = 3;
-     * }
-     */
-    public static int RpcBackEndConnectionFailed() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum RpcProxyPerfCounters.RpcRequestsPerSecond = 4;
-     * }
-     */
-    public static int RpcRequestsPerSecond() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * enum RpcProxyPerfCounters.RpcIncomingConnections = 5;
-     * }
-     */
-    public static int RpcIncomingConnections() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * enum RpcProxyPerfCounters.RpcIncomingBandwidth = 6;
-     * }
-     */
-    public static int RpcIncomingBandwidth() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * enum RpcProxyPerfCounters.RpcOutgoingBandwidth = 7;
-     * }
-     */
-    public static int RpcOutgoingBandwidth() {
-        return (int)7L;
-    }
-    /**
-     * {@snippet :
-     * enum RpcProxyPerfCounters.RpcAttemptedLbsDecisions = 8;
-     * }
-     */
-    public static int RpcAttemptedLbsDecisions() {
-        return (int)8L;
-    }
-    /**
-     * {@snippet :
-     * enum RpcProxyPerfCounters.RpcFailedLbsDecisions = 9;
-     * }
-     */
-    public static int RpcFailedLbsDecisions() {
-        return (int)9L;
-    }
-    /**
-     * {@snippet :
-     * enum RpcProxyPerfCounters.RpcAttemptedLbsMessages = 10;
-     * }
-     */
-    public static int RpcAttemptedLbsMessages() {
-        return (int)10L;
-    }
-    /**
-     * {@snippet :
-     * enum RpcProxyPerfCounters.RpcFailedLbsMessages = 11;
-     * }
-     */
-    public static int RpcFailedLbsMessages() {
-        return (int)11L;
-    }
-    /**
-     * {@snippet :
-     * enum RpcProxyPerfCounters.RpcLastCounter = 12;
-     * }
-     */
-    public static int RpcLastCounter() {
-        return (int)12L;
-    }
-    public static MethodHandle I_RpcProxyNewConnection$MH() {
-        return RuntimeHelper.requireNonNull(constants$1807.const$3,"I_RpcProxyNewConnection");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcProxyNewConnection(unsigned long ConnectionType, unsigned short* ServerAddress, unsigned short* ServerPort, unsigned short* MinConnTimeout, void* ConnectionParameter, RDR_CALLOUT_STATE* CallOutState, I_RpcProxyCallbackInterface* ProxyCallbackInterface);
-     * }
-     */
-    public static int I_RpcProxyNewConnection(int ConnectionType, MemorySegment ServerAddress, MemorySegment ServerPort, MemorySegment MinConnTimeout, MemorySegment ConnectionParameter, MemorySegment CallOutState, MemorySegment ProxyCallbackInterface) {
-        var mh$ = I_RpcProxyNewConnection$MH();
-        try {
-            return (int)mh$.invokeExact(ConnectionType, ServerAddress, ServerPort, MinConnTimeout, ConnectionParameter, CallOutState, ProxyCallbackInterface);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcReplyToClientWithStatus$MH() {
-        return RuntimeHelper.requireNonNull(constants$1807.const$4,"I_RpcReplyToClientWithStatus");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcReplyToClientWithStatus(void* ConnectionParameter, RPC_STATUS RpcStatus);
-     * }
-     */
-    public static int I_RpcReplyToClientWithStatus(MemorySegment ConnectionParameter, int RpcStatus) {
-        var mh$ = I_RpcReplyToClientWithStatus$MH();
-        try {
-            return (int)mh$.invokeExact(ConnectionParameter, RpcStatus);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcRecordCalloutFailure$MH() {
-        return RuntimeHelper.requireNonNull(constants$1807.const$5,"I_RpcRecordCalloutFailure");
-    }
-    /**
-     * {@snippet :
-     * void I_RpcRecordCalloutFailure(RPC_STATUS RpcStatus, RDR_CALLOUT_STATE* CallOutState, unsigned short* DllName);
-     * }
-     */
-    public static void I_RpcRecordCalloutFailure(int RpcStatus, MemorySegment CallOutState, MemorySegment DllName) {
-        var mh$ = I_RpcRecordCalloutFailure$MH();
-        try {
-            mh$.invokeExact(RpcStatus, CallOutState, DllName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcMgmtEnableDedicatedThreadPool$MH() {
-        return RuntimeHelper.requireNonNull(constants$1808.const$0,"I_RpcMgmtEnableDedicatedThreadPool");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcMgmtEnableDedicatedThreadPool();
-     * }
-     */
-    public static int I_RpcMgmtEnableDedicatedThreadPool() {
-        var mh$ = I_RpcMgmtEnableDedicatedThreadPool$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcGetDefaultSD$MH() {
-        return RuntimeHelper.requireNonNull(constants$1808.const$1,"I_RpcGetDefaultSD");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcGetDefaultSD(void** ppSecurityDescriptor);
-     * }
-     */
-    public static int I_RpcGetDefaultSD(MemorySegment ppSecurityDescriptor) {
-        var mh$ = I_RpcGetDefaultSD$MH();
-        try {
-            return (int)mh$.invokeExact(ppSecurityDescriptor);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcOpenClientProcess$MH() {
-        return RuntimeHelper.requireNonNull(constants$1808.const$2,"I_RpcOpenClientProcess");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcOpenClientProcess(RPC_BINDING_HANDLE Binding, unsigned long DesiredAccess, void** ClientProcess);
-     * }
-     */
-    public static int I_RpcOpenClientProcess(MemorySegment Binding, int DesiredAccess, MemorySegment ClientProcess) {
-        var mh$ = I_RpcOpenClientProcess$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, DesiredAccess, ClientProcess);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingIsServerLocal$MH() {
-        return RuntimeHelper.requireNonNull(constants$1808.const$3,"I_RpcBindingIsServerLocal");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingIsServerLocal(RPC_BINDING_HANDLE Binding, unsigned int* ServerLocalFlag);
-     * }
-     */
-    public static int I_RpcBindingIsServerLocal(MemorySegment Binding, MemorySegment ServerLocalFlag) {
-        var mh$ = I_RpcBindingIsServerLocal$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, ServerLocalFlag);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcBindingSetPrivateOption$MH() {
-        return RuntimeHelper.requireNonNull(constants$1808.const$4,"I_RpcBindingSetPrivateOption");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcBindingSetPrivateOption(RPC_BINDING_HANDLE hBinding, unsigned long option, ULONG_PTR optionValue);
-     * }
-     */
-    public static int I_RpcBindingSetPrivateOption(MemorySegment hBinding, int option, long optionValue) {
-        var mh$ = I_RpcBindingSetPrivateOption$MH();
-        try {
-            return (int)mh$.invokeExact(hBinding, option, optionValue);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerSubscribeForDisconnectNotification$MH() {
-        return RuntimeHelper.requireNonNull(constants$1808.const$5,"I_RpcServerSubscribeForDisconnectNotification");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerSubscribeForDisconnectNotification(RPC_BINDING_HANDLE Binding, void* hEvent);
-     * }
-     */
-    public static int I_RpcServerSubscribeForDisconnectNotification(MemorySegment Binding, MemorySegment hEvent) {
-        var mh$ = I_RpcServerSubscribeForDisconnectNotification$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, hEvent);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerGetAssociationID$MH() {
-        return RuntimeHelper.requireNonNull(constants$1809.const$0,"I_RpcServerGetAssociationID");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerGetAssociationID(RPC_BINDING_HANDLE Binding, unsigned long* AssociationID);
-     * }
-     */
-    public static int I_RpcServerGetAssociationID(MemorySegment Binding, MemorySegment AssociationID) {
-        var mh$ = I_RpcServerGetAssociationID$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, AssociationID);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerDisableExceptionFilter$MH() {
-        return RuntimeHelper.requireNonNull(constants$1809.const$1,"I_RpcServerDisableExceptionFilter");
-    }
-    /**
-     * {@snippet :
-     * long I_RpcServerDisableExceptionFilter();
-     * }
-     */
-    public static int I_RpcServerDisableExceptionFilter() {
-        var mh$ = I_RpcServerDisableExceptionFilter$MH();
-        try {
-            return (int)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerSubscribeForDisconnectNotification2$MH() {
-        return RuntimeHelper.requireNonNull(constants$1809.const$2,"I_RpcServerSubscribeForDisconnectNotification2");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerSubscribeForDisconnectNotification2(RPC_BINDING_HANDLE Binding, void* hEvent, UUID* SubscriptionId);
-     * }
-     */
-    public static int I_RpcServerSubscribeForDisconnectNotification2(MemorySegment Binding, MemorySegment hEvent, MemorySegment SubscriptionId) {
-        var mh$ = I_RpcServerSubscribeForDisconnectNotification2$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, hEvent, SubscriptionId);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle I_RpcServerUnsubscribeForDisconnectNotification$MH() {
-        return RuntimeHelper.requireNonNull(constants$1809.const$4,"I_RpcServerUnsubscribeForDisconnectNotification");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS I_RpcServerUnsubscribeForDisconnectNotification(RPC_BINDING_HANDLE Binding, UUID SubscriptionId);
-     * }
-     */
-    public static int I_RpcServerUnsubscribeForDisconnectNotification(MemorySegment Binding, MemorySegment SubscriptionId) {
-        var mh$ = I_RpcServerUnsubscribeForDisconnectNotification$MH();
-        try {
-            return (int)mh$.invokeExact(Binding, SubscriptionId);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    /**
-     * {@snippet :
-     * typedef void* RPC_NS_HANDLE;
-     * }
-     */
-    public static final AddressLayout RPC_NS_HANDLE = RuntimeHelper.POINTER;
-    public static MethodHandle RpcNsBindingExportA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1809.const$5,"RpcNsBindingExportA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsBindingExportA(unsigned long EntryNameSyntax, RPC_CSTR EntryName, RPC_IF_HANDLE IfSpec, RPC_BINDING_VECTOR* BindingVec, UUID_VECTOR* ObjectUuidVec);
-     * }
-     */
-    public static int RpcNsBindingExportA(int EntryNameSyntax, MemorySegment EntryName, MemorySegment IfSpec, MemorySegment BindingVec, MemorySegment ObjectUuidVec) {
-        var mh$ = RpcNsBindingExportA$MH();
-        try {
-            return (int)mh$.invokeExact(EntryNameSyntax, EntryName, IfSpec, BindingVec, ObjectUuidVec);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsBindingUnexportA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1810.const$0,"RpcNsBindingUnexportA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsBindingUnexportA(unsigned long EntryNameSyntax, RPC_CSTR EntryName, RPC_IF_HANDLE IfSpec, UUID_VECTOR* ObjectUuidVec);
-     * }
-     */
-    public static int RpcNsBindingUnexportA(int EntryNameSyntax, MemorySegment EntryName, MemorySegment IfSpec, MemorySegment ObjectUuidVec) {
-        var mh$ = RpcNsBindingUnexportA$MH();
-        try {
-            return (int)mh$.invokeExact(EntryNameSyntax, EntryName, IfSpec, ObjectUuidVec);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsBindingExportW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1810.const$1,"RpcNsBindingExportW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsBindingExportW(unsigned long EntryNameSyntax, RPC_WSTR EntryName, RPC_IF_HANDLE IfSpec, RPC_BINDING_VECTOR* BindingVec, UUID_VECTOR* ObjectUuidVec);
-     * }
-     */
-    public static int RpcNsBindingExportW(int EntryNameSyntax, MemorySegment EntryName, MemorySegment IfSpec, MemorySegment BindingVec, MemorySegment ObjectUuidVec) {
-        var mh$ = RpcNsBindingExportW$MH();
-        try {
-            return (int)mh$.invokeExact(EntryNameSyntax, EntryName, IfSpec, BindingVec, ObjectUuidVec);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsBindingUnexportW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1810.const$2,"RpcNsBindingUnexportW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsBindingUnexportW(unsigned long EntryNameSyntax, RPC_WSTR EntryName, RPC_IF_HANDLE IfSpec, UUID_VECTOR* ObjectUuidVec);
-     * }
-     */
-    public static int RpcNsBindingUnexportW(int EntryNameSyntax, MemorySegment EntryName, MemorySegment IfSpec, MemorySegment ObjectUuidVec) {
-        var mh$ = RpcNsBindingUnexportW$MH();
-        try {
-            return (int)mh$.invokeExact(EntryNameSyntax, EntryName, IfSpec, ObjectUuidVec);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsBindingExportPnPA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1810.const$3,"RpcNsBindingExportPnPA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsBindingExportPnPA(unsigned long EntryNameSyntax, RPC_CSTR EntryName, RPC_IF_HANDLE IfSpec, UUID_VECTOR* ObjectVector);
-     * }
-     */
-    public static int RpcNsBindingExportPnPA(int EntryNameSyntax, MemorySegment EntryName, MemorySegment IfSpec, MemorySegment ObjectVector) {
-        var mh$ = RpcNsBindingExportPnPA$MH();
-        try {
-            return (int)mh$.invokeExact(EntryNameSyntax, EntryName, IfSpec, ObjectVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsBindingUnexportPnPA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1810.const$4,"RpcNsBindingUnexportPnPA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsBindingUnexportPnPA(unsigned long EntryNameSyntax, RPC_CSTR EntryName, RPC_IF_HANDLE IfSpec, UUID_VECTOR* ObjectVector);
-     * }
-     */
-    public static int RpcNsBindingUnexportPnPA(int EntryNameSyntax, MemorySegment EntryName, MemorySegment IfSpec, MemorySegment ObjectVector) {
-        var mh$ = RpcNsBindingUnexportPnPA$MH();
-        try {
-            return (int)mh$.invokeExact(EntryNameSyntax, EntryName, IfSpec, ObjectVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsBindingExportPnPW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1810.const$5,"RpcNsBindingExportPnPW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsBindingExportPnPW(unsigned long EntryNameSyntax, RPC_WSTR EntryName, RPC_IF_HANDLE IfSpec, UUID_VECTOR* ObjectVector);
-     * }
-     */
-    public static int RpcNsBindingExportPnPW(int EntryNameSyntax, MemorySegment EntryName, MemorySegment IfSpec, MemorySegment ObjectVector) {
-        var mh$ = RpcNsBindingExportPnPW$MH();
-        try {
-            return (int)mh$.invokeExact(EntryNameSyntax, EntryName, IfSpec, ObjectVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsBindingUnexportPnPW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1811.const$0,"RpcNsBindingUnexportPnPW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsBindingUnexportPnPW(unsigned long EntryNameSyntax, RPC_WSTR EntryName, RPC_IF_HANDLE IfSpec, UUID_VECTOR* ObjectVector);
-     * }
-     */
-    public static int RpcNsBindingUnexportPnPW(int EntryNameSyntax, MemorySegment EntryName, MemorySegment IfSpec, MemorySegment ObjectVector) {
-        var mh$ = RpcNsBindingUnexportPnPW$MH();
-        try {
-            return (int)mh$.invokeExact(EntryNameSyntax, EntryName, IfSpec, ObjectVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsBindingLookupBeginA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1811.const$2,"RpcNsBindingLookupBeginA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsBindingLookupBeginA(unsigned long EntryNameSyntax, RPC_CSTR EntryName, RPC_IF_HANDLE IfSpec, UUID* ObjUuid, unsigned long BindingMaxCount, RPC_NS_HANDLE* LookupContext);
-     * }
-     */
-    public static int RpcNsBindingLookupBeginA(int EntryNameSyntax, MemorySegment EntryName, MemorySegment IfSpec, MemorySegment ObjUuid, int BindingMaxCount, MemorySegment LookupContext) {
-        var mh$ = RpcNsBindingLookupBeginA$MH();
-        try {
-            return (int)mh$.invokeExact(EntryNameSyntax, EntryName, IfSpec, ObjUuid, BindingMaxCount, LookupContext);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsBindingLookupBeginW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1811.const$3,"RpcNsBindingLookupBeginW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsBindingLookupBeginW(unsigned long EntryNameSyntax, RPC_WSTR EntryName, RPC_IF_HANDLE IfSpec, UUID* ObjUuid, unsigned long BindingMaxCount, RPC_NS_HANDLE* LookupContext);
-     * }
-     */
-    public static int RpcNsBindingLookupBeginW(int EntryNameSyntax, MemorySegment EntryName, MemorySegment IfSpec, MemorySegment ObjUuid, int BindingMaxCount, MemorySegment LookupContext) {
-        var mh$ = RpcNsBindingLookupBeginW$MH();
-        try {
-            return (int)mh$.invokeExact(EntryNameSyntax, EntryName, IfSpec, ObjUuid, BindingMaxCount, LookupContext);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsBindingLookupNext$MH() {
-        return RuntimeHelper.requireNonNull(constants$1811.const$4,"RpcNsBindingLookupNext");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsBindingLookupNext(RPC_NS_HANDLE LookupContext, RPC_BINDING_VECTOR** BindingVec);
-     * }
-     */
-    public static int RpcNsBindingLookupNext(MemorySegment LookupContext, MemorySegment BindingVec) {
-        var mh$ = RpcNsBindingLookupNext$MH();
-        try {
-            return (int)mh$.invokeExact(LookupContext, BindingVec);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsBindingLookupDone$MH() {
-        return RuntimeHelper.requireNonNull(constants$1811.const$5,"RpcNsBindingLookupDone");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsBindingLookupDone(RPC_NS_HANDLE* LookupContext);
-     * }
-     */
-    public static int RpcNsBindingLookupDone(MemorySegment LookupContext) {
-        var mh$ = RpcNsBindingLookupDone$MH();
-        try {
-            return (int)mh$.invokeExact(LookupContext);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsGroupDeleteA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1812.const$0,"RpcNsGroupDeleteA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsGroupDeleteA(unsigned long GroupNameSyntax, RPC_CSTR GroupName);
-     * }
-     */
-    public static int RpcNsGroupDeleteA(int GroupNameSyntax, MemorySegment GroupName) {
-        var mh$ = RpcNsGroupDeleteA$MH();
-        try {
-            return (int)mh$.invokeExact(GroupNameSyntax, GroupName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsGroupMbrAddA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1812.const$1,"RpcNsGroupMbrAddA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsGroupMbrAddA(unsigned long GroupNameSyntax, RPC_CSTR GroupName, unsigned long MemberNameSyntax, RPC_CSTR MemberName);
-     * }
-     */
-    public static int RpcNsGroupMbrAddA(int GroupNameSyntax, MemorySegment GroupName, int MemberNameSyntax, MemorySegment MemberName) {
-        var mh$ = RpcNsGroupMbrAddA$MH();
-        try {
-            return (int)mh$.invokeExact(GroupNameSyntax, GroupName, MemberNameSyntax, MemberName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsGroupMbrRemoveA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1812.const$2,"RpcNsGroupMbrRemoveA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsGroupMbrRemoveA(unsigned long GroupNameSyntax, RPC_CSTR GroupName, unsigned long MemberNameSyntax, RPC_CSTR MemberName);
-     * }
-     */
-    public static int RpcNsGroupMbrRemoveA(int GroupNameSyntax, MemorySegment GroupName, int MemberNameSyntax, MemorySegment MemberName) {
-        var mh$ = RpcNsGroupMbrRemoveA$MH();
-        try {
-            return (int)mh$.invokeExact(GroupNameSyntax, GroupName, MemberNameSyntax, MemberName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsGroupMbrInqBeginA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1812.const$3,"RpcNsGroupMbrInqBeginA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsGroupMbrInqBeginA(unsigned long GroupNameSyntax, RPC_CSTR GroupName, unsigned long MemberNameSyntax, RPC_NS_HANDLE* InquiryContext);
-     * }
-     */
-    public static int RpcNsGroupMbrInqBeginA(int GroupNameSyntax, MemorySegment GroupName, int MemberNameSyntax, MemorySegment InquiryContext) {
-        var mh$ = RpcNsGroupMbrInqBeginA$MH();
-        try {
-            return (int)mh$.invokeExact(GroupNameSyntax, GroupName, MemberNameSyntax, InquiryContext);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsGroupMbrInqNextA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1812.const$4,"RpcNsGroupMbrInqNextA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsGroupMbrInqNextA(RPC_NS_HANDLE InquiryContext, RPC_CSTR* MemberName);
-     * }
-     */
-    public static int RpcNsGroupMbrInqNextA(MemorySegment InquiryContext, MemorySegment MemberName) {
-        var mh$ = RpcNsGroupMbrInqNextA$MH();
-        try {
-            return (int)mh$.invokeExact(InquiryContext, MemberName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsGroupDeleteW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1812.const$5,"RpcNsGroupDeleteW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsGroupDeleteW(unsigned long GroupNameSyntax, RPC_WSTR GroupName);
-     * }
-     */
-    public static int RpcNsGroupDeleteW(int GroupNameSyntax, MemorySegment GroupName) {
-        var mh$ = RpcNsGroupDeleteW$MH();
-        try {
-            return (int)mh$.invokeExact(GroupNameSyntax, GroupName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsGroupMbrAddW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1813.const$0,"RpcNsGroupMbrAddW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsGroupMbrAddW(unsigned long GroupNameSyntax, RPC_WSTR GroupName, unsigned long MemberNameSyntax, RPC_WSTR MemberName);
-     * }
-     */
-    public static int RpcNsGroupMbrAddW(int GroupNameSyntax, MemorySegment GroupName, int MemberNameSyntax, MemorySegment MemberName) {
-        var mh$ = RpcNsGroupMbrAddW$MH();
-        try {
-            return (int)mh$.invokeExact(GroupNameSyntax, GroupName, MemberNameSyntax, MemberName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsGroupMbrRemoveW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1813.const$1,"RpcNsGroupMbrRemoveW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsGroupMbrRemoveW(unsigned long GroupNameSyntax, RPC_WSTR GroupName, unsigned long MemberNameSyntax, RPC_WSTR MemberName);
-     * }
-     */
-    public static int RpcNsGroupMbrRemoveW(int GroupNameSyntax, MemorySegment GroupName, int MemberNameSyntax, MemorySegment MemberName) {
-        var mh$ = RpcNsGroupMbrRemoveW$MH();
-        try {
-            return (int)mh$.invokeExact(GroupNameSyntax, GroupName, MemberNameSyntax, MemberName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsGroupMbrInqBeginW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1813.const$2,"RpcNsGroupMbrInqBeginW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsGroupMbrInqBeginW(unsigned long GroupNameSyntax, RPC_WSTR GroupName, unsigned long MemberNameSyntax, RPC_NS_HANDLE* InquiryContext);
-     * }
-     */
-    public static int RpcNsGroupMbrInqBeginW(int GroupNameSyntax, MemorySegment GroupName, int MemberNameSyntax, MemorySegment InquiryContext) {
-        var mh$ = RpcNsGroupMbrInqBeginW$MH();
-        try {
-            return (int)mh$.invokeExact(GroupNameSyntax, GroupName, MemberNameSyntax, InquiryContext);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsGroupMbrInqNextW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1813.const$3,"RpcNsGroupMbrInqNextW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsGroupMbrInqNextW(RPC_NS_HANDLE InquiryContext, RPC_WSTR* MemberName);
-     * }
-     */
-    public static int RpcNsGroupMbrInqNextW(MemorySegment InquiryContext, MemorySegment MemberName) {
-        var mh$ = RpcNsGroupMbrInqNextW$MH();
-        try {
-            return (int)mh$.invokeExact(InquiryContext, MemberName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsGroupMbrInqDone$MH() {
-        return RuntimeHelper.requireNonNull(constants$1813.const$4,"RpcNsGroupMbrInqDone");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsGroupMbrInqDone(RPC_NS_HANDLE* InquiryContext);
-     * }
-     */
-    public static int RpcNsGroupMbrInqDone(MemorySegment InquiryContext) {
-        var mh$ = RpcNsGroupMbrInqDone$MH();
-        try {
-            return (int)mh$.invokeExact(InquiryContext);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsProfileDeleteA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1813.const$5,"RpcNsProfileDeleteA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsProfileDeleteA(unsigned long ProfileNameSyntax, RPC_CSTR ProfileName);
-     * }
-     */
-    public static int RpcNsProfileDeleteA(int ProfileNameSyntax, MemorySegment ProfileName) {
-        var mh$ = RpcNsProfileDeleteA$MH();
-        try {
-            return (int)mh$.invokeExact(ProfileNameSyntax, ProfileName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsProfileEltAddA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1814.const$1,"RpcNsProfileEltAddA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsProfileEltAddA(unsigned long ProfileNameSyntax, RPC_CSTR ProfileName, RPC_IF_ID* IfId, unsigned long MemberNameSyntax, RPC_CSTR MemberName, unsigned long Priority, RPC_CSTR Annotation);
-     * }
-     */
-    public static int RpcNsProfileEltAddA(int ProfileNameSyntax, MemorySegment ProfileName, MemorySegment IfId, int MemberNameSyntax, MemorySegment MemberName, int Priority, MemorySegment Annotation) {
-        var mh$ = RpcNsProfileEltAddA$MH();
-        try {
-            return (int)mh$.invokeExact(ProfileNameSyntax, ProfileName, IfId, MemberNameSyntax, MemberName, Priority, Annotation);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsProfileEltRemoveA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1814.const$2,"RpcNsProfileEltRemoveA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsProfileEltRemoveA(unsigned long ProfileNameSyntax, RPC_CSTR ProfileName, RPC_IF_ID* IfId, unsigned long MemberNameSyntax, RPC_CSTR MemberName);
-     * }
-     */
-    public static int RpcNsProfileEltRemoveA(int ProfileNameSyntax, MemorySegment ProfileName, MemorySegment IfId, int MemberNameSyntax, MemorySegment MemberName) {
-        var mh$ = RpcNsProfileEltRemoveA$MH();
-        try {
-            return (int)mh$.invokeExact(ProfileNameSyntax, ProfileName, IfId, MemberNameSyntax, MemberName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsProfileEltInqBeginA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1814.const$4,"RpcNsProfileEltInqBeginA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsProfileEltInqBeginA(unsigned long ProfileNameSyntax, RPC_CSTR ProfileName, unsigned long InquiryType, RPC_IF_ID* IfId, unsigned long VersOption, unsigned long MemberNameSyntax, RPC_CSTR MemberName, RPC_NS_HANDLE* InquiryContext);
-     * }
-     */
-    public static int RpcNsProfileEltInqBeginA(int ProfileNameSyntax, MemorySegment ProfileName, int InquiryType, MemorySegment IfId, int VersOption, int MemberNameSyntax, MemorySegment MemberName, MemorySegment InquiryContext) {
-        var mh$ = RpcNsProfileEltInqBeginA$MH();
-        try {
-            return (int)mh$.invokeExact(ProfileNameSyntax, ProfileName, InquiryType, IfId, VersOption, MemberNameSyntax, MemberName, InquiryContext);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsProfileEltInqNextA$MH() {
-        return RuntimeHelper.requireNonNull(constants$1814.const$5,"RpcNsProfileEltInqNextA");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsProfileEltInqNextA(RPC_NS_HANDLE InquiryContext, RPC_IF_ID* IfId, RPC_CSTR* MemberName, unsigned long* Priority, RPC_CSTR* Annotation);
-     * }
-     */
-    public static int RpcNsProfileEltInqNextA(MemorySegment InquiryContext, MemorySegment IfId, MemorySegment MemberName, MemorySegment Priority, MemorySegment Annotation) {
-        var mh$ = RpcNsProfileEltInqNextA$MH();
-        try {
-            return (int)mh$.invokeExact(InquiryContext, IfId, MemberName, Priority, Annotation);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsProfileDeleteW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1815.const$0,"RpcNsProfileDeleteW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsProfileDeleteW(unsigned long ProfileNameSyntax, RPC_WSTR ProfileName);
-     * }
-     */
-    public static int RpcNsProfileDeleteW(int ProfileNameSyntax, MemorySegment ProfileName) {
-        var mh$ = RpcNsProfileDeleteW$MH();
-        try {
-            return (int)mh$.invokeExact(ProfileNameSyntax, ProfileName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsProfileEltAddW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1815.const$1,"RpcNsProfileEltAddW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsProfileEltAddW(unsigned long ProfileNameSyntax, RPC_WSTR ProfileName, RPC_IF_ID* IfId, unsigned long MemberNameSyntax, RPC_WSTR MemberName, unsigned long Priority, RPC_WSTR Annotation);
-     * }
-     */
-    public static int RpcNsProfileEltAddW(int ProfileNameSyntax, MemorySegment ProfileName, MemorySegment IfId, int MemberNameSyntax, MemorySegment MemberName, int Priority, MemorySegment Annotation) {
-        var mh$ = RpcNsProfileEltAddW$MH();
-        try {
-            return (int)mh$.invokeExact(ProfileNameSyntax, ProfileName, IfId, MemberNameSyntax, MemberName, Priority, Annotation);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsProfileEltRemoveW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1815.const$2,"RpcNsProfileEltRemoveW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsProfileEltRemoveW(unsigned long ProfileNameSyntax, RPC_WSTR ProfileName, RPC_IF_ID* IfId, unsigned long MemberNameSyntax, RPC_WSTR MemberName);
-     * }
-     */
-    public static int RpcNsProfileEltRemoveW(int ProfileNameSyntax, MemorySegment ProfileName, MemorySegment IfId, int MemberNameSyntax, MemorySegment MemberName) {
-        var mh$ = RpcNsProfileEltRemoveW$MH();
-        try {
-            return (int)mh$.invokeExact(ProfileNameSyntax, ProfileName, IfId, MemberNameSyntax, MemberName);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
-    public static MethodHandle RpcNsProfileEltInqBeginW$MH() {
-        return RuntimeHelper.requireNonNull(constants$1815.const$3,"RpcNsProfileEltInqBeginW");
-    }
-    /**
-     * {@snippet :
-     * RPC_STATUS RpcNsProfileEltInqBeginW(unsigned long ProfileNameSyntax, RPC_WSTR ProfileName, unsigned long InquiryType, RPC_IF_ID* IfId, unsigned long VersOption, unsigned long MemberNameSyntax, RPC_WSTR MemberName, RPC_NS_HANDLE* InquiryContext);
-     * }
-     */
-    public static int RpcNsProfileEltInqBeginW(int ProfileNameSyntax, MemorySegment ProfileName, int InquiryType, MemorySegment IfId, int VersOption, int MemberNameSyntax, MemorySegment MemberName, MemorySegment InquiryContext) {
-        var mh$ = RpcNsProfileEltInqBeginW$MH();
-        try {
-            return (int)mh$.invokeExact(ProfileNameSyntax, ProfileName, InquiryType, IfId, VersOption, MemberNameSyntax, MemberName, InquiryContext);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
-        }
-    }
+    public static final AddressLayout LPDRIVER_INFO_5W = Windows_h.C_POINTER;
 }
-
 

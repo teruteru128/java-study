@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _VERIFY_INFORMATION VERIFY_INFORMATION;
+ * {@snippet lang=c :
+ * typedef struct _VERIFY_INFORMATION {
+ *     LARGE_INTEGER StartingOffset;
+ *     DWORD Length;
+ * } VERIFY_INFORMATION
  * }
  */
-public final class VERIFY_INFORMATION extends _VERIFY_INFORMATION {
+public class VERIFY_INFORMATION extends _VERIFY_INFORMATION {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private VERIFY_INFORMATION() {}
+    VERIFY_INFORMATION() {
+        // Should not be called directly
+    }
 }
-
 

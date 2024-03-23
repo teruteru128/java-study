@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagTouchPredictionParameters TOUCHPREDICTIONPARAMETERS;
+ * {@snippet lang=c :
+ * typedef struct tagTouchPredictionParameters {
+ *     UINT cbSize;
+ *     UINT dwLatency;
+ *     UINT dwSampleTime;
+ *     UINT bUseHWTimeStamp;
+ * } TOUCHPREDICTIONPARAMETERS
  * }
  */
-public final class TOUCHPREDICTIONPARAMETERS extends tagTouchPredictionParameters {
+public class TOUCHPREDICTIONPARAMETERS extends tagTouchPredictionParameters {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private TOUCHPREDICTIONPARAMETERS() {}
+    TOUCHPREDICTIONPARAMETERS() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CLAIM_SECURITY_ATTRIBUTES_INFORMATION CLAIM_SECURITY_ATTRIBUTES_INFORMATION;
+ * {@snippet lang=c :
+ * typedef struct _CLAIM_SECURITY_ATTRIBUTES_INFORMATION {
+ *     WORD Version;
+ *     WORD Reserved;
+ *     DWORD AttributeCount;
+ *     union {
+ *         PCLAIM_SECURITY_ATTRIBUTE_V1 pAttributeV1;
+ *     } Attribute;
+ * } CLAIM_SECURITY_ATTRIBUTES_INFORMATION
  * }
  */
-public final class CLAIM_SECURITY_ATTRIBUTES_INFORMATION extends _CLAIM_SECURITY_ATTRIBUTES_INFORMATION {
+public class CLAIM_SECURITY_ATTRIBUTES_INFORMATION extends _CLAIM_SECURITY_ATTRIBUTES_INFORMATION {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CLAIM_SECURITY_ATTRIBUTES_INFORMATION() {}
+    CLAIM_SECURITY_ATTRIBUTES_INFORMATION() {
+        // Should not be called directly
+    }
 }
-
 

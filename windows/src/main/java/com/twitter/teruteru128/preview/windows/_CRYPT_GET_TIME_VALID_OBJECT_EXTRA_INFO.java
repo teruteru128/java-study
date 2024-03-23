@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO {
  *     DWORD cbSize;
  *     int iDeltaCrlIndicator;
@@ -17,209 +22,382 @@ import static java.lang.foreign.ValueLayout.*;
  *     LPFILETIME pMaxAgeTime;
  *     PCERT_REVOCATION_CHAIN_PARA pChainPara;
  *     PCRYPT_INTEGER_BLOB pDeltaCrlIndicator;
- * };
+ * }
  * }
  */
 public class _CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2201.const$1;
+    _CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO() {
+        // Should not be called directly
     }
-    public static VarHandle cbSize$VH() {
-        return constants$2201.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cbSize;
-     * }
-     */
-    public static int cbSize$get(MemorySegment seg) {
-        return (int)constants$2201.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cbSize;
-     * }
-     */
-    public static void cbSize$set(MemorySegment seg, int x) {
-        constants$2201.const$2.set(seg, x);
-    }
-    public static int cbSize$get(MemorySegment seg, long index) {
-        return (int)constants$2201.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cbSize$set(MemorySegment seg, long index, int x) {
-        constants$2201.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle iDeltaCrlIndicator$VH() {
-        return constants$2201.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * int iDeltaCrlIndicator;
-     * }
-     */
-    public static int iDeltaCrlIndicator$get(MemorySegment seg) {
-        return (int)constants$2201.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * int iDeltaCrlIndicator;
-     * }
-     */
-    public static void iDeltaCrlIndicator$set(MemorySegment seg, int x) {
-        constants$2201.const$3.set(seg, x);
-    }
-    public static int iDeltaCrlIndicator$get(MemorySegment seg, long index) {
-        return (int)constants$2201.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void iDeltaCrlIndicator$set(MemorySegment seg, long index, int x) {
-        constants$2201.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pftCacheResync$VH() {
-        return constants$2201.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPFILETIME pftCacheResync;
-     * }
-     */
-    public static MemorySegment pftCacheResync$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2201.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPFILETIME pftCacheResync;
-     * }
-     */
-    public static void pftCacheResync$set(MemorySegment seg, MemorySegment x) {
-        constants$2201.const$4.set(seg, x);
-    }
-    public static MemorySegment pftCacheResync$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2201.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pftCacheResync$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2201.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pLastSyncTime$VH() {
-        return constants$2201.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPFILETIME pLastSyncTime;
-     * }
-     */
-    public static MemorySegment pLastSyncTime$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2201.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPFILETIME pLastSyncTime;
-     * }
-     */
-    public static void pLastSyncTime$set(MemorySegment seg, MemorySegment x) {
-        constants$2201.const$5.set(seg, x);
-    }
-    public static MemorySegment pLastSyncTime$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2201.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pLastSyncTime$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2201.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pMaxAgeTime$VH() {
-        return constants$2202.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPFILETIME pMaxAgeTime;
-     * }
-     */
-    public static MemorySegment pMaxAgeTime$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2202.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPFILETIME pMaxAgeTime;
-     * }
-     */
-    public static void pMaxAgeTime$set(MemorySegment seg, MemorySegment x) {
-        constants$2202.const$0.set(seg, x);
-    }
-    public static MemorySegment pMaxAgeTime$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2202.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pMaxAgeTime$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2202.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pChainPara$VH() {
-        return constants$2202.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCERT_REVOCATION_CHAIN_PARA pChainPara;
-     * }
-     */
-    public static MemorySegment pChainPara$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2202.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCERT_REVOCATION_CHAIN_PARA pChainPara;
-     * }
-     */
-    public static void pChainPara$set(MemorySegment seg, MemorySegment x) {
-        constants$2202.const$1.set(seg, x);
-    }
-    public static MemorySegment pChainPara$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2202.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pChainPara$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2202.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pDeltaCrlIndicator$VH() {
-        return constants$2202.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCRYPT_INTEGER_BLOB pDeltaCrlIndicator;
-     * }
-     */
-    public static MemorySegment pDeltaCrlIndicator$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2202.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCRYPT_INTEGER_BLOB pDeltaCrlIndicator;
-     * }
-     */
-    public static void pDeltaCrlIndicator$set(MemorySegment seg, MemorySegment x) {
-        constants$2202.const$2.set(seg, x);
-    }
-    public static MemorySegment pDeltaCrlIndicator$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2202.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pDeltaCrlIndicator$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2202.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("cbSize"),
+        Windows_h.C_INT.withName("iDeltaCrlIndicator"),
+        Windows_h.C_POINTER.withName("pftCacheResync"),
+        Windows_h.C_POINTER.withName("pLastSyncTime"),
+        Windows_h.C_POINTER.withName("pMaxAgeTime"),
+        Windows_h.C_POINTER.withName("pChainPara"),
+        Windows_h.C_POINTER.withName("pDeltaCrlIndicator")
+    ).withName("_CRYPT_GET_TIME_VALID_OBJECT_EXTRA_INFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt cbSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cbSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static final OfInt cbSize$layout() {
+        return cbSize$LAYOUT;
+    }
+
+    private static final long cbSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static final long cbSize$offset() {
+        return cbSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static int cbSize(MemorySegment struct) {
+        return struct.get(cbSize$LAYOUT, cbSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static void cbSize(MemorySegment struct, int fieldValue) {
+        struct.set(cbSize$LAYOUT, cbSize$OFFSET, fieldValue);
+    }
+
+    private static final OfInt iDeltaCrlIndicator$LAYOUT = (OfInt)$LAYOUT.select(groupElement("iDeltaCrlIndicator"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int iDeltaCrlIndicator
+     * }
+     */
+    public static final OfInt iDeltaCrlIndicator$layout() {
+        return iDeltaCrlIndicator$LAYOUT;
+    }
+
+    private static final long iDeltaCrlIndicator$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int iDeltaCrlIndicator
+     * }
+     */
+    public static final long iDeltaCrlIndicator$offset() {
+        return iDeltaCrlIndicator$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int iDeltaCrlIndicator
+     * }
+     */
+    public static int iDeltaCrlIndicator(MemorySegment struct) {
+        return struct.get(iDeltaCrlIndicator$LAYOUT, iDeltaCrlIndicator$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int iDeltaCrlIndicator
+     * }
+     */
+    public static void iDeltaCrlIndicator(MemorySegment struct, int fieldValue) {
+        struct.set(iDeltaCrlIndicator$LAYOUT, iDeltaCrlIndicator$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pftCacheResync$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pftCacheResync"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPFILETIME pftCacheResync
+     * }
+     */
+    public static final AddressLayout pftCacheResync$layout() {
+        return pftCacheResync$LAYOUT;
+    }
+
+    private static final long pftCacheResync$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPFILETIME pftCacheResync
+     * }
+     */
+    public static final long pftCacheResync$offset() {
+        return pftCacheResync$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPFILETIME pftCacheResync
+     * }
+     */
+    public static MemorySegment pftCacheResync(MemorySegment struct) {
+        return struct.get(pftCacheResync$LAYOUT, pftCacheResync$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPFILETIME pftCacheResync
+     * }
+     */
+    public static void pftCacheResync(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pftCacheResync$LAYOUT, pftCacheResync$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pLastSyncTime$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pLastSyncTime"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPFILETIME pLastSyncTime
+     * }
+     */
+    public static final AddressLayout pLastSyncTime$layout() {
+        return pLastSyncTime$LAYOUT;
+    }
+
+    private static final long pLastSyncTime$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPFILETIME pLastSyncTime
+     * }
+     */
+    public static final long pLastSyncTime$offset() {
+        return pLastSyncTime$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPFILETIME pLastSyncTime
+     * }
+     */
+    public static MemorySegment pLastSyncTime(MemorySegment struct) {
+        return struct.get(pLastSyncTime$LAYOUT, pLastSyncTime$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPFILETIME pLastSyncTime
+     * }
+     */
+    public static void pLastSyncTime(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pLastSyncTime$LAYOUT, pLastSyncTime$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pMaxAgeTime$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pMaxAgeTime"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPFILETIME pMaxAgeTime
+     * }
+     */
+    public static final AddressLayout pMaxAgeTime$layout() {
+        return pMaxAgeTime$LAYOUT;
+    }
+
+    private static final long pMaxAgeTime$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPFILETIME pMaxAgeTime
+     * }
+     */
+    public static final long pMaxAgeTime$offset() {
+        return pMaxAgeTime$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPFILETIME pMaxAgeTime
+     * }
+     */
+    public static MemorySegment pMaxAgeTime(MemorySegment struct) {
+        return struct.get(pMaxAgeTime$LAYOUT, pMaxAgeTime$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPFILETIME pMaxAgeTime
+     * }
+     */
+    public static void pMaxAgeTime(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pMaxAgeTime$LAYOUT, pMaxAgeTime$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pChainPara$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pChainPara"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCERT_REVOCATION_CHAIN_PARA pChainPara
+     * }
+     */
+    public static final AddressLayout pChainPara$layout() {
+        return pChainPara$LAYOUT;
+    }
+
+    private static final long pChainPara$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCERT_REVOCATION_CHAIN_PARA pChainPara
+     * }
+     */
+    public static final long pChainPara$offset() {
+        return pChainPara$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCERT_REVOCATION_CHAIN_PARA pChainPara
+     * }
+     */
+    public static MemorySegment pChainPara(MemorySegment struct) {
+        return struct.get(pChainPara$LAYOUT, pChainPara$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCERT_REVOCATION_CHAIN_PARA pChainPara
+     * }
+     */
+    public static void pChainPara(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pChainPara$LAYOUT, pChainPara$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pDeltaCrlIndicator$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pDeltaCrlIndicator"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCRYPT_INTEGER_BLOB pDeltaCrlIndicator
+     * }
+     */
+    public static final AddressLayout pDeltaCrlIndicator$layout() {
+        return pDeltaCrlIndicator$LAYOUT;
+    }
+
+    private static final long pDeltaCrlIndicator$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCRYPT_INTEGER_BLOB pDeltaCrlIndicator
+     * }
+     */
+    public static final long pDeltaCrlIndicator$offset() {
+        return pDeltaCrlIndicator$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCRYPT_INTEGER_BLOB pDeltaCrlIndicator
+     * }
+     */
+    public static MemorySegment pDeltaCrlIndicator(MemorySegment struct) {
+        return struct.get(pDeltaCrlIndicator$LAYOUT, pDeltaCrlIndicator$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCRYPT_INTEGER_BLOB pDeltaCrlIndicator
+     * }
+     */
+    public static void pDeltaCrlIndicator(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pDeltaCrlIndicator$LAYOUT, pDeltaCrlIndicator$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

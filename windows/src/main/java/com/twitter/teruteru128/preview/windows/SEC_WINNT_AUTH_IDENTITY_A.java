@@ -2,20 +2,33 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SEC_WINNT_AUTH_IDENTITY_A SEC_WINNT_AUTH_IDENTITY_A;
+ * {@snippet lang=c :
+ * typedef struct _SEC_WINNT_AUTH_IDENTITY_A {
+ *     unsigned char *User;
+ *     unsigned long UserLength;
+ *     unsigned char *Domain;
+ *     unsigned long DomainLength;
+ *     unsigned char *Password;
+ *     unsigned long PasswordLength;
+ *     unsigned long Flags;
+ * } SEC_WINNT_AUTH_IDENTITY_A
  * }
  */
-public final class SEC_WINNT_AUTH_IDENTITY_A extends _SEC_WINNT_AUTH_IDENTITY_A {
+public class SEC_WINNT_AUTH_IDENTITY_A extends _SEC_WINNT_AUTH_IDENTITY_A {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SEC_WINNT_AUTH_IDENTITY_A() {}
+    SEC_WINNT_AUTH_IDENTITY_A() {
+        // Should not be called directly
+    }
 }
-
 

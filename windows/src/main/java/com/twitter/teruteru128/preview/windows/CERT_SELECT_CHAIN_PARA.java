@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CERT_SELECT_CHAIN_PARA CERT_SELECT_CHAIN_PARA;
+ * {@snippet lang=c :
+ * typedef struct _CERT_SELECT_CHAIN_PARA {
+ *     HCERTCHAINENGINE hChainEngine;
+ *     PFILETIME pTime;
+ *     HCERTSTORE hAdditionalStore;
+ *     PCERT_CHAIN_PARA pChainPara;
+ *     DWORD dwFlags;
+ * } CERT_SELECT_CHAIN_PARA
  * }
  */
-public final class CERT_SELECT_CHAIN_PARA extends _CERT_SELECT_CHAIN_PARA {
+public class CERT_SELECT_CHAIN_PARA extends _CERT_SELECT_CHAIN_PARA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CERT_SELECT_CHAIN_PARA() {}
+    CERT_SELECT_CHAIN_PARA() {
+        // Should not be called directly
+    }
 }
-
 

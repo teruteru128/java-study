@@ -2,32 +2,75 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_CRYPT_ENUM_OID_FUNC)(unsigned long dwEncodingType,char* pszFuncName,char* pszOID,unsigned long cValue,unsigned long* rgdwValueType,unsigned short** rgpwszValueName,unsigned char** rgpbValueData,unsigned long* rgcbValueData,void* pvArg);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_CRYPT_ENUM_OID_FUNC)(DWORD, LPCSTR, LPCSTR, DWORD, const DWORD *, const LPCWSTR *, const BYTE *const *, const DWORD *, void *) __attribute__((stdcall))
  * }
  */
-public interface PFN_CRYPT_ENUM_OID_FUNC {
+public class PFN_CRYPT_ENUM_OID_FUNC {
 
-    int apply(int dwEncodingType, java.lang.foreign.MemorySegment pszFuncName, java.lang.foreign.MemorySegment pszOID, int cValue, java.lang.foreign.MemorySegment rgdwValueType, java.lang.foreign.MemorySegment rgpwszValueName, java.lang.foreign.MemorySegment rgpbValueData, java.lang.foreign.MemorySegment rgcbValueData, java.lang.foreign.MemorySegment pvArg);
-    static MemorySegment allocate(PFN_CRYPT_ENUM_OID_FUNC fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2074.const$5, fi, constants$2074.const$4, scope);
+    PFN_CRYPT_ENUM_OID_FUNC() {
+        // Should not be called directly
     }
-    static PFN_CRYPT_ENUM_OID_FUNC ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (int _dwEncodingType, java.lang.foreign.MemorySegment _pszFuncName, java.lang.foreign.MemorySegment _pszOID, int _cValue, java.lang.foreign.MemorySegment _rgdwValueType, java.lang.foreign.MemorySegment _rgpwszValueName, java.lang.foreign.MemorySegment _rgpbValueData, java.lang.foreign.MemorySegment _rgcbValueData, java.lang.foreign.MemorySegment _pvArg) -> {
-            try {
-                return (int)constants$2075.const$0.invokeExact(symbol, _dwEncodingType, _pszFuncName, _pszOID, _cValue, _rgdwValueType, _rgpwszValueName, _rgpbValueData, _rgcbValueData, _pvArg);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(int dwEncodingType, MemorySegment pszFuncName, MemorySegment pszOID, int cValue, MemorySegment rgdwValueType, MemorySegment rgpwszValueName, MemorySegment rgpbValueData, MemorySegment rgcbValueData, MemorySegment pvArg);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CRYPT_ENUM_OID_FUNC.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CRYPT_ENUM_OID_FUNC.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,int dwEncodingType, MemorySegment pszFuncName, MemorySegment pszOID, int cValue, MemorySegment rgdwValueType, MemorySegment rgpwszValueName, MemorySegment rgpbValueData, MemorySegment rgcbValueData, MemorySegment pvArg) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, dwEncodingType, pszFuncName, pszOID, cValue, rgdwValueType, rgpwszValueName, rgpbValueData, rgcbValueData, pvArg);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

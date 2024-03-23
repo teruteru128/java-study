@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CMC_TAGGED_REQUEST CMC_TAGGED_REQUEST;
+ * {@snippet lang=c :
+ * typedef struct _CMC_TAGGED_REQUEST {
+ *     DWORD dwTaggedRequestChoice;
+ *     union {
+ *         PCMC_TAGGED_CERT_REQUEST pTaggedCertRequest;
+ *     };
+ * } CMC_TAGGED_REQUEST
  * }
  */
-public final class CMC_TAGGED_REQUEST extends _CMC_TAGGED_REQUEST {
+public class CMC_TAGGED_REQUEST extends _CMC_TAGGED_REQUEST {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CMC_TAGGED_REQUEST() {}
+    CMC_TAGGED_REQUEST() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CLASS_MEDIA_CHANGE_CONTEXT CLASS_MEDIA_CHANGE_CONTEXT;
+ * {@snippet lang=c :
+ * typedef struct _CLASS_MEDIA_CHANGE_CONTEXT {
+ *     DWORD MediaChangeCount;
+ *     DWORD NewState;
+ * } CLASS_MEDIA_CHANGE_CONTEXT
  * }
  */
-public final class CLASS_MEDIA_CHANGE_CONTEXT extends _CLASS_MEDIA_CHANGE_CONTEXT {
+public class CLASS_MEDIA_CHANGE_CONTEXT extends _CLASS_MEDIA_CHANGE_CONTEXT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CLASS_MEDIA_CHANGE_CONTEXT() {}
+    CLASS_MEDIA_CHANGE_CONTEXT() {
+        // Should not be called directly
+    }
 }
-
 

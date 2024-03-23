@@ -2,20 +2,49 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _JOB_INFO_2W JOB_INFO_2W;
+ * {@snippet lang=c :
+ * typedef struct _JOB_INFO_2W {
+ *     DWORD JobId;
+ *     LPWSTR pPrinterName;
+ *     LPWSTR pMachineName;
+ *     LPWSTR pUserName;
+ *     LPWSTR pDocument;
+ *     LPWSTR pNotifyName;
+ *     LPWSTR pDatatype;
+ *     LPWSTR pPrintProcessor;
+ *     LPWSTR pParameters;
+ *     LPWSTR pDriverName;
+ *     LPDEVMODEW pDevMode;
+ *     LPWSTR pStatus;
+ *     PSECURITY_DESCRIPTOR pSecurityDescriptor;
+ *     DWORD Status;
+ *     DWORD Priority;
+ *     DWORD Position;
+ *     DWORD StartTime;
+ *     DWORD UntilTime;
+ *     DWORD TotalPages;
+ *     DWORD Size;
+ *     SYSTEMTIME Submitted;
+ *     DWORD Time;
+ *     DWORD PagesPrinted;
+ * } JOB_INFO_2W
  * }
  */
-public final class JOB_INFO_2W extends _JOB_INFO_2W {
+public class JOB_INFO_2W extends _JOB_INFO_2W {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private JOB_INFO_2W() {}
+    JOB_INFO_2W() {
+        // Should not be called directly
+    }
 }
-
 

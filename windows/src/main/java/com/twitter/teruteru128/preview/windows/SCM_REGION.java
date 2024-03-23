@@ -2,20 +2,38 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SCM_REGION SCM_REGION;
+ * {@snippet lang=c :
+ * typedef struct _SCM_REGION {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     DWORD Flags;
+ *     DWORD NfitHandle;
+ *     GUID LogicalDeviceGuid;
+ *     GUID AddressRangeType;
+ *     DWORD AssociatedId;
+ *     DWORD64 Length;
+ *     DWORD64 StartingDPA;
+ *     DWORD64 BaseSPA;
+ *     DWORD64 SPAOffset;
+ *     DWORD64 RegionOffset;
+ * } SCM_REGION
  * }
  */
-public final class SCM_REGION extends _SCM_REGION {
+public class SCM_REGION extends _SCM_REGION {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SCM_REGION() {}
+    SCM_REGION() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,140 +2,264 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagRID_DEVICE_INFO_MOUSE {
  *     DWORD dwId;
  *     DWORD dwNumberOfButtons;
  *     DWORD dwSampleRate;
  *     BOOL fHasHorizontalWheel;
- * };
+ * }
  * }
  */
 public class tagRID_DEVICE_INFO_MOUSE {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1389.const$4;
+    tagRID_DEVICE_INFO_MOUSE() {
+        // Should not be called directly
     }
-    public static VarHandle dwId$VH() {
-        return constants$1389.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwId;
-     * }
-     */
-    public static int dwId$get(MemorySegment seg) {
-        return (int)constants$1389.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwId;
-     * }
-     */
-    public static void dwId$set(MemorySegment seg, int x) {
-        constants$1389.const$5.set(seg, x);
-    }
-    public static int dwId$get(MemorySegment seg, long index) {
-        return (int)constants$1389.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwId$set(MemorySegment seg, long index, int x) {
-        constants$1389.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwNumberOfButtons$VH() {
-        return constants$1390.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwNumberOfButtons;
-     * }
-     */
-    public static int dwNumberOfButtons$get(MemorySegment seg) {
-        return (int)constants$1390.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwNumberOfButtons;
-     * }
-     */
-    public static void dwNumberOfButtons$set(MemorySegment seg, int x) {
-        constants$1390.const$0.set(seg, x);
-    }
-    public static int dwNumberOfButtons$get(MemorySegment seg, long index) {
-        return (int)constants$1390.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwNumberOfButtons$set(MemorySegment seg, long index, int x) {
-        constants$1390.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwSampleRate$VH() {
-        return constants$1390.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwSampleRate;
-     * }
-     */
-    public static int dwSampleRate$get(MemorySegment seg) {
-        return (int)constants$1390.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwSampleRate;
-     * }
-     */
-    public static void dwSampleRate$set(MemorySegment seg, int x) {
-        constants$1390.const$1.set(seg, x);
-    }
-    public static int dwSampleRate$get(MemorySegment seg, long index) {
-        return (int)constants$1390.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwSampleRate$set(MemorySegment seg, long index, int x) {
-        constants$1390.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle fHasHorizontalWheel$VH() {
-        return constants$1390.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BOOL fHasHorizontalWheel;
-     * }
-     */
-    public static int fHasHorizontalWheel$get(MemorySegment seg) {
-        return (int)constants$1390.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BOOL fHasHorizontalWheel;
-     * }
-     */
-    public static void fHasHorizontalWheel$set(MemorySegment seg, int x) {
-        constants$1390.const$2.set(seg, x);
-    }
-    public static int fHasHorizontalWheel$get(MemorySegment seg, long index) {
-        return (int)constants$1390.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void fHasHorizontalWheel$set(MemorySegment seg, long index, int x) {
-        constants$1390.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("dwId"),
+        Windows_h.C_LONG.withName("dwNumberOfButtons"),
+        Windows_h.C_LONG.withName("dwSampleRate"),
+        Windows_h.C_INT.withName("fHasHorizontalWheel")
+    ).withName("tagRID_DEVICE_INFO_MOUSE");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt dwId$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwId"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwId
+     * }
+     */
+    public static final OfInt dwId$layout() {
+        return dwId$LAYOUT;
+    }
+
+    private static final long dwId$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwId
+     * }
+     */
+    public static final long dwId$offset() {
+        return dwId$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwId
+     * }
+     */
+    public static int dwId(MemorySegment struct) {
+        return struct.get(dwId$LAYOUT, dwId$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwId
+     * }
+     */
+    public static void dwId(MemorySegment struct, int fieldValue) {
+        struct.set(dwId$LAYOUT, dwId$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwNumberOfButtons$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwNumberOfButtons"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwNumberOfButtons
+     * }
+     */
+    public static final OfInt dwNumberOfButtons$layout() {
+        return dwNumberOfButtons$LAYOUT;
+    }
+
+    private static final long dwNumberOfButtons$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwNumberOfButtons
+     * }
+     */
+    public static final long dwNumberOfButtons$offset() {
+        return dwNumberOfButtons$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwNumberOfButtons
+     * }
+     */
+    public static int dwNumberOfButtons(MemorySegment struct) {
+        return struct.get(dwNumberOfButtons$LAYOUT, dwNumberOfButtons$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwNumberOfButtons
+     * }
+     */
+    public static void dwNumberOfButtons(MemorySegment struct, int fieldValue) {
+        struct.set(dwNumberOfButtons$LAYOUT, dwNumberOfButtons$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwSampleRate$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwSampleRate"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwSampleRate
+     * }
+     */
+    public static final OfInt dwSampleRate$layout() {
+        return dwSampleRate$LAYOUT;
+    }
+
+    private static final long dwSampleRate$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwSampleRate
+     * }
+     */
+    public static final long dwSampleRate$offset() {
+        return dwSampleRate$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwSampleRate
+     * }
+     */
+    public static int dwSampleRate(MemorySegment struct) {
+        return struct.get(dwSampleRate$LAYOUT, dwSampleRate$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwSampleRate
+     * }
+     */
+    public static void dwSampleRate(MemorySegment struct, int fieldValue) {
+        struct.set(dwSampleRate$LAYOUT, dwSampleRate$OFFSET, fieldValue);
+    }
+
+    private static final OfInt fHasHorizontalWheel$LAYOUT = (OfInt)$LAYOUT.select(groupElement("fHasHorizontalWheel"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BOOL fHasHorizontalWheel
+     * }
+     */
+    public static final OfInt fHasHorizontalWheel$layout() {
+        return fHasHorizontalWheel$LAYOUT;
+    }
+
+    private static final long fHasHorizontalWheel$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BOOL fHasHorizontalWheel
+     * }
+     */
+    public static final long fHasHorizontalWheel$offset() {
+        return fHasHorizontalWheel$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BOOL fHasHorizontalWheel
+     * }
+     */
+    public static int fHasHorizontalWheel(MemorySegment struct) {
+        return struct.get(fHasHorizontalWheel$LAYOUT, fHasHorizontalWheel$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BOOL fHasHorizontalWheel
+     * }
+     */
+    public static void fHasHorizontalWheel(MemorySegment struct, int fieldValue) {
+        struct.set(fHasHorizontalWheel$LAYOUT, fHasHorizontalWheel$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

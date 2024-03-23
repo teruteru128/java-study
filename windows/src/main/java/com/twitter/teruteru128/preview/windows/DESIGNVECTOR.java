@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagDESIGNVECTOR DESIGNVECTOR;
+ * {@snippet lang=c :
+ * typedef struct tagDESIGNVECTOR {
+ *     DWORD dvReserved;
+ *     DWORD dvNumAxes;
+ *     LONG dvValues[16];
+ * } DESIGNVECTOR
  * }
  */
-public final class DESIGNVECTOR extends tagDESIGNVECTOR {
+public class DESIGNVECTOR extends tagDESIGNVECTOR {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private DESIGNVECTOR() {}
+    DESIGNVECTOR() {
+        // Should not be called directly
+    }
 }
-
 

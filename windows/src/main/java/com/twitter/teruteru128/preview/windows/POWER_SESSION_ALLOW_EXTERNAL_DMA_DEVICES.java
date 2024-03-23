@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES;
+ * {@snippet lang=c :
+ * typedef struct _POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES {
+ *     BOOLEAN IsAllowed;
+ * } POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES
  * }
  */
-public final class POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES extends _POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES {
+public class POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES extends _POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES() {}
+    POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES() {
+        // Should not be called directly
+    }
 }
-
 

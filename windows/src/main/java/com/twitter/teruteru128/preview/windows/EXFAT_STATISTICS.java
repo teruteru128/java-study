@@ -2,20 +2,35 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _EXFAT_STATISTICS EXFAT_STATISTICS;
+ * {@snippet lang=c :
+ * typedef struct _EXFAT_STATISTICS {
+ *     DWORD CreateHits;
+ *     DWORD SuccessfulCreates;
+ *     DWORD FailedCreates;
+ *     DWORD NonCachedReads;
+ *     DWORD NonCachedReadBytes;
+ *     DWORD NonCachedWrites;
+ *     DWORD NonCachedWriteBytes;
+ *     DWORD NonCachedDiskReads;
+ *     DWORD NonCachedDiskWrites;
+ * } EXFAT_STATISTICS
  * }
  */
-public final class EXFAT_STATISTICS extends _EXFAT_STATISTICS {
+public class EXFAT_STATISTICS extends _EXFAT_STATISTICS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private EXFAT_STATISTICS() {}
+    EXFAT_STATISTICS() {
+        // Should not be called directly
+    }
 }
-
 

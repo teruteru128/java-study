@@ -2,32 +2,74 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_CMSG_GEN_ENCRYPT_KEY)(unsigned long long* phCryptProv,struct _CRYPT_ALGORITHM_IDENTIFIER* paiEncrypt,void* pvEncryptAuxInfo,struct _CERT_PUBLIC_KEY_INFO* pPublicKeyInfo,void* (*pfnAlloc)(unsigned long long),unsigned long long* phEncryptKey,unsigned char** ppbEncryptParameters,unsigned long* pcbEncryptParameters);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_CMSG_GEN_ENCRYPT_KEY)(HCRYPTPROV *, PCRYPT_ALGORITHM_IDENTIFIER, PVOID, PCERT_PUBLIC_KEY_INFO, PFN_CMSG_ALLOC, HCRYPTKEY *, PBYTE *, PDWORD) __attribute__((stdcall))
  * }
  */
-public interface PFN_CMSG_GEN_ENCRYPT_KEY {
+public class PFN_CMSG_GEN_ENCRYPT_KEY {
 
-    int apply(java.lang.foreign.MemorySegment phCryptProv, java.lang.foreign.MemorySegment paiEncrypt, java.lang.foreign.MemorySegment pvEncryptAuxInfo, java.lang.foreign.MemorySegment pPublicKeyInfo, java.lang.foreign.MemorySegment pfnAlloc, java.lang.foreign.MemorySegment phEncryptKey, java.lang.foreign.MemorySegment ppbEncryptParameters, java.lang.foreign.MemorySegment pcbEncryptParameters);
-    static MemorySegment allocate(PFN_CMSG_GEN_ENCRYPT_KEY fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2107.const$2, fi, constants$2107.const$1, scope);
+    PFN_CMSG_GEN_ENCRYPT_KEY() {
+        // Should not be called directly
     }
-    static PFN_CMSG_GEN_ENCRYPT_KEY ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _phCryptProv, java.lang.foreign.MemorySegment _paiEncrypt, java.lang.foreign.MemorySegment _pvEncryptAuxInfo, java.lang.foreign.MemorySegment _pPublicKeyInfo, java.lang.foreign.MemorySegment _pfnAlloc, java.lang.foreign.MemorySegment _phEncryptKey, java.lang.foreign.MemorySegment _ppbEncryptParameters, java.lang.foreign.MemorySegment _pcbEncryptParameters) -> {
-            try {
-                return (int)constants$2107.const$3.invokeExact(symbol, _phCryptProv, _paiEncrypt, _pvEncryptAuxInfo, _pPublicKeyInfo, _pfnAlloc, _phEncryptKey, _ppbEncryptParameters, _pcbEncryptParameters);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment phCryptProv, MemorySegment paiEncrypt, MemorySegment pvEncryptAuxInfo, MemorySegment pPublicKeyInfo, MemorySegment pfnAlloc, MemorySegment phEncryptKey, MemorySegment ppbEncryptParameters, MemorySegment pcbEncryptParameters);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CMSG_GEN_ENCRYPT_KEY.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CMSG_GEN_ENCRYPT_KEY.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment phCryptProv, MemorySegment paiEncrypt, MemorySegment pvEncryptAuxInfo, MemorySegment pPublicKeyInfo, MemorySegment pfnAlloc, MemorySegment phEncryptKey, MemorySegment ppbEncryptParameters, MemorySegment pcbEncryptParameters) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, phCryptProv, paiEncrypt, pvEncryptAuxInfo, pPublicKeyInfo, pfnAlloc, phEncryptKey, ppbEncryptParameters, pcbEncryptParameters);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

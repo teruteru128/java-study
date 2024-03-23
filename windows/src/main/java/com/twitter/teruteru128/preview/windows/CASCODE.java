@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagCASCODE CASCODE;
+ * {@snippet lang=c :
+ * typedef struct tagCASCODE {
+ *     ULONG cElems;
+ *     SCODE *pElems;
+ * } CASCODE
  * }
  */
-public final class CASCODE extends tagCASCODE {
+public class CASCODE extends tagCASCODE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CASCODE() {}
+    CASCODE() {
+        // Should not be called directly
+    }
 }
-
 

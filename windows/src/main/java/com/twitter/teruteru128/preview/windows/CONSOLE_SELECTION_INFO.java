@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CONSOLE_SELECTION_INFO CONSOLE_SELECTION_INFO;
+ * {@snippet lang=c :
+ * typedef struct _CONSOLE_SELECTION_INFO {
+ *     DWORD dwFlags;
+ *     COORD dwSelectionAnchor;
+ *     SMALL_RECT srSelection;
+ * } CONSOLE_SELECTION_INFO
  * }
  */
-public final class CONSOLE_SELECTION_INFO extends _CONSOLE_SELECTION_INFO {
+public class CONSOLE_SELECTION_INFO extends _CONSOLE_SELECTION_INFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CONSOLE_SELECTION_INFO() {}
+    CONSOLE_SELECTION_INFO() {
+        // Should not be called directly
+    }
 }
-
 

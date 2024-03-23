@@ -2,20 +2,33 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagAUXCAPSW AUXCAPSW;
+ * {@snippet lang=c :
+ * typedef struct tagAUXCAPSW {
+ *     WORD wMid;
+ *     WORD wPid;
+ *     MMVERSION vDriverVersion;
+ *     WCHAR szPname[32];
+ *     WORD wTechnology;
+ *     WORD wReserved1;
+ *     DWORD dwSupport;
+ * } AUXCAPSW
  * }
  */
-public final class AUXCAPSW extends tagAUXCAPSW {
+public class AUXCAPSW extends tagAUXCAPSW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private AUXCAPSW() {}
+    AUXCAPSW() {
+        // Should not be called directly
+    }
 }
-
 

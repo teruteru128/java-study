@@ -2,20 +2,34 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _currencyfmtW CURRENCYFMTW;
+ * {@snippet lang=c :
+ * typedef struct _currencyfmtW {
+ *     UINT NumDigits;
+ *     UINT LeadingZero;
+ *     UINT Grouping;
+ *     LPWSTR lpDecimalSep;
+ *     LPWSTR lpThousandSep;
+ *     UINT NegativeOrder;
+ *     UINT PositiveOrder;
+ *     LPWSTR lpCurrencySymbol;
+ * } CURRENCYFMTW
  * }
  */
-public final class CURRENCYFMTW extends _currencyfmtW {
+public class CURRENCYFMTW extends _currencyfmtW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CURRENCYFMTW() {}
+    CURRENCYFMTW() {
+        // Should not be called directly
+    }
 }
-
 

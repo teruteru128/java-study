@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _POINTFLOAT POINTFLOAT;
+ * {@snippet lang=c :
+ * typedef struct _POINTFLOAT {
+ *     FLOAT x;
+ *     FLOAT y;
+ * } POINTFLOAT
  * }
  */
-public final class POINTFLOAT extends _POINTFLOAT {
+public class POINTFLOAT extends _POINTFLOAT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private POINTFLOAT() {}
+    POINTFLOAT() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _IMAGE_DATA_DIRECTORY IMAGE_DATA_DIRECTORY;
+ * {@snippet lang=c :
+ * typedef struct _IMAGE_DATA_DIRECTORY {
+ *     DWORD VirtualAddress;
+ *     DWORD Size;
+ * } IMAGE_DATA_DIRECTORY
  * }
  */
-public final class IMAGE_DATA_DIRECTORY extends _IMAGE_DATA_DIRECTORY {
+public class IMAGE_DATA_DIRECTORY extends _IMAGE_DATA_DIRECTORY {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private IMAGE_DATA_DIRECTORY() {}
+    IMAGE_DATA_DIRECTORY() {
+        // Should not be called directly
+    }
 }
-
 

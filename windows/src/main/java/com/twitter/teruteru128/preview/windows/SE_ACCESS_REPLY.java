@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SE_ACCESS_REPLY SE_ACCESS_REPLY;
+ * {@snippet lang=c :
+ * typedef struct _SE_ACCESS_REPLY {
+ *     DWORD Size;
+ *     DWORD ResultListCount;
+ *     PACCESS_MASK GrantedAccess;
+ *     PDWORD AccessStatus;
+ *     PACCESS_REASONS AccessReason;
+ *     PPRIVILEGE_SET *Privileges;
+ * } SE_ACCESS_REPLY
  * }
  */
-public final class SE_ACCESS_REPLY extends _SE_ACCESS_REPLY {
+public class SE_ACCESS_REPLY extends _SE_ACCESS_REPLY {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SE_ACCESS_REPLY() {}
+    SE_ACCESS_REPLY() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,32 +2,70 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * struct _CERT_CONTEXT* (*PFN_CRYPT_GET_SIGNER_CERTIFICATE)(void* pvGetArg,unsigned long dwCertEncodingType,struct _CERT_INFO* pSignerId,void* hMsgCertStore);
+ * {@snippet lang=c :
+ * typedef PCCERT_CONTEXT (*PFN_CRYPT_GET_SIGNER_CERTIFICATE)(void *, DWORD, PCERT_INFO, HCERTSTORE) __attribute__((stdcall))
  * }
  */
-public interface PFN_CRYPT_GET_SIGNER_CERTIFICATE {
+public class PFN_CRYPT_GET_SIGNER_CERTIFICATE {
 
-    java.lang.foreign.MemorySegment apply(java.lang.foreign.MemorySegment pvGetArg, int dwCertEncodingType, java.lang.foreign.MemorySegment pSignerId, java.lang.foreign.MemorySegment hMsgCertStore);
-    static MemorySegment allocate(PFN_CRYPT_GET_SIGNER_CERTIFICATE fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2174.const$1, fi, constants$595.const$3, scope);
+    PFN_CRYPT_GET_SIGNER_CERTIFICATE() {
+        // Should not be called directly
     }
-    static PFN_CRYPT_GET_SIGNER_CERTIFICATE ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _pvGetArg, int _dwCertEncodingType, java.lang.foreign.MemorySegment _pSignerId, java.lang.foreign.MemorySegment _hMsgCertStore) -> {
-            try {
-                return (java.lang.foreign.MemorySegment)constants$2174.const$2.invokeExact(symbol, _pvGetArg, _dwCertEncodingType, _pSignerId, _hMsgCertStore);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        MemorySegment apply(MemorySegment pvGetArg, int dwCertEncodingType, MemorySegment pSignerId, MemorySegment hMsgCertStore);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CRYPT_GET_SIGNER_CERTIFICATE.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CRYPT_GET_SIGNER_CERTIFICATE.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static MemorySegment invoke(MemorySegment funcPtr,MemorySegment pvGetArg, int dwCertEncodingType, MemorySegment pSignerId, MemorySegment hMsgCertStore) {
+        try {
+            return (MemorySegment) DOWN$MH.invokeExact(funcPtr, pvGetArg, dwCertEncodingType, pSignerId, hMsgCertStore);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

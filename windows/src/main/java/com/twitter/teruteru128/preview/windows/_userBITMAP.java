@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _userBITMAP {
  *     LONG bmType;
  *     LONG bmWidth;
@@ -18,212 +23,461 @@ import static java.lang.foreign.ValueLayout.*;
  *     WORD bmBitsPixel;
  *     ULONG cbSize;
  *     byte pBuffer[1];
- * };
+ * }
  * }
  */
 public class _userBITMAP {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2356.const$3;
+    _userBITMAP() {
+        // Should not be called directly
     }
-    public static VarHandle bmType$VH() {
-        return constants$2356.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LONG bmType;
-     * }
-     */
-    public static int bmType$get(MemorySegment seg) {
-        return (int)constants$2356.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LONG bmType;
-     * }
-     */
-    public static void bmType$set(MemorySegment seg, int x) {
-        constants$2356.const$4.set(seg, x);
-    }
-    public static int bmType$get(MemorySegment seg, long index) {
-        return (int)constants$2356.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void bmType$set(MemorySegment seg, long index, int x) {
-        constants$2356.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle bmWidth$VH() {
-        return constants$2356.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LONG bmWidth;
-     * }
-     */
-    public static int bmWidth$get(MemorySegment seg) {
-        return (int)constants$2356.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LONG bmWidth;
-     * }
-     */
-    public static void bmWidth$set(MemorySegment seg, int x) {
-        constants$2356.const$5.set(seg, x);
-    }
-    public static int bmWidth$get(MemorySegment seg, long index) {
-        return (int)constants$2356.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void bmWidth$set(MemorySegment seg, long index, int x) {
-        constants$2356.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle bmHeight$VH() {
-        return constants$2357.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LONG bmHeight;
-     * }
-     */
-    public static int bmHeight$get(MemorySegment seg) {
-        return (int)constants$2357.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LONG bmHeight;
-     * }
-     */
-    public static void bmHeight$set(MemorySegment seg, int x) {
-        constants$2357.const$0.set(seg, x);
-    }
-    public static int bmHeight$get(MemorySegment seg, long index) {
-        return (int)constants$2357.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void bmHeight$set(MemorySegment seg, long index, int x) {
-        constants$2357.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle bmWidthBytes$VH() {
-        return constants$2357.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LONG bmWidthBytes;
-     * }
-     */
-    public static int bmWidthBytes$get(MemorySegment seg) {
-        return (int)constants$2357.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LONG bmWidthBytes;
-     * }
-     */
-    public static void bmWidthBytes$set(MemorySegment seg, int x) {
-        constants$2357.const$1.set(seg, x);
-    }
-    public static int bmWidthBytes$get(MemorySegment seg, long index) {
-        return (int)constants$2357.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void bmWidthBytes$set(MemorySegment seg, long index, int x) {
-        constants$2357.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle bmPlanes$VH() {
-        return constants$2357.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD bmPlanes;
-     * }
-     */
-    public static short bmPlanes$get(MemorySegment seg) {
-        return (short)constants$2357.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD bmPlanes;
-     * }
-     */
-    public static void bmPlanes$set(MemorySegment seg, short x) {
-        constants$2357.const$2.set(seg, x);
-    }
-    public static short bmPlanes$get(MemorySegment seg, long index) {
-        return (short)constants$2357.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void bmPlanes$set(MemorySegment seg, long index, short x) {
-        constants$2357.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle bmBitsPixel$VH() {
-        return constants$2357.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD bmBitsPixel;
-     * }
-     */
-    public static short bmBitsPixel$get(MemorySegment seg) {
-        return (short)constants$2357.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD bmBitsPixel;
-     * }
-     */
-    public static void bmBitsPixel$set(MemorySegment seg, short x) {
-        constants$2357.const$3.set(seg, x);
-    }
-    public static short bmBitsPixel$get(MemorySegment seg, long index) {
-        return (short)constants$2357.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void bmBitsPixel$set(MemorySegment seg, long index, short x) {
-        constants$2357.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cbSize$VH() {
-        return constants$2357.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG cbSize;
-     * }
-     */
-    public static int cbSize$get(MemorySegment seg) {
-        return (int)constants$2357.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG cbSize;
-     * }
-     */
-    public static void cbSize$set(MemorySegment seg, int x) {
-        constants$2357.const$4.set(seg, x);
-    }
-    public static int cbSize$get(MemorySegment seg, long index) {
-        return (int)constants$2357.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cbSize$set(MemorySegment seg, long index, int x) {
-        constants$2357.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment pBuffer$slice(MemorySegment seg) {
-        return seg.asSlice(24, 1);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("bmType"),
+        Windows_h.C_LONG.withName("bmWidth"),
+        Windows_h.C_LONG.withName("bmHeight"),
+        Windows_h.C_LONG.withName("bmWidthBytes"),
+        Windows_h.C_SHORT.withName("bmPlanes"),
+        Windows_h.C_SHORT.withName("bmBitsPixel"),
+        Windows_h.C_LONG.withName("cbSize"),
+        MemoryLayout.sequenceLayout(1, Windows_h.C_CHAR).withName("pBuffer"),
+        MemoryLayout.paddingLayout(3)
+    ).withName("_userBITMAP");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt bmType$LAYOUT = (OfInt)$LAYOUT.select(groupElement("bmType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LONG bmType
+     * }
+     */
+    public static final OfInt bmType$layout() {
+        return bmType$LAYOUT;
+    }
+
+    private static final long bmType$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LONG bmType
+     * }
+     */
+    public static final long bmType$offset() {
+        return bmType$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LONG bmType
+     * }
+     */
+    public static int bmType(MemorySegment struct) {
+        return struct.get(bmType$LAYOUT, bmType$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LONG bmType
+     * }
+     */
+    public static void bmType(MemorySegment struct, int fieldValue) {
+        struct.set(bmType$LAYOUT, bmType$OFFSET, fieldValue);
+    }
+
+    private static final OfInt bmWidth$LAYOUT = (OfInt)$LAYOUT.select(groupElement("bmWidth"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LONG bmWidth
+     * }
+     */
+    public static final OfInt bmWidth$layout() {
+        return bmWidth$LAYOUT;
+    }
+
+    private static final long bmWidth$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LONG bmWidth
+     * }
+     */
+    public static final long bmWidth$offset() {
+        return bmWidth$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LONG bmWidth
+     * }
+     */
+    public static int bmWidth(MemorySegment struct) {
+        return struct.get(bmWidth$LAYOUT, bmWidth$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LONG bmWidth
+     * }
+     */
+    public static void bmWidth(MemorySegment struct, int fieldValue) {
+        struct.set(bmWidth$LAYOUT, bmWidth$OFFSET, fieldValue);
+    }
+
+    private static final OfInt bmHeight$LAYOUT = (OfInt)$LAYOUT.select(groupElement("bmHeight"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LONG bmHeight
+     * }
+     */
+    public static final OfInt bmHeight$layout() {
+        return bmHeight$LAYOUT;
+    }
+
+    private static final long bmHeight$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LONG bmHeight
+     * }
+     */
+    public static final long bmHeight$offset() {
+        return bmHeight$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LONG bmHeight
+     * }
+     */
+    public static int bmHeight(MemorySegment struct) {
+        return struct.get(bmHeight$LAYOUT, bmHeight$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LONG bmHeight
+     * }
+     */
+    public static void bmHeight(MemorySegment struct, int fieldValue) {
+        struct.set(bmHeight$LAYOUT, bmHeight$OFFSET, fieldValue);
+    }
+
+    private static final OfInt bmWidthBytes$LAYOUT = (OfInt)$LAYOUT.select(groupElement("bmWidthBytes"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LONG bmWidthBytes
+     * }
+     */
+    public static final OfInt bmWidthBytes$layout() {
+        return bmWidthBytes$LAYOUT;
+    }
+
+    private static final long bmWidthBytes$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LONG bmWidthBytes
+     * }
+     */
+    public static final long bmWidthBytes$offset() {
+        return bmWidthBytes$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LONG bmWidthBytes
+     * }
+     */
+    public static int bmWidthBytes(MemorySegment struct) {
+        return struct.get(bmWidthBytes$LAYOUT, bmWidthBytes$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LONG bmWidthBytes
+     * }
+     */
+    public static void bmWidthBytes(MemorySegment struct, int fieldValue) {
+        struct.set(bmWidthBytes$LAYOUT, bmWidthBytes$OFFSET, fieldValue);
+    }
+
+    private static final OfShort bmPlanes$LAYOUT = (OfShort)$LAYOUT.select(groupElement("bmPlanes"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD bmPlanes
+     * }
+     */
+    public static final OfShort bmPlanes$layout() {
+        return bmPlanes$LAYOUT;
+    }
+
+    private static final long bmPlanes$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD bmPlanes
+     * }
+     */
+    public static final long bmPlanes$offset() {
+        return bmPlanes$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD bmPlanes
+     * }
+     */
+    public static short bmPlanes(MemorySegment struct) {
+        return struct.get(bmPlanes$LAYOUT, bmPlanes$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD bmPlanes
+     * }
+     */
+    public static void bmPlanes(MemorySegment struct, short fieldValue) {
+        struct.set(bmPlanes$LAYOUT, bmPlanes$OFFSET, fieldValue);
+    }
+
+    private static final OfShort bmBitsPixel$LAYOUT = (OfShort)$LAYOUT.select(groupElement("bmBitsPixel"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD bmBitsPixel
+     * }
+     */
+    public static final OfShort bmBitsPixel$layout() {
+        return bmBitsPixel$LAYOUT;
+    }
+
+    private static final long bmBitsPixel$OFFSET = 18;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD bmBitsPixel
+     * }
+     */
+    public static final long bmBitsPixel$offset() {
+        return bmBitsPixel$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD bmBitsPixel
+     * }
+     */
+    public static short bmBitsPixel(MemorySegment struct) {
+        return struct.get(bmBitsPixel$LAYOUT, bmBitsPixel$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD bmBitsPixel
+     * }
+     */
+    public static void bmBitsPixel(MemorySegment struct, short fieldValue) {
+        struct.set(bmBitsPixel$LAYOUT, bmBitsPixel$OFFSET, fieldValue);
+    }
+
+    private static final OfInt cbSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cbSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG cbSize
+     * }
+     */
+    public static final OfInt cbSize$layout() {
+        return cbSize$LAYOUT;
+    }
+
+    private static final long cbSize$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG cbSize
+     * }
+     */
+    public static final long cbSize$offset() {
+        return cbSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG cbSize
+     * }
+     */
+    public static int cbSize(MemorySegment struct) {
+        return struct.get(cbSize$LAYOUT, cbSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG cbSize
+     * }
+     */
+    public static void cbSize(MemorySegment struct, int fieldValue) {
+        struct.set(cbSize$LAYOUT, cbSize$OFFSET, fieldValue);
+    }
+
+    private static final SequenceLayout pBuffer$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("pBuffer"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * byte pBuffer[1]
+     * }
+     */
+    public static final SequenceLayout pBuffer$layout() {
+        return pBuffer$LAYOUT;
+    }
+
+    private static final long pBuffer$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * byte pBuffer[1]
+     * }
+     */
+    public static final long pBuffer$offset() {
+        return pBuffer$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * byte pBuffer[1]
+     * }
+     */
+    public static MemorySegment pBuffer(MemorySegment struct) {
+        return struct.asSlice(pBuffer$OFFSET, pBuffer$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * byte pBuffer[1]
+     * }
+     */
+    public static void pBuffer(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, pBuffer$OFFSET, pBuffer$LAYOUT.byteSize());
+    }
+
+    private static long[] pBuffer$DIMS = { 1 };
+
+    /**
+     * Dimensions for array field:
+     * {@snippet lang=c :
+     * byte pBuffer[1]
+     * }
+     */
+    public static long[] pBuffer$dimensions() {
+        return pBuffer$DIMS;
+    }
+    private static final VarHandle pBuffer$ELEM_HANDLE = pBuffer$LAYOUT.varHandle(sequenceElement());
+
+    /**
+     * Indexed getter for field:
+     * {@snippet lang=c :
+     * byte pBuffer[1]
+     * }
+     */
+    public static byte pBuffer(MemorySegment struct, long index0) {
+        return (byte)pBuffer$ELEM_HANDLE.get(struct, 0L, index0);
+    }
+
+    /**
+     * Indexed setter for field:
+     * {@snippet lang=c :
+     * byte pBuffer[1]
+     * }
+     */
+    public static void pBuffer(MemorySegment struct, long index0, byte fieldValue) {
+        pBuffer$ELEM_HANDLE.set(struct, 0L, index0, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

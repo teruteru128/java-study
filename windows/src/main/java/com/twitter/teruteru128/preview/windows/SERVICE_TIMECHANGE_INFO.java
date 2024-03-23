@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SERVICE_TIMECHANGE_INFO SERVICE_TIMECHANGE_INFO;
+ * {@snippet lang=c :
+ * typedef struct _SERVICE_TIMECHANGE_INFO {
+ *     LARGE_INTEGER liNewTime;
+ *     LARGE_INTEGER liOldTime;
+ * } SERVICE_TIMECHANGE_INFO
  * }
  */
-public final class SERVICE_TIMECHANGE_INFO extends _SERVICE_TIMECHANGE_INFO {
+public class SERVICE_TIMECHANGE_INFO extends _SERVICE_TIMECHANGE_INFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SERVICE_TIMECHANGE_INFO() {}
+    SERVICE_TIMECHANGE_INFO() {
+        // Should not be called directly
+    }
 }
-
 

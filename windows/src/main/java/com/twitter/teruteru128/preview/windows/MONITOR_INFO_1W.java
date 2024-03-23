@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _MONITOR_INFO_1W MONITOR_INFO_1W;
+ * {@snippet lang=c :
+ * typedef struct _MONITOR_INFO_1W {
+ *     LPWSTR pName;
+ * } MONITOR_INFO_1W
  * }
  */
-public final class MONITOR_INFO_1W extends _MONITOR_INFO_1W {
+public class MONITOR_INFO_1W extends _MONITOR_INFO_1W {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MONITOR_INFO_1W() {}
+    MONITOR_INFO_1W() {
+        // Should not be called directly
+    }
 }
-
 

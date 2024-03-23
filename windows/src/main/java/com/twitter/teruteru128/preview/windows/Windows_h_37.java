@@ -2,8013 +2,9020 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
-import static java.lang.foreign.ValueLayout.*;
-public class Windows_h_37 extends Windows_h_36 {
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
+import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
+public class Windows_h_37 extends Windows_h_38 {
+
+    Windows_h_37() {
+        // Should not be called directly
+    }
+    private static final int IMAGE_DEBUG_TYPE_BORLAND = (int)9L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_KP_OCSP_SIGNING "1.3.6.1.5.5.7.3.9"
+     * {@snippet lang=c :
+     * #define IMAGE_DEBUG_TYPE_BORLAND 9
      * }
      */
-    public static MemorySegment szOID_PKIX_KP_OCSP_SIGNING() {
-        return constants$4643.const$4;
+    public static int IMAGE_DEBUG_TYPE_BORLAND() {
+        return IMAGE_DEBUG_TYPE_BORLAND;
     }
+    private static final int IMAGE_DEBUG_TYPE_RESERVED10 = (int)10L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_OCSP_NOCHECK "1.3.6.1.5.5.7.48.1.5"
+     * {@snippet lang=c :
+     * #define IMAGE_DEBUG_TYPE_RESERVED10 10
      * }
      */
-    public static MemorySegment szOID_PKIX_OCSP_NOCHECK() {
-        return constants$4643.const$5;
+    public static int IMAGE_DEBUG_TYPE_RESERVED10() {
+        return IMAGE_DEBUG_TYPE_RESERVED10;
     }
+    private static final int IMAGE_DEBUG_TYPE_CLSID = (int)11L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_OCSP_NONCE "1.3.6.1.5.5.7.48.1.2"
+     * {@snippet lang=c :
+     * #define IMAGE_DEBUG_TYPE_CLSID 11
      * }
      */
-    public static MemorySegment szOID_PKIX_OCSP_NONCE() {
-        return constants$4644.const$0;
+    public static int IMAGE_DEBUG_TYPE_CLSID() {
+        return IMAGE_DEBUG_TYPE_CLSID;
     }
+    private static final int IMAGE_DEBUG_TYPE_VC_FEATURE = (int)12L;
     /**
-     * {@snippet :
-     * #define szOID_IPSEC_KP_IKE_INTERMEDIATE "1.3.6.1.5.5.8.2.2"
+     * {@snippet lang=c :
+     * #define IMAGE_DEBUG_TYPE_VC_FEATURE 12
      * }
      */
-    public static MemorySegment szOID_IPSEC_KP_IKE_INTERMEDIATE() {
-        return constants$4644.const$1;
+    public static int IMAGE_DEBUG_TYPE_VC_FEATURE() {
+        return IMAGE_DEBUG_TYPE_VC_FEATURE;
     }
+    private static final int IMAGE_DEBUG_TYPE_POGO = (int)13L;
     /**
-     * {@snippet :
-     * #define szOID_PKINIT_KP_KDC "1.3.6.1.5.2.3.5"
+     * {@snippet lang=c :
+     * #define IMAGE_DEBUG_TYPE_POGO 13
      * }
      */
-    public static MemorySegment szOID_PKINIT_KP_KDC() {
-        return constants$4644.const$2;
+    public static int IMAGE_DEBUG_TYPE_POGO() {
+        return IMAGE_DEBUG_TYPE_POGO;
     }
+    private static final int IMAGE_DEBUG_TYPE_ILTCG = (int)14L;
     /**
-     * {@snippet :
-     * #define szOID_KP_CTL_USAGE_SIGNING "1.3.6.1.4.1.311.10.3.1"
+     * {@snippet lang=c :
+     * #define IMAGE_DEBUG_TYPE_ILTCG 14
      * }
      */
-    public static MemorySegment szOID_KP_CTL_USAGE_SIGNING() {
-        return constants$4644.const$3;
+    public static int IMAGE_DEBUG_TYPE_ILTCG() {
+        return IMAGE_DEBUG_TYPE_ILTCG;
     }
+    private static final int IMAGE_DEBUG_TYPE_MPX = (int)15L;
     /**
-     * {@snippet :
-     * #define szOID_KP_TIME_STAMP_SIGNING "1.3.6.1.4.1.311.10.3.2"
+     * {@snippet lang=c :
+     * #define IMAGE_DEBUG_TYPE_MPX 15
      * }
      */
-    public static MemorySegment szOID_KP_TIME_STAMP_SIGNING() {
-        return constants$4644.const$4;
+    public static int IMAGE_DEBUG_TYPE_MPX() {
+        return IMAGE_DEBUG_TYPE_MPX;
     }
+    private static final int IMAGE_DEBUG_TYPE_REPRO = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_SERVER_GATED_CRYPTO "1.3.6.1.4.1.311.10.3.3"
+     * {@snippet lang=c :
+     * #define IMAGE_DEBUG_TYPE_REPRO 16
      * }
      */
-    public static MemorySegment szOID_SERVER_GATED_CRYPTO() {
-        return constants$4644.const$5;
+    public static int IMAGE_DEBUG_TYPE_REPRO() {
+        return IMAGE_DEBUG_TYPE_REPRO;
     }
+    private static final int IMAGE_DEBUG_TYPE_EX_DLLCHARACTERISTICS = (int)20L;
     /**
-     * {@snippet :
-     * #define szOID_SGC_NETSCAPE "2.16.840.1.113730.4.1"
+     * {@snippet lang=c :
+     * #define IMAGE_DEBUG_TYPE_EX_DLLCHARACTERISTICS 20
      * }
      */
-    public static MemorySegment szOID_SGC_NETSCAPE() {
-        return constants$4645.const$0;
+    public static int IMAGE_DEBUG_TYPE_EX_DLLCHARACTERISTICS() {
+        return IMAGE_DEBUG_TYPE_EX_DLLCHARACTERISTICS;
     }
+    private static final int IMAGE_DLLCHARACTERISTICS_EX_CET_COMPAT = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_KP_EFS "1.3.6.1.4.1.311.10.3.4"
+     * {@snippet lang=c :
+     * #define IMAGE_DLLCHARACTERISTICS_EX_CET_COMPAT 1
      * }
      */
-    public static MemorySegment szOID_KP_EFS() {
-        return constants$4645.const$1;
+    public static int IMAGE_DLLCHARACTERISTICS_EX_CET_COMPAT() {
+        return IMAGE_DLLCHARACTERISTICS_EX_CET_COMPAT;
     }
+    private static final int IMAGE_DLLCHARACTERISTICS_EX_CET_COMPAT_STRICT_MODE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_EFS_RECOVERY "1.3.6.1.4.1.311.10.3.4.1"
+     * {@snippet lang=c :
+     * #define IMAGE_DLLCHARACTERISTICS_EX_CET_COMPAT_STRICT_MODE 2
      * }
      */
-    public static MemorySegment szOID_EFS_RECOVERY() {
-        return constants$4645.const$2;
+    public static int IMAGE_DLLCHARACTERISTICS_EX_CET_COMPAT_STRICT_MODE() {
+        return IMAGE_DLLCHARACTERISTICS_EX_CET_COMPAT_STRICT_MODE;
     }
+    private static final int IMAGE_DLLCHARACTERISTICS_EX_CET_SET_CONTEXT_IP_VALIDATION_RELAXED_MODE = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_WHQL_CRYPTO "1.3.6.1.4.1.311.10.3.5"
+     * {@snippet lang=c :
+     * #define IMAGE_DLLCHARACTERISTICS_EX_CET_SET_CONTEXT_IP_VALIDATION_RELAXED_MODE 4
      * }
      */
-    public static MemorySegment szOID_WHQL_CRYPTO() {
-        return constants$4645.const$3;
+    public static int IMAGE_DLLCHARACTERISTICS_EX_CET_SET_CONTEXT_IP_VALIDATION_RELAXED_MODE() {
+        return IMAGE_DLLCHARACTERISTICS_EX_CET_SET_CONTEXT_IP_VALIDATION_RELAXED_MODE;
     }
+    private static final int IMAGE_DLLCHARACTERISTICS_EX_CET_DYNAMIC_APIS_ALLOW_IN_PROC = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_ATTEST_WHQL_CRYPTO "1.3.6.1.4.1.311.10.3.5.1"
+     * {@snippet lang=c :
+     * #define IMAGE_DLLCHARACTERISTICS_EX_CET_DYNAMIC_APIS_ALLOW_IN_PROC 8
      * }
      */
-    public static MemorySegment szOID_ATTEST_WHQL_CRYPTO() {
-        return constants$4645.const$4;
+    public static int IMAGE_DLLCHARACTERISTICS_EX_CET_DYNAMIC_APIS_ALLOW_IN_PROC() {
+        return IMAGE_DLLCHARACTERISTICS_EX_CET_DYNAMIC_APIS_ALLOW_IN_PROC;
     }
+    private static final int IMAGE_DLLCHARACTERISTICS_EX_CET_RESERVED_1 = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_NT5_CRYPTO "1.3.6.1.4.1.311.10.3.6"
+     * {@snippet lang=c :
+     * #define IMAGE_DLLCHARACTERISTICS_EX_CET_RESERVED_1 16
      * }
      */
-    public static MemorySegment szOID_NT5_CRYPTO() {
-        return constants$4645.const$5;
+    public static int IMAGE_DLLCHARACTERISTICS_EX_CET_RESERVED_1() {
+        return IMAGE_DLLCHARACTERISTICS_EX_CET_RESERVED_1;
     }
+    private static final int IMAGE_DLLCHARACTERISTICS_EX_CET_RESERVED_2 = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_OEM_WHQL_CRYPTO "1.3.6.1.4.1.311.10.3.7"
+     * {@snippet lang=c :
+     * #define IMAGE_DLLCHARACTERISTICS_EX_CET_RESERVED_2 32
      * }
      */
-    public static MemorySegment szOID_OEM_WHQL_CRYPTO() {
-        return constants$4646.const$0;
+    public static int IMAGE_DLLCHARACTERISTICS_EX_CET_RESERVED_2() {
+        return IMAGE_DLLCHARACTERISTICS_EX_CET_RESERVED_2;
     }
+    private static final int FRAME_FPO = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_EMBEDDED_NT_CRYPTO "1.3.6.1.4.1.311.10.3.8"
+     * {@snippet lang=c :
+     * #define FRAME_FPO 0
      * }
      */
-    public static MemorySegment szOID_EMBEDDED_NT_CRYPTO() {
-        return constants$4646.const$1;
+    public static int FRAME_FPO() {
+        return FRAME_FPO;
     }
+    private static final int FRAME_TRAP = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_ROOT_LIST_SIGNER "1.3.6.1.4.1.311.10.3.9"
+     * {@snippet lang=c :
+     * #define FRAME_TRAP 1
      * }
      */
-    public static MemorySegment szOID_ROOT_LIST_SIGNER() {
-        return constants$4646.const$2;
+    public static int FRAME_TRAP() {
+        return FRAME_TRAP;
     }
+    private static final int FRAME_TSS = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_KP_QUALIFIED_SUBORDINATION "1.3.6.1.4.1.311.10.3.10"
+     * {@snippet lang=c :
+     * #define FRAME_TSS 2
      * }
      */
-    public static MemorySegment szOID_KP_QUALIFIED_SUBORDINATION() {
-        return constants$4646.const$3;
+    public static int FRAME_TSS() {
+        return FRAME_TSS;
     }
+    private static final int FRAME_NONFPO = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_KP_KEY_RECOVERY "1.3.6.1.4.1.311.10.3.11"
+     * {@snippet lang=c :
+     * #define FRAME_NONFPO 3
      * }
      */
-    public static MemorySegment szOID_KP_KEY_RECOVERY() {
-        return constants$4646.const$4;
+    public static int FRAME_NONFPO() {
+        return FRAME_NONFPO;
     }
+    private static final int SIZEOF_RFPO_DATA = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_KP_DOCUMENT_SIGNING "1.3.6.1.4.1.311.10.3.12"
+     * {@snippet lang=c :
+     * #define SIZEOF_RFPO_DATA 16
      * }
      */
-    public static MemorySegment szOID_KP_DOCUMENT_SIGNING() {
-        return constants$4646.const$5;
+    public static int SIZEOF_RFPO_DATA() {
+        return SIZEOF_RFPO_DATA;
     }
+    private static final int IMAGE_DEBUG_MISC_EXENAME = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_KP_LIFETIME_SIGNING "1.3.6.1.4.1.311.10.3.13"
+     * {@snippet lang=c :
+     * #define IMAGE_DEBUG_MISC_EXENAME 1
      * }
      */
-    public static MemorySegment szOID_KP_LIFETIME_SIGNING() {
-        return constants$4647.const$0;
+    public static int IMAGE_DEBUG_MISC_EXENAME() {
+        return IMAGE_DEBUG_MISC_EXENAME;
     }
+    private static final int IMAGE_SEPARATE_DEBUG_SIGNATURE = (int)18756L;
     /**
-     * {@snippet :
-     * #define szOID_KP_MOBILE_DEVICE_SOFTWARE "1.3.6.1.4.1.311.10.3.14"
+     * {@snippet lang=c :
+     * #define IMAGE_SEPARATE_DEBUG_SIGNATURE 18756
      * }
      */
-    public static MemorySegment szOID_KP_MOBILE_DEVICE_SOFTWARE() {
-        return constants$4647.const$1;
+    public static int IMAGE_SEPARATE_DEBUG_SIGNATURE() {
+        return IMAGE_SEPARATE_DEBUG_SIGNATURE;
     }
+    private static final int NON_PAGED_DEBUG_SIGNATURE = (int)18766L;
     /**
-     * {@snippet :
-     * #define szOID_KP_SMART_DISPLAY "1.3.6.1.4.1.311.10.3.15"
+     * {@snippet lang=c :
+     * #define NON_PAGED_DEBUG_SIGNATURE 18766
      * }
      */
-    public static MemorySegment szOID_KP_SMART_DISPLAY() {
-        return constants$4647.const$2;
+    public static int NON_PAGED_DEBUG_SIGNATURE() {
+        return NON_PAGED_DEBUG_SIGNATURE;
     }
+    private static final int IMAGE_SEPARATE_DEBUG_FLAGS_MASK = (int)32768L;
     /**
-     * {@snippet :
-     * #define szOID_KP_CSP_SIGNATURE "1.3.6.1.4.1.311.10.3.16"
+     * {@snippet lang=c :
+     * #define IMAGE_SEPARATE_DEBUG_FLAGS_MASK 32768
      * }
      */
-    public static MemorySegment szOID_KP_CSP_SIGNATURE() {
-        return constants$4647.const$3;
+    public static int IMAGE_SEPARATE_DEBUG_FLAGS_MASK() {
+        return IMAGE_SEPARATE_DEBUG_FLAGS_MASK;
     }
+    private static final int IMAGE_SEPARATE_DEBUG_MISMATCH = (int)32768L;
     /**
-     * {@snippet :
-     * #define szOID_KP_FLIGHT_SIGNING "1.3.6.1.4.1.311.10.3.27"
+     * {@snippet lang=c :
+     * #define IMAGE_SEPARATE_DEBUG_MISMATCH 32768
      * }
      */
-    public static MemorySegment szOID_KP_FLIGHT_SIGNING() {
-        return constants$4647.const$4;
+    public static int IMAGE_SEPARATE_DEBUG_MISMATCH() {
+        return IMAGE_SEPARATE_DEBUG_MISMATCH;
     }
+    private static final int IMPORT_OBJECT_HDR_SIG2 = (int)65535L;
     /**
-     * {@snippet :
-     * #define szOID_PLATFORM_MANIFEST_BINARY_ID "1.3.6.1.4.1.311.10.3.28"
+     * {@snippet lang=c :
+     * #define IMPORT_OBJECT_HDR_SIG2 65535
      * }
      */
-    public static MemorySegment szOID_PLATFORM_MANIFEST_BINARY_ID() {
-        return constants$4647.const$5;
+    public static int IMPORT_OBJECT_HDR_SIG2() {
+        return IMPORT_OBJECT_HDR_SIG2;
     }
+    private static final int UNWIND_HISTORY_TABLE_SIZE = (int)12L;
     /**
-     * {@snippet :
-     * #define szOID_DRM "1.3.6.1.4.1.311.10.5.1"
+     * {@snippet lang=c :
+     * #define UNWIND_HISTORY_TABLE_SIZE 12
      * }
      */
-    public static MemorySegment szOID_DRM() {
-        return constants$4648.const$0;
+    public static int UNWIND_HISTORY_TABLE_SIZE() {
+        return UNWIND_HISTORY_TABLE_SIZE;
     }
+    private static final int RTL_RUN_ONCE_CTX_RESERVED_BITS = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_DRM_INDIVIDUALIZATION "1.3.6.1.4.1.311.10.5.2"
+     * {@snippet lang=c :
+     * #define RTL_RUN_ONCE_CTX_RESERVED_BITS 2
      * }
      */
-    public static MemorySegment szOID_DRM_INDIVIDUALIZATION() {
-        return constants$4648.const$1;
+    public static int RTL_RUN_ONCE_CTX_RESERVED_BITS() {
+        return RTL_RUN_ONCE_CTX_RESERVED_BITS;
     }
+    private static final int FAST_FAIL_LEGACY_GS_VIOLATION = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_LICENSES "1.3.6.1.4.1.311.10.6.1"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_LEGACY_GS_VIOLATION 0
      * }
      */
-    public static MemorySegment szOID_LICENSES() {
-        return constants$4648.const$2;
+    public static int FAST_FAIL_LEGACY_GS_VIOLATION() {
+        return FAST_FAIL_LEGACY_GS_VIOLATION;
     }
+    private static final int FAST_FAIL_VTGUARD_CHECK_FAILURE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_LICENSE_SERVER "1.3.6.1.4.1.311.10.6.2"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_VTGUARD_CHECK_FAILURE 1
      * }
      */
-    public static MemorySegment szOID_LICENSE_SERVER() {
-        return constants$4648.const$3;
+    public static int FAST_FAIL_VTGUARD_CHECK_FAILURE() {
+        return FAST_FAIL_VTGUARD_CHECK_FAILURE;
     }
+    private static final int FAST_FAIL_STACK_COOKIE_CHECK_FAILURE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_KP_SMARTCARD_LOGON "1.3.6.1.4.1.311.20.2.2"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_STACK_COOKIE_CHECK_FAILURE 2
      * }
      */
-    public static MemorySegment szOID_KP_SMARTCARD_LOGON() {
-        return constants$4648.const$4;
+    public static int FAST_FAIL_STACK_COOKIE_CHECK_FAILURE() {
+        return FAST_FAIL_STACK_COOKIE_CHECK_FAILURE;
     }
+    private static final int FAST_FAIL_CORRUPT_LIST_ENTRY = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_KP_KERNEL_MODE_CODE_SIGNING "1.3.6.1.4.1.311.61.1.1"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_CORRUPT_LIST_ENTRY 3
      * }
      */
-    public static MemorySegment szOID_KP_KERNEL_MODE_CODE_SIGNING() {
-        return constants$4648.const$5;
+    public static int FAST_FAIL_CORRUPT_LIST_ENTRY() {
+        return FAST_FAIL_CORRUPT_LIST_ENTRY;
     }
+    private static final int FAST_FAIL_INCORRECT_STACK = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_KP_KERNEL_MODE_TRUSTED_BOOT_SIGNING "1.3.6.1.4.1.311.61.4.1"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INCORRECT_STACK 4
      * }
      */
-    public static MemorySegment szOID_KP_KERNEL_MODE_TRUSTED_BOOT_SIGNING() {
-        return constants$4649.const$0;
+    public static int FAST_FAIL_INCORRECT_STACK() {
+        return FAST_FAIL_INCORRECT_STACK;
     }
+    private static final int FAST_FAIL_INVALID_ARG = (int)5L;
     /**
-     * {@snippet :
-     * #define szOID_REVOKED_LIST_SIGNER "1.3.6.1.4.1.311.10.3.19"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_ARG 5
      * }
      */
-    public static MemorySegment szOID_REVOKED_LIST_SIGNER() {
-        return constants$4649.const$1;
+    public static int FAST_FAIL_INVALID_ARG() {
+        return FAST_FAIL_INVALID_ARG;
     }
+    private static final int FAST_FAIL_GS_COOKIE_INIT = (int)6L;
     /**
-     * {@snippet :
-     * #define szOID_WINDOWS_KITS_SIGNER "1.3.6.1.4.1.311.10.3.20"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_GS_COOKIE_INIT 6
      * }
      */
-    public static MemorySegment szOID_WINDOWS_KITS_SIGNER() {
-        return constants$4649.const$2;
+    public static int FAST_FAIL_GS_COOKIE_INIT() {
+        return FAST_FAIL_GS_COOKIE_INIT;
     }
+    private static final int FAST_FAIL_FATAL_APP_EXIT = (int)7L;
     /**
-     * {@snippet :
-     * #define szOID_WINDOWS_RT_SIGNER "1.3.6.1.4.1.311.10.3.21"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_FATAL_APP_EXIT 7
      * }
      */
-    public static MemorySegment szOID_WINDOWS_RT_SIGNER() {
-        return constants$4649.const$3;
+    public static int FAST_FAIL_FATAL_APP_EXIT() {
+        return FAST_FAIL_FATAL_APP_EXIT;
     }
+    private static final int FAST_FAIL_RANGE_CHECK_FAILURE = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_PROTECTED_PROCESS_LIGHT_SIGNER "1.3.6.1.4.1.311.10.3.22"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_RANGE_CHECK_FAILURE 8
      * }
      */
-    public static MemorySegment szOID_PROTECTED_PROCESS_LIGHT_SIGNER() {
-        return constants$4649.const$4;
+    public static int FAST_FAIL_RANGE_CHECK_FAILURE() {
+        return FAST_FAIL_RANGE_CHECK_FAILURE;
     }
+    private static final int FAST_FAIL_UNSAFE_REGISTRY_ACCESS = (int)9L;
     /**
-     * {@snippet :
-     * #define szOID_WINDOWS_TCB_SIGNER "1.3.6.1.4.1.311.10.3.23"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_UNSAFE_REGISTRY_ACCESS 9
      * }
      */
-    public static MemorySegment szOID_WINDOWS_TCB_SIGNER() {
-        return constants$4649.const$5;
+    public static int FAST_FAIL_UNSAFE_REGISTRY_ACCESS() {
+        return FAST_FAIL_UNSAFE_REGISTRY_ACCESS;
     }
+    private static final int FAST_FAIL_GUARD_ICALL_CHECK_FAILURE = (int)10L;
     /**
-     * {@snippet :
-     * #define szOID_PROTECTED_PROCESS_SIGNER "1.3.6.1.4.1.311.10.3.24"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_GUARD_ICALL_CHECK_FAILURE 10
      * }
      */
-    public static MemorySegment szOID_PROTECTED_PROCESS_SIGNER() {
-        return constants$4650.const$0;
+    public static int FAST_FAIL_GUARD_ICALL_CHECK_FAILURE() {
+        return FAST_FAIL_GUARD_ICALL_CHECK_FAILURE;
     }
+    private static final int FAST_FAIL_GUARD_WRITE_CHECK_FAILURE = (int)11L;
     /**
-     * {@snippet :
-     * #define szOID_WINDOWS_THIRD_PARTY_COMPONENT_SIGNER "1.3.6.1.4.1.311.10.3.25"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_GUARD_WRITE_CHECK_FAILURE 11
      * }
      */
-    public static MemorySegment szOID_WINDOWS_THIRD_PARTY_COMPONENT_SIGNER() {
-        return constants$4650.const$1;
+    public static int FAST_FAIL_GUARD_WRITE_CHECK_FAILURE() {
+        return FAST_FAIL_GUARD_WRITE_CHECK_FAILURE;
     }
+    private static final int FAST_FAIL_INVALID_FIBER_SWITCH = (int)12L;
     /**
-     * {@snippet :
-     * #define szOID_WINDOWS_SOFTWARE_EXTENSION_SIGNER "1.3.6.1.4.1.311.10.3.26"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_FIBER_SWITCH 12
      * }
      */
-    public static MemorySegment szOID_WINDOWS_SOFTWARE_EXTENSION_SIGNER() {
-        return constants$4650.const$2;
+    public static int FAST_FAIL_INVALID_FIBER_SWITCH() {
+        return FAST_FAIL_INVALID_FIBER_SWITCH;
     }
+    private static final int FAST_FAIL_INVALID_SET_OF_CONTEXT = (int)13L;
     /**
-     * {@snippet :
-     * #define szOID_DISALLOWED_LIST "1.3.6.1.4.1.311.10.3.30"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_SET_OF_CONTEXT 13
      * }
      */
-    public static MemorySegment szOID_DISALLOWED_LIST() {
-        return constants$4650.const$3;
+    public static int FAST_FAIL_INVALID_SET_OF_CONTEXT() {
+        return FAST_FAIL_INVALID_SET_OF_CONTEXT;
     }
+    private static final int FAST_FAIL_INVALID_REFERENCE_COUNT = (int)14L;
     /**
-     * {@snippet :
-     * #define szOID_PIN_RULES_SIGNER "1.3.6.1.4.1.311.10.3.31"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_REFERENCE_COUNT 14
      * }
      */
-    public static MemorySegment szOID_PIN_RULES_SIGNER() {
-        return constants$4650.const$4;
+    public static int FAST_FAIL_INVALID_REFERENCE_COUNT() {
+        return FAST_FAIL_INVALID_REFERENCE_COUNT;
     }
+    private static final int FAST_FAIL_INVALID_JUMP_BUFFER = (int)18L;
     /**
-     * {@snippet :
-     * #define szOID_PIN_RULES_CTL "1.3.6.1.4.1.311.10.3.32"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_JUMP_BUFFER 18
      * }
      */
-    public static MemorySegment szOID_PIN_RULES_CTL() {
-        return constants$4650.const$5;
+    public static int FAST_FAIL_INVALID_JUMP_BUFFER() {
+        return FAST_FAIL_INVALID_JUMP_BUFFER;
     }
+    private static final int FAST_FAIL_MRDATA_MODIFIED = (int)19L;
     /**
-     * {@snippet :
-     * #define szOID_PIN_RULES_EXT "1.3.6.1.4.1.311.10.3.33"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_MRDATA_MODIFIED 19
      * }
      */
-    public static MemorySegment szOID_PIN_RULES_EXT() {
-        return constants$4651.const$0;
+    public static int FAST_FAIL_MRDATA_MODIFIED() {
+        return FAST_FAIL_MRDATA_MODIFIED;
     }
+    private static final int FAST_FAIL_CERTIFICATION_FAILURE = (int)20L;
     /**
-     * {@snippet :
-     * #define szOID_PIN_RULES_DOMAIN_NAME "1.3.6.1.4.1.311.10.3.34"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_CERTIFICATION_FAILURE 20
      * }
      */
-    public static MemorySegment szOID_PIN_RULES_DOMAIN_NAME() {
-        return constants$4651.const$1;
+    public static int FAST_FAIL_CERTIFICATION_FAILURE() {
+        return FAST_FAIL_CERTIFICATION_FAILURE;
     }
+    private static final int FAST_FAIL_INVALID_EXCEPTION_CHAIN = (int)21L;
     /**
-     * {@snippet :
-     * #define szOID_PIN_RULES_LOG_END_DATE_EXT "1.3.6.1.4.1.311.10.3.35"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_EXCEPTION_CHAIN 21
      * }
      */
-    public static MemorySegment szOID_PIN_RULES_LOG_END_DATE_EXT() {
-        return constants$4651.const$2;
+    public static int FAST_FAIL_INVALID_EXCEPTION_CHAIN() {
+        return FAST_FAIL_INVALID_EXCEPTION_CHAIN;
     }
+    private static final int FAST_FAIL_CRYPTO_LIBRARY = (int)22L;
     /**
-     * {@snippet :
-     * #define szOID_IUM_SIGNING "1.3.6.1.4.1.311.10.3.37"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_CRYPTO_LIBRARY 22
      * }
      */
-    public static MemorySegment szOID_IUM_SIGNING() {
-        return constants$4651.const$3;
+    public static int FAST_FAIL_CRYPTO_LIBRARY() {
+        return FAST_FAIL_CRYPTO_LIBRARY;
     }
+    private static final int FAST_FAIL_INVALID_CALL_IN_DLL_CALLOUT = (int)23L;
     /**
-     * {@snippet :
-     * #define szOID_EV_WHQL_CRYPTO "1.3.6.1.4.1.311.10.3.39"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_CALL_IN_DLL_CALLOUT 23
      * }
      */
-    public static MemorySegment szOID_EV_WHQL_CRYPTO() {
-        return constants$4651.const$4;
+    public static int FAST_FAIL_INVALID_CALL_IN_DLL_CALLOUT() {
+        return FAST_FAIL_INVALID_CALL_IN_DLL_CALLOUT;
     }
+    private static final int FAST_FAIL_INVALID_IMAGE_BASE = (int)24L;
     /**
-     * {@snippet :
-     * #define szOID_BIOMETRIC_SIGNING "1.3.6.1.4.1.311.10.3.41"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_IMAGE_BASE 24
      * }
      */
-    public static MemorySegment szOID_BIOMETRIC_SIGNING() {
-        return constants$4651.const$5;
+    public static int FAST_FAIL_INVALID_IMAGE_BASE() {
+        return FAST_FAIL_INVALID_IMAGE_BASE;
     }
+    private static final int FAST_FAIL_DLOAD_PROTECTION_FAILURE = (int)25L;
     /**
-     * {@snippet :
-     * #define szOID_ENCLAVE_SIGNING "1.3.6.1.4.1.311.10.3.42"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_DLOAD_PROTECTION_FAILURE 25
      * }
      */
-    public static MemorySegment szOID_ENCLAVE_SIGNING() {
-        return constants$4652.const$0;
+    public static int FAST_FAIL_DLOAD_PROTECTION_FAILURE() {
+        return FAST_FAIL_DLOAD_PROTECTION_FAILURE;
     }
+    private static final int FAST_FAIL_UNSAFE_EXTENSION_CALL = (int)26L;
     /**
-     * {@snippet :
-     * #define szOID_SYNC_ROOT_CTL_EXT "1.3.6.1.4.1.311.10.3.50"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_UNSAFE_EXTENSION_CALL 26
      * }
      */
-    public static MemorySegment szOID_SYNC_ROOT_CTL_EXT() {
-        return constants$4652.const$1;
+    public static int FAST_FAIL_UNSAFE_EXTENSION_CALL() {
+        return FAST_FAIL_UNSAFE_EXTENSION_CALL;
     }
+    private static final int FAST_FAIL_DEPRECATED_SERVICE_INVOKED = (int)27L;
     /**
-     * {@snippet :
-     * #define szOID_HPKP_DOMAIN_NAME_CTL "1.3.6.1.4.1.311.10.3.60"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_DEPRECATED_SERVICE_INVOKED 27
      * }
      */
-    public static MemorySegment szOID_HPKP_DOMAIN_NAME_CTL() {
-        return constants$4652.const$2;
+    public static int FAST_FAIL_DEPRECATED_SERVICE_INVOKED() {
+        return FAST_FAIL_DEPRECATED_SERVICE_INVOKED;
     }
+    private static final int FAST_FAIL_INVALID_BUFFER_ACCESS = (int)28L;
     /**
-     * {@snippet :
-     * #define szOID_HPKP_HEADER_VALUE_CTL "1.3.6.1.4.1.311.10.3.61"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_BUFFER_ACCESS 28
      * }
      */
-    public static MemorySegment szOID_HPKP_HEADER_VALUE_CTL() {
-        return constants$4652.const$3;
+    public static int FAST_FAIL_INVALID_BUFFER_ACCESS() {
+        return FAST_FAIL_INVALID_BUFFER_ACCESS;
     }
+    private static final int FAST_FAIL_INVALID_BALANCED_TREE = (int)29L;
     /**
-     * {@snippet :
-     * #define szOID_KP_KERNEL_MODE_HAL_EXTENSION_SIGNING "1.3.6.1.4.1.311.61.5.1"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_BALANCED_TREE 29
      * }
      */
-    public static MemorySegment szOID_KP_KERNEL_MODE_HAL_EXTENSION_SIGNING() {
-        return constants$4652.const$4;
+    public static int FAST_FAIL_INVALID_BALANCED_TREE() {
+        return FAST_FAIL_INVALID_BALANCED_TREE;
     }
+    private static final int FAST_FAIL_INVALID_NEXT_THREAD = (int)30L;
     /**
-     * {@snippet :
-     * #define szOID_WINDOWS_STORE_SIGNER "1.3.6.1.4.1.311.76.3.1"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_NEXT_THREAD 30
      * }
      */
-    public static MemorySegment szOID_WINDOWS_STORE_SIGNER() {
-        return constants$4652.const$5;
+    public static int FAST_FAIL_INVALID_NEXT_THREAD() {
+        return FAST_FAIL_INVALID_NEXT_THREAD;
     }
+    private static final int FAST_FAIL_GUARD_ICALL_CHECK_SUPPRESSED = (int)31L;
     /**
-     * {@snippet :
-     * #define szOID_DYNAMIC_CODE_GEN_SIGNER "1.3.6.1.4.1.311.76.5.1"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_GUARD_ICALL_CHECK_SUPPRESSED 31
      * }
      */
-    public static MemorySegment szOID_DYNAMIC_CODE_GEN_SIGNER() {
-        return constants$4653.const$0;
+    public static int FAST_FAIL_GUARD_ICALL_CHECK_SUPPRESSED() {
+        return FAST_FAIL_GUARD_ICALL_CHECK_SUPPRESSED;
     }
+    private static final int FAST_FAIL_APCS_DISABLED = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_MICROSOFT_PUBLISHER_SIGNER "1.3.6.1.4.1.311.76.8.1"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_APCS_DISABLED 32
      * }
      */
-    public static MemorySegment szOID_MICROSOFT_PUBLISHER_SIGNER() {
-        return constants$4653.const$1;
+    public static int FAST_FAIL_APCS_DISABLED() {
+        return FAST_FAIL_APCS_DISABLED;
     }
+    private static final int FAST_FAIL_INVALID_IDLE_STATE = (int)33L;
     /**
-     * {@snippet :
-     * #define szOID_YESNO_TRUST_ATTR "1.3.6.1.4.1.311.10.4.1"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_IDLE_STATE 33
      * }
      */
-    public static MemorySegment szOID_YESNO_TRUST_ATTR() {
-        return constants$4653.const$2;
+    public static int FAST_FAIL_INVALID_IDLE_STATE() {
+        return FAST_FAIL_INVALID_IDLE_STATE;
     }
+    private static final int FAST_FAIL_MRDATA_PROTECTION_FAILURE = (int)34L;
     /**
-     * {@snippet :
-     * #define szOID_SITE_PIN_RULES_INDEX_ATTR "1.3.6.1.4.1.311.10.4.2"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_MRDATA_PROTECTION_FAILURE 34
      * }
      */
-    public static MemorySegment szOID_SITE_PIN_RULES_INDEX_ATTR() {
-        return constants$4653.const$3;
+    public static int FAST_FAIL_MRDATA_PROTECTION_FAILURE() {
+        return FAST_FAIL_MRDATA_PROTECTION_FAILURE;
     }
+    private static final int FAST_FAIL_UNEXPECTED_HEAP_EXCEPTION = (int)35L;
     /**
-     * {@snippet :
-     * #define szOID_SITE_PIN_RULES_FLAGS_ATTR "1.3.6.1.4.1.311.10.4.3"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_UNEXPECTED_HEAP_EXCEPTION 35
      * }
      */
-    public static MemorySegment szOID_SITE_PIN_RULES_FLAGS_ATTR() {
-        return constants$4653.const$4;
+    public static int FAST_FAIL_UNEXPECTED_HEAP_EXCEPTION() {
+        return FAST_FAIL_UNEXPECTED_HEAP_EXCEPTION;
     }
+    private static final int FAST_FAIL_INVALID_LOCK_STATE = (int)36L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_POLICY_QUALIFIER_CPS "1.3.6.1.5.5.7.2.1"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_LOCK_STATE 36
      * }
      */
-    public static MemorySegment szOID_PKIX_POLICY_QUALIFIER_CPS() {
-        return constants$4653.const$5;
+    public static int FAST_FAIL_INVALID_LOCK_STATE() {
+        return FAST_FAIL_INVALID_LOCK_STATE;
     }
+    private static final int FAST_FAIL_GUARD_JUMPTABLE = (int)37L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_POLICY_QUALIFIER_USERNOTICE "1.3.6.1.5.5.7.2.2"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_GUARD_JUMPTABLE 37
      * }
      */
-    public static MemorySegment szOID_PKIX_POLICY_QUALIFIER_USERNOTICE() {
-        return constants$4654.const$0;
+    public static int FAST_FAIL_GUARD_JUMPTABLE() {
+        return FAST_FAIL_GUARD_JUMPTABLE;
     }
+    private static final int FAST_FAIL_INVALID_LONGJUMP_TARGET = (int)38L;
     /**
-     * {@snippet :
-     * #define szOID_ROOT_PROGRAM_FLAGS "1.3.6.1.4.1.311.60.1.1"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_LONGJUMP_TARGET 38
      * }
      */
-    public static MemorySegment szOID_ROOT_PROGRAM_FLAGS() {
-        return constants$4654.const$1;
+    public static int FAST_FAIL_INVALID_LONGJUMP_TARGET() {
+        return FAST_FAIL_INVALID_LONGJUMP_TARGET;
     }
+    private static final int FAST_FAIL_INVALID_DISPATCH_CONTEXT = (int)39L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_POLICIES_95_QUALIFIER1 "2.16.840.1.113733.1.7.1.1"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_DISPATCH_CONTEXT 39
      * }
      */
-    public static MemorySegment szOID_CERT_POLICIES_95_QUALIFIER1() {
-        return constants$4654.const$2;
+    public static int FAST_FAIL_INVALID_DISPATCH_CONTEXT() {
+        return FAST_FAIL_INVALID_DISPATCH_CONTEXT;
     }
+    private static final int FAST_FAIL_INVALID_THREAD = (int)40L;
     /**
-     * {@snippet :
-     * #define szOID_RDN_TPM_MANUFACTURER "2.23.133.2.1"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_THREAD 40
      * }
      */
-    public static MemorySegment szOID_RDN_TPM_MANUFACTURER() {
-        return constants$4654.const$3;
+    public static int FAST_FAIL_INVALID_THREAD() {
+        return FAST_FAIL_INVALID_THREAD;
     }
+    private static final int FAST_FAIL_INVALID_SYSCALL_NUMBER = (int)41L;
     /**
-     * {@snippet :
-     * #define szOID_RDN_TPM_MODEL "2.23.133.2.2"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_SYSCALL_NUMBER 41
      * }
      */
-    public static MemorySegment szOID_RDN_TPM_MODEL() {
-        return constants$4654.const$4;
+    public static int FAST_FAIL_INVALID_SYSCALL_NUMBER() {
+        return FAST_FAIL_INVALID_SYSCALL_NUMBER;
     }
+    private static final int FAST_FAIL_INVALID_FILE_OPERATION = (int)42L;
     /**
-     * {@snippet :
-     * #define szOID_RDN_TPM_VERSION "2.23.133.2.3"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_FILE_OPERATION 42
      * }
      */
-    public static MemorySegment szOID_RDN_TPM_VERSION() {
-        return constants$4654.const$5;
+    public static int FAST_FAIL_INVALID_FILE_OPERATION() {
+        return FAST_FAIL_INVALID_FILE_OPERATION;
     }
+    private static final int FAST_FAIL_LPAC_ACCESS_DENIED = (int)43L;
     /**
-     * {@snippet :
-     * #define szOID_RDN_TCG_PLATFORM_MANUFACTURER "2.23.133.2.4"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_LPAC_ACCESS_DENIED 43
      * }
      */
-    public static MemorySegment szOID_RDN_TCG_PLATFORM_MANUFACTURER() {
-        return constants$4655.const$0;
+    public static int FAST_FAIL_LPAC_ACCESS_DENIED() {
+        return FAST_FAIL_LPAC_ACCESS_DENIED;
     }
+    private static final int FAST_FAIL_GUARD_SS_FAILURE = (int)44L;
     /**
-     * {@snippet :
-     * #define szOID_RDN_TCG_PLATFORM_MODEL "2.23.133.2.5"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_GUARD_SS_FAILURE 44
      * }
      */
-    public static MemorySegment szOID_RDN_TCG_PLATFORM_MODEL() {
-        return constants$4655.const$1;
+    public static int FAST_FAIL_GUARD_SS_FAILURE() {
+        return FAST_FAIL_GUARD_SS_FAILURE;
     }
+    private static final int FAST_FAIL_LOADER_CONTINUITY_FAILURE = (int)45L;
     /**
-     * {@snippet :
-     * #define szOID_RDN_TCG_PLATFORM_VERSION "2.23.133.2.6"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_LOADER_CONTINUITY_FAILURE 45
      * }
      */
-    public static MemorySegment szOID_RDN_TCG_PLATFORM_VERSION() {
-        return constants$4655.const$2;
+    public static int FAST_FAIL_LOADER_CONTINUITY_FAILURE() {
+        return FAST_FAIL_LOADER_CONTINUITY_FAILURE;
     }
+    private static final int FAST_FAIL_GUARD_EXPORT_SUPPRESSION_FAILURE = (int)46L;
     /**
-     * {@snippet :
-     * #define szOID_CT_CERT_SCTLIST "1.3.6.1.4.1.11129.2.4.2"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_GUARD_EXPORT_SUPPRESSION_FAILURE 46
      * }
      */
-    public static MemorySegment szOID_CT_CERT_SCTLIST() {
-        return constants$4655.const$3;
+    public static int FAST_FAIL_GUARD_EXPORT_SUPPRESSION_FAILURE() {
+        return FAST_FAIL_GUARD_EXPORT_SUPPRESSION_FAILURE;
     }
+    private static final int FAST_FAIL_INVALID_CONTROL_STACK = (int)47L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_EK_INFO "1.3.6.1.4.1.311.21.23"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_CONTROL_STACK 47
      * }
      */
-    public static MemorySegment szOID_ENROLL_EK_INFO() {
-        return constants$4655.const$4;
+    public static int FAST_FAIL_INVALID_CONTROL_STACK() {
+        return FAST_FAIL_INVALID_CONTROL_STACK;
     }
+    private static final int FAST_FAIL_SET_CONTEXT_DENIED = (int)48L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_AIK_INFO "1.3.6.1.4.1.311.21.39"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_SET_CONTEXT_DENIED 48
      * }
      */
-    public static MemorySegment szOID_ENROLL_AIK_INFO() {
-        return constants$4655.const$5;
+    public static int FAST_FAIL_SET_CONTEXT_DENIED() {
+        return FAST_FAIL_SET_CONTEXT_DENIED;
     }
+    private static final int FAST_FAIL_INVALID_IAT = (int)49L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_ATTESTATION_STATEMENT "1.3.6.1.4.1.311.21.24"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_IAT 49
      * }
      */
-    public static MemorySegment szOID_ENROLL_ATTESTATION_STATEMENT() {
-        return constants$4656.const$0;
+    public static int FAST_FAIL_INVALID_IAT() {
+        return FAST_FAIL_INVALID_IAT;
     }
+    private static final int FAST_FAIL_HEAP_METADATA_CORRUPTION = (int)50L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_KSP_NAME "1.3.6.1.4.1.311.21.25"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_HEAP_METADATA_CORRUPTION 50
      * }
      */
-    public static MemorySegment szOID_ENROLL_KSP_NAME() {
-        return constants$4656.const$1;
+    public static int FAST_FAIL_HEAP_METADATA_CORRUPTION() {
+        return FAST_FAIL_HEAP_METADATA_CORRUPTION;
     }
+    private static final int FAST_FAIL_PAYLOAD_RESTRICTION_VIOLATION = (int)51L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_EKPUB_CHALLENGE "1.3.6.1.4.1.311.21.26"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_PAYLOAD_RESTRICTION_VIOLATION 51
      * }
      */
-    public static MemorySegment szOID_ENROLL_EKPUB_CHALLENGE() {
-        return constants$4656.const$2;
+    public static int FAST_FAIL_PAYLOAD_RESTRICTION_VIOLATION() {
+        return FAST_FAIL_PAYLOAD_RESTRICTION_VIOLATION;
     }
+    private static final int FAST_FAIL_LOW_LABEL_ACCESS_DENIED = (int)52L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_CAXCHGCERT_HASH "1.3.6.1.4.1.311.21.27"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_LOW_LABEL_ACCESS_DENIED 52
      * }
      */
-    public static MemorySegment szOID_ENROLL_CAXCHGCERT_HASH() {
-        return constants$4656.const$3;
+    public static int FAST_FAIL_LOW_LABEL_ACCESS_DENIED() {
+        return FAST_FAIL_LOW_LABEL_ACCESS_DENIED;
     }
+    private static final int FAST_FAIL_ENCLAVE_CALL_FAILURE = (int)53L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_ATTESTATION_CHALLENGE "1.3.6.1.4.1.311.21.28"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_ENCLAVE_CALL_FAILURE 53
      * }
      */
-    public static MemorySegment szOID_ENROLL_ATTESTATION_CHALLENGE() {
-        return constants$4656.const$4;
+    public static int FAST_FAIL_ENCLAVE_CALL_FAILURE() {
+        return FAST_FAIL_ENCLAVE_CALL_FAILURE;
     }
+    private static final int FAST_FAIL_UNHANDLED_LSS_EXCEPTON = (int)54L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_ENCRYPTION_ALGORITHM "1.3.6.1.4.1.311.21.29"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_UNHANDLED_LSS_EXCEPTON 54
      * }
      */
-    public static MemorySegment szOID_ENROLL_ENCRYPTION_ALGORITHM() {
-        return constants$4656.const$5;
+    public static int FAST_FAIL_UNHANDLED_LSS_EXCEPTON() {
+        return FAST_FAIL_UNHANDLED_LSS_EXCEPTON;
     }
+    private static final int FAST_FAIL_ADMINLESS_ACCESS_DENIED = (int)55L;
     /**
-     * {@snippet :
-     * #define szOID_KP_TPM_EK_CERTIFICATE "2.23.133.8.1"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_ADMINLESS_ACCESS_DENIED 55
      * }
      */
-    public static MemorySegment szOID_KP_TPM_EK_CERTIFICATE() {
-        return constants$4657.const$0;
+    public static int FAST_FAIL_ADMINLESS_ACCESS_DENIED() {
+        return FAST_FAIL_ADMINLESS_ACCESS_DENIED;
     }
+    private static final int FAST_FAIL_UNEXPECTED_CALL = (int)56L;
     /**
-     * {@snippet :
-     * #define szOID_KP_TPM_PLATFORM_CERTIFICATE "2.23.133.8.2"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_UNEXPECTED_CALL 56
      * }
      */
-    public static MemorySegment szOID_KP_TPM_PLATFORM_CERTIFICATE() {
-        return constants$4657.const$1;
+    public static int FAST_FAIL_UNEXPECTED_CALL() {
+        return FAST_FAIL_UNEXPECTED_CALL;
     }
+    private static final int FAST_FAIL_CONTROL_INVALID_RETURN_ADDRESS = (int)57L;
     /**
-     * {@snippet :
-     * #define szOID_KP_TPM_AIK_CERTIFICATE "2.23.133.8.3"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_CONTROL_INVALID_RETURN_ADDRESS 57
      * }
      */
-    public static MemorySegment szOID_KP_TPM_AIK_CERTIFICATE() {
-        return constants$4657.const$2;
+    public static int FAST_FAIL_CONTROL_INVALID_RETURN_ADDRESS() {
+        return FAST_FAIL_CONTROL_INVALID_RETURN_ADDRESS;
     }
+    private static final int FAST_FAIL_UNEXPECTED_HOST_BEHAVIOR = (int)58L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_EKVERIFYKEY "1.3.6.1.4.1.311.21.30"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_UNEXPECTED_HOST_BEHAVIOR 58
      * }
      */
-    public static MemorySegment szOID_ENROLL_EKVERIFYKEY() {
-        return constants$4657.const$3;
+    public static int FAST_FAIL_UNEXPECTED_HOST_BEHAVIOR() {
+        return FAST_FAIL_UNEXPECTED_HOST_BEHAVIOR;
     }
+    private static final int FAST_FAIL_FLAGS_CORRUPTION = (int)59L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_EKVERIFYCERT "1.3.6.1.4.1.311.21.31"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_FLAGS_CORRUPTION 59
      * }
      */
-    public static MemorySegment szOID_ENROLL_EKVERIFYCERT() {
-        return constants$4657.const$4;
+    public static int FAST_FAIL_FLAGS_CORRUPTION() {
+        return FAST_FAIL_FLAGS_CORRUPTION;
     }
+    private static final int FAST_FAIL_VEH_CORRUPTION = (int)60L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_EKVERIFYCREDS "1.3.6.1.4.1.311.21.32"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_VEH_CORRUPTION 60
      * }
      */
-    public static MemorySegment szOID_ENROLL_EKVERIFYCREDS() {
-        return constants$4657.const$5;
+    public static int FAST_FAIL_VEH_CORRUPTION() {
+        return FAST_FAIL_VEH_CORRUPTION;
     }
+    private static final int FAST_FAIL_ETW_CORRUPTION = (int)61L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_SCEP_ERROR "1.3.6.1.4.1.311.21.33"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_ETW_CORRUPTION 61
      * }
      */
-    public static MemorySegment szOID_ENROLL_SCEP_ERROR() {
-        return constants$4658.const$0;
+    public static int FAST_FAIL_ETW_CORRUPTION() {
+        return FAST_FAIL_ETW_CORRUPTION;
     }
+    private static final int FAST_FAIL_RIO_ABORT = (int)62L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_SCEP_SERVER_STATE "1.3.6.1.4.1.311.21.34"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_RIO_ABORT 62
      * }
      */
-    public static MemorySegment szOID_ENROLL_SCEP_SERVER_STATE() {
-        return constants$4658.const$1;
+    public static int FAST_FAIL_RIO_ABORT() {
+        return FAST_FAIL_RIO_ABORT;
     }
+    private static final int FAST_FAIL_INVALID_PFN = (int)63L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_SCEP_CHALLENGE_ANSWER "1.3.6.1.4.1.311.21.35"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_PFN 63
      * }
      */
-    public static MemorySegment szOID_ENROLL_SCEP_CHALLENGE_ANSWER() {
-        return constants$4658.const$2;
+    public static int FAST_FAIL_INVALID_PFN() {
+        return FAST_FAIL_INVALID_PFN;
     }
+    private static final int FAST_FAIL_GUARD_ICALL_CHECK_FAILURE_XFG = (int)64L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_SCEP_CLIENT_REQUEST "1.3.6.1.4.1.311.21.37"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_GUARD_ICALL_CHECK_FAILURE_XFG 64
      * }
      */
-    public static MemorySegment szOID_ENROLL_SCEP_CLIENT_REQUEST() {
-        return constants$4658.const$3;
+    public static int FAST_FAIL_GUARD_ICALL_CHECK_FAILURE_XFG() {
+        return FAST_FAIL_GUARD_ICALL_CHECK_FAILURE_XFG;
     }
+    private static final int FAST_FAIL_CAST_GUARD = (int)65L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_SCEP_SERVER_MESSAGE "1.3.6.1.4.1.311.21.38"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_CAST_GUARD 65
      * }
      */
-    public static MemorySegment szOID_ENROLL_SCEP_SERVER_MESSAGE() {
-        return constants$4658.const$4;
+    public static int FAST_FAIL_CAST_GUARD() {
+        return FAST_FAIL_CAST_GUARD;
     }
+    private static final int FAST_FAIL_HOST_VISIBILITY_CHANGE = (int)66L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_SCEP_SERVER_SECRET "1.3.6.1.4.1.311.21.40"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_HOST_VISIBILITY_CHANGE 66
      * }
      */
-    public static MemorySegment szOID_ENROLL_SCEP_SERVER_SECRET() {
-        return constants$4658.const$5;
+    public static int FAST_FAIL_HOST_VISIBILITY_CHANGE() {
+        return FAST_FAIL_HOST_VISIBILITY_CHANGE;
     }
+    private static final int FAST_FAIL_KERNEL_CET_SHADOW_STACK_ASSIST = (int)67L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_KEY_AFFINITY "1.3.6.1.4.1.311.21.41"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_KERNEL_CET_SHADOW_STACK_ASSIST 67
      * }
      */
-    public static MemorySegment szOID_ENROLL_KEY_AFFINITY() {
-        return constants$4659.const$0;
+    public static int FAST_FAIL_KERNEL_CET_SHADOW_STACK_ASSIST() {
+        return FAST_FAIL_KERNEL_CET_SHADOW_STACK_ASSIST;
     }
+    private static final int FAST_FAIL_PATCH_CALLBACK_FAILED = (int)68L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_SCEP_SIGNER_HASH "1.3.6.1.4.1.311.21.42"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_PATCH_CALLBACK_FAILED 68
      * }
      */
-    public static MemorySegment szOID_ENROLL_SCEP_SIGNER_HASH() {
-        return constants$4659.const$1;
+    public static int FAST_FAIL_PATCH_CALLBACK_FAILED() {
+        return FAST_FAIL_PATCH_CALLBACK_FAILED;
     }
+    private static final int FAST_FAIL_NTDLL_PATCH_FAILED = (int)69L;
     /**
-     * {@snippet :
-     * #define szOID_ENROLL_EK_CA_KEYID "1.3.6.1.4.1.311.21.43"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_NTDLL_PATCH_FAILED 69
      * }
      */
-    public static MemorySegment szOID_ENROLL_EK_CA_KEYID() {
-        return constants$4659.const$2;
+    public static int FAST_FAIL_NTDLL_PATCH_FAILED() {
+        return FAST_FAIL_NTDLL_PATCH_FAILED;
     }
+    private static final int FAST_FAIL_INVALID_FLS_DATA = (int)70L;
     /**
-     * {@snippet :
-     * #define szOID_ATTR_SUPPORTED_ALGORITHMS "2.5.4.52"
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_FLS_DATA 70
      * }
      */
-    public static MemorySegment szOID_ATTR_SUPPORTED_ALGORITHMS() {
-        return constants$4659.const$3;
+    public static int FAST_FAIL_INVALID_FLS_DATA() {
+        return FAST_FAIL_INVALID_FLS_DATA;
     }
+    private static final int HEAP_NO_SERIALIZE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_ATTR_TPM_SPECIFICATION "2.23.133.2.16"
+     * {@snippet lang=c :
+     * #define HEAP_NO_SERIALIZE 1
      * }
      */
-    public static MemorySegment szOID_ATTR_TPM_SPECIFICATION() {
-        return constants$4659.const$4;
+    public static int HEAP_NO_SERIALIZE() {
+        return HEAP_NO_SERIALIZE;
     }
+    private static final int HEAP_GROWABLE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_ATTR_PLATFORM_SPECIFICATION "2.23.133.2.17"
+     * {@snippet lang=c :
+     * #define HEAP_GROWABLE 2
      * }
      */
-    public static MemorySegment szOID_ATTR_PLATFORM_SPECIFICATION() {
-        return constants$4659.const$5;
+    public static int HEAP_GROWABLE() {
+        return HEAP_GROWABLE;
     }
+    private static final int HEAP_GENERATE_EXCEPTIONS = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_ATTR_TPM_SECURITY_ASSERTIONS "2.23.133.2.18"
+     * {@snippet lang=c :
+     * #define HEAP_GENERATE_EXCEPTIONS 4
      * }
      */
-    public static MemorySegment szOID_ATTR_TPM_SECURITY_ASSERTIONS() {
-        return constants$4660.const$0;
+    public static int HEAP_GENERATE_EXCEPTIONS() {
+        return HEAP_GENERATE_EXCEPTIONS;
     }
+    private static final int HEAP_ZERO_MEMORY = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_ACC_DESCR "1.3.6.1.5.5.7.48"
+     * {@snippet lang=c :
+     * #define HEAP_ZERO_MEMORY 8
      * }
      */
-    public static MemorySegment szOID_PKIX_ACC_DESCR() {
-        return constants$4660.const$1;
+    public static int HEAP_ZERO_MEMORY() {
+        return HEAP_ZERO_MEMORY;
     }
+    private static final int HEAP_REALLOC_IN_PLACE_ONLY = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_OCSP "1.3.6.1.5.5.7.48.1"
+     * {@snippet lang=c :
+     * #define HEAP_REALLOC_IN_PLACE_ONLY 16
      * }
      */
-    public static MemorySegment szOID_PKIX_OCSP() {
-        return constants$4660.const$2;
+    public static int HEAP_REALLOC_IN_PLACE_ONLY() {
+        return HEAP_REALLOC_IN_PLACE_ONLY;
     }
+    private static final int HEAP_TAIL_CHECKING_ENABLED = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_CA_ISSUERS "1.3.6.1.5.5.7.48.2"
+     * {@snippet lang=c :
+     * #define HEAP_TAIL_CHECKING_ENABLED 32
      * }
      */
-    public static MemorySegment szOID_PKIX_CA_ISSUERS() {
-        return constants$4660.const$3;
+    public static int HEAP_TAIL_CHECKING_ENABLED() {
+        return HEAP_TAIL_CHECKING_ENABLED;
     }
+    private static final int HEAP_FREE_CHECKING_ENABLED = (int)64L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_TIME_STAMPING "1.3.6.1.5.5.7.48.3"
+     * {@snippet lang=c :
+     * #define HEAP_FREE_CHECKING_ENABLED 64
      * }
      */
-    public static MemorySegment szOID_PKIX_TIME_STAMPING() {
-        return constants$4660.const$4;
+    public static int HEAP_FREE_CHECKING_ENABLED() {
+        return HEAP_FREE_CHECKING_ENABLED;
     }
+    private static final int HEAP_DISABLE_COALESCE_ON_FREE = (int)128L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_CA_REPOSITORY "1.3.6.1.5.5.7.48.5"
+     * {@snippet lang=c :
+     * #define HEAP_DISABLE_COALESCE_ON_FREE 128
      * }
      */
-    public static MemorySegment szOID_PKIX_CA_REPOSITORY() {
-        return constants$4660.const$5;
+    public static int HEAP_DISABLE_COALESCE_ON_FREE() {
+        return HEAP_DISABLE_COALESCE_ON_FREE;
     }
+    private static final int HEAP_CREATE_ALIGN_16 = (int)65536L;
     /**
-     * {@snippet :
-     * #define CRL_DIST_POINT_ERR_CRL_ISSUER_BIT 2147483648
+     * {@snippet lang=c :
+     * #define HEAP_CREATE_ALIGN_16 65536
      * }
      */
-    public static int CRL_DIST_POINT_ERR_CRL_ISSUER_BIT() {
-        return (int)2147483648L;
+    public static int HEAP_CREATE_ALIGN_16() {
+        return HEAP_CREATE_ALIGN_16;
     }
+    private static final int HEAP_CREATE_ENABLE_TRACING = (int)131072L;
     /**
-     * {@snippet :
-     * #define CERT_EXCLUDED_SUBTREE_BIT 2147483648
+     * {@snippet lang=c :
+     * #define HEAP_CREATE_ENABLE_TRACING 131072
      * }
      */
-    public static int CERT_EXCLUDED_SUBTREE_BIT() {
-        return (int)2147483648L;
+    public static int HEAP_CREATE_ENABLE_TRACING() {
+        return HEAP_CREATE_ENABLE_TRACING;
     }
+    private static final int HEAP_CREATE_ENABLE_EXECUTE = (int)262144L;
     /**
-     * {@snippet :
-     * #define SORTED_CTL_EXT_FLAGS_OFFSET 0
+     * {@snippet lang=c :
+     * #define HEAP_CREATE_ENABLE_EXECUTE 262144
      * }
      */
-    public static int SORTED_CTL_EXT_FLAGS_OFFSET() {
-        return (int)0L;
+    public static int HEAP_CREATE_ENABLE_EXECUTE() {
+        return HEAP_CREATE_ENABLE_EXECUTE;
     }
+    private static final int HEAP_MAXIMUM_TAG = (int)4095L;
     /**
-     * {@snippet :
-     * #define SORTED_CTL_EXT_COUNT_OFFSET 4
+     * {@snippet lang=c :
+     * #define HEAP_MAXIMUM_TAG 4095
      * }
      */
-    public static int SORTED_CTL_EXT_COUNT_OFFSET() {
-        return (int)4L;
+    public static int HEAP_MAXIMUM_TAG() {
+        return HEAP_MAXIMUM_TAG;
     }
+    private static final int HEAP_PSEUDO_TAG_FLAG = (int)32768L;
     /**
-     * {@snippet :
-     * #define SORTED_CTL_EXT_MAX_COLLISION_OFFSET 8
+     * {@snippet lang=c :
+     * #define HEAP_PSEUDO_TAG_FLAG 32768
      * }
      */
-    public static int SORTED_CTL_EXT_MAX_COLLISION_OFFSET() {
-        return (int)8L;
+    public static int HEAP_PSEUDO_TAG_FLAG() {
+        return HEAP_PSEUDO_TAG_FLAG;
     }
+    private static final int HEAP_TAG_SHIFT = (int)18L;
     /**
-     * {@snippet :
-     * #define SORTED_CTL_EXT_HASH_BUCKET_OFFSET 12
+     * {@snippet lang=c :
+     * #define HEAP_TAG_SHIFT 18
      * }
      */
-    public static int SORTED_CTL_EXT_HASH_BUCKET_OFFSET() {
-        return (int)12L;
+    public static int HEAP_TAG_SHIFT() {
+        return HEAP_TAG_SHIFT;
     }
+    private static final int HEAP_CREATE_SEGMENT_HEAP = (int)256L;
     /**
-     * {@snippet :
-     * #define CERT_DSS_SIGNATURE_LEN 40
+     * {@snippet lang=c :
+     * #define HEAP_CREATE_SEGMENT_HEAP 256
      * }
      */
-    public static int CERT_DSS_SIGNATURE_LEN() {
-        return (int)40L;
+    public static int HEAP_CREATE_SEGMENT_HEAP() {
+        return HEAP_CREATE_SEGMENT_HEAP;
     }
+    private static final int HEAP_CREATE_HARDENED = (int)512L;
     /**
-     * {@snippet :
-     * #define CERT_MAX_ASN_ENCODED_DSS_SIGNATURE_LEN 48
+     * {@snippet lang=c :
+     * #define HEAP_CREATE_HARDENED 512
      * }
      */
-    public static int CERT_MAX_ASN_ENCODED_DSS_SIGNATURE_LEN() {
-        return (int)48L;
+    public static int HEAP_CREATE_HARDENED() {
+        return HEAP_CREATE_HARDENED;
     }
+    private static final int IS_TEXT_UNICODE_ASCII16 = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_X942_PUB_INFO_BYTE_LENGTH 64
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_ASCII16 1
      * }
      */
-    public static int CRYPT_X942_PUB_INFO_BYTE_LENGTH() {
-        return (int)64L;
+    public static int IS_TEXT_UNICODE_ASCII16() {
+        return IS_TEXT_UNICODE_ASCII16;
     }
+    private static final int IS_TEXT_UNICODE_REVERSE_ASCII16 = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_QC_EU_COMPLIANCE "0.4.0.1862.1.1"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_REVERSE_ASCII16 16
      * }
      */
-    public static MemorySegment szOID_QC_EU_COMPLIANCE() {
-        return constants$4661.const$0;
+    public static int IS_TEXT_UNICODE_REVERSE_ASCII16() {
+        return IS_TEXT_UNICODE_REVERSE_ASCII16;
     }
+    private static final int IS_TEXT_UNICODE_STATISTICS = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_QC_SSCD "0.4.0.1862.1.4"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_STATISTICS 2
      * }
      */
-    public static MemorySegment szOID_QC_SSCD() {
-        return constants$4661.const$1;
+    public static int IS_TEXT_UNICODE_STATISTICS() {
+        return IS_TEXT_UNICODE_STATISTICS;
     }
+    private static final int IS_TEXT_UNICODE_REVERSE_STATISTICS = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_VERISIGN_PRIVATE_6_9 "2.16.840.1.113733.1.6.9"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_REVERSE_STATISTICS 32
      * }
      */
-    public static MemorySegment szOID_VERISIGN_PRIVATE_6_9() {
-        return constants$4661.const$2;
+    public static int IS_TEXT_UNICODE_REVERSE_STATISTICS() {
+        return IS_TEXT_UNICODE_REVERSE_STATISTICS;
     }
+    private static final int IS_TEXT_UNICODE_CONTROLS = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_VERISIGN_ONSITE_JURISDICTION_HASH "2.16.840.1.113733.1.6.11"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_CONTROLS 4
      * }
      */
-    public static MemorySegment szOID_VERISIGN_ONSITE_JURISDICTION_HASH() {
-        return constants$4661.const$3;
+    public static int IS_TEXT_UNICODE_CONTROLS() {
+        return IS_TEXT_UNICODE_CONTROLS;
     }
+    private static final int IS_TEXT_UNICODE_REVERSE_CONTROLS = (int)64L;
     /**
-     * {@snippet :
-     * #define szOID_VERISIGN_BITSTRING_6_13 "2.16.840.1.113733.1.6.13"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_REVERSE_CONTROLS 64
      * }
      */
-    public static MemorySegment szOID_VERISIGN_BITSTRING_6_13() {
-        return constants$4661.const$4;
+    public static int IS_TEXT_UNICODE_REVERSE_CONTROLS() {
+        return IS_TEXT_UNICODE_REVERSE_CONTROLS;
     }
+    private static final int IS_TEXT_UNICODE_SIGNATURE = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_VERISIGN_ISS_STRONG_CRYPTO "2.16.840.1.113733.1.8.1"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_SIGNATURE 8
      * }
      */
-    public static MemorySegment szOID_VERISIGN_ISS_STRONG_CRYPTO() {
-        return constants$4661.const$5;
+    public static int IS_TEXT_UNICODE_SIGNATURE() {
+        return IS_TEXT_UNICODE_SIGNATURE;
     }
+    private static final int IS_TEXT_UNICODE_REVERSE_SIGNATURE = (int)128L;
     /**
-     * {@snippet :
-     * #define szOIDVerisign_MessageType "2.16.840.1.113733.1.9.2"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_REVERSE_SIGNATURE 128
      * }
      */
-    public static MemorySegment szOIDVerisign_MessageType() {
-        return constants$4662.const$0;
+    public static int IS_TEXT_UNICODE_REVERSE_SIGNATURE() {
+        return IS_TEXT_UNICODE_REVERSE_SIGNATURE;
     }
+    private static final int IS_TEXT_UNICODE_ILLEGAL_CHARS = (int)256L;
     /**
-     * {@snippet :
-     * #define szOIDVerisign_PkiStatus "2.16.840.1.113733.1.9.3"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_ILLEGAL_CHARS 256
      * }
      */
-    public static MemorySegment szOIDVerisign_PkiStatus() {
-        return constants$4662.const$1;
+    public static int IS_TEXT_UNICODE_ILLEGAL_CHARS() {
+        return IS_TEXT_UNICODE_ILLEGAL_CHARS;
     }
+    private static final int IS_TEXT_UNICODE_ODD_LENGTH = (int)512L;
     /**
-     * {@snippet :
-     * #define szOIDVerisign_FailInfo "2.16.840.1.113733.1.9.4"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_ODD_LENGTH 512
      * }
      */
-    public static MemorySegment szOIDVerisign_FailInfo() {
-        return constants$4662.const$2;
+    public static int IS_TEXT_UNICODE_ODD_LENGTH() {
+        return IS_TEXT_UNICODE_ODD_LENGTH;
     }
+    private static final int IS_TEXT_UNICODE_DBCS_LEADBYTE = (int)1024L;
     /**
-     * {@snippet :
-     * #define szOIDVerisign_SenderNonce "2.16.840.1.113733.1.9.5"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_DBCS_LEADBYTE 1024
      * }
      */
-    public static MemorySegment szOIDVerisign_SenderNonce() {
-        return constants$4662.const$3;
+    public static int IS_TEXT_UNICODE_DBCS_LEADBYTE() {
+        return IS_TEXT_UNICODE_DBCS_LEADBYTE;
     }
+    private static final int IS_TEXT_UNICODE_UTF8 = (int)2048L;
     /**
-     * {@snippet :
-     * #define szOIDVerisign_RecipientNonce "2.16.840.1.113733.1.9.6"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_UTF8 2048
      * }
      */
-    public static MemorySegment szOIDVerisign_RecipientNonce() {
-        return constants$4662.const$4;
+    public static int IS_TEXT_UNICODE_UTF8() {
+        return IS_TEXT_UNICODE_UTF8;
     }
+    private static final int IS_TEXT_UNICODE_NULL_BYTES = (int)4096L;
     /**
-     * {@snippet :
-     * #define szOIDVerisign_TransactionID "2.16.840.1.113733.1.9.7"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_NULL_BYTES 4096
      * }
      */
-    public static MemorySegment szOIDVerisign_TransactionID() {
-        return constants$4662.const$5;
+    public static int IS_TEXT_UNICODE_NULL_BYTES() {
+        return IS_TEXT_UNICODE_NULL_BYTES;
     }
+    private static final int IS_TEXT_UNICODE_UNICODE_MASK = (int)15L;
     /**
-     * {@snippet :
-     * #define szOID_NETSCAPE "2.16.840.1.113730"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_UNICODE_MASK 15
      * }
      */
-    public static MemorySegment szOID_NETSCAPE() {
-        return constants$4663.const$0;
+    public static int IS_TEXT_UNICODE_UNICODE_MASK() {
+        return IS_TEXT_UNICODE_UNICODE_MASK;
     }
+    private static final int IS_TEXT_UNICODE_REVERSE_MASK = (int)240L;
     /**
-     * {@snippet :
-     * #define szOID_NETSCAPE_CERT_EXTENSION "2.16.840.1.113730.1"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_REVERSE_MASK 240
      * }
      */
-    public static MemorySegment szOID_NETSCAPE_CERT_EXTENSION() {
-        return constants$4663.const$1;
+    public static int IS_TEXT_UNICODE_REVERSE_MASK() {
+        return IS_TEXT_UNICODE_REVERSE_MASK;
     }
+    private static final int IS_TEXT_UNICODE_NOT_UNICODE_MASK = (int)3840L;
     /**
-     * {@snippet :
-     * #define szOID_NETSCAPE_CERT_TYPE "2.16.840.1.113730.1.1"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_NOT_UNICODE_MASK 3840
      * }
      */
-    public static MemorySegment szOID_NETSCAPE_CERT_TYPE() {
-        return constants$4663.const$2;
+    public static int IS_TEXT_UNICODE_NOT_UNICODE_MASK() {
+        return IS_TEXT_UNICODE_NOT_UNICODE_MASK;
     }
+    private static final int IS_TEXT_UNICODE_NOT_ASCII_MASK = (int)61440L;
     /**
-     * {@snippet :
-     * #define szOID_NETSCAPE_BASE_URL "2.16.840.1.113730.1.2"
+     * {@snippet lang=c :
+     * #define IS_TEXT_UNICODE_NOT_ASCII_MASK 61440
      * }
      */
-    public static MemorySegment szOID_NETSCAPE_BASE_URL() {
-        return constants$4663.const$3;
+    public static int IS_TEXT_UNICODE_NOT_ASCII_MASK() {
+        return IS_TEXT_UNICODE_NOT_ASCII_MASK;
     }
+    private static final int SEF_DACL_AUTO_INHERIT = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_NETSCAPE_REVOCATION_URL "2.16.840.1.113730.1.3"
+     * {@snippet lang=c :
+     * #define SEF_DACL_AUTO_INHERIT 1
      * }
      */
-    public static MemorySegment szOID_NETSCAPE_REVOCATION_URL() {
-        return constants$4663.const$4;
+    public static int SEF_DACL_AUTO_INHERIT() {
+        return SEF_DACL_AUTO_INHERIT;
     }
+    private static final int SEF_SACL_AUTO_INHERIT = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_NETSCAPE_CA_REVOCATION_URL "2.16.840.1.113730.1.4"
+     * {@snippet lang=c :
+     * #define SEF_SACL_AUTO_INHERIT 2
      * }
      */
-    public static MemorySegment szOID_NETSCAPE_CA_REVOCATION_URL() {
-        return constants$4663.const$5;
+    public static int SEF_SACL_AUTO_INHERIT() {
+        return SEF_SACL_AUTO_INHERIT;
     }
+    private static final int SEF_DEFAULT_DESCRIPTOR_FOR_OBJECT = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_NETSCAPE_CERT_RENEWAL_URL "2.16.840.1.113730.1.7"
+     * {@snippet lang=c :
+     * #define SEF_DEFAULT_DESCRIPTOR_FOR_OBJECT 4
      * }
      */
-    public static MemorySegment szOID_NETSCAPE_CERT_RENEWAL_URL() {
-        return constants$4664.const$0;
+    public static int SEF_DEFAULT_DESCRIPTOR_FOR_OBJECT() {
+        return SEF_DEFAULT_DESCRIPTOR_FOR_OBJECT;
     }
+    private static final int SEF_AVOID_PRIVILEGE_CHECK = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_NETSCAPE_CA_POLICY_URL "2.16.840.1.113730.1.8"
+     * {@snippet lang=c :
+     * #define SEF_AVOID_PRIVILEGE_CHECK 8
      * }
      */
-    public static MemorySegment szOID_NETSCAPE_CA_POLICY_URL() {
-        return constants$4664.const$1;
+    public static int SEF_AVOID_PRIVILEGE_CHECK() {
+        return SEF_AVOID_PRIVILEGE_CHECK;
     }
+    private static final int SEF_AVOID_OWNER_CHECK = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_NETSCAPE_SSL_SERVER_NAME "2.16.840.1.113730.1.12"
+     * {@snippet lang=c :
+     * #define SEF_AVOID_OWNER_CHECK 16
      * }
      */
-    public static MemorySegment szOID_NETSCAPE_SSL_SERVER_NAME() {
-        return constants$4664.const$2;
+    public static int SEF_AVOID_OWNER_CHECK() {
+        return SEF_AVOID_OWNER_CHECK;
     }
+    private static final int SEF_DEFAULT_OWNER_FROM_PARENT = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_NETSCAPE_COMMENT "2.16.840.1.113730.1.13"
+     * {@snippet lang=c :
+     * #define SEF_DEFAULT_OWNER_FROM_PARENT 32
      * }
      */
-    public static MemorySegment szOID_NETSCAPE_COMMENT() {
-        return constants$4664.const$3;
+    public static int SEF_DEFAULT_OWNER_FROM_PARENT() {
+        return SEF_DEFAULT_OWNER_FROM_PARENT;
     }
+    private static final int SEF_DEFAULT_GROUP_FROM_PARENT = (int)64L;
     /**
-     * {@snippet :
-     * #define szOID_NETSCAPE_DATA_TYPE "2.16.840.1.113730.2"
+     * {@snippet lang=c :
+     * #define SEF_DEFAULT_GROUP_FROM_PARENT 64
      * }
      */
-    public static MemorySegment szOID_NETSCAPE_DATA_TYPE() {
-        return constants$4664.const$4;
+    public static int SEF_DEFAULT_GROUP_FROM_PARENT() {
+        return SEF_DEFAULT_GROUP_FROM_PARENT;
     }
+    private static final int SEF_MACL_NO_WRITE_UP = (int)256L;
     /**
-     * {@snippet :
-     * #define szOID_NETSCAPE_CERT_SEQUENCE "2.16.840.1.113730.2.5"
+     * {@snippet lang=c :
+     * #define SEF_MACL_NO_WRITE_UP 256
      * }
      */
-    public static MemorySegment szOID_NETSCAPE_CERT_SEQUENCE() {
-        return constants$4664.const$5;
+    public static int SEF_MACL_NO_WRITE_UP() {
+        return SEF_MACL_NO_WRITE_UP;
     }
+    private static final int SEF_MACL_NO_READ_UP = (int)512L;
     /**
-     * {@snippet :
-     * #define szOID_CT_PKI_DATA "1.3.6.1.5.5.7.12.2"
+     * {@snippet lang=c :
+     * #define SEF_MACL_NO_READ_UP 512
      * }
      */
-    public static MemorySegment szOID_CT_PKI_DATA() {
-        return constants$4665.const$0;
+    public static int SEF_MACL_NO_READ_UP() {
+        return SEF_MACL_NO_READ_UP;
     }
+    private static final int SEF_MACL_NO_EXECUTE_UP = (int)1024L;
     /**
-     * {@snippet :
-     * #define szOID_CT_PKI_RESPONSE "1.3.6.1.5.5.7.12.3"
+     * {@snippet lang=c :
+     * #define SEF_MACL_NO_EXECUTE_UP 1024
      * }
      */
-    public static MemorySegment szOID_CT_PKI_RESPONSE() {
-        return constants$4665.const$1;
+    public static int SEF_MACL_NO_EXECUTE_UP() {
+        return SEF_MACL_NO_EXECUTE_UP;
     }
+    private static final int SEF_AI_USE_EXTRA_PARAMS = (int)2048L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_NO_SIGNATURE "1.3.6.1.5.5.7.6.2"
+     * {@snippet lang=c :
+     * #define SEF_AI_USE_EXTRA_PARAMS 2048
      * }
      */
-    public static MemorySegment szOID_PKIX_NO_SIGNATURE() {
-        return constants$4665.const$2;
+    public static int SEF_AI_USE_EXTRA_PARAMS() {
+        return SEF_AI_USE_EXTRA_PARAMS;
     }
+    private static final int SEF_AVOID_OWNER_RESTRICTION = (int)4096L;
     /**
-     * {@snippet :
-     * #define szOID_CMC "1.3.6.1.5.5.7.7"
+     * {@snippet lang=c :
+     * #define SEF_AVOID_OWNER_RESTRICTION 4096
      * }
      */
-    public static MemorySegment szOID_CMC() {
-        return constants$4665.const$3;
+    public static int SEF_AVOID_OWNER_RESTRICTION() {
+        return SEF_AVOID_OWNER_RESTRICTION;
     }
+    private static final int SEF_FORCE_USER_MODE = (int)8192L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_STATUS_INFO "1.3.6.1.5.5.7.7.1"
+     * {@snippet lang=c :
+     * #define SEF_FORCE_USER_MODE 8192
      * }
      */
-    public static MemorySegment szOID_CMC_STATUS_INFO() {
-        return constants$4665.const$4;
+    public static int SEF_FORCE_USER_MODE() {
+        return SEF_FORCE_USER_MODE;
     }
+    private static final int MESSAGE_RESOURCE_UNICODE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_IDENTIFICATION "1.3.6.1.5.5.7.7.2"
+     * {@snippet lang=c :
+     * #define MESSAGE_RESOURCE_UNICODE 1
      * }
      */
-    public static MemorySegment szOID_CMC_IDENTIFICATION() {
-        return constants$4665.const$5;
+    public static int MESSAGE_RESOURCE_UNICODE() {
+        return MESSAGE_RESOURCE_UNICODE;
     }
+    private static final int MESSAGE_RESOURCE_UTF8 = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_IDENTITY_PROOF "1.3.6.1.5.5.7.7.3"
+     * {@snippet lang=c :
+     * #define MESSAGE_RESOURCE_UTF8 2
      * }
      */
-    public static MemorySegment szOID_CMC_IDENTITY_PROOF() {
-        return constants$4666.const$0;
+    public static int MESSAGE_RESOURCE_UTF8() {
+        return MESSAGE_RESOURCE_UTF8;
     }
+    private static final int VER_EQUAL = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_DATA_RETURN "1.3.6.1.5.5.7.7.4"
+     * {@snippet lang=c :
+     * #define VER_EQUAL 1
      * }
      */
-    public static MemorySegment szOID_CMC_DATA_RETURN() {
-        return constants$4666.const$1;
+    public static int VER_EQUAL() {
+        return VER_EQUAL;
     }
+    private static final int VER_GREATER = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_TRANSACTION_ID "1.3.6.1.5.5.7.7.5"
+     * {@snippet lang=c :
+     * #define VER_GREATER 2
      * }
      */
-    public static MemorySegment szOID_CMC_TRANSACTION_ID() {
-        return constants$4666.const$2;
+    public static int VER_GREATER() {
+        return VER_GREATER;
     }
+    private static final int VER_GREATER_EQUAL = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_SENDER_NONCE "1.3.6.1.5.5.7.7.6"
+     * {@snippet lang=c :
+     * #define VER_GREATER_EQUAL 3
      * }
      */
-    public static MemorySegment szOID_CMC_SENDER_NONCE() {
-        return constants$4666.const$3;
+    public static int VER_GREATER_EQUAL() {
+        return VER_GREATER_EQUAL;
     }
+    private static final int VER_LESS = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_RECIPIENT_NONCE "1.3.6.1.5.5.7.7.7"
+     * {@snippet lang=c :
+     * #define VER_LESS 4
      * }
      */
-    public static MemorySegment szOID_CMC_RECIPIENT_NONCE() {
-        return constants$4666.const$4;
+    public static int VER_LESS() {
+        return VER_LESS;
     }
+    private static final int VER_LESS_EQUAL = (int)5L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_ADD_EXTENSIONS "1.3.6.1.5.5.7.7.8"
+     * {@snippet lang=c :
+     * #define VER_LESS_EQUAL 5
      * }
      */
-    public static MemorySegment szOID_CMC_ADD_EXTENSIONS() {
-        return constants$4666.const$5;
+    public static int VER_LESS_EQUAL() {
+        return VER_LESS_EQUAL;
     }
+    private static final int VER_AND = (int)6L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_ENCRYPTED_POP "1.3.6.1.5.5.7.7.9"
+     * {@snippet lang=c :
+     * #define VER_AND 6
      * }
      */
-    public static MemorySegment szOID_CMC_ENCRYPTED_POP() {
-        return constants$4667.const$0;
+    public static int VER_AND() {
+        return VER_AND;
     }
+    private static final int VER_OR = (int)7L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_DECRYPTED_POP "1.3.6.1.5.5.7.7.10"
+     * {@snippet lang=c :
+     * #define VER_OR 7
      * }
      */
-    public static MemorySegment szOID_CMC_DECRYPTED_POP() {
-        return constants$4667.const$1;
+    public static int VER_OR() {
+        return VER_OR;
     }
+    private static final int VER_CONDITION_MASK = (int)7L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_LRA_POP_WITNESS "1.3.6.1.5.5.7.7.11"
+     * {@snippet lang=c :
+     * #define VER_CONDITION_MASK 7
      * }
      */
-    public static MemorySegment szOID_CMC_LRA_POP_WITNESS() {
-        return constants$4667.const$2;
+    public static int VER_CONDITION_MASK() {
+        return VER_CONDITION_MASK;
     }
+    private static final int VER_NUM_BITS_PER_CONDITION_MASK = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_GET_CERT "1.3.6.1.5.5.7.7.15"
+     * {@snippet lang=c :
+     * #define VER_NUM_BITS_PER_CONDITION_MASK 3
      * }
      */
-    public static MemorySegment szOID_CMC_GET_CERT() {
-        return constants$4667.const$3;
+    public static int VER_NUM_BITS_PER_CONDITION_MASK() {
+        return VER_NUM_BITS_PER_CONDITION_MASK;
     }
+    private static final int VER_MINORVERSION = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_GET_CRL "1.3.6.1.5.5.7.7.16"
+     * {@snippet lang=c :
+     * #define VER_MINORVERSION 1
      * }
      */
-    public static MemorySegment szOID_CMC_GET_CRL() {
-        return constants$4667.const$4;
+    public static int VER_MINORVERSION() {
+        return VER_MINORVERSION;
     }
+    private static final int VER_MAJORVERSION = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_REVOKE_REQUEST "1.3.6.1.5.5.7.7.17"
+     * {@snippet lang=c :
+     * #define VER_MAJORVERSION 2
      * }
      */
-    public static MemorySegment szOID_CMC_REVOKE_REQUEST() {
-        return constants$4667.const$5;
+    public static int VER_MAJORVERSION() {
+        return VER_MAJORVERSION;
     }
+    private static final int VER_BUILDNUMBER = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_REG_INFO "1.3.6.1.5.5.7.7.18"
+     * {@snippet lang=c :
+     * #define VER_BUILDNUMBER 4
      * }
      */
-    public static MemorySegment szOID_CMC_REG_INFO() {
-        return constants$4668.const$0;
+    public static int VER_BUILDNUMBER() {
+        return VER_BUILDNUMBER;
     }
+    private static final int VER_PLATFORMID = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_RESPONSE_INFO "1.3.6.1.5.5.7.7.19"
+     * {@snippet lang=c :
+     * #define VER_PLATFORMID 8
      * }
      */
-    public static MemorySegment szOID_CMC_RESPONSE_INFO() {
-        return constants$4668.const$1;
+    public static int VER_PLATFORMID() {
+        return VER_PLATFORMID;
     }
+    private static final int VER_SERVICEPACKMINOR = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_QUERY_PENDING "1.3.6.1.5.5.7.7.21"
+     * {@snippet lang=c :
+     * #define VER_SERVICEPACKMINOR 16
      * }
      */
-    public static MemorySegment szOID_CMC_QUERY_PENDING() {
-        return constants$4668.const$2;
+    public static int VER_SERVICEPACKMINOR() {
+        return VER_SERVICEPACKMINOR;
     }
+    private static final int VER_SERVICEPACKMAJOR = (int)32L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_ID_POP_LINK_RANDOM "1.3.6.1.5.5.7.7.22"
+     * {@snippet lang=c :
+     * #define VER_SERVICEPACKMAJOR 32
      * }
      */
-    public static MemorySegment szOID_CMC_ID_POP_LINK_RANDOM() {
-        return constants$4668.const$3;
+    public static int VER_SERVICEPACKMAJOR() {
+        return VER_SERVICEPACKMAJOR;
     }
+    private static final int VER_SUITENAME = (int)64L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_ID_POP_LINK_WITNESS "1.3.6.1.5.5.7.7.23"
+     * {@snippet lang=c :
+     * #define VER_SUITENAME 64
      * }
      */
-    public static MemorySegment szOID_CMC_ID_POP_LINK_WITNESS() {
-        return constants$4668.const$4;
+    public static int VER_SUITENAME() {
+        return VER_SUITENAME;
     }
+    private static final int VER_PRODUCT_TYPE = (int)128L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_ID_CONFIRM_CERT_ACCEPTANCE "1.3.6.1.5.5.7.7.24"
+     * {@snippet lang=c :
+     * #define VER_PRODUCT_TYPE 128
      * }
      */
-    public static MemorySegment szOID_CMC_ID_CONFIRM_CERT_ACCEPTANCE() {
-        return constants$4668.const$5;
+    public static int VER_PRODUCT_TYPE() {
+        return VER_PRODUCT_TYPE;
     }
+    private static final int VER_NT_WORKSTATION = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_CMC_ADD_ATTRIBUTES "1.3.6.1.4.1.311.10.10.1"
+     * {@snippet lang=c :
+     * #define VER_NT_WORKSTATION 1
      * }
      */
-    public static MemorySegment szOID_CMC_ADD_ATTRIBUTES() {
-        return constants$4669.const$0;
+    public static int VER_NT_WORKSTATION() {
+        return VER_NT_WORKSTATION;
     }
+    private static final int VER_NT_DOMAIN_CONTROLLER = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_LOYALTY_OTHER_LOGOTYPE "1.3.6.1.5.5.7.20.1"
+     * {@snippet lang=c :
+     * #define VER_NT_DOMAIN_CONTROLLER 2
      * }
      */
-    public static MemorySegment szOID_LOYALTY_OTHER_LOGOTYPE() {
-        return constants$4669.const$1;
+    public static int VER_NT_DOMAIN_CONTROLLER() {
+        return VER_NT_DOMAIN_CONTROLLER;
     }
+    private static final int VER_NT_SERVER = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_BACKGROUND_OTHER_LOGOTYPE "1.3.6.1.5.5.7.20.2"
+     * {@snippet lang=c :
+     * #define VER_NT_SERVER 3
      * }
      */
-    public static MemorySegment szOID_BACKGROUND_OTHER_LOGOTYPE() {
-        return constants$4669.const$2;
+    public static int VER_NT_SERVER() {
+        return VER_NT_SERVER;
     }
+    private static final int VER_PLATFORM_WIN32s = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_PKIX_OCSP_BASIC_SIGNED_RESPONSE "1.3.6.1.5.5.7.48.1.1"
+     * {@snippet lang=c :
+     * #define VER_PLATFORM_WIN32s 0
      * }
      */
-    public static MemorySegment szOID_PKIX_OCSP_BASIC_SIGNED_RESPONSE() {
-        return constants$4669.const$3;
+    public static int VER_PLATFORM_WIN32s() {
+        return VER_PLATFORM_WIN32s;
     }
+    private static final int VER_PLATFORM_WIN32_WINDOWS = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_ENCODE_OBJECT_FUNC "CryptDllEncodeObject"
+     * {@snippet lang=c :
+     * #define VER_PLATFORM_WIN32_WINDOWS 1
      * }
      */
-    public static MemorySegment CRYPT_OID_ENCODE_OBJECT_FUNC() {
-        return constants$4669.const$4;
+    public static int VER_PLATFORM_WIN32_WINDOWS() {
+        return VER_PLATFORM_WIN32_WINDOWS;
     }
+    private static final int VER_PLATFORM_WIN32_NT = (int)2L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_DECODE_OBJECT_FUNC "CryptDllDecodeObject"
+     * {@snippet lang=c :
+     * #define VER_PLATFORM_WIN32_NT 2
      * }
      */
-    public static MemorySegment CRYPT_OID_DECODE_OBJECT_FUNC() {
-        return constants$4669.const$5;
+    public static int VER_PLATFORM_WIN32_NT() {
+        return VER_PLATFORM_WIN32_NT;
     }
+    private static final int RTL_CORRELATION_VECTOR_STRING_LENGTH = (int)129L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_ENCODE_OBJECT_EX_FUNC "CryptDllEncodeObjectEx"
+     * {@snippet lang=c :
+     * #define RTL_CORRELATION_VECTOR_STRING_LENGTH 129
      * }
      */
-    public static MemorySegment CRYPT_OID_ENCODE_OBJECT_EX_FUNC() {
-        return constants$4670.const$0;
+    public static int RTL_CORRELATION_VECTOR_STRING_LENGTH() {
+        return RTL_CORRELATION_VECTOR_STRING_LENGTH;
     }
+    private static final int IMAGE_POLICY_METADATA_VERSION = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_DECODE_OBJECT_EX_FUNC "CryptDllDecodeObjectEx"
+     * {@snippet lang=c :
+     * #define IMAGE_POLICY_METADATA_VERSION 1
      * }
      */
-    public static MemorySegment CRYPT_OID_DECODE_OBJECT_EX_FUNC() {
-        return constants$4670.const$1;
+    public static int IMAGE_POLICY_METADATA_VERSION() {
+        return IMAGE_POLICY_METADATA_VERSION;
     }
+    private static final int RTL_CRITICAL_SECTION_FLAG_NO_DEBUG_INFO = (int)16777216L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_CREATE_COM_OBJECT_FUNC "CryptDllCreateCOMObject"
+     * {@snippet lang=c :
+     * #define RTL_CRITICAL_SECTION_FLAG_NO_DEBUG_INFO 16777216
      * }
      */
-    public static MemorySegment CRYPT_OID_CREATE_COM_OBJECT_FUNC() {
-        return constants$4670.const$2;
+    public static int RTL_CRITICAL_SECTION_FLAG_NO_DEBUG_INFO() {
+        return RTL_CRITICAL_SECTION_FLAG_NO_DEBUG_INFO;
     }
+    private static final int RTL_CRITICAL_SECTION_FLAG_DYNAMIC_SPIN = (int)33554432L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_VERIFY_REVOCATION_FUNC "CertDllVerifyRevocation"
+     * {@snippet lang=c :
+     * #define RTL_CRITICAL_SECTION_FLAG_DYNAMIC_SPIN 33554432
      * }
      */
-    public static MemorySegment CRYPT_OID_VERIFY_REVOCATION_FUNC() {
-        return constants$4670.const$3;
+    public static int RTL_CRITICAL_SECTION_FLAG_DYNAMIC_SPIN() {
+        return RTL_CRITICAL_SECTION_FLAG_DYNAMIC_SPIN;
     }
+    private static final int RTL_CRITICAL_SECTION_FLAG_STATIC_INIT = (int)67108864L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_VERIFY_CTL_USAGE_FUNC "CertDllVerifyCTLUsage"
+     * {@snippet lang=c :
+     * #define RTL_CRITICAL_SECTION_FLAG_STATIC_INIT 67108864
      * }
      */
-    public static MemorySegment CRYPT_OID_VERIFY_CTL_USAGE_FUNC() {
-        return constants$4670.const$4;
+    public static int RTL_CRITICAL_SECTION_FLAG_STATIC_INIT() {
+        return RTL_CRITICAL_SECTION_FLAG_STATIC_INIT;
     }
+    private static final int RTL_CRITICAL_SECTION_FLAG_RESOURCE_TYPE = (int)134217728L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_FORMAT_OBJECT_FUNC "CryptDllFormatObject"
+     * {@snippet lang=c :
+     * #define RTL_CRITICAL_SECTION_FLAG_RESOURCE_TYPE 134217728
      * }
      */
-    public static MemorySegment CRYPT_OID_FORMAT_OBJECT_FUNC() {
-        return constants$4670.const$5;
+    public static int RTL_CRITICAL_SECTION_FLAG_RESOURCE_TYPE() {
+        return RTL_CRITICAL_SECTION_FLAG_RESOURCE_TYPE;
     }
+    private static final int RTL_CRITICAL_SECTION_FLAG_FORCE_DEBUG_INFO = (int)268435456L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_FIND_OID_INFO_FUNC "CryptDllFindOIDInfo"
+     * {@snippet lang=c :
+     * #define RTL_CRITICAL_SECTION_FLAG_FORCE_DEBUG_INFO 268435456
      * }
      */
-    public static MemorySegment CRYPT_OID_FIND_OID_INFO_FUNC() {
-        return constants$4671.const$0;
+    public static int RTL_CRITICAL_SECTION_FLAG_FORCE_DEBUG_INFO() {
+        return RTL_CRITICAL_SECTION_FLAG_FORCE_DEBUG_INFO;
     }
+    private static final int RTL_CRITICAL_SECTION_DEBUG_FLAG_STATIC_INIT = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_FIND_LOCALIZED_NAME_FUNC "CryptDllFindLocalizedName"
+     * {@snippet lang=c :
+     * #define RTL_CRITICAL_SECTION_DEBUG_FLAG_STATIC_INIT 1
      * }
      */
-    public static MemorySegment CRYPT_OID_FIND_LOCALIZED_NAME_FUNC() {
-        return constants$4671.const$1;
+    public static int RTL_CRITICAL_SECTION_DEBUG_FLAG_STATIC_INIT() {
+        return RTL_CRITICAL_SECTION_DEBUG_FLAG_STATIC_INIT;
     }
+    private static final int RTL_CONDITION_VARIABLE_LOCKMODE_SHARED = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_REGPATH "Software\\Microsoft\\Cryptography\\OID"
+     * {@snippet lang=c :
+     * #define RTL_CONDITION_VARIABLE_LOCKMODE_SHARED 1
      * }
      */
-    public static MemorySegment CRYPT_OID_REGPATH() {
-        return constants$4671.const$2;
+    public static int RTL_CONDITION_VARIABLE_LOCKMODE_SHARED() {
+        return RTL_CONDITION_VARIABLE_LOCKMODE_SHARED;
     }
+    private static final int HEAP_OPTIMIZE_RESOURCES_CURRENT_VERSION = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_REG_ENCODING_TYPE_PREFIX "EncodingType "
+     * {@snippet lang=c :
+     * #define HEAP_OPTIMIZE_RESOURCES_CURRENT_VERSION 1
      * }
      */
-    public static MemorySegment CRYPT_OID_REG_ENCODING_TYPE_PREFIX() {
-        return constants$4671.const$3;
+    public static int HEAP_OPTIMIZE_RESOURCES_CURRENT_VERSION() {
+        return HEAP_OPTIMIZE_RESOURCES_CURRENT_VERSION;
     }
+    private static final int WT_EXECUTEDEFAULT = (int)0L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_REG_DLL_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define WT_EXECUTEDEFAULT 0
      * }
      */
-    public static MemorySegment CRYPT_OID_REG_DLL_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int WT_EXECUTEDEFAULT() {
+        return WT_EXECUTEDEFAULT;
     }
+    private static final int WT_EXECUTEINIOTHREAD = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_REG_FUNC_NAME_VALUE_NAME "F"
+     * {@snippet lang=c :
+     * #define WT_EXECUTEINIOTHREAD 1
      * }
      */
-    public static MemorySegment CRYPT_OID_REG_FUNC_NAME_VALUE_NAME() {
-        return constants$4569.const$2;
+    public static int WT_EXECUTEINIOTHREAD() {
+        return WT_EXECUTEINIOTHREAD;
     }
+    private static final int WT_EXECUTEINUITHREAD = (int)2L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_REG_FUNC_NAME_VALUE_NAME_A "FuncName"
+     * {@snippet lang=c :
+     * #define WT_EXECUTEINUITHREAD 2
      * }
      */
-    public static MemorySegment CRYPT_OID_REG_FUNC_NAME_VALUE_NAME_A() {
-        return constants$4671.const$4;
+    public static int WT_EXECUTEINUITHREAD() {
+        return WT_EXECUTEINUITHREAD;
     }
+    private static final int WT_EXECUTEINWAITTHREAD = (int)4L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_REG_FLAGS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define WT_EXECUTEINWAITTHREAD 4
      * }
      */
-    public static MemorySegment CRYPT_OID_REG_FLAGS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int WT_EXECUTEINWAITTHREAD() {
+        return WT_EXECUTEINWAITTHREAD;
     }
+    private static final int WT_EXECUTEONLYONCE = (int)8L;
     /**
-     * {@snippet :
-     * #define CRYPT_DEFAULT_OID "DEFAULT"
+     * {@snippet lang=c :
+     * #define WT_EXECUTEONLYONCE 8
      * }
      */
-    public static MemorySegment CRYPT_DEFAULT_OID() {
-        return constants$4671.const$5;
+    public static int WT_EXECUTEONLYONCE() {
+        return WT_EXECUTEONLYONCE;
     }
+    private static final int WT_EXECUTEINTIMERTHREAD = (int)32L;
     /**
-     * {@snippet :
-     * #define CRYPT_REGISTER_LAST_INDEX 4294967295
+     * {@snippet lang=c :
+     * #define WT_EXECUTEINTIMERTHREAD 32
      * }
      */
-    public static int CRYPT_REGISTER_LAST_INDEX() {
-        return (int)4294967295L;
+    public static int WT_EXECUTEINTIMERTHREAD() {
+        return WT_EXECUTEINTIMERTHREAD;
     }
+    private static final int WT_EXECUTELONGFUNCTION = (int)16L;
     /**
-     * {@snippet :
-     * #define CRYPT_MATCH_ANY_ENCODING_TYPE 4294967295
+     * {@snippet lang=c :
+     * #define WT_EXECUTELONGFUNCTION 16
      * }
      */
-    public static int CRYPT_MATCH_ANY_ENCODING_TYPE() {
-        return (int)4294967295L;
+    public static int WT_EXECUTELONGFUNCTION() {
+        return WT_EXECUTELONGFUNCTION;
     }
+    private static final int WT_EXECUTEINPERSISTENTIOTHREAD = (int)64L;
     /**
-     * {@snippet :
-     * #define CALG_OID_INFO_CNG_ONLY 4294967295
+     * {@snippet lang=c :
+     * #define WT_EXECUTEINPERSISTENTIOTHREAD 64
      * }
      */
-    public static int CALG_OID_INFO_CNG_ONLY() {
-        return (int)4294967295L;
+    public static int WT_EXECUTEINPERSISTENTIOTHREAD() {
+        return WT_EXECUTEINPERSISTENTIOTHREAD;
     }
+    private static final int WT_EXECUTEINPERSISTENTTHREAD = (int)128L;
     /**
-     * {@snippet :
-     * #define CALG_OID_INFO_PARAMETERS 4294967294
+     * {@snippet lang=c :
+     * #define WT_EXECUTEINPERSISTENTTHREAD 128
      * }
      */
-    public static int CALG_OID_INFO_PARAMETERS() {
-        return (int)4294967294L;
+    public static int WT_EXECUTEINPERSISTENTTHREAD() {
+        return WT_EXECUTEINPERSISTENTTHREAD;
     }
+    private static final int WT_TRANSFER_IMPERSONATION = (int)256L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_INFO_HASH_PARAMETERS_ALGORITHM "C"
+     * {@snippet lang=c :
+     * #define WT_TRANSFER_IMPERSONATION 256
      * }
      */
-    public static MemorySegment CRYPT_OID_INFO_HASH_PARAMETERS_ALGORITHM() {
-        return constants$4541.const$1;
+    public static int WT_TRANSFER_IMPERSONATION() {
+        return WT_TRANSFER_IMPERSONATION;
     }
+    private static final int WT_EXECUTEINLONGTHREAD = (int)16L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_INFO_ECC_PARAMETERS_ALGORITHM "C"
+     * {@snippet lang=c :
+     * #define WT_EXECUTEINLONGTHREAD 16
      * }
      */
-    public static MemorySegment CRYPT_OID_INFO_ECC_PARAMETERS_ALGORITHM() {
-        return constants$4541.const$1;
+    public static int WT_EXECUTEINLONGTHREAD() {
+        return WT_EXECUTEINLONGTHREAD;
     }
+    private static final int WT_EXECUTEDELETEWAIT = (int)8L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_INFO_MGF1_PARAMETERS_ALGORITHM "C"
+     * {@snippet lang=c :
+     * #define WT_EXECUTEDELETEWAIT 8
      * }
      */
-    public static MemorySegment CRYPT_OID_INFO_MGF1_PARAMETERS_ALGORITHM() {
-        return constants$4541.const$1;
+    public static int WT_EXECUTEDELETEWAIT() {
+        return WT_EXECUTEDELETEWAIT;
     }
+    private static final int CREATE_BOUNDARY_DESCRIPTOR_ADD_APPCONTAINER_SID = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_INFO_NO_SIGN_ALGORITHM "C"
+     * {@snippet lang=c :
+     * #define CREATE_BOUNDARY_DESCRIPTOR_ADD_APPCONTAINER_SID 1
      * }
      */
-    public static MemorySegment CRYPT_OID_INFO_NO_SIGN_ALGORITHM() {
-        return constants$4541.const$1;
+    public static int CREATE_BOUNDARY_DESCRIPTOR_ADD_APPCONTAINER_SID() {
+        return CREATE_BOUNDARY_DESCRIPTOR_ADD_APPCONTAINER_SID;
     }
+    private static final int PERFORMANCE_DATA_VERSION = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_INFO_OAEP_PARAMETERS_ALGORITHM "C"
+     * {@snippet lang=c :
+     * #define PERFORMANCE_DATA_VERSION 1
      * }
      */
-    public static MemorySegment CRYPT_OID_INFO_OAEP_PARAMETERS_ALGORITHM() {
-        return constants$4541.const$1;
+    public static int PERFORMANCE_DATA_VERSION() {
+        return PERFORMANCE_DATA_VERSION;
     }
+    private static final int READ_THREAD_PROFILING_FLAG_DISPATCHING = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_INFO_ECC_WRAP_PARAMETERS_ALGORITHM "C"
+     * {@snippet lang=c :
+     * #define READ_THREAD_PROFILING_FLAG_DISPATCHING 1
      * }
      */
-    public static MemorySegment CRYPT_OID_INFO_ECC_WRAP_PARAMETERS_ALGORITHM() {
-        return constants$4541.const$1;
+    public static int READ_THREAD_PROFILING_FLAG_DISPATCHING() {
+        return READ_THREAD_PROFILING_FLAG_DISPATCHING;
     }
+    private static final int READ_THREAD_PROFILING_FLAG_HARDWARE_COUNTERS = (int)2L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_INFO_NO_PARAMETERS_ALGORITHM "C"
+     * {@snippet lang=c :
+     * #define READ_THREAD_PROFILING_FLAG_HARDWARE_COUNTERS 2
      * }
      */
-    public static MemorySegment CRYPT_OID_INFO_NO_PARAMETERS_ALGORITHM() {
-        return constants$4541.const$1;
+    public static int READ_THREAD_PROFILING_FLAG_HARDWARE_COUNTERS() {
+        return READ_THREAD_PROFILING_FLAG_HARDWARE_COUNTERS;
     }
+    private static final int UNIFIEDBUILDREVISION_MIN = (int)0L;
     /**
-     * {@snippet :
-     * #define CRYPT_FIRST_ALG_OID_GROUP_ID 1
+     * {@snippet lang=c :
+     * #define UNIFIEDBUILDREVISION_MIN 0
      * }
      */
-    public static int CRYPT_FIRST_ALG_OID_GROUP_ID() {
-        return (int)1L;
+    public static int UNIFIEDBUILDREVISION_MIN() {
+        return UNIFIEDBUILDREVISION_MIN;
     }
+    private static final int DEVICEFAMILYINFOENUM_UAP = (int)0L;
     /**
-     * {@snippet :
-     * #define CRYPT_LAST_ALG_OID_GROUP_ID 4
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_UAP 0
      * }
      */
-    public static int CRYPT_LAST_ALG_OID_GROUP_ID() {
-        return (int)4L;
+    public static int DEVICEFAMILYINFOENUM_UAP() {
+        return DEVICEFAMILYINFOENUM_UAP;
     }
+    private static final int DEVICEFAMILYINFOENUM_WINDOWS_8X = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_PUBKEY_SIGN_ONLY_FLAG 2147483648
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_WINDOWS_8X 1
      * }
      */
-    public static int CRYPT_OID_PUBKEY_SIGN_ONLY_FLAG() {
-        return (int)2147483648L;
+    public static int DEVICEFAMILYINFOENUM_WINDOWS_8X() {
+        return DEVICEFAMILYINFOENUM_WINDOWS_8X;
     }
+    private static final int DEVICEFAMILYINFOENUM_WINDOWS_PHONE_8X = (int)2L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_INFO_OID_KEY_FLAGS_MASK 4294901760
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_WINDOWS_PHONE_8X 2
      * }
      */
-    public static int CRYPT_OID_INFO_OID_KEY_FLAGS_MASK() {
-        return (int)4294901760L;
+    public static int DEVICEFAMILYINFOENUM_WINDOWS_PHONE_8X() {
+        return DEVICEFAMILYINFOENUM_WINDOWS_PHONE_8X;
     }
+    private static final int DEVICEFAMILYINFOENUM_DESKTOP = (int)3L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_INFO_PUBKEY_SIGN_KEY_FLAG 2147483648
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_DESKTOP 3
      * }
      */
-    public static int CRYPT_OID_INFO_PUBKEY_SIGN_KEY_FLAG() {
-        return (int)2147483648L;
+    public static int DEVICEFAMILYINFOENUM_DESKTOP() {
+        return DEVICEFAMILYINFOENUM_DESKTOP;
     }
+    private static final int DEVICEFAMILYINFOENUM_MOBILE = (int)4L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_DISABLE_SEARCH_DS_FLAG 2147483648
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_MOBILE 4
      * }
      */
-    public static int CRYPT_OID_DISABLE_SEARCH_DS_FLAG() {
-        return (int)2147483648L;
+    public static int DEVICEFAMILYINFOENUM_MOBILE() {
+        return DEVICEFAMILYINFOENUM_MOBILE;
     }
+    private static final int DEVICEFAMILYINFOENUM_XBOX = (int)5L;
     /**
-     * {@snippet :
-     * #define CRYPT_LOCALIZED_NAME_OID "LocalizedNames"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_XBOX 5
      * }
      */
-    public static MemorySegment CRYPT_LOCALIZED_NAME_OID() {
-        return constants$4672.const$0;
+    public static int DEVICEFAMILYINFOENUM_XBOX() {
+        return DEVICEFAMILYINFOENUM_XBOX;
     }
+    private static final int DEVICEFAMILYINFOENUM_TEAM = (int)6L;
     /**
-     * {@snippet :
-     * #define CERT_STRONG_SIGN_ECDSA_ALGORITHM "E"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_TEAM 6
      * }
      */
-    public static MemorySegment CERT_STRONG_SIGN_ECDSA_ALGORITHM() {
-        return constants$4567.const$5;
+    public static int DEVICEFAMILYINFOENUM_TEAM() {
+        return DEVICEFAMILYINFOENUM_TEAM;
     }
+    private static final int DEVICEFAMILYINFOENUM_IOT = (int)7L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_STRONG_SIGN_OS_PREFIX "1.3.6.1.4.1.311.72.1."
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_IOT 7
      * }
      */
-    public static MemorySegment szOID_CERT_STRONG_SIGN_OS_PREFIX() {
-        return constants$4672.const$1;
+    public static int DEVICEFAMILYINFOENUM_IOT() {
+        return DEVICEFAMILYINFOENUM_IOT;
     }
+    private static final int DEVICEFAMILYINFOENUM_IOT_HEADLESS = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_STRONG_SIGN_OS_1 "1.3.6.1.4.1.311.72.1.1"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_IOT_HEADLESS 8
      * }
      */
-    public static MemorySegment szOID_CERT_STRONG_SIGN_OS_1() {
-        return constants$4672.const$2;
+    public static int DEVICEFAMILYINFOENUM_IOT_HEADLESS() {
+        return DEVICEFAMILYINFOENUM_IOT_HEADLESS;
     }
+    private static final int DEVICEFAMILYINFOENUM_SERVER = (int)9L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_STRONG_SIGN_OS_CURRENT "1.3.6.1.4.1.311.72.1.1"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_SERVER 9
      * }
      */
-    public static MemorySegment szOID_CERT_STRONG_SIGN_OS_CURRENT() {
-        return constants$4672.const$2;
+    public static int DEVICEFAMILYINFOENUM_SERVER() {
+        return DEVICEFAMILYINFOENUM_SERVER;
     }
+    private static final int DEVICEFAMILYINFOENUM_HOLOGRAPHIC = (int)10L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_STRONG_KEY_OS_PREFIX "1.3.6.1.4.1.311.72.2."
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_HOLOGRAPHIC 10
      * }
      */
-    public static MemorySegment szOID_CERT_STRONG_KEY_OS_PREFIX() {
-        return constants$4672.const$3;
+    public static int DEVICEFAMILYINFOENUM_HOLOGRAPHIC() {
+        return DEVICEFAMILYINFOENUM_HOLOGRAPHIC;
     }
+    private static final int DEVICEFAMILYINFOENUM_XBOXSRA = (int)11L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_STRONG_KEY_OS_1 "1.3.6.1.4.1.311.72.2.1"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_XBOXSRA 11
      * }
      */
-    public static MemorySegment szOID_CERT_STRONG_KEY_OS_1() {
-        return constants$4672.const$4;
+    public static int DEVICEFAMILYINFOENUM_XBOXSRA() {
+        return DEVICEFAMILYINFOENUM_XBOXSRA;
     }
+    private static final int DEVICEFAMILYINFOENUM_XBOXERA = (int)12L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_STRONG_KEY_OS_CURRENT "1.3.6.1.4.1.311.72.2.1"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_XBOXERA 12
      * }
      */
-    public static MemorySegment szOID_CERT_STRONG_KEY_OS_CURRENT() {
-        return constants$4672.const$4;
+    public static int DEVICEFAMILYINFOENUM_XBOXERA() {
+        return DEVICEFAMILYINFOENUM_XBOXERA;
     }
+    private static final int DEVICEFAMILYINFOENUM_SERVER_NANO = (int)13L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_7_DATA "1.2.840.113549.1.7.1"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_SERVER_NANO 13
      * }
      */
-    public static MemorySegment szOID_PKCS_7_DATA() {
-        return constants$4584.const$2;
+    public static int DEVICEFAMILYINFOENUM_SERVER_NANO() {
+        return DEVICEFAMILYINFOENUM_SERVER_NANO;
     }
+    private static final int DEVICEFAMILYINFOENUM_8828080 = (int)14L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_7_SIGNED "1.2.840.113549.1.7.2"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_8828080 14
      * }
      */
-    public static MemorySegment szOID_PKCS_7_SIGNED() {
-        return constants$4584.const$3;
+    public static int DEVICEFAMILYINFOENUM_8828080() {
+        return DEVICEFAMILYINFOENUM_8828080;
     }
+    private static final int DEVICEFAMILYINFOENUM_7067329 = (int)15L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_7_ENVELOPED "1.2.840.113549.1.7.3"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_7067329 15
      * }
      */
-    public static MemorySegment szOID_PKCS_7_ENVELOPED() {
-        return constants$4584.const$4;
+    public static int DEVICEFAMILYINFOENUM_7067329() {
+        return DEVICEFAMILYINFOENUM_7067329;
     }
+    private static final int DEVICEFAMILYINFOENUM_WINDOWS_CORE = (int)16L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_7_SIGNEDANDENVELOPED "1.2.840.113549.1.7.4"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_WINDOWS_CORE 16
      * }
      */
-    public static MemorySegment szOID_PKCS_7_SIGNEDANDENVELOPED() {
-        return constants$4584.const$5;
+    public static int DEVICEFAMILYINFOENUM_WINDOWS_CORE() {
+        return DEVICEFAMILYINFOENUM_WINDOWS_CORE;
     }
+    private static final int DEVICEFAMILYINFOENUM_WINDOWS_CORE_HEADLESS = (int)17L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_7_DIGESTED "1.2.840.113549.1.7.5"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_WINDOWS_CORE_HEADLESS 17
      * }
      */
-    public static MemorySegment szOID_PKCS_7_DIGESTED() {
-        return constants$4585.const$0;
+    public static int DEVICEFAMILYINFOENUM_WINDOWS_CORE_HEADLESS() {
+        return DEVICEFAMILYINFOENUM_WINDOWS_CORE_HEADLESS;
     }
+    private static final int DEVICEFAMILYINFOENUM_MAX = (int)17L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_7_ENCRYPTED "1.2.840.113549.1.7.6"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYINFOENUM_MAX 17
      * }
      */
-    public static MemorySegment szOID_PKCS_7_ENCRYPTED() {
-        return constants$4585.const$1;
+    public static int DEVICEFAMILYINFOENUM_MAX() {
+        return DEVICEFAMILYINFOENUM_MAX;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_UNKNOWN = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_9_CONTENT_TYPE "1.2.840.113549.1.9.3"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_UNKNOWN 0
      * }
      */
-    public static MemorySegment szOID_PKCS_9_CONTENT_TYPE() {
-        return constants$4585.const$4;
+    public static int DEVICEFAMILYDEVICEFORM_UNKNOWN() {
+        return DEVICEFAMILYDEVICEFORM_UNKNOWN;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_PHONE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_9_MESSAGE_DIGEST "1.2.840.113549.1.9.4"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_PHONE 1
      * }
      */
-    public static MemorySegment szOID_PKCS_9_MESSAGE_DIGEST() {
-        return constants$4585.const$5;
+    public static int DEVICEFAMILYDEVICEFORM_PHONE() {
+        return DEVICEFAMILYDEVICEFORM_PHONE;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_TABLET = (int)2L;
     /**
-     * {@snippet :
-     * #define CMSG_ALL_FLAGS 4294967295
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_TABLET 2
      * }
      */
-    public static int CMSG_ALL_FLAGS() {
-        return (int)4294967295L;
+    public static int DEVICEFAMILYDEVICEFORM_TABLET() {
+        return DEVICEFAMILYDEVICEFORM_TABLET;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_DESKTOP = (int)3L;
     /**
-     * {@snippet :
-     * #define CMSG_DATA_FLAG 2
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_DESKTOP 3
      * }
      */
-    public static int CMSG_DATA_FLAG() {
-        return (int)2L;
+    public static int DEVICEFAMILYDEVICEFORM_DESKTOP() {
+        return DEVICEFAMILYDEVICEFORM_DESKTOP;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_NOTEBOOK = (int)4L;
     /**
-     * {@snippet :
-     * #define CMSG_SIGNED_FLAG 4
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_NOTEBOOK 4
      * }
      */
-    public static int CMSG_SIGNED_FLAG() {
-        return (int)4L;
+    public static int DEVICEFAMILYDEVICEFORM_NOTEBOOK() {
+        return DEVICEFAMILYDEVICEFORM_NOTEBOOK;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_CONVERTIBLE = (int)5L;
     /**
-     * {@snippet :
-     * #define CMSG_ENVELOPED_FLAG 8
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_CONVERTIBLE 5
      * }
      */
-    public static int CMSG_ENVELOPED_FLAG() {
-        return (int)8L;
+    public static int DEVICEFAMILYDEVICEFORM_CONVERTIBLE() {
+        return DEVICEFAMILYDEVICEFORM_CONVERTIBLE;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_DETACHABLE = (int)6L;
     /**
-     * {@snippet :
-     * #define CMSG_SIGNED_AND_ENVELOPED_FLAG 16
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_DETACHABLE 6
      * }
      */
-    public static int CMSG_SIGNED_AND_ENVELOPED_FLAG() {
-        return (int)16L;
+    public static int DEVICEFAMILYDEVICEFORM_DETACHABLE() {
+        return DEVICEFAMILYDEVICEFORM_DETACHABLE;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_ALLINONE = (int)7L;
     /**
-     * {@snippet :
-     * #define CMSG_HASHED_FLAG 32
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_ALLINONE 7
      * }
      */
-    public static int CMSG_HASHED_FLAG() {
-        return (int)32L;
+    public static int DEVICEFAMILYDEVICEFORM_ALLINONE() {
+        return DEVICEFAMILYDEVICEFORM_ALLINONE;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_STICKPC = (int)8L;
     /**
-     * {@snippet :
-     * #define CMSG_ENCRYPTED_FLAG 64
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_STICKPC 8
      * }
      */
-    public static int CMSG_ENCRYPTED_FLAG() {
-        return (int)64L;
+    public static int DEVICEFAMILYDEVICEFORM_STICKPC() {
+        return DEVICEFAMILYDEVICEFORM_STICKPC;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_PUCK = (int)9L;
     /**
-     * {@snippet :
-     * #define CMSG_SP3_COMPATIBLE_ENCRYPT_FLAG 2147483648
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_PUCK 9
      * }
      */
-    public static int CMSG_SP3_COMPATIBLE_ENCRYPT_FLAG() {
-        return (int)2147483648L;
+    public static int DEVICEFAMILYDEVICEFORM_PUCK() {
+        return DEVICEFAMILYDEVICEFORM_PUCK;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_LARGESCREEN = (int)10L;
     /**
-     * {@snippet :
-     * #define CMSG_INDEFINITE_LENGTH 4294967295
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_LARGESCREEN 10
      * }
      */
-    public static int CMSG_INDEFINITE_LENGTH() {
-        return (int)4294967295L;
+    public static int DEVICEFAMILYDEVICEFORM_LARGESCREEN() {
+        return DEVICEFAMILYDEVICEFORM_LARGESCREEN;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_HMD = (int)11L;
     /**
-     * {@snippet :
-     * #define CMSG_SIGNED_DATA_PKCS_1_5_VERSION 1
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_HMD 11
      * }
      */
-    public static int CMSG_SIGNED_DATA_PKCS_1_5_VERSION() {
-        return (int)1L;
+    public static int DEVICEFAMILYDEVICEFORM_HMD() {
+        return DEVICEFAMILYDEVICEFORM_HMD;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_INDUSTRY_HANDHELD = (int)12L;
     /**
-     * {@snippet :
-     * #define CMSG_SIGNED_DATA_CMS_VERSION 3
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_INDUSTRY_HANDHELD 12
      * }
      */
-    public static int CMSG_SIGNED_DATA_CMS_VERSION() {
-        return (int)3L;
+    public static int DEVICEFAMILYDEVICEFORM_INDUSTRY_HANDHELD() {
+        return DEVICEFAMILYDEVICEFORM_INDUSTRY_HANDHELD;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_INDUSTRY_TABLET = (int)13L;
     /**
-     * {@snippet :
-     * #define CMSG_SIGNER_INFO_PKCS_1_5_VERSION 1
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_INDUSTRY_TABLET 13
      * }
      */
-    public static int CMSG_SIGNER_INFO_PKCS_1_5_VERSION() {
-        return (int)1L;
+    public static int DEVICEFAMILYDEVICEFORM_INDUSTRY_TABLET() {
+        return DEVICEFAMILYDEVICEFORM_INDUSTRY_TABLET;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_BANKING = (int)14L;
     /**
-     * {@snippet :
-     * #define CMSG_SIGNER_INFO_CMS_VERSION 3
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_BANKING 14
      * }
      */
-    public static int CMSG_SIGNER_INFO_CMS_VERSION() {
-        return (int)3L;
+    public static int DEVICEFAMILYDEVICEFORM_BANKING() {
+        return DEVICEFAMILYDEVICEFORM_BANKING;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_BUILDING_AUTOMATION = (int)15L;
     /**
-     * {@snippet :
-     * #define CMSG_HASHED_DATA_PKCS_1_5_VERSION 0
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_BUILDING_AUTOMATION 15
      * }
      */
-    public static int CMSG_HASHED_DATA_PKCS_1_5_VERSION() {
-        return (int)0L;
+    public static int DEVICEFAMILYDEVICEFORM_BUILDING_AUTOMATION() {
+        return DEVICEFAMILYDEVICEFORM_BUILDING_AUTOMATION;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_DIGITAL_SIGNAGE = (int)16L;
     /**
-     * {@snippet :
-     * #define CMSG_HASHED_DATA_CMS_VERSION 2
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_DIGITAL_SIGNAGE 16
      * }
      */
-    public static int CMSG_HASHED_DATA_CMS_VERSION() {
-        return (int)2L;
+    public static int DEVICEFAMILYDEVICEFORM_DIGITAL_SIGNAGE() {
+        return DEVICEFAMILYDEVICEFORM_DIGITAL_SIGNAGE;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_GAMING = (int)17L;
     /**
-     * {@snippet :
-     * #define CMSG_ENVELOPED_DATA_PKCS_1_5_VERSION 0
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_GAMING 17
      * }
      */
-    public static int CMSG_ENVELOPED_DATA_PKCS_1_5_VERSION() {
-        return (int)0L;
+    public static int DEVICEFAMILYDEVICEFORM_GAMING() {
+        return DEVICEFAMILYDEVICEFORM_GAMING;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_HOME_AUTOMATION = (int)18L;
     /**
-     * {@snippet :
-     * #define CMSG_ENVELOPED_DATA_CMS_VERSION 2
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_HOME_AUTOMATION 18
      * }
      */
-    public static int CMSG_ENVELOPED_DATA_CMS_VERSION() {
-        return (int)2L;
+    public static int DEVICEFAMILYDEVICEFORM_HOME_AUTOMATION() {
+        return DEVICEFAMILYDEVICEFORM_HOME_AUTOMATION;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_INDUSTRIAL_AUTOMATION = (int)19L;
     /**
-     * {@snippet :
-     * #define CMSG_KEY_TRANS_PKCS_1_5_VERSION 0
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_INDUSTRIAL_AUTOMATION 19
      * }
      */
-    public static int CMSG_KEY_TRANS_PKCS_1_5_VERSION() {
-        return (int)0L;
+    public static int DEVICEFAMILYDEVICEFORM_INDUSTRIAL_AUTOMATION() {
+        return DEVICEFAMILYDEVICEFORM_INDUSTRIAL_AUTOMATION;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_KIOSK = (int)20L;
     /**
-     * {@snippet :
-     * #define CMSG_KEY_TRANS_CMS_VERSION 2
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_KIOSK 20
      * }
      */
-    public static int CMSG_KEY_TRANS_CMS_VERSION() {
-        return (int)2L;
+    public static int DEVICEFAMILYDEVICEFORM_KIOSK() {
+        return DEVICEFAMILYDEVICEFORM_KIOSK;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_MAKER_BOARD = (int)21L;
     /**
-     * {@snippet :
-     * #define CMSG_KEY_AGREE_VERSION 3
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_MAKER_BOARD 21
      * }
      */
-    public static int CMSG_KEY_AGREE_VERSION() {
-        return (int)3L;
+    public static int DEVICEFAMILYDEVICEFORM_MAKER_BOARD() {
+        return DEVICEFAMILYDEVICEFORM_MAKER_BOARD;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_MEDICAL = (int)22L;
     /**
-     * {@snippet :
-     * #define CMSG_MAIL_LIST_VERSION 4
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_MEDICAL 22
      * }
      */
-    public static int CMSG_MAIL_LIST_VERSION() {
-        return (int)4L;
+    public static int DEVICEFAMILYDEVICEFORM_MEDICAL() {
+        return DEVICEFAMILYDEVICEFORM_MEDICAL;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_NETWORKING = (int)23L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_GEN_ENCRYPT_KEY_FUNC "CryptMsgDllGenEncryptKey"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_NETWORKING 23
      * }
      */
-    public static MemorySegment CMSG_OID_GEN_ENCRYPT_KEY_FUNC() {
-        return constants$4672.const$5;
+    public static int DEVICEFAMILYDEVICEFORM_NETWORKING() {
+        return DEVICEFAMILYDEVICEFORM_NETWORKING;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_POINT_OF_SERVICE = (int)24L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_EXPORT_ENCRYPT_KEY_FUNC "CryptMsgDllExportEncryptKey"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_POINT_OF_SERVICE 24
      * }
      */
-    public static MemorySegment CMSG_OID_EXPORT_ENCRYPT_KEY_FUNC() {
-        return constants$4673.const$0;
+    public static int DEVICEFAMILYDEVICEFORM_POINT_OF_SERVICE() {
+        return DEVICEFAMILYDEVICEFORM_POINT_OF_SERVICE;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_PRINTING = (int)25L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_IMPORT_ENCRYPT_KEY_FUNC "CryptMsgDllImportEncryptKey"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_PRINTING 25
      * }
      */
-    public static MemorySegment CMSG_OID_IMPORT_ENCRYPT_KEY_FUNC() {
-        return constants$4673.const$1;
+    public static int DEVICEFAMILYDEVICEFORM_PRINTING() {
+        return DEVICEFAMILYDEVICEFORM_PRINTING;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_THIN_CLIENT = (int)26L;
     /**
-     * {@snippet :
-     * #define CMSG_DEFAULT_INSTALLABLE_FUNC_OID 1
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_THIN_CLIENT 26
      * }
      */
-    public static MemorySegment CMSG_DEFAULT_INSTALLABLE_FUNC_OID() {
-        return constants$4552.const$0;
+    public static int DEVICEFAMILYDEVICEFORM_THIN_CLIENT() {
+        return DEVICEFAMILYDEVICEFORM_THIN_CLIENT;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_TOY = (int)27L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_GEN_CONTENT_ENCRYPT_KEY_FUNC "CryptMsgDllGenContentEncryptKey"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_TOY 27
      * }
      */
-    public static MemorySegment CMSG_OID_GEN_CONTENT_ENCRYPT_KEY_FUNC() {
-        return constants$4673.const$2;
+    public static int DEVICEFAMILYDEVICEFORM_TOY() {
+        return DEVICEFAMILYDEVICEFORM_TOY;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_VENDING = (int)28L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_CAPI1_GEN_CONTENT_ENCRYPT_KEY_FUNC "CryptMsgDllGenContentEncryptKey"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_VENDING 28
      * }
      */
-    public static MemorySegment CMSG_OID_CAPI1_GEN_CONTENT_ENCRYPT_KEY_FUNC() {
-        return constants$4673.const$2;
+    public static int DEVICEFAMILYDEVICEFORM_VENDING() {
+        return DEVICEFAMILYDEVICEFORM_VENDING;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_INDUSTRY_OTHER = (int)29L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_CNG_GEN_CONTENT_ENCRYPT_KEY_FUNC "CryptMsgDllCNGGenContentEncryptKey"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_INDUSTRY_OTHER 29
      * }
      */
-    public static MemorySegment CMSG_OID_CNG_GEN_CONTENT_ENCRYPT_KEY_FUNC() {
-        return constants$4673.const$3;
+    public static int DEVICEFAMILYDEVICEFORM_INDUSTRY_OTHER() {
+        return DEVICEFAMILYDEVICEFORM_INDUSTRY_OTHER;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_ONE = (int)30L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_EXPORT_KEY_TRANS_FUNC "CryptMsgDllExportKeyTrans"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_ONE 30
      * }
      */
-    public static MemorySegment CMSG_OID_EXPORT_KEY_TRANS_FUNC() {
-        return constants$4673.const$4;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_ONE() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_ONE;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_ONE_S = (int)31L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_CAPI1_EXPORT_KEY_TRANS_FUNC "CryptMsgDllExportKeyTrans"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_ONE_S 31
      * }
      */
-    public static MemorySegment CMSG_OID_CAPI1_EXPORT_KEY_TRANS_FUNC() {
-        return constants$4673.const$4;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_ONE_S() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_ONE_S;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_ONE_X = (int)32L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_CNG_EXPORT_KEY_TRANS_FUNC "CryptMsgDllCNGExportKeyTrans"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_ONE_X 32
      * }
      */
-    public static MemorySegment CMSG_OID_CNG_EXPORT_KEY_TRANS_FUNC() {
-        return constants$4673.const$5;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_ONE_X() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_ONE_X;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_ONE_X_DEVKIT = (int)33L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_EXPORT_KEY_AGREE_FUNC "CryptMsgDllExportKeyAgree"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_ONE_X_DEVKIT 33
      * }
      */
-    public static MemorySegment CMSG_OID_EXPORT_KEY_AGREE_FUNC() {
-        return constants$4674.const$0;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_ONE_X_DEVKIT() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_ONE_X_DEVKIT;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_SERIES_X = (int)34L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_CAPI1_EXPORT_KEY_AGREE_FUNC "CryptMsgDllExportKeyAgree"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_SERIES_X 34
      * }
      */
-    public static MemorySegment CMSG_OID_CAPI1_EXPORT_KEY_AGREE_FUNC() {
-        return constants$4674.const$0;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_SERIES_X() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_SERIES_X;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_SERIES_X_DEVKIT = (int)35L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_CNG_EXPORT_KEY_AGREE_FUNC "CryptMsgDllCNGExportKeyAgree"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_SERIES_X_DEVKIT 35
      * }
      */
-    public static MemorySegment CMSG_OID_CNG_EXPORT_KEY_AGREE_FUNC() {
-        return constants$4674.const$1;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_SERIES_X_DEVKIT() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_SERIES_X_DEVKIT;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_00 = (int)36L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_EXPORT_MAIL_LIST_FUNC "CryptMsgDllExportMailList"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_00 36
      * }
      */
-    public static MemorySegment CMSG_OID_EXPORT_MAIL_LIST_FUNC() {
-        return constants$4674.const$2;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_00() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_00;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_01 = (int)37L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_CAPI1_EXPORT_MAIL_LIST_FUNC "CryptMsgDllExportMailList"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_01 37
      * }
      */
-    public static MemorySegment CMSG_OID_CAPI1_EXPORT_MAIL_LIST_FUNC() {
-        return constants$4674.const$2;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_01() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_01;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_02 = (int)38L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_IMPORT_KEY_TRANS_FUNC "CryptMsgDllImportKeyTrans"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_02 38
      * }
      */
-    public static MemorySegment CMSG_OID_IMPORT_KEY_TRANS_FUNC() {
-        return constants$4674.const$3;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_02() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_02;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_03 = (int)39L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_CAPI1_IMPORT_KEY_TRANS_FUNC "CryptMsgDllImportKeyTrans"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_03 39
      * }
      */
-    public static MemorySegment CMSG_OID_CAPI1_IMPORT_KEY_TRANS_FUNC() {
-        return constants$4674.const$3;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_03() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_03;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_04 = (int)40L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_IMPORT_KEY_AGREE_FUNC "CryptMsgDllImportKeyAgree"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_04 40
      * }
      */
-    public static MemorySegment CMSG_OID_IMPORT_KEY_AGREE_FUNC() {
-        return constants$4674.const$4;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_04() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_04;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_05 = (int)41L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_CAPI1_IMPORT_KEY_AGREE_FUNC "CryptMsgDllImportKeyAgree"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_05 41
      * }
      */
-    public static MemorySegment CMSG_OID_CAPI1_IMPORT_KEY_AGREE_FUNC() {
-        return constants$4674.const$4;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_05() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_05;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_06 = (int)42L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_IMPORT_MAIL_LIST_FUNC "CryptMsgDllImportMailList"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_06 42
      * }
      */
-    public static MemorySegment CMSG_OID_IMPORT_MAIL_LIST_FUNC() {
-        return constants$4674.const$5;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_06() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_06;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_07 = (int)43L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_CAPI1_IMPORT_MAIL_LIST_FUNC "CryptMsgDllImportMailList"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_07 43
      * }
      */
-    public static MemorySegment CMSG_OID_CAPI1_IMPORT_MAIL_LIST_FUNC() {
-        return constants$4674.const$5;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_07() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_07;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_08 = (int)44L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_CNG_IMPORT_KEY_TRANS_FUNC "CryptMsgDllCNGImportKeyTrans"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_08 44
      * }
      */
-    public static MemorySegment CMSG_OID_CNG_IMPORT_KEY_TRANS_FUNC() {
-        return constants$4675.const$0;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_08() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_08;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_09 = (int)45L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_CNG_IMPORT_KEY_AGREE_FUNC "CryptMsgDllCNGImportKeyAgree"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_09 45
      * }
      */
-    public static MemorySegment CMSG_OID_CNG_IMPORT_KEY_AGREE_FUNC() {
-        return constants$4675.const$1;
+    public static int DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_09() {
+        return DEVICEFAMILYDEVICEFORM_XBOX_RESERVED_09;
     }
+    private static final int DEVICEFAMILYDEVICEFORM_MAX = (int)45L;
     /**
-     * {@snippet :
-     * #define CMSG_OID_CNG_IMPORT_CONTENT_ENCRYPT_KEY_FUNC "CryptMsgDllCNGImportContentEncryptKey"
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_MAX 45
      * }
      */
-    public static MemorySegment CMSG_OID_CNG_IMPORT_CONTENT_ENCRYPT_KEY_FUNC() {
-        return constants$4675.const$2;
+    public static int DEVICEFAMILYDEVICEFORM_MAX() {
+        return DEVICEFAMILYDEVICEFORM_MAX;
     }
+    private static final int DLL_PROCESS_ATTACH = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_HASH_PROP_ID 3
+     * {@snippet lang=c :
+     * #define DLL_PROCESS_ATTACH 1
      * }
      */
-    public static int CERT_HASH_PROP_ID() {
-        return (int)3L;
+    public static int DLL_PROCESS_ATTACH() {
+        return DLL_PROCESS_ATTACH;
     }
+    private static final int DLL_THREAD_ATTACH = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_CTL_USAGE_PROP_ID 9
+     * {@snippet lang=c :
+     * #define DLL_THREAD_ATTACH 2
      * }
      */
-    public static int CERT_CTL_USAGE_PROP_ID() {
-        return (int)9L;
+    public static int DLL_THREAD_ATTACH() {
+        return DLL_THREAD_ATTACH;
     }
+    private static final int DLL_THREAD_DETACH = (int)3L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_PROP_ID_PREFIX "1.3.6.1.4.1.311.10.11."
+     * {@snippet lang=c :
+     * #define DLL_THREAD_DETACH 3
      * }
      */
-    public static MemorySegment szOID_CERT_PROP_ID_PREFIX() {
-        return constants$4675.const$3;
+    public static int DLL_THREAD_DETACH() {
+        return DLL_THREAD_DETACH;
     }
+    private static final int DLL_PROCESS_DETACH = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_KEY_IDENTIFIER_PROP_ID "1.3.6.1.4.1.311.10.11.20"
+     * {@snippet lang=c :
+     * #define DLL_PROCESS_DETACH 0
      * }
      */
-    public static MemorySegment szOID_CERT_KEY_IDENTIFIER_PROP_ID() {
-        return constants$4675.const$4;
+    public static int DLL_PROCESS_DETACH() {
+        return DLL_PROCESS_DETACH;
     }
+    private static final int EVENTLOG_SEQUENTIAL_READ = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_ISSUER_SERIAL_NUMBER_MD5_HASH_PROP_ID "1.3.6.1.4.1.311.10.11.28"
+     * {@snippet lang=c :
+     * #define EVENTLOG_SEQUENTIAL_READ 1
      * }
      */
-    public static MemorySegment szOID_CERT_ISSUER_SERIAL_NUMBER_MD5_HASH_PROP_ID() {
-        return constants$4675.const$5;
+    public static int EVENTLOG_SEQUENTIAL_READ() {
+        return EVENTLOG_SEQUENTIAL_READ;
     }
+    private static final int EVENTLOG_SEEK_READ = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_SUBJECT_NAME_MD5_HASH_PROP_ID "1.3.6.1.4.1.311.10.11.29"
+     * {@snippet lang=c :
+     * #define EVENTLOG_SEEK_READ 2
      * }
      */
-    public static MemorySegment szOID_CERT_SUBJECT_NAME_MD5_HASH_PROP_ID() {
-        return constants$4676.const$0;
+    public static int EVENTLOG_SEEK_READ() {
+        return EVENTLOG_SEEK_READ;
     }
+    private static final int EVENTLOG_FORWARDS_READ = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_MD5_HASH_PROP_ID "1.3.6.1.4.1.311.10.11.4"
+     * {@snippet lang=c :
+     * #define EVENTLOG_FORWARDS_READ 4
      * }
      */
-    public static MemorySegment szOID_CERT_MD5_HASH_PROP_ID() {
-        return constants$4676.const$1;
+    public static int EVENTLOG_FORWARDS_READ() {
+        return EVENTLOG_FORWARDS_READ;
     }
+    private static final int EVENTLOG_BACKWARDS_READ = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_SIGNATURE_HASH_PROP_ID "1.3.6.1.4.1.311.10.11.15"
+     * {@snippet lang=c :
+     * #define EVENTLOG_BACKWARDS_READ 8
      * }
      */
-    public static MemorySegment szOID_CERT_SIGNATURE_HASH_PROP_ID() {
-        return constants$4676.const$2;
+    public static int EVENTLOG_BACKWARDS_READ() {
+        return EVENTLOG_BACKWARDS_READ;
     }
+    private static final int EVENTLOG_SUCCESS = (int)0L;
     /**
-     * {@snippet :
-     * #define szOID_DISALLOWED_HASH "1.3.6.1.4.1.311.10.11.15"
+     * {@snippet lang=c :
+     * #define EVENTLOG_SUCCESS 0
      * }
      */
-    public static MemorySegment szOID_DISALLOWED_HASH() {
-        return constants$4676.const$2;
+    public static int EVENTLOG_SUCCESS() {
+        return EVENTLOG_SUCCESS;
     }
+    private static final int EVENTLOG_ERROR_TYPE = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_CERT_DISALLOWED_FILETIME_PROP_ID "1.3.6.1.4.1.311.10.11.104"
+     * {@snippet lang=c :
+     * #define EVENTLOG_ERROR_TYPE 1
      * }
      */
-    public static MemorySegment szOID_CERT_DISALLOWED_FILETIME_PROP_ID() {
-        return constants$4676.const$3;
+    public static int EVENTLOG_ERROR_TYPE() {
+        return EVENTLOG_ERROR_TYPE;
     }
+    private static final int EVENTLOG_WARNING_TYPE = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_ROOT_PROGRAM_AUTO_UPDATE_CA_REVOCATION "1.3.6.1.4.1.311.60.3.1"
+     * {@snippet lang=c :
+     * #define EVENTLOG_WARNING_TYPE 2
      * }
      */
-    public static MemorySegment szOID_ROOT_PROGRAM_AUTO_UPDATE_CA_REVOCATION() {
-        return constants$4676.const$4;
+    public static int EVENTLOG_WARNING_TYPE() {
+        return EVENTLOG_WARNING_TYPE;
     }
+    private static final int EVENTLOG_INFORMATION_TYPE = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_ROOT_PROGRAM_AUTO_UPDATE_END_REVOCATION "1.3.6.1.4.1.311.60.3.2"
+     * {@snippet lang=c :
+     * #define EVENTLOG_INFORMATION_TYPE 4
      * }
      */
-    public static MemorySegment szOID_ROOT_PROGRAM_AUTO_UPDATE_END_REVOCATION() {
-        return constants$4676.const$5;
+    public static int EVENTLOG_INFORMATION_TYPE() {
+        return EVENTLOG_INFORMATION_TYPE;
     }
+    private static final int EVENTLOG_AUDIT_SUCCESS = (int)8L;
     /**
-     * {@snippet :
-     * #define szOID_ROOT_PROGRAM_NO_OCSP_FAILOVER_TO_CRL "1.3.6.1.4.1.311.60.3.3"
+     * {@snippet lang=c :
+     * #define EVENTLOG_AUDIT_SUCCESS 8
      * }
      */
-    public static MemorySegment szOID_ROOT_PROGRAM_NO_OCSP_FAILOVER_TO_CRL() {
-        return constants$4677.const$0;
+    public static int EVENTLOG_AUDIT_SUCCESS() {
+        return EVENTLOG_AUDIT_SUCCESS;
     }
+    private static final int EVENTLOG_AUDIT_FAILURE = (int)16L;
     /**
-     * {@snippet :
-     * #define CERT_NCRYPT_KEY_SPEC 4294967295
+     * {@snippet lang=c :
+     * #define EVENTLOG_AUDIT_FAILURE 16
      * }
      */
-    public static int CERT_NCRYPT_KEY_SPEC() {
-        return (int)4294967295L;
+    public static int EVENTLOG_AUDIT_FAILURE() {
+        return EVENTLOG_AUDIT_FAILURE;
     }
+    private static final int EVENTLOG_START_PAIRED_EVENT = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_MSG 1
+     * {@snippet lang=c :
+     * #define EVENTLOG_START_PAIRED_EVENT 1
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_MSG() {
-        return constants$4552.const$0;
+    public static int EVENTLOG_START_PAIRED_EVENT() {
+        return EVENTLOG_START_PAIRED_EVENT;
     }
+    private static final int EVENTLOG_END_PAIRED_EVENT = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_MEMORY 2
+     * {@snippet lang=c :
+     * #define EVENTLOG_END_PAIRED_EVENT 2
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_MEMORY() {
-        return constants$4552.const$1;
+    public static int EVENTLOG_END_PAIRED_EVENT() {
+        return EVENTLOG_END_PAIRED_EVENT;
     }
+    private static final int EVENTLOG_END_ALL_PAIRED_EVENTS = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_FILE 3
+     * {@snippet lang=c :
+     * #define EVENTLOG_END_ALL_PAIRED_EVENTS 4
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_FILE() {
-        return constants$4552.const$2;
+    public static int EVENTLOG_END_ALL_PAIRED_EVENTS() {
+        return EVENTLOG_END_ALL_PAIRED_EVENTS;
     }
+    private static final int EVENTLOG_PAIRED_EVENT_ACTIVE = (int)8L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_REG 4
+     * {@snippet lang=c :
+     * #define EVENTLOG_PAIRED_EVENT_ACTIVE 8
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_REG() {
-        return constants$4552.const$3;
+    public static int EVENTLOG_PAIRED_EVENT_ACTIVE() {
+        return EVENTLOG_PAIRED_EVENT_ACTIVE;
     }
+    private static final int EVENTLOG_PAIRED_EVENT_INACTIVE = (int)16L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_PKCS7 5
+     * {@snippet lang=c :
+     * #define EVENTLOG_PAIRED_EVENT_INACTIVE 16
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_PKCS7() {
-        return constants$4552.const$4;
+    public static int EVENTLOG_PAIRED_EVENT_INACTIVE() {
+        return EVENTLOG_PAIRED_EVENT_INACTIVE;
     }
+    private static final int MAXLOGICALLOGNAMESIZE = (int)256L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_SERIALIZED 6
+     * {@snippet lang=c :
+     * #define MAXLOGICALLOGNAMESIZE 256
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_SERIALIZED() {
-        return constants$4552.const$5;
+    public static int MAXLOGICALLOGNAMESIZE() {
+        return MAXLOGICALLOGNAMESIZE;
     }
+    private static final int REG_STANDARD_FORMAT = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_FILENAME_A 7
+     * {@snippet lang=c :
+     * #define REG_STANDARD_FORMAT 1
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_FILENAME_A() {
-        return constants$4553.const$0;
+    public static int REG_STANDARD_FORMAT() {
+        return REG_STANDARD_FORMAT;
     }
+    private static final int REG_LATEST_FORMAT = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_FILENAME_W 8
+     * {@snippet lang=c :
+     * #define REG_LATEST_FORMAT 2
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_FILENAME_W() {
-        return constants$4553.const$1;
+    public static int REG_LATEST_FORMAT() {
+        return REG_LATEST_FORMAT;
     }
+    private static final int REG_NO_COMPRESSION = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_FILENAME 8
+     * {@snippet lang=c :
+     * #define REG_NO_COMPRESSION 4
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_FILENAME() {
-        return constants$4553.const$1;
+    public static int REG_NO_COMPRESSION() {
+        return REG_NO_COMPRESSION;
     }
+    private static final int REG_FORCE_UNLOAD = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_SYSTEM_A 9
+     * {@snippet lang=c :
+     * #define REG_FORCE_UNLOAD 1
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_SYSTEM_A() {
-        return constants$4553.const$2;
+    public static int REG_FORCE_UNLOAD() {
+        return REG_FORCE_UNLOAD;
     }
+    private static final int SERVICE_KERNEL_DRIVER = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_SYSTEM_W 10
+     * {@snippet lang=c :
+     * #define SERVICE_KERNEL_DRIVER 1
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_SYSTEM_W() {
-        return constants$4553.const$3;
+    public static int SERVICE_KERNEL_DRIVER() {
+        return SERVICE_KERNEL_DRIVER;
     }
+    private static final int SERVICE_FILE_SYSTEM_DRIVER = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_SYSTEM 10
+     * {@snippet lang=c :
+     * #define SERVICE_FILE_SYSTEM_DRIVER 2
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_SYSTEM() {
-        return constants$4553.const$3;
+    public static int SERVICE_FILE_SYSTEM_DRIVER() {
+        return SERVICE_FILE_SYSTEM_DRIVER;
     }
+    private static final int SERVICE_ADAPTER = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_COLLECTION 11
+     * {@snippet lang=c :
+     * #define SERVICE_ADAPTER 4
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_COLLECTION() {
-        return constants$4553.const$4;
+    public static int SERVICE_ADAPTER() {
+        return SERVICE_ADAPTER;
     }
+    private static final int SERVICE_RECOGNIZER_DRIVER = (int)8L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_SYSTEM_REGISTRY_A 12
+     * {@snippet lang=c :
+     * #define SERVICE_RECOGNIZER_DRIVER 8
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_SYSTEM_REGISTRY_A() {
-        return constants$4553.const$5;
+    public static int SERVICE_RECOGNIZER_DRIVER() {
+        return SERVICE_RECOGNIZER_DRIVER;
     }
+    private static final int SERVICE_WIN32_OWN_PROCESS = (int)16L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_SYSTEM_REGISTRY_W 13
+     * {@snippet lang=c :
+     * #define SERVICE_WIN32_OWN_PROCESS 16
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_SYSTEM_REGISTRY_W() {
-        return constants$4618.const$0;
+    public static int SERVICE_WIN32_OWN_PROCESS() {
+        return SERVICE_WIN32_OWN_PROCESS;
     }
+    private static final int SERVICE_WIN32_SHARE_PROCESS = (int)32L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_SYSTEM_REGISTRY 13
+     * {@snippet lang=c :
+     * #define SERVICE_WIN32_SHARE_PROCESS 32
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_SYSTEM_REGISTRY() {
-        return constants$4618.const$0;
+    public static int SERVICE_WIN32_SHARE_PROCESS() {
+        return SERVICE_WIN32_SHARE_PROCESS;
     }
+    private static final int SERVICE_USER_SERVICE = (int)64L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_PHYSICAL_W 14
+     * {@snippet lang=c :
+     * #define SERVICE_USER_SERVICE 64
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_PHYSICAL_W() {
-        return constants$4554.const$0;
+    public static int SERVICE_USER_SERVICE() {
+        return SERVICE_USER_SERVICE;
     }
+    private static final int SERVICE_USERSERVICE_INSTANCE = (int)128L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_PHYSICAL 14
+     * {@snippet lang=c :
+     * #define SERVICE_USERSERVICE_INSTANCE 128
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_PHYSICAL() {
-        return constants$4554.const$0;
+    public static int SERVICE_USERSERVICE_INSTANCE() {
+        return SERVICE_USERSERVICE_INSTANCE;
     }
+    private static final int SERVICE_INTERACTIVE_PROCESS = (int)256L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_SMART_CARD_W 15
+     * {@snippet lang=c :
+     * #define SERVICE_INTERACTIVE_PROCESS 256
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_SMART_CARD_W() {
-        return constants$4618.const$1;
+    public static int SERVICE_INTERACTIVE_PROCESS() {
+        return SERVICE_INTERACTIVE_PROCESS;
     }
+    private static final int SERVICE_PKG_SERVICE = (int)512L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_SMART_CARD 15
+     * {@snippet lang=c :
+     * #define SERVICE_PKG_SERVICE 512
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_SMART_CARD() {
-        return constants$4618.const$1;
+    public static int SERVICE_PKG_SERVICE() {
+        return SERVICE_PKG_SERVICE;
     }
+    private static final int SERVICE_BOOT_START = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_LDAP_W 16
+     * {@snippet lang=c :
+     * #define SERVICE_BOOT_START 0
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_LDAP_W() {
-        return constants$4554.const$1;
+    public static int SERVICE_BOOT_START() {
+        return SERVICE_BOOT_START;
     }
+    private static final int SERVICE_SYSTEM_START = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_LDAP 16
+     * {@snippet lang=c :
+     * #define SERVICE_SYSTEM_START 1
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_LDAP() {
-        return constants$4554.const$1;
+    public static int SERVICE_SYSTEM_START() {
+        return SERVICE_SYSTEM_START;
     }
+    private static final int SERVICE_AUTO_START = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_PROV_PKCS12 17
+     * {@snippet lang=c :
+     * #define SERVICE_AUTO_START 2
      * }
      */
-    public static MemorySegment CERT_STORE_PROV_PKCS12() {
-        return constants$4554.const$2;
+    public static int SERVICE_AUTO_START() {
+        return SERVICE_AUTO_START;
     }
+    private static final int SERVICE_DEMAND_START = (int)3L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_MEMORY "Memory"
+     * {@snippet lang=c :
+     * #define SERVICE_DEMAND_START 3
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_MEMORY() {
-        return constants$4677.const$1;
+    public static int SERVICE_DEMAND_START() {
+        return SERVICE_DEMAND_START;
     }
+    private static final int SERVICE_DISABLED = (int)4L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_FILENAME_W "File"
+     * {@snippet lang=c :
+     * #define SERVICE_DISABLED 4
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_FILENAME_W() {
-        return constants$4677.const$2;
+    public static int SERVICE_DISABLED() {
+        return SERVICE_DISABLED;
     }
+    private static final int SERVICE_ERROR_IGNORE = (int)0L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_FILENAME "File"
+     * {@snippet lang=c :
+     * #define SERVICE_ERROR_IGNORE 0
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_FILENAME() {
-        return constants$4677.const$2;
+    public static int SERVICE_ERROR_IGNORE() {
+        return SERVICE_ERROR_IGNORE;
     }
+    private static final int SERVICE_ERROR_NORMAL = (int)1L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_SYSTEM_W "System"
+     * {@snippet lang=c :
+     * #define SERVICE_ERROR_NORMAL 1
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_SYSTEM_W() {
-        return constants$4561.const$1;
+    public static int SERVICE_ERROR_NORMAL() {
+        return SERVICE_ERROR_NORMAL;
     }
+    private static final int SERVICE_ERROR_SEVERE = (int)2L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_SYSTEM "System"
+     * {@snippet lang=c :
+     * #define SERVICE_ERROR_SEVERE 2
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_SYSTEM() {
-        return constants$4561.const$1;
+    public static int SERVICE_ERROR_SEVERE() {
+        return SERVICE_ERROR_SEVERE;
     }
+    private static final int SERVICE_ERROR_CRITICAL = (int)3L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_PKCS7 "PKCS7"
+     * {@snippet lang=c :
+     * #define SERVICE_ERROR_CRITICAL 3
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_PKCS7() {
-        return constants$4677.const$3;
+    public static int SERVICE_ERROR_CRITICAL() {
+        return SERVICE_ERROR_CRITICAL;
     }
+    private static final int CM_SERVICE_NETWORK_BOOT_LOAD = (int)1L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_PKCS12 "PKCS12"
+     * {@snippet lang=c :
+     * #define CM_SERVICE_NETWORK_BOOT_LOAD 1
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_PKCS12() {
-        return constants$4677.const$4;
+    public static int CM_SERVICE_NETWORK_BOOT_LOAD() {
+        return CM_SERVICE_NETWORK_BOOT_LOAD;
     }
+    private static final int CM_SERVICE_VIRTUAL_DISK_BOOT_LOAD = (int)2L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_SERIALIZED "Serialized"
+     * {@snippet lang=c :
+     * #define CM_SERVICE_VIRTUAL_DISK_BOOT_LOAD 2
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_SERIALIZED() {
-        return constants$4677.const$5;
+    public static int CM_SERVICE_VIRTUAL_DISK_BOOT_LOAD() {
+        return CM_SERVICE_VIRTUAL_DISK_BOOT_LOAD;
     }
+    private static final int CM_SERVICE_USB_DISK_BOOT_LOAD = (int)4L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_COLLECTION "Collection"
+     * {@snippet lang=c :
+     * #define CM_SERVICE_USB_DISK_BOOT_LOAD 4
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_COLLECTION() {
-        return constants$4678.const$0;
+    public static int CM_SERVICE_USB_DISK_BOOT_LOAD() {
+        return CM_SERVICE_USB_DISK_BOOT_LOAD;
     }
+    private static final int CM_SERVICE_SD_DISK_BOOT_LOAD = (int)8L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_SYSTEM_REGISTRY_W "SystemRegistry"
+     * {@snippet lang=c :
+     * #define CM_SERVICE_SD_DISK_BOOT_LOAD 8
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_SYSTEM_REGISTRY_W() {
-        return constants$4678.const$1;
+    public static int CM_SERVICE_SD_DISK_BOOT_LOAD() {
+        return CM_SERVICE_SD_DISK_BOOT_LOAD;
     }
+    private static final int CM_SERVICE_USB3_DISK_BOOT_LOAD = (int)16L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_SYSTEM_REGISTRY "SystemRegistry"
+     * {@snippet lang=c :
+     * #define CM_SERVICE_USB3_DISK_BOOT_LOAD 16
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_SYSTEM_REGISTRY() {
-        return constants$4678.const$1;
+    public static int CM_SERVICE_USB3_DISK_BOOT_LOAD() {
+        return CM_SERVICE_USB3_DISK_BOOT_LOAD;
     }
+    private static final int CM_SERVICE_MEASURED_BOOT_LOAD = (int)32L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_PHYSICAL_W "Physical"
+     * {@snippet lang=c :
+     * #define CM_SERVICE_MEASURED_BOOT_LOAD 32
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_PHYSICAL_W() {
-        return constants$4678.const$2;
+    public static int CM_SERVICE_MEASURED_BOOT_LOAD() {
+        return CM_SERVICE_MEASURED_BOOT_LOAD;
     }
+    private static final int CM_SERVICE_VERIFIER_BOOT_LOAD = (int)64L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_PHYSICAL "Physical"
+     * {@snippet lang=c :
+     * #define CM_SERVICE_VERIFIER_BOOT_LOAD 64
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_PHYSICAL() {
-        return constants$4678.const$2;
+    public static int CM_SERVICE_VERIFIER_BOOT_LOAD() {
+        return CM_SERVICE_VERIFIER_BOOT_LOAD;
     }
+    private static final int CM_SERVICE_WINPE_BOOT_LOAD = (int)128L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_SMART_CARD_W "SmartCard"
+     * {@snippet lang=c :
+     * #define CM_SERVICE_WINPE_BOOT_LOAD 128
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_SMART_CARD_W() {
-        return constants$4678.const$3;
+    public static int CM_SERVICE_WINPE_BOOT_LOAD() {
+        return CM_SERVICE_WINPE_BOOT_LOAD;
     }
+    private static final int CM_SERVICE_RAM_DISK_BOOT_LOAD = (int)256L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_SMART_CARD "SmartCard"
+     * {@snippet lang=c :
+     * #define CM_SERVICE_RAM_DISK_BOOT_LOAD 256
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_SMART_CARD() {
-        return constants$4678.const$3;
+    public static int CM_SERVICE_RAM_DISK_BOOT_LOAD() {
+        return CM_SERVICE_RAM_DISK_BOOT_LOAD;
     }
+    private static final int TAPE_DRIVE_FIXED = (int)1L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_LDAP_W "Ldap"
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_FIXED 1
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_LDAP_W() {
-        return constants$4678.const$4;
+    public static int TAPE_DRIVE_FIXED() {
+        return TAPE_DRIVE_FIXED;
     }
+    private static final int TAPE_DRIVE_SELECT = (int)2L;
     /**
-     * {@snippet :
-     * #define sz_CERT_STORE_PROV_LDAP "Ldap"
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_SELECT 2
      * }
      */
-    public static MemorySegment sz_CERT_STORE_PROV_LDAP() {
-        return constants$4678.const$4;
+    public static int TAPE_DRIVE_SELECT() {
+        return TAPE_DRIVE_SELECT;
     }
+    private static final int TAPE_DRIVE_INITIATOR = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_SYSTEM_STORE_MASK 4294901760
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_INITIATOR 4
      * }
      */
-    public static int CERT_SYSTEM_STORE_MASK() {
-        return (int)4294901760L;
+    public static int TAPE_DRIVE_INITIATOR() {
+        return TAPE_DRIVE_INITIATOR;
     }
+    private static final int TAPE_DRIVE_ERASE_SHORT = (int)16L;
     /**
-     * {@snippet :
-     * #define CERT_SYSTEM_STORE_RELOCATE_FLAG 2147483648
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_ERASE_SHORT 16
      * }
      */
-    public static int CERT_SYSTEM_STORE_RELOCATE_FLAG() {
-        return (int)2147483648L;
+    public static int TAPE_DRIVE_ERASE_SHORT() {
+        return TAPE_DRIVE_ERASE_SHORT;
     }
+    private static final int TAPE_DRIVE_ERASE_LONG = (int)32L;
     /**
-     * {@snippet :
-     * #define CERT_SYSTEM_STORE_CURRENT_USER 65536
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_ERASE_LONG 32
      * }
      */
-    public static int CERT_SYSTEM_STORE_CURRENT_USER() {
-        return (int)65536L;
+    public static int TAPE_DRIVE_ERASE_LONG() {
+        return TAPE_DRIVE_ERASE_LONG;
     }
+    private static final int TAPE_DRIVE_ERASE_BOP_ONLY = (int)64L;
     /**
-     * {@snippet :
-     * #define CERT_SYSTEM_STORE_LOCAL_MACHINE 131072
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_ERASE_BOP_ONLY 64
      * }
      */
-    public static int CERT_SYSTEM_STORE_LOCAL_MACHINE() {
-        return (int)131072L;
+    public static int TAPE_DRIVE_ERASE_BOP_ONLY() {
+        return TAPE_DRIVE_ERASE_BOP_ONLY;
     }
+    private static final int TAPE_DRIVE_ERASE_IMMEDIATE = (int)128L;
     /**
-     * {@snippet :
-     * #define CERT_SYSTEM_STORE_CURRENT_SERVICE 262144
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_ERASE_IMMEDIATE 128
      * }
      */
-    public static int CERT_SYSTEM_STORE_CURRENT_SERVICE() {
-        return (int)262144L;
+    public static int TAPE_DRIVE_ERASE_IMMEDIATE() {
+        return TAPE_DRIVE_ERASE_IMMEDIATE;
     }
+    private static final int TAPE_DRIVE_TAPE_CAPACITY = (int)256L;
     /**
-     * {@snippet :
-     * #define CERT_SYSTEM_STORE_SERVICES 327680
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_TAPE_CAPACITY 256
      * }
      */
-    public static int CERT_SYSTEM_STORE_SERVICES() {
-        return (int)327680L;
+    public static int TAPE_DRIVE_TAPE_CAPACITY() {
+        return TAPE_DRIVE_TAPE_CAPACITY;
     }
+    private static final int TAPE_DRIVE_TAPE_REMAINING = (int)512L;
     /**
-     * {@snippet :
-     * #define CERT_SYSTEM_STORE_USERS 393216
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_TAPE_REMAINING 512
      * }
      */
-    public static int CERT_SYSTEM_STORE_USERS() {
-        return (int)393216L;
+    public static int TAPE_DRIVE_TAPE_REMAINING() {
+        return TAPE_DRIVE_TAPE_REMAINING;
     }
+    private static final int TAPE_DRIVE_FIXED_BLOCK = (int)1024L;
     /**
-     * {@snippet :
-     * #define CERT_SYSTEM_STORE_CURRENT_USER_GROUP_POLICY 458752
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_FIXED_BLOCK 1024
      * }
      */
-    public static int CERT_SYSTEM_STORE_CURRENT_USER_GROUP_POLICY() {
-        return (int)458752L;
+    public static int TAPE_DRIVE_FIXED_BLOCK() {
+        return TAPE_DRIVE_FIXED_BLOCK;
     }
+    private static final int TAPE_DRIVE_VARIABLE_BLOCK = (int)2048L;
     /**
-     * {@snippet :
-     * #define CERT_SYSTEM_STORE_LOCAL_MACHINE_GROUP_POLICY 524288
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_VARIABLE_BLOCK 2048
      * }
      */
-    public static int CERT_SYSTEM_STORE_LOCAL_MACHINE_GROUP_POLICY() {
-        return (int)524288L;
+    public static int TAPE_DRIVE_VARIABLE_BLOCK() {
+        return TAPE_DRIVE_VARIABLE_BLOCK;
     }
+    private static final int TAPE_DRIVE_WRITE_PROTECT = (int)4096L;
     /**
-     * {@snippet :
-     * #define CERT_SYSTEM_STORE_LOCAL_MACHINE_ENTERPRISE 589824
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_WRITE_PROTECT 4096
      * }
      */
-    public static int CERT_SYSTEM_STORE_LOCAL_MACHINE_ENTERPRISE() {
-        return (int)589824L;
+    public static int TAPE_DRIVE_WRITE_PROTECT() {
+        return TAPE_DRIVE_WRITE_PROTECT;
     }
+    private static final int TAPE_DRIVE_EOT_WZ_SIZE = (int)8192L;
     /**
-     * {@snippet :
-     * #define CERT_SYSTEM_STORE_LOCAL_MACHINE_WCOS 655360
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_EOT_WZ_SIZE 8192
      * }
      */
-    public static int CERT_SYSTEM_STORE_LOCAL_MACHINE_WCOS() {
-        return (int)655360L;
+    public static int TAPE_DRIVE_EOT_WZ_SIZE() {
+        return TAPE_DRIVE_EOT_WZ_SIZE;
     }
+    private static final int TAPE_DRIVE_ECC = (int)65536L;
     /**
-     * {@snippet :
-     * #define CERT_GROUP_POLICY_SYSTEM_STORE_REGPATH "S"
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_ECC 65536
      * }
      */
-    public static MemorySegment CERT_GROUP_POLICY_SYSTEM_STORE_REGPATH() {
-        return constants$4566.const$4;
+    public static int TAPE_DRIVE_ECC() {
+        return TAPE_DRIVE_ECC;
     }
+    private static final int TAPE_DRIVE_COMPRESSION = (int)131072L;
     /**
-     * {@snippet :
-     * #define CERT_EFSBLOB_REGPATH "S"
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_COMPRESSION 131072
      * }
      */
-    public static MemorySegment CERT_EFSBLOB_REGPATH() {
-        return constants$4566.const$4;
+    public static int TAPE_DRIVE_COMPRESSION() {
+        return TAPE_DRIVE_COMPRESSION;
     }
+    private static final int TAPE_DRIVE_PADDING = (int)262144L;
     /**
-     * {@snippet :
-     * #define CERT_EFSBLOB_VALUE_NAME "E"
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_PADDING 262144
      * }
      */
-    public static MemorySegment CERT_EFSBLOB_VALUE_NAME() {
-        return constants$4567.const$5;
+    public static int TAPE_DRIVE_PADDING() {
+        return TAPE_DRIVE_PADDING;
     }
+    private static final int TAPE_DRIVE_REPORT_SMKS = (int)524288L;
     /**
-     * {@snippet :
-     * #define CERT_PROT_ROOT_FLAGS_REGPATH "S"
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_REPORT_SMKS 524288
      * }
      */
-    public static MemorySegment CERT_PROT_ROOT_FLAGS_REGPATH() {
-        return constants$4566.const$4;
+    public static int TAPE_DRIVE_REPORT_SMKS() {
+        return TAPE_DRIVE_REPORT_SMKS;
     }
+    private static final int TAPE_DRIVE_GET_ABSOLUTE_BLK = (int)1048576L;
     /**
-     * {@snippet :
-     * #define CERT_PROT_ROOT_FLAGS_VALUE_NAME "F"
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_GET_ABSOLUTE_BLK 1048576
      * }
      */
-    public static MemorySegment CERT_PROT_ROOT_FLAGS_VALUE_NAME() {
-        return constants$4569.const$2;
+    public static int TAPE_DRIVE_GET_ABSOLUTE_BLK() {
+        return TAPE_DRIVE_GET_ABSOLUTE_BLK;
     }
+    private static final int TAPE_DRIVE_GET_LOGICAL_BLK = (int)2097152L;
     /**
-     * {@snippet :
-     * #define CERT_PROT_ROOT_PEER_USAGES_VALUE_NAME "P"
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_GET_LOGICAL_BLK 2097152
      * }
      */
-    public static MemorySegment CERT_PROT_ROOT_PEER_USAGES_VALUE_NAME() {
-        return constants$4567.const$3;
+    public static int TAPE_DRIVE_GET_LOGICAL_BLK() {
+        return TAPE_DRIVE_GET_LOGICAL_BLK;
     }
+    private static final int TAPE_DRIVE_SET_EOT_WZ_SIZE = (int)4194304L;
     /**
-     * {@snippet :
-     * #define CERT_PROT_ROOT_PEER_USAGES_VALUE_NAME_A "PeerUsages"
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_SET_EOT_WZ_SIZE 4194304
      * }
      */
-    public static MemorySegment CERT_PROT_ROOT_PEER_USAGES_VALUE_NAME_A() {
-        return constants$4678.const$5;
+    public static int TAPE_DRIVE_SET_EOT_WZ_SIZE() {
+        return TAPE_DRIVE_SET_EOT_WZ_SIZE;
     }
+    private static final int TAPE_DRIVE_EJECT_MEDIA = (int)16777216L;
     /**
-     * {@snippet :
-     * #define CERT_PROT_ROOT_PEER_USAGES_DEFAULT_A "1.3.6.1.5.5.7.3.2"
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_EJECT_MEDIA 16777216
      * }
      */
-    public static MemorySegment CERT_PROT_ROOT_PEER_USAGES_DEFAULT_A() {
-        return constants$4642.const$3;
+    public static int TAPE_DRIVE_EJECT_MEDIA() {
+        return TAPE_DRIVE_EJECT_MEDIA;
     }
+    private static final int TAPE_DRIVE_CLEAN_REQUESTS = (int)33554432L;
     /**
-     * {@snippet :
-     * #define CERT_TRUST_PUB_SAFER_GROUP_POLICY_REGPATH "S"
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_CLEAN_REQUESTS 33554432
      * }
      */
-    public static MemorySegment CERT_TRUST_PUB_SAFER_GROUP_POLICY_REGPATH() {
-        return constants$4566.const$4;
+    public static int TAPE_DRIVE_CLEAN_REQUESTS() {
+        return TAPE_DRIVE_CLEAN_REQUESTS;
     }
+    private static final int TAPE_DRIVE_SET_CMP_BOP_ONLY = (int)67108864L;
     /**
-     * {@snippet :
-     * #define CERT_LOCAL_MACHINE_SYSTEM_STORE_REGPATH "S"
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_SET_CMP_BOP_ONLY 67108864
      * }
      */
-    public static MemorySegment CERT_LOCAL_MACHINE_SYSTEM_STORE_REGPATH() {
-        return constants$4566.const$4;
+    public static int TAPE_DRIVE_SET_CMP_BOP_ONLY() {
+        return TAPE_DRIVE_SET_CMP_BOP_ONLY;
     }
+    private static final int TRANSACTION_MANAGER_VOLATILE = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_TRUST_PUB_SAFER_LOCAL_MACHINE_REGPATH "S"
+     * {@snippet lang=c :
+     * #define TRANSACTION_MANAGER_VOLATILE 1
      * }
      */
-    public static MemorySegment CERT_TRUST_PUB_SAFER_LOCAL_MACHINE_REGPATH() {
-        return constants$4566.const$4;
+    public static int TRANSACTION_MANAGER_VOLATILE() {
+        return TRANSACTION_MANAGER_VOLATILE;
     }
+    private static final int TRANSACTION_MANAGER_COMMIT_DEFAULT = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_TRUST_PUB_AUTHENTICODE_FLAGS_VALUE_NAME "A"
+     * {@snippet lang=c :
+     * #define TRANSACTION_MANAGER_COMMIT_DEFAULT 0
      * }
      */
-    public static MemorySegment CERT_TRUST_PUB_AUTHENTICODE_FLAGS_VALUE_NAME() {
-        return constants$4567.const$2;
+    public static int TRANSACTION_MANAGER_COMMIT_DEFAULT() {
+        return TRANSACTION_MANAGER_COMMIT_DEFAULT;
     }
+    private static final int TRANSACTION_MANAGER_COMMIT_SYSTEM_VOLUME = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_OCM_SUBCOMPONENTS_LOCAL_MACHINE_REGPATH "S"
+     * {@snippet lang=c :
+     * #define TRANSACTION_MANAGER_COMMIT_SYSTEM_VOLUME 2
      * }
      */
-    public static MemorySegment CERT_OCM_SUBCOMPONENTS_LOCAL_MACHINE_REGPATH() {
-        return constants$4566.const$4;
+    public static int TRANSACTION_MANAGER_COMMIT_SYSTEM_VOLUME() {
+        return TRANSACTION_MANAGER_COMMIT_SYSTEM_VOLUME;
     }
+    private static final int TRANSACTION_MANAGER_COMMIT_SYSTEM_HIVES = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_OCM_SUBCOMPONENTS_ROOT_AUTO_UPDATE_VALUE_NAME "R"
+     * {@snippet lang=c :
+     * #define TRANSACTION_MANAGER_COMMIT_SYSTEM_HIVES 4
      * }
      */
-    public static MemorySegment CERT_OCM_SUBCOMPONENTS_ROOT_AUTO_UPDATE_VALUE_NAME() {
-        return constants$4567.const$1;
+    public static int TRANSACTION_MANAGER_COMMIT_SYSTEM_HIVES() {
+        return TRANSACTION_MANAGER_COMMIT_SYSTEM_HIVES;
     }
+    private static final int TRANSACTION_MANAGER_COMMIT_LOWEST = (int)8L;
     /**
-     * {@snippet :
-     * #define CERT_DISABLE_ROOT_AUTO_UPDATE_REGPATH "S"
+     * {@snippet lang=c :
+     * #define TRANSACTION_MANAGER_COMMIT_LOWEST 8
      * }
      */
-    public static MemorySegment CERT_DISABLE_ROOT_AUTO_UPDATE_REGPATH() {
-        return constants$4566.const$4;
+    public static int TRANSACTION_MANAGER_COMMIT_LOWEST() {
+        return TRANSACTION_MANAGER_COMMIT_LOWEST;
     }
+    private static final int TRANSACTION_MANAGER_CORRUPT_FOR_RECOVERY = (int)16L;
     /**
-     * {@snippet :
-     * #define CERT_DISABLE_ROOT_AUTO_UPDATE_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define TRANSACTION_MANAGER_CORRUPT_FOR_RECOVERY 16
      * }
      */
-    public static MemorySegment CERT_DISABLE_ROOT_AUTO_UPDATE_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int TRANSACTION_MANAGER_CORRUPT_FOR_RECOVERY() {
+        return TRANSACTION_MANAGER_CORRUPT_FOR_RECOVERY;
     }
+    private static final int TRANSACTION_MANAGER_CORRUPT_FOR_PROGRESS = (int)32L;
     /**
-     * {@snippet :
-     * #define CERT_ENABLE_DISALLOWED_CERT_AUTO_UPDATE_VALUE_NAME "E"
+     * {@snippet lang=c :
+     * #define TRANSACTION_MANAGER_CORRUPT_FOR_PROGRESS 32
      * }
      */
-    public static MemorySegment CERT_ENABLE_DISALLOWED_CERT_AUTO_UPDATE_VALUE_NAME() {
-        return constants$4567.const$5;
+    public static int TRANSACTION_MANAGER_CORRUPT_FOR_PROGRESS() {
+        return TRANSACTION_MANAGER_CORRUPT_FOR_PROGRESS;
     }
+    private static final int TRANSACTION_MANAGER_MAXIMUM_OPTION = (int)63L;
     /**
-     * {@snippet :
-     * #define CERT_DISABLE_PIN_RULES_AUTO_UPDATE_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define TRANSACTION_MANAGER_MAXIMUM_OPTION 63
      * }
      */
-    public static MemorySegment CERT_DISABLE_PIN_RULES_AUTO_UPDATE_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int TRANSACTION_MANAGER_MAXIMUM_OPTION() {
+        return TRANSACTION_MANAGER_MAXIMUM_OPTION;
     }
+    private static final int TRANSACTION_DO_NOT_PROMOTE = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_AUTO_UPDATE_LOCAL_MACHINE_REGPATH "S"
+     * {@snippet lang=c :
+     * #define TRANSACTION_DO_NOT_PROMOTE 1
      * }
      */
-    public static MemorySegment CERT_AUTO_UPDATE_LOCAL_MACHINE_REGPATH() {
-        return constants$4566.const$4;
+    public static int TRANSACTION_DO_NOT_PROMOTE() {
+        return TRANSACTION_DO_NOT_PROMOTE;
     }
+    private static final int TRANSACTION_MAXIMUM_OPTION = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_AUTO_UPDATE_ROOT_DIR_URL_VALUE_NAME "R"
+     * {@snippet lang=c :
+     * #define TRANSACTION_MAXIMUM_OPTION 1
      * }
      */
-    public static MemorySegment CERT_AUTO_UPDATE_ROOT_DIR_URL_VALUE_NAME() {
-        return constants$4567.const$1;
+    public static int TRANSACTION_MAXIMUM_OPTION() {
+        return TRANSACTION_MAXIMUM_OPTION;
     }
+    private static final int RESOURCE_MANAGER_VOLATILE = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_AUTO_UPDATE_SYNC_FROM_DIR_URL_VALUE_NAME "S"
+     * {@snippet lang=c :
+     * #define RESOURCE_MANAGER_VOLATILE 1
      * }
      */
-    public static MemorySegment CERT_AUTO_UPDATE_SYNC_FROM_DIR_URL_VALUE_NAME() {
-        return constants$4566.const$4;
+    public static int RESOURCE_MANAGER_VOLATILE() {
+        return RESOURCE_MANAGER_VOLATILE;
     }
+    private static final int RESOURCE_MANAGER_COMMUNICATION = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_AUTH_ROOT_AUTO_UPDATE_LOCAL_MACHINE_REGPATH "S"
+     * {@snippet lang=c :
+     * #define RESOURCE_MANAGER_COMMUNICATION 2
      * }
      */
-    public static MemorySegment CERT_AUTH_ROOT_AUTO_UPDATE_LOCAL_MACHINE_REGPATH() {
-        return constants$4566.const$4;
+    public static int RESOURCE_MANAGER_COMMUNICATION() {
+        return RESOURCE_MANAGER_COMMUNICATION;
     }
+    private static final int RESOURCE_MANAGER_MAXIMUM_OPTION = (int)3L;
     /**
-     * {@snippet :
-     * #define CERT_AUTH_ROOT_AUTO_UPDATE_ROOT_DIR_URL_VALUE_NAME "R"
+     * {@snippet lang=c :
+     * #define RESOURCE_MANAGER_MAXIMUM_OPTION 3
      * }
      */
-    public static MemorySegment CERT_AUTH_ROOT_AUTO_UPDATE_ROOT_DIR_URL_VALUE_NAME() {
-        return constants$4567.const$1;
+    public static int RESOURCE_MANAGER_MAXIMUM_OPTION() {
+        return RESOURCE_MANAGER_MAXIMUM_OPTION;
     }
+    private static final int CRM_PROTOCOL_EXPLICIT_MARSHAL_ONLY = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_AUTH_ROOT_AUTO_UPDATE_SYNC_DELTA_TIME_VALUE_NAME "S"
+     * {@snippet lang=c :
+     * #define CRM_PROTOCOL_EXPLICIT_MARSHAL_ONLY 1
      * }
      */
-    public static MemorySegment CERT_AUTH_ROOT_AUTO_UPDATE_SYNC_DELTA_TIME_VALUE_NAME() {
-        return constants$4566.const$4;
+    public static int CRM_PROTOCOL_EXPLICIT_MARSHAL_ONLY() {
+        return CRM_PROTOCOL_EXPLICIT_MARSHAL_ONLY;
     }
+    private static final int CRM_PROTOCOL_DYNAMIC_MARSHAL_INFO = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_AUTH_ROOT_AUTO_UPDATE_FLAGS_VALUE_NAME "F"
+     * {@snippet lang=c :
+     * #define CRM_PROTOCOL_DYNAMIC_MARSHAL_INFO 2
      * }
      */
-    public static MemorySegment CERT_AUTH_ROOT_AUTO_UPDATE_FLAGS_VALUE_NAME() {
-        return constants$4569.const$2;
+    public static int CRM_PROTOCOL_DYNAMIC_MARSHAL_INFO() {
+        return CRM_PROTOCOL_DYNAMIC_MARSHAL_INFO;
     }
+    private static final int CRM_PROTOCOL_MAXIMUM_OPTION = (int)3L;
     /**
-     * {@snippet :
-     * #define CERT_AUTH_ROOT_AUTO_UPDATE_LAST_SYNC_TIME_VALUE_NAME "L"
+     * {@snippet lang=c :
+     * #define CRM_PROTOCOL_MAXIMUM_OPTION 3
      * }
      */
-    public static MemorySegment CERT_AUTH_ROOT_AUTO_UPDATE_LAST_SYNC_TIME_VALUE_NAME() {
-        return constants$4579.const$2;
+    public static int CRM_PROTOCOL_MAXIMUM_OPTION() {
+        return CRM_PROTOCOL_MAXIMUM_OPTION;
     }
+    private static final int ENLISTMENT_SUPERIOR = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_AUTH_ROOT_AUTO_UPDATE_ENCODED_CTL_VALUE_NAME "E"
+     * {@snippet lang=c :
+     * #define ENLISTMENT_SUPERIOR 1
      * }
      */
-    public static MemorySegment CERT_AUTH_ROOT_AUTO_UPDATE_ENCODED_CTL_VALUE_NAME() {
-        return constants$4567.const$5;
+    public static int ENLISTMENT_SUPERIOR() {
+        return ENLISTMENT_SUPERIOR;
     }
+    private static final int ENLISTMENT_MAXIMUM_OPTION = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_AUTH_ROOT_CTL_FILENAME "a"
+     * {@snippet lang=c :
+     * #define ENLISTMENT_MAXIMUM_OPTION 1
      * }
      */
-    public static MemorySegment CERT_AUTH_ROOT_CTL_FILENAME() {
-        return constants$4548.const$0;
+    public static int ENLISTMENT_MAXIMUM_OPTION() {
+        return ENLISTMENT_MAXIMUM_OPTION;
     }
+    private static final int TRANSACTION_NOTIFY_MASK = (int)1073741823L;
     /**
-     * {@snippet :
-     * #define CERT_AUTH_ROOT_CTL_FILENAME_A "authroot.stl"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_MASK 1073741823
      * }
      */
-    public static MemorySegment CERT_AUTH_ROOT_CTL_FILENAME_A() {
-        return constants$4679.const$0;
+    public static int TRANSACTION_NOTIFY_MASK() {
+        return TRANSACTION_NOTIFY_MASK;
     }
+    private static final int TRANSACTION_NOTIFY_PREPREPARE = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_AUTH_ROOT_CAB_FILENAME "a"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_PREPREPARE 1
      * }
      */
-    public static MemorySegment CERT_AUTH_ROOT_CAB_FILENAME() {
-        return constants$4548.const$0;
+    public static int TRANSACTION_NOTIFY_PREPREPARE() {
+        return TRANSACTION_NOTIFY_PREPREPARE;
     }
+    private static final int TRANSACTION_NOTIFY_PREPARE = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_AUTH_ROOT_SEQ_FILENAME "a"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_PREPARE 2
      * }
      */
-    public static MemorySegment CERT_AUTH_ROOT_SEQ_FILENAME() {
-        return constants$4548.const$0;
+    public static int TRANSACTION_NOTIFY_PREPARE() {
+        return TRANSACTION_NOTIFY_PREPARE;
     }
+    private static final int TRANSACTION_NOTIFY_COMMIT = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_AUTH_ROOT_CERT_EXT "."
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_COMMIT 4
      * }
      */
-    public static MemorySegment CERT_AUTH_ROOT_CERT_EXT() {
-        return constants$4679.const$1;
+    public static int TRANSACTION_NOTIFY_COMMIT() {
+        return TRANSACTION_NOTIFY_COMMIT;
     }
+    private static final int TRANSACTION_NOTIFY_ROLLBACK = (int)8L;
     /**
-     * {@snippet :
-     * #define CERT_DISALLOWED_CERT_AUTO_UPDATE_SYNC_DELTA_TIME_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_ROLLBACK 8
      * }
      */
-    public static MemorySegment CERT_DISALLOWED_CERT_AUTO_UPDATE_SYNC_DELTA_TIME_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int TRANSACTION_NOTIFY_ROLLBACK() {
+        return TRANSACTION_NOTIFY_ROLLBACK;
     }
+    private static final int TRANSACTION_NOTIFY_PREPREPARE_COMPLETE = (int)16L;
     /**
-     * {@snippet :
-     * #define CERT_DISALLOWED_CERT_AUTO_UPDATE_LAST_SYNC_TIME_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_PREPREPARE_COMPLETE 16
      * }
      */
-    public static MemorySegment CERT_DISALLOWED_CERT_AUTO_UPDATE_LAST_SYNC_TIME_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int TRANSACTION_NOTIFY_PREPREPARE_COMPLETE() {
+        return TRANSACTION_NOTIFY_PREPREPARE_COMPLETE;
     }
+    private static final int TRANSACTION_NOTIFY_PREPARE_COMPLETE = (int)32L;
     /**
-     * {@snippet :
-     * #define CERT_DISALLOWED_CERT_AUTO_UPDATE_ENCODED_CTL_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_PREPARE_COMPLETE 32
      * }
      */
-    public static MemorySegment CERT_DISALLOWED_CERT_AUTO_UPDATE_ENCODED_CTL_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int TRANSACTION_NOTIFY_PREPARE_COMPLETE() {
+        return TRANSACTION_NOTIFY_PREPARE_COMPLETE;
     }
+    private static final int TRANSACTION_NOTIFY_COMMIT_COMPLETE = (int)64L;
     /**
-     * {@snippet :
-     * #define CERT_DISALLOWED_CERT_CTL_FILENAME "d"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_COMMIT_COMPLETE 64
      * }
      */
-    public static MemorySegment CERT_DISALLOWED_CERT_CTL_FILENAME() {
-        return constants$4548.const$4;
+    public static int TRANSACTION_NOTIFY_COMMIT_COMPLETE() {
+        return TRANSACTION_NOTIFY_COMMIT_COMPLETE;
     }
+    private static final int TRANSACTION_NOTIFY_ROLLBACK_COMPLETE = (int)128L;
     /**
-     * {@snippet :
-     * #define CERT_DISALLOWED_CERT_CTL_FILENAME_A "disallowedcert.stl"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_ROLLBACK_COMPLETE 128
      * }
      */
-    public static MemorySegment CERT_DISALLOWED_CERT_CTL_FILENAME_A() {
-        return constants$4679.const$2;
+    public static int TRANSACTION_NOTIFY_ROLLBACK_COMPLETE() {
+        return TRANSACTION_NOTIFY_ROLLBACK_COMPLETE;
     }
+    private static final int TRANSACTION_NOTIFY_RECOVER = (int)256L;
     /**
-     * {@snippet :
-     * #define CERT_DISALLOWED_CERT_CAB_FILENAME "d"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_RECOVER 256
      * }
      */
-    public static MemorySegment CERT_DISALLOWED_CERT_CAB_FILENAME() {
-        return constants$4548.const$4;
+    public static int TRANSACTION_NOTIFY_RECOVER() {
+        return TRANSACTION_NOTIFY_RECOVER;
     }
+    private static final int TRANSACTION_NOTIFY_SINGLE_PHASE_COMMIT = (int)512L;
     /**
-     * {@snippet :
-     * #define CERT_DISALLOWED_CERT_AUTO_UPDATE_LIST_IDENTIFIER "D"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_SINGLE_PHASE_COMMIT 512
      * }
      */
-    public static MemorySegment CERT_DISALLOWED_CERT_AUTO_UPDATE_LIST_IDENTIFIER() {
-        return constants$4541.const$4;
+    public static int TRANSACTION_NOTIFY_SINGLE_PHASE_COMMIT() {
+        return TRANSACTION_NOTIFY_SINGLE_PHASE_COMMIT;
     }
+    private static final int TRANSACTION_NOTIFY_DELEGATE_COMMIT = (int)1024L;
     /**
-     * {@snippet :
-     * #define CERT_PIN_RULES_AUTO_UPDATE_SYNC_DELTA_TIME_VALUE_NAME "P"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_DELEGATE_COMMIT 1024
      * }
      */
-    public static MemorySegment CERT_PIN_RULES_AUTO_UPDATE_SYNC_DELTA_TIME_VALUE_NAME() {
-        return constants$4567.const$3;
+    public static int TRANSACTION_NOTIFY_DELEGATE_COMMIT() {
+        return TRANSACTION_NOTIFY_DELEGATE_COMMIT;
     }
+    private static final int TRANSACTION_NOTIFY_RECOVER_QUERY = (int)2048L;
     /**
-     * {@snippet :
-     * #define CERT_PIN_RULES_AUTO_UPDATE_LAST_SYNC_TIME_VALUE_NAME "P"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_RECOVER_QUERY 2048
      * }
      */
-    public static MemorySegment CERT_PIN_RULES_AUTO_UPDATE_LAST_SYNC_TIME_VALUE_NAME() {
-        return constants$4567.const$3;
+    public static int TRANSACTION_NOTIFY_RECOVER_QUERY() {
+        return TRANSACTION_NOTIFY_RECOVER_QUERY;
     }
+    private static final int TRANSACTION_NOTIFY_ENLIST_PREPREPARE = (int)4096L;
     /**
-     * {@snippet :
-     * #define CERT_PIN_RULES_AUTO_UPDATE_ENCODED_CTL_VALUE_NAME "P"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_ENLIST_PREPREPARE 4096
      * }
      */
-    public static MemorySegment CERT_PIN_RULES_AUTO_UPDATE_ENCODED_CTL_VALUE_NAME() {
-        return constants$4567.const$3;
+    public static int TRANSACTION_NOTIFY_ENLIST_PREPREPARE() {
+        return TRANSACTION_NOTIFY_ENLIST_PREPREPARE;
     }
+    private static final int TRANSACTION_NOTIFY_LAST_RECOVER = (int)8192L;
     /**
-     * {@snippet :
-     * #define CERT_PIN_RULES_CTL_FILENAME "p"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_LAST_RECOVER 8192
      * }
      */
-    public static MemorySegment CERT_PIN_RULES_CTL_FILENAME() {
-        return constants$4548.const$5;
+    public static int TRANSACTION_NOTIFY_LAST_RECOVER() {
+        return TRANSACTION_NOTIFY_LAST_RECOVER;
     }
+    private static final int TRANSACTION_NOTIFY_INDOUBT = (int)16384L;
     /**
-     * {@snippet :
-     * #define CERT_PIN_RULES_CTL_FILENAME_A "pinrules.stl"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_INDOUBT 16384
      * }
      */
-    public static MemorySegment CERT_PIN_RULES_CTL_FILENAME_A() {
-        return constants$4679.const$3;
+    public static int TRANSACTION_NOTIFY_INDOUBT() {
+        return TRANSACTION_NOTIFY_INDOUBT;
     }
+    private static final int TRANSACTION_NOTIFY_PROPAGATE_PULL = (int)32768L;
     /**
-     * {@snippet :
-     * #define CERT_PIN_RULES_CAB_FILENAME "p"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_PROPAGATE_PULL 32768
      * }
      */
-    public static MemorySegment CERT_PIN_RULES_CAB_FILENAME() {
-        return constants$4548.const$5;
+    public static int TRANSACTION_NOTIFY_PROPAGATE_PULL() {
+        return TRANSACTION_NOTIFY_PROPAGATE_PULL;
     }
+    private static final int TRANSACTION_NOTIFY_PROPAGATE_PUSH = (int)65536L;
     /**
-     * {@snippet :
-     * #define CERT_PIN_RULES_AUTO_UPDATE_LIST_IDENTIFIER "P"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_PROPAGATE_PUSH 65536
      * }
      */
-    public static MemorySegment CERT_PIN_RULES_AUTO_UPDATE_LIST_IDENTIFIER() {
-        return constants$4567.const$3;
+    public static int TRANSACTION_NOTIFY_PROPAGATE_PUSH() {
+        return TRANSACTION_NOTIFY_PROPAGATE_PUSH;
     }
+    private static final int TRANSACTION_NOTIFY_MARSHAL = (int)131072L;
     /**
-     * {@snippet :
-     * #define CERT_REGISTRY_STORE_CLIENT_GPT_FLAG 2147483648
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_MARSHAL 131072
      * }
      */
-    public static int CERT_REGISTRY_STORE_CLIENT_GPT_FLAG() {
-        return (int)2147483648L;
+    public static int TRANSACTION_NOTIFY_MARSHAL() {
+        return TRANSACTION_NOTIFY_MARSHAL;
     }
+    private static final int TRANSACTION_NOTIFY_ENLIST_MASK = (int)262144L;
     /**
-     * {@snippet :
-     * #define CERT_IE_DIRTY_FLAGS_REGPATH "S"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_ENLIST_MASK 262144
      * }
      */
-    public static MemorySegment CERT_IE_DIRTY_FLAGS_REGPATH() {
-        return constants$4566.const$4;
+    public static int TRANSACTION_NOTIFY_ENLIST_MASK() {
+        return TRANSACTION_NOTIFY_ENLIST_MASK;
     }
+    private static final int TRANSACTION_NOTIFY_RM_DISCONNECTED = (int)16777216L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_OPEN_STORE_PROV_FUNC "CertDllOpenStoreProv"
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_RM_DISCONNECTED 16777216
      * }
      */
-    public static MemorySegment CRYPT_OID_OPEN_STORE_PROV_FUNC() {
-        return constants$4679.const$4;
+    public static int TRANSACTION_NOTIFY_RM_DISCONNECTED() {
+        return TRANSACTION_NOTIFY_RM_DISCONNECTED;
     }
+    private static final int TRANSACTION_NOTIFY_TM_ONLINE = (int)33554432L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_SAVE_TO_FILENAME 4
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_TM_ONLINE 33554432
      * }
      */
-    public static int CERT_STORE_SAVE_TO_FILENAME() {
-        return (int)4L;
+    public static int TRANSACTION_NOTIFY_TM_ONLINE() {
+        return TRANSACTION_NOTIFY_TM_ONLINE;
     }
+    private static final int TRANSACTION_NOTIFY_COMMIT_REQUEST = (int)67108864L;
     /**
-     * {@snippet :
-     * #define CERT_COMPARE_HASH 1
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_COMMIT_REQUEST 67108864
      * }
      */
-    public static int CERT_COMPARE_HASH() {
-        return (int)1L;
+    public static int TRANSACTION_NOTIFY_COMMIT_REQUEST() {
+        return TRANSACTION_NOTIFY_COMMIT_REQUEST;
     }
+    private static final int TRANSACTION_NOTIFY_PROMOTE = (int)134217728L;
     /**
-     * {@snippet :
-     * #define CERT_COMPARE_CTL_USAGE 10
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_PROMOTE 134217728
      * }
      */
-    public static int CERT_COMPARE_CTL_USAGE() {
-        return (int)10L;
+    public static int TRANSACTION_NOTIFY_PROMOTE() {
+        return TRANSACTION_NOTIFY_PROMOTE;
     }
+    private static final int TRANSACTION_NOTIFY_PROMOTE_NEW = (int)268435456L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_ANY 0
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_PROMOTE_NEW 268435456
      * }
      */
-    public static int CERT_FIND_ANY() {
-        return (int)0L;
+    public static int TRANSACTION_NOTIFY_PROMOTE_NEW() {
+        return TRANSACTION_NOTIFY_PROMOTE_NEW;
     }
+    private static final int TRANSACTION_NOTIFY_REQUEST_OUTCOME = (int)536870912L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_SHA1_HASH 65536
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_REQUEST_OUTCOME 536870912
      * }
      */
-    public static int CERT_FIND_SHA1_HASH() {
-        return (int)65536L;
+    public static int TRANSACTION_NOTIFY_REQUEST_OUTCOME() {
+        return TRANSACTION_NOTIFY_REQUEST_OUTCOME;
     }
+    private static final int TRANSACTION_NOTIFY_COMMIT_FINALIZE = (int)1073741824L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_MD5_HASH 262144
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFY_COMMIT_FINALIZE 1073741824
      * }
      */
-    public static int CERT_FIND_MD5_HASH() {
-        return (int)262144L;
+    public static int TRANSACTION_NOTIFY_COMMIT_FINALIZE() {
+        return TRANSACTION_NOTIFY_COMMIT_FINALIZE;
     }
+    private static final int TRANSACTION_NOTIFICATION_TM_ONLINE_FLAG_IS_CLUSTERED = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_SIGNATURE_HASH 917504
+     * {@snippet lang=c :
+     * #define TRANSACTION_NOTIFICATION_TM_ONLINE_FLAG_IS_CLUSTERED 1
      * }
      */
-    public static int CERT_FIND_SIGNATURE_HASH() {
-        return (int)917504L;
+    public static int TRANSACTION_NOTIFICATION_TM_ONLINE_FLAG_IS_CLUSTERED() {
+        return TRANSACTION_NOTIFICATION_TM_ONLINE_FLAG_IS_CLUSTERED;
     }
+    private static final int KTM_MARSHAL_BLOB_VERSION_MAJOR = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_KEY_IDENTIFIER 983040
+     * {@snippet lang=c :
+     * #define KTM_MARSHAL_BLOB_VERSION_MAJOR 1
      * }
      */
-    public static int CERT_FIND_KEY_IDENTIFIER() {
-        return (int)983040L;
+    public static int KTM_MARSHAL_BLOB_VERSION_MAJOR() {
+        return KTM_MARSHAL_BLOB_VERSION_MAJOR;
     }
+    private static final int KTM_MARSHAL_BLOB_VERSION_MINOR = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_HASH 65536
+     * {@snippet lang=c :
+     * #define KTM_MARSHAL_BLOB_VERSION_MINOR 1
      * }
      */
-    public static int CERT_FIND_HASH() {
-        return (int)65536L;
+    public static int KTM_MARSHAL_BLOB_VERSION_MINOR() {
+        return KTM_MARSHAL_BLOB_VERSION_MINOR;
     }
+    private static final int MAX_TRANSACTION_DESCRIPTION_LENGTH = (int)64L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_PROPERTY 327680
+     * {@snippet lang=c :
+     * #define MAX_TRANSACTION_DESCRIPTION_LENGTH 64
      * }
      */
-    public static int CERT_FIND_PROPERTY() {
-        return (int)327680L;
+    public static int MAX_TRANSACTION_DESCRIPTION_LENGTH() {
+        return MAX_TRANSACTION_DESCRIPTION_LENGTH;
     }
+    private static final int MAX_RESOURCEMANAGER_DESCRIPTION_LENGTH = (int)64L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_PUBLIC_KEY 393216
+     * {@snippet lang=c :
+     * #define MAX_RESOURCEMANAGER_DESCRIPTION_LENGTH 64
      * }
      */
-    public static int CERT_FIND_PUBLIC_KEY() {
-        return (int)393216L;
+    public static int MAX_RESOURCEMANAGER_DESCRIPTION_LENGTH() {
+        return MAX_RESOURCEMANAGER_DESCRIPTION_LENGTH;
     }
+    private static final int APP_LOCAL_DEVICE_ID_SIZE = (int)32L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_SUBJECT_NAME 131079
+     * {@snippet lang=c :
+     * #define APP_LOCAL_DEVICE_ID_SIZE 32
      * }
      */
-    public static int CERT_FIND_SUBJECT_NAME() {
-        return (int)131079L;
+    public static int APP_LOCAL_DEVICE_ID_SIZE() {
+        return APP_LOCAL_DEVICE_ID_SIZE;
     }
+    private static final int DM_UPDATE = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_SUBJECT_ATTR 196615
+     * {@snippet lang=c :
+     * #define DM_UPDATE 1
      * }
      */
-    public static int CERT_FIND_SUBJECT_ATTR() {
-        return (int)196615L;
+    public static int DM_UPDATE() {
+        return DM_UPDATE;
     }
+    private static final int DM_COPY = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_ISSUER_NAME 131076
+     * {@snippet lang=c :
+     * #define DM_COPY 2
      * }
      */
-    public static int CERT_FIND_ISSUER_NAME() {
-        return (int)131076L;
+    public static int DM_COPY() {
+        return DM_COPY;
     }
+    private static final int DM_PROMPT = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_ISSUER_ATTR 196612
+     * {@snippet lang=c :
+     * #define DM_PROMPT 4
      * }
      */
-    public static int CERT_FIND_ISSUER_ATTR() {
-        return (int)196612L;
+    public static int DM_PROMPT() {
+        return DM_PROMPT;
     }
+    private static final int DM_MODIFY = (int)8L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_SUBJECT_STR_A 458759
+     * {@snippet lang=c :
+     * #define DM_MODIFY 8
      * }
      */
-    public static int CERT_FIND_SUBJECT_STR_A() {
-        return (int)458759L;
+    public static int DM_MODIFY() {
+        return DM_MODIFY;
     }
+    private static final int DC_FIELDS = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_SUBJECT_STR_W 524295
+     * {@snippet lang=c :
+     * #define DC_FIELDS 1
      * }
      */
-    public static int CERT_FIND_SUBJECT_STR_W() {
-        return (int)524295L;
+    public static int DC_FIELDS() {
+        return DC_FIELDS;
     }
+    private static final int DC_PAPERS = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_SUBJECT_STR 524295
+     * {@snippet lang=c :
+     * #define DC_PAPERS 2
      * }
      */
-    public static int CERT_FIND_SUBJECT_STR() {
-        return (int)524295L;
+    public static int DC_PAPERS() {
+        return DC_PAPERS;
     }
+    private static final int DC_PAPERSIZE = (int)3L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_ISSUER_STR_A 458756
+     * {@snippet lang=c :
+     * #define DC_PAPERSIZE 3
      * }
      */
-    public static int CERT_FIND_ISSUER_STR_A() {
-        return (int)458756L;
+    public static int DC_PAPERSIZE() {
+        return DC_PAPERSIZE;
     }
+    private static final int DC_MINEXTENT = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_ISSUER_STR_W 524292
+     * {@snippet lang=c :
+     * #define DC_MINEXTENT 4
      * }
      */
-    public static int CERT_FIND_ISSUER_STR_W() {
-        return (int)524292L;
+    public static int DC_MINEXTENT() {
+        return DC_MINEXTENT;
     }
+    private static final int DC_MAXEXTENT = (int)5L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_ISSUER_STR 524292
+     * {@snippet lang=c :
+     * #define DC_MAXEXTENT 5
      * }
      */
-    public static int CERT_FIND_ISSUER_STR() {
-        return (int)524292L;
+    public static int DC_MAXEXTENT() {
+        return DC_MAXEXTENT;
     }
+    private static final int DC_BINS = (int)6L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_KEY_SPEC 589824
+     * {@snippet lang=c :
+     * #define DC_BINS 6
      * }
      */
-    public static int CERT_FIND_KEY_SPEC() {
-        return (int)589824L;
+    public static int DC_BINS() {
+        return DC_BINS;
     }
+    private static final int DC_DUPLEX = (int)7L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_ENHKEY_USAGE 655360
+     * {@snippet lang=c :
+     * #define DC_DUPLEX 7
      * }
      */
-    public static int CERT_FIND_ENHKEY_USAGE() {
-        return (int)655360L;
+    public static int DC_DUPLEX() {
+        return DC_DUPLEX;
     }
+    private static final int DC_SIZE = (int)8L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_CTL_USAGE 655360
+     * {@snippet lang=c :
+     * #define DC_SIZE 8
      * }
      */
-    public static int CERT_FIND_CTL_USAGE() {
-        return (int)655360L;
+    public static int DC_SIZE() {
+        return DC_SIZE;
     }
+    private static final int DC_EXTRA = (int)9L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_SUBJECT_CERT 720896
+     * {@snippet lang=c :
+     * #define DC_EXTRA 9
      * }
      */
-    public static int CERT_FIND_SUBJECT_CERT() {
-        return (int)720896L;
+    public static int DC_EXTRA() {
+        return DC_EXTRA;
     }
+    private static final int DC_VERSION = (int)10L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_ISSUER_OF 786432
+     * {@snippet lang=c :
+     * #define DC_VERSION 10
      * }
      */
-    public static int CERT_FIND_ISSUER_OF() {
-        return (int)786432L;
+    public static int DC_VERSION() {
+        return DC_VERSION;
     }
+    private static final int DC_DRIVER = (int)11L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_EXISTING 851968
+     * {@snippet lang=c :
+     * #define DC_DRIVER 11
      * }
      */
-    public static int CERT_FIND_EXISTING() {
-        return (int)851968L;
+    public static int DC_DRIVER() {
+        return DC_DRIVER;
     }
+    private static final int DC_BINNAMES = (int)12L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_CERT_ID 1048576
+     * {@snippet lang=c :
+     * #define DC_BINNAMES 12
      * }
      */
-    public static int CERT_FIND_CERT_ID() {
-        return (int)1048576L;
+    public static int DC_BINNAMES() {
+        return DC_BINNAMES;
     }
+    private static final int DC_ENUMRESOLUTIONS = (int)13L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_CROSS_CERT_DIST_POINTS 1114112
+     * {@snippet lang=c :
+     * #define DC_ENUMRESOLUTIONS 13
      * }
      */
-    public static int CERT_FIND_CROSS_CERT_DIST_POINTS() {
-        return (int)1114112L;
+    public static int DC_ENUMRESOLUTIONS() {
+        return DC_ENUMRESOLUTIONS;
     }
+    private static final int DC_FILEDEPENDENCIES = (int)14L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_PUBKEY_MD5_HASH 1179648
+     * {@snippet lang=c :
+     * #define DC_FILEDEPENDENCIES 14
      * }
      */
-    public static int CERT_FIND_PUBKEY_MD5_HASH() {
-        return (int)1179648L;
+    public static int DC_FILEDEPENDENCIES() {
+        return DC_FILEDEPENDENCIES;
     }
+    private static final int DC_TRUETYPE = (int)15L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_SUBJECT_INFO_ACCESS 1245184
+     * {@snippet lang=c :
+     * #define DC_TRUETYPE 15
      * }
      */
-    public static int CERT_FIND_SUBJECT_INFO_ACCESS() {
-        return (int)1245184L;
+    public static int DC_TRUETYPE() {
+        return DC_TRUETYPE;
     }
+    private static final int DC_PAPERNAMES = (int)16L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_HASH_STR 1310720
+     * {@snippet lang=c :
+     * #define DC_PAPERNAMES 16
      * }
      */
-    public static int CERT_FIND_HASH_STR() {
-        return (int)1310720L;
+    public static int DC_PAPERNAMES() {
+        return DC_PAPERNAMES;
     }
+    private static final int DC_ORIENTATION = (int)17L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_HAS_PRIVATE_KEY 1376256
+     * {@snippet lang=c :
+     * #define DC_ORIENTATION 17
      * }
      */
-    public static int CERT_FIND_HAS_PRIVATE_KEY() {
-        return (int)1376256L;
+    public static int DC_ORIENTATION() {
+        return DC_ORIENTATION;
     }
+    private static final int DC_COPIES = (int)18L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_OPTIONAL_CTL_USAGE_FLAG 1
+     * {@snippet lang=c :
+     * #define DC_COPIES 18
      * }
      */
-    public static int CERT_FIND_OPTIONAL_CTL_USAGE_FLAG() {
-        return (int)1L;
+    public static int DC_COPIES() {
+        return DC_COPIES;
     }
+    private static final int FIND_FIRST_EX_CASE_SENSITIVE = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_EXT_ONLY_CTL_USAGE_FLAG 2
+     * {@snippet lang=c :
+     * #define FIND_FIRST_EX_CASE_SENSITIVE 1
      * }
      */
-    public static int CERT_FIND_EXT_ONLY_CTL_USAGE_FLAG() {
-        return (int)2L;
+    public static int FIND_FIRST_EX_CASE_SENSITIVE() {
+        return FIND_FIRST_EX_CASE_SENSITIVE;
     }
+    private static final int FIND_FIRST_EX_LARGE_FETCH = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_PROP_ONLY_CTL_USAGE_FLAG 4
+     * {@snippet lang=c :
+     * #define FIND_FIRST_EX_LARGE_FETCH 2
      * }
      */
-    public static int CERT_FIND_PROP_ONLY_CTL_USAGE_FLAG() {
-        return (int)4L;
+    public static int FIND_FIRST_EX_LARGE_FETCH() {
+        return FIND_FIRST_EX_LARGE_FETCH;
     }
+    private static final int FIND_FIRST_EX_ON_DISK_ENTRIES_ONLY = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_NO_CTL_USAGE_FLAG 8
+     * {@snippet lang=c :
+     * #define FIND_FIRST_EX_ON_DISK_ENTRIES_ONLY 4
      * }
      */
-    public static int CERT_FIND_NO_CTL_USAGE_FLAG() {
-        return (int)8L;
+    public static int FIND_FIRST_EX_ON_DISK_ENTRIES_ONLY() {
+        return FIND_FIRST_EX_ON_DISK_ENTRIES_ONLY;
     }
+    private static final int LOCKFILE_FAIL_IMMEDIATELY = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_OR_CTL_USAGE_FLAG 16
+     * {@snippet lang=c :
+     * #define LOCKFILE_FAIL_IMMEDIATELY 1
      * }
      */
-    public static int CERT_FIND_OR_CTL_USAGE_FLAG() {
-        return (int)16L;
+    public static int LOCKFILE_FAIL_IMMEDIATELY() {
+        return LOCKFILE_FAIL_IMMEDIATELY;
     }
+    private static final int LOCKFILE_EXCLUSIVE_LOCK = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_FIND_VALID_CTL_USAGE_FLAG 32
+     * {@snippet lang=c :
+     * #define LOCKFILE_EXCLUSIVE_LOCK 2
      * }
      */
-    public static int CERT_FIND_VALID_CTL_USAGE_FLAG() {
-        return (int)32L;
+    public static int LOCKFILE_EXCLUSIVE_LOCK() {
+        return LOCKFILE_EXCLUSIVE_LOCK;
     }
+    private static final int PROCESS_HEAP_REGION = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_SET_PROPERTY_IGNORE_PERSIST_ERROR_FLAG 2147483648
+     * {@snippet lang=c :
+     * #define PROCESS_HEAP_REGION 1
      * }
      */
-    public static int CERT_SET_PROPERTY_IGNORE_PERSIST_ERROR_FLAG() {
-        return (int)2147483648L;
+    public static int PROCESS_HEAP_REGION() {
+        return PROCESS_HEAP_REGION;
     }
+    private static final int PROCESS_HEAP_UNCOMMITTED_RANGE = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_ALL_CONTEXT_FLAG 4294967295
+     * {@snippet lang=c :
+     * #define PROCESS_HEAP_UNCOMMITTED_RANGE 2
      * }
      */
-    public static int CERT_STORE_ALL_CONTEXT_FLAG() {
-        return (int)4294967295L;
+    public static int PROCESS_HEAP_UNCOMMITTED_RANGE() {
+        return PROCESS_HEAP_UNCOMMITTED_RANGE;
     }
+    private static final int PROCESS_HEAP_ENTRY_BUSY = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_CERTIFICATE_CONTEXT_FLAG 2
+     * {@snippet lang=c :
+     * #define PROCESS_HEAP_ENTRY_BUSY 4
      * }
      */
-    public static int CERT_STORE_CERTIFICATE_CONTEXT_FLAG() {
-        return (int)2L;
+    public static int PROCESS_HEAP_ENTRY_BUSY() {
+        return PROCESS_HEAP_ENTRY_BUSY;
     }
+    private static final int PROCESS_HEAP_SEG_ALLOC = (int)8L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_CRL_CONTEXT_FLAG 4
+     * {@snippet lang=c :
+     * #define PROCESS_HEAP_SEG_ALLOC 8
      * }
      */
-    public static int CERT_STORE_CRL_CONTEXT_FLAG() {
-        return (int)4L;
+    public static int PROCESS_HEAP_SEG_ALLOC() {
+        return PROCESS_HEAP_SEG_ALLOC;
     }
+    private static final int PROCESS_HEAP_ENTRY_MOVEABLE = (int)16L;
     /**
-     * {@snippet :
-     * #define CERT_STORE_CTL_CONTEXT_FLAG 8
+     * {@snippet lang=c :
+     * #define PROCESS_HEAP_ENTRY_MOVEABLE 16
      * }
      */
-    public static int CERT_STORE_CTL_CONTEXT_FLAG() {
-        return (int)8L;
+    public static int PROCESS_HEAP_ENTRY_MOVEABLE() {
+        return PROCESS_HEAP_ENTRY_MOVEABLE;
     }
+    private static final int PROCESS_HEAP_ENTRY_DDESHARE = (int)32L;
     /**
-     * {@snippet :
-     * #define CTL_FIND_NO_LIST_ID_CBDATA 4294967295
+     * {@snippet lang=c :
+     * #define PROCESS_HEAP_ENTRY_DDESHARE 32
      * }
      */
-    public static int CTL_FIND_NO_LIST_ID_CBDATA() {
-        return (int)4294967295L;
+    public static int PROCESS_HEAP_ENTRY_DDESHARE() {
+        return PROCESS_HEAP_ENTRY_DDESHARE;
     }
+    private static final int EXCEPTION_DEBUG_EVENT = (int)1L;
     /**
-     * {@snippet :
-     * #define CTL_FIND_NO_SIGNER_PTR -1
+     * {@snippet lang=c :
+     * #define EXCEPTION_DEBUG_EVENT 1
      * }
      */
-    public static MemorySegment CTL_FIND_NO_SIGNER_PTR() {
-        return constants$4549.const$0;
+    public static int EXCEPTION_DEBUG_EVENT() {
+        return EXCEPTION_DEBUG_EVENT;
     }
+    private static final int CREATE_THREAD_DEBUG_EVENT = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_PHYSICAL_STORE_DEFAULT_NAME "."
+     * {@snippet lang=c :
+     * #define CREATE_THREAD_DEBUG_EVENT 2
      * }
      */
-    public static MemorySegment CERT_PHYSICAL_STORE_DEFAULT_NAME() {
-        return constants$4679.const$1;
+    public static int CREATE_THREAD_DEBUG_EVENT() {
+        return CREATE_THREAD_DEBUG_EVENT;
     }
+    private static final int CREATE_PROCESS_DEBUG_EVENT = (int)3L;
     /**
-     * {@snippet :
-     * #define CERT_PHYSICAL_STORE_GROUP_POLICY_NAME "."
+     * {@snippet lang=c :
+     * #define CREATE_PROCESS_DEBUG_EVENT 3
      * }
      */
-    public static MemorySegment CERT_PHYSICAL_STORE_GROUP_POLICY_NAME() {
-        return constants$4679.const$1;
+    public static int CREATE_PROCESS_DEBUG_EVENT() {
+        return CREATE_PROCESS_DEBUG_EVENT;
     }
+    private static final int EXIT_THREAD_DEBUG_EVENT = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_PHYSICAL_STORE_LOCAL_MACHINE_NAME "."
+     * {@snippet lang=c :
+     * #define EXIT_THREAD_DEBUG_EVENT 4
      * }
      */
-    public static MemorySegment CERT_PHYSICAL_STORE_LOCAL_MACHINE_NAME() {
-        return constants$4679.const$1;
+    public static int EXIT_THREAD_DEBUG_EVENT() {
+        return EXIT_THREAD_DEBUG_EVENT;
     }
+    private static final int EXIT_PROCESS_DEBUG_EVENT = (int)5L;
     /**
-     * {@snippet :
-     * #define CERT_PHYSICAL_STORE_DS_USER_CERTIFICATE_NAME "."
+     * {@snippet lang=c :
+     * #define EXIT_PROCESS_DEBUG_EVENT 5
      * }
      */
-    public static MemorySegment CERT_PHYSICAL_STORE_DS_USER_CERTIFICATE_NAME() {
-        return constants$4679.const$1;
+    public static int EXIT_PROCESS_DEBUG_EVENT() {
+        return EXIT_PROCESS_DEBUG_EVENT;
     }
+    private static final int LOAD_DLL_DEBUG_EVENT = (int)6L;
     /**
-     * {@snippet :
-     * #define CERT_PHYSICAL_STORE_LOCAL_MACHINE_GROUP_POLICY_NAME "."
+     * {@snippet lang=c :
+     * #define LOAD_DLL_DEBUG_EVENT 6
      * }
      */
-    public static MemorySegment CERT_PHYSICAL_STORE_LOCAL_MACHINE_GROUP_POLICY_NAME() {
-        return constants$4679.const$1;
+    public static int LOAD_DLL_DEBUG_EVENT() {
+        return LOAD_DLL_DEBUG_EVENT;
     }
+    private static final int UNLOAD_DLL_DEBUG_EVENT = (int)7L;
     /**
-     * {@snippet :
-     * #define CERT_PHYSICAL_STORE_ENTERPRISE_NAME "."
+     * {@snippet lang=c :
+     * #define UNLOAD_DLL_DEBUG_EVENT 7
      * }
      */
-    public static MemorySegment CERT_PHYSICAL_STORE_ENTERPRISE_NAME() {
-        return constants$4679.const$1;
+    public static int UNLOAD_DLL_DEBUG_EVENT() {
+        return UNLOAD_DLL_DEBUG_EVENT;
     }
+    private static final int OUTPUT_DEBUG_STRING_EVENT = (int)8L;
     /**
-     * {@snippet :
-     * #define CERT_PHYSICAL_STORE_AUTH_ROOT_NAME "."
+     * {@snippet lang=c :
+     * #define OUTPUT_DEBUG_STRING_EVENT 8
      * }
      */
-    public static MemorySegment CERT_PHYSICAL_STORE_AUTH_ROOT_NAME() {
-        return constants$4679.const$1;
+    public static int OUTPUT_DEBUG_STRING_EVENT() {
+        return OUTPUT_DEBUG_STRING_EVENT;
     }
+    private static final int RIP_EVENT = (int)9L;
     /**
-     * {@snippet :
-     * #define CERT_PHYSICAL_STORE_SMART_CARD_NAME "."
+     * {@snippet lang=c :
+     * #define RIP_EVENT 9
      * }
      */
-    public static MemorySegment CERT_PHYSICAL_STORE_SMART_CARD_NAME() {
-        return constants$4679.const$1;
+    public static int RIP_EVENT() {
+        return RIP_EVENT;
     }
+    private static final int LMEM_FIXED = (int)0L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_OPEN_SYSTEM_STORE_PROV_FUNC "CertDllOpenSystemStoreProv"
+     * {@snippet lang=c :
+     * #define LMEM_FIXED 0
      * }
      */
-    public static MemorySegment CRYPT_OID_OPEN_SYSTEM_STORE_PROV_FUNC() {
-        return constants$4679.const$5;
+    public static int LMEM_FIXED() {
+        return LMEM_FIXED;
     }
+    private static final int LMEM_MOVEABLE = (int)2L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_REGISTER_SYSTEM_STORE_FUNC "CertDllRegisterSystemStore"
+     * {@snippet lang=c :
+     * #define LMEM_MOVEABLE 2
      * }
      */
-    public static MemorySegment CRYPT_OID_REGISTER_SYSTEM_STORE_FUNC() {
-        return constants$4680.const$0;
+    public static int LMEM_MOVEABLE() {
+        return LMEM_MOVEABLE;
     }
+    private static final int LMEM_NOCOMPACT = (int)16L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_UNREGISTER_SYSTEM_STORE_FUNC "CertDllUnregisterSystemStore"
+     * {@snippet lang=c :
+     * #define LMEM_NOCOMPACT 16
      * }
      */
-    public static MemorySegment CRYPT_OID_UNREGISTER_SYSTEM_STORE_FUNC() {
-        return constants$4680.const$1;
+    public static int LMEM_NOCOMPACT() {
+        return LMEM_NOCOMPACT;
     }
+    private static final int LMEM_NODISCARD = (int)32L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_ENUM_SYSTEM_STORE_FUNC "CertDllEnumSystemStore"
+     * {@snippet lang=c :
+     * #define LMEM_NODISCARD 32
      * }
      */
-    public static MemorySegment CRYPT_OID_ENUM_SYSTEM_STORE_FUNC() {
-        return constants$4680.const$2;
+    public static int LMEM_NODISCARD() {
+        return LMEM_NODISCARD;
     }
+    private static final int LMEM_ZEROINIT = (int)64L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_REGISTER_PHYSICAL_STORE_FUNC "CertDllRegisterPhysicalStore"
+     * {@snippet lang=c :
+     * #define LMEM_ZEROINIT 64
      * }
      */
-    public static MemorySegment CRYPT_OID_REGISTER_PHYSICAL_STORE_FUNC() {
-        return constants$4680.const$3;
+    public static int LMEM_ZEROINIT() {
+        return LMEM_ZEROINIT;
     }
+    private static final int LMEM_MODIFY = (int)128L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_UNREGISTER_PHYSICAL_STORE_FUNC "CertDllUnregisterPhysicalStore"
+     * {@snippet lang=c :
+     * #define LMEM_MODIFY 128
      * }
      */
-    public static MemorySegment CRYPT_OID_UNREGISTER_PHYSICAL_STORE_FUNC() {
-        return constants$4680.const$4;
+    public static int LMEM_MODIFY() {
+        return LMEM_MODIFY;
     }
+    private static final int LMEM_DISCARDABLE = (int)3840L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_ENUM_PHYSICAL_STORE_FUNC "CertDllEnumPhysicalStore"
+     * {@snippet lang=c :
+     * #define LMEM_DISCARDABLE 3840
      * }
      */
-    public static MemorySegment CRYPT_OID_ENUM_PHYSICAL_STORE_FUNC() {
-        return constants$4680.const$5;
+    public static int LMEM_DISCARDABLE() {
+        return LMEM_DISCARDABLE;
     }
+    private static final int LMEM_VALID_FLAGS = (int)3954L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_SYSTEM_STORE_LOCATION_VALUE_NAME "S"
+     * {@snippet lang=c :
+     * #define LMEM_VALID_FLAGS 3954
      * }
      */
-    public static MemorySegment CRYPT_OID_SYSTEM_STORE_LOCATION_VALUE_NAME() {
-        return constants$4566.const$4;
+    public static int LMEM_VALID_FLAGS() {
+        return LMEM_VALID_FLAGS;
     }
+    private static final int LMEM_INVALID_HANDLE = (int)32768L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC "CryptDllExtractEncodedSignatureParameters"
+     * {@snippet lang=c :
+     * #define LMEM_INVALID_HANDLE 32768
      * }
      */
-    public static MemorySegment CRYPT_OID_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC() {
-        return constants$4681.const$0;
+    public static int LMEM_INVALID_HANDLE() {
+        return LMEM_INVALID_HANDLE;
     }
+    private static final int LMEM_DISCARDED = (int)16384L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_SIGN_AND_ENCODE_HASH_FUNC "CryptDllSignAndEncodeHash"
+     * {@snippet lang=c :
+     * #define LMEM_DISCARDED 16384
      * }
      */
-    public static MemorySegment CRYPT_OID_SIGN_AND_ENCODE_HASH_FUNC() {
-        return constants$4681.const$1;
+    public static int LMEM_DISCARDED() {
+        return LMEM_DISCARDED;
     }
+    private static final int LMEM_LOCKCOUNT = (int)255L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_VERIFY_ENCODED_SIGNATURE_FUNC "CryptDllVerifyEncodedSignature"
+     * {@snippet lang=c :
+     * #define LMEM_LOCKCOUNT 255
      * }
      */
-    public static MemorySegment CRYPT_OID_VERIFY_ENCODED_SIGNATURE_FUNC() {
-        return constants$4681.const$2;
+    public static int LMEM_LOCKCOUNT() {
+        return LMEM_LOCKCOUNT;
     }
+    private static final int CREATE_NEW = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_EXPORT_PUBLIC_KEY_INFO_FUNC "CryptDllExportPublicKeyInfoEx"
+     * {@snippet lang=c :
+     * #define CREATE_NEW 1
      * }
      */
-    public static MemorySegment CRYPT_OID_EXPORT_PUBLIC_KEY_INFO_FUNC() {
-        return constants$4681.const$3;
+    public static int CREATE_NEW() {
+        return CREATE_NEW;
     }
+    private static final int CREATE_ALWAYS = (int)2L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_EXPORT_PUBLIC_KEY_INFO_EX2_FUNC "CryptDllExportPublicKeyInfoEx2"
+     * {@snippet lang=c :
+     * #define CREATE_ALWAYS 2
      * }
      */
-    public static MemorySegment CRYPT_OID_EXPORT_PUBLIC_KEY_INFO_EX2_FUNC() {
-        return constants$4681.const$4;
+    public static int CREATE_ALWAYS() {
+        return CREATE_ALWAYS;
     }
+    private static final int OPEN_EXISTING = (int)3L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_EXPORT_PUBLIC_KEY_INFO_FROM_BCRYPT_HANDLE_FUNC "CryptDllExportPublicKeyInfoFromBCryptKeyHandle"
+     * {@snippet lang=c :
+     * #define OPEN_EXISTING 3
      * }
      */
-    public static MemorySegment CRYPT_OID_EXPORT_PUBLIC_KEY_INFO_FROM_BCRYPT_HANDLE_FUNC() {
-        return constants$4681.const$5;
+    public static int OPEN_EXISTING() {
+        return OPEN_EXISTING;
     }
+    private static final int OPEN_ALWAYS = (int)4L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_IMPORT_PUBLIC_KEY_INFO_FUNC "CryptDllImportPublicKeyInfoEx"
+     * {@snippet lang=c :
+     * #define OPEN_ALWAYS 4
      * }
      */
-    public static MemorySegment CRYPT_OID_IMPORT_PUBLIC_KEY_INFO_FUNC() {
-        return constants$4682.const$0;
+    public static int OPEN_ALWAYS() {
+        return OPEN_ALWAYS;
     }
+    private static final int TRUNCATE_EXISTING = (int)5L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC "CryptDllImportPublicKeyInfoEx2"
+     * {@snippet lang=c :
+     * #define TRUNCATE_EXISTING 5
      * }
      */
-    public static MemorySegment CRYPT_OID_IMPORT_PUBLIC_KEY_INFO_EX2_FUNC() {
-        return constants$4682.const$1;
+    public static int TRUNCATE_EXISTING() {
+        return TRUNCATE_EXISTING;
     }
+    private static final int CREATE_MUTEX_INITIAL_OWNER = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_IMPORT_PRIVATE_KEY_INFO_FUNC "CryptDllImportPrivateKeyInfoEx"
+     * {@snippet lang=c :
+     * #define CREATE_MUTEX_INITIAL_OWNER 1
      * }
      */
-    public static MemorySegment CRYPT_OID_IMPORT_PRIVATE_KEY_INFO_FUNC() {
-        return constants$4682.const$2;
+    public static int CREATE_MUTEX_INITIAL_OWNER() {
+        return CREATE_MUTEX_INITIAL_OWNER;
     }
+    private static final int CREATE_EVENT_MANUAL_RESET = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_EXPORT_PRIVATE_KEY_INFO_FUNC "CryptDllExportPrivateKeyInfoEx"
+     * {@snippet lang=c :
+     * #define CREATE_EVENT_MANUAL_RESET 1
      * }
      */
-    public static MemorySegment CRYPT_OID_EXPORT_PRIVATE_KEY_INFO_FUNC() {
-        return constants$4682.const$3;
+    public static int CREATE_EVENT_MANUAL_RESET() {
+        return CREATE_EVENT_MANUAL_RESET;
     }
+    private static final int CREATE_EVENT_INITIAL_SET = (int)2L;
     /**
-     * {@snippet :
-     * #define CRYPT_DELETE_KEYSET 16
+     * {@snippet lang=c :
+     * #define CREATE_EVENT_INITIAL_SET 2
      * }
      */
-    public static int CRYPT_DELETE_KEYSET() {
-        return (int)16L;
+    public static int CREATE_EVENT_INITIAL_SET() {
+        return CREATE_EVENT_INITIAL_SET;
     }
+    private static final int CREATE_WAITABLE_TIMER_MANUAL_RESET = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_CERT 2
+     * {@snippet lang=c :
+     * #define CREATE_WAITABLE_TIMER_MANUAL_RESET 1
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_CERT() {
-        return (int)2L;
+    public static int CREATE_WAITABLE_TIMER_MANUAL_RESET() {
+        return CREATE_WAITABLE_TIMER_MANUAL_RESET;
     }
+    private static final int CREATE_WAITABLE_TIMER_HIGH_RESOLUTION = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_CTL 4
+     * {@snippet lang=c :
+     * #define CREATE_WAITABLE_TIMER_HIGH_RESOLUTION 2
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_CTL() {
-        return (int)4L;
+    public static int CREATE_WAITABLE_TIMER_HIGH_RESOLUTION() {
+        return CREATE_WAITABLE_TIMER_HIGH_RESOLUTION;
     }
+    private static final int SYNCHRONIZATION_BARRIER_FLAGS_SPIN_ONLY = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_CRL 8
+     * {@snippet lang=c :
+     * #define SYNCHRONIZATION_BARRIER_FLAGS_SPIN_ONLY 1
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_CRL() {
-        return (int)8L;
+    public static int SYNCHRONIZATION_BARRIER_FLAGS_SPIN_ONLY() {
+        return SYNCHRONIZATION_BARRIER_FLAGS_SPIN_ONLY;
     }
+    private static final int SYNCHRONIZATION_BARRIER_FLAGS_BLOCK_ONLY = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_SERIALIZED_STORE 16
+     * {@snippet lang=c :
+     * #define SYNCHRONIZATION_BARRIER_FLAGS_BLOCK_ONLY 2
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_SERIALIZED_STORE() {
-        return (int)16L;
+    public static int SYNCHRONIZATION_BARRIER_FLAGS_BLOCK_ONLY() {
+        return SYNCHRONIZATION_BARRIER_FLAGS_BLOCK_ONLY;
     }
+    private static final int SYNCHRONIZATION_BARRIER_FLAGS_NO_DELETE = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_SERIALIZED_CERT 32
+     * {@snippet lang=c :
+     * #define SYNCHRONIZATION_BARRIER_FLAGS_NO_DELETE 4
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_SERIALIZED_CERT() {
-        return (int)32L;
+    public static int SYNCHRONIZATION_BARRIER_FLAGS_NO_DELETE() {
+        return SYNCHRONIZATION_BARRIER_FLAGS_NO_DELETE;
     }
+    private static final int PROC_THREAD_ATTRIBUTE_REPLACE_VALUE = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_SERIALIZED_CTL 64
+     * {@snippet lang=c :
+     * #define PROC_THREAD_ATTRIBUTE_REPLACE_VALUE 1
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_SERIALIZED_CTL() {
-        return (int)64L;
+    public static int PROC_THREAD_ATTRIBUTE_REPLACE_VALUE() {
+        return PROC_THREAD_ATTRIBUTE_REPLACE_VALUE;
     }
+    private static final int THREAD_POWER_THROTTLING_CURRENT_VERSION = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_SERIALIZED_CRL 128
+     * {@snippet lang=c :
+     * #define THREAD_POWER_THROTTLING_CURRENT_VERSION 1
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_SERIALIZED_CRL() {
-        return (int)128L;
+    public static int THREAD_POWER_THROTTLING_CURRENT_VERSION() {
+        return THREAD_POWER_THROTTLING_CURRENT_VERSION;
     }
+    private static final int THREAD_POWER_THROTTLING_EXECUTION_SPEED = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_PKCS7_SIGNED 256
+     * {@snippet lang=c :
+     * #define THREAD_POWER_THROTTLING_EXECUTION_SPEED 1
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_PKCS7_SIGNED() {
-        return (int)256L;
+    public static int THREAD_POWER_THROTTLING_EXECUTION_SPEED() {
+        return THREAD_POWER_THROTTLING_EXECUTION_SPEED;
     }
+    private static final int PME_CURRENT_VERSION = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_PKCS7_UNSIGNED 512
+     * {@snippet lang=c :
+     * #define PME_CURRENT_VERSION 1
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_PKCS7_UNSIGNED() {
-        return (int)512L;
+    public static int PME_CURRENT_VERSION() {
+        return PME_CURRENT_VERSION;
     }
+    private static final int PME_FAILFAST_ON_COMMIT_FAIL_DISABLE = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_PKCS7_SIGNED_EMBED 1024
+     * {@snippet lang=c :
+     * #define PME_FAILFAST_ON_COMMIT_FAIL_DISABLE 0
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_PKCS7_SIGNED_EMBED() {
-        return (int)1024L;
+    public static int PME_FAILFAST_ON_COMMIT_FAIL_DISABLE() {
+        return PME_FAILFAST_ON_COMMIT_FAIL_DISABLE;
     }
+    private static final int PME_FAILFAST_ON_COMMIT_FAIL_ENABLE = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_PKCS10 2048
+     * {@snippet lang=c :
+     * #define PME_FAILFAST_ON_COMMIT_FAIL_ENABLE 1
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_PKCS10() {
-        return (int)2048L;
+    public static int PME_FAILFAST_ON_COMMIT_FAIL_ENABLE() {
+        return PME_FAILFAST_ON_COMMIT_FAIL_ENABLE;
     }
+    private static final int PROCESS_POWER_THROTTLING_CURRENT_VERSION = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_PFX 4096
+     * {@snippet lang=c :
+     * #define PROCESS_POWER_THROTTLING_CURRENT_VERSION 1
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_PFX() {
-        return (int)4096L;
+    public static int PROCESS_POWER_THROTTLING_CURRENT_VERSION() {
+        return PROCESS_POWER_THROTTLING_CURRENT_VERSION;
     }
+    private static final int PROCESS_POWER_THROTTLING_EXECUTION_SPEED = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_CERT_PAIR 8192
+     * {@snippet lang=c :
+     * #define PROCESS_POWER_THROTTLING_EXECUTION_SPEED 1
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_CERT_PAIR() {
-        return (int)8192L;
+    public static int PROCESS_POWER_THROTTLING_EXECUTION_SPEED() {
+        return PROCESS_POWER_THROTTLING_EXECUTION_SPEED;
     }
+    private static final int PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_PFX_AND_LOAD 16384
+     * {@snippet lang=c :
+     * #define PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION 4
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_PFX_AND_LOAD() {
-        return (int)16384L;
+    public static int PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION() {
+        return PROCESS_POWER_THROTTLING_IGNORE_TIMER_RESOLUTION;
     }
+    private static final int PROCESS_LEAP_SECOND_INFO_FLAG_ENABLE_SIXTY_SECOND = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_ALL 16382
+     * {@snippet lang=c :
+     * #define PROCESS_LEAP_SECOND_INFO_FLAG_ENABLE_SIXTY_SECOND 1
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_ALL() {
-        return (int)16382L;
+    public static int PROCESS_LEAP_SECOND_INFO_FLAG_ENABLE_SIXTY_SECOND() {
+        return PROCESS_LEAP_SECOND_INFO_FLAG_ENABLE_SIXTY_SECOND;
     }
+    private static final int USER_CET_ENVIRONMENT_WIN32_PROCESS = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_CONTENT_FLAG_ALL_ISSUER_CERT 818
+     * {@snippet lang=c :
+     * #define USER_CET_ENVIRONMENT_WIN32_PROCESS 0
      * }
      */
-    public static int CERT_QUERY_CONTENT_FLAG_ALL_ISSUER_CERT() {
-        return (int)818L;
+    public static int USER_CET_ENVIRONMENT_WIN32_PROCESS() {
+        return USER_CET_ENVIRONMENT_WIN32_PROCESS;
     }
+    private static final int USER_CET_ENVIRONMENT_SGX2_ENCLAVE = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_FORMAT_FLAG_BINARY 2
+     * {@snippet lang=c :
+     * #define USER_CET_ENVIRONMENT_SGX2_ENCLAVE 2
      * }
      */
-    public static int CERT_QUERY_FORMAT_FLAG_BINARY() {
-        return (int)2L;
+    public static int USER_CET_ENVIRONMENT_SGX2_ENCLAVE() {
+        return USER_CET_ENVIRONMENT_SGX2_ENCLAVE;
     }
+    private static final int USER_CET_ENVIRONMENT_VBS_ENCLAVE = (int)16L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_FORMAT_FLAG_BASE64_ENCODED 4
+     * {@snippet lang=c :
+     * #define USER_CET_ENVIRONMENT_VBS_ENCLAVE 16
      * }
      */
-    public static int CERT_QUERY_FORMAT_FLAG_BASE64_ENCODED() {
-        return (int)4L;
+    public static int USER_CET_ENVIRONMENT_VBS_ENCLAVE() {
+        return USER_CET_ENVIRONMENT_VBS_ENCLAVE;
     }
+    private static final int USER_CET_ENVIRONMENT_VBS_BASIC_ENCLAVE = (int)17L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_FORMAT_FLAG_ASN_ASCII_HEX_ENCODED 8
+     * {@snippet lang=c :
+     * #define USER_CET_ENVIRONMENT_VBS_BASIC_ENCLAVE 17
      * }
      */
-    public static int CERT_QUERY_FORMAT_FLAG_ASN_ASCII_HEX_ENCODED() {
-        return (int)8L;
+    public static int USER_CET_ENVIRONMENT_VBS_BASIC_ENCLAVE() {
+        return USER_CET_ENVIRONMENT_VBS_BASIC_ENCLAVE;
     }
+    private static final int SCEX2_ALT_NETBIOS_NAME = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_QUERY_FORMAT_FLAG_ALL 14
+     * {@snippet lang=c :
+     * #define SCEX2_ALT_NETBIOS_NAME 1
      * }
      */
-    public static int CERT_QUERY_FORMAT_FLAG_ALL() {
-        return (int)14L;
+    public static int SCEX2_ALT_NETBIOS_NAME() {
+        return SCEX2_ALT_NETBIOS_NAME;
     }
+    private static final int FILE_MAP_COPY = (int)1L;
     /**
-     * {@snippet :
-     * #define CREDENTIAL_OID_PASSWORD_CREDENTIALS_A 1
+     * {@snippet lang=c :
+     * #define FILE_MAP_COPY 1
      * }
      */
-    public static MemorySegment CREDENTIAL_OID_PASSWORD_CREDENTIALS_A() {
-        return constants$4552.const$0;
+    public static int FILE_MAP_COPY() {
+        return FILE_MAP_COPY;
     }
+    private static final int FILE_MAP_TARGETS_INVALID = (int)1073741824L;
     /**
-     * {@snippet :
-     * #define CREDENTIAL_OID_PASSWORD_CREDENTIALS_W 2
+     * {@snippet lang=c :
+     * #define FILE_MAP_TARGETS_INVALID 1073741824
      * }
      */
-    public static MemorySegment CREDENTIAL_OID_PASSWORD_CREDENTIALS_W() {
-        return constants$4552.const$1;
+    public static int FILE_MAP_TARGETS_INVALID() {
+        return FILE_MAP_TARGETS_INVALID;
     }
+    private static final int FILE_MAP_LARGE_PAGES = (int)536870912L;
     /**
-     * {@snippet :
-     * #define CREDENTIAL_OID_PASSWORD_CREDENTIALS 1
+     * {@snippet lang=c :
+     * #define FILE_MAP_LARGE_PAGES 536870912
      * }
      */
-    public static MemorySegment CREDENTIAL_OID_PASSWORD_CREDENTIALS() {
-        return constants$4552.const$0;
+    public static int FILE_MAP_LARGE_PAGES() {
+        return FILE_MAP_LARGE_PAGES;
     }
+    private static final int FILE_CACHE_MAX_HARD_ENABLE = (int)1L;
     /**
-     * {@snippet :
-     * #define SCHEME_OID_RETRIEVE_ENCODED_OBJECT_FUNC "SchemeDllRetrieveEncodedObject"
+     * {@snippet lang=c :
+     * #define FILE_CACHE_MAX_HARD_ENABLE 1
      * }
      */
-    public static MemorySegment SCHEME_OID_RETRIEVE_ENCODED_OBJECT_FUNC() {
-        return constants$4682.const$4;
+    public static int FILE_CACHE_MAX_HARD_ENABLE() {
+        return FILE_CACHE_MAX_HARD_ENABLE;
     }
+    private static final int FILE_CACHE_MAX_HARD_DISABLE = (int)2L;
     /**
-     * {@snippet :
-     * #define SCHEME_OID_RETRIEVE_ENCODED_OBJECTW_FUNC "SchemeDllRetrieveEncodedObjectW"
+     * {@snippet lang=c :
+     * #define FILE_CACHE_MAX_HARD_DISABLE 2
      * }
      */
-    public static MemorySegment SCHEME_OID_RETRIEVE_ENCODED_OBJECTW_FUNC() {
-        return constants$4682.const$5;
+    public static int FILE_CACHE_MAX_HARD_DISABLE() {
+        return FILE_CACHE_MAX_HARD_DISABLE;
     }
+    private static final int FILE_CACHE_MIN_HARD_ENABLE = (int)4L;
     /**
-     * {@snippet :
-     * #define CONTEXT_OID_CREATE_OBJECT_CONTEXT_FUNC "ContextDllCreateObjectContext"
+     * {@snippet lang=c :
+     * #define FILE_CACHE_MIN_HARD_ENABLE 4
      * }
      */
-    public static MemorySegment CONTEXT_OID_CREATE_OBJECT_CONTEXT_FUNC() {
-        return constants$4683.const$0;
+    public static int FILE_CACHE_MIN_HARD_ENABLE() {
+        return FILE_CACHE_MIN_HARD_ENABLE;
     }
+    private static final int FILE_CACHE_MIN_HARD_DISABLE = (int)8L;
     /**
-     * {@snippet :
-     * #define CONTEXT_OID_CERTIFICATE 1
+     * {@snippet lang=c :
+     * #define FILE_CACHE_MIN_HARD_DISABLE 8
      * }
      */
-    public static MemorySegment CONTEXT_OID_CERTIFICATE() {
-        return constants$4552.const$0;
+    public static int FILE_CACHE_MIN_HARD_DISABLE() {
+        return FILE_CACHE_MIN_HARD_DISABLE;
     }
+    private static final int MEHC_PATROL_SCRUBBER_PRESENT = (int)1L;
     /**
-     * {@snippet :
-     * #define CONTEXT_OID_CRL 2
+     * {@snippet lang=c :
+     * #define MEHC_PATROL_SCRUBBER_PRESENT 1
      * }
      */
-    public static MemorySegment CONTEXT_OID_CRL() {
-        return constants$4552.const$1;
+    public static int MEHC_PATROL_SCRUBBER_PRESENT() {
+        return MEHC_PATROL_SCRUBBER_PRESENT;
     }
+    private static final int SUPPORT_LANG_NUMBER = (int)32L;
     /**
-     * {@snippet :
-     * #define CONTEXT_OID_CTL 3
+     * {@snippet lang=c :
+     * #define SUPPORT_LANG_NUMBER 32
      * }
      */
-    public static MemorySegment CONTEXT_OID_CTL() {
-        return constants$4552.const$2;
+    public static int SUPPORT_LANG_NUMBER() {
+        return SUPPORT_LANG_NUMBER;
     }
+    private static final int CURRENT_IMPORT_REDIRECTION_VERSION = (int)1L;
     /**
-     * {@snippet :
-     * #define CONTEXT_OID_PKCS7 4
+     * {@snippet lang=c :
+     * #define CURRENT_IMPORT_REDIRECTION_VERSION 1
      * }
      */
-    public static MemorySegment CONTEXT_OID_PKCS7() {
-        return constants$4552.const$3;
+    public static int CURRENT_IMPORT_REDIRECTION_VERSION() {
+        return CURRENT_IMPORT_REDIRECTION_VERSION;
     }
+    private static final int DONT_RESOLVE_DLL_REFERENCES = (int)1L;
     /**
-     * {@snippet :
-     * #define CONTEXT_OID_CAPI2_ANY 5
+     * {@snippet lang=c :
+     * #define DONT_RESOLVE_DLL_REFERENCES 1
      * }
      */
-    public static MemorySegment CONTEXT_OID_CAPI2_ANY() {
-        return constants$4552.const$4;
+    public static int DONT_RESOLVE_DLL_REFERENCES() {
+        return DONT_RESOLVE_DLL_REFERENCES;
     }
+    private static final int LOAD_LIBRARY_AS_DATAFILE = (int)2L;
     /**
-     * {@snippet :
-     * #define CONTEXT_OID_OCSP_RESP 6
+     * {@snippet lang=c :
+     * #define LOAD_LIBRARY_AS_DATAFILE 2
      * }
      */
-    public static MemorySegment CONTEXT_OID_OCSP_RESP() {
-        return constants$4552.const$5;
+    public static int LOAD_LIBRARY_AS_DATAFILE() {
+        return LOAD_LIBRARY_AS_DATAFILE;
     }
+    private static final int LOAD_WITH_ALTERED_SEARCH_PATH = (int)8L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_URL_CACHE_DISABLE_FLUSH 4294967295
+     * {@snippet lang=c :
+     * #define LOAD_WITH_ALTERED_SEARCH_PATH 8
      * }
      */
-    public static int CRYPTNET_URL_CACHE_DISABLE_FLUSH() {
-        return (int)4294967295L;
+    public static int LOAD_WITH_ALTERED_SEARCH_PATH() {
+        return LOAD_WITH_ALTERED_SEARCH_PATH;
     }
+    private static final int LOAD_IGNORE_CODE_AUTHZ_LEVEL = (int)16L;
     /**
-     * {@snippet :
-     * #define CRYPT_PARAM_ASYNC_RETRIEVAL_COMPLETION 1
+     * {@snippet lang=c :
+     * #define LOAD_IGNORE_CODE_AUTHZ_LEVEL 16
      * }
      */
-    public static MemorySegment CRYPT_PARAM_ASYNC_RETRIEVAL_COMPLETION() {
-        return constants$4552.const$0;
+    public static int LOAD_IGNORE_CODE_AUTHZ_LEVEL() {
+        return LOAD_IGNORE_CODE_AUTHZ_LEVEL;
     }
+    private static final int LOAD_LIBRARY_AS_IMAGE_RESOURCE = (int)32L;
     /**
-     * {@snippet :
-     * #define CRYPT_PARAM_CANCEL_ASYNC_RETRIEVAL 2
+     * {@snippet lang=c :
+     * #define LOAD_LIBRARY_AS_IMAGE_RESOURCE 32
      * }
      */
-    public static MemorySegment CRYPT_PARAM_CANCEL_ASYNC_RETRIEVAL() {
-        return constants$4552.const$1;
+    public static int LOAD_LIBRARY_AS_IMAGE_RESOURCE() {
+        return LOAD_LIBRARY_AS_IMAGE_RESOURCE;
     }
+    private static final int LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE = (int)64L;
     /**
-     * {@snippet :
-     * #define URL_OID_GET_OBJECT_URL_FUNC "UrlDllGetObjectUrl"
+     * {@snippet lang=c :
+     * #define LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE 64
      * }
      */
-    public static MemorySegment URL_OID_GET_OBJECT_URL_FUNC() {
-        return constants$4683.const$1;
+    public static int LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE() {
+        return LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE;
     }
+    private static final int LOAD_LIBRARY_REQUIRE_SIGNED_TARGET = (int)128L;
     /**
-     * {@snippet :
-     * #define URL_OID_CERTIFICATE_ISSUER 1
+     * {@snippet lang=c :
+     * #define LOAD_LIBRARY_REQUIRE_SIGNED_TARGET 128
      * }
      */
-    public static MemorySegment URL_OID_CERTIFICATE_ISSUER() {
-        return constants$4552.const$0;
+    public static int LOAD_LIBRARY_REQUIRE_SIGNED_TARGET() {
+        return LOAD_LIBRARY_REQUIRE_SIGNED_TARGET;
     }
+    private static final int LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR = (int)256L;
     /**
-     * {@snippet :
-     * #define URL_OID_CERTIFICATE_CRL_DIST_POINT 2
+     * {@snippet lang=c :
+     * #define LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR 256
      * }
      */
-    public static MemorySegment URL_OID_CERTIFICATE_CRL_DIST_POINT() {
-        return constants$4552.const$1;
+    public static int LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR() {
+        return LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR;
     }
+    private static final int LOAD_LIBRARY_SEARCH_APPLICATION_DIR = (int)512L;
     /**
-     * {@snippet :
-     * #define URL_OID_CTL_ISSUER 3
+     * {@snippet lang=c :
+     * #define LOAD_LIBRARY_SEARCH_APPLICATION_DIR 512
      * }
      */
-    public static MemorySegment URL_OID_CTL_ISSUER() {
-        return constants$4552.const$2;
+    public static int LOAD_LIBRARY_SEARCH_APPLICATION_DIR() {
+        return LOAD_LIBRARY_SEARCH_APPLICATION_DIR;
     }
+    private static final int LOAD_LIBRARY_SEARCH_USER_DIRS = (int)1024L;
     /**
-     * {@snippet :
-     * #define URL_OID_CTL_NEXT_UPDATE 4
+     * {@snippet lang=c :
+     * #define LOAD_LIBRARY_SEARCH_USER_DIRS 1024
      * }
      */
-    public static MemorySegment URL_OID_CTL_NEXT_UPDATE() {
-        return constants$4552.const$3;
+    public static int LOAD_LIBRARY_SEARCH_USER_DIRS() {
+        return LOAD_LIBRARY_SEARCH_USER_DIRS;
     }
+    private static final int LOAD_LIBRARY_SEARCH_SYSTEM32 = (int)2048L;
     /**
-     * {@snippet :
-     * #define URL_OID_CRL_ISSUER 5
+     * {@snippet lang=c :
+     * #define LOAD_LIBRARY_SEARCH_SYSTEM32 2048
      * }
      */
-    public static MemorySegment URL_OID_CRL_ISSUER() {
-        return constants$4552.const$4;
+    public static int LOAD_LIBRARY_SEARCH_SYSTEM32() {
+        return LOAD_LIBRARY_SEARCH_SYSTEM32;
     }
+    private static final int LOAD_LIBRARY_SEARCH_DEFAULT_DIRS = (int)4096L;
     /**
-     * {@snippet :
-     * #define URL_OID_CERTIFICATE_FRESHEST_CRL 6
+     * {@snippet lang=c :
+     * #define LOAD_LIBRARY_SEARCH_DEFAULT_DIRS 4096
      * }
      */
-    public static MemorySegment URL_OID_CERTIFICATE_FRESHEST_CRL() {
-        return constants$4552.const$5;
+    public static int LOAD_LIBRARY_SEARCH_DEFAULT_DIRS() {
+        return LOAD_LIBRARY_SEARCH_DEFAULT_DIRS;
     }
+    private static final int LOAD_LIBRARY_SAFE_CURRENT_DIRS = (int)8192L;
     /**
-     * {@snippet :
-     * #define URL_OID_CRL_FRESHEST_CRL 7
+     * {@snippet lang=c :
+     * #define LOAD_LIBRARY_SAFE_CURRENT_DIRS 8192
      * }
      */
-    public static MemorySegment URL_OID_CRL_FRESHEST_CRL() {
-        return constants$4553.const$0;
+    public static int LOAD_LIBRARY_SAFE_CURRENT_DIRS() {
+        return LOAD_LIBRARY_SAFE_CURRENT_DIRS;
     }
+    private static final int LOAD_LIBRARY_SEARCH_SYSTEM32_NO_FORWARDER = (int)16384L;
     /**
-     * {@snippet :
-     * #define URL_OID_CROSS_CERT_DIST_POINT 8
+     * {@snippet lang=c :
+     * #define LOAD_LIBRARY_SEARCH_SYSTEM32_NO_FORWARDER 16384
      * }
      */
-    public static MemorySegment URL_OID_CROSS_CERT_DIST_POINT() {
-        return constants$4553.const$1;
+    public static int LOAD_LIBRARY_SEARCH_SYSTEM32_NO_FORWARDER() {
+        return LOAD_LIBRARY_SEARCH_SYSTEM32_NO_FORWARDER;
     }
+    private static final int LOAD_LIBRARY_OS_INTEGRITY_CONTINUITY = (int)32768L;
     /**
-     * {@snippet :
-     * #define URL_OID_CERTIFICATE_OCSP 9
+     * {@snippet lang=c :
+     * #define LOAD_LIBRARY_OS_INTEGRITY_CONTINUITY 32768
      * }
      */
-    public static MemorySegment URL_OID_CERTIFICATE_OCSP() {
-        return constants$4553.const$2;
+    public static int LOAD_LIBRARY_OS_INTEGRITY_CONTINUITY() {
+        return LOAD_LIBRARY_OS_INTEGRITY_CONTINUITY;
     }
+    private static final int PRIVATE_NAMESPACE_FLAG_DESTROY = (int)1L;
     /**
-     * {@snippet :
-     * #define URL_OID_CERTIFICATE_OCSP_AND_CRL_DIST_POINT 10
+     * {@snippet lang=c :
+     * #define PRIVATE_NAMESPACE_FLAG_DESTROY 1
      * }
      */
-    public static MemorySegment URL_OID_CERTIFICATE_OCSP_AND_CRL_DIST_POINT() {
-        return constants$4553.const$3;
+    public static int PRIVATE_NAMESPACE_FLAG_DESTROY() {
+        return PRIVATE_NAMESPACE_FLAG_DESTROY;
     }
+    private static final int FILE_BEGIN = (int)0L;
     /**
-     * {@snippet :
-     * #define URL_OID_CERTIFICATE_CRL_DIST_POINT_AND_OCSP 11
+     * {@snippet lang=c :
+     * #define FILE_BEGIN 0
      * }
      */
-    public static MemorySegment URL_OID_CERTIFICATE_CRL_DIST_POINT_AND_OCSP() {
-        return constants$4553.const$4;
+    public static int FILE_BEGIN() {
+        return FILE_BEGIN;
     }
+    private static final int FILE_CURRENT = (int)1L;
     /**
-     * {@snippet :
-     * #define URL_OID_CROSS_CERT_SUBJECT_INFO_ACCESS 12
+     * {@snippet lang=c :
+     * #define FILE_CURRENT 1
      * }
      */
-    public static MemorySegment URL_OID_CROSS_CERT_SUBJECT_INFO_ACCESS() {
-        return constants$4553.const$5;
+    public static int FILE_CURRENT() {
+        return FILE_CURRENT;
     }
+    private static final int FILE_END = (int)2L;
     /**
-     * {@snippet :
-     * #define URL_OID_CERTIFICATE_ONLY_OCSP 13
+     * {@snippet lang=c :
+     * #define FILE_END 2
      * }
      */
-    public static MemorySegment URL_OID_CERTIFICATE_ONLY_OCSP() {
-        return constants$4618.const$0;
+    public static int FILE_END() {
+        return FILE_END;
     }
+    private static final int FILE_FLAG_OVERLAPPED = (int)1073741824L;
     /**
-     * {@snippet :
-     * #define TIME_VALID_OID_GET_OBJECT_FUNC "TimeValidDllGetObject"
+     * {@snippet lang=c :
+     * #define FILE_FLAG_OVERLAPPED 1073741824
      * }
      */
-    public static MemorySegment TIME_VALID_OID_GET_OBJECT_FUNC() {
-        return constants$4683.const$2;
+    public static int FILE_FLAG_OVERLAPPED() {
+        return FILE_FLAG_OVERLAPPED;
     }
+    private static final int FILE_FLAG_NO_BUFFERING = (int)536870912L;
     /**
-     * {@snippet :
-     * #define TIME_VALID_OID_GET_CTL 1
+     * {@snippet lang=c :
+     * #define FILE_FLAG_NO_BUFFERING 536870912
      * }
      */
-    public static MemorySegment TIME_VALID_OID_GET_CTL() {
-        return constants$4552.const$0;
+    public static int FILE_FLAG_NO_BUFFERING() {
+        return FILE_FLAG_NO_BUFFERING;
     }
+    private static final int FILE_FLAG_RANDOM_ACCESS = (int)268435456L;
     /**
-     * {@snippet :
-     * #define TIME_VALID_OID_GET_CRL 2
+     * {@snippet lang=c :
+     * #define FILE_FLAG_RANDOM_ACCESS 268435456
      * }
      */
-    public static MemorySegment TIME_VALID_OID_GET_CRL() {
-        return constants$4552.const$1;
+    public static int FILE_FLAG_RANDOM_ACCESS() {
+        return FILE_FLAG_RANDOM_ACCESS;
     }
+    private static final int FILE_FLAG_SEQUENTIAL_SCAN = (int)134217728L;
     /**
-     * {@snippet :
-     * #define TIME_VALID_OID_GET_CRL_FROM_CERT 3
+     * {@snippet lang=c :
+     * #define FILE_FLAG_SEQUENTIAL_SCAN 134217728
      * }
      */
-    public static MemorySegment TIME_VALID_OID_GET_CRL_FROM_CERT() {
-        return constants$4552.const$2;
+    public static int FILE_FLAG_SEQUENTIAL_SCAN() {
+        return FILE_FLAG_SEQUENTIAL_SCAN;
     }
+    private static final int FILE_FLAG_DELETE_ON_CLOSE = (int)67108864L;
     /**
-     * {@snippet :
-     * #define TIME_VALID_OID_GET_FRESHEST_CRL_FROM_CERT 4
+     * {@snippet lang=c :
+     * #define FILE_FLAG_DELETE_ON_CLOSE 67108864
      * }
      */
-    public static MemorySegment TIME_VALID_OID_GET_FRESHEST_CRL_FROM_CERT() {
-        return constants$4552.const$3;
+    public static int FILE_FLAG_DELETE_ON_CLOSE() {
+        return FILE_FLAG_DELETE_ON_CLOSE;
     }
+    private static final int FILE_FLAG_BACKUP_SEMANTICS = (int)33554432L;
     /**
-     * {@snippet :
-     * #define TIME_VALID_OID_GET_FRESHEST_CRL_FROM_CRL 5
+     * {@snippet lang=c :
+     * #define FILE_FLAG_BACKUP_SEMANTICS 33554432
      * }
      */
-    public static MemorySegment TIME_VALID_OID_GET_FRESHEST_CRL_FROM_CRL() {
-        return constants$4552.const$4;
+    public static int FILE_FLAG_BACKUP_SEMANTICS() {
+        return FILE_FLAG_BACKUP_SEMANTICS;
     }
+    private static final int FILE_FLAG_POSIX_SEMANTICS = (int)16777216L;
     /**
-     * {@snippet :
-     * #define TIME_VALID_OID_FLUSH_OBJECT_FUNC "TimeValidDllFlushObject"
+     * {@snippet lang=c :
+     * #define FILE_FLAG_POSIX_SEMANTICS 16777216
      * }
      */
-    public static MemorySegment TIME_VALID_OID_FLUSH_OBJECT_FUNC() {
-        return constants$4683.const$3;
+    public static int FILE_FLAG_POSIX_SEMANTICS() {
+        return FILE_FLAG_POSIX_SEMANTICS;
     }
+    private static final int FILE_FLAG_SESSION_AWARE = (int)8388608L;
     /**
-     * {@snippet :
-     * #define TIME_VALID_OID_FLUSH_CTL 1
+     * {@snippet lang=c :
+     * #define FILE_FLAG_SESSION_AWARE 8388608
      * }
      */
-    public static MemorySegment TIME_VALID_OID_FLUSH_CTL() {
-        return constants$4552.const$0;
+    public static int FILE_FLAG_SESSION_AWARE() {
+        return FILE_FLAG_SESSION_AWARE;
     }
+    private static final int FILE_FLAG_OPEN_REPARSE_POINT = (int)2097152L;
     /**
-     * {@snippet :
-     * #define TIME_VALID_OID_FLUSH_CRL 2
+     * {@snippet lang=c :
+     * #define FILE_FLAG_OPEN_REPARSE_POINT 2097152
      * }
      */
-    public static MemorySegment TIME_VALID_OID_FLUSH_CRL() {
-        return constants$4552.const$1;
+    public static int FILE_FLAG_OPEN_REPARSE_POINT() {
+        return FILE_FLAG_OPEN_REPARSE_POINT;
     }
+    private static final int FILE_FLAG_OPEN_NO_RECALL = (int)1048576L;
     /**
-     * {@snippet :
-     * #define TIME_VALID_OID_FLUSH_CRL_FROM_CERT 3
+     * {@snippet lang=c :
+     * #define FILE_FLAG_OPEN_NO_RECALL 1048576
      * }
      */
-    public static MemorySegment TIME_VALID_OID_FLUSH_CRL_FROM_CERT() {
-        return constants$4552.const$2;
+    public static int FILE_FLAG_OPEN_NO_RECALL() {
+        return FILE_FLAG_OPEN_NO_RECALL;
     }
+    private static final int FILE_FLAG_FIRST_PIPE_INSTANCE = (int)524288L;
     /**
-     * {@snippet :
-     * #define TIME_VALID_OID_FLUSH_FRESHEST_CRL_FROM_CERT 4
+     * {@snippet lang=c :
+     * #define FILE_FLAG_FIRST_PIPE_INSTANCE 524288
      * }
      */
-    public static MemorySegment TIME_VALID_OID_FLUSH_FRESHEST_CRL_FROM_CERT() {
-        return constants$4552.const$3;
+    public static int FILE_FLAG_FIRST_PIPE_INSTANCE() {
+        return FILE_FLAG_FIRST_PIPE_INSTANCE;
     }
+    private static final int FILE_FLAG_OPEN_REQUIRING_OPLOCK = (int)262144L;
     /**
-     * {@snippet :
-     * #define TIME_VALID_OID_FLUSH_FRESHEST_CRL_FROM_CRL 5
+     * {@snippet lang=c :
+     * #define FILE_FLAG_OPEN_REQUIRING_OPLOCK 262144
      * }
      */
-    public static MemorySegment TIME_VALID_OID_FLUSH_FRESHEST_CRL_FROM_CRL() {
-        return constants$4552.const$4;
+    public static int FILE_FLAG_OPEN_REQUIRING_OPLOCK() {
+        return FILE_FLAG_OPEN_REQUIRING_OPLOCK;
     }
+    private static final int PROGRESS_CONTINUE = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_CONFIG_REGPATH "S"
+     * {@snippet lang=c :
+     * #define PROGRESS_CONTINUE 0
      * }
      */
-    public static MemorySegment CERT_CHAIN_CONFIG_REGPATH() {
-        return constants$4566.const$4;
+    public static int PROGRESS_CONTINUE() {
+        return PROGRESS_CONTINUE;
     }
+    private static final int PROGRESS_CANCEL = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_MAX_URL_RETRIEVAL_BYTE_COUNT_VALUE_NAME "M"
+     * {@snippet lang=c :
+     * #define PROGRESS_CANCEL 1
      * }
      */
-    public static MemorySegment CERT_CHAIN_MAX_URL_RETRIEVAL_BYTE_COUNT_VALUE_NAME() {
-        return constants$4562.const$3;
+    public static int PROGRESS_CANCEL() {
+        return PROGRESS_CANCEL;
     }
+    private static final int PROGRESS_STOP = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_MAX_URL_RETRIEVAL_BYTE_COUNT_DEFAULT 104857600
+     * {@snippet lang=c :
+     * #define PROGRESS_STOP 2
      * }
      */
-    public static int CERT_CHAIN_MAX_URL_RETRIEVAL_BYTE_COUNT_DEFAULT() {
-        return (int)104857600L;
+    public static int PROGRESS_STOP() {
+        return PROGRESS_STOP;
     }
+    private static final int PROGRESS_QUIET = (int)3L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_CACHE_RESYNC_FILETIME_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define PROGRESS_QUIET 3
      * }
      */
-    public static MemorySegment CERT_CHAIN_CACHE_RESYNC_FILETIME_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int PROGRESS_QUIET() {
+        return PROGRESS_QUIET;
     }
+    private static final int CALLBACK_CHUNK_FINISHED = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_DISABLE_MANDATORY_BASIC_CONSTRAINTS_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define CALLBACK_CHUNK_FINISHED 0
      * }
      */
-    public static MemorySegment CERT_CHAIN_DISABLE_MANDATORY_BASIC_CONSTRAINTS_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int CALLBACK_CHUNK_FINISHED() {
+        return CALLBACK_CHUNK_FINISHED;
     }
+    private static final int CALLBACK_STREAM_SWITCH = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_DISABLE_CA_NAME_CONSTRAINTS_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define CALLBACK_STREAM_SWITCH 1
      * }
      */
-    public static MemorySegment CERT_CHAIN_DISABLE_CA_NAME_CONSTRAINTS_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int CALLBACK_STREAM_SWITCH() {
+        return CALLBACK_STREAM_SWITCH;
     }
+    private static final int COPY_FILE_FAIL_IF_EXISTS = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_DISABLE_UNSUPPORTED_CRITICAL_EXTENSIONS_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define COPY_FILE_FAIL_IF_EXISTS 1
      * }
      */
-    public static MemorySegment CERT_CHAIN_DISABLE_UNSUPPORTED_CRITICAL_EXTENSIONS_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int COPY_FILE_FAIL_IF_EXISTS() {
+        return COPY_FILE_FAIL_IF_EXISTS;
     }
+    private static final int COPY_FILE_RESTARTABLE = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_MAX_AIA_URL_COUNT_IN_CERT_VALUE_NAME "M"
+     * {@snippet lang=c :
+     * #define COPY_FILE_RESTARTABLE 2
      * }
      */
-    public static MemorySegment CERT_CHAIN_MAX_AIA_URL_COUNT_IN_CERT_VALUE_NAME() {
-        return constants$4562.const$3;
+    public static int COPY_FILE_RESTARTABLE() {
+        return COPY_FILE_RESTARTABLE;
     }
+    private static final int COPY_FILE_OPEN_SOURCE_FOR_WRITE = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_MAX_AIA_URL_RETRIEVAL_COUNT_PER_CHAIN_VALUE_NAME "M"
+     * {@snippet lang=c :
+     * #define COPY_FILE_OPEN_SOURCE_FOR_WRITE 4
      * }
      */
-    public static MemorySegment CERT_CHAIN_MAX_AIA_URL_RETRIEVAL_COUNT_PER_CHAIN_VALUE_NAME() {
-        return constants$4562.const$3;
+    public static int COPY_FILE_OPEN_SOURCE_FOR_WRITE() {
+        return COPY_FILE_OPEN_SOURCE_FOR_WRITE;
     }
+    private static final int COPY_FILE_ALLOW_DECRYPTED_DESTINATION = (int)8L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_MAX_AIA_URL_RETRIEVAL_BYTE_COUNT_VALUE_NAME "M"
+     * {@snippet lang=c :
+     * #define COPY_FILE_ALLOW_DECRYPTED_DESTINATION 8
      * }
      */
-    public static MemorySegment CERT_CHAIN_MAX_AIA_URL_RETRIEVAL_BYTE_COUNT_VALUE_NAME() {
-        return constants$4562.const$3;
+    public static int COPY_FILE_ALLOW_DECRYPTED_DESTINATION() {
+        return COPY_FILE_ALLOW_DECRYPTED_DESTINATION;
     }
+    private static final int COPY_FILE_COPY_SYMLINK = (int)2048L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_MAX_AIA_URL_RETRIEVAL_CERT_COUNT_VALUE_NAME "M"
+     * {@snippet lang=c :
+     * #define COPY_FILE_COPY_SYMLINK 2048
      * }
      */
-    public static MemorySegment CERT_CHAIN_MAX_AIA_URL_RETRIEVAL_CERT_COUNT_VALUE_NAME() {
-        return constants$4562.const$3;
+    public static int COPY_FILE_COPY_SYMLINK() {
+        return COPY_FILE_COPY_SYMLINK;
     }
+    private static final int COPY_FILE_NO_BUFFERING = (int)4096L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_OCSP_VALIDITY_SECONDS_VALUE_NAME "O"
+     * {@snippet lang=c :
+     * #define COPY_FILE_NO_BUFFERING 4096
      * }
      */
-    public static MemorySegment CERT_CHAIN_OCSP_VALIDITY_SECONDS_VALUE_NAME() {
-        return constants$4566.const$5;
+    public static int COPY_FILE_NO_BUFFERING() {
+        return COPY_FILE_NO_BUFFERING;
     }
+    private static final int COPY_FILE_REQUEST_SECURITY_PRIVILEGES = (int)8192L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_OCSP_VALIDITY_SECONDS_DEFAULT 43200
+     * {@snippet lang=c :
+     * #define COPY_FILE_REQUEST_SECURITY_PRIVILEGES 8192
      * }
      */
-    public static int CERT_CHAIN_OCSP_VALIDITY_SECONDS_DEFAULT() {
-        return (int)43200L;
+    public static int COPY_FILE_REQUEST_SECURITY_PRIVILEGES() {
+        return COPY_FILE_REQUEST_SECURITY_PRIVILEGES;
     }
+    private static final int COPY_FILE_RESUME_FROM_PAUSE = (int)16384L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_DISABLE_SERIAL_CHAIN_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define COPY_FILE_RESUME_FROM_PAUSE 16384
      * }
      */
-    public static MemorySegment CERT_CHAIN_DISABLE_SERIAL_CHAIN_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int COPY_FILE_RESUME_FROM_PAUSE() {
+        return COPY_FILE_RESUME_FROM_PAUSE;
     }
+    private static final int COPY_FILE_NO_OFFLOAD = (int)262144L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_SERIAL_CHAIN_LOG_FILE_NAME_VALUE_NAME "S"
+     * {@snippet lang=c :
+     * #define COPY_FILE_NO_OFFLOAD 262144
      * }
      */
-    public static MemorySegment CERT_CHAIN_SERIAL_CHAIN_LOG_FILE_NAME_VALUE_NAME() {
-        return constants$4566.const$4;
+    public static int COPY_FILE_NO_OFFLOAD() {
+        return COPY_FILE_NO_OFFLOAD;
     }
+    private static final int COPY_FILE_IGNORE_EDP_BLOCK = (int)4194304L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_DISABLE_SYNC_WITH_SSL_TIME_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define COPY_FILE_IGNORE_EDP_BLOCK 4194304
      * }
      */
-    public static MemorySegment CERT_CHAIN_DISABLE_SYNC_WITH_SSL_TIME_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int COPY_FILE_IGNORE_EDP_BLOCK() {
+        return COPY_FILE_IGNORE_EDP_BLOCK;
     }
+    private static final int COPY_FILE_IGNORE_SOURCE_ENCRYPTION = (int)8388608L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_MAX_SSL_TIME_UPDATED_EVENT_COUNT_VALUE_NAME "M"
+     * {@snippet lang=c :
+     * #define COPY_FILE_IGNORE_SOURCE_ENCRYPTION 8388608
      * }
      */
-    public static MemorySegment CERT_CHAIN_MAX_SSL_TIME_UPDATED_EVENT_COUNT_VALUE_NAME() {
-        return constants$4562.const$3;
+    public static int COPY_FILE_IGNORE_SOURCE_ENCRYPTION() {
+        return COPY_FILE_IGNORE_SOURCE_ENCRYPTION;
     }
+    private static final int COPY_FILE_DONT_REQUEST_DEST_WRITE_DAC = (int)33554432L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_MAX_SSL_TIME_UPDATED_EVENT_COUNT_DISABLE 4294967295
+     * {@snippet lang=c :
+     * #define COPY_FILE_DONT_REQUEST_DEST_WRITE_DAC 33554432
      * }
      */
-    public static int CERT_CHAIN_MAX_SSL_TIME_UPDATED_EVENT_COUNT_DISABLE() {
-        return (int)4294967295L;
+    public static int COPY_FILE_DONT_REQUEST_DEST_WRITE_DAC() {
+        return COPY_FILE_DONT_REQUEST_DEST_WRITE_DAC;
     }
+    private static final int COPY_FILE_REQUEST_COMPRESSED_TRAFFIC = (int)268435456L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_SSL_HANDSHAKE_LOG_FILE_NAME_VALUE_NAME "S"
+     * {@snippet lang=c :
+     * #define COPY_FILE_REQUEST_COMPRESSED_TRAFFIC 268435456
      * }
      */
-    public static MemorySegment CERT_CHAIN_SSL_HANDSHAKE_LOG_FILE_NAME_VALUE_NAME() {
-        return constants$4566.const$4;
+    public static int COPY_FILE_REQUEST_COMPRESSED_TRAFFIC() {
+        return COPY_FILE_REQUEST_COMPRESSED_TRAFFIC;
     }
+    private static final int COPY_FILE_OPEN_AND_COPY_REPARSE_POINT = (int)2097152L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_ENABLE_WEAK_SIGNATURE_FLAGS_VALUE_NAME "E"
+     * {@snippet lang=c :
+     * #define COPY_FILE_OPEN_AND_COPY_REPARSE_POINT 2097152
      * }
      */
-    public static MemorySegment CERT_CHAIN_ENABLE_WEAK_SIGNATURE_FLAGS_VALUE_NAME() {
-        return constants$4567.const$5;
+    public static int COPY_FILE_OPEN_AND_COPY_REPARSE_POINT() {
+        return COPY_FILE_OPEN_AND_COPY_REPARSE_POINT;
     }
+    private static final int COPY_FILE_DIRECTORY = (int)128L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_MIN_RSA_PUB_KEY_BIT_LENGTH_VALUE_NAME "M"
+     * {@snippet lang=c :
+     * #define COPY_FILE_DIRECTORY 128
      * }
      */
-    public static MemorySegment CERT_CHAIN_MIN_RSA_PUB_KEY_BIT_LENGTH_VALUE_NAME() {
-        return constants$4562.const$3;
+    public static int COPY_FILE_DIRECTORY() {
+        return COPY_FILE_DIRECTORY;
     }
+    private static final int COPY_FILE_SKIP_ALTERNATE_STREAMS = (int)32768L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_MIN_RSA_PUB_KEY_BIT_LENGTH_DISABLE 4294967295
+     * {@snippet lang=c :
+     * #define COPY_FILE_SKIP_ALTERNATE_STREAMS 32768
      * }
      */
-    public static int CERT_CHAIN_MIN_RSA_PUB_KEY_BIT_LENGTH_DISABLE() {
-        return (int)4294967295L;
+    public static int COPY_FILE_SKIP_ALTERNATE_STREAMS() {
+        return COPY_FILE_SKIP_ALTERNATE_STREAMS;
     }
+    private static final int COPY_FILE_DISABLE_PRE_ALLOCATION = (int)67108864L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_WEAK_RSA_PUB_KEY_TIME_VALUE_NAME "W"
+     * {@snippet lang=c :
+     * #define COPY_FILE_DISABLE_PRE_ALLOCATION 67108864
      * }
      */
-    public static MemorySegment CERT_CHAIN_WEAK_RSA_PUB_KEY_TIME_VALUE_NAME() {
-        return constants$4683.const$4;
+    public static int COPY_FILE_DISABLE_PRE_ALLOCATION() {
+        return COPY_FILE_DISABLE_PRE_ALLOCATION;
     }
+    private static final int COPY_FILE_ENABLE_LOW_FREE_SPACE_MODE = (int)134217728L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_WEAK_RSA_PUB_KEY_TIME_DEFAULT 129067776000000000
+     * {@snippet lang=c :
+     * #define COPY_FILE_ENABLE_LOW_FREE_SPACE_MODE 134217728
      * }
      */
-    public static long CERT_CHAIN_WEAK_RSA_PUB_KEY_TIME_DEFAULT() {
-        return 129067776000000000L;
+    public static int COPY_FILE_ENABLE_LOW_FREE_SPACE_MODE() {
+        return COPY_FILE_ENABLE_LOW_FREE_SPACE_MODE;
     }
+    private static final int REPLACEFILE_WRITE_THROUGH = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_WEAK_SIGNATURE_LOG_DIR_VALUE_NAME "W"
+     * {@snippet lang=c :
+     * #define REPLACEFILE_WRITE_THROUGH 1
      * }
      */
-    public static MemorySegment CERT_CHAIN_WEAK_SIGNATURE_LOG_DIR_VALUE_NAME() {
-        return constants$4683.const$4;
+    public static int REPLACEFILE_WRITE_THROUGH() {
+        return REPLACEFILE_WRITE_THROUGH;
     }
+    private static final int REPLACEFILE_IGNORE_MERGE_ERRORS = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_DEFAULT_CONFIG_SUBDIR "D"
+     * {@snippet lang=c :
+     * #define REPLACEFILE_IGNORE_MERGE_ERRORS 2
      * }
      */
-    public static MemorySegment CERT_CHAIN_DEFAULT_CONFIG_SUBDIR() {
-        return constants$4541.const$4;
+    public static int REPLACEFILE_IGNORE_MERGE_ERRORS() {
+        return REPLACEFILE_IGNORE_MERGE_ERRORS;
     }
+    private static final int REPLACEFILE_IGNORE_ACL_ERRORS = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_WEAK_PREFIX_NAME "W"
+     * {@snippet lang=c :
+     * #define REPLACEFILE_IGNORE_ACL_ERRORS 4
      * }
      */
-    public static MemorySegment CERT_CHAIN_WEAK_PREFIX_NAME() {
-        return constants$4683.const$4;
+    public static int REPLACEFILE_IGNORE_ACL_ERRORS() {
+        return REPLACEFILE_IGNORE_ACL_ERRORS;
     }
+    private static final int PIPE_ACCESS_INBOUND = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_WEAK_THIRD_PARTY_CONFIG_NAME "T"
+     * {@snippet lang=c :
+     * #define PIPE_ACCESS_INBOUND 1
      * }
      */
-    public static MemorySegment CERT_CHAIN_WEAK_THIRD_PARTY_CONFIG_NAME() {
-        return constants$4566.const$3;
+    public static int PIPE_ACCESS_INBOUND() {
+        return PIPE_ACCESS_INBOUND;
     }
+    private static final int PIPE_ACCESS_OUTBOUND = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_WEAK_ALL_CONFIG_NAME "A"
+     * {@snippet lang=c :
+     * #define PIPE_ACCESS_OUTBOUND 2
      * }
      */
-    public static MemorySegment CERT_CHAIN_WEAK_ALL_CONFIG_NAME() {
-        return constants$4567.const$2;
+    public static int PIPE_ACCESS_OUTBOUND() {
+        return PIPE_ACCESS_OUTBOUND;
     }
+    private static final int PIPE_ACCESS_DUPLEX = (int)3L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_WEAK_FLAGS_NAME "F"
+     * {@snippet lang=c :
+     * #define PIPE_ACCESS_DUPLEX 3
      * }
      */
-    public static MemorySegment CERT_CHAIN_WEAK_FLAGS_NAME() {
-        return constants$4569.const$2;
+    public static int PIPE_ACCESS_DUPLEX() {
+        return PIPE_ACCESS_DUPLEX;
     }
+    private static final int PIPE_CLIENT_END = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_WEAK_HYGIENE_NAME "H"
+     * {@snippet lang=c :
+     * #define PIPE_CLIENT_END 0
      * }
      */
-    public static MemorySegment CERT_CHAIN_WEAK_HYGIENE_NAME() {
-        return constants$4566.const$2;
+    public static int PIPE_CLIENT_END() {
+        return PIPE_CLIENT_END;
     }
+    private static final int PIPE_SERVER_END = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_WEAK_AFTER_TIME_NAME "A"
+     * {@snippet lang=c :
+     * #define PIPE_SERVER_END 1
      * }
      */
-    public static MemorySegment CERT_CHAIN_WEAK_AFTER_TIME_NAME() {
-        return constants$4567.const$2;
+    public static int PIPE_SERVER_END() {
+        return PIPE_SERVER_END;
     }
+    private static final int PIPE_WAIT = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_WEAK_FILE_HASH_AFTER_TIME_NAME "F"
+     * {@snippet lang=c :
+     * #define PIPE_WAIT 0
      * }
      */
-    public static MemorySegment CERT_CHAIN_WEAK_FILE_HASH_AFTER_TIME_NAME() {
-        return constants$4569.const$2;
+    public static int PIPE_WAIT() {
+        return PIPE_WAIT;
     }
+    private static final int PIPE_NOWAIT = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_WEAK_TIMESTAMP_HASH_AFTER_TIME_NAME "T"
+     * {@snippet lang=c :
+     * #define PIPE_NOWAIT 1
      * }
      */
-    public static MemorySegment CERT_CHAIN_WEAK_TIMESTAMP_HASH_AFTER_TIME_NAME() {
-        return constants$4566.const$3;
+    public static int PIPE_NOWAIT() {
+        return PIPE_NOWAIT;
     }
+    private static final int PIPE_READMODE_BYTE = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_WEAK_MIN_BIT_LENGTH_NAME "M"
+     * {@snippet lang=c :
+     * #define PIPE_READMODE_BYTE 0
      * }
      */
-    public static MemorySegment CERT_CHAIN_WEAK_MIN_BIT_LENGTH_NAME() {
-        return constants$4562.const$3;
+    public static int PIPE_READMODE_BYTE() {
+        return PIPE_READMODE_BYTE;
     }
+    private static final int PIPE_READMODE_MESSAGE = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_WEAK_SHA256_ALLOW_NAME "S"
+     * {@snippet lang=c :
+     * #define PIPE_READMODE_MESSAGE 2
      * }
      */
-    public static MemorySegment CERT_CHAIN_WEAK_SHA256_ALLOW_NAME() {
-        return constants$4566.const$4;
+    public static int PIPE_READMODE_MESSAGE() {
+        return PIPE_READMODE_MESSAGE;
     }
+    private static final int PIPE_TYPE_BYTE = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_MIN_PUB_KEY_BIT_LENGTH_DISABLE 4294967295
+     * {@snippet lang=c :
+     * #define PIPE_TYPE_BYTE 0
      * }
      */
-    public static int CERT_CHAIN_MIN_PUB_KEY_BIT_LENGTH_DISABLE() {
-        return (int)4294967295L;
+    public static int PIPE_TYPE_BYTE() {
+        return PIPE_TYPE_BYTE;
     }
+    private static final int PIPE_TYPE_MESSAGE = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_ENABLE_WEAK_SETTINGS_FLAG 2147483648
+     * {@snippet lang=c :
+     * #define PIPE_TYPE_MESSAGE 4
      * }
      */
-    public static int CERT_CHAIN_ENABLE_WEAK_SETTINGS_FLAG() {
-        return (int)2147483648L;
+    public static int PIPE_TYPE_MESSAGE() {
+        return PIPE_TYPE_MESSAGE;
     }
+    private static final int PIPE_ACCEPT_REMOTE_CLIENTS = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_DISABLE_WEAK_FLAGS 215285776
+     * {@snippet lang=c :
+     * #define PIPE_ACCEPT_REMOTE_CLIENTS 0
      * }
      */
-    public static int CERT_CHAIN_DISABLE_WEAK_FLAGS() {
-        return (int)215285776L;
+    public static int PIPE_ACCEPT_REMOTE_CLIENTS() {
+        return PIPE_ACCEPT_REMOTE_CLIENTS;
     }
+    private static final int PIPE_REJECT_REMOTE_CLIENTS = (int)8L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_DISABLE_FILE_HASH_WEAK_FLAGS 12288
+     * {@snippet lang=c :
+     * #define PIPE_REJECT_REMOTE_CLIENTS 8
      * }
      */
-    public static int CERT_CHAIN_DISABLE_FILE_HASH_WEAK_FLAGS() {
-        return (int)12288L;
+    public static int PIPE_REJECT_REMOTE_CLIENTS() {
+        return PIPE_REJECT_REMOTE_CLIENTS;
     }
+    private static final int PIPE_UNLIMITED_INSTANCES = (int)255L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_DISABLE_TIMESTAMP_HASH_WEAK_FLAGS 49152
+     * {@snippet lang=c :
+     * #define PIPE_UNLIMITED_INSTANCES 255
      * }
      */
-    public static int CERT_CHAIN_DISABLE_TIMESTAMP_HASH_WEAK_FLAGS() {
-        return (int)49152L;
+    public static int PIPE_UNLIMITED_INSTANCES() {
+        return PIPE_UNLIMITED_INSTANCES;
     }
+    private static final int SECURITY_CONTEXT_TRACKING = (int)262144L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_ENABLE_HYGIENE_FLAGS 857866240
+     * {@snippet lang=c :
+     * #define SECURITY_CONTEXT_TRACKING 262144
      * }
      */
-    public static int CERT_CHAIN_ENABLE_HYGIENE_FLAGS() {
-        return (int)857866240L;
+    public static int SECURITY_CONTEXT_TRACKING() {
+        return SECURITY_CONTEXT_TRACKING;
     }
+    private static final int SECURITY_EFFECTIVE_ONLY = (int)524288L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_MOTW_WEAK_FLAGS 1786773504
+     * {@snippet lang=c :
+     * #define SECURITY_EFFECTIVE_ONLY 524288
      * }
      */
-    public static int CERT_CHAIN_MOTW_WEAK_FLAGS() {
-        return (int)1786773504L;
+    public static int SECURITY_EFFECTIVE_ONLY() {
+        return SECURITY_EFFECTIVE_ONLY;
     }
+    private static final int SECURITY_SQOS_PRESENT = (int)1048576L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_OPT_IN_WEAK_FLAGS 262144
+     * {@snippet lang=c :
+     * #define SECURITY_SQOS_PRESENT 1048576
      * }
      */
-    public static int CERT_CHAIN_OPT_IN_WEAK_FLAGS() {
-        return (int)262144L;
+    public static int SECURITY_SQOS_PRESENT() {
+        return SECURITY_SQOS_PRESENT;
     }
+    private static final int SECURITY_VALID_SQOS_FLAGS = (int)2031616L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_AUTO_FLAGS_VALUE_NAME "A"
+     * {@snippet lang=c :
+     * #define SECURITY_VALID_SQOS_FLAGS 2031616
      * }
      */
-    public static MemorySegment CERT_CHAIN_AUTO_FLAGS_VALUE_NAME() {
-        return constants$4567.const$2;
+    public static int SECURITY_VALID_SQOS_FLAGS() {
+        return SECURITY_VALID_SQOS_FLAGS;
     }
+    private static final int FAIL_FAST_GENERATE_EXCEPTION_ADDRESS = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_AUTO_LOG_FLAGS 14
+     * {@snippet lang=c :
+     * #define FAIL_FAST_GENERATE_EXCEPTION_ADDRESS 1
      * }
      */
-    public static int CERT_CHAIN_AUTO_LOG_FLAGS() {
-        return (int)14L;
+    public static int FAIL_FAST_GENERATE_EXCEPTION_ADDRESS() {
+        return FAIL_FAST_GENERATE_EXCEPTION_ADDRESS;
     }
+    private static final int FAIL_FAST_NO_HARD_ERROR_DLG = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_AUTO_FLUSH_FIRST_DELTA_SECONDS_VALUE_NAME "A"
+     * {@snippet lang=c :
+     * #define FAIL_FAST_NO_HARD_ERROR_DLG 2
      * }
      */
-    public static MemorySegment CERT_CHAIN_AUTO_FLUSH_FIRST_DELTA_SECONDS_VALUE_NAME() {
-        return constants$4567.const$2;
+    public static int FAIL_FAST_NO_HARD_ERROR_DLG() {
+        return FAIL_FAST_NO_HARD_ERROR_DLG;
     }
+    private static final int DTR_CONTROL_DISABLE = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_AUTO_FLUSH_FIRST_DELTA_SECONDS_DEFAULT 300
+     * {@snippet lang=c :
+     * #define DTR_CONTROL_DISABLE 0
      * }
      */
-    public static int CERT_CHAIN_AUTO_FLUSH_FIRST_DELTA_SECONDS_DEFAULT() {
-        return (int)300L;
+    public static int DTR_CONTROL_DISABLE() {
+        return DTR_CONTROL_DISABLE;
     }
+    private static final int DTR_CONTROL_ENABLE = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_AUTO_FLUSH_NEXT_DELTA_SECONDS_VALUE_NAME "A"
+     * {@snippet lang=c :
+     * #define DTR_CONTROL_ENABLE 1
      * }
      */
-    public static MemorySegment CERT_CHAIN_AUTO_FLUSH_NEXT_DELTA_SECONDS_VALUE_NAME() {
-        return constants$4567.const$2;
+    public static int DTR_CONTROL_ENABLE() {
+        return DTR_CONTROL_ENABLE;
     }
+    private static final int DTR_CONTROL_HANDSHAKE = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_AUTO_FLUSH_NEXT_DELTA_SECONDS_DEFAULT 1800
+     * {@snippet lang=c :
+     * #define DTR_CONTROL_HANDSHAKE 2
      * }
      */
-    public static int CERT_CHAIN_AUTO_FLUSH_NEXT_DELTA_SECONDS_DEFAULT() {
-        return (int)1800L;
+    public static int DTR_CONTROL_HANDSHAKE() {
+        return DTR_CONTROL_HANDSHAKE;
     }
+    private static final int RTS_CONTROL_DISABLE = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_AUTO_LOG_FILE_NAME_VALUE_NAME "A"
+     * {@snippet lang=c :
+     * #define RTS_CONTROL_DISABLE 0
      * }
      */
-    public static MemorySegment CERT_CHAIN_AUTO_LOG_FILE_NAME_VALUE_NAME() {
-        return constants$4567.const$2;
+    public static int RTS_CONTROL_DISABLE() {
+        return RTS_CONTROL_DISABLE;
     }
+    private static final int RTS_CONTROL_ENABLE = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_DISABLE_AUTO_FLUSH_PROCESS_NAME_LIST_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define RTS_CONTROL_ENABLE 1
      * }
      */
-    public static MemorySegment CERT_CHAIN_DISABLE_AUTO_FLUSH_PROCESS_NAME_LIST_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int RTS_CONTROL_ENABLE() {
+        return RTS_CONTROL_ENABLE;
     }
+    private static final int RTS_CONTROL_HANDSHAKE = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_SRV_OCSP_RESP_MIN_VALIDITY_SECONDS_VALUE_NAME "S"
+     * {@snippet lang=c :
+     * #define RTS_CONTROL_HANDSHAKE 2
      * }
      */
-    public static MemorySegment CERT_SRV_OCSP_RESP_MIN_VALIDITY_SECONDS_VALUE_NAME() {
-        return constants$4566.const$4;
+    public static int RTS_CONTROL_HANDSHAKE() {
+        return RTS_CONTROL_HANDSHAKE;
     }
+    private static final int RTS_CONTROL_TOGGLE = (int)3L;
     /**
-     * {@snippet :
-     * #define CERT_SRV_OCSP_RESP_MIN_VALIDITY_SECONDS_DEFAULT 600
+     * {@snippet lang=c :
+     * #define RTS_CONTROL_TOGGLE 3
      * }
      */
-    public static int CERT_SRV_OCSP_RESP_MIN_VALIDITY_SECONDS_DEFAULT() {
-        return (int)600L;
+    public static int RTS_CONTROL_TOGGLE() {
+        return RTS_CONTROL_TOGGLE;
     }
+    private static final int GMEM_FIXED = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_SRV_OCSP_RESP_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_VALUE_NAME "S"
+     * {@snippet lang=c :
+     * #define GMEM_FIXED 0
      * }
      */
-    public static MemorySegment CERT_SRV_OCSP_RESP_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_VALUE_NAME() {
-        return constants$4566.const$4;
+    public static int GMEM_FIXED() {
+        return GMEM_FIXED;
     }
+    private static final int GMEM_MOVEABLE = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_SRV_OCSP_RESP_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_DEFAULT 15000
+     * {@snippet lang=c :
+     * #define GMEM_MOVEABLE 2
      * }
      */
-    public static int CERT_SRV_OCSP_RESP_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_DEFAULT() {
-        return (int)15000L;
+    public static int GMEM_MOVEABLE() {
+        return GMEM_MOVEABLE;
     }
+    private static final int GMEM_NOCOMPACT = (int)16L;
     /**
-     * {@snippet :
-     * #define CERT_SRV_OCSP_RESP_MAX_BEFORE_NEXT_UPDATE_SECONDS_VALUE_NAME "S"
+     * {@snippet lang=c :
+     * #define GMEM_NOCOMPACT 16
      * }
      */
-    public static MemorySegment CERT_SRV_OCSP_RESP_MAX_BEFORE_NEXT_UPDATE_SECONDS_VALUE_NAME() {
-        return constants$4566.const$4;
+    public static int GMEM_NOCOMPACT() {
+        return GMEM_NOCOMPACT;
     }
+    private static final int GMEM_NODISCARD = (int)32L;
     /**
-     * {@snippet :
-     * #define CERT_SRV_OCSP_RESP_MAX_BEFORE_NEXT_UPDATE_SECONDS_DEFAULT 14400
+     * {@snippet lang=c :
+     * #define GMEM_NODISCARD 32
      * }
      */
-    public static int CERT_SRV_OCSP_RESP_MAX_BEFORE_NEXT_UPDATE_SECONDS_DEFAULT() {
-        return (int)14400L;
+    public static int GMEM_NODISCARD() {
+        return GMEM_NODISCARD;
     }
+    private static final int GMEM_ZEROINIT = (int)64L;
     /**
-     * {@snippet :
-     * #define CERT_SRV_OCSP_RESP_MIN_BEFORE_NEXT_UPDATE_SECONDS_VALUE_NAME "S"
+     * {@snippet lang=c :
+     * #define GMEM_ZEROINIT 64
      * }
      */
-    public static MemorySegment CERT_SRV_OCSP_RESP_MIN_BEFORE_NEXT_UPDATE_SECONDS_VALUE_NAME() {
-        return constants$4566.const$4;
+    public static int GMEM_ZEROINIT() {
+        return GMEM_ZEROINIT;
     }
+    private static final int GMEM_MODIFY = (int)128L;
     /**
-     * {@snippet :
-     * #define CERT_SRV_OCSP_RESP_MIN_BEFORE_NEXT_UPDATE_SECONDS_DEFAULT 120
+     * {@snippet lang=c :
+     * #define GMEM_MODIFY 128
      * }
      */
-    public static int CERT_SRV_OCSP_RESP_MIN_BEFORE_NEXT_UPDATE_SECONDS_DEFAULT() {
-        return (int)120L;
+    public static int GMEM_MODIFY() {
+        return GMEM_MODIFY;
     }
+    private static final int GMEM_DISCARDABLE = (int)256L;
     /**
-     * {@snippet :
-     * #define CERT_SRV_OCSP_RESP_MIN_AFTER_NEXT_UPDATE_SECONDS_VALUE_NAME "S"
+     * {@snippet lang=c :
+     * #define GMEM_DISCARDABLE 256
      * }
      */
-    public static MemorySegment CERT_SRV_OCSP_RESP_MIN_AFTER_NEXT_UPDATE_SECONDS_VALUE_NAME() {
-        return constants$4566.const$4;
+    public static int GMEM_DISCARDABLE() {
+        return GMEM_DISCARDABLE;
     }
+    private static final int GMEM_NOT_BANKED = (int)4096L;
     /**
-     * {@snippet :
-     * #define CERT_SRV_OCSP_RESP_MIN_AFTER_NEXT_UPDATE_SECONDS_DEFAULT 60
+     * {@snippet lang=c :
+     * #define GMEM_NOT_BANKED 4096
      * }
      */
-    public static int CERT_SRV_OCSP_RESP_MIN_AFTER_NEXT_UPDATE_SECONDS_DEFAULT() {
-        return (int)60L;
+    public static int GMEM_NOT_BANKED() {
+        return GMEM_NOT_BANKED;
     }
+    private static final int GMEM_SHARE = (int)8192L;
     /**
-     * {@snippet :
-     * #define CERT_SRV_OCSP_RESP_MIN_SYNC_CERT_FILE_SECONDS_VALUE_NAME "S"
+     * {@snippet lang=c :
+     * #define GMEM_SHARE 8192
      * }
      */
-    public static MemorySegment CERT_SRV_OCSP_RESP_MIN_SYNC_CERT_FILE_SECONDS_VALUE_NAME() {
-        return constants$4566.const$4;
+    public static int GMEM_SHARE() {
+        return GMEM_SHARE;
     }
+    private static final int GMEM_DDESHARE = (int)8192L;
     /**
-     * {@snippet :
-     * #define CERT_SRV_OCSP_RESP_MAX_SYNC_CERT_FILE_SECONDS_VALUE_NAME "S"
+     * {@snippet lang=c :
+     * #define GMEM_DDESHARE 8192
      * }
      */
-    public static MemorySegment CERT_SRV_OCSP_RESP_MAX_SYNC_CERT_FILE_SECONDS_VALUE_NAME() {
-        return constants$4566.const$4;
+    public static int GMEM_DDESHARE() {
+        return GMEM_DDESHARE;
     }
+    private static final int GMEM_NOTIFY = (int)16384L;
     /**
-     * {@snippet :
-     * #define CERT_SRV_OCSP_RESP_MAX_SYNC_CERT_FILE_SECONDS_DEFAULT 3600
+     * {@snippet lang=c :
+     * #define GMEM_NOTIFY 16384
      * }
      */
-    public static int CERT_SRV_OCSP_RESP_MAX_SYNC_CERT_FILE_SECONDS_DEFAULT() {
-        return (int)3600L;
+    public static int GMEM_NOTIFY() {
+        return GMEM_NOTIFY;
     }
+    private static final int GMEM_VALID_FLAGS = (int)32626L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_MAX_CACHED_OCSP_PER_CRL_COUNT_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define GMEM_VALID_FLAGS 32626
      * }
      */
-    public static MemorySegment CRYPTNET_MAX_CACHED_OCSP_PER_CRL_COUNT_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int GMEM_VALID_FLAGS() {
+        return GMEM_VALID_FLAGS;
     }
+    private static final int GMEM_INVALID_HANDLE = (int)32768L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_OCSP_AFTER_CRL_DISABLE 4294967295
+     * {@snippet lang=c :
+     * #define GMEM_INVALID_HANDLE 32768
      * }
      */
-    public static int CRYPTNET_OCSP_AFTER_CRL_DISABLE() {
-        return (int)4294967295L;
+    public static int GMEM_INVALID_HANDLE() {
+        return GMEM_INVALID_HANDLE;
     }
+    private static final int GMEM_DISCARDED = (int)16384L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_URL_CACHE_DEFAULT_FLUSH_EXEMPT_SECONDS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define GMEM_DISCARDED 16384
      * }
      */
-    public static MemorySegment CRYPTNET_URL_CACHE_DEFAULT_FLUSH_EXEMPT_SECONDS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int GMEM_DISCARDED() {
+        return GMEM_DISCARDED;
     }
+    private static final int GMEM_LOCKCOUNT = (int)255L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_URL_CACHE_DEFAULT_FLUSH_EXEMPT_SECONDS_DEFAULT 2419200
+     * {@snippet lang=c :
+     * #define GMEM_LOCKCOUNT 255
      * }
      */
-    public static int CRYPTNET_URL_CACHE_DEFAULT_FLUSH_EXEMPT_SECONDS_DEFAULT() {
-        return (int)2419200L;
+    public static int GMEM_LOCKCOUNT() {
+        return GMEM_LOCKCOUNT;
     }
+    private static final int DEBUG_PROCESS = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_MIN_MAX_AGE_SECONDS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define DEBUG_PROCESS 1
      * }
      */
-    public static MemorySegment CRYPTNET_PRE_FETCH_MIN_MAX_AGE_SECONDS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int DEBUG_PROCESS() {
+        return DEBUG_PROCESS;
     }
+    private static final int DEBUG_ONLY_THIS_PROCESS = (int)2L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_MIN_MAX_AGE_SECONDS_DEFAULT 3600
+     * {@snippet lang=c :
+     * #define DEBUG_ONLY_THIS_PROCESS 2
      * }
      */
-    public static int CRYPTNET_PRE_FETCH_MIN_MAX_AGE_SECONDS_DEFAULT() {
-        return (int)3600L;
+    public static int DEBUG_ONLY_THIS_PROCESS() {
+        return DEBUG_ONLY_THIS_PROCESS;
     }
+    private static final int CREATE_SUSPENDED = (int)4L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_MAX_MAX_AGE_SECONDS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define CREATE_SUSPENDED 4
      * }
      */
-    public static MemorySegment CRYPTNET_PRE_FETCH_MAX_MAX_AGE_SECONDS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int CREATE_SUSPENDED() {
+        return CREATE_SUSPENDED;
     }
+    private static final int DETACHED_PROCESS = (int)8L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_MAX_MAX_AGE_SECONDS_DEFAULT 1209600
+     * {@snippet lang=c :
+     * #define DETACHED_PROCESS 8
      * }
      */
-    public static int CRYPTNET_PRE_FETCH_MAX_MAX_AGE_SECONDS_DEFAULT() {
-        return (int)1209600L;
+    public static int DETACHED_PROCESS() {
+        return DETACHED_PROCESS;
     }
+    private static final int CREATE_NEW_CONSOLE = (int)16L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_MIN_OCSP_VALIDITY_PERIOD_SECONDS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define CREATE_NEW_CONSOLE 16
      * }
      */
-    public static MemorySegment CRYPTNET_PRE_FETCH_MIN_OCSP_VALIDITY_PERIOD_SECONDS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int CREATE_NEW_CONSOLE() {
+        return CREATE_NEW_CONSOLE;
     }
+    private static final int NORMAL_PRIORITY_CLASS = (int)32L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_MIN_OCSP_VALIDITY_PERIOD_SECONDS_DEFAULT 1209600
+     * {@snippet lang=c :
+     * #define NORMAL_PRIORITY_CLASS 32
      * }
      */
-    public static int CRYPTNET_PRE_FETCH_MIN_OCSP_VALIDITY_PERIOD_SECONDS_DEFAULT() {
-        return (int)1209600L;
+    public static int NORMAL_PRIORITY_CLASS() {
+        return NORMAL_PRIORITY_CLASS;
     }
+    private static final int IDLE_PRIORITY_CLASS = (int)64L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_AFTER_PUBLISH_PRE_FETCH_DIVISOR_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define IDLE_PRIORITY_CLASS 64
      * }
      */
-    public static MemorySegment CRYPTNET_PRE_FETCH_AFTER_PUBLISH_PRE_FETCH_DIVISOR_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int IDLE_PRIORITY_CLASS() {
+        return IDLE_PRIORITY_CLASS;
     }
+    private static final int HIGH_PRIORITY_CLASS = (int)128L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_BEFORE_NEXT_UPDATE_PRE_FETCH_DIVISOR_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define HIGH_PRIORITY_CLASS 128
      * }
      */
-    public static MemorySegment CRYPTNET_PRE_FETCH_BEFORE_NEXT_UPDATE_PRE_FETCH_DIVISOR_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int HIGH_PRIORITY_CLASS() {
+        return HIGH_PRIORITY_CLASS;
     }
+    private static final int REALTIME_PRIORITY_CLASS = (int)256L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_MIN_BEFORE_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define REALTIME_PRIORITY_CLASS 256
      * }
      */
-    public static MemorySegment CRYPTNET_PRE_FETCH_MIN_BEFORE_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int REALTIME_PRIORITY_CLASS() {
+        return REALTIME_PRIORITY_CLASS;
     }
+    private static final int CREATE_NEW_PROCESS_GROUP = (int)512L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_MIN_BEFORE_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_DEFAULT 3600
+     * {@snippet lang=c :
+     * #define CREATE_NEW_PROCESS_GROUP 512
      * }
      */
-    public static int CRYPTNET_PRE_FETCH_MIN_BEFORE_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_DEFAULT() {
-        return (int)3600L;
+    public static int CREATE_NEW_PROCESS_GROUP() {
+        return CREATE_NEW_PROCESS_GROUP;
     }
+    private static final int CREATE_UNICODE_ENVIRONMENT = (int)1024L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_VALIDITY_PERIOD_AFTER_NEXT_UPDATE_PRE_FETCH_DIVISOR_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define CREATE_UNICODE_ENVIRONMENT 1024
      * }
      */
-    public static MemorySegment CRYPTNET_PRE_FETCH_VALIDITY_PERIOD_AFTER_NEXT_UPDATE_PRE_FETCH_DIVISOR_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int CREATE_UNICODE_ENVIRONMENT() {
+        return CREATE_UNICODE_ENVIRONMENT;
     }
+    private static final int CREATE_SEPARATE_WOW_VDM = (int)2048L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_MAX_AFTER_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define CREATE_SEPARATE_WOW_VDM 2048
      * }
      */
-    public static MemorySegment CRYPTNET_PRE_FETCH_MAX_AFTER_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int CREATE_SEPARATE_WOW_VDM() {
+        return CREATE_SEPARATE_WOW_VDM;
     }
+    private static final int CREATE_SHARED_WOW_VDM = (int)4096L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_MAX_AFTER_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_DEFAULT 14400
+     * {@snippet lang=c :
+     * #define CREATE_SHARED_WOW_VDM 4096
      * }
      */
-    public static int CRYPTNET_PRE_FETCH_MAX_AFTER_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_DEFAULT() {
-        return (int)14400L;
+    public static int CREATE_SHARED_WOW_VDM() {
+        return CREATE_SHARED_WOW_VDM;
     }
+    private static final int CREATE_FORCEDOS = (int)8192L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_MIN_AFTER_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define CREATE_FORCEDOS 8192
      * }
      */
-    public static MemorySegment CRYPTNET_PRE_FETCH_MIN_AFTER_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int CREATE_FORCEDOS() {
+        return CREATE_FORCEDOS;
     }
+    private static final int BELOW_NORMAL_PRIORITY_CLASS = (int)16384L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_MIN_AFTER_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_DEFAULT 1800
+     * {@snippet lang=c :
+     * #define BELOW_NORMAL_PRIORITY_CLASS 16384
      * }
      */
-    public static int CRYPTNET_PRE_FETCH_MIN_AFTER_NEXT_UPDATE_PRE_FETCH_PERIOD_SECONDS_DEFAULT() {
-        return (int)1800L;
+    public static int BELOW_NORMAL_PRIORITY_CLASS() {
+        return BELOW_NORMAL_PRIORITY_CLASS;
     }
+    private static final int ABOVE_NORMAL_PRIORITY_CLASS = (int)32768L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_AFTER_CURRENT_TIME_PRE_FETCH_PERIOD_SECONDS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define ABOVE_NORMAL_PRIORITY_CLASS 32768
      * }
      */
-    public static MemorySegment CRYPTNET_PRE_FETCH_AFTER_CURRENT_TIME_PRE_FETCH_PERIOD_SECONDS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int ABOVE_NORMAL_PRIORITY_CLASS() {
+        return ABOVE_NORMAL_PRIORITY_CLASS;
     }
+    private static final int INHERIT_PARENT_AFFINITY = (int)65536L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_AFTER_CURRENT_TIME_PRE_FETCH_PERIOD_SECONDS_DEFAULT 1800
+     * {@snippet lang=c :
+     * #define INHERIT_PARENT_AFFINITY 65536
      * }
      */
-    public static int CRYPTNET_PRE_FETCH_AFTER_CURRENT_TIME_PRE_FETCH_PERIOD_SECONDS_DEFAULT() {
-        return (int)1800L;
+    public static int INHERIT_PARENT_AFFINITY() {
+        return INHERIT_PARENT_AFFINITY;
     }
+    private static final int INHERIT_CALLER_PRIORITY = (int)131072L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_TRIGGER_PERIOD_SECONDS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define INHERIT_CALLER_PRIORITY 131072
      * }
      */
-    public static MemorySegment CRYPTNET_PRE_FETCH_TRIGGER_PERIOD_SECONDS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int INHERIT_CALLER_PRIORITY() {
+        return INHERIT_CALLER_PRIORITY;
     }
+    private static final int CREATE_PROTECTED_PROCESS = (int)262144L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_TRIGGER_PERIOD_SECONDS_DEFAULT 600
+     * {@snippet lang=c :
+     * #define CREATE_PROTECTED_PROCESS 262144
      * }
      */
-    public static int CRYPTNET_PRE_FETCH_TRIGGER_PERIOD_SECONDS_DEFAULT() {
-        return (int)600L;
+    public static int CREATE_PROTECTED_PROCESS() {
+        return CREATE_PROTECTED_PROCESS;
     }
+    private static final int EXTENDED_STARTUPINFO_PRESENT = (int)524288L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_TRIGGER_DISABLE 4294967295
+     * {@snippet lang=c :
+     * #define EXTENDED_STARTUPINFO_PRESENT 524288
      * }
      */
-    public static int CRYPTNET_PRE_FETCH_TRIGGER_DISABLE() {
-        return (int)4294967295L;
+    public static int EXTENDED_STARTUPINFO_PRESENT() {
+        return EXTENDED_STARTUPINFO_PRESENT;
     }
+    private static final int PROCESS_MODE_BACKGROUND_BEGIN = (int)1048576L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_SCAN_AFTER_TRIGGER_DELAY_SECONDS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define PROCESS_MODE_BACKGROUND_BEGIN 1048576
      * }
      */
-    public static MemorySegment CRYPTNET_PRE_FETCH_SCAN_AFTER_TRIGGER_DELAY_SECONDS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int PROCESS_MODE_BACKGROUND_BEGIN() {
+        return PROCESS_MODE_BACKGROUND_BEGIN;
     }
+    private static final int PROCESS_MODE_BACKGROUND_END = (int)2097152L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_RETRIEVAL_TIMEOUT_SECONDS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define PROCESS_MODE_BACKGROUND_END 2097152
      * }
      */
-    public static MemorySegment CRYPTNET_PRE_FETCH_RETRIEVAL_TIMEOUT_SECONDS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int PROCESS_MODE_BACKGROUND_END() {
+        return PROCESS_MODE_BACKGROUND_END;
     }
+    private static final int CREATE_SECURE_PROCESS = (int)4194304L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_PRE_FETCH_RETRIEVAL_TIMEOUT_SECONDS_DEFAULT 300
+     * {@snippet lang=c :
+     * #define CREATE_SECURE_PROCESS 4194304
      * }
      */
-    public static int CRYPTNET_PRE_FETCH_RETRIEVAL_TIMEOUT_SECONDS_DEFAULT() {
-        return (int)300L;
+    public static int CREATE_SECURE_PROCESS() {
+        return CREATE_SECURE_PROCESS;
     }
+    private static final int CREATE_BREAKAWAY_FROM_JOB = (int)16777216L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_CONFIG_REGPATH "S"
+     * {@snippet lang=c :
+     * #define CREATE_BREAKAWAY_FROM_JOB 16777216
      * }
      */
-    public static MemorySegment CRYPTNET_CRL_PRE_FETCH_CONFIG_REGPATH() {
-        return constants$4566.const$4;
+    public static int CREATE_BREAKAWAY_FROM_JOB() {
+        return CREATE_BREAKAWAY_FROM_JOB;
     }
+    private static final int CREATE_PRESERVE_CODE_AUTHZ_LEVEL = (int)33554432L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_PROCESS_NAME_LIST_VALUE_NAME "P"
+     * {@snippet lang=c :
+     * #define CREATE_PRESERVE_CODE_AUTHZ_LEVEL 33554432
      * }
      */
-    public static MemorySegment CRYPTNET_CRL_PRE_FETCH_PROCESS_NAME_LIST_VALUE_NAME() {
-        return constants$4567.const$3;
+    public static int CREATE_PRESERVE_CODE_AUTHZ_LEVEL() {
+        return CREATE_PRESERVE_CODE_AUTHZ_LEVEL;
     }
+    private static final int CREATE_DEFAULT_ERROR_MODE = (int)67108864L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_URL_LIST_VALUE_NAME "P"
+     * {@snippet lang=c :
+     * #define CREATE_DEFAULT_ERROR_MODE 67108864
      * }
      */
-    public static MemorySegment CRYPTNET_CRL_PRE_FETCH_URL_LIST_VALUE_NAME() {
-        return constants$4567.const$3;
+    public static int CREATE_DEFAULT_ERROR_MODE() {
+        return CREATE_DEFAULT_ERROR_MODE;
     }
+    private static final int CREATE_NO_WINDOW = (int)134217728L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_DISABLE_INFORMATION_EVENTS_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define CREATE_NO_WINDOW 134217728
      * }
      */
-    public static MemorySegment CRYPTNET_CRL_PRE_FETCH_DISABLE_INFORMATION_EVENTS_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int CREATE_NO_WINDOW() {
+        return CREATE_NO_WINDOW;
     }
+    private static final int PROFILE_USER = (int)268435456L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_LOG_FILE_NAME_VALUE_NAME "L"
+     * {@snippet lang=c :
+     * #define PROFILE_USER 268435456
      * }
      */
-    public static MemorySegment CRYPTNET_CRL_PRE_FETCH_LOG_FILE_NAME_VALUE_NAME() {
-        return constants$4579.const$2;
+    public static int PROFILE_USER() {
+        return PROFILE_USER;
     }
+    private static final int PROFILE_KERNEL = (int)536870912L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_TIMEOUT_SECONDS_VALUE_NAME "T"
+     * {@snippet lang=c :
+     * #define PROFILE_KERNEL 536870912
      * }
      */
-    public static MemorySegment CRYPTNET_CRL_PRE_FETCH_TIMEOUT_SECONDS_VALUE_NAME() {
-        return constants$4566.const$3;
+    public static int PROFILE_KERNEL() {
+        return PROFILE_KERNEL;
     }
+    private static final int PROFILE_SERVER = (int)1073741824L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_TIMEOUT_SECONDS_DEFAULT 300
+     * {@snippet lang=c :
+     * #define PROFILE_SERVER 1073741824
      * }
      */
-    public static int CRYPTNET_CRL_PRE_FETCH_TIMEOUT_SECONDS_DEFAULT() {
-        return (int)300L;
+    public static int PROFILE_SERVER() {
+        return PROFILE_SERVER;
     }
+    private static final int STACK_SIZE_PARAM_IS_A_RESERVATION = (int)65536L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_MAX_AGE_SECONDS_VALUE_NAME "M"
+     * {@snippet lang=c :
+     * #define STACK_SIZE_PARAM_IS_A_RESERVATION 65536
      * }
      */
-    public static MemorySegment CRYPTNET_CRL_PRE_FETCH_MAX_AGE_SECONDS_VALUE_NAME() {
-        return constants$4562.const$3;
+    public static int STACK_SIZE_PARAM_IS_A_RESERVATION() {
+        return STACK_SIZE_PARAM_IS_A_RESERVATION;
     }
+    private static final int THREAD_PRIORITY_NORMAL = (int)0L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_MAX_AGE_SECONDS_DEFAULT 7200
+     * {@snippet lang=c :
+     * #define THREAD_PRIORITY_NORMAL 0
      * }
      */
-    public static int CRYPTNET_CRL_PRE_FETCH_MAX_AGE_SECONDS_DEFAULT() {
-        return (int)7200L;
+    public static int THREAD_PRIORITY_NORMAL() {
+        return THREAD_PRIORITY_NORMAL;
     }
+    private static final int THREAD_MODE_BACKGROUND_BEGIN = (int)65536L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_MAX_AGE_SECONDS_MIN 300
+     * {@snippet lang=c :
+     * #define THREAD_MODE_BACKGROUND_BEGIN 65536
      * }
      */
-    public static int CRYPTNET_CRL_PRE_FETCH_MAX_AGE_SECONDS_MIN() {
-        return (int)300L;
+    public static int THREAD_MODE_BACKGROUND_BEGIN() {
+        return THREAD_MODE_BACKGROUND_BEGIN;
     }
+    private static final int THREAD_MODE_BACKGROUND_END = (int)131072L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_PUBLISH_BEFORE_NEXT_UPDATE_SECONDS_VALUE_NAME "P"
+     * {@snippet lang=c :
+     * #define THREAD_MODE_BACKGROUND_END 131072
      * }
      */
-    public static MemorySegment CRYPTNET_CRL_PRE_FETCH_PUBLISH_BEFORE_NEXT_UPDATE_SECONDS_VALUE_NAME() {
-        return constants$4567.const$3;
+    public static int THREAD_MODE_BACKGROUND_END() {
+        return THREAD_MODE_BACKGROUND_END;
     }
+    private static final int VOLUME_NAME_DOS = (int)0L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_PUBLISH_BEFORE_NEXT_UPDATE_SECONDS_DEFAULT 3600
+     * {@snippet lang=c :
+     * #define VOLUME_NAME_DOS 0
      * }
      */
-    public static int CRYPTNET_CRL_PRE_FETCH_PUBLISH_BEFORE_NEXT_UPDATE_SECONDS_DEFAULT() {
-        return (int)3600L;
+    public static int VOLUME_NAME_DOS() {
+        return VOLUME_NAME_DOS;
     }
+    private static final int VOLUME_NAME_GUID = (int)1L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_PUBLISH_RANDOM_INTERVAL_SECONDS_VALUE_NAME "P"
+     * {@snippet lang=c :
+     * #define VOLUME_NAME_GUID 1
      * }
      */
-    public static MemorySegment CRYPTNET_CRL_PRE_FETCH_PUBLISH_RANDOM_INTERVAL_SECONDS_VALUE_NAME() {
-        return constants$4567.const$3;
+    public static int VOLUME_NAME_GUID() {
+        return VOLUME_NAME_GUID;
     }
+    private static final int VOLUME_NAME_NT = (int)2L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_PUBLISH_RANDOM_INTERVAL_SECONDS_DEFAULT 300
+     * {@snippet lang=c :
+     * #define VOLUME_NAME_NT 2
      * }
      */
-    public static int CRYPTNET_CRL_PRE_FETCH_PUBLISH_RANDOM_INTERVAL_SECONDS_DEFAULT() {
-        return (int)300L;
+    public static int VOLUME_NAME_NT() {
+        return VOLUME_NAME_NT;
     }
+    private static final int VOLUME_NAME_NONE = (int)4L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_MIN_BEFORE_NEXT_UPDATE_SECONDS_VALUE_NAME "M"
+     * {@snippet lang=c :
+     * #define VOLUME_NAME_NONE 4
      * }
      */
-    public static MemorySegment CRYPTNET_CRL_PRE_FETCH_MIN_BEFORE_NEXT_UPDATE_SECONDS_VALUE_NAME() {
-        return constants$4562.const$3;
+    public static int VOLUME_NAME_NONE() {
+        return VOLUME_NAME_NONE;
     }
+    private static final int FILE_NAME_NORMALIZED = (int)0L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_MIN_BEFORE_NEXT_UPDATE_SECONDS_DEFAULT 300
+     * {@snippet lang=c :
+     * #define FILE_NAME_NORMALIZED 0
      * }
      */
-    public static int CRYPTNET_CRL_PRE_FETCH_MIN_BEFORE_NEXT_UPDATE_SECONDS_DEFAULT() {
-        return (int)300L;
+    public static int FILE_NAME_NORMALIZED() {
+        return FILE_NAME_NORMALIZED;
     }
+    private static final int FILE_NAME_OPENED = (int)8L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_MIN_AFTER_NEXT_UPDATE_SECONDS_VALUE_NAME "M"
+     * {@snippet lang=c :
+     * #define FILE_NAME_OPENED 8
      * }
      */
-    public static MemorySegment CRYPTNET_CRL_PRE_FETCH_MIN_AFTER_NEXT_UPDATE_SECONDS_VALUE_NAME() {
-        return constants$4562.const$3;
+    public static int FILE_NAME_OPENED() {
+        return FILE_NAME_OPENED;
     }
+    private static final int DRIVE_UNKNOWN = (int)0L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_PRE_FETCH_MIN_AFTER_NEXT_UPDATE_SECONDS_DEFAULT 300
+     * {@snippet lang=c :
+     * #define DRIVE_UNKNOWN 0
      * }
      */
-    public static int CRYPTNET_CRL_PRE_FETCH_MIN_AFTER_NEXT_UPDATE_SECONDS_DEFAULT() {
-        return (int)300L;
+    public static int DRIVE_UNKNOWN() {
+        return DRIVE_UNKNOWN;
     }
+    private static final int DRIVE_NO_ROOT_DIR = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_GROUP_POLICY_CHAIN_CONFIG_REGPATH "S"
+     * {@snippet lang=c :
+     * #define DRIVE_NO_ROOT_DIR 1
      * }
      */
-    public static MemorySegment CERT_GROUP_POLICY_CHAIN_CONFIG_REGPATH() {
-        return constants$4566.const$4;
+    public static int DRIVE_NO_ROOT_DIR() {
+        return DRIVE_NO_ROOT_DIR;
     }
+    private static final int DRIVE_REMOVABLE = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define DRIVE_REMOVABLE 2
      * }
      */
-    public static MemorySegment CERT_CHAIN_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int DRIVE_REMOVABLE() {
+        return DRIVE_REMOVABLE;
     }
+    private static final int DRIVE_FIXED = (int)3L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_DEFAULT 15000
+     * {@snippet lang=c :
+     * #define DRIVE_FIXED 3
      * }
      */
-    public static int CERT_CHAIN_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_DEFAULT() {
-        return (int)15000L;
+    public static int DRIVE_FIXED() {
+        return DRIVE_FIXED;
     }
+    private static final int DRIVE_REMOTE = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_REV_ACCUMULATIVE_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define DRIVE_REMOTE 4
      * }
      */
-    public static MemorySegment CERT_CHAIN_REV_ACCUMULATIVE_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int DRIVE_REMOTE() {
+        return DRIVE_REMOTE;
     }
+    private static final int DRIVE_CDROM = (int)5L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_REV_ACCUMULATIVE_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_DEFAULT 20000
+     * {@snippet lang=c :
+     * #define DRIVE_CDROM 5
      * }
      */
-    public static int CERT_CHAIN_REV_ACCUMULATIVE_URL_RETRIEVAL_TIMEOUT_MILLISECONDS_DEFAULT() {
-        return (int)20000L;
+    public static int DRIVE_CDROM() {
+        return DRIVE_CDROM;
     }
+    private static final int DRIVE_RAMDISK = (int)6L;
     /**
-     * {@snippet :
-     * #define CERT_RETR_BEHAVIOR_INET_AUTH_VALUE_NAME "E"
+     * {@snippet lang=c :
+     * #define DRIVE_RAMDISK 6
      * }
      */
-    public static MemorySegment CERT_RETR_BEHAVIOR_INET_AUTH_VALUE_NAME() {
-        return constants$4567.const$5;
+    public static int DRIVE_RAMDISK() {
+        return DRIVE_RAMDISK;
     }
+    private static final int FILE_TYPE_UNKNOWN = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_RETR_BEHAVIOR_INET_STATUS_VALUE_NAME "E"
+     * {@snippet lang=c :
+     * #define FILE_TYPE_UNKNOWN 0
      * }
      */
-    public static MemorySegment CERT_RETR_BEHAVIOR_INET_STATUS_VALUE_NAME() {
-        return constants$4567.const$5;
+    public static int FILE_TYPE_UNKNOWN() {
+        return FILE_TYPE_UNKNOWN;
     }
+    private static final int FILE_TYPE_DISK = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_RETR_BEHAVIOR_FILE_VALUE_NAME "A"
+     * {@snippet lang=c :
+     * #define FILE_TYPE_DISK 1
      * }
      */
-    public static MemorySegment CERT_RETR_BEHAVIOR_FILE_VALUE_NAME() {
-        return constants$4567.const$2;
+    public static int FILE_TYPE_DISK() {
+        return FILE_TYPE_DISK;
     }
+    private static final int FILE_TYPE_CHAR = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_RETR_BEHAVIOR_LDAP_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define FILE_TYPE_CHAR 2
      * }
      */
-    public static MemorySegment CERT_RETR_BEHAVIOR_LDAP_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int FILE_TYPE_CHAR() {
+        return FILE_TYPE_CHAR;
     }
+    private static final int FILE_TYPE_PIPE = (int)3L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CACHED_OCSP_SWITCH_TO_CRL_COUNT_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define FILE_TYPE_PIPE 3
      * }
      */
-    public static MemorySegment CRYPTNET_CACHED_OCSP_SWITCH_TO_CRL_COUNT_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int FILE_TYPE_PIPE() {
+        return FILE_TYPE_PIPE;
     }
+    private static final int FILE_TYPE_REMOTE = (int)32768L;
     /**
-     * {@snippet :
-     * #define CRYPTNET_CRL_BEFORE_OCSP_ENABLE 4294967295
+     * {@snippet lang=c :
+     * #define FILE_TYPE_REMOTE 32768
      * }
      */
-    public static int CRYPTNET_CRL_BEFORE_OCSP_ENABLE() {
-        return (int)4294967295L;
+    public static int FILE_TYPE_REMOTE() {
+        return FILE_TYPE_REMOTE;
     }
+    private static final int NOPARITY = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_DISABLE_AIA_URL_RETRIEVAL_VALUE_NAME "D"
+     * {@snippet lang=c :
+     * #define NOPARITY 0
      * }
      */
-    public static MemorySegment CERT_CHAIN_DISABLE_AIA_URL_RETRIEVAL_VALUE_NAME() {
-        return constants$4541.const$4;
+    public static int NOPARITY() {
+        return NOPARITY;
     }
+    private static final int ODDPARITY = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_OPTIONS_VALUE_NAME "O"
+     * {@snippet lang=c :
+     * #define ODDPARITY 1
      * }
      */
-    public static MemorySegment CERT_CHAIN_OPTIONS_VALUE_NAME() {
-        return constants$4566.const$5;
+    public static int ODDPARITY() {
+        return ODDPARITY;
     }
+    private static final int EVENPARITY = (int)2L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_CROSS_CERT_DOWNLOAD_INTERVAL_HOURS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define EVENPARITY 2
      * }
      */
-    public static MemorySegment CERT_CHAIN_CROSS_CERT_DOWNLOAD_INTERVAL_HOURS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int EVENPARITY() {
+        return EVENPARITY;
     }
+    private static final int MARKPARITY = (int)3L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_CROSS_CERT_DOWNLOAD_INTERVAL_HOURS_DEFAULT 168
+     * {@snippet lang=c :
+     * #define MARKPARITY 3
      * }
      */
-    public static int CERT_CHAIN_CROSS_CERT_DOWNLOAD_INTERVAL_HOURS_DEFAULT() {
-        return (int)168L;
+    public static int MARKPARITY() {
+        return MARKPARITY;
     }
+    private static final int SPACEPARITY = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_CRL_VALIDITY_EXT_PERIOD_HOURS_VALUE_NAME "C"
+     * {@snippet lang=c :
+     * #define SPACEPARITY 4
      * }
      */
-    public static MemorySegment CERT_CHAIN_CRL_VALIDITY_EXT_PERIOD_HOURS_VALUE_NAME() {
-        return constants$4541.const$1;
+    public static int SPACEPARITY() {
+        return SPACEPARITY;
     }
+    private static final int ONESTOPBIT = (int)0L;
     /**
-     * {@snippet :
-     * #define HCCE_CURRENT_USER 0
+     * {@snippet lang=c :
+     * #define ONESTOPBIT 0
      * }
      */
-    public static MemorySegment HCCE_CURRENT_USER() {
-        return constants$4541.const$0;
+    public static int ONESTOPBIT() {
+        return ONESTOPBIT;
     }
+    private static final int ONE5STOPBITS = (int)1L;
     /**
-     * {@snippet :
-     * #define HCCE_LOCAL_MACHINE 1
+     * {@snippet lang=c :
+     * #define ONE5STOPBITS 1
      * }
      */
-    public static MemorySegment HCCE_LOCAL_MACHINE() {
-        return constants$4552.const$0;
+    public static int ONE5STOPBITS() {
+        return ONE5STOPBITS;
     }
+    private static final int TWOSTOPBITS = (int)2L;
     /**
-     * {@snippet :
-     * #define HCCE_SERIAL_LOCAL_MACHINE 2
+     * {@snippet lang=c :
+     * #define TWOSTOPBITS 2
      * }
      */
-    public static MemorySegment HCCE_SERIAL_LOCAL_MACHINE() {
-        return constants$4552.const$1;
+    public static int TWOSTOPBITS() {
+        return TWOSTOPBITS;
     }
+    private static final int IGNORE = (int)0L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_REVOCATION_CHECK_CACHE_ONLY 2147483648
+     * {@snippet lang=c :
+     * #define IGNORE 0
      * }
      */
-    public static int CERT_CHAIN_REVOCATION_CHECK_CACHE_ONLY() {
-        return (int)2147483648L;
+    public static int IGNORE() {
+        return IGNORE;
     }
+    private static final int CBR_110 = (int)110L;
     /**
-     * {@snippet :
-     * #define REVOCATION_OID_CRL_REVOCATION 1
+     * {@snippet lang=c :
+     * #define CBR_110 110
      * }
      */
-    public static MemorySegment REVOCATION_OID_CRL_REVOCATION() {
-        return constants$4552.const$0;
+    public static int CBR_110() {
+        return CBR_110;
     }
+    private static final int CBR_300 = (int)300L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_IGNORE_ALL_NOT_TIME_VALID_FLAGS 7
+     * {@snippet lang=c :
+     * #define CBR_300 300
      * }
      */
-    public static int CERT_CHAIN_POLICY_IGNORE_ALL_NOT_TIME_VALID_FLAGS() {
-        return (int)7L;
+    public static int CBR_300() {
+        return CBR_300;
     }
+    private static final int CBR_600 = (int)600L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_IGNORE_ALL_REV_UNKNOWN_FLAGS 3840
+     * {@snippet lang=c :
+     * #define CBR_600 600
      * }
      */
-    public static int CERT_CHAIN_POLICY_IGNORE_ALL_REV_UNKNOWN_FLAGS() {
-        return (int)3840L;
+    public static int CBR_600() {
+        return CBR_600;
     }
+    private static final int CBR_1200 = (int)1200L;
     /**
-     * {@snippet :
-     * #define CRYPT_OID_VERIFY_CERTIFICATE_CHAIN_POLICY_FUNC "CertDllVerifyCertificateChainPolicy"
+     * {@snippet lang=c :
+     * #define CBR_1200 1200
      * }
      */
-    public static MemorySegment CRYPT_OID_VERIFY_CERTIFICATE_CHAIN_POLICY_FUNC() {
-        return constants$4683.const$5;
+    public static int CBR_1200() {
+        return CBR_1200;
     }
+    private static final int CBR_2400 = (int)2400L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_BASE 1
+     * {@snippet lang=c :
+     * #define CBR_2400 2400
      * }
      */
-    public static MemorySegment CERT_CHAIN_POLICY_BASE() {
-        return constants$4552.const$0;
+    public static int CBR_2400() {
+        return CBR_2400;
     }
+    private static final int CBR_4800 = (int)4800L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_AUTHENTICODE 2
+     * {@snippet lang=c :
+     * #define CBR_4800 4800
      * }
      */
-    public static MemorySegment CERT_CHAIN_POLICY_AUTHENTICODE() {
-        return constants$4552.const$1;
+    public static int CBR_4800() {
+        return CBR_4800;
     }
+    private static final int CBR_9600 = (int)9600L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_AUTHENTICODE_TS 3
+     * {@snippet lang=c :
+     * #define CBR_9600 9600
      * }
      */
-    public static MemorySegment CERT_CHAIN_POLICY_AUTHENTICODE_TS() {
-        return constants$4552.const$2;
+    public static int CBR_9600() {
+        return CBR_9600;
     }
+    private static final int CBR_14400 = (int)14400L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_SSL 4
+     * {@snippet lang=c :
+     * #define CBR_14400 14400
      * }
      */
-    public static MemorySegment CERT_CHAIN_POLICY_SSL() {
-        return constants$4552.const$3;
+    public static int CBR_14400() {
+        return CBR_14400;
     }
+    private static final int CBR_19200 = (int)19200L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_BASIC_CONSTRAINTS 5
+     * {@snippet lang=c :
+     * #define CBR_19200 19200
      * }
      */
-    public static MemorySegment CERT_CHAIN_POLICY_BASIC_CONSTRAINTS() {
-        return constants$4552.const$4;
+    public static int CBR_19200() {
+        return CBR_19200;
     }
+    private static final int CBR_38400 = (int)38400L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_NT_AUTH 6
+     * {@snippet lang=c :
+     * #define CBR_38400 38400
      * }
      */
-    public static MemorySegment CERT_CHAIN_POLICY_NT_AUTH() {
-        return constants$4552.const$5;
+    public static int CBR_38400() {
+        return CBR_38400;
     }
+    private static final int CBR_56000 = (int)56000L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_MICROSOFT_ROOT 7
+     * {@snippet lang=c :
+     * #define CBR_56000 56000
      * }
      */
-    public static MemorySegment CERT_CHAIN_POLICY_MICROSOFT_ROOT() {
-        return constants$4553.const$0;
+    public static int CBR_56000() {
+        return CBR_56000;
     }
+    private static final int CBR_57600 = (int)57600L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_EV 8
+     * {@snippet lang=c :
+     * #define CBR_57600 57600
      * }
      */
-    public static MemorySegment CERT_CHAIN_POLICY_EV() {
-        return constants$4553.const$1;
+    public static int CBR_57600() {
+        return CBR_57600;
     }
+    private static final int CBR_115200 = (int)115200L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_SSL_F12 9
+     * {@snippet lang=c :
+     * #define CBR_115200 115200
      * }
      */
-    public static MemorySegment CERT_CHAIN_POLICY_SSL_F12() {
-        return constants$4553.const$2;
+    public static int CBR_115200() {
+        return CBR_115200;
     }
+    private static final int CBR_128000 = (int)128000L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_SSL_HPKP_HEADER 10
+     * {@snippet lang=c :
+     * #define CBR_128000 128000
      * }
      */
-    public static MemorySegment CERT_CHAIN_POLICY_SSL_HPKP_HEADER() {
-        return constants$4553.const$3;
+    public static int CBR_128000() {
+        return CBR_128000;
     }
+    private static final int CBR_256000 = (int)256000L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_THIRD_PARTY_ROOT 11
+     * {@snippet lang=c :
+     * #define CBR_256000 256000
      * }
      */
-    public static MemorySegment CERT_CHAIN_POLICY_THIRD_PARTY_ROOT() {
-        return constants$4553.const$4;
+    public static int CBR_256000() {
+        return CBR_256000;
     }
+    private static final int CE_RXOVER = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_SSL_KEY_PIN 12
+     * {@snippet lang=c :
+     * #define CE_RXOVER 1
      * }
      */
-    public static MemorySegment CERT_CHAIN_POLICY_SSL_KEY_PIN() {
-        return constants$4553.const$5;
+    public static int CE_RXOVER() {
+        return CE_RXOVER;
     }
+    private static final int CE_OVERRUN = (int)2L;
     /**
-     * {@snippet :
-     * #define BASIC_CONSTRAINTS_CERT_CHAIN_POLICY_CA_FLAG 2147483648
+     * {@snippet lang=c :
+     * #define CE_OVERRUN 2
      * }
      */
-    public static int BASIC_CONSTRAINTS_CERT_CHAIN_POLICY_CA_FLAG() {
-        return (int)2147483648L;
+    public static int CE_OVERRUN() {
+        return CE_OVERRUN;
     }
+    private static final int CE_RXPARITY = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_SSL_KEY_PIN_MISMATCH_ERROR -2
+     * {@snippet lang=c :
+     * #define CE_RXPARITY 4
      * }
      */
-    public static int CERT_CHAIN_POLICY_SSL_KEY_PIN_MISMATCH_ERROR() {
-        return (int)-2L;
+    public static int CE_RXPARITY() {
+        return CE_RXPARITY;
     }
+    private static final int CE_FRAME = (int)8L;
     /**
-     * {@snippet :
-     * #define CERT_CHAIN_POLICY_SSL_KEY_PIN_MITM_ERROR -1
+     * {@snippet lang=c :
+     * #define CE_FRAME 8
      * }
      */
-    public static int CERT_CHAIN_POLICY_SSL_KEY_PIN_MITM_ERROR() {
-        return (int)-1L;
+    public static int CE_FRAME() {
+        return CE_FRAME;
     }
+    private static final int CE_BREAK = (int)16L;
     /**
-     * {@snippet :
-     * #define CRYPT_STRING_NOCR 2147483648
+     * {@snippet lang=c :
+     * #define CE_BREAK 16
      * }
      */
-    public static int CRYPT_STRING_NOCR() {
-        return (int)2147483648L;
+    public static int CE_BREAK() {
+        return CE_BREAK;
     }
+    private static final int CE_TXFULL = (int)256L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_12_PbeIds "1.2.840.113549.1.12.1"
+     * {@snippet lang=c :
+     * #define CE_TXFULL 256
      * }
      */
-    public static MemorySegment szOID_PKCS_12_PbeIds() {
-        return constants$4684.const$0;
+    public static int CE_TXFULL() {
+        return CE_TXFULL;
     }
+    private static final int CE_PTO = (int)512L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_12_pbeWithSHA1And128BitRC4 "1.2.840.113549.1.12.1.1"
+     * {@snippet lang=c :
+     * #define CE_PTO 512
      * }
      */
-    public static MemorySegment szOID_PKCS_12_pbeWithSHA1And128BitRC4() {
-        return constants$4684.const$1;
+    public static int CE_PTO() {
+        return CE_PTO;
     }
+    private static final int CE_IOE = (int)1024L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_12_pbeWithSHA1And40BitRC4 "1.2.840.113549.1.12.1.2"
+     * {@snippet lang=c :
+     * #define CE_IOE 1024
      * }
      */
-    public static MemorySegment szOID_PKCS_12_pbeWithSHA1And40BitRC4() {
-        return constants$4684.const$2;
+    public static int CE_IOE() {
+        return CE_IOE;
     }
+    private static final int CE_DNS = (int)2048L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_12_pbeWithSHA1And3KeyTripleDES "1.2.840.113549.1.12.1.3"
+     * {@snippet lang=c :
+     * #define CE_DNS 2048
      * }
      */
-    public static MemorySegment szOID_PKCS_12_pbeWithSHA1And3KeyTripleDES() {
-        return constants$4684.const$3;
+    public static int CE_DNS() {
+        return CE_DNS;
     }
+    private static final int CE_OOP = (int)4096L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_12_pbeWithSHA1And2KeyTripleDES "1.2.840.113549.1.12.1.4"
+     * {@snippet lang=c :
+     * #define CE_OOP 4096
      * }
      */
-    public static MemorySegment szOID_PKCS_12_pbeWithSHA1And2KeyTripleDES() {
-        return constants$4684.const$4;
+    public static int CE_OOP() {
+        return CE_OOP;
     }
+    private static final int CE_MODE = (int)32768L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_12_pbeWithSHA1And128BitRC2 "1.2.840.113549.1.12.1.5"
+     * {@snippet lang=c :
+     * #define CE_MODE 32768
      * }
      */
-    public static MemorySegment szOID_PKCS_12_pbeWithSHA1And128BitRC2() {
-        return constants$4684.const$5;
+    public static int CE_MODE() {
+        return CE_MODE;
     }
+    private static final int EV_RXCHAR = (int)1L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_12_pbeWithSHA1And40BitRC2 "1.2.840.113549.1.12.1.6"
+     * {@snippet lang=c :
+     * #define EV_RXCHAR 1
      * }
      */
-    public static MemorySegment szOID_PKCS_12_pbeWithSHA1And40BitRC2() {
-        return constants$4685.const$0;
+    public static int EV_RXCHAR() {
+        return EV_RXCHAR;
     }
+    private static final int EV_RXFLAG = (int)2L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_5_PBKDF2 "1.2.840.113549.1.5.12"
+     * {@snippet lang=c :
+     * #define EV_RXFLAG 2
      * }
      */
-    public static MemorySegment szOID_PKCS_5_PBKDF2() {
-        return constants$4685.const$1;
+    public static int EV_RXFLAG() {
+        return EV_RXFLAG;
     }
+    private static final int EV_TXEMPTY = (int)4L;
     /**
-     * {@snippet :
-     * #define szOID_PKCS_5_PBES2 "1.2.840.113549.1.5.13"
+     * {@snippet lang=c :
+     * #define EV_TXEMPTY 4
      * }
      */
-    public static MemorySegment szOID_PKCS_5_PBES2() {
-        return constants$4685.const$2;
+    public static int EV_TXEMPTY() {
+        return EV_TXEMPTY;
     }
+    private static final int EV_CTS = (int)8L;
     /**
-     * {@snippet :
-     * #define PKCS12_IMPORT_RESERVED_MASK 4294901760
+     * {@snippet lang=c :
+     * #define EV_CTS 8
      * }
      */
-    public static int PKCS12_IMPORT_RESERVED_MASK() {
-        return (int)4294901760L;
+    public static int EV_CTS() {
+        return EV_CTS;
     }
+    private static final int EV_DSR = (int)16L;
     /**
-     * {@snippet :
-     * #define PKCS12_OBJECT_LOCATOR_ALL_IMPORT_FLAGS 33360
+     * {@snippet lang=c :
+     * #define EV_DSR 16
      * }
      */
-    public static int PKCS12_OBJECT_LOCATOR_ALL_IMPORT_FLAGS() {
-        return (int)33360L;
+    public static int EV_DSR() {
+        return EV_DSR;
     }
+    private static final int EV_RLSD = (int)32L;
     /**
-     * {@snippet :
-     * #define PKCS12_ONLY_CERTIFICATES_PROVIDER_NAME "P"
+     * {@snippet lang=c :
+     * #define EV_RLSD 32
      * }
      */
-    public static MemorySegment PKCS12_ONLY_CERTIFICATES_PROVIDER_NAME() {
-        return constants$4567.const$3;
+    public static int EV_RLSD() {
+        return EV_RLSD;
     }
+    private static final int EV_BREAK = (int)64L;
     /**
-     * {@snippet :
-     * #define PKCS12_ONLY_CERTIFICATES_CONTAINER_NAME "P"
+     * {@snippet lang=c :
+     * #define EV_BREAK 64
      * }
      */
-    public static MemorySegment PKCS12_ONLY_CERTIFICATES_CONTAINER_NAME() {
-        return constants$4567.const$3;
+    public static int EV_BREAK() {
+        return EV_BREAK;
     }
+    private static final int EV_ERR = (int)128L;
     /**
-     * {@snippet :
-     * #define PKCS12_EXPORT_RESERVED_MASK 4294901760
+     * {@snippet lang=c :
+     * #define EV_ERR 128
      * }
      */
-    public static int PKCS12_EXPORT_RESERVED_MASK() {
-        return (int)4294901760L;
+    public static int EV_ERR() {
+        return EV_ERR;
     }
+    private static final int EV_RING = (int)256L;
     /**
-     * {@snippet :
-     * #define PKCS12_PBKDF2_ID_HMAC_SHA1 "1.2.840.113549.2.7"
+     * {@snippet lang=c :
+     * #define EV_RING 256
      * }
      */
-    public static MemorySegment PKCS12_PBKDF2_ID_HMAC_SHA1() {
-        return constants$4685.const$3;
+    public static int EV_RING() {
+        return EV_RING;
     }
+    private static final int EV_PERR = (int)512L;
     /**
-     * {@snippet :
-     * #define PKCS12_PBKDF2_ID_HMAC_SHA256 "1.2.840.113549.2.9"
+     * {@snippet lang=c :
+     * #define EV_PERR 512
      * }
      */
-    public static MemorySegment PKCS12_PBKDF2_ID_HMAC_SHA256() {
-        return constants$4685.const$4;
+    public static int EV_PERR() {
+        return EV_PERR;
     }
+    private static final int EV_RX80FULL = (int)1024L;
     /**
-     * {@snippet :
-     * #define PKCS12_PBKDF2_ID_HMAC_SHA384 "1.2.840.113549.2.10"
+     * {@snippet lang=c :
+     * #define EV_RX80FULL 1024
      * }
      */
-    public static MemorySegment PKCS12_PBKDF2_ID_HMAC_SHA384() {
-        return constants$4685.const$5;
+    public static int EV_RX80FULL() {
+        return EV_RX80FULL;
     }
+    private static final int EV_EVENT1 = (int)2048L;
     /**
-     * {@snippet :
-     * #define PKCS12_PBKDF2_ID_HMAC_SHA512 "1.2.840.113549.2.11"
+     * {@snippet lang=c :
+     * #define EV_EVENT1 2048
      * }
      */
-    public static MemorySegment PKCS12_PBKDF2_ID_HMAC_SHA512() {
-        return constants$4686.const$0;
+    public static int EV_EVENT1() {
+        return EV_EVENT1;
     }
+    private static final int EV_EVENT2 = (int)4096L;
     /**
-     * {@snippet :
-     * #define PKCS12_PBES2_ALG_AES256_SHA256 "A"
+     * {@snippet lang=c :
+     * #define EV_EVENT2 4096
      * }
      */
-    public static MemorySegment PKCS12_PBES2_ALG_AES256_SHA256() {
-        return constants$4567.const$2;
+    public static int EV_EVENT2() {
+        return EV_EVENT2;
     }
+    private static final int SETXOFF = (int)1L;
     /**
-     * {@snippet :
-     * #define PKCS12_CONFIG_REGPATH "S"
+     * {@snippet lang=c :
+     * #define SETXOFF 1
      * }
      */
-    public static MemorySegment PKCS12_CONFIG_REGPATH() {
-        return constants$4566.const$4;
+    public static int SETXOFF() {
+        return SETXOFF;
     }
+    private static final int SETXON = (int)2L;
     /**
-     * {@snippet :
-     * #define PKCS12_ENCRYPT_CERTIFICATES_VALUE_NAME "E"
+     * {@snippet lang=c :
+     * #define SETXON 2
      * }
      */
-    public static MemorySegment PKCS12_ENCRYPT_CERTIFICATES_VALUE_NAME() {
-        return constants$4567.const$5;
+    public static int SETXON() {
+        return SETXON;
     }
+    private static final int SETRTS = (int)3L;
     /**
-     * {@snippet :
-     * #define CERT_RETRIEVE_ISSUER_LOGO 1
+     * {@snippet lang=c :
+     * #define SETRTS 3
      * }
      */
-    public static MemorySegment CERT_RETRIEVE_ISSUER_LOGO() {
-        return constants$4552.const$0;
+    public static int SETRTS() {
+        return SETRTS;
     }
+    private static final int CLRRTS = (int)4L;
     /**
-     * {@snippet :
-     * #define CERT_RETRIEVE_SUBJECT_LOGO 2
+     * {@snippet lang=c :
+     * #define CLRRTS 4
      * }
      */
-    public static MemorySegment CERT_RETRIEVE_SUBJECT_LOGO() {
-        return constants$4552.const$1;
+    public static int CLRRTS() {
+        return CLRRTS;
     }
+    private static final int SETDTR = (int)5L;
     /**
-     * {@snippet :
-     * #define CERT_RETRIEVE_COMMUNITY_LOGO 3
+     * {@snippet lang=c :
+     * #define SETDTR 5
      * }
      */
-    public static MemorySegment CERT_RETRIEVE_COMMUNITY_LOGO() {
-        return constants$4552.const$2;
+    public static int SETDTR() {
+        return SETDTR;
     }
+    private static final int CLRDTR = (int)6L;
     /**
-     * {@snippet :
-     * #define CERT_RETRIEVE_BIOMETRIC_PREDEFINED_BASE_TYPE 1000
+     * {@snippet lang=c :
+     * #define CLRDTR 6
      * }
      */
-    public static MemorySegment CERT_RETRIEVE_BIOMETRIC_PREDEFINED_BASE_TYPE() {
-        return constants$4563.const$0;
+    public static int CLRDTR() {
+        return CLRDTR;
     }
+    private static final int RESETDEV = (int)7L;
     /**
-     * {@snippet :
-     * #define CERT_RETRIEVE_BIOMETRIC_PICTURE_TYPE 1000
+     * {@snippet lang=c :
+     * #define RESETDEV 7
      * }
      */
-    public static MemorySegment CERT_RETRIEVE_BIOMETRIC_PICTURE_TYPE() {
-        return constants$4563.const$0;
+    public static int RESETDEV() {
+        return RESETDEV;
     }
+    private static final int SETBREAK = (int)8L;
     /**
-     * {@snippet :
-     * #define CERT_RETRIEVE_BIOMETRIC_SIGNATURE_TYPE 1001
+     * {@snippet lang=c :
+     * #define SETBREAK 8
      * }
      */
-    public static MemorySegment CERT_RETRIEVE_BIOMETRIC_SIGNATURE_TYPE() {
-        return constants$4686.const$1;
+    public static int SETBREAK() {
+        return SETBREAK;
     }
+    private static final int CLRBREAK = (int)9L;
     /**
-     * {@snippet :
-     * #define CERT_SELECT_LAST 11
+     * {@snippet lang=c :
+     * #define CLRBREAK 9
      * }
      */
-    public static int CERT_SELECT_LAST() {
-        return (int)11L;
+    public static int CLRBREAK() {
+        return CLRBREAK;
     }
+    private static final int PURGE_TXABORT = (int)1L;
     /**
-     * {@snippet :
-     * #define CERT_SELECT_MAX 33
+     * {@snippet lang=c :
+     * #define PURGE_TXABORT 1
      * }
      */
-    public static int CERT_SELECT_MAX() {
-        return (int)33L;
+    public static int PURGE_TXABORT() {
+        return PURGE_TXABORT;
     }
+    private static final int PURGE_RXABORT = (int)2L;
     /**
-     * {@snippet :
-     * #define SSL_OBJECT_LOCATOR_PFX_FUNC "SslObjectLocatorInitializePfx"
+     * {@snippet lang=c :
+     * #define PURGE_RXABORT 2
      * }
      */
-    public static MemorySegment SSL_OBJECT_LOCATOR_PFX_FUNC() {
-        return constants$4686.const$2;
+    public static int PURGE_RXABORT() {
+        return PURGE_RXABORT;
     }
+    private static final int PURGE_TXCLEAR = (int)4L;
     /**
-     * {@snippet :
-     * #define SSL_OBJECT_LOCATOR_ISSUER_LIST_FUNC "SslObjectLocatorInitializeIssuerList"
+     * {@snippet lang=c :
+     * #define PURGE_TXCLEAR 4
      * }
      */
-    public static MemorySegment SSL_OBJECT_LOCATOR_ISSUER_LIST_FUNC() {
-        return constants$4686.const$3;
+    public static int PURGE_TXCLEAR() {
+        return PURGE_TXCLEAR;
     }
+    private static final int PURGE_RXCLEAR = (int)8L;
     /**
-     * {@snippet :
-     * #define SSL_OBJECT_LOCATOR_CERT_VALIDATION_CONFIG_FUNC "SslObjectLocatorInitializeCertValidationConfig"
+     * {@snippet lang=c :
+     * #define PURGE_RXCLEAR 8
      * }
      */
-    public static MemorySegment SSL_OBJECT_LOCATOR_CERT_VALIDATION_CONFIG_FUNC() {
-        return constants$4686.const$4;
+    public static int PURGE_RXCLEAR() {
+        return PURGE_RXCLEAR;
     }
+    private static final int LPTx = (int)128L;
     /**
-     * {@snippet :
-     * #define szFORCE_KEY_PROTECTION "ForceKeyProtection"
+     * {@snippet lang=c :
+     * #define LPTx 128
      * }
      */
-    public static MemorySegment szFORCE_KEY_PROTECTION() {
-        return constants$4686.const$5;
+    public static int LPTx() {
+        return LPTx;
     }
+    private static final int S_QUEUEEMPTY = (int)0L;
     /**
-     * {@snippet :
-     * #define CRYPTPROTECT_LAST_RESERVED_FLAGVAL 4294967295
+     * {@snippet lang=c :
+     * #define S_QUEUEEMPTY 0
      * }
      */
-    public static int CRYPTPROTECT_LAST_RESERVED_FLAGVAL() {
-        return (int)4294967295L;
+    public static int S_QUEUEEMPTY() {
+        return S_QUEUEEMPTY;
     }
+    private static final int S_THRESHOLD = (int)1L;
     /**
-     * {@snippet :
-     * #define __RPCNDR_H_VERSION__ 500
+     * {@snippet lang=c :
+     * #define S_THRESHOLD 1
      * }
      */
-    public static int __RPCNDR_H_VERSION__() {
-        return (int)500L;
+    public static int S_THRESHOLD() {
+        return S_THRESHOLD;
     }
+    private static final int S_ALLTHRESHOLD = (int)2L;
     /**
-     * {@snippet :
-     * #define __RPCSAL_H_VERSION__ 100
+     * {@snippet lang=c :
+     * #define S_ALLTHRESHOLD 2
      * }
      */
-    public static int __RPCSAL_H_VERSION__() {
-        return (int)100L;
+    public static int S_ALLTHRESHOLD() {
+        return S_ALLTHRESHOLD;
     }
+    private static final int S_NORMAL = (int)0L;
     /**
-     * {@snippet :
-     * #define NDR_CHAR_REP_MASK 15
+     * {@snippet lang=c :
+     * #define S_NORMAL 0
      * }
      */
-    public static int NDR_CHAR_REP_MASK() {
-        return (int)15L;
+    public static int S_NORMAL() {
+        return S_NORMAL;
     }
+    private static final int S_LEGATO = (int)1L;
     /**
-     * {@snippet :
-     * #define NDR_INT_REP_MASK 240
+     * {@snippet lang=c :
+     * #define S_LEGATO 1
      * }
      */
-    public static int NDR_INT_REP_MASK() {
-        return (int)240L;
+    public static int S_LEGATO() {
+        return S_LEGATO;
     }
+    private static final int S_STACCATO = (int)2L;
     /**
-     * {@snippet :
-     * #define NDR_FLOAT_REP_MASK 65280
+     * {@snippet lang=c :
+     * #define S_STACCATO 2
      * }
      */
-    public static int NDR_FLOAT_REP_MASK() {
-        return (int)65280L;
+    public static int S_STACCATO() {
+        return S_STACCATO;
     }
+    private static final int S_PERIOD512 = (int)0L;
     /**
-     * {@snippet :
-     * #define NDR_LITTLE_ENDIAN 16
+     * {@snippet lang=c :
+     * #define S_PERIOD512 0
      * }
      */
-    public static int NDR_LITTLE_ENDIAN() {
-        return (int)16L;
+    public static int S_PERIOD512() {
+        return S_PERIOD512;
     }
+    private static final int S_PERIOD1024 = (int)1L;
     /**
-     * {@snippet :
-     * #define NDR_BIG_ENDIAN 0
+     * {@snippet lang=c :
+     * #define S_PERIOD1024 1
      * }
      */
-    public static int NDR_BIG_ENDIAN() {
-        return (int)0L;
+    public static int S_PERIOD1024() {
+        return S_PERIOD1024;
     }
+    private static final int S_PERIOD2048 = (int)2L;
     /**
-     * {@snippet :
-     * #define NDR_IEEE_FLOAT 0
+     * {@snippet lang=c :
+     * #define S_PERIOD2048 2
      * }
      */
-    public static int NDR_IEEE_FLOAT() {
-        return (int)0L;
+    public static int S_PERIOD2048() {
+        return S_PERIOD2048;
     }
+    private static final int S_PERIODVOICE = (int)3L;
     /**
-     * {@snippet :
-     * #define NDR_VAX_FLOAT 256
+     * {@snippet lang=c :
+     * #define S_PERIODVOICE 3
      * }
      */
-    public static int NDR_VAX_FLOAT() {
-        return (int)256L;
+    public static int S_PERIODVOICE() {
+        return S_PERIODVOICE;
     }
+    private static final int S_WHITE512 = (int)4L;
     /**
-     * {@snippet :
-     * #define NDR_IBM_FLOAT 768
+     * {@snippet lang=c :
+     * #define S_WHITE512 4
      * }
      */
-    public static int NDR_IBM_FLOAT() {
-        return (int)768L;
+    public static int S_WHITE512() {
+        return S_WHITE512;
     }
+    private static final int S_WHITE1024 = (int)5L;
     /**
-     * {@snippet :
-     * #define NDR_ASCII_CHAR 0
+     * {@snippet lang=c :
+     * #define S_WHITE1024 5
      * }
      */
-    public static int NDR_ASCII_CHAR() {
-        return (int)0L;
+    public static int S_WHITE1024() {
+        return S_WHITE1024;
     }
+    private static final int S_WHITE2048 = (int)6L;
     /**
-     * {@snippet :
-     * #define NDR_EBCDIC_CHAR 1
+     * {@snippet lang=c :
+     * #define S_WHITE2048 6
      * }
      */
-    public static int NDR_EBCDIC_CHAR() {
-        return (int)1L;
+    public static int S_WHITE2048() {
+        return S_WHITE2048;
     }
+    private static final int S_WHITEVOICE = (int)7L;
     /**
-     * {@snippet :
-     * #define NDR_LOCAL_DATA_REPRESENTATION 16
+     * {@snippet lang=c :
+     * #define S_WHITEVOICE 7
      * }
      */
-    public static int NDR_LOCAL_DATA_REPRESENTATION() {
-        return (int)16L;
+    public static int S_WHITEVOICE() {
+        return S_WHITEVOICE;
     }
+    private static final int NMPWAIT_NOWAIT = (int)1L;
     /**
-     * {@snippet :
-     * #define NDR_LOCAL_ENDIAN 16
+     * {@snippet lang=c :
+     * #define NMPWAIT_NOWAIT 1
      * }
      */
-    public static int NDR_LOCAL_ENDIAN() {
-        return (int)16L;
+    public static int NMPWAIT_NOWAIT() {
+        return NMPWAIT_NOWAIT;
     }
+    private static final int NMPWAIT_USE_DEFAULT_WAIT = (int)0L;
     /**
-     * {@snippet :
-     * #define USER_MARSHAL_CB_SIGNATURE 1431523907
+     * {@snippet lang=c :
+     * #define NMPWAIT_USE_DEFAULT_WAIT 0
      * }
      */
-    public static int USER_MARSHAL_CB_SIGNATURE() {
-        return (int)1431523907L;
+    public static int NMPWAIT_USE_DEFAULT_WAIT() {
+        return NMPWAIT_USE_DEFAULT_WAIT;
     }
+    private static final int OF_READ = (int)0L;
     /**
-     * {@snippet :
-     * #define MIDL_WINRT_TYPE_SERIALIZATION_INFO_CURRENT_VERSION 1
+     * {@snippet lang=c :
+     * #define OF_READ 0
      * }
      */
-    public static int MIDL_WINRT_TYPE_SERIALIZATION_INFO_CURRENT_VERSION() {
-        return (int)1L;
+    public static int OF_READ() {
+        return OF_READ;
     }
+    private static final int OF_WRITE = (int)1L;
     /**
-     * {@snippet :
-     * #define CLSCTX_VALID_MASK -2015366113
+     * {@snippet lang=c :
+     * #define OF_WRITE 1
      * }
      */
-    public static int CLSCTX_VALID_MASK() {
-        return (int)-2015366113L;
+    public static int OF_WRITE() {
+        return OF_WRITE;
     }
+    private static final int OF_READWRITE = (int)2L;
     /**
-     * {@snippet :
-     * #define WDT_INPROC_CALL 1215587415
+     * {@snippet lang=c :
+     * #define OF_READWRITE 2
      * }
      */
-    public static int WDT_INPROC_CALL() {
-        return (int)1215587415L;
+    public static int OF_READWRITE() {
+        return OF_READWRITE;
     }
+    private static final int OF_SHARE_COMPAT = (int)0L;
     /**
-     * {@snippet :
-     * #define WDT_REMOTE_CALL 1383359575
+     * {@snippet lang=c :
+     * #define OF_SHARE_COMPAT 0
      * }
      */
-    public static int WDT_REMOTE_CALL() {
-        return (int)1383359575L;
+    public static int OF_SHARE_COMPAT() {
+        return OF_SHARE_COMPAT;
     }
+    private static final int OF_SHARE_EXCLUSIVE = (int)16L;
     /**
-     * {@snippet :
-     * #define WDT_INPROC64_CALL 1349805143
+     * {@snippet lang=c :
+     * #define OF_SHARE_EXCLUSIVE 16
      * }
      */
-    public static int WDT_INPROC64_CALL() {
-        return (int)1349805143L;
+    public static int OF_SHARE_EXCLUSIVE() {
+        return OF_SHARE_EXCLUSIVE;
     }
+    private static final int OF_SHARE_DENY_WRITE = (int)32L;
     /**
-     * {@snippet :
-     * #define DECIMAL_NEG 128
+     * {@snippet lang=c :
+     * #define OF_SHARE_DENY_WRITE 32
      * }
      */
-    public static byte DECIMAL_NEG() {
-        return (byte)128L;
+    public static int OF_SHARE_DENY_WRITE() {
+        return OF_SHARE_DENY_WRITE;
     }
+    private static final int OF_SHARE_DENY_READ = (int)48L;
     /**
-     * {@snippet :
-     * #define VARIANT_TRUE -1
+     * {@snippet lang=c :
+     * #define OF_SHARE_DENY_READ 48
      * }
      */
-    public static short VARIANT_TRUE() {
-        return (short)-1L;
+    public static int OF_SHARE_DENY_READ() {
+        return OF_SHARE_DENY_READ;
     }
+    private static final int OF_SHARE_DENY_NONE = (int)64L;
     /**
-     * {@snippet :
-     * #define VARIANT_FALSE 0
+     * {@snippet lang=c :
+     * #define OF_SHARE_DENY_NONE 64
      * }
      */
-    public static short VARIANT_FALSE() {
-        return (short)0L;
+    public static int OF_SHARE_DENY_NONE() {
+        return OF_SHARE_DENY_NONE;
     }
+    private static final int OF_PARSE = (int)256L;
     /**
-     * {@snippet :
-     * #define METHOD_DIRECT_TO_HARDWARE 1
+     * {@snippet lang=c :
+     * #define OF_PARSE 256
      * }
      */
-    public static int METHOD_DIRECT_TO_HARDWARE() {
-        return (int)1L;
+    public static int OF_PARSE() {
+        return OF_PARSE;
     }
+    private static final int OF_DELETE = (int)512L;
     /**
-     * {@snippet :
-     * #define METHOD_DIRECT_FROM_HARDWARE 2
+     * {@snippet lang=c :
+     * #define OF_DELETE 512
      * }
      */
-    public static int METHOD_DIRECT_FROM_HARDWARE() {
-        return (int)2L;
+    public static int OF_DELETE() {
+        return OF_DELETE;
     }
+    private static final int OF_VERIFY = (int)1024L;
     /**
-     * {@snippet :
-     * #define FILE_SPECIAL_ACCESS 0
+     * {@snippet lang=c :
+     * #define OF_VERIFY 1024
      * }
      */
-    public static int FILE_SPECIAL_ACCESS() {
-        return (int)0L;
+    public static int OF_VERIFY() {
+        return OF_VERIFY;
     }
+    private static final int OF_CANCEL = (int)2048L;
     /**
-     * {@snippet :
-     * #define FILE_READ_ACCESS 1
+     * {@snippet lang=c :
+     * #define OF_CANCEL 2048
      * }
      */
-    public static int FILE_READ_ACCESS() {
-        return (int)1L;
+    public static int OF_CANCEL() {
+        return OF_CANCEL;
     }
+    private static final int OF_CREATE = (int)4096L;
     /**
-     * {@snippet :
-     * #define FILE_WRITE_ACCESS 2
+     * {@snippet lang=c :
+     * #define OF_CREATE 4096
      * }
      */
-    public static int FILE_WRITE_ACCESS() {
-        return (int)2L;
+    public static int OF_CREATE() {
+        return OF_CREATE;
     }
+    private static final int OF_PROMPT = (int)8192L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_BASE 45
+     * {@snippet lang=c :
+     * #define OF_PROMPT 8192
      * }
      */
-    public static int IOCTL_STORAGE_BASE() {
-        return (int)45L;
+    public static int OF_PROMPT() {
+        return OF_PROMPT;
     }
+    private static final int OF_EXIST = (int)16384L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_CHECK_VERIFY 2967552
+     * {@snippet lang=c :
+     * #define OF_EXIST 16384
      * }
      */
-    public static int IOCTL_STORAGE_CHECK_VERIFY() {
-        return (int)2967552L;
+    public static int OF_EXIST() {
+        return OF_EXIST;
     }
+    private static final int OF_REOPEN = (int)32768L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_CHECK_VERIFY2 2951168
+     * {@snippet lang=c :
+     * #define OF_REOPEN 32768
      * }
      */
-    public static int IOCTL_STORAGE_CHECK_VERIFY2() {
-        return (int)2951168L;
+    public static int OF_REOPEN() {
+        return OF_REOPEN;
     }
+    private static final int OFS_MAXPATHNAME = (int)128L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_MEDIA_REMOVAL 2967556
+     * {@snippet lang=c :
+     * #define OFS_MAXPATHNAME 128
      * }
      */
-    public static int IOCTL_STORAGE_MEDIA_REMOVAL() {
-        return (int)2967556L;
+    public static int OFS_MAXPATHNAME() {
+        return OFS_MAXPATHNAME;
     }
+    private static final int MAXINTATOM = (int)49152L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_EJECT_MEDIA 2967560
+     * {@snippet lang=c :
+     * #define MAXINTATOM 49152
      * }
      */
-    public static int IOCTL_STORAGE_EJECT_MEDIA() {
-        return (int)2967560L;
+    public static int MAXINTATOM() {
+        return MAXINTATOM;
     }
+    private static final int SCS_32BIT_BINARY = (int)0L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_LOAD_MEDIA 2967564
+     * {@snippet lang=c :
+     * #define SCS_32BIT_BINARY 0
      * }
      */
-    public static int IOCTL_STORAGE_LOAD_MEDIA() {
-        return (int)2967564L;
+    public static int SCS_32BIT_BINARY() {
+        return SCS_32BIT_BINARY;
     }
+    private static final int SCS_DOS_BINARY = (int)1L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_LOAD_MEDIA2 2951180
+     * {@snippet lang=c :
+     * #define SCS_DOS_BINARY 1
      * }
      */
-    public static int IOCTL_STORAGE_LOAD_MEDIA2() {
-        return (int)2951180L;
+    public static int SCS_DOS_BINARY() {
+        return SCS_DOS_BINARY;
     }
+    private static final int SCS_WOW_BINARY = (int)2L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_RESERVE 2967568
+     * {@snippet lang=c :
+     * #define SCS_WOW_BINARY 2
      * }
      */
-    public static int IOCTL_STORAGE_RESERVE() {
-        return (int)2967568L;
+    public static int SCS_WOW_BINARY() {
+        return SCS_WOW_BINARY;
     }
+    private static final int SCS_PIF_BINARY = (int)3L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_RELEASE 2967572
+     * {@snippet lang=c :
+     * #define SCS_PIF_BINARY 3
      * }
      */
-    public static int IOCTL_STORAGE_RELEASE() {
-        return (int)2967572L;
+    public static int SCS_PIF_BINARY() {
+        return SCS_PIF_BINARY;
     }
+    private static final int SCS_POSIX_BINARY = (int)4L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_FIND_NEW_DEVICES 2967576
+     * {@snippet lang=c :
+     * #define SCS_POSIX_BINARY 4
      * }
      */
-    public static int IOCTL_STORAGE_FIND_NEW_DEVICES() {
-        return (int)2967576L;
+    public static int SCS_POSIX_BINARY() {
+        return SCS_POSIX_BINARY;
     }
+    private static final int SCS_OS216_BINARY = (int)5L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_EJECTION_CONTROL 2951488
+     * {@snippet lang=c :
+     * #define SCS_OS216_BINARY 5
      * }
      */
-    public static int IOCTL_STORAGE_EJECTION_CONTROL() {
-        return (int)2951488L;
+    public static int SCS_OS216_BINARY() {
+        return SCS_OS216_BINARY;
     }
+    private static final int SCS_64BIT_BINARY = (int)6L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_MCN_CONTROL 2951492
+     * {@snippet lang=c :
+     * #define SCS_64BIT_BINARY 6
      * }
      */
-    public static int IOCTL_STORAGE_MCN_CONTROL() {
-        return (int)2951492L;
+    public static int SCS_64BIT_BINARY() {
+        return SCS_64BIT_BINARY;
     }
+    private static final int FIBER_FLAG_FLOAT_SWITCH = (int)1L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_GET_MEDIA_TYPES 2952192
+     * {@snippet lang=c :
+     * #define FIBER_FLAG_FLOAT_SWITCH 1
      * }
      */
-    public static int IOCTL_STORAGE_GET_MEDIA_TYPES() {
-        return (int)2952192L;
+    public static int FIBER_FLAG_FLOAT_SWITCH() {
+        return FIBER_FLAG_FLOAT_SWITCH;
     }
+    private static final int PROCESS_DEP_ENABLE = (int)1L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_GET_MEDIA_TYPES_EX 2952196
+     * {@snippet lang=c :
+     * #define PROCESS_DEP_ENABLE 1
      * }
      */
-    public static int IOCTL_STORAGE_GET_MEDIA_TYPES_EX() {
-        return (int)2952196L;
+    public static int PROCESS_DEP_ENABLE() {
+        return PROCESS_DEP_ENABLE;
     }
+    private static final int PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION = (int)2L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_GET_MEDIA_SERIAL_NUMBER 2952208
+     * {@snippet lang=c :
+     * #define PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION 2
      * }
      */
-    public static int IOCTL_STORAGE_GET_MEDIA_SERIAL_NUMBER() {
-        return (int)2952208L;
+    public static int PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION() {
+        return PROCESS_DEP_DISABLE_ATL_THUNK_EMULATION;
     }
+    private static final int FILE_SKIP_COMPLETION_PORT_ON_SUCCESS = (int)1L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_GET_HOTPLUG_INFO 2952212
+     * {@snippet lang=c :
+     * #define FILE_SKIP_COMPLETION_PORT_ON_SUCCESS 1
      * }
      */
-    public static int IOCTL_STORAGE_GET_HOTPLUG_INFO() {
-        return (int)2952212L;
+    public static int FILE_SKIP_COMPLETION_PORT_ON_SUCCESS() {
+        return FILE_SKIP_COMPLETION_PORT_ON_SUCCESS;
     }
+    private static final int FILE_SKIP_SET_EVENT_ON_HANDLE = (int)2L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_SET_HOTPLUG_INFO 3001368
+     * {@snippet lang=c :
+     * #define FILE_SKIP_SET_EVENT_ON_HANDLE 2
      * }
      */
-    public static int IOCTL_STORAGE_SET_HOTPLUG_INFO() {
-        return (int)3001368L;
+    public static int FILE_SKIP_SET_EVENT_ON_HANDLE() {
+        return FILE_SKIP_SET_EVENT_ON_HANDLE;
     }
+    private static final int SEM_FAILCRITICALERRORS = (int)1L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_RESET_BUS 2969600
+     * {@snippet lang=c :
+     * #define SEM_FAILCRITICALERRORS 1
      * }
      */
-    public static int IOCTL_STORAGE_RESET_BUS() {
-        return (int)2969600L;
+    public static int SEM_FAILCRITICALERRORS() {
+        return SEM_FAILCRITICALERRORS;
     }
+    private static final int SEM_NOGPFAULTERRORBOX = (int)2L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_RESET_DEVICE 2969604
+     * {@snippet lang=c :
+     * #define SEM_NOGPFAULTERRORBOX 2
      * }
      */
-    public static int IOCTL_STORAGE_RESET_DEVICE() {
-        return (int)2969604L;
+    public static int SEM_NOGPFAULTERRORBOX() {
+        return SEM_NOGPFAULTERRORBOX;
     }
+    private static final int SEM_NOALIGNMENTFAULTEXCEPT = (int)4L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_BREAK_RESERVATION 2969620
+     * {@snippet lang=c :
+     * #define SEM_NOALIGNMENTFAULTEXCEPT 4
      * }
      */
-    public static int IOCTL_STORAGE_BREAK_RESERVATION() {
-        return (int)2969620L;
+    public static int SEM_NOALIGNMENTFAULTEXCEPT() {
+        return SEM_NOALIGNMENTFAULTEXCEPT;
     }
+    private static final int SEM_NOOPENFILEERRORBOX = (int)32768L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_PERSISTENT_RESERVE_IN 2969624
+     * {@snippet lang=c :
+     * #define SEM_NOOPENFILEERRORBOX 32768
      * }
      */
-    public static int IOCTL_STORAGE_PERSISTENT_RESERVE_IN() {
-        return (int)2969624L;
+    public static int SEM_NOOPENFILEERRORBOX() {
+        return SEM_NOOPENFILEERRORBOX;
     }
+    private static final int HANDLE_FLAG_INHERIT = (int)1L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_PERSISTENT_RESERVE_OUT 3002396
+     * {@snippet lang=c :
+     * #define HANDLE_FLAG_INHERIT 1
      * }
      */
-    public static int IOCTL_STORAGE_PERSISTENT_RESERVE_OUT() {
-        return (int)3002396L;
+    public static int HANDLE_FLAG_INHERIT() {
+        return HANDLE_FLAG_INHERIT;
     }
+    private static final int HANDLE_FLAG_PROTECT_FROM_CLOSE = (int)2L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_GET_DEVICE_NUMBER 2953344
+     * {@snippet lang=c :
+     * #define HANDLE_FLAG_PROTECT_FROM_CLOSE 2
      * }
      */
-    public static int IOCTL_STORAGE_GET_DEVICE_NUMBER() {
-        return (int)2953344L;
+    public static int HANDLE_FLAG_PROTECT_FROM_CLOSE() {
+        return HANDLE_FLAG_PROTECT_FROM_CLOSE;
     }
+    private static final int HINSTANCE_ERROR = (int)32L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_GET_DEVICE_NUMBER_EX 2953348
+     * {@snippet lang=c :
+     * #define HINSTANCE_ERROR 32
      * }
      */
-    public static int IOCTL_STORAGE_GET_DEVICE_NUMBER_EX() {
-        return (int)2953348L;
+    public static int HINSTANCE_ERROR() {
+        return HINSTANCE_ERROR;
     }
+    private static final int GET_TAPE_MEDIA_INFORMATION = (int)0L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_PREDICT_FAILURE 2953472
+     * {@snippet lang=c :
+     * #define GET_TAPE_MEDIA_INFORMATION 0
      * }
      */
-    public static int IOCTL_STORAGE_PREDICT_FAILURE() {
-        return (int)2953472L;
+    public static int GET_TAPE_MEDIA_INFORMATION() {
+        return GET_TAPE_MEDIA_INFORMATION;
     }
+    private static final int GET_TAPE_DRIVE_INFORMATION = (int)1L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_FAILURE_PREDICTION_CONFIG 2953476
+     * {@snippet lang=c :
+     * #define GET_TAPE_DRIVE_INFORMATION 1
      * }
      */
-    public static int IOCTL_STORAGE_FAILURE_PREDICTION_CONFIG() {
-        return (int)2953476L;
+    public static int GET_TAPE_DRIVE_INFORMATION() {
+        return GET_TAPE_DRIVE_INFORMATION;
     }
+    private static final int SET_TAPE_MEDIA_INFORMATION = (int)0L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_GET_COUNTERS 2953480
+     * {@snippet lang=c :
+     * #define SET_TAPE_MEDIA_INFORMATION 0
      * }
      */
-    public static int IOCTL_STORAGE_GET_COUNTERS() {
-        return (int)2953480L;
+    public static int SET_TAPE_MEDIA_INFORMATION() {
+        return SET_TAPE_MEDIA_INFORMATION;
     }
+    private static final int SET_TAPE_DRIVE_INFORMATION = (int)1L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_READ_CAPACITY 2969920
+     * {@snippet lang=c :
+     * #define SET_TAPE_DRIVE_INFORMATION 1
      * }
      */
-    public static int IOCTL_STORAGE_READ_CAPACITY() {
-        return (int)2969920L;
+    public static int SET_TAPE_DRIVE_INFORMATION() {
+        return SET_TAPE_DRIVE_INFORMATION;
     }
+    private static final int FORMAT_MESSAGE_ALLOCATE_BUFFER = (int)256L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_GET_DEVICE_TELEMETRY 3002816
+     * {@snippet lang=c :
+     * #define FORMAT_MESSAGE_ALLOCATE_BUFFER 256
      * }
      */
-    public static int IOCTL_STORAGE_GET_DEVICE_TELEMETRY() {
-        return (int)3002816L;
+    public static int FORMAT_MESSAGE_ALLOCATE_BUFFER() {
+        return FORMAT_MESSAGE_ALLOCATE_BUFFER;
     }
+    private static final int FORMAT_MESSAGE_IGNORE_INSERTS = (int)512L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_DEVICE_TELEMETRY_NOTIFY 3002820
+     * {@snippet lang=c :
+     * #define FORMAT_MESSAGE_IGNORE_INSERTS 512
      * }
      */
-    public static int IOCTL_STORAGE_DEVICE_TELEMETRY_NOTIFY() {
-        return (int)3002820L;
+    public static int FORMAT_MESSAGE_IGNORE_INSERTS() {
+        return FORMAT_MESSAGE_IGNORE_INSERTS;
     }
+    private static final int FORMAT_MESSAGE_FROM_STRING = (int)1024L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_DEVICE_TELEMETRY_QUERY_CAPS 3002824
+     * {@snippet lang=c :
+     * #define FORMAT_MESSAGE_FROM_STRING 1024
      * }
      */
-    public static int IOCTL_STORAGE_DEVICE_TELEMETRY_QUERY_CAPS() {
-        return (int)3002824L;
+    public static int FORMAT_MESSAGE_FROM_STRING() {
+        return FORMAT_MESSAGE_FROM_STRING;
     }
+    private static final int FORMAT_MESSAGE_FROM_HMODULE = (int)2048L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_GET_DEVICE_TELEMETRY_RAW 3002828
+     * {@snippet lang=c :
+     * #define FORMAT_MESSAGE_FROM_HMODULE 2048
      * }
      */
-    public static int IOCTL_STORAGE_GET_DEVICE_TELEMETRY_RAW() {
-        return (int)3002828L;
+    public static int FORMAT_MESSAGE_FROM_HMODULE() {
+        return FORMAT_MESSAGE_FROM_HMODULE;
     }
+    private static final int FORMAT_MESSAGE_FROM_SYSTEM = (int)4096L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_SET_TEMPERATURE_THRESHOLD 3002880
+     * {@snippet lang=c :
+     * #define FORMAT_MESSAGE_FROM_SYSTEM 4096
      * }
      */
-    public static int IOCTL_STORAGE_SET_TEMPERATURE_THRESHOLD() {
-        return (int)3002880L;
+    public static int FORMAT_MESSAGE_FROM_SYSTEM() {
+        return FORMAT_MESSAGE_FROM_SYSTEM;
     }
+    private static final int FORMAT_MESSAGE_ARGUMENT_ARRAY = (int)8192L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_PROTOCOL_COMMAND 3003328
+     * {@snippet lang=c :
+     * #define FORMAT_MESSAGE_ARGUMENT_ARRAY 8192
      * }
      */
-    public static int IOCTL_STORAGE_PROTOCOL_COMMAND() {
-        return (int)3003328L;
+    public static int FORMAT_MESSAGE_ARGUMENT_ARRAY() {
+        return FORMAT_MESSAGE_ARGUMENT_ARRAY;
     }
+    private static final int FORMAT_MESSAGE_MAX_WIDTH_MASK = (int)255L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_SET_PROPERTY 2987004
+     * {@snippet lang=c :
+     * #define FORMAT_MESSAGE_MAX_WIDTH_MASK 255
      * }
      */
-    public static int IOCTL_STORAGE_SET_PROPERTY() {
-        return (int)2987004L;
+    public static int FORMAT_MESSAGE_MAX_WIDTH_MASK() {
+        return FORMAT_MESSAGE_MAX_WIDTH_MASK;
     }
+    private static final int FILE_ENCRYPTABLE = (int)0L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_QUERY_PROPERTY 2954240
+     * {@snippet lang=c :
+     * #define FILE_ENCRYPTABLE 0
      * }
      */
-    public static int IOCTL_STORAGE_QUERY_PROPERTY() {
-        return (int)2954240L;
+    public static int FILE_ENCRYPTABLE() {
+        return FILE_ENCRYPTABLE;
     }
+    private static final int FILE_IS_ENCRYPTED = (int)1L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES 2987012
+     * {@snippet lang=c :
+     * #define FILE_IS_ENCRYPTED 1
      * }
      */
-    public static int IOCTL_STORAGE_MANAGE_DATA_SET_ATTRIBUTES() {
-        return (int)2987012L;
+    public static int FILE_IS_ENCRYPTED() {
+        return FILE_IS_ENCRYPTED;
     }
+    private static final int FILE_SYSTEM_ATTR = (int)2L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_GET_LB_PROVISIONING_MAP_RESOURCES 2970632
+     * {@snippet lang=c :
+     * #define FILE_SYSTEM_ATTR 2
      * }
      */
-    public static int IOCTL_STORAGE_GET_LB_PROVISIONING_MAP_RESOURCES() {
-        return (int)2970632L;
+    public static int FILE_SYSTEM_ATTR() {
+        return FILE_SYSTEM_ATTR;
     }
+    private static final int FILE_ROOT_DIR = (int)3L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_REINITIALIZE_MEDIA 2987584
+     * {@snippet lang=c :
+     * #define FILE_ROOT_DIR 3
      * }
      */
-    public static int IOCTL_STORAGE_REINITIALIZE_MEDIA() {
-        return (int)2987584L;
+    public static int FILE_ROOT_DIR() {
+        return FILE_ROOT_DIR;
     }
+    private static final int FILE_SYSTEM_DIR = (int)4L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_GET_BC_PROPERTIES 2971648
+     * {@snippet lang=c :
+     * #define FILE_SYSTEM_DIR 4
      * }
      */
-    public static int IOCTL_STORAGE_GET_BC_PROPERTIES() {
-        return (int)2971648L;
+    public static int FILE_SYSTEM_DIR() {
+        return FILE_SYSTEM_DIR;
     }
+    private static final int FILE_UNKNOWN = (int)5L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_ALLOCATE_BC_STREAM 3004420
+     * {@snippet lang=c :
+     * #define FILE_UNKNOWN 5
      * }
      */
-    public static int IOCTL_STORAGE_ALLOCATE_BC_STREAM() {
-        return (int)3004420L;
+    public static int FILE_UNKNOWN() {
+        return FILE_UNKNOWN;
     }
+    private static final int FILE_SYSTEM_NOT_SUPPORT = (int)6L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_FREE_BC_STREAM 3004424
+     * {@snippet lang=c :
+     * #define FILE_SYSTEM_NOT_SUPPORT 6
      * }
      */
-    public static int IOCTL_STORAGE_FREE_BC_STREAM() {
-        return (int)3004424L;
+    public static int FILE_SYSTEM_NOT_SUPPORT() {
+        return FILE_SYSTEM_NOT_SUPPORT;
     }
+    private static final int FILE_USER_DISALLOWED = (int)7L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_CHECK_PRIORITY_HINT_SUPPORT 2955392
+     * {@snippet lang=c :
+     * #define FILE_USER_DISALLOWED 7
      * }
      */
-    public static int IOCTL_STORAGE_CHECK_PRIORITY_HINT_SUPPORT() {
-        return (int)2955392L;
+    public static int FILE_USER_DISALLOWED() {
+        return FILE_USER_DISALLOWED;
     }
+    private static final int FILE_READ_ONLY = (int)8L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_START_DATA_INTEGRITY_CHECK 3004548
+     * {@snippet lang=c :
+     * #define FILE_READ_ONLY 8
      * }
      */
-    public static int IOCTL_STORAGE_START_DATA_INTEGRITY_CHECK() {
-        return (int)3004548L;
+    public static int FILE_READ_ONLY() {
+        return FILE_READ_ONLY;
     }
+    private static final int FILE_DIR_DISALLOWED = (int)9L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_STOP_DATA_INTEGRITY_CHECK 3004552
+     * {@snippet lang=c :
+     * #define FILE_DIR_DISALLOWED 9
      * }
      */
-    public static int IOCTL_STORAGE_STOP_DATA_INTEGRITY_CHECK() {
-        return (int)3004552L;
+    public static int FILE_DIR_DISALLOWED() {
+        return FILE_DIR_DISALLOWED;
     }
+    private static final int BACKUP_INVALID = (int)0L;
     /**
-     * {@snippet :
-     * #define OBSOLETE_IOCTL_STORAGE_RESET_BUS 3002368
+     * {@snippet lang=c :
+     * #define BACKUP_INVALID 0
      * }
      */
-    public static int OBSOLETE_IOCTL_STORAGE_RESET_BUS() {
-        return (int)3002368L;
+    public static int BACKUP_INVALID() {
+        return BACKUP_INVALID;
     }
+    private static final int BACKUP_DATA = (int)1L;
     /**
-     * {@snippet :
-     * #define OBSOLETE_IOCTL_STORAGE_RESET_DEVICE 3002372
+     * {@snippet lang=c :
+     * #define BACKUP_DATA 1
      * }
      */
-    public static int OBSOLETE_IOCTL_STORAGE_RESET_DEVICE() {
-        return (int)3002372L;
+    public static int BACKUP_DATA() {
+        return BACKUP_DATA;
     }
+    private static final int BACKUP_EA_DATA = (int)2L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_FIRMWARE_GET_INFO 2956288
+     * {@snippet lang=c :
+     * #define BACKUP_EA_DATA 2
      * }
      */
-    public static int IOCTL_STORAGE_FIRMWARE_GET_INFO() {
-        return (int)2956288L;
+    public static int BACKUP_EA_DATA() {
+        return BACKUP_EA_DATA;
     }
+    private static final int BACKUP_SECURITY_DATA = (int)3L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_FIRMWARE_DOWNLOAD 3005444
+     * {@snippet lang=c :
+     * #define BACKUP_SECURITY_DATA 3
      * }
      */
-    public static int IOCTL_STORAGE_FIRMWARE_DOWNLOAD() {
-        return (int)3005444L;
+    public static int BACKUP_SECURITY_DATA() {
+        return BACKUP_SECURITY_DATA;
     }
+    private static final int BACKUP_ALTERNATE_DATA = (int)4L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_FIRMWARE_ACTIVATE 3005448
+     * {@snippet lang=c :
+     * #define BACKUP_ALTERNATE_DATA 4
      * }
      */
-    public static int IOCTL_STORAGE_FIRMWARE_ACTIVATE() {
-        return (int)3005448L;
+    public static int BACKUP_ALTERNATE_DATA() {
+        return BACKUP_ALTERNATE_DATA;
     }
+    private static final int BACKUP_LINK = (int)5L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_ENABLE_IDLE_POWER 2956416
+     * {@snippet lang=c :
+     * #define BACKUP_LINK 5
      * }
      */
-    public static int IOCTL_STORAGE_ENABLE_IDLE_POWER() {
-        return (int)2956416L;
+    public static int BACKUP_LINK() {
+        return BACKUP_LINK;
     }
+    private static final int BACKUP_PROPERTY_DATA = (int)6L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_GET_IDLE_POWERUP_REASON 2956420
+     * {@snippet lang=c :
+     * #define BACKUP_PROPERTY_DATA 6
      * }
      */
-    public static int IOCTL_STORAGE_GET_IDLE_POWERUP_REASON() {
-        return (int)2956420L;
+    public static int BACKUP_PROPERTY_DATA() {
+        return BACKUP_PROPERTY_DATA;
     }
+    private static final int BACKUP_OBJECT_ID = (int)7L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_POWER_ACTIVE 2956424
+     * {@snippet lang=c :
+     * #define BACKUP_OBJECT_ID 7
      * }
      */
-    public static int IOCTL_STORAGE_POWER_ACTIVE() {
-        return (int)2956424L;
+    public static int BACKUP_OBJECT_ID() {
+        return BACKUP_OBJECT_ID;
     }
+    private static final int BACKUP_REPARSE_DATA = (int)8L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_POWER_IDLE 2956428
+     * {@snippet lang=c :
+     * #define BACKUP_REPARSE_DATA 8
      * }
      */
-    public static int IOCTL_STORAGE_POWER_IDLE() {
-        return (int)2956428L;
+    public static int BACKUP_REPARSE_DATA() {
+        return BACKUP_REPARSE_DATA;
     }
+    private static final int BACKUP_SPARSE_BLOCK = (int)9L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_EVENT_NOTIFICATION 2956432
+     * {@snippet lang=c :
+     * #define BACKUP_SPARSE_BLOCK 9
      * }
      */
-    public static int IOCTL_STORAGE_EVENT_NOTIFICATION() {
-        return (int)2956432L;
+    public static int BACKUP_SPARSE_BLOCK() {
+        return BACKUP_SPARSE_BLOCK;
     }
+    private static final int BACKUP_TXFS_DATA = (int)10L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_DEVICE_POWER_CAP 2956436
+     * {@snippet lang=c :
+     * #define BACKUP_TXFS_DATA 10
      * }
      */
-    public static int IOCTL_STORAGE_DEVICE_POWER_CAP() {
-        return (int)2956436L;
+    public static int BACKUP_TXFS_DATA() {
+        return BACKUP_TXFS_DATA;
     }
+    private static final int BACKUP_GHOSTED_FILE_EXTENTS = (int)11L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_RPMB_COMMAND 2956440
+     * {@snippet lang=c :
+     * #define BACKUP_GHOSTED_FILE_EXTENTS 11
      * }
      */
-    public static int IOCTL_STORAGE_RPMB_COMMAND() {
-        return (int)2956440L;
+    public static int BACKUP_GHOSTED_FILE_EXTENTS() {
+        return BACKUP_GHOSTED_FILE_EXTENTS;
     }
+    private static final int STREAM_NORMAL_ATTRIBUTE = (int)0L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_ATTRIBUTE_MANAGEMENT 3005596
+     * {@snippet lang=c :
+     * #define STREAM_NORMAL_ATTRIBUTE 0
      * }
      */
-    public static int IOCTL_STORAGE_ATTRIBUTE_MANAGEMENT() {
-        return (int)3005596L;
+    public static int STREAM_NORMAL_ATTRIBUTE() {
+        return STREAM_NORMAL_ATTRIBUTE;
     }
+    private static final int STREAM_MODIFIED_WHEN_READ = (int)1L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_DIAGNOSTIC 2956448
+     * {@snippet lang=c :
+     * #define STREAM_MODIFIED_WHEN_READ 1
      * }
      */
-    public static int IOCTL_STORAGE_DIAGNOSTIC() {
-        return (int)2956448L;
+    public static int STREAM_MODIFIED_WHEN_READ() {
+        return STREAM_MODIFIED_WHEN_READ;
     }
+    private static final int STREAM_CONTAINS_SECURITY = (int)2L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_GET_PHYSICAL_ELEMENT_STATUS 2956452
+     * {@snippet lang=c :
+     * #define STREAM_CONTAINS_SECURITY 2
      * }
      */
-    public static int IOCTL_STORAGE_GET_PHYSICAL_ELEMENT_STATUS() {
-        return (int)2956452L;
+    public static int STREAM_CONTAINS_SECURITY() {
+        return STREAM_CONTAINS_SECURITY;
     }
+    private static final int STREAM_CONTAINS_PROPERTIES = (int)4L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_REMOVE_ELEMENT_AND_TRUNCATE 2956480
+     * {@snippet lang=c :
+     * #define STREAM_CONTAINS_PROPERTIES 4
      * }
      */
-    public static int IOCTL_STORAGE_REMOVE_ELEMENT_AND_TRUNCATE() {
-        return (int)2956480L;
+    public static int STREAM_CONTAINS_PROPERTIES() {
+        return STREAM_CONTAINS_PROPERTIES;
     }
+    private static final int STREAM_SPARSE_ATTRIBUTE = (int)8L;
     /**
-     * {@snippet :
-     * #define IOCTL_STORAGE_GET_DEVICE_INTERNAL_LOG 2956484
+     * {@snippet lang=c :
+     * #define STREAM_SPARSE_ATTRIBUTE 8
      * }
      */
-    public static int IOCTL_STORAGE_GET_DEVICE_INTERNAL_LOG() {
-        return (int)2956484L;
+    public static int STREAM_SPARSE_ATTRIBUTE() {
+        return STREAM_SPARSE_ATTRIBUTE;
     }
+    private static final int STREAM_CONTAINS_GHOSTED_FILE_EXTENTS = (int)16L;
     /**
-     * {@snippet :
-     * #define TAPE_RETURN_STATISTICS 0
+     * {@snippet lang=c :
+     * #define STREAM_CONTAINS_GHOSTED_FILE_EXTENTS 16
      * }
      */
-    public static int TAPE_RETURN_STATISTICS() {
-        return (int)0L;
+    public static int STREAM_CONTAINS_GHOSTED_FILE_EXTENTS() {
+        return STREAM_CONTAINS_GHOSTED_FILE_EXTENTS;
     }
+    private static final int STARTF_USESHOWWINDOW = (int)1L;
     /**
-     * {@snippet :
-     * #define TAPE_RETURN_ENV_INFO 1
+     * {@snippet lang=c :
+     * #define STARTF_USESHOWWINDOW 1
      * }
      */
-    public static int TAPE_RETURN_ENV_INFO() {
-        return (int)1L;
+    public static int STARTF_USESHOWWINDOW() {
+        return STARTF_USESHOWWINDOW;
     }
+    private static final int STARTF_USESIZE = (int)2L;
     /**
-     * {@snippet :
-     * #define TAPE_RESET_STATISTICS 2
+     * {@snippet lang=c :
+     * #define STARTF_USESIZE 2
      * }
      */
-    public static int TAPE_RESET_STATISTICS() {
-        return (int)2L;
+    public static int STARTF_USESIZE() {
+        return STARTF_USESIZE;
     }
+    private static final int STARTF_USEPOSITION = (int)4L;
     /**
-     * {@snippet :
-     * #define MEDIA_CURRENTLY_MOUNTED 2147483648
+     * {@snippet lang=c :
+     * #define STARTF_USEPOSITION 4
      * }
      */
-    public static int MEDIA_CURRENTLY_MOUNTED() {
-        return (int)2147483648L;
+    public static int STARTF_USEPOSITION() {
+        return STARTF_USEPOSITION;
     }
+    private static final int STARTF_USECOUNTCHARS = (int)8L;
     /**
-     * {@snippet :
-     * #define NO_SRBTYPE_ADAPTER_DESCRIPTOR_SIZE 30
+     * {@snippet lang=c :
+     * #define STARTF_USECOUNTCHARS 8
      * }
      */
-    public static int NO_SRBTYPE_ADAPTER_DESCRIPTOR_SIZE() {
-        return (int)30L;
+    public static int STARTF_USECOUNTCHARS() {
+        return STARTF_USECOUNTCHARS;
     }
+    private static final int STARTF_USEFILLATTRIBUTE = (int)16L;
     /**
-     * {@snippet :
-     * #define STORAGE_MINIPORT_DESCRIPTOR_V1_SIZE 16
+     * {@snippet lang=c :
+     * #define STARTF_USEFILLATTRIBUTE 16
      * }
      */
-    public static long STORAGE_MINIPORT_DESCRIPTOR_V1_SIZE() {
-        return 16L;
+    public static int STARTF_USEFILLATTRIBUTE() {
+        return STARTF_USEFILLATTRIBUTE;
     }
+    private static final int STARTF_RUNFULLSCREEN = (int)32L;
     /**
-     * {@snippet :
-     * #define StorageIdTypeNAA 3
+     * {@snippet lang=c :
+     * #define STARTF_RUNFULLSCREEN 32
      * }
      */
-    public static int StorageIdTypeNAA() {
-        return (int)3L;
+    public static int STARTF_RUNFULLSCREEN() {
+        return STARTF_RUNFULLSCREEN;
     }
+    private static final int STARTF_FORCEONFEEDBACK = (int)64L;
     /**
-     * {@snippet :
-     * #define DEVICE_LB_PROVISIONING_DESCRIPTOR_V1_SIZE 32
+     * {@snippet lang=c :
+     * #define STARTF_FORCEONFEEDBACK 64
      * }
      */
-    public static long DEVICE_LB_PROVISIONING_DESCRIPTOR_V1_SIZE() {
-        return 32L;
+    public static int STARTF_FORCEONFEEDBACK() {
+        return STARTF_FORCEONFEEDBACK;
     }
+    private static final int STARTF_FORCEOFFFEEDBACK = (int)128L;
     /**
-     * {@snippet :
-     * #define STORAGE_TIER_NAME_LENGTH 256
+     * {@snippet lang=c :
+     * #define STARTF_FORCEOFFFEEDBACK 128
      * }
      */
-    public static int STORAGE_TIER_NAME_LENGTH() {
-        return (int)256L;
+    public static int STARTF_FORCEOFFFEEDBACK() {
+        return STARTF_FORCEOFFFEEDBACK;
     }
+    private static final int STARTF_USESTDHANDLES = (int)256L;
     /**
-     * {@snippet :
-     * #define STORAGE_TIER_DESCRIPTION_LENGTH 512
+     * {@snippet lang=c :
+     * #define STARTF_USESTDHANDLES 256
      * }
      */
-    public static int STORAGE_TIER_DESCRIPTION_LENGTH() {
-        return (int)512L;
+    public static int STARTF_USESTDHANDLES() {
+        return STARTF_USESTDHANDLES;
     }
+    private static final int STARTF_USEHOTKEY = (int)512L;
     /**
-     * {@snippet :
-     * #define STORAGE_TIER_FLAG_NO_SEEK_PENALTY 131072
+     * {@snippet lang=c :
+     * #define STARTF_USEHOTKEY 512
      * }
      */
-    public static int STORAGE_TIER_FLAG_NO_SEEK_PENALTY() {
-        return (int)131072L;
+    public static int STARTF_USEHOTKEY() {
+        return STARTF_USEHOTKEY;
     }
+    private static final int STARTF_TITLEISLINKNAME = (int)2048L;
     /**
-     * {@snippet :
-     * #define STORAGE_TIER_FLAG_WRITE_BACK_CACHE 2097152
+     * {@snippet lang=c :
+     * #define STARTF_TITLEISLINKNAME 2048
      * }
      */
-    public static int STORAGE_TIER_FLAG_WRITE_BACK_CACHE() {
-        return (int)2097152L;
+    public static int STARTF_TITLEISLINKNAME() {
+        return STARTF_TITLEISLINKNAME;
     }
+    private static final int STARTF_TITLEISAPPID = (int)4096L;
     /**
-     * {@snippet :
-     * #define STORAGE_TIER_FLAG_READ_CACHE 4194304
+     * {@snippet lang=c :
+     * #define STARTF_TITLEISAPPID 4096
      * }
      */
-    public static int STORAGE_TIER_FLAG_READ_CACHE() {
-        return (int)4194304L;
+    public static int STARTF_TITLEISAPPID() {
+        return STARTF_TITLEISAPPID;
     }
+    private static final int STARTF_PREVENTPINNING = (int)8192L;
     /**
-     * {@snippet :
-     * #define STORAGE_TIER_FLAG_PARITY 8388608
+     * {@snippet lang=c :
+     * #define STARTF_PREVENTPINNING 8192
      * }
      */
-    public static int STORAGE_TIER_FLAG_PARITY() {
-        return (int)8388608L;
+    public static int STARTF_PREVENTPINNING() {
+        return STARTF_PREVENTPINNING;
     }
+    private static final int STARTF_UNTRUSTEDSOURCE = (int)32768L;
     /**
-     * {@snippet :
-     * #define STORAGE_TIER_FLAG_SMR 16777216
+     * {@snippet lang=c :
+     * #define STARTF_UNTRUSTEDSOURCE 32768
      * }
      */
-    public static int STORAGE_TIER_FLAG_SMR() {
-        return (int)16777216L;
+    public static int STARTF_UNTRUSTEDSOURCE() {
+        return STARTF_UNTRUSTEDSOURCE;
     }
+    private static final int STARTF_HOLOGRAPHIC = (int)262144L;
     /**
-     * {@snippet :
-     * #define STORAGE_ADAPTER_SERIAL_NUMBER_V1_MAX_LENGTH 128
+     * {@snippet lang=c :
+     * #define STARTF_HOLOGRAPHIC 262144
      * }
      */
-    public static int STORAGE_ADAPTER_SERIAL_NUMBER_V1_MAX_LENGTH() {
-        return (int)128L;
+    public static int STARTF_HOLOGRAPHIC() {
+        return STARTF_HOLOGRAPHIC;
     }
+    private static final int SHUTDOWN_NORETRY = (int)1L;
     /**
-     * {@snippet :
-     * #define STORAGE_ADAPTER_SERIAL_NUMBER_V1_VERSION 264
+     * {@snippet lang=c :
+     * #define SHUTDOWN_NORETRY 1
      * }
      */
-    public static long STORAGE_ADAPTER_SERIAL_NUMBER_V1_VERSION() {
-        return 264L;
+    public static int SHUTDOWN_NORETRY() {
+        return SHUTDOWN_NORETRY;
     }
+    private static final int PROTECTION_LEVEL_WINTCB_LIGHT = (int)0L;
     /**
-     * {@snippet :
-     * #define STORAGE_ADAPTER_SERIAL_NUMBER_V1_SIZE 264
+     * {@snippet lang=c :
+     * #define PROTECTION_LEVEL_WINTCB_LIGHT 0
      * }
      */
-    public static long STORAGE_ADAPTER_SERIAL_NUMBER_V1_SIZE() {
-        return 264L;
+    public static int PROTECTION_LEVEL_WINTCB_LIGHT() {
+        return PROTECTION_LEVEL_WINTCB_LIGHT;
     }
+    private static final int PROTECTION_LEVEL_WINDOWS = (int)1L;
     /**
-     * {@snippet :
-     * #define STORAGE_DEVICE_NUMA_NODE_UNKNOWN 4294967295
+     * {@snippet lang=c :
+     * #define PROTECTION_LEVEL_WINDOWS 1
      * }
      */
-    public static int STORAGE_DEVICE_NUMA_NODE_UNKNOWN() {
-        return (int)4294967295L;
+    public static int PROTECTION_LEVEL_WINDOWS() {
+        return PROTECTION_LEVEL_WINDOWS;
     }
+    private static final int PROTECTION_LEVEL_WINDOWS_LIGHT = (int)2L;
     /**
-     * {@snippet :
-     * #define DeviceDsmActionFlag_NonDestructive 2147483648
+     * {@snippet lang=c :
+     * #define PROTECTION_LEVEL_WINDOWS_LIGHT 2
      * }
      */
-    public static int DeviceDsmActionFlag_NonDestructive() {
-        return (int)2147483648L;
+    public static int PROTECTION_LEVEL_WINDOWS_LIGHT() {
+        return PROTECTION_LEVEL_WINDOWS_LIGHT;
     }
+    private static final int PROTECTION_LEVEL_ANTIMALWARE_LIGHT = (int)3L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_None 0
+     * {@snippet lang=c :
+     * #define PROTECTION_LEVEL_ANTIMALWARE_LIGHT 3
      * }
      */
-    public static int DeviceDsmAction_None() {
-        return (int)0L;
+    public static int PROTECTION_LEVEL_ANTIMALWARE_LIGHT() {
+        return PROTECTION_LEVEL_ANTIMALWARE_LIGHT;
     }
+    private static final int PROTECTION_LEVEL_LSA_LIGHT = (int)4L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_Trim 1
+     * {@snippet lang=c :
+     * #define PROTECTION_LEVEL_LSA_LIGHT 4
      * }
      */
-    public static int DeviceDsmAction_Trim() {
-        return (int)1L;
+    public static int PROTECTION_LEVEL_LSA_LIGHT() {
+        return PROTECTION_LEVEL_LSA_LIGHT;
     }
+    private static final int PROTECTION_LEVEL_WINTCB = (int)5L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_Notification 2147483650
+     * {@snippet lang=c :
+     * #define PROTECTION_LEVEL_WINTCB 5
      * }
      */
-    public static int DeviceDsmAction_Notification() {
-        return (int)2147483650L;
+    public static int PROTECTION_LEVEL_WINTCB() {
+        return PROTECTION_LEVEL_WINTCB;
     }
+    private static final int PROTECTION_LEVEL_CODEGEN_LIGHT = (int)6L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_OffloadRead 2147483651
+     * {@snippet lang=c :
+     * #define PROTECTION_LEVEL_CODEGEN_LIGHT 6
      * }
      */
-    public static int DeviceDsmAction_OffloadRead() {
-        return (int)2147483651L;
+    public static int PROTECTION_LEVEL_CODEGEN_LIGHT() {
+        return PROTECTION_LEVEL_CODEGEN_LIGHT;
     }
+    private static final int PROTECTION_LEVEL_AUTHENTICODE = (int)7L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_OffloadWrite 4
+     * {@snippet lang=c :
+     * #define PROTECTION_LEVEL_AUTHENTICODE 7
      * }
      */
-    public static int DeviceDsmAction_OffloadWrite() {
-        return (int)4L;
+    public static int PROTECTION_LEVEL_AUTHENTICODE() {
+        return PROTECTION_LEVEL_AUTHENTICODE;
     }
+    private static final int PROTECTION_LEVEL_PPL_APP = (int)8L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_Allocation 2147483653
+     * {@snippet lang=c :
+     * #define PROTECTION_LEVEL_PPL_APP 8
      * }
      */
-    public static int DeviceDsmAction_Allocation() {
-        return (int)2147483653L;
+    public static int PROTECTION_LEVEL_PPL_APP() {
+        return PROTECTION_LEVEL_PPL_APP;
     }
+    private static final int PROCESS_NAME_NATIVE = (int)1L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_Repair 2147483654
+     * {@snippet lang=c :
+     * #define PROCESS_NAME_NATIVE 1
      * }
      */
-    public static int DeviceDsmAction_Repair() {
-        return (int)2147483654L;
+    public static int PROCESS_NAME_NATIVE() {
+        return PROCESS_NAME_NATIVE;
     }
+    private static final int PROC_THREAD_ATTRIBUTE_NUMBER = (int)65535L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_Scrub 2147483655
+     * {@snippet lang=c :
+     * #define PROC_THREAD_ATTRIBUTE_NUMBER 65535
      * }
      */
-    public static int DeviceDsmAction_Scrub() {
-        return (int)2147483655L;
+    public static int PROC_THREAD_ATTRIBUTE_NUMBER() {
+        return PROC_THREAD_ATTRIBUTE_NUMBER;
     }
+    private static final int PROC_THREAD_ATTRIBUTE_THREAD = (int)65536L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_DrtQuery 2147483656
+     * {@snippet lang=c :
+     * #define PROC_THREAD_ATTRIBUTE_THREAD 65536
      * }
      */
-    public static int DeviceDsmAction_DrtQuery() {
-        return (int)2147483656L;
+    public static int PROC_THREAD_ATTRIBUTE_THREAD() {
+        return PROC_THREAD_ATTRIBUTE_THREAD;
     }
+    private static final int PROC_THREAD_ATTRIBUTE_INPUT = (int)131072L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_DrtClear 2147483657
+     * {@snippet lang=c :
+     * #define PROC_THREAD_ATTRIBUTE_INPUT 131072
      * }
      */
-    public static int DeviceDsmAction_DrtClear() {
-        return (int)2147483657L;
+    public static int PROC_THREAD_ATTRIBUTE_INPUT() {
+        return PROC_THREAD_ATTRIBUTE_INPUT;
     }
+    private static final int PROC_THREAD_ATTRIBUTE_ADDITIVE = (int)262144L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_DrtDisable 2147483658
+     * {@snippet lang=c :
+     * #define PROC_THREAD_ATTRIBUTE_ADDITIVE 262144
      * }
      */
-    public static int DeviceDsmAction_DrtDisable() {
-        return (int)2147483658L;
+    public static int PROC_THREAD_ATTRIBUTE_ADDITIVE() {
+        return PROC_THREAD_ATTRIBUTE_ADDITIVE;
     }
+    private static final int PROCESS_CREATION_MITIGATION_POLICY_DEP_ENABLE = (int)1L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_TieringQuery 2147483659
+     * {@snippet lang=c :
+     * #define PROCESS_CREATION_MITIGATION_POLICY_DEP_ENABLE 1
      * }
      */
-    public static int DeviceDsmAction_TieringQuery() {
-        return (int)2147483659L;
+    public static int PROCESS_CREATION_MITIGATION_POLICY_DEP_ENABLE() {
+        return PROCESS_CREATION_MITIGATION_POLICY_DEP_ENABLE;
     }
+    private static final int PROCESS_CREATION_MITIGATION_POLICY_DEP_ATL_THUNK_ENABLE = (int)2L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_Map 2147483660
+     * {@snippet lang=c :
+     * #define PROCESS_CREATION_MITIGATION_POLICY_DEP_ATL_THUNK_ENABLE 2
      * }
      */
-    public static int DeviceDsmAction_Map() {
-        return (int)2147483660L;
+    public static int PROCESS_CREATION_MITIGATION_POLICY_DEP_ATL_THUNK_ENABLE() {
+        return PROCESS_CREATION_MITIGATION_POLICY_DEP_ATL_THUNK_ENABLE;
     }
+    private static final int PROCESS_CREATION_MITIGATION_POLICY_SEHOP_ENABLE = (int)4L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_RegenerateParity 2147483661
+     * {@snippet lang=c :
+     * #define PROCESS_CREATION_MITIGATION_POLICY_SEHOP_ENABLE 4
      * }
      */
-    public static int DeviceDsmAction_RegenerateParity() {
-        return (int)2147483661L;
+    public static int PROCESS_CREATION_MITIGATION_POLICY_SEHOP_ENABLE() {
+        return PROCESS_CREATION_MITIGATION_POLICY_SEHOP_ENABLE;
     }
+    private static final int PROCESS_CREATION_CHILD_PROCESS_RESTRICTED = (int)1L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_NvCache_Change_Priority 2147483662
+     * {@snippet lang=c :
+     * #define PROCESS_CREATION_CHILD_PROCESS_RESTRICTED 1
      * }
      */
-    public static int DeviceDsmAction_NvCache_Change_Priority() {
-        return (int)2147483662L;
+    public static int PROCESS_CREATION_CHILD_PROCESS_RESTRICTED() {
+        return PROCESS_CREATION_CHILD_PROCESS_RESTRICTED;
     }
+    private static final int PROCESS_CREATION_CHILD_PROCESS_OVERRIDE = (int)2L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_NvCache_Evict 2147483663
+     * {@snippet lang=c :
+     * #define PROCESS_CREATION_CHILD_PROCESS_OVERRIDE 2
      * }
      */
-    public static int DeviceDsmAction_NvCache_Evict() {
-        return (int)2147483663L;
+    public static int PROCESS_CREATION_CHILD_PROCESS_OVERRIDE() {
+        return PROCESS_CREATION_CHILD_PROCESS_OVERRIDE;
     }
+    private static final int PROCESS_CREATION_CHILD_PROCESS_RESTRICTED_UNLESS_SECURE = (int)4L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_TopologyIdQuery 2147483664
+     * {@snippet lang=c :
+     * #define PROCESS_CREATION_CHILD_PROCESS_RESTRICTED_UNLESS_SECURE 4
      * }
      */
-    public static int DeviceDsmAction_TopologyIdQuery() {
-        return (int)2147483664L;
+    public static int PROCESS_CREATION_CHILD_PROCESS_RESTRICTED_UNLESS_SECURE() {
+        return PROCESS_CREATION_CHILD_PROCESS_RESTRICTED_UNLESS_SECURE;
     }
+    private static final int PROCESS_CREATION_ALL_APPLICATION_PACKAGES_OPT_OUT = (int)1L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_GetPhysicalAddresses 2147483665
+     * {@snippet lang=c :
+     * #define PROCESS_CREATION_ALL_APPLICATION_PACKAGES_OPT_OUT 1
      * }
      */
-    public static int DeviceDsmAction_GetPhysicalAddresses() {
-        return (int)2147483665L;
+    public static int PROCESS_CREATION_ALL_APPLICATION_PACKAGES_OPT_OUT() {
+        return PROCESS_CREATION_ALL_APPLICATION_PACKAGES_OPT_OUT;
     }
+    private static final int PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_ENABLE_PROCESS_TREE = (int)1L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_ScopeRegen 2147483666
+     * {@snippet lang=c :
+     * #define PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_ENABLE_PROCESS_TREE 1
      * }
      */
-    public static int DeviceDsmAction_ScopeRegen() {
-        return (int)2147483666L;
+    public static int PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_ENABLE_PROCESS_TREE() {
+        return PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_ENABLE_PROCESS_TREE;
     }
+    private static final int PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_DISABLE_PROCESS_TREE = (int)2L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_ReportZones 2147483667
+     * {@snippet lang=c :
+     * #define PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_DISABLE_PROCESS_TREE 2
      * }
      */
-    public static int DeviceDsmAction_ReportZones() {
-        return (int)2147483667L;
+    public static int PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_DISABLE_PROCESS_TREE() {
+        return PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_DISABLE_PROCESS_TREE;
     }
+    private static final int PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_OVERRIDE = (int)4L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_OpenZone 2147483668
+     * {@snippet lang=c :
+     * #define PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_OVERRIDE 4
      * }
      */
-    public static int DeviceDsmAction_OpenZone() {
-        return (int)2147483668L;
+    public static int PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_OVERRIDE() {
+        return PROCESS_CREATION_DESKTOP_APP_BREAKAWAY_OVERRIDE;
     }
+    private static final int ATOM_FLAG_GLOBAL = (int)2L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_FinishZone 2147483669
+     * {@snippet lang=c :
+     * #define ATOM_FLAG_GLOBAL 2
      * }
      */
-    public static int DeviceDsmAction_FinishZone() {
-        return (int)2147483669L;
+    public static int ATOM_FLAG_GLOBAL() {
+        return ATOM_FLAG_GLOBAL;
     }
+    private static final int BASE_SEARCH_PATH_ENABLE_SAFE_SEARCHMODE = (int)1L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_CloseZone 2147483670
+     * {@snippet lang=c :
+     * #define BASE_SEARCH_PATH_ENABLE_SAFE_SEARCHMODE 1
      * }
      */
-    public static int DeviceDsmAction_CloseZone() {
-        return (int)2147483670L;
+    public static int BASE_SEARCH_PATH_ENABLE_SAFE_SEARCHMODE() {
+        return BASE_SEARCH_PATH_ENABLE_SAFE_SEARCHMODE;
     }
+    private static final int BASE_SEARCH_PATH_DISABLE_SAFE_SEARCHMODE = (int)65536L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_ResetWritePointer 23
+     * {@snippet lang=c :
+     * #define BASE_SEARCH_PATH_DISABLE_SAFE_SEARCHMODE 65536
      * }
      */
-    public static int DeviceDsmAction_ResetWritePointer() {
-        return (int)23L;
+    public static int BASE_SEARCH_PATH_DISABLE_SAFE_SEARCHMODE() {
+        return BASE_SEARCH_PATH_DISABLE_SAFE_SEARCHMODE;
     }
+    private static final int BASE_SEARCH_PATH_PERMANENT = (int)32768L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_GetRangeErrorInfo 2147483672
+     * {@snippet lang=c :
+     * #define BASE_SEARCH_PATH_PERMANENT 32768
      * }
      */
-    public static int DeviceDsmAction_GetRangeErrorInfo() {
-        return (int)2147483672L;
+    public static int BASE_SEARCH_PATH_PERMANENT() {
+        return BASE_SEARCH_PATH_PERMANENT;
     }
+    private static final int DDD_RAW_TARGET_PATH = (int)1L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_WriteZeroes 25
+     * {@snippet lang=c :
+     * #define DDD_RAW_TARGET_PATH 1
      * }
      */
-    public static int DeviceDsmAction_WriteZeroes() {
-        return (int)25L;
+    public static int DDD_RAW_TARGET_PATH() {
+        return DDD_RAW_TARGET_PATH;
     }
+    private static final int DDD_REMOVE_DEFINITION = (int)2L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_LostQuery 2147483674
+     * {@snippet lang=c :
+     * #define DDD_REMOVE_DEFINITION 2
      * }
      */
-    public static int DeviceDsmAction_LostQuery() {
-        return (int)2147483674L;
+    public static int DDD_REMOVE_DEFINITION() {
+        return DDD_REMOVE_DEFINITION;
     }
+    private static final int DDD_EXACT_MATCH_ON_REMOVE = (int)4L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_GetFreeSpace 2147483675
+     * {@snippet lang=c :
+     * #define DDD_EXACT_MATCH_ON_REMOVE 4
      * }
      */
-    public static int DeviceDsmAction_GetFreeSpace() {
-        return (int)2147483675L;
+    public static int DDD_EXACT_MATCH_ON_REMOVE() {
+        return DDD_EXACT_MATCH_ON_REMOVE;
     }
+    private static final int DDD_NO_BROADCAST_SYSTEM = (int)8L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_ConversionQuery 2147483676
+     * {@snippet lang=c :
+     * #define DDD_NO_BROADCAST_SYSTEM 8
      * }
      */
-    public static int DeviceDsmAction_ConversionQuery() {
-        return (int)2147483676L;
+    public static int DDD_NO_BROADCAST_SYSTEM() {
+        return DDD_NO_BROADCAST_SYSTEM;
     }
+    private static final int DDD_LUID_BROADCAST_DRIVE = (int)16L;
     /**
-     * {@snippet :
-     * #define DeviceDsmAction_VdtSet 29
+     * {@snippet lang=c :
+     * #define DDD_LUID_BROADCAST_DRIVE 16
      * }
      */
-    public static int DeviceDsmAction_VdtSet() {
-        return (int)29L;
+    public static int DDD_LUID_BROADCAST_DRIVE() {
+        return DDD_LUID_BROADCAST_DRIVE;
     }
+    private static final int COPYFILE2_IO_CYCLE_SIZE_MIN = (int)4096L;
     /**
-     * {@snippet :
-     * #define DEVICE_DSM_FLAG_TRIM_NOT_FS_ALLOCATED 2147483648
+     * {@snippet lang=c :
+     * #define COPYFILE2_IO_CYCLE_SIZE_MIN 4096
      * }
      */
-    public static int DEVICE_DSM_FLAG_TRIM_NOT_FS_ALLOCATED() {
-        return (int)2147483648L;
+    public static int COPYFILE2_IO_CYCLE_SIZE_MIN() {
+        return COPYFILE2_IO_CYCLE_SIZE_MIN;
     }
+    private static final int COPYFILE2_IO_CYCLE_SIZE_MAX = (int)1073741824L;
     /**
-     * {@snippet :
-     * #define STORAGE_OFFLOAD_TOKEN_TYPE_ZERO_DATA 4294901761
+     * {@snippet lang=c :
+     * #define COPYFILE2_IO_CYCLE_SIZE_MAX 1073741824
      * }
      */
-    public static int STORAGE_OFFLOAD_TOKEN_TYPE_ZERO_DATA() {
-        return (int)4294901761L;
+    public static int COPYFILE2_IO_CYCLE_SIZE_MAX() {
+        return COPYFILE2_IO_CYCLE_SIZE_MAX;
     }
+    private static final int COPYFILE2_IO_RATE_MIN = (int)512L;
     /**
-     * {@snippet :
-     * #define DEVICE_DATA_SET_LBP_STATE_PARAMETERS_VERSION_V1 1
+     * {@snippet lang=c :
+     * #define COPYFILE2_IO_RATE_MIN 512
      * }
      */
-    public static int DEVICE_DATA_SET_LBP_STATE_PARAMETERS_VERSION_V1() {
-        return (int)1L;
+    public static int COPYFILE2_IO_RATE_MIN() {
+        return COPYFILE2_IO_RATE_MIN;
     }
+    private static final int MOVEFILE_REPLACE_EXISTING = (int)1L;
     /**
-     * {@snippet :
-     * #define DEVICE_DSM_ALLOCATION_OUTPUT_V1 32
+     * {@snippet lang=c :
+     * #define MOVEFILE_REPLACE_EXISTING 1
      * }
      */
-    public static long DEVICE_DSM_ALLOCATION_OUTPUT_V1() {
-        return 32L;
+    public static int MOVEFILE_REPLACE_EXISTING() {
+        return MOVEFILE_REPLACE_EXISTING;
     }
+    private static final int MOVEFILE_COPY_ALLOWED = (int)2L;
     /**
-     * {@snippet :
-     * #define DEVICE_DATA_SET_LB_PROVISIONING_STATE_VERSION_V1 32
+     * {@snippet lang=c :
+     * #define MOVEFILE_COPY_ALLOWED 2
      * }
      */
-    public static long DEVICE_DATA_SET_LB_PROVISIONING_STATE_VERSION_V1() {
-        return 32L;
+    public static int MOVEFILE_COPY_ALLOWED() {
+        return MOVEFILE_COPY_ALLOWED;
     }
+    private static final int MOVEFILE_DELAY_UNTIL_REBOOT = (int)4L;
     /**
-     * {@snippet :
-     * #define DEVICE_DSM_ALLOCATION_OUTPUT_V2 40
+     * {@snippet lang=c :
+     * #define MOVEFILE_DELAY_UNTIL_REBOOT 4
      * }
      */
-    public static long DEVICE_DSM_ALLOCATION_OUTPUT_V2() {
-        return 40L;
+    public static int MOVEFILE_DELAY_UNTIL_REBOOT() {
+        return MOVEFILE_DELAY_UNTIL_REBOOT;
     }
+    private static final int MOVEFILE_WRITE_THROUGH = (int)8L;
     /**
-     * {@snippet :
-     * #define DEVICE_DATA_SET_LB_PROVISIONING_STATE_VERSION_V2 40
+     * {@snippet lang=c :
+     * #define MOVEFILE_WRITE_THROUGH 8
      * }
      */
-    public static long DEVICE_DATA_SET_LB_PROVISIONING_STATE_VERSION_V2() {
-        return 40L;
+    public static int MOVEFILE_WRITE_THROUGH() {
+        return MOVEFILE_WRITE_THROUGH;
     }
+    private static final int MOVEFILE_CREATE_HARDLINK = (int)16L;
     /**
-     * {@snippet :
-     * #define DEVICE_DSM_PHYSICAL_ADDRESS_HAS_MEMORY_ERROR -1
+     * {@snippet lang=c :
+     * #define MOVEFILE_CREATE_HARDLINK 16
      * }
      */
-    public static long DEVICE_DSM_PHYSICAL_ADDRESS_HAS_MEMORY_ERROR() {
-        return -1L;
+    public static int MOVEFILE_CREATE_HARDLINK() {
+        return MOVEFILE_CREATE_HARDLINK;
     }
+    private static final int MOVEFILE_FAIL_IF_NOT_TRACKABLE = (int)32L;
     /**
-     * {@snippet :
-     * #define DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT_VERSION_V1 1
+     * {@snippet lang=c :
+     * #define MOVEFILE_FAIL_IF_NOT_TRACKABLE 32
      * }
      */
-    public static int DEVICE_DSM_PHYSICAL_ADDRESSES_OUTPUT_VERSION_V1() {
-        return (int)1L;
+    public static int MOVEFILE_FAIL_IF_NOT_TRACKABLE() {
+        return MOVEFILE_FAIL_IF_NOT_TRACKABLE;
     }
+    private static final int EVENTLOG_FULL_INFO = (int)0L;
     /**
-     * {@snippet :
-     * #define DEVICE_DSM_RANGE_ERROR_INFO_VERSION_V1 1
+     * {@snippet lang=c :
+     * #define EVENTLOG_FULL_INFO 0
      * }
      */
-    public static int DEVICE_DSM_RANGE_ERROR_INFO_VERSION_V1() {
-        return (int)1L;
+    public static int EVENTLOG_FULL_INFO() {
+        return EVENTLOG_FULL_INFO;
     }
+    private static final int OPERATION_API_VERSION = (int)1L;
     /**
-     * {@snippet :
-     * #define STORAGE_CRASH_TELEMETRY_REGKEY "\\"
+     * {@snippet lang=c :
+     * #define OPERATION_API_VERSION 1
      * }
      */
-    public static MemorySegment STORAGE_CRASH_TELEMETRY_REGKEY() {
-        return constants$4550.const$5;
+    public static int OPERATION_API_VERSION() {
+        return OPERATION_API_VERSION;
     }
+    private static final int OPERATION_START_TRACE_CURRENT_THREAD = (int)1L;
     /**
-     * {@snippet :
-     * #define STORAGE_DEVICE_TELEMETRY_REGKEY "\\"
+     * {@snippet lang=c :
+     * #define OPERATION_START_TRACE_CURRENT_THREAD 1
      * }
      */
-    public static MemorySegment STORAGE_DEVICE_TELEMETRY_REGKEY() {
-        return constants$4550.const$5;
+    public static int OPERATION_START_TRACE_CURRENT_THREAD() {
+        return OPERATION_START_TRACE_CURRENT_THREAD;
     }
+    private static final int OPERATION_END_DISCARD = (int)1L;
     /**
-     * {@snippet :
-     * #define FW_ISSUEID_UNKNOWN 4294967295
+     * {@snippet lang=c :
+     * #define OPERATION_END_DISCARD 1
      * }
      */
-    public static int FW_ISSUEID_UNKNOWN() {
-        return (int)4294967295L;
+    public static int OPERATION_END_DISCARD() {
+        return OPERATION_END_DISCARD;
     }
+    private static final int MAX_COMPUTERNAME_LENGTH = (int)15L;
     /**
-     * {@snippet :
-     * #define TC_PUBLIC_DATA_TYPE_ATAGP "ATAGPLogPages"
+     * {@snippet lang=c :
+     * #define MAX_COMPUTERNAME_LENGTH 15
      * }
      */
-    public static MemorySegment TC_PUBLIC_DATA_TYPE_ATAGP() {
-        return constants$4687.const$0;
+    public static int MAX_COMPUTERNAME_LENGTH() {
+        return MAX_COMPUTERNAME_LENGTH;
     }
+    private static final int LOGON32_LOGON_INTERACTIVE = (int)2L;
     /**
-     * {@snippet :
-     * #define TC_PUBLIC_DATA_TYPE_ATASMART "ATASMARTPages"
+     * {@snippet lang=c :
+     * #define LOGON32_LOGON_INTERACTIVE 2
      * }
      */
-    public static MemorySegment TC_PUBLIC_DATA_TYPE_ATASMART() {
-        return constants$4687.const$1;
+    public static int LOGON32_LOGON_INTERACTIVE() {
+        return LOGON32_LOGON_INTERACTIVE;
     }
+    private static final int LOGON32_LOGON_NETWORK = (int)3L;
     /**
-     * {@snippet :
-     * #define STORAGE_EVENT_ALL 7
+     * {@snippet lang=c :
+     * #define LOGON32_LOGON_NETWORK 3
      * }
      */
-    public static int STORAGE_EVENT_ALL() {
-        return (int)7L;
+    public static int LOGON32_LOGON_NETWORK() {
+        return LOGON32_LOGON_NETWORK;
     }
+    private static final int LOGON32_LOGON_BATCH = (int)4L;
     /**
-     * {@snippet :
-     * #define STORAGE_COUNTERS_VERSION_V1 32
+     * {@snippet lang=c :
+     * #define LOGON32_LOGON_BATCH 4
      * }
      */
-    public static long STORAGE_COUNTERS_VERSION_V1() {
-        return 32L;
+    public static int LOGON32_LOGON_BATCH() {
+        return LOGON32_LOGON_BATCH;
     }
+    private static final int LOGON32_LOGON_SERVICE = (int)5L;
     /**
-     * {@snippet :
-     * #define STORAGE_HW_FIRMWARE_REQUEST_FLAG_SWITCH_TO_EXISTING_FIRMWARE 2147483648
+     * {@snippet lang=c :
+     * #define LOGON32_LOGON_SERVICE 5
      * }
      */
-    public static int STORAGE_HW_FIRMWARE_REQUEST_FLAG_SWITCH_TO_EXISTING_FIRMWARE() {
-        return (int)2147483648L;
+    public static int LOGON32_LOGON_SERVICE() {
+        return LOGON32_LOGON_SERVICE;
     }
+    private static final int LOGON32_LOGON_UNLOCK = (int)7L;
     /**
-     * {@snippet :
-     * #define STORAGE_PROTOCOL_COMMAND_FLAG_ADAPTER_REQUEST 2147483648
+     * {@snippet lang=c :
+     * #define LOGON32_LOGON_UNLOCK 7
      * }
      */
-    public static int STORAGE_PROTOCOL_COMMAND_FLAG_ADAPTER_REQUEST() {
-        return (int)2147483648L;
+    public static int LOGON32_LOGON_UNLOCK() {
+        return LOGON32_LOGON_UNLOCK;
     }
+    private static final int LOGON32_LOGON_NETWORK_CLEARTEXT = (int)8L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCMBUS_BASE 89
+     * {@snippet lang=c :
+     * #define LOGON32_LOGON_NETWORK_CLEARTEXT 8
      * }
      */
-    public static int IOCTL_SCMBUS_BASE() {
-        return (int)89L;
+    public static int LOGON32_LOGON_NETWORK_CLEARTEXT() {
+        return LOGON32_LOGON_NETWORK_CLEARTEXT;
     }
+    private static final int LOGON32_LOGON_NEW_CREDENTIALS = (int)9L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCM_BUS_GET_LOGICAL_DEVICES 5832704
+     * {@snippet lang=c :
+     * #define LOGON32_LOGON_NEW_CREDENTIALS 9
      * }
      */
-    public static int IOCTL_SCM_BUS_GET_LOGICAL_DEVICES() {
-        return (int)5832704L;
+    public static int LOGON32_LOGON_NEW_CREDENTIALS() {
+        return LOGON32_LOGON_NEW_CREDENTIALS;
     }
+    private static final int LOGON32_PROVIDER_DEFAULT = (int)0L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCM_BUS_GET_PHYSICAL_DEVICES 5832708
+     * {@snippet lang=c :
+     * #define LOGON32_PROVIDER_DEFAULT 0
      * }
      */
-    public static int IOCTL_SCM_BUS_GET_PHYSICAL_DEVICES() {
-        return (int)5832708L;
+    public static int LOGON32_PROVIDER_DEFAULT() {
+        return LOGON32_PROVIDER_DEFAULT;
     }
+    private static final int LOGON32_PROVIDER_WINNT35 = (int)1L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCM_BUS_GET_REGIONS 5832712
+     * {@snippet lang=c :
+     * #define LOGON32_PROVIDER_WINNT35 1
      * }
      */
-    public static int IOCTL_SCM_BUS_GET_REGIONS() {
-        return (int)5832712L;
+    public static int LOGON32_PROVIDER_WINNT35() {
+        return LOGON32_PROVIDER_WINNT35;
     }
+    private static final int LOGON32_PROVIDER_WINNT40 = (int)2L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCM_BUS_QUERY_PROPERTY 5832716
+     * {@snippet lang=c :
+     * #define LOGON32_PROVIDER_WINNT40 2
      * }
      */
-    public static int IOCTL_SCM_BUS_QUERY_PROPERTY() {
-        return (int)5832716L;
+    public static int LOGON32_PROVIDER_WINNT40() {
+        return LOGON32_PROVIDER_WINNT40;
     }
+    private static final int LOGON32_PROVIDER_WINNT50 = (int)3L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCM_BUS_SET_PROPERTY 5865492
+     * {@snippet lang=c :
+     * #define LOGON32_PROVIDER_WINNT50 3
      * }
      */
-    public static int IOCTL_SCM_BUS_SET_PROPERTY() {
-        return (int)5865492L;
+    public static int LOGON32_PROVIDER_WINNT50() {
+        return LOGON32_PROVIDER_WINNT50;
     }
+    private static final int LOGON32_PROVIDER_VIRTUAL = (int)4L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCM_BUS_RUNTIME_FW_ACTIVATE 5865488
+     * {@snippet lang=c :
+     * #define LOGON32_PROVIDER_VIRTUAL 4
      * }
      */
-    public static int IOCTL_SCM_BUS_RUNTIME_FW_ACTIVATE() {
-        return (int)5865488L;
+    public static int LOGON32_PROVIDER_VIRTUAL() {
+        return LOGON32_PROVIDER_VIRTUAL;
     }
+    private static final int LOGON_WITH_PROFILE = (int)1L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCM_LD_GET_INTERLEAVE_SET 5835776
+     * {@snippet lang=c :
+     * #define LOGON_WITH_PROFILE 1
      * }
      */
-    public static int IOCTL_SCM_LD_GET_INTERLEAVE_SET() {
-        return (int)5835776L;
+    public static int LOGON_WITH_PROFILE() {
+        return LOGON_WITH_PROFILE;
     }
+    private static final int LOGON_NETCREDENTIALS_ONLY = (int)2L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCM_PD_QUERY_PROPERTY 5838848
+     * {@snippet lang=c :
+     * #define LOGON_NETCREDENTIALS_ONLY 2
      * }
      */
-    public static int IOCTL_SCM_PD_QUERY_PROPERTY() {
-        return (int)5838848L;
+    public static int LOGON_NETCREDENTIALS_ONLY() {
+        return LOGON_NETCREDENTIALS_ONLY;
     }
+    private static final int HW_PROFILE_GUIDLEN = (int)39L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCM_PD_FIRMWARE_DOWNLOAD 5871620
+     * {@snippet lang=c :
+     * #define HW_PROFILE_GUIDLEN 39
      * }
      */
-    public static int IOCTL_SCM_PD_FIRMWARE_DOWNLOAD() {
-        return (int)5871620L;
+    public static int HW_PROFILE_GUIDLEN() {
+        return HW_PROFILE_GUIDLEN;
     }
+    private static final int MAX_PROFILE_LEN = (int)80L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCM_PD_FIRMWARE_ACTIVATE 5871624
+     * {@snippet lang=c :
+     * #define MAX_PROFILE_LEN 80
      * }
      */
-    public static int IOCTL_SCM_PD_FIRMWARE_ACTIVATE() {
-        return (int)5871624L;
+    public static int MAX_PROFILE_LEN() {
+        return MAX_PROFILE_LEN;
     }
+    private static final int FACILITY_NULL = (int)0L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCM_PD_PASSTHROUGH 5888012
+     * {@snippet lang=c :
+     * #define FACILITY_NULL 0
      * }
      */
-    public static int IOCTL_SCM_PD_PASSTHROUGH() {
-        return (int)5888012L;
+    public static int FACILITY_NULL() {
+        return FACILITY_NULL;
     }
+    private static final int FACILITY_RPC = (int)1L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCM_PD_UPDATE_MANAGEMENT_STATUS 5838864
+     * {@snippet lang=c :
+     * #define FACILITY_RPC 1
      * }
      */
-    public static int IOCTL_SCM_PD_UPDATE_MANAGEMENT_STATUS() {
-        return (int)5838864L;
+    public static int FACILITY_RPC() {
+        return FACILITY_RPC;
     }
+    private static final int FACILITY_DISPATCH = (int)2L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCM_PD_REINITIALIZE_MEDIA 5871636
+     * {@snippet lang=c :
+     * #define FACILITY_DISPATCH 2
      * }
      */
-    public static int IOCTL_SCM_PD_REINITIALIZE_MEDIA() {
-        return (int)5871636L;
+    public static int FACILITY_DISPATCH() {
+        return FACILITY_DISPATCH;
     }
+    private static final int FACILITY_STORAGE = (int)3L;
     /**
-     * {@snippet :
-     * #define IOCTL_SCM_PD_SET_PROPERTY 5871640
+     * {@snippet lang=c :
+     * #define FACILITY_STORAGE 3
      * }
      */
-    public static int IOCTL_SCM_PD_SET_PROPERTY() {
-        return (int)5871640L;
+    public static int FACILITY_STORAGE() {
+        return FACILITY_STORAGE;
     }
+    private static final int FACILITY_ITF = (int)4L;
     /**
-     * {@snippet :
-     * #define SCM_REGION_SPA_UNKNOWN -1
+     * {@snippet lang=c :
+     * #define FACILITY_ITF 4
      * }
      */
-    public static long SCM_REGION_SPA_UNKNOWN() {
-        return -1L;
+    public static int FACILITY_ITF() {
+        return FACILITY_ITF;
     }
+    private static final int FACILITY_WIN32 = (int)7L;
     /**
-     * {@snippet :
-     * #define SCM_PD_MEMORY_SIZE_UNKNOWN -1
+     * {@snippet lang=c :
+     * #define FACILITY_WIN32 7
      * }
      */
-    public static long SCM_PD_MEMORY_SIZE_UNKNOWN() {
-        return -1L;
+    public static int FACILITY_WIN32() {
+        return FACILITY_WIN32;
     }
+    private static final int FACILITY_WINDOWS = (int)8L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_BASE 7
+     * {@snippet lang=c :
+     * #define FACILITY_WINDOWS 8
      * }
      */
-    public static int IOCTL_DISK_BASE() {
-        return (int)7L;
+    public static int FACILITY_WINDOWS() {
+        return FACILITY_WINDOWS;
     }
+    private static final int FACILITY_SSPI = (int)9L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_GET_DRIVE_GEOMETRY 458752
+     * {@snippet lang=c :
+     * #define FACILITY_SSPI 9
      * }
      */
-    public static int IOCTL_DISK_GET_DRIVE_GEOMETRY() {
-        return (int)458752L;
+    public static int FACILITY_SSPI() {
+        return FACILITY_SSPI;
     }
+    private static final int FACILITY_SECURITY = (int)9L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_GET_PARTITION_INFO 475140
+     * {@snippet lang=c :
+     * #define FACILITY_SECURITY 9
      * }
      */
-    public static int IOCTL_DISK_GET_PARTITION_INFO() {
-        return (int)475140L;
+    public static int FACILITY_SECURITY() {
+        return FACILITY_SECURITY;
     }
+    private static final int FACILITY_CONTROL = (int)10L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_SET_PARTITION_INFO 507912
+     * {@snippet lang=c :
+     * #define FACILITY_CONTROL 10
      * }
      */
-    public static int IOCTL_DISK_SET_PARTITION_INFO() {
-        return (int)507912L;
+    public static int FACILITY_CONTROL() {
+        return FACILITY_CONTROL;
     }
+    private static final int FACILITY_CERT = (int)11L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_GET_DRIVE_LAYOUT 475148
+     * {@snippet lang=c :
+     * #define FACILITY_CERT 11
      * }
      */
-    public static int IOCTL_DISK_GET_DRIVE_LAYOUT() {
-        return (int)475148L;
+    public static int FACILITY_CERT() {
+        return FACILITY_CERT;
     }
+    private static final int FACILITY_INTERNET = (int)12L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_SET_DRIVE_LAYOUT 507920
+     * {@snippet lang=c :
+     * #define FACILITY_INTERNET 12
      * }
      */
-    public static int IOCTL_DISK_SET_DRIVE_LAYOUT() {
-        return (int)507920L;
+    public static int FACILITY_INTERNET() {
+        return FACILITY_INTERNET;
     }
+    private static final int FACILITY_MEDIASERVER = (int)13L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_VERIFY 458772
+     * {@snippet lang=c :
+     * #define FACILITY_MEDIASERVER 13
      * }
      */
-    public static int IOCTL_DISK_VERIFY() {
-        return (int)458772L;
+    public static int FACILITY_MEDIASERVER() {
+        return FACILITY_MEDIASERVER;
     }
+    private static final int FACILITY_MSMQ = (int)14L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_FORMAT_TRACKS 507928
+     * {@snippet lang=c :
+     * #define FACILITY_MSMQ 14
      * }
      */
-    public static int IOCTL_DISK_FORMAT_TRACKS() {
-        return (int)507928L;
+    public static int FACILITY_MSMQ() {
+        return FACILITY_MSMQ;
     }
+    private static final int FACILITY_SETUPAPI = (int)15L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_REASSIGN_BLOCKS 507932
+     * {@snippet lang=c :
+     * #define FACILITY_SETUPAPI 15
      * }
      */
-    public static int IOCTL_DISK_REASSIGN_BLOCKS() {
-        return (int)507932L;
+    public static int FACILITY_SETUPAPI() {
+        return FACILITY_SETUPAPI;
     }
+    private static final int FACILITY_SCARD = (int)16L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_PERFORMANCE 458784
+     * {@snippet lang=c :
+     * #define FACILITY_SCARD 16
      * }
      */
-    public static int IOCTL_DISK_PERFORMANCE() {
-        return (int)458784L;
+    public static int FACILITY_SCARD() {
+        return FACILITY_SCARD;
     }
+    private static final int FACILITY_COMPLUS = (int)17L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_IS_WRITABLE 458788
+     * {@snippet lang=c :
+     * #define FACILITY_COMPLUS 17
      * }
      */
-    public static int IOCTL_DISK_IS_WRITABLE() {
-        return (int)458788L;
+    public static int FACILITY_COMPLUS() {
+        return FACILITY_COMPLUS;
     }
+    private static final int FACILITY_AAF = (int)18L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_LOGGING 458792
+     * {@snippet lang=c :
+     * #define FACILITY_AAF 18
      * }
      */
-    public static int IOCTL_DISK_LOGGING() {
-        return (int)458792L;
+    public static int FACILITY_AAF() {
+        return FACILITY_AAF;
     }
+    private static final int FACILITY_URT = (int)19L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_FORMAT_TRACKS_EX 507948
+     * {@snippet lang=c :
+     * #define FACILITY_URT 19
      * }
      */
-    public static int IOCTL_DISK_FORMAT_TRACKS_EX() {
-        return (int)507948L;
+    public static int FACILITY_URT() {
+        return FACILITY_URT;
     }
+    private static final int FACILITY_ACS = (int)20L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_HISTOGRAM_STRUCTURE 458800
+     * {@snippet lang=c :
+     * #define FACILITY_ACS 20
      * }
      */
-    public static int IOCTL_DISK_HISTOGRAM_STRUCTURE() {
-        return (int)458800L;
+    public static int FACILITY_ACS() {
+        return FACILITY_ACS;
     }
+    private static final int FACILITY_DPLAY = (int)21L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_HISTOGRAM_DATA 458804
+     * {@snippet lang=c :
+     * #define FACILITY_DPLAY 21
      * }
      */
-    public static int IOCTL_DISK_HISTOGRAM_DATA() {
-        return (int)458804L;
+    public static int FACILITY_DPLAY() {
+        return FACILITY_DPLAY;
     }
+    private static final int FACILITY_UMI = (int)22L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_HISTOGRAM_RESET 458808
+     * {@snippet lang=c :
+     * #define FACILITY_UMI 22
      * }
      */
-    public static int IOCTL_DISK_HISTOGRAM_RESET() {
-        return (int)458808L;
+    public static int FACILITY_UMI() {
+        return FACILITY_UMI;
     }
+    private static final int FACILITY_SXS = (int)23L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_REQUEST_STRUCTURE 458812
+     * {@snippet lang=c :
+     * #define FACILITY_SXS 23
      * }
      */
-    public static int IOCTL_DISK_REQUEST_STRUCTURE() {
-        return (int)458812L;
+    public static int FACILITY_SXS() {
+        return FACILITY_SXS;
     }
+    private static final int FACILITY_WINDOWS_CE = (int)24L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_REQUEST_DATA 458816
+     * {@snippet lang=c :
+     * #define FACILITY_WINDOWS_CE 24
      * }
      */
-    public static int IOCTL_DISK_REQUEST_DATA() {
-        return (int)458816L;
+    public static int FACILITY_WINDOWS_CE() {
+        return FACILITY_WINDOWS_CE;
     }
+    private static final int FACILITY_HTTP = (int)25L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_PERFORMANCE_OFF 458848
+     * {@snippet lang=c :
+     * #define FACILITY_HTTP 25
      * }
      */
-    public static int IOCTL_DISK_PERFORMANCE_OFF() {
-        return (int)458848L;
+    public static int FACILITY_HTTP() {
+        return FACILITY_HTTP;
     }
+    private static final int FACILITY_USERMODE_COMMONLOG = (int)26L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_CONTROLLER_NUMBER 458820
+     * {@snippet lang=c :
+     * #define FACILITY_USERMODE_COMMONLOG 26
      * }
      */
-    public static int IOCTL_DISK_CONTROLLER_NUMBER() {
-        return (int)458820L;
+    public static int FACILITY_USERMODE_COMMONLOG() {
+        return FACILITY_USERMODE_COMMONLOG;
     }
+    private static final int FACILITY_WER = (int)27L;
     /**
-     * {@snippet :
-     * #define SMART_GET_VERSION 475264
+     * {@snippet lang=c :
+     * #define FACILITY_WER 27
      * }
      */
-    public static int SMART_GET_VERSION() {
-        return (int)475264L;
+    public static int FACILITY_WER() {
+        return FACILITY_WER;
     }
+    private static final int FACILITY_USERMODE_FILTER_MANAGER = (int)31L;
     /**
-     * {@snippet :
-     * #define SMART_SEND_DRIVE_COMMAND 508036
+     * {@snippet lang=c :
+     * #define FACILITY_USERMODE_FILTER_MANAGER 31
      * }
      */
-    public static int SMART_SEND_DRIVE_COMMAND() {
-        return (int)508036L;
+    public static int FACILITY_USERMODE_FILTER_MANAGER() {
+        return FACILITY_USERMODE_FILTER_MANAGER;
     }
+    private static final int FACILITY_BACKGROUNDCOPY = (int)32L;
     /**
-     * {@snippet :
-     * #define SMART_RCV_DRIVE_DATA 508040
+     * {@snippet lang=c :
+     * #define FACILITY_BACKGROUNDCOPY 32
      * }
      */
-    public static int SMART_RCV_DRIVE_DATA() {
-        return (int)508040L;
+    public static int FACILITY_BACKGROUNDCOPY() {
+        return FACILITY_BACKGROUNDCOPY;
     }
+    private static final int FACILITY_CONFIGURATION = (int)33L;
     /**
-     * {@snippet :
-     * #define SMART_RCV_DRIVE_DATA_EX 458892
+     * {@snippet lang=c :
+     * #define FACILITY_CONFIGURATION 33
      * }
      */
-    public static int SMART_RCV_DRIVE_DATA_EX() {
-        return (int)458892L;
+    public static int FACILITY_CONFIGURATION() {
+        return FACILITY_CONFIGURATION;
     }
+    private static final int FACILITY_WIA = (int)33L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_GET_PARTITION_INFO_EX 458824
+     * {@snippet lang=c :
+     * #define FACILITY_WIA 33
      * }
      */
-    public static int IOCTL_DISK_GET_PARTITION_INFO_EX() {
-        return (int)458824L;
+    public static int FACILITY_WIA() {
+        return FACILITY_WIA;
     }
+    private static final int FACILITY_STATE_MANAGEMENT = (int)34L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_SET_PARTITION_INFO_EX 507980
+     * {@snippet lang=c :
+     * #define FACILITY_STATE_MANAGEMENT 34
      * }
      */
-    public static int IOCTL_DISK_SET_PARTITION_INFO_EX() {
-        return (int)507980L;
+    public static int FACILITY_STATE_MANAGEMENT() {
+        return FACILITY_STATE_MANAGEMENT;
     }
+    private static final int FACILITY_METADIRECTORY = (int)35L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_GET_DRIVE_LAYOUT_EX 458832
+     * {@snippet lang=c :
+     * #define FACILITY_METADIRECTORY 35
      * }
      */
-    public static int IOCTL_DISK_GET_DRIVE_LAYOUT_EX() {
-        return (int)458832L;
+    public static int FACILITY_METADIRECTORY() {
+        return FACILITY_METADIRECTORY;
     }
+    private static final int FACILITY_WINDOWSUPDATE = (int)36L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_SET_DRIVE_LAYOUT_EX 507988
+     * {@snippet lang=c :
+     * #define FACILITY_WINDOWSUPDATE 36
      * }
      */
-    public static int IOCTL_DISK_SET_DRIVE_LAYOUT_EX() {
-        return (int)507988L;
+    public static int FACILITY_WINDOWSUPDATE() {
+        return FACILITY_WINDOWSUPDATE;
     }
+    private static final int FACILITY_DIRECTORYSERVICE = (int)37L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_CREATE_DISK 507992
+     * {@snippet lang=c :
+     * #define FACILITY_DIRECTORYSERVICE 37
      * }
      */
-    public static int IOCTL_DISK_CREATE_DISK() {
-        return (int)507992L;
+    public static int FACILITY_DIRECTORYSERVICE() {
+        return FACILITY_DIRECTORYSERVICE;
     }
+    private static final int FACILITY_GRAPHICS = (int)38L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_GET_LENGTH_INFO 475228
+     * {@snippet lang=c :
+     * #define FACILITY_GRAPHICS 38
      * }
      */
-    public static int IOCTL_DISK_GET_LENGTH_INFO() {
-        return (int)475228L;
+    public static int FACILITY_GRAPHICS() {
+        return FACILITY_GRAPHICS;
     }
+    private static final int FACILITY_SHELL = (int)39L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_GET_DRIVE_GEOMETRY_EX 458912
+     * {@snippet lang=c :
+     * #define FACILITY_SHELL 39
      * }
      */
-    public static int IOCTL_DISK_GET_DRIVE_GEOMETRY_EX() {
-        return (int)458912L;
+    public static int FACILITY_SHELL() {
+        return FACILITY_SHELL;
     }
+    private static final int FACILITY_NAP = (int)39L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_REASSIGN_BLOCKS_EX 508068
+     * {@snippet lang=c :
+     * #define FACILITY_NAP 39
      * }
      */
-    public static int IOCTL_DISK_REASSIGN_BLOCKS_EX() {
-        return (int)508068L;
+    public static int FACILITY_NAP() {
+        return FACILITY_NAP;
     }
+    private static final int FACILITY_TPM_SERVICES = (int)40L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_UPDATE_DRIVE_SIZE 508104
+     * {@snippet lang=c :
+     * #define FACILITY_TPM_SERVICES 40
      * }
      */
-    public static int IOCTL_DISK_UPDATE_DRIVE_SIZE() {
-        return (int)508104L;
+    public static int FACILITY_TPM_SERVICES() {
+        return FACILITY_TPM_SERVICES;
     }
+    private static final int FACILITY_TPM_SOFTWARE = (int)41L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_GROW_PARTITION 508112
+     * {@snippet lang=c :
+     * #define FACILITY_TPM_SOFTWARE 41
      * }
      */
-    public static int IOCTL_DISK_GROW_PARTITION() {
-        return (int)508112L;
+    public static int FACILITY_TPM_SOFTWARE() {
+        return FACILITY_TPM_SOFTWARE;
     }
+    private static final int FACILITY_UI = (int)42L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_GET_CACHE_INFORMATION 475348
+     * {@snippet lang=c :
+     * #define FACILITY_UI 42
      * }
      */
-    public static int IOCTL_DISK_GET_CACHE_INFORMATION() {
-        return (int)475348L;
+    public static int FACILITY_UI() {
+        return FACILITY_UI;
     }
+    private static final int FACILITY_XAML = (int)43L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_SET_CACHE_INFORMATION 508120
+     * {@snippet lang=c :
+     * #define FACILITY_XAML 43
      * }
      */
-    public static int IOCTL_DISK_SET_CACHE_INFORMATION() {
-        return (int)508120L;
+    public static int FACILITY_XAML() {
+        return FACILITY_XAML;
     }
+    private static final int FACILITY_ACTION_QUEUE = (int)44L;
     /**
-     * {@snippet :
-     * #define OBSOLETE_DISK_GET_WRITE_CACHE_STATE 475356
+     * {@snippet lang=c :
+     * #define FACILITY_ACTION_QUEUE 44
      * }
      */
-    public static int OBSOLETE_DISK_GET_WRITE_CACHE_STATE() {
-        return (int)475356L;
+    public static int FACILITY_ACTION_QUEUE() {
+        return FACILITY_ACTION_QUEUE;
     }
+    private static final int FACILITY_PLA = (int)48L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_DELETE_DRIVE_LAYOUT 508160
+     * {@snippet lang=c :
+     * #define FACILITY_PLA 48
      * }
      */
-    public static int IOCTL_DISK_DELETE_DRIVE_LAYOUT() {
-        return (int)508160L;
+    public static int FACILITY_PLA() {
+        return FACILITY_PLA;
     }
+    private static final int FACILITY_WINDOWS_SETUP = (int)48L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_UPDATE_PROPERTIES 459072
+     * {@snippet lang=c :
+     * #define FACILITY_WINDOWS_SETUP 48
      * }
      */
-    public static int IOCTL_DISK_UPDATE_PROPERTIES() {
-        return (int)459072L;
+    public static int FACILITY_WINDOWS_SETUP() {
+        return FACILITY_WINDOWS_SETUP;
     }
+    private static final int FACILITY_FVE = (int)49L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_FORMAT_DRIVE 508876
+     * {@snippet lang=c :
+     * #define FACILITY_FVE 49
      * }
      */
-    public static int IOCTL_DISK_FORMAT_DRIVE() {
-        return (int)508876L;
+    public static int FACILITY_FVE() {
+        return FACILITY_FVE;
     }
+    private static final int FACILITY_FWP = (int)50L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_SENSE_DEVICE 459744
+     * {@snippet lang=c :
+     * #define FACILITY_FWP 50
      * }
      */
-    public static int IOCTL_DISK_SENSE_DEVICE() {
-        return (int)459744L;
+    public static int FACILITY_FWP() {
+        return FACILITY_FWP;
     }
+    private static final int FACILITY_WINRM = (int)51L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_CHECK_VERIFY 477184
+     * {@snippet lang=c :
+     * #define FACILITY_WINRM 51
      * }
      */
-    public static int IOCTL_DISK_CHECK_VERIFY() {
-        return (int)477184L;
+    public static int FACILITY_WINRM() {
+        return FACILITY_WINRM;
     }
+    private static final int FACILITY_NDIS = (int)52L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_MEDIA_REMOVAL 477188
+     * {@snippet lang=c :
+     * #define FACILITY_NDIS 52
      * }
      */
-    public static int IOCTL_DISK_MEDIA_REMOVAL() {
-        return (int)477188L;
+    public static int FACILITY_NDIS() {
+        return FACILITY_NDIS;
     }
+    private static final int FACILITY_USERMODE_HYPERVISOR = (int)53L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_EJECT_MEDIA 477192
+     * {@snippet lang=c :
+     * #define FACILITY_USERMODE_HYPERVISOR 53
      * }
      */
-    public static int IOCTL_DISK_EJECT_MEDIA() {
-        return (int)477192L;
+    public static int FACILITY_USERMODE_HYPERVISOR() {
+        return FACILITY_USERMODE_HYPERVISOR;
     }
+    private static final int FACILITY_CMI = (int)54L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_LOAD_MEDIA 477196
+     * {@snippet lang=c :
+     * #define FACILITY_CMI 54
      * }
      */
-    public static int IOCTL_DISK_LOAD_MEDIA() {
-        return (int)477196L;
+    public static int FACILITY_CMI() {
+        return FACILITY_CMI;
     }
+    private static final int FACILITY_USERMODE_VIRTUALIZATION = (int)55L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_RESERVE 477200
+     * {@snippet lang=c :
+     * #define FACILITY_USERMODE_VIRTUALIZATION 55
      * }
      */
-    public static int IOCTL_DISK_RESERVE() {
-        return (int)477200L;
+    public static int FACILITY_USERMODE_VIRTUALIZATION() {
+        return FACILITY_USERMODE_VIRTUALIZATION;
     }
+    private static final int FACILITY_USERMODE_VOLMGR = (int)56L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_RELEASE 477204
+     * {@snippet lang=c :
+     * #define FACILITY_USERMODE_VOLMGR 56
      * }
      */
-    public static int IOCTL_DISK_RELEASE() {
-        return (int)477204L;
+    public static int FACILITY_USERMODE_VOLMGR() {
+        return FACILITY_USERMODE_VOLMGR;
     }
+    private static final int FACILITY_BCD = (int)57L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_FIND_NEW_DEVICES 477208
+     * {@snippet lang=c :
+     * #define FACILITY_BCD 57
      * }
      */
-    public static int IOCTL_DISK_FIND_NEW_DEVICES() {
-        return (int)477208L;
+    public static int FACILITY_BCD() {
+        return FACILITY_BCD;
     }
+    private static final int FACILITY_USERMODE_VHD = (int)58L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_GET_MEDIA_TYPES 461824
+     * {@snippet lang=c :
+     * #define FACILITY_USERMODE_VHD 58
      * }
      */
-    public static int IOCTL_DISK_GET_MEDIA_TYPES() {
-        return (int)461824L;
+    public static int FACILITY_USERMODE_VHD() {
+        return FACILITY_USERMODE_VHD;
     }
+    private static final int FACILITY_USERMODE_HNS = (int)59L;
     /**
-     * {@snippet :
-     * #define GPT_ATTRIBUTE_PLATFORM_REQUIRED 1
+     * {@snippet lang=c :
+     * #define FACILITY_USERMODE_HNS 59
      * }
      */
-    public static int GPT_ATTRIBUTE_PLATFORM_REQUIRED() {
-        return (int)1L;
+    public static int FACILITY_USERMODE_HNS() {
+        return FACILITY_USERMODE_HNS;
     }
+    private static final int FACILITY_SDIAG = (int)60L;
     /**
-     * {@snippet :
-     * #define GPT_ATTRIBUTE_NO_BLOCK_IO_PROTOCOL 2
+     * {@snippet lang=c :
+     * #define FACILITY_SDIAG 60
      * }
      */
-    public static int GPT_ATTRIBUTE_NO_BLOCK_IO_PROTOCOL() {
-        return (int)2L;
+    public static int FACILITY_SDIAG() {
+        return FACILITY_SDIAG;
     }
+    private static final int FACILITY_WEBSERVICES = (int)61L;
     /**
-     * {@snippet :
-     * #define GPT_ATTRIBUTE_LEGACY_BIOS_BOOTABLE 4
+     * {@snippet lang=c :
+     * #define FACILITY_WEBSERVICES 61
      * }
      */
-    public static int GPT_ATTRIBUTE_LEGACY_BIOS_BOOTABLE() {
-        return (int)4L;
+    public static int FACILITY_WEBSERVICES() {
+        return FACILITY_WEBSERVICES;
     }
+    private static final int FACILITY_WINPE = (int)61L;
     /**
-     * {@snippet :
-     * #define GPT_BASIC_DATA_ATTRIBUTE_NO_DRIVE_LETTER -9223372036854775808
+     * {@snippet lang=c :
+     * #define FACILITY_WINPE 61
      * }
      */
-    public static long GPT_BASIC_DATA_ATTRIBUTE_NO_DRIVE_LETTER() {
-        return -9223372036854775808L;
+    public static int FACILITY_WINPE() {
+        return FACILITY_WINPE;
     }
+    private static final int FACILITY_WPN = (int)62L;
     /**
-     * {@snippet :
-     * #define GPT_BASIC_DATA_ATTRIBUTE_HIDDEN 4611686018427387904
+     * {@snippet lang=c :
+     * #define FACILITY_WPN 62
      * }
      */
-    public static long GPT_BASIC_DATA_ATTRIBUTE_HIDDEN() {
-        return 4611686018427387904L;
+    public static int FACILITY_WPN() {
+        return FACILITY_WPN;
     }
+    private static final int FACILITY_WINDOWS_STORE = (int)63L;
     /**
-     * {@snippet :
-     * #define GPT_BASIC_DATA_ATTRIBUTE_SHADOW_COPY 2305843009213693952
+     * {@snippet lang=c :
+     * #define FACILITY_WINDOWS_STORE 63
      * }
      */
-    public static long GPT_BASIC_DATA_ATTRIBUTE_SHADOW_COPY() {
-        return 2305843009213693952L;
+    public static int FACILITY_WINDOWS_STORE() {
+        return FACILITY_WINDOWS_STORE;
     }
+    private static final int FACILITY_INPUT = (int)64L;
     /**
-     * {@snippet :
-     * #define GPT_BASIC_DATA_ATTRIBUTE_READ_ONLY 1152921504606846976
+     * {@snippet lang=c :
+     * #define FACILITY_INPUT 64
      * }
      */
-    public static long GPT_BASIC_DATA_ATTRIBUTE_READ_ONLY() {
-        return 1152921504606846976L;
+    public static int FACILITY_INPUT() {
+        return FACILITY_INPUT;
     }
+    private static final int FACILITY_QUIC = (int)65L;
     /**
-     * {@snippet :
-     * #define GPT_BASIC_DATA_ATTRIBUTE_OFFLINE 576460752303423488
+     * {@snippet lang=c :
+     * #define FACILITY_QUIC 65
      * }
      */
-    public static long GPT_BASIC_DATA_ATTRIBUTE_OFFLINE() {
-        return 576460752303423488L;
+    public static int FACILITY_QUIC() {
+        return FACILITY_QUIC;
     }
+    private static final int FACILITY_EAP = (int)66L;
     /**
-     * {@snippet :
-     * #define GPT_BASIC_DATA_ATTRIBUTE_DAX 288230376151711744
+     * {@snippet lang=c :
+     * #define FACILITY_EAP 66
      * }
      */
-    public static long GPT_BASIC_DATA_ATTRIBUTE_DAX() {
-        return 288230376151711744L;
+    public static int FACILITY_EAP() {
+        return FACILITY_EAP;
     }
+    private static final int FACILITY_IORING = (int)70L;
     /**
-     * {@snippet :
-     * #define GPT_BASIC_DATA_ATTRIBUTE_SERVICE 144115188075855872
+     * {@snippet lang=c :
+     * #define FACILITY_IORING 70
      * }
      */
-    public static long GPT_BASIC_DATA_ATTRIBUTE_SERVICE() {
-        return 144115188075855872L;
+    public static int FACILITY_IORING() {
+        return FACILITY_IORING;
     }
+    private static final int FACILITY_WINDOWS_DEFENDER = (int)80L;
     /**
-     * {@snippet :
-     * #define GPT_SPACES_ATTRIBUTE_NO_METADATA -9223372036854775808
+     * {@snippet lang=c :
+     * #define FACILITY_WINDOWS_DEFENDER 80
      * }
      */
-    public static long GPT_SPACES_ATTRIBUTE_NO_METADATA() {
-        return -9223372036854775808L;
+    public static int FACILITY_WINDOWS_DEFENDER() {
+        return FACILITY_WINDOWS_DEFENDER;
     }
+    private static final int FACILITY_OPC = (int)81L;
     /**
-     * {@snippet :
-     * #define HISTOGRAM_BUCKET_SIZE 8
+     * {@snippet lang=c :
+     * #define FACILITY_OPC 81
      * }
      */
-    public static long HISTOGRAM_BUCKET_SIZE() {
-        return 8L;
+    public static int FACILITY_OPC() {
+        return FACILITY_OPC;
     }
+    private static final int FACILITY_XPS = (int)82L;
     /**
-     * {@snippet :
-     * #define DISK_HISTOGRAM_SIZE 72
+     * {@snippet lang=c :
+     * #define FACILITY_XPS 82
      * }
      */
-    public static long DISK_HISTOGRAM_SIZE() {
-        return 72L;
+    public static int FACILITY_XPS() {
+        return FACILITY_XPS;
     }
+    private static final int FACILITY_MBN = (int)84L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_GET_DISK_ATTRIBUTES 458992
+     * {@snippet lang=c :
+     * #define FACILITY_MBN 84
      * }
      */
-    public static int IOCTL_DISK_GET_DISK_ATTRIBUTES() {
-        return (int)458992L;
+    public static int FACILITY_MBN() {
+        return FACILITY_MBN;
     }
+    private static final int FACILITY_POWERSHELL = (int)84L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_SET_DISK_ATTRIBUTES 508148
+     * {@snippet lang=c :
+     * #define FACILITY_POWERSHELL 84
      * }
      */
-    public static int IOCTL_DISK_SET_DISK_ATTRIBUTES() {
-        return (int)508148L;
+    public static int FACILITY_POWERSHELL() {
+        return FACILITY_POWERSHELL;
     }
+    private static final int FACILITY_RAS = (int)83L;
     /**
-     * {@snippet :
-     * #define IOCTL_DISK_RESET_SNAPSHOT_INFO 508432
+     * {@snippet lang=c :
+     * #define FACILITY_RAS 83
      * }
      */
-    public static int IOCTL_DISK_RESET_SNAPSHOT_INFO() {
-        return (int)508432L;
+    public static int FACILITY_RAS() {
+        return FACILITY_RAS;
     }
+    private static final int FACILITY_P2P_INT = (int)98L;
     /**
-     * {@snippet :
-     * #define IOCTL_CHANGER_BASE 48
+     * {@snippet lang=c :
+     * #define FACILITY_P2P_INT 98
      * }
      */
-    public static int IOCTL_CHANGER_BASE() {
-        return (int)48L;
+    public static int FACILITY_P2P_INT() {
+        return FACILITY_P2P_INT;
     }
+    private static final int FACILITY_P2P = (int)99L;
     /**
-     * {@snippet :
-     * #define IOCTL_CHANGER_GET_PARAMETERS 3162112
+     * {@snippet lang=c :
+     * #define FACILITY_P2P 99
      * }
      */
-    public static int IOCTL_CHANGER_GET_PARAMETERS() {
-        return (int)3162112L;
+    public static int FACILITY_P2P() {
+        return FACILITY_P2P;
     }
+    private static final int FACILITY_DAF = (int)100L;
     /**
-     * {@snippet :
-     * #define IOCTL_CHANGER_GET_STATUS 3162116
+     * {@snippet lang=c :
+     * #define FACILITY_DAF 100
      * }
      */
-    public static int IOCTL_CHANGER_GET_STATUS() {
-        return (int)3162116L;
+    public static int FACILITY_DAF() {
+        return FACILITY_DAF;
     }
+    private static final int FACILITY_BLUETOOTH_ATT = (int)101L;
     /**
-     * {@snippet :
-     * #define IOCTL_CHANGER_GET_PRODUCT_DATA 3162120
+     * {@snippet lang=c :
+     * #define FACILITY_BLUETOOTH_ATT 101
      * }
      */
-    public static int IOCTL_CHANGER_GET_PRODUCT_DATA() {
-        return (int)3162120L;
+    public static int FACILITY_BLUETOOTH_ATT() {
+        return FACILITY_BLUETOOTH_ATT;
     }
+    private static final int FACILITY_AUDIO = (int)102L;
     /**
-     * {@snippet :
-     * #define IOCTL_CHANGER_SET_ACCESS 3194896
+     * {@snippet lang=c :
+     * #define FACILITY_AUDIO 102
      * }
      */
-    public static int IOCTL_CHANGER_SET_ACCESS() {
-        return (int)3194896L;
+    public static int FACILITY_AUDIO() {
+        return FACILITY_AUDIO;
     }
+    private static final int FACILITY_STATEREPOSITORY = (int)103L;
     /**
-     * {@snippet :
-     * #define IOCTL_CHANGER_GET_ELEMENT_STATUS 3194900
+     * {@snippet lang=c :
+     * #define FACILITY_STATEREPOSITORY 103
      * }
      */
-    public static int IOCTL_CHANGER_GET_ELEMENT_STATUS() {
-        return (int)3194900L;
+    public static int FACILITY_STATEREPOSITORY() {
+        return FACILITY_STATEREPOSITORY;
     }
+    private static final int FACILITY_VISUALCPP = (int)109L;
     /**
-     * {@snippet :
-     * #define IOCTL_CHANGER_INITIALIZE_ELEMENT_STATUS 3162136
+     * {@snippet lang=c :
+     * #define FACILITY_VISUALCPP 109
      * }
      */
-    public static int IOCTL_CHANGER_INITIALIZE_ELEMENT_STATUS() {
-        return (int)3162136L;
+    public static int FACILITY_VISUALCPP() {
+        return FACILITY_VISUALCPP;
     }
+    private static final int FACILITY_SCRIPT = (int)112L;
     /**
-     * {@snippet :
-     * #define IOCTL_CHANGER_SET_POSITION 3162140
+     * {@snippet lang=c :
+     * #define FACILITY_SCRIPT 112
      * }
      */
-    public static int IOCTL_CHANGER_SET_POSITION() {
-        return (int)3162140L;
+    public static int FACILITY_SCRIPT() {
+        return FACILITY_SCRIPT;
     }
+    private static final int FACILITY_PARSE = (int)113L;
     /**
-     * {@snippet :
-     * #define IOCTL_CHANGER_EXCHANGE_MEDIUM 3162144
+     * {@snippet lang=c :
+     * #define FACILITY_PARSE 113
      * }
      */
-    public static int IOCTL_CHANGER_EXCHANGE_MEDIUM() {
-        return (int)3162144L;
+    public static int FACILITY_PARSE() {
+        return FACILITY_PARSE;
     }
+    private static final int FACILITY_BLB = (int)120L;
     /**
-     * {@snippet :
-     * #define IOCTL_CHANGER_MOVE_MEDIUM 3162148
+     * {@snippet lang=c :
+     * #define FACILITY_BLB 120
      * }
      */
-    public static int IOCTL_CHANGER_MOVE_MEDIUM() {
-        return (int)3162148L;
+    public static int FACILITY_BLB() {
+        return FACILITY_BLB;
     }
+    private static final int FACILITY_BLB_CLI = (int)121L;
     /**
-     * {@snippet :
-     * #define IOCTL_CHANGER_REINITIALIZE_TRANSPORT 3162152
+     * {@snippet lang=c :
+     * #define FACILITY_BLB_CLI 121
      * }
      */
-    public static int IOCTL_CHANGER_REINITIALIZE_TRANSPORT() {
-        return (int)3162152L;
+    public static int FACILITY_BLB_CLI() {
+        return FACILITY_BLB_CLI;
     }
+    private static final int FACILITY_WSBAPP = (int)122L;
     /**
-     * {@snippet :
-     * #define IOCTL_CHANGER_QUERY_VOLUME_TAGS 3194924
+     * {@snippet lang=c :
+     * #define FACILITY_WSBAPP 122
      * }
      */
-    public static int IOCTL_CHANGER_QUERY_VOLUME_TAGS() {
-        return (int)3194924L;
+    public static int FACILITY_WSBAPP() {
+        return FACILITY_WSBAPP;
     }
+    private static final int FACILITY_BLBUI = (int)128L;
     /**
-     * {@snippet :
-     * #define CHANGER_RESERVED_BIT 2147483648
+     * {@snippet lang=c :
+     * #define FACILITY_BLBUI 128
      * }
      */
-    public static int CHANGER_RESERVED_BIT() {
-        return (int)2147483648L;
+    public static int FACILITY_BLBUI() {
+        return FACILITY_BLBUI;
     }
+    private static final int FACILITY_USN = (int)129L;
     /**
-     * {@snippet :
-     * #define CHANGER_PREDISMOUNT_ALIGN_TO_SLOT 2147483649
+     * {@snippet lang=c :
+     * #define FACILITY_USN 129
      * }
      */
-    public static int CHANGER_PREDISMOUNT_ALIGN_TO_SLOT() {
-        return (int)2147483649L;
+    public static int FACILITY_USN() {
+        return FACILITY_USN;
     }
+    private static final int FACILITY_USERMODE_VOLSNAP = (int)130L;
     /**
-     * {@snippet :
-     * #define CHANGER_PREDISMOUNT_ALIGN_TO_DRIVE 2147483650
+     * {@snippet lang=c :
+     * #define FACILITY_USERMODE_VOLSNAP 130
      * }
      */
-    public static int CHANGER_PREDISMOUNT_ALIGN_TO_DRIVE() {
-        return (int)2147483650L;
+    public static int FACILITY_USERMODE_VOLSNAP() {
+        return FACILITY_USERMODE_VOLSNAP;
     }
+    private static final int FACILITY_TIERING = (int)131L;
     /**
-     * {@snippet :
-     * #define CHANGER_CLEANER_AUTODISMOUNT 2147483652
+     * {@snippet lang=c :
+     * #define FACILITY_TIERING 131
      * }
      */
-    public static int CHANGER_CLEANER_AUTODISMOUNT() {
-        return (int)2147483652L;
+    public static int FACILITY_TIERING() {
+        return FACILITY_TIERING;
     }
+    private static final int FACILITY_WSB_ONLINE = (int)133L;
     /**
-     * {@snippet :
-     * #define CHANGER_TRUE_EXCHANGE_CAPABLE 2147483656
+     * {@snippet lang=c :
+     * #define FACILITY_WSB_ONLINE 133
      * }
      */
-    public static int CHANGER_TRUE_EXCHANGE_CAPABLE() {
-        return (int)2147483656L;
+    public static int FACILITY_WSB_ONLINE() {
+        return FACILITY_WSB_ONLINE;
     }
+    private static final int FACILITY_ONLINE_ID = (int)134L;
     /**
-     * {@snippet :
-     * #define CHANGER_SLOTS_USE_TRAYS 2147483664
+     * {@snippet lang=c :
+     * #define FACILITY_ONLINE_ID 134
      * }
      */
-    public static int CHANGER_SLOTS_USE_TRAYS() {
-        return (int)2147483664L;
+    public static int FACILITY_ONLINE_ID() {
+        return FACILITY_ONLINE_ID;
     }
+    private static final int FACILITY_DEVICE_UPDATE_AGENT = (int)135L;
     /**
-     * {@snippet :
-     * #define CHANGER_RTN_MEDIA_TO_ORIGINAL_ADDR 2147483680
+     * {@snippet lang=c :
+     * #define FACILITY_DEVICE_UPDATE_AGENT 135
      * }
      */
-    public static int CHANGER_RTN_MEDIA_TO_ORIGINAL_ADDR() {
-        return (int)2147483680L;
+    public static int FACILITY_DEVICE_UPDATE_AGENT() {
+        return FACILITY_DEVICE_UPDATE_AGENT;
     }
+    private static final int FACILITY_DRVSERVICING = (int)136L;
     /**
-     * {@snippet :
-     * #define CHANGER_CLEANER_OPS_NOT_SUPPORTED 2147483712
+     * {@snippet lang=c :
+     * #define FACILITY_DRVSERVICING 136
      * }
      */
-    public static int CHANGER_CLEANER_OPS_NOT_SUPPORTED() {
-        return (int)2147483712L;
+    public static int FACILITY_DRVSERVICING() {
+        return FACILITY_DRVSERVICING;
     }
+    private static final int FACILITY_DLS = (int)153L;
     /**
-     * {@snippet :
-     * #define CHANGER_IEPORT_USER_CONTROL_OPEN 2147483776
+     * {@snippet lang=c :
+     * #define FACILITY_DLS 153
      * }
      */
-    public static int CHANGER_IEPORT_USER_CONTROL_OPEN() {
-        return (int)2147483776L;
+    public static int FACILITY_DLS() {
+        return FACILITY_DLS;
     }
+    private static final int FACILITY_DELIVERY_OPTIMIZATION = (int)208L;
     /**
-     * {@snippet :
-     * #define CHANGER_IEPORT_USER_CONTROL_CLOSE 2147483904
+     * {@snippet lang=c :
+     * #define FACILITY_DELIVERY_OPTIMIZATION 208
      * }
      */
-    public static int CHANGER_IEPORT_USER_CONTROL_CLOSE() {
-        return (int)2147483904L;
+    public static int FACILITY_DELIVERY_OPTIMIZATION() {
+        return FACILITY_DELIVERY_OPTIMIZATION;
     }
+    private static final int FACILITY_USERMODE_SPACES = (int)231L;
     /**
-     * {@snippet :
-     * #define CHANGER_MOVE_EXTENDS_IEPORT 2147484160
+     * {@snippet lang=c :
+     * #define FACILITY_USERMODE_SPACES 231
      * }
      */
-    public static int CHANGER_MOVE_EXTENDS_IEPORT() {
-        return (int)2147484160L;
+    public static int FACILITY_USERMODE_SPACES() {
+        return FACILITY_USERMODE_SPACES;
     }
+    private static final int FACILITY_USER_MODE_SECURITY_CORE = (int)232L;
     /**
-     * {@snippet :
-     * #define CHANGER_MOVE_RETRACTS_IEPORT 2147484672
+     * {@snippet lang=c :
+     * #define FACILITY_USER_MODE_SECURITY_CORE 232
      * }
      */
-    public static int CHANGER_MOVE_RETRACTS_IEPORT() {
-        return (int)2147484672L;
+    public static int FACILITY_USER_MODE_SECURITY_CORE() {
+        return FACILITY_USER_MODE_SECURITY_CORE;
     }
+    private static final int FACILITY_USERMODE_LICENSING = (int)234L;
     /**
-     * {@snippet :
-     * #define ERROR_UNHANDLED_ERROR 4294967295
+     * {@snippet lang=c :
+     * #define FACILITY_USERMODE_LICENSING 234
      * }
      */
-    public static int ERROR_UNHANDLED_ERROR() {
-        return (int)4294967295L;
+    public static int FACILITY_USERMODE_LICENSING() {
+        return FACILITY_USERMODE_LICENSING;
     }
+    private static final int FACILITY_SOS = (int)160L;
     /**
-     * {@snippet :
-     * #define IOCTL_SERIAL_LSRMST_INSERT 1769596
+     * {@snippet lang=c :
+     * #define FACILITY_SOS 160
      * }
      */
-    public static int IOCTL_SERIAL_LSRMST_INSERT() {
-        return (int)1769596L;
+    public static int FACILITY_SOS() {
+        return FACILITY_SOS;
     }
+    private static final int FACILITY_OCP_UPDATE_AGENT = (int)173L;
     /**
-     * {@snippet :
-     * #define IOCTL_SERENUM_EXPOSE_HARDWARE 3604992
+     * {@snippet lang=c :
+     * #define FACILITY_OCP_UPDATE_AGENT 173
      * }
      */
-    public static int IOCTL_SERENUM_EXPOSE_HARDWARE() {
-        return (int)3604992L;
+    public static int FACILITY_OCP_UPDATE_AGENT() {
+        return FACILITY_OCP_UPDATE_AGENT;
     }
+    private static final int FACILITY_DEBUGGERS = (int)176L;
     /**
-     * {@snippet :
-     * #define IOCTL_SERENUM_REMOVE_HARDWARE 3604996
+     * {@snippet lang=c :
+     * #define FACILITY_DEBUGGERS 176
      * }
      */
-    public static int IOCTL_SERENUM_REMOVE_HARDWARE() {
-        return (int)3604996L;
+    public static int FACILITY_DEBUGGERS() {
+        return FACILITY_DEBUGGERS;
     }
+    private static final int FACILITY_SPP = (int)256L;
     /**
-     * {@snippet :
-     * #define IOCTL_SERENUM_PORT_DESC 3605000
+     * {@snippet lang=c :
+     * #define FACILITY_SPP 256
      * }
      */
-    public static int IOCTL_SERENUM_PORT_DESC() {
-        return (int)3605000L;
+    public static int FACILITY_SPP() {
+        return FACILITY_SPP;
     }
+    private static final int FACILITY_RESTORE = (int)256L;
     /**
-     * {@snippet :
-     * #define IOCTL_SERENUM_GET_PORT_NAME 3605004
+     * {@snippet lang=c :
+     * #define FACILITY_RESTORE 256
      * }
      */
-    public static int IOCTL_SERENUM_GET_PORT_NAME() {
-        return (int)3605004L;
+    public static int FACILITY_RESTORE() {
+        return FACILITY_RESTORE;
     }
+    private static final int FACILITY_DMSERVER = (int)256L;
     /**
-     * {@snippet :
-     * #define SERIAL_LSRMST_ESCAPE 0
+     * {@snippet lang=c :
+     * #define FACILITY_DMSERVER 256
      * }
      */
-    public static byte SERIAL_LSRMST_ESCAPE() {
-        return (byte)0L;
+    public static int FACILITY_DMSERVER() {
+        return FACILITY_DMSERVER;
     }
+    private static final int FACILITY_DEPLOYMENT_SERVICES_SERVER = (int)257L;
     /**
-     * {@snippet :
-     * #define SERIAL_LSRMST_LSR_DATA 1
+     * {@snippet lang=c :
+     * #define FACILITY_DEPLOYMENT_SERVICES_SERVER 257
      * }
      */
-    public static byte SERIAL_LSRMST_LSR_DATA() {
-        return (byte)1L;
+    public static int FACILITY_DEPLOYMENT_SERVICES_SERVER() {
+        return FACILITY_DEPLOYMENT_SERVICES_SERVER;
     }
+    private static final int FACILITY_DEPLOYMENT_SERVICES_IMAGING = (int)258L;
     /**
-     * {@snippet :
-     * #define SERIAL_LSRMST_LSR_NODATA 2
+     * {@snippet lang=c :
+     * #define FACILITY_DEPLOYMENT_SERVICES_IMAGING 258
      * }
      */
-    public static byte SERIAL_LSRMST_LSR_NODATA() {
-        return (byte)2L;
+    public static int FACILITY_DEPLOYMENT_SERVICES_IMAGING() {
+        return FACILITY_DEPLOYMENT_SERVICES_IMAGING;
     }
+    private static final int FACILITY_DEPLOYMENT_SERVICES_MANAGEMENT = (int)259L;
     /**
-     * {@snippet :
-     * #define SERIAL_LSRMST_MST 3
+     * {@snippet lang=c :
+     * #define FACILITY_DEPLOYMENT_SERVICES_MANAGEMENT 259
      * }
      */
-    public static byte SERIAL_LSRMST_MST() {
-        return (byte)3L;
+    public static int FACILITY_DEPLOYMENT_SERVICES_MANAGEMENT() {
+        return FACILITY_DEPLOYMENT_SERVICES_MANAGEMENT;
     }
+    private static final int FACILITY_DEPLOYMENT_SERVICES_UTIL = (int)260L;
     /**
-     * {@snippet :
-     * #define SERIAL_IOC_FCR_FIFO_ENABLE 1
+     * {@snippet lang=c :
+     * #define FACILITY_DEPLOYMENT_SERVICES_UTIL 260
      * }
      */
-    public static int SERIAL_IOC_FCR_FIFO_ENABLE() {
-        return (int)1L;
+    public static int FACILITY_DEPLOYMENT_SERVICES_UTIL() {
+        return FACILITY_DEPLOYMENT_SERVICES_UTIL;
     }
+    private static final int FACILITY_DEPLOYMENT_SERVICES_BINLSVC = (int)261L;
     /**
-     * {@snippet :
-     * #define SERIAL_IOC_FCR_RCVR_RESET 2
+     * {@snippet lang=c :
+     * #define FACILITY_DEPLOYMENT_SERVICES_BINLSVC 261
      * }
      */
-    public static int SERIAL_IOC_FCR_RCVR_RESET() {
-        return (int)2L;
+    public static int FACILITY_DEPLOYMENT_SERVICES_BINLSVC() {
+        return FACILITY_DEPLOYMENT_SERVICES_BINLSVC;
     }
+    private static final int FACILITY_DEPLOYMENT_SERVICES_PXE = (int)263L;
     /**
-     * {@snippet :
-     * #define SERIAL_IOC_FCR_XMIT_RESET 4
+     * {@snippet lang=c :
+     * #define FACILITY_DEPLOYMENT_SERVICES_PXE 263
      * }
      */
-    public static int SERIAL_IOC_FCR_XMIT_RESET() {
-        return (int)4L;
+    public static int FACILITY_DEPLOYMENT_SERVICES_PXE() {
+        return FACILITY_DEPLOYMENT_SERVICES_PXE;
     }
+    private static final int FACILITY_DEPLOYMENT_SERVICES_TFTP = (int)264L;
     /**
-     * {@snippet :
-     * #define SERIAL_IOC_FCR_DMA_MODE 8
+     * {@snippet lang=c :
+     * #define FACILITY_DEPLOYMENT_SERVICES_TFTP 264
      * }
      */
-    public static int SERIAL_IOC_FCR_DMA_MODE() {
-        return (int)8L;
+    public static int FACILITY_DEPLOYMENT_SERVICES_TFTP() {
+        return FACILITY_DEPLOYMENT_SERVICES_TFTP;
     }
+    private static final int FACILITY_DEPLOYMENT_SERVICES_TRANSPORT_MANAGEMENT = (int)272L;
     /**
-     * {@snippet :
-     * #define SERIAL_IOC_FCR_RES1 16
+     * {@snippet lang=c :
+     * #define FACILITY_DEPLOYMENT_SERVICES_TRANSPORT_MANAGEMENT 272
      * }
      */
-    public static int SERIAL_IOC_FCR_RES1() {
-        return (int)16L;
+    public static int FACILITY_DEPLOYMENT_SERVICES_TRANSPORT_MANAGEMENT() {
+        return FACILITY_DEPLOYMENT_SERVICES_TRANSPORT_MANAGEMENT;
     }
+    private static final int FACILITY_DEPLOYMENT_SERVICES_DRIVER_PROVISIONING = (int)278L;
     /**
-     * {@snippet :
-     * #define SERIAL_IOC_FCR_RES2 32
+     * {@snippet lang=c :
+     * #define FACILITY_DEPLOYMENT_SERVICES_DRIVER_PROVISIONING 278
      * }
      */
-    public static int SERIAL_IOC_FCR_RES2() {
-        return (int)32L;
+    public static int FACILITY_DEPLOYMENT_SERVICES_DRIVER_PROVISIONING() {
+        return FACILITY_DEPLOYMENT_SERVICES_DRIVER_PROVISIONING;
     }
+    private static final int FACILITY_DEPLOYMENT_SERVICES_MULTICAST_SERVER = (int)289L;
     /**
-     * {@snippet :
-     * #define SERIAL_IOC_FCR_RCVR_TRIGGER_LSB 64
+     * {@snippet lang=c :
+     * #define FACILITY_DEPLOYMENT_SERVICES_MULTICAST_SERVER 289
      * }
      */
-    public static int SERIAL_IOC_FCR_RCVR_TRIGGER_LSB() {
-        return (int)64L;
+    public static int FACILITY_DEPLOYMENT_SERVICES_MULTICAST_SERVER() {
+        return FACILITY_DEPLOYMENT_SERVICES_MULTICAST_SERVER;
     }
+    private static final int FACILITY_DEPLOYMENT_SERVICES_MULTICAST_CLIENT = (int)290L;
     /**
-     * {@snippet :
-     * #define SERIAL_IOC_FCR_RCVR_TRIGGER_MSB 128
+     * {@snippet lang=c :
+     * #define FACILITY_DEPLOYMENT_SERVICES_MULTICAST_CLIENT 290
      * }
      */
-    public static int SERIAL_IOC_FCR_RCVR_TRIGGER_MSB() {
-        return (int)128L;
+    public static int FACILITY_DEPLOYMENT_SERVICES_MULTICAST_CLIENT() {
+        return FACILITY_DEPLOYMENT_SERVICES_MULTICAST_CLIENT;
     }
+    private static final int FACILITY_DEPLOYMENT_SERVICES_CONTENT_PROVIDER = (int)293L;
     /**
-     * {@snippet :
-     * #define SERIAL_IOC_MCR_DTR 1
+     * {@snippet lang=c :
+     * #define FACILITY_DEPLOYMENT_SERVICES_CONTENT_PROVIDER 293
      * }
      */
-    public static int SERIAL_IOC_MCR_DTR() {
-        return (int)1L;
+    public static int FACILITY_DEPLOYMENT_SERVICES_CONTENT_PROVIDER() {
+        return FACILITY_DEPLOYMENT_SERVICES_CONTENT_PROVIDER;
     }
+    private static final int FACILITY_HSP_SERVICES = (int)296L;
     /**
-     * {@snippet :
-     * #define SERIAL_IOC_MCR_RTS 2
+     * {@snippet lang=c :
+     * #define FACILITY_HSP_SERVICES 296
      * }
      */
-    public static int SERIAL_IOC_MCR_RTS() {
-        return (int)2L;
+    public static int FACILITY_HSP_SERVICES() {
+        return FACILITY_HSP_SERVICES;
     }
+    private static final int FACILITY_HSP_SOFTWARE = (int)297L;
     /**
-     * {@snippet :
-     * #define SERIAL_IOC_MCR_OUT1 4
+     * {@snippet lang=c :
+     * #define FACILITY_HSP_SOFTWARE 297
      * }
      */
-    public static int SERIAL_IOC_MCR_OUT1() {
-        return (int)4L;
+    public static int FACILITY_HSP_SOFTWARE() {
+        return FACILITY_HSP_SOFTWARE;
     }
+    private static final int FACILITY_LINGUISTIC_SERVICES = (int)305L;
     /**
-     * {@snippet :
-     * #define SERIAL_IOC_MCR_OUT2 8
+     * {@snippet lang=c :
+     * #define FACILITY_LINGUISTIC_SERVICES 305
      * }
      */
-    public static int SERIAL_IOC_MCR_OUT2() {
-        return (int)8L;
+    public static int FACILITY_LINGUISTIC_SERVICES() {
+        return FACILITY_LINGUISTIC_SERVICES;
     }
+    private static final int FACILITY_AUDIOSTREAMING = (int)1094L;
     /**
-     * {@snippet :
-     * #define SERIAL_IOC_MCR_LOOP 16
+     * {@snippet lang=c :
+     * #define FACILITY_AUDIOSTREAMING 1094
      * }
      */
-    public static int SERIAL_IOC_MCR_LOOP() {
-        return (int)16L;
+    public static int FACILITY_AUDIOSTREAMING() {
+        return FACILITY_AUDIOSTREAMING;
     }
+    private static final int FACILITY_TTD = (int)1490L;
     /**
-     * {@snippet :
-     * #define FSCTL_REQUEST_OPLOCK_LEVEL_1 589824
+     * {@snippet lang=c :
+     * #define FACILITY_TTD 1490
      * }
      */
-    public static int FSCTL_REQUEST_OPLOCK_LEVEL_1() {
-        return (int)589824L;
+    public static int FACILITY_TTD() {
+        return FACILITY_TTD;
     }
+    private static final int FACILITY_ACCELERATOR = (int)1536L;
     /**
-     * {@snippet :
-     * #define FSCTL_REQUEST_OPLOCK_LEVEL_2 589828
+     * {@snippet lang=c :
+     * #define FACILITY_ACCELERATOR 1536
      * }
      */
-    public static int FSCTL_REQUEST_OPLOCK_LEVEL_2() {
-        return (int)589828L;
+    public static int FACILITY_ACCELERATOR() {
+        return FACILITY_ACCELERATOR;
     }
+    private static final int FACILITY_WMAAECMA = (int)1996L;
     /**
-     * {@snippet :
-     * #define FSCTL_REQUEST_BATCH_OPLOCK 589832
+     * {@snippet lang=c :
+     * #define FACILITY_WMAAECMA 1996
      * }
      */
-    public static int FSCTL_REQUEST_BATCH_OPLOCK() {
-        return (int)589832L;
+    public static int FACILITY_WMAAECMA() {
+        return FACILITY_WMAAECMA;
     }
+    private static final int FACILITY_DIRECTMUSIC = (int)2168L;
     /**
-     * {@snippet :
-     * #define FSCTL_OPLOCK_BREAK_ACKNOWLEDGE 589836
+     * {@snippet lang=c :
+     * #define FACILITY_DIRECTMUSIC 2168
      * }
      */
-    public static int FSCTL_OPLOCK_BREAK_ACKNOWLEDGE() {
-        return (int)589836L;
+    public static int FACILITY_DIRECTMUSIC() {
+        return FACILITY_DIRECTMUSIC;
     }
+    private static final int FACILITY_DIRECT3D10 = (int)2169L;
     /**
-     * {@snippet :
-     * #define FSCTL_OPBATCH_ACK_CLOSE_PENDING 589840
+     * {@snippet lang=c :
+     * #define FACILITY_DIRECT3D10 2169
      * }
      */
-    public static int FSCTL_OPBATCH_ACK_CLOSE_PENDING() {
-        return (int)589840L;
+    public static int FACILITY_DIRECT3D10() {
+        return FACILITY_DIRECT3D10;
     }
+    private static final int FACILITY_DXGI = (int)2170L;
     /**
-     * {@snippet :
-     * #define FSCTL_OPLOCK_BREAK_NOTIFY 589844
+     * {@snippet lang=c :
+     * #define FACILITY_DXGI 2170
      * }
      */
-    public static int FSCTL_OPLOCK_BREAK_NOTIFY() {
-        return (int)589844L;
+    public static int FACILITY_DXGI() {
+        return FACILITY_DXGI;
     }
+    private static final int FACILITY_DXGI_DDI = (int)2171L;
     /**
-     * {@snippet :
-     * #define FSCTL_LOCK_VOLUME 589848
+     * {@snippet lang=c :
+     * #define FACILITY_DXGI_DDI 2171
      * }
      */
-    public static int FSCTL_LOCK_VOLUME() {
-        return (int)589848L;
+    public static int FACILITY_DXGI_DDI() {
+        return FACILITY_DXGI_DDI;
     }
+    private static final int FACILITY_DIRECT3D11 = (int)2172L;
     /**
-     * {@snippet :
-     * #define FSCTL_UNLOCK_VOLUME 589852
+     * {@snippet lang=c :
+     * #define FACILITY_DIRECT3D11 2172
      * }
      */
-    public static int FSCTL_UNLOCK_VOLUME() {
-        return (int)589852L;
+    public static int FACILITY_DIRECT3D11() {
+        return FACILITY_DIRECT3D11;
     }
+    private static final int FACILITY_DIRECT3D11_DEBUG = (int)2173L;
     /**
-     * {@snippet :
-     * #define FSCTL_DISMOUNT_VOLUME 589856
+     * {@snippet lang=c :
+     * #define FACILITY_DIRECT3D11_DEBUG 2173
      * }
      */
-    public static int FSCTL_DISMOUNT_VOLUME() {
-        return (int)589856L;
+    public static int FACILITY_DIRECT3D11_DEBUG() {
+        return FACILITY_DIRECT3D11_DEBUG;
     }
+    private static final int FACILITY_DIRECT3D12 = (int)2174L;
     /**
-     * {@snippet :
-     * #define FSCTL_IS_VOLUME_MOUNTED 589864
+     * {@snippet lang=c :
+     * #define FACILITY_DIRECT3D12 2174
      * }
      */
-    public static int FSCTL_IS_VOLUME_MOUNTED() {
-        return (int)589864L;
+    public static int FACILITY_DIRECT3D12() {
+        return FACILITY_DIRECT3D12;
     }
+    private static final int FACILITY_DIRECT3D12_DEBUG = (int)2175L;
     /**
-     * {@snippet :
-     * #define FSCTL_IS_PATHNAME_VALID 589868
+     * {@snippet lang=c :
+     * #define FACILITY_DIRECT3D12_DEBUG 2175
      * }
      */
-    public static int FSCTL_IS_PATHNAME_VALID() {
-        return (int)589868L;
+    public static int FACILITY_DIRECT3D12_DEBUG() {
+        return FACILITY_DIRECT3D12_DEBUG;
     }
+    private static final int FACILITY_DXCORE = (int)2176L;
     /**
-     * {@snippet :
-     * #define FSCTL_MARK_VOLUME_DIRTY 589872
+     * {@snippet lang=c :
+     * #define FACILITY_DXCORE 2176
      * }
      */
-    public static int FSCTL_MARK_VOLUME_DIRTY() {
-        return (int)589872L;
+    public static int FACILITY_DXCORE() {
+        return FACILITY_DXCORE;
     }
+    private static final int FACILITY_PRESENTATION = (int)2177L;
     /**
-     * {@snippet :
-     * #define FSCTL_QUERY_RETRIEVAL_POINTERS 589883
+     * {@snippet lang=c :
+     * #define FACILITY_PRESENTATION 2177
      * }
      */
-    public static int FSCTL_QUERY_RETRIEVAL_POINTERS() {
-        return (int)589883L;
+    public static int FACILITY_PRESENTATION() {
+        return FACILITY_PRESENTATION;
     }
+    private static final int FACILITY_LEAP = (int)2184L;
     /**
-     * {@snippet :
-     * #define FSCTL_GET_COMPRESSION 589884
+     * {@snippet lang=c :
+     * #define FACILITY_LEAP 2184
      * }
      */
-    public static int FSCTL_GET_COMPRESSION() {
-        return (int)589884L;
+    public static int FACILITY_LEAP() {
+        return FACILITY_LEAP;
     }
+    private static final int FACILITY_AUDCLNT = (int)2185L;
     /**
-     * {@snippet :
-     * #define FSCTL_SET_COMPRESSION 639040
+     * {@snippet lang=c :
+     * #define FACILITY_AUDCLNT 2185
      * }
      */
-    public static int FSCTL_SET_COMPRESSION() {
-        return (int)639040L;
+    public static int FACILITY_AUDCLNT() {
+        return FACILITY_AUDCLNT;
     }
+    private static final int FACILITY_WINCODEC_DWRITE_DWM = (int)2200L;
     /**
-     * {@snippet :
-     * #define FSCTL_SET_BOOTLOADER_ACCESSED 589903
+     * {@snippet lang=c :
+     * #define FACILITY_WINCODEC_DWRITE_DWM 2200
      * }
      */
-    public static int FSCTL_SET_BOOTLOADER_ACCESSED() {
-        return (int)589903L;
+    public static int FACILITY_WINCODEC_DWRITE_DWM() {
+        return FACILITY_WINCODEC_DWRITE_DWM;
     }
+    private static final int FACILITY_WINML = (int)2192L;
     /**
-     * {@snippet :
-     * #define FSCTL_MARK_AS_SYSTEM_HIVE 589903
+     * {@snippet lang=c :
+     * #define FACILITY_WINML 2192
      * }
      */
-    public static int FSCTL_MARK_AS_SYSTEM_HIVE() {
-        return (int)589903L;
+    public static int FACILITY_WINML() {
+        return FACILITY_WINML;
     }
+    private static final int FACILITY_DIRECT2D = (int)2201L;
     /**
-     * {@snippet :
-     * #define FSCTL_OPLOCK_BREAK_ACK_NO_2 589904
+     * {@snippet lang=c :
+     * #define FACILITY_DIRECT2D 2201
      * }
      */
-    public static int FSCTL_OPLOCK_BREAK_ACK_NO_2() {
-        return (int)589904L;
+    public static int FACILITY_DIRECT2D() {
+        return FACILITY_DIRECT2D;
     }
+    private static final int FACILITY_DEFRAG = (int)2304L;
     /**
-     * {@snippet :
-     * #define FSCTL_INVALIDATE_VOLUMES 589908
+     * {@snippet lang=c :
+     * #define FACILITY_DEFRAG 2304
      * }
      */
-    public static int FSCTL_INVALIDATE_VOLUMES() {
-        return (int)589908L;
+    public static int FACILITY_DEFRAG() {
+        return FACILITY_DEFRAG;
     }
+    private static final int FACILITY_USERMODE_SDBUS = (int)2305L;
     /**
-     * {@snippet :
-     * #define FSCTL_QUERY_FAT_BPB 589912
+     * {@snippet lang=c :
+     * #define FACILITY_USERMODE_SDBUS 2305
      * }
      */
-    public static int FSCTL_QUERY_FAT_BPB() {
-        return (int)589912L;
+    public static int FACILITY_USERMODE_SDBUS() {
+        return FACILITY_USERMODE_SDBUS;
     }
 }
-
 

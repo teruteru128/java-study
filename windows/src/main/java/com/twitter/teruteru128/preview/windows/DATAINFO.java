@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _tagDATAINFO DATAINFO;
+ * {@snippet lang=c :
+ * typedef struct _tagDATAINFO {
+ *     ULONG ulTotalSize;
+ *     ULONG ulavrPacketSize;
+ *     ULONG ulConnectSpeed;
+ *     ULONG ulProcessorSpeed;
+ * } DATAINFO
  * }
  */
-public final class DATAINFO extends _tagDATAINFO {
+public class DATAINFO extends _tagDATAINFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private DATAINFO() {}
+    DATAINFO() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,32 +2,71 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * RPC_STATUS (*RPC_FORWARD_FUNCTION)(UUID* InterfaceId,RPC_VERSION* InterfaceVersion,UUID* ObjectId,unsigned char* Rpcpro,void** ppDestEndpoint);
+ * {@snippet lang=c :
+ * typedef RPC_STATUS (RPC_FORWARD_FUNCTION)(UUID *, RPC_VERSION *, UUID *, unsigned char *, void **) __attribute__((stdcall))
  * }
  */
-public interface RPC_FORWARD_FUNCTION {
+public class RPC_FORWARD_FUNCTION {
 
-    int apply(java.lang.foreign.MemorySegment Context, java.lang.foreign.MemorySegment SessionIdPresent, java.lang.foreign.MemorySegment SessionId, java.lang.foreign.MemorySegment ResourceIdPresent, java.lang.foreign.MemorySegment ResourceId);
-    static MemorySegment allocate(RPC_FORWARD_FUNCTION fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$1781.const$4, fi, constants$577.const$5, scope);
+    RPC_FORWARD_FUNCTION() {
+        // Should not be called directly
     }
-    static RPC_FORWARD_FUNCTION ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _Context, java.lang.foreign.MemorySegment _SessionIdPresent, java.lang.foreign.MemorySegment _SessionId, java.lang.foreign.MemorySegment _ResourceIdPresent, java.lang.foreign.MemorySegment _ResourceId) -> {
-            try {
-                return (int)constants$1781.const$5.invokeExact(symbol, _Context, _SessionIdPresent, _SessionId, _ResourceIdPresent, _ResourceId);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment InterfaceId, MemorySegment InterfaceVersion, MemorySegment ObjectId, MemorySegment Rpcpro, MemorySegment ppDestEndpoint);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(RPC_FORWARD_FUNCTION.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(RPC_FORWARD_FUNCTION.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment InterfaceId, MemorySegment InterfaceVersion, MemorySegment ObjectId, MemorySegment Rpcpro, MemorySegment ppDestEndpoint) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, InterfaceId, InterfaceVersion, ObjectId, Rpcpro, ppDestEndpoint);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _ENUM_SERVICE_STATUSW ENUM_SERVICE_STATUSW;
+ * {@snippet lang=c :
+ * typedef struct _ENUM_SERVICE_STATUSW {
+ *     LPWSTR lpServiceName;
+ *     LPWSTR lpDisplayName;
+ *     SERVICE_STATUS ServiceStatus;
+ * } ENUM_SERVICE_STATUSW
  * }
  */
-public final class ENUM_SERVICE_STATUSW extends _ENUM_SERVICE_STATUSW {
+public class ENUM_SERVICE_STATUSW extends _ENUM_SERVICE_STATUSW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private ENUM_SERVICE_STATUSW() {}
+    ENUM_SERVICE_STATUSW() {
+        // Should not be called directly
+    }
 }
-
 

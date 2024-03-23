@@ -2,170 +2,314 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS {
  *     ULONG Version;
  *     ULONGLONG TrustletId;
  *     ULONG MinSvn;
  *     ULONG FlagsMask;
  *     ULONG FlagsExpected;
- *      *     ULONG AllowDebugging;
- *     ULONG Reserved;
- * };
+ *     ULONG AllowDebugging : 1;
+ *     ULONG Reserved : 31;
+ * }
  * }
  */
 public class _NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1983.const$0;
+    _NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS() {
+        // Should not be called directly
     }
-    public static VarHandle Version$VH() {
-        return constants$1983.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG Version;
-     * }
-     */
-    public static int Version$get(MemorySegment seg) {
-        return (int)constants$1983.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG Version;
-     * }
-     */
-    public static void Version$set(MemorySegment seg, int x) {
-        constants$1983.const$1.set(seg, x);
-    }
-    public static int Version$get(MemorySegment seg, long index) {
-        return (int)constants$1983.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Version$set(MemorySegment seg, long index, int x) {
-        constants$1983.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle TrustletId$VH() {
-        return constants$1983.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONGLONG TrustletId;
-     * }
-     */
-    public static long TrustletId$get(MemorySegment seg) {
-        return (long)constants$1983.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONGLONG TrustletId;
-     * }
-     */
-    public static void TrustletId$set(MemorySegment seg, long x) {
-        constants$1983.const$2.set(seg, x);
-    }
-    public static long TrustletId$get(MemorySegment seg, long index) {
-        return (long)constants$1983.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void TrustletId$set(MemorySegment seg, long index, long x) {
-        constants$1983.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle MinSvn$VH() {
-        return constants$1983.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG MinSvn;
-     * }
-     */
-    public static int MinSvn$get(MemorySegment seg) {
-        return (int)constants$1983.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG MinSvn;
-     * }
-     */
-    public static void MinSvn$set(MemorySegment seg, int x) {
-        constants$1983.const$3.set(seg, x);
-    }
-    public static int MinSvn$get(MemorySegment seg, long index) {
-        return (int)constants$1983.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void MinSvn$set(MemorySegment seg, long index, int x) {
-        constants$1983.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle FlagsMask$VH() {
-        return constants$1983.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG FlagsMask;
-     * }
-     */
-    public static int FlagsMask$get(MemorySegment seg) {
-        return (int)constants$1983.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG FlagsMask;
-     * }
-     */
-    public static void FlagsMask$set(MemorySegment seg, int x) {
-        constants$1983.const$4.set(seg, x);
-    }
-    public static int FlagsMask$get(MemorySegment seg, long index) {
-        return (int)constants$1983.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void FlagsMask$set(MemorySegment seg, long index, int x) {
-        constants$1983.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle FlagsExpected$VH() {
-        return constants$1983.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG FlagsExpected;
-     * }
-     */
-    public static int FlagsExpected$get(MemorySegment seg) {
-        return (int)constants$1983.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG FlagsExpected;
-     * }
-     */
-    public static void FlagsExpected$set(MemorySegment seg, int x) {
-        constants$1983.const$5.set(seg, x);
-    }
-    public static int FlagsExpected$get(MemorySegment seg, long index) {
-        return (int)constants$1983.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void FlagsExpected$set(MemorySegment seg, long index, int x) {
-        constants$1983.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("Version"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_LONG_LONG.withName("TrustletId"),
+        Windows_h.C_LONG.withName("MinSvn"),
+        Windows_h.C_LONG.withName("FlagsMask"),
+        Windows_h.C_LONG.withName("FlagsExpected"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("_NCRYPT_VSM_KEY_ATTESTATION_CLAIM_RESTRICTIONS");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt Version$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Version"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG Version
+     * }
+     */
+    public static final OfInt Version$layout() {
+        return Version$LAYOUT;
+    }
+
+    private static final long Version$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG Version
+     * }
+     */
+    public static final long Version$offset() {
+        return Version$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG Version
+     * }
+     */
+    public static int Version(MemorySegment struct) {
+        return struct.get(Version$LAYOUT, Version$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG Version
+     * }
+     */
+    public static void Version(MemorySegment struct, int fieldValue) {
+        struct.set(Version$LAYOUT, Version$OFFSET, fieldValue);
+    }
+
+    private static final OfLong TrustletId$LAYOUT = (OfLong)$LAYOUT.select(groupElement("TrustletId"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONGLONG TrustletId
+     * }
+     */
+    public static final OfLong TrustletId$layout() {
+        return TrustletId$LAYOUT;
+    }
+
+    private static final long TrustletId$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONGLONG TrustletId
+     * }
+     */
+    public static final long TrustletId$offset() {
+        return TrustletId$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONGLONG TrustletId
+     * }
+     */
+    public static long TrustletId(MemorySegment struct) {
+        return struct.get(TrustletId$LAYOUT, TrustletId$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONGLONG TrustletId
+     * }
+     */
+    public static void TrustletId(MemorySegment struct, long fieldValue) {
+        struct.set(TrustletId$LAYOUT, TrustletId$OFFSET, fieldValue);
+    }
+
+    private static final OfInt MinSvn$LAYOUT = (OfInt)$LAYOUT.select(groupElement("MinSvn"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG MinSvn
+     * }
+     */
+    public static final OfInt MinSvn$layout() {
+        return MinSvn$LAYOUT;
+    }
+
+    private static final long MinSvn$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG MinSvn
+     * }
+     */
+    public static final long MinSvn$offset() {
+        return MinSvn$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG MinSvn
+     * }
+     */
+    public static int MinSvn(MemorySegment struct) {
+        return struct.get(MinSvn$LAYOUT, MinSvn$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG MinSvn
+     * }
+     */
+    public static void MinSvn(MemorySegment struct, int fieldValue) {
+        struct.set(MinSvn$LAYOUT, MinSvn$OFFSET, fieldValue);
+    }
+
+    private static final OfInt FlagsMask$LAYOUT = (OfInt)$LAYOUT.select(groupElement("FlagsMask"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG FlagsMask
+     * }
+     */
+    public static final OfInt FlagsMask$layout() {
+        return FlagsMask$LAYOUT;
+    }
+
+    private static final long FlagsMask$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG FlagsMask
+     * }
+     */
+    public static final long FlagsMask$offset() {
+        return FlagsMask$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG FlagsMask
+     * }
+     */
+    public static int FlagsMask(MemorySegment struct) {
+        return struct.get(FlagsMask$LAYOUT, FlagsMask$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG FlagsMask
+     * }
+     */
+    public static void FlagsMask(MemorySegment struct, int fieldValue) {
+        struct.set(FlagsMask$LAYOUT, FlagsMask$OFFSET, fieldValue);
+    }
+
+    private static final OfInt FlagsExpected$LAYOUT = (OfInt)$LAYOUT.select(groupElement("FlagsExpected"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG FlagsExpected
+     * }
+     */
+    public static final OfInt FlagsExpected$layout() {
+        return FlagsExpected$LAYOUT;
+    }
+
+    private static final long FlagsExpected$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG FlagsExpected
+     * }
+     */
+    public static final long FlagsExpected$offset() {
+        return FlagsExpected$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG FlagsExpected
+     * }
+     */
+    public static int FlagsExpected(MemorySegment struct) {
+        return struct.get(FlagsExpected$LAYOUT, FlagsExpected$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG FlagsExpected
+     * }
+     */
+    public static void FlagsExpected(MemorySegment struct, int fieldValue) {
+        struct.set(FlagsExpected$LAYOUT, FlagsExpected$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

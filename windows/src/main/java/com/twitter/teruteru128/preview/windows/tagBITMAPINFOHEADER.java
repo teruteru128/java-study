@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagBITMAPINFOHEADER {
  *     DWORD biSize;
  *     LONG biWidth;
@@ -21,317 +26,562 @@ import static java.lang.foreign.ValueLayout.*;
  *     LONG biYPelsPerMeter;
  *     DWORD biClrUsed;
  *     DWORD biClrImportant;
- * };
+ * }
  * }
  */
 public class tagBITMAPINFOHEADER {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$895.const$5;
+    tagBITMAPINFOHEADER() {
+        // Should not be called directly
     }
-    public static VarHandle biSize$VH() {
-        return constants$896.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD biSize;
-     * }
-     */
-    public static int biSize$get(MemorySegment seg) {
-        return (int)constants$896.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD biSize;
-     * }
-     */
-    public static void biSize$set(MemorySegment seg, int x) {
-        constants$896.const$0.set(seg, x);
-    }
-    public static int biSize$get(MemorySegment seg, long index) {
-        return (int)constants$896.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void biSize$set(MemorySegment seg, long index, int x) {
-        constants$896.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle biWidth$VH() {
-        return constants$896.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LONG biWidth;
-     * }
-     */
-    public static int biWidth$get(MemorySegment seg) {
-        return (int)constants$896.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LONG biWidth;
-     * }
-     */
-    public static void biWidth$set(MemorySegment seg, int x) {
-        constants$896.const$1.set(seg, x);
-    }
-    public static int biWidth$get(MemorySegment seg, long index) {
-        return (int)constants$896.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void biWidth$set(MemorySegment seg, long index, int x) {
-        constants$896.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle biHeight$VH() {
-        return constants$896.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LONG biHeight;
-     * }
-     */
-    public static int biHeight$get(MemorySegment seg) {
-        return (int)constants$896.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LONG biHeight;
-     * }
-     */
-    public static void biHeight$set(MemorySegment seg, int x) {
-        constants$896.const$2.set(seg, x);
-    }
-    public static int biHeight$get(MemorySegment seg, long index) {
-        return (int)constants$896.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void biHeight$set(MemorySegment seg, long index, int x) {
-        constants$896.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle biPlanes$VH() {
-        return constants$896.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD biPlanes;
-     * }
-     */
-    public static short biPlanes$get(MemorySegment seg) {
-        return (short)constants$896.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD biPlanes;
-     * }
-     */
-    public static void biPlanes$set(MemorySegment seg, short x) {
-        constants$896.const$3.set(seg, x);
-    }
-    public static short biPlanes$get(MemorySegment seg, long index) {
-        return (short)constants$896.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void biPlanes$set(MemorySegment seg, long index, short x) {
-        constants$896.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle biBitCount$VH() {
-        return constants$896.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD biBitCount;
-     * }
-     */
-    public static short biBitCount$get(MemorySegment seg) {
-        return (short)constants$896.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD biBitCount;
-     * }
-     */
-    public static void biBitCount$set(MemorySegment seg, short x) {
-        constants$896.const$4.set(seg, x);
-    }
-    public static short biBitCount$get(MemorySegment seg, long index) {
-        return (short)constants$896.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void biBitCount$set(MemorySegment seg, long index, short x) {
-        constants$896.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle biCompression$VH() {
-        return constants$896.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD biCompression;
-     * }
-     */
-    public static int biCompression$get(MemorySegment seg) {
-        return (int)constants$896.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD biCompression;
-     * }
-     */
-    public static void biCompression$set(MemorySegment seg, int x) {
-        constants$896.const$5.set(seg, x);
-    }
-    public static int biCompression$get(MemorySegment seg, long index) {
-        return (int)constants$896.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void biCompression$set(MemorySegment seg, long index, int x) {
-        constants$896.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle biSizeImage$VH() {
-        return constants$897.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD biSizeImage;
-     * }
-     */
-    public static int biSizeImage$get(MemorySegment seg) {
-        return (int)constants$897.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD biSizeImage;
-     * }
-     */
-    public static void biSizeImage$set(MemorySegment seg, int x) {
-        constants$897.const$0.set(seg, x);
-    }
-    public static int biSizeImage$get(MemorySegment seg, long index) {
-        return (int)constants$897.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void biSizeImage$set(MemorySegment seg, long index, int x) {
-        constants$897.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle biXPelsPerMeter$VH() {
-        return constants$897.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LONG biXPelsPerMeter;
-     * }
-     */
-    public static int biXPelsPerMeter$get(MemorySegment seg) {
-        return (int)constants$897.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LONG biXPelsPerMeter;
-     * }
-     */
-    public static void biXPelsPerMeter$set(MemorySegment seg, int x) {
-        constants$897.const$1.set(seg, x);
-    }
-    public static int biXPelsPerMeter$get(MemorySegment seg, long index) {
-        return (int)constants$897.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void biXPelsPerMeter$set(MemorySegment seg, long index, int x) {
-        constants$897.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle biYPelsPerMeter$VH() {
-        return constants$897.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LONG biYPelsPerMeter;
-     * }
-     */
-    public static int biYPelsPerMeter$get(MemorySegment seg) {
-        return (int)constants$897.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LONG biYPelsPerMeter;
-     * }
-     */
-    public static void biYPelsPerMeter$set(MemorySegment seg, int x) {
-        constants$897.const$2.set(seg, x);
-    }
-    public static int biYPelsPerMeter$get(MemorySegment seg, long index) {
-        return (int)constants$897.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void biYPelsPerMeter$set(MemorySegment seg, long index, int x) {
-        constants$897.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle biClrUsed$VH() {
-        return constants$897.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD biClrUsed;
-     * }
-     */
-    public static int biClrUsed$get(MemorySegment seg) {
-        return (int)constants$897.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD biClrUsed;
-     * }
-     */
-    public static void biClrUsed$set(MemorySegment seg, int x) {
-        constants$897.const$3.set(seg, x);
-    }
-    public static int biClrUsed$get(MemorySegment seg, long index) {
-        return (int)constants$897.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void biClrUsed$set(MemorySegment seg, long index, int x) {
-        constants$897.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle biClrImportant$VH() {
-        return constants$897.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD biClrImportant;
-     * }
-     */
-    public static int biClrImportant$get(MemorySegment seg) {
-        return (int)constants$897.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD biClrImportant;
-     * }
-     */
-    public static void biClrImportant$set(MemorySegment seg, int x) {
-        constants$897.const$4.set(seg, x);
-    }
-    public static int biClrImportant$get(MemorySegment seg, long index) {
-        return (int)constants$897.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void biClrImportant$set(MemorySegment seg, long index, int x) {
-        constants$897.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("biSize"),
+        Windows_h.C_LONG.withName("biWidth"),
+        Windows_h.C_LONG.withName("biHeight"),
+        Windows_h.C_SHORT.withName("biPlanes"),
+        Windows_h.C_SHORT.withName("biBitCount"),
+        Windows_h.C_LONG.withName("biCompression"),
+        Windows_h.C_LONG.withName("biSizeImage"),
+        Windows_h.C_LONG.withName("biXPelsPerMeter"),
+        Windows_h.C_LONG.withName("biYPelsPerMeter"),
+        Windows_h.C_LONG.withName("biClrUsed"),
+        Windows_h.C_LONG.withName("biClrImportant")
+    ).withName("tagBITMAPINFOHEADER");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt biSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("biSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD biSize
+     * }
+     */
+    public static final OfInt biSize$layout() {
+        return biSize$LAYOUT;
+    }
+
+    private static final long biSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD biSize
+     * }
+     */
+    public static final long biSize$offset() {
+        return biSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD biSize
+     * }
+     */
+    public static int biSize(MemorySegment struct) {
+        return struct.get(biSize$LAYOUT, biSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD biSize
+     * }
+     */
+    public static void biSize(MemorySegment struct, int fieldValue) {
+        struct.set(biSize$LAYOUT, biSize$OFFSET, fieldValue);
+    }
+
+    private static final OfInt biWidth$LAYOUT = (OfInt)$LAYOUT.select(groupElement("biWidth"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LONG biWidth
+     * }
+     */
+    public static final OfInt biWidth$layout() {
+        return biWidth$LAYOUT;
+    }
+
+    private static final long biWidth$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LONG biWidth
+     * }
+     */
+    public static final long biWidth$offset() {
+        return biWidth$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LONG biWidth
+     * }
+     */
+    public static int biWidth(MemorySegment struct) {
+        return struct.get(biWidth$LAYOUT, biWidth$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LONG biWidth
+     * }
+     */
+    public static void biWidth(MemorySegment struct, int fieldValue) {
+        struct.set(biWidth$LAYOUT, biWidth$OFFSET, fieldValue);
+    }
+
+    private static final OfInt biHeight$LAYOUT = (OfInt)$LAYOUT.select(groupElement("biHeight"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LONG biHeight
+     * }
+     */
+    public static final OfInt biHeight$layout() {
+        return biHeight$LAYOUT;
+    }
+
+    private static final long biHeight$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LONG biHeight
+     * }
+     */
+    public static final long biHeight$offset() {
+        return biHeight$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LONG biHeight
+     * }
+     */
+    public static int biHeight(MemorySegment struct) {
+        return struct.get(biHeight$LAYOUT, biHeight$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LONG biHeight
+     * }
+     */
+    public static void biHeight(MemorySegment struct, int fieldValue) {
+        struct.set(biHeight$LAYOUT, biHeight$OFFSET, fieldValue);
+    }
+
+    private static final OfShort biPlanes$LAYOUT = (OfShort)$LAYOUT.select(groupElement("biPlanes"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD biPlanes
+     * }
+     */
+    public static final OfShort biPlanes$layout() {
+        return biPlanes$LAYOUT;
+    }
+
+    private static final long biPlanes$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD biPlanes
+     * }
+     */
+    public static final long biPlanes$offset() {
+        return biPlanes$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD biPlanes
+     * }
+     */
+    public static short biPlanes(MemorySegment struct) {
+        return struct.get(biPlanes$LAYOUT, biPlanes$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD biPlanes
+     * }
+     */
+    public static void biPlanes(MemorySegment struct, short fieldValue) {
+        struct.set(biPlanes$LAYOUT, biPlanes$OFFSET, fieldValue);
+    }
+
+    private static final OfShort biBitCount$LAYOUT = (OfShort)$LAYOUT.select(groupElement("biBitCount"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD biBitCount
+     * }
+     */
+    public static final OfShort biBitCount$layout() {
+        return biBitCount$LAYOUT;
+    }
+
+    private static final long biBitCount$OFFSET = 14;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD biBitCount
+     * }
+     */
+    public static final long biBitCount$offset() {
+        return biBitCount$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD biBitCount
+     * }
+     */
+    public static short biBitCount(MemorySegment struct) {
+        return struct.get(biBitCount$LAYOUT, biBitCount$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD biBitCount
+     * }
+     */
+    public static void biBitCount(MemorySegment struct, short fieldValue) {
+        struct.set(biBitCount$LAYOUT, biBitCount$OFFSET, fieldValue);
+    }
+
+    private static final OfInt biCompression$LAYOUT = (OfInt)$LAYOUT.select(groupElement("biCompression"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD biCompression
+     * }
+     */
+    public static final OfInt biCompression$layout() {
+        return biCompression$LAYOUT;
+    }
+
+    private static final long biCompression$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD biCompression
+     * }
+     */
+    public static final long biCompression$offset() {
+        return biCompression$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD biCompression
+     * }
+     */
+    public static int biCompression(MemorySegment struct) {
+        return struct.get(biCompression$LAYOUT, biCompression$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD biCompression
+     * }
+     */
+    public static void biCompression(MemorySegment struct, int fieldValue) {
+        struct.set(biCompression$LAYOUT, biCompression$OFFSET, fieldValue);
+    }
+
+    private static final OfInt biSizeImage$LAYOUT = (OfInt)$LAYOUT.select(groupElement("biSizeImage"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD biSizeImage
+     * }
+     */
+    public static final OfInt biSizeImage$layout() {
+        return biSizeImage$LAYOUT;
+    }
+
+    private static final long biSizeImage$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD biSizeImage
+     * }
+     */
+    public static final long biSizeImage$offset() {
+        return biSizeImage$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD biSizeImage
+     * }
+     */
+    public static int biSizeImage(MemorySegment struct) {
+        return struct.get(biSizeImage$LAYOUT, biSizeImage$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD biSizeImage
+     * }
+     */
+    public static void biSizeImage(MemorySegment struct, int fieldValue) {
+        struct.set(biSizeImage$LAYOUT, biSizeImage$OFFSET, fieldValue);
+    }
+
+    private static final OfInt biXPelsPerMeter$LAYOUT = (OfInt)$LAYOUT.select(groupElement("biXPelsPerMeter"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LONG biXPelsPerMeter
+     * }
+     */
+    public static final OfInt biXPelsPerMeter$layout() {
+        return biXPelsPerMeter$LAYOUT;
+    }
+
+    private static final long biXPelsPerMeter$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LONG biXPelsPerMeter
+     * }
+     */
+    public static final long biXPelsPerMeter$offset() {
+        return biXPelsPerMeter$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LONG biXPelsPerMeter
+     * }
+     */
+    public static int biXPelsPerMeter(MemorySegment struct) {
+        return struct.get(biXPelsPerMeter$LAYOUT, biXPelsPerMeter$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LONG biXPelsPerMeter
+     * }
+     */
+    public static void biXPelsPerMeter(MemorySegment struct, int fieldValue) {
+        struct.set(biXPelsPerMeter$LAYOUT, biXPelsPerMeter$OFFSET, fieldValue);
+    }
+
+    private static final OfInt biYPelsPerMeter$LAYOUT = (OfInt)$LAYOUT.select(groupElement("biYPelsPerMeter"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LONG biYPelsPerMeter
+     * }
+     */
+    public static final OfInt biYPelsPerMeter$layout() {
+        return biYPelsPerMeter$LAYOUT;
+    }
+
+    private static final long biYPelsPerMeter$OFFSET = 28;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LONG biYPelsPerMeter
+     * }
+     */
+    public static final long biYPelsPerMeter$offset() {
+        return biYPelsPerMeter$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LONG biYPelsPerMeter
+     * }
+     */
+    public static int biYPelsPerMeter(MemorySegment struct) {
+        return struct.get(biYPelsPerMeter$LAYOUT, biYPelsPerMeter$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LONG biYPelsPerMeter
+     * }
+     */
+    public static void biYPelsPerMeter(MemorySegment struct, int fieldValue) {
+        struct.set(biYPelsPerMeter$LAYOUT, biYPelsPerMeter$OFFSET, fieldValue);
+    }
+
+    private static final OfInt biClrUsed$LAYOUT = (OfInt)$LAYOUT.select(groupElement("biClrUsed"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD biClrUsed
+     * }
+     */
+    public static final OfInt biClrUsed$layout() {
+        return biClrUsed$LAYOUT;
+    }
+
+    private static final long biClrUsed$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD biClrUsed
+     * }
+     */
+    public static final long biClrUsed$offset() {
+        return biClrUsed$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD biClrUsed
+     * }
+     */
+    public static int biClrUsed(MemorySegment struct) {
+        return struct.get(biClrUsed$LAYOUT, biClrUsed$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD biClrUsed
+     * }
+     */
+    public static void biClrUsed(MemorySegment struct, int fieldValue) {
+        struct.set(biClrUsed$LAYOUT, biClrUsed$OFFSET, fieldValue);
+    }
+
+    private static final OfInt biClrImportant$LAYOUT = (OfInt)$LAYOUT.select(groupElement("biClrImportant"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD biClrImportant
+     * }
+     */
+    public static final OfInt biClrImportant$layout() {
+        return biClrImportant$LAYOUT;
+    }
+
+    private static final long biClrImportant$OFFSET = 36;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD biClrImportant
+     * }
+     */
+    public static final long biClrImportant$offset() {
+        return biClrImportant$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD biClrImportant
+     * }
+     */
+    public static int biClrImportant(MemorySegment struct) {
+        return struct.get(biClrImportant$LAYOUT, biClrImportant$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD biClrImportant
+     * }
+     */
+    public static void biClrImportant(MemorySegment struct, int fieldValue) {
+        struct.set(biClrImportant$LAYOUT, biClrImportant$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS;
+ * {@snippet lang=c :
+ * typedef struct _DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS {
+ *     DWORD Size;
+ *     BYTE TargetPriority;
+ *     BYTE Reserved[3];
+ * } DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS
  * }
  */
-public final class DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS extends _DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS {
+public class DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS extends _DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS() {}
+    DEVICE_DSM_NVCACHE_CHANGE_PRIORITY_PARAMETERS() {
+        // Should not be called directly
+    }
 }
-
 

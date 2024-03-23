@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagLAYERPLANEDESCRIPTOR {
  *     WORD nSize;
  *     WORD nVersion;
@@ -34,668 +39,1147 @@ import static java.lang.foreign.ValueLayout.*;
  *     BYTE iLayerPlane;
  *     BYTE bReserved;
  *     COLORREF crTransparent;
- * };
+ * }
  * }
  */
 public class tagLAYERPLANEDESCRIPTOR {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1126.const$0;
+    tagLAYERPLANEDESCRIPTOR() {
+        // Should not be called directly
     }
-    public static VarHandle nSize$VH() {
-        return constants$1126.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD nSize;
-     * }
-     */
-    public static short nSize$get(MemorySegment seg) {
-        return (short)constants$1126.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD nSize;
-     * }
-     */
-    public static void nSize$set(MemorySegment seg, short x) {
-        constants$1126.const$1.set(seg, x);
-    }
-    public static short nSize$get(MemorySegment seg, long index) {
-        return (short)constants$1126.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void nSize$set(MemorySegment seg, long index, short x) {
-        constants$1126.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle nVersion$VH() {
-        return constants$1126.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD nVersion;
-     * }
-     */
-    public static short nVersion$get(MemorySegment seg) {
-        return (short)constants$1126.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD nVersion;
-     * }
-     */
-    public static void nVersion$set(MemorySegment seg, short x) {
-        constants$1126.const$2.set(seg, x);
-    }
-    public static short nVersion$get(MemorySegment seg, long index) {
-        return (short)constants$1126.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void nVersion$set(MemorySegment seg, long index, short x) {
-        constants$1126.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwFlags$VH() {
-        return constants$1126.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwFlags;
-     * }
-     */
-    public static int dwFlags$get(MemorySegment seg) {
-        return (int)constants$1126.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwFlags;
-     * }
-     */
-    public static void dwFlags$set(MemorySegment seg, int x) {
-        constants$1126.const$3.set(seg, x);
-    }
-    public static int dwFlags$get(MemorySegment seg, long index) {
-        return (int)constants$1126.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwFlags$set(MemorySegment seg, long index, int x) {
-        constants$1126.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle iPixelType$VH() {
-        return constants$1126.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE iPixelType;
-     * }
-     */
-    public static byte iPixelType$get(MemorySegment seg) {
-        return (byte)constants$1126.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE iPixelType;
-     * }
-     */
-    public static void iPixelType$set(MemorySegment seg, byte x) {
-        constants$1126.const$4.set(seg, x);
-    }
-    public static byte iPixelType$get(MemorySegment seg, long index) {
-        return (byte)constants$1126.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void iPixelType$set(MemorySegment seg, long index, byte x) {
-        constants$1126.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cColorBits$VH() {
-        return constants$1126.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cColorBits;
-     * }
-     */
-    public static byte cColorBits$get(MemorySegment seg) {
-        return (byte)constants$1126.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cColorBits;
-     * }
-     */
-    public static void cColorBits$set(MemorySegment seg, byte x) {
-        constants$1126.const$5.set(seg, x);
-    }
-    public static byte cColorBits$get(MemorySegment seg, long index) {
-        return (byte)constants$1126.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cColorBits$set(MemorySegment seg, long index, byte x) {
-        constants$1126.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cRedBits$VH() {
-        return constants$1127.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cRedBits;
-     * }
-     */
-    public static byte cRedBits$get(MemorySegment seg) {
-        return (byte)constants$1127.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cRedBits;
-     * }
-     */
-    public static void cRedBits$set(MemorySegment seg, byte x) {
-        constants$1127.const$0.set(seg, x);
-    }
-    public static byte cRedBits$get(MemorySegment seg, long index) {
-        return (byte)constants$1127.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cRedBits$set(MemorySegment seg, long index, byte x) {
-        constants$1127.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cRedShift$VH() {
-        return constants$1127.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cRedShift;
-     * }
-     */
-    public static byte cRedShift$get(MemorySegment seg) {
-        return (byte)constants$1127.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cRedShift;
-     * }
-     */
-    public static void cRedShift$set(MemorySegment seg, byte x) {
-        constants$1127.const$1.set(seg, x);
-    }
-    public static byte cRedShift$get(MemorySegment seg, long index) {
-        return (byte)constants$1127.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cRedShift$set(MemorySegment seg, long index, byte x) {
-        constants$1127.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cGreenBits$VH() {
-        return constants$1127.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cGreenBits;
-     * }
-     */
-    public static byte cGreenBits$get(MemorySegment seg) {
-        return (byte)constants$1127.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cGreenBits;
-     * }
-     */
-    public static void cGreenBits$set(MemorySegment seg, byte x) {
-        constants$1127.const$2.set(seg, x);
-    }
-    public static byte cGreenBits$get(MemorySegment seg, long index) {
-        return (byte)constants$1127.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cGreenBits$set(MemorySegment seg, long index, byte x) {
-        constants$1127.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cGreenShift$VH() {
-        return constants$1127.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cGreenShift;
-     * }
-     */
-    public static byte cGreenShift$get(MemorySegment seg) {
-        return (byte)constants$1127.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cGreenShift;
-     * }
-     */
-    public static void cGreenShift$set(MemorySegment seg, byte x) {
-        constants$1127.const$3.set(seg, x);
-    }
-    public static byte cGreenShift$get(MemorySegment seg, long index) {
-        return (byte)constants$1127.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cGreenShift$set(MemorySegment seg, long index, byte x) {
-        constants$1127.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cBlueBits$VH() {
-        return constants$1127.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cBlueBits;
-     * }
-     */
-    public static byte cBlueBits$get(MemorySegment seg) {
-        return (byte)constants$1127.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cBlueBits;
-     * }
-     */
-    public static void cBlueBits$set(MemorySegment seg, byte x) {
-        constants$1127.const$4.set(seg, x);
-    }
-    public static byte cBlueBits$get(MemorySegment seg, long index) {
-        return (byte)constants$1127.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cBlueBits$set(MemorySegment seg, long index, byte x) {
-        constants$1127.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cBlueShift$VH() {
-        return constants$1127.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cBlueShift;
-     * }
-     */
-    public static byte cBlueShift$get(MemorySegment seg) {
-        return (byte)constants$1127.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cBlueShift;
-     * }
-     */
-    public static void cBlueShift$set(MemorySegment seg, byte x) {
-        constants$1127.const$5.set(seg, x);
-    }
-    public static byte cBlueShift$get(MemorySegment seg, long index) {
-        return (byte)constants$1127.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cBlueShift$set(MemorySegment seg, long index, byte x) {
-        constants$1127.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cAlphaBits$VH() {
-        return constants$1128.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cAlphaBits;
-     * }
-     */
-    public static byte cAlphaBits$get(MemorySegment seg) {
-        return (byte)constants$1128.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cAlphaBits;
-     * }
-     */
-    public static void cAlphaBits$set(MemorySegment seg, byte x) {
-        constants$1128.const$0.set(seg, x);
-    }
-    public static byte cAlphaBits$get(MemorySegment seg, long index) {
-        return (byte)constants$1128.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cAlphaBits$set(MemorySegment seg, long index, byte x) {
-        constants$1128.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cAlphaShift$VH() {
-        return constants$1128.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cAlphaShift;
-     * }
-     */
-    public static byte cAlphaShift$get(MemorySegment seg) {
-        return (byte)constants$1128.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cAlphaShift;
-     * }
-     */
-    public static void cAlphaShift$set(MemorySegment seg, byte x) {
-        constants$1128.const$1.set(seg, x);
-    }
-    public static byte cAlphaShift$get(MemorySegment seg, long index) {
-        return (byte)constants$1128.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cAlphaShift$set(MemorySegment seg, long index, byte x) {
-        constants$1128.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cAccumBits$VH() {
-        return constants$1128.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cAccumBits;
-     * }
-     */
-    public static byte cAccumBits$get(MemorySegment seg) {
-        return (byte)constants$1128.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cAccumBits;
-     * }
-     */
-    public static void cAccumBits$set(MemorySegment seg, byte x) {
-        constants$1128.const$2.set(seg, x);
-    }
-    public static byte cAccumBits$get(MemorySegment seg, long index) {
-        return (byte)constants$1128.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cAccumBits$set(MemorySegment seg, long index, byte x) {
-        constants$1128.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cAccumRedBits$VH() {
-        return constants$1128.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cAccumRedBits;
-     * }
-     */
-    public static byte cAccumRedBits$get(MemorySegment seg) {
-        return (byte)constants$1128.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cAccumRedBits;
-     * }
-     */
-    public static void cAccumRedBits$set(MemorySegment seg, byte x) {
-        constants$1128.const$3.set(seg, x);
-    }
-    public static byte cAccumRedBits$get(MemorySegment seg, long index) {
-        return (byte)constants$1128.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cAccumRedBits$set(MemorySegment seg, long index, byte x) {
-        constants$1128.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cAccumGreenBits$VH() {
-        return constants$1128.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cAccumGreenBits;
-     * }
-     */
-    public static byte cAccumGreenBits$get(MemorySegment seg) {
-        return (byte)constants$1128.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cAccumGreenBits;
-     * }
-     */
-    public static void cAccumGreenBits$set(MemorySegment seg, byte x) {
-        constants$1128.const$4.set(seg, x);
-    }
-    public static byte cAccumGreenBits$get(MemorySegment seg, long index) {
-        return (byte)constants$1128.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cAccumGreenBits$set(MemorySegment seg, long index, byte x) {
-        constants$1128.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cAccumBlueBits$VH() {
-        return constants$1128.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cAccumBlueBits;
-     * }
-     */
-    public static byte cAccumBlueBits$get(MemorySegment seg) {
-        return (byte)constants$1128.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cAccumBlueBits;
-     * }
-     */
-    public static void cAccumBlueBits$set(MemorySegment seg, byte x) {
-        constants$1128.const$5.set(seg, x);
-    }
-    public static byte cAccumBlueBits$get(MemorySegment seg, long index) {
-        return (byte)constants$1128.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cAccumBlueBits$set(MemorySegment seg, long index, byte x) {
-        constants$1128.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cAccumAlphaBits$VH() {
-        return constants$1129.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cAccumAlphaBits;
-     * }
-     */
-    public static byte cAccumAlphaBits$get(MemorySegment seg) {
-        return (byte)constants$1129.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cAccumAlphaBits;
-     * }
-     */
-    public static void cAccumAlphaBits$set(MemorySegment seg, byte x) {
-        constants$1129.const$0.set(seg, x);
-    }
-    public static byte cAccumAlphaBits$get(MemorySegment seg, long index) {
-        return (byte)constants$1129.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cAccumAlphaBits$set(MemorySegment seg, long index, byte x) {
-        constants$1129.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cDepthBits$VH() {
-        return constants$1129.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cDepthBits;
-     * }
-     */
-    public static byte cDepthBits$get(MemorySegment seg) {
-        return (byte)constants$1129.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cDepthBits;
-     * }
-     */
-    public static void cDepthBits$set(MemorySegment seg, byte x) {
-        constants$1129.const$1.set(seg, x);
-    }
-    public static byte cDepthBits$get(MemorySegment seg, long index) {
-        return (byte)constants$1129.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cDepthBits$set(MemorySegment seg, long index, byte x) {
-        constants$1129.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cStencilBits$VH() {
-        return constants$1129.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cStencilBits;
-     * }
-     */
-    public static byte cStencilBits$get(MemorySegment seg) {
-        return (byte)constants$1129.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cStencilBits;
-     * }
-     */
-    public static void cStencilBits$set(MemorySegment seg, byte x) {
-        constants$1129.const$2.set(seg, x);
-    }
-    public static byte cStencilBits$get(MemorySegment seg, long index) {
-        return (byte)constants$1129.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cStencilBits$set(MemorySegment seg, long index, byte x) {
-        constants$1129.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cAuxBuffers$VH() {
-        return constants$1129.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE cAuxBuffers;
-     * }
-     */
-    public static byte cAuxBuffers$get(MemorySegment seg) {
-        return (byte)constants$1129.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE cAuxBuffers;
-     * }
-     */
-    public static void cAuxBuffers$set(MemorySegment seg, byte x) {
-        constants$1129.const$3.set(seg, x);
-    }
-    public static byte cAuxBuffers$get(MemorySegment seg, long index) {
-        return (byte)constants$1129.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cAuxBuffers$set(MemorySegment seg, long index, byte x) {
-        constants$1129.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle iLayerPlane$VH() {
-        return constants$1129.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE iLayerPlane;
-     * }
-     */
-    public static byte iLayerPlane$get(MemorySegment seg) {
-        return (byte)constants$1129.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE iLayerPlane;
-     * }
-     */
-    public static void iLayerPlane$set(MemorySegment seg, byte x) {
-        constants$1129.const$4.set(seg, x);
-    }
-    public static byte iLayerPlane$get(MemorySegment seg, long index) {
-        return (byte)constants$1129.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void iLayerPlane$set(MemorySegment seg, long index, byte x) {
-        constants$1129.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle bReserved$VH() {
-        return constants$1129.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE bReserved;
-     * }
-     */
-    public static byte bReserved$get(MemorySegment seg) {
-        return (byte)constants$1129.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE bReserved;
-     * }
-     */
-    public static void bReserved$set(MemorySegment seg, byte x) {
-        constants$1129.const$5.set(seg, x);
-    }
-    public static byte bReserved$get(MemorySegment seg, long index) {
-        return (byte)constants$1129.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void bReserved$set(MemorySegment seg, long index, byte x) {
-        constants$1129.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle crTransparent$VH() {
-        return constants$1130.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * COLORREF crTransparent;
-     * }
-     */
-    public static int crTransparent$get(MemorySegment seg) {
-        return (int)constants$1130.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * COLORREF crTransparent;
-     * }
-     */
-    public static void crTransparent$set(MemorySegment seg, int x) {
-        constants$1130.const$0.set(seg, x);
-    }
-    public static int crTransparent$get(MemorySegment seg, long index) {
-        return (int)constants$1130.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void crTransparent$set(MemorySegment seg, long index, int x) {
-        constants$1130.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_SHORT.withName("nSize"),
+        Windows_h.C_SHORT.withName("nVersion"),
+        Windows_h.C_LONG.withName("dwFlags"),
+        Windows_h.C_CHAR.withName("iPixelType"),
+        Windows_h.C_CHAR.withName("cColorBits"),
+        Windows_h.C_CHAR.withName("cRedBits"),
+        Windows_h.C_CHAR.withName("cRedShift"),
+        Windows_h.C_CHAR.withName("cGreenBits"),
+        Windows_h.C_CHAR.withName("cGreenShift"),
+        Windows_h.C_CHAR.withName("cBlueBits"),
+        Windows_h.C_CHAR.withName("cBlueShift"),
+        Windows_h.C_CHAR.withName("cAlphaBits"),
+        Windows_h.C_CHAR.withName("cAlphaShift"),
+        Windows_h.C_CHAR.withName("cAccumBits"),
+        Windows_h.C_CHAR.withName("cAccumRedBits"),
+        Windows_h.C_CHAR.withName("cAccumGreenBits"),
+        Windows_h.C_CHAR.withName("cAccumBlueBits"),
+        Windows_h.C_CHAR.withName("cAccumAlphaBits"),
+        Windows_h.C_CHAR.withName("cDepthBits"),
+        Windows_h.C_CHAR.withName("cStencilBits"),
+        Windows_h.C_CHAR.withName("cAuxBuffers"),
+        Windows_h.C_CHAR.withName("iLayerPlane"),
+        Windows_h.C_CHAR.withName("bReserved"),
+        Windows_h.C_LONG.withName("crTransparent")
+    ).withName("tagLAYERPLANEDESCRIPTOR");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfShort nSize$LAYOUT = (OfShort)$LAYOUT.select(groupElement("nSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD nSize
+     * }
+     */
+    public static final OfShort nSize$layout() {
+        return nSize$LAYOUT;
+    }
+
+    private static final long nSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD nSize
+     * }
+     */
+    public static final long nSize$offset() {
+        return nSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD nSize
+     * }
+     */
+    public static short nSize(MemorySegment struct) {
+        return struct.get(nSize$LAYOUT, nSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD nSize
+     * }
+     */
+    public static void nSize(MemorySegment struct, short fieldValue) {
+        struct.set(nSize$LAYOUT, nSize$OFFSET, fieldValue);
+    }
+
+    private static final OfShort nVersion$LAYOUT = (OfShort)$LAYOUT.select(groupElement("nVersion"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD nVersion
+     * }
+     */
+    public static final OfShort nVersion$layout() {
+        return nVersion$LAYOUT;
+    }
+
+    private static final long nVersion$OFFSET = 2;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD nVersion
+     * }
+     */
+    public static final long nVersion$offset() {
+        return nVersion$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD nVersion
+     * }
+     */
+    public static short nVersion(MemorySegment struct) {
+        return struct.get(nVersion$LAYOUT, nVersion$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD nVersion
+     * }
+     */
+    public static void nVersion(MemorySegment struct, short fieldValue) {
+        struct.set(nVersion$LAYOUT, nVersion$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwFlags$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwFlags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwFlags
+     * }
+     */
+    public static final OfInt dwFlags$layout() {
+        return dwFlags$LAYOUT;
+    }
+
+    private static final long dwFlags$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwFlags
+     * }
+     */
+    public static final long dwFlags$offset() {
+        return dwFlags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwFlags
+     * }
+     */
+    public static int dwFlags(MemorySegment struct) {
+        return struct.get(dwFlags$LAYOUT, dwFlags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwFlags
+     * }
+     */
+    public static void dwFlags(MemorySegment struct, int fieldValue) {
+        struct.set(dwFlags$LAYOUT, dwFlags$OFFSET, fieldValue);
+    }
+
+    private static final OfByte iPixelType$LAYOUT = (OfByte)$LAYOUT.select(groupElement("iPixelType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE iPixelType
+     * }
+     */
+    public static final OfByte iPixelType$layout() {
+        return iPixelType$LAYOUT;
+    }
+
+    private static final long iPixelType$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE iPixelType
+     * }
+     */
+    public static final long iPixelType$offset() {
+        return iPixelType$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE iPixelType
+     * }
+     */
+    public static byte iPixelType(MemorySegment struct) {
+        return struct.get(iPixelType$LAYOUT, iPixelType$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE iPixelType
+     * }
+     */
+    public static void iPixelType(MemorySegment struct, byte fieldValue) {
+        struct.set(iPixelType$LAYOUT, iPixelType$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cColorBits$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cColorBits"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cColorBits
+     * }
+     */
+    public static final OfByte cColorBits$layout() {
+        return cColorBits$LAYOUT;
+    }
+
+    private static final long cColorBits$OFFSET = 9;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cColorBits
+     * }
+     */
+    public static final long cColorBits$offset() {
+        return cColorBits$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cColorBits
+     * }
+     */
+    public static byte cColorBits(MemorySegment struct) {
+        return struct.get(cColorBits$LAYOUT, cColorBits$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cColorBits
+     * }
+     */
+    public static void cColorBits(MemorySegment struct, byte fieldValue) {
+        struct.set(cColorBits$LAYOUT, cColorBits$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cRedBits$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cRedBits"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cRedBits
+     * }
+     */
+    public static final OfByte cRedBits$layout() {
+        return cRedBits$LAYOUT;
+    }
+
+    private static final long cRedBits$OFFSET = 10;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cRedBits
+     * }
+     */
+    public static final long cRedBits$offset() {
+        return cRedBits$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cRedBits
+     * }
+     */
+    public static byte cRedBits(MemorySegment struct) {
+        return struct.get(cRedBits$LAYOUT, cRedBits$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cRedBits
+     * }
+     */
+    public static void cRedBits(MemorySegment struct, byte fieldValue) {
+        struct.set(cRedBits$LAYOUT, cRedBits$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cRedShift$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cRedShift"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cRedShift
+     * }
+     */
+    public static final OfByte cRedShift$layout() {
+        return cRedShift$LAYOUT;
+    }
+
+    private static final long cRedShift$OFFSET = 11;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cRedShift
+     * }
+     */
+    public static final long cRedShift$offset() {
+        return cRedShift$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cRedShift
+     * }
+     */
+    public static byte cRedShift(MemorySegment struct) {
+        return struct.get(cRedShift$LAYOUT, cRedShift$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cRedShift
+     * }
+     */
+    public static void cRedShift(MemorySegment struct, byte fieldValue) {
+        struct.set(cRedShift$LAYOUT, cRedShift$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cGreenBits$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cGreenBits"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cGreenBits
+     * }
+     */
+    public static final OfByte cGreenBits$layout() {
+        return cGreenBits$LAYOUT;
+    }
+
+    private static final long cGreenBits$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cGreenBits
+     * }
+     */
+    public static final long cGreenBits$offset() {
+        return cGreenBits$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cGreenBits
+     * }
+     */
+    public static byte cGreenBits(MemorySegment struct) {
+        return struct.get(cGreenBits$LAYOUT, cGreenBits$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cGreenBits
+     * }
+     */
+    public static void cGreenBits(MemorySegment struct, byte fieldValue) {
+        struct.set(cGreenBits$LAYOUT, cGreenBits$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cGreenShift$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cGreenShift"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cGreenShift
+     * }
+     */
+    public static final OfByte cGreenShift$layout() {
+        return cGreenShift$LAYOUT;
+    }
+
+    private static final long cGreenShift$OFFSET = 13;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cGreenShift
+     * }
+     */
+    public static final long cGreenShift$offset() {
+        return cGreenShift$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cGreenShift
+     * }
+     */
+    public static byte cGreenShift(MemorySegment struct) {
+        return struct.get(cGreenShift$LAYOUT, cGreenShift$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cGreenShift
+     * }
+     */
+    public static void cGreenShift(MemorySegment struct, byte fieldValue) {
+        struct.set(cGreenShift$LAYOUT, cGreenShift$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cBlueBits$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cBlueBits"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cBlueBits
+     * }
+     */
+    public static final OfByte cBlueBits$layout() {
+        return cBlueBits$LAYOUT;
+    }
+
+    private static final long cBlueBits$OFFSET = 14;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cBlueBits
+     * }
+     */
+    public static final long cBlueBits$offset() {
+        return cBlueBits$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cBlueBits
+     * }
+     */
+    public static byte cBlueBits(MemorySegment struct) {
+        return struct.get(cBlueBits$LAYOUT, cBlueBits$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cBlueBits
+     * }
+     */
+    public static void cBlueBits(MemorySegment struct, byte fieldValue) {
+        struct.set(cBlueBits$LAYOUT, cBlueBits$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cBlueShift$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cBlueShift"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cBlueShift
+     * }
+     */
+    public static final OfByte cBlueShift$layout() {
+        return cBlueShift$LAYOUT;
+    }
+
+    private static final long cBlueShift$OFFSET = 15;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cBlueShift
+     * }
+     */
+    public static final long cBlueShift$offset() {
+        return cBlueShift$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cBlueShift
+     * }
+     */
+    public static byte cBlueShift(MemorySegment struct) {
+        return struct.get(cBlueShift$LAYOUT, cBlueShift$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cBlueShift
+     * }
+     */
+    public static void cBlueShift(MemorySegment struct, byte fieldValue) {
+        struct.set(cBlueShift$LAYOUT, cBlueShift$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cAlphaBits$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cAlphaBits"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cAlphaBits
+     * }
+     */
+    public static final OfByte cAlphaBits$layout() {
+        return cAlphaBits$LAYOUT;
+    }
+
+    private static final long cAlphaBits$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cAlphaBits
+     * }
+     */
+    public static final long cAlphaBits$offset() {
+        return cAlphaBits$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cAlphaBits
+     * }
+     */
+    public static byte cAlphaBits(MemorySegment struct) {
+        return struct.get(cAlphaBits$LAYOUT, cAlphaBits$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cAlphaBits
+     * }
+     */
+    public static void cAlphaBits(MemorySegment struct, byte fieldValue) {
+        struct.set(cAlphaBits$LAYOUT, cAlphaBits$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cAlphaShift$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cAlphaShift"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cAlphaShift
+     * }
+     */
+    public static final OfByte cAlphaShift$layout() {
+        return cAlphaShift$LAYOUT;
+    }
+
+    private static final long cAlphaShift$OFFSET = 17;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cAlphaShift
+     * }
+     */
+    public static final long cAlphaShift$offset() {
+        return cAlphaShift$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cAlphaShift
+     * }
+     */
+    public static byte cAlphaShift(MemorySegment struct) {
+        return struct.get(cAlphaShift$LAYOUT, cAlphaShift$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cAlphaShift
+     * }
+     */
+    public static void cAlphaShift(MemorySegment struct, byte fieldValue) {
+        struct.set(cAlphaShift$LAYOUT, cAlphaShift$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cAccumBits$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cAccumBits"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cAccumBits
+     * }
+     */
+    public static final OfByte cAccumBits$layout() {
+        return cAccumBits$LAYOUT;
+    }
+
+    private static final long cAccumBits$OFFSET = 18;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cAccumBits
+     * }
+     */
+    public static final long cAccumBits$offset() {
+        return cAccumBits$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cAccumBits
+     * }
+     */
+    public static byte cAccumBits(MemorySegment struct) {
+        return struct.get(cAccumBits$LAYOUT, cAccumBits$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cAccumBits
+     * }
+     */
+    public static void cAccumBits(MemorySegment struct, byte fieldValue) {
+        struct.set(cAccumBits$LAYOUT, cAccumBits$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cAccumRedBits$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cAccumRedBits"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cAccumRedBits
+     * }
+     */
+    public static final OfByte cAccumRedBits$layout() {
+        return cAccumRedBits$LAYOUT;
+    }
+
+    private static final long cAccumRedBits$OFFSET = 19;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cAccumRedBits
+     * }
+     */
+    public static final long cAccumRedBits$offset() {
+        return cAccumRedBits$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cAccumRedBits
+     * }
+     */
+    public static byte cAccumRedBits(MemorySegment struct) {
+        return struct.get(cAccumRedBits$LAYOUT, cAccumRedBits$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cAccumRedBits
+     * }
+     */
+    public static void cAccumRedBits(MemorySegment struct, byte fieldValue) {
+        struct.set(cAccumRedBits$LAYOUT, cAccumRedBits$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cAccumGreenBits$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cAccumGreenBits"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cAccumGreenBits
+     * }
+     */
+    public static final OfByte cAccumGreenBits$layout() {
+        return cAccumGreenBits$LAYOUT;
+    }
+
+    private static final long cAccumGreenBits$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cAccumGreenBits
+     * }
+     */
+    public static final long cAccumGreenBits$offset() {
+        return cAccumGreenBits$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cAccumGreenBits
+     * }
+     */
+    public static byte cAccumGreenBits(MemorySegment struct) {
+        return struct.get(cAccumGreenBits$LAYOUT, cAccumGreenBits$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cAccumGreenBits
+     * }
+     */
+    public static void cAccumGreenBits(MemorySegment struct, byte fieldValue) {
+        struct.set(cAccumGreenBits$LAYOUT, cAccumGreenBits$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cAccumBlueBits$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cAccumBlueBits"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cAccumBlueBits
+     * }
+     */
+    public static final OfByte cAccumBlueBits$layout() {
+        return cAccumBlueBits$LAYOUT;
+    }
+
+    private static final long cAccumBlueBits$OFFSET = 21;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cAccumBlueBits
+     * }
+     */
+    public static final long cAccumBlueBits$offset() {
+        return cAccumBlueBits$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cAccumBlueBits
+     * }
+     */
+    public static byte cAccumBlueBits(MemorySegment struct) {
+        return struct.get(cAccumBlueBits$LAYOUT, cAccumBlueBits$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cAccumBlueBits
+     * }
+     */
+    public static void cAccumBlueBits(MemorySegment struct, byte fieldValue) {
+        struct.set(cAccumBlueBits$LAYOUT, cAccumBlueBits$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cAccumAlphaBits$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cAccumAlphaBits"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cAccumAlphaBits
+     * }
+     */
+    public static final OfByte cAccumAlphaBits$layout() {
+        return cAccumAlphaBits$LAYOUT;
+    }
+
+    private static final long cAccumAlphaBits$OFFSET = 22;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cAccumAlphaBits
+     * }
+     */
+    public static final long cAccumAlphaBits$offset() {
+        return cAccumAlphaBits$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cAccumAlphaBits
+     * }
+     */
+    public static byte cAccumAlphaBits(MemorySegment struct) {
+        return struct.get(cAccumAlphaBits$LAYOUT, cAccumAlphaBits$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cAccumAlphaBits
+     * }
+     */
+    public static void cAccumAlphaBits(MemorySegment struct, byte fieldValue) {
+        struct.set(cAccumAlphaBits$LAYOUT, cAccumAlphaBits$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cDepthBits$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cDepthBits"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cDepthBits
+     * }
+     */
+    public static final OfByte cDepthBits$layout() {
+        return cDepthBits$LAYOUT;
+    }
+
+    private static final long cDepthBits$OFFSET = 23;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cDepthBits
+     * }
+     */
+    public static final long cDepthBits$offset() {
+        return cDepthBits$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cDepthBits
+     * }
+     */
+    public static byte cDepthBits(MemorySegment struct) {
+        return struct.get(cDepthBits$LAYOUT, cDepthBits$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cDepthBits
+     * }
+     */
+    public static void cDepthBits(MemorySegment struct, byte fieldValue) {
+        struct.set(cDepthBits$LAYOUT, cDepthBits$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cStencilBits$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cStencilBits"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cStencilBits
+     * }
+     */
+    public static final OfByte cStencilBits$layout() {
+        return cStencilBits$LAYOUT;
+    }
+
+    private static final long cStencilBits$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cStencilBits
+     * }
+     */
+    public static final long cStencilBits$offset() {
+        return cStencilBits$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cStencilBits
+     * }
+     */
+    public static byte cStencilBits(MemorySegment struct) {
+        return struct.get(cStencilBits$LAYOUT, cStencilBits$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cStencilBits
+     * }
+     */
+    public static void cStencilBits(MemorySegment struct, byte fieldValue) {
+        struct.set(cStencilBits$LAYOUT, cStencilBits$OFFSET, fieldValue);
+    }
+
+    private static final OfByte cAuxBuffers$LAYOUT = (OfByte)$LAYOUT.select(groupElement("cAuxBuffers"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cAuxBuffers
+     * }
+     */
+    public static final OfByte cAuxBuffers$layout() {
+        return cAuxBuffers$LAYOUT;
+    }
+
+    private static final long cAuxBuffers$OFFSET = 25;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cAuxBuffers
+     * }
+     */
+    public static final long cAuxBuffers$offset() {
+        return cAuxBuffers$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cAuxBuffers
+     * }
+     */
+    public static byte cAuxBuffers(MemorySegment struct) {
+        return struct.get(cAuxBuffers$LAYOUT, cAuxBuffers$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cAuxBuffers
+     * }
+     */
+    public static void cAuxBuffers(MemorySegment struct, byte fieldValue) {
+        struct.set(cAuxBuffers$LAYOUT, cAuxBuffers$OFFSET, fieldValue);
+    }
+
+    private static final OfByte iLayerPlane$LAYOUT = (OfByte)$LAYOUT.select(groupElement("iLayerPlane"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE iLayerPlane
+     * }
+     */
+    public static final OfByte iLayerPlane$layout() {
+        return iLayerPlane$LAYOUT;
+    }
+
+    private static final long iLayerPlane$OFFSET = 26;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE iLayerPlane
+     * }
+     */
+    public static final long iLayerPlane$offset() {
+        return iLayerPlane$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE iLayerPlane
+     * }
+     */
+    public static byte iLayerPlane(MemorySegment struct) {
+        return struct.get(iLayerPlane$LAYOUT, iLayerPlane$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE iLayerPlane
+     * }
+     */
+    public static void iLayerPlane(MemorySegment struct, byte fieldValue) {
+        struct.set(iLayerPlane$LAYOUT, iLayerPlane$OFFSET, fieldValue);
+    }
+
+    private static final OfByte bReserved$LAYOUT = (OfByte)$LAYOUT.select(groupElement("bReserved"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE bReserved
+     * }
+     */
+    public static final OfByte bReserved$layout() {
+        return bReserved$LAYOUT;
+    }
+
+    private static final long bReserved$OFFSET = 27;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE bReserved
+     * }
+     */
+    public static final long bReserved$offset() {
+        return bReserved$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE bReserved
+     * }
+     */
+    public static byte bReserved(MemorySegment struct) {
+        return struct.get(bReserved$LAYOUT, bReserved$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE bReserved
+     * }
+     */
+    public static void bReserved(MemorySegment struct, byte fieldValue) {
+        struct.set(bReserved$LAYOUT, bReserved$OFFSET, fieldValue);
+    }
+
+    private static final OfInt crTransparent$LAYOUT = (OfInt)$LAYOUT.select(groupElement("crTransparent"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * COLORREF crTransparent
+     * }
+     */
+    public static final OfInt crTransparent$layout() {
+        return crTransparent$LAYOUT;
+    }
+
+    private static final long crTransparent$OFFSET = 28;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * COLORREF crTransparent
+     * }
+     */
+    public static final long crTransparent$offset() {
+        return crTransparent$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * COLORREF crTransparent
+     * }
+     */
+    public static int crTransparent(MemorySegment struct) {
+        return struct.get(crTransparent$LAYOUT, crTransparent$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * COLORREF crTransparent
+     * }
+     */
+    public static void crTransparent(MemorySegment struct, int fieldValue) {
+        struct.set(crTransparent$LAYOUT, crTransparent$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

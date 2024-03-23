@@ -2,20 +2,35 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagALTTABINFO ALTTABINFO;
+ * {@snippet lang=c :
+ * typedef struct tagALTTABINFO {
+ *     DWORD cbSize;
+ *     int cItems;
+ *     int cColumns;
+ *     int cRows;
+ *     int iColFocus;
+ *     int iRowFocus;
+ *     int cxItem;
+ *     int cyItem;
+ *     POINT ptStart;
+ * } ALTTABINFO
  * }
  */
-public final class ALTTABINFO extends tagALTTABINFO {
+public class ALTTABINFO extends tagALTTABINFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private ALTTABINFO() {}
+    ALTTABINFO() {
+        // Should not be called directly
+    }
 }
-
 

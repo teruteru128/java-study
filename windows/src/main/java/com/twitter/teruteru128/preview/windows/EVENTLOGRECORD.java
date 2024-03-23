@@ -2,20 +2,42 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _EVENTLOGRECORD EVENTLOGRECORD;
+ * {@snippet lang=c :
+ * typedef struct _EVENTLOGRECORD {
+ *     DWORD Length;
+ *     DWORD Reserved;
+ *     DWORD RecordNumber;
+ *     DWORD TimeGenerated;
+ *     DWORD TimeWritten;
+ *     DWORD EventID;
+ *     WORD EventType;
+ *     WORD NumStrings;
+ *     WORD EventCategory;
+ *     WORD ReservedFlags;
+ *     DWORD ClosingRecordNumber;
+ *     DWORD StringOffset;
+ *     DWORD UserSidLength;
+ *     DWORD UserSidOffset;
+ *     DWORD DataLength;
+ *     DWORD DataOffset;
+ * } EVENTLOGRECORD
  * }
  */
-public final class EVENTLOGRECORD extends _EVENTLOGRECORD {
+public class EVENTLOGRECORD extends _EVENTLOGRECORD {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private EVENTLOGRECORD() {}
+    EVENTLOGRECORD() {
+        // Should not be called directly
+    }
 }
-
 

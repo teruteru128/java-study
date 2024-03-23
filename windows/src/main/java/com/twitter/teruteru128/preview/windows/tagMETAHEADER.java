@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagMETAHEADER {
  *     WORD mtType;
  *     WORD mtHeaderSize;
@@ -17,209 +22,382 @@ import static java.lang.foreign.ValueLayout.*;
  *     WORD mtNoObjects;
  *     DWORD mtMaxRecord;
  *     WORD mtNoParameters;
- * };
+ * }
  * }
  */
 public class tagMETAHEADER {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$908.const$5;
+    tagMETAHEADER() {
+        // Should not be called directly
     }
-    public static VarHandle mtType$VH() {
-        return constants$909.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD mtType;
-     * }
-     */
-    public static short mtType$get(MemorySegment seg) {
-        return (short)constants$909.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD mtType;
-     * }
-     */
-    public static void mtType$set(MemorySegment seg, short x) {
-        constants$909.const$0.set(seg, x);
-    }
-    public static short mtType$get(MemorySegment seg, long index) {
-        return (short)constants$909.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void mtType$set(MemorySegment seg, long index, short x) {
-        constants$909.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle mtHeaderSize$VH() {
-        return constants$909.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD mtHeaderSize;
-     * }
-     */
-    public static short mtHeaderSize$get(MemorySegment seg) {
-        return (short)constants$909.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD mtHeaderSize;
-     * }
-     */
-    public static void mtHeaderSize$set(MemorySegment seg, short x) {
-        constants$909.const$1.set(seg, x);
-    }
-    public static short mtHeaderSize$get(MemorySegment seg, long index) {
-        return (short)constants$909.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void mtHeaderSize$set(MemorySegment seg, long index, short x) {
-        constants$909.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle mtVersion$VH() {
-        return constants$909.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD mtVersion;
-     * }
-     */
-    public static short mtVersion$get(MemorySegment seg) {
-        return (short)constants$909.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD mtVersion;
-     * }
-     */
-    public static void mtVersion$set(MemorySegment seg, short x) {
-        constants$909.const$2.set(seg, x);
-    }
-    public static short mtVersion$get(MemorySegment seg, long index) {
-        return (short)constants$909.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void mtVersion$set(MemorySegment seg, long index, short x) {
-        constants$909.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle mtSize$VH() {
-        return constants$909.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD mtSize;
-     * }
-     */
-    public static int mtSize$get(MemorySegment seg) {
-        return (int)constants$909.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD mtSize;
-     * }
-     */
-    public static void mtSize$set(MemorySegment seg, int x) {
-        constants$909.const$3.set(seg, x);
-    }
-    public static int mtSize$get(MemorySegment seg, long index) {
-        return (int)constants$909.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void mtSize$set(MemorySegment seg, long index, int x) {
-        constants$909.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle mtNoObjects$VH() {
-        return constants$909.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD mtNoObjects;
-     * }
-     */
-    public static short mtNoObjects$get(MemorySegment seg) {
-        return (short)constants$909.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD mtNoObjects;
-     * }
-     */
-    public static void mtNoObjects$set(MemorySegment seg, short x) {
-        constants$909.const$4.set(seg, x);
-    }
-    public static short mtNoObjects$get(MemorySegment seg, long index) {
-        return (short)constants$909.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void mtNoObjects$set(MemorySegment seg, long index, short x) {
-        constants$909.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle mtMaxRecord$VH() {
-        return constants$909.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD mtMaxRecord;
-     * }
-     */
-    public static int mtMaxRecord$get(MemorySegment seg) {
-        return (int)constants$909.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD mtMaxRecord;
-     * }
-     */
-    public static void mtMaxRecord$set(MemorySegment seg, int x) {
-        constants$909.const$5.set(seg, x);
-    }
-    public static int mtMaxRecord$get(MemorySegment seg, long index) {
-        return (int)constants$909.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void mtMaxRecord$set(MemorySegment seg, long index, int x) {
-        constants$909.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle mtNoParameters$VH() {
-        return constants$910.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD mtNoParameters;
-     * }
-     */
-    public static short mtNoParameters$get(MemorySegment seg) {
-        return (short)constants$910.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD mtNoParameters;
-     * }
-     */
-    public static void mtNoParameters$set(MemorySegment seg, short x) {
-        constants$910.const$0.set(seg, x);
-    }
-    public static short mtNoParameters$get(MemorySegment seg, long index) {
-        return (short)constants$910.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void mtNoParameters$set(MemorySegment seg, long index, short x) {
-        constants$910.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_SHORT.withName("mtType"),
+        Windows_h.C_SHORT.withName("mtHeaderSize"),
+        Windows_h.C_SHORT.withName("mtVersion"),
+        Windows_h.align(Windows_h.C_LONG, 2).withName("mtSize"),
+        Windows_h.C_SHORT.withName("mtNoObjects"),
+        Windows_h.align(Windows_h.C_LONG, 2).withName("mtMaxRecord"),
+        Windows_h.C_SHORT.withName("mtNoParameters")
+    ).withName("tagMETAHEADER");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfShort mtType$LAYOUT = (OfShort)$LAYOUT.select(groupElement("mtType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD mtType
+     * }
+     */
+    public static final OfShort mtType$layout() {
+        return mtType$LAYOUT;
+    }
+
+    private static final long mtType$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD mtType
+     * }
+     */
+    public static final long mtType$offset() {
+        return mtType$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD mtType
+     * }
+     */
+    public static short mtType(MemorySegment struct) {
+        return struct.get(mtType$LAYOUT, mtType$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD mtType
+     * }
+     */
+    public static void mtType(MemorySegment struct, short fieldValue) {
+        struct.set(mtType$LAYOUT, mtType$OFFSET, fieldValue);
+    }
+
+    private static final OfShort mtHeaderSize$LAYOUT = (OfShort)$LAYOUT.select(groupElement("mtHeaderSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD mtHeaderSize
+     * }
+     */
+    public static final OfShort mtHeaderSize$layout() {
+        return mtHeaderSize$LAYOUT;
+    }
+
+    private static final long mtHeaderSize$OFFSET = 2;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD mtHeaderSize
+     * }
+     */
+    public static final long mtHeaderSize$offset() {
+        return mtHeaderSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD mtHeaderSize
+     * }
+     */
+    public static short mtHeaderSize(MemorySegment struct) {
+        return struct.get(mtHeaderSize$LAYOUT, mtHeaderSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD mtHeaderSize
+     * }
+     */
+    public static void mtHeaderSize(MemorySegment struct, short fieldValue) {
+        struct.set(mtHeaderSize$LAYOUT, mtHeaderSize$OFFSET, fieldValue);
+    }
+
+    private static final OfShort mtVersion$LAYOUT = (OfShort)$LAYOUT.select(groupElement("mtVersion"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD mtVersion
+     * }
+     */
+    public static final OfShort mtVersion$layout() {
+        return mtVersion$LAYOUT;
+    }
+
+    private static final long mtVersion$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD mtVersion
+     * }
+     */
+    public static final long mtVersion$offset() {
+        return mtVersion$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD mtVersion
+     * }
+     */
+    public static short mtVersion(MemorySegment struct) {
+        return struct.get(mtVersion$LAYOUT, mtVersion$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD mtVersion
+     * }
+     */
+    public static void mtVersion(MemorySegment struct, short fieldValue) {
+        struct.set(mtVersion$LAYOUT, mtVersion$OFFSET, fieldValue);
+    }
+
+    private static final OfInt mtSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("mtSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD mtSize
+     * }
+     */
+    public static final OfInt mtSize$layout() {
+        return mtSize$LAYOUT;
+    }
+
+    private static final long mtSize$OFFSET = 6;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD mtSize
+     * }
+     */
+    public static final long mtSize$offset() {
+        return mtSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD mtSize
+     * }
+     */
+    public static int mtSize(MemorySegment struct) {
+        return struct.get(mtSize$LAYOUT, mtSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD mtSize
+     * }
+     */
+    public static void mtSize(MemorySegment struct, int fieldValue) {
+        struct.set(mtSize$LAYOUT, mtSize$OFFSET, fieldValue);
+    }
+
+    private static final OfShort mtNoObjects$LAYOUT = (OfShort)$LAYOUT.select(groupElement("mtNoObjects"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD mtNoObjects
+     * }
+     */
+    public static final OfShort mtNoObjects$layout() {
+        return mtNoObjects$LAYOUT;
+    }
+
+    private static final long mtNoObjects$OFFSET = 10;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD mtNoObjects
+     * }
+     */
+    public static final long mtNoObjects$offset() {
+        return mtNoObjects$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD mtNoObjects
+     * }
+     */
+    public static short mtNoObjects(MemorySegment struct) {
+        return struct.get(mtNoObjects$LAYOUT, mtNoObjects$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD mtNoObjects
+     * }
+     */
+    public static void mtNoObjects(MemorySegment struct, short fieldValue) {
+        struct.set(mtNoObjects$LAYOUT, mtNoObjects$OFFSET, fieldValue);
+    }
+
+    private static final OfInt mtMaxRecord$LAYOUT = (OfInt)$LAYOUT.select(groupElement("mtMaxRecord"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD mtMaxRecord
+     * }
+     */
+    public static final OfInt mtMaxRecord$layout() {
+        return mtMaxRecord$LAYOUT;
+    }
+
+    private static final long mtMaxRecord$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD mtMaxRecord
+     * }
+     */
+    public static final long mtMaxRecord$offset() {
+        return mtMaxRecord$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD mtMaxRecord
+     * }
+     */
+    public static int mtMaxRecord(MemorySegment struct) {
+        return struct.get(mtMaxRecord$LAYOUT, mtMaxRecord$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD mtMaxRecord
+     * }
+     */
+    public static void mtMaxRecord(MemorySegment struct, int fieldValue) {
+        struct.set(mtMaxRecord$LAYOUT, mtMaxRecord$OFFSET, fieldValue);
+    }
+
+    private static final OfShort mtNoParameters$LAYOUT = (OfShort)$LAYOUT.select(groupElement("mtNoParameters"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD mtNoParameters
+     * }
+     */
+    public static final OfShort mtNoParameters$layout() {
+        return mtNoParameters$LAYOUT;
+    }
+
+    private static final long mtNoParameters$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD mtNoParameters
+     * }
+     */
+    public static final long mtNoParameters$offset() {
+        return mtNoParameters$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD mtNoParameters
+     * }
+     */
+    public static short mtNoParameters(MemorySegment struct) {
+        return struct.get(mtNoParameters$LAYOUT, mtNoParameters$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD mtNoParameters
+     * }
+     */
+    public static void mtNoParameters(MemorySegment struct, short fieldValue) {
+        struct.set(mtNoParameters$LAYOUT, mtNoParameters$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

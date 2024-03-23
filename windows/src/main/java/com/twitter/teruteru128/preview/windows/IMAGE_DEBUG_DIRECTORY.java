@@ -2,20 +2,34 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _IMAGE_DEBUG_DIRECTORY IMAGE_DEBUG_DIRECTORY;
+ * {@snippet lang=c :
+ * typedef struct _IMAGE_DEBUG_DIRECTORY {
+ *     DWORD Characteristics;
+ *     DWORD TimeDateStamp;
+ *     WORD MajorVersion;
+ *     WORD MinorVersion;
+ *     DWORD Type;
+ *     DWORD SizeOfData;
+ *     DWORD AddressOfRawData;
+ *     DWORD PointerToRawData;
+ * } IMAGE_DEBUG_DIRECTORY
  * }
  */
-public final class IMAGE_DEBUG_DIRECTORY extends _IMAGE_DEBUG_DIRECTORY {
+public class IMAGE_DEBUG_DIRECTORY extends _IMAGE_DEBUG_DIRECTORY {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private IMAGE_DEBUG_DIRECTORY() {}
+    IMAGE_DEBUG_DIRECTORY() {
+        // Should not be called directly
+    }
 }
-
 

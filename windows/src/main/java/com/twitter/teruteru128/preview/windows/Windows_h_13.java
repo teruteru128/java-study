@@ -2,7733 +2,9209 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
-import static java.lang.foreign.ValueLayout.*;
-public class Windows_h_13 extends Windows_h_12 {
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
-    /**
-     * {@snippet :
-     * enum _TOKEN_INFORMATION_CLASS.TokenBnoIsolation = 44;
-     * }
-     */
-    public static int TokenBnoIsolation() {
-        return (int)44L;
+import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
+public class Windows_h_13 extends Windows_h_14 {
+
+    Windows_h_13() {
+        // Should not be called directly
     }
+    private static final int SECURITY_TASK_ID_BASE_RID = (int)87L;
     /**
-     * {@snippet :
-     * enum _TOKEN_INFORMATION_CLASS.TokenChildProcessFlags = 45;
+     * {@snippet lang=c :
+     * #define SECURITY_TASK_ID_BASE_RID 87
      * }
      */
-    public static int TokenChildProcessFlags() {
-        return (int)45L;
+    public static int SECURITY_TASK_ID_BASE_RID() {
+        return SECURITY_TASK_ID_BASE_RID;
     }
+    private static final int SECURITY_NFS_ID_BASE_RID = (int)88L;
     /**
-     * {@snippet :
-     * enum _TOKEN_INFORMATION_CLASS.TokenIsLessPrivilegedAppContainer = 46;
+     * {@snippet lang=c :
+     * #define SECURITY_NFS_ID_BASE_RID 88
      * }
      */
-    public static int TokenIsLessPrivilegedAppContainer() {
-        return (int)46L;
+    public static int SECURITY_NFS_ID_BASE_RID() {
+        return SECURITY_NFS_ID_BASE_RID;
     }
+    private static final int SECURITY_COM_ID_BASE_RID = (int)89L;
     /**
-     * {@snippet :
-     * enum _TOKEN_INFORMATION_CLASS.TokenIsSandboxed = 47;
+     * {@snippet lang=c :
+     * #define SECURITY_COM_ID_BASE_RID 89
      * }
      */
-    public static int TokenIsSandboxed() {
-        return (int)47L;
+    public static int SECURITY_COM_ID_BASE_RID() {
+        return SECURITY_COM_ID_BASE_RID;
     }
+    private static final int SECURITY_WINDOW_MANAGER_BASE_RID = (int)90L;
     /**
-     * {@snippet :
-     * enum _TOKEN_INFORMATION_CLASS.MaxTokenInfoClass = 48;
+     * {@snippet lang=c :
+     * #define SECURITY_WINDOW_MANAGER_BASE_RID 90
      * }
      */
-    public static int MaxTokenInfoClass() {
-        return (int)48L;
+    public static int SECURITY_WINDOW_MANAGER_BASE_RID() {
+        return SECURITY_WINDOW_MANAGER_BASE_RID;
     }
-    /**
-     * {@snippet :
-     * typedef enum _TOKEN_INFORMATION_CLASS* PTOKEN_INFORMATION_CLASS;
-     * }
-     */
-    public static final AddressLayout PTOKEN_INFORMATION_CLASS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_USER* PTOKEN_USER;
-     * }
-     */
-    public static final AddressLayout PTOKEN_USER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_GROUPS* PTOKEN_GROUPS;
-     * }
-     */
-    public static final AddressLayout PTOKEN_GROUPS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_PRIVILEGES* PTOKEN_PRIVILEGES;
-     * }
-     */
-    public static final AddressLayout PTOKEN_PRIVILEGES = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_OWNER* PTOKEN_OWNER;
-     * }
-     */
-    public static final AddressLayout PTOKEN_OWNER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_PRIMARY_GROUP* PTOKEN_PRIMARY_GROUP;
-     * }
-     */
-    public static final AddressLayout PTOKEN_PRIMARY_GROUP = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_DEFAULT_DACL* PTOKEN_DEFAULT_DACL;
-     * }
-     */
-    public static final AddressLayout PTOKEN_DEFAULT_DACL = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_USER_CLAIMS* PTOKEN_USER_CLAIMS;
-     * }
-     */
-    public static final AddressLayout PTOKEN_USER_CLAIMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_DEVICE_CLAIMS* PTOKEN_DEVICE_CLAIMS;
-     * }
-     */
-    public static final AddressLayout PTOKEN_DEVICE_CLAIMS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_GROUPS_AND_PRIVILEGES* PTOKEN_GROUPS_AND_PRIVILEGES;
-     * }
-     */
-    public static final AddressLayout PTOKEN_GROUPS_AND_PRIVILEGES = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_LINKED_TOKEN* PTOKEN_LINKED_TOKEN;
-     * }
-     */
-    public static final AddressLayout PTOKEN_LINKED_TOKEN = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_ELEVATION* PTOKEN_ELEVATION;
-     * }
-     */
-    public static final AddressLayout PTOKEN_ELEVATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_MANDATORY_LABEL* PTOKEN_MANDATORY_LABEL;
-     * }
-     */
-    public static final AddressLayout PTOKEN_MANDATORY_LABEL = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_MANDATORY_POLICY* PTOKEN_MANDATORY_POLICY;
-     * }
-     */
-    public static final AddressLayout PTOKEN_MANDATORY_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef void* PSECURITY_ATTRIBUTES_OPAQUE;
-     * }
-     */
-    public static final AddressLayout PSECURITY_ATTRIBUTES_OPAQUE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_ACCESS_INFORMATION* PTOKEN_ACCESS_INFORMATION;
-     * }
-     */
-    public static final AddressLayout PTOKEN_ACCESS_INFORMATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_AUDIT_POLICY* PTOKEN_AUDIT_POLICY;
-     * }
-     */
-    public static final AddressLayout PTOKEN_AUDIT_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_SOURCE* PTOKEN_SOURCE;
-     * }
-     */
-    public static final AddressLayout PTOKEN_SOURCE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_STATISTICS* PTOKEN_STATISTICS;
-     * }
-     */
-    public static final AddressLayout PTOKEN_STATISTICS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_CONTROL* PTOKEN_CONTROL;
-     * }
-     */
-    public static final AddressLayout PTOKEN_CONTROL = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_ORIGIN* PTOKEN_ORIGIN;
-     * }
-     */
-    public static final AddressLayout PTOKEN_ORIGIN = RuntimeHelper.POINTER;
+    private static final int SECURITY_RDV_GFX_BASE_RID = (int)91L;
     /**
-     * {@snippet :
-     * enum _MANDATORY_LEVEL.MandatoryLevelUntrusted = 0;
+     * {@snippet lang=c :
+     * #define SECURITY_RDV_GFX_BASE_RID 91
      * }
      */
-    public static int MandatoryLevelUntrusted() {
-        return (int)0L;
+    public static int SECURITY_RDV_GFX_BASE_RID() {
+        return SECURITY_RDV_GFX_BASE_RID;
     }
+    private static final int SECURITY_DASHOST_ID_BASE_RID = (int)92L;
     /**
-     * {@snippet :
-     * enum _MANDATORY_LEVEL.MandatoryLevelLow = 1;
+     * {@snippet lang=c :
+     * #define SECURITY_DASHOST_ID_BASE_RID 92
      * }
      */
-    public static int MandatoryLevelLow() {
-        return (int)1L;
+    public static int SECURITY_DASHOST_ID_BASE_RID() {
+        return SECURITY_DASHOST_ID_BASE_RID;
     }
+    private static final int SECURITY_DASHOST_ID_RID_COUNT = (int)6L;
     /**
-     * {@snippet :
-     * enum _MANDATORY_LEVEL.MandatoryLevelMedium = 2;
+     * {@snippet lang=c :
+     * #define SECURITY_DASHOST_ID_RID_COUNT 6
      * }
      */
-    public static int MandatoryLevelMedium() {
-        return (int)2L;
+    public static int SECURITY_DASHOST_ID_RID_COUNT() {
+        return SECURITY_DASHOST_ID_RID_COUNT;
     }
+    private static final int SECURITY_USERMANAGER_ID_BASE_RID = (int)93L;
     /**
-     * {@snippet :
-     * enum _MANDATORY_LEVEL.MandatoryLevelHigh = 3;
+     * {@snippet lang=c :
+     * #define SECURITY_USERMANAGER_ID_BASE_RID 93
      * }
      */
-    public static int MandatoryLevelHigh() {
-        return (int)3L;
+    public static int SECURITY_USERMANAGER_ID_BASE_RID() {
+        return SECURITY_USERMANAGER_ID_BASE_RID;
     }
+    private static final int SECURITY_USERMANAGER_ID_RID_COUNT = (int)6L;
     /**
-     * {@snippet :
-     * enum _MANDATORY_LEVEL.MandatoryLevelSystem = 4;
+     * {@snippet lang=c :
+     * #define SECURITY_USERMANAGER_ID_RID_COUNT 6
      * }
      */
-    public static int MandatoryLevelSystem() {
-        return (int)4L;
+    public static int SECURITY_USERMANAGER_ID_RID_COUNT() {
+        return SECURITY_USERMANAGER_ID_RID_COUNT;
     }
+    private static final int SECURITY_WINRM_ID_BASE_RID = (int)94L;
     /**
-     * {@snippet :
-     * enum _MANDATORY_LEVEL.MandatoryLevelSecureProcess = 5;
+     * {@snippet lang=c :
+     * #define SECURITY_WINRM_ID_BASE_RID 94
      * }
      */
-    public static int MandatoryLevelSecureProcess() {
-        return (int)5L;
+    public static int SECURITY_WINRM_ID_BASE_RID() {
+        return SECURITY_WINRM_ID_BASE_RID;
     }
+    private static final int SECURITY_WINRM_ID_RID_COUNT = (int)6L;
     /**
-     * {@snippet :
-     * enum _MANDATORY_LEVEL.MandatoryLevelCount = 6;
+     * {@snippet lang=c :
+     * #define SECURITY_WINRM_ID_RID_COUNT 6
      * }
      */
-    public static int MandatoryLevelCount() {
-        return (int)6L;
+    public static int SECURITY_WINRM_ID_RID_COUNT() {
+        return SECURITY_WINRM_ID_RID_COUNT;
     }
-    /**
-     * {@snippet :
-     * typedef enum _MANDATORY_LEVEL* PMANDATORY_LEVEL;
-     * }
-     */
-    public static final AddressLayout PMANDATORY_LEVEL = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_APPCONTAINER_INFORMATION* PTOKEN_APPCONTAINER_INFORMATION;
-     * }
-     */
-    public static final AddressLayout PTOKEN_APPCONTAINER_INFORMATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_SID_INFORMATION* PTOKEN_SID_INFORMATION;
-     * }
-     */
-    public static final AddressLayout PTOKEN_SID_INFORMATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _TOKEN_BNO_ISOLATION_INFORMATION* PTOKEN_BNO_ISOLATION_INFORMATION;
-     * }
-     */
-    public static final AddressLayout PTOKEN_BNO_ISOLATION_INFORMATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _CLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE* PCLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE;
-     * }
-     */
-    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_FQBN_VALUE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _CLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE* PCLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE;
-     * }
-     */
-    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_OCTET_STRING_VALUE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _CLAIM_SECURITY_ATTRIBUTE_V1* PCLAIM_SECURITY_ATTRIBUTE_V1;
-     * }
-     */
-    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_V1 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _CLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1* PCLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1;
-     * }
-     */
-    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTE_RELATIVE_V1 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _CLAIM_SECURITY_ATTRIBUTES_INFORMATION* PCLAIM_SECURITY_ATTRIBUTES_INFORMATION;
-     * }
-     */
-    public static final AddressLayout PCLAIM_SECURITY_ATTRIBUTES_INFORMATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef unsigned char SECURITY_CONTEXT_TRACKING_MODE;
-     * }
-     */
-    public static final OfByte SECURITY_CONTEXT_TRACKING_MODE = JAVA_BYTE;
+    private static final int SECURITY_CCG_ID_BASE_RID = (int)95L;
     /**
-     * {@snippet :
-     * typedef unsigned char* PSECURITY_CONTEXT_TRACKING_MODE;
+     * {@snippet lang=c :
+     * #define SECURITY_CCG_ID_BASE_RID 95
      * }
      */
-    public static final AddressLayout PSECURITY_CONTEXT_TRACKING_MODE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _SECURITY_QUALITY_OF_SERVICE* PSECURITY_QUALITY_OF_SERVICE;
-     * }
-     */
-    public static final AddressLayout PSECURITY_QUALITY_OF_SERVICE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _SE_IMPERSONATION_STATE* PSE_IMPERSONATION_STATE;
-     * }
-     */
-    public static final AddressLayout PSE_IMPERSONATION_STATE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef unsigned long SECURITY_INFORMATION;
-     * }
-     */
-    public static final OfInt SECURITY_INFORMATION = JAVA_INT;
-    /**
-     * {@snippet :
-     * typedef unsigned long* PSECURITY_INFORMATION;
-     * }
-     */
-    public static final AddressLayout PSECURITY_INFORMATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef unsigned char SE_SIGNING_LEVEL;
-     * }
-     */
-    public static final OfByte SE_SIGNING_LEVEL = JAVA_BYTE;
-    /**
-     * {@snippet :
-     * typedef unsigned char* PSE_SIGNING_LEVEL;
-     * }
-     */
-    public static final AddressLayout PSE_SIGNING_LEVEL = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignatureNone = 0;
-     * }
-     */
-    public static int SeImageSignatureNone() {
-        return (int)0L;
+    public static int SECURITY_CCG_ID_BASE_RID() {
+        return SECURITY_CCG_ID_BASE_RID;
     }
+    private static final int SECURITY_UMFD_BASE_RID = (int)96L;
     /**
-     * {@snippet :
-     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignatureEmbedded = 1;
+     * {@snippet lang=c :
+     * #define SECURITY_UMFD_BASE_RID 96
      * }
      */
-    public static int SeImageSignatureEmbedded() {
-        return (int)1L;
+    public static int SECURITY_UMFD_BASE_RID() {
+        return SECURITY_UMFD_BASE_RID;
     }
+    private static final int SECURITY_VIRTUALACCOUNT_ID_RID_COUNT = (int)6L;
     /**
-     * {@snippet :
-     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignatureCache = 2;
+     * {@snippet lang=c :
+     * #define SECURITY_VIRTUALACCOUNT_ID_RID_COUNT 6
      * }
      */
-    public static int SeImageSignatureCache() {
-        return (int)2L;
+    public static int SECURITY_VIRTUALACCOUNT_ID_RID_COUNT() {
+        return SECURITY_VIRTUALACCOUNT_ID_RID_COUNT;
     }
+    private static final int SECURITY_MAX_BASE_RID = (int)111L;
     /**
-     * {@snippet :
-     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignatureCatalogCached = 3;
+     * {@snippet lang=c :
+     * #define SECURITY_MAX_BASE_RID 111
      * }
      */
-    public static int SeImageSignatureCatalogCached() {
-        return (int)3L;
+    public static int SECURITY_MAX_BASE_RID() {
+        return SECURITY_MAX_BASE_RID;
     }
+    private static final int SECURITY_MAX_ALWAYS_FILTERED = (int)999L;
     /**
-     * {@snippet :
-     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignatureCatalogNotCached = 4;
+     * {@snippet lang=c :
+     * #define SECURITY_MAX_ALWAYS_FILTERED 999
      * }
      */
-    public static int SeImageSignatureCatalogNotCached() {
-        return (int)4L;
+    public static int SECURITY_MAX_ALWAYS_FILTERED() {
+        return SECURITY_MAX_ALWAYS_FILTERED;
     }
+    private static final int SECURITY_MIN_NEVER_FILTERED = (int)1000L;
     /**
-     * {@snippet :
-     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignatureCatalogHint = 5;
+     * {@snippet lang=c :
+     * #define SECURITY_MIN_NEVER_FILTERED 1000
      * }
      */
-    public static int SeImageSignatureCatalogHint() {
-        return (int)5L;
+    public static int SECURITY_MIN_NEVER_FILTERED() {
+        return SECURITY_MIN_NEVER_FILTERED;
     }
+    private static final int SECURITY_OTHER_ORGANIZATION_RID = (int)1000L;
     /**
-     * {@snippet :
-     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignaturePackageCatalog = 6;
+     * {@snippet lang=c :
+     * #define SECURITY_OTHER_ORGANIZATION_RID 1000
      * }
      */
-    public static int SeImageSignaturePackageCatalog() {
-        return (int)6L;
+    public static int SECURITY_OTHER_ORGANIZATION_RID() {
+        return SECURITY_OTHER_ORGANIZATION_RID;
     }
+    private static final int SECURITY_WINDOWSMOBILE_ID_BASE_RID = (int)112L;
     /**
-     * {@snippet :
-     * enum _SE_IMAGE_SIGNATURE_TYPE.SeImageSignaturePplMitigated = 7;
+     * {@snippet lang=c :
+     * #define SECURITY_WINDOWSMOBILE_ID_BASE_RID 112
      * }
      */
-    public static int SeImageSignaturePplMitigated() {
-        return (int)7L;
+    public static int SECURITY_WINDOWSMOBILE_ID_BASE_RID() {
+        return SECURITY_WINDOWSMOBILE_ID_BASE_RID;
     }
-    /**
-     * {@snippet :
-     * typedef enum _SE_IMAGE_SIGNATURE_TYPE* PSE_IMAGE_SIGNATURE_TYPE;
-     * }
-     */
-    public static final AddressLayout PSE_IMAGE_SIGNATURE_TYPE = RuntimeHelper.POINTER;
+    private static final int SECURITY_INSTALLER_GROUP_CAPABILITY_BASE = (int)32L;
     /**
-     * {@snippet :
-     * enum _SE_LEARNING_MODE_DATA_TYPE.SeLearningModeInvalidType = 0;
+     * {@snippet lang=c :
+     * #define SECURITY_INSTALLER_GROUP_CAPABILITY_BASE 32
      * }
      */
-    public static int SeLearningModeInvalidType() {
-        return (int)0L;
+    public static int SECURITY_INSTALLER_GROUP_CAPABILITY_BASE() {
+        return SECURITY_INSTALLER_GROUP_CAPABILITY_BASE;
     }
+    private static final int SECURITY_INSTALLER_GROUP_CAPABILITY_RID_COUNT = (int)9L;
     /**
-     * {@snippet :
-     * enum _SE_LEARNING_MODE_DATA_TYPE.SeLearningModeSettings = 1;
+     * {@snippet lang=c :
+     * #define SECURITY_INSTALLER_GROUP_CAPABILITY_RID_COUNT 9
      * }
      */
-    public static int SeLearningModeSettings() {
-        return (int)1L;
+    public static int SECURITY_INSTALLER_GROUP_CAPABILITY_RID_COUNT() {
+        return SECURITY_INSTALLER_GROUP_CAPABILITY_RID_COUNT;
     }
+    private static final int SECURITY_INSTALLER_CAPABILITY_RID_COUNT = (int)10L;
     /**
-     * {@snippet :
-     * enum _SE_LEARNING_MODE_DATA_TYPE.SeLearningModeMax = 2;
+     * {@snippet lang=c :
+     * #define SECURITY_INSTALLER_CAPABILITY_RID_COUNT 10
      * }
      */
-    public static int SeLearningModeMax() {
-        return (int)2L;
+    public static int SECURITY_INSTALLER_CAPABILITY_RID_COUNT() {
+        return SECURITY_INSTALLER_CAPABILITY_RID_COUNT;
     }
-    /**
-     * {@snippet :
-     * typedef struct _SECURITY_CAPABILITIES* PSECURITY_CAPABILITIES;
-     * }
-     */
-    public static final AddressLayout PSECURITY_CAPABILITIES = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _SECURITY_CAPABILITIES* LPSECURITY_CAPABILITIES;
-     * }
-     */
-    public static final AddressLayout LPSECURITY_CAPABILITIES = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _JOB_SET_ARRAY* PJOB_SET_ARRAY;
-     * }
-     */
-    public static final AddressLayout PJOB_SET_ARRAY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _EXCEPTION_REGISTRATION_RECORD* PEXCEPTION_REGISTRATION_RECORD;
-     * }
-     */
-    public static final AddressLayout PEXCEPTION_REGISTRATION_RECORD = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _NT_TIB* PNT_TIB;
-     * }
-     */
-    public static final AddressLayout PNT_TIB = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _NT_TIB32* PNT_TIB32;
-     * }
-     */
-    public static final AddressLayout PNT_TIB32 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _NT_TIB64* PNT_TIB64;
-     * }
-     */
-    public static final AddressLayout PNT_TIB64 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _UMS_CREATE_THREAD_ATTRIBUTES* PUMS_CREATE_THREAD_ATTRIBUTES;
-     * }
-     */
-    public static final AddressLayout PUMS_CREATE_THREAD_ATTRIBUTES = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _COMPONENT_FILTER* PCOMPONENT_FILTER;
-     * }
-     */
-    public static final AddressLayout PCOMPONENT_FILTER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_DYNAMIC_EH_CONTINUATION_TARGET* PPROCESS_DYNAMIC_EH_CONTINUATION_TARGET;
-     * }
-     */
-    public static final AddressLayout PPROCESS_DYNAMIC_EH_CONTINUATION_TARGET = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION* PPROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION;
-     * }
-     */
-    public static final AddressLayout PPROCESS_DYNAMIC_EH_CONTINUATION_TARGETS_INFORMATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE* PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE;
-     * }
-     */
-    public static final AddressLayout PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION* PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION;
-     * }
-     */
-    public static final AddressLayout PPROCESS_DYNAMIC_ENFORCED_ADDRESS_RANGES_INFORMATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _QUOTA_LIMITS* PQUOTA_LIMITS;
-     * }
-     */
-    public static final AddressLayout PQUOTA_LIMITS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef union _RATE_QUOTA_LIMIT* PRATE_QUOTA_LIMIT;
-     * }
-     */
-    public static final AddressLayout PRATE_QUOTA_LIMIT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _QUOTA_LIMITS_EX* PQUOTA_LIMITS_EX;
-     * }
-     */
-    public static final AddressLayout PQUOTA_LIMITS_EX = RuntimeHelper.POINTER;
+    private static final int SECURITY_LOCAL_ACCOUNT_RID = (int)113L;
     /**
-     * {@snippet :
-     * typedef struct _IO_COUNTERS* PIO_COUNTERS;
+     * {@snippet lang=c :
+     * #define SECURITY_LOCAL_ACCOUNT_RID 113
      * }
      */
-    public static final AddressLayout PIO_COUNTERS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum _HARDWARE_COUNTER_TYPE.PMCCounter = 0;
-     * }
-     */
-    public static int PMCCounter() {
-        return (int)0L;
+    public static int SECURITY_LOCAL_ACCOUNT_RID() {
+        return SECURITY_LOCAL_ACCOUNT_RID;
     }
+    private static final int SECURITY_LOCAL_ACCOUNT_AND_ADMIN_RID = (int)114L;
     /**
-     * {@snippet :
-     * enum _HARDWARE_COUNTER_TYPE.MaxHardwareCounterType = 1;
+     * {@snippet lang=c :
+     * #define SECURITY_LOCAL_ACCOUNT_AND_ADMIN_RID 114
      * }
      */
-    public static int MaxHardwareCounterType() {
-        return (int)1L;
+    public static int SECURITY_LOCAL_ACCOUNT_AND_ADMIN_RID() {
+        return SECURITY_LOCAL_ACCOUNT_AND_ADMIN_RID;
     }
-    /**
-     * {@snippet :
-     * typedef enum _HARDWARE_COUNTER_TYPE* PHARDWARE_COUNTER_TYPE;
-     * }
-     */
-    public static final AddressLayout PHARDWARE_COUNTER_TYPE = RuntimeHelper.POINTER;
+    private static final int DOMAIN_GROUP_RID_AUTHORIZATION_DATA_IS_COMPOUNDED = (int)496L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessDEPPolicy = 0;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_AUTHORIZATION_DATA_IS_COMPOUNDED 496
      * }
      */
-    public static int ProcessDEPPolicy() {
-        return (int)0L;
+    public static int DOMAIN_GROUP_RID_AUTHORIZATION_DATA_IS_COMPOUNDED() {
+        return DOMAIN_GROUP_RID_AUTHORIZATION_DATA_IS_COMPOUNDED;
     }
+    private static final int DOMAIN_GROUP_RID_AUTHORIZATION_DATA_CONTAINS_CLAIMS = (int)497L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessASLRPolicy = 1;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_AUTHORIZATION_DATA_CONTAINS_CLAIMS 497
      * }
      */
-    public static int ProcessASLRPolicy() {
-        return (int)1L;
+    public static int DOMAIN_GROUP_RID_AUTHORIZATION_DATA_CONTAINS_CLAIMS() {
+        return DOMAIN_GROUP_RID_AUTHORIZATION_DATA_CONTAINS_CLAIMS;
     }
+    private static final int DOMAIN_GROUP_RID_ENTERPRISE_READONLY_DOMAIN_CONTROLLERS = (int)498L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessDynamicCodePolicy = 2;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_ENTERPRISE_READONLY_DOMAIN_CONTROLLERS 498
      * }
      */
-    public static int ProcessDynamicCodePolicy() {
-        return (int)2L;
+    public static int DOMAIN_GROUP_RID_ENTERPRISE_READONLY_DOMAIN_CONTROLLERS() {
+        return DOMAIN_GROUP_RID_ENTERPRISE_READONLY_DOMAIN_CONTROLLERS;
     }
+    private static final int FOREST_USER_RID_MAX = (int)499L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessStrictHandleCheckPolicy = 3;
+     * {@snippet lang=c :
+     * #define FOREST_USER_RID_MAX 499
      * }
      */
-    public static int ProcessStrictHandleCheckPolicy() {
-        return (int)3L;
+    public static int FOREST_USER_RID_MAX() {
+        return FOREST_USER_RID_MAX;
     }
+    private static final int DOMAIN_USER_RID_ADMIN = (int)500L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessSystemCallDisablePolicy = 4;
+     * {@snippet lang=c :
+     * #define DOMAIN_USER_RID_ADMIN 500
      * }
      */
-    public static int ProcessSystemCallDisablePolicy() {
-        return (int)4L;
+    public static int DOMAIN_USER_RID_ADMIN() {
+        return DOMAIN_USER_RID_ADMIN;
     }
+    private static final int DOMAIN_USER_RID_GUEST = (int)501L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessMitigationOptionsMask = 5;
+     * {@snippet lang=c :
+     * #define DOMAIN_USER_RID_GUEST 501
      * }
      */
-    public static int ProcessMitigationOptionsMask() {
-        return (int)5L;
+    public static int DOMAIN_USER_RID_GUEST() {
+        return DOMAIN_USER_RID_GUEST;
     }
+    private static final int DOMAIN_USER_RID_KRBTGT = (int)502L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessExtensionPointDisablePolicy = 6;
+     * {@snippet lang=c :
+     * #define DOMAIN_USER_RID_KRBTGT 502
      * }
      */
-    public static int ProcessExtensionPointDisablePolicy() {
-        return (int)6L;
+    public static int DOMAIN_USER_RID_KRBTGT() {
+        return DOMAIN_USER_RID_KRBTGT;
     }
+    private static final int DOMAIN_USER_RID_DEFAULT_ACCOUNT = (int)503L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessControlFlowGuardPolicy = 7;
+     * {@snippet lang=c :
+     * #define DOMAIN_USER_RID_DEFAULT_ACCOUNT 503
      * }
      */
-    public static int ProcessControlFlowGuardPolicy() {
-        return (int)7L;
+    public static int DOMAIN_USER_RID_DEFAULT_ACCOUNT() {
+        return DOMAIN_USER_RID_DEFAULT_ACCOUNT;
     }
+    private static final int DOMAIN_USER_RID_WDAG_ACCOUNT = (int)504L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessSignaturePolicy = 8;
+     * {@snippet lang=c :
+     * #define DOMAIN_USER_RID_WDAG_ACCOUNT 504
      * }
      */
-    public static int ProcessSignaturePolicy() {
-        return (int)8L;
+    public static int DOMAIN_USER_RID_WDAG_ACCOUNT() {
+        return DOMAIN_USER_RID_WDAG_ACCOUNT;
     }
+    private static final int DOMAIN_USER_RID_MAX = (int)999L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessFontDisablePolicy = 9;
+     * {@snippet lang=c :
+     * #define DOMAIN_USER_RID_MAX 999
      * }
      */
-    public static int ProcessFontDisablePolicy() {
-        return (int)9L;
+    public static int DOMAIN_USER_RID_MAX() {
+        return DOMAIN_USER_RID_MAX;
     }
+    private static final int DOMAIN_GROUP_RID_ADMINS = (int)512L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessImageLoadPolicy = 10;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_ADMINS 512
      * }
      */
-    public static int ProcessImageLoadPolicy() {
-        return (int)10L;
+    public static int DOMAIN_GROUP_RID_ADMINS() {
+        return DOMAIN_GROUP_RID_ADMINS;
     }
+    private static final int DOMAIN_GROUP_RID_USERS = (int)513L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessSystemCallFilterPolicy = 11;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_USERS 513
      * }
      */
-    public static int ProcessSystemCallFilterPolicy() {
-        return (int)11L;
+    public static int DOMAIN_GROUP_RID_USERS() {
+        return DOMAIN_GROUP_RID_USERS;
     }
+    private static final int DOMAIN_GROUP_RID_GUESTS = (int)514L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessPayloadRestrictionPolicy = 12;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_GUESTS 514
      * }
      */
-    public static int ProcessPayloadRestrictionPolicy() {
-        return (int)12L;
+    public static int DOMAIN_GROUP_RID_GUESTS() {
+        return DOMAIN_GROUP_RID_GUESTS;
     }
+    private static final int DOMAIN_GROUP_RID_COMPUTERS = (int)515L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessChildProcessPolicy = 13;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_COMPUTERS 515
      * }
      */
-    public static int ProcessChildProcessPolicy() {
-        return (int)13L;
+    public static int DOMAIN_GROUP_RID_COMPUTERS() {
+        return DOMAIN_GROUP_RID_COMPUTERS;
     }
+    private static final int DOMAIN_GROUP_RID_CONTROLLERS = (int)516L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessSideChannelIsolationPolicy = 14;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_CONTROLLERS 516
      * }
      */
-    public static int ProcessSideChannelIsolationPolicy() {
-        return (int)14L;
+    public static int DOMAIN_GROUP_RID_CONTROLLERS() {
+        return DOMAIN_GROUP_RID_CONTROLLERS;
     }
+    private static final int DOMAIN_GROUP_RID_CERT_ADMINS = (int)517L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessUserShadowStackPolicy = 15;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_CERT_ADMINS 517
      * }
      */
-    public static int ProcessUserShadowStackPolicy() {
-        return (int)15L;
+    public static int DOMAIN_GROUP_RID_CERT_ADMINS() {
+        return DOMAIN_GROUP_RID_CERT_ADMINS;
     }
+    private static final int DOMAIN_GROUP_RID_SCHEMA_ADMINS = (int)518L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.ProcessRedirectionTrustPolicy = 16;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_SCHEMA_ADMINS 518
      * }
      */
-    public static int ProcessRedirectionTrustPolicy() {
-        return (int)16L;
+    public static int DOMAIN_GROUP_RID_SCHEMA_ADMINS() {
+        return DOMAIN_GROUP_RID_SCHEMA_ADMINS;
     }
+    private static final int DOMAIN_GROUP_RID_ENTERPRISE_ADMINS = (int)519L;
     /**
-     * {@snippet :
-     * enum _PROCESS_MITIGATION_POLICY.MaxProcessMitigationPolicy = 17;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_ENTERPRISE_ADMINS 519
      * }
      */
-    public static int MaxProcessMitigationPolicy() {
-        return (int)17L;
+    public static int DOMAIN_GROUP_RID_ENTERPRISE_ADMINS() {
+        return DOMAIN_GROUP_RID_ENTERPRISE_ADMINS;
     }
-    /**
-     * {@snippet :
-     * typedef enum _PROCESS_MITIGATION_POLICY* PPROCESS_MITIGATION_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESS_MITIGATION_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_ASLR_POLICY* PPROCESS_MITIGATION_ASLR_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESS_MITIGATION_ASLR_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_DEP_POLICY* PPROCESS_MITIGATION_DEP_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESS_MITIGATION_DEP_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY* PPROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESS_MITIGATION_STRICT_HANDLE_CHECK_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY* PPROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY* PPROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESS_MITIGATION_EXTENSION_POINT_DISABLE_POLICY = RuntimeHelper.POINTER;
+    private static final int DOMAIN_GROUP_RID_POLICY_ADMINS = (int)520L;
     /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_DYNAMIC_CODE_POLICY* PPROCESS_MITIGATION_DYNAMIC_CODE_POLICY;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_POLICY_ADMINS 520
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_DYNAMIC_CODE_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY* PPROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESS_MITIGATION_CONTROL_FLOW_GUARD_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_BINARY_SIGNATURE_POLICY* PPROCESS_MITIGATION_BINARY_SIGNATURE_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESS_MITIGATION_BINARY_SIGNATURE_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_FONT_DISABLE_POLICY* PPROCESS_MITIGATION_FONT_DISABLE_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESS_MITIGATION_FONT_DISABLE_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_IMAGE_LOAD_POLICY* PPROCESS_MITIGATION_IMAGE_LOAD_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESS_MITIGATION_IMAGE_LOAD_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY* PPROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESS_MITIGATION_SYSTEM_CALL_FILTER_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY* PPROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESS_MITIGATION_PAYLOAD_RESTRICTION_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_CHILD_PROCESS_POLICY* PPROCESS_MITIGATION_CHILD_PROCESS_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESS_MITIGATION_CHILD_PROCESS_POLICY = RuntimeHelper.POINTER;
+    public static int DOMAIN_GROUP_RID_POLICY_ADMINS() {
+        return DOMAIN_GROUP_RID_POLICY_ADMINS;
+    }
+    private static final int DOMAIN_GROUP_RID_READONLY_CONTROLLERS = (int)521L;
     /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY* PPROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_READONLY_CONTROLLERS 521
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_SIDE_CHANNEL_ISOLATION_POLICY = RuntimeHelper.POINTER;
+    public static int DOMAIN_GROUP_RID_READONLY_CONTROLLERS() {
+        return DOMAIN_GROUP_RID_READONLY_CONTROLLERS;
+    }
+    private static final int DOMAIN_GROUP_RID_CLONEABLE_CONTROLLERS = (int)522L;
     /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_USER_SHADOW_STACK_POLICY* PPROCESS_MITIGATION_USER_SHADOW_STACK_POLICY;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_CLONEABLE_CONTROLLERS 522
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_USER_SHADOW_STACK_POLICY = RuntimeHelper.POINTER;
+    public static int DOMAIN_GROUP_RID_CLONEABLE_CONTROLLERS() {
+        return DOMAIN_GROUP_RID_CLONEABLE_CONTROLLERS;
+    }
+    private static final int DOMAIN_GROUP_RID_CDC_RESERVED = (int)524L;
     /**
-     * {@snippet :
-     * typedef struct _PROCESS_MITIGATION_REDIRECTION_TRUST_POLICY* PPROCESS_MITIGATION_REDIRECTION_TRUST_POLICY;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_CDC_RESERVED 524
      * }
      */
-    public static final AddressLayout PPROCESS_MITIGATION_REDIRECTION_TRUST_POLICY = RuntimeHelper.POINTER;
+    public static int DOMAIN_GROUP_RID_CDC_RESERVED() {
+        return DOMAIN_GROUP_RID_CDC_RESERVED;
+    }
+    private static final int DOMAIN_GROUP_RID_PROTECTED_USERS = (int)525L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_BASIC_ACCOUNTING_INFORMATION* PJOBOBJECT_BASIC_ACCOUNTING_INFORMATION;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_PROTECTED_USERS 525
      * }
      */
-    public static final AddressLayout PJOBOBJECT_BASIC_ACCOUNTING_INFORMATION = RuntimeHelper.POINTER;
+    public static int DOMAIN_GROUP_RID_PROTECTED_USERS() {
+        return DOMAIN_GROUP_RID_PROTECTED_USERS;
+    }
+    private static final int DOMAIN_GROUP_RID_KEY_ADMINS = (int)526L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_BASIC_LIMIT_INFORMATION* PJOBOBJECT_BASIC_LIMIT_INFORMATION;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_KEY_ADMINS 526
      * }
      */
-    public static final AddressLayout PJOBOBJECT_BASIC_LIMIT_INFORMATION = RuntimeHelper.POINTER;
+    public static int DOMAIN_GROUP_RID_KEY_ADMINS() {
+        return DOMAIN_GROUP_RID_KEY_ADMINS;
+    }
+    private static final int DOMAIN_GROUP_RID_ENTERPRISE_KEY_ADMINS = (int)527L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_EXTENDED_LIMIT_INFORMATION* PJOBOBJECT_EXTENDED_LIMIT_INFORMATION;
+     * {@snippet lang=c :
+     * #define DOMAIN_GROUP_RID_ENTERPRISE_KEY_ADMINS 527
      * }
      */
-    public static final AddressLayout PJOBOBJECT_EXTENDED_LIMIT_INFORMATION = RuntimeHelper.POINTER;
+    public static int DOMAIN_GROUP_RID_ENTERPRISE_KEY_ADMINS() {
+        return DOMAIN_GROUP_RID_ENTERPRISE_KEY_ADMINS;
+    }
+    private static final int DOMAIN_ALIAS_RID_ADMINS = (int)544L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_BASIC_PROCESS_ID_LIST* PJOBOBJECT_BASIC_PROCESS_ID_LIST;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_ADMINS 544
      * }
      */
-    public static final AddressLayout PJOBOBJECT_BASIC_PROCESS_ID_LIST = RuntimeHelper.POINTER;
+    public static int DOMAIN_ALIAS_RID_ADMINS() {
+        return DOMAIN_ALIAS_RID_ADMINS;
+    }
+    private static final int DOMAIN_ALIAS_RID_USERS = (int)545L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_BASIC_UI_RESTRICTIONS* PJOBOBJECT_BASIC_UI_RESTRICTIONS;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_USERS 545
      * }
      */
-    public static final AddressLayout PJOBOBJECT_BASIC_UI_RESTRICTIONS = RuntimeHelper.POINTER;
+    public static int DOMAIN_ALIAS_RID_USERS() {
+        return DOMAIN_ALIAS_RID_USERS;
+    }
+    private static final int DOMAIN_ALIAS_RID_GUESTS = (int)546L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_SECURITY_LIMIT_INFORMATION* PJOBOBJECT_SECURITY_LIMIT_INFORMATION;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_GUESTS 546
      * }
      */
-    public static final AddressLayout PJOBOBJECT_SECURITY_LIMIT_INFORMATION = RuntimeHelper.POINTER;
+    public static int DOMAIN_ALIAS_RID_GUESTS() {
+        return DOMAIN_ALIAS_RID_GUESTS;
+    }
+    private static final int DOMAIN_ALIAS_RID_POWER_USERS = (int)547L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_END_OF_JOB_TIME_INFORMATION* PJOBOBJECT_END_OF_JOB_TIME_INFORMATION;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_POWER_USERS 547
      * }
      */
-    public static final AddressLayout PJOBOBJECT_END_OF_JOB_TIME_INFORMATION = RuntimeHelper.POINTER;
+    public static int DOMAIN_ALIAS_RID_POWER_USERS() {
+        return DOMAIN_ALIAS_RID_POWER_USERS;
+    }
+    private static final int DOMAIN_ALIAS_RID_ACCOUNT_OPS = (int)548L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_ASSOCIATE_COMPLETION_PORT* PJOBOBJECT_ASSOCIATE_COMPLETION_PORT;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_ACCOUNT_OPS 548
      * }
      */
-    public static final AddressLayout PJOBOBJECT_ASSOCIATE_COMPLETION_PORT = RuntimeHelper.POINTER;
+    public static int DOMAIN_ALIAS_RID_ACCOUNT_OPS() {
+        return DOMAIN_ALIAS_RID_ACCOUNT_OPS;
+    }
+    private static final int DOMAIN_ALIAS_RID_SYSTEM_OPS = (int)549L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION* PJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_SYSTEM_OPS 549
      * }
      */
-    public static final AddressLayout PJOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION = RuntimeHelper.POINTER;
+    public static int DOMAIN_ALIAS_RID_SYSTEM_OPS() {
+        return DOMAIN_ALIAS_RID_SYSTEM_OPS;
+    }
+    private static final int DOMAIN_ALIAS_RID_PRINT_OPS = (int)550L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_JOBSET_INFORMATION* PJOBOBJECT_JOBSET_INFORMATION;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_PRINT_OPS 550
      * }
      */
-    public static final AddressLayout PJOBOBJECT_JOBSET_INFORMATION = RuntimeHelper.POINTER;
+    public static int DOMAIN_ALIAS_RID_PRINT_OPS() {
+        return DOMAIN_ALIAS_RID_PRINT_OPS;
+    }
+    private static final int DOMAIN_ALIAS_RID_BACKUP_OPS = (int)551L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECT_RATE_CONTROL_TOLERANCE.ToleranceLow = 1;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_BACKUP_OPS 551
      * }
      */
-    public static int ToleranceLow() {
-        return (int)1L;
+    public static int DOMAIN_ALIAS_RID_BACKUP_OPS() {
+        return DOMAIN_ALIAS_RID_BACKUP_OPS;
     }
+    private static final int DOMAIN_ALIAS_RID_REPLICATOR = (int)552L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECT_RATE_CONTROL_TOLERANCE.ToleranceMedium = 2;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_REPLICATOR 552
      * }
      */
-    public static int ToleranceMedium() {
-        return (int)2L;
+    public static int DOMAIN_ALIAS_RID_REPLICATOR() {
+        return DOMAIN_ALIAS_RID_REPLICATOR;
     }
+    private static final int DOMAIN_ALIAS_RID_RAS_SERVERS = (int)553L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECT_RATE_CONTROL_TOLERANCE.ToleranceHigh = 3;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_RAS_SERVERS 553
      * }
      */
-    public static int ToleranceHigh() {
-        return (int)3L;
+    public static int DOMAIN_ALIAS_RID_RAS_SERVERS() {
+        return DOMAIN_ALIAS_RID_RAS_SERVERS;
     }
+    private static final int DOMAIN_ALIAS_RID_PREW2KCOMPACCESS = (int)554L;
     /**
-     * {@snippet :
-     * typedef enum _JOBOBJECT_RATE_CONTROL_TOLERANCE* PJOBOBJECT_RATE_CONTROL_TOLERANCE;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_PREW2KCOMPACCESS 554
      * }
      */
-    public static final AddressLayout PJOBOBJECT_RATE_CONTROL_TOLERANCE = RuntimeHelper.POINTER;
+    public static int DOMAIN_ALIAS_RID_PREW2KCOMPACCESS() {
+        return DOMAIN_ALIAS_RID_PREW2KCOMPACCESS;
+    }
+    private static final int DOMAIN_ALIAS_RID_REMOTE_DESKTOP_USERS = (int)555L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL.ToleranceIntervalShort = 1;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_REMOTE_DESKTOP_USERS 555
      * }
      */
-    public static int ToleranceIntervalShort() {
-        return (int)1L;
+    public static int DOMAIN_ALIAS_RID_REMOTE_DESKTOP_USERS() {
+        return DOMAIN_ALIAS_RID_REMOTE_DESKTOP_USERS;
     }
+    private static final int DOMAIN_ALIAS_RID_NETWORK_CONFIGURATION_OPS = (int)556L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL.ToleranceIntervalMedium = 2;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_NETWORK_CONFIGURATION_OPS 556
      * }
      */
-    public static int ToleranceIntervalMedium() {
-        return (int)2L;
+    public static int DOMAIN_ALIAS_RID_NETWORK_CONFIGURATION_OPS() {
+        return DOMAIN_ALIAS_RID_NETWORK_CONFIGURATION_OPS;
     }
+    private static final int DOMAIN_ALIAS_RID_INCOMING_FOREST_TRUST_BUILDERS = (int)557L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL.ToleranceIntervalLong = 3;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_INCOMING_FOREST_TRUST_BUILDERS 557
      * }
      */
-    public static int ToleranceIntervalLong() {
-        return (int)3L;
+    public static int DOMAIN_ALIAS_RID_INCOMING_FOREST_TRUST_BUILDERS() {
+        return DOMAIN_ALIAS_RID_INCOMING_FOREST_TRUST_BUILDERS;
     }
+    private static final int DOMAIN_ALIAS_RID_MONITORING_USERS = (int)558L;
     /**
-     * {@snippet :
-     * typedef enum _JOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL* PJOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_MONITORING_USERS 558
      * }
      */
-    public static final AddressLayout PJOBOBJECT_RATE_CONTROL_TOLERANCE_INTERVAL = RuntimeHelper.POINTER;
+    public static int DOMAIN_ALIAS_RID_MONITORING_USERS() {
+        return DOMAIN_ALIAS_RID_MONITORING_USERS;
+    }
+    private static final int DOMAIN_ALIAS_RID_LOGGING_USERS = (int)559L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_NOTIFICATION_LIMIT_INFORMATION* PJOBOBJECT_NOTIFICATION_LIMIT_INFORMATION;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_LOGGING_USERS 559
      * }
      */
-    public static final AddressLayout PJOBOBJECT_NOTIFICATION_LIMIT_INFORMATION = RuntimeHelper.POINTER;
+    public static int DOMAIN_ALIAS_RID_LOGGING_USERS() {
+        return DOMAIN_ALIAS_RID_LOGGING_USERS;
+    }
+    private static final int DOMAIN_ALIAS_RID_AUTHORIZATIONACCESS = (int)560L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_LIMIT_VIOLATION_INFORMATION* PJOBOBJECT_LIMIT_VIOLATION_INFORMATION;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_AUTHORIZATIONACCESS 560
      * }
      */
-    public static final AddressLayout PJOBOBJECT_LIMIT_VIOLATION_INFORMATION = RuntimeHelper.POINTER;
+    public static int DOMAIN_ALIAS_RID_AUTHORIZATIONACCESS() {
+        return DOMAIN_ALIAS_RID_AUTHORIZATIONACCESS;
+    }
+    private static final int DOMAIN_ALIAS_RID_TS_LICENSE_SERVERS = (int)561L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_CPU_RATE_CONTROL_INFORMATION* PJOBOBJECT_CPU_RATE_CONTROL_INFORMATION;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_TS_LICENSE_SERVERS 561
      * }
      */
-    public static final AddressLayout PJOBOBJECT_CPU_RATE_CONTROL_INFORMATION = RuntimeHelper.POINTER;
+    public static int DOMAIN_ALIAS_RID_TS_LICENSE_SERVERS() {
+        return DOMAIN_ALIAS_RID_TS_LICENSE_SERVERS;
+    }
+    private static final int DOMAIN_ALIAS_RID_DCOM_USERS = (int)562L;
     /**
-     * {@snippet :
-     * enum JOB_OBJECT_NET_RATE_CONTROL_FLAGS.JOB_OBJECT_NET_RATE_CONTROL_ENABLE = 1;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_DCOM_USERS 562
      * }
      */
-    public static int JOB_OBJECT_NET_RATE_CONTROL_ENABLE() {
-        return (int)1L;
+    public static int DOMAIN_ALIAS_RID_DCOM_USERS() {
+        return DOMAIN_ALIAS_RID_DCOM_USERS;
     }
+    private static final int DOMAIN_ALIAS_RID_IUSERS = (int)568L;
     /**
-     * {@snippet :
-     * enum JOB_OBJECT_NET_RATE_CONTROL_FLAGS.JOB_OBJECT_NET_RATE_CONTROL_MAX_BANDWIDTH = 2;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_IUSERS 568
      * }
      */
-    public static int JOB_OBJECT_NET_RATE_CONTROL_MAX_BANDWIDTH() {
-        return (int)2L;
+    public static int DOMAIN_ALIAS_RID_IUSERS() {
+        return DOMAIN_ALIAS_RID_IUSERS;
     }
+    private static final int DOMAIN_ALIAS_RID_CRYPTO_OPERATORS = (int)569L;
     /**
-     * {@snippet :
-     * enum JOB_OBJECT_NET_RATE_CONTROL_FLAGS.JOB_OBJECT_NET_RATE_CONTROL_DSCP_TAG = 4;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_CRYPTO_OPERATORS 569
      * }
      */
-    public static int JOB_OBJECT_NET_RATE_CONTROL_DSCP_TAG() {
-        return (int)4L;
+    public static int DOMAIN_ALIAS_RID_CRYPTO_OPERATORS() {
+        return DOMAIN_ALIAS_RID_CRYPTO_OPERATORS;
     }
+    private static final int DOMAIN_ALIAS_RID_CACHEABLE_PRINCIPALS_GROUP = (int)571L;
     /**
-     * {@snippet :
-     * enum JOB_OBJECT_NET_RATE_CONTROL_FLAGS.JOB_OBJECT_NET_RATE_CONTROL_VALID_FLAGS = 7;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_CACHEABLE_PRINCIPALS_GROUP 571
      * }
      */
-    public static int JOB_OBJECT_NET_RATE_CONTROL_VALID_FLAGS() {
-        return (int)7L;
+    public static int DOMAIN_ALIAS_RID_CACHEABLE_PRINCIPALS_GROUP() {
+        return DOMAIN_ALIAS_RID_CACHEABLE_PRINCIPALS_GROUP;
     }
+    private static final int DOMAIN_ALIAS_RID_NON_CACHEABLE_PRINCIPALS_GROUP = (int)572L;
     /**
-     * {@snippet :
-     * enum JOB_OBJECT_IO_RATE_CONTROL_FLAGS.JOB_OBJECT_IO_RATE_CONTROL_ENABLE = 1;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_NON_CACHEABLE_PRINCIPALS_GROUP 572
      * }
      */
-    public static int JOB_OBJECT_IO_RATE_CONTROL_ENABLE() {
-        return (int)1L;
+    public static int DOMAIN_ALIAS_RID_NON_CACHEABLE_PRINCIPALS_GROUP() {
+        return DOMAIN_ALIAS_RID_NON_CACHEABLE_PRINCIPALS_GROUP;
     }
+    private static final int DOMAIN_ALIAS_RID_EVENT_LOG_READERS_GROUP = (int)573L;
     /**
-     * {@snippet :
-     * enum JOB_OBJECT_IO_RATE_CONTROL_FLAGS.JOB_OBJECT_IO_RATE_CONTROL_STANDALONE_VOLUME = 2;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_EVENT_LOG_READERS_GROUP 573
      * }
      */
-    public static int JOB_OBJECT_IO_RATE_CONTROL_STANDALONE_VOLUME() {
-        return (int)2L;
+    public static int DOMAIN_ALIAS_RID_EVENT_LOG_READERS_GROUP() {
+        return DOMAIN_ALIAS_RID_EVENT_LOG_READERS_GROUP;
     }
+    private static final int DOMAIN_ALIAS_RID_CERTSVC_DCOM_ACCESS_GROUP = (int)574L;
     /**
-     * {@snippet :
-     * enum JOB_OBJECT_IO_RATE_CONTROL_FLAGS.JOB_OBJECT_IO_RATE_CONTROL_FORCE_UNIT_ACCESS_ALL = 4;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_CERTSVC_DCOM_ACCESS_GROUP 574
      * }
      */
-    public static int JOB_OBJECT_IO_RATE_CONTROL_FORCE_UNIT_ACCESS_ALL() {
-        return (int)4L;
+    public static int DOMAIN_ALIAS_RID_CERTSVC_DCOM_ACCESS_GROUP() {
+        return DOMAIN_ALIAS_RID_CERTSVC_DCOM_ACCESS_GROUP;
     }
+    private static final int DOMAIN_ALIAS_RID_RDS_REMOTE_ACCESS_SERVERS = (int)575L;
     /**
-     * {@snippet :
-     * enum JOB_OBJECT_IO_RATE_CONTROL_FLAGS.JOB_OBJECT_IO_RATE_CONTROL_FORCE_UNIT_ACCESS_ON_SOFT_CAP = 8;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_RDS_REMOTE_ACCESS_SERVERS 575
      * }
      */
-    public static int JOB_OBJECT_IO_RATE_CONTROL_FORCE_UNIT_ACCESS_ON_SOFT_CAP() {
-        return (int)8L;
+    public static int DOMAIN_ALIAS_RID_RDS_REMOTE_ACCESS_SERVERS() {
+        return DOMAIN_ALIAS_RID_RDS_REMOTE_ACCESS_SERVERS;
     }
+    private static final int DOMAIN_ALIAS_RID_RDS_ENDPOINT_SERVERS = (int)576L;
     /**
-     * {@snippet :
-     * enum JOB_OBJECT_IO_RATE_CONTROL_FLAGS.JOB_OBJECT_IO_RATE_CONTROL_VALID_FLAGS = 15;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_RDS_ENDPOINT_SERVERS 576
      * }
      */
-    public static int JOB_OBJECT_IO_RATE_CONTROL_VALID_FLAGS() {
-        return (int)15L;
+    public static int DOMAIN_ALIAS_RID_RDS_ENDPOINT_SERVERS() {
+        return DOMAIN_ALIAS_RID_RDS_ENDPOINT_SERVERS;
     }
+    private static final int DOMAIN_ALIAS_RID_RDS_MANAGEMENT_SERVERS = (int)577L;
     /**
-     * {@snippet :
-     * enum JOBOBJECT_IO_ATTRIBUTION_CONTROL_FLAGS.JOBOBJECT_IO_ATTRIBUTION_CONTROL_ENABLE = 1;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_RDS_MANAGEMENT_SERVERS 577
      * }
      */
-    public static int JOBOBJECT_IO_ATTRIBUTION_CONTROL_ENABLE() {
-        return (int)1L;
+    public static int DOMAIN_ALIAS_RID_RDS_MANAGEMENT_SERVERS() {
+        return DOMAIN_ALIAS_RID_RDS_MANAGEMENT_SERVERS;
     }
+    private static final int DOMAIN_ALIAS_RID_HYPER_V_ADMINS = (int)578L;
     /**
-     * {@snippet :
-     * enum JOBOBJECT_IO_ATTRIBUTION_CONTROL_FLAGS.JOBOBJECT_IO_ATTRIBUTION_CONTROL_DISABLE = 2;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_HYPER_V_ADMINS 578
      * }
      */
-    public static int JOBOBJECT_IO_ATTRIBUTION_CONTROL_DISABLE() {
-        return (int)2L;
+    public static int DOMAIN_ALIAS_RID_HYPER_V_ADMINS() {
+        return DOMAIN_ALIAS_RID_HYPER_V_ADMINS;
     }
+    private static final int DOMAIN_ALIAS_RID_ACCESS_CONTROL_ASSISTANCE_OPS = (int)579L;
     /**
-     * {@snippet :
-     * enum JOBOBJECT_IO_ATTRIBUTION_CONTROL_FLAGS.JOBOBJECT_IO_ATTRIBUTION_CONTROL_VALID_FLAGS = 3;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_ACCESS_CONTROL_ASSISTANCE_OPS 579
      * }
      */
-    public static int JOBOBJECT_IO_ATTRIBUTION_CONTROL_VALID_FLAGS() {
-        return (int)3L;
+    public static int DOMAIN_ALIAS_RID_ACCESS_CONTROL_ASSISTANCE_OPS() {
+        return DOMAIN_ALIAS_RID_ACCESS_CONTROL_ASSISTANCE_OPS;
     }
+    private static final int DOMAIN_ALIAS_RID_REMOTE_MANAGEMENT_USERS = (int)580L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_IO_ATTRIBUTION_STATS* PJOBOBJECT_IO_ATTRIBUTION_STATS;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_REMOTE_MANAGEMENT_USERS 580
      * }
      */
-    public static final AddressLayout PJOBOBJECT_IO_ATTRIBUTION_STATS = RuntimeHelper.POINTER;
+    public static int DOMAIN_ALIAS_RID_REMOTE_MANAGEMENT_USERS() {
+        return DOMAIN_ALIAS_RID_REMOTE_MANAGEMENT_USERS;
+    }
+    private static final int DOMAIN_ALIAS_RID_DEFAULT_ACCOUNT = (int)581L;
     /**
-     * {@snippet :
-     * typedef struct _JOBOBJECT_IO_ATTRIBUTION_INFORMATION* PJOBOBJECT_IO_ATTRIBUTION_INFORMATION;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_DEFAULT_ACCOUNT 581
      * }
      */
-    public static final AddressLayout PJOBOBJECT_IO_ATTRIBUTION_INFORMATION = RuntimeHelper.POINTER;
+    public static int DOMAIN_ALIAS_RID_DEFAULT_ACCOUNT() {
+        return DOMAIN_ALIAS_RID_DEFAULT_ACCOUNT;
+    }
+    private static final int DOMAIN_ALIAS_RID_STORAGE_REPLICA_ADMINS = (int)582L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectBasicAccountingInformation = 1;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_STORAGE_REPLICA_ADMINS 582
      * }
      */
-    public static int JobObjectBasicAccountingInformation() {
-        return (int)1L;
+    public static int DOMAIN_ALIAS_RID_STORAGE_REPLICA_ADMINS() {
+        return DOMAIN_ALIAS_RID_STORAGE_REPLICA_ADMINS;
     }
+    private static final int DOMAIN_ALIAS_RID_DEVICE_OWNERS = (int)583L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectBasicLimitInformation = 2;
+     * {@snippet lang=c :
+     * #define DOMAIN_ALIAS_RID_DEVICE_OWNERS 583
      * }
      */
-    public static int JobObjectBasicLimitInformation() {
-        return (int)2L;
+    public static int DOMAIN_ALIAS_RID_DEVICE_OWNERS() {
+        return DOMAIN_ALIAS_RID_DEVICE_OWNERS;
     }
+    private static final int SECURITY_APP_PACKAGE_BASE_RID = (int)2L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectBasicProcessIdList = 3;
+     * {@snippet lang=c :
+     * #define SECURITY_APP_PACKAGE_BASE_RID 2
      * }
      */
-    public static int JobObjectBasicProcessIdList() {
-        return (int)3L;
+    public static int SECURITY_APP_PACKAGE_BASE_RID() {
+        return SECURITY_APP_PACKAGE_BASE_RID;
     }
+    private static final int SECURITY_BUILTIN_APP_PACKAGE_RID_COUNT = (int)2L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectBasicUIRestrictions = 4;
+     * {@snippet lang=c :
+     * #define SECURITY_BUILTIN_APP_PACKAGE_RID_COUNT 2
      * }
      */
-    public static int JobObjectBasicUIRestrictions() {
-        return (int)4L;
+    public static int SECURITY_BUILTIN_APP_PACKAGE_RID_COUNT() {
+        return SECURITY_BUILTIN_APP_PACKAGE_RID_COUNT;
     }
+    private static final int SECURITY_APP_PACKAGE_RID_COUNT = (int)8L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectSecurityLimitInformation = 5;
+     * {@snippet lang=c :
+     * #define SECURITY_APP_PACKAGE_RID_COUNT 8
      * }
      */
-    public static int JobObjectSecurityLimitInformation() {
-        return (int)5L;
+    public static int SECURITY_APP_PACKAGE_RID_COUNT() {
+        return SECURITY_APP_PACKAGE_RID_COUNT;
     }
+    private static final int SECURITY_CAPABILITY_BASE_RID = (int)3L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectEndOfJobTimeInformation = 6;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_BASE_RID 3
      * }
      */
-    public static int JobObjectEndOfJobTimeInformation() {
-        return (int)6L;
+    public static int SECURITY_CAPABILITY_BASE_RID() {
+        return SECURITY_CAPABILITY_BASE_RID;
     }
+    private static final int SECURITY_CAPABILITY_APP_RID = (int)1024L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectAssociateCompletionPortInformation = 7;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_APP_RID 1024
      * }
      */
-    public static int JobObjectAssociateCompletionPortInformation() {
-        return (int)7L;
+    public static int SECURITY_CAPABILITY_APP_RID() {
+        return SECURITY_CAPABILITY_APP_RID;
     }
+    private static final int SECURITY_BUILTIN_CAPABILITY_RID_COUNT = (int)2L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectBasicAndIoAccountingInformation = 8;
+     * {@snippet lang=c :
+     * #define SECURITY_BUILTIN_CAPABILITY_RID_COUNT 2
      * }
      */
-    public static int JobObjectBasicAndIoAccountingInformation() {
-        return (int)8L;
+    public static int SECURITY_BUILTIN_CAPABILITY_RID_COUNT() {
+        return SECURITY_BUILTIN_CAPABILITY_RID_COUNT;
     }
+    private static final int SECURITY_CAPABILITY_RID_COUNT = (int)5L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectExtendedLimitInformation = 9;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_RID_COUNT 5
      * }
      */
-    public static int JobObjectExtendedLimitInformation() {
-        return (int)9L;
+    public static int SECURITY_CAPABILITY_RID_COUNT() {
+        return SECURITY_CAPABILITY_RID_COUNT;
     }
+    private static final int SECURITY_PARENT_PACKAGE_RID_COUNT = (int)8L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectJobSetInformation = 10;
+     * {@snippet lang=c :
+     * #define SECURITY_PARENT_PACKAGE_RID_COUNT 8
      * }
      */
-    public static int JobObjectJobSetInformation() {
-        return (int)10L;
+    public static int SECURITY_PARENT_PACKAGE_RID_COUNT() {
+        return SECURITY_PARENT_PACKAGE_RID_COUNT;
     }
+    private static final int SECURITY_CHILD_PACKAGE_RID_COUNT = (int)12L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectGroupInformation = 11;
+     * {@snippet lang=c :
+     * #define SECURITY_CHILD_PACKAGE_RID_COUNT 12
      * }
      */
-    public static int JobObjectGroupInformation() {
-        return (int)11L;
+    public static int SECURITY_CHILD_PACKAGE_RID_COUNT() {
+        return SECURITY_CHILD_PACKAGE_RID_COUNT;
     }
+    private static final int SECURITY_BUILTIN_PACKAGE_ANY_PACKAGE = (int)1L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectNotificationLimitInformation = 12;
+     * {@snippet lang=c :
+     * #define SECURITY_BUILTIN_PACKAGE_ANY_PACKAGE 1
      * }
      */
-    public static int JobObjectNotificationLimitInformation() {
-        return (int)12L;
+    public static int SECURITY_BUILTIN_PACKAGE_ANY_PACKAGE() {
+        return SECURITY_BUILTIN_PACKAGE_ANY_PACKAGE;
     }
+    private static final int SECURITY_BUILTIN_PACKAGE_ANY_RESTRICTED_PACKAGE = (int)2L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectLimitViolationInformation = 13;
+     * {@snippet lang=c :
+     * #define SECURITY_BUILTIN_PACKAGE_ANY_RESTRICTED_PACKAGE 2
      * }
      */
-    public static int JobObjectLimitViolationInformation() {
-        return (int)13L;
+    public static int SECURITY_BUILTIN_PACKAGE_ANY_RESTRICTED_PACKAGE() {
+        return SECURITY_BUILTIN_PACKAGE_ANY_RESTRICTED_PACKAGE;
     }
+    private static final int SECURITY_CAPABILITY_INTERNET_CLIENT = (int)1L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectGroupInformationEx = 14;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_INTERNET_CLIENT 1
      * }
      */
-    public static int JobObjectGroupInformationEx() {
-        return (int)14L;
+    public static int SECURITY_CAPABILITY_INTERNET_CLIENT() {
+        return SECURITY_CAPABILITY_INTERNET_CLIENT;
     }
+    private static final int SECURITY_CAPABILITY_INTERNET_CLIENT_SERVER = (int)2L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectCpuRateControlInformation = 15;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_INTERNET_CLIENT_SERVER 2
      * }
      */
-    public static int JobObjectCpuRateControlInformation() {
-        return (int)15L;
+    public static int SECURITY_CAPABILITY_INTERNET_CLIENT_SERVER() {
+        return SECURITY_CAPABILITY_INTERNET_CLIENT_SERVER;
     }
+    private static final int SECURITY_CAPABILITY_PRIVATE_NETWORK_CLIENT_SERVER = (int)3L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectCompletionFilter = 16;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_PRIVATE_NETWORK_CLIENT_SERVER 3
      * }
      */
-    public static int JobObjectCompletionFilter() {
-        return (int)16L;
+    public static int SECURITY_CAPABILITY_PRIVATE_NETWORK_CLIENT_SERVER() {
+        return SECURITY_CAPABILITY_PRIVATE_NETWORK_CLIENT_SERVER;
     }
+    private static final int SECURITY_CAPABILITY_PICTURES_LIBRARY = (int)4L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectCompletionCounter = 17;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_PICTURES_LIBRARY 4
      * }
      */
-    public static int JobObjectCompletionCounter() {
-        return (int)17L;
+    public static int SECURITY_CAPABILITY_PICTURES_LIBRARY() {
+        return SECURITY_CAPABILITY_PICTURES_LIBRARY;
     }
+    private static final int SECURITY_CAPABILITY_VIDEOS_LIBRARY = (int)5L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved1Information = 18;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_VIDEOS_LIBRARY 5
      * }
      */
-    public static int JobObjectReserved1Information() {
-        return (int)18L;
+    public static int SECURITY_CAPABILITY_VIDEOS_LIBRARY() {
+        return SECURITY_CAPABILITY_VIDEOS_LIBRARY;
     }
+    private static final int SECURITY_CAPABILITY_MUSIC_LIBRARY = (int)6L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved2Information = 19;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_MUSIC_LIBRARY 6
      * }
      */
-    public static int JobObjectReserved2Information() {
-        return (int)19L;
+    public static int SECURITY_CAPABILITY_MUSIC_LIBRARY() {
+        return SECURITY_CAPABILITY_MUSIC_LIBRARY;
     }
+    private static final int SECURITY_CAPABILITY_DOCUMENTS_LIBRARY = (int)7L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved3Information = 20;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_DOCUMENTS_LIBRARY 7
      * }
      */
-    public static int JobObjectReserved3Information() {
-        return (int)20L;
+    public static int SECURITY_CAPABILITY_DOCUMENTS_LIBRARY() {
+        return SECURITY_CAPABILITY_DOCUMENTS_LIBRARY;
     }
+    private static final int SECURITY_CAPABILITY_ENTERPRISE_AUTHENTICATION = (int)8L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved4Information = 21;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_ENTERPRISE_AUTHENTICATION 8
      * }
      */
-    public static int JobObjectReserved4Information() {
-        return (int)21L;
+    public static int SECURITY_CAPABILITY_ENTERPRISE_AUTHENTICATION() {
+        return SECURITY_CAPABILITY_ENTERPRISE_AUTHENTICATION;
     }
+    private static final int SECURITY_CAPABILITY_SHARED_USER_CERTIFICATES = (int)9L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved5Information = 22;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_SHARED_USER_CERTIFICATES 9
      * }
      */
-    public static int JobObjectReserved5Information() {
-        return (int)22L;
+    public static int SECURITY_CAPABILITY_SHARED_USER_CERTIFICATES() {
+        return SECURITY_CAPABILITY_SHARED_USER_CERTIFICATES;
     }
+    private static final int SECURITY_CAPABILITY_REMOVABLE_STORAGE = (int)10L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved6Information = 23;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_REMOVABLE_STORAGE 10
      * }
      */
-    public static int JobObjectReserved6Information() {
-        return (int)23L;
+    public static int SECURITY_CAPABILITY_REMOVABLE_STORAGE() {
+        return SECURITY_CAPABILITY_REMOVABLE_STORAGE;
     }
+    private static final int SECURITY_CAPABILITY_APPOINTMENTS = (int)11L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved7Information = 24;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_APPOINTMENTS 11
      * }
      */
-    public static int JobObjectReserved7Information() {
-        return (int)24L;
+    public static int SECURITY_CAPABILITY_APPOINTMENTS() {
+        return SECURITY_CAPABILITY_APPOINTMENTS;
     }
+    private static final int SECURITY_CAPABILITY_CONTACTS = (int)12L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved8Information = 25;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_CONTACTS 12
      * }
      */
-    public static int JobObjectReserved8Information() {
-        return (int)25L;
+    public static int SECURITY_CAPABILITY_CONTACTS() {
+        return SECURITY_CAPABILITY_CONTACTS;
     }
+    private static final int SECURITY_CAPABILITY_INTERNET_EXPLORER = (int)4096L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved9Information = 26;
+     * {@snippet lang=c :
+     * #define SECURITY_CAPABILITY_INTERNET_EXPLORER 4096
      * }
      */
-    public static int JobObjectReserved9Information() {
-        return (int)26L;
+    public static int SECURITY_CAPABILITY_INTERNET_EXPLORER() {
+        return SECURITY_CAPABILITY_INTERNET_EXPLORER;
     }
+    private static final int SECURITY_MANDATORY_UNTRUSTED_RID = (int)0L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved10Information = 27;
+     * {@snippet lang=c :
+     * #define SECURITY_MANDATORY_UNTRUSTED_RID 0
      * }
      */
-    public static int JobObjectReserved10Information() {
-        return (int)27L;
+    public static int SECURITY_MANDATORY_UNTRUSTED_RID() {
+        return SECURITY_MANDATORY_UNTRUSTED_RID;
     }
+    private static final int SECURITY_MANDATORY_LOW_RID = (int)4096L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved11Information = 28;
+     * {@snippet lang=c :
+     * #define SECURITY_MANDATORY_LOW_RID 4096
      * }
      */
-    public static int JobObjectReserved11Information() {
-        return (int)28L;
+    public static int SECURITY_MANDATORY_LOW_RID() {
+        return SECURITY_MANDATORY_LOW_RID;
     }
+    private static final int SECURITY_MANDATORY_MEDIUM_RID = (int)8192L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved12Information = 29;
+     * {@snippet lang=c :
+     * #define SECURITY_MANDATORY_MEDIUM_RID 8192
      * }
      */
-    public static int JobObjectReserved12Information() {
-        return (int)29L;
+    public static int SECURITY_MANDATORY_MEDIUM_RID() {
+        return SECURITY_MANDATORY_MEDIUM_RID;
     }
+    private static final int SECURITY_MANDATORY_MEDIUM_PLUS_RID = (int)8448L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved13Information = 30;
+     * {@snippet lang=c :
+     * #define SECURITY_MANDATORY_MEDIUM_PLUS_RID 8448
      * }
      */
-    public static int JobObjectReserved13Information() {
-        return (int)30L;
+    public static int SECURITY_MANDATORY_MEDIUM_PLUS_RID() {
+        return SECURITY_MANDATORY_MEDIUM_PLUS_RID;
     }
+    private static final int SECURITY_MANDATORY_HIGH_RID = (int)12288L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved14Information = 31;
+     * {@snippet lang=c :
+     * #define SECURITY_MANDATORY_HIGH_RID 12288
      * }
      */
-    public static int JobObjectReserved14Information() {
-        return (int)31L;
+    public static int SECURITY_MANDATORY_HIGH_RID() {
+        return SECURITY_MANDATORY_HIGH_RID;
     }
+    private static final int SECURITY_MANDATORY_SYSTEM_RID = (int)16384L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectNetRateControlInformation = 32;
+     * {@snippet lang=c :
+     * #define SECURITY_MANDATORY_SYSTEM_RID 16384
      * }
      */
-    public static int JobObjectNetRateControlInformation() {
-        return (int)32L;
+    public static int SECURITY_MANDATORY_SYSTEM_RID() {
+        return SECURITY_MANDATORY_SYSTEM_RID;
     }
+    private static final int SECURITY_MANDATORY_PROTECTED_PROCESS_RID = (int)20480L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectNotificationLimitInformation2 = 33;
+     * {@snippet lang=c :
+     * #define SECURITY_MANDATORY_PROTECTED_PROCESS_RID 20480
      * }
      */
-    public static int JobObjectNotificationLimitInformation2() {
-        return (int)33L;
+    public static int SECURITY_MANDATORY_PROTECTED_PROCESS_RID() {
+        return SECURITY_MANDATORY_PROTECTED_PROCESS_RID;
     }
+    private static final int SECURITY_MANDATORY_MAXIMUM_USER_RID = (int)16384L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectLimitViolationInformation2 = 34;
+     * {@snippet lang=c :
+     * #define SECURITY_MANDATORY_MAXIMUM_USER_RID 16384
      * }
      */
-    public static int JobObjectLimitViolationInformation2() {
-        return (int)34L;
+    public static int SECURITY_MANDATORY_MAXIMUM_USER_RID() {
+        return SECURITY_MANDATORY_MAXIMUM_USER_RID;
     }
+    private static final int SECURITY_AUTHENTICATION_AUTHORITY_RID_COUNT = (int)1L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectCreateSilo = 35;
+     * {@snippet lang=c :
+     * #define SECURITY_AUTHENTICATION_AUTHORITY_RID_COUNT 1
      * }
      */
-    public static int JobObjectCreateSilo() {
-        return (int)35L;
+    public static int SECURITY_AUTHENTICATION_AUTHORITY_RID_COUNT() {
+        return SECURITY_AUTHENTICATION_AUTHORITY_RID_COUNT;
     }
+    private static final int SECURITY_AUTHENTICATION_AUTHORITY_ASSERTED_RID = (int)1L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectSiloBasicInformation = 36;
+     * {@snippet lang=c :
+     * #define SECURITY_AUTHENTICATION_AUTHORITY_ASSERTED_RID 1
      * }
      */
-    public static int JobObjectSiloBasicInformation() {
-        return (int)36L;
+    public static int SECURITY_AUTHENTICATION_AUTHORITY_ASSERTED_RID() {
+        return SECURITY_AUTHENTICATION_AUTHORITY_ASSERTED_RID;
     }
+    private static final int SECURITY_AUTHENTICATION_SERVICE_ASSERTED_RID = (int)2L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved15Information = 37;
+     * {@snippet lang=c :
+     * #define SECURITY_AUTHENTICATION_SERVICE_ASSERTED_RID 2
      * }
      */
-    public static int JobObjectReserved15Information() {
-        return (int)37L;
+    public static int SECURITY_AUTHENTICATION_SERVICE_ASSERTED_RID() {
+        return SECURITY_AUTHENTICATION_SERVICE_ASSERTED_RID;
     }
+    private static final int SECURITY_AUTHENTICATION_FRESH_KEY_AUTH_RID = (int)3L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved16Information = 38;
+     * {@snippet lang=c :
+     * #define SECURITY_AUTHENTICATION_FRESH_KEY_AUTH_RID 3
      * }
      */
-    public static int JobObjectReserved16Information() {
-        return (int)38L;
+    public static int SECURITY_AUTHENTICATION_FRESH_KEY_AUTH_RID() {
+        return SECURITY_AUTHENTICATION_FRESH_KEY_AUTH_RID;
     }
+    private static final int SECURITY_AUTHENTICATION_KEY_TRUST_RID = (int)4L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved17Information = 39;
+     * {@snippet lang=c :
+     * #define SECURITY_AUTHENTICATION_KEY_TRUST_RID 4
      * }
      */
-    public static int JobObjectReserved17Information() {
-        return (int)39L;
+    public static int SECURITY_AUTHENTICATION_KEY_TRUST_RID() {
+        return SECURITY_AUTHENTICATION_KEY_TRUST_RID;
     }
+    private static final int SECURITY_AUTHENTICATION_KEY_PROPERTY_MFA_RID = (int)5L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved18Information = 40;
+     * {@snippet lang=c :
+     * #define SECURITY_AUTHENTICATION_KEY_PROPERTY_MFA_RID 5
      * }
      */
-    public static int JobObjectReserved18Information() {
-        return (int)40L;
+    public static int SECURITY_AUTHENTICATION_KEY_PROPERTY_MFA_RID() {
+        return SECURITY_AUTHENTICATION_KEY_PROPERTY_MFA_RID;
     }
+    private static final int SECURITY_AUTHENTICATION_KEY_PROPERTY_ATTESTATION_RID = (int)6L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved19Information = 41;
+     * {@snippet lang=c :
+     * #define SECURITY_AUTHENTICATION_KEY_PROPERTY_ATTESTATION_RID 6
      * }
      */
-    public static int JobObjectReserved19Information() {
-        return (int)41L;
+    public static int SECURITY_AUTHENTICATION_KEY_PROPERTY_ATTESTATION_RID() {
+        return SECURITY_AUTHENTICATION_KEY_PROPERTY_ATTESTATION_RID;
     }
+    private static final int SECURITY_PROCESS_TRUST_AUTHORITY_RID_COUNT = (int)2L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved20Information = 42;
+     * {@snippet lang=c :
+     * #define SECURITY_PROCESS_TRUST_AUTHORITY_RID_COUNT 2
      * }
      */
-    public static int JobObjectReserved20Information() {
-        return (int)42L;
+    public static int SECURITY_PROCESS_TRUST_AUTHORITY_RID_COUNT() {
+        return SECURITY_PROCESS_TRUST_AUTHORITY_RID_COUNT;
     }
+    private static final int SECURITY_PROCESS_PROTECTION_TYPE_FULL_RID = (int)1024L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved21Information = 43;
+     * {@snippet lang=c :
+     * #define SECURITY_PROCESS_PROTECTION_TYPE_FULL_RID 1024
      * }
      */
-    public static int JobObjectReserved21Information() {
-        return (int)43L;
+    public static int SECURITY_PROCESS_PROTECTION_TYPE_FULL_RID() {
+        return SECURITY_PROCESS_PROTECTION_TYPE_FULL_RID;
     }
+    private static final int SECURITY_PROCESS_PROTECTION_TYPE_LITE_RID = (int)512L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved22Information = 44;
+     * {@snippet lang=c :
+     * #define SECURITY_PROCESS_PROTECTION_TYPE_LITE_RID 512
      * }
      */
-    public static int JobObjectReserved22Information() {
-        return (int)44L;
+    public static int SECURITY_PROCESS_PROTECTION_TYPE_LITE_RID() {
+        return SECURITY_PROCESS_PROTECTION_TYPE_LITE_RID;
     }
+    private static final int SECURITY_PROCESS_PROTECTION_TYPE_NONE_RID = (int)0L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved23Information = 45;
+     * {@snippet lang=c :
+     * #define SECURITY_PROCESS_PROTECTION_TYPE_NONE_RID 0
      * }
      */
-    public static int JobObjectReserved23Information() {
-        return (int)45L;
+    public static int SECURITY_PROCESS_PROTECTION_TYPE_NONE_RID() {
+        return SECURITY_PROCESS_PROTECTION_TYPE_NONE_RID;
     }
+    private static final int SECURITY_PROCESS_PROTECTION_LEVEL_WINTCB_RID = (int)8192L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved24Information = 46;
+     * {@snippet lang=c :
+     * #define SECURITY_PROCESS_PROTECTION_LEVEL_WINTCB_RID 8192
      * }
      */
-    public static int JobObjectReserved24Information() {
-        return (int)46L;
+    public static int SECURITY_PROCESS_PROTECTION_LEVEL_WINTCB_RID() {
+        return SECURITY_PROCESS_PROTECTION_LEVEL_WINTCB_RID;
     }
+    private static final int SECURITY_PROCESS_PROTECTION_LEVEL_WINDOWS_RID = (int)4096L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.JobObjectReserved25Information = 47;
+     * {@snippet lang=c :
+     * #define SECURITY_PROCESS_PROTECTION_LEVEL_WINDOWS_RID 4096
      * }
      */
-    public static int JobObjectReserved25Information() {
-        return (int)47L;
+    public static int SECURITY_PROCESS_PROTECTION_LEVEL_WINDOWS_RID() {
+        return SECURITY_PROCESS_PROTECTION_LEVEL_WINDOWS_RID;
     }
+    private static final int SECURITY_PROCESS_PROTECTION_LEVEL_APP_RID = (int)2048L;
     /**
-     * {@snippet :
-     * enum _JOBOBJECTINFOCLASS.MaxJobObjectInfoClass = 48;
+     * {@snippet lang=c :
+     * #define SECURITY_PROCESS_PROTECTION_LEVEL_APP_RID 2048
      * }
      */
-    public static int MaxJobObjectInfoClass() {
-        return (int)48L;
+    public static int SECURITY_PROCESS_PROTECTION_LEVEL_APP_RID() {
+        return SECURITY_PROCESS_PROTECTION_LEVEL_APP_RID;
     }
+    private static final int SECURITY_PROCESS_PROTECTION_LEVEL_ANTIMALWARE_RID = (int)1536L;
     /**
-     * {@snippet :
-     * typedef struct _SILOOBJECT_BASIC_INFORMATION* PSILOOBJECT_BASIC_INFORMATION;
+     * {@snippet lang=c :
+     * #define SECURITY_PROCESS_PROTECTION_LEVEL_ANTIMALWARE_RID 1536
      * }
      */
-    public static final AddressLayout PSILOOBJECT_BASIC_INFORMATION = RuntimeHelper.POINTER;
+    public static int SECURITY_PROCESS_PROTECTION_LEVEL_ANTIMALWARE_RID() {
+        return SECURITY_PROCESS_PROTECTION_LEVEL_ANTIMALWARE_RID;
+    }
+    private static final int SECURITY_PROCESS_PROTECTION_LEVEL_AUTHENTICODE_RID = (int)1024L;
     /**
-     * {@snippet :
-     * enum _SERVERSILO_STATE.SERVERSILO_INITING = 0;
+     * {@snippet lang=c :
+     * #define SECURITY_PROCESS_PROTECTION_LEVEL_AUTHENTICODE_RID 1024
      * }
      */
-    public static int SERVERSILO_INITING() {
-        return (int)0L;
+    public static int SECURITY_PROCESS_PROTECTION_LEVEL_AUTHENTICODE_RID() {
+        return SECURITY_PROCESS_PROTECTION_LEVEL_AUTHENTICODE_RID;
     }
+    private static final int SECURITY_PROCESS_PROTECTION_LEVEL_NONE_RID = (int)0L;
     /**
-     * {@snippet :
-     * enum _SERVERSILO_STATE.SERVERSILO_STARTED = 1;
+     * {@snippet lang=c :
+     * #define SECURITY_PROCESS_PROTECTION_LEVEL_NONE_RID 0
      * }
      */
-    public static int SERVERSILO_STARTED() {
-        return (int)1L;
+    public static int SECURITY_PROCESS_PROTECTION_LEVEL_NONE_RID() {
+        return SECURITY_PROCESS_PROTECTION_LEVEL_NONE_RID;
     }
+    private static final long SECURITY_TRUSTED_INSTALLER_RID2 = 3418522649L;
     /**
-     * {@snippet :
-     * enum _SERVERSILO_STATE.SERVERSILO_SHUTTING_DOWN = 2;
+     * {@snippet lang=c :
+     * #define SECURITY_TRUSTED_INSTALLER_RID2 3418522649
      * }
      */
-    public static int SERVERSILO_SHUTTING_DOWN() {
-        return (int)2L;
+    public static long SECURITY_TRUSTED_INSTALLER_RID2() {
+        return SECURITY_TRUSTED_INSTALLER_RID2;
     }
+    private static final long SECURITY_TRUSTED_INSTALLER_RID5 = 2271478464L;
     /**
-     * {@snippet :
-     * enum _SERVERSILO_STATE.SERVERSILO_TERMINATING = 3;
+     * {@snippet lang=c :
+     * #define SECURITY_TRUSTED_INSTALLER_RID5 2271478464
      * }
      */
-    public static int SERVERSILO_TERMINATING() {
-        return (int)3L;
+    public static long SECURITY_TRUSTED_INSTALLER_RID5() {
+        return SECURITY_TRUSTED_INSTALLER_RID5;
     }
+    private static final int SE_GROUP_MANDATORY = (int)1L;
     /**
-     * {@snippet :
-     * enum _SERVERSILO_STATE.SERVERSILO_TERMINATED = 4;
+     * {@snippet lang=c :
+     * #define SE_GROUP_MANDATORY 1
      * }
      */
-    public static int SERVERSILO_TERMINATED() {
-        return (int)4L;
+    public static int SE_GROUP_MANDATORY() {
+        return SE_GROUP_MANDATORY;
     }
+    private static final int SE_GROUP_ENABLED_BY_DEFAULT = (int)2L;
     /**
-     * {@snippet :
-     * typedef enum _SERVERSILO_STATE* PSERVERSILO_STATE;
+     * {@snippet lang=c :
+     * #define SE_GROUP_ENABLED_BY_DEFAULT 2
      * }
      */
-    public static final AddressLayout PSERVERSILO_STATE = RuntimeHelper.POINTER;
+    public static int SE_GROUP_ENABLED_BY_DEFAULT() {
+        return SE_GROUP_ENABLED_BY_DEFAULT;
+    }
+    private static final int SE_GROUP_ENABLED = (int)4L;
     /**
-     * {@snippet :
-     * typedef struct _SERVERSILO_BASIC_INFORMATION* PSERVERSILO_BASIC_INFORMATION;
+     * {@snippet lang=c :
+     * #define SE_GROUP_ENABLED 4
      * }
      */
-    public static final AddressLayout PSERVERSILO_BASIC_INFORMATION = RuntimeHelper.POINTER;
+    public static int SE_GROUP_ENABLED() {
+        return SE_GROUP_ENABLED;
+    }
+    private static final int SE_GROUP_OWNER = (int)8L;
     /**
-     * {@snippet :
-     * enum _FIRMWARE_TYPE.FirmwareTypeUnknown = 0;
+     * {@snippet lang=c :
+     * #define SE_GROUP_OWNER 8
      * }
      */
-    public static int FirmwareTypeUnknown() {
-        return (int)0L;
+    public static int SE_GROUP_OWNER() {
+        return SE_GROUP_OWNER;
     }
+    private static final int SE_GROUP_USE_FOR_DENY_ONLY = (int)16L;
     /**
-     * {@snippet :
-     * enum _FIRMWARE_TYPE.FirmwareTypeBios = 1;
+     * {@snippet lang=c :
+     * #define SE_GROUP_USE_FOR_DENY_ONLY 16
      * }
      */
-    public static int FirmwareTypeBios() {
-        return (int)1L;
+    public static int SE_GROUP_USE_FOR_DENY_ONLY() {
+        return SE_GROUP_USE_FOR_DENY_ONLY;
     }
+    private static final int SE_GROUP_INTEGRITY = (int)32L;
     /**
-     * {@snippet :
-     * enum _FIRMWARE_TYPE.FirmwareTypeUefi = 2;
+     * {@snippet lang=c :
+     * #define SE_GROUP_INTEGRITY 32
      * }
      */
-    public static int FirmwareTypeUefi() {
-        return (int)2L;
+    public static int SE_GROUP_INTEGRITY() {
+        return SE_GROUP_INTEGRITY;
     }
+    private static final int SE_GROUP_INTEGRITY_ENABLED = (int)64L;
     /**
-     * {@snippet :
-     * enum _FIRMWARE_TYPE.FirmwareTypeMax = 3;
+     * {@snippet lang=c :
+     * #define SE_GROUP_INTEGRITY_ENABLED 64
      * }
      */
-    public static int FirmwareTypeMax() {
-        return (int)3L;
+    public static int SE_GROUP_INTEGRITY_ENABLED() {
+        return SE_GROUP_INTEGRITY_ENABLED;
     }
+    private static final int SE_GROUP_LOGON_ID = (int)3221225472L;
     /**
-     * {@snippet :
-     * typedef enum _FIRMWARE_TYPE* PFIRMWARE_TYPE;
+     * {@snippet lang=c :
+     * #define SE_GROUP_LOGON_ID 3221225472
      * }
      */
-    public static final AddressLayout PFIRMWARE_TYPE = RuntimeHelper.POINTER;
+    public static int SE_GROUP_LOGON_ID() {
+        return SE_GROUP_LOGON_ID;
+    }
+    private static final int SE_GROUP_RESOURCE = (int)536870912L;
     /**
-     * {@snippet :
-     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationProcessorCore = 0;
+     * {@snippet lang=c :
+     * #define SE_GROUP_RESOURCE 536870912
      * }
      */
-    public static int RelationProcessorCore() {
-        return (int)0L;
+    public static int SE_GROUP_RESOURCE() {
+        return SE_GROUP_RESOURCE;
     }
+    private static final int SE_GROUP_VALID_ATTRIBUTES = (int)3758096511L;
     /**
-     * {@snippet :
-     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationNumaNode = 1;
+     * {@snippet lang=c :
+     * #define SE_GROUP_VALID_ATTRIBUTES 3758096511
      * }
      */
-    public static int RelationNumaNode() {
-        return (int)1L;
+    public static int SE_GROUP_VALID_ATTRIBUTES() {
+        return SE_GROUP_VALID_ATTRIBUTES;
     }
+    private static final int ACL_REVISION = (int)2L;
     /**
-     * {@snippet :
-     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationCache = 2;
+     * {@snippet lang=c :
+     * #define ACL_REVISION 2
      * }
      */
-    public static int RelationCache() {
-        return (int)2L;
+    public static int ACL_REVISION() {
+        return ACL_REVISION;
     }
+    private static final int ACL_REVISION_DS = (int)4L;
     /**
-     * {@snippet :
-     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationProcessorPackage = 3;
+     * {@snippet lang=c :
+     * #define ACL_REVISION_DS 4
      * }
      */
-    public static int RelationProcessorPackage() {
-        return (int)3L;
+    public static int ACL_REVISION_DS() {
+        return ACL_REVISION_DS;
     }
+    private static final int ACL_REVISION1 = (int)1L;
     /**
-     * {@snippet :
-     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationGroup = 4;
+     * {@snippet lang=c :
+     * #define ACL_REVISION1 1
      * }
      */
-    public static int RelationGroup() {
-        return (int)4L;
+    public static int ACL_REVISION1() {
+        return ACL_REVISION1;
     }
+    private static final int MIN_ACL_REVISION = (int)2L;
     /**
-     * {@snippet :
-     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationProcessorDie = 5;
+     * {@snippet lang=c :
+     * #define MIN_ACL_REVISION 2
      * }
      */
-    public static int RelationProcessorDie() {
-        return (int)5L;
+    public static int MIN_ACL_REVISION() {
+        return MIN_ACL_REVISION;
     }
+    private static final int ACL_REVISION2 = (int)2L;
     /**
-     * {@snippet :
-     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationNumaNodeEx = 6;
+     * {@snippet lang=c :
+     * #define ACL_REVISION2 2
      * }
      */
-    public static int RelationNumaNodeEx() {
-        return (int)6L;
+    public static int ACL_REVISION2() {
+        return ACL_REVISION2;
     }
+    private static final int ACL_REVISION3 = (int)3L;
     /**
-     * {@snippet :
-     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationProcessorModule = 7;
+     * {@snippet lang=c :
+     * #define ACL_REVISION3 3
      * }
      */
-    public static int RelationProcessorModule() {
-        return (int)7L;
+    public static int ACL_REVISION3() {
+        return ACL_REVISION3;
     }
+    private static final int ACL_REVISION4 = (int)4L;
     /**
-     * {@snippet :
-     * enum _LOGICAL_PROCESSOR_RELATIONSHIP.RelationAll = 65535;
+     * {@snippet lang=c :
+     * #define ACL_REVISION4 4
      * }
      */
-    public static int RelationAll() {
-        return (int)65535L;
+    public static int ACL_REVISION4() {
+        return ACL_REVISION4;
     }
+    private static final int MAX_ACL_REVISION = (int)4L;
     /**
-     * {@snippet :
-     * enum _PROCESSOR_CACHE_TYPE.CacheUnified = 0;
+     * {@snippet lang=c :
+     * #define MAX_ACL_REVISION 4
      * }
      */
-    public static int CacheUnified() {
-        return (int)0L;
+    public static int MAX_ACL_REVISION() {
+        return MAX_ACL_REVISION;
     }
+    private static final int ACCESS_MIN_MS_ACE_TYPE = (int)0L;
     /**
-     * {@snippet :
-     * enum _PROCESSOR_CACHE_TYPE.CacheInstruction = 1;
+     * {@snippet lang=c :
+     * #define ACCESS_MIN_MS_ACE_TYPE 0
      * }
      */
-    public static int CacheInstruction() {
-        return (int)1L;
+    public static int ACCESS_MIN_MS_ACE_TYPE() {
+        return ACCESS_MIN_MS_ACE_TYPE;
     }
+    private static final int ACCESS_ALLOWED_ACE_TYPE = (int)0L;
     /**
-     * {@snippet :
-     * enum _PROCESSOR_CACHE_TYPE.CacheData = 2;
+     * {@snippet lang=c :
+     * #define ACCESS_ALLOWED_ACE_TYPE 0
      * }
      */
-    public static int CacheData() {
-        return (int)2L;
+    public static int ACCESS_ALLOWED_ACE_TYPE() {
+        return ACCESS_ALLOWED_ACE_TYPE;
     }
+    private static final int ACCESS_DENIED_ACE_TYPE = (int)1L;
     /**
-     * {@snippet :
-     * enum _PROCESSOR_CACHE_TYPE.CacheTrace = 3;
+     * {@snippet lang=c :
+     * #define ACCESS_DENIED_ACE_TYPE 1
      * }
      */
-    public static int CacheTrace() {
-        return (int)3L;
+    public static int ACCESS_DENIED_ACE_TYPE() {
+        return ACCESS_DENIED_ACE_TYPE;
     }
+    private static final int SYSTEM_AUDIT_ACE_TYPE = (int)2L;
     /**
-     * {@snippet :
-     * typedef struct _CACHE_DESCRIPTOR* PCACHE_DESCRIPTOR;
+     * {@snippet lang=c :
+     * #define SYSTEM_AUDIT_ACE_TYPE 2
      * }
      */
-    public static final AddressLayout PCACHE_DESCRIPTOR = RuntimeHelper.POINTER;
+    public static int SYSTEM_AUDIT_ACE_TYPE() {
+        return SYSTEM_AUDIT_ACE_TYPE;
+    }
+    private static final int SYSTEM_ALARM_ACE_TYPE = (int)3L;
     /**
-     * {@snippet :
-     * typedef struct _SYSTEM_LOGICAL_PROCESSOR_INFORMATION* PSYSTEM_LOGICAL_PROCESSOR_INFORMATION;
+     * {@snippet lang=c :
+     * #define SYSTEM_ALARM_ACE_TYPE 3
      * }
      */
-    public static final AddressLayout PSYSTEM_LOGICAL_PROCESSOR_INFORMATION = RuntimeHelper.POINTER;
+    public static int SYSTEM_ALARM_ACE_TYPE() {
+        return SYSTEM_ALARM_ACE_TYPE;
+    }
+    private static final int ACCESS_MAX_MS_V2_ACE_TYPE = (int)3L;
     /**
-     * {@snippet :
-     * typedef struct _PROCESSOR_RELATIONSHIP* PPROCESSOR_RELATIONSHIP;
+     * {@snippet lang=c :
+     * #define ACCESS_MAX_MS_V2_ACE_TYPE 3
      * }
      */
-    public static final AddressLayout PPROCESSOR_RELATIONSHIP = RuntimeHelper.POINTER;
+    public static int ACCESS_MAX_MS_V2_ACE_TYPE() {
+        return ACCESS_MAX_MS_V2_ACE_TYPE;
+    }
+    private static final int ACCESS_ALLOWED_COMPOUND_ACE_TYPE = (int)4L;
     /**
-     * {@snippet :
-     * typedef struct _NUMA_NODE_RELATIONSHIP* PNUMA_NODE_RELATIONSHIP;
+     * {@snippet lang=c :
+     * #define ACCESS_ALLOWED_COMPOUND_ACE_TYPE 4
      * }
      */
-    public static final AddressLayout PNUMA_NODE_RELATIONSHIP = RuntimeHelper.POINTER;
+    public static int ACCESS_ALLOWED_COMPOUND_ACE_TYPE() {
+        return ACCESS_ALLOWED_COMPOUND_ACE_TYPE;
+    }
+    private static final int ACCESS_MAX_MS_V3_ACE_TYPE = (int)4L;
     /**
-     * {@snippet :
-     * typedef struct _CACHE_RELATIONSHIP* PCACHE_RELATIONSHIP;
+     * {@snippet lang=c :
+     * #define ACCESS_MAX_MS_V3_ACE_TYPE 4
      * }
      */
-    public static final AddressLayout PCACHE_RELATIONSHIP = RuntimeHelper.POINTER;
+    public static int ACCESS_MAX_MS_V3_ACE_TYPE() {
+        return ACCESS_MAX_MS_V3_ACE_TYPE;
+    }
+    private static final int ACCESS_MIN_MS_OBJECT_ACE_TYPE = (int)5L;
     /**
-     * {@snippet :
-     * typedef struct _PROCESSOR_GROUP_INFO* PPROCESSOR_GROUP_INFO;
+     * {@snippet lang=c :
+     * #define ACCESS_MIN_MS_OBJECT_ACE_TYPE 5
      * }
      */
-    public static final AddressLayout PPROCESSOR_GROUP_INFO = RuntimeHelper.POINTER;
+    public static int ACCESS_MIN_MS_OBJECT_ACE_TYPE() {
+        return ACCESS_MIN_MS_OBJECT_ACE_TYPE;
+    }
+    private static final int ACCESS_ALLOWED_OBJECT_ACE_TYPE = (int)5L;
     /**
-     * {@snippet :
-     * typedef struct _GROUP_RELATIONSHIP* PGROUP_RELATIONSHIP;
+     * {@snippet lang=c :
+     * #define ACCESS_ALLOWED_OBJECT_ACE_TYPE 5
      * }
      */
-    public static final AddressLayout PGROUP_RELATIONSHIP = RuntimeHelper.POINTER;
+    public static int ACCESS_ALLOWED_OBJECT_ACE_TYPE() {
+        return ACCESS_ALLOWED_OBJECT_ACE_TYPE;
+    }
+    private static final int ACCESS_DENIED_OBJECT_ACE_TYPE = (int)6L;
     /**
-     * {@snippet :
-     * typedef struct _SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX* PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX;
+     * {@snippet lang=c :
+     * #define ACCESS_DENIED_OBJECT_ACE_TYPE 6
      * }
      */
-    public static final AddressLayout PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX = RuntimeHelper.POINTER;
+    public static int ACCESS_DENIED_OBJECT_ACE_TYPE() {
+        return ACCESS_DENIED_OBJECT_ACE_TYPE;
+    }
+    private static final int SYSTEM_AUDIT_OBJECT_ACE_TYPE = (int)7L;
     /**
-     * {@snippet :
-     * enum _CPU_SET_INFORMATION_TYPE.CpuSetInformation = 0;
+     * {@snippet lang=c :
+     * #define SYSTEM_AUDIT_OBJECT_ACE_TYPE 7
      * }
      */
-    public static int CpuSetInformation() {
-        return (int)0L;
+    public static int SYSTEM_AUDIT_OBJECT_ACE_TYPE() {
+        return SYSTEM_AUDIT_OBJECT_ACE_TYPE;
     }
+    private static final int SYSTEM_ALARM_OBJECT_ACE_TYPE = (int)8L;
     /**
-     * {@snippet :
-     * typedef enum _CPU_SET_INFORMATION_TYPE* PCPU_SET_INFORMATION_TYPE;
+     * {@snippet lang=c :
+     * #define SYSTEM_ALARM_OBJECT_ACE_TYPE 8
      * }
      */
-    public static final AddressLayout PCPU_SET_INFORMATION_TYPE = RuntimeHelper.POINTER;
+    public static int SYSTEM_ALARM_OBJECT_ACE_TYPE() {
+        return SYSTEM_ALARM_OBJECT_ACE_TYPE;
+    }
+    private static final int ACCESS_MAX_MS_OBJECT_ACE_TYPE = (int)8L;
     /**
-     * {@snippet :
-     * typedef struct _SYSTEM_CPU_SET_INFORMATION* PSYSTEM_CPU_SET_INFORMATION;
+     * {@snippet lang=c :
+     * #define ACCESS_MAX_MS_OBJECT_ACE_TYPE 8
      * }
      */
-    public static final AddressLayout PSYSTEM_CPU_SET_INFORMATION = RuntimeHelper.POINTER;
+    public static int ACCESS_MAX_MS_OBJECT_ACE_TYPE() {
+        return ACCESS_MAX_MS_OBJECT_ACE_TYPE;
+    }
+    private static final int ACCESS_MAX_MS_V4_ACE_TYPE = (int)8L;
     /**
-     * {@snippet :
-     * typedef struct _SYSTEM_POOL_ZEROING_INFORMATION* PSYSTEM_POOL_ZEROING_INFORMATION;
+     * {@snippet lang=c :
+     * #define ACCESS_MAX_MS_V4_ACE_TYPE 8
      * }
      */
-    public static final AddressLayout PSYSTEM_POOL_ZEROING_INFORMATION = RuntimeHelper.POINTER;
+    public static int ACCESS_MAX_MS_V4_ACE_TYPE() {
+        return ACCESS_MAX_MS_V4_ACE_TYPE;
+    }
+    private static final int ACCESS_MAX_MS_ACE_TYPE = (int)8L;
     /**
-     * {@snippet :
-     * typedef struct _SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION* PSYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION;
+     * {@snippet lang=c :
+     * #define ACCESS_MAX_MS_ACE_TYPE 8
      * }
      */
-    public static final AddressLayout PSYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION = RuntimeHelper.POINTER;
+    public static int ACCESS_MAX_MS_ACE_TYPE() {
+        return ACCESS_MAX_MS_ACE_TYPE;
+    }
+    private static final int ACCESS_ALLOWED_CALLBACK_ACE_TYPE = (int)9L;
     /**
-     * {@snippet :
-     * typedef struct _XSTATE_FEATURE* PXSTATE_FEATURE;
+     * {@snippet lang=c :
+     * #define ACCESS_ALLOWED_CALLBACK_ACE_TYPE 9
      * }
      */
-    public static final AddressLayout PXSTATE_FEATURE = RuntimeHelper.POINTER;
+    public static int ACCESS_ALLOWED_CALLBACK_ACE_TYPE() {
+        return ACCESS_ALLOWED_CALLBACK_ACE_TYPE;
+    }
+    private static final int ACCESS_DENIED_CALLBACK_ACE_TYPE = (int)10L;
     /**
-     * {@snippet :
-     * typedef struct _XSTATE_CONFIGURATION* PXSTATE_CONFIGURATION;
+     * {@snippet lang=c :
+     * #define ACCESS_DENIED_CALLBACK_ACE_TYPE 10
      * }
      */
-    public static final AddressLayout PXSTATE_CONFIGURATION = RuntimeHelper.POINTER;
+    public static int ACCESS_DENIED_CALLBACK_ACE_TYPE() {
+        return ACCESS_DENIED_CALLBACK_ACE_TYPE;
+    }
+    private static final int ACCESS_ALLOWED_CALLBACK_OBJECT_ACE_TYPE = (int)11L;
     /**
-     * {@snippet :
-     * typedef struct _MEMORY_BASIC_INFORMATION* PMEMORY_BASIC_INFORMATION;
+     * {@snippet lang=c :
+     * #define ACCESS_ALLOWED_CALLBACK_OBJECT_ACE_TYPE 11
      * }
      */
-    public static final AddressLayout PMEMORY_BASIC_INFORMATION = RuntimeHelper.POINTER;
+    public static int ACCESS_ALLOWED_CALLBACK_OBJECT_ACE_TYPE() {
+        return ACCESS_ALLOWED_CALLBACK_OBJECT_ACE_TYPE;
+    }
+    private static final int ACCESS_DENIED_CALLBACK_OBJECT_ACE_TYPE = (int)12L;
     /**
-     * {@snippet :
-     * typedef struct _MEMORY_BASIC_INFORMATION32* PMEMORY_BASIC_INFORMATION32;
+     * {@snippet lang=c :
+     * #define ACCESS_DENIED_CALLBACK_OBJECT_ACE_TYPE 12
      * }
      */
-    public static final AddressLayout PMEMORY_BASIC_INFORMATION32 = RuntimeHelper.POINTER;
+    public static int ACCESS_DENIED_CALLBACK_OBJECT_ACE_TYPE() {
+        return ACCESS_DENIED_CALLBACK_OBJECT_ACE_TYPE;
+    }
+    private static final int SYSTEM_AUDIT_CALLBACK_ACE_TYPE = (int)13L;
     /**
-     * {@snippet :
-     * typedef struct _MEMORY_BASIC_INFORMATION64* PMEMORY_BASIC_INFORMATION64;
+     * {@snippet lang=c :
+     * #define SYSTEM_AUDIT_CALLBACK_ACE_TYPE 13
      * }
      */
-    public static final AddressLayout PMEMORY_BASIC_INFORMATION64 = RuntimeHelper.POINTER;
+    public static int SYSTEM_AUDIT_CALLBACK_ACE_TYPE() {
+        return SYSTEM_AUDIT_CALLBACK_ACE_TYPE;
+    }
+    private static final int SYSTEM_ALARM_CALLBACK_ACE_TYPE = (int)14L;
     /**
-     * {@snippet :
-     * typedef struct _CFG_CALL_TARGET_INFO* PCFG_CALL_TARGET_INFO;
+     * {@snippet lang=c :
+     * #define SYSTEM_ALARM_CALLBACK_ACE_TYPE 14
      * }
      */
-    public static final AddressLayout PCFG_CALL_TARGET_INFO = RuntimeHelper.POINTER;
+    public static int SYSTEM_ALARM_CALLBACK_ACE_TYPE() {
+        return SYSTEM_ALARM_CALLBACK_ACE_TYPE;
+    }
+    private static final int SYSTEM_AUDIT_CALLBACK_OBJECT_ACE_TYPE = (int)15L;
     /**
-     * {@snippet :
-     * typedef struct _MEM_ADDRESS_REQUIREMENTS* PMEM_ADDRESS_REQUIREMENTS;
+     * {@snippet lang=c :
+     * #define SYSTEM_AUDIT_CALLBACK_OBJECT_ACE_TYPE 15
      * }
      */
-    public static final AddressLayout PMEM_ADDRESS_REQUIREMENTS = RuntimeHelper.POINTER;
+    public static int SYSTEM_AUDIT_CALLBACK_OBJECT_ACE_TYPE() {
+        return SYSTEM_AUDIT_CALLBACK_OBJECT_ACE_TYPE;
+    }
+    private static final int SYSTEM_ALARM_CALLBACK_OBJECT_ACE_TYPE = (int)16L;
     /**
-     * {@snippet :
-     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterInvalidType = 0;
+     * {@snippet lang=c :
+     * #define SYSTEM_ALARM_CALLBACK_OBJECT_ACE_TYPE 16
      * }
      */
-    public static int MemExtendedParameterInvalidType() {
-        return (int)0L;
+    public static int SYSTEM_ALARM_CALLBACK_OBJECT_ACE_TYPE() {
+        return SYSTEM_ALARM_CALLBACK_OBJECT_ACE_TYPE;
     }
+    private static final int SYSTEM_MANDATORY_LABEL_ACE_TYPE = (int)17L;
     /**
-     * {@snippet :
-     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterAddressRequirements = 1;
+     * {@snippet lang=c :
+     * #define SYSTEM_MANDATORY_LABEL_ACE_TYPE 17
      * }
      */
-    public static int MemExtendedParameterAddressRequirements() {
-        return (int)1L;
+    public static int SYSTEM_MANDATORY_LABEL_ACE_TYPE() {
+        return SYSTEM_MANDATORY_LABEL_ACE_TYPE;
     }
+    private static final int SYSTEM_RESOURCE_ATTRIBUTE_ACE_TYPE = (int)18L;
     /**
-     * {@snippet :
-     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterNumaNode = 2;
+     * {@snippet lang=c :
+     * #define SYSTEM_RESOURCE_ATTRIBUTE_ACE_TYPE 18
      * }
      */
-    public static int MemExtendedParameterNumaNode() {
-        return (int)2L;
+    public static int SYSTEM_RESOURCE_ATTRIBUTE_ACE_TYPE() {
+        return SYSTEM_RESOURCE_ATTRIBUTE_ACE_TYPE;
     }
-    /**
-     * {@snippet :
-     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterPartitionHandle = 3;
-     * }
-     */
-    public static int MemExtendedParameterPartitionHandle() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterUserPhysicalHandle = 4;
-     * }
-     */
-    public static int MemExtendedParameterUserPhysicalHandle() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterAttributeFlags = 5;
-     * }
-     */
-    public static int MemExtendedParameterAttributeFlags() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterImageMachine = 6;
-     * }
-     */
-    public static int MemExtendedParameterImageMachine() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * enum MEM_EXTENDED_PARAMETER_TYPE.MemExtendedParameterMax = 7;
-     * }
-     */
-    public static int MemExtendedParameterMax() {
-        return (int)7L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum MEM_EXTENDED_PARAMETER_TYPE* PMEM_EXTENDED_PARAMETER_TYPE;
-     * }
-     */
-    public static final AddressLayout PMEM_EXTENDED_PARAMETER_TYPE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct MEM_EXTENDED_PARAMETER* PMEM_EXTENDED_PARAMETER;
-     * }
-     */
-    public static final AddressLayout PMEM_EXTENDED_PARAMETER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum _MEM_DEDICATED_ATTRIBUTE_TYPE.MemDedicatedAttributeReadBandwidth = 0;
-     * }
-     */
-    public static int MemDedicatedAttributeReadBandwidth() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum _MEM_DEDICATED_ATTRIBUTE_TYPE.MemDedicatedAttributeReadLatency = 1;
-     * }
-     */
-    public static int MemDedicatedAttributeReadLatency() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _MEM_DEDICATED_ATTRIBUTE_TYPE.MemDedicatedAttributeWriteBandwidth = 2;
-     * }
-     */
-    public static int MemDedicatedAttributeWriteBandwidth() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum _MEM_DEDICATED_ATTRIBUTE_TYPE.MemDedicatedAttributeWriteLatency = 3;
-     * }
-     */
-    public static int MemDedicatedAttributeWriteLatency() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum _MEM_DEDICATED_ATTRIBUTE_TYPE.MemDedicatedAttributeMax = 4;
-     * }
-     */
-    public static int MemDedicatedAttributeMax() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum _MEM_DEDICATED_ATTRIBUTE_TYPE* PMEM_DEDICATED_ATTRIBUTE_TYPE;
-     * }
-     */
-    public static final AddressLayout PMEM_DEDICATED_ATTRIBUTE_TYPE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum MEM_SECTION_EXTENDED_PARAMETER_TYPE.MemSectionExtendedParameterInvalidType = 0;
-     * }
-     */
-    public static int MemSectionExtendedParameterInvalidType() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum MEM_SECTION_EXTENDED_PARAMETER_TYPE.MemSectionExtendedParameterUserPhysicalFlags = 1;
-     * }
-     */
-    public static int MemSectionExtendedParameterUserPhysicalFlags() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum MEM_SECTION_EXTENDED_PARAMETER_TYPE.MemSectionExtendedParameterNumaNode = 2;
-     * }
-     */
-    public static int MemSectionExtendedParameterNumaNode() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum MEM_SECTION_EXTENDED_PARAMETER_TYPE.MemSectionExtendedParameterSigningLevel = 3;
-     * }
-     */
-    public static int MemSectionExtendedParameterSigningLevel() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum MEM_SECTION_EXTENDED_PARAMETER_TYPE.MemSectionExtendedParameterMax = 4;
-     * }
-     */
-    public static int MemSectionExtendedParameterMax() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum MEM_SECTION_EXTENDED_PARAMETER_TYPE* PMEM_SECTION_EXTENDED_PARAMETER_TYPE;
-     * }
-     */
-    public static final AddressLayout PMEM_SECTION_EXTENDED_PARAMETER_TYPE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _ENCLAVE_CREATE_INFO_SGX* PENCLAVE_CREATE_INFO_SGX;
-     * }
-     */
-    public static final AddressLayout PENCLAVE_CREATE_INFO_SGX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _ENCLAVE_INIT_INFO_SGX* PENCLAVE_INIT_INFO_SGX;
-     * }
-     */
-    public static final AddressLayout PENCLAVE_INIT_INFO_SGX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _ENCLAVE_CREATE_INFO_VBS* PENCLAVE_CREATE_INFO_VBS;
-     * }
-     */
-    public static final AddressLayout PENCLAVE_CREATE_INFO_VBS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _ENCLAVE_CREATE_INFO_VBS_BASIC* PENCLAVE_CREATE_INFO_VBS_BASIC;
-     * }
-     */
-    public static final AddressLayout PENCLAVE_CREATE_INFO_VBS_BASIC = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _ENCLAVE_LOAD_DATA_VBS_BASIC* PENCLAVE_LOAD_DATA_VBS_BASIC;
-     * }
-     */
-    public static final AddressLayout PENCLAVE_LOAD_DATA_VBS_BASIC = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _ENCLAVE_INIT_INFO_VBS_BASIC* PENCLAVE_INIT_INFO_VBS_BASIC;
-     * }
-     */
-    public static final AddressLayout PENCLAVE_INIT_INFO_VBS_BASIC = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _ENCLAVE_INIT_INFO_VBS* PENCLAVE_INIT_INFO_VBS;
-     * }
-     */
-    public static final AddressLayout PENCLAVE_INIT_INFO_VBS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _MEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE* PMEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE;
-     * }
-     */
-    public static final AddressLayout PMEMORY_PARTITION_DEDICATED_MEMORY_ATTRIBUTE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _MEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION* PMEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION;
-     * }
-     */
-    public static final AddressLayout PMEMORY_PARTITION_DEDICATED_MEMORY_INFORMATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _FILE_ID_128* PFILE_ID_128;
-     * }
-     */
-    public static final AddressLayout PFILE_ID_128 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _FILE_NOTIFY_INFORMATION* PFILE_NOTIFY_INFORMATION;
-     * }
-     */
-    public static final AddressLayout PFILE_NOTIFY_INFORMATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _FILE_NOTIFY_EXTENDED_INFORMATION* PFILE_NOTIFY_EXTENDED_INFORMATION;
-     * }
-     */
-    public static final AddressLayout PFILE_NOTIFY_EXTENDED_INFORMATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef union _FILE_SEGMENT_ELEMENT* PFILE_SEGMENT_ELEMENT;
-     * }
-     */
-    public static final AddressLayout PFILE_SEGMENT_ELEMENT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _REPARSE_GUID_DATA_BUFFER* PREPARSE_GUID_DATA_BUFFER;
-     * }
-     */
-    public static final AddressLayout PREPARSE_GUID_DATA_BUFFER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _SCRUB_DATA_INPUT* PSCRUB_DATA_INPUT;
-     * }
-     */
-    public static final AddressLayout PSCRUB_DATA_INPUT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _SCRUB_PARITY_EXTENT* PSCRUB_PARITY_EXTENT;
-     * }
-     */
-    public static final AddressLayout PSCRUB_PARITY_EXTENT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _SCRUB_PARITY_EXTENT_DATA* PSCRUB_PARITY_EXTENT_DATA;
-     * }
-     */
-    public static final AddressLayout PSCRUB_PARITY_EXTENT_DATA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _SCRUB_DATA_OUTPUT* PSCRUB_DATA_OUTPUT;
-     * }
-     */
-    public static final AddressLayout PSCRUB_DATA_OUTPUT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum _SharedVirtualDiskSupportType.SharedVirtualDisksUnsupported = 0;
-     * }
-     */
-    public static int SharedVirtualDisksUnsupported() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum _SharedVirtualDiskSupportType.SharedVirtualDisksSupported = 1;
-     * }
-     */
-    public static int SharedVirtualDisksSupported() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _SharedVirtualDiskSupportType.SharedVirtualDiskSnapshotsSupported = 3;
-     * }
-     */
-    public static int SharedVirtualDiskSnapshotsSupported() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum _SharedVirtualDiskSupportType.SharedVirtualDiskCDPSnapshotsSupported = 7;
-     * }
-     */
-    public static int SharedVirtualDiskCDPSnapshotsSupported() {
-        return (int)7L;
-    }
-    /**
-     * {@snippet :
-     * enum _SharedVirtualDiskHandleState.SharedVirtualDiskHandleStateNone = 0;
-     * }
-     */
-    public static int SharedVirtualDiskHandleStateNone() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum _SharedVirtualDiskHandleState.SharedVirtualDiskHandleStateFileShared = 1;
-     * }
-     */
-    public static int SharedVirtualDiskHandleStateFileShared() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _SharedVirtualDiskHandleState.SharedVirtualDiskHandleStateHandleShared = 3;
-     * }
-     */
-    public static int SharedVirtualDiskHandleStateHandleShared() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * typedef struct _SHARED_VIRTUAL_DISK_SUPPORT* PSHARED_VIRTUAL_DISK_SUPPORT;
-     * }
-     */
-    public static final AddressLayout PSHARED_VIRTUAL_DISK_SUPPORT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _REARRANGE_FILE_DATA* PREARRANGE_FILE_DATA;
-     * }
-     */
-    public static final AddressLayout PREARRANGE_FILE_DATA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _REARRANGE_FILE_DATA32* PREARRANGE_FILE_DATA32;
-     * }
-     */
-    public static final AddressLayout PREARRANGE_FILE_DATA32 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _SHUFFLE_FILE_DATA* PSHUFFLE_FILE_DATA;
-     * }
-     */
-    public static final AddressLayout PSHUFFLE_FILE_DATA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _NETWORK_APP_INSTANCE_EA* PNETWORK_APP_INSTANCE_EA;
-     * }
-     */
-    public static final AddressLayout PNETWORK_APP_INSTANCE_EA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * const GUID GUID_MAX_POWER_SAVINGS;
-     * }
-     */
-    public static MemorySegment GUID_MAX_POWER_SAVINGS$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$265.const$3,"GUID_MAX_POWER_SAVINGS");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_MIN_POWER_SAVINGS;
-     * }
-     */
-    public static MemorySegment GUID_MIN_POWER_SAVINGS$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$265.const$4,"GUID_MIN_POWER_SAVINGS");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_TYPICAL_POWER_SAVINGS;
-     * }
-     */
-    public static MemorySegment GUID_TYPICAL_POWER_SAVINGS$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$265.const$5,"GUID_TYPICAL_POWER_SAVINGS");
-    }
-    /**
-     * {@snippet :
-     * const GUID NO_SUBGROUP_GUID;
-     * }
-     */
-    public static MemorySegment NO_SUBGROUP_GUID$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$266.const$0,"NO_SUBGROUP_GUID");
-    }
-    /**
-     * {@snippet :
-     * const GUID ALL_POWERSCHEMES_GUID;
-     * }
-     */
-    public static MemorySegment ALL_POWERSCHEMES_GUID$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$266.const$1,"ALL_POWERSCHEMES_GUID");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_POWERSCHEME_PERSONALITY;
-     * }
-     */
-    public static MemorySegment GUID_POWERSCHEME_PERSONALITY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$266.const$2,"GUID_POWERSCHEME_PERSONALITY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ACTIVE_POWERSCHEME;
-     * }
-     */
-    public static MemorySegment GUID_ACTIVE_POWERSCHEME$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$266.const$3,"GUID_ACTIVE_POWERSCHEME");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_IDLE_RESILIENCY_SUBGROUP;
-     * }
-     */
-    public static MemorySegment GUID_IDLE_RESILIENCY_SUBGROUP$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$266.const$4,"GUID_IDLE_RESILIENCY_SUBGROUP");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_IDLE_RESILIENCY_PERIOD;
-     * }
-     */
-    public static MemorySegment GUID_IDLE_RESILIENCY_PERIOD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$266.const$5,"GUID_IDLE_RESILIENCY_PERIOD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_DEEP_SLEEP_ENABLED;
-     * }
-     */
-    public static MemorySegment GUID_DEEP_SLEEP_ENABLED$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$267.const$0,"GUID_DEEP_SLEEP_ENABLED");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_DEEP_SLEEP_PLATFORM_STATE;
-     * }
-     */
-    public static MemorySegment GUID_DEEP_SLEEP_PLATFORM_STATE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$267.const$1,"GUID_DEEP_SLEEP_PLATFORM_STATE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_DISK_COALESCING_POWERDOWN_TIMEOUT;
-     * }
-     */
-    public static MemorySegment GUID_DISK_COALESCING_POWERDOWN_TIMEOUT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$267.const$2,"GUID_DISK_COALESCING_POWERDOWN_TIMEOUT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT;
-     * }
-     */
-    public static MemorySegment GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$267.const$3,"GUID_EXECUTION_REQUIRED_REQUEST_TIMEOUT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_VIDEO_SUBGROUP;
-     * }
-     */
-    public static MemorySegment GUID_VIDEO_SUBGROUP$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$267.const$4,"GUID_VIDEO_SUBGROUP");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_VIDEO_POWERDOWN_TIMEOUT;
-     * }
-     */
-    public static MemorySegment GUID_VIDEO_POWERDOWN_TIMEOUT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$267.const$5,"GUID_VIDEO_POWERDOWN_TIMEOUT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_VIDEO_ANNOYANCE_TIMEOUT;
-     * }
-     */
-    public static MemorySegment GUID_VIDEO_ANNOYANCE_TIMEOUT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$268.const$0,"GUID_VIDEO_ANNOYANCE_TIMEOUT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE;
-     * }
-     */
-    public static MemorySegment GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$268.const$1,"GUID_VIDEO_ADAPTIVE_PERCENT_INCREASE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_VIDEO_DIM_TIMEOUT;
-     * }
-     */
-    public static MemorySegment GUID_VIDEO_DIM_TIMEOUT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$268.const$2,"GUID_VIDEO_DIM_TIMEOUT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_VIDEO_ADAPTIVE_POWERDOWN;
-     * }
-     */
-    public static MemorySegment GUID_VIDEO_ADAPTIVE_POWERDOWN$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$268.const$3,"GUID_VIDEO_ADAPTIVE_POWERDOWN");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_MONITOR_POWER_ON;
-     * }
-     */
-    public static MemorySegment GUID_MONITOR_POWER_ON$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$268.const$4,"GUID_MONITOR_POWER_ON");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS;
-     * }
-     */
-    public static MemorySegment GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$268.const$5,"GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS;
-     * }
-     */
-    public static MemorySegment GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$269.const$0,"GUID_DEVICE_POWER_POLICY_VIDEO_DIM_BRIGHTNESS");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS;
-     * }
-     */
-    public static MemorySegment GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$269.const$1,"GUID_VIDEO_CURRENT_MONITOR_BRIGHTNESS");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS;
-     * }
-     */
-    public static MemorySegment GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$269.const$2,"GUID_VIDEO_ADAPTIVE_DISPLAY_BRIGHTNESS");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_CONSOLE_DISPLAY_STATE;
-     * }
-     */
-    public static MemorySegment GUID_CONSOLE_DISPLAY_STATE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$269.const$3,"GUID_CONSOLE_DISPLAY_STATE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ALLOW_DISPLAY_REQUIRED;
-     * }
-     */
-    public static MemorySegment GUID_ALLOW_DISPLAY_REQUIRED$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$269.const$4,"GUID_ALLOW_DISPLAY_REQUIRED");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_VIDEO_CONSOLE_LOCK_TIMEOUT;
-     * }
-     */
-    public static MemorySegment GUID_VIDEO_CONSOLE_LOCK_TIMEOUT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$269.const$5,"GUID_VIDEO_CONSOLE_LOCK_TIMEOUT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ADVANCED_COLOR_QUALITY_BIAS;
-     * }
-     */
-    public static MemorySegment GUID_ADVANCED_COLOR_QUALITY_BIAS$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$270.const$0,"GUID_ADVANCED_COLOR_QUALITY_BIAS");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP;
-     * }
-     */
-    public static MemorySegment GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$270.const$1,"GUID_ADAPTIVE_POWER_BEHAVIOR_SUBGROUP");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_NON_ADAPTIVE_INPUT_TIMEOUT;
-     * }
-     */
-    public static MemorySegment GUID_NON_ADAPTIVE_INPUT_TIMEOUT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$270.const$2,"GUID_NON_ADAPTIVE_INPUT_TIMEOUT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ADAPTIVE_INPUT_CONTROLLER_STATE;
-     * }
-     */
-    public static MemorySegment GUID_ADAPTIVE_INPUT_CONTROLLER_STATE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$270.const$3,"GUID_ADAPTIVE_INPUT_CONTROLLER_STATE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_DISK_SUBGROUP;
-     * }
-     */
-    public static MemorySegment GUID_DISK_SUBGROUP$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$270.const$4,"GUID_DISK_SUBGROUP");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_DISK_MAX_POWER;
-     * }
-     */
-    public static MemorySegment GUID_DISK_MAX_POWER$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$270.const$5,"GUID_DISK_MAX_POWER");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_DISK_POWERDOWN_TIMEOUT;
-     * }
-     */
-    public static MemorySegment GUID_DISK_POWERDOWN_TIMEOUT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$271.const$0,"GUID_DISK_POWERDOWN_TIMEOUT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_DISK_IDLE_TIMEOUT;
-     * }
-     */
-    public static MemorySegment GUID_DISK_IDLE_TIMEOUT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$271.const$1,"GUID_DISK_IDLE_TIMEOUT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_DISK_BURST_IGNORE_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_DISK_BURST_IGNORE_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$271.const$2,"GUID_DISK_BURST_IGNORE_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_DISK_ADAPTIVE_POWERDOWN;
-     * }
-     */
-    public static MemorySegment GUID_DISK_ADAPTIVE_POWERDOWN$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$271.const$3,"GUID_DISK_ADAPTIVE_POWERDOWN");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_DISK_NVME_NOPPME;
-     * }
-     */
-    public static MemorySegment GUID_DISK_NVME_NOPPME$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$271.const$4,"GUID_DISK_NVME_NOPPME");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_SLEEP_SUBGROUP;
-     * }
-     */
-    public static MemorySegment GUID_SLEEP_SUBGROUP$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$271.const$5,"GUID_SLEEP_SUBGROUP");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_SLEEP_IDLE_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_SLEEP_IDLE_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$272.const$0,"GUID_SLEEP_IDLE_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_STANDBY_TIMEOUT;
-     * }
-     */
-    public static MemorySegment GUID_STANDBY_TIMEOUT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$272.const$1,"GUID_STANDBY_TIMEOUT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_UNATTEND_SLEEP_TIMEOUT;
-     * }
-     */
-    public static MemorySegment GUID_UNATTEND_SLEEP_TIMEOUT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$272.const$2,"GUID_UNATTEND_SLEEP_TIMEOUT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_HIBERNATE_TIMEOUT;
-     * }
-     */
-    public static MemorySegment GUID_HIBERNATE_TIMEOUT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$272.const$3,"GUID_HIBERNATE_TIMEOUT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_HIBERNATE_FASTS4_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_HIBERNATE_FASTS4_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$272.const$4,"GUID_HIBERNATE_FASTS4_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_CRITICAL_POWER_TRANSITION;
-     * }
-     */
-    public static MemorySegment GUID_CRITICAL_POWER_TRANSITION$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$272.const$5,"GUID_CRITICAL_POWER_TRANSITION");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_SYSTEM_AWAYMODE;
-     * }
-     */
-    public static MemorySegment GUID_SYSTEM_AWAYMODE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$273.const$0,"GUID_SYSTEM_AWAYMODE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ALLOW_AWAYMODE;
-     * }
-     */
-    public static MemorySegment GUID_ALLOW_AWAYMODE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$273.const$1,"GUID_ALLOW_AWAYMODE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_USER_PRESENCE_PREDICTION;
-     * }
-     */
-    public static MemorySegment GUID_USER_PRESENCE_PREDICTION$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$273.const$2,"GUID_USER_PRESENCE_PREDICTION");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_STANDBY_BUDGET_GRACE_PERIOD;
-     * }
-     */
-    public static MemorySegment GUID_STANDBY_BUDGET_GRACE_PERIOD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$273.const$3,"GUID_STANDBY_BUDGET_GRACE_PERIOD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_STANDBY_BUDGET_PERCENT;
-     * }
-     */
-    public static MemorySegment GUID_STANDBY_BUDGET_PERCENT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$273.const$4,"GUID_STANDBY_BUDGET_PERCENT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_STANDBY_RESERVE_GRACE_PERIOD;
-     * }
-     */
-    public static MemorySegment GUID_STANDBY_RESERVE_GRACE_PERIOD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$273.const$5,"GUID_STANDBY_RESERVE_GRACE_PERIOD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_STANDBY_RESERVE_TIME;
-     * }
-     */
-    public static MemorySegment GUID_STANDBY_RESERVE_TIME$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$274.const$0,"GUID_STANDBY_RESERVE_TIME");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_STANDBY_RESET_PERCENT;
-     * }
-     */
-    public static MemorySegment GUID_STANDBY_RESET_PERCENT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$274.const$1,"GUID_STANDBY_RESET_PERCENT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT;
-     * }
-     */
-    public static MemorySegment GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$274.const$2,"GUID_HUPR_ADAPTIVE_DISPLAY_TIMEOUT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ALLOW_STANDBY_STATES;
-     * }
-     */
-    public static MemorySegment GUID_ALLOW_STANDBY_STATES$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$274.const$3,"GUID_ALLOW_STANDBY_STATES");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ALLOW_RTC_WAKE;
-     * }
-     */
-    public static MemorySegment GUID_ALLOW_RTC_WAKE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$274.const$4,"GUID_ALLOW_RTC_WAKE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_LEGACY_RTC_MITIGATION;
-     * }
-     */
-    public static MemorySegment GUID_LEGACY_RTC_MITIGATION$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$274.const$5,"GUID_LEGACY_RTC_MITIGATION");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ALLOW_SYSTEM_REQUIRED;
-     * }
-     */
-    public static MemorySegment GUID_ALLOW_SYSTEM_REQUIRED$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$275.const$0,"GUID_ALLOW_SYSTEM_REQUIRED");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_POWER_SAVING_STATUS;
-     * }
-     */
-    public static MemorySegment GUID_POWER_SAVING_STATUS$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$275.const$1,"GUID_POWER_SAVING_STATUS");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ENERGY_SAVER_SUBGROUP;
-     * }
-     */
-    public static MemorySegment GUID_ENERGY_SAVER_SUBGROUP$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$275.const$2,"GUID_ENERGY_SAVER_SUBGROUP");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ENERGY_SAVER_BATTERY_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_ENERGY_SAVER_BATTERY_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$275.const$3,"GUID_ENERGY_SAVER_BATTERY_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ENERGY_SAVER_BRIGHTNESS;
-     * }
-     */
-    public static MemorySegment GUID_ENERGY_SAVER_BRIGHTNESS$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$275.const$4,"GUID_ENERGY_SAVER_BRIGHTNESS");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ENERGY_SAVER_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_ENERGY_SAVER_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$275.const$5,"GUID_ENERGY_SAVER_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_SYSTEM_BUTTON_SUBGROUP;
-     * }
-     */
-    public static MemorySegment GUID_SYSTEM_BUTTON_SUBGROUP$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$276.const$0,"GUID_SYSTEM_BUTTON_SUBGROUP");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_POWERBUTTON_ACTION;
-     * }
-     */
-    public static MemorySegment GUID_POWERBUTTON_ACTION$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$276.const$1,"GUID_POWERBUTTON_ACTION");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_SLEEPBUTTON_ACTION;
-     * }
-     */
-    public static MemorySegment GUID_SLEEPBUTTON_ACTION$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$276.const$2,"GUID_SLEEPBUTTON_ACTION");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_USERINTERFACEBUTTON_ACTION;
-     * }
-     */
-    public static MemorySegment GUID_USERINTERFACEBUTTON_ACTION$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$276.const$3,"GUID_USERINTERFACEBUTTON_ACTION");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_LIDCLOSE_ACTION;
-     * }
-     */
-    public static MemorySegment GUID_LIDCLOSE_ACTION$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$276.const$4,"GUID_LIDCLOSE_ACTION");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_LIDOPEN_POWERSTATE;
-     * }
-     */
-    public static MemorySegment GUID_LIDOPEN_POWERSTATE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$276.const$5,"GUID_LIDOPEN_POWERSTATE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_SUBGROUP;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_SUBGROUP$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$277.const$0,"GUID_BATTERY_SUBGROUP");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_DISCHARGE_ACTION_0;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_DISCHARGE_ACTION_0$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$277.const$1,"GUID_BATTERY_DISCHARGE_ACTION_0");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_DISCHARGE_LEVEL_0;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_DISCHARGE_LEVEL_0$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$277.const$2,"GUID_BATTERY_DISCHARGE_LEVEL_0");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_DISCHARGE_FLAGS_0;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_DISCHARGE_FLAGS_0$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$277.const$3,"GUID_BATTERY_DISCHARGE_FLAGS_0");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_DISCHARGE_ACTION_1;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_DISCHARGE_ACTION_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$277.const$4,"GUID_BATTERY_DISCHARGE_ACTION_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_DISCHARGE_LEVEL_1;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_DISCHARGE_LEVEL_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$277.const$5,"GUID_BATTERY_DISCHARGE_LEVEL_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_DISCHARGE_FLAGS_1;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_DISCHARGE_FLAGS_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$278.const$0,"GUID_BATTERY_DISCHARGE_FLAGS_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_DISCHARGE_ACTION_2;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_DISCHARGE_ACTION_2$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$278.const$1,"GUID_BATTERY_DISCHARGE_ACTION_2");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_DISCHARGE_LEVEL_2;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_DISCHARGE_LEVEL_2$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$278.const$2,"GUID_BATTERY_DISCHARGE_LEVEL_2");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_DISCHARGE_FLAGS_2;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_DISCHARGE_FLAGS_2$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$278.const$3,"GUID_BATTERY_DISCHARGE_FLAGS_2");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_DISCHARGE_ACTION_3;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_DISCHARGE_ACTION_3$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$278.const$4,"GUID_BATTERY_DISCHARGE_ACTION_3");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_DISCHARGE_LEVEL_3;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_DISCHARGE_LEVEL_3$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$278.const$5,"GUID_BATTERY_DISCHARGE_LEVEL_3");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_DISCHARGE_FLAGS_3;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_DISCHARGE_FLAGS_3$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$279.const$0,"GUID_BATTERY_DISCHARGE_FLAGS_3");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_SETTINGS_SUBGROUP;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_SETTINGS_SUBGROUP$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$279.const$1,"GUID_PROCESSOR_SETTINGS_SUBGROUP");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_THROTTLE_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_THROTTLE_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$279.const$2,"GUID_PROCESSOR_THROTTLE_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_THROTTLE_MAXIMUM;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_THROTTLE_MAXIMUM$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$279.const$3,"GUID_PROCESSOR_THROTTLE_MAXIMUM");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_THROTTLE_MAXIMUM_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_THROTTLE_MAXIMUM_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$279.const$4,"GUID_PROCESSOR_THROTTLE_MAXIMUM_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_THROTTLE_MINIMUM;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_THROTTLE_MINIMUM$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$279.const$5,"GUID_PROCESSOR_THROTTLE_MINIMUM");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_THROTTLE_MINIMUM_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_THROTTLE_MINIMUM_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$280.const$0,"GUID_PROCESSOR_THROTTLE_MINIMUM_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_FREQUENCY_LIMIT;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_FREQUENCY_LIMIT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$280.const$1,"GUID_PROCESSOR_FREQUENCY_LIMIT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_FREQUENCY_LIMIT_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_FREQUENCY_LIMIT_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$280.const$2,"GUID_PROCESSOR_FREQUENCY_LIMIT_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_ALLOW_THROTTLING;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_ALLOW_THROTTLING$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$280.const$3,"GUID_PROCESSOR_ALLOW_THROTTLING");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_IDLESTATE_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_IDLESTATE_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$280.const$4,"GUID_PROCESSOR_IDLESTATE_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERFSTATE_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERFSTATE_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$280.const$5,"GUID_PROCESSOR_PERFSTATE_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_INCREASE_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_INCREASE_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$281.const$0,"GUID_PROCESSOR_PERF_INCREASE_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$281.const$1,"GUID_PROCESSOR_PERF_INCREASE_THRESHOLD_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_DECREASE_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_DECREASE_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$281.const$2,"GUID_PROCESSOR_PERF_DECREASE_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$281.const$3,"GUID_PROCESSOR_PERF_DECREASE_THRESHOLD_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_INCREASE_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_INCREASE_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$281.const$4,"GUID_PROCESSOR_PERF_INCREASE_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_INCREASE_POLICY_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_INCREASE_POLICY_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$281.const$5,"GUID_PROCESSOR_PERF_INCREASE_POLICY_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_DECREASE_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_DECREASE_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$282.const$0,"GUID_PROCESSOR_PERF_DECREASE_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_DECREASE_POLICY_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_DECREASE_POLICY_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$282.const$1,"GUID_PROCESSOR_PERF_DECREASE_POLICY_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_INCREASE_TIME;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_INCREASE_TIME$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$282.const$2,"GUID_PROCESSOR_PERF_INCREASE_TIME");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_INCREASE_TIME_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_INCREASE_TIME_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$282.const$3,"GUID_PROCESSOR_PERF_INCREASE_TIME_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_DECREASE_TIME;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_DECREASE_TIME$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$282.const$4,"GUID_PROCESSOR_PERF_DECREASE_TIME");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_DECREASE_TIME_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_DECREASE_TIME_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$282.const$5,"GUID_PROCESSOR_PERF_DECREASE_TIME_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_TIME_CHECK;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_TIME_CHECK$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$283.const$0,"GUID_PROCESSOR_PERF_TIME_CHECK");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_BOOST_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_BOOST_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$283.const$1,"GUID_PROCESSOR_PERF_BOOST_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_BOOST_MODE;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_BOOST_MODE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$283.const$2,"GUID_PROCESSOR_PERF_BOOST_MODE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_AUTONOMOUS_MODE;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_AUTONOMOUS_MODE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$283.const$3,"GUID_PROCESSOR_PERF_AUTONOMOUS_MODE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$283.const$4,"GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$283.const$5,"GUID_PROCESSOR_PERF_ENERGY_PERFORMANCE_PREFERENCE_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$284.const$0,"GUID_PROCESSOR_PERF_AUTONOMOUS_ACTIVITY_WINDOW");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_DUTY_CYCLING;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_DUTY_CYCLING$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$284.const$1,"GUID_PROCESSOR_DUTY_CYCLING");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_IDLE_ALLOW_SCALING;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_IDLE_ALLOW_SCALING$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$284.const$2,"GUID_PROCESSOR_IDLE_ALLOW_SCALING");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_IDLE_DISABLE;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_IDLE_DISABLE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$284.const$3,"GUID_PROCESSOR_IDLE_DISABLE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_IDLE_STATE_MAXIMUM;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_IDLE_STATE_MAXIMUM$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$284.const$4,"GUID_PROCESSOR_IDLE_STATE_MAXIMUM");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_IDLE_TIME_CHECK;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_IDLE_TIME_CHECK$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$284.const$5,"GUID_PROCESSOR_IDLE_TIME_CHECK");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$285.const$0,"GUID_PROCESSOR_IDLE_DEMOTE_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$285.const$1,"GUID_PROCESSOR_IDLE_PROMOTE_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$285.const$2,"GUID_PROCESSOR_CORE_PARKING_INCREASE_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$285.const$3,"GUID_PROCESSOR_CORE_PARKING_DECREASE_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$285.const$4,"GUID_PROCESSOR_CORE_PARKING_INCREASE_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$285.const$5,"GUID_PROCESSOR_CORE_PARKING_DECREASE_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_MAX_CORES;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_MAX_CORES$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$286.const$0,"GUID_PROCESSOR_CORE_PARKING_MAX_CORES");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$286.const$1,"GUID_PROCESSOR_CORE_PARKING_MAX_CORES_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_MIN_CORES;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_MIN_CORES$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$286.const$2,"GUID_PROCESSOR_CORE_PARKING_MIN_CORES");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$286.const$3,"GUID_PROCESSOR_CORE_PARKING_MIN_CORES_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$286.const$4,"GUID_PROCESSOR_CORE_PARKING_INCREASE_TIME");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$286.const$5,"GUID_PROCESSOR_CORE_PARKING_DECREASE_TIME");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$287.const$0,"GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_DECREASE_FACTOR");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$287.const$1,"GUID_PROCESSOR_CORE_PARKING_AFFINITY_HISTORY_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$287.const$2,"GUID_PROCESSOR_CORE_PARKING_AFFINITY_WEIGHTING");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$287.const$3,"GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_DECREASE_FACTOR");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$287.const$4,"GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_HISTORY_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$287.const$5,"GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_WEIGHTING");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$288.const$0,"GUID_PROCESSOR_CORE_PARKING_OVER_UTILIZATION_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PARKING_CORE_OVERRIDE;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PARKING_CORE_OVERRIDE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$288.const$1,"GUID_PROCESSOR_PARKING_CORE_OVERRIDE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PARKING_PERF_STATE;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PARKING_PERF_STATE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$288.const$2,"GUID_PROCESSOR_PARKING_PERF_STATE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PARKING_PERF_STATE_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PARKING_PERF_STATE_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$288.const$3,"GUID_PROCESSOR_PARKING_PERF_STATE_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$288.const$4,"GUID_PROCESSOR_PARKING_CONCURRENCY_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$288.const$5,"GUID_PROCESSOR_PARKING_HEADROOM_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$289.const$0,"GUID_PROCESSOR_PARKING_DISTRIBUTION_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_SOFT_PARKING_LATENCY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_SOFT_PARKING_LATENCY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$289.const$1,"GUID_PROCESSOR_SOFT_PARKING_LATENCY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_HISTORY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_HISTORY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$289.const$2,"GUID_PROCESSOR_PERF_HISTORY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_HISTORY_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_HISTORY_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$289.const$3,"GUID_PROCESSOR_PERF_HISTORY_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_INCREASE_HISTORY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_INCREASE_HISTORY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$289.const$4,"GUID_PROCESSOR_PERF_INCREASE_HISTORY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_DECREASE_HISTORY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_DECREASE_HISTORY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$289.const$5,"GUID_PROCESSOR_PERF_DECREASE_HISTORY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$290.const$0,"GUID_PROCESSOR_PERF_CORE_PARKING_HISTORY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_LATENCY_HINT;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_LATENCY_HINT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$290.const$1,"GUID_PROCESSOR_PERF_LATENCY_HINT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_LATENCY_HINT_PERF;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_LATENCY_HINT_PERF$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$290.const$2,"GUID_PROCESSOR_PERF_LATENCY_HINT_PERF");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$290.const$3,"GUID_PROCESSOR_PERF_LATENCY_HINT_PERF_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$290.const$4,"GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$290.const$5,"GUID_PROCESSOR_LATENCY_HINT_MIN_UNPARK_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_DISTRIBUTE_UTILITY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_DISTRIBUTE_UTILITY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$291.const$0,"GUID_PROCESSOR_DISTRIBUTE_UTILITY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_HETEROGENEOUS_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_HETEROGENEOUS_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$291.const$1,"GUID_PROCESSOR_HETEROGENEOUS_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_HETERO_DECREASE_TIME;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_HETERO_DECREASE_TIME$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$291.const$2,"GUID_PROCESSOR_HETERO_DECREASE_TIME");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_HETERO_INCREASE_TIME;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_HETERO_INCREASE_TIME$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$291.const$3,"GUID_PROCESSOR_HETERO_INCREASE_TIME");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$291.const$4,"GUID_PROCESSOR_HETERO_DECREASE_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$291.const$5,"GUID_PROCESSOR_HETERO_INCREASE_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CLASS0_FLOOR_PERF;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CLASS0_FLOOR_PERF$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$292.const$0,"GUID_PROCESSOR_CLASS0_FLOOR_PERF");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_CLASS1_INITIAL_PERF;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_CLASS1_INITIAL_PERF$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$292.const$1,"GUID_PROCESSOR_CLASS1_INITIAL_PERF");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_THREAD_SCHEDULING_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_THREAD_SCHEDULING_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$292.const$2,"GUID_PROCESSOR_THREAD_SCHEDULING_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$292.const$3,"GUID_PROCESSOR_SHORT_THREAD_SCHEDULING_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$292.const$4,"GUID_PROCESSOR_SHORT_THREAD_RUNTIME_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_SYSTEM_COOLING_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_SYSTEM_COOLING_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$292.const$5,"GUID_SYSTEM_COOLING_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$293.const$0,"GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$293.const$1,"GUID_PROCESSOR_RESPONSIVENESS_DISABLE_THRESHOLD_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$293.const$2,"GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$293.const$3,"GUID_PROCESSOR_RESPONSIVENESS_ENABLE_THRESHOLD_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$293.const$4,"GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$293.const$5,"GUID_PROCESSOR_RESPONSIVENESS_DISABLE_TIME_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$294.const$0,"GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$294.const$1,"GUID_PROCESSOR_RESPONSIVENESS_ENABLE_TIME_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$294.const$2,"GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$294.const$3,"GUID_PROCESSOR_RESPONSIVENESS_EPP_CEILING_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$294.const$4,"GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1;
-     * }
-     */
-    public static MemorySegment GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$294.const$5,"GUID_PROCESSOR_RESPONSIVENESS_PERF_FLOOR_1");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_LOCK_CONSOLE_ON_WAKE;
-     * }
-     */
-    public static MemorySegment GUID_LOCK_CONSOLE_ON_WAKE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$295.const$0,"GUID_LOCK_CONSOLE_ON_WAKE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_DEVICE_IDLE_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_DEVICE_IDLE_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$295.const$1,"GUID_DEVICE_IDLE_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_CONNECTIVITY_IN_STANDBY;
-     * }
-     */
-    public static MemorySegment GUID_CONNECTIVITY_IN_STANDBY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$295.const$2,"GUID_CONNECTIVITY_IN_STANDBY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_DISCONNECTED_STANDBY_MODE;
-     * }
-     */
-    public static MemorySegment GUID_DISCONNECTED_STANDBY_MODE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$295.const$3,"GUID_DISCONNECTED_STANDBY_MODE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ACDC_POWER_SOURCE;
-     * }
-     */
-    public static MemorySegment GUID_ACDC_POWER_SOURCE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$295.const$4,"GUID_ACDC_POWER_SOURCE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_LIDSWITCH_STATE_CHANGE;
-     * }
-     */
-    public static MemorySegment GUID_LIDSWITCH_STATE_CHANGE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$295.const$5,"GUID_LIDSWITCH_STATE_CHANGE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_LIDSWITCH_STATE_RELIABILITY;
-     * }
-     */
-    public static MemorySegment GUID_LIDSWITCH_STATE_RELIABILITY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$296.const$0,"GUID_LIDSWITCH_STATE_RELIABILITY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_PERCENTAGE_REMAINING;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_PERCENTAGE_REMAINING$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$296.const$1,"GUID_BATTERY_PERCENTAGE_REMAINING");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BATTERY_COUNT;
-     * }
-     */
-    public static MemorySegment GUID_BATTERY_COUNT$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$296.const$2,"GUID_BATTERY_COUNT");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_GLOBAL_USER_PRESENCE;
-     * }
-     */
-    public static MemorySegment GUID_GLOBAL_USER_PRESENCE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$296.const$3,"GUID_GLOBAL_USER_PRESENCE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_SESSION_DISPLAY_STATUS;
-     * }
-     */
-    public static MemorySegment GUID_SESSION_DISPLAY_STATUS$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$296.const$4,"GUID_SESSION_DISPLAY_STATUS");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_SESSION_USER_PRESENCE;
-     * }
-     */
-    public static MemorySegment GUID_SESSION_USER_PRESENCE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$296.const$5,"GUID_SESSION_USER_PRESENCE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_IDLE_BACKGROUND_TASK;
-     * }
-     */
-    public static MemorySegment GUID_IDLE_BACKGROUND_TASK$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$297.const$0,"GUID_IDLE_BACKGROUND_TASK");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_BACKGROUND_TASK_NOTIFICATION;
-     * }
-     */
-    public static MemorySegment GUID_BACKGROUND_TASK_NOTIFICATION$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$297.const$1,"GUID_BACKGROUND_TASK_NOTIFICATION");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_APPLAUNCH_BUTTON;
-     * }
-     */
-    public static MemorySegment GUID_APPLAUNCH_BUTTON$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$297.const$2,"GUID_APPLAUNCH_BUTTON");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PCIEXPRESS_SETTINGS_SUBGROUP;
-     * }
-     */
-    public static MemorySegment GUID_PCIEXPRESS_SETTINGS_SUBGROUP$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$297.const$3,"GUID_PCIEXPRESS_SETTINGS_SUBGROUP");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_PCIEXPRESS_ASPM_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_PCIEXPRESS_ASPM_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$297.const$4,"GUID_PCIEXPRESS_ASPM_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_ENABLE_SWITCH_FORCED_SHUTDOWN;
-     * }
-     */
-    public static MemorySegment GUID_ENABLE_SWITCH_FORCED_SHUTDOWN$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$297.const$5,"GUID_ENABLE_SWITCH_FORCED_SHUTDOWN");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_INTSTEER_SUBGROUP;
-     * }
-     */
-    public static MemorySegment GUID_INTSTEER_SUBGROUP$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$298.const$0,"GUID_INTSTEER_SUBGROUP");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_INTSTEER_MODE;
-     * }
-     */
-    public static MemorySegment GUID_INTSTEER_MODE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$298.const$1,"GUID_INTSTEER_MODE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_INTSTEER_LOAD_PER_PROC_TRIGGER;
-     * }
-     */
-    public static MemorySegment GUID_INTSTEER_LOAD_PER_PROC_TRIGGER$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$298.const$2,"GUID_INTSTEER_LOAD_PER_PROC_TRIGGER");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_INTSTEER_TIME_UNPARK_TRIGGER;
-     * }
-     */
-    public static MemorySegment GUID_INTSTEER_TIME_UNPARK_TRIGGER$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$298.const$3,"GUID_INTSTEER_TIME_UNPARK_TRIGGER");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_GRAPHICS_SUBGROUP;
-     * }
-     */
-    public static MemorySegment GUID_GRAPHICS_SUBGROUP$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$298.const$4,"GUID_GRAPHICS_SUBGROUP");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_GPU_PREFERENCE_POLICY;
-     * }
-     */
-    public static MemorySegment GUID_GPU_PREFERENCE_POLICY$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$298.const$5,"GUID_GPU_PREFERENCE_POLICY");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_MIXED_REALITY_MODE;
-     * }
-     */
-    public static MemorySegment GUID_MIXED_REALITY_MODE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$299.const$0,"GUID_MIXED_REALITY_MODE");
-    }
-    /**
-     * {@snippet :
-     * const GUID GUID_SPR_ACTIVE_SESSION_CHANGE;
-     * }
-     */
-    public static MemorySegment GUID_SPR_ACTIVE_SESSION_CHANGE$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$299.const$1,"GUID_SPR_ACTIVE_SESSION_CHANGE");
-    }
-    /**
-     * {@snippet :
-     * enum _SYSTEM_POWER_STATE.PowerSystemUnspecified = 0;
-     * }
-     */
-    public static int PowerSystemUnspecified() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum _SYSTEM_POWER_STATE.PowerSystemWorking = 1;
-     * }
-     */
-    public static int PowerSystemWorking() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _SYSTEM_POWER_STATE.PowerSystemSleeping1 = 2;
-     * }
-     */
-    public static int PowerSystemSleeping1() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum _SYSTEM_POWER_STATE.PowerSystemSleeping2 = 3;
-     * }
-     */
-    public static int PowerSystemSleeping2() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum _SYSTEM_POWER_STATE.PowerSystemSleeping3 = 4;
-     * }
-     */
-    public static int PowerSystemSleeping3() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * enum _SYSTEM_POWER_STATE.PowerSystemHibernate = 5;
-     * }
-     */
-    public static int PowerSystemHibernate() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * enum _SYSTEM_POWER_STATE.PowerSystemShutdown = 6;
-     * }
-     */
-    public static int PowerSystemShutdown() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * enum _SYSTEM_POWER_STATE.PowerSystemMaximum = 7;
-     * }
-     */
-    public static int PowerSystemMaximum() {
-        return (int)7L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum _SYSTEM_POWER_STATE* PSYSTEM_POWER_STATE;
-     * }
-     */
-    public static final AddressLayout PSYSTEM_POWER_STATE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum .PowerActionNone = 0;
-     * }
-     */
-    public static int PowerActionNone() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerActionReserved = 1;
-     * }
-     */
-    public static int PowerActionReserved() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerActionSleep = 2;
-     * }
-     */
-    public static int PowerActionSleep() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerActionHibernate = 3;
-     * }
-     */
-    public static int PowerActionHibernate() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerActionShutdown = 4;
-     * }
-     */
-    public static int PowerActionShutdown() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerActionShutdownReset = 5;
-     * }
-     */
-    public static int PowerActionShutdownReset() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerActionShutdownOff = 6;
-     * }
-     */
-    public static int PowerActionShutdownOff() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerActionWarmEject = 7;
-     * }
-     */
-    public static int PowerActionWarmEject() {
-        return (int)7L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerActionDisplayOff = 8;
-     * }
-     */
-    public static int PowerActionDisplayOff() {
-        return (int)8L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum * PPOWER_ACTION;
-     * }
-     */
-    public static final AddressLayout PPOWER_ACTION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum _DEVICE_POWER_STATE.PowerDeviceUnspecified = 0;
-     * }
-     */
-    public static int PowerDeviceUnspecified() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum _DEVICE_POWER_STATE.PowerDeviceD0 = 1;
-     * }
-     */
-    public static int PowerDeviceD0() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _DEVICE_POWER_STATE.PowerDeviceD1 = 2;
-     * }
-     */
-    public static int PowerDeviceD1() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum _DEVICE_POWER_STATE.PowerDeviceD2 = 3;
-     * }
-     */
-    public static int PowerDeviceD2() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum _DEVICE_POWER_STATE.PowerDeviceD3 = 4;
-     * }
-     */
-    public static int PowerDeviceD3() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * enum _DEVICE_POWER_STATE.PowerDeviceMaximum = 5;
-     * }
-     */
-    public static int PowerDeviceMaximum() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum _DEVICE_POWER_STATE* PDEVICE_POWER_STATE;
-     * }
-     */
-    public static final AddressLayout PDEVICE_POWER_STATE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum _MONITOR_DISPLAY_STATE.PowerMonitorOff = 0;
-     * }
-     */
-    public static int PowerMonitorOff() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum _MONITOR_DISPLAY_STATE.PowerMonitorOn = 1;
-     * }
-     */
-    public static int PowerMonitorOn() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _MONITOR_DISPLAY_STATE.PowerMonitorDim = 2;
-     * }
-     */
-    public static int PowerMonitorDim() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum _MONITOR_DISPLAY_STATE* PMONITOR_DISPLAY_STATE;
-     * }
-     */
-    public static final AddressLayout PMONITOR_DISPLAY_STATE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum _USER_ACTIVITY_PRESENCE.PowerUserPresent = 0;
-     * }
-     */
-    public static int PowerUserPresent() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum _USER_ACTIVITY_PRESENCE.PowerUserNotPresent = 1;
-     * }
-     */
-    public static int PowerUserNotPresent() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _USER_ACTIVITY_PRESENCE.PowerUserInactive = 2;
-     * }
-     */
-    public static int PowerUserInactive() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum _USER_ACTIVITY_PRESENCE.PowerUserMaximum = 3;
-     * }
-     */
-    public static int PowerUserMaximum() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum _USER_ACTIVITY_PRESENCE.PowerUserInvalid = 3;
-     * }
-     */
-    public static int PowerUserInvalid() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum _USER_ACTIVITY_PRESENCE* PUSER_ACTIVITY_PRESENCE;
-     * }
-     */
-    public static final AddressLayout PUSER_ACTIVITY_PRESENCE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef unsigned long EXECUTION_STATE;
-     * }
-     */
-    public static final OfInt EXECUTION_STATE = JAVA_INT;
-    /**
-     * {@snippet :
-     * typedef unsigned long* PEXECUTION_STATE;
-     * }
-     */
-    public static final AddressLayout PEXECUTION_STATE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum .LT_DONT_CARE = 0;
-     * }
-     */
-    public static int LT_DONT_CARE() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum .LT_LOWEST_LATENCY = 1;
-     * }
-     */
-    public static int LT_LOWEST_LATENCY() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_REQUEST_TYPE.PowerRequestDisplayRequired = 0;
-     * }
-     */
-    public static int PowerRequestDisplayRequired() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_REQUEST_TYPE.PowerRequestSystemRequired = 1;
-     * }
-     */
-    public static int PowerRequestSystemRequired() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_REQUEST_TYPE.PowerRequestAwayModeRequired = 2;
-     * }
-     */
-    public static int PowerRequestAwayModeRequired() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_REQUEST_TYPE.PowerRequestExecutionRequired = 3;
-     * }
-     */
-    public static int PowerRequestExecutionRequired() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum _POWER_REQUEST_TYPE* PPOWER_REQUEST_TYPE;
-     * }
-     */
-    public static final AddressLayout PPOWER_REQUEST_TYPE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct CM_Power_Data_s* PCM_POWER_DATA;
-     * }
-     */
-    public static final AddressLayout PCM_POWER_DATA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum .SystemPowerPolicyAc = 0;
-     * }
-     */
-    public static int SystemPowerPolicyAc() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemPowerPolicyDc = 1;
-     * }
-     */
-    public static int SystemPowerPolicyDc() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum .VerifySystemPolicyAc = 2;
-     * }
-     */
-    public static int VerifySystemPolicyAc() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum .VerifySystemPolicyDc = 3;
-     * }
-     */
-    public static int VerifySystemPolicyDc() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemPowerCapabilities = 4;
-     * }
-     */
-    public static int SystemPowerCapabilities() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemBatteryState = 5;
-     * }
-     */
-    public static int SystemBatteryState() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemPowerStateHandler = 6;
-     * }
-     */
-    public static int SystemPowerStateHandler() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorStateHandler = 7;
-     * }
-     */
-    public static int ProcessorStateHandler() {
-        return (int)7L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemPowerPolicyCurrent = 8;
-     * }
-     */
-    public static int SystemPowerPolicyCurrent() {
-        return (int)8L;
-    }
-    /**
-     * {@snippet :
-     * enum .AdministratorPowerPolicy = 9;
-     * }
-     */
-    public static int AdministratorPowerPolicy() {
-        return (int)9L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemReserveHiberFile = 10;
-     * }
-     */
-    public static int SystemReserveHiberFile() {
-        return (int)10L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorInformation = 11;
-     * }
-     */
-    public static int ProcessorInformation() {
-        return (int)11L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemPowerInformation = 12;
-     * }
-     */
-    public static int SystemPowerInformation() {
-        return (int)12L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorStateHandler2 = 13;
-     * }
-     */
-    public static int ProcessorStateHandler2() {
-        return (int)13L;
-    }
-    /**
-     * {@snippet :
-     * enum .LastWakeTime = 14;
-     * }
-     */
-    public static int LastWakeTime() {
-        return (int)14L;
-    }
-    /**
-     * {@snippet :
-     * enum .LastSleepTime = 15;
-     * }
-     */
-    public static int LastSleepTime() {
-        return (int)15L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemExecutionState = 16;
-     * }
-     */
-    public static int SystemExecutionState() {
-        return (int)16L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemPowerStateNotifyHandler = 17;
-     * }
-     */
-    public static int SystemPowerStateNotifyHandler() {
-        return (int)17L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorPowerPolicyAc = 18;
-     * }
-     */
-    public static int ProcessorPowerPolicyAc() {
-        return (int)18L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorPowerPolicyDc = 19;
-     * }
-     */
-    public static int ProcessorPowerPolicyDc() {
-        return (int)19L;
-    }
-    /**
-     * {@snippet :
-     * enum .VerifyProcessorPowerPolicyAc = 20;
-     * }
-     */
-    public static int VerifyProcessorPowerPolicyAc() {
-        return (int)20L;
-    }
-    /**
-     * {@snippet :
-     * enum .VerifyProcessorPowerPolicyDc = 21;
-     * }
-     */
-    public static int VerifyProcessorPowerPolicyDc() {
-        return (int)21L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorPowerPolicyCurrent = 22;
-     * }
-     */
-    public static int ProcessorPowerPolicyCurrent() {
-        return (int)22L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemPowerStateLogging = 23;
-     * }
-     */
-    public static int SystemPowerStateLogging() {
-        return (int)23L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemPowerLoggingEntry = 24;
-     * }
-     */
-    public static int SystemPowerLoggingEntry() {
-        return (int)24L;
-    }
-    /**
-     * {@snippet :
-     * enum .SetPowerSettingValue = 25;
-     * }
-     */
-    public static int SetPowerSettingValue() {
-        return (int)25L;
-    }
-    /**
-     * {@snippet :
-     * enum .NotifyUserPowerSetting = 26;
-     * }
-     */
-    public static int NotifyUserPowerSetting() {
-        return (int)26L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerInformationLevelUnused0 = 27;
-     * }
-     */
-    public static int PowerInformationLevelUnused0() {
-        return (int)27L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemMonitorHiberBootPowerOff = 28;
-     * }
-     */
-    public static int SystemMonitorHiberBootPowerOff() {
-        return (int)28L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemVideoState = 29;
-     * }
-     */
-    public static int SystemVideoState() {
-        return (int)29L;
-    }
-    /**
-     * {@snippet :
-     * enum .TraceApplicationPowerMessage = 30;
-     * }
-     */
-    public static int TraceApplicationPowerMessage() {
-        return (int)30L;
-    }
-    /**
-     * {@snippet :
-     * enum .TraceApplicationPowerMessageEnd = 31;
-     * }
-     */
-    public static int TraceApplicationPowerMessageEnd() {
-        return (int)31L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorPerfStates = 32;
-     * }
-     */
-    public static int ProcessorPerfStates() {
-        return (int)32L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorIdleStates = 33;
-     * }
-     */
-    public static int ProcessorIdleStates() {
-        return (int)33L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorCap = 34;
-     * }
-     */
-    public static int ProcessorCap() {
-        return (int)34L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemWakeSource = 35;
-     * }
-     */
-    public static int SystemWakeSource() {
-        return (int)35L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemHiberFileInformation = 36;
-     * }
-     */
-    public static int SystemHiberFileInformation() {
-        return (int)36L;
-    }
-    /**
-     * {@snippet :
-     * enum .TraceServicePowerMessage = 37;
-     * }
-     */
-    public static int TraceServicePowerMessage() {
-        return (int)37L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorLoad = 38;
-     * }
-     */
-    public static int ProcessorLoad() {
-        return (int)38L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerShutdownNotification = 39;
-     * }
-     */
-    public static int PowerShutdownNotification() {
-        return (int)39L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorCapabilities = 40;
-     * }
-     */
-    public static int MonitorCapabilities() {
-        return (int)40L;
-    }
-    /**
-     * {@snippet :
-     * enum .SessionPowerInit = 41;
-     * }
-     */
-    public static int SessionPowerInit() {
-        return (int)41L;
-    }
-    /**
-     * {@snippet :
-     * enum .SessionDisplayState = 42;
-     * }
-     */
-    public static int SessionDisplayState() {
-        return (int)42L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerRequestCreate = 43;
-     * }
-     */
-    public static int PowerRequestCreate() {
-        return (int)43L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerRequestAction = 44;
-     * }
-     */
-    public static int PowerRequestAction() {
-        return (int)44L;
-    }
-    /**
-     * {@snippet :
-     * enum .GetPowerRequestList = 45;
-     * }
-     */
-    public static int GetPowerRequestList() {
-        return (int)45L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorInformationEx = 46;
-     * }
-     */
-    public static int ProcessorInformationEx() {
-        return (int)46L;
-    }
-    /**
-     * {@snippet :
-     * enum .NotifyUserModeLegacyPowerEvent = 47;
-     * }
-     */
-    public static int NotifyUserModeLegacyPowerEvent() {
-        return (int)47L;
-    }
-    /**
-     * {@snippet :
-     * enum .GroupPark = 48;
-     * }
-     */
-    public static int GroupPark() {
-        return (int)48L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorIdleDomains = 49;
-     * }
-     */
-    public static int ProcessorIdleDomains() {
-        return (int)49L;
-    }
-    /**
-     * {@snippet :
-     * enum .WakeTimerList = 50;
-     * }
-     */
-    public static int WakeTimerList() {
-        return (int)50L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemHiberFileSize = 51;
-     * }
-     */
-    public static int SystemHiberFileSize() {
-        return (int)51L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorIdleStatesHv = 52;
-     * }
-     */
-    public static int ProcessorIdleStatesHv() {
-        return (int)52L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorPerfStatesHv = 53;
-     * }
-     */
-    public static int ProcessorPerfStatesHv() {
-        return (int)53L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorPerfCapHv = 54;
-     * }
-     */
-    public static int ProcessorPerfCapHv() {
-        return (int)54L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorSetIdle = 55;
-     * }
-     */
-    public static int ProcessorSetIdle() {
-        return (int)55L;
-    }
-    /**
-     * {@snippet :
-     * enum .LogicalProcessorIdling = 56;
-     * }
-     */
-    public static int LogicalProcessorIdling() {
-        return (int)56L;
-    }
-    /**
-     * {@snippet :
-     * enum .UserPresence = 57;
-     * }
-     */
-    public static int UserPresence() {
-        return (int)57L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerSettingNotificationName = 58;
-     * }
-     */
-    public static int PowerSettingNotificationName() {
-        return (int)58L;
-    }
-    /**
-     * {@snippet :
-     * enum .GetPowerSettingValue = 59;
-     * }
-     */
-    public static int GetPowerSettingValue() {
-        return (int)59L;
-    }
-    /**
-     * {@snippet :
-     * enum .IdleResiliency = 60;
-     * }
-     */
-    public static int IdleResiliency() {
-        return (int)60L;
-    }
-    /**
-     * {@snippet :
-     * enum .SessionRITState = 61;
-     * }
-     */
-    public static int SessionRITState() {
-        return (int)61L;
-    }
-    /**
-     * {@snippet :
-     * enum .SessionConnectNotification = 62;
-     * }
-     */
-    public static int SessionConnectNotification() {
-        return (int)62L;
-    }
-    /**
-     * {@snippet :
-     * enum .SessionPowerCleanup = 63;
-     * }
-     */
-    public static int SessionPowerCleanup() {
-        return (int)63L;
-    }
-    /**
-     * {@snippet :
-     * enum .SessionLockState = 64;
-     * }
-     */
-    public static int SessionLockState() {
-        return (int)64L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemHiberbootState = 65;
-     * }
-     */
-    public static int SystemHiberbootState() {
-        return (int)65L;
-    }
-    /**
-     * {@snippet :
-     * enum .PlatformInformation = 66;
-     * }
-     */
-    public static int PlatformInformation() {
-        return (int)66L;
-    }
-    /**
-     * {@snippet :
-     * enum .PdcInvocation = 67;
-     * }
-     */
-    public static int PdcInvocation() {
-        return (int)67L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorInvocation = 68;
-     * }
-     */
-    public static int MonitorInvocation() {
-        return (int)68L;
-    }
-    /**
-     * {@snippet :
-     * enum .FirmwareTableInformationRegistered = 69;
-     * }
-     */
-    public static int FirmwareTableInformationRegistered() {
-        return (int)69L;
-    }
-    /**
-     * {@snippet :
-     * enum .SetShutdownSelectedTime = 70;
-     * }
-     */
-    public static int SetShutdownSelectedTime() {
-        return (int)70L;
-    }
-    /**
-     * {@snippet :
-     * enum .SuspendResumeInvocation = 71;
-     * }
-     */
-    public static int SuspendResumeInvocation() {
-        return (int)71L;
-    }
-    /**
-     * {@snippet :
-     * enum .PlmPowerRequestCreate = 72;
-     * }
-     */
-    public static int PlmPowerRequestCreate() {
-        return (int)72L;
-    }
-    /**
-     * {@snippet :
-     * enum .ScreenOff = 73;
-     * }
-     */
-    public static int ScreenOff() {
-        return (int)73L;
-    }
-    /**
-     * {@snippet :
-     * enum .CsDeviceNotification = 74;
-     * }
-     */
-    public static int CsDeviceNotification() {
-        return (int)74L;
-    }
-    /**
-     * {@snippet :
-     * enum .PlatformRole = 75;
-     * }
-     */
-    public static int PlatformRole() {
-        return (int)75L;
-    }
-    /**
-     * {@snippet :
-     * enum .LastResumePerformance = 76;
-     * }
-     */
-    public static int LastResumePerformance() {
-        return (int)76L;
-    }
-    /**
-     * {@snippet :
-     * enum .DisplayBurst = 77;
-     * }
-     */
-    public static int DisplayBurst() {
-        return (int)77L;
-    }
-    /**
-     * {@snippet :
-     * enum .ExitLatencySamplingPercentage = 78;
-     * }
-     */
-    public static int ExitLatencySamplingPercentage() {
-        return (int)78L;
-    }
-    /**
-     * {@snippet :
-     * enum .RegisterSpmPowerSettings = 79;
-     * }
-     */
-    public static int RegisterSpmPowerSettings() {
-        return (int)79L;
-    }
-    /**
-     * {@snippet :
-     * enum .PlatformIdleStates = 80;
-     * }
-     */
-    public static int PlatformIdleStates() {
-        return (int)80L;
-    }
-    /**
-     * {@snippet :
-     * enum .ProcessorIdleVeto = 81;
-     * }
-     */
-    public static int ProcessorIdleVeto() {
-        return (int)81L;
-    }
-    /**
-     * {@snippet :
-     * enum .PlatformIdleVeto = 82;
-     * }
-     */
-    public static int PlatformIdleVeto() {
-        return (int)82L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemBatteryStatePrecise = 83;
-     * }
-     */
-    public static int SystemBatteryStatePrecise() {
-        return (int)83L;
-    }
-    /**
-     * {@snippet :
-     * enum .ThermalEvent = 84;
-     * }
-     */
-    public static int ThermalEvent() {
-        return (int)84L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerRequestActionInternal = 85;
-     * }
-     */
-    public static int PowerRequestActionInternal() {
-        return (int)85L;
-    }
-    /**
-     * {@snippet :
-     * enum .BatteryDeviceState = 86;
-     * }
-     */
-    public static int BatteryDeviceState() {
-        return (int)86L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerInformationInternal = 87;
-     * }
-     */
-    public static int PowerInformationInternal() {
-        return (int)87L;
-    }
-    /**
-     * {@snippet :
-     * enum .ThermalStandby = 88;
-     * }
-     */
-    public static int ThermalStandby() {
-        return (int)88L;
-    }
-    /**
-     * {@snippet :
-     * enum .SystemHiberFileType = 89;
-     * }
-     */
-    public static int SystemHiberFileType() {
-        return (int)89L;
-    }
-    /**
-     * {@snippet :
-     * enum .PhysicalPowerButtonPress = 90;
-     * }
-     */
-    public static int PhysicalPowerButtonPress() {
-        return (int)90L;
-    }
-    /**
-     * {@snippet :
-     * enum .QueryPotentialDripsConstraint = 91;
-     * }
-     */
-    public static int QueryPotentialDripsConstraint() {
-        return (int)91L;
-    }
-    /**
-     * {@snippet :
-     * enum .EnergyTrackerCreate = 92;
-     * }
-     */
-    public static int EnergyTrackerCreate() {
-        return (int)92L;
-    }
-    /**
-     * {@snippet :
-     * enum .EnergyTrackerQuery = 93;
-     * }
-     */
-    public static int EnergyTrackerQuery() {
-        return (int)93L;
-    }
-    /**
-     * {@snippet :
-     * enum .UpdateBlackBoxRecorder = 94;
-     * }
-     */
-    public static int UpdateBlackBoxRecorder() {
-        return (int)94L;
-    }
-    /**
-     * {@snippet :
-     * enum .SessionAllowExternalDmaDevices = 95;
-     * }
-     */
-    public static int SessionAllowExternalDmaDevices() {
-        return (int)95L;
-    }
-    /**
-     * {@snippet :
-     * enum .SendSuspendResumeNotification = 96;
-     * }
-     */
-    public static int SendSuspendResumeNotification() {
-        return (int)96L;
-    }
-    /**
-     * {@snippet :
-     * enum .PowerInformationLevelMaximum = 97;
-     * }
-     */
-    public static int PowerInformationLevelMaximum() {
-        return (int)97L;
-    }
-    /**
-     * {@snippet :
-     * enum .UserNotPresent = 0;
-     * }
-     */
-    public static int UserNotPresent() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum .UserPresent = 1;
-     * }
-     */
-    public static int UserPresent() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum .UserUnknown = 255;
-     * }
-     */
-    public static int UserUnknown() {
-        return (int)255L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum * PPOWER_USER_PRESENCE_TYPE;
-     * }
-     */
-    public static final AddressLayout PPOWER_USER_PRESENCE_TYPE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _POWER_USER_PRESENCE* PPOWER_USER_PRESENCE;
-     * }
-     */
-    public static final AddressLayout PPOWER_USER_PRESENCE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _POWER_SESSION_CONNECT* PPOWER_SESSION_CONNECT;
-     * }
-     */
-    public static final AddressLayout PPOWER_SESSION_CONNECT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _POWER_SESSION_TIMEOUTS* PPOWER_SESSION_TIMEOUTS;
-     * }
-     */
-    public static final AddressLayout PPOWER_SESSION_TIMEOUTS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _POWER_SESSION_RIT_STATE* PPOWER_SESSION_RIT_STATE;
-     * }
-     */
-    public static final AddressLayout PPOWER_SESSION_RIT_STATE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _POWER_SESSION_WINLOGON* PPOWER_SESSION_WINLOGON;
-     * }
-     */
-    public static final AddressLayout PPOWER_SESSION_WINLOGON = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES* PPOWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES;
-     * }
-     */
-    public static final AddressLayout PPOWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _POWER_IDLE_RESILIENCY* PPOWER_IDLE_RESILIENCY;
-     * }
-     */
-    public static final AddressLayout PPOWER_IDLE_RESILIENCY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonUnknown = 0;
-     * }
-     */
-    public static int MonitorRequestReasonUnknown() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonPowerButton = 1;
-     * }
-     */
-    public static int MonitorRequestReasonPowerButton() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonRemoteConnection = 2;
-     * }
-     */
-    public static int MonitorRequestReasonRemoteConnection() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonScMonitorpower = 3;
-     * }
-     */
-    public static int MonitorRequestReasonScMonitorpower() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonUserInput = 4;
-     * }
-     */
-    public static int MonitorRequestReasonUserInput() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonAcDcDisplayBurst = 5;
-     * }
-     */
-    public static int MonitorRequestReasonAcDcDisplayBurst() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonUserDisplayBurst = 6;
-     * }
-     */
-    public static int MonitorRequestReasonUserDisplayBurst() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonPoSetSystemState = 7;
-     * }
-     */
-    public static int MonitorRequestReasonPoSetSystemState() {
-        return (int)7L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonSetThreadExecutionState = 8;
-     * }
-     */
-    public static int MonitorRequestReasonSetThreadExecutionState() {
-        return (int)8L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonFullWake = 9;
-     * }
-     */
-    public static int MonitorRequestReasonFullWake() {
-        return (int)9L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonSessionUnlock = 10;
-     * }
-     */
-    public static int MonitorRequestReasonSessionUnlock() {
-        return (int)10L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonScreenOffRequest = 11;
-     * }
-     */
-    public static int MonitorRequestReasonScreenOffRequest() {
-        return (int)11L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonIdleTimeout = 12;
-     * }
-     */
-    public static int MonitorRequestReasonIdleTimeout() {
-        return (int)12L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonPolicyChange = 13;
-     * }
-     */
-    public static int MonitorRequestReasonPolicyChange() {
-        return (int)13L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonSleepButton = 14;
-     * }
-     */
-    public static int MonitorRequestReasonSleepButton() {
-        return (int)14L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonLid = 15;
-     * }
-     */
-    public static int MonitorRequestReasonLid() {
-        return (int)15L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonBatteryCountChange = 16;
-     * }
-     */
-    public static int MonitorRequestReasonBatteryCountChange() {
-        return (int)16L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonGracePeriod = 17;
-     * }
-     */
-    public static int MonitorRequestReasonGracePeriod() {
-        return (int)17L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonPnP = 18;
-     * }
-     */
-    public static int MonitorRequestReasonPnP() {
-        return (int)18L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonDP = 19;
-     * }
-     */
-    public static int MonitorRequestReasonDP() {
-        return (int)19L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonSxTransition = 20;
-     * }
-     */
-    public static int MonitorRequestReasonSxTransition() {
-        return (int)20L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonSystemIdle = 21;
-     * }
-     */
-    public static int MonitorRequestReasonSystemIdle() {
-        return (int)21L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonNearProximity = 22;
-     * }
-     */
-    public static int MonitorRequestReasonNearProximity() {
-        return (int)22L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonThermalStandby = 23;
-     * }
-     */
-    public static int MonitorRequestReasonThermalStandby() {
-        return (int)23L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonResumePdc = 24;
-     * }
-     */
-    public static int MonitorRequestReasonResumePdc() {
-        return (int)24L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonResumeS4 = 25;
-     * }
-     */
-    public static int MonitorRequestReasonResumeS4() {
-        return (int)25L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonTerminal = 26;
-     * }
-     */
-    public static int MonitorRequestReasonTerminal() {
-        return (int)26L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonPdcSignal = 27;
-     * }
-     */
-    public static int MonitorRequestReasonPdcSignal() {
-        return (int)27L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonAcDcDisplayBurstSuppressed = 28;
-     * }
-     */
-    public static int MonitorRequestReasonAcDcDisplayBurstSuppressed() {
-        return (int)28L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonSystemStateEntered = 29;
-     * }
-     */
-    public static int MonitorRequestReasonSystemStateEntered() {
-        return (int)29L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonWinrt = 30;
-     * }
-     */
-    public static int MonitorRequestReasonWinrt() {
-        return (int)30L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonUserInputKeyboard = 31;
-     * }
-     */
-    public static int MonitorRequestReasonUserInputKeyboard() {
-        return (int)31L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonUserInputMouse = 32;
-     * }
-     */
-    public static int MonitorRequestReasonUserInputMouse() {
-        return (int)32L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonUserInputTouchpad = 33;
-     * }
-     */
-    public static int MonitorRequestReasonUserInputTouchpad() {
-        return (int)33L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonUserInputPen = 34;
-     * }
-     */
-    public static int MonitorRequestReasonUserInputPen() {
-        return (int)34L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonUserInputAccelerometer = 35;
-     * }
-     */
-    public static int MonitorRequestReasonUserInputAccelerometer() {
-        return (int)35L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonUserInputHid = 36;
-     * }
-     */
-    public static int MonitorRequestReasonUserInputHid() {
-        return (int)36L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonUserInputPoUserPresent = 37;
-     * }
-     */
-    public static int MonitorRequestReasonUserInputPoUserPresent() {
-        return (int)37L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonUserInputSessionSwitch = 38;
-     * }
-     */
-    public static int MonitorRequestReasonUserInputSessionSwitch() {
-        return (int)38L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonUserInputInitialization = 39;
-     * }
-     */
-    public static int MonitorRequestReasonUserInputInitialization() {
-        return (int)39L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonPdcSignalWindowsMobilePwrNotif = 40;
-     * }
-     */
-    public static int MonitorRequestReasonPdcSignalWindowsMobilePwrNotif() {
-        return (int)40L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonPdcSignalWindowsMobileShell = 41;
-     * }
-     */
-    public static int MonitorRequestReasonPdcSignalWindowsMobileShell() {
-        return (int)41L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonPdcSignalHeyCortana = 42;
-     * }
-     */
-    public static int MonitorRequestReasonPdcSignalHeyCortana() {
-        return (int)42L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonPdcSignalHolographicShell = 43;
-     * }
-     */
-    public static int MonitorRequestReasonPdcSignalHolographicShell() {
-        return (int)43L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonPdcSignalFingerprint = 44;
-     * }
-     */
-    public static int MonitorRequestReasonPdcSignalFingerprint() {
-        return (int)44L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonDirectedDrips = 45;
-     * }
-     */
-    public static int MonitorRequestReasonDirectedDrips() {
-        return (int)45L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonDim = 46;
-     * }
-     */
-    public static int MonitorRequestReasonDim() {
-        return (int)46L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonBuiltinPanel = 47;
-     * }
-     */
-    public static int MonitorRequestReasonBuiltinPanel() {
-        return (int)47L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonDisplayRequiredUnDim = 48;
-     * }
-     */
-    public static int MonitorRequestReasonDisplayRequiredUnDim() {
-        return (int)48L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonBatteryCountChangeSuppressed = 49;
-     * }
-     */
-    public static int MonitorRequestReasonBatteryCountChangeSuppressed() {
-        return (int)49L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonResumeModernStandby = 50;
-     * }
-     */
-    public static int MonitorRequestReasonResumeModernStandby() {
-        return (int)50L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonTerminalInit = 51;
-     * }
-     */
-    public static int MonitorRequestReasonTerminalInit() {
-        return (int)51L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonPdcSignalSensorsHumanPresence = 52;
-     * }
-     */
-    public static int MonitorRequestReasonPdcSignalSensorsHumanPresence() {
-        return (int)52L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonBatteryPreCritical = 53;
-     * }
-     */
-    public static int MonitorRequestReasonBatteryPreCritical() {
-        return (int)53L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonUserInputTouch = 54;
-     * }
-     */
-    public static int MonitorRequestReasonUserInputTouch() {
-        return (int)54L;
-    }
-    /**
-     * {@snippet :
-     * enum .MonitorRequestReasonMax = 55;
-     * }
-     */
-    public static int MonitorRequestReasonMax() {
-        return (int)55L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_MONITOR_REQUEST_TYPE.MonitorRequestTypeOff = 0;
-     * }
-     */
-    public static int MonitorRequestTypeOff() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_MONITOR_REQUEST_TYPE.MonitorRequestTypeOnAndPresent = 1;
-     * }
-     */
-    public static int MonitorRequestTypeOnAndPresent() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_MONITOR_REQUEST_TYPE.MonitorRequestTypeToggleOn = 2;
-     * }
-     */
-    public static int MonitorRequestTypeToggleOn() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * typedef struct _POWER_MONITOR_INVOCATION* PPOWER_MONITOR_INVOCATION;
-     * }
-     */
-    public static final AddressLayout PPOWER_MONITOR_INVOCATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RESUME_PERFORMANCE* PRESUME_PERFORMANCE;
-     * }
-     */
-    public static final AddressLayout PRESUME_PERFORMANCE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum .PoAc = 0;
-     * }
-     */
-    public static int PoAc() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum .PoDc = 1;
-     * }
-     */
-    public static int PoDc() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum .PoHot = 2;
-     * }
-     */
-    public static int PoHot() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum .PoConditionMaximum = 3;
-     * }
-     */
-    public static int PoConditionMaximum() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * typedef struct * PSET_POWER_SETTING_VALUE;
-     * }
-     */
-    public static final AddressLayout PSET_POWER_SETTING_VALUE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PNOTIFY_USER_POWER_SETTING;
-     * }
-     */
-    public static final AddressLayout PNOTIFY_USER_POWER_SETTING = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _APPLICATIONLAUNCH_SETTING_VALUE* PAPPLICATIONLAUNCH_SETTING_VALUE;
-     * }
-     */
-    public static final AddressLayout PAPPLICATIONLAUNCH_SETTING_VALUE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum _POWER_PLATFORM_ROLE.PlatformRoleUnspecified = 0;
-     * }
-     */
-    public static int PlatformRoleUnspecified() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_PLATFORM_ROLE.PlatformRoleDesktop = 1;
-     * }
-     */
-    public static int PlatformRoleDesktop() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_PLATFORM_ROLE.PlatformRoleMobile = 2;
-     * }
-     */
-    public static int PlatformRoleMobile() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_PLATFORM_ROLE.PlatformRoleWorkstation = 3;
-     * }
-     */
-    public static int PlatformRoleWorkstation() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_PLATFORM_ROLE.PlatformRoleEnterpriseServer = 4;
-     * }
-     */
-    public static int PlatformRoleEnterpriseServer() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_PLATFORM_ROLE.PlatformRoleSOHOServer = 5;
-     * }
-     */
-    public static int PlatformRoleSOHOServer() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_PLATFORM_ROLE.PlatformRoleAppliancePC = 6;
-     * }
-     */
-    public static int PlatformRoleAppliancePC() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_PLATFORM_ROLE.PlatformRolePerformanceServer = 7;
-     * }
-     */
-    public static int PlatformRolePerformanceServer() {
-        return (int)7L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_PLATFORM_ROLE.PlatformRoleSlate = 8;
-     * }
-     */
-    public static int PlatformRoleSlate() {
-        return (int)8L;
-    }
-    /**
-     * {@snippet :
-     * enum _POWER_PLATFORM_ROLE.PlatformRoleMaximum = 9;
-     * }
-     */
-    public static int PlatformRoleMaximum() {
-        return (int)9L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum _POWER_PLATFORM_ROLE* PPOWER_PLATFORM_ROLE;
-     * }
-     */
-    public static final AddressLayout PPOWER_PLATFORM_ROLE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _POWER_PLATFORM_INFORMATION* PPOWER_PLATFORM_INFORMATION;
-     * }
-     */
-    public static final AddressLayout PPOWER_PLATFORM_INFORMATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum POWER_SETTING_ALTITUDE.ALTITUDE_GROUP_POLICY = 0;
-     * }
-     */
-    public static int ALTITUDE_GROUP_POLICY() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum POWER_SETTING_ALTITUDE.ALTITUDE_USER = 1;
-     * }
-     */
-    public static int ALTITUDE_USER() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum POWER_SETTING_ALTITUDE.ALTITUDE_RUNTIME_OVERRIDE = 2;
-     * }
-     */
-    public static int ALTITUDE_RUNTIME_OVERRIDE() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum POWER_SETTING_ALTITUDE.ALTITUDE_PROVISIONING = 3;
-     * }
-     */
-    public static int ALTITUDE_PROVISIONING() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum POWER_SETTING_ALTITUDE.ALTITUDE_OEM_CUSTOMIZATION = 4;
-     * }
-     */
-    public static int ALTITUDE_OEM_CUSTOMIZATION() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * enum POWER_SETTING_ALTITUDE.ALTITUDE_INTERNAL_OVERRIDE = 5;
-     * }
-     */
-    public static int ALTITUDE_INTERNAL_OVERRIDE() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * enum POWER_SETTING_ALTITUDE.ALTITUDE_OS_DEFAULT = 6;
-     * }
-     */
-    public static int ALTITUDE_OS_DEFAULT() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum POWER_SETTING_ALTITUDE* PPOWER_SETTING_ALTITUDE;
-     * }
-     */
-    public static final AddressLayout PPOWER_SETTING_ALTITUDE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PBATTERY_REPORTING_SCALE;
-     * }
-     */
-    public static final AddressLayout PBATTERY_REPORTING_SCALE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_WMI_LEGACY_PERFSTATE;
-     * }
-     */
-    public static final AddressLayout PPPM_WMI_LEGACY_PERFSTATE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_WMI_IDLE_STATE;
-     * }
-     */
-    public static final AddressLayout PPPM_WMI_IDLE_STATE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_WMI_IDLE_STATES;
-     * }
-     */
-    public static final AddressLayout PPPM_WMI_IDLE_STATES = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_WMI_IDLE_STATES_EX;
-     * }
-     */
-    public static final AddressLayout PPPM_WMI_IDLE_STATES_EX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_WMI_PERF_STATE;
-     * }
-     */
-    public static final AddressLayout PPPM_WMI_PERF_STATE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_WMI_PERF_STATES;
-     * }
-     */
-    public static final AddressLayout PPPM_WMI_PERF_STATES = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_WMI_PERF_STATES_EX;
-     * }
-     */
-    public static final AddressLayout PPPM_WMI_PERF_STATES_EX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_IDLE_STATE_ACCOUNTING;
-     * }
-     */
-    public static final AddressLayout PPPM_IDLE_STATE_ACCOUNTING = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_IDLE_ACCOUNTING;
-     * }
-     */
-    public static final AddressLayout PPPM_IDLE_ACCOUNTING = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_IDLE_STATE_BUCKET_EX;
-     * }
-     */
-    public static final AddressLayout PPPM_IDLE_STATE_BUCKET_EX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_IDLE_STATE_ACCOUNTING_EX;
-     * }
-     */
-    public static final AddressLayout PPPM_IDLE_STATE_ACCOUNTING_EX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_IDLE_ACCOUNTING_EX;
-     * }
-     */
-    public static final AddressLayout PPPM_IDLE_ACCOUNTING_EX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * const GUID PPM_PERFSTATE_CHANGE_GUID;
-     * }
-     */
-    public static MemorySegment PPM_PERFSTATE_CHANGE_GUID$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$326.const$2,"PPM_PERFSTATE_CHANGE_GUID");
-    }
-    /**
-     * {@snippet :
-     * const GUID PPM_PERFSTATE_DOMAIN_CHANGE_GUID;
-     * }
-     */
-    public static MemorySegment PPM_PERFSTATE_DOMAIN_CHANGE_GUID$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$326.const$3,"PPM_PERFSTATE_DOMAIN_CHANGE_GUID");
-    }
-    /**
-     * {@snippet :
-     * const GUID PPM_IDLESTATE_CHANGE_GUID;
-     * }
-     */
-    public static MemorySegment PPM_IDLESTATE_CHANGE_GUID$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$326.const$4,"PPM_IDLESTATE_CHANGE_GUID");
-    }
-    /**
-     * {@snippet :
-     * const GUID PPM_PERFSTATES_DATA_GUID;
-     * }
-     */
-    public static MemorySegment PPM_PERFSTATES_DATA_GUID$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$326.const$5,"PPM_PERFSTATES_DATA_GUID");
-    }
-    /**
-     * {@snippet :
-     * const GUID PPM_IDLESTATES_DATA_GUID;
-     * }
-     */
-    public static MemorySegment PPM_IDLESTATES_DATA_GUID$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$327.const$0,"PPM_IDLESTATES_DATA_GUID");
-    }
-    /**
-     * {@snippet :
-     * const GUID PPM_IDLE_ACCOUNTING_GUID;
-     * }
-     */
-    public static MemorySegment PPM_IDLE_ACCOUNTING_GUID$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$327.const$1,"PPM_IDLE_ACCOUNTING_GUID");
-    }
-    /**
-     * {@snippet :
-     * const GUID PPM_IDLE_ACCOUNTING_EX_GUID;
-     * }
-     */
-    public static MemorySegment PPM_IDLE_ACCOUNTING_EX_GUID$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$327.const$2,"PPM_IDLE_ACCOUNTING_EX_GUID");
-    }
-    /**
-     * {@snippet :
-     * const GUID PPM_THERMALCONSTRAINT_GUID;
-     * }
-     */
-    public static MemorySegment PPM_THERMALCONSTRAINT_GUID$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$327.const$3,"PPM_THERMALCONSTRAINT_GUID");
-    }
-    /**
-     * {@snippet :
-     * const GUID PPM_PERFMON_PERFSTATE_GUID;
-     * }
-     */
-    public static MemorySegment PPM_PERFMON_PERFSTATE_GUID$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$327.const$4,"PPM_PERFMON_PERFSTATE_GUID");
-    }
-    /**
-     * {@snippet :
-     * const GUID PPM_THERMAL_POLICY_CHANGE_GUID;
-     * }
-     */
-    public static MemorySegment PPM_THERMAL_POLICY_CHANGE_GUID$SEGMENT() {
-        return RuntimeHelper.requireNonNull(constants$327.const$5,"PPM_THERMAL_POLICY_CHANGE_GUID");
-    }
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_PERFSTATE_EVENT;
-     * }
-     */
-    public static final AddressLayout PPPM_PERFSTATE_EVENT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_PERFSTATE_DOMAIN_EVENT;
-     * }
-     */
-    public static final AddressLayout PPPM_PERFSTATE_DOMAIN_EVENT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_IDLESTATE_EVENT;
-     * }
-     */
-    public static final AddressLayout PPPM_IDLESTATE_EVENT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_THERMALCHANGE_EVENT;
-     * }
-     */
-    public static final AddressLayout PPPM_THERMALCHANGE_EVENT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPPM_THERMAL_POLICY_EVENT;
-     * }
-     */
-    public static final AddressLayout PPPM_THERMAL_POLICY_EVENT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPOWER_ACTION_POLICY;
-     * }
-     */
-    public static final AddressLayout PPOWER_ACTION_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PSYSTEM_POWER_LEVEL;
-     * }
-     */
-    public static final AddressLayout PSYSTEM_POWER_LEVEL = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _SYSTEM_POWER_POLICY* PSYSTEM_POWER_POLICY;
-     * }
-     */
-    public static final AddressLayout PSYSTEM_POWER_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPROCESSOR_IDLESTATE_INFO;
-     * }
-     */
-    public static final AddressLayout PPROCESSOR_IDLESTATE_INFO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPROCESSOR_IDLESTATE_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESSOR_IDLESTATE_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESSOR_POWER_POLICY_INFO* PPROCESSOR_POWER_POLICY_INFO;
-     * }
-     */
-    public static final AddressLayout PPROCESSOR_POWER_POLICY_INFO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _PROCESSOR_POWER_POLICY* PPROCESSOR_POWER_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESSOR_POWER_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PPROCESSOR_PERFSTATE_POLICY;
-     * }
-     */
-    public static final AddressLayout PPROCESSOR_PERFSTATE_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _ADMINISTRATOR_POWER_POLICY* PADMINISTRATOR_POWER_POLICY;
-     * }
-     */
-    public static final AddressLayout PADMINISTRATOR_POWER_POLICY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucket1GB = 0;
-     * }
-     */
-    public static int HiberFileBucket1GB() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucket2GB = 1;
-     * }
-     */
-    public static int HiberFileBucket2GB() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucket4GB = 2;
-     * }
-     */
-    public static int HiberFileBucket4GB() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucket8GB = 3;
-     * }
-     */
-    public static int HiberFileBucket8GB() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucket16GB = 4;
-     * }
-     */
-    public static int HiberFileBucket16GB() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucket32GB = 5;
-     * }
-     */
-    public static int HiberFileBucket32GB() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucketUnlimited = 6;
-     * }
-     */
-    public static int HiberFileBucketUnlimited() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * enum _HIBERFILE_BUCKET_SIZE.HiberFileBucketMax = 7;
-     * }
-     */
-    public static int HiberFileBucketMax() {
-        return (int)7L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum _HIBERFILE_BUCKET_SIZE* PHIBERFILE_BUCKET_SIZE;
-     * }
-     */
-    public static final AddressLayout PHIBERFILE_BUCKET_SIZE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _HIBERFILE_BUCKET* PHIBERFILE_BUCKET;
-     * }
-     */
-    public static final AddressLayout PHIBERFILE_BUCKET = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PSYSTEM_POWER_CAPABILITIES;
-     * }
-     */
-    public static final AddressLayout PSYSTEM_POWER_CAPABILITIES = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct * PSYSTEM_BATTERY_STATE;
-     * }
-     */
-    public static final AddressLayout PSYSTEM_BATTERY_STATE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_DOS_HEADER* PIMAGE_DOS_HEADER;
-     * }
-     */
-    public static final AddressLayout PIMAGE_DOS_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_OS2_HEADER* PIMAGE_OS2_HEADER;
-     * }
-     */
-    public static final AddressLayout PIMAGE_OS2_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_VXD_HEADER* PIMAGE_VXD_HEADER;
-     * }
-     */
-    public static final AddressLayout PIMAGE_VXD_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_FILE_HEADER* PIMAGE_FILE_HEADER;
-     * }
-     */
-    public static final AddressLayout PIMAGE_FILE_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_DATA_DIRECTORY* PIMAGE_DATA_DIRECTORY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_DATA_DIRECTORY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_OPTIONAL_HEADER* PIMAGE_OPTIONAL_HEADER32;
-     * }
-     */
-    public static final AddressLayout PIMAGE_OPTIONAL_HEADER32 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_ROM_OPTIONAL_HEADER* PIMAGE_ROM_OPTIONAL_HEADER;
-     * }
-     */
-    public static final AddressLayout PIMAGE_ROM_OPTIONAL_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_OPTIONAL_HEADER64* PIMAGE_OPTIONAL_HEADER64;
-     * }
-     */
-    public static final AddressLayout PIMAGE_OPTIONAL_HEADER64 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_OPTIONAL_HEADER64* PIMAGE_OPTIONAL_HEADER;
-     * }
-     */
-    public static final AddressLayout PIMAGE_OPTIONAL_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_NT_HEADERS64* PIMAGE_NT_HEADERS64;
-     * }
-     */
-    public static final AddressLayout PIMAGE_NT_HEADERS64 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_NT_HEADERS* PIMAGE_NT_HEADERS32;
-     * }
-     */
-    public static final AddressLayout PIMAGE_NT_HEADERS32 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_ROM_HEADERS* PIMAGE_ROM_HEADERS;
-     * }
-     */
-    public static final AddressLayout PIMAGE_ROM_HEADERS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_NT_HEADERS64* PIMAGE_NT_HEADERS;
-     * }
-     */
-    public static final AddressLayout PIMAGE_NT_HEADERS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_SECTION_HEADER* PIMAGE_SECTION_HEADER;
-     * }
-     */
-    public static final AddressLayout PIMAGE_SECTION_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_SYMBOL* PIMAGE_SYMBOL;
-     * }
-     */
-    public static final AddressLayout PIMAGE_SYMBOL = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_SYMBOL_EX* PIMAGE_SYMBOL_EX;
-     * }
-     */
-    public static final AddressLayout PIMAGE_SYMBOL_EX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct IMAGE_AUX_SYMBOL_TOKEN_DEF* PIMAGE_AUX_SYMBOL_TOKEN_DEF;
-     * }
-     */
-    public static final AddressLayout PIMAGE_AUX_SYMBOL_TOKEN_DEF = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef union _IMAGE_AUX_SYMBOL* PIMAGE_AUX_SYMBOL;
-     * }
-     */
-    public static final AddressLayout PIMAGE_AUX_SYMBOL = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef union _IMAGE_AUX_SYMBOL_EX* PIMAGE_AUX_SYMBOL_EX;
-     * }
-     */
-    public static final AddressLayout PIMAGE_AUX_SYMBOL_EX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum IMAGE_AUX_SYMBOL_TYPE.IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF = 1;
-     * }
-     */
-    public static int IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_RELOCATION* PIMAGE_RELOCATION;
-     * }
-     */
-    public static final AddressLayout PIMAGE_RELOCATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_LINENUMBER* PIMAGE_LINENUMBER;
-     * }
-     */
-    public static final AddressLayout PIMAGE_LINENUMBER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_BASE_RELOCATION* PIMAGE_BASE_RELOCATION;
-     * }
-     */
-    public static final AddressLayout PIMAGE_BASE_RELOCATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_ARCHIVE_MEMBER_HEADER* PIMAGE_ARCHIVE_MEMBER_HEADER;
-     * }
-     */
-    public static final AddressLayout PIMAGE_ARCHIVE_MEMBER_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_EXPORT_DIRECTORY* PIMAGE_EXPORT_DIRECTORY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_EXPORT_DIRECTORY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_IMPORT_BY_NAME* PIMAGE_IMPORT_BY_NAME;
-     * }
-     */
-    public static final AddressLayout PIMAGE_IMPORT_BY_NAME = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_THUNK_DATA64* PIMAGE_THUNK_DATA64;
-     * }
-     */
-    public static final AddressLayout PIMAGE_THUNK_DATA64 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_THUNK_DATA32* PIMAGE_THUNK_DATA32;
-     * }
-     */
-    public static final AddressLayout PIMAGE_THUNK_DATA32 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_TLS_DIRECTORY64* PIMAGE_TLS_DIRECTORY64;
-     * }
-     */
-    public static final AddressLayout PIMAGE_TLS_DIRECTORY64 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_TLS_DIRECTORY32* PIMAGE_TLS_DIRECTORY32;
-     * }
-     */
-    public static final AddressLayout PIMAGE_TLS_DIRECTORY32 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_THUNK_DATA64* PIMAGE_THUNK_DATA;
-     * }
-     */
-    public static final AddressLayout PIMAGE_THUNK_DATA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_TLS_DIRECTORY64* PIMAGE_TLS_DIRECTORY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_TLS_DIRECTORY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_IMPORT_DESCRIPTOR* PIMAGE_IMPORT_DESCRIPTOR;
-     * }
-     */
-    public static final AddressLayout PIMAGE_IMPORT_DESCRIPTOR = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_BOUND_IMPORT_DESCRIPTOR* PIMAGE_BOUND_IMPORT_DESCRIPTOR;
-     * }
-     */
-    public static final AddressLayout PIMAGE_BOUND_IMPORT_DESCRIPTOR = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_BOUND_FORWARDER_REF* PIMAGE_BOUND_FORWARDER_REF;
-     * }
-     */
-    public static final AddressLayout PIMAGE_BOUND_FORWARDER_REF = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_DELAYLOAD_DESCRIPTOR* PIMAGE_DELAYLOAD_DESCRIPTOR;
-     * }
-     */
-    public static final AddressLayout PIMAGE_DELAYLOAD_DESCRIPTOR = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_DELAYLOAD_DESCRIPTOR* PCIMAGE_DELAYLOAD_DESCRIPTOR;
-     * }
-     */
-    public static final AddressLayout PCIMAGE_DELAYLOAD_DESCRIPTOR = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_RESOURCE_DIRECTORY* PIMAGE_RESOURCE_DIRECTORY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_RESOURCE_DIRECTORY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_RESOURCE_DIRECTORY_ENTRY* PIMAGE_RESOURCE_DIRECTORY_ENTRY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_RESOURCE_DIRECTORY_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_RESOURCE_DIRECTORY_STRING* PIMAGE_RESOURCE_DIRECTORY_STRING;
-     * }
-     */
-    public static final AddressLayout PIMAGE_RESOURCE_DIRECTORY_STRING = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_RESOURCE_DIR_STRING_U* PIMAGE_RESOURCE_DIR_STRING_U;
-     * }
-     */
-    public static final AddressLayout PIMAGE_RESOURCE_DIR_STRING_U = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_RESOURCE_DATA_ENTRY* PIMAGE_RESOURCE_DATA_ENTRY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_RESOURCE_DATA_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_LOAD_CONFIG_CODE_INTEGRITY* PIMAGE_LOAD_CONFIG_CODE_INTEGRITY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_LOAD_CONFIG_CODE_INTEGRITY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_DYNAMIC_RELOCATION_TABLE* PIMAGE_DYNAMIC_RELOCATION_TABLE;
-     * }
-     */
-    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION_TABLE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_DYNAMIC_RELOCATION32* PIMAGE_DYNAMIC_RELOCATION32;
-     * }
-     */
-    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION32 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_DYNAMIC_RELOCATION64* PIMAGE_DYNAMIC_RELOCATION64;
-     * }
-     */
-    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION64 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_DYNAMIC_RELOCATION32_V2* PIMAGE_DYNAMIC_RELOCATION32_V2;
-     * }
-     */
-    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION32_V2 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_DYNAMIC_RELOCATION64_V2* PIMAGE_DYNAMIC_RELOCATION64_V2;
-     * }
-     */
-    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION64_V2 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_DYNAMIC_RELOCATION64* PIMAGE_DYNAMIC_RELOCATION;
-     * }
-     */
-    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_DYNAMIC_RELOCATION64_V2* PIMAGE_DYNAMIC_RELOCATION_V2;
-     * }
-     */
-    public static final AddressLayout PIMAGE_DYNAMIC_RELOCATION_V2 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER* PIMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER;
-     * }
-     */
-    public static final AddressLayout PIMAGE_PROLOGUE_DYNAMIC_RELOCATION_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER* PIMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER;
-     * }
-     */
-    public static final AddressLayout PIMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION* PIMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION;
-     * }
-     */
-    public static final AddressLayout PIMAGE_IMPORT_CONTROL_TRANSFER_DYNAMIC_RELOCATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION* PIMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION;
-     * }
-     */
-    public static final AddressLayout PIMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION* PIMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION;
-     * }
-     */
-    public static final AddressLayout PIMAGE_SWITCHTABLE_BRANCH_DYNAMIC_RELOCATION = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_LOAD_CONFIG_DIRECTORY32* PIMAGE_LOAD_CONFIG_DIRECTORY32;
-     * }
-     */
-    public static final AddressLayout PIMAGE_LOAD_CONFIG_DIRECTORY32 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_LOAD_CONFIG_DIRECTORY64* PIMAGE_LOAD_CONFIG_DIRECTORY64;
-     * }
-     */
-    public static final AddressLayout PIMAGE_LOAD_CONFIG_DIRECTORY64 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_LOAD_CONFIG_DIRECTORY64* PIMAGE_LOAD_CONFIG_DIRECTORY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_LOAD_CONFIG_DIRECTORY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_HOT_PATCH_INFO* PIMAGE_HOT_PATCH_INFO;
-     * }
-     */
-    public static final AddressLayout PIMAGE_HOT_PATCH_INFO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_HOT_PATCH_BASE* PIMAGE_HOT_PATCH_BASE;
-     * }
-     */
-    public static final AddressLayout PIMAGE_HOT_PATCH_BASE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_HOT_PATCH_HASHES* PIMAGE_HOT_PATCH_HASHES;
-     * }
-     */
-    public static final AddressLayout PIMAGE_HOT_PATCH_HASHES = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_CE_RUNTIME_FUNCTION_ENTRY* PIMAGE_CE_RUNTIME_FUNCTION_ENTRY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_CE_RUNTIME_FUNCTION_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_ARM_RUNTIME_FUNCTION_ENTRY* PIMAGE_ARM_RUNTIME_FUNCTION_ENTRY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_ARM_RUNTIME_FUNCTION_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum ARM64_FNPDATA_FLAGS.PdataRefToFullXdata = 0;
-     * }
-     */
-    public static int PdataRefToFullXdata() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum ARM64_FNPDATA_FLAGS.PdataPackedUnwindFunction = 1;
-     * }
-     */
-    public static int PdataPackedUnwindFunction() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum ARM64_FNPDATA_FLAGS.PdataPackedUnwindFragment = 2;
-     * }
-     */
-    public static int PdataPackedUnwindFragment() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum ARM64_FNPDATA_CR.PdataCrUnchained = 0;
-     * }
-     */
-    public static int PdataCrUnchained() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum ARM64_FNPDATA_CR.PdataCrUnchainedSavedLr = 1;
-     * }
-     */
-    public static int PdataCrUnchainedSavedLr() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum ARM64_FNPDATA_CR.PdataCrChainedWithPac = 2;
-     * }
-     */
-    public static int PdataCrChainedWithPac() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum ARM64_FNPDATA_CR.PdataCrChained = 3;
-     * }
-     */
-    public static int PdataCrChained() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY* PIMAGE_ARM64_RUNTIME_FUNCTION_ENTRY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_ARM64_RUNTIME_FUNCTION_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY* PIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_ALPHA64_RUNTIME_FUNCTION_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY* PIMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_ALPHA_RUNTIME_FUNCTION_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_RUNTIME_FUNCTION_ENTRY* _PIMAGE_RUNTIME_FUNCTION_ENTRY;
-     * }
-     */
-    public static final AddressLayout _PIMAGE_RUNTIME_FUNCTION_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_RUNTIME_FUNCTION_ENTRY* PIMAGE_IA64_RUNTIME_FUNCTION_ENTRY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_IA64_RUNTIME_FUNCTION_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_RUNTIME_FUNCTION_ENTRY* PIMAGE_AMD64_RUNTIME_FUNCTION_ENTRY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_AMD64_RUNTIME_FUNCTION_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_RUNTIME_FUNCTION_ENTRY* PIMAGE_RUNTIME_FUNCTION_ENTRY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_RUNTIME_FUNCTION_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_ENCLAVE_CONFIG32* PIMAGE_ENCLAVE_CONFIG32;
-     * }
-     */
-    public static final AddressLayout PIMAGE_ENCLAVE_CONFIG32 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_ENCLAVE_CONFIG64* PIMAGE_ENCLAVE_CONFIG64;
-     * }
-     */
-    public static final AddressLayout PIMAGE_ENCLAVE_CONFIG64 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_ENCLAVE_CONFIG64* PIMAGE_ENCLAVE_CONFIG;
-     * }
-     */
-    public static final AddressLayout PIMAGE_ENCLAVE_CONFIG = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_ENCLAVE_IMPORT* PIMAGE_ENCLAVE_IMPORT;
-     * }
-     */
-    public static final AddressLayout PIMAGE_ENCLAVE_IMPORT = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_DEBUG_DIRECTORY* PIMAGE_DEBUG_DIRECTORY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_DEBUG_DIRECTORY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_COFF_SYMBOLS_HEADER* PIMAGE_COFF_SYMBOLS_HEADER;
-     * }
-     */
-    public static final AddressLayout PIMAGE_COFF_SYMBOLS_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _FPO_DATA* PFPO_DATA;
-     * }
-     */
-    public static final AddressLayout PFPO_DATA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_DEBUG_MISC* PIMAGE_DEBUG_MISC;
-     * }
-     */
-    public static final AddressLayout PIMAGE_DEBUG_MISC = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_FUNCTION_ENTRY* PIMAGE_FUNCTION_ENTRY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_FUNCTION_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_FUNCTION_ENTRY64* PIMAGE_FUNCTION_ENTRY64;
-     * }
-     */
-    public static final AddressLayout PIMAGE_FUNCTION_ENTRY64 = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _IMAGE_SEPARATE_DEBUG_HEADER* PIMAGE_SEPARATE_DEBUG_HEADER;
-     * }
-     */
-    public static final AddressLayout PIMAGE_SEPARATE_DEBUG_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _NON_PAGED_DEBUG_INFO* PNON_PAGED_DEBUG_INFO;
-     * }
-     */
-    public static final AddressLayout PNON_PAGED_DEBUG_INFO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _ImageArchitectureHeader* PIMAGE_ARCHITECTURE_HEADER;
-     * }
-     */
-    public static final AddressLayout PIMAGE_ARCHITECTURE_HEADER = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _ImageArchitectureEntry* PIMAGE_ARCHITECTURE_ENTRY;
-     * }
-     */
-    public static final AddressLayout PIMAGE_ARCHITECTURE_ENTRY = RuntimeHelper.POINTER;
+    private static final int SYSTEM_SCOPED_POLICY_ID_ACE_TYPE = (int)19L;
     /**
-     * {@snippet :
-     * enum IMPORT_OBJECT_TYPE.IMPORT_OBJECT_CODE = 0;
+     * {@snippet lang=c :
+     * #define SYSTEM_SCOPED_POLICY_ID_ACE_TYPE 19
      * }
      */
-    public static int IMPORT_OBJECT_CODE() {
-        return (int)0L;
+    public static int SYSTEM_SCOPED_POLICY_ID_ACE_TYPE() {
+        return SYSTEM_SCOPED_POLICY_ID_ACE_TYPE;
     }
+    private static final int SYSTEM_PROCESS_TRUST_LABEL_ACE_TYPE = (int)20L;
     /**
-     * {@snippet :
-     * enum IMPORT_OBJECT_TYPE.IMPORT_OBJECT_DATA = 1;
+     * {@snippet lang=c :
+     * #define SYSTEM_PROCESS_TRUST_LABEL_ACE_TYPE 20
      * }
      */
-    public static int IMPORT_OBJECT_DATA() {
-        return (int)1L;
+    public static int SYSTEM_PROCESS_TRUST_LABEL_ACE_TYPE() {
+        return SYSTEM_PROCESS_TRUST_LABEL_ACE_TYPE;
     }
+    private static final int SYSTEM_ACCESS_FILTER_ACE_TYPE = (int)21L;
     /**
-     * {@snippet :
-     * enum IMPORT_OBJECT_TYPE.IMPORT_OBJECT_CONST = 2;
+     * {@snippet lang=c :
+     * #define SYSTEM_ACCESS_FILTER_ACE_TYPE 21
      * }
      */
-    public static int IMPORT_OBJECT_CONST() {
-        return (int)2L;
+    public static int SYSTEM_ACCESS_FILTER_ACE_TYPE() {
+        return SYSTEM_ACCESS_FILTER_ACE_TYPE;
     }
+    private static final int ACCESS_MAX_MS_V5_ACE_TYPE = (int)21L;
     /**
-     * {@snippet :
-     * enum IMPORT_OBJECT_NAME_TYPE.IMPORT_OBJECT_ORDINAL = 0;
+     * {@snippet lang=c :
+     * #define ACCESS_MAX_MS_V5_ACE_TYPE 21
      * }
      */
-    public static int IMPORT_OBJECT_ORDINAL() {
-        return (int)0L;
+    public static int ACCESS_MAX_MS_V5_ACE_TYPE() {
+        return ACCESS_MAX_MS_V5_ACE_TYPE;
     }
+    private static final int OBJECT_INHERIT_ACE = (int)1L;
     /**
-     * {@snippet :
-     * enum IMPORT_OBJECT_NAME_TYPE.IMPORT_OBJECT_NAME = 1;
+     * {@snippet lang=c :
+     * #define OBJECT_INHERIT_ACE 1
      * }
      */
-    public static int IMPORT_OBJECT_NAME() {
-        return (int)1L;
+    public static int OBJECT_INHERIT_ACE() {
+        return OBJECT_INHERIT_ACE;
     }
+    private static final int CONTAINER_INHERIT_ACE = (int)2L;
     /**
-     * {@snippet :
-     * enum IMPORT_OBJECT_NAME_TYPE.IMPORT_OBJECT_NAME_NO_PREFIX = 2;
+     * {@snippet lang=c :
+     * #define CONTAINER_INHERIT_ACE 2
      * }
      */
-    public static int IMPORT_OBJECT_NAME_NO_PREFIX() {
-        return (int)2L;
+    public static int CONTAINER_INHERIT_ACE() {
+        return CONTAINER_INHERIT_ACE;
     }
+    private static final int NO_PROPAGATE_INHERIT_ACE = (int)4L;
     /**
-     * {@snippet :
-     * enum IMPORT_OBJECT_NAME_TYPE.IMPORT_OBJECT_NAME_UNDECORATE = 3;
+     * {@snippet lang=c :
+     * #define NO_PROPAGATE_INHERIT_ACE 4
      * }
      */
-    public static int IMPORT_OBJECT_NAME_UNDECORATE() {
-        return (int)3L;
+    public static int NO_PROPAGATE_INHERIT_ACE() {
+        return NO_PROPAGATE_INHERIT_ACE;
     }
+    private static final int INHERIT_ONLY_ACE = (int)8L;
     /**
-     * {@snippet :
-     * enum IMPORT_OBJECT_NAME_TYPE.IMPORT_OBJECT_NAME_EXPORTAS = 4;
+     * {@snippet lang=c :
+     * #define INHERIT_ONLY_ACE 8
      * }
      */
-    public static int IMPORT_OBJECT_NAME_EXPORTAS() {
-        return (int)4L;
+    public static int INHERIT_ONLY_ACE() {
+        return INHERIT_ONLY_ACE;
     }
+    private static final int INHERITED_ACE = (int)16L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COMIMAGE_FLAGS_ILONLY = 1;
+     * {@snippet lang=c :
+     * #define INHERITED_ACE 16
      * }
      */
-    public static int COMIMAGE_FLAGS_ILONLY() {
-        return (int)1L;
+    public static int INHERITED_ACE() {
+        return INHERITED_ACE;
     }
+    private static final int VALID_INHERIT_FLAGS = (int)31L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COMIMAGE_FLAGS_32BITREQUIRED = 2;
+     * {@snippet lang=c :
+     * #define VALID_INHERIT_FLAGS 31
      * }
      */
-    public static int COMIMAGE_FLAGS_32BITREQUIRED() {
-        return (int)2L;
+    public static int VALID_INHERIT_FLAGS() {
+        return VALID_INHERIT_FLAGS;
     }
+    private static final int CRITICAL_ACE_FLAG = (int)32L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COMIMAGE_FLAGS_IL_LIBRARY = 4;
+     * {@snippet lang=c :
+     * #define CRITICAL_ACE_FLAG 32
      * }
      */
-    public static int COMIMAGE_FLAGS_IL_LIBRARY() {
-        return (int)4L;
+    public static int CRITICAL_ACE_FLAG() {
+        return CRITICAL_ACE_FLAG;
     }
+    private static final int SUCCESSFUL_ACCESS_ACE_FLAG = (int)64L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COMIMAGE_FLAGS_STRONGNAMESIGNED = 8;
+     * {@snippet lang=c :
+     * #define SUCCESSFUL_ACCESS_ACE_FLAG 64
      * }
      */
-    public static int COMIMAGE_FLAGS_STRONGNAMESIGNED() {
-        return (int)8L;
+    public static int SUCCESSFUL_ACCESS_ACE_FLAG() {
+        return SUCCESSFUL_ACCESS_ACE_FLAG;
     }
+    private static final int FAILED_ACCESS_ACE_FLAG = (int)128L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COMIMAGE_FLAGS_NATIVE_ENTRYPOINT = 16;
+     * {@snippet lang=c :
+     * #define FAILED_ACCESS_ACE_FLAG 128
      * }
      */
-    public static int COMIMAGE_FLAGS_NATIVE_ENTRYPOINT() {
-        return (int)16L;
+    public static int FAILED_ACCESS_ACE_FLAG() {
+        return FAILED_ACCESS_ACE_FLAG;
     }
+    private static final int TRUST_PROTECTED_FILTER_ACE_FLAG = (int)64L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COMIMAGE_FLAGS_TRACKDEBUGDATA = 65536;
+     * {@snippet lang=c :
+     * #define TRUST_PROTECTED_FILTER_ACE_FLAG 64
      * }
      */
-    public static int COMIMAGE_FLAGS_TRACKDEBUGDATA() {
-        return (int)65536L;
+    public static int TRUST_PROTECTED_FILTER_ACE_FLAG() {
+        return TRUST_PROTECTED_FILTER_ACE_FLAG;
     }
+    private static final int SYSTEM_MANDATORY_LABEL_VALID_MASK = (int)7L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COMIMAGE_FLAGS_32BITPREFERRED = 131072;
+     * {@snippet lang=c :
+     * #define SYSTEM_MANDATORY_LABEL_VALID_MASK 7
      * }
      */
-    public static int COMIMAGE_FLAGS_32BITPREFERRED() {
-        return (int)131072L;
+    public static int SYSTEM_MANDATORY_LABEL_VALID_MASK() {
+        return SYSTEM_MANDATORY_LABEL_VALID_MASK;
     }
+    private static final int SYSTEM_PROCESS_TRUST_NOCONSTRAINT_MASK = (int)4294967295L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COR_VERSION_MAJOR_V2 = 2;
+     * {@snippet lang=c :
+     * #define SYSTEM_PROCESS_TRUST_NOCONSTRAINT_MASK 4294967295
      * }
      */
-    public static int COR_VERSION_MAJOR_V2() {
-        return (int)2L;
+    public static int SYSTEM_PROCESS_TRUST_NOCONSTRAINT_MASK() {
+        return SYSTEM_PROCESS_TRUST_NOCONSTRAINT_MASK;
     }
+    private static final int SYSTEM_ACCESS_FILTER_NOCONSTRAINT_MASK = (int)4294967295L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COR_VERSION_MAJOR = 2;
+     * {@snippet lang=c :
+     * #define SYSTEM_ACCESS_FILTER_NOCONSTRAINT_MASK 4294967295
      * }
      */
-    public static int COR_VERSION_MAJOR() {
-        return (int)2L;
+    public static int SYSTEM_ACCESS_FILTER_NOCONSTRAINT_MASK() {
+        return SYSTEM_ACCESS_FILTER_NOCONSTRAINT_MASK;
     }
+    private static final int SECURITY_DESCRIPTOR_REVISION = (int)1L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COR_VERSION_MINOR = 5;
+     * {@snippet lang=c :
+     * #define SECURITY_DESCRIPTOR_REVISION 1
      * }
      */
-    public static int COR_VERSION_MINOR() {
-        return (int)5L;
+    public static int SECURITY_DESCRIPTOR_REVISION() {
+        return SECURITY_DESCRIPTOR_REVISION;
     }
+    private static final int SECURITY_DESCRIPTOR_REVISION1 = (int)1L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COR_DELETED_NAME_LENGTH = 8;
+     * {@snippet lang=c :
+     * #define SECURITY_DESCRIPTOR_REVISION1 1
      * }
      */
-    public static int COR_DELETED_NAME_LENGTH() {
-        return (int)8L;
+    public static int SECURITY_DESCRIPTOR_REVISION1() {
+        return SECURITY_DESCRIPTOR_REVISION1;
     }
+    private static final long SECURITY_DESCRIPTOR_MIN_LENGTH = 40L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COR_VTABLEGAP_NAME_LENGTH = 8;
+     * {@snippet lang=c :
+     * #define SECURITY_DESCRIPTOR_MIN_LENGTH 40
      * }
      */
-    public static int COR_VTABLEGAP_NAME_LENGTH() {
-        return (int)8L;
+    public static long SECURITY_DESCRIPTOR_MIN_LENGTH() {
+        return SECURITY_DESCRIPTOR_MIN_LENGTH;
     }
+    private static final int SE_OWNER_DEFAULTED = (int)1L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.NATIVE_TYPE_MAX_CB = 1;
+     * {@snippet lang=c :
+     * #define SE_OWNER_DEFAULTED 1
      * }
      */
-    public static int NATIVE_TYPE_MAX_CB() {
-        return (int)1L;
+    public static int SE_OWNER_DEFAULTED() {
+        return SE_OWNER_DEFAULTED;
     }
+    private static final int SE_GROUP_DEFAULTED = (int)2L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COR_ILMETHOD_SECT_SMALL_MAX_DATASIZE = 255;
+     * {@snippet lang=c :
+     * #define SE_GROUP_DEFAULTED 2
      * }
      */
-    public static int COR_ILMETHOD_SECT_SMALL_MAX_DATASIZE() {
-        return (int)255L;
+    public static int SE_GROUP_DEFAULTED() {
+        return SE_GROUP_DEFAULTED;
     }
+    private static final int SE_DACL_PRESENT = (int)4L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.IMAGE_COR_MIH_METHODRVA = 1;
+     * {@snippet lang=c :
+     * #define SE_DACL_PRESENT 4
      * }
      */
-    public static int IMAGE_COR_MIH_METHODRVA() {
-        return (int)1L;
+    public static int SE_DACL_PRESENT() {
+        return SE_DACL_PRESENT;
     }
+    private static final int SE_DACL_DEFAULTED = (int)8L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.IMAGE_COR_MIH_EHRVA = 2;
+     * {@snippet lang=c :
+     * #define SE_DACL_DEFAULTED 8
      * }
      */
-    public static int IMAGE_COR_MIH_EHRVA() {
-        return (int)2L;
+    public static int SE_DACL_DEFAULTED() {
+        return SE_DACL_DEFAULTED;
     }
+    private static final int SE_SACL_PRESENT = (int)16L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.IMAGE_COR_MIH_BASICBLOCK = 8;
+     * {@snippet lang=c :
+     * #define SE_SACL_PRESENT 16
      * }
      */
-    public static int IMAGE_COR_MIH_BASICBLOCK() {
-        return (int)8L;
+    public static int SE_SACL_PRESENT() {
+        return SE_SACL_PRESENT;
     }
+    private static final int SE_SACL_DEFAULTED = (int)32L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COR_VTABLE_32BIT = 1;
+     * {@snippet lang=c :
+     * #define SE_SACL_DEFAULTED 32
      * }
      */
-    public static int COR_VTABLE_32BIT() {
-        return (int)1L;
+    public static int SE_SACL_DEFAULTED() {
+        return SE_SACL_DEFAULTED;
     }
+    private static final int SE_DACL_AUTO_INHERIT_REQ = (int)256L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COR_VTABLE_64BIT = 2;
+     * {@snippet lang=c :
+     * #define SE_DACL_AUTO_INHERIT_REQ 256
      * }
      */
-    public static int COR_VTABLE_64BIT() {
-        return (int)2L;
+    public static int SE_DACL_AUTO_INHERIT_REQ() {
+        return SE_DACL_AUTO_INHERIT_REQ;
     }
+    private static final int SE_SACL_AUTO_INHERIT_REQ = (int)512L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COR_VTABLE_FROM_UNMANAGED = 4;
+     * {@snippet lang=c :
+     * #define SE_SACL_AUTO_INHERIT_REQ 512
      * }
      */
-    public static int COR_VTABLE_FROM_UNMANAGED() {
-        return (int)4L;
+    public static int SE_SACL_AUTO_INHERIT_REQ() {
+        return SE_SACL_AUTO_INHERIT_REQ;
     }
+    private static final int SE_DACL_AUTO_INHERITED = (int)1024L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COR_VTABLE_FROM_UNMANAGED_RETAIN_APPDOMAIN = 8;
+     * {@snippet lang=c :
+     * #define SE_DACL_AUTO_INHERITED 1024
      * }
      */
-    public static int COR_VTABLE_FROM_UNMANAGED_RETAIN_APPDOMAIN() {
-        return (int)8L;
+    public static int SE_DACL_AUTO_INHERITED() {
+        return SE_DACL_AUTO_INHERITED;
     }
+    private static final int SE_SACL_AUTO_INHERITED = (int)2048L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.COR_VTABLE_CALL_MOST_DERIVED = 16;
+     * {@snippet lang=c :
+     * #define SE_SACL_AUTO_INHERITED 2048
      * }
      */
-    public static int COR_VTABLE_CALL_MOST_DERIVED() {
-        return (int)16L;
+    public static int SE_SACL_AUTO_INHERITED() {
+        return SE_SACL_AUTO_INHERITED;
     }
+    private static final int SE_DACL_PROTECTED = (int)4096L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.IMAGE_COR_EATJ_THUNK_SIZE = 32;
+     * {@snippet lang=c :
+     * #define SE_DACL_PROTECTED 4096
      * }
      */
-    public static int IMAGE_COR_EATJ_THUNK_SIZE() {
-        return (int)32L;
+    public static int SE_DACL_PROTECTED() {
+        return SE_DACL_PROTECTED;
     }
+    private static final int SE_SACL_PROTECTED = (int)8192L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.MAX_CLASS_NAME = 1024;
+     * {@snippet lang=c :
+     * #define SE_SACL_PROTECTED 8192
      * }
      */
-    public static int MAX_CLASS_NAME() {
-        return (int)1024L;
+    public static int SE_SACL_PROTECTED() {
+        return SE_SACL_PROTECTED;
     }
+    private static final int SE_RM_CONTROL_VALID = (int)16384L;
     /**
-     * {@snippet :
-     * enum ReplacesCorHdrNumericDefines.MAX_PACKAGE_NAME = 1024;
+     * {@snippet lang=c :
+     * #define SE_RM_CONTROL_VALID 16384
      * }
      */
-    public static int MAX_PACKAGE_NAME() {
-        return (int)1024L;
+    public static int SE_RM_CONTROL_VALID() {
+        return SE_RM_CONTROL_VALID;
     }
+    private static final int SE_SELF_RELATIVE = (int)32768L;
     /**
-     * {@snippet :
-     * typedef struct IMAGE_COR20_HEADER* PIMAGE_COR20_HEADER;
+     * {@snippet lang=c :
+     * #define SE_SELF_RELATIVE 32768
      * }
      */
-    public static final AddressLayout PIMAGE_COR20_HEADER = RuntimeHelper.POINTER;
-    public static MethodHandle RtlCaptureStackBackTrace$MH() {
-        return RuntimeHelper.requireNonNull(constants$464.const$4,"RtlCaptureStackBackTrace");
+    public static int SE_SELF_RELATIVE() {
+        return SE_SELF_RELATIVE;
     }
     /**
-     * {@snippet :
-     * WORD RtlCaptureStackBackTrace(DWORD FramesToSkip, DWORD FramesToCapture, PVOID* BackTrace, PDWORD BackTraceHash);
+     * {@snippet lang=c :
+     * #define ACCESS_DS_SOURCE_A "DS"
      * }
      */
-    public static short RtlCaptureStackBackTrace(int FramesToSkip, int FramesToCapture, MemorySegment BackTrace, MemorySegment BackTraceHash) {
-        var mh$ = RtlCaptureStackBackTrace$MH();
-        try {
-            return (short)mh$.invokeExact(FramesToSkip, FramesToCapture, BackTrace, BackTraceHash);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment ACCESS_DS_SOURCE_A() {
+        class Holder {
+            static final MemorySegment ACCESS_DS_SOURCE_A
+                = Windows_h.LIBRARY_ARENA.allocateFrom("DS");
         }
-    }
-    public static MethodHandle RtlCaptureContext$MH() {
-        return RuntimeHelper.requireNonNull(constants$464.const$5,"RtlCaptureContext");
+        return Holder.ACCESS_DS_SOURCE_A;
     }
     /**
-     * {@snippet :
-     * void RtlCaptureContext(PCONTEXT ContextRecord);
+     * {@snippet lang=c :
+     * #define ACCESS_DS_SOURCE_W "D"
      * }
      */
-    public static void RtlCaptureContext(MemorySegment ContextRecord) {
-        var mh$ = RtlCaptureContext$MH();
-        try {
-            mh$.invokeExact(ContextRecord);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment ACCESS_DS_SOURCE_W() {
+        class Holder {
+            static final MemorySegment ACCESS_DS_SOURCE_W
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
         }
-    }
-    public static MethodHandle RtlCaptureContext2$MH() {
-        return RuntimeHelper.requireNonNull(constants$465.const$0,"RtlCaptureContext2");
+        return Holder.ACCESS_DS_SOURCE_W;
     }
     /**
-     * {@snippet :
-     * void RtlCaptureContext2(PCONTEXT ContextRecord);
+     * {@snippet lang=c :
+     * #define ACCESS_DS_OBJECT_TYPE_NAME_A "Directory Service Object"
      * }
      */
-    public static void RtlCaptureContext2(MemorySegment ContextRecord) {
-        var mh$ = RtlCaptureContext2$MH();
-        try {
-            mh$.invokeExact(ContextRecord);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment ACCESS_DS_OBJECT_TYPE_NAME_A() {
+        class Holder {
+            static final MemorySegment ACCESS_DS_OBJECT_TYPE_NAME_A
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Directory Service Object");
         }
+        return Holder.ACCESS_DS_OBJECT_TYPE_NAME_A;
     }
     /**
-     * {@snippet :
-     * typedef struct _UNWIND_HISTORY_TABLE_ENTRY* PUNWIND_HISTORY_TABLE_ENTRY;
+     * {@snippet lang=c :
+     * #define ACCESS_DS_OBJECT_TYPE_NAME_W "D"
      * }
      */
-    public static final AddressLayout PUNWIND_HISTORY_TABLE_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _UNWIND_HISTORY_TABLE* PUNWIND_HISTORY_TABLE;
-     * }
-     */
-    public static final AddressLayout PUNWIND_HISTORY_TABLE = RuntimeHelper.POINTER;
-    public static MethodHandle RtlUnwind$MH() {
-        return RuntimeHelper.requireNonNull(constants$467.const$1,"RtlUnwind");
-    }
-    /**
-     * {@snippet :
-     * void RtlUnwind(PVOID TargetFrame, PVOID TargetIp, PEXCEPTION_RECORD ExceptionRecord, PVOID ReturnValue);
-     * }
-     */
-    public static void RtlUnwind(MemorySegment TargetFrame, MemorySegment TargetIp, MemorySegment ExceptionRecord, MemorySegment ReturnValue) {
-        var mh$ = RtlUnwind$MH();
-        try {
-            mh$.invokeExact(TargetFrame, TargetIp, ExceptionRecord, ReturnValue);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment ACCESS_DS_OBJECT_TYPE_NAME_W() {
+        class Holder {
+            static final MemorySegment ACCESS_DS_OBJECT_TYPE_NAME_W
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
         }
+        return Holder.ACCESS_DS_OBJECT_TYPE_NAME_W;
     }
-    public static MethodHandle RtlAddFunctionTable$MH() {
-        return RuntimeHelper.requireNonNull(constants$467.const$3,"RtlAddFunctionTable");
-    }
+    private static final int SE_PRIVILEGE_ENABLED_BY_DEFAULT = (int)1L;
     /**
-     * {@snippet :
-     * BOOLEAN RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable, DWORD EntryCount, DWORD64 BaseAddress);
+     * {@snippet lang=c :
+     * #define SE_PRIVILEGE_ENABLED_BY_DEFAULT 1
      * }
      */
-    public static byte RtlAddFunctionTable(MemorySegment FunctionTable, int EntryCount, long BaseAddress) {
-        var mh$ = RtlAddFunctionTable$MH();
-        try {
-            return (byte)mh$.invokeExact(FunctionTable, EntryCount, BaseAddress);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static int SE_PRIVILEGE_ENABLED_BY_DEFAULT() {
+        return SE_PRIVILEGE_ENABLED_BY_DEFAULT;
+    }
+    private static final int SE_PRIVILEGE_ENABLED = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define SE_PRIVILEGE_ENABLED 2
+     * }
+     */
+    public static int SE_PRIVILEGE_ENABLED() {
+        return SE_PRIVILEGE_ENABLED;
+    }
+    private static final int SE_PRIVILEGE_REMOVED = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define SE_PRIVILEGE_REMOVED 4
+     * }
+     */
+    public static int SE_PRIVILEGE_REMOVED() {
+        return SE_PRIVILEGE_REMOVED;
+    }
+    private static final int SE_PRIVILEGE_USED_FOR_ACCESS = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define SE_PRIVILEGE_USED_FOR_ACCESS 2147483648
+     * }
+     */
+    public static int SE_PRIVILEGE_USED_FOR_ACCESS() {
+        return SE_PRIVILEGE_USED_FOR_ACCESS;
+    }
+    private static final int SE_PRIVILEGE_VALID_ATTRIBUTES = (int)2147483655L;
+    /**
+     * {@snippet lang=c :
+     * #define SE_PRIVILEGE_VALID_ATTRIBUTES 2147483655
+     * }
+     */
+    public static int SE_PRIVILEGE_VALID_ATTRIBUTES() {
+        return SE_PRIVILEGE_VALID_ATTRIBUTES;
+    }
+    private static final int PRIVILEGE_SET_ALL_NECESSARY = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define PRIVILEGE_SET_ALL_NECESSARY 1
+     * }
+     */
+    public static int PRIVILEGE_SET_ALL_NECESSARY() {
+        return PRIVILEGE_SET_ALL_NECESSARY;
+    }
+    private static final int ACCESS_REASON_STAGING_MASK = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define ACCESS_REASON_STAGING_MASK 2147483648
+     * }
+     */
+    public static int ACCESS_REASON_STAGING_MASK() {
+        return ACCESS_REASON_STAGING_MASK;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define SE_CREATE_TOKEN_NAME "SeCreateTokenPrivilege"
+     * }
+     */
+    public static MemorySegment SE_CREATE_TOKEN_NAME() {
+        class Holder {
+            static final MemorySegment SE_CREATE_TOKEN_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeCreateTokenPrivilege");
         }
-    }
-    public static MethodHandle RtlDeleteFunctionTable$MH() {
-        return RuntimeHelper.requireNonNull(constants$467.const$5,"RtlDeleteFunctionTable");
+        return Holder.SE_CREATE_TOKEN_NAME;
     }
     /**
-     * {@snippet :
-     * BOOLEAN RtlDeleteFunctionTable(PRUNTIME_FUNCTION FunctionTable);
+     * {@snippet lang=c :
+     * #define SE_ASSIGNPRIMARYTOKEN_NAME "SeAssignPrimaryTokenPrivilege"
      * }
      */
-    public static byte RtlDeleteFunctionTable(MemorySegment FunctionTable) {
-        var mh$ = RtlDeleteFunctionTable$MH();
-        try {
-            return (byte)mh$.invokeExact(FunctionTable);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_ASSIGNPRIMARYTOKEN_NAME() {
+        class Holder {
+            static final MemorySegment SE_ASSIGNPRIMARYTOKEN_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeAssignPrimaryTokenPrivilege");
         }
-    }
-    public static MethodHandle RtlInstallFunctionTableCallback$MH() {
-        return RuntimeHelper.requireNonNull(constants$468.const$1,"RtlInstallFunctionTableCallback");
+        return Holder.SE_ASSIGNPRIMARYTOKEN_NAME;
     }
     /**
-     * {@snippet :
-     * BOOLEAN RtlInstallFunctionTableCallback(DWORD64 TableIdentifier, DWORD64 BaseAddress, DWORD Length, PGET_RUNTIME_FUNCTION_CALLBACK Callback, PVOID Context, PCWSTR OutOfProcessCallbackDll);
+     * {@snippet lang=c :
+     * #define SE_LOCK_MEMORY_NAME "SeLockMemoryPrivilege"
      * }
      */
-    public static byte RtlInstallFunctionTableCallback(long TableIdentifier, long BaseAddress, int Length, MemorySegment Callback, MemorySegment Context, MemorySegment OutOfProcessCallbackDll) {
-        var mh$ = RtlInstallFunctionTableCallback$MH();
-        try {
-            return (byte)mh$.invokeExact(TableIdentifier, BaseAddress, Length, Callback, Context, OutOfProcessCallbackDll);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_LOCK_MEMORY_NAME() {
+        class Holder {
+            static final MemorySegment SE_LOCK_MEMORY_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeLockMemoryPrivilege");
         }
-    }
-    public static MethodHandle RtlAddGrowableFunctionTable$MH() {
-        return RuntimeHelper.requireNonNull(constants$468.const$3,"RtlAddGrowableFunctionTable");
+        return Holder.SE_LOCK_MEMORY_NAME;
     }
     /**
-     * {@snippet :
-     * DWORD RtlAddGrowableFunctionTable(PVOID* DynamicTable, PRUNTIME_FUNCTION FunctionTable, DWORD EntryCount, DWORD MaximumEntryCount, ULONG_PTR RangeBase, ULONG_PTR RangeEnd);
+     * {@snippet lang=c :
+     * #define SE_INCREASE_QUOTA_NAME "SeIncreaseQuotaPrivilege"
      * }
      */
-    public static int RtlAddGrowableFunctionTable(MemorySegment DynamicTable, MemorySegment FunctionTable, int EntryCount, int MaximumEntryCount, long RangeBase, long RangeEnd) {
-        var mh$ = RtlAddGrowableFunctionTable$MH();
-        try {
-            return (int)mh$.invokeExact(DynamicTable, FunctionTable, EntryCount, MaximumEntryCount, RangeBase, RangeEnd);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_INCREASE_QUOTA_NAME() {
+        class Holder {
+            static final MemorySegment SE_INCREASE_QUOTA_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeIncreaseQuotaPrivilege");
         }
-    }
-    public static MethodHandle RtlGrowFunctionTable$MH() {
-        return RuntimeHelper.requireNonNull(constants$468.const$4,"RtlGrowFunctionTable");
+        return Holder.SE_INCREASE_QUOTA_NAME;
     }
     /**
-     * {@snippet :
-     * void RtlGrowFunctionTable(PVOID DynamicTable, DWORD NewEntryCount);
+     * {@snippet lang=c :
+     * #define SE_UNSOLICITED_INPUT_NAME "SeUnsolicitedInputPrivilege"
      * }
      */
-    public static void RtlGrowFunctionTable(MemorySegment DynamicTable, int NewEntryCount) {
-        var mh$ = RtlGrowFunctionTable$MH();
-        try {
-            mh$.invokeExact(DynamicTable, NewEntryCount);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_UNSOLICITED_INPUT_NAME() {
+        class Holder {
+            static final MemorySegment SE_UNSOLICITED_INPUT_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeUnsolicitedInputPrivilege");
         }
-    }
-    public static MethodHandle RtlDeleteGrowableFunctionTable$MH() {
-        return RuntimeHelper.requireNonNull(constants$468.const$5,"RtlDeleteGrowableFunctionTable");
+        return Holder.SE_UNSOLICITED_INPUT_NAME;
     }
     /**
-     * {@snippet :
-     * void RtlDeleteGrowableFunctionTable(PVOID DynamicTable);
+     * {@snippet lang=c :
+     * #define SE_MACHINE_ACCOUNT_NAME "SeMachineAccountPrivilege"
      * }
      */
-    public static void RtlDeleteGrowableFunctionTable(MemorySegment DynamicTable) {
-        var mh$ = RtlDeleteGrowableFunctionTable$MH();
-        try {
-            mh$.invokeExact(DynamicTable);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_MACHINE_ACCOUNT_NAME() {
+        class Holder {
+            static final MemorySegment SE_MACHINE_ACCOUNT_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeMachineAccountPrivilege");
         }
-    }
-    public static MethodHandle RtlLookupFunctionEntry$MH() {
-        return RuntimeHelper.requireNonNull(constants$469.const$1,"RtlLookupFunctionEntry");
+        return Holder.SE_MACHINE_ACCOUNT_NAME;
     }
     /**
-     * {@snippet :
-     * PRUNTIME_FUNCTION RtlLookupFunctionEntry(DWORD64 ControlPc, PDWORD64 ImageBase, PUNWIND_HISTORY_TABLE HistoryTable);
+     * {@snippet lang=c :
+     * #define SE_TCB_NAME "SeTcbPrivilege"
      * }
      */
-    public static MemorySegment RtlLookupFunctionEntry(long ControlPc, MemorySegment ImageBase, MemorySegment HistoryTable) {
-        var mh$ = RtlLookupFunctionEntry$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(ControlPc, ImageBase, HistoryTable);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_TCB_NAME() {
+        class Holder {
+            static final MemorySegment SE_TCB_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeTcbPrivilege");
         }
-    }
-    public static MethodHandle RtlRestoreContext$MH() {
-        return RuntimeHelper.requireNonNull(constants$469.const$3,"RtlRestoreContext");
+        return Holder.SE_TCB_NAME;
     }
     /**
-     * {@snippet :
-     * void RtlRestoreContext(PCONTEXT ContextRecord, struct _EXCEPTION_RECORD* ExceptionRecord);
+     * {@snippet lang=c :
+     * #define SE_SECURITY_NAME "SeSecurityPrivilege"
      * }
      */
-    public static void RtlRestoreContext(MemorySegment ContextRecord, MemorySegment ExceptionRecord) {
-        var mh$ = RtlRestoreContext$MH();
-        try {
-            mh$.invokeExact(ContextRecord, ExceptionRecord);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_SECURITY_NAME() {
+        class Holder {
+            static final MemorySegment SE_SECURITY_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeSecurityPrivilege");
         }
-    }
-    public static MethodHandle RtlUnwindEx$MH() {
-        return RuntimeHelper.requireNonNull(constants$469.const$5,"RtlUnwindEx");
+        return Holder.SE_SECURITY_NAME;
     }
     /**
-     * {@snippet :
-     * void RtlUnwindEx(PVOID TargetFrame, PVOID TargetIp, PEXCEPTION_RECORD ExceptionRecord, PVOID ReturnValue, PCONTEXT ContextRecord, PUNWIND_HISTORY_TABLE HistoryTable);
+     * {@snippet lang=c :
+     * #define SE_TAKE_OWNERSHIP_NAME "SeTakeOwnershipPrivilege"
      * }
      */
-    public static void RtlUnwindEx(MemorySegment TargetFrame, MemorySegment TargetIp, MemorySegment ExceptionRecord, MemorySegment ReturnValue, MemorySegment ContextRecord, MemorySegment HistoryTable) {
-        var mh$ = RtlUnwindEx$MH();
-        try {
-            mh$.invokeExact(TargetFrame, TargetIp, ExceptionRecord, ReturnValue, ContextRecord, HistoryTable);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_TAKE_OWNERSHIP_NAME() {
+        class Holder {
+            static final MemorySegment SE_TAKE_OWNERSHIP_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeTakeOwnershipPrivilege");
         }
-    }
-    public static MethodHandle RtlVirtualUnwind$MH() {
-        return RuntimeHelper.requireNonNull(constants$470.const$1,"RtlVirtualUnwind");
+        return Holder.SE_TAKE_OWNERSHIP_NAME;
     }
     /**
-     * {@snippet :
-     * PEXCEPTION_ROUTINE RtlVirtualUnwind(DWORD HandlerType, DWORD64 ImageBase, DWORD64 ControlPc, PRUNTIME_FUNCTION FunctionEntry, PCONTEXT ContextRecord, PVOID* HandlerData, PDWORD64 EstablisherFrame, PKNONVOLATILE_CONTEXT_POINTERS ContextPointers);
+     * {@snippet lang=c :
+     * #define SE_LOAD_DRIVER_NAME "SeLoadDriverPrivilege"
      * }
      */
-    public static MemorySegment RtlVirtualUnwind(int HandlerType, long ImageBase, long ControlPc, MemorySegment FunctionEntry, MemorySegment ContextRecord, MemorySegment HandlerData, MemorySegment EstablisherFrame, MemorySegment ContextPointers) {
-        var mh$ = RtlVirtualUnwind$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(HandlerType, ImageBase, ControlPc, FunctionEntry, ContextRecord, HandlerData, EstablisherFrame, ContextPointers);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_LOAD_DRIVER_NAME() {
+        class Holder {
+            static final MemorySegment SE_LOAD_DRIVER_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeLoadDriverPrivilege");
         }
-    }
-    public static MethodHandle RtlRaiseException$MH() {
-        return RuntimeHelper.requireNonNull(constants$470.const$2,"RtlRaiseException");
+        return Holder.SE_LOAD_DRIVER_NAME;
     }
     /**
-     * {@snippet :
-     * void RtlRaiseException(PEXCEPTION_RECORD ExceptionRecord);
+     * {@snippet lang=c :
+     * #define SE_SYSTEM_PROFILE_NAME "SeSystemProfilePrivilege"
      * }
      */
-    public static void RtlRaiseException(MemorySegment ExceptionRecord) {
-        var mh$ = RtlRaiseException$MH();
-        try {
-            mh$.invokeExact(ExceptionRecord);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_SYSTEM_PROFILE_NAME() {
+        class Holder {
+            static final MemorySegment SE_SYSTEM_PROFILE_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeSystemProfilePrivilege");
         }
-    }
-    public static MethodHandle RtlPcToFileHeader$MH() {
-        return RuntimeHelper.requireNonNull(constants$470.const$3,"RtlPcToFileHeader");
+        return Holder.SE_SYSTEM_PROFILE_NAME;
     }
     /**
-     * {@snippet :
-     * PVOID RtlPcToFileHeader(PVOID PcValue, PVOID* BaseOfImage);
+     * {@snippet lang=c :
+     * #define SE_SYSTEMTIME_NAME "SeSystemtimePrivilege"
      * }
      */
-    public static MemorySegment RtlPcToFileHeader(MemorySegment PcValue, MemorySegment BaseOfImage) {
-        var mh$ = RtlPcToFileHeader$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(PcValue, BaseOfImage);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_SYSTEMTIME_NAME() {
+        class Holder {
+            static final MemorySegment SE_SYSTEMTIME_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeSystemtimePrivilege");
         }
-    }
-    public static MethodHandle RtlCompareMemory$MH() {
-        return RuntimeHelper.requireNonNull(constants$470.const$4,"RtlCompareMemory");
+        return Holder.SE_SYSTEMTIME_NAME;
     }
     /**
-     * {@snippet :
-     * SIZE_T RtlCompareMemory(void* Source1, void* Source2, SIZE_T Length);
+     * {@snippet lang=c :
+     * #define SE_PROF_SINGLE_PROCESS_NAME "SeProfileSingleProcessPrivilege"
      * }
      */
-    public static long RtlCompareMemory(MemorySegment Source1, MemorySegment Source2, long Length) {
-        var mh$ = RtlCompareMemory$MH();
-        try {
-            return (long)mh$.invokeExact(Source1, Source2, Length);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_PROF_SINGLE_PROCESS_NAME() {
+        class Holder {
+            static final MemorySegment SE_PROF_SINGLE_PROCESS_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeProfileSingleProcessPrivilege");
         }
+        return Holder.SE_PROF_SINGLE_PROCESS_NAME;
     }
     /**
-     * {@snippet :
-     * typedef struct _SLIST_ENTRY* PSLIST_ENTRY;
+     * {@snippet lang=c :
+     * #define SE_INC_BASE_PRIORITY_NAME "SeIncreaseBasePriorityPrivilege"
      * }
      */
-    public static final AddressLayout PSLIST_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef union _SLIST_HEADER* PSLIST_HEADER;
-     * }
-     */
-    public static final AddressLayout PSLIST_HEADER = RuntimeHelper.POINTER;
-    public static MethodHandle RtlInitializeSListHead$MH() {
-        return RuntimeHelper.requireNonNull(constants$471.const$5,"RtlInitializeSListHead");
-    }
-    /**
-     * {@snippet :
-     * void RtlInitializeSListHead(PSLIST_HEADER ListHead);
-     * }
-     */
-    public static void RtlInitializeSListHead(MemorySegment ListHead) {
-        var mh$ = RtlInitializeSListHead$MH();
-        try {
-            mh$.invokeExact(ListHead);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_INC_BASE_PRIORITY_NAME() {
+        class Holder {
+            static final MemorySegment SE_INC_BASE_PRIORITY_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeIncreaseBasePriorityPrivilege");
         }
-    }
-    public static MethodHandle RtlFirstEntrySList$MH() {
-        return RuntimeHelper.requireNonNull(constants$472.const$0,"RtlFirstEntrySList");
+        return Holder.SE_INC_BASE_PRIORITY_NAME;
     }
     /**
-     * {@snippet :
-     * PSLIST_ENTRY RtlFirstEntrySList(const SLIST_HEADER* ListHead);
+     * {@snippet lang=c :
+     * #define SE_CREATE_PAGEFILE_NAME "SeCreatePagefilePrivilege"
      * }
      */
-    public static MemorySegment RtlFirstEntrySList(MemorySegment ListHead) {
-        var mh$ = RtlFirstEntrySList$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(ListHead);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_CREATE_PAGEFILE_NAME() {
+        class Holder {
+            static final MemorySegment SE_CREATE_PAGEFILE_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeCreatePagefilePrivilege");
         }
-    }
-    public static MethodHandle RtlInterlockedPopEntrySList$MH() {
-        return RuntimeHelper.requireNonNull(constants$472.const$1,"RtlInterlockedPopEntrySList");
+        return Holder.SE_CREATE_PAGEFILE_NAME;
     }
     /**
-     * {@snippet :
-     * PSLIST_ENTRY RtlInterlockedPopEntrySList(PSLIST_HEADER ListHead);
+     * {@snippet lang=c :
+     * #define SE_CREATE_PERMANENT_NAME "SeCreatePermanentPrivilege"
      * }
      */
-    public static MemorySegment RtlInterlockedPopEntrySList(MemorySegment ListHead) {
-        var mh$ = RtlInterlockedPopEntrySList$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(ListHead);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_CREATE_PERMANENT_NAME() {
+        class Holder {
+            static final MemorySegment SE_CREATE_PERMANENT_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeCreatePermanentPrivilege");
         }
-    }
-    public static MethodHandle RtlInterlockedPushEntrySList$MH() {
-        return RuntimeHelper.requireNonNull(constants$472.const$2,"RtlInterlockedPushEntrySList");
+        return Holder.SE_CREATE_PERMANENT_NAME;
     }
     /**
-     * {@snippet :
-     * PSLIST_ENTRY RtlInterlockedPushEntrySList(PSLIST_HEADER ListHead, PSLIST_ENTRY ListEntry);
+     * {@snippet lang=c :
+     * #define SE_BACKUP_NAME "SeBackupPrivilege"
      * }
      */
-    public static MemorySegment RtlInterlockedPushEntrySList(MemorySegment ListHead, MemorySegment ListEntry) {
-        var mh$ = RtlInterlockedPushEntrySList$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(ListHead, ListEntry);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_BACKUP_NAME() {
+        class Holder {
+            static final MemorySegment SE_BACKUP_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeBackupPrivilege");
         }
-    }
-    public static MethodHandle RtlInterlockedPushListSListEx$MH() {
-        return RuntimeHelper.requireNonNull(constants$472.const$4,"RtlInterlockedPushListSListEx");
+        return Holder.SE_BACKUP_NAME;
     }
     /**
-     * {@snippet :
-     * PSLIST_ENTRY RtlInterlockedPushListSListEx(PSLIST_HEADER ListHead, PSLIST_ENTRY List, PSLIST_ENTRY ListEnd, DWORD Count);
+     * {@snippet lang=c :
+     * #define SE_RESTORE_NAME "SeRestorePrivilege"
      * }
      */
-    public static MemorySegment RtlInterlockedPushListSListEx(MemorySegment ListHead, MemorySegment List, MemorySegment ListEnd, int Count) {
-        var mh$ = RtlInterlockedPushListSListEx$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(ListHead, List, ListEnd, Count);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_RESTORE_NAME() {
+        class Holder {
+            static final MemorySegment SE_RESTORE_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeRestorePrivilege");
         }
-    }
-    public static MethodHandle RtlInterlockedFlushSList$MH() {
-        return RuntimeHelper.requireNonNull(constants$472.const$5,"RtlInterlockedFlushSList");
+        return Holder.SE_RESTORE_NAME;
     }
     /**
-     * {@snippet :
-     * PSLIST_ENTRY RtlInterlockedFlushSList(PSLIST_HEADER ListHead);
+     * {@snippet lang=c :
+     * #define SE_SHUTDOWN_NAME "SeShutdownPrivilege"
      * }
      */
-    public static MemorySegment RtlInterlockedFlushSList(MemorySegment ListHead) {
-        var mh$ = RtlInterlockedFlushSList$MH();
-        try {
-            return (java.lang.foreign.MemorySegment)mh$.invokeExact(ListHead);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_SHUTDOWN_NAME() {
+        class Holder {
+            static final MemorySegment SE_SHUTDOWN_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeShutdownPrivilege");
         }
-    }
-    public static MethodHandle RtlQueryDepthSList$MH() {
-        return RuntimeHelper.requireNonNull(constants$473.const$0,"RtlQueryDepthSList");
+        return Holder.SE_SHUTDOWN_NAME;
     }
     /**
-     * {@snippet :
-     * WORD RtlQueryDepthSList(PSLIST_HEADER ListHead);
+     * {@snippet lang=c :
+     * #define SE_DEBUG_NAME "SeDebugPrivilege"
      * }
      */
-    public static short RtlQueryDepthSList(MemorySegment ListHead) {
-        var mh$ = RtlQueryDepthSList$MH();
-        try {
-            return (short)mh$.invokeExact(ListHead);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_DEBUG_NAME() {
+        class Holder {
+            static final MemorySegment SE_DEBUG_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeDebugPrivilege");
         }
-    }
-    public static MethodHandle RtlGetReturnAddressHijackTarget$MH() {
-        return RuntimeHelper.requireNonNull(constants$473.const$1,"RtlGetReturnAddressHijackTarget");
+        return Holder.SE_DEBUG_NAME;
     }
     /**
-     * {@snippet :
-     * ULONG_PTR RtlGetReturnAddressHijackTarget();
+     * {@snippet lang=c :
+     * #define SE_AUDIT_NAME "SeAuditPrivilege"
      * }
      */
-    public static long RtlGetReturnAddressHijackTarget() {
-        var mh$ = RtlGetReturnAddressHijackTarget$MH();
-        try {
-            return (long)mh$.invokeExact();
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_AUDIT_NAME() {
+        class Holder {
+            static final MemorySegment SE_AUDIT_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeAuditPrivilege");
         }
+        return Holder.SE_AUDIT_NAME;
     }
     /**
-     * {@snippet :
-     * typedef union _RTL_RUN_ONCE* PRTL_RUN_ONCE;
+     * {@snippet lang=c :
+     * #define SE_SYSTEM_ENVIRONMENT_NAME "SeSystemEnvironmentPrivilege"
      * }
      */
-    public static final AddressLayout PRTL_RUN_ONCE = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _RTL_BARRIER* PRTL_BARRIER;
-     * }
-     */
-    public static final AddressLayout PRTL_BARRIER = RuntimeHelper.POINTER;
-    public static MethodHandle __fastfail$MH() {
-        return RuntimeHelper.requireNonNull(constants$474.const$3,"__fastfail");
-    }
-    /**
-     * {@snippet :
-     * void __fastfail(unsigned int Code);
-     * }
-     */
-    public static void __fastfail(int Code) {
-        var mh$ = __fastfail$MH();
-        try {
-            mh$.invokeExact(Code);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_SYSTEM_ENVIRONMENT_NAME() {
+        class Holder {
+            static final MemorySegment SE_SYSTEM_ENVIRONMENT_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeSystemEnvironmentPrivilege");
         }
+        return Holder.SE_SYSTEM_ENVIRONMENT_NAME;
     }
     /**
-     * {@snippet :
-     * typedef struct _MESSAGE_RESOURCE_ENTRY* PMESSAGE_RESOURCE_ENTRY;
+     * {@snippet lang=c :
+     * #define SE_CHANGE_NOTIFY_NAME "SeChangeNotifyPrivilege"
      * }
      */
-    public static final AddressLayout PMESSAGE_RESOURCE_ENTRY = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _MESSAGE_RESOURCE_BLOCK* PMESSAGE_RESOURCE_BLOCK;
-     * }
-     */
-    public static final AddressLayout PMESSAGE_RESOURCE_BLOCK = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _MESSAGE_RESOURCE_DATA* PMESSAGE_RESOURCE_DATA;
-     * }
-     */
-    public static final AddressLayout PMESSAGE_RESOURCE_DATA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _OSVERSIONINFOA* POSVERSIONINFOA;
-     * }
-     */
-    public static final AddressLayout POSVERSIONINFOA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _OSVERSIONINFOA* LPOSVERSIONINFOA;
-     * }
-     */
-    public static final AddressLayout LPOSVERSIONINFOA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _OSVERSIONINFOW* POSVERSIONINFOW;
-     * }
-     */
-    public static final AddressLayout POSVERSIONINFOW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _OSVERSIONINFOW* LPOSVERSIONINFOW;
-     * }
-     */
-    public static final AddressLayout LPOSVERSIONINFOW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _OSVERSIONINFOW* PRTL_OSVERSIONINFOW;
-     * }
-     */
-    public static final AddressLayout PRTL_OSVERSIONINFOW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _OSVERSIONINFOA* POSVERSIONINFO;
-     * }
-     */
-    public static final AddressLayout POSVERSIONINFO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _OSVERSIONINFOA* LPOSVERSIONINFO;
-     * }
-     */
-    public static final AddressLayout LPOSVERSIONINFO = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _OSVERSIONINFOEXA* POSVERSIONINFOEXA;
-     * }
-     */
-    public static final AddressLayout POSVERSIONINFOEXA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _OSVERSIONINFOEXA* LPOSVERSIONINFOEXA;
-     * }
-     */
-    public static final AddressLayout LPOSVERSIONINFOEXA = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _OSVERSIONINFOEXW* POSVERSIONINFOEXW;
-     * }
-     */
-    public static final AddressLayout POSVERSIONINFOEXW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _OSVERSIONINFOEXW* LPOSVERSIONINFOEXW;
-     * }
-     */
-    public static final AddressLayout LPOSVERSIONINFOEXW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _OSVERSIONINFOEXW* PRTL_OSVERSIONINFOEXW;
-     * }
-     */
-    public static final AddressLayout PRTL_OSVERSIONINFOEXW = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _OSVERSIONINFOEXA* POSVERSIONINFOEX;
-     * }
-     */
-    public static final AddressLayout POSVERSIONINFOEX = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * typedef struct _OSVERSIONINFOEXA* LPOSVERSIONINFOEX;
-     * }
-     */
-    public static final AddressLayout LPOSVERSIONINFOEX = RuntimeHelper.POINTER;
-    public static MethodHandle VerSetConditionMask$MH() {
-        return RuntimeHelper.requireNonNull(constants$481.const$6,"VerSetConditionMask");
-    }
-    /**
-     * {@snippet :
-     * ULONGLONG VerSetConditionMask(ULONGLONG ConditionMask, DWORD TypeMask, BYTE Condition);
-     * }
-     */
-    public static long VerSetConditionMask(long ConditionMask, int TypeMask, byte Condition) {
-        var mh$ = VerSetConditionMask$MH();
-        try {
-            return (long)mh$.invokeExact(ConditionMask, TypeMask, Condition);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_CHANGE_NOTIFY_NAME() {
+        class Holder {
+            static final MemorySegment SE_CHANGE_NOTIFY_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeChangeNotifyPrivilege");
         }
-    }
-    public static MethodHandle RtlGetProductInfo$MH() {
-        return RuntimeHelper.requireNonNull(constants$482.const$1,"RtlGetProductInfo");
+        return Holder.SE_CHANGE_NOTIFY_NAME;
     }
     /**
-     * {@snippet :
-     * BOOLEAN RtlGetProductInfo(DWORD OSMajorVersion, DWORD OSMinorVersion, DWORD SpMajorVersion, DWORD SpMinorVersion, PDWORD ReturnedProductType);
+     * {@snippet lang=c :
+     * #define SE_REMOTE_SHUTDOWN_NAME "SeRemoteShutdownPrivilege"
      * }
      */
-    public static byte RtlGetProductInfo(int OSMajorVersion, int OSMinorVersion, int SpMajorVersion, int SpMinorVersion, MemorySegment ReturnedProductType) {
-        var mh$ = RtlGetProductInfo$MH();
-        try {
-            return (byte)mh$.invokeExact(OSMajorVersion, OSMinorVersion, SpMajorVersion, SpMinorVersion, ReturnedProductType);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_REMOTE_SHUTDOWN_NAME() {
+        class Holder {
+            static final MemorySegment SE_REMOTE_SHUTDOWN_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeRemoteShutdownPrivilege");
         }
+        return Holder.SE_REMOTE_SHUTDOWN_NAME;
     }
     /**
-     * {@snippet :
-     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadInvalidInfoClass = 0;
+     * {@snippet lang=c :
+     * #define SE_UNDOCK_NAME "SeUndockPrivilege"
      * }
      */
-    public static int UmsThreadInvalidInfoClass() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadUserContext = 1;
-     * }
-     */
-    public static int UmsThreadUserContext() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadPriority = 2;
-     * }
-     */
-    public static int UmsThreadPriority() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadAffinity = 3;
-     * }
-     */
-    public static int UmsThreadAffinity() {
-        return (int)3L;
-    }
-    /**
-     * {@snippet :
-     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadTeb = 4;
-     * }
-     */
-    public static int UmsThreadTeb() {
-        return (int)4L;
-    }
-    /**
-     * {@snippet :
-     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadIsSuspended = 5;
-     * }
-     */
-    public static int UmsThreadIsSuspended() {
-        return (int)5L;
-    }
-    /**
-     * {@snippet :
-     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadIsTerminated = 6;
-     * }
-     */
-    public static int UmsThreadIsTerminated() {
-        return (int)6L;
-    }
-    /**
-     * {@snippet :
-     * enum _RTL_UMS_THREAD_INFO_CLASS.UmsThreadMaxInfoClass = 7;
-     * }
-     */
-    public static int UmsThreadMaxInfoClass() {
-        return (int)7L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum _RTL_UMS_THREAD_INFO_CLASS* PRTL_UMS_THREAD_INFO_CLASS;
-     * }
-     */
-    public static final AddressLayout PRTL_UMS_THREAD_INFO_CLASS = RuntimeHelper.POINTER;
-    /**
-     * {@snippet :
-     * enum _RTL_UMS_SCHEDULER_REASON.UmsSchedulerStartup = 0;
-     * }
-     */
-    public static int UmsSchedulerStartup() {
-        return (int)0L;
-    }
-    /**
-     * {@snippet :
-     * enum _RTL_UMS_SCHEDULER_REASON.UmsSchedulerThreadBlocked = 1;
-     * }
-     */
-    public static int UmsSchedulerThreadBlocked() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _RTL_UMS_SCHEDULER_REASON.UmsSchedulerThreadYield = 2;
-     * }
-     */
-    public static int UmsSchedulerThreadYield() {
-        return (int)2L;
-    }
-    /**
-     * {@snippet :
-     * typedef enum _RTL_UMS_SCHEDULER_REASON* PRTL_UMS_SCHEDULER_REASON;
-     * }
-     */
-    public static final AddressLayout PRTL_UMS_SCHEDULER_REASON = RuntimeHelper.POINTER;
-    public static MethodHandle RtlCrc32$MH() {
-        return RuntimeHelper.requireNonNull(constants$483.const$0,"RtlCrc32");
-    }
-    /**
-     * {@snippet :
-     * DWORD RtlCrc32(void* Buffer, size_t Size, DWORD InitialCrc);
-     * }
-     */
-    public static int RtlCrc32(MemorySegment Buffer, long Size, int InitialCrc) {
-        var mh$ = RtlCrc32$MH();
-        try {
-            return (int)mh$.invokeExact(Buffer, Size, InitialCrc);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_UNDOCK_NAME() {
+        class Holder {
+            static final MemorySegment SE_UNDOCK_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeUndockPrivilege");
         }
-    }
-    public static MethodHandle RtlCrc64$MH() {
-        return RuntimeHelper.requireNonNull(constants$483.const$1,"RtlCrc64");
+        return Holder.SE_UNDOCK_NAME;
     }
     /**
-     * {@snippet :
-     * ULONGLONG RtlCrc64(void* Buffer, size_t Size, ULONGLONG InitialCrc);
+     * {@snippet lang=c :
+     * #define SE_SYNC_AGENT_NAME "SeSyncAgentPrivilege"
      * }
      */
-    public static long RtlCrc64(MemorySegment Buffer, long Size, long InitialCrc) {
-        var mh$ = RtlCrc64$MH();
-        try {
-            return (long)mh$.invokeExact(Buffer, Size, InitialCrc);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_SYNC_AGENT_NAME() {
+        class Holder {
+            static final MemorySegment SE_SYNC_AGENT_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeSyncAgentPrivilege");
         }
+        return Holder.SE_SYNC_AGENT_NAME;
     }
     /**
-     * {@snippet :
-     * enum _OS_DEPLOYEMENT_STATE_VALUES.OS_DEPLOYMENT_STANDARD = 1;
+     * {@snippet lang=c :
+     * #define SE_ENABLE_DELEGATION_NAME "SeEnableDelegationPrivilege"
      * }
      */
-    public static int OS_DEPLOYMENT_STANDARD() {
-        return (int)1L;
-    }
-    /**
-     * {@snippet :
-     * enum _OS_DEPLOYEMENT_STATE_VALUES.OS_DEPLOYMENT_COMPACT = 2;
-     * }
-     */
-    public static int OS_DEPLOYMENT_COMPACT() {
-        return (int)2L;
-    }
-    public static MethodHandle RtlOsDeploymentState$MH() {
-        return RuntimeHelper.requireNonNull(constants$483.const$2,"RtlOsDeploymentState");
-    }
-    /**
-     * {@snippet :
-     * OS_DEPLOYEMENT_STATE_VALUES RtlOsDeploymentState(DWORD Flags);
-     * }
-     */
-    public static int RtlOsDeploymentState(int Flags) {
-        var mh$ = RtlOsDeploymentState$MH();
-        try {
-            return (int)mh$.invokeExact(Flags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_ENABLE_DELEGATION_NAME() {
+        class Holder {
+            static final MemorySegment SE_ENABLE_DELEGATION_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeEnableDelegationPrivilege");
         }
+        return Holder.SE_ENABLE_DELEGATION_NAME;
     }
     /**
-     * {@snippet :
-     * typedef struct _NV_MEMORY_RANGE* PNV_MEMORY_RANGE;
+     * {@snippet lang=c :
+     * #define SE_MANAGE_VOLUME_NAME "SeManageVolumePrivilege"
      * }
      */
-    public static final AddressLayout PNV_MEMORY_RANGE = RuntimeHelper.POINTER;
-    public static MethodHandle RtlGetNonVolatileToken$MH() {
-        return RuntimeHelper.requireNonNull(constants$484.const$0,"RtlGetNonVolatileToken");
-    }
-    /**
-     * {@snippet :
-     * DWORD RtlGetNonVolatileToken(PVOID NvBuffer, SIZE_T Size, PVOID* NvToken);
-     * }
-     */
-    public static int RtlGetNonVolatileToken(MemorySegment NvBuffer, long Size, MemorySegment NvToken) {
-        var mh$ = RtlGetNonVolatileToken$MH();
-        try {
-            return (int)mh$.invokeExact(NvBuffer, Size, NvToken);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_MANAGE_VOLUME_NAME() {
+        class Holder {
+            static final MemorySegment SE_MANAGE_VOLUME_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeManageVolumePrivilege");
         }
-    }
-    public static MethodHandle RtlFreeNonVolatileToken$MH() {
-        return RuntimeHelper.requireNonNull(constants$484.const$1,"RtlFreeNonVolatileToken");
+        return Holder.SE_MANAGE_VOLUME_NAME;
     }
     /**
-     * {@snippet :
-     * DWORD RtlFreeNonVolatileToken(PVOID NvToken);
+     * {@snippet lang=c :
+     * #define SE_IMPERSONATE_NAME "SeImpersonatePrivilege"
      * }
      */
-    public static int RtlFreeNonVolatileToken(MemorySegment NvToken) {
-        var mh$ = RtlFreeNonVolatileToken$MH();
-        try {
-            return (int)mh$.invokeExact(NvToken);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_IMPERSONATE_NAME() {
+        class Holder {
+            static final MemorySegment SE_IMPERSONATE_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeImpersonatePrivilege");
         }
-    }
-    public static MethodHandle RtlFlushNonVolatileMemory$MH() {
-        return RuntimeHelper.requireNonNull(constants$484.const$3,"RtlFlushNonVolatileMemory");
+        return Holder.SE_IMPERSONATE_NAME;
     }
     /**
-     * {@snippet :
-     * DWORD RtlFlushNonVolatileMemory(PVOID NvToken, PVOID NvBuffer, SIZE_T Size, DWORD Flags);
+     * {@snippet lang=c :
+     * #define SE_CREATE_GLOBAL_NAME "SeCreateGlobalPrivilege"
      * }
      */
-    public static int RtlFlushNonVolatileMemory(MemorySegment NvToken, MemorySegment NvBuffer, long Size, int Flags) {
-        var mh$ = RtlFlushNonVolatileMemory$MH();
-        try {
-            return (int)mh$.invokeExact(NvToken, NvBuffer, Size, Flags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_CREATE_GLOBAL_NAME() {
+        class Holder {
+            static final MemorySegment SE_CREATE_GLOBAL_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeCreateGlobalPrivilege");
         }
-    }
-    public static MethodHandle RtlDrainNonVolatileFlush$MH() {
-        return RuntimeHelper.requireNonNull(constants$484.const$4,"RtlDrainNonVolatileFlush");
+        return Holder.SE_CREATE_GLOBAL_NAME;
     }
     /**
-     * {@snippet :
-     * DWORD RtlDrainNonVolatileFlush(PVOID NvToken);
+     * {@snippet lang=c :
+     * #define SE_TRUSTED_CREDMAN_ACCESS_NAME "SeTrustedCredManAccessPrivilege"
      * }
      */
-    public static int RtlDrainNonVolatileFlush(MemorySegment NvToken) {
-        var mh$ = RtlDrainNonVolatileFlush$MH();
-        try {
-            return (int)mh$.invokeExact(NvToken);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_TRUSTED_CREDMAN_ACCESS_NAME() {
+        class Holder {
+            static final MemorySegment SE_TRUSTED_CREDMAN_ACCESS_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeTrustedCredManAccessPrivilege");
         }
-    }
-    public static MethodHandle RtlWriteNonVolatileMemory$MH() {
-        return RuntimeHelper.requireNonNull(constants$484.const$6,"RtlWriteNonVolatileMemory");
+        return Holder.SE_TRUSTED_CREDMAN_ACCESS_NAME;
     }
     /**
-     * {@snippet :
-     * DWORD RtlWriteNonVolatileMemory(PVOID NvToken, void* NvDestination, void* Source, SIZE_T Size, DWORD Flags);
+     * {@snippet lang=c :
+     * #define SE_RELABEL_NAME "SeRelabelPrivilege"
      * }
      */
-    public static int RtlWriteNonVolatileMemory(MemorySegment NvToken, MemorySegment NvDestination, MemorySegment Source, long Size, int Flags) {
-        var mh$ = RtlWriteNonVolatileMemory$MH();
-        try {
-            return (int)mh$.invokeExact(NvToken, NvDestination, Source, Size, Flags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_RELABEL_NAME() {
+        class Holder {
+            static final MemorySegment SE_RELABEL_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeRelabelPrivilege");
         }
-    }
-    public static MethodHandle RtlFillNonVolatileMemory$MH() {
-        return RuntimeHelper.requireNonNull(constants$485.const$1,"RtlFillNonVolatileMemory");
+        return Holder.SE_RELABEL_NAME;
     }
     /**
-     * {@snippet :
-     * DWORD RtlFillNonVolatileMemory(PVOID NvToken, void* NvDestination, SIZE_T Size, const BYTE Value, DWORD Flags);
+     * {@snippet lang=c :
+     * #define SE_INC_WORKING_SET_NAME "SeIncreaseWorkingSetPrivilege"
      * }
      */
-    public static int RtlFillNonVolatileMemory(MemorySegment NvToken, MemorySegment NvDestination, long Size, byte Value, int Flags) {
-        var mh$ = RtlFillNonVolatileMemory$MH();
-        try {
-            return (int)mh$.invokeExact(NvToken, NvDestination, Size, Value, Flags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_INC_WORKING_SET_NAME() {
+        class Holder {
+            static final MemorySegment SE_INC_WORKING_SET_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeIncreaseWorkingSetPrivilege");
         }
-    }
-    public static MethodHandle RtlFlushNonVolatileMemoryRanges$MH() {
-        return RuntimeHelper.requireNonNull(constants$485.const$2,"RtlFlushNonVolatileMemoryRanges");
+        return Holder.SE_INC_WORKING_SET_NAME;
     }
     /**
-     * {@snippet :
-     * DWORD RtlFlushNonVolatileMemoryRanges(PVOID NvToken, PNV_MEMORY_RANGE NvRanges, SIZE_T NumRanges, DWORD Flags);
+     * {@snippet lang=c :
+     * #define SE_TIME_ZONE_NAME "SeTimeZonePrivilege"
      * }
      */
-    public static int RtlFlushNonVolatileMemoryRanges(MemorySegment NvToken, MemorySegment NvRanges, long NumRanges, int Flags) {
-        var mh$ = RtlFlushNonVolatileMemoryRanges$MH();
-        try {
-            return (int)mh$.invokeExact(NvToken, NvRanges, NumRanges, Flags);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_TIME_ZONE_NAME() {
+        class Holder {
+            static final MemorySegment SE_TIME_ZONE_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeTimeZonePrivilege");
         }
+        return Holder.SE_TIME_ZONE_NAME;
     }
     /**
-     * {@snippet :
-     * typedef struct CORRELATION_VECTOR* PCORRELATION_VECTOR;
+     * {@snippet lang=c :
+     * #define SE_CREATE_SYMBOLIC_LINK_NAME "SeCreateSymbolicLinkPrivilege"
      * }
      */
-    public static final AddressLayout PCORRELATION_VECTOR = RuntimeHelper.POINTER;
-    public static MethodHandle RtlInitializeCorrelationVector$MH() {
-        return RuntimeHelper.requireNonNull(constants$485.const$6,"RtlInitializeCorrelationVector");
-    }
-    /**
-     * {@snippet :
-     * DWORD RtlInitializeCorrelationVector(PCORRELATION_VECTOR CorrelationVector, int Version, const GUID* Guid);
-     * }
-     */
-    public static int RtlInitializeCorrelationVector(MemorySegment CorrelationVector, int Version, MemorySegment Guid) {
-        var mh$ = RtlInitializeCorrelationVector$MH();
-        try {
-            return (int)mh$.invokeExact(CorrelationVector, Version, Guid);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_CREATE_SYMBOLIC_LINK_NAME() {
+        class Holder {
+            static final MemorySegment SE_CREATE_SYMBOLIC_LINK_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeCreateSymbolicLinkPrivilege");
         }
-    }
-    public static MethodHandle RtlIncrementCorrelationVector$MH() {
-        return RuntimeHelper.requireNonNull(constants$486.const$0,"RtlIncrementCorrelationVector");
+        return Holder.SE_CREATE_SYMBOLIC_LINK_NAME;
     }
     /**
-     * {@snippet :
-     * DWORD RtlIncrementCorrelationVector(PCORRELATION_VECTOR CorrelationVector);
+     * {@snippet lang=c :
+     * #define SE_DELEGATE_SESSION_USER_IMPERSONATE_NAME "SeDelegateSessionUserImpersonatePrivilege"
      * }
      */
-    public static int RtlIncrementCorrelationVector(MemorySegment CorrelationVector) {
-        var mh$ = RtlIncrementCorrelationVector$MH();
-        try {
-            return (int)mh$.invokeExact(CorrelationVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_DELEGATE_SESSION_USER_IMPERSONATE_NAME() {
+        class Holder {
+            static final MemorySegment SE_DELEGATE_SESSION_USER_IMPERSONATE_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SeDelegateSessionUserImpersonatePrivilege");
         }
-    }
-    public static MethodHandle RtlExtendCorrelationVector$MH() {
-        return RuntimeHelper.requireNonNull(constants$486.const$1,"RtlExtendCorrelationVector");
+        return Holder.SE_DELEGATE_SESSION_USER_IMPERSONATE_NAME;
     }
     /**
-     * {@snippet :
-     * DWORD RtlExtendCorrelationVector(PCORRELATION_VECTOR CorrelationVector);
+     * {@snippet lang=c :
+     * #define SE_ACTIVATE_AS_USER_CAPABILITY "a"
      * }
      */
-    public static int RtlExtendCorrelationVector(MemorySegment CorrelationVector) {
-        var mh$ = RtlExtendCorrelationVector$MH();
-        try {
-            return (int)mh$.invokeExact(CorrelationVector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_ACTIVATE_AS_USER_CAPABILITY() {
+        class Holder {
+            static final MemorySegment SE_ACTIVATE_AS_USER_CAPABILITY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("a");
         }
-    }
-    public static MethodHandle RtlValidateCorrelationVector$MH() {
-        return RuntimeHelper.requireNonNull(constants$486.const$2,"RtlValidateCorrelationVector");
+        return Holder.SE_ACTIVATE_AS_USER_CAPABILITY;
     }
     /**
-     * {@snippet :
-     * DWORD RtlValidateCorrelationVector(PCORRELATION_VECTOR Vector);
+     * {@snippet lang=c :
+     * #define SE_CONSTRAINED_IMPERSONATION_CAPABILITY "c"
      * }
      */
-    public static int RtlValidateCorrelationVector(MemorySegment Vector) {
-        var mh$ = RtlValidateCorrelationVector$MH();
-        try {
-            return (int)mh$.invokeExact(Vector);
-        } catch (Throwable ex$) {
-            throw new AssertionError("should not reach here", ex$);
+    public static MemorySegment SE_CONSTRAINED_IMPERSONATION_CAPABILITY() {
+        class Holder {
+            static final MemorySegment SE_CONSTRAINED_IMPERSONATION_CAPABILITY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("c");
         }
+        return Holder.SE_CONSTRAINED_IMPERSONATION_CAPABILITY;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define SE_SESSION_IMPERSONATION_CAPABILITY "s"
+     * }
+     */
+    public static MemorySegment SE_SESSION_IMPERSONATION_CAPABILITY() {
+        class Holder {
+            static final MemorySegment SE_SESSION_IMPERSONATION_CAPABILITY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("s");
+        }
+        return Holder.SE_SESSION_IMPERSONATION_CAPABILITY;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define SE_MUMA_CAPABILITY "m"
+     * }
+     */
+    public static MemorySegment SE_MUMA_CAPABILITY() {
+        class Holder {
+            static final MemorySegment SE_MUMA_CAPABILITY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("m");
+        }
+        return Holder.SE_MUMA_CAPABILITY;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define SE_DEVELOPMENT_MODE_NETWORK_CAPABILITY "d"
+     * }
+     */
+    public static MemorySegment SE_DEVELOPMENT_MODE_NETWORK_CAPABILITY() {
+        class Holder {
+            static final MemorySegment SE_DEVELOPMENT_MODE_NETWORK_CAPABILITY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("d");
+        }
+        return Holder.SE_DEVELOPMENT_MODE_NETWORK_CAPABILITY;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define SE_PERMISSIVE_LEARNING_MODE_CAPABILITY "p"
+     * }
+     */
+    public static MemorySegment SE_PERMISSIVE_LEARNING_MODE_CAPABILITY() {
+        class Holder {
+            static final MemorySegment SE_PERMISSIVE_LEARNING_MODE_CAPABILITY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("p");
+        }
+        return Holder.SE_PERMISSIVE_LEARNING_MODE_CAPABILITY;
+    }
+    private static final int SECURITY_MAX_IMPERSONATION_LEVEL = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define SECURITY_MAX_IMPERSONATION_LEVEL 3
+     * }
+     */
+    public static int SECURITY_MAX_IMPERSONATION_LEVEL() {
+        return SECURITY_MAX_IMPERSONATION_LEVEL;
+    }
+    private static final int SECURITY_MIN_IMPERSONATION_LEVEL = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define SECURITY_MIN_IMPERSONATION_LEVEL 0
+     * }
+     */
+    public static int SECURITY_MIN_IMPERSONATION_LEVEL() {
+        return SECURITY_MIN_IMPERSONATION_LEVEL;
+    }
+    private static final int DEFAULT_IMPERSONATION_LEVEL = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define DEFAULT_IMPERSONATION_LEVEL 2
+     * }
+     */
+    public static int DEFAULT_IMPERSONATION_LEVEL() {
+        return DEFAULT_IMPERSONATION_LEVEL;
+    }
+    private static final int TOKEN_ASSIGN_PRIMARY = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_ASSIGN_PRIMARY 1
+     * }
+     */
+    public static int TOKEN_ASSIGN_PRIMARY() {
+        return TOKEN_ASSIGN_PRIMARY;
+    }
+    private static final int TOKEN_DUPLICATE = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_DUPLICATE 2
+     * }
+     */
+    public static int TOKEN_DUPLICATE() {
+        return TOKEN_DUPLICATE;
+    }
+    private static final int TOKEN_IMPERSONATE = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_IMPERSONATE 4
+     * }
+     */
+    public static int TOKEN_IMPERSONATE() {
+        return TOKEN_IMPERSONATE;
+    }
+    private static final int TOKEN_QUERY = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_QUERY 8
+     * }
+     */
+    public static int TOKEN_QUERY() {
+        return TOKEN_QUERY;
+    }
+    private static final int TOKEN_QUERY_SOURCE = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_QUERY_SOURCE 16
+     * }
+     */
+    public static int TOKEN_QUERY_SOURCE() {
+        return TOKEN_QUERY_SOURCE;
+    }
+    private static final int TOKEN_ADJUST_PRIVILEGES = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_ADJUST_PRIVILEGES 32
+     * }
+     */
+    public static int TOKEN_ADJUST_PRIVILEGES() {
+        return TOKEN_ADJUST_PRIVILEGES;
+    }
+    private static final int TOKEN_ADJUST_GROUPS = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_ADJUST_GROUPS 64
+     * }
+     */
+    public static int TOKEN_ADJUST_GROUPS() {
+        return TOKEN_ADJUST_GROUPS;
+    }
+    private static final int TOKEN_ADJUST_DEFAULT = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_ADJUST_DEFAULT 128
+     * }
+     */
+    public static int TOKEN_ADJUST_DEFAULT() {
+        return TOKEN_ADJUST_DEFAULT;
+    }
+    private static final int TOKEN_ADJUST_SESSIONID = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_ADJUST_SESSIONID 256
+     * }
+     */
+    public static int TOKEN_ADJUST_SESSIONID() {
+        return TOKEN_ADJUST_SESSIONID;
+    }
+    private static final int TOKEN_ALL_ACCESS_P = (int)983295L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_ALL_ACCESS_P 983295
+     * }
+     */
+    public static int TOKEN_ALL_ACCESS_P() {
+        return TOKEN_ALL_ACCESS_P;
+    }
+    private static final int TOKEN_ALL_ACCESS = (int)983551L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_ALL_ACCESS 983551
+     * }
+     */
+    public static int TOKEN_ALL_ACCESS() {
+        return TOKEN_ALL_ACCESS;
+    }
+    private static final int TOKEN_READ = (int)131080L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_READ 131080
+     * }
+     */
+    public static int TOKEN_READ() {
+        return TOKEN_READ;
+    }
+    private static final int TOKEN_WRITE = (int)131296L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_WRITE 131296
+     * }
+     */
+    public static int TOKEN_WRITE() {
+        return TOKEN_WRITE;
+    }
+    private static final int TOKEN_EXECUTE = (int)131072L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_EXECUTE 131072
+     * }
+     */
+    public static int TOKEN_EXECUTE() {
+        return TOKEN_EXECUTE;
+    }
+    private static final int TOKEN_TRUST_CONSTRAINT_MASK = (int)131096L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_TRUST_CONSTRAINT_MASK 131096
+     * }
+     */
+    public static int TOKEN_TRUST_CONSTRAINT_MASK() {
+        return TOKEN_TRUST_CONSTRAINT_MASK;
+    }
+    private static final int TOKEN_ACCESS_PSEUDO_HANDLE_WIN8 = (int)24L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_ACCESS_PSEUDO_HANDLE_WIN8 24
+     * }
+     */
+    public static int TOKEN_ACCESS_PSEUDO_HANDLE_WIN8() {
+        return TOKEN_ACCESS_PSEUDO_HANDLE_WIN8;
+    }
+    private static final int TOKEN_ACCESS_PSEUDO_HANDLE = (int)24L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_ACCESS_PSEUDO_HANDLE 24
+     * }
+     */
+    public static int TOKEN_ACCESS_PSEUDO_HANDLE() {
+        return TOKEN_ACCESS_PSEUDO_HANDLE;
+    }
+    private static final long TOKEN_USER_MAX_SIZE = 84L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_USER_MAX_SIZE 84
+     * }
+     */
+    public static long TOKEN_USER_MAX_SIZE() {
+        return TOKEN_USER_MAX_SIZE;
+    }
+    private static final long TOKEN_OWNER_MAX_SIZE = 76L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_OWNER_MAX_SIZE 76
+     * }
+     */
+    public static long TOKEN_OWNER_MAX_SIZE() {
+        return TOKEN_OWNER_MAX_SIZE;
+    }
+    private static final int TOKEN_MANDATORY_POLICY_VALID_MASK = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_MANDATORY_POLICY_VALID_MASK 3
+     * }
+     */
+    public static int TOKEN_MANDATORY_POLICY_VALID_MASK() {
+        return TOKEN_MANDATORY_POLICY_VALID_MASK;
+    }
+    private static final long TOKEN_INTEGRITY_LEVEL_MAX_SIZE = 84L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_INTEGRITY_LEVEL_MAX_SIZE 84
+     * }
+     */
+    public static long TOKEN_INTEGRITY_LEVEL_MAX_SIZE() {
+        return TOKEN_INTEGRITY_LEVEL_MAX_SIZE;
+    }
+    private static final int POLICY_AUDIT_SUBCATEGORY_COUNT = (int)59L;
+    /**
+     * {@snippet lang=c :
+     * #define POLICY_AUDIT_SUBCATEGORY_COUNT 59
+     * }
+     */
+    public static int POLICY_AUDIT_SUBCATEGORY_COUNT() {
+        return POLICY_AUDIT_SUBCATEGORY_COUNT;
+    }
+    private static final long TOKEN_APPCONTAINER_SID_MAX_SIZE = 76L;
+    /**
+     * {@snippet lang=c :
+     * #define TOKEN_APPCONTAINER_SID_MAX_SIZE 76
+     * }
+     */
+    public static long TOKEN_APPCONTAINER_SID_MAX_SIZE() {
+        return TOKEN_APPCONTAINER_SID_MAX_SIZE;
+    }
+    private static final int CLAIM_SECURITY_ATTRIBUTE_VALID_FLAGS = (int)63L;
+    /**
+     * {@snippet lang=c :
+     * #define CLAIM_SECURITY_ATTRIBUTE_VALID_FLAGS 63
+     * }
+     */
+    public static int CLAIM_SECURITY_ATTRIBUTE_VALID_FLAGS() {
+        return CLAIM_SECURITY_ATTRIBUTE_VALID_FLAGS;
+    }
+    private static final int CLAIM_SECURITY_ATTRIBUTE_CUSTOM_FLAGS = (int)4294901760L;
+    /**
+     * {@snippet lang=c :
+     * #define CLAIM_SECURITY_ATTRIBUTE_CUSTOM_FLAGS 4294901760
+     * }
+     */
+    public static int CLAIM_SECURITY_ATTRIBUTE_CUSTOM_FLAGS() {
+        return CLAIM_SECURITY_ATTRIBUTE_CUSTOM_FLAGS;
+    }
+    private static final int CLAIM_SECURITY_ATTRIBUTES_INFORMATION_VERSION = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CLAIM_SECURITY_ATTRIBUTES_INFORMATION_VERSION 1
+     * }
+     */
+    public static int CLAIM_SECURITY_ATTRIBUTES_INFORMATION_VERSION() {
+        return CLAIM_SECURITY_ATTRIBUTES_INFORMATION_VERSION;
+    }
+    private static final int SECURITY_DYNAMIC_TRACKING = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define SECURITY_DYNAMIC_TRACKING 1
+     * }
+     */
+    public static int SECURITY_DYNAMIC_TRACKING() {
+        return SECURITY_DYNAMIC_TRACKING;
+    }
+    private static final int SECURITY_STATIC_TRACKING = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define SECURITY_STATIC_TRACKING 0
+     * }
+     */
+    public static int SECURITY_STATIC_TRACKING() {
+        return SECURITY_STATIC_TRACKING;
+    }
+    private static final int OWNER_SECURITY_INFORMATION = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define OWNER_SECURITY_INFORMATION 1
+     * }
+     */
+    public static int OWNER_SECURITY_INFORMATION() {
+        return OWNER_SECURITY_INFORMATION;
+    }
+    private static final int GROUP_SECURITY_INFORMATION = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define GROUP_SECURITY_INFORMATION 2
+     * }
+     */
+    public static int GROUP_SECURITY_INFORMATION() {
+        return GROUP_SECURITY_INFORMATION;
+    }
+    private static final int DACL_SECURITY_INFORMATION = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define DACL_SECURITY_INFORMATION 4
+     * }
+     */
+    public static int DACL_SECURITY_INFORMATION() {
+        return DACL_SECURITY_INFORMATION;
+    }
+    private static final int SACL_SECURITY_INFORMATION = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define SACL_SECURITY_INFORMATION 8
+     * }
+     */
+    public static int SACL_SECURITY_INFORMATION() {
+        return SACL_SECURITY_INFORMATION;
+    }
+    private static final int LABEL_SECURITY_INFORMATION = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define LABEL_SECURITY_INFORMATION 16
+     * }
+     */
+    public static int LABEL_SECURITY_INFORMATION() {
+        return LABEL_SECURITY_INFORMATION;
+    }
+    private static final int ATTRIBUTE_SECURITY_INFORMATION = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define ATTRIBUTE_SECURITY_INFORMATION 32
+     * }
+     */
+    public static int ATTRIBUTE_SECURITY_INFORMATION() {
+        return ATTRIBUTE_SECURITY_INFORMATION;
+    }
+    private static final int SCOPE_SECURITY_INFORMATION = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define SCOPE_SECURITY_INFORMATION 64
+     * }
+     */
+    public static int SCOPE_SECURITY_INFORMATION() {
+        return SCOPE_SECURITY_INFORMATION;
+    }
+    private static final int PROCESS_TRUST_LABEL_SECURITY_INFORMATION = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_TRUST_LABEL_SECURITY_INFORMATION 128
+     * }
+     */
+    public static int PROCESS_TRUST_LABEL_SECURITY_INFORMATION() {
+        return PROCESS_TRUST_LABEL_SECURITY_INFORMATION;
+    }
+    private static final int ACCESS_FILTER_SECURITY_INFORMATION = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define ACCESS_FILTER_SECURITY_INFORMATION 256
+     * }
+     */
+    public static int ACCESS_FILTER_SECURITY_INFORMATION() {
+        return ACCESS_FILTER_SECURITY_INFORMATION;
+    }
+    private static final int BACKUP_SECURITY_INFORMATION = (int)65536L;
+    /**
+     * {@snippet lang=c :
+     * #define BACKUP_SECURITY_INFORMATION 65536
+     * }
+     */
+    public static int BACKUP_SECURITY_INFORMATION() {
+        return BACKUP_SECURITY_INFORMATION;
+    }
+    private static final int PROTECTED_DACL_SECURITY_INFORMATION = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define PROTECTED_DACL_SECURITY_INFORMATION 2147483648
+     * }
+     */
+    public static int PROTECTED_DACL_SECURITY_INFORMATION() {
+        return PROTECTED_DACL_SECURITY_INFORMATION;
+    }
+    private static final int PROTECTED_SACL_SECURITY_INFORMATION = (int)1073741824L;
+    /**
+     * {@snippet lang=c :
+     * #define PROTECTED_SACL_SECURITY_INFORMATION 1073741824
+     * }
+     */
+    public static int PROTECTED_SACL_SECURITY_INFORMATION() {
+        return PROTECTED_SACL_SECURITY_INFORMATION;
+    }
+    private static final int UNPROTECTED_DACL_SECURITY_INFORMATION = (int)536870912L;
+    /**
+     * {@snippet lang=c :
+     * #define UNPROTECTED_DACL_SECURITY_INFORMATION 536870912
+     * }
+     */
+    public static int UNPROTECTED_DACL_SECURITY_INFORMATION() {
+        return UNPROTECTED_DACL_SECURITY_INFORMATION;
+    }
+    private static final int UNPROTECTED_SACL_SECURITY_INFORMATION = (int)268435456L;
+    /**
+     * {@snippet lang=c :
+     * #define UNPROTECTED_SACL_SECURITY_INFORMATION 268435456
+     * }
+     */
+    public static int UNPROTECTED_SACL_SECURITY_INFORMATION() {
+        return UNPROTECTED_SACL_SECURITY_INFORMATION;
+    }
+    private static final int SE_SIGNING_LEVEL_DEVELOPER = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define SE_SIGNING_LEVEL_DEVELOPER 3
+     * }
+     */
+    public static int SE_SIGNING_LEVEL_DEVELOPER() {
+        return SE_SIGNING_LEVEL_DEVELOPER;
+    }
+    private static final int SE_SIGNING_LEVEL_ANTIMALWARE = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * #define SE_SIGNING_LEVEL_ANTIMALWARE 7
+     * }
+     */
+    public static int SE_SIGNING_LEVEL_ANTIMALWARE() {
+        return SE_SIGNING_LEVEL_ANTIMALWARE;
+    }
+    private static final int PROCESS_TERMINATE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_TERMINATE 1
+     * }
+     */
+    public static int PROCESS_TERMINATE() {
+        return PROCESS_TERMINATE;
+    }
+    private static final int PROCESS_CREATE_THREAD = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_CREATE_THREAD 2
+     * }
+     */
+    public static int PROCESS_CREATE_THREAD() {
+        return PROCESS_CREATE_THREAD;
+    }
+    private static final int PROCESS_SET_SESSIONID = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_SET_SESSIONID 4
+     * }
+     */
+    public static int PROCESS_SET_SESSIONID() {
+        return PROCESS_SET_SESSIONID;
+    }
+    private static final int PROCESS_VM_OPERATION = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_VM_OPERATION 8
+     * }
+     */
+    public static int PROCESS_VM_OPERATION() {
+        return PROCESS_VM_OPERATION;
+    }
+    private static final int PROCESS_VM_READ = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_VM_READ 16
+     * }
+     */
+    public static int PROCESS_VM_READ() {
+        return PROCESS_VM_READ;
+    }
+    private static final int PROCESS_VM_WRITE = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_VM_WRITE 32
+     * }
+     */
+    public static int PROCESS_VM_WRITE() {
+        return PROCESS_VM_WRITE;
+    }
+    private static final int PROCESS_DUP_HANDLE = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_DUP_HANDLE 64
+     * }
+     */
+    public static int PROCESS_DUP_HANDLE() {
+        return PROCESS_DUP_HANDLE;
+    }
+    private static final int PROCESS_CREATE_PROCESS = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_CREATE_PROCESS 128
+     * }
+     */
+    public static int PROCESS_CREATE_PROCESS() {
+        return PROCESS_CREATE_PROCESS;
+    }
+    private static final int PROCESS_SET_QUOTA = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_SET_QUOTA 256
+     * }
+     */
+    public static int PROCESS_SET_QUOTA() {
+        return PROCESS_SET_QUOTA;
+    }
+    private static final int PROCESS_SET_INFORMATION = (int)512L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_SET_INFORMATION 512
+     * }
+     */
+    public static int PROCESS_SET_INFORMATION() {
+        return PROCESS_SET_INFORMATION;
+    }
+    private static final int PROCESS_QUERY_INFORMATION = (int)1024L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_QUERY_INFORMATION 1024
+     * }
+     */
+    public static int PROCESS_QUERY_INFORMATION() {
+        return PROCESS_QUERY_INFORMATION;
+    }
+    private static final int PROCESS_SUSPEND_RESUME = (int)2048L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_SUSPEND_RESUME 2048
+     * }
+     */
+    public static int PROCESS_SUSPEND_RESUME() {
+        return PROCESS_SUSPEND_RESUME;
+    }
+    private static final int PROCESS_QUERY_LIMITED_INFORMATION = (int)4096L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_QUERY_LIMITED_INFORMATION 4096
+     * }
+     */
+    public static int PROCESS_QUERY_LIMITED_INFORMATION() {
+        return PROCESS_QUERY_LIMITED_INFORMATION;
+    }
+    private static final int PROCESS_SET_LIMITED_INFORMATION = (int)8192L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_SET_LIMITED_INFORMATION 8192
+     * }
+     */
+    public static int PROCESS_SET_LIMITED_INFORMATION() {
+        return PROCESS_SET_LIMITED_INFORMATION;
+    }
+    private static final int PROCESS_ALL_ACCESS = (int)2097151L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_ALL_ACCESS 2097151
+     * }
+     */
+    public static int PROCESS_ALL_ACCESS() {
+        return PROCESS_ALL_ACCESS;
+    }
+    private static final int THREAD_TERMINATE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_TERMINATE 1
+     * }
+     */
+    public static int THREAD_TERMINATE() {
+        return THREAD_TERMINATE;
+    }
+    private static final int THREAD_SUSPEND_RESUME = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_SUSPEND_RESUME 2
+     * }
+     */
+    public static int THREAD_SUSPEND_RESUME() {
+        return THREAD_SUSPEND_RESUME;
+    }
+    private static final int THREAD_GET_CONTEXT = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_GET_CONTEXT 8
+     * }
+     */
+    public static int THREAD_GET_CONTEXT() {
+        return THREAD_GET_CONTEXT;
+    }
+    private static final int THREAD_SET_CONTEXT = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_SET_CONTEXT 16
+     * }
+     */
+    public static int THREAD_SET_CONTEXT() {
+        return THREAD_SET_CONTEXT;
+    }
+    private static final int THREAD_QUERY_INFORMATION = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_QUERY_INFORMATION 64
+     * }
+     */
+    public static int THREAD_QUERY_INFORMATION() {
+        return THREAD_QUERY_INFORMATION;
+    }
+    private static final int THREAD_SET_INFORMATION = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_SET_INFORMATION 32
+     * }
+     */
+    public static int THREAD_SET_INFORMATION() {
+        return THREAD_SET_INFORMATION;
+    }
+    private static final int THREAD_SET_THREAD_TOKEN = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_SET_THREAD_TOKEN 128
+     * }
+     */
+    public static int THREAD_SET_THREAD_TOKEN() {
+        return THREAD_SET_THREAD_TOKEN;
+    }
+    private static final int THREAD_IMPERSONATE = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_IMPERSONATE 256
+     * }
+     */
+    public static int THREAD_IMPERSONATE() {
+        return THREAD_IMPERSONATE;
+    }
+    private static final int THREAD_DIRECT_IMPERSONATION = (int)512L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_DIRECT_IMPERSONATION 512
+     * }
+     */
+    public static int THREAD_DIRECT_IMPERSONATION() {
+        return THREAD_DIRECT_IMPERSONATION;
+    }
+    private static final int THREAD_SET_LIMITED_INFORMATION = (int)1024L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_SET_LIMITED_INFORMATION 1024
+     * }
+     */
+    public static int THREAD_SET_LIMITED_INFORMATION() {
+        return THREAD_SET_LIMITED_INFORMATION;
+    }
+    private static final int THREAD_QUERY_LIMITED_INFORMATION = (int)2048L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_QUERY_LIMITED_INFORMATION 2048
+     * }
+     */
+    public static int THREAD_QUERY_LIMITED_INFORMATION() {
+        return THREAD_QUERY_LIMITED_INFORMATION;
+    }
+    private static final int THREAD_RESUME = (int)4096L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_RESUME 4096
+     * }
+     */
+    public static int THREAD_RESUME() {
+        return THREAD_RESUME;
+    }
+    private static final int THREAD_ALL_ACCESS = (int)2097151L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_ALL_ACCESS 2097151
+     * }
+     */
+    public static int THREAD_ALL_ACCESS() {
+        return THREAD_ALL_ACCESS;
+    }
+    private static final int JOB_OBJECT_ASSIGN_PROCESS = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define JOB_OBJECT_ASSIGN_PROCESS 1
+     * }
+     */
+    public static int JOB_OBJECT_ASSIGN_PROCESS() {
+        return JOB_OBJECT_ASSIGN_PROCESS;
+    }
+    private static final int JOB_OBJECT_SET_ATTRIBUTES = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define JOB_OBJECT_SET_ATTRIBUTES 2
+     * }
+     */
+    public static int JOB_OBJECT_SET_ATTRIBUTES() {
+        return JOB_OBJECT_SET_ATTRIBUTES;
+    }
+    private static final int JOB_OBJECT_QUERY = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define JOB_OBJECT_QUERY 4
+     * }
+     */
+    public static int JOB_OBJECT_QUERY() {
+        return JOB_OBJECT_QUERY;
+    }
+    private static final int JOB_OBJECT_TERMINATE = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define JOB_OBJECT_TERMINATE 8
+     * }
+     */
+    public static int JOB_OBJECT_TERMINATE() {
+        return JOB_OBJECT_TERMINATE;
+    }
+    private static final int JOB_OBJECT_SET_SECURITY_ATTRIBUTES = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define JOB_OBJECT_SET_SECURITY_ATTRIBUTES 16
+     * }
+     */
+    public static int JOB_OBJECT_SET_SECURITY_ATTRIBUTES() {
+        return JOB_OBJECT_SET_SECURITY_ATTRIBUTES;
+    }
+    private static final int JOB_OBJECT_IMPERSONATE = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define JOB_OBJECT_IMPERSONATE 32
+     * }
+     */
+    public static int JOB_OBJECT_IMPERSONATE() {
+        return JOB_OBJECT_IMPERSONATE;
+    }
+    private static final int JOB_OBJECT_ALL_ACCESS = (int)2031679L;
+    /**
+     * {@snippet lang=c :
+     * #define JOB_OBJECT_ALL_ACCESS 2031679
+     * }
+     */
+    public static int JOB_OBJECT_ALL_ACCESS() {
+        return JOB_OBJECT_ALL_ACCESS;
+    }
+    private static final int THREAD_BASE_PRIORITY_MIN = (int)-2L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_BASE_PRIORITY_MIN -2
+     * }
+     */
+    public static int THREAD_BASE_PRIORITY_MIN() {
+        return THREAD_BASE_PRIORITY_MIN;
+    }
+    private static final int THREAD_BASE_PRIORITY_IDLE = (int)-15L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_BASE_PRIORITY_IDLE -15
+     * }
+     */
+    public static int THREAD_BASE_PRIORITY_IDLE() {
+        return THREAD_BASE_PRIORITY_IDLE;
+    }
+    private static final int COMPONENT_VALID_FLAGS = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define COMPONENT_VALID_FLAGS 1
+     * }
+     */
+    public static int COMPONENT_VALID_FLAGS() {
+        return COMPONENT_VALID_FLAGS;
+    }
+    private static final int DYNAMIC_EH_CONTINUATION_TARGET_ADD = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define DYNAMIC_EH_CONTINUATION_TARGET_ADD 1
+     * }
+     */
+    public static int DYNAMIC_EH_CONTINUATION_TARGET_ADD() {
+        return DYNAMIC_EH_CONTINUATION_TARGET_ADD;
+    }
+    private static final int DYNAMIC_EH_CONTINUATION_TARGET_PROCESSED = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define DYNAMIC_EH_CONTINUATION_TARGET_PROCESSED 2
+     * }
+     */
+    public static int DYNAMIC_EH_CONTINUATION_TARGET_PROCESSED() {
+        return DYNAMIC_EH_CONTINUATION_TARGET_PROCESSED;
+    }
+    private static final int DYNAMIC_ENFORCED_ADDRESS_RANGE_ADD = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define DYNAMIC_ENFORCED_ADDRESS_RANGE_ADD 1
+     * }
+     */
+    public static int DYNAMIC_ENFORCED_ADDRESS_RANGE_ADD() {
+        return DYNAMIC_ENFORCED_ADDRESS_RANGE_ADD;
+    }
+    private static final int DYNAMIC_ENFORCED_ADDRESS_RANGE_PROCESSED = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define DYNAMIC_ENFORCED_ADDRESS_RANGE_PROCESSED 2
+     * }
+     */
+    public static int DYNAMIC_ENFORCED_ADDRESS_RANGE_PROCESSED() {
+        return DYNAMIC_ENFORCED_ADDRESS_RANGE_PROCESSED;
+    }
+    private static final int JOB_OBJECT_VALID_COMPLETION_FILTER = (int)16382L;
+    /**
+     * {@snippet lang=c :
+     * #define JOB_OBJECT_VALID_COMPLETION_FILTER 16382
+     * }
+     */
+    public static int JOB_OBJECT_VALID_COMPLETION_FILTER() {
+        return JOB_OBJECT_VALID_COMPLETION_FILTER;
+    }
+    private static final int JOB_OBJECT_LIMIT_JOB_MEMORY_HIGH = (int)512L;
+    /**
+     * {@snippet lang=c :
+     * #define JOB_OBJECT_LIMIT_JOB_MEMORY_HIGH 512
+     * }
+     */
+    public static int JOB_OBJECT_LIMIT_JOB_MEMORY_HIGH() {
+        return JOB_OBJECT_LIMIT_JOB_MEMORY_HIGH;
+    }
+    private static final int JOB_OBJECT_LIMIT_CPU_RATE_CONTROL = (int)262144L;
+    /**
+     * {@snippet lang=c :
+     * #define JOB_OBJECT_LIMIT_CPU_RATE_CONTROL 262144
+     * }
+     */
+    public static int JOB_OBJECT_LIMIT_CPU_RATE_CONTROL() {
+        return JOB_OBJECT_LIMIT_CPU_RATE_CONTROL;
+    }
+    private static final int JOB_OBJECT_NOTIFICATION_LIMIT_VALID_FLAGS = (int)2064900L;
+    /**
+     * {@snippet lang=c :
+     * #define JOB_OBJECT_NOTIFICATION_LIMIT_VALID_FLAGS 2064900
+     * }
+     */
+    public static int JOB_OBJECT_NOTIFICATION_LIMIT_VALID_FLAGS() {
+        return JOB_OBJECT_NOTIFICATION_LIMIT_VALID_FLAGS;
+    }
+    private static final int MEMORY_PARTITION_ALL_ACCESS = (int)2031619L;
+    /**
+     * {@snippet lang=c :
+     * #define MEMORY_PARTITION_ALL_ACCESS 2031619
+     * }
+     */
+    public static int MEMORY_PARTITION_ALL_ACCESS() {
+        return MEMORY_PARTITION_ALL_ACCESS;
+    }
+    private static final int EVENT_ALL_ACCESS = (int)2031619L;
+    /**
+     * {@snippet lang=c :
+     * #define EVENT_ALL_ACCESS 2031619
+     * }
+     */
+    public static int EVENT_ALL_ACCESS() {
+        return EVENT_ALL_ACCESS;
+    }
+    private static final int MUTANT_ALL_ACCESS = (int)2031617L;
+    /**
+     * {@snippet lang=c :
+     * #define MUTANT_ALL_ACCESS 2031617
+     * }
+     */
+    public static int MUTANT_ALL_ACCESS() {
+        return MUTANT_ALL_ACCESS;
+    }
+    private static final int SEMAPHORE_ALL_ACCESS = (int)2031619L;
+    /**
+     * {@snippet lang=c :
+     * #define SEMAPHORE_ALL_ACCESS 2031619
+     * }
+     */
+    public static int SEMAPHORE_ALL_ACCESS() {
+        return SEMAPHORE_ALL_ACCESS;
+    }
+    private static final int TIMER_ALL_ACCESS = (int)2031619L;
+    /**
+     * {@snippet lang=c :
+     * #define TIMER_ALL_ACCESS 2031619
+     * }
+     */
+    public static int TIMER_ALL_ACCESS() {
+        return TIMER_ALL_ACCESS;
+    }
+    private static final int XSTATE_LEGACY_FLOATING_POINT = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_LEGACY_FLOATING_POINT 0
+     * }
+     */
+    public static int XSTATE_LEGACY_FLOATING_POINT() {
+        return XSTATE_LEGACY_FLOATING_POINT;
+    }
+    private static final int XSTATE_LEGACY_SSE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_LEGACY_SSE 1
+     * }
+     */
+    public static int XSTATE_LEGACY_SSE() {
+        return XSTATE_LEGACY_SSE;
+    }
+    private static final int XSTATE_GSSE = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_GSSE 2
+     * }
+     */
+    public static int XSTATE_GSSE() {
+        return XSTATE_GSSE;
+    }
+    private static final int XSTATE_AVX = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_AVX 2
+     * }
+     */
+    public static int XSTATE_AVX() {
+        return XSTATE_AVX;
+    }
+    private static final int XSTATE_MPX_BNDREGS = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MPX_BNDREGS 3
+     * }
+     */
+    public static int XSTATE_MPX_BNDREGS() {
+        return XSTATE_MPX_BNDREGS;
+    }
+    private static final int XSTATE_MPX_BNDCSR = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MPX_BNDCSR 4
+     * }
+     */
+    public static int XSTATE_MPX_BNDCSR() {
+        return XSTATE_MPX_BNDCSR;
+    }
+    private static final int XSTATE_AVX512_KMASK = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_AVX512_KMASK 5
+     * }
+     */
+    public static int XSTATE_AVX512_KMASK() {
+        return XSTATE_AVX512_KMASK;
+    }
+    private static final int XSTATE_AVX512_ZMM_H = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_AVX512_ZMM_H 6
+     * }
+     */
+    public static int XSTATE_AVX512_ZMM_H() {
+        return XSTATE_AVX512_ZMM_H;
+    }
+    private static final int XSTATE_AVX512_ZMM = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_AVX512_ZMM 7
+     * }
+     */
+    public static int XSTATE_AVX512_ZMM() {
+        return XSTATE_AVX512_ZMM;
+    }
+    private static final int XSTATE_IPT = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_IPT 8
+     * }
+     */
+    public static int XSTATE_IPT() {
+        return XSTATE_IPT;
+    }
+    private static final int XSTATE_PASID = (int)10L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_PASID 10
+     * }
+     */
+    public static int XSTATE_PASID() {
+        return XSTATE_PASID;
+    }
+    private static final int XSTATE_CET_U = (int)11L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_CET_U 11
+     * }
+     */
+    public static int XSTATE_CET_U() {
+        return XSTATE_CET_U;
+    }
+    private static final int XSTATE_CET_S = (int)12L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_CET_S 12
+     * }
+     */
+    public static int XSTATE_CET_S() {
+        return XSTATE_CET_S;
+    }
+    private static final int XSTATE_AMX_TILE_CONFIG = (int)17L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_AMX_TILE_CONFIG 17
+     * }
+     */
+    public static int XSTATE_AMX_TILE_CONFIG() {
+        return XSTATE_AMX_TILE_CONFIG;
+    }
+    private static final int XSTATE_AMX_TILE_DATA = (int)18L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_AMX_TILE_DATA 18
+     * }
+     */
+    public static int XSTATE_AMX_TILE_DATA() {
+        return XSTATE_AMX_TILE_DATA;
+    }
+    private static final int XSTATE_LWP = (int)62L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_LWP 62
+     * }
+     */
+    public static int XSTATE_LWP() {
+        return XSTATE_LWP;
+    }
+    private static final int MAXIMUM_XSTATE_FEATURES = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define MAXIMUM_XSTATE_FEATURES 64
+     * }
+     */
+    public static int MAXIMUM_XSTATE_FEATURES() {
+        return MAXIMUM_XSTATE_FEATURES;
+    }
+    private static final long XSTATE_MASK_LEGACY_FLOATING_POINT = 1L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_LEGACY_FLOATING_POINT 1
+     * }
+     */
+    public static long XSTATE_MASK_LEGACY_FLOATING_POINT() {
+        return XSTATE_MASK_LEGACY_FLOATING_POINT;
+    }
+    private static final long XSTATE_MASK_LEGACY_SSE = 2L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_LEGACY_SSE 2
+     * }
+     */
+    public static long XSTATE_MASK_LEGACY_SSE() {
+        return XSTATE_MASK_LEGACY_SSE;
+    }
+    private static final long XSTATE_MASK_LEGACY = 3L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_LEGACY 3
+     * }
+     */
+    public static long XSTATE_MASK_LEGACY() {
+        return XSTATE_MASK_LEGACY;
+    }
+    private static final long XSTATE_MASK_GSSE = 4L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_GSSE 4
+     * }
+     */
+    public static long XSTATE_MASK_GSSE() {
+        return XSTATE_MASK_GSSE;
+    }
+    private static final long XSTATE_MASK_AVX = 4L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_AVX 4
+     * }
+     */
+    public static long XSTATE_MASK_AVX() {
+        return XSTATE_MASK_AVX;
+    }
+    private static final long XSTATE_MASK_MPX = 24L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_MPX 24
+     * }
+     */
+    public static long XSTATE_MASK_MPX() {
+        return XSTATE_MASK_MPX;
+    }
+    private static final long XSTATE_MASK_AVX512 = 224L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_AVX512 224
+     * }
+     */
+    public static long XSTATE_MASK_AVX512() {
+        return XSTATE_MASK_AVX512;
+    }
+    private static final long XSTATE_MASK_IPT = 256L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_IPT 256
+     * }
+     */
+    public static long XSTATE_MASK_IPT() {
+        return XSTATE_MASK_IPT;
+    }
+    private static final long XSTATE_MASK_PASID = 1024L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_PASID 1024
+     * }
+     */
+    public static long XSTATE_MASK_PASID() {
+        return XSTATE_MASK_PASID;
+    }
+    private static final long XSTATE_MASK_CET_U = 2048L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_CET_U 2048
+     * }
+     */
+    public static long XSTATE_MASK_CET_U() {
+        return XSTATE_MASK_CET_U;
+    }
+    private static final long XSTATE_MASK_CET_S = 4096L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_CET_S 4096
+     * }
+     */
+    public static long XSTATE_MASK_CET_S() {
+        return XSTATE_MASK_CET_S;
+    }
+    private static final long XSTATE_MASK_AMX_TILE_CONFIG = 131072L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_AMX_TILE_CONFIG 131072
+     * }
+     */
+    public static long XSTATE_MASK_AMX_TILE_CONFIG() {
+        return XSTATE_MASK_AMX_TILE_CONFIG;
+    }
+    private static final long XSTATE_MASK_AMX_TILE_DATA = 262144L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_AMX_TILE_DATA 262144
+     * }
+     */
+    public static long XSTATE_MASK_AMX_TILE_DATA() {
+        return XSTATE_MASK_AMX_TILE_DATA;
+    }
+    private static final long XSTATE_MASK_LWP = 4611686018427387904L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_LWP 4611686018427387904
+     * }
+     */
+    public static long XSTATE_MASK_LWP() {
+        return XSTATE_MASK_LWP;
+    }
+    private static final long XSTATE_MASK_ALLOWED = 4611686018427784703L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_ALLOWED 4611686018427784703
+     * }
+     */
+    public static long XSTATE_MASK_ALLOWED() {
+        return XSTATE_MASK_ALLOWED;
+    }
+    private static final long XSTATE_MASK_PERSISTENT = 4611686018427387920L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_PERSISTENT 4611686018427387920
+     * }
+     */
+    public static long XSTATE_MASK_PERSISTENT() {
+        return XSTATE_MASK_PERSISTENT;
+    }
+    private static final long XSTATE_MASK_USER_VISIBLE_SUPERVISOR = 2048L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_USER_VISIBLE_SUPERVISOR 2048
+     * }
+     */
+    public static long XSTATE_MASK_USER_VISIBLE_SUPERVISOR() {
+        return XSTATE_MASK_USER_VISIBLE_SUPERVISOR;
+    }
+    private static final long XSTATE_MASK_LARGE_FEATURES = 262144L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_MASK_LARGE_FEATURES 262144
+     * }
+     */
+    public static long XSTATE_MASK_LARGE_FEATURES() {
+        return XSTATE_MASK_LARGE_FEATURES;
+    }
+    private static final int XSTATE_COMPACTION_ENABLE = (int)63L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_COMPACTION_ENABLE 63
+     * }
+     */
+    public static int XSTATE_COMPACTION_ENABLE() {
+        return XSTATE_COMPACTION_ENABLE;
+    }
+    private static final long XSTATE_COMPACTION_ENABLE_MASK = -9223372036854775808L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_COMPACTION_ENABLE_MASK -9223372036854775808
+     * }
+     */
+    public static long XSTATE_COMPACTION_ENABLE_MASK() {
+        return XSTATE_COMPACTION_ENABLE_MASK;
+    }
+    private static final int XSTATE_ALIGN_BIT = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_ALIGN_BIT 1
+     * }
+     */
+    public static int XSTATE_ALIGN_BIT() {
+        return XSTATE_ALIGN_BIT;
+    }
+    private static final long XSTATE_ALIGN_MASK = 2L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_ALIGN_MASK 2
+     * }
+     */
+    public static long XSTATE_ALIGN_MASK() {
+        return XSTATE_ALIGN_MASK;
+    }
+    private static final int XSTATE_XFD_BIT = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_XFD_BIT 2
+     * }
+     */
+    public static int XSTATE_XFD_BIT() {
+        return XSTATE_XFD_BIT;
+    }
+    private static final long XSTATE_XFD_MASK = 4L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_XFD_MASK 4
+     * }
+     */
+    public static long XSTATE_XFD_MASK() {
+        return XSTATE_XFD_MASK;
+    }
+    private static final int XSTATE_CONTROLFLAG_XSAVEOPT_MASK = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_CONTROLFLAG_XSAVEOPT_MASK 1
+     * }
+     */
+    public static int XSTATE_CONTROLFLAG_XSAVEOPT_MASK() {
+        return XSTATE_CONTROLFLAG_XSAVEOPT_MASK;
+    }
+    private static final int XSTATE_CONTROLFLAG_XSAVEC_MASK = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_CONTROLFLAG_XSAVEC_MASK 2
+     * }
+     */
+    public static int XSTATE_CONTROLFLAG_XSAVEC_MASK() {
+        return XSTATE_CONTROLFLAG_XSAVEC_MASK;
+    }
+    private static final int XSTATE_CONTROLFLAG_XFD_MASK = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_CONTROLFLAG_XFD_MASK 4
+     * }
+     */
+    public static int XSTATE_CONTROLFLAG_XFD_MASK() {
+        return XSTATE_CONTROLFLAG_XFD_MASK;
+    }
+    private static final int XSTATE_CONTROLFLAG_VALID_MASK = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * #define XSTATE_CONTROLFLAG_VALID_MASK 7
+     * }
+     */
+    public static int XSTATE_CONTROLFLAG_VALID_MASK() {
+        return XSTATE_CONTROLFLAG_VALID_MASK;
+    }
+    private static final int CFG_CALL_TARGET_VALID = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CFG_CALL_TARGET_VALID 1
+     * }
+     */
+    public static int CFG_CALL_TARGET_VALID() {
+        return CFG_CALL_TARGET_VALID;
+    }
+    private static final int CFG_CALL_TARGET_PROCESSED = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define CFG_CALL_TARGET_PROCESSED 2
+     * }
+     */
+    public static int CFG_CALL_TARGET_PROCESSED() {
+        return CFG_CALL_TARGET_PROCESSED;
+    }
+    private static final int CFG_CALL_TARGET_CONVERT_EXPORT_SUPPRESSED_TO_VALID = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define CFG_CALL_TARGET_CONVERT_EXPORT_SUPPRESSED_TO_VALID 4
+     * }
+     */
+    public static int CFG_CALL_TARGET_CONVERT_EXPORT_SUPPRESSED_TO_VALID() {
+        return CFG_CALL_TARGET_CONVERT_EXPORT_SUPPRESSED_TO_VALID;
+    }
+    private static final int CFG_CALL_TARGET_VALID_XFG = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define CFG_CALL_TARGET_VALID_XFG 8
+     * }
+     */
+    public static int CFG_CALL_TARGET_VALID_XFG() {
+        return CFG_CALL_TARGET_VALID_XFG;
+    }
+    private static final int CFG_CALL_TARGET_CONVERT_XFG_TO_CFG = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define CFG_CALL_TARGET_CONVERT_XFG_TO_CFG 16
+     * }
+     */
+    public static int CFG_CALL_TARGET_CONVERT_XFG_TO_CFG() {
+        return CFG_CALL_TARGET_CONVERT_XFG_TO_CFG;
+    }
+    private static final int SECTION_ALL_ACCESS = (int)983071L;
+    /**
+     * {@snippet lang=c :
+     * #define SECTION_ALL_ACCESS 983071
+     * }
+     */
+    public static int SECTION_ALL_ACCESS() {
+        return SECTION_ALL_ACCESS;
+    }
+    private static final int SESSION_ALL_ACCESS = (int)983043L;
+    /**
+     * {@snippet lang=c :
+     * #define SESSION_ALL_ACCESS 983043
+     * }
+     */
+    public static int SESSION_ALL_ACCESS() {
+        return SESSION_ALL_ACCESS;
+    }
+    private static final int PAGE_ENCLAVE_THREAD_CONTROL = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define PAGE_ENCLAVE_THREAD_CONTROL 2147483648
+     * }
+     */
+    public static int PAGE_ENCLAVE_THREAD_CONTROL() {
+        return PAGE_ENCLAVE_THREAD_CONTROL;
+    }
+    private static final int PAGE_REVERT_TO_FILE_MAP = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define PAGE_REVERT_TO_FILE_MAP 2147483648
+     * }
+     */
+    public static int PAGE_REVERT_TO_FILE_MAP() {
+        return PAGE_REVERT_TO_FILE_MAP;
+    }
+    private static final int PAGE_ENCLAVE_DECOMMIT = (int)268435456L;
+    /**
+     * {@snippet lang=c :
+     * #define PAGE_ENCLAVE_DECOMMIT 268435456
+     * }
+     */
+    public static int PAGE_ENCLAVE_DECOMMIT() {
+        return PAGE_ENCLAVE_DECOMMIT;
+    }
+    private static final int PAGE_ENCLAVE_SS_FIRST = (int)268435457L;
+    /**
+     * {@snippet lang=c :
+     * #define PAGE_ENCLAVE_SS_FIRST 268435457
+     * }
+     */
+    public static int PAGE_ENCLAVE_SS_FIRST() {
+        return PAGE_ENCLAVE_SS_FIRST;
+    }
+    private static final int PAGE_ENCLAVE_SS_REST = (int)268435458L;
+    /**
+     * {@snippet lang=c :
+     * #define PAGE_ENCLAVE_SS_REST 268435458
+     * }
+     */
+    public static int PAGE_ENCLAVE_SS_REST() {
+        return PAGE_ENCLAVE_SS_REST;
+    }
+    private static final int MEM_4MB_PAGES = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define MEM_4MB_PAGES 2147483648
+     * }
+     */
+    public static int MEM_4MB_PAGES() {
+        return MEM_4MB_PAGES;
+    }
+    private static final int MEM_64K_PAGES = (int)541065216L;
+    /**
+     * {@snippet lang=c :
+     * #define MEM_64K_PAGES 541065216
+     * }
+     */
+    public static int MEM_64K_PAGES() {
+        return MEM_64K_PAGES;
+    }
+    private static final long MEM_EXTENDED_PARAMETER_NUMA_NODE_MANDATORY = -9223372036854775808L;
+    /**
+     * {@snippet lang=c :
+     * #define MEM_EXTENDED_PARAMETER_NUMA_NODE_MANDATORY -9223372036854775808
+     * }
+     */
+    public static long MEM_EXTENDED_PARAMETER_NUMA_NODE_MANDATORY() {
+        return MEM_EXTENDED_PARAMETER_NUMA_NODE_MANDATORY;
+    }
+    private static final MemorySegment MEMORY_CURRENT_PARTITION_HANDLE = MemorySegment.ofAddress(-1L);
+    /**
+     * {@snippet lang=c :
+     * #define MEMORY_CURRENT_PARTITION_HANDLE (void*) -1
+     * }
+     */
+    public static MemorySegment MEMORY_CURRENT_PARTITION_HANDLE() {
+        return MEMORY_CURRENT_PARTITION_HANDLE;
+    }
+    private static final MemorySegment MEMORY_SYSTEM_PARTITION_HANDLE = MemorySegment.ofAddress(-2L);
+    /**
+     * {@snippet lang=c :
+     * #define MEMORY_SYSTEM_PARTITION_HANDLE (void*) -2
+     * }
+     */
+    public static MemorySegment MEMORY_SYSTEM_PARTITION_HANDLE() {
+        return MEMORY_SYSTEM_PARTITION_HANDLE;
+    }
+    private static final MemorySegment MEMORY_EXISTING_VAD_PARTITION_HANDLE = MemorySegment.ofAddress(-3L);
+    /**
+     * {@snippet lang=c :
+     * #define MEMORY_EXISTING_VAD_PARTITION_HANDLE (void*) -3
+     * }
+     */
+    public static MemorySegment MEMORY_EXISTING_VAD_PARTITION_HANDLE() {
+        return MEMORY_EXISTING_VAD_PARTITION_HANDLE;
+    }
+    private static final long MEM_DEDICATED_ATTRIBUTE_NOT_SPECIFIED = -1L;
+    /**
+     * {@snippet lang=c :
+     * #define MEM_DEDICATED_ATTRIBUTE_NOT_SPECIFIED -1
+     * }
+     */
+    public static long MEM_DEDICATED_ATTRIBUTE_NOT_SPECIFIED() {
+        return MEM_DEDICATED_ATTRIBUTE_NOT_SPECIFIED;
+    }
+    private static final int SEC_LARGE_PAGES = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define SEC_LARGE_PAGES 2147483648
+     * }
+     */
+    public static int SEC_LARGE_PAGES() {
+        return SEC_LARGE_PAGES;
+    }
+    private static final int SEC_IMAGE_NO_EXECUTE = (int)285212672L;
+    /**
+     * {@snippet lang=c :
+     * #define SEC_IMAGE_NO_EXECUTE 285212672
+     * }
+     */
+    public static int SEC_IMAGE_NO_EXECUTE() {
+        return SEC_IMAGE_NO_EXECUTE;
+    }
+    private static final int FILE_READ_DATA = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_READ_DATA 1
+     * }
+     */
+    public static int FILE_READ_DATA() {
+        return FILE_READ_DATA;
+    }
+    private static final int FILE_LIST_DIRECTORY = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_LIST_DIRECTORY 1
+     * }
+     */
+    public static int FILE_LIST_DIRECTORY() {
+        return FILE_LIST_DIRECTORY;
+    }
+    private static final int FILE_WRITE_DATA = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_WRITE_DATA 2
+     * }
+     */
+    public static int FILE_WRITE_DATA() {
+        return FILE_WRITE_DATA;
+    }
+    private static final int FILE_ADD_FILE = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_ADD_FILE 2
+     * }
+     */
+    public static int FILE_ADD_FILE() {
+        return FILE_ADD_FILE;
+    }
+    private static final int FILE_APPEND_DATA = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_APPEND_DATA 4
+     * }
+     */
+    public static int FILE_APPEND_DATA() {
+        return FILE_APPEND_DATA;
+    }
+    private static final int FILE_ADD_SUBDIRECTORY = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_ADD_SUBDIRECTORY 4
+     * }
+     */
+    public static int FILE_ADD_SUBDIRECTORY() {
+        return FILE_ADD_SUBDIRECTORY;
+    }
+    private static final int FILE_CREATE_PIPE_INSTANCE = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_CREATE_PIPE_INSTANCE 4
+     * }
+     */
+    public static int FILE_CREATE_PIPE_INSTANCE() {
+        return FILE_CREATE_PIPE_INSTANCE;
+    }
+    private static final int FILE_READ_EA = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_READ_EA 8
+     * }
+     */
+    public static int FILE_READ_EA() {
+        return FILE_READ_EA;
+    }
+    private static final int FILE_WRITE_EA = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_WRITE_EA 16
+     * }
+     */
+    public static int FILE_WRITE_EA() {
+        return FILE_WRITE_EA;
+    }
+    private static final int FILE_EXECUTE = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_EXECUTE 32
+     * }
+     */
+    public static int FILE_EXECUTE() {
+        return FILE_EXECUTE;
+    }
+    private static final int FILE_TRAVERSE = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_TRAVERSE 32
+     * }
+     */
+    public static int FILE_TRAVERSE() {
+        return FILE_TRAVERSE;
+    }
+    private static final int FILE_DELETE_CHILD = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_DELETE_CHILD 64
+     * }
+     */
+    public static int FILE_DELETE_CHILD() {
+        return FILE_DELETE_CHILD;
+    }
+    private static final int FILE_READ_ATTRIBUTES = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_READ_ATTRIBUTES 128
+     * }
+     */
+    public static int FILE_READ_ATTRIBUTES() {
+        return FILE_READ_ATTRIBUTES;
+    }
+    private static final int FILE_WRITE_ATTRIBUTES = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_WRITE_ATTRIBUTES 256
+     * }
+     */
+    public static int FILE_WRITE_ATTRIBUTES() {
+        return FILE_WRITE_ATTRIBUTES;
+    }
+    private static final int FILE_ALL_ACCESS = (int)2032127L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_ALL_ACCESS 2032127
+     * }
+     */
+    public static int FILE_ALL_ACCESS() {
+        return FILE_ALL_ACCESS;
+    }
+    private static final int FILE_GENERIC_READ = (int)1179785L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_GENERIC_READ 1179785
+     * }
+     */
+    public static int FILE_GENERIC_READ() {
+        return FILE_GENERIC_READ;
+    }
+    private static final int FILE_GENERIC_WRITE = (int)1179926L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_GENERIC_WRITE 1179926
+     * }
+     */
+    public static int FILE_GENERIC_WRITE() {
+        return FILE_GENERIC_WRITE;
+    }
+    private static final int FILE_GENERIC_EXECUTE = (int)1179808L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_GENERIC_EXECUTE 1179808
+     * }
+     */
+    public static int FILE_GENERIC_EXECUTE() {
+        return FILE_GENERIC_EXECUTE;
+    }
+    private static final int MAILSLOT_NO_MESSAGE = (int)4294967295L;
+    /**
+     * {@snippet lang=c :
+     * #define MAILSLOT_NO_MESSAGE 4294967295
+     * }
+     */
+    public static int MAILSLOT_NO_MESSAGE() {
+        return MAILSLOT_NO_MESSAGE;
+    }
+    private static final int MAILSLOT_WAIT_FOREVER = (int)4294967295L;
+    /**
+     * {@snippet lang=c :
+     * #define MAILSLOT_WAIT_FOREVER 4294967295
+     * }
+     */
+    public static int MAILSLOT_WAIT_FOREVER() {
+        return MAILSLOT_WAIT_FOREVER;
+    }
+    private static final long FILE_INVALID_FILE_ID = -1L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_INVALID_FILE_ID -1
+     * }
+     */
+    public static long FILE_INVALID_FILE_ID() {
+        return FILE_INVALID_FILE_ID;
+    }
+    private static final int REPARSE_GUID_DATA_BUFFER_HEADER_SIZE = (int)24L;
+    /**
+     * {@snippet lang=c :
+     * #define REPARSE_GUID_DATA_BUFFER_HEADER_SIZE 24
+     * }
+     */
+    public static int REPARSE_GUID_DATA_BUFFER_HEADER_SIZE() {
+        return REPARSE_GUID_DATA_BUFFER_HEADER_SIZE;
+    }
+    private static final int MAXIMUM_REPARSE_DATA_BUFFER_SIZE = (int)16384L;
+    /**
+     * {@snippet lang=c :
+     * #define MAXIMUM_REPARSE_DATA_BUFFER_SIZE 16384
+     * }
+     */
+    public static int MAXIMUM_REPARSE_DATA_BUFFER_SIZE() {
+        return MAXIMUM_REPARSE_DATA_BUFFER_SIZE;
+    }
+    private static final int IO_REPARSE_TAG_RESERVED_ZERO = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_RESERVED_ZERO 0
+     * }
+     */
+    public static int IO_REPARSE_TAG_RESERVED_ZERO() {
+        return IO_REPARSE_TAG_RESERVED_ZERO;
+    }
+    private static final int IO_REPARSE_TAG_RESERVED_ONE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_RESERVED_ONE 1
+     * }
+     */
+    public static int IO_REPARSE_TAG_RESERVED_ONE() {
+        return IO_REPARSE_TAG_RESERVED_ONE;
+    }
+    private static final int IO_REPARSE_TAG_RESERVED_TWO = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_RESERVED_TWO 2
+     * }
+     */
+    public static int IO_REPARSE_TAG_RESERVED_TWO() {
+        return IO_REPARSE_TAG_RESERVED_TWO;
+    }
+    private static final int IO_REPARSE_TAG_RESERVED_RANGE = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_RESERVED_RANGE 2
+     * }
+     */
+    public static int IO_REPARSE_TAG_RESERVED_RANGE() {
+        return IO_REPARSE_TAG_RESERVED_RANGE;
+    }
+    private static final int IO_REPARSE_TAG_MOUNT_POINT = (int)2684354563L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_MOUNT_POINT 2684354563
+     * }
+     */
+    public static int IO_REPARSE_TAG_MOUNT_POINT() {
+        return IO_REPARSE_TAG_MOUNT_POINT;
+    }
+    private static final int IO_REPARSE_TAG_HSM = (int)3221225476L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_HSM 3221225476
+     * }
+     */
+    public static int IO_REPARSE_TAG_HSM() {
+        return IO_REPARSE_TAG_HSM;
+    }
+    private static final int IO_REPARSE_TAG_HSM2 = (int)2147483654L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_HSM2 2147483654
+     * }
+     */
+    public static int IO_REPARSE_TAG_HSM2() {
+        return IO_REPARSE_TAG_HSM2;
+    }
+    private static final int IO_REPARSE_TAG_SIS = (int)2147483655L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_SIS 2147483655
+     * }
+     */
+    public static int IO_REPARSE_TAG_SIS() {
+        return IO_REPARSE_TAG_SIS;
+    }
+    private static final int IO_REPARSE_TAG_WIM = (int)2147483656L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_WIM 2147483656
+     * }
+     */
+    public static int IO_REPARSE_TAG_WIM() {
+        return IO_REPARSE_TAG_WIM;
+    }
+    private static final int IO_REPARSE_TAG_CSV = (int)2147483657L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CSV 2147483657
+     * }
+     */
+    public static int IO_REPARSE_TAG_CSV() {
+        return IO_REPARSE_TAG_CSV;
+    }
+    private static final int IO_REPARSE_TAG_DFS = (int)2147483658L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_DFS 2147483658
+     * }
+     */
+    public static int IO_REPARSE_TAG_DFS() {
+        return IO_REPARSE_TAG_DFS;
+    }
+    private static final int IO_REPARSE_TAG_SYMLINK = (int)2684354572L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_SYMLINK 2684354572
+     * }
+     */
+    public static int IO_REPARSE_TAG_SYMLINK() {
+        return IO_REPARSE_TAG_SYMLINK;
+    }
+    private static final int IO_REPARSE_TAG_DFSR = (int)2147483666L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_DFSR 2147483666
+     * }
+     */
+    public static int IO_REPARSE_TAG_DFSR() {
+        return IO_REPARSE_TAG_DFSR;
+    }
+    private static final int IO_REPARSE_TAG_DEDUP = (int)2147483667L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_DEDUP 2147483667
+     * }
+     */
+    public static int IO_REPARSE_TAG_DEDUP() {
+        return IO_REPARSE_TAG_DEDUP;
+    }
+    private static final int IO_REPARSE_TAG_NFS = (int)2147483668L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_NFS 2147483668
+     * }
+     */
+    public static int IO_REPARSE_TAG_NFS() {
+        return IO_REPARSE_TAG_NFS;
+    }
+    private static final int IO_REPARSE_TAG_FILE_PLACEHOLDER = (int)2147483669L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_FILE_PLACEHOLDER 2147483669
+     * }
+     */
+    public static int IO_REPARSE_TAG_FILE_PLACEHOLDER() {
+        return IO_REPARSE_TAG_FILE_PLACEHOLDER;
+    }
+    private static final int IO_REPARSE_TAG_WOF = (int)2147483671L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_WOF 2147483671
+     * }
+     */
+    public static int IO_REPARSE_TAG_WOF() {
+        return IO_REPARSE_TAG_WOF;
+    }
+    private static final int IO_REPARSE_TAG_WCI = (int)2147483672L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_WCI 2147483672
+     * }
+     */
+    public static int IO_REPARSE_TAG_WCI() {
+        return IO_REPARSE_TAG_WCI;
+    }
+    private static final int IO_REPARSE_TAG_WCI_1 = (int)2415923224L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_WCI_1 2415923224
+     * }
+     */
+    public static int IO_REPARSE_TAG_WCI_1() {
+        return IO_REPARSE_TAG_WCI_1;
+    }
+    private static final int IO_REPARSE_TAG_GLOBAL_REPARSE = (int)2684354585L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_GLOBAL_REPARSE 2684354585
+     * }
+     */
+    public static int IO_REPARSE_TAG_GLOBAL_REPARSE() {
+        return IO_REPARSE_TAG_GLOBAL_REPARSE;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD = (int)2415919130L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD 2415919130
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD() {
+        return IO_REPARSE_TAG_CLOUD;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_1 = (int)2415923226L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_1 2415923226
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_1() {
+        return IO_REPARSE_TAG_CLOUD_1;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_2 = (int)2415927322L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_2 2415927322
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_2() {
+        return IO_REPARSE_TAG_CLOUD_2;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_3 = (int)2415931418L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_3 2415931418
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_3() {
+        return IO_REPARSE_TAG_CLOUD_3;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_4 = (int)2415935514L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_4 2415935514
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_4() {
+        return IO_REPARSE_TAG_CLOUD_4;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_5 = (int)2415939610L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_5 2415939610
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_5() {
+        return IO_REPARSE_TAG_CLOUD_5;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_6 = (int)2415943706L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_6 2415943706
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_6() {
+        return IO_REPARSE_TAG_CLOUD_6;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_7 = (int)2415947802L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_7 2415947802
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_7() {
+        return IO_REPARSE_TAG_CLOUD_7;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_8 = (int)2415951898L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_8 2415951898
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_8() {
+        return IO_REPARSE_TAG_CLOUD_8;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_9 = (int)2415955994L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_9 2415955994
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_9() {
+        return IO_REPARSE_TAG_CLOUD_9;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_A = (int)2415960090L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_A 2415960090
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_A() {
+        return IO_REPARSE_TAG_CLOUD_A;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_B = (int)2415964186L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_B 2415964186
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_B() {
+        return IO_REPARSE_TAG_CLOUD_B;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_C = (int)2415968282L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_C 2415968282
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_C() {
+        return IO_REPARSE_TAG_CLOUD_C;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_D = (int)2415972378L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_D 2415972378
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_D() {
+        return IO_REPARSE_TAG_CLOUD_D;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_E = (int)2415976474L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_E 2415976474
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_E() {
+        return IO_REPARSE_TAG_CLOUD_E;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_F = (int)2415980570L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_F 2415980570
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_F() {
+        return IO_REPARSE_TAG_CLOUD_F;
+    }
+    private static final int IO_REPARSE_TAG_CLOUD_MASK = (int)61440L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_CLOUD_MASK 61440
+     * }
+     */
+    public static int IO_REPARSE_TAG_CLOUD_MASK() {
+        return IO_REPARSE_TAG_CLOUD_MASK;
+    }
+    private static final int IO_REPARSE_TAG_APPEXECLINK = (int)2147483675L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_APPEXECLINK 2147483675
+     * }
+     */
+    public static int IO_REPARSE_TAG_APPEXECLINK() {
+        return IO_REPARSE_TAG_APPEXECLINK;
+    }
+    private static final int IO_REPARSE_TAG_PROJFS = (int)2415919132L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_PROJFS 2415919132
+     * }
+     */
+    public static int IO_REPARSE_TAG_PROJFS() {
+        return IO_REPARSE_TAG_PROJFS;
+    }
+    private static final int IO_REPARSE_TAG_STORAGE_SYNC = (int)2147483678L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_STORAGE_SYNC 2147483678
+     * }
+     */
+    public static int IO_REPARSE_TAG_STORAGE_SYNC() {
+        return IO_REPARSE_TAG_STORAGE_SYNC;
+    }
+    private static final int IO_REPARSE_TAG_WCI_TOMBSTONE = (int)2684354591L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_WCI_TOMBSTONE 2684354591
+     * }
+     */
+    public static int IO_REPARSE_TAG_WCI_TOMBSTONE() {
+        return IO_REPARSE_TAG_WCI_TOMBSTONE;
+    }
+    private static final int IO_REPARSE_TAG_UNHANDLED = (int)2147483680L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_UNHANDLED 2147483680
+     * }
+     */
+    public static int IO_REPARSE_TAG_UNHANDLED() {
+        return IO_REPARSE_TAG_UNHANDLED;
+    }
+    private static final int IO_REPARSE_TAG_ONEDRIVE = (int)2147483681L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_ONEDRIVE 2147483681
+     * }
+     */
+    public static int IO_REPARSE_TAG_ONEDRIVE() {
+        return IO_REPARSE_TAG_ONEDRIVE;
+    }
+    private static final int IO_REPARSE_TAG_PROJFS_TOMBSTONE = (int)2684354594L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_PROJFS_TOMBSTONE 2684354594
+     * }
+     */
+    public static int IO_REPARSE_TAG_PROJFS_TOMBSTONE() {
+        return IO_REPARSE_TAG_PROJFS_TOMBSTONE;
+    }
+    private static final int IO_REPARSE_TAG_AF_UNIX = (int)2147483683L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_AF_UNIX 2147483683
+     * }
+     */
+    public static int IO_REPARSE_TAG_AF_UNIX() {
+        return IO_REPARSE_TAG_AF_UNIX;
+    }
+    private static final int IO_REPARSE_TAG_WCI_LINK = (int)2684354599L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_WCI_LINK 2684354599
+     * }
+     */
+    public static int IO_REPARSE_TAG_WCI_LINK() {
+        return IO_REPARSE_TAG_WCI_LINK;
+    }
+    private static final int IO_REPARSE_TAG_WCI_LINK_1 = (int)2684358695L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_WCI_LINK_1 2684358695
+     * }
+     */
+    public static int IO_REPARSE_TAG_WCI_LINK_1() {
+        return IO_REPARSE_TAG_WCI_LINK_1;
+    }
+    private static final int IO_REPARSE_TAG_DATALESS_CIM = (int)2684354600L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_REPARSE_TAG_DATALESS_CIM 2684354600
+     * }
+     */
+    public static int IO_REPARSE_TAG_DATALESS_CIM() {
+        return IO_REPARSE_TAG_DATALESS_CIM;
+    }
+    private static final int SHUFFLE_FILE_FLAG_SKIP_INITIALIZING_NEW_CLUSTERS = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define SHUFFLE_FILE_FLAG_SKIP_INITIALIZING_NEW_CLUSTERS 1
+     * }
+     */
+    public static int SHUFFLE_FILE_FLAG_SKIP_INITIALIZING_NEW_CLUSTERS() {
+        return SHUFFLE_FILE_FLAG_SKIP_INITIALIZING_NEW_CLUSTERS;
+    }
+    private static final int IO_COMPLETION_ALL_ACCESS = (int)2031619L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_COMPLETION_ALL_ACCESS 2031619
+     * }
+     */
+    public static int IO_COMPLETION_ALL_ACCESS() {
+        return IO_COMPLETION_ALL_ACCESS;
+    }
+    private static final long IO_QOS_MAX_RESERVATION = 1000000000L;
+    /**
+     * {@snippet lang=c :
+     * #define IO_QOS_MAX_RESERVATION 1000000000
+     * }
+     */
+    public static long IO_QOS_MAX_RESERVATION() {
+        return IO_QOS_MAX_RESERVATION;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define SMB_CCF_APP_INSTANCE_EA_NAME "ClusteredApplicationInstance"
+     * }
+     */
+    public static MemorySegment SMB_CCF_APP_INSTANCE_EA_NAME() {
+        class Holder {
+            static final MemorySegment SMB_CCF_APP_INSTANCE_EA_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("ClusteredApplicationInstance");
+        }
+        return Holder.SMB_CCF_APP_INSTANCE_EA_NAME;
+    }
+    private static final int PERFSTATE_POLICY_CHANGE_DECREASE_MAX = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define PERFSTATE_POLICY_CHANGE_DECREASE_MAX 2
+     * }
+     */
+    public static int PERFSTATE_POLICY_CHANGE_DECREASE_MAX() {
+        return PERFSTATE_POLICY_CHANGE_DECREASE_MAX;
+    }
+    private static final int PERFSTATE_POLICY_CHANGE_INCREASE_MAX = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define PERFSTATE_POLICY_CHANGE_INCREASE_MAX 3
+     * }
+     */
+    public static int PERFSTATE_POLICY_CHANGE_INCREASE_MAX() {
+        return PERFSTATE_POLICY_CHANGE_INCREASE_MAX;
+    }
+    private static final int PROCESSOR_PERF_BOOST_MODE_MAX = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESSOR_PERF_BOOST_MODE_MAX 6
+     * }
+     */
+    public static int PROCESSOR_PERF_BOOST_MODE_MAX() {
+        return PROCESSOR_PERF_BOOST_MODE_MAX;
+    }
+    private static final int CORE_PARKING_POLICY_CHANGE_MAX = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define CORE_PARKING_POLICY_CHANGE_MAX 3
+     * }
+     */
+    public static int CORE_PARKING_POLICY_CHANGE_MAX() {
+        return CORE_PARKING_POLICY_CHANGE_MAX;
+    }
+    private static final int ES_SYSTEM_REQUIRED = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define ES_SYSTEM_REQUIRED 1
+     * }
+     */
+    public static int ES_SYSTEM_REQUIRED() {
+        return ES_SYSTEM_REQUIRED;
+    }
+    private static final int ES_DISPLAY_REQUIRED = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define ES_DISPLAY_REQUIRED 2
+     * }
+     */
+    public static int ES_DISPLAY_REQUIRED() {
+        return ES_DISPLAY_REQUIRED;
+    }
+    private static final int ES_USER_PRESENT = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define ES_USER_PRESENT 4
+     * }
+     */
+    public static int ES_USER_PRESENT() {
+        return ES_USER_PRESENT;
+    }
+    private static final int ES_AWAYMODE_REQUIRED = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define ES_AWAYMODE_REQUIRED 64
+     * }
+     */
+    public static int ES_AWAYMODE_REQUIRED() {
+        return ES_AWAYMODE_REQUIRED;
+    }
+    private static final int ES_CONTINUOUS = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define ES_CONTINUOUS 2147483648
+     * }
+     */
+    public static int ES_CONTINUOUS() {
+        return ES_CONTINUOUS;
+    }
+    private static final int DIAGNOSTIC_REASON_NOT_SPECIFIED = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define DIAGNOSTIC_REASON_NOT_SPECIFIED 2147483648
+     * }
+     */
+    public static int DIAGNOSTIC_REASON_NOT_SPECIFIED() {
+        return DIAGNOSTIC_REASON_NOT_SPECIFIED;
+    }
+    private static final int DIAGNOSTIC_REASON_INVALID_FLAGS = (int)2147483640L;
+    /**
+     * {@snippet lang=c :
+     * #define DIAGNOSTIC_REASON_INVALID_FLAGS 2147483640
+     * }
+     */
+    public static int DIAGNOSTIC_REASON_INVALID_FLAGS() {
+        return DIAGNOSTIC_REASON_INVALID_FLAGS;
+    }
+    private static final int POWER_REQUEST_CONTEXT_VERSION = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define POWER_REQUEST_CONTEXT_VERSION 0
+     * }
+     */
+    public static int POWER_REQUEST_CONTEXT_VERSION() {
+        return POWER_REQUEST_CONTEXT_VERSION;
+    }
+    private static final int POWER_REQUEST_CONTEXT_SIMPLE_STRING = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define POWER_REQUEST_CONTEXT_SIMPLE_STRING 1
+     * }
+     */
+    public static int POWER_REQUEST_CONTEXT_SIMPLE_STRING() {
+        return POWER_REQUEST_CONTEXT_SIMPLE_STRING;
+    }
+    private static final int POWER_REQUEST_CONTEXT_DETAILED_STRING = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define POWER_REQUEST_CONTEXT_DETAILED_STRING 2
+     * }
+     */
+    public static int POWER_REQUEST_CONTEXT_DETAILED_STRING() {
+        return POWER_REQUEST_CONTEXT_DETAILED_STRING;
+    }
+    private static final int POWER_SETTING_VALUE_VERSION = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define POWER_SETTING_VALUE_VERSION 1
+     * }
+     */
+    public static int POWER_SETTING_VALUE_VERSION() {
+        return POWER_SETTING_VALUE_VERSION;
+    }
+    private static final int POWER_PLATFORM_ROLE_V1 = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define POWER_PLATFORM_ROLE_V1 1
+     * }
+     */
+    public static int POWER_PLATFORM_ROLE_V1() {
+        return POWER_PLATFORM_ROLE_V1;
+    }
+    private static final int POWER_PLATFORM_ROLE_V1_MAX = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define POWER_PLATFORM_ROLE_V1_MAX 8
+     * }
+     */
+    public static int POWER_PLATFORM_ROLE_V1_MAX() {
+        return POWER_PLATFORM_ROLE_V1_MAX;
+    }
+    private static final int POWER_PLATFORM_ROLE_V2 = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define POWER_PLATFORM_ROLE_V2 2
+     * }
+     */
+    public static int POWER_PLATFORM_ROLE_V2() {
+        return POWER_PLATFORM_ROLE_V2;
+    }
+    private static final int POWER_PLATFORM_ROLE_V2_MAX = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * #define POWER_PLATFORM_ROLE_V2_MAX 9
+     * }
+     */
+    public static int POWER_PLATFORM_ROLE_V2_MAX() {
+        return POWER_PLATFORM_ROLE_V2_MAX;
+    }
+    private static final int POWER_PLATFORM_ROLE_VERSION = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define POWER_PLATFORM_ROLE_VERSION 2
+     * }
+     */
+    public static int POWER_PLATFORM_ROLE_VERSION() {
+        return POWER_PLATFORM_ROLE_VERSION;
+    }
+    private static final int POWER_PLATFORM_ROLE_VERSION_MAX = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * #define POWER_PLATFORM_ROLE_VERSION_MAX 9
+     * }
+     */
+    public static int POWER_PLATFORM_ROLE_VERSION_MAX() {
+        return POWER_PLATFORM_ROLE_VERSION_MAX;
+    }
+    private static final int POWER_ACTION_CRITICAL = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define POWER_ACTION_CRITICAL 2147483648
+     * }
+     */
+    public static int POWER_ACTION_CRITICAL() {
+        return POWER_ACTION_CRITICAL;
+    }
+    private static final int POWER_FORCE_TRIGGER_RESET = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define POWER_FORCE_TRIGGER_RESET 2147483648
+     * }
+     */
+    public static int POWER_FORCE_TRIGGER_RESET() {
+        return POWER_FORCE_TRIGGER_RESET;
+    }
+    private static final int BATTERY_DISCHARGE_FLAGS_ENABLE = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define BATTERY_DISCHARGE_FLAGS_ENABLE 2147483648
+     * }
+     */
+    public static int BATTERY_DISCHARGE_FLAGS_ENABLE() {
+        return BATTERY_DISCHARGE_FLAGS_ENABLE;
+    }
+    private static final int IMAGE_FILE_MACHINE_AXP64 = (int)644L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_FILE_MACHINE_AXP64 644
+     * }
+     */
+    public static int IMAGE_FILE_MACHINE_AXP64() {
+        return IMAGE_FILE_MACHINE_AXP64;
+    }
+    private static final int IMAGE_NT_OPTIONAL_HDR_MAGIC = (int)523L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_NT_OPTIONAL_HDR_MAGIC 523
+     * }
+     */
+    public static int IMAGE_NT_OPTIONAL_HDR_MAGIC() {
+        return IMAGE_NT_OPTIONAL_HDR_MAGIC;
+    }
+    private static final int IMAGE_SCN_MEM_WRITE = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_SCN_MEM_WRITE 2147483648
+     * }
+     */
+    public static int IMAGE_SCN_MEM_WRITE() {
+        return IMAGE_SCN_MEM_WRITE;
+    }
+    private static final short IMAGE_SYM_UNDEFINED = (short)0L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_SYM_UNDEFINED 0
+     * }
+     */
+    public static short IMAGE_SYM_UNDEFINED() {
+        return IMAGE_SYM_UNDEFINED;
+    }
+    private static final short IMAGE_SYM_ABSOLUTE = (short)-1L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_SYM_ABSOLUTE -1
+     * }
+     */
+    public static short IMAGE_SYM_ABSOLUTE() {
+        return IMAGE_SYM_ABSOLUTE;
+    }
+    private static final short IMAGE_SYM_DEBUG = (short)-2L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_SYM_DEBUG -2
+     * }
+     */
+    public static short IMAGE_SYM_DEBUG() {
+        return IMAGE_SYM_DEBUG;
+    }
+    private static final int IMAGE_SYM_SECTION_MAX_EX = (int)2147483647L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_SYM_SECTION_MAX_EX 2147483647
+     * }
+     */
+    public static int IMAGE_SYM_SECTION_MAX_EX() {
+        return IMAGE_SYM_SECTION_MAX_EX;
+    }
+    private static final byte IMAGE_SYM_CLASS_END_OF_FUNCTION = (byte)255L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_SYM_CLASS_END_OF_FUNCTION 255
+     * }
+     */
+    public static byte IMAGE_SYM_CLASS_END_OF_FUNCTION() {
+        return IMAGE_SYM_CLASS_END_OF_FUNCTION;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_ARCHIVE_START "!<arch>
+     * "
+     * }
+     */
+    public static MemorySegment IMAGE_ARCHIVE_START() {
+        class Holder {
+            static final MemorySegment IMAGE_ARCHIVE_START
+                = Windows_h.LIBRARY_ARENA.allocateFrom("!<arch>\n");
+        }
+        return Holder.IMAGE_ARCHIVE_START;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_ARCHIVE_END "`
+     * "
+     * }
+     */
+    public static MemorySegment IMAGE_ARCHIVE_END() {
+        class Holder {
+            static final MemorySegment IMAGE_ARCHIVE_END
+                = Windows_h.LIBRARY_ARENA.allocateFrom("`\n");
+        }
+        return Holder.IMAGE_ARCHIVE_END;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_ARCHIVE_PAD "
+     * "
+     * }
+     */
+    public static MemorySegment IMAGE_ARCHIVE_PAD() {
+        class Holder {
+            static final MemorySegment IMAGE_ARCHIVE_PAD
+                = Windows_h.LIBRARY_ARENA.allocateFrom("\n");
+        }
+        return Holder.IMAGE_ARCHIVE_PAD;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_ARCHIVE_LINKER_MEMBER "/               "
+     * }
+     */
+    public static MemorySegment IMAGE_ARCHIVE_LINKER_MEMBER() {
+        class Holder {
+            static final MemorySegment IMAGE_ARCHIVE_LINKER_MEMBER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("/               ");
+        }
+        return Holder.IMAGE_ARCHIVE_LINKER_MEMBER;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_ARCHIVE_LONGNAMES_MEMBER "//              "
+     * }
+     */
+    public static MemorySegment IMAGE_ARCHIVE_LONGNAMES_MEMBER() {
+        class Holder {
+            static final MemorySegment IMAGE_ARCHIVE_LONGNAMES_MEMBER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("//              ");
+        }
+        return Holder.IMAGE_ARCHIVE_LONGNAMES_MEMBER;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_ARCHIVE_HYBRIDMAP_MEMBER "/<HYBRIDMAP>/   "
+     * }
+     */
+    public static MemorySegment IMAGE_ARCHIVE_HYBRIDMAP_MEMBER() {
+        class Holder {
+            static final MemorySegment IMAGE_ARCHIVE_HYBRIDMAP_MEMBER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("/<HYBRIDMAP>/   ");
+        }
+        return Holder.IMAGE_ARCHIVE_HYBRIDMAP_MEMBER;
+    }
+    private static final long IMAGE_ORDINAL_FLAG64 = -9223372036854775808L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_ORDINAL_FLAG64 -9223372036854775808
+     * }
+     */
+    public static long IMAGE_ORDINAL_FLAG64() {
+        return IMAGE_ORDINAL_FLAG64;
+    }
+    private static final int IMAGE_ORDINAL_FLAG32 = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_ORDINAL_FLAG32 2147483648
+     * }
+     */
+    public static int IMAGE_ORDINAL_FLAG32() {
+        return IMAGE_ORDINAL_FLAG32;
+    }
+    private static final long IMAGE_ORDINAL_FLAG = -9223372036854775808L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_ORDINAL_FLAG -9223372036854775808
+     * }
+     */
+    public static long IMAGE_ORDINAL_FLAG() {
+        return IMAGE_ORDINAL_FLAG;
+    }
+    private static final int IMAGE_RESOURCE_NAME_IS_STRING = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_RESOURCE_NAME_IS_STRING 2147483648
+     * }
+     */
+    public static int IMAGE_RESOURCE_NAME_IS_STRING() {
+        return IMAGE_RESOURCE_NAME_IS_STRING;
+    }
+    private static final int IMAGE_RESOURCE_DATA_IS_DIRECTORY = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_RESOURCE_DATA_IS_DIRECTORY 2147483648
+     * }
+     */
+    public static int IMAGE_RESOURCE_DATA_IS_DIRECTORY() {
+        return IMAGE_RESOURCE_DATA_IS_DIRECTORY;
+    }
+    private static final int IMAGE_HOT_PATCH_CHUNK_INVERSE = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_HOT_PATCH_CHUNK_INVERSE 2147483648
+     * }
+     */
+    public static int IMAGE_HOT_PATCH_CHUNK_INVERSE() {
+        return IMAGE_HOT_PATCH_CHUNK_INVERSE;
+    }
+    private static final int IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_MASK = (int)4026531840L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_MASK 4026531840
+     * }
+     */
+    public static int IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_MASK() {
+        return IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_MASK;
+    }
+    private static final int IMAGE_ENCLAVE_LONG_ID_LENGTH = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_ENCLAVE_LONG_ID_LENGTH 32
+     * }
+     */
+    public static int IMAGE_ENCLAVE_LONG_ID_LENGTH() {
+        return IMAGE_ENCLAVE_LONG_ID_LENGTH;
+    }
+    private static final int IMAGE_ENCLAVE_SHORT_ID_LENGTH = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_ENCLAVE_SHORT_ID_LENGTH 16
+     * }
+     */
+    public static int IMAGE_ENCLAVE_SHORT_ID_LENGTH() {
+        return IMAGE_ENCLAVE_SHORT_ID_LENGTH;
+    }
+    private static final int IMAGE_ENCLAVE_MINIMUM_CONFIG_SIZE = (int)76L;
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_ENCLAVE_MINIMUM_CONFIG_SIZE 76
+     * }
+     */
+    public static int IMAGE_ENCLAVE_MINIMUM_CONFIG_SIZE() {
+        return IMAGE_ENCLAVE_MINIMUM_CONFIG_SIZE;
+    }
+    private static final int RTL_RUN_ONCE_CHECK_ONLY = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define RTL_RUN_ONCE_CHECK_ONLY 1
+     * }
+     */
+    public static int RTL_RUN_ONCE_CHECK_ONLY() {
+        return RTL_RUN_ONCE_CHECK_ONLY;
+    }
+    private static final int RTL_RUN_ONCE_ASYNC = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define RTL_RUN_ONCE_ASYNC 2
+     * }
+     */
+    public static int RTL_RUN_ONCE_ASYNC() {
+        return RTL_RUN_ONCE_ASYNC;
+    }
+    private static final int RTL_RUN_ONCE_INIT_FAILED = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define RTL_RUN_ONCE_INIT_FAILED 4
+     * }
+     */
+    public static int RTL_RUN_ONCE_INIT_FAILED() {
+        return RTL_RUN_ONCE_INIT_FAILED;
+    }
+    private static final int FAST_FAIL_INVALID_FAST_FAIL_CODE = (int)4294967295L;
+    /**
+     * {@snippet lang=c :
+     * #define FAST_FAIL_INVALID_FAST_FAIL_CODE 4294967295
+     * }
+     */
+    public static int FAST_FAIL_INVALID_FAST_FAIL_CODE() {
+        return FAST_FAIL_INVALID_FAST_FAIL_CODE;
+    }
+    private static final int COMPRESSION_FORMAT_NONE = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define COMPRESSION_FORMAT_NONE 0
+     * }
+     */
+    public static int COMPRESSION_FORMAT_NONE() {
+        return COMPRESSION_FORMAT_NONE;
+    }
+    private static final int COMPRESSION_FORMAT_DEFAULT = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define COMPRESSION_FORMAT_DEFAULT 1
+     * }
+     */
+    public static int COMPRESSION_FORMAT_DEFAULT() {
+        return COMPRESSION_FORMAT_DEFAULT;
+    }
+    private static final int COMPRESSION_FORMAT_LZNT1 = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define COMPRESSION_FORMAT_LZNT1 2
+     * }
+     */
+    public static int COMPRESSION_FORMAT_LZNT1() {
+        return COMPRESSION_FORMAT_LZNT1;
+    }
+    private static final int COMPRESSION_FORMAT_XPRESS = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define COMPRESSION_FORMAT_XPRESS 3
+     * }
+     */
+    public static int COMPRESSION_FORMAT_XPRESS() {
+        return COMPRESSION_FORMAT_XPRESS;
+    }
+    private static final int COMPRESSION_FORMAT_XPRESS_HUFF = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define COMPRESSION_FORMAT_XPRESS_HUFF 4
+     * }
+     */
+    public static int COMPRESSION_FORMAT_XPRESS_HUFF() {
+        return COMPRESSION_FORMAT_XPRESS_HUFF;
+    }
+    private static final int COMPRESSION_FORMAT_XP10 = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * #define COMPRESSION_FORMAT_XP10 5
+     * }
+     */
+    public static int COMPRESSION_FORMAT_XP10() {
+        return COMPRESSION_FORMAT_XP10;
+    }
+    private static final int COMPRESSION_ENGINE_STANDARD = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define COMPRESSION_ENGINE_STANDARD 0
+     * }
+     */
+    public static int COMPRESSION_ENGINE_STANDARD() {
+        return COMPRESSION_ENGINE_STANDARD;
+    }
+    private static final int COMPRESSION_ENGINE_MAXIMUM = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define COMPRESSION_ENGINE_MAXIMUM 256
+     * }
+     */
+    public static int COMPRESSION_ENGINE_MAXIMUM() {
+        return COMPRESSION_ENGINE_MAXIMUM;
+    }
+    private static final int COMPRESSION_ENGINE_HIBER = (int)512L;
+    /**
+     * {@snippet lang=c :
+     * #define COMPRESSION_ENGINE_HIBER 512
+     * }
+     */
+    public static int COMPRESSION_ENGINE_HIBER() {
+        return COMPRESSION_ENGINE_HIBER;
+    }
+    private static final int SEF_MACL_VALID_FLAGS = (int)1792L;
+    /**
+     * {@snippet lang=c :
+     * #define SEF_MACL_VALID_FLAGS 1792
+     * }
+     */
+    public static int SEF_MACL_VALID_FLAGS() {
+        return SEF_MACL_VALID_FLAGS;
+    }
+    private static final int RTL_UMS_VERSION = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define RTL_UMS_VERSION 256
+     * }
+     */
+    public static int RTL_UMS_VERSION() {
+        return RTL_UMS_VERSION;
+    }
+    private static final int VRL_PREDEFINED_CLASS_BEGIN = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define VRL_PREDEFINED_CLASS_BEGIN 1
+     * }
+     */
+    public static int VRL_PREDEFINED_CLASS_BEGIN() {
+        return VRL_PREDEFINED_CLASS_BEGIN;
+    }
+    private static final int VRL_CUSTOM_CLASS_BEGIN = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define VRL_CUSTOM_CLASS_BEGIN 256
+     * }
+     */
+    public static int VRL_CUSTOM_CLASS_BEGIN() {
+        return VRL_CUSTOM_CLASS_BEGIN;
+    }
+    private static final int VRL_CLASS_CONSISTENCY = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define VRL_CLASS_CONSISTENCY 1
+     * }
+     */
+    public static int VRL_CLASS_CONSISTENCY() {
+        return VRL_CLASS_CONSISTENCY;
+    }
+    private static final int VRL_ENABLE_KERNEL_BREAKS = (int)-2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define VRL_ENABLE_KERNEL_BREAKS -2147483648
+     * }
+     */
+    public static int VRL_ENABLE_KERNEL_BREAKS() {
+        return VRL_ENABLE_KERNEL_BREAKS;
+    }
+    private static final int CTMF_INCLUDE_APPCONTAINER = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CTMF_INCLUDE_APPCONTAINER 1
+     * }
+     */
+    public static int CTMF_INCLUDE_APPCONTAINER() {
+        return CTMF_INCLUDE_APPCONTAINER;
+    }
+    private static final int CTMF_INCLUDE_LPAC = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define CTMF_INCLUDE_LPAC 2
+     * }
+     */
+    public static int CTMF_INCLUDE_LPAC() {
+        return CTMF_INCLUDE_LPAC;
+    }
+    private static final int CTMF_VALID_FLAGS = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define CTMF_VALID_FLAGS 3
+     * }
+     */
+    public static int CTMF_VALID_FLAGS() {
+        return CTMF_VALID_FLAGS;
+    }
+    private static final int FLUSH_NV_MEMORY_IN_FLAG_NO_DRAIN = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define FLUSH_NV_MEMORY_IN_FLAG_NO_DRAIN 1
+     * }
+     */
+    public static int FLUSH_NV_MEMORY_IN_FLAG_NO_DRAIN() {
+        return FLUSH_NV_MEMORY_IN_FLAG_NO_DRAIN;
+    }
+    private static final long FLUSH_NV_MEMORY_DEFAULT_TOKEN = -1L;
+    /**
+     * {@snippet lang=c :
+     * #define FLUSH_NV_MEMORY_DEFAULT_TOKEN -1
+     * }
+     */
+    public static long FLUSH_NV_MEMORY_DEFAULT_TOKEN() {
+        return FLUSH_NV_MEMORY_DEFAULT_TOKEN;
+    }
+    private static final int WRITE_NV_MEMORY_FLAG_FLUSH = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define WRITE_NV_MEMORY_FLAG_FLUSH 1
+     * }
+     */
+    public static int WRITE_NV_MEMORY_FLAG_FLUSH() {
+        return WRITE_NV_MEMORY_FLAG_FLUSH;
+    }
+    private static final int WRITE_NV_MEMORY_FLAG_NON_TEMPORAL = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define WRITE_NV_MEMORY_FLAG_NON_TEMPORAL 2
+     * }
+     */
+    public static int WRITE_NV_MEMORY_FLAG_NON_TEMPORAL() {
+        return WRITE_NV_MEMORY_FLAG_NON_TEMPORAL;
+    }
+    private static final int WRITE_NV_MEMORY_FLAG_PERSIST = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define WRITE_NV_MEMORY_FLAG_PERSIST 3
+     * }
+     */
+    public static int WRITE_NV_MEMORY_FLAG_PERSIST() {
+        return WRITE_NV_MEMORY_FLAG_PERSIST;
+    }
+    private static final int WRITE_NV_MEMORY_FLAG_NO_DRAIN = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define WRITE_NV_MEMORY_FLAG_NO_DRAIN 256
+     * }
+     */
+    public static int WRITE_NV_MEMORY_FLAG_NO_DRAIN() {
+        return WRITE_NV_MEMORY_FLAG_NO_DRAIN;
+    }
+    private static final int FILL_NV_MEMORY_FLAG_FLUSH = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define FILL_NV_MEMORY_FLAG_FLUSH 1
+     * }
+     */
+    public static int FILL_NV_MEMORY_FLAG_FLUSH() {
+        return FILL_NV_MEMORY_FLAG_FLUSH;
+    }
+    private static final int FILL_NV_MEMORY_FLAG_NON_TEMPORAL = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define FILL_NV_MEMORY_FLAG_NON_TEMPORAL 2
+     * }
+     */
+    public static int FILL_NV_MEMORY_FLAG_NON_TEMPORAL() {
+        return FILL_NV_MEMORY_FLAG_NON_TEMPORAL;
+    }
+    private static final int FILL_NV_MEMORY_FLAG_PERSIST = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define FILL_NV_MEMORY_FLAG_PERSIST 3
+     * }
+     */
+    public static int FILL_NV_MEMORY_FLAG_PERSIST() {
+        return FILL_NV_MEMORY_FLAG_PERSIST;
+    }
+    private static final int FILL_NV_MEMORY_FLAG_NO_DRAIN = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define FILL_NV_MEMORY_FLAG_NO_DRAIN 256
+     * }
+     */
+    public static int FILL_NV_MEMORY_FLAG_NO_DRAIN() {
+        return FILL_NV_MEMORY_FLAG_NO_DRAIN;
+    }
+    private static final byte RTL_CORRELATION_VECTOR_VERSION_1 = (byte)1L;
+    /**
+     * {@snippet lang=c :
+     * #define RTL_CORRELATION_VECTOR_VERSION_1 1
+     * }
+     */
+    public static byte RTL_CORRELATION_VECTOR_VERSION_1() {
+        return RTL_CORRELATION_VECTOR_VERSION_1;
+    }
+    private static final byte RTL_CORRELATION_VECTOR_VERSION_2 = (byte)2L;
+    /**
+     * {@snippet lang=c :
+     * #define RTL_CORRELATION_VECTOR_VERSION_2 2
+     * }
+     */
+    public static byte RTL_CORRELATION_VECTOR_VERSION_2() {
+        return RTL_CORRELATION_VECTOR_VERSION_2;
+    }
+    private static final byte RTL_CORRELATION_VECTOR_VERSION_CURRENT = (byte)2L;
+    /**
+     * {@snippet lang=c :
+     * #define RTL_CORRELATION_VECTOR_VERSION_CURRENT 2
+     * }
+     */
+    public static byte RTL_CORRELATION_VECTOR_VERSION_CURRENT() {
+        return RTL_CORRELATION_VECTOR_VERSION_CURRENT;
+    }
+    private static final int RTL_CORRELATION_VECTOR_V1_PREFIX_LENGTH = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define RTL_CORRELATION_VECTOR_V1_PREFIX_LENGTH 16
+     * }
+     */
+    public static int RTL_CORRELATION_VECTOR_V1_PREFIX_LENGTH() {
+        return RTL_CORRELATION_VECTOR_V1_PREFIX_LENGTH;
+    }
+    private static final int RTL_CORRELATION_VECTOR_V1_LENGTH = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define RTL_CORRELATION_VECTOR_V1_LENGTH 64
+     * }
+     */
+    public static int RTL_CORRELATION_VECTOR_V1_LENGTH() {
+        return RTL_CORRELATION_VECTOR_V1_LENGTH;
+    }
+    private static final int RTL_CORRELATION_VECTOR_V2_PREFIX_LENGTH = (int)22L;
+    /**
+     * {@snippet lang=c :
+     * #define RTL_CORRELATION_VECTOR_V2_PREFIX_LENGTH 22
+     * }
+     */
+    public static int RTL_CORRELATION_VECTOR_V2_PREFIX_LENGTH() {
+        return RTL_CORRELATION_VECTOR_V2_PREFIX_LENGTH;
+    }
+    private static final int RTL_CORRELATION_VECTOR_V2_LENGTH = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define RTL_CORRELATION_VECTOR_V2_LENGTH 128
+     * }
+     */
+    public static int RTL_CORRELATION_VECTOR_V2_LENGTH() {
+        return RTL_CORRELATION_VECTOR_V2_LENGTH;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define IMAGE_POLICY_SECTION_NAME ".tPolicy"
+     * }
+     */
+    public static MemorySegment IMAGE_POLICY_SECTION_NAME() {
+        class Holder {
+            static final MemorySegment IMAGE_POLICY_SECTION_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom(".tPolicy");
+        }
+        return Holder.IMAGE_POLICY_SECTION_NAME;
+    }
+    private static final int RTL_VIRTUAL_UNWIND2_VALIDATE_PAC = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define RTL_VIRTUAL_UNWIND2_VALIDATE_PAC 1
+     * }
+     */
+    public static int RTL_VIRTUAL_UNWIND2_VALIDATE_PAC() {
+        return RTL_VIRTUAL_UNWIND2_VALIDATE_PAC;
+    }
+    private static final int RTL_CRITICAL_SECTION_ALL_FLAG_BITS = (int)4278190080L;
+    /**
+     * {@snippet lang=c :
+     * #define RTL_CRITICAL_SECTION_ALL_FLAG_BITS 4278190080
+     * }
+     */
+    public static int RTL_CRITICAL_SECTION_ALL_FLAG_BITS() {
+        return RTL_CRITICAL_SECTION_ALL_FLAG_BITS;
+    }
+    private static final int RTL_CRITICAL_SECTION_FLAG_RESERVED = (int)3758096384L;
+    /**
+     * {@snippet lang=c :
+     * #define RTL_CRITICAL_SECTION_FLAG_RESERVED 3758096384
+     * }
+     */
+    public static int RTL_CRITICAL_SECTION_FLAG_RESERVED() {
+        return RTL_CRITICAL_SECTION_FLAG_RESERVED;
+    }
+    private static final int ACTIVATION_CONTEXT_PATH_TYPE_NONE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_PATH_TYPE_NONE 1
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_PATH_TYPE_NONE() {
+        return ACTIVATION_CONTEXT_PATH_TYPE_NONE;
+    }
+    private static final int ACTIVATION_CONTEXT_PATH_TYPE_WIN32_FILE = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_PATH_TYPE_WIN32_FILE 2
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_PATH_TYPE_WIN32_FILE() {
+        return ACTIVATION_CONTEXT_PATH_TYPE_WIN32_FILE;
+    }
+    private static final int ACTIVATION_CONTEXT_PATH_TYPE_URL = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_PATH_TYPE_URL 3
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_PATH_TYPE_URL() {
+        return ACTIVATION_CONTEXT_PATH_TYPE_URL;
+    }
+    private static final int ACTIVATION_CONTEXT_PATH_TYPE_ASSEMBLYREF = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_PATH_TYPE_ASSEMBLYREF 4
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_PATH_TYPE_ASSEMBLYREF() {
+        return ACTIVATION_CONTEXT_PATH_TYPE_ASSEMBLYREF;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define UNIFIEDBUILDREVISION_KEY "\"
+     * }
+     */
+    public static MemorySegment UNIFIEDBUILDREVISION_KEY() {
+        class Holder {
+            static final MemorySegment UNIFIEDBUILDREVISION_KEY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("\\");
+        }
+        return Holder.UNIFIEDBUILDREVISION_KEY;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define UNIFIEDBUILDREVISION_VALUE "U"
+     * }
+     */
+    public static MemorySegment UNIFIEDBUILDREVISION_VALUE() {
+        class Holder {
+            static final MemorySegment UNIFIEDBUILDREVISION_VALUE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("U");
+        }
+        return Holder.UNIFIEDBUILDREVISION_VALUE;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_KEY "\"
+     * }
+     */
+    public static MemorySegment DEVICEFAMILYDEVICEFORM_KEY() {
+        class Holder {
+            static final MemorySegment DEVICEFAMILYDEVICEFORM_KEY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("\\");
+        }
+        return Holder.DEVICEFAMILYDEVICEFORM_KEY;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define DEVICEFAMILYDEVICEFORM_VALUE "D"
+     * }
+     */
+    public static MemorySegment DEVICEFAMILYDEVICEFORM_VALUE() {
+        class Holder {
+            static final MemorySegment DEVICEFAMILYDEVICEFORM_VALUE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("D");
+        }
+        return Holder.DEVICEFAMILYDEVICEFORM_VALUE;
+    }
+    private static final int KEY_QUERY_VALUE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define KEY_QUERY_VALUE 1
+     * }
+     */
+    public static int KEY_QUERY_VALUE() {
+        return KEY_QUERY_VALUE;
+    }
+    private static final int KEY_SET_VALUE = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define KEY_SET_VALUE 2
+     * }
+     */
+    public static int KEY_SET_VALUE() {
+        return KEY_SET_VALUE;
+    }
+    private static final int KEY_CREATE_SUB_KEY = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define KEY_CREATE_SUB_KEY 4
+     * }
+     */
+    public static int KEY_CREATE_SUB_KEY() {
+        return KEY_CREATE_SUB_KEY;
+    }
+    private static final int KEY_ENUMERATE_SUB_KEYS = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define KEY_ENUMERATE_SUB_KEYS 8
+     * }
+     */
+    public static int KEY_ENUMERATE_SUB_KEYS() {
+        return KEY_ENUMERATE_SUB_KEYS;
+    }
+    private static final int KEY_NOTIFY = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define KEY_NOTIFY 16
+     * }
+     */
+    public static int KEY_NOTIFY() {
+        return KEY_NOTIFY;
+    }
+    private static final int KEY_CREATE_LINK = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define KEY_CREATE_LINK 32
+     * }
+     */
+    public static int KEY_CREATE_LINK() {
+        return KEY_CREATE_LINK;
+    }
+    private static final int KEY_WOW64_32KEY = (int)512L;
+    /**
+     * {@snippet lang=c :
+     * #define KEY_WOW64_32KEY 512
+     * }
+     */
+    public static int KEY_WOW64_32KEY() {
+        return KEY_WOW64_32KEY;
+    }
+    private static final int KEY_WOW64_64KEY = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define KEY_WOW64_64KEY 256
+     * }
+     */
+    public static int KEY_WOW64_64KEY() {
+        return KEY_WOW64_64KEY;
+    }
+    private static final int KEY_WOW64_RES = (int)768L;
+    /**
+     * {@snippet lang=c :
+     * #define KEY_WOW64_RES 768
+     * }
+     */
+    public static int KEY_WOW64_RES() {
+        return KEY_WOW64_RES;
+    }
+    private static final int KEY_READ = (int)131097L;
+    /**
+     * {@snippet lang=c :
+     * #define KEY_READ 131097
+     * }
+     */
+    public static int KEY_READ() {
+        return KEY_READ;
+    }
+    private static final int KEY_WRITE = (int)131078L;
+    /**
+     * {@snippet lang=c :
+     * #define KEY_WRITE 131078
+     * }
+     */
+    public static int KEY_WRITE() {
+        return KEY_WRITE;
+    }
+    private static final int KEY_EXECUTE = (int)131097L;
+    /**
+     * {@snippet lang=c :
+     * #define KEY_EXECUTE 131097
+     * }
+     */
+    public static int KEY_EXECUTE() {
+        return KEY_EXECUTE;
+    }
+    private static final int KEY_ALL_ACCESS = (int)983103L;
+    /**
+     * {@snippet lang=c :
+     * #define KEY_ALL_ACCESS 983103
+     * }
+     */
+    public static int KEY_ALL_ACCESS() {
+        return KEY_ALL_ACCESS;
+    }
+    private static final int REG_OPTION_RESERVED = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_OPTION_RESERVED 0
+     * }
+     */
+    public static int REG_OPTION_RESERVED() {
+        return REG_OPTION_RESERVED;
+    }
+    private static final int REG_OPTION_NON_VOLATILE = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_OPTION_NON_VOLATILE 0
+     * }
+     */
+    public static int REG_OPTION_NON_VOLATILE() {
+        return REG_OPTION_NON_VOLATILE;
+    }
+    private static final int REG_OPTION_VOLATILE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_OPTION_VOLATILE 1
+     * }
+     */
+    public static int REG_OPTION_VOLATILE() {
+        return REG_OPTION_VOLATILE;
+    }
+    private static final int REG_OPTION_CREATE_LINK = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_OPTION_CREATE_LINK 2
+     * }
+     */
+    public static int REG_OPTION_CREATE_LINK() {
+        return REG_OPTION_CREATE_LINK;
+    }
+    private static final int REG_OPTION_BACKUP_RESTORE = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_OPTION_BACKUP_RESTORE 4
+     * }
+     */
+    public static int REG_OPTION_BACKUP_RESTORE() {
+        return REG_OPTION_BACKUP_RESTORE;
+    }
+    private static final int REG_OPTION_OPEN_LINK = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_OPTION_OPEN_LINK 8
+     * }
+     */
+    public static int REG_OPTION_OPEN_LINK() {
+        return REG_OPTION_OPEN_LINK;
+    }
+    private static final int REG_OPTION_DONT_VIRTUALIZE = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_OPTION_DONT_VIRTUALIZE 16
+     * }
+     */
+    public static int REG_OPTION_DONT_VIRTUALIZE() {
+        return REG_OPTION_DONT_VIRTUALIZE;
+    }
+    private static final int REG_LEGAL_OPTION = (int)31L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_LEGAL_OPTION 31
+     * }
+     */
+    public static int REG_LEGAL_OPTION() {
+        return REG_LEGAL_OPTION;
+    }
+    private static final int REG_OPEN_LEGAL_OPTION = (int)28L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_OPEN_LEGAL_OPTION 28
+     * }
+     */
+    public static int REG_OPEN_LEGAL_OPTION() {
+        return REG_OPEN_LEGAL_OPTION;
+    }
+    private static final int REG_CREATED_NEW_KEY = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_CREATED_NEW_KEY 1
+     * }
+     */
+    public static int REG_CREATED_NEW_KEY() {
+        return REG_CREATED_NEW_KEY;
+    }
+    private static final int REG_OPENED_EXISTING_KEY = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_OPENED_EXISTING_KEY 2
+     * }
+     */
+    public static int REG_OPENED_EXISTING_KEY() {
+        return REG_OPENED_EXISTING_KEY;
+    }
+    private static final int REG_WHOLE_HIVE_VOLATILE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_WHOLE_HIVE_VOLATILE 1
+     * }
+     */
+    public static int REG_WHOLE_HIVE_VOLATILE() {
+        return REG_WHOLE_HIVE_VOLATILE;
+    }
+    private static final int REG_REFRESH_HIVE = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_REFRESH_HIVE 2
+     * }
+     */
+    public static int REG_REFRESH_HIVE() {
+        return REG_REFRESH_HIVE;
+    }
+    private static final int REG_NO_LAZY_FLUSH = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_NO_LAZY_FLUSH 4
+     * }
+     */
+    public static int REG_NO_LAZY_FLUSH() {
+        return REG_NO_LAZY_FLUSH;
+    }
+    private static final int REG_FORCE_RESTORE = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_FORCE_RESTORE 8
+     * }
+     */
+    public static int REG_FORCE_RESTORE() {
+        return REG_FORCE_RESTORE;
+    }
+    private static final int REG_APP_HIVE = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_APP_HIVE 16
+     * }
+     */
+    public static int REG_APP_HIVE() {
+        return REG_APP_HIVE;
+    }
+    private static final int REG_PROCESS_PRIVATE = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_PROCESS_PRIVATE 32
+     * }
+     */
+    public static int REG_PROCESS_PRIVATE() {
+        return REG_PROCESS_PRIVATE;
+    }
+    private static final int REG_START_JOURNAL = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_START_JOURNAL 64
+     * }
+     */
+    public static int REG_START_JOURNAL() {
+        return REG_START_JOURNAL;
+    }
+    private static final int REG_HIVE_EXACT_FILE_GROWTH = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_HIVE_EXACT_FILE_GROWTH 128
+     * }
+     */
+    public static int REG_HIVE_EXACT_FILE_GROWTH() {
+        return REG_HIVE_EXACT_FILE_GROWTH;
+    }
+    private static final int REG_HIVE_NO_RM = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_HIVE_NO_RM 256
+     * }
+     */
+    public static int REG_HIVE_NO_RM() {
+        return REG_HIVE_NO_RM;
+    }
+    private static final int REG_HIVE_SINGLE_LOG = (int)512L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_HIVE_SINGLE_LOG 512
+     * }
+     */
+    public static int REG_HIVE_SINGLE_LOG() {
+        return REG_HIVE_SINGLE_LOG;
+    }
+    private static final int REG_BOOT_HIVE = (int)1024L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_BOOT_HIVE 1024
+     * }
+     */
+    public static int REG_BOOT_HIVE() {
+        return REG_BOOT_HIVE;
+    }
+    private static final int REG_LOAD_HIVE_OPEN_HANDLE = (int)2048L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_LOAD_HIVE_OPEN_HANDLE 2048
+     * }
+     */
+    public static int REG_LOAD_HIVE_OPEN_HANDLE() {
+        return REG_LOAD_HIVE_OPEN_HANDLE;
+    }
+    private static final int REG_FLUSH_HIVE_FILE_GROWTH = (int)4096L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_FLUSH_HIVE_FILE_GROWTH 4096
+     * }
+     */
+    public static int REG_FLUSH_HIVE_FILE_GROWTH() {
+        return REG_FLUSH_HIVE_FILE_GROWTH;
+    }
+    private static final int REG_OPEN_READ_ONLY = (int)8192L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_OPEN_READ_ONLY 8192
+     * }
+     */
+    public static int REG_OPEN_READ_ONLY() {
+        return REG_OPEN_READ_ONLY;
+    }
+    private static final int REG_IMMUTABLE = (int)16384L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_IMMUTABLE 16384
+     * }
+     */
+    public static int REG_IMMUTABLE() {
+        return REG_IMMUTABLE;
+    }
+    private static final int REG_NO_IMPERSONATION_FALLBACK = (int)32768L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_NO_IMPERSONATION_FALLBACK 32768
+     * }
+     */
+    public static int REG_NO_IMPERSONATION_FALLBACK() {
+        return REG_NO_IMPERSONATION_FALLBACK;
+    }
+    private static final int REG_APP_HIVE_OPEN_READ_ONLY = (int)8192L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_APP_HIVE_OPEN_READ_ONLY 8192
+     * }
+     */
+    public static int REG_APP_HIVE_OPEN_READ_ONLY() {
+        return REG_APP_HIVE_OPEN_READ_ONLY;
+    }
+    private static final int REG_UNLOAD_LEGAL_FLAGS = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_UNLOAD_LEGAL_FLAGS 1
+     * }
+     */
+    public static int REG_UNLOAD_LEGAL_FLAGS() {
+        return REG_UNLOAD_LEGAL_FLAGS;
+    }
+    private static final int REG_NOTIFY_CHANGE_NAME = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_NOTIFY_CHANGE_NAME 1
+     * }
+     */
+    public static int REG_NOTIFY_CHANGE_NAME() {
+        return REG_NOTIFY_CHANGE_NAME;
+    }
+    private static final int REG_NOTIFY_CHANGE_ATTRIBUTES = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_NOTIFY_CHANGE_ATTRIBUTES 2
+     * }
+     */
+    public static int REG_NOTIFY_CHANGE_ATTRIBUTES() {
+        return REG_NOTIFY_CHANGE_ATTRIBUTES;
+    }
+    private static final int REG_NOTIFY_CHANGE_LAST_SET = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_NOTIFY_CHANGE_LAST_SET 4
+     * }
+     */
+    public static int REG_NOTIFY_CHANGE_LAST_SET() {
+        return REG_NOTIFY_CHANGE_LAST_SET;
+    }
+    private static final int REG_NOTIFY_CHANGE_SECURITY = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_NOTIFY_CHANGE_SECURITY 8
+     * }
+     */
+    public static int REG_NOTIFY_CHANGE_SECURITY() {
+        return REG_NOTIFY_CHANGE_SECURITY;
+    }
+    private static final int REG_NOTIFY_THREAD_AGNOSTIC = (int)268435456L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_NOTIFY_THREAD_AGNOSTIC 268435456
+     * }
+     */
+    public static int REG_NOTIFY_THREAD_AGNOSTIC() {
+        return REG_NOTIFY_THREAD_AGNOSTIC;
+    }
+    private static final int REG_LEGAL_CHANGE_FILTER = (int)268435471L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_LEGAL_CHANGE_FILTER 268435471
+     * }
+     */
+    public static int REG_LEGAL_CHANGE_FILTER() {
+        return REG_LEGAL_CHANGE_FILTER;
+    }
+    private static final int REG_NONE = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_NONE 0
+     * }
+     */
+    public static int REG_NONE() {
+        return REG_NONE;
+    }
+    private static final int REG_SZ = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_SZ 1
+     * }
+     */
+    public static int REG_SZ() {
+        return REG_SZ;
+    }
+    private static final int REG_EXPAND_SZ = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_EXPAND_SZ 2
+     * }
+     */
+    public static int REG_EXPAND_SZ() {
+        return REG_EXPAND_SZ;
+    }
+    private static final int REG_BINARY = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_BINARY 3
+     * }
+     */
+    public static int REG_BINARY() {
+        return REG_BINARY;
+    }
+    private static final int REG_DWORD = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_DWORD 4
+     * }
+     */
+    public static int REG_DWORD() {
+        return REG_DWORD;
+    }
+    private static final int REG_DWORD_LITTLE_ENDIAN = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_DWORD_LITTLE_ENDIAN 4
+     * }
+     */
+    public static int REG_DWORD_LITTLE_ENDIAN() {
+        return REG_DWORD_LITTLE_ENDIAN;
+    }
+    private static final int REG_DWORD_BIG_ENDIAN = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_DWORD_BIG_ENDIAN 5
+     * }
+     */
+    public static int REG_DWORD_BIG_ENDIAN() {
+        return REG_DWORD_BIG_ENDIAN;
+    }
+    private static final int REG_LINK = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_LINK 6
+     * }
+     */
+    public static int REG_LINK() {
+        return REG_LINK;
+    }
+    private static final int REG_MULTI_SZ = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_MULTI_SZ 7
+     * }
+     */
+    public static int REG_MULTI_SZ() {
+        return REG_MULTI_SZ;
+    }
+    private static final int REG_RESOURCE_LIST = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_RESOURCE_LIST 8
+     * }
+     */
+    public static int REG_RESOURCE_LIST() {
+        return REG_RESOURCE_LIST;
+    }
+    private static final int REG_FULL_RESOURCE_DESCRIPTOR = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_FULL_RESOURCE_DESCRIPTOR 9
+     * }
+     */
+    public static int REG_FULL_RESOURCE_DESCRIPTOR() {
+        return REG_FULL_RESOURCE_DESCRIPTOR;
+    }
+    private static final int REG_RESOURCE_REQUIREMENTS_LIST = (int)10L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_RESOURCE_REQUIREMENTS_LIST 10
+     * }
+     */
+    public static int REG_RESOURCE_REQUIREMENTS_LIST() {
+        return REG_RESOURCE_REQUIREMENTS_LIST;
+    }
+    private static final int REG_QWORD = (int)11L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_QWORD 11
+     * }
+     */
+    public static int REG_QWORD() {
+        return REG_QWORD;
+    }
+    private static final int REG_QWORD_LITTLE_ENDIAN = (int)11L;
+    /**
+     * {@snippet lang=c :
+     * #define REG_QWORD_LITTLE_ENDIAN 11
+     * }
+     */
+    public static int REG_QWORD_LITTLE_ENDIAN() {
+        return REG_QWORD_LITTLE_ENDIAN;
+    }
+    private static final int SERVICE_DRIVER = (int)11L;
+    /**
+     * {@snippet lang=c :
+     * #define SERVICE_DRIVER 11
+     * }
+     */
+    public static int SERVICE_DRIVER() {
+        return SERVICE_DRIVER;
+    }
+    private static final int SERVICE_WIN32 = (int)48L;
+    /**
+     * {@snippet lang=c :
+     * #define SERVICE_WIN32 48
+     * }
+     */
+    public static int SERVICE_WIN32() {
+        return SERVICE_WIN32;
+    }
+    private static final int SERVICE_USER_SHARE_PROCESS = (int)96L;
+    /**
+     * {@snippet lang=c :
+     * #define SERVICE_USER_SHARE_PROCESS 96
+     * }
+     */
+    public static int SERVICE_USER_SHARE_PROCESS() {
+        return SERVICE_USER_SHARE_PROCESS;
+    }
+    private static final int SERVICE_USER_OWN_PROCESS = (int)80L;
+    /**
+     * {@snippet lang=c :
+     * #define SERVICE_USER_OWN_PROCESS 80
+     * }
+     */
+    public static int SERVICE_USER_OWN_PROCESS() {
+        return SERVICE_USER_OWN_PROCESS;
+    }
+    private static final int SERVICE_TYPE_ALL = (int)1023L;
+    /**
+     * {@snippet lang=c :
+     * #define SERVICE_TYPE_ALL 1023
+     * }
+     */
+    public static int SERVICE_TYPE_ALL() {
+        return SERVICE_TYPE_ALL;
+    }
+    private static final int CM_SERVICE_VALID_PROMOTION_MASK = (int)511L;
+    /**
+     * {@snippet lang=c :
+     * #define CM_SERVICE_VALID_PROMOTION_MASK 511
+     * }
+     */
+    public static int CM_SERVICE_VALID_PROMOTION_MASK() {
+        return CM_SERVICE_VALID_PROMOTION_MASK;
+    }
+    private static final int TAPE_ERASE_SHORT = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_ERASE_SHORT 0
+     * }
+     */
+    public static int TAPE_ERASE_SHORT() {
+        return TAPE_ERASE_SHORT;
+    }
+    private static final int TAPE_ERASE_LONG = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_ERASE_LONG 1
+     * }
+     */
+    public static int TAPE_ERASE_LONG() {
+        return TAPE_ERASE_LONG;
+    }
+    private static final int TAPE_LOAD = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_LOAD 0
+     * }
+     */
+    public static int TAPE_LOAD() {
+        return TAPE_LOAD;
+    }
+    private static final int TAPE_UNLOAD = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_UNLOAD 1
+     * }
+     */
+    public static int TAPE_UNLOAD() {
+        return TAPE_UNLOAD;
+    }
+    private static final int TAPE_TENSION = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_TENSION 2
+     * }
+     */
+    public static int TAPE_TENSION() {
+        return TAPE_TENSION;
+    }
+    private static final int TAPE_LOCK = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_LOCK 3
+     * }
+     */
+    public static int TAPE_LOCK() {
+        return TAPE_LOCK;
+    }
+    private static final int TAPE_UNLOCK = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_UNLOCK 4
+     * }
+     */
+    public static int TAPE_UNLOCK() {
+        return TAPE_UNLOCK;
+    }
+    private static final int TAPE_FORMAT = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_FORMAT 5
+     * }
+     */
+    public static int TAPE_FORMAT() {
+        return TAPE_FORMAT;
+    }
+    private static final int TAPE_SETMARKS = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_SETMARKS 0
+     * }
+     */
+    public static int TAPE_SETMARKS() {
+        return TAPE_SETMARKS;
+    }
+    private static final int TAPE_FILEMARKS = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_FILEMARKS 1
+     * }
+     */
+    public static int TAPE_FILEMARKS() {
+        return TAPE_FILEMARKS;
+    }
+    private static final int TAPE_SHORT_FILEMARKS = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_SHORT_FILEMARKS 2
+     * }
+     */
+    public static int TAPE_SHORT_FILEMARKS() {
+        return TAPE_SHORT_FILEMARKS;
+    }
+    private static final int TAPE_LONG_FILEMARKS = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_LONG_FILEMARKS 3
+     * }
+     */
+    public static int TAPE_LONG_FILEMARKS() {
+        return TAPE_LONG_FILEMARKS;
+    }
+    private static final int TAPE_ABSOLUTE_POSITION = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_ABSOLUTE_POSITION 0
+     * }
+     */
+    public static int TAPE_ABSOLUTE_POSITION() {
+        return TAPE_ABSOLUTE_POSITION;
+    }
+    private static final int TAPE_LOGICAL_POSITION = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_LOGICAL_POSITION 1
+     * }
+     */
+    public static int TAPE_LOGICAL_POSITION() {
+        return TAPE_LOGICAL_POSITION;
+    }
+    private static final int TAPE_PSEUDO_LOGICAL_POSITION = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_PSEUDO_LOGICAL_POSITION 2
+     * }
+     */
+    public static int TAPE_PSEUDO_LOGICAL_POSITION() {
+        return TAPE_PSEUDO_LOGICAL_POSITION;
+    }
+    private static final int TAPE_REWIND = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_REWIND 0
+     * }
+     */
+    public static int TAPE_REWIND() {
+        return TAPE_REWIND;
+    }
+    private static final int TAPE_ABSOLUTE_BLOCK = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_ABSOLUTE_BLOCK 1
+     * }
+     */
+    public static int TAPE_ABSOLUTE_BLOCK() {
+        return TAPE_ABSOLUTE_BLOCK;
+    }
+    private static final int TAPE_LOGICAL_BLOCK = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_LOGICAL_BLOCK 2
+     * }
+     */
+    public static int TAPE_LOGICAL_BLOCK() {
+        return TAPE_LOGICAL_BLOCK;
+    }
+    private static final int TAPE_PSEUDO_LOGICAL_BLOCK = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_PSEUDO_LOGICAL_BLOCK 3
+     * }
+     */
+    public static int TAPE_PSEUDO_LOGICAL_BLOCK() {
+        return TAPE_PSEUDO_LOGICAL_BLOCK;
+    }
+    private static final int TAPE_SPACE_END_OF_DATA = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_SPACE_END_OF_DATA 4
+     * }
+     */
+    public static int TAPE_SPACE_END_OF_DATA() {
+        return TAPE_SPACE_END_OF_DATA;
+    }
+    private static final int TAPE_SPACE_RELATIVE_BLOCKS = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_SPACE_RELATIVE_BLOCKS 5
+     * }
+     */
+    public static int TAPE_SPACE_RELATIVE_BLOCKS() {
+        return TAPE_SPACE_RELATIVE_BLOCKS;
+    }
+    private static final int TAPE_SPACE_FILEMARKS = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_SPACE_FILEMARKS 6
+     * }
+     */
+    public static int TAPE_SPACE_FILEMARKS() {
+        return TAPE_SPACE_FILEMARKS;
+    }
+    private static final int TAPE_SPACE_SEQUENTIAL_FMKS = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_SPACE_SEQUENTIAL_FMKS 7
+     * }
+     */
+    public static int TAPE_SPACE_SEQUENTIAL_FMKS() {
+        return TAPE_SPACE_SEQUENTIAL_FMKS;
+    }
+    private static final int TAPE_SPACE_SETMARKS = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_SPACE_SETMARKS 8
+     * }
+     */
+    public static int TAPE_SPACE_SETMARKS() {
+        return TAPE_SPACE_SETMARKS;
+    }
+    private static final int TAPE_SPACE_SEQUENTIAL_SMKS = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_SPACE_SEQUENTIAL_SMKS 9
+     * }
+     */
+    public static int TAPE_SPACE_SEQUENTIAL_SMKS() {
+        return TAPE_SPACE_SEQUENTIAL_SMKS;
+    }
+    private static final int TAPE_DRIVE_RESERVED_BIT = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_RESERVED_BIT 2147483648
+     * }
+     */
+    public static int TAPE_DRIVE_RESERVED_BIT() {
+        return TAPE_DRIVE_RESERVED_BIT;
+    }
+    private static final int TAPE_DRIVE_LOAD_UNLOAD = (int)2147483649L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_LOAD_UNLOAD 2147483649
+     * }
+     */
+    public static int TAPE_DRIVE_LOAD_UNLOAD() {
+        return TAPE_DRIVE_LOAD_UNLOAD;
+    }
+    private static final int TAPE_DRIVE_TENSION = (int)2147483650L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_TENSION 2147483650
+     * }
+     */
+    public static int TAPE_DRIVE_TENSION() {
+        return TAPE_DRIVE_TENSION;
+    }
+    private static final int TAPE_DRIVE_LOCK_UNLOCK = (int)2147483652L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_LOCK_UNLOCK 2147483652
+     * }
+     */
+    public static int TAPE_DRIVE_LOCK_UNLOCK() {
+        return TAPE_DRIVE_LOCK_UNLOCK;
+    }
+    private static final int TAPE_DRIVE_REWIND_IMMEDIATE = (int)2147483656L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_REWIND_IMMEDIATE 2147483656
+     * }
+     */
+    public static int TAPE_DRIVE_REWIND_IMMEDIATE() {
+        return TAPE_DRIVE_REWIND_IMMEDIATE;
+    }
+    private static final int TAPE_DRIVE_SET_BLOCK_SIZE = (int)2147483664L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_SET_BLOCK_SIZE 2147483664
+     * }
+     */
+    public static int TAPE_DRIVE_SET_BLOCK_SIZE() {
+        return TAPE_DRIVE_SET_BLOCK_SIZE;
+    }
+    private static final int TAPE_DRIVE_LOAD_UNLD_IMMED = (int)2147483680L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_LOAD_UNLD_IMMED 2147483680
+     * }
+     */
+    public static int TAPE_DRIVE_LOAD_UNLD_IMMED() {
+        return TAPE_DRIVE_LOAD_UNLD_IMMED;
+    }
+    private static final int TAPE_DRIVE_TENSION_IMMED = (int)2147483712L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_TENSION_IMMED 2147483712
+     * }
+     */
+    public static int TAPE_DRIVE_TENSION_IMMED() {
+        return TAPE_DRIVE_TENSION_IMMED;
+    }
+    private static final int TAPE_DRIVE_LOCK_UNLK_IMMED = (int)2147483776L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_LOCK_UNLK_IMMED 2147483776
+     * }
+     */
+    public static int TAPE_DRIVE_LOCK_UNLK_IMMED() {
+        return TAPE_DRIVE_LOCK_UNLK_IMMED;
+    }
+    private static final int TAPE_DRIVE_SET_ECC = (int)2147483904L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_SET_ECC 2147483904
+     * }
+     */
+    public static int TAPE_DRIVE_SET_ECC() {
+        return TAPE_DRIVE_SET_ECC;
+    }
+    private static final int TAPE_DRIVE_SET_COMPRESSION = (int)2147484160L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_SET_COMPRESSION 2147484160
+     * }
+     */
+    public static int TAPE_DRIVE_SET_COMPRESSION() {
+        return TAPE_DRIVE_SET_COMPRESSION;
+    }
+    private static final int TAPE_DRIVE_SET_PADDING = (int)2147484672L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_SET_PADDING 2147484672
+     * }
+     */
+    public static int TAPE_DRIVE_SET_PADDING() {
+        return TAPE_DRIVE_SET_PADDING;
+    }
+    private static final int TAPE_DRIVE_SET_REPORT_SMKS = (int)2147485696L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_SET_REPORT_SMKS 2147485696
+     * }
+     */
+    public static int TAPE_DRIVE_SET_REPORT_SMKS() {
+        return TAPE_DRIVE_SET_REPORT_SMKS;
+    }
+    private static final int TAPE_DRIVE_ABSOLUTE_BLK = (int)2147487744L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_ABSOLUTE_BLK 2147487744
+     * }
+     */
+    public static int TAPE_DRIVE_ABSOLUTE_BLK() {
+        return TAPE_DRIVE_ABSOLUTE_BLK;
+    }
+    private static final int TAPE_DRIVE_ABS_BLK_IMMED = (int)2147491840L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_ABS_BLK_IMMED 2147491840
+     * }
+     */
+    public static int TAPE_DRIVE_ABS_BLK_IMMED() {
+        return TAPE_DRIVE_ABS_BLK_IMMED;
+    }
+    private static final int TAPE_DRIVE_LOGICAL_BLK = (int)2147500032L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_LOGICAL_BLK 2147500032
+     * }
+     */
+    public static int TAPE_DRIVE_LOGICAL_BLK() {
+        return TAPE_DRIVE_LOGICAL_BLK;
+    }
+    private static final int TAPE_DRIVE_LOG_BLK_IMMED = (int)2147516416L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_LOG_BLK_IMMED 2147516416
+     * }
+     */
+    public static int TAPE_DRIVE_LOG_BLK_IMMED() {
+        return TAPE_DRIVE_LOG_BLK_IMMED;
+    }
+    private static final int TAPE_DRIVE_END_OF_DATA = (int)2147549184L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_END_OF_DATA 2147549184
+     * }
+     */
+    public static int TAPE_DRIVE_END_OF_DATA() {
+        return TAPE_DRIVE_END_OF_DATA;
+    }
+    private static final int TAPE_DRIVE_RELATIVE_BLKS = (int)2147614720L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_RELATIVE_BLKS 2147614720
+     * }
+     */
+    public static int TAPE_DRIVE_RELATIVE_BLKS() {
+        return TAPE_DRIVE_RELATIVE_BLKS;
+    }
+    private static final int TAPE_DRIVE_FILEMARKS = (int)2147745792L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_FILEMARKS 2147745792
+     * }
+     */
+    public static int TAPE_DRIVE_FILEMARKS() {
+        return TAPE_DRIVE_FILEMARKS;
+    }
+    private static final int TAPE_DRIVE_SEQUENTIAL_FMKS = (int)2148007936L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_SEQUENTIAL_FMKS 2148007936
+     * }
+     */
+    public static int TAPE_DRIVE_SEQUENTIAL_FMKS() {
+        return TAPE_DRIVE_SEQUENTIAL_FMKS;
+    }
+    private static final int TAPE_DRIVE_SETMARKS = (int)2148532224L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_SETMARKS 2148532224
+     * }
+     */
+    public static int TAPE_DRIVE_SETMARKS() {
+        return TAPE_DRIVE_SETMARKS;
+    }
+    private static final int TAPE_DRIVE_SEQUENTIAL_SMKS = (int)2149580800L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_SEQUENTIAL_SMKS 2149580800
+     * }
+     */
+    public static int TAPE_DRIVE_SEQUENTIAL_SMKS() {
+        return TAPE_DRIVE_SEQUENTIAL_SMKS;
+    }
+    private static final int TAPE_DRIVE_REVERSE_POSITION = (int)2151677952L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_REVERSE_POSITION 2151677952
+     * }
+     */
+    public static int TAPE_DRIVE_REVERSE_POSITION() {
+        return TAPE_DRIVE_REVERSE_POSITION;
+    }
+    private static final int TAPE_DRIVE_SPACE_IMMEDIATE = (int)2155872256L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_SPACE_IMMEDIATE 2155872256
+     * }
+     */
+    public static int TAPE_DRIVE_SPACE_IMMEDIATE() {
+        return TAPE_DRIVE_SPACE_IMMEDIATE;
+    }
+    private static final int TAPE_DRIVE_WRITE_SETMARKS = (int)2164260864L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_WRITE_SETMARKS 2164260864
+     * }
+     */
+    public static int TAPE_DRIVE_WRITE_SETMARKS() {
+        return TAPE_DRIVE_WRITE_SETMARKS;
+    }
+    private static final int TAPE_DRIVE_WRITE_FILEMARKS = (int)2181038080L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_WRITE_FILEMARKS 2181038080
+     * }
+     */
+    public static int TAPE_DRIVE_WRITE_FILEMARKS() {
+        return TAPE_DRIVE_WRITE_FILEMARKS;
+    }
+    private static final int TAPE_DRIVE_WRITE_SHORT_FMKS = (int)2214592512L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_WRITE_SHORT_FMKS 2214592512
+     * }
+     */
+    public static int TAPE_DRIVE_WRITE_SHORT_FMKS() {
+        return TAPE_DRIVE_WRITE_SHORT_FMKS;
+    }
+    private static final int TAPE_DRIVE_WRITE_LONG_FMKS = (int)2281701376L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_WRITE_LONG_FMKS 2281701376
+     * }
+     */
+    public static int TAPE_DRIVE_WRITE_LONG_FMKS() {
+        return TAPE_DRIVE_WRITE_LONG_FMKS;
+    }
+    private static final int TAPE_DRIVE_WRITE_MARK_IMMED = (int)2415919104L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_WRITE_MARK_IMMED 2415919104
+     * }
+     */
+    public static int TAPE_DRIVE_WRITE_MARK_IMMED() {
+        return TAPE_DRIVE_WRITE_MARK_IMMED;
+    }
+    private static final int TAPE_DRIVE_FORMAT = (int)2684354560L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_FORMAT 2684354560
+     * }
+     */
+    public static int TAPE_DRIVE_FORMAT() {
+        return TAPE_DRIVE_FORMAT;
+    }
+    private static final int TAPE_DRIVE_FORMAT_IMMEDIATE = (int)3221225472L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_FORMAT_IMMEDIATE 3221225472
+     * }
+     */
+    public static int TAPE_DRIVE_FORMAT_IMMEDIATE() {
+        return TAPE_DRIVE_FORMAT_IMMEDIATE;
+    }
+    private static final int TAPE_DRIVE_HIGH_FEATURES = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_DRIVE_HIGH_FEATURES 2147483648
+     * }
+     */
+    public static int TAPE_DRIVE_HIGH_FEATURES() {
+        return TAPE_DRIVE_HIGH_FEATURES;
+    }
+    private static final int TAPE_FIXED_PARTITIONS = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_FIXED_PARTITIONS 0
+     * }
+     */
+    public static int TAPE_FIXED_PARTITIONS() {
+        return TAPE_FIXED_PARTITIONS;
+    }
+    private static final int TAPE_SELECT_PARTITIONS = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_SELECT_PARTITIONS 1
+     * }
+     */
+    public static int TAPE_SELECT_PARTITIONS() {
+        return TAPE_SELECT_PARTITIONS;
+    }
+    private static final int TAPE_INITIATOR_PARTITIONS = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_INITIATOR_PARTITIONS 2
+     * }
+     */
+    public static int TAPE_INITIATOR_PARTITIONS() {
+        return TAPE_INITIATOR_PARTITIONS;
+    }
+    private static final int TAPE_QUERY_DRIVE_PARAMETERS = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_QUERY_DRIVE_PARAMETERS 0
+     * }
+     */
+    public static int TAPE_QUERY_DRIVE_PARAMETERS() {
+        return TAPE_QUERY_DRIVE_PARAMETERS;
+    }
+    private static final int TAPE_QUERY_MEDIA_CAPACITY = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_QUERY_MEDIA_CAPACITY 1
+     * }
+     */
+    public static int TAPE_QUERY_MEDIA_CAPACITY() {
+        return TAPE_QUERY_MEDIA_CAPACITY;
+    }
+    private static final int TAPE_CHECK_FOR_DRIVE_PROBLEM = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_CHECK_FOR_DRIVE_PROBLEM 2
+     * }
+     */
+    public static int TAPE_CHECK_FOR_DRIVE_PROBLEM() {
+        return TAPE_CHECK_FOR_DRIVE_PROBLEM;
+    }
+    private static final int TAPE_QUERY_IO_ERROR_DATA = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_QUERY_IO_ERROR_DATA 3
+     * }
+     */
+    public static int TAPE_QUERY_IO_ERROR_DATA() {
+        return TAPE_QUERY_IO_ERROR_DATA;
+    }
+    private static final int TAPE_QUERY_DEVICE_ERROR_DATA = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define TAPE_QUERY_DEVICE_ERROR_DATA 4
+     * }
+     */
+    public static int TAPE_QUERY_DEVICE_ERROR_DATA() {
+        return TAPE_QUERY_DEVICE_ERROR_DATA;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTIONMANAGER_OBJECT_PATH "\"
+     * }
+     */
+    public static MemorySegment TRANSACTIONMANAGER_OBJECT_PATH() {
+        class Holder {
+            static final MemorySegment TRANSACTIONMANAGER_OBJECT_PATH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("\\");
+        }
+        return Holder.TRANSACTIONMANAGER_OBJECT_PATH;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTION_OBJECT_PATH "\"
+     * }
+     */
+    public static MemorySegment TRANSACTION_OBJECT_PATH() {
+        class Holder {
+            static final MemorySegment TRANSACTION_OBJECT_PATH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("\\");
+        }
+        return Holder.TRANSACTION_OBJECT_PATH;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define ENLISTMENT_OBJECT_PATH "\"
+     * }
+     */
+    public static MemorySegment ENLISTMENT_OBJECT_PATH() {
+        class Holder {
+            static final MemorySegment ENLISTMENT_OBJECT_PATH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("\\");
+        }
+        return Holder.ENLISTMENT_OBJECT_PATH;
+    }
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCE_MANAGER_OBJECT_PATH "\"
+     * }
+     */
+    public static MemorySegment RESOURCE_MANAGER_OBJECT_PATH() {
+        class Holder {
+            static final MemorySegment RESOURCE_MANAGER_OBJECT_PATH
+                = Windows_h.LIBRARY_ARENA.allocateFrom("\\");
+        }
+        return Holder.RESOURCE_MANAGER_OBJECT_PATH;
+    }
+    private static final long TRANSACTIONMANAGER_OBJECT_NAME_LENGTH_IN_BYTES = 118L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTIONMANAGER_OBJECT_NAME_LENGTH_IN_BYTES 118
+     * }
+     */
+    public static long TRANSACTIONMANAGER_OBJECT_NAME_LENGTH_IN_BYTES() {
+        return TRANSACTIONMANAGER_OBJECT_NAME_LENGTH_IN_BYTES;
+    }
+    private static final long TRANSACTION_OBJECT_NAME_LENGTH_IN_BYTES = 104L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTION_OBJECT_NAME_LENGTH_IN_BYTES 104
+     * }
+     */
+    public static long TRANSACTION_OBJECT_NAME_LENGTH_IN_BYTES() {
+        return TRANSACTION_OBJECT_NAME_LENGTH_IN_BYTES;
+    }
+    private static final long ENLISTMENT_OBJECT_NAME_LENGTH_IN_BYTES = 102L;
+    /**
+     * {@snippet lang=c :
+     * #define ENLISTMENT_OBJECT_NAME_LENGTH_IN_BYTES 102
+     * }
+     */
+    public static long ENLISTMENT_OBJECT_NAME_LENGTH_IN_BYTES() {
+        return ENLISTMENT_OBJECT_NAME_LENGTH_IN_BYTES;
+    }
+    private static final long RESOURCE_MANAGER_OBJECT_NAME_LENGTH_IN_BYTES = 112L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCE_MANAGER_OBJECT_NAME_LENGTH_IN_BYTES 112
+     * }
+     */
+    public static long RESOURCE_MANAGER_OBJECT_NAME_LENGTH_IN_BYTES() {
+        return RESOURCE_MANAGER_OBJECT_NAME_LENGTH_IN_BYTES;
+    }
+    private static final int TRANSACTIONMANAGER_QUERY_INFORMATION = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTIONMANAGER_QUERY_INFORMATION 1
+     * }
+     */
+    public static int TRANSACTIONMANAGER_QUERY_INFORMATION() {
+        return TRANSACTIONMANAGER_QUERY_INFORMATION;
+    }
+    private static final int TRANSACTIONMANAGER_SET_INFORMATION = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTIONMANAGER_SET_INFORMATION 2
+     * }
+     */
+    public static int TRANSACTIONMANAGER_SET_INFORMATION() {
+        return TRANSACTIONMANAGER_SET_INFORMATION;
+    }
+    private static final int TRANSACTIONMANAGER_RECOVER = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTIONMANAGER_RECOVER 4
+     * }
+     */
+    public static int TRANSACTIONMANAGER_RECOVER() {
+        return TRANSACTIONMANAGER_RECOVER;
+    }
+    private static final int TRANSACTIONMANAGER_RENAME = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTIONMANAGER_RENAME 8
+     * }
+     */
+    public static int TRANSACTIONMANAGER_RENAME() {
+        return TRANSACTIONMANAGER_RENAME;
+    }
+    private static final int TRANSACTIONMANAGER_CREATE_RM = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTIONMANAGER_CREATE_RM 16
+     * }
+     */
+    public static int TRANSACTIONMANAGER_CREATE_RM() {
+        return TRANSACTIONMANAGER_CREATE_RM;
+    }
+    private static final int TRANSACTIONMANAGER_BIND_TRANSACTION = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTIONMANAGER_BIND_TRANSACTION 32
+     * }
+     */
+    public static int TRANSACTIONMANAGER_BIND_TRANSACTION() {
+        return TRANSACTIONMANAGER_BIND_TRANSACTION;
+    }
+    private static final int TRANSACTIONMANAGER_GENERIC_READ = (int)131073L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTIONMANAGER_GENERIC_READ 131073
+     * }
+     */
+    public static int TRANSACTIONMANAGER_GENERIC_READ() {
+        return TRANSACTIONMANAGER_GENERIC_READ;
+    }
+    private static final int TRANSACTIONMANAGER_GENERIC_WRITE = (int)131102L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTIONMANAGER_GENERIC_WRITE 131102
+     * }
+     */
+    public static int TRANSACTIONMANAGER_GENERIC_WRITE() {
+        return TRANSACTIONMANAGER_GENERIC_WRITE;
+    }
+    private static final int TRANSACTIONMANAGER_GENERIC_EXECUTE = (int)131072L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTIONMANAGER_GENERIC_EXECUTE 131072
+     * }
+     */
+    public static int TRANSACTIONMANAGER_GENERIC_EXECUTE() {
+        return TRANSACTIONMANAGER_GENERIC_EXECUTE;
+    }
+    private static final int TRANSACTIONMANAGER_ALL_ACCESS = (int)983103L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTIONMANAGER_ALL_ACCESS 983103
+     * }
+     */
+    public static int TRANSACTIONMANAGER_ALL_ACCESS() {
+        return TRANSACTIONMANAGER_ALL_ACCESS;
+    }
+    private static final int TRANSACTION_QUERY_INFORMATION = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTION_QUERY_INFORMATION 1
+     * }
+     */
+    public static int TRANSACTION_QUERY_INFORMATION() {
+        return TRANSACTION_QUERY_INFORMATION;
+    }
+    private static final int TRANSACTION_SET_INFORMATION = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTION_SET_INFORMATION 2
+     * }
+     */
+    public static int TRANSACTION_SET_INFORMATION() {
+        return TRANSACTION_SET_INFORMATION;
+    }
+    private static final int TRANSACTION_ENLIST = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTION_ENLIST 4
+     * }
+     */
+    public static int TRANSACTION_ENLIST() {
+        return TRANSACTION_ENLIST;
+    }
+    private static final int TRANSACTION_COMMIT = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTION_COMMIT 8
+     * }
+     */
+    public static int TRANSACTION_COMMIT() {
+        return TRANSACTION_COMMIT;
+    }
+    private static final int TRANSACTION_ROLLBACK = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTION_ROLLBACK 16
+     * }
+     */
+    public static int TRANSACTION_ROLLBACK() {
+        return TRANSACTION_ROLLBACK;
+    }
+    private static final int TRANSACTION_PROPAGATE = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTION_PROPAGATE 32
+     * }
+     */
+    public static int TRANSACTION_PROPAGATE() {
+        return TRANSACTION_PROPAGATE;
+    }
+    private static final int TRANSACTION_RIGHT_RESERVED1 = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTION_RIGHT_RESERVED1 64
+     * }
+     */
+    public static int TRANSACTION_RIGHT_RESERVED1() {
+        return TRANSACTION_RIGHT_RESERVED1;
+    }
+    private static final int TRANSACTION_GENERIC_READ = (int)1179649L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTION_GENERIC_READ 1179649
+     * }
+     */
+    public static int TRANSACTION_GENERIC_READ() {
+        return TRANSACTION_GENERIC_READ;
+    }
+    private static final int TRANSACTION_GENERIC_WRITE = (int)1179710L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTION_GENERIC_WRITE 1179710
+     * }
+     */
+    public static int TRANSACTION_GENERIC_WRITE() {
+        return TRANSACTION_GENERIC_WRITE;
+    }
+    private static final int TRANSACTION_GENERIC_EXECUTE = (int)1179672L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTION_GENERIC_EXECUTE 1179672
+     * }
+     */
+    public static int TRANSACTION_GENERIC_EXECUTE() {
+        return TRANSACTION_GENERIC_EXECUTE;
+    }
+    private static final int TRANSACTION_ALL_ACCESS = (int)2031679L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTION_ALL_ACCESS 2031679
+     * }
+     */
+    public static int TRANSACTION_ALL_ACCESS() {
+        return TRANSACTION_ALL_ACCESS;
+    }
+    private static final int TRANSACTION_RESOURCE_MANAGER_RIGHTS = (int)1179703L;
+    /**
+     * {@snippet lang=c :
+     * #define TRANSACTION_RESOURCE_MANAGER_RIGHTS 1179703
+     * }
+     */
+    public static int TRANSACTION_RESOURCE_MANAGER_RIGHTS() {
+        return TRANSACTION_RESOURCE_MANAGER_RIGHTS;
+    }
+    private static final int RESOURCEMANAGER_QUERY_INFORMATION = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCEMANAGER_QUERY_INFORMATION 1
+     * }
+     */
+    public static int RESOURCEMANAGER_QUERY_INFORMATION() {
+        return RESOURCEMANAGER_QUERY_INFORMATION;
+    }
+    private static final int RESOURCEMANAGER_SET_INFORMATION = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCEMANAGER_SET_INFORMATION 2
+     * }
+     */
+    public static int RESOURCEMANAGER_SET_INFORMATION() {
+        return RESOURCEMANAGER_SET_INFORMATION;
+    }
+    private static final int RESOURCEMANAGER_RECOVER = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCEMANAGER_RECOVER 4
+     * }
+     */
+    public static int RESOURCEMANAGER_RECOVER() {
+        return RESOURCEMANAGER_RECOVER;
+    }
+    private static final int RESOURCEMANAGER_ENLIST = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCEMANAGER_ENLIST 8
+     * }
+     */
+    public static int RESOURCEMANAGER_ENLIST() {
+        return RESOURCEMANAGER_ENLIST;
+    }
+    private static final int RESOURCEMANAGER_GET_NOTIFICATION = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCEMANAGER_GET_NOTIFICATION 16
+     * }
+     */
+    public static int RESOURCEMANAGER_GET_NOTIFICATION() {
+        return RESOURCEMANAGER_GET_NOTIFICATION;
+    }
+    private static final int RESOURCEMANAGER_REGISTER_PROTOCOL = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCEMANAGER_REGISTER_PROTOCOL 32
+     * }
+     */
+    public static int RESOURCEMANAGER_REGISTER_PROTOCOL() {
+        return RESOURCEMANAGER_REGISTER_PROTOCOL;
+    }
+    private static final int RESOURCEMANAGER_COMPLETE_PROPAGATION = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCEMANAGER_COMPLETE_PROPAGATION 64
+     * }
+     */
+    public static int RESOURCEMANAGER_COMPLETE_PROPAGATION() {
+        return RESOURCEMANAGER_COMPLETE_PROPAGATION;
+    }
+    private static final int RESOURCEMANAGER_GENERIC_READ = (int)1179649L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCEMANAGER_GENERIC_READ 1179649
+     * }
+     */
+    public static int RESOURCEMANAGER_GENERIC_READ() {
+        return RESOURCEMANAGER_GENERIC_READ;
+    }
+    private static final int RESOURCEMANAGER_GENERIC_WRITE = (int)1179774L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCEMANAGER_GENERIC_WRITE 1179774
+     * }
+     */
+    public static int RESOURCEMANAGER_GENERIC_WRITE() {
+        return RESOURCEMANAGER_GENERIC_WRITE;
+    }
+    private static final int RESOURCEMANAGER_GENERIC_EXECUTE = (int)1179740L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCEMANAGER_GENERIC_EXECUTE 1179740
+     * }
+     */
+    public static int RESOURCEMANAGER_GENERIC_EXECUTE() {
+        return RESOURCEMANAGER_GENERIC_EXECUTE;
+    }
+    private static final int RESOURCEMANAGER_ALL_ACCESS = (int)2031743L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCEMANAGER_ALL_ACCESS 2031743
+     * }
+     */
+    public static int RESOURCEMANAGER_ALL_ACCESS() {
+        return RESOURCEMANAGER_ALL_ACCESS;
+    }
+    private static final int ENLISTMENT_QUERY_INFORMATION = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define ENLISTMENT_QUERY_INFORMATION 1
+     * }
+     */
+    public static int ENLISTMENT_QUERY_INFORMATION() {
+        return ENLISTMENT_QUERY_INFORMATION;
+    }
+    private static final int ENLISTMENT_SET_INFORMATION = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define ENLISTMENT_SET_INFORMATION 2
+     * }
+     */
+    public static int ENLISTMENT_SET_INFORMATION() {
+        return ENLISTMENT_SET_INFORMATION;
+    }
+    private static final int ENLISTMENT_RECOVER = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define ENLISTMENT_RECOVER 4
+     * }
+     */
+    public static int ENLISTMENT_RECOVER() {
+        return ENLISTMENT_RECOVER;
+    }
+    private static final int ENLISTMENT_SUBORDINATE_RIGHTS = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define ENLISTMENT_SUBORDINATE_RIGHTS 8
+     * }
+     */
+    public static int ENLISTMENT_SUBORDINATE_RIGHTS() {
+        return ENLISTMENT_SUBORDINATE_RIGHTS;
+    }
+    private static final int ENLISTMENT_SUPERIOR_RIGHTS = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define ENLISTMENT_SUPERIOR_RIGHTS 16
+     * }
+     */
+    public static int ENLISTMENT_SUPERIOR_RIGHTS() {
+        return ENLISTMENT_SUPERIOR_RIGHTS;
+    }
+    private static final int ENLISTMENT_GENERIC_READ = (int)131073L;
+    /**
+     * {@snippet lang=c :
+     * #define ENLISTMENT_GENERIC_READ 131073
+     * }
+     */
+    public static int ENLISTMENT_GENERIC_READ() {
+        return ENLISTMENT_GENERIC_READ;
+    }
+    private static final int ENLISTMENT_GENERIC_WRITE = (int)131102L;
+    /**
+     * {@snippet lang=c :
+     * #define ENLISTMENT_GENERIC_WRITE 131102
+     * }
+     */
+    public static int ENLISTMENT_GENERIC_WRITE() {
+        return ENLISTMENT_GENERIC_WRITE;
+    }
+    private static final int ENLISTMENT_GENERIC_EXECUTE = (int)131100L;
+    /**
+     * {@snippet lang=c :
+     * #define ENLISTMENT_GENERIC_EXECUTE 131100
+     * }
+     */
+    public static int ENLISTMENT_GENERIC_EXECUTE() {
+        return ENLISTMENT_GENERIC_EXECUTE;
+    }
+    private static final int ENLISTMENT_ALL_ACCESS = (int)983071L;
+    /**
+     * {@snippet lang=c :
+     * #define ENLISTMENT_ALL_ACCESS 983071
+     * }
+     */
+    public static int ENLISTMENT_ALL_ACCESS() {
+        return ENLISTMENT_ALL_ACCESS;
+    }
+    private static final int ACTIVATION_CONTEXT_SECTION_ASSEMBLY_INFORMATION = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_SECTION_ASSEMBLY_INFORMATION 1
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_SECTION_ASSEMBLY_INFORMATION() {
+        return ACTIVATION_CONTEXT_SECTION_ASSEMBLY_INFORMATION;
+    }
+    private static final int ACTIVATION_CONTEXT_SECTION_DLL_REDIRECTION = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_SECTION_DLL_REDIRECTION 2
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_SECTION_DLL_REDIRECTION() {
+        return ACTIVATION_CONTEXT_SECTION_DLL_REDIRECTION;
+    }
+    private static final int ACTIVATION_CONTEXT_SECTION_WINDOW_CLASS_REDIRECTION = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_SECTION_WINDOW_CLASS_REDIRECTION 3
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_SECTION_WINDOW_CLASS_REDIRECTION() {
+        return ACTIVATION_CONTEXT_SECTION_WINDOW_CLASS_REDIRECTION;
+    }
+    private static final int ACTIVATION_CONTEXT_SECTION_COM_SERVER_REDIRECTION = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_SECTION_COM_SERVER_REDIRECTION 4
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_SECTION_COM_SERVER_REDIRECTION() {
+        return ACTIVATION_CONTEXT_SECTION_COM_SERVER_REDIRECTION;
+    }
+    private static final int ACTIVATION_CONTEXT_SECTION_COM_INTERFACE_REDIRECTION = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_SECTION_COM_INTERFACE_REDIRECTION 5
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_SECTION_COM_INTERFACE_REDIRECTION() {
+        return ACTIVATION_CONTEXT_SECTION_COM_INTERFACE_REDIRECTION;
+    }
+    private static final int ACTIVATION_CONTEXT_SECTION_COM_TYPE_LIBRARY_REDIRECTION = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_SECTION_COM_TYPE_LIBRARY_REDIRECTION 6
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_SECTION_COM_TYPE_LIBRARY_REDIRECTION() {
+        return ACTIVATION_CONTEXT_SECTION_COM_TYPE_LIBRARY_REDIRECTION;
+    }
+    private static final int ACTIVATION_CONTEXT_SECTION_COM_PROGID_REDIRECTION = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_SECTION_COM_PROGID_REDIRECTION 7
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_SECTION_COM_PROGID_REDIRECTION() {
+        return ACTIVATION_CONTEXT_SECTION_COM_PROGID_REDIRECTION;
+    }
+    private static final int ACTIVATION_CONTEXT_SECTION_GLOBAL_OBJECT_RENAME_TABLE = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_SECTION_GLOBAL_OBJECT_RENAME_TABLE 8
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_SECTION_GLOBAL_OBJECT_RENAME_TABLE() {
+        return ACTIVATION_CONTEXT_SECTION_GLOBAL_OBJECT_RENAME_TABLE;
+    }
+    private static final int ACTIVATION_CONTEXT_SECTION_CLR_SURROGATES = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_SECTION_CLR_SURROGATES 9
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_SECTION_CLR_SURROGATES() {
+        return ACTIVATION_CONTEXT_SECTION_CLR_SURROGATES;
+    }
+    private static final int ACTIVATION_CONTEXT_SECTION_APPLICATION_SETTINGS = (int)10L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_SECTION_APPLICATION_SETTINGS 10
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_SECTION_APPLICATION_SETTINGS() {
+        return ACTIVATION_CONTEXT_SECTION_APPLICATION_SETTINGS;
+    }
+    private static final int ACTIVATION_CONTEXT_SECTION_COMPATIBILITY_INFO = (int)11L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_SECTION_COMPATIBILITY_INFO 11
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_SECTION_COMPATIBILITY_INFO() {
+        return ACTIVATION_CONTEXT_SECTION_COMPATIBILITY_INFO;
+    }
+    private static final int ACTIVATION_CONTEXT_SECTION_WINRT_ACTIVATABLE_CLASSES = (int)12L;
+    /**
+     * {@snippet lang=c :
+     * #define ACTIVATION_CONTEXT_SECTION_WINRT_ACTIVATABLE_CLASSES 12
+     * }
+     */
+    public static int ACTIVATION_CONTEXT_SECTION_WINRT_ACTIVATABLE_CLASSES() {
+        return ACTIVATION_CONTEXT_SECTION_WINRT_ACTIVATABLE_CLASSES;
+    }
+    private static final int HFILE_ERROR = (int)-1L;
+    /**
+     * {@snippet lang=c :
+     * #define HFILE_ERROR -1
+     * }
+     */
+    public static int HFILE_ERROR() {
+        return HFILE_ERROR;
+    }
+    private static final int DM_IN_BUFFER = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define DM_IN_BUFFER 8
+     * }
+     */
+    public static int DM_IN_BUFFER() {
+        return DM_IN_BUFFER;
+    }
+    private static final int DM_IN_PROMPT = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define DM_IN_PROMPT 4
+     * }
+     */
+    public static int DM_IN_PROMPT() {
+        return DM_IN_PROMPT;
+    }
+    private static final int DM_OUT_BUFFER = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define DM_OUT_BUFFER 2
+     * }
+     */
+    public static int DM_OUT_BUFFER() {
+        return DM_OUT_BUFFER;
+    }
+    private static final int DM_OUT_DEFAULT = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define DM_OUT_DEFAULT 1
+     * }
+     */
+    public static int DM_OUT_DEFAULT() {
+        return DM_OUT_DEFAULT;
+    }
+    private static final MemorySegment DPI_AWARENESS_CONTEXT_UNAWARE = MemorySegment.ofAddress(-1L);
+    /**
+     * {@snippet lang=c :
+     * #define DPI_AWARENESS_CONTEXT_UNAWARE (void*) -1
+     * }
+     */
+    public static MemorySegment DPI_AWARENESS_CONTEXT_UNAWARE() {
+        return DPI_AWARENESS_CONTEXT_UNAWARE;
+    }
+    private static final MemorySegment DPI_AWARENESS_CONTEXT_SYSTEM_AWARE = MemorySegment.ofAddress(-2L);
+    /**
+     * {@snippet lang=c :
+     * #define DPI_AWARENESS_CONTEXT_SYSTEM_AWARE (void*) -2
+     * }
+     */
+    public static MemorySegment DPI_AWARENESS_CONTEXT_SYSTEM_AWARE() {
+        return DPI_AWARENESS_CONTEXT_SYSTEM_AWARE;
+    }
+    private static final MemorySegment DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE = MemorySegment.ofAddress(-3L);
+    /**
+     * {@snippet lang=c :
+     * #define DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE (void*) -3
+     * }
+     */
+    public static MemorySegment DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE() {
+        return DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE;
+    }
+    private static final MemorySegment DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = MemorySegment.ofAddress(-4L);
+    /**
+     * {@snippet lang=c :
+     * #define DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 (void*) -4
+     * }
+     */
+    public static MemorySegment DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2() {
+        return DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2;
+    }
+    private static final MemorySegment DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED = MemorySegment.ofAddress(-5L);
+    /**
+     * {@snippet lang=c :
+     * #define DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED (void*) -5
+     * }
+     */
+    public static MemorySegment DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED() {
+        return DPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED;
+    }
+    private static final int STILL_ACTIVE = (int)259L;
+    /**
+     * {@snippet lang=c :
+     * #define STILL_ACTIVE 259
+     * }
+     */
+    public static int STILL_ACTIVE() {
+        return STILL_ACTIVE;
+    }
+    private static final int EXCEPTION_ACCESS_VIOLATION = (int)3221225477L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_ACCESS_VIOLATION 3221225477
+     * }
+     */
+    public static int EXCEPTION_ACCESS_VIOLATION() {
+        return EXCEPTION_ACCESS_VIOLATION;
+    }
+    private static final int EXCEPTION_DATATYPE_MISALIGNMENT = (int)2147483650L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_DATATYPE_MISALIGNMENT 2147483650
+     * }
+     */
+    public static int EXCEPTION_DATATYPE_MISALIGNMENT() {
+        return EXCEPTION_DATATYPE_MISALIGNMENT;
+    }
+    private static final int EXCEPTION_BREAKPOINT = (int)2147483651L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_BREAKPOINT 2147483651
+     * }
+     */
+    public static int EXCEPTION_BREAKPOINT() {
+        return EXCEPTION_BREAKPOINT;
+    }
+    private static final int EXCEPTION_SINGLE_STEP = (int)2147483652L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_SINGLE_STEP 2147483652
+     * }
+     */
+    public static int EXCEPTION_SINGLE_STEP() {
+        return EXCEPTION_SINGLE_STEP;
+    }
+    private static final int EXCEPTION_ARRAY_BOUNDS_EXCEEDED = (int)3221225612L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_ARRAY_BOUNDS_EXCEEDED 3221225612
+     * }
+     */
+    public static int EXCEPTION_ARRAY_BOUNDS_EXCEEDED() {
+        return EXCEPTION_ARRAY_BOUNDS_EXCEEDED;
+    }
+    private static final int EXCEPTION_FLT_DENORMAL_OPERAND = (int)3221225613L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_FLT_DENORMAL_OPERAND 3221225613
+     * }
+     */
+    public static int EXCEPTION_FLT_DENORMAL_OPERAND() {
+        return EXCEPTION_FLT_DENORMAL_OPERAND;
+    }
+    private static final int EXCEPTION_FLT_DIVIDE_BY_ZERO = (int)3221225614L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_FLT_DIVIDE_BY_ZERO 3221225614
+     * }
+     */
+    public static int EXCEPTION_FLT_DIVIDE_BY_ZERO() {
+        return EXCEPTION_FLT_DIVIDE_BY_ZERO;
+    }
+    private static final int EXCEPTION_FLT_INEXACT_RESULT = (int)3221225615L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_FLT_INEXACT_RESULT 3221225615
+     * }
+     */
+    public static int EXCEPTION_FLT_INEXACT_RESULT() {
+        return EXCEPTION_FLT_INEXACT_RESULT;
+    }
+    private static final int EXCEPTION_FLT_INVALID_OPERATION = (int)3221225616L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_FLT_INVALID_OPERATION 3221225616
+     * }
+     */
+    public static int EXCEPTION_FLT_INVALID_OPERATION() {
+        return EXCEPTION_FLT_INVALID_OPERATION;
+    }
+    private static final int EXCEPTION_FLT_OVERFLOW = (int)3221225617L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_FLT_OVERFLOW 3221225617
+     * }
+     */
+    public static int EXCEPTION_FLT_OVERFLOW() {
+        return EXCEPTION_FLT_OVERFLOW;
+    }
+    private static final int EXCEPTION_FLT_STACK_CHECK = (int)3221225618L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_FLT_STACK_CHECK 3221225618
+     * }
+     */
+    public static int EXCEPTION_FLT_STACK_CHECK() {
+        return EXCEPTION_FLT_STACK_CHECK;
+    }
+    private static final int EXCEPTION_FLT_UNDERFLOW = (int)3221225619L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_FLT_UNDERFLOW 3221225619
+     * }
+     */
+    public static int EXCEPTION_FLT_UNDERFLOW() {
+        return EXCEPTION_FLT_UNDERFLOW;
+    }
+    private static final int EXCEPTION_INT_DIVIDE_BY_ZERO = (int)3221225620L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_INT_DIVIDE_BY_ZERO 3221225620
+     * }
+     */
+    public static int EXCEPTION_INT_DIVIDE_BY_ZERO() {
+        return EXCEPTION_INT_DIVIDE_BY_ZERO;
+    }
+    private static final int EXCEPTION_INT_OVERFLOW = (int)3221225621L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_INT_OVERFLOW 3221225621
+     * }
+     */
+    public static int EXCEPTION_INT_OVERFLOW() {
+        return EXCEPTION_INT_OVERFLOW;
+    }
+    private static final int EXCEPTION_PRIV_INSTRUCTION = (int)3221225622L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_PRIV_INSTRUCTION 3221225622
+     * }
+     */
+    public static int EXCEPTION_PRIV_INSTRUCTION() {
+        return EXCEPTION_PRIV_INSTRUCTION;
+    }
+    private static final int EXCEPTION_IN_PAGE_ERROR = (int)3221225478L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_IN_PAGE_ERROR 3221225478
+     * }
+     */
+    public static int EXCEPTION_IN_PAGE_ERROR() {
+        return EXCEPTION_IN_PAGE_ERROR;
+    }
+    private static final int EXCEPTION_ILLEGAL_INSTRUCTION = (int)3221225501L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_ILLEGAL_INSTRUCTION 3221225501
+     * }
+     */
+    public static int EXCEPTION_ILLEGAL_INSTRUCTION() {
+        return EXCEPTION_ILLEGAL_INSTRUCTION;
+    }
+    private static final int EXCEPTION_NONCONTINUABLE_EXCEPTION = (int)3221225509L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_NONCONTINUABLE_EXCEPTION 3221225509
+     * }
+     */
+    public static int EXCEPTION_NONCONTINUABLE_EXCEPTION() {
+        return EXCEPTION_NONCONTINUABLE_EXCEPTION;
+    }
+    private static final int EXCEPTION_STACK_OVERFLOW = (int)3221225725L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_STACK_OVERFLOW 3221225725
+     * }
+     */
+    public static int EXCEPTION_STACK_OVERFLOW() {
+        return EXCEPTION_STACK_OVERFLOW;
+    }
+    private static final int EXCEPTION_INVALID_DISPOSITION = (int)3221225510L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_INVALID_DISPOSITION 3221225510
+     * }
+     */
+    public static int EXCEPTION_INVALID_DISPOSITION() {
+        return EXCEPTION_INVALID_DISPOSITION;
+    }
+    private static final int EXCEPTION_GUARD_PAGE = (int)2147483649L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_GUARD_PAGE 2147483649
+     * }
+     */
+    public static int EXCEPTION_GUARD_PAGE() {
+        return EXCEPTION_GUARD_PAGE;
+    }
+    private static final int EXCEPTION_INVALID_HANDLE = (int)3221225480L;
+    /**
+     * {@snippet lang=c :
+     * #define EXCEPTION_INVALID_HANDLE 3221225480
+     * }
+     */
+    public static int EXCEPTION_INVALID_HANDLE() {
+        return EXCEPTION_INVALID_HANDLE;
+    }
+    private static final int CONTROL_C_EXIT = (int)3221225786L;
+    /**
+     * {@snippet lang=c :
+     * #define CONTROL_C_EXIT 3221225786
+     * }
+     */
+    public static int CONTROL_C_EXIT() {
+        return CONTROL_C_EXIT;
+    }
+    private static final int LHND = (int)66L;
+    /**
+     * {@snippet lang=c :
+     * #define LHND 66
+     * }
+     */
+    public static int LHND() {
+        return LHND;
+    }
+    private static final int LPTR = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define LPTR 64
+     * }
+     */
+    public static int LPTR() {
+        return LPTR;
+    }
+    private static final int NONZEROLHND = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define NONZEROLHND 2
+     * }
+     */
+    public static int NONZEROLHND() {
+        return NONZEROLHND;
+    }
+    private static final int NONZEROLPTR = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define NONZEROLPTR 0
+     * }
+     */
+    public static int NONZEROLPTR() {
+        return NONZEROLPTR;
+    }
+    private static final int NUMA_NO_PREFERRED_NODE = (int)4294967295L;
+    /**
+     * {@snippet lang=c :
+     * #define NUMA_NO_PREFERRED_NODE 4294967295
+     * }
+     */
+    public static int NUMA_NO_PREFERRED_NODE() {
+        return NUMA_NO_PREFERRED_NODE;
+    }
+    private static final int INVALID_FILE_SIZE = (int)4294967295L;
+    /**
+     * {@snippet lang=c :
+     * #define INVALID_FILE_SIZE 4294967295
+     * }
+     */
+    public static int INVALID_FILE_SIZE() {
+        return INVALID_FILE_SIZE;
+    }
+    private static final int INVALID_SET_FILE_POINTER = (int)4294967295L;
+    /**
+     * {@snippet lang=c :
+     * #define INVALID_SET_FILE_POINTER 4294967295
+     * }
+     */
+    public static int INVALID_SET_FILE_POINTER() {
+        return INVALID_SET_FILE_POINTER;
+    }
+    private static final int INVALID_FILE_ATTRIBUTES = (int)4294967295L;
+    /**
+     * {@snippet lang=c :
+     * #define INVALID_FILE_ATTRIBUTES 4294967295
+     * }
+     */
+    public static int INVALID_FILE_ATTRIBUTES() {
+        return INVALID_FILE_ATTRIBUTES;
+    }
+    private static final MemorySegment INVALID_HANDLE_VALUE = MemorySegment.ofAddress(-1L);
+    /**
+     * {@snippet lang=c :
+     * #define INVALID_HANDLE_VALUE (void*) -1
+     * }
+     */
+    public static MemorySegment INVALID_HANDLE_VALUE() {
+        return INVALID_HANDLE_VALUE;
+    }
+    private static final int FLS_OUT_OF_INDEXES = (int)4294967295L;
+    /**
+     * {@snippet lang=c :
+     * #define FLS_OUT_OF_INDEXES 4294967295
+     * }
+     */
+    public static int FLS_OUT_OF_INDEXES() {
+        return FLS_OUT_OF_INDEXES;
+    }
+    private static final int INIT_ONCE_CHECK_ONLY = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define INIT_ONCE_CHECK_ONLY 1
+     * }
+     */
+    public static int INIT_ONCE_CHECK_ONLY() {
+        return INIT_ONCE_CHECK_ONLY;
+    }
+    private static final int INIT_ONCE_ASYNC = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define INIT_ONCE_ASYNC 2
+     * }
+     */
+    public static int INIT_ONCE_ASYNC() {
+        return INIT_ONCE_ASYNC;
+    }
+    private static final int INIT_ONCE_INIT_FAILED = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define INIT_ONCE_INIT_FAILED 4
+     * }
+     */
+    public static int INIT_ONCE_INIT_FAILED() {
+        return INIT_ONCE_INIT_FAILED;
+    }
+    private static final int INIT_ONCE_CTX_RESERVED_BITS = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define INIT_ONCE_CTX_RESERVED_BITS 2
+     * }
+     */
+    public static int INIT_ONCE_CTX_RESERVED_BITS() {
+        return INIT_ONCE_CTX_RESERVED_BITS;
+    }
+    private static final int CONDITION_VARIABLE_LOCKMODE_SHARED = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CONDITION_VARIABLE_LOCKMODE_SHARED 1
+     * }
+     */
+    public static int CONDITION_VARIABLE_LOCKMODE_SHARED() {
+        return CONDITION_VARIABLE_LOCKMODE_SHARED;
+    }
+    private static final int MUTEX_MODIFY_STATE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define MUTEX_MODIFY_STATE 1
+     * }
+     */
+    public static int MUTEX_MODIFY_STATE() {
+        return MUTEX_MODIFY_STATE;
+    }
+    private static final int MUTEX_ALL_ACCESS = (int)2031617L;
+    /**
+     * {@snippet lang=c :
+     * #define MUTEX_ALL_ACCESS 2031617
+     * }
+     */
+    public static int MUTEX_ALL_ACCESS() {
+        return MUTEX_ALL_ACCESS;
+    }
+    private static final int TLS_OUT_OF_INDEXES = (int)4294967295L;
+    /**
+     * {@snippet lang=c :
+     * #define TLS_OUT_OF_INDEXES 4294967295
+     * }
+     */
+    public static int TLS_OUT_OF_INDEXES() {
+        return TLS_OUT_OF_INDEXES;
+    }
+    private static final int PROCESS_AFFINITY_ENABLE_AUTO_UPDATE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_AFFINITY_ENABLE_AUTO_UPDATE 1
+     * }
+     */
+    public static int PROCESS_AFFINITY_ENABLE_AUTO_UPDATE() {
+        return PROCESS_AFFINITY_ENABLE_AUTO_UPDATE;
+    }
+    private static final int THREAD_POWER_THROTTLING_VALID_FLAGS = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_POWER_THROTTLING_VALID_FLAGS 1
+     * }
+     */
+    public static int THREAD_POWER_THROTTLING_VALID_FLAGS() {
+        return THREAD_POWER_THROTTLING_VALID_FLAGS;
+    }
+    private static final int PROCESS_POWER_THROTTLING_VALID_FLAGS = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_POWER_THROTTLING_VALID_FLAGS 5
+     * }
+     */
+    public static int PROCESS_POWER_THROTTLING_VALID_FLAGS() {
+        return PROCESS_POWER_THROTTLING_VALID_FLAGS;
+    }
+    private static final int PROCESS_LEAP_SECOND_INFO_VALID_FLAGS = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define PROCESS_LEAP_SECOND_INFO_VALID_FLAGS 1
+     * }
+     */
+    public static int PROCESS_LEAP_SECOND_INFO_VALID_FLAGS() {
+        return PROCESS_LEAP_SECOND_INFO_VALID_FLAGS;
+    }
+    private static final int FILE_MAP_WRITE = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_MAP_WRITE 2
+     * }
+     */
+    public static int FILE_MAP_WRITE() {
+        return FILE_MAP_WRITE;
+    }
+    private static final int FILE_MAP_READ = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_MAP_READ 4
+     * }
+     */
+    public static int FILE_MAP_READ() {
+        return FILE_MAP_READ;
+    }
+    private static final int FILE_MAP_ALL_ACCESS = (int)983071L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_MAP_ALL_ACCESS 983071
+     * }
+     */
+    public static int FILE_MAP_ALL_ACCESS() {
+        return FILE_MAP_ALL_ACCESS;
+    }
+    private static final int FILE_MAP_EXECUTE = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_MAP_EXECUTE 32
+     * }
+     */
+    public static int FILE_MAP_EXECUTE() {
+        return FILE_MAP_EXECUTE;
+    }
+    private static final int FILE_MAP_RESERVE = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_MAP_RESERVE 2147483648
+     * }
+     */
+    public static int FILE_MAP_RESERVE() {
+        return FILE_MAP_RESERVE;
+    }
+    private static final int FIND_RESOURCE_DIRECTORY_TYPES = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define FIND_RESOURCE_DIRECTORY_TYPES 256
+     * }
+     */
+    public static int FIND_RESOURCE_DIRECTORY_TYPES() {
+        return FIND_RESOURCE_DIRECTORY_TYPES;
+    }
+    private static final int FIND_RESOURCE_DIRECTORY_NAMES = (int)512L;
+    /**
+     * {@snippet lang=c :
+     * #define FIND_RESOURCE_DIRECTORY_NAMES 512
+     * }
+     */
+    public static int FIND_RESOURCE_DIRECTORY_NAMES() {
+        return FIND_RESOURCE_DIRECTORY_NAMES;
+    }
+    private static final int FIND_RESOURCE_DIRECTORY_LANGUAGES = (int)1024L;
+    /**
+     * {@snippet lang=c :
+     * #define FIND_RESOURCE_DIRECTORY_LANGUAGES 1024
+     * }
+     */
+    public static int FIND_RESOURCE_DIRECTORY_LANGUAGES() {
+        return FIND_RESOURCE_DIRECTORY_LANGUAGES;
+    }
+    private static final int RESOURCE_ENUM_LN = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCE_ENUM_LN 1
+     * }
+     */
+    public static int RESOURCE_ENUM_LN() {
+        return RESOURCE_ENUM_LN;
+    }
+    private static final int RESOURCE_ENUM_MUI = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCE_ENUM_MUI 2
+     * }
+     */
+    public static int RESOURCE_ENUM_MUI() {
+        return RESOURCE_ENUM_MUI;
+    }
+    private static final int RESOURCE_ENUM_MUI_SYSTEM = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCE_ENUM_MUI_SYSTEM 4
+     * }
+     */
+    public static int RESOURCE_ENUM_MUI_SYSTEM() {
+        return RESOURCE_ENUM_MUI_SYSTEM;
+    }
+    private static final int RESOURCE_ENUM_VALIDATE = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCE_ENUM_VALIDATE 8
+     * }
+     */
+    public static int RESOURCE_ENUM_VALIDATE() {
+        return RESOURCE_ENUM_VALIDATE;
+    }
+    private static final int RESOURCE_ENUM_MODULE_EXACT = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define RESOURCE_ENUM_MODULE_EXACT 16
+     * }
+     */
+    public static int RESOURCE_ENUM_MODULE_EXACT() {
+        return RESOURCE_ENUM_MODULE_EXACT;
+    }
+    private static final int GET_MODULE_HANDLE_EX_FLAG_PIN = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define GET_MODULE_HANDLE_EX_FLAG_PIN 1
+     * }
+     */
+    public static int GET_MODULE_HANDLE_EX_FLAG_PIN() {
+        return GET_MODULE_HANDLE_EX_FLAG_PIN;
+    }
+    private static final int GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT 2
+     * }
+     */
+    public static int GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT() {
+        return GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT;
+    }
+    private static final int GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS 4
+     * }
+     */
+    public static int GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS() {
+        return GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS;
+    }
+    private static final int WAIT_FAILED = (int)4294967295L;
+    /**
+     * {@snippet lang=c :
+     * #define WAIT_FAILED 4294967295
+     * }
+     */
+    public static int WAIT_FAILED() {
+        return WAIT_FAILED;
+    }
+    private static final int WAIT_OBJECT_0 = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define WAIT_OBJECT_0 0
+     * }
+     */
+    public static int WAIT_OBJECT_0() {
+        return WAIT_OBJECT_0;
+    }
+    private static final int WAIT_ABANDONED = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define WAIT_ABANDONED 128
+     * }
+     */
+    public static int WAIT_ABANDONED() {
+        return WAIT_ABANDONED;
+    }
+    private static final int WAIT_ABANDONED_0 = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define WAIT_ABANDONED_0 128
+     * }
+     */
+    public static int WAIT_ABANDONED_0() {
+        return WAIT_ABANDONED_0;
+    }
+    private static final int WAIT_IO_COMPLETION = (int)192L;
+    /**
+     * {@snippet lang=c :
+     * #define WAIT_IO_COMPLETION 192
+     * }
+     */
+    public static int WAIT_IO_COMPLETION() {
+        return WAIT_IO_COMPLETION;
+    }
+    private static final int FILE_FLAG_WRITE_THROUGH = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define FILE_FLAG_WRITE_THROUGH 2147483648
+     * }
+     */
+    public static int FILE_FLAG_WRITE_THROUGH() {
+        return FILE_FLAG_WRITE_THROUGH;
+    }
+    private static final int SECURITY_ANONYMOUS = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define SECURITY_ANONYMOUS 0
+     * }
+     */
+    public static int SECURITY_ANONYMOUS() {
+        return SECURITY_ANONYMOUS;
+    }
+    private static final int SECURITY_IDENTIFICATION = (int)65536L;
+    /**
+     * {@snippet lang=c :
+     * #define SECURITY_IDENTIFICATION 65536
+     * }
+     */
+    public static int SECURITY_IDENTIFICATION() {
+        return SECURITY_IDENTIFICATION;
+    }
+    private static final int SECURITY_IMPERSONATION = (int)131072L;
+    /**
+     * {@snippet lang=c :
+     * #define SECURITY_IMPERSONATION 131072
+     * }
+     */
+    public static int SECURITY_IMPERSONATION() {
+        return SECURITY_IMPERSONATION;
+    }
+    private static final int SECURITY_DELEGATION = (int)196608L;
+    /**
+     * {@snippet lang=c :
+     * #define SECURITY_DELEGATION 196608
+     * }
+     */
+    public static int SECURITY_DELEGATION() {
+        return SECURITY_DELEGATION;
+    }
+    private static final int SP_SERIALCOMM = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define SP_SERIALCOMM 1
+     * }
+     */
+    public static int SP_SERIALCOMM() {
+        return SP_SERIALCOMM;
+    }
+    private static final int PST_UNSPECIFIED = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define PST_UNSPECIFIED 0
+     * }
+     */
+    public static int PST_UNSPECIFIED() {
+        return PST_UNSPECIFIED;
+    }
+    private static final int PST_RS232 = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define PST_RS232 1
+     * }
+     */
+    public static int PST_RS232() {
+        return PST_RS232;
+    }
+    private static final int PST_PARALLELPORT = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define PST_PARALLELPORT 2
+     * }
+     */
+    public static int PST_PARALLELPORT() {
+        return PST_PARALLELPORT;
+    }
+    private static final int PST_RS422 = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define PST_RS422 3
+     * }
+     */
+    public static int PST_RS422() {
+        return PST_RS422;
+    }
+    private static final int PST_RS423 = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define PST_RS423 4
+     * }
+     */
+    public static int PST_RS423() {
+        return PST_RS423;
+    }
+    private static final int PST_RS449 = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * #define PST_RS449 5
+     * }
+     */
+    public static int PST_RS449() {
+        return PST_RS449;
+    }
+    private static final int PST_MODEM = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * #define PST_MODEM 6
+     * }
+     */
+    public static int PST_MODEM() {
+        return PST_MODEM;
+    }
+    private static final int PST_FAX = (int)33L;
+    /**
+     * {@snippet lang=c :
+     * #define PST_FAX 33
+     * }
+     */
+    public static int PST_FAX() {
+        return PST_FAX;
+    }
+    private static final int PST_SCANNER = (int)34L;
+    /**
+     * {@snippet lang=c :
+     * #define PST_SCANNER 34
+     * }
+     */
+    public static int PST_SCANNER() {
+        return PST_SCANNER;
+    }
+    private static final int PST_NETWORK_BRIDGE = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define PST_NETWORK_BRIDGE 256
+     * }
+     */
+    public static int PST_NETWORK_BRIDGE() {
+        return PST_NETWORK_BRIDGE;
+    }
+    private static final int PST_LAT = (int)257L;
+    /**
+     * {@snippet lang=c :
+     * #define PST_LAT 257
+     * }
+     */
+    public static int PST_LAT() {
+        return PST_LAT;
+    }
+    private static final int PST_TCPIP_TELNET = (int)258L;
+    /**
+     * {@snippet lang=c :
+     * #define PST_TCPIP_TELNET 258
+     * }
+     */
+    public static int PST_TCPIP_TELNET() {
+        return PST_TCPIP_TELNET;
+    }
+    private static final int PST_X25 = (int)259L;
+    /**
+     * {@snippet lang=c :
+     * #define PST_X25 259
+     * }
+     */
+    public static int PST_X25() {
+        return PST_X25;
+    }
+    private static final int PCF_DTRDSR = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define PCF_DTRDSR 1
+     * }
+     */
+    public static int PCF_DTRDSR() {
+        return PCF_DTRDSR;
+    }
+    private static final int PCF_RTSCTS = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define PCF_RTSCTS 2
+     * }
+     */
+    public static int PCF_RTSCTS() {
+        return PCF_RTSCTS;
+    }
+    private static final int PCF_RLSD = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define PCF_RLSD 4
+     * }
+     */
+    public static int PCF_RLSD() {
+        return PCF_RLSD;
+    }
+    private static final int PCF_PARITY_CHECK = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define PCF_PARITY_CHECK 8
+     * }
+     */
+    public static int PCF_PARITY_CHECK() {
+        return PCF_PARITY_CHECK;
+    }
+    private static final int PCF_XONXOFF = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define PCF_XONXOFF 16
+     * }
+     */
+    public static int PCF_XONXOFF() {
+        return PCF_XONXOFF;
+    }
+    private static final int PCF_SETXCHAR = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define PCF_SETXCHAR 32
+     * }
+     */
+    public static int PCF_SETXCHAR() {
+        return PCF_SETXCHAR;
+    }
+    private static final int PCF_TOTALTIMEOUTS = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define PCF_TOTALTIMEOUTS 64
+     * }
+     */
+    public static int PCF_TOTALTIMEOUTS() {
+        return PCF_TOTALTIMEOUTS;
+    }
+    private static final int PCF_INTTIMEOUTS = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define PCF_INTTIMEOUTS 128
+     * }
+     */
+    public static int PCF_INTTIMEOUTS() {
+        return PCF_INTTIMEOUTS;
+    }
+    private static final int PCF_SPECIALCHARS = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define PCF_SPECIALCHARS 256
+     * }
+     */
+    public static int PCF_SPECIALCHARS() {
+        return PCF_SPECIALCHARS;
+    }
+    private static final int PCF_16BITMODE = (int)512L;
+    /**
+     * {@snippet lang=c :
+     * #define PCF_16BITMODE 512
+     * }
+     */
+    public static int PCF_16BITMODE() {
+        return PCF_16BITMODE;
+    }
+    private static final int SP_PARITY = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define SP_PARITY 1
+     * }
+     */
+    public static int SP_PARITY() {
+        return SP_PARITY;
+    }
+    private static final int SP_BAUD = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define SP_BAUD 2
+     * }
+     */
+    public static int SP_BAUD() {
+        return SP_BAUD;
+    }
+    private static final int SP_DATABITS = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define SP_DATABITS 4
+     * }
+     */
+    public static int SP_DATABITS() {
+        return SP_DATABITS;
+    }
+    private static final int SP_STOPBITS = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define SP_STOPBITS 8
+     * }
+     */
+    public static int SP_STOPBITS() {
+        return SP_STOPBITS;
+    }
+    private static final int SP_HANDSHAKING = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define SP_HANDSHAKING 16
+     * }
+     */
+    public static int SP_HANDSHAKING() {
+        return SP_HANDSHAKING;
+    }
+    private static final int SP_PARITY_CHECK = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define SP_PARITY_CHECK 32
+     * }
+     */
+    public static int SP_PARITY_CHECK() {
+        return SP_PARITY_CHECK;
+    }
+    private static final int SP_RLSD = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define SP_RLSD 64
+     * }
+     */
+    public static int SP_RLSD() {
+        return SP_RLSD;
+    }
+    private static final int BAUD_075 = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_075 1
+     * }
+     */
+    public static int BAUD_075() {
+        return BAUD_075;
+    }
+    private static final int BAUD_110 = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_110 2
+     * }
+     */
+    public static int BAUD_110() {
+        return BAUD_110;
+    }
+    private static final int BAUD_134_5 = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_134_5 4
+     * }
+     */
+    public static int BAUD_134_5() {
+        return BAUD_134_5;
+    }
+    private static final int BAUD_150 = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_150 8
+     * }
+     */
+    public static int BAUD_150() {
+        return BAUD_150;
+    }
+    private static final int BAUD_300 = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_300 16
+     * }
+     */
+    public static int BAUD_300() {
+        return BAUD_300;
+    }
+    private static final int BAUD_600 = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_600 32
+     * }
+     */
+    public static int BAUD_600() {
+        return BAUD_600;
+    }
+    private static final int BAUD_1200 = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_1200 64
+     * }
+     */
+    public static int BAUD_1200() {
+        return BAUD_1200;
+    }
+    private static final int BAUD_1800 = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_1800 128
+     * }
+     */
+    public static int BAUD_1800() {
+        return BAUD_1800;
+    }
+    private static final int BAUD_2400 = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_2400 256
+     * }
+     */
+    public static int BAUD_2400() {
+        return BAUD_2400;
+    }
+    private static final int BAUD_4800 = (int)512L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_4800 512
+     * }
+     */
+    public static int BAUD_4800() {
+        return BAUD_4800;
+    }
+    private static final int BAUD_7200 = (int)1024L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_7200 1024
+     * }
+     */
+    public static int BAUD_7200() {
+        return BAUD_7200;
+    }
+    private static final int BAUD_9600 = (int)2048L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_9600 2048
+     * }
+     */
+    public static int BAUD_9600() {
+        return BAUD_9600;
+    }
+    private static final int BAUD_14400 = (int)4096L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_14400 4096
+     * }
+     */
+    public static int BAUD_14400() {
+        return BAUD_14400;
+    }
+    private static final int BAUD_19200 = (int)8192L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_19200 8192
+     * }
+     */
+    public static int BAUD_19200() {
+        return BAUD_19200;
+    }
+    private static final int BAUD_38400 = (int)16384L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_38400 16384
+     * }
+     */
+    public static int BAUD_38400() {
+        return BAUD_38400;
+    }
+    private static final int BAUD_56K = (int)32768L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_56K 32768
+     * }
+     */
+    public static int BAUD_56K() {
+        return BAUD_56K;
+    }
+    private static final int BAUD_128K = (int)65536L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_128K 65536
+     * }
+     */
+    public static int BAUD_128K() {
+        return BAUD_128K;
+    }
+    private static final int BAUD_115200 = (int)131072L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_115200 131072
+     * }
+     */
+    public static int BAUD_115200() {
+        return BAUD_115200;
+    }
+    private static final int BAUD_57600 = (int)262144L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_57600 262144
+     * }
+     */
+    public static int BAUD_57600() {
+        return BAUD_57600;
+    }
+    private static final int BAUD_USER = (int)268435456L;
+    /**
+     * {@snippet lang=c :
+     * #define BAUD_USER 268435456
+     * }
+     */
+    public static int BAUD_USER() {
+        return BAUD_USER;
+    }
+    private static final short DATABITS_5 = (short)1L;
+    /**
+     * {@snippet lang=c :
+     * #define DATABITS_5 1
+     * }
+     */
+    public static short DATABITS_5() {
+        return DATABITS_5;
+    }
+    private static final short DATABITS_6 = (short)2L;
+    /**
+     * {@snippet lang=c :
+     * #define DATABITS_6 2
+     * }
+     */
+    public static short DATABITS_6() {
+        return DATABITS_6;
+    }
+    private static final short DATABITS_7 = (short)4L;
+    /**
+     * {@snippet lang=c :
+     * #define DATABITS_7 4
+     * }
+     */
+    public static short DATABITS_7() {
+        return DATABITS_7;
+    }
+    private static final short DATABITS_8 = (short)8L;
+    /**
+     * {@snippet lang=c :
+     * #define DATABITS_8 8
+     * }
+     */
+    public static short DATABITS_8() {
+        return DATABITS_8;
+    }
+    private static final short DATABITS_16 = (short)16L;
+    /**
+     * {@snippet lang=c :
+     * #define DATABITS_16 16
+     * }
+     */
+    public static short DATABITS_16() {
+        return DATABITS_16;
+    }
+    private static final short DATABITS_16X = (short)32L;
+    /**
+     * {@snippet lang=c :
+     * #define DATABITS_16X 32
+     * }
+     */
+    public static short DATABITS_16X() {
+        return DATABITS_16X;
+    }
+    private static final short STOPBITS_10 = (short)1L;
+    /**
+     * {@snippet lang=c :
+     * #define STOPBITS_10 1
+     * }
+     */
+    public static short STOPBITS_10() {
+        return STOPBITS_10;
+    }
+    private static final short STOPBITS_15 = (short)2L;
+    /**
+     * {@snippet lang=c :
+     * #define STOPBITS_15 2
+     * }
+     */
+    public static short STOPBITS_15() {
+        return STOPBITS_15;
+    }
+    private static final short STOPBITS_20 = (short)4L;
+    /**
+     * {@snippet lang=c :
+     * #define STOPBITS_20 4
+     * }
+     */
+    public static short STOPBITS_20() {
+        return STOPBITS_20;
+    }
+    private static final short PARITY_NONE = (short)256L;
+    /**
+     * {@snippet lang=c :
+     * #define PARITY_NONE 256
+     * }
+     */
+    public static short PARITY_NONE() {
+        return PARITY_NONE;
+    }
+    private static final short PARITY_ODD = (short)512L;
+    /**
+     * {@snippet lang=c :
+     * #define PARITY_ODD 512
+     * }
+     */
+    public static short PARITY_ODD() {
+        return PARITY_ODD;
+    }
+    private static final short PARITY_EVEN = (short)1024L;
+    /**
+     * {@snippet lang=c :
+     * #define PARITY_EVEN 1024
+     * }
+     */
+    public static short PARITY_EVEN() {
+        return PARITY_EVEN;
+    }
+    private static final short PARITY_MARK = (short)2048L;
+    /**
+     * {@snippet lang=c :
+     * #define PARITY_MARK 2048
+     * }
+     */
+    public static short PARITY_MARK() {
+        return PARITY_MARK;
+    }
+    private static final short PARITY_SPACE = (short)4096L;
+    /**
+     * {@snippet lang=c :
+     * #define PARITY_SPACE 4096
+     * }
+     */
+    public static short PARITY_SPACE() {
+        return PARITY_SPACE;
+    }
+    private static final int COMMPROP_INITIALIZED = (int)3879531822L;
+    /**
+     * {@snippet lang=c :
+     * #define COMMPROP_INITIALIZED 3879531822
+     * }
+     */
+    public static int COMMPROP_INITIALIZED() {
+        return COMMPROP_INITIALIZED;
+    }
+    private static final int GMEM_LOWER = (int)4096L;
+    /**
+     * {@snippet lang=c :
+     * #define GMEM_LOWER 4096
+     * }
+     */
+    public static int GMEM_LOWER() {
+        return GMEM_LOWER;
+    }
+    private static final int GHND = (int)66L;
+    /**
+     * {@snippet lang=c :
+     * #define GHND 66
+     * }
+     */
+    public static int GHND() {
+        return GHND;
+    }
+    private static final int GPTR = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define GPTR 64
+     * }
+     */
+    public static int GPTR() {
+        return GPTR;
+    }
+    private static final int CREATE_IGNORE_SYSTEM_DEFAULT = (int)2147483648L;
+    /**
+     * {@snippet lang=c :
+     * #define CREATE_IGNORE_SYSTEM_DEFAULT 2147483648
+     * }
+     */
+    public static int CREATE_IGNORE_SYSTEM_DEFAULT() {
+        return CREATE_IGNORE_SYSTEM_DEFAULT;
+    }
+    private static final int THREAD_PRIORITY_LOWEST = (int)-2L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_PRIORITY_LOWEST -2
+     * }
+     */
+    public static int THREAD_PRIORITY_LOWEST() {
+        return THREAD_PRIORITY_LOWEST;
+    }
+    private static final int THREAD_PRIORITY_BELOW_NORMAL = (int)-1L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_PRIORITY_BELOW_NORMAL -1
+     * }
+     */
+    public static int THREAD_PRIORITY_BELOW_NORMAL() {
+        return THREAD_PRIORITY_BELOW_NORMAL;
+    }
+    private static final int THREAD_PRIORITY_HIGHEST = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_PRIORITY_HIGHEST 2
+     * }
+     */
+    public static int THREAD_PRIORITY_HIGHEST() {
+        return THREAD_PRIORITY_HIGHEST;
+    }
+    private static final int THREAD_PRIORITY_ABOVE_NORMAL = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_PRIORITY_ABOVE_NORMAL 1
+     * }
+     */
+    public static int THREAD_PRIORITY_ABOVE_NORMAL() {
+        return THREAD_PRIORITY_ABOVE_NORMAL;
+    }
+    private static final int THREAD_PRIORITY_ERROR_RETURN = (int)2147483647L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_PRIORITY_ERROR_RETURN 2147483647
+     * }
+     */
+    public static int THREAD_PRIORITY_ERROR_RETURN() {
+        return THREAD_PRIORITY_ERROR_RETURN;
+    }
+    private static final int THREAD_PRIORITY_TIME_CRITICAL = (int)15L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_PRIORITY_TIME_CRITICAL 15
+     * }
+     */
+    public static int THREAD_PRIORITY_TIME_CRITICAL() {
+        return THREAD_PRIORITY_TIME_CRITICAL;
+    }
+    private static final int THREAD_PRIORITY_IDLE = (int)-15L;
+    /**
+     * {@snippet lang=c :
+     * #define THREAD_PRIORITY_IDLE -15
+     * }
+     */
+    public static int THREAD_PRIORITY_IDLE() {
+        return THREAD_PRIORITY_IDLE;
+    }
+    private static final int STD_INPUT_HANDLE = (int)4294967286L;
+    /**
+     * {@snippet lang=c :
+     * #define STD_INPUT_HANDLE 4294967286
+     * }
+     */
+    public static int STD_INPUT_HANDLE() {
+        return STD_INPUT_HANDLE;
+    }
+    private static final int STD_OUTPUT_HANDLE = (int)4294967285L;
+    /**
+     * {@snippet lang=c :
+     * #define STD_OUTPUT_HANDLE 4294967285
+     * }
+     */
+    public static int STD_OUTPUT_HANDLE() {
+        return STD_OUTPUT_HANDLE;
+    }
+    private static final int STD_ERROR_HANDLE = (int)4294967284L;
+    /**
+     * {@snippet lang=c :
+     * #define STD_ERROR_HANDLE 4294967284
+     * }
+     */
+    public static int STD_ERROR_HANDLE() {
+        return STD_ERROR_HANDLE;
+    }
+    private static final int INFINITE = (int)4294967295L;
+    /**
+     * {@snippet lang=c :
+     * #define INFINITE 4294967295
+     * }
+     */
+    public static int INFINITE() {
+        return INFINITE;
+    }
+    private static final int IE_BADID = (int)-1L;
+    /**
+     * {@snippet lang=c :
+     * #define IE_BADID -1
+     * }
+     */
+    public static int IE_BADID() {
+        return IE_BADID;
+    }
+    private static final int IE_OPEN = (int)-2L;
+    /**
+     * {@snippet lang=c :
+     * #define IE_OPEN -2
+     * }
+     */
+    public static int IE_OPEN() {
+        return IE_OPEN;
+    }
+    private static final int IE_NOPEN = (int)-3L;
+    /**
+     * {@snippet lang=c :
+     * #define IE_NOPEN -3
+     * }
+     */
+    public static int IE_NOPEN() {
+        return IE_NOPEN;
+    }
+    private static final int IE_MEMORY = (int)-4L;
+    /**
+     * {@snippet lang=c :
+     * #define IE_MEMORY -4
+     * }
+     */
+    public static int IE_MEMORY() {
+        return IE_MEMORY;
+    }
+    private static final int IE_DEFAULT = (int)-5L;
+    /**
+     * {@snippet lang=c :
+     * #define IE_DEFAULT -5
+     * }
+     */
+    public static int IE_DEFAULT() {
+        return IE_DEFAULT;
+    }
+    private static final int IE_HARDWARE = (int)-10L;
+    /**
+     * {@snippet lang=c :
+     * #define IE_HARDWARE -10
+     * }
+     */
+    public static int IE_HARDWARE() {
+        return IE_HARDWARE;
+    }
+    private static final int IE_BYTESIZE = (int)-11L;
+    /**
+     * {@snippet lang=c :
+     * #define IE_BYTESIZE -11
+     * }
+     */
+    public static int IE_BYTESIZE() {
+        return IE_BYTESIZE;
+    }
+    private static final int IE_BAUDRATE = (int)-12L;
+    /**
+     * {@snippet lang=c :
+     * #define IE_BAUDRATE -12
+     * }
+     */
+    public static int IE_BAUDRATE() {
+        return IE_BAUDRATE;
+    }
+    private static final int MS_CTS_ON = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define MS_CTS_ON 16
+     * }
+     */
+    public static int MS_CTS_ON() {
+        return MS_CTS_ON;
+    }
+    private static final int MS_DSR_ON = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define MS_DSR_ON 32
+     * }
+     */
+    public static int MS_DSR_ON() {
+        return MS_DSR_ON;
+    }
+    private static final int MS_RING_ON = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define MS_RING_ON 64
+     * }
+     */
+    public static int MS_RING_ON() {
+        return MS_RING_ON;
+    }
+    private static final int MS_RLSD_ON = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define MS_RLSD_ON 128
+     * }
+     */
+    public static int MS_RLSD_ON() {
+        return MS_RLSD_ON;
+    }
+    private static final int S_SERDVNA = (int)-1L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERDVNA -1
+     * }
+     */
+    public static int S_SERDVNA() {
+        return S_SERDVNA;
+    }
+    private static final int S_SEROFM = (int)-2L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SEROFM -2
+     * }
+     */
+    public static int S_SEROFM() {
+        return S_SEROFM;
+    }
+    private static final int S_SERMACT = (int)-3L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERMACT -3
+     * }
+     */
+    public static int S_SERMACT() {
+        return S_SERMACT;
+    }
+    private static final int S_SERQFUL = (int)-4L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERQFUL -4
+     * }
+     */
+    public static int S_SERQFUL() {
+        return S_SERQFUL;
+    }
+    private static final int S_SERBDNT = (int)-5L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERBDNT -5
+     * }
+     */
+    public static int S_SERBDNT() {
+        return S_SERBDNT;
+    }
+    private static final int S_SERDLN = (int)-6L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERDLN -6
+     * }
+     */
+    public static int S_SERDLN() {
+        return S_SERDLN;
+    }
+    private static final int S_SERDCC = (int)-7L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERDCC -7
+     * }
+     */
+    public static int S_SERDCC() {
+        return S_SERDCC;
+    }
+    private static final int S_SERDTP = (int)-8L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERDTP -8
+     * }
+     */
+    public static int S_SERDTP() {
+        return S_SERDTP;
+    }
+    private static final int S_SERDVL = (int)-9L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERDVL -9
+     * }
+     */
+    public static int S_SERDVL() {
+        return S_SERDVL;
+    }
+    private static final int S_SERDMD = (int)-10L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERDMD -10
+     * }
+     */
+    public static int S_SERDMD() {
+        return S_SERDMD;
+    }
+    private static final int S_SERDSH = (int)-11L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERDSH -11
+     * }
+     */
+    public static int S_SERDSH() {
+        return S_SERDSH;
+    }
+    private static final int S_SERDPT = (int)-12L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERDPT -12
+     * }
+     */
+    public static int S_SERDPT() {
+        return S_SERDPT;
+    }
+    private static final int S_SERDFQ = (int)-13L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERDFQ -13
+     * }
+     */
+    public static int S_SERDFQ() {
+        return S_SERDFQ;
+    }
+    private static final int S_SERDDR = (int)-14L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERDDR -14
+     * }
+     */
+    public static int S_SERDDR() {
+        return S_SERDDR;
+    }
+    private static final int S_SERDSR = (int)-15L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERDSR -15
+     * }
+     */
+    public static int S_SERDSR() {
+        return S_SERDSR;
+    }
+    private static final int S_SERDST = (int)-16L;
+    /**
+     * {@snippet lang=c :
+     * #define S_SERDST -16
+     * }
+     */
+    public static int S_SERDST() {
+        return S_SERDST;
+    }
+    private static final int NMPWAIT_WAIT_FOREVER = (int)4294967295L;
+    /**
+     * {@snippet lang=c :
+     * #define NMPWAIT_WAIT_FOREVER 4294967295
+     * }
+     */
+    public static int NMPWAIT_WAIT_FOREVER() {
+        return NMPWAIT_WAIT_FOREVER;
+    }
+    private static final int FS_CASE_IS_PRESERVED = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define FS_CASE_IS_PRESERVED 2
+     * }
+     */
+    public static int FS_CASE_IS_PRESERVED() {
+        return FS_CASE_IS_PRESERVED;
+    }
+    private static final int FS_CASE_SENSITIVE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define FS_CASE_SENSITIVE 1
+     * }
+     */
+    public static int FS_CASE_SENSITIVE() {
+        return FS_CASE_SENSITIVE;
+    }
+    private static final int FS_UNICODE_STORED_ON_DISK = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define FS_UNICODE_STORED_ON_DISK 4
+     * }
+     */
+    public static int FS_UNICODE_STORED_ON_DISK() {
+        return FS_UNICODE_STORED_ON_DISK;
+    }
+    private static final int FS_PERSISTENT_ACLS = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define FS_PERSISTENT_ACLS 8
+     * }
+     */
+    public static int FS_PERSISTENT_ACLS() {
+        return FS_PERSISTENT_ACLS;
+    }
+    private static final int FS_VOL_IS_COMPRESSED = (int)32768L;
+    /**
+     * {@snippet lang=c :
+     * #define FS_VOL_IS_COMPRESSED 32768
+     * }
+     */
+    public static int FS_VOL_IS_COMPRESSED() {
+        return FS_VOL_IS_COMPRESSED;
+    }
+    private static final int FS_FILE_COMPRESSION = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define FS_FILE_COMPRESSION 16
+     * }
+     */
+    public static int FS_FILE_COMPRESSION() {
+        return FS_FILE_COMPRESSION;
+    }
+    private static final int FS_FILE_ENCRYPTION = (int)131072L;
+    /**
+     * {@snippet lang=c :
+     * #define FS_FILE_ENCRYPTION 131072
+     * }
+     */
+    public static int FS_FILE_ENCRYPTION() {
+        return FS_FILE_ENCRYPTION;
+    }
+    private static final short INVALID_ATOM = (short)0L;
+    /**
+     * {@snippet lang=c :
+     * #define INVALID_ATOM 0
+     * }
+     */
+    public static short INVALID_ATOM() {
+        return INVALID_ATOM;
+    }
+    private static final int SCS_THIS_PLATFORM_BINARY = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * #define SCS_THIS_PLATFORM_BINARY 6
+     * }
+     */
+    public static int SCS_THIS_PLATFORM_BINARY() {
+        return SCS_THIS_PLATFORM_BINARY;
     }
 }
-
 

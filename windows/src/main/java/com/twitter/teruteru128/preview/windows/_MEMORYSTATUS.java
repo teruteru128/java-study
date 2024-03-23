@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _MEMORYSTATUS {
  *     DWORD dwLength;
  *     DWORD dwMemoryLoad;
@@ -18,236 +23,427 @@ import static java.lang.foreign.ValueLayout.*;
  *     SIZE_T dwAvailPageFile;
  *     SIZE_T dwTotalVirtual;
  *     SIZE_T dwAvailVirtual;
- * };
+ * }
  * }
  */
 public class _MEMORYSTATUS {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$751.const$3;
+    _MEMORYSTATUS() {
+        // Should not be called directly
     }
-    public static VarHandle dwLength$VH() {
-        return constants$751.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwLength;
-     * }
-     */
-    public static int dwLength$get(MemorySegment seg) {
-        return (int)constants$751.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwLength;
-     * }
-     */
-    public static void dwLength$set(MemorySegment seg, int x) {
-        constants$751.const$4.set(seg, x);
-    }
-    public static int dwLength$get(MemorySegment seg, long index) {
-        return (int)constants$751.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwLength$set(MemorySegment seg, long index, int x) {
-        constants$751.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwMemoryLoad$VH() {
-        return constants$751.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwMemoryLoad;
-     * }
-     */
-    public static int dwMemoryLoad$get(MemorySegment seg) {
-        return (int)constants$751.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwMemoryLoad;
-     * }
-     */
-    public static void dwMemoryLoad$set(MemorySegment seg, int x) {
-        constants$751.const$5.set(seg, x);
-    }
-    public static int dwMemoryLoad$get(MemorySegment seg, long index) {
-        return (int)constants$751.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwMemoryLoad$set(MemorySegment seg, long index, int x) {
-        constants$751.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwTotalPhys$VH() {
-        return constants$752.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * SIZE_T dwTotalPhys;
-     * }
-     */
-    public static long dwTotalPhys$get(MemorySegment seg) {
-        return (long)constants$752.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * SIZE_T dwTotalPhys;
-     * }
-     */
-    public static void dwTotalPhys$set(MemorySegment seg, long x) {
-        constants$752.const$0.set(seg, x);
-    }
-    public static long dwTotalPhys$get(MemorySegment seg, long index) {
-        return (long)constants$752.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwTotalPhys$set(MemorySegment seg, long index, long x) {
-        constants$752.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwAvailPhys$VH() {
-        return constants$752.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * SIZE_T dwAvailPhys;
-     * }
-     */
-    public static long dwAvailPhys$get(MemorySegment seg) {
-        return (long)constants$752.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * SIZE_T dwAvailPhys;
-     * }
-     */
-    public static void dwAvailPhys$set(MemorySegment seg, long x) {
-        constants$752.const$1.set(seg, x);
-    }
-    public static long dwAvailPhys$get(MemorySegment seg, long index) {
-        return (long)constants$752.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwAvailPhys$set(MemorySegment seg, long index, long x) {
-        constants$752.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwTotalPageFile$VH() {
-        return constants$752.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * SIZE_T dwTotalPageFile;
-     * }
-     */
-    public static long dwTotalPageFile$get(MemorySegment seg) {
-        return (long)constants$752.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * SIZE_T dwTotalPageFile;
-     * }
-     */
-    public static void dwTotalPageFile$set(MemorySegment seg, long x) {
-        constants$752.const$2.set(seg, x);
-    }
-    public static long dwTotalPageFile$get(MemorySegment seg, long index) {
-        return (long)constants$752.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwTotalPageFile$set(MemorySegment seg, long index, long x) {
-        constants$752.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwAvailPageFile$VH() {
-        return constants$752.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * SIZE_T dwAvailPageFile;
-     * }
-     */
-    public static long dwAvailPageFile$get(MemorySegment seg) {
-        return (long)constants$752.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * SIZE_T dwAvailPageFile;
-     * }
-     */
-    public static void dwAvailPageFile$set(MemorySegment seg, long x) {
-        constants$752.const$3.set(seg, x);
-    }
-    public static long dwAvailPageFile$get(MemorySegment seg, long index) {
-        return (long)constants$752.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwAvailPageFile$set(MemorySegment seg, long index, long x) {
-        constants$752.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwTotalVirtual$VH() {
-        return constants$752.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * SIZE_T dwTotalVirtual;
-     * }
-     */
-    public static long dwTotalVirtual$get(MemorySegment seg) {
-        return (long)constants$752.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * SIZE_T dwTotalVirtual;
-     * }
-     */
-    public static void dwTotalVirtual$set(MemorySegment seg, long x) {
-        constants$752.const$4.set(seg, x);
-    }
-    public static long dwTotalVirtual$get(MemorySegment seg, long index) {
-        return (long)constants$752.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwTotalVirtual$set(MemorySegment seg, long index, long x) {
-        constants$752.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwAvailVirtual$VH() {
-        return constants$752.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * SIZE_T dwAvailVirtual;
-     * }
-     */
-    public static long dwAvailVirtual$get(MemorySegment seg) {
-        return (long)constants$752.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * SIZE_T dwAvailVirtual;
-     * }
-     */
-    public static void dwAvailVirtual$set(MemorySegment seg, long x) {
-        constants$752.const$5.set(seg, x);
-    }
-    public static long dwAvailVirtual$get(MemorySegment seg, long index) {
-        return (long)constants$752.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwAvailVirtual$set(MemorySegment seg, long index, long x) {
-        constants$752.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("dwLength"),
+        Windows_h.C_LONG.withName("dwMemoryLoad"),
+        Windows_h.C_LONG_LONG.withName("dwTotalPhys"),
+        Windows_h.C_LONG_LONG.withName("dwAvailPhys"),
+        Windows_h.C_LONG_LONG.withName("dwTotalPageFile"),
+        Windows_h.C_LONG_LONG.withName("dwAvailPageFile"),
+        Windows_h.C_LONG_LONG.withName("dwTotalVirtual"),
+        Windows_h.C_LONG_LONG.withName("dwAvailVirtual")
+    ).withName("_MEMORYSTATUS");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt dwLength$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwLength"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwLength
+     * }
+     */
+    public static final OfInt dwLength$layout() {
+        return dwLength$LAYOUT;
+    }
+
+    private static final long dwLength$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwLength
+     * }
+     */
+    public static final long dwLength$offset() {
+        return dwLength$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwLength
+     * }
+     */
+    public static int dwLength(MemorySegment struct) {
+        return struct.get(dwLength$LAYOUT, dwLength$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwLength
+     * }
+     */
+    public static void dwLength(MemorySegment struct, int fieldValue) {
+        struct.set(dwLength$LAYOUT, dwLength$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwMemoryLoad$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwMemoryLoad"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwMemoryLoad
+     * }
+     */
+    public static final OfInt dwMemoryLoad$layout() {
+        return dwMemoryLoad$LAYOUT;
+    }
+
+    private static final long dwMemoryLoad$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwMemoryLoad
+     * }
+     */
+    public static final long dwMemoryLoad$offset() {
+        return dwMemoryLoad$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwMemoryLoad
+     * }
+     */
+    public static int dwMemoryLoad(MemorySegment struct) {
+        return struct.get(dwMemoryLoad$LAYOUT, dwMemoryLoad$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwMemoryLoad
+     * }
+     */
+    public static void dwMemoryLoad(MemorySegment struct, int fieldValue) {
+        struct.set(dwMemoryLoad$LAYOUT, dwMemoryLoad$OFFSET, fieldValue);
+    }
+
+    private static final OfLong dwTotalPhys$LAYOUT = (OfLong)$LAYOUT.select(groupElement("dwTotalPhys"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SIZE_T dwTotalPhys
+     * }
+     */
+    public static final OfLong dwTotalPhys$layout() {
+        return dwTotalPhys$LAYOUT;
+    }
+
+    private static final long dwTotalPhys$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SIZE_T dwTotalPhys
+     * }
+     */
+    public static final long dwTotalPhys$offset() {
+        return dwTotalPhys$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SIZE_T dwTotalPhys
+     * }
+     */
+    public static long dwTotalPhys(MemorySegment struct) {
+        return struct.get(dwTotalPhys$LAYOUT, dwTotalPhys$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SIZE_T dwTotalPhys
+     * }
+     */
+    public static void dwTotalPhys(MemorySegment struct, long fieldValue) {
+        struct.set(dwTotalPhys$LAYOUT, dwTotalPhys$OFFSET, fieldValue);
+    }
+
+    private static final OfLong dwAvailPhys$LAYOUT = (OfLong)$LAYOUT.select(groupElement("dwAvailPhys"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SIZE_T dwAvailPhys
+     * }
+     */
+    public static final OfLong dwAvailPhys$layout() {
+        return dwAvailPhys$LAYOUT;
+    }
+
+    private static final long dwAvailPhys$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SIZE_T dwAvailPhys
+     * }
+     */
+    public static final long dwAvailPhys$offset() {
+        return dwAvailPhys$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SIZE_T dwAvailPhys
+     * }
+     */
+    public static long dwAvailPhys(MemorySegment struct) {
+        return struct.get(dwAvailPhys$LAYOUT, dwAvailPhys$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SIZE_T dwAvailPhys
+     * }
+     */
+    public static void dwAvailPhys(MemorySegment struct, long fieldValue) {
+        struct.set(dwAvailPhys$LAYOUT, dwAvailPhys$OFFSET, fieldValue);
+    }
+
+    private static final OfLong dwTotalPageFile$LAYOUT = (OfLong)$LAYOUT.select(groupElement("dwTotalPageFile"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SIZE_T dwTotalPageFile
+     * }
+     */
+    public static final OfLong dwTotalPageFile$layout() {
+        return dwTotalPageFile$LAYOUT;
+    }
+
+    private static final long dwTotalPageFile$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SIZE_T dwTotalPageFile
+     * }
+     */
+    public static final long dwTotalPageFile$offset() {
+        return dwTotalPageFile$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SIZE_T dwTotalPageFile
+     * }
+     */
+    public static long dwTotalPageFile(MemorySegment struct) {
+        return struct.get(dwTotalPageFile$LAYOUT, dwTotalPageFile$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SIZE_T dwTotalPageFile
+     * }
+     */
+    public static void dwTotalPageFile(MemorySegment struct, long fieldValue) {
+        struct.set(dwTotalPageFile$LAYOUT, dwTotalPageFile$OFFSET, fieldValue);
+    }
+
+    private static final OfLong dwAvailPageFile$LAYOUT = (OfLong)$LAYOUT.select(groupElement("dwAvailPageFile"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SIZE_T dwAvailPageFile
+     * }
+     */
+    public static final OfLong dwAvailPageFile$layout() {
+        return dwAvailPageFile$LAYOUT;
+    }
+
+    private static final long dwAvailPageFile$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SIZE_T dwAvailPageFile
+     * }
+     */
+    public static final long dwAvailPageFile$offset() {
+        return dwAvailPageFile$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SIZE_T dwAvailPageFile
+     * }
+     */
+    public static long dwAvailPageFile(MemorySegment struct) {
+        return struct.get(dwAvailPageFile$LAYOUT, dwAvailPageFile$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SIZE_T dwAvailPageFile
+     * }
+     */
+    public static void dwAvailPageFile(MemorySegment struct, long fieldValue) {
+        struct.set(dwAvailPageFile$LAYOUT, dwAvailPageFile$OFFSET, fieldValue);
+    }
+
+    private static final OfLong dwTotalVirtual$LAYOUT = (OfLong)$LAYOUT.select(groupElement("dwTotalVirtual"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SIZE_T dwTotalVirtual
+     * }
+     */
+    public static final OfLong dwTotalVirtual$layout() {
+        return dwTotalVirtual$LAYOUT;
+    }
+
+    private static final long dwTotalVirtual$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SIZE_T dwTotalVirtual
+     * }
+     */
+    public static final long dwTotalVirtual$offset() {
+        return dwTotalVirtual$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SIZE_T dwTotalVirtual
+     * }
+     */
+    public static long dwTotalVirtual(MemorySegment struct) {
+        return struct.get(dwTotalVirtual$LAYOUT, dwTotalVirtual$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SIZE_T dwTotalVirtual
+     * }
+     */
+    public static void dwTotalVirtual(MemorySegment struct, long fieldValue) {
+        struct.set(dwTotalVirtual$LAYOUT, dwTotalVirtual$OFFSET, fieldValue);
+    }
+
+    private static final OfLong dwAvailVirtual$LAYOUT = (OfLong)$LAYOUT.select(groupElement("dwAvailVirtual"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SIZE_T dwAvailVirtual
+     * }
+     */
+    public static final OfLong dwAvailVirtual$layout() {
+        return dwAvailVirtual$LAYOUT;
+    }
+
+    private static final long dwAvailVirtual$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SIZE_T dwAvailVirtual
+     * }
+     */
+    public static final long dwAvailVirtual$offset() {
+        return dwAvailVirtual$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SIZE_T dwAvailVirtual
+     * }
+     */
+    public static long dwAvailVirtual(MemorySegment struct) {
+        return struct.get(dwAvailVirtual$LAYOUT, dwAvailVirtual$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SIZE_T dwAvailVirtual
+     * }
+     */
+    public static void dwAvailVirtual(MemorySegment struct, long fieldValue) {
+        struct.set(dwAvailVirtual$LAYOUT, dwAvailVirtual$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

@@ -2,112 +2,219 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _CRYPT_CREDENTIALS {
  *     DWORD cbSize;
  *     LPCSTR pszCredentialsOid;
  *     LPVOID pvCredentials;
- * };
+ * }
  * }
  */
 public class _CRYPT_CREDENTIALS {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2189.const$5;
+    _CRYPT_CREDENTIALS() {
+        // Should not be called directly
     }
-    public static VarHandle cbSize$VH() {
-        return constants$2190.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cbSize;
-     * }
-     */
-    public static int cbSize$get(MemorySegment seg) {
-        return (int)constants$2190.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cbSize;
-     * }
-     */
-    public static void cbSize$set(MemorySegment seg, int x) {
-        constants$2190.const$0.set(seg, x);
-    }
-    public static int cbSize$get(MemorySegment seg, long index) {
-        return (int)constants$2190.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cbSize$set(MemorySegment seg, long index, int x) {
-        constants$2190.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pszCredentialsOid$VH() {
-        return constants$2190.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPCSTR pszCredentialsOid;
-     * }
-     */
-    public static MemorySegment pszCredentialsOid$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2190.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPCSTR pszCredentialsOid;
-     * }
-     */
-    public static void pszCredentialsOid$set(MemorySegment seg, MemorySegment x) {
-        constants$2190.const$1.set(seg, x);
-    }
-    public static MemorySegment pszCredentialsOid$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2190.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pszCredentialsOid$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2190.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pvCredentials$VH() {
-        return constants$2190.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPVOID pvCredentials;
-     * }
-     */
-    public static MemorySegment pvCredentials$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2190.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPVOID pvCredentials;
-     * }
-     */
-    public static void pvCredentials$set(MemorySegment seg, MemorySegment x) {
-        constants$2190.const$2.set(seg, x);
-    }
-    public static MemorySegment pvCredentials$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2190.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pvCredentials$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2190.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("cbSize"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("pszCredentialsOid"),
+        Windows_h.C_POINTER.withName("pvCredentials")
+    ).withName("_CRYPT_CREDENTIALS");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt cbSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cbSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static final OfInt cbSize$layout() {
+        return cbSize$LAYOUT;
+    }
+
+    private static final long cbSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static final long cbSize$offset() {
+        return cbSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static int cbSize(MemorySegment struct) {
+        return struct.get(cbSize$LAYOUT, cbSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static void cbSize(MemorySegment struct, int fieldValue) {
+        struct.set(cbSize$LAYOUT, cbSize$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pszCredentialsOid$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pszCredentialsOid"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPCSTR pszCredentialsOid
+     * }
+     */
+    public static final AddressLayout pszCredentialsOid$layout() {
+        return pszCredentialsOid$LAYOUT;
+    }
+
+    private static final long pszCredentialsOid$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPCSTR pszCredentialsOid
+     * }
+     */
+    public static final long pszCredentialsOid$offset() {
+        return pszCredentialsOid$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPCSTR pszCredentialsOid
+     * }
+     */
+    public static MemorySegment pszCredentialsOid(MemorySegment struct) {
+        return struct.get(pszCredentialsOid$LAYOUT, pszCredentialsOid$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPCSTR pszCredentialsOid
+     * }
+     */
+    public static void pszCredentialsOid(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pszCredentialsOid$LAYOUT, pszCredentialsOid$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pvCredentials$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pvCredentials"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPVOID pvCredentials
+     * }
+     */
+    public static final AddressLayout pvCredentials$layout() {
+        return pvCredentials$LAYOUT;
+    }
+
+    private static final long pvCredentials$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPVOID pvCredentials
+     * }
+     */
+    public static final long pvCredentials$offset() {
+        return pvCredentials$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPVOID pvCredentials
+     * }
+     */
+    public static MemorySegment pvCredentials(MemorySegment struct) {
+        return struct.get(pvCredentials$LAYOUT, pvCredentials$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPVOID pvCredentials
+     * }
+     */
+    public static void pvCredentials(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pvCredentials$LAYOUT, pvCredentials$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

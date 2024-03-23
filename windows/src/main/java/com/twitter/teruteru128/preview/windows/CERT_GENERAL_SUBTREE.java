@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CERT_GENERAL_SUBTREE CERT_GENERAL_SUBTREE;
+ * {@snippet lang=c :
+ * typedef struct _CERT_GENERAL_SUBTREE {
+ *     CERT_ALT_NAME_ENTRY Base;
+ *     DWORD dwMinimum;
+ *     BOOL fMaximum;
+ *     DWORD dwMaximum;
+ * } CERT_GENERAL_SUBTREE
  * }
  */
-public final class CERT_GENERAL_SUBTREE extends _CERT_GENERAL_SUBTREE {
+public class CERT_GENERAL_SUBTREE extends _CERT_GENERAL_SUBTREE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CERT_GENERAL_SUBTREE() {}
+    CERT_GENERAL_SUBTREE() {
+        // Should not be called directly
+    }
 }
-
 

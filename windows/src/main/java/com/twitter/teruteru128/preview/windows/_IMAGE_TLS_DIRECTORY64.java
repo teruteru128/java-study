@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _IMAGE_TLS_DIRECTORY64 {
  *     ULONGLONG StartAddressOfRawData;
  *     ULONGLONG EndAddressOfRawData;
@@ -18,187 +23,347 @@ import static java.lang.foreign.ValueLayout.*;
  *     union {
  *         DWORD Characteristics;
  *         struct {
- *              *             DWORD Reserved0;
- *             DWORD Alignment;
- *             DWORD Reserved1;
+ *             DWORD Reserved0 : 20;
+ *             DWORD Alignment : 4;
+ *             DWORD Reserved1 : 8;
  *         };
  *     };
- * };
+ * }
  * }
  */
 public class _IMAGE_TLS_DIRECTORY64 {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$407.const$0;
+    _IMAGE_TLS_DIRECTORY64() {
+        // Should not be called directly
     }
-    public static VarHandle StartAddressOfRawData$VH() {
-        return constants$407.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONGLONG StartAddressOfRawData;
-     * }
-     */
-    public static long StartAddressOfRawData$get(MemorySegment seg) {
-        return (long)constants$407.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONGLONG StartAddressOfRawData;
-     * }
-     */
-    public static void StartAddressOfRawData$set(MemorySegment seg, long x) {
-        constants$407.const$1.set(seg, x);
-    }
-    public static long StartAddressOfRawData$get(MemorySegment seg, long index) {
-        return (long)constants$407.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void StartAddressOfRawData$set(MemorySegment seg, long index, long x) {
-        constants$407.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle EndAddressOfRawData$VH() {
-        return constants$407.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONGLONG EndAddressOfRawData;
-     * }
-     */
-    public static long EndAddressOfRawData$get(MemorySegment seg) {
-        return (long)constants$407.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONGLONG EndAddressOfRawData;
-     * }
-     */
-    public static void EndAddressOfRawData$set(MemorySegment seg, long x) {
-        constants$407.const$2.set(seg, x);
-    }
-    public static long EndAddressOfRawData$get(MemorySegment seg, long index) {
-        return (long)constants$407.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void EndAddressOfRawData$set(MemorySegment seg, long index, long x) {
-        constants$407.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle AddressOfIndex$VH() {
-        return constants$407.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONGLONG AddressOfIndex;
-     * }
-     */
-    public static long AddressOfIndex$get(MemorySegment seg) {
-        return (long)constants$407.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONGLONG AddressOfIndex;
-     * }
-     */
-    public static void AddressOfIndex$set(MemorySegment seg, long x) {
-        constants$407.const$3.set(seg, x);
-    }
-    public static long AddressOfIndex$get(MemorySegment seg, long index) {
-        return (long)constants$407.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void AddressOfIndex$set(MemorySegment seg, long index, long x) {
-        constants$407.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle AddressOfCallBacks$VH() {
-        return constants$407.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONGLONG AddressOfCallBacks;
-     * }
-     */
-    public static long AddressOfCallBacks$get(MemorySegment seg) {
-        return (long)constants$407.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONGLONG AddressOfCallBacks;
-     * }
-     */
-    public static void AddressOfCallBacks$set(MemorySegment seg, long x) {
-        constants$407.const$4.set(seg, x);
-    }
-    public static long AddressOfCallBacks$get(MemorySegment seg, long index) {
-        return (long)constants$407.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void AddressOfCallBacks$set(MemorySegment seg, long index, long x) {
-        constants$407.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle SizeOfZeroFill$VH() {
-        return constants$407.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD SizeOfZeroFill;
-     * }
-     */
-    public static int SizeOfZeroFill$get(MemorySegment seg) {
-        return (int)constants$407.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD SizeOfZeroFill;
-     * }
-     */
-    public static void SizeOfZeroFill$set(MemorySegment seg, int x) {
-        constants$407.const$5.set(seg, x);
-    }
-    public static int SizeOfZeroFill$get(MemorySegment seg, long index) {
-        return (int)constants$407.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SizeOfZeroFill$set(MemorySegment seg, long index, int x) {
-        constants$407.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Characteristics$VH() {
-        return constants$408.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Characteristics;
-     * }
-     */
-    public static int Characteristics$get(MemorySegment seg) {
-        return (int)constants$408.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Characteristics;
-     * }
-     */
-    public static void Characteristics$set(MemorySegment seg, int x) {
-        constants$408.const$0.set(seg, x);
-    }
-    public static int Characteristics$get(MemorySegment seg, long index) {
-        return (int)constants$408.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Characteristics$set(MemorySegment seg, long index, int x) {
-        constants$408.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.align(Windows_h.C_LONG_LONG, 4).withName("StartAddressOfRawData"),
+        Windows_h.align(Windows_h.C_LONG_LONG, 4).withName("EndAddressOfRawData"),
+        Windows_h.align(Windows_h.C_LONG_LONG, 4).withName("AddressOfIndex"),
+        Windows_h.align(Windows_h.C_LONG_LONG, 4).withName("AddressOfCallBacks"),
+        Windows_h.C_LONG.withName("SizeOfZeroFill"),
+        MemoryLayout.unionLayout(
+            Windows_h.C_LONG.withName("Characteristics"),
+            MemoryLayout.structLayout(
+                MemoryLayout.paddingLayout(4)
+            ).withName("$anon$19356:9")
+        ).withName("$anon$19354:5")
+    ).withName("_IMAGE_TLS_DIRECTORY64");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfLong StartAddressOfRawData$LAYOUT = (OfLong)$LAYOUT.select(groupElement("StartAddressOfRawData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONGLONG StartAddressOfRawData
+     * }
+     */
+    public static final OfLong StartAddressOfRawData$layout() {
+        return StartAddressOfRawData$LAYOUT;
+    }
+
+    private static final long StartAddressOfRawData$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONGLONG StartAddressOfRawData
+     * }
+     */
+    public static final long StartAddressOfRawData$offset() {
+        return StartAddressOfRawData$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONGLONG StartAddressOfRawData
+     * }
+     */
+    public static long StartAddressOfRawData(MemorySegment struct) {
+        return struct.get(StartAddressOfRawData$LAYOUT, StartAddressOfRawData$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONGLONG StartAddressOfRawData
+     * }
+     */
+    public static void StartAddressOfRawData(MemorySegment struct, long fieldValue) {
+        struct.set(StartAddressOfRawData$LAYOUT, StartAddressOfRawData$OFFSET, fieldValue);
+    }
+
+    private static final OfLong EndAddressOfRawData$LAYOUT = (OfLong)$LAYOUT.select(groupElement("EndAddressOfRawData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONGLONG EndAddressOfRawData
+     * }
+     */
+    public static final OfLong EndAddressOfRawData$layout() {
+        return EndAddressOfRawData$LAYOUT;
+    }
+
+    private static final long EndAddressOfRawData$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONGLONG EndAddressOfRawData
+     * }
+     */
+    public static final long EndAddressOfRawData$offset() {
+        return EndAddressOfRawData$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONGLONG EndAddressOfRawData
+     * }
+     */
+    public static long EndAddressOfRawData(MemorySegment struct) {
+        return struct.get(EndAddressOfRawData$LAYOUT, EndAddressOfRawData$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONGLONG EndAddressOfRawData
+     * }
+     */
+    public static void EndAddressOfRawData(MemorySegment struct, long fieldValue) {
+        struct.set(EndAddressOfRawData$LAYOUT, EndAddressOfRawData$OFFSET, fieldValue);
+    }
+
+    private static final OfLong AddressOfIndex$LAYOUT = (OfLong)$LAYOUT.select(groupElement("AddressOfIndex"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONGLONG AddressOfIndex
+     * }
+     */
+    public static final OfLong AddressOfIndex$layout() {
+        return AddressOfIndex$LAYOUT;
+    }
+
+    private static final long AddressOfIndex$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONGLONG AddressOfIndex
+     * }
+     */
+    public static final long AddressOfIndex$offset() {
+        return AddressOfIndex$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONGLONG AddressOfIndex
+     * }
+     */
+    public static long AddressOfIndex(MemorySegment struct) {
+        return struct.get(AddressOfIndex$LAYOUT, AddressOfIndex$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONGLONG AddressOfIndex
+     * }
+     */
+    public static void AddressOfIndex(MemorySegment struct, long fieldValue) {
+        struct.set(AddressOfIndex$LAYOUT, AddressOfIndex$OFFSET, fieldValue);
+    }
+
+    private static final OfLong AddressOfCallBacks$LAYOUT = (OfLong)$LAYOUT.select(groupElement("AddressOfCallBacks"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONGLONG AddressOfCallBacks
+     * }
+     */
+    public static final OfLong AddressOfCallBacks$layout() {
+        return AddressOfCallBacks$LAYOUT;
+    }
+
+    private static final long AddressOfCallBacks$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONGLONG AddressOfCallBacks
+     * }
+     */
+    public static final long AddressOfCallBacks$offset() {
+        return AddressOfCallBacks$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONGLONG AddressOfCallBacks
+     * }
+     */
+    public static long AddressOfCallBacks(MemorySegment struct) {
+        return struct.get(AddressOfCallBacks$LAYOUT, AddressOfCallBacks$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONGLONG AddressOfCallBacks
+     * }
+     */
+    public static void AddressOfCallBacks(MemorySegment struct, long fieldValue) {
+        struct.set(AddressOfCallBacks$LAYOUT, AddressOfCallBacks$OFFSET, fieldValue);
+    }
+
+    private static final OfInt SizeOfZeroFill$LAYOUT = (OfInt)$LAYOUT.select(groupElement("SizeOfZeroFill"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD SizeOfZeroFill
+     * }
+     */
+    public static final OfInt SizeOfZeroFill$layout() {
+        return SizeOfZeroFill$LAYOUT;
+    }
+
+    private static final long SizeOfZeroFill$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD SizeOfZeroFill
+     * }
+     */
+    public static final long SizeOfZeroFill$offset() {
+        return SizeOfZeroFill$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD SizeOfZeroFill
+     * }
+     */
+    public static int SizeOfZeroFill(MemorySegment struct) {
+        return struct.get(SizeOfZeroFill$LAYOUT, SizeOfZeroFill$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD SizeOfZeroFill
+     * }
+     */
+    public static void SizeOfZeroFill(MemorySegment struct, int fieldValue) {
+        struct.set(SizeOfZeroFill$LAYOUT, SizeOfZeroFill$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Characteristics$LAYOUT = (OfInt)$LAYOUT.select(groupElement("$anon$19354:5"), groupElement("Characteristics"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Characteristics
+     * }
+     */
+    public static final OfInt Characteristics$layout() {
+        return Characteristics$LAYOUT;
+    }
+
+    private static final long Characteristics$OFFSET = 36;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Characteristics
+     * }
+     */
+    public static final long Characteristics$offset() {
+        return Characteristics$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Characteristics
+     * }
+     */
+    public static int Characteristics(MemorySegment struct) {
+        return struct.get(Characteristics$LAYOUT, Characteristics$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Characteristics
+     * }
+     */
+    public static void Characteristics(MemorySegment struct, int fieldValue) {
+        struct.set(Characteristics$LAYOUT, Characteristics$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

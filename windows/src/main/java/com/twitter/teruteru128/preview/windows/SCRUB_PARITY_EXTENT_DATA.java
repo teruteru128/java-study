@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SCRUB_PARITY_EXTENT_DATA SCRUB_PARITY_EXTENT_DATA;
+ * {@snippet lang=c :
+ * typedef struct _SCRUB_PARITY_EXTENT_DATA {
+ *     WORD Size;
+ *     WORD Flags;
+ *     WORD NumberOfParityExtents;
+ *     WORD MaximumNumberOfParityExtents;
+ *     SCRUB_PARITY_EXTENT ParityExtents[1];
+ * } SCRUB_PARITY_EXTENT_DATA
  * }
  */
-public final class SCRUB_PARITY_EXTENT_DATA extends _SCRUB_PARITY_EXTENT_DATA {
+public class SCRUB_PARITY_EXTENT_DATA extends _SCRUB_PARITY_EXTENT_DATA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SCRUB_PARITY_EXTENT_DATA() {}
+    SCRUB_PARITY_EXTENT_DATA() {
+        // Should not be called directly
+    }
 }
-
 

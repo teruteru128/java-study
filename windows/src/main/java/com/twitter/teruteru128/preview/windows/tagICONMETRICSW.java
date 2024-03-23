@@ -2,144 +2,310 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagICONMETRICSW {
  *     UINT cbSize;
  *     int iHorzSpacing;
  *     int iVertSpacing;
  *     int iTitleWrap;
  *     LOGFONTW lfFont;
- * };
+ * }
  * }
  */
 public class tagICONMETRICSW {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1344.const$0;
+    tagICONMETRICSW() {
+        // Should not be called directly
     }
-    public static VarHandle cbSize$VH() {
-        return constants$1344.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * UINT cbSize;
-     * }
-     */
-    public static int cbSize$get(MemorySegment seg) {
-        return (int)constants$1344.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * UINT cbSize;
-     * }
-     */
-    public static void cbSize$set(MemorySegment seg, int x) {
-        constants$1344.const$1.set(seg, x);
-    }
-    public static int cbSize$get(MemorySegment seg, long index) {
-        return (int)constants$1344.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cbSize$set(MemorySegment seg, long index, int x) {
-        constants$1344.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle iHorzSpacing$VH() {
-        return constants$1344.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * int iHorzSpacing;
-     * }
-     */
-    public static int iHorzSpacing$get(MemorySegment seg) {
-        return (int)constants$1344.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * int iHorzSpacing;
-     * }
-     */
-    public static void iHorzSpacing$set(MemorySegment seg, int x) {
-        constants$1344.const$2.set(seg, x);
-    }
-    public static int iHorzSpacing$get(MemorySegment seg, long index) {
-        return (int)constants$1344.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void iHorzSpacing$set(MemorySegment seg, long index, int x) {
-        constants$1344.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle iVertSpacing$VH() {
-        return constants$1344.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * int iVertSpacing;
-     * }
-     */
-    public static int iVertSpacing$get(MemorySegment seg) {
-        return (int)constants$1344.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * int iVertSpacing;
-     * }
-     */
-    public static void iVertSpacing$set(MemorySegment seg, int x) {
-        constants$1344.const$3.set(seg, x);
-    }
-    public static int iVertSpacing$get(MemorySegment seg, long index) {
-        return (int)constants$1344.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void iVertSpacing$set(MemorySegment seg, long index, int x) {
-        constants$1344.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle iTitleWrap$VH() {
-        return constants$1344.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * int iTitleWrap;
-     * }
-     */
-    public static int iTitleWrap$get(MemorySegment seg) {
-        return (int)constants$1344.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * int iTitleWrap;
-     * }
-     */
-    public static void iTitleWrap$set(MemorySegment seg, int x) {
-        constants$1344.const$4.set(seg, x);
-    }
-    public static int iTitleWrap$get(MemorySegment seg, long index) {
-        return (int)constants$1344.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void iTitleWrap$set(MemorySegment seg, long index, int x) {
-        constants$1344.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment lfFont$slice(MemorySegment seg) {
-        return seg.asSlice(16, 92);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_INT.withName("cbSize"),
+        Windows_h.C_INT.withName("iHorzSpacing"),
+        Windows_h.C_INT.withName("iVertSpacing"),
+        Windows_h.C_INT.withName("iTitleWrap"),
+        tagLOGFONTW.layout().withName("lfFont")
+    ).withName("tagICONMETRICSW");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt cbSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cbSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * UINT cbSize
+     * }
+     */
+    public static final OfInt cbSize$layout() {
+        return cbSize$LAYOUT;
+    }
+
+    private static final long cbSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * UINT cbSize
+     * }
+     */
+    public static final long cbSize$offset() {
+        return cbSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * UINT cbSize
+     * }
+     */
+    public static int cbSize(MemorySegment struct) {
+        return struct.get(cbSize$LAYOUT, cbSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * UINT cbSize
+     * }
+     */
+    public static void cbSize(MemorySegment struct, int fieldValue) {
+        struct.set(cbSize$LAYOUT, cbSize$OFFSET, fieldValue);
+    }
+
+    private static final OfInt iHorzSpacing$LAYOUT = (OfInt)$LAYOUT.select(groupElement("iHorzSpacing"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int iHorzSpacing
+     * }
+     */
+    public static final OfInt iHorzSpacing$layout() {
+        return iHorzSpacing$LAYOUT;
+    }
+
+    private static final long iHorzSpacing$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int iHorzSpacing
+     * }
+     */
+    public static final long iHorzSpacing$offset() {
+        return iHorzSpacing$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int iHorzSpacing
+     * }
+     */
+    public static int iHorzSpacing(MemorySegment struct) {
+        return struct.get(iHorzSpacing$LAYOUT, iHorzSpacing$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int iHorzSpacing
+     * }
+     */
+    public static void iHorzSpacing(MemorySegment struct, int fieldValue) {
+        struct.set(iHorzSpacing$LAYOUT, iHorzSpacing$OFFSET, fieldValue);
+    }
+
+    private static final OfInt iVertSpacing$LAYOUT = (OfInt)$LAYOUT.select(groupElement("iVertSpacing"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int iVertSpacing
+     * }
+     */
+    public static final OfInt iVertSpacing$layout() {
+        return iVertSpacing$LAYOUT;
+    }
+
+    private static final long iVertSpacing$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int iVertSpacing
+     * }
+     */
+    public static final long iVertSpacing$offset() {
+        return iVertSpacing$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int iVertSpacing
+     * }
+     */
+    public static int iVertSpacing(MemorySegment struct) {
+        return struct.get(iVertSpacing$LAYOUT, iVertSpacing$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int iVertSpacing
+     * }
+     */
+    public static void iVertSpacing(MemorySegment struct, int fieldValue) {
+        struct.set(iVertSpacing$LAYOUT, iVertSpacing$OFFSET, fieldValue);
+    }
+
+    private static final OfInt iTitleWrap$LAYOUT = (OfInt)$LAYOUT.select(groupElement("iTitleWrap"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int iTitleWrap
+     * }
+     */
+    public static final OfInt iTitleWrap$layout() {
+        return iTitleWrap$LAYOUT;
+    }
+
+    private static final long iTitleWrap$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int iTitleWrap
+     * }
+     */
+    public static final long iTitleWrap$offset() {
+        return iTitleWrap$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int iTitleWrap
+     * }
+     */
+    public static int iTitleWrap(MemorySegment struct) {
+        return struct.get(iTitleWrap$LAYOUT, iTitleWrap$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int iTitleWrap
+     * }
+     */
+    public static void iTitleWrap(MemorySegment struct, int fieldValue) {
+        struct.set(iTitleWrap$LAYOUT, iTitleWrap$OFFSET, fieldValue);
+    }
+
+    private static final GroupLayout lfFont$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("lfFont"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LOGFONTW lfFont
+     * }
+     */
+    public static final GroupLayout lfFont$layout() {
+        return lfFont$LAYOUT;
+    }
+
+    private static final long lfFont$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LOGFONTW lfFont
+     * }
+     */
+    public static final long lfFont$offset() {
+        return lfFont$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LOGFONTW lfFont
+     * }
+     */
+    public static MemorySegment lfFont(MemorySegment struct) {
+        return struct.asSlice(lfFont$OFFSET, lfFont$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LOGFONTW lfFont
+     * }
+     */
+    public static void lfFont(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, lfFont$OFFSET, lfFont$LAYOUT.byteSize());
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

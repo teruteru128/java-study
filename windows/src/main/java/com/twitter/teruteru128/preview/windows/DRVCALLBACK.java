@@ -2,32 +2,70 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void (*DRVCALLBACK)(HDRVR hdrvr,UINT uMsg,DWORD_PTR dwUser,DWORD_PTR dw1,DWORD_PTR dw2);
+ * {@snippet lang=c :
+ * typedef void (DRVCALLBACK)(HDRVR, UINT, DWORD_PTR, DWORD_PTR, DWORD_PTR) __attribute__((stdcall))
  * }
  */
-public interface DRVCALLBACK {
+public class DRVCALLBACK {
 
-    void apply(java.lang.foreign.MemorySegment hdrvr, int uMsg, long dwUser, long dw1, long dw2);
-    static MemorySegment allocate(DRVCALLBACK fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$1553.const$3, fi, constants$1553.const$2, scope);
+    DRVCALLBACK() {
+        // Should not be called directly
     }
-    static DRVCALLBACK ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _hdrvr, int _uMsg, long _dwUser, long _dw1, long _dw2) -> {
-            try {
-                constants$1553.const$4.invokeExact(symbol, _hdrvr, _uMsg, _dwUser, _dw1, _dw2);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        void apply(MemorySegment hdrvr, int uMsg, long dwUser, long dw1, long dw2);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+        Windows_h.C_POINTER,
+        Windows_h.C_INT,
+        Windows_h.C_LONG_LONG,
+        Windows_h.C_LONG_LONG,
+        Windows_h.C_LONG_LONG
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(DRVCALLBACK.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(DRVCALLBACK.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static void invoke(MemorySegment funcPtr,MemorySegment hdrvr, int uMsg, long dwUser, long dw1, long dw2) {
+        try {
+             DOWN$MH.invokeExact(funcPtr, hdrvr, uMsg, dwUser, dw1, dw2);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

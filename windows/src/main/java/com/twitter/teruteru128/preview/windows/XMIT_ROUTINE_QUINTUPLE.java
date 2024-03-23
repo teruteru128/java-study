@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _XMIT_ROUTINE_QUINTUPLE XMIT_ROUTINE_QUINTUPLE;
+ * {@snippet lang=c :
+ * typedef struct _XMIT_ROUTINE_QUINTUPLE {
+ *     XMIT_HELPER_ROUTINE pfnTranslateToXmit;
+ *     XMIT_HELPER_ROUTINE pfnTranslateFromXmit;
+ *     XMIT_HELPER_ROUTINE pfnFreeXmit;
+ *     XMIT_HELPER_ROUTINE pfnFreeInst;
+ * } XMIT_ROUTINE_QUINTUPLE
  * }
  */
-public final class XMIT_ROUTINE_QUINTUPLE extends _XMIT_ROUTINE_QUINTUPLE {
+public class XMIT_ROUTINE_QUINTUPLE extends _XMIT_ROUTINE_QUINTUPLE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private XMIT_ROUTINE_QUINTUPLE() {}
+    XMIT_ROUTINE_QUINTUPLE() {
+        // Should not be called directly
+    }
 }
-
 

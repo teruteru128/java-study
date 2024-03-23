@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT;
+ * {@snippet lang=c :
+ * typedef struct _SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT {
+ *     WORD GeneralStatus;
+ *     WORD ExtendedStatus;
+ *     DWORD OutputDataLength;
+ *     BYTE OutputData[1];
+ * } SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT
  * }
  */
-public final class SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT extends _SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT {
+public class SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT extends _SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT() {}
+    SCM_PD_PASSTHROUGH_INVDIMM_OUTPUT() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,146 +2,271 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _FPO_DATA {
  *     DWORD ulOffStart;
  *     DWORD cbProcSize;
  *     DWORD cdwLocals;
  *     WORD cdwParams;
- *      *     WORD cbProlog;
- *     WORD cbRegs;
- *     WORD fHasSEH;
- *     WORD fUseBP;
- *     WORD reserved;
- *     WORD cbFrame;
- * };
+ *     WORD cbProlog : 8;
+ *     WORD cbRegs : 3;
+ *     WORD fHasSEH : 1;
+ *     WORD fUseBP : 1;
+ *     WORD reserved : 1;
+ *     WORD cbFrame : 2;
+ * }
  * }
  */
 public class _FPO_DATA {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$454.const$1;
+    _FPO_DATA() {
+        // Should not be called directly
     }
-    public static VarHandle ulOffStart$VH() {
-        return constants$454.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ulOffStart;
-     * }
-     */
-    public static int ulOffStart$get(MemorySegment seg) {
-        return (int)constants$454.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ulOffStart;
-     * }
-     */
-    public static void ulOffStart$set(MemorySegment seg, int x) {
-        constants$454.const$2.set(seg, x);
-    }
-    public static int ulOffStart$get(MemorySegment seg, long index) {
-        return (int)constants$454.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ulOffStart$set(MemorySegment seg, long index, int x) {
-        constants$454.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cbProcSize$VH() {
-        return constants$454.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cbProcSize;
-     * }
-     */
-    public static int cbProcSize$get(MemorySegment seg) {
-        return (int)constants$454.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cbProcSize;
-     * }
-     */
-    public static void cbProcSize$set(MemorySegment seg, int x) {
-        constants$454.const$3.set(seg, x);
-    }
-    public static int cbProcSize$get(MemorySegment seg, long index) {
-        return (int)constants$454.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cbProcSize$set(MemorySegment seg, long index, int x) {
-        constants$454.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cdwLocals$VH() {
-        return constants$454.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cdwLocals;
-     * }
-     */
-    public static int cdwLocals$get(MemorySegment seg) {
-        return (int)constants$454.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cdwLocals;
-     * }
-     */
-    public static void cdwLocals$set(MemorySegment seg, int x) {
-        constants$454.const$4.set(seg, x);
-    }
-    public static int cdwLocals$get(MemorySegment seg, long index) {
-        return (int)constants$454.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cdwLocals$set(MemorySegment seg, long index, int x) {
-        constants$454.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cdwParams$VH() {
-        return constants$454.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD cdwParams;
-     * }
-     */
-    public static short cdwParams$get(MemorySegment seg) {
-        return (short)constants$454.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD cdwParams;
-     * }
-     */
-    public static void cdwParams$set(MemorySegment seg, short x) {
-        constants$454.const$5.set(seg, x);
-    }
-    public static short cdwParams$get(MemorySegment seg, long index) {
-        return (short)constants$454.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cdwParams$set(MemorySegment seg, long index, short x) {
-        constants$454.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("ulOffStart"),
+        Windows_h.C_LONG.withName("cbProcSize"),
+        Windows_h.C_LONG.withName("cdwLocals"),
+        Windows_h.C_SHORT.withName("cdwParams"),
+        MemoryLayout.paddingLayout(2)
+    ).withName("_FPO_DATA");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt ulOffStart$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ulOffStart"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ulOffStart
+     * }
+     */
+    public static final OfInt ulOffStart$layout() {
+        return ulOffStart$LAYOUT;
+    }
+
+    private static final long ulOffStart$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ulOffStart
+     * }
+     */
+    public static final long ulOffStart$offset() {
+        return ulOffStart$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ulOffStart
+     * }
+     */
+    public static int ulOffStart(MemorySegment struct) {
+        return struct.get(ulOffStart$LAYOUT, ulOffStart$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ulOffStart
+     * }
+     */
+    public static void ulOffStart(MemorySegment struct, int fieldValue) {
+        struct.set(ulOffStart$LAYOUT, ulOffStart$OFFSET, fieldValue);
+    }
+
+    private static final OfInt cbProcSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cbProcSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cbProcSize
+     * }
+     */
+    public static final OfInt cbProcSize$layout() {
+        return cbProcSize$LAYOUT;
+    }
+
+    private static final long cbProcSize$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cbProcSize
+     * }
+     */
+    public static final long cbProcSize$offset() {
+        return cbProcSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cbProcSize
+     * }
+     */
+    public static int cbProcSize(MemorySegment struct) {
+        return struct.get(cbProcSize$LAYOUT, cbProcSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cbProcSize
+     * }
+     */
+    public static void cbProcSize(MemorySegment struct, int fieldValue) {
+        struct.set(cbProcSize$LAYOUT, cbProcSize$OFFSET, fieldValue);
+    }
+
+    private static final OfInt cdwLocals$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cdwLocals"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cdwLocals
+     * }
+     */
+    public static final OfInt cdwLocals$layout() {
+        return cdwLocals$LAYOUT;
+    }
+
+    private static final long cdwLocals$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cdwLocals
+     * }
+     */
+    public static final long cdwLocals$offset() {
+        return cdwLocals$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cdwLocals
+     * }
+     */
+    public static int cdwLocals(MemorySegment struct) {
+        return struct.get(cdwLocals$LAYOUT, cdwLocals$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cdwLocals
+     * }
+     */
+    public static void cdwLocals(MemorySegment struct, int fieldValue) {
+        struct.set(cdwLocals$LAYOUT, cdwLocals$OFFSET, fieldValue);
+    }
+
+    private static final OfShort cdwParams$LAYOUT = (OfShort)$LAYOUT.select(groupElement("cdwParams"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD cdwParams
+     * }
+     */
+    public static final OfShort cdwParams$layout() {
+        return cdwParams$LAYOUT;
+    }
+
+    private static final long cdwParams$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD cdwParams
+     * }
+     */
+    public static final long cdwParams$offset() {
+        return cdwParams$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD cdwParams
+     * }
+     */
+    public static short cdwParams(MemorySegment struct) {
+        return struct.get(cdwParams$LAYOUT, cdwParams$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD cdwParams
+     * }
+     */
+    public static void cdwParams(MemorySegment struct, short fieldValue) {
+        struct.set(cdwParams$LAYOUT, cdwParams$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V1;
+ * {@snippet lang=c :
+ * typedef JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V1
  * }
  */
-public final class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V1 extends JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE {
+public class JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V1 extends JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V1() {}
+    JOBOBJECT_IO_RATE_CONTROL_INFORMATION_NATIVE_V1() {
+        // Should not be called directly
+    }
 }
-
 

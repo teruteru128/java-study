@@ -2,88 +2,255 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _PERF_BIN {
  *     DWORD NumberOfBins;
  *     DWORD TypeOfBin;
  *     BIN_RANGE BinsRanges[1];
- * };
+ * }
  * }
  */
 public class _PERF_BIN {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2555.const$0;
+    _PERF_BIN() {
+        // Should not be called directly
     }
-    public static VarHandle NumberOfBins$VH() {
-        return constants$2555.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD NumberOfBins;
-     * }
-     */
-    public static int NumberOfBins$get(MemorySegment seg) {
-        return (int)constants$2555.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD NumberOfBins;
-     * }
-     */
-    public static void NumberOfBins$set(MemorySegment seg, int x) {
-        constants$2555.const$1.set(seg, x);
-    }
-    public static int NumberOfBins$get(MemorySegment seg, long index) {
-        return (int)constants$2555.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void NumberOfBins$set(MemorySegment seg, long index, int x) {
-        constants$2555.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle TypeOfBin$VH() {
-        return constants$2555.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD TypeOfBin;
-     * }
-     */
-    public static int TypeOfBin$get(MemorySegment seg) {
-        return (int)constants$2555.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD TypeOfBin;
-     * }
-     */
-    public static void TypeOfBin$set(MemorySegment seg, int x) {
-        constants$2555.const$2.set(seg, x);
-    }
-    public static int TypeOfBin$get(MemorySegment seg, long index) {
-        return (int)constants$2555.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void TypeOfBin$set(MemorySegment seg, long index, int x) {
-        constants$2555.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment BinsRanges$slice(MemorySegment seg) {
-        return seg.asSlice(8, 16);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("NumberOfBins"),
+        Windows_h.C_LONG.withName("TypeOfBin"),
+        MemoryLayout.sequenceLayout(1, _BIN_RANGE.layout()).withName("BinsRanges")
+    ).withName("_PERF_BIN");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt NumberOfBins$LAYOUT = (OfInt)$LAYOUT.select(groupElement("NumberOfBins"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD NumberOfBins
+     * }
+     */
+    public static final OfInt NumberOfBins$layout() {
+        return NumberOfBins$LAYOUT;
+    }
+
+    private static final long NumberOfBins$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD NumberOfBins
+     * }
+     */
+    public static final long NumberOfBins$offset() {
+        return NumberOfBins$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD NumberOfBins
+     * }
+     */
+    public static int NumberOfBins(MemorySegment struct) {
+        return struct.get(NumberOfBins$LAYOUT, NumberOfBins$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD NumberOfBins
+     * }
+     */
+    public static void NumberOfBins(MemorySegment struct, int fieldValue) {
+        struct.set(NumberOfBins$LAYOUT, NumberOfBins$OFFSET, fieldValue);
+    }
+
+    private static final OfInt TypeOfBin$LAYOUT = (OfInt)$LAYOUT.select(groupElement("TypeOfBin"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD TypeOfBin
+     * }
+     */
+    public static final OfInt TypeOfBin$layout() {
+        return TypeOfBin$LAYOUT;
+    }
+
+    private static final long TypeOfBin$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD TypeOfBin
+     * }
+     */
+    public static final long TypeOfBin$offset() {
+        return TypeOfBin$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD TypeOfBin
+     * }
+     */
+    public static int TypeOfBin(MemorySegment struct) {
+        return struct.get(TypeOfBin$LAYOUT, TypeOfBin$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD TypeOfBin
+     * }
+     */
+    public static void TypeOfBin(MemorySegment struct, int fieldValue) {
+        struct.set(TypeOfBin$LAYOUT, TypeOfBin$OFFSET, fieldValue);
+    }
+
+    private static final SequenceLayout BinsRanges$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("BinsRanges"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BIN_RANGE BinsRanges[1]
+     * }
+     */
+    public static final SequenceLayout BinsRanges$layout() {
+        return BinsRanges$LAYOUT;
+    }
+
+    private static final long BinsRanges$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BIN_RANGE BinsRanges[1]
+     * }
+     */
+    public static final long BinsRanges$offset() {
+        return BinsRanges$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BIN_RANGE BinsRanges[1]
+     * }
+     */
+    public static MemorySegment BinsRanges(MemorySegment struct) {
+        return struct.asSlice(BinsRanges$OFFSET, BinsRanges$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BIN_RANGE BinsRanges[1]
+     * }
+     */
+    public static void BinsRanges(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, BinsRanges$OFFSET, BinsRanges$LAYOUT.byteSize());
+    }
+
+    private static long[] BinsRanges$DIMS = { 1 };
+
+    /**
+     * Dimensions for array field:
+     * {@snippet lang=c :
+     * BIN_RANGE BinsRanges[1]
+     * }
+     */
+    public static long[] BinsRanges$dimensions() {
+        return BinsRanges$DIMS;
+    }
+    private static final MethodHandle BinsRanges$ELEM_HANDLE = BinsRanges$LAYOUT.sliceHandle(sequenceElement());
+
+    /**
+     * Indexed getter for field:
+     * {@snippet lang=c :
+     * BIN_RANGE BinsRanges[1]
+     * }
+     */
+    public static MemorySegment BinsRanges(MemorySegment struct, long index0) {
+        try {
+            return (MemorySegment)BinsRanges$ELEM_HANDLE.invokeExact(struct, 0L, index0);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    /**
+     * Indexed setter for field:
+     * {@snippet lang=c :
+     * BIN_RANGE BinsRanges[1]
+     * }
+     */
+    public static void BinsRanges(MemorySegment struct, long index0, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, BinsRanges(struct, index0), 0L, _BIN_RANGE.layout().byteSize());
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

@@ -2,20 +2,38 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagSOUNDSENTRYW SOUNDSENTRYW;
+ * {@snippet lang=c :
+ * typedef struct tagSOUNDSENTRYW {
+ *     UINT cbSize;
+ *     DWORD dwFlags;
+ *     DWORD iFSTextEffect;
+ *     DWORD iFSTextEffectMSec;
+ *     DWORD iFSTextEffectColorBits;
+ *     DWORD iFSGrafEffect;
+ *     DWORD iFSGrafEffectMSec;
+ *     DWORD iFSGrafEffectColor;
+ *     DWORD iWindowsEffect;
+ *     DWORD iWindowsEffectMSec;
+ *     LPWSTR lpszWindowsEffectDLL;
+ *     DWORD iWindowsEffectOrdinal;
+ * } SOUNDSENTRYW
  * }
  */
-public final class SOUNDSENTRYW extends tagSOUNDSENTRYW {
+public class SOUNDSENTRYW extends tagSOUNDSENTRYW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SOUNDSENTRYW() {}
+    SOUNDSENTRYW() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,39 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _DEVICE_LB_PROVISIONING_DESCRIPTOR DEVICE_LB_PROVISIONING_DESCRIPTOR;
+ * {@snippet lang=c :
+ * typedef struct _DEVICE_LB_PROVISIONING_DESCRIPTOR {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     BYTE ThinProvisioningEnabled : 1;
+ *     BYTE ThinProvisioningReadZeros : 1;
+ *     BYTE AnchorSupported : 3;
+ *     BYTE UnmapGranularityAlignmentValid : 1;
+ *     BYTE GetFreeSpaceSupported : 1;
+ *     BYTE MapSupported : 1;
+ *     BYTE Reserved1[7];
+ *     DWORDLONG OptimalUnmapGranularity;
+ *     DWORDLONG UnmapGranularityAlignment;
+ *     DWORD MaxUnmapLbaCount;
+ *     DWORD MaxUnmapBlockDescriptorCount;
+ * } DEVICE_LB_PROVISIONING_DESCRIPTOR
  * }
  */
-public final class DEVICE_LB_PROVISIONING_DESCRIPTOR extends _DEVICE_LB_PROVISIONING_DESCRIPTOR {
+public class DEVICE_LB_PROVISIONING_DESCRIPTOR extends _DEVICE_LB_PROVISIONING_DESCRIPTOR {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private DEVICE_LB_PROVISIONING_DESCRIPTOR() {}
+    DEVICE_LB_PROVISIONING_DESCRIPTOR() {
+        // Should not be called directly
+    }
 }
-
 

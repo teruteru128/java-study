@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SCM_PD_FIRMWARE_ACTIVATE SCM_PD_FIRMWARE_ACTIVATE;
+ * {@snippet lang=c :
+ * typedef struct _SCM_PD_FIRMWARE_ACTIVATE {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     DWORD Flags;
+ *     BYTE Slot;
+ * } SCM_PD_FIRMWARE_ACTIVATE
  * }
  */
-public final class SCM_PD_FIRMWARE_ACTIVATE extends _SCM_PD_FIRMWARE_ACTIVATE {
+public class SCM_PD_FIRMWARE_ACTIVATE extends _SCM_PD_FIRMWARE_ACTIVATE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SCM_PD_FIRMWARE_ACTIVATE() {}
+    SCM_PD_FIRMWARE_ACTIVATE() {
+        // Should not be called directly
+    }
 }
-
 

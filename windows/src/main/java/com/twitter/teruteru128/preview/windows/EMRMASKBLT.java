@@ -2,20 +2,49 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagEMRMASKBLT EMRMASKBLT;
+ * {@snippet lang=c :
+ * typedef struct tagEMRMASKBLT {
+ *     EMR emr;
+ *     RECTL rclBounds;
+ *     LONG xDest;
+ *     LONG yDest;
+ *     LONG cxDest;
+ *     LONG cyDest;
+ *     DWORD dwRop;
+ *     LONG xSrc;
+ *     LONG ySrc;
+ *     XFORM xformSrc;
+ *     COLORREF crBkColorSrc;
+ *     DWORD iUsageSrc;
+ *     DWORD offBmiSrc;
+ *     DWORD cbBmiSrc;
+ *     DWORD offBitsSrc;
+ *     DWORD cbBitsSrc;
+ *     LONG xMask;
+ *     LONG yMask;
+ *     DWORD iUsageMask;
+ *     DWORD offBmiMask;
+ *     DWORD cbBmiMask;
+ *     DWORD offBitsMask;
+ *     DWORD cbBitsMask;
+ * } EMRMASKBLT
  * }
  */
-public final class EMRMASKBLT extends tagEMRMASKBLT {
+public class EMRMASKBLT extends tagEMRMASKBLT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private EMRMASKBLT() {}
+    EMRMASKBLT() {
+        // Should not be called directly
+    }
 }
-
 

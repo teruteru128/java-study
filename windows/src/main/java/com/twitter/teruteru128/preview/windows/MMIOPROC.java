@@ -2,32 +2,70 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * LRESULT (*MMIOPROC)(LPSTR lpmmioinfo,UINT uMsg,LPARAM lParam1,LPARAM lParam2);
+ * {@snippet lang=c :
+ * typedef LRESULT (MMIOPROC)(LPSTR, UINT, LPARAM, LPARAM) __attribute__((stdcall))
  * }
  */
-public interface MMIOPROC {
+public class MMIOPROC {
 
-    long apply(java.lang.foreign.MemorySegment lpmmioinfo, int uMsg, long lParam1, long lParam2);
-    static MemorySegment allocate(MMIOPROC fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$1597.const$1, fi, constants$1131.const$4, scope);
+    MMIOPROC() {
+        // Should not be called directly
     }
-    static MMIOPROC ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _lpmmioinfo, int _uMsg, long _lParam1, long _lParam2) -> {
-            try {
-                return (long)constants$1132.const$0.invokeExact(symbol, _lpmmioinfo, _uMsg, _lParam1, _lParam2);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        long apply(MemorySegment lpmmioinfo, int uMsg, long lParam1, long lParam2);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_LONG_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_INT,
+        Windows_h.C_LONG_LONG,
+        Windows_h.C_LONG_LONG
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(MMIOPROC.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(MMIOPROC.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static long invoke(MemorySegment funcPtr,MemorySegment lpmmioinfo, int uMsg, long lParam1, long lParam2) {
+        try {
+            return (long) DOWN$MH.invokeExact(funcPtr, lpmmioinfo, uMsg, lParam1, lParam2);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

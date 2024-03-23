@@ -2,20 +2,41 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagEMRSETDIBITSTODEVICE EMRSETDIBITSTODEVICE;
+ * {@snippet lang=c :
+ * typedef struct tagEMRSETDIBITSTODEVICE {
+ *     EMR emr;
+ *     RECTL rclBounds;
+ *     LONG xDest;
+ *     LONG yDest;
+ *     LONG xSrc;
+ *     LONG ySrc;
+ *     LONG cxSrc;
+ *     LONG cySrc;
+ *     DWORD offBmiSrc;
+ *     DWORD cbBmiSrc;
+ *     DWORD offBitsSrc;
+ *     DWORD cbBitsSrc;
+ *     DWORD iUsageSrc;
+ *     DWORD iStartScan;
+ *     DWORD cScans;
+ * } EMRSETDIBITSTODEVICE
  * }
  */
-public final class EMRSETDIBITSTODEVICE extends tagEMRSETDIBITSTODEVICE {
+public class EMRSETDIBITSTODEVICE extends tagEMRSETDIBITSTODEVICE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private EMRSETDIBITSTODEVICE() {}
+    EMRSETDIBITSTODEVICE() {
+        // Should not be called directly
+    }
 }
-
 

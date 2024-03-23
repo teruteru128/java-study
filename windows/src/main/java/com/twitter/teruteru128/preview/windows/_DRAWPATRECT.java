@@ -2,92 +2,264 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _DRAWPATRECT {
  *     POINT ptPosition;
  *     POINT ptSize;
  *     WORD wStyle;
  *     WORD wPattern;
- * };
+ * }
  * }
  */
 public class _DRAWPATRECT {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$884.const$2;
+    _DRAWPATRECT() {
+        // Should not be called directly
     }
-    public static MemorySegment ptPosition$slice(MemorySegment seg) {
-        return seg.asSlice(0, 8);
-    }
-    public static MemorySegment ptSize$slice(MemorySegment seg) {
-        return seg.asSlice(8, 8);
-    }
-    public static VarHandle wStyle$VH() {
-        return constants$884.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD wStyle;
-     * }
-     */
-    public static short wStyle$get(MemorySegment seg) {
-        return (short)constants$884.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD wStyle;
-     * }
-     */
-    public static void wStyle$set(MemorySegment seg, short x) {
-        constants$884.const$3.set(seg, x);
-    }
-    public static short wStyle$get(MemorySegment seg, long index) {
-        return (short)constants$884.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wStyle$set(MemorySegment seg, long index, short x) {
-        constants$884.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle wPattern$VH() {
-        return constants$884.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD wPattern;
-     * }
-     */
-    public static short wPattern$get(MemorySegment seg) {
-        return (short)constants$884.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD wPattern;
-     * }
-     */
-    public static void wPattern$set(MemorySegment seg, short x) {
-        constants$884.const$4.set(seg, x);
-    }
-    public static short wPattern$get(MemorySegment seg, long index) {
-        return (short)constants$884.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wPattern$set(MemorySegment seg, long index, short x) {
-        constants$884.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        tagPOINT.layout().withName("ptPosition"),
+        tagPOINT.layout().withName("ptSize"),
+        Windows_h.C_SHORT.withName("wStyle"),
+        Windows_h.C_SHORT.withName("wPattern")
+    ).withName("_DRAWPATRECT");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final GroupLayout ptPosition$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("ptPosition"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * POINT ptPosition
+     * }
+     */
+    public static final GroupLayout ptPosition$layout() {
+        return ptPosition$LAYOUT;
+    }
+
+    private static final long ptPosition$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * POINT ptPosition
+     * }
+     */
+    public static final long ptPosition$offset() {
+        return ptPosition$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * POINT ptPosition
+     * }
+     */
+    public static MemorySegment ptPosition(MemorySegment struct) {
+        return struct.asSlice(ptPosition$OFFSET, ptPosition$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * POINT ptPosition
+     * }
+     */
+    public static void ptPosition(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, ptPosition$OFFSET, ptPosition$LAYOUT.byteSize());
+    }
+
+    private static final GroupLayout ptSize$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("ptSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * POINT ptSize
+     * }
+     */
+    public static final GroupLayout ptSize$layout() {
+        return ptSize$LAYOUT;
+    }
+
+    private static final long ptSize$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * POINT ptSize
+     * }
+     */
+    public static final long ptSize$offset() {
+        return ptSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * POINT ptSize
+     * }
+     */
+    public static MemorySegment ptSize(MemorySegment struct) {
+        return struct.asSlice(ptSize$OFFSET, ptSize$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * POINT ptSize
+     * }
+     */
+    public static void ptSize(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, ptSize$OFFSET, ptSize$LAYOUT.byteSize());
+    }
+
+    private static final OfShort wStyle$LAYOUT = (OfShort)$LAYOUT.select(groupElement("wStyle"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD wStyle
+     * }
+     */
+    public static final OfShort wStyle$layout() {
+        return wStyle$LAYOUT;
+    }
+
+    private static final long wStyle$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD wStyle
+     * }
+     */
+    public static final long wStyle$offset() {
+        return wStyle$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD wStyle
+     * }
+     */
+    public static short wStyle(MemorySegment struct) {
+        return struct.get(wStyle$LAYOUT, wStyle$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD wStyle
+     * }
+     */
+    public static void wStyle(MemorySegment struct, short fieldValue) {
+        struct.set(wStyle$LAYOUT, wStyle$OFFSET, fieldValue);
+    }
+
+    private static final OfShort wPattern$LAYOUT = (OfShort)$LAYOUT.select(groupElement("wPattern"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD wPattern
+     * }
+     */
+    public static final OfShort wPattern$layout() {
+        return wPattern$LAYOUT;
+    }
+
+    private static final long wPattern$OFFSET = 18;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD wPattern
+     * }
+     */
+    public static final long wPattern$offset() {
+        return wPattern$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD wPattern
+     * }
+     */
+    public static short wPattern(MemorySegment struct) {
+        return struct.get(wPattern$LAYOUT, wPattern$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD wPattern
+     * }
+     */
+    public static void wPattern(MemorySegment struct, short fieldValue) {
+        struct.set(wPattern$LAYOUT, wPattern$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

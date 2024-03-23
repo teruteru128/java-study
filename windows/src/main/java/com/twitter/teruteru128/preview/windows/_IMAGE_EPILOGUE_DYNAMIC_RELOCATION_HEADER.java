@@ -2,140 +2,264 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER {
  *     DWORD EpilogueCount;
  *     BYTE EpilogueByteCount;
  *     BYTE BranchDescriptorElementSize;
  *     WORD BranchDescriptorCount;
- * };
+ * }
  * }
  */
 public class _IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$421.const$3;
+    _IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER() {
+        // Should not be called directly
     }
-    public static VarHandle EpilogueCount$VH() {
-        return constants$421.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD EpilogueCount;
-     * }
-     */
-    public static int EpilogueCount$get(MemorySegment seg) {
-        return (int)constants$421.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD EpilogueCount;
-     * }
-     */
-    public static void EpilogueCount$set(MemorySegment seg, int x) {
-        constants$421.const$4.set(seg, x);
-    }
-    public static int EpilogueCount$get(MemorySegment seg, long index) {
-        return (int)constants$421.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void EpilogueCount$set(MemorySegment seg, long index, int x) {
-        constants$421.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle EpilogueByteCount$VH() {
-        return constants$421.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE EpilogueByteCount;
-     * }
-     */
-    public static byte EpilogueByteCount$get(MemorySegment seg) {
-        return (byte)constants$421.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE EpilogueByteCount;
-     * }
-     */
-    public static void EpilogueByteCount$set(MemorySegment seg, byte x) {
-        constants$421.const$5.set(seg, x);
-    }
-    public static byte EpilogueByteCount$get(MemorySegment seg, long index) {
-        return (byte)constants$421.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void EpilogueByteCount$set(MemorySegment seg, long index, byte x) {
-        constants$421.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle BranchDescriptorElementSize$VH() {
-        return constants$422.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BYTE BranchDescriptorElementSize;
-     * }
-     */
-    public static byte BranchDescriptorElementSize$get(MemorySegment seg) {
-        return (byte)constants$422.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BYTE BranchDescriptorElementSize;
-     * }
-     */
-    public static void BranchDescriptorElementSize$set(MemorySegment seg, byte x) {
-        constants$422.const$0.set(seg, x);
-    }
-    public static byte BranchDescriptorElementSize$get(MemorySegment seg, long index) {
-        return (byte)constants$422.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void BranchDescriptorElementSize$set(MemorySegment seg, long index, byte x) {
-        constants$422.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle BranchDescriptorCount$VH() {
-        return constants$422.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD BranchDescriptorCount;
-     * }
-     */
-    public static short BranchDescriptorCount$get(MemorySegment seg) {
-        return (short)constants$422.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD BranchDescriptorCount;
-     * }
-     */
-    public static void BranchDescriptorCount$set(MemorySegment seg, short x) {
-        constants$422.const$1.set(seg, x);
-    }
-    public static short BranchDescriptorCount$get(MemorySegment seg, long index) {
-        return (short)constants$422.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void BranchDescriptorCount$set(MemorySegment seg, long index, short x) {
-        constants$422.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.align(Windows_h.C_LONG, 1).withName("EpilogueCount"),
+        Windows_h.C_CHAR.withName("EpilogueByteCount"),
+        Windows_h.C_CHAR.withName("BranchDescriptorElementSize"),
+        Windows_h.align(Windows_h.C_SHORT, 1).withName("BranchDescriptorCount")
+    ).withName("_IMAGE_EPILOGUE_DYNAMIC_RELOCATION_HEADER");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt EpilogueCount$LAYOUT = (OfInt)$LAYOUT.select(groupElement("EpilogueCount"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD EpilogueCount
+     * }
+     */
+    public static final OfInt EpilogueCount$layout() {
+        return EpilogueCount$LAYOUT;
+    }
+
+    private static final long EpilogueCount$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD EpilogueCount
+     * }
+     */
+    public static final long EpilogueCount$offset() {
+        return EpilogueCount$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD EpilogueCount
+     * }
+     */
+    public static int EpilogueCount(MemorySegment struct) {
+        return struct.get(EpilogueCount$LAYOUT, EpilogueCount$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD EpilogueCount
+     * }
+     */
+    public static void EpilogueCount(MemorySegment struct, int fieldValue) {
+        struct.set(EpilogueCount$LAYOUT, EpilogueCount$OFFSET, fieldValue);
+    }
+
+    private static final OfByte EpilogueByteCount$LAYOUT = (OfByte)$LAYOUT.select(groupElement("EpilogueByteCount"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE EpilogueByteCount
+     * }
+     */
+    public static final OfByte EpilogueByteCount$layout() {
+        return EpilogueByteCount$LAYOUT;
+    }
+
+    private static final long EpilogueByteCount$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE EpilogueByteCount
+     * }
+     */
+    public static final long EpilogueByteCount$offset() {
+        return EpilogueByteCount$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE EpilogueByteCount
+     * }
+     */
+    public static byte EpilogueByteCount(MemorySegment struct) {
+        return struct.get(EpilogueByteCount$LAYOUT, EpilogueByteCount$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE EpilogueByteCount
+     * }
+     */
+    public static void EpilogueByteCount(MemorySegment struct, byte fieldValue) {
+        struct.set(EpilogueByteCount$LAYOUT, EpilogueByteCount$OFFSET, fieldValue);
+    }
+
+    private static final OfByte BranchDescriptorElementSize$LAYOUT = (OfByte)$LAYOUT.select(groupElement("BranchDescriptorElementSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE BranchDescriptorElementSize
+     * }
+     */
+    public static final OfByte BranchDescriptorElementSize$layout() {
+        return BranchDescriptorElementSize$LAYOUT;
+    }
+
+    private static final long BranchDescriptorElementSize$OFFSET = 5;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE BranchDescriptorElementSize
+     * }
+     */
+    public static final long BranchDescriptorElementSize$offset() {
+        return BranchDescriptorElementSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE BranchDescriptorElementSize
+     * }
+     */
+    public static byte BranchDescriptorElementSize(MemorySegment struct) {
+        return struct.get(BranchDescriptorElementSize$LAYOUT, BranchDescriptorElementSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE BranchDescriptorElementSize
+     * }
+     */
+    public static void BranchDescriptorElementSize(MemorySegment struct, byte fieldValue) {
+        struct.set(BranchDescriptorElementSize$LAYOUT, BranchDescriptorElementSize$OFFSET, fieldValue);
+    }
+
+    private static final OfShort BranchDescriptorCount$LAYOUT = (OfShort)$LAYOUT.select(groupElement("BranchDescriptorCount"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD BranchDescriptorCount
+     * }
+     */
+    public static final OfShort BranchDescriptorCount$layout() {
+        return BranchDescriptorCount$LAYOUT;
+    }
+
+    private static final long BranchDescriptorCount$OFFSET = 6;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD BranchDescriptorCount
+     * }
+     */
+    public static final long BranchDescriptorCount$offset() {
+        return BranchDescriptorCount$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD BranchDescriptorCount
+     * }
+     */
+    public static short BranchDescriptorCount(MemorySegment struct) {
+        return struct.get(BranchDescriptorCount$LAYOUT, BranchDescriptorCount$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD BranchDescriptorCount
+     * }
+     */
+    public static void BranchDescriptorCount(MemorySegment struct, short fieldValue) {
+        struct.set(BranchDescriptorCount$LAYOUT, BranchDescriptorCount$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

@@ -2,32 +2,71 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * long (*I_RpcProxyGetClientSessionAndResourceUUID)(void* Context,int* SessionIdPresent,struct _GUID* SessionId,int* ResourceIdPresent,struct _GUID* ResourceId);
+ * {@snippet lang=c :
+ * typedef RPC_STATUS (*I_RpcProxyGetClientSessionAndResourceUUID)(void *, int *, UUID *, int *, UUID *) __attribute__((stdcall))
  * }
  */
-public interface I_RpcProxyGetClientSessionAndResourceUUID {
+public class I_RpcProxyGetClientSessionAndResourceUUID {
 
-    int apply(java.lang.foreign.MemorySegment Context, java.lang.foreign.MemorySegment SessionIdPresent, java.lang.foreign.MemorySegment SessionId, java.lang.foreign.MemorySegment ResourceIdPresent, java.lang.foreign.MemorySegment ResourceId);
-    static MemorySegment allocate(I_RpcProxyGetClientSessionAndResourceUUID fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$1804.const$3, fi, constants$577.const$5, scope);
+    I_RpcProxyGetClientSessionAndResourceUUID() {
+        // Should not be called directly
     }
-    static I_RpcProxyGetClientSessionAndResourceUUID ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _Context, java.lang.foreign.MemorySegment _SessionIdPresent, java.lang.foreign.MemorySegment _SessionId, java.lang.foreign.MemorySegment _ResourceIdPresent, java.lang.foreign.MemorySegment _ResourceId) -> {
-            try {
-                return (int)constants$1781.const$5.invokeExact(symbol, _Context, _SessionIdPresent, _SessionId, _ResourceIdPresent, _ResourceId);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment Context, MemorySegment SessionIdPresent, MemorySegment SessionId, MemorySegment ResourceIdPresent, MemorySegment ResourceId);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(I_RpcProxyGetClientSessionAndResourceUUID.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(I_RpcProxyGetClientSessionAndResourceUUID.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment Context, MemorySegment SessionIdPresent, MemorySegment SessionId, MemorySegment ResourceIdPresent, MemorySegment ResourceId) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, Context, SessionIdPresent, SessionId, ResourceIdPresent, ResourceId);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

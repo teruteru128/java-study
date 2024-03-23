@@ -2,32 +2,71 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * long (*PEXCEPTION_FILTER)(struct _EXCEPTION_POINTERS* ExceptionPointers,void* EstablisherFrame);
+ * {@snippet lang=c :
+ * typedef LONG (*PEXCEPTION_FILTER)(struct _EXCEPTION_POINTERS {
+ *     PEXCEPTION_RECORD ExceptionRecord;
+ *     PCONTEXT ContextRecord;
+ * } *, PVOID)
  * }
  */
-public interface PEXCEPTION_FILTER {
+public class PEXCEPTION_FILTER {
 
-    int apply(java.lang.foreign.MemorySegment hwndParent, java.lang.foreign.MemorySegment pszPath);
-    static MemorySegment allocate(PEXCEPTION_FILTER fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$92.const$1, fi, constants$34.const$0, scope);
+    PEXCEPTION_FILTER() {
+        // Should not be called directly
     }
-    static PEXCEPTION_FILTER ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _hwndParent, java.lang.foreign.MemorySegment _pszPath) -> {
-            try {
-                return (int)constants$92.const$2.invokeExact(symbol, _hwndParent, _pszPath);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment ExceptionPointers, MemorySegment EstablisherFrame);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PEXCEPTION_FILTER.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PEXCEPTION_FILTER.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment ExceptionPointers, MemorySegment EstablisherFrame) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, ExceptionPointers, EstablisherFrame);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

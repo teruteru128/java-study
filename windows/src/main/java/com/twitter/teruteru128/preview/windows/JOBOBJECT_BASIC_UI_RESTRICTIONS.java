@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _JOBOBJECT_BASIC_UI_RESTRICTIONS JOBOBJECT_BASIC_UI_RESTRICTIONS;
+ * {@snippet lang=c :
+ * typedef struct _JOBOBJECT_BASIC_UI_RESTRICTIONS {
+ *     DWORD UIRestrictionsClass;
+ * } JOBOBJECT_BASIC_UI_RESTRICTIONS
  * }
  */
-public final class JOBOBJECT_BASIC_UI_RESTRICTIONS extends _JOBOBJECT_BASIC_UI_RESTRICTIONS {
+public class JOBOBJECT_BASIC_UI_RESTRICTIONS extends _JOBOBJECT_BASIC_UI_RESTRICTIONS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private JOBOBJECT_BASIC_UI_RESTRICTIONS() {}
+    JOBOBJECT_BASIC_UI_RESTRICTIONS() {
+        // Should not be called directly
+    }
 }
-
 

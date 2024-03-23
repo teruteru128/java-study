@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _RTL_SRWLOCK RTL_SRWLOCK;
+ * {@snippet lang=c :
+ * typedef struct _RTL_SRWLOCK {
+ *     PVOID Ptr;
+ * } RTL_SRWLOCK
  * }
  */
-public final class RTL_SRWLOCK extends _RTL_SRWLOCK {
+public class RTL_SRWLOCK extends _RTL_SRWLOCK {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private RTL_SRWLOCK() {}
+    RTL_SRWLOCK() {
+        // Should not be called directly
+    }
 }
-
 

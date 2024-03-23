@@ -2,32 +2,67 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void (*PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD)(void* pPluginContext,unsigned short* pwszPassword);
+ * {@snippet lang=c :
+ * typedef void (*PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD)(LPVOID, PCWSTR) __attribute__((stdcall))
  * }
  */
-public interface PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD {
+public class PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD {
 
-    void apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1);
-    static MemorySegment allocate(PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2242.const$3, fi, constants$469.const$2, scope);
+    PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD() {
+        // Should not be called directly
     }
-    static PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1) -> {
-            try {
-                constants$531.const$5.invokeExact(symbol, __x0, __x1);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        void apply(MemorySegment pPluginContext, MemorySegment pwszPassword);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static void invoke(MemorySegment funcPtr,MemorySegment pPluginContext, MemorySegment pwszPassword) {
+        try {
+             DOWN$MH.invokeExact(funcPtr, pPluginContext, pwszPassword);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

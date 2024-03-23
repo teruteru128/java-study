@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct provider_info {
  *     PQUERYHANDLER pi_R0_1val;
  *     PQUERYHANDLER pi_R0_allvals;
@@ -16,194 +21,338 @@ import static java.lang.foreign.ValueLayout.*;
  *     PQUERYHANDLER pi_R3_allvals;
  *     DWORD pi_flags;
  *     LPVOID pi_key_context;
- * };
+ * }
  * }
  */
 public class provider_info {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1483.const$0;
+    provider_info() {
+        // Should not be called directly
     }
-    public static VarHandle pi_R0_1val$VH() {
-        return constants$1483.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PQUERYHANDLER pi_R0_1val;
-     * }
-     */
-    public static MemorySegment pi_R0_1val$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$1483.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PQUERYHANDLER pi_R0_1val;
-     * }
-     */
-    public static void pi_R0_1val$set(MemorySegment seg, MemorySegment x) {
-        constants$1483.const$1.set(seg, x);
-    }
-    public static MemorySegment pi_R0_1val$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$1483.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pi_R0_1val$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$1483.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static PQUERYHANDLER pi_R0_1val(MemorySegment segment, Arena scope) {
-        return PQUERYHANDLER.ofAddress(pi_R0_1val$get(segment), scope);
-    }
-    public static VarHandle pi_R0_allvals$VH() {
-        return constants$1483.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PQUERYHANDLER pi_R0_allvals;
-     * }
-     */
-    public static MemorySegment pi_R0_allvals$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$1483.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PQUERYHANDLER pi_R0_allvals;
-     * }
-     */
-    public static void pi_R0_allvals$set(MemorySegment seg, MemorySegment x) {
-        constants$1483.const$2.set(seg, x);
-    }
-    public static MemorySegment pi_R0_allvals$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$1483.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pi_R0_allvals$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$1483.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static PQUERYHANDLER pi_R0_allvals(MemorySegment segment, Arena scope) {
-        return PQUERYHANDLER.ofAddress(pi_R0_allvals$get(segment), scope);
-    }
-    public static VarHandle pi_R3_1val$VH() {
-        return constants$1483.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PQUERYHANDLER pi_R3_1val;
-     * }
-     */
-    public static MemorySegment pi_R3_1val$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$1483.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PQUERYHANDLER pi_R3_1val;
-     * }
-     */
-    public static void pi_R3_1val$set(MemorySegment seg, MemorySegment x) {
-        constants$1483.const$3.set(seg, x);
-    }
-    public static MemorySegment pi_R3_1val$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$1483.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pi_R3_1val$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$1483.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static PQUERYHANDLER pi_R3_1val(MemorySegment segment, Arena scope) {
-        return PQUERYHANDLER.ofAddress(pi_R3_1val$get(segment), scope);
-    }
-    public static VarHandle pi_R3_allvals$VH() {
-        return constants$1483.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PQUERYHANDLER pi_R3_allvals;
-     * }
-     */
-    public static MemorySegment pi_R3_allvals$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$1483.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PQUERYHANDLER pi_R3_allvals;
-     * }
-     */
-    public static void pi_R3_allvals$set(MemorySegment seg, MemorySegment x) {
-        constants$1483.const$4.set(seg, x);
-    }
-    public static MemorySegment pi_R3_allvals$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$1483.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pi_R3_allvals$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$1483.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static PQUERYHANDLER pi_R3_allvals(MemorySegment segment, Arena scope) {
-        return PQUERYHANDLER.ofAddress(pi_R3_allvals$get(segment), scope);
-    }
-    public static VarHandle pi_flags$VH() {
-        return constants$1483.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD pi_flags;
-     * }
-     */
-    public static int pi_flags$get(MemorySegment seg) {
-        return (int)constants$1483.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD pi_flags;
-     * }
-     */
-    public static void pi_flags$set(MemorySegment seg, int x) {
-        constants$1483.const$5.set(seg, x);
-    }
-    public static int pi_flags$get(MemorySegment seg, long index) {
-        return (int)constants$1483.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pi_flags$set(MemorySegment seg, long index, int x) {
-        constants$1483.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pi_key_context$VH() {
-        return constants$1484.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPVOID pi_key_context;
-     * }
-     */
-    public static MemorySegment pi_key_context$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$1484.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPVOID pi_key_context;
-     * }
-     */
-    public static void pi_key_context$set(MemorySegment seg, MemorySegment x) {
-        constants$1484.const$0.set(seg, x);
-    }
-    public static MemorySegment pi_key_context$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$1484.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pi_key_context$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$1484.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("pi_R0_1val"),
+        Windows_h.C_POINTER.withName("pi_R0_allvals"),
+        Windows_h.C_POINTER.withName("pi_R3_1val"),
+        Windows_h.C_POINTER.withName("pi_R3_allvals"),
+        Windows_h.C_LONG.withName("pi_flags"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("pi_key_context")
+    ).withName("provider_info");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final AddressLayout pi_R0_1val$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pi_R0_1val"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R0_1val
+     * }
+     */
+    public static final AddressLayout pi_R0_1val$layout() {
+        return pi_R0_1val$LAYOUT;
+    }
+
+    private static final long pi_R0_1val$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R0_1val
+     * }
+     */
+    public static final long pi_R0_1val$offset() {
+        return pi_R0_1val$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R0_1val
+     * }
+     */
+    public static MemorySegment pi_R0_1val(MemorySegment struct) {
+        return struct.get(pi_R0_1val$LAYOUT, pi_R0_1val$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R0_1val
+     * }
+     */
+    public static void pi_R0_1val(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pi_R0_1val$LAYOUT, pi_R0_1val$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pi_R0_allvals$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pi_R0_allvals"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R0_allvals
+     * }
+     */
+    public static final AddressLayout pi_R0_allvals$layout() {
+        return pi_R0_allvals$LAYOUT;
+    }
+
+    private static final long pi_R0_allvals$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R0_allvals
+     * }
+     */
+    public static final long pi_R0_allvals$offset() {
+        return pi_R0_allvals$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R0_allvals
+     * }
+     */
+    public static MemorySegment pi_R0_allvals(MemorySegment struct) {
+        return struct.get(pi_R0_allvals$LAYOUT, pi_R0_allvals$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R0_allvals
+     * }
+     */
+    public static void pi_R0_allvals(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pi_R0_allvals$LAYOUT, pi_R0_allvals$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pi_R3_1val$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pi_R3_1val"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R3_1val
+     * }
+     */
+    public static final AddressLayout pi_R3_1val$layout() {
+        return pi_R3_1val$LAYOUT;
+    }
+
+    private static final long pi_R3_1val$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R3_1val
+     * }
+     */
+    public static final long pi_R3_1val$offset() {
+        return pi_R3_1val$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R3_1val
+     * }
+     */
+    public static MemorySegment pi_R3_1val(MemorySegment struct) {
+        return struct.get(pi_R3_1val$LAYOUT, pi_R3_1val$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R3_1val
+     * }
+     */
+    public static void pi_R3_1val(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pi_R3_1val$LAYOUT, pi_R3_1val$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pi_R3_allvals$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pi_R3_allvals"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R3_allvals
+     * }
+     */
+    public static final AddressLayout pi_R3_allvals$layout() {
+        return pi_R3_allvals$LAYOUT;
+    }
+
+    private static final long pi_R3_allvals$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R3_allvals
+     * }
+     */
+    public static final long pi_R3_allvals$offset() {
+        return pi_R3_allvals$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R3_allvals
+     * }
+     */
+    public static MemorySegment pi_R3_allvals(MemorySegment struct) {
+        return struct.get(pi_R3_allvals$LAYOUT, pi_R3_allvals$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PQUERYHANDLER pi_R3_allvals
+     * }
+     */
+    public static void pi_R3_allvals(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pi_R3_allvals$LAYOUT, pi_R3_allvals$OFFSET, fieldValue);
+    }
+
+    private static final OfInt pi_flags$LAYOUT = (OfInt)$LAYOUT.select(groupElement("pi_flags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD pi_flags
+     * }
+     */
+    public static final OfInt pi_flags$layout() {
+        return pi_flags$LAYOUT;
+    }
+
+    private static final long pi_flags$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD pi_flags
+     * }
+     */
+    public static final long pi_flags$offset() {
+        return pi_flags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD pi_flags
+     * }
+     */
+    public static int pi_flags(MemorySegment struct) {
+        return struct.get(pi_flags$LAYOUT, pi_flags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD pi_flags
+     * }
+     */
+    public static void pi_flags(MemorySegment struct, int fieldValue) {
+        struct.set(pi_flags$LAYOUT, pi_flags$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pi_key_context$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pi_key_context"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPVOID pi_key_context
+     * }
+     */
+    public static final AddressLayout pi_key_context$layout() {
+        return pi_key_context$LAYOUT;
+    }
+
+    private static final long pi_key_context$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPVOID pi_key_context
+     * }
+     */
+    public static final long pi_key_context$offset() {
+        return pi_key_context$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPVOID pi_key_context
+     * }
+     */
+    public static MemorySegment pi_key_context(MemorySegment struct) {
+        return struct.get(pi_key_context$LAYOUT, pi_key_context$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPVOID pi_key_context
+     * }
+     */
+    public static void pi_key_context(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pi_key_context$LAYOUT, pi_key_context$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

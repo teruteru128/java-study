@@ -2,20 +2,49 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _PROPSHEETPAGEW PROPSHEETPAGEW_V4;
+ * {@snippet lang=c :
+ * typedef struct _PROPSHEETPAGEW {
+ *     DWORD dwSize;
+ *     DWORD dwFlags;
+ *     HINSTANCE hInstance;
+ *     union {
+ *         LPCWSTR pszTemplate;
+ *         PROPSHEETPAGE_RESOURCE pResource;
+ *     };
+ *     union {
+ *         HICON hIcon;
+ *         LPCWSTR pszIcon;
+ *     };
+ *     LPCWSTR pszTitle;
+ *     DLGPROC pfnDlgProc;
+ *     LPARAM lParam;
+ *     LPFNPSPCALLBACKW pfnCallback;
+ *     UINT *pcRefParent;
+ *     LPCWSTR pszHeaderTitle;
+ *     LPCWSTR pszHeaderSubTitle;
+ *     HANDLE hActCtx;
+ *     union {
+ *         HBITMAP hbmHeader;
+ *         LPCWSTR pszbmHeader;
+ *     };
+ * } PROPSHEETPAGEW_V4
  * }
  */
-public final class PROPSHEETPAGEW_V4 extends _PROPSHEETPAGEW {
+public class PROPSHEETPAGEW_V4 extends _PROPSHEETPAGEW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private PROPSHEETPAGEW_V4() {}
+    PROPSHEETPAGEW_V4() {
+        // Should not be called directly
+    }
 }
-
 

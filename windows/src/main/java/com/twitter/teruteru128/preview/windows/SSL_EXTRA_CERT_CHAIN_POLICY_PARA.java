@@ -2,20 +2,33 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _HTTPSPolicyCallbackData SSL_EXTRA_CERT_CHAIN_POLICY_PARA;
+ * {@snippet lang=c :
+ * typedef struct _HTTPSPolicyCallbackData {
+ *     union {
+ *         DWORD cbStruct;
+ *         DWORD cbSize;
+ *     };
+ *     DWORD dwAuthType;
+ *     DWORD fdwChecks;
+ *     WCHAR *pwszServerName;
+ * } SSL_EXTRA_CERT_CHAIN_POLICY_PARA
  * }
  */
-public final class SSL_EXTRA_CERT_CHAIN_POLICY_PARA extends _HTTPSPolicyCallbackData {
+public class SSL_EXTRA_CERT_CHAIN_POLICY_PARA extends _HTTPSPolicyCallbackData {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SSL_EXTRA_CERT_CHAIN_POLICY_PARA() {}
+    SSL_EXTRA_CERT_CHAIN_POLICY_PARA() {
+        // Should not be called directly
+    }
 }
-
 

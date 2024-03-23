@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagEMRFRAMERGN EMRFRAMERGN;
+ * {@snippet lang=c :
+ * typedef struct tagEMRFRAMERGN {
+ *     EMR emr;
+ *     RECTL rclBounds;
+ *     DWORD cbRgnData;
+ *     DWORD ihBrush;
+ *     SIZEL szlStroke;
+ *     BYTE RgnData[1];
+ * } EMRFRAMERGN
  * }
  */
-public final class EMRFRAMERGN extends tagEMRFRAMERGN {
+public class EMRFRAMERGN extends tagEMRFRAMERGN {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private EMRFRAMERGN() {}
+    EMRFRAMERGN() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,54 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _DCB DCB;
+ * {@snippet lang=c :
+ * typedef struct _DCB {
+ *     DWORD DCBlength;
+ *     DWORD BaudRate;
+ *     DWORD fBinary : 1;
+ *     DWORD fParity : 1;
+ *     DWORD fOutxCtsFlow : 1;
+ *     DWORD fOutxDsrFlow : 1;
+ *     DWORD fDtrControl : 2;
+ *     DWORD fDsrSensitivity : 1;
+ *     DWORD fTXContinueOnXoff : 1;
+ *     DWORD fOutX : 1;
+ *     DWORD fInX : 1;
+ *     DWORD fErrorChar : 1;
+ *     DWORD fNull : 1;
+ *     DWORD fRtsControl : 2;
+ *     DWORD fAbortOnError : 1;
+ *     DWORD fDummy2 : 17;
+ *     WORD wReserved;
+ *     WORD XonLim;
+ *     WORD XoffLim;
+ *     BYTE ByteSize;
+ *     BYTE Parity;
+ *     BYTE StopBits;
+ *     char XonChar;
+ *     char XoffChar;
+ *     char ErrorChar;
+ *     char EofChar;
+ *     char EvtChar;
+ *     WORD wReserved1;
+ * } DCB
  * }
  */
-public final class DCB extends _DCB {
+public class DCB extends _DCB {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private DCB() {}
+    DCB() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,140 +2,265 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct {
  *     DWORD64 TotalTimeUs;
  *     DWORD MinTimeUs;
  *     DWORD MaxTimeUs;
  *     DWORD Count;
- * };
+ * }
  * }
  */
 public class PPM_IDLE_STATE_BUCKET_EX {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$323.const$1;
+    PPM_IDLE_STATE_BUCKET_EX() {
+        // Should not be called directly
     }
-    public static VarHandle TotalTimeUs$VH() {
-        return constants$323.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD64 TotalTimeUs;
-     * }
-     */
-    public static long TotalTimeUs$get(MemorySegment seg) {
-        return (long)constants$323.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD64 TotalTimeUs;
-     * }
-     */
-    public static void TotalTimeUs$set(MemorySegment seg, long x) {
-        constants$323.const$2.set(seg, x);
-    }
-    public static long TotalTimeUs$get(MemorySegment seg, long index) {
-        return (long)constants$323.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void TotalTimeUs$set(MemorySegment seg, long index, long x) {
-        constants$323.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle MinTimeUs$VH() {
-        return constants$323.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD MinTimeUs;
-     * }
-     */
-    public static int MinTimeUs$get(MemorySegment seg) {
-        return (int)constants$323.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD MinTimeUs;
-     * }
-     */
-    public static void MinTimeUs$set(MemorySegment seg, int x) {
-        constants$323.const$3.set(seg, x);
-    }
-    public static int MinTimeUs$get(MemorySegment seg, long index) {
-        return (int)constants$323.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void MinTimeUs$set(MemorySegment seg, long index, int x) {
-        constants$323.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle MaxTimeUs$VH() {
-        return constants$323.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD MaxTimeUs;
-     * }
-     */
-    public static int MaxTimeUs$get(MemorySegment seg) {
-        return (int)constants$323.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD MaxTimeUs;
-     * }
-     */
-    public static void MaxTimeUs$set(MemorySegment seg, int x) {
-        constants$323.const$4.set(seg, x);
-    }
-    public static int MaxTimeUs$get(MemorySegment seg, long index) {
-        return (int)constants$323.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void MaxTimeUs$set(MemorySegment seg, long index, int x) {
-        constants$323.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Count$VH() {
-        return constants$323.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Count;
-     * }
-     */
-    public static int Count$get(MemorySegment seg) {
-        return (int)constants$323.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Count;
-     * }
-     */
-    public static void Count$set(MemorySegment seg, int x) {
-        constants$323.const$5.set(seg, x);
-    }
-    public static int Count$get(MemorySegment seg, long index) {
-        return (int)constants$323.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Count$set(MemorySegment seg, long index, int x) {
-        constants$323.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG_LONG.withName("TotalTimeUs"),
+        Windows_h.C_LONG.withName("MinTimeUs"),
+        Windows_h.C_LONG.withName("MaxTimeUs"),
+        Windows_h.C_LONG.withName("Count"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("$anon$17451:9");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfLong TotalTimeUs$LAYOUT = (OfLong)$LAYOUT.select(groupElement("TotalTimeUs"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD64 TotalTimeUs
+     * }
+     */
+    public static final OfLong TotalTimeUs$layout() {
+        return TotalTimeUs$LAYOUT;
+    }
+
+    private static final long TotalTimeUs$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD64 TotalTimeUs
+     * }
+     */
+    public static final long TotalTimeUs$offset() {
+        return TotalTimeUs$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD64 TotalTimeUs
+     * }
+     */
+    public static long TotalTimeUs(MemorySegment struct) {
+        return struct.get(TotalTimeUs$LAYOUT, TotalTimeUs$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD64 TotalTimeUs
+     * }
+     */
+    public static void TotalTimeUs(MemorySegment struct, long fieldValue) {
+        struct.set(TotalTimeUs$LAYOUT, TotalTimeUs$OFFSET, fieldValue);
+    }
+
+    private static final OfInt MinTimeUs$LAYOUT = (OfInt)$LAYOUT.select(groupElement("MinTimeUs"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD MinTimeUs
+     * }
+     */
+    public static final OfInt MinTimeUs$layout() {
+        return MinTimeUs$LAYOUT;
+    }
+
+    private static final long MinTimeUs$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD MinTimeUs
+     * }
+     */
+    public static final long MinTimeUs$offset() {
+        return MinTimeUs$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD MinTimeUs
+     * }
+     */
+    public static int MinTimeUs(MemorySegment struct) {
+        return struct.get(MinTimeUs$LAYOUT, MinTimeUs$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD MinTimeUs
+     * }
+     */
+    public static void MinTimeUs(MemorySegment struct, int fieldValue) {
+        struct.set(MinTimeUs$LAYOUT, MinTimeUs$OFFSET, fieldValue);
+    }
+
+    private static final OfInt MaxTimeUs$LAYOUT = (OfInt)$LAYOUT.select(groupElement("MaxTimeUs"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD MaxTimeUs
+     * }
+     */
+    public static final OfInt MaxTimeUs$layout() {
+        return MaxTimeUs$LAYOUT;
+    }
+
+    private static final long MaxTimeUs$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD MaxTimeUs
+     * }
+     */
+    public static final long MaxTimeUs$offset() {
+        return MaxTimeUs$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD MaxTimeUs
+     * }
+     */
+    public static int MaxTimeUs(MemorySegment struct) {
+        return struct.get(MaxTimeUs$LAYOUT, MaxTimeUs$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD MaxTimeUs
+     * }
+     */
+    public static void MaxTimeUs(MemorySegment struct, int fieldValue) {
+        struct.set(MaxTimeUs$LAYOUT, MaxTimeUs$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Count$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Count"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Count
+     * }
+     */
+    public static final OfInt Count$layout() {
+        return Count$LAYOUT;
+    }
+
+    private static final long Count$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Count
+     * }
+     */
+    public static final long Count$offset() {
+        return Count$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Count
+     * }
+     */
+    public static int Count(MemorySegment struct) {
+        return struct.get(Count$LAYOUT, Count$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Count
+     * }
+     */
+    public static void Count(MemorySegment struct, int fieldValue) {
+        struct.set(Count$LAYOUT, Count$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

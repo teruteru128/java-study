@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagHW_PROFILE_INFOA HW_PROFILE_INFO;
+ * {@snippet lang=c :
+ * typedef HW_PROFILE_INFOA HW_PROFILE_INFO
  * }
  */
-public final class HW_PROFILE_INFO extends tagHW_PROFILE_INFOA {
+public class HW_PROFILE_INFO extends tagHW_PROFILE_INFOA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private HW_PROFILE_INFO() {}
+    HW_PROFILE_INFO() {
+        // Should not be called directly
+    }
 }
-
 

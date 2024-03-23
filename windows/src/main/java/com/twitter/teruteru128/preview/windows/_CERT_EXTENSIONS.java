@@ -2,84 +2,173 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _CERT_EXTENSIONS {
  *     DWORD cExtension;
  *     PCERT_EXTENSION rgExtension;
- * };
+ * }
  * }
  */
 public class _CERT_EXTENSIONS {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2024.const$0;
+    _CERT_EXTENSIONS() {
+        // Should not be called directly
     }
-    public static VarHandle cExtension$VH() {
-        return constants$2024.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cExtension;
-     * }
-     */
-    public static int cExtension$get(MemorySegment seg) {
-        return (int)constants$2024.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cExtension;
-     * }
-     */
-    public static void cExtension$set(MemorySegment seg, int x) {
-        constants$2024.const$1.set(seg, x);
-    }
-    public static int cExtension$get(MemorySegment seg, long index) {
-        return (int)constants$2024.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cExtension$set(MemorySegment seg, long index, int x) {
-        constants$2024.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle rgExtension$VH() {
-        return constants$2024.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCERT_EXTENSION rgExtension;
-     * }
-     */
-    public static MemorySegment rgExtension$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2024.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCERT_EXTENSION rgExtension;
-     * }
-     */
-    public static void rgExtension$set(MemorySegment seg, MemorySegment x) {
-        constants$2024.const$2.set(seg, x);
-    }
-    public static MemorySegment rgExtension$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2024.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void rgExtension$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2024.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("cExtension"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("rgExtension")
+    ).withName("_CERT_EXTENSIONS");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt cExtension$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cExtension"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cExtension
+     * }
+     */
+    public static final OfInt cExtension$layout() {
+        return cExtension$LAYOUT;
+    }
+
+    private static final long cExtension$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cExtension
+     * }
+     */
+    public static final long cExtension$offset() {
+        return cExtension$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cExtension
+     * }
+     */
+    public static int cExtension(MemorySegment struct) {
+        return struct.get(cExtension$LAYOUT, cExtension$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cExtension
+     * }
+     */
+    public static void cExtension(MemorySegment struct, int fieldValue) {
+        struct.set(cExtension$LAYOUT, cExtension$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout rgExtension$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("rgExtension"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCERT_EXTENSION rgExtension
+     * }
+     */
+    public static final AddressLayout rgExtension$layout() {
+        return rgExtension$LAYOUT;
+    }
+
+    private static final long rgExtension$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCERT_EXTENSION rgExtension
+     * }
+     */
+    public static final long rgExtension$offset() {
+        return rgExtension$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCERT_EXTENSION rgExtension
+     * }
+     */
+    public static MemorySegment rgExtension(MemorySegment struct) {
+        return struct.get(rgExtension$LAYOUT, rgExtension$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCERT_EXTENSION rgExtension
+     * }
+     */
+    public static void rgExtension(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(rgExtension$LAYOUT, rgExtension$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

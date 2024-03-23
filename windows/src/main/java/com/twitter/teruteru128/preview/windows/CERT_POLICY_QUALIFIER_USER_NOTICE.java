@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CERT_POLICY_QUALIFIER_USER_NOTICE CERT_POLICY_QUALIFIER_USER_NOTICE;
+ * {@snippet lang=c :
+ * typedef struct _CERT_POLICY_QUALIFIER_USER_NOTICE {
+ *     CERT_POLICY_QUALIFIER_NOTICE_REFERENCE *pNoticeReference;
+ *     LPWSTR pszDisplayText;
+ * } CERT_POLICY_QUALIFIER_USER_NOTICE
  * }
  */
-public final class CERT_POLICY_QUALIFIER_USER_NOTICE extends _CERT_POLICY_QUALIFIER_USER_NOTICE {
+public class CERT_POLICY_QUALIFIER_USER_NOTICE extends _CERT_POLICY_QUALIFIER_USER_NOTICE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CERT_POLICY_QUALIFIER_USER_NOTICE() {}
+    CERT_POLICY_QUALIFIER_USER_NOTICE() {
+        // Should not be called directly
+    }
 }
-
 

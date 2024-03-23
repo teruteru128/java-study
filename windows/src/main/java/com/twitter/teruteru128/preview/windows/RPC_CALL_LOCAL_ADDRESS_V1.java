@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _RPC_CALL_LOCAL_ADDRESS_V1 RPC_CALL_LOCAL_ADDRESS_V1;
+ * {@snippet lang=c :
+ * typedef struct _RPC_CALL_LOCAL_ADDRESS_V1 {
+ *     unsigned int Version;
+ *     void *Buffer;
+ *     unsigned long BufferSize;
+ *     RpcLocalAddressFormat AddressFormat;
+ * } RPC_CALL_LOCAL_ADDRESS_V1
  * }
  */
-public final class RPC_CALL_LOCAL_ADDRESS_V1 extends _RPC_CALL_LOCAL_ADDRESS_V1 {
+public class RPC_CALL_LOCAL_ADDRESS_V1 extends _RPC_CALL_LOCAL_ADDRESS_V1 {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private RPC_CALL_LOCAL_ADDRESS_V1() {}
+    RPC_CALL_LOCAL_ADDRESS_V1() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,116 +2,264 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _STORAGE_DEVICE_LOCATION_DESCRIPTOR {
  *     DWORD Version;
  *     DWORD Size;
  *     DEVICE_LOCATION Location;
  *     DWORD StringOffset;
- * };
+ * }
  * }
  */
 public class _STORAGE_DEVICE_LOCATION_DESCRIPTOR {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2434.const$5;
+    _STORAGE_DEVICE_LOCATION_DESCRIPTOR() {
+        // Should not be called directly
     }
-    public static VarHandle Version$VH() {
-        return constants$2435.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Version;
-     * }
-     */
-    public static int Version$get(MemorySegment seg) {
-        return (int)constants$2435.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Version;
-     * }
-     */
-    public static void Version$set(MemorySegment seg, int x) {
-        constants$2435.const$0.set(seg, x);
-    }
-    public static int Version$get(MemorySegment seg, long index) {
-        return (int)constants$2435.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Version$set(MemorySegment seg, long index, int x) {
-        constants$2435.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Size$VH() {
-        return constants$2435.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Size;
-     * }
-     */
-    public static int Size$get(MemorySegment seg) {
-        return (int)constants$2435.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Size;
-     * }
-     */
-    public static void Size$set(MemorySegment seg, int x) {
-        constants$2435.const$1.set(seg, x);
-    }
-    public static int Size$get(MemorySegment seg, long index) {
-        return (int)constants$2435.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Size$set(MemorySegment seg, long index, int x) {
-        constants$2435.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment Location$slice(MemorySegment seg) {
-        return seg.asSlice(8, 24);
-    }
-    public static VarHandle StringOffset$VH() {
-        return constants$2435.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD StringOffset;
-     * }
-     */
-    public static int StringOffset$get(MemorySegment seg) {
-        return (int)constants$2435.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD StringOffset;
-     * }
-     */
-    public static void StringOffset$set(MemorySegment seg, int x) {
-        constants$2435.const$2.set(seg, x);
-    }
-    public static int StringOffset$get(MemorySegment seg, long index) {
-        return (int)constants$2435.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void StringOffset$set(MemorySegment seg, long index, int x) {
-        constants$2435.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("Version"),
+        Windows_h.C_LONG.withName("Size"),
+        _DEVICE_LOCATION.layout().withName("Location"),
+        Windows_h.C_LONG.withName("StringOffset")
+    ).withName("_STORAGE_DEVICE_LOCATION_DESCRIPTOR");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt Version$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Version"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static final OfInt Version$layout() {
+        return Version$LAYOUT;
+    }
+
+    private static final long Version$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static final long Version$offset() {
+        return Version$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static int Version(MemorySegment struct) {
+        return struct.get(Version$LAYOUT, Version$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static void Version(MemorySegment struct, int fieldValue) {
+        struct.set(Version$LAYOUT, Version$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Size$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Size"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static final OfInt Size$layout() {
+        return Size$LAYOUT;
+    }
+
+    private static final long Size$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static final long Size$offset() {
+        return Size$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static int Size(MemorySegment struct) {
+        return struct.get(Size$LAYOUT, Size$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static void Size(MemorySegment struct, int fieldValue) {
+        struct.set(Size$LAYOUT, Size$OFFSET, fieldValue);
+    }
+
+    private static final GroupLayout Location$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("Location"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DEVICE_LOCATION Location
+     * }
+     */
+    public static final GroupLayout Location$layout() {
+        return Location$LAYOUT;
+    }
+
+    private static final long Location$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DEVICE_LOCATION Location
+     * }
+     */
+    public static final long Location$offset() {
+        return Location$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DEVICE_LOCATION Location
+     * }
+     */
+    public static MemorySegment Location(MemorySegment struct) {
+        return struct.asSlice(Location$OFFSET, Location$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DEVICE_LOCATION Location
+     * }
+     */
+    public static void Location(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, Location$OFFSET, Location$LAYOUT.byteSize());
+    }
+
+    private static final OfInt StringOffset$LAYOUT = (OfInt)$LAYOUT.select(groupElement("StringOffset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD StringOffset
+     * }
+     */
+    public static final OfInt StringOffset$layout() {
+        return StringOffset$LAYOUT;
+    }
+
+    private static final long StringOffset$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD StringOffset
+     * }
+     */
+    public static final long StringOffset$offset() {
+        return StringOffset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD StringOffset
+     * }
+     */
+    public static int StringOffset(MemorySegment struct) {
+        return struct.get(StringOffset$LAYOUT, StringOffset$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD StringOffset
+     * }
+     */
+    public static void StringOffset(MemorySegment struct, int fieldValue) {
+        struct.set(StringOffset$LAYOUT, StringOffset$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

@@ -2,20 +2,36 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _PERF_COUNTER_DEFINITION PERF_COUNTER_DEFINITION;
+ * {@snippet lang=c :
+ * typedef struct _PERF_COUNTER_DEFINITION {
+ *     DWORD ByteLength;
+ *     DWORD CounterNameTitleIndex;
+ *     DWORD CounterNameTitle;
+ *     DWORD CounterHelpTitleIndex;
+ *     DWORD CounterHelpTitle;
+ *     LONG DefaultScale;
+ *     DWORD DetailLevel;
+ *     DWORD CounterType;
+ *     DWORD CounterSize;
+ *     DWORD CounterOffset;
+ * } PERF_COUNTER_DEFINITION
  * }
  */
-public final class PERF_COUNTER_DEFINITION extends _PERF_COUNTER_DEFINITION {
+public class PERF_COUNTER_DEFINITION extends _PERF_COUNTER_DEFINITION {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private PERF_COUNTER_DEFINITION() {}
+    PERF_COUNTER_DEFINITION() {
+        // Should not be called directly
+    }
 }
-
 

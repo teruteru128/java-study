@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagCOLORMATCHTOTARGET EMRCOLORMATCHTOTARGET;
+ * {@snippet lang=c :
+ * typedef struct tagCOLORMATCHTOTARGET {
+ *     EMR emr;
+ *     DWORD dwAction;
+ *     DWORD dwFlags;
+ *     DWORD cbName;
+ *     DWORD cbData;
+ *     BYTE Data[1];
+ * } EMRCOLORMATCHTOTARGET
  * }
  */
-public final class EMRCOLORMATCHTOTARGET extends tagCOLORMATCHTOTARGET {
+public class EMRCOLORMATCHTOTARGET extends tagCOLORMATCHTOTARGET {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private EMRCOLORMATCHTOTARGET() {}
+    EMRCOLORMATCHTOTARGET() {
+        // Should not be called directly
+    }
 }
-
 

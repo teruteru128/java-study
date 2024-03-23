@@ -2,20 +2,33 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagCANDIDATELIST CANDIDATELIST;
+ * {@snippet lang=c :
+ * typedef struct tagCANDIDATELIST {
+ *     DWORD dwSize;
+ *     DWORD dwStyle;
+ *     DWORD dwCount;
+ *     DWORD dwSelection;
+ *     DWORD dwPageStart;
+ *     DWORD dwPageSize;
+ *     DWORD dwOffset[1];
+ * } CANDIDATELIST
  * }
  */
-public final class CANDIDATELIST extends tagCANDIDATELIST {
+public class CANDIDATELIST extends tagCANDIDATELIST {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CANDIDATELIST() {}
+    CANDIDATELIST() {
+        // Should not be called directly
+    }
 }
-
 

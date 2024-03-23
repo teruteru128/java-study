@@ -2,140 +2,265 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _BCRYPT_MULTI_HASH_OPERATION {
  *     ULONG iHash;
  *     BCRYPT_HASH_OPERATION_TYPE hashOperation;
  *     PUCHAR pbBuffer;
  *     ULONG cbBuffer;
- * };
+ * }
  * }
  */
 public class _BCRYPT_MULTI_HASH_OPERATION {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1955.const$3;
+    _BCRYPT_MULTI_HASH_OPERATION() {
+        // Should not be called directly
     }
-    public static VarHandle iHash$VH() {
-        return constants$1955.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG iHash;
-     * }
-     */
-    public static int iHash$get(MemorySegment seg) {
-        return (int)constants$1955.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG iHash;
-     * }
-     */
-    public static void iHash$set(MemorySegment seg, int x) {
-        constants$1955.const$4.set(seg, x);
-    }
-    public static int iHash$get(MemorySegment seg, long index) {
-        return (int)constants$1955.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void iHash$set(MemorySegment seg, long index, int x) {
-        constants$1955.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle hashOperation$VH() {
-        return constants$1955.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BCRYPT_HASH_OPERATION_TYPE hashOperation;
-     * }
-     */
-    public static int hashOperation$get(MemorySegment seg) {
-        return (int)constants$1955.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BCRYPT_HASH_OPERATION_TYPE hashOperation;
-     * }
-     */
-    public static void hashOperation$set(MemorySegment seg, int x) {
-        constants$1955.const$5.set(seg, x);
-    }
-    public static int hashOperation$get(MemorySegment seg, long index) {
-        return (int)constants$1955.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void hashOperation$set(MemorySegment seg, long index, int x) {
-        constants$1955.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pbBuffer$VH() {
-        return constants$1956.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PUCHAR pbBuffer;
-     * }
-     */
-    public static MemorySegment pbBuffer$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$1956.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PUCHAR pbBuffer;
-     * }
-     */
-    public static void pbBuffer$set(MemorySegment seg, MemorySegment x) {
-        constants$1956.const$0.set(seg, x);
-    }
-    public static MemorySegment pbBuffer$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$1956.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pbBuffer$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$1956.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cbBuffer$VH() {
-        return constants$1956.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG cbBuffer;
-     * }
-     */
-    public static int cbBuffer$get(MemorySegment seg) {
-        return (int)constants$1956.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG cbBuffer;
-     * }
-     */
-    public static void cbBuffer$set(MemorySegment seg, int x) {
-        constants$1956.const$1.set(seg, x);
-    }
-    public static int cbBuffer$get(MemorySegment seg, long index) {
-        return (int)constants$1956.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cbBuffer$set(MemorySegment seg, long index, int x) {
-        constants$1956.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("iHash"),
+        Windows_h.C_INT.withName("hashOperation"),
+        Windows_h.C_POINTER.withName("pbBuffer"),
+        Windows_h.C_LONG.withName("cbBuffer"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("_BCRYPT_MULTI_HASH_OPERATION");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt iHash$LAYOUT = (OfInt)$LAYOUT.select(groupElement("iHash"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG iHash
+     * }
+     */
+    public static final OfInt iHash$layout() {
+        return iHash$LAYOUT;
+    }
+
+    private static final long iHash$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG iHash
+     * }
+     */
+    public static final long iHash$offset() {
+        return iHash$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG iHash
+     * }
+     */
+    public static int iHash(MemorySegment struct) {
+        return struct.get(iHash$LAYOUT, iHash$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG iHash
+     * }
+     */
+    public static void iHash(MemorySegment struct, int fieldValue) {
+        struct.set(iHash$LAYOUT, iHash$OFFSET, fieldValue);
+    }
+
+    private static final OfInt hashOperation$LAYOUT = (OfInt)$LAYOUT.select(groupElement("hashOperation"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BCRYPT_HASH_OPERATION_TYPE hashOperation
+     * }
+     */
+    public static final OfInt hashOperation$layout() {
+        return hashOperation$LAYOUT;
+    }
+
+    private static final long hashOperation$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BCRYPT_HASH_OPERATION_TYPE hashOperation
+     * }
+     */
+    public static final long hashOperation$offset() {
+        return hashOperation$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BCRYPT_HASH_OPERATION_TYPE hashOperation
+     * }
+     */
+    public static int hashOperation(MemorySegment struct) {
+        return struct.get(hashOperation$LAYOUT, hashOperation$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BCRYPT_HASH_OPERATION_TYPE hashOperation
+     * }
+     */
+    public static void hashOperation(MemorySegment struct, int fieldValue) {
+        struct.set(hashOperation$LAYOUT, hashOperation$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pbBuffer$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pbBuffer"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PUCHAR pbBuffer
+     * }
+     */
+    public static final AddressLayout pbBuffer$layout() {
+        return pbBuffer$LAYOUT;
+    }
+
+    private static final long pbBuffer$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PUCHAR pbBuffer
+     * }
+     */
+    public static final long pbBuffer$offset() {
+        return pbBuffer$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PUCHAR pbBuffer
+     * }
+     */
+    public static MemorySegment pbBuffer(MemorySegment struct) {
+        return struct.get(pbBuffer$LAYOUT, pbBuffer$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PUCHAR pbBuffer
+     * }
+     */
+    public static void pbBuffer(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pbBuffer$LAYOUT, pbBuffer$OFFSET, fieldValue);
+    }
+
+    private static final OfInt cbBuffer$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cbBuffer"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG cbBuffer
+     * }
+     */
+    public static final OfInt cbBuffer$layout() {
+        return cbBuffer$LAYOUT;
+    }
+
+    private static final long cbBuffer$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG cbBuffer
+     * }
+     */
+    public static final long cbBuffer$offset() {
+        return cbBuffer$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG cbBuffer
+     * }
+     */
+    public static int cbBuffer(MemorySegment struct) {
+        return struct.get(cbBuffer$LAYOUT, cbBuffer$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG cbBuffer
+     * }
+     */
+    public static void cbBuffer(MemorySegment struct, int fieldValue) {
+        struct.set(cbBuffer$LAYOUT, cbBuffer$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

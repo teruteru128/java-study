@@ -2,226 +2,407 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _CMC_STATUS_INFO {
  *     DWORD dwStatus;
  *     DWORD cBodyList;
- *     DWORD* rgdwBodyList;
+ *     DWORD *rgdwBodyList;
  *     LPWSTR pwszStatusString;
  *     DWORD dwOtherInfoChoice;
  *     union {
  *         DWORD dwFailInfo;
  *         PCMC_PEND_INFO pPendInfo;
  *     };
- * };
+ * }
  * }
  */
 public class _CMC_STATUS_INFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2052.const$2;
+    _CMC_STATUS_INFO() {
+        // Should not be called directly
     }
-    public static VarHandle dwStatus$VH() {
-        return constants$2052.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwStatus;
-     * }
-     */
-    public static int dwStatus$get(MemorySegment seg) {
-        return (int)constants$2052.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwStatus;
-     * }
-     */
-    public static void dwStatus$set(MemorySegment seg, int x) {
-        constants$2052.const$3.set(seg, x);
-    }
-    public static int dwStatus$get(MemorySegment seg, long index) {
-        return (int)constants$2052.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwStatus$set(MemorySegment seg, long index, int x) {
-        constants$2052.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cBodyList$VH() {
-        return constants$2052.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cBodyList;
-     * }
-     */
-    public static int cBodyList$get(MemorySegment seg) {
-        return (int)constants$2052.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cBodyList;
-     * }
-     */
-    public static void cBodyList$set(MemorySegment seg, int x) {
-        constants$2052.const$4.set(seg, x);
-    }
-    public static int cBodyList$get(MemorySegment seg, long index) {
-        return (int)constants$2052.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cBodyList$set(MemorySegment seg, long index, int x) {
-        constants$2052.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle rgdwBodyList$VH() {
-        return constants$2052.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD* rgdwBodyList;
-     * }
-     */
-    public static MemorySegment rgdwBodyList$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2052.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD* rgdwBodyList;
-     * }
-     */
-    public static void rgdwBodyList$set(MemorySegment seg, MemorySegment x) {
-        constants$2052.const$5.set(seg, x);
-    }
-    public static MemorySegment rgdwBodyList$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2052.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void rgdwBodyList$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2052.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pwszStatusString$VH() {
-        return constants$2053.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pwszStatusString;
-     * }
-     */
-    public static MemorySegment pwszStatusString$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2053.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pwszStatusString;
-     * }
-     */
-    public static void pwszStatusString$set(MemorySegment seg, MemorySegment x) {
-        constants$2053.const$0.set(seg, x);
-    }
-    public static MemorySegment pwszStatusString$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2053.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pwszStatusString$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2053.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwOtherInfoChoice$VH() {
-        return constants$2053.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwOtherInfoChoice;
-     * }
-     */
-    public static int dwOtherInfoChoice$get(MemorySegment seg) {
-        return (int)constants$2053.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwOtherInfoChoice;
-     * }
-     */
-    public static void dwOtherInfoChoice$set(MemorySegment seg, int x) {
-        constants$2053.const$1.set(seg, x);
-    }
-    public static int dwOtherInfoChoice$get(MemorySegment seg, long index) {
-        return (int)constants$2053.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwOtherInfoChoice$set(MemorySegment seg, long index, int x) {
-        constants$2053.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwFailInfo$VH() {
-        return constants$2053.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwFailInfo;
-     * }
-     */
-    public static int dwFailInfo$get(MemorySegment seg) {
-        return (int)constants$2053.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwFailInfo;
-     * }
-     */
-    public static void dwFailInfo$set(MemorySegment seg, int x) {
-        constants$2053.const$2.set(seg, x);
-    }
-    public static int dwFailInfo$get(MemorySegment seg, long index) {
-        return (int)constants$2053.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwFailInfo$set(MemorySegment seg, long index, int x) {
-        constants$2053.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pPendInfo$VH() {
-        return constants$2053.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCMC_PEND_INFO pPendInfo;
-     * }
-     */
-    public static MemorySegment pPendInfo$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2053.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCMC_PEND_INFO pPendInfo;
-     * }
-     */
-    public static void pPendInfo$set(MemorySegment seg, MemorySegment x) {
-        constants$2053.const$3.set(seg, x);
-    }
-    public static MemorySegment pPendInfo$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2053.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pPendInfo$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2053.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("dwStatus"),
+        Windows_h.C_LONG.withName("cBodyList"),
+        Windows_h.C_POINTER.withName("rgdwBodyList"),
+        Windows_h.C_POINTER.withName("pwszStatusString"),
+        Windows_h.C_LONG.withName("dwOtherInfoChoice"),
+        MemoryLayout.paddingLayout(4),
+        MemoryLayout.unionLayout(
+            Windows_h.C_LONG.withName("dwFailInfo"),
+            Windows_h.C_POINTER.withName("pPendInfo")
+        ).withName("$anon$5295:5")
+    ).withName("_CMC_STATUS_INFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt dwStatus$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwStatus"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwStatus
+     * }
+     */
+    public static final OfInt dwStatus$layout() {
+        return dwStatus$LAYOUT;
+    }
+
+    private static final long dwStatus$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwStatus
+     * }
+     */
+    public static final long dwStatus$offset() {
+        return dwStatus$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwStatus
+     * }
+     */
+    public static int dwStatus(MemorySegment struct) {
+        return struct.get(dwStatus$LAYOUT, dwStatus$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwStatus
+     * }
+     */
+    public static void dwStatus(MemorySegment struct, int fieldValue) {
+        struct.set(dwStatus$LAYOUT, dwStatus$OFFSET, fieldValue);
+    }
+
+    private static final OfInt cBodyList$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cBodyList"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cBodyList
+     * }
+     */
+    public static final OfInt cBodyList$layout() {
+        return cBodyList$LAYOUT;
+    }
+
+    private static final long cBodyList$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cBodyList
+     * }
+     */
+    public static final long cBodyList$offset() {
+        return cBodyList$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cBodyList
+     * }
+     */
+    public static int cBodyList(MemorySegment struct) {
+        return struct.get(cBodyList$LAYOUT, cBodyList$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cBodyList
+     * }
+     */
+    public static void cBodyList(MemorySegment struct, int fieldValue) {
+        struct.set(cBodyList$LAYOUT, cBodyList$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout rgdwBodyList$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("rgdwBodyList"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD *rgdwBodyList
+     * }
+     */
+    public static final AddressLayout rgdwBodyList$layout() {
+        return rgdwBodyList$LAYOUT;
+    }
+
+    private static final long rgdwBodyList$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD *rgdwBodyList
+     * }
+     */
+    public static final long rgdwBodyList$offset() {
+        return rgdwBodyList$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD *rgdwBodyList
+     * }
+     */
+    public static MemorySegment rgdwBodyList(MemorySegment struct) {
+        return struct.get(rgdwBodyList$LAYOUT, rgdwBodyList$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD *rgdwBodyList
+     * }
+     */
+    public static void rgdwBodyList(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(rgdwBodyList$LAYOUT, rgdwBodyList$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pwszStatusString$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pwszStatusString"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pwszStatusString
+     * }
+     */
+    public static final AddressLayout pwszStatusString$layout() {
+        return pwszStatusString$LAYOUT;
+    }
+
+    private static final long pwszStatusString$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pwszStatusString
+     * }
+     */
+    public static final long pwszStatusString$offset() {
+        return pwszStatusString$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pwszStatusString
+     * }
+     */
+    public static MemorySegment pwszStatusString(MemorySegment struct) {
+        return struct.get(pwszStatusString$LAYOUT, pwszStatusString$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pwszStatusString
+     * }
+     */
+    public static void pwszStatusString(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pwszStatusString$LAYOUT, pwszStatusString$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwOtherInfoChoice$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwOtherInfoChoice"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwOtherInfoChoice
+     * }
+     */
+    public static final OfInt dwOtherInfoChoice$layout() {
+        return dwOtherInfoChoice$LAYOUT;
+    }
+
+    private static final long dwOtherInfoChoice$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwOtherInfoChoice
+     * }
+     */
+    public static final long dwOtherInfoChoice$offset() {
+        return dwOtherInfoChoice$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwOtherInfoChoice
+     * }
+     */
+    public static int dwOtherInfoChoice(MemorySegment struct) {
+        return struct.get(dwOtherInfoChoice$LAYOUT, dwOtherInfoChoice$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwOtherInfoChoice
+     * }
+     */
+    public static void dwOtherInfoChoice(MemorySegment struct, int fieldValue) {
+        struct.set(dwOtherInfoChoice$LAYOUT, dwOtherInfoChoice$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwFailInfo$LAYOUT = (OfInt)$LAYOUT.select(groupElement("$anon$5295:5"), groupElement("dwFailInfo"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwFailInfo
+     * }
+     */
+    public static final OfInt dwFailInfo$layout() {
+        return dwFailInfo$LAYOUT;
+    }
+
+    private static final long dwFailInfo$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwFailInfo
+     * }
+     */
+    public static final long dwFailInfo$offset() {
+        return dwFailInfo$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwFailInfo
+     * }
+     */
+    public static int dwFailInfo(MemorySegment struct) {
+        return struct.get(dwFailInfo$LAYOUT, dwFailInfo$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwFailInfo
+     * }
+     */
+    public static void dwFailInfo(MemorySegment struct, int fieldValue) {
+        struct.set(dwFailInfo$LAYOUT, dwFailInfo$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pPendInfo$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$5295:5"), groupElement("pPendInfo"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCMC_PEND_INFO pPendInfo
+     * }
+     */
+    public static final AddressLayout pPendInfo$layout() {
+        return pPendInfo$LAYOUT;
+    }
+
+    private static final long pPendInfo$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCMC_PEND_INFO pPendInfo
+     * }
+     */
+    public static final long pPendInfo$offset() {
+        return pPendInfo$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCMC_PEND_INFO pPendInfo
+     * }
+     */
+    public static MemorySegment pPendInfo(MemorySegment struct) {
+        return struct.get(pPendInfo$LAYOUT, pPendInfo$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCMC_PEND_INFO pPendInfo
+     * }
+     */
+    public static void pPendInfo(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pPendInfo$LAYOUT, pPendInfo$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

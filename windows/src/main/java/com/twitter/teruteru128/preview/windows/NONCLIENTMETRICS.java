@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagNONCLIENTMETRICSA NONCLIENTMETRICS;
+ * {@snippet lang=c :
+ * typedef NONCLIENTMETRICSA NONCLIENTMETRICS
  * }
  */
-public final class NONCLIENTMETRICS extends tagNONCLIENTMETRICSA {
+public class NONCLIENTMETRICS extends tagNONCLIENTMETRICSA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private NONCLIENTMETRICS() {}
+    NONCLIENTMETRICS() {
+        // Should not be called directly
+    }
 }
-
 

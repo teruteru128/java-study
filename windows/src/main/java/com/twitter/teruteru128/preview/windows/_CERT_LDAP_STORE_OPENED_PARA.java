@@ -2,84 +2,172 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _CERT_LDAP_STORE_OPENED_PARA {
- *     void* pvLdapSessionHandle;
+ *     void *pvLdapSessionHandle;
  *     LPCWSTR pwszLdapUrl;
- * };
+ * }
  * }
  */
 public class _CERT_LDAP_STORE_OPENED_PARA {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2126.const$5;
+    _CERT_LDAP_STORE_OPENED_PARA() {
+        // Should not be called directly
     }
-    public static VarHandle pvLdapSessionHandle$VH() {
-        return constants$2127.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * void* pvLdapSessionHandle;
-     * }
-     */
-    public static MemorySegment pvLdapSessionHandle$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2127.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * void* pvLdapSessionHandle;
-     * }
-     */
-    public static void pvLdapSessionHandle$set(MemorySegment seg, MemorySegment x) {
-        constants$2127.const$0.set(seg, x);
-    }
-    public static MemorySegment pvLdapSessionHandle$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2127.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pvLdapSessionHandle$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2127.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pwszLdapUrl$VH() {
-        return constants$2127.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPCWSTR pwszLdapUrl;
-     * }
-     */
-    public static MemorySegment pwszLdapUrl$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2127.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPCWSTR pwszLdapUrl;
-     * }
-     */
-    public static void pwszLdapUrl$set(MemorySegment seg, MemorySegment x) {
-        constants$2127.const$1.set(seg, x);
-    }
-    public static MemorySegment pwszLdapUrl$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2127.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pwszLdapUrl$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2127.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("pvLdapSessionHandle"),
+        Windows_h.C_POINTER.withName("pwszLdapUrl")
+    ).withName("_CERT_LDAP_STORE_OPENED_PARA");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final AddressLayout pvLdapSessionHandle$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pvLdapSessionHandle"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * void *pvLdapSessionHandle
+     * }
+     */
+    public static final AddressLayout pvLdapSessionHandle$layout() {
+        return pvLdapSessionHandle$LAYOUT;
+    }
+
+    private static final long pvLdapSessionHandle$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * void *pvLdapSessionHandle
+     * }
+     */
+    public static final long pvLdapSessionHandle$offset() {
+        return pvLdapSessionHandle$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * void *pvLdapSessionHandle
+     * }
+     */
+    public static MemorySegment pvLdapSessionHandle(MemorySegment struct) {
+        return struct.get(pvLdapSessionHandle$LAYOUT, pvLdapSessionHandle$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * void *pvLdapSessionHandle
+     * }
+     */
+    public static void pvLdapSessionHandle(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pvLdapSessionHandle$LAYOUT, pvLdapSessionHandle$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pwszLdapUrl$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pwszLdapUrl"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPCWSTR pwszLdapUrl
+     * }
+     */
+    public static final AddressLayout pwszLdapUrl$layout() {
+        return pwszLdapUrl$LAYOUT;
+    }
+
+    private static final long pwszLdapUrl$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPCWSTR pwszLdapUrl
+     * }
+     */
+    public static final long pwszLdapUrl$offset() {
+        return pwszLdapUrl$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPCWSTR pwszLdapUrl
+     * }
+     */
+    public static MemorySegment pwszLdapUrl(MemorySegment struct) {
+        return struct.get(pwszLdapUrl$LAYOUT, pwszLdapUrl$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPCWSTR pwszLdapUrl
+     * }
+     */
+    public static void pwszLdapUrl(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pwszLdapUrl$LAYOUT, pwszLdapUrl$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

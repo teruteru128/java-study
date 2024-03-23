@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _NAME_BUFFER NAME_BUFFER;
+ * {@snippet lang=c :
+ * typedef struct _NAME_BUFFER {
+ *     UCHAR name[16];
+ *     UCHAR name_num;
+ *     UCHAR name_flags;
+ * } NAME_BUFFER
  * }
  */
-public final class NAME_BUFFER extends _NAME_BUFFER {
+public class NAME_BUFFER extends _NAME_BUFFER {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private NAME_BUFFER() {}
+    NAME_BUFFER() {
+        // Should not be called directly
+    }
 }
-
 

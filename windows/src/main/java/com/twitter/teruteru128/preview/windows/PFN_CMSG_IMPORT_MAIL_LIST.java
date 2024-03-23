@@ -2,32 +2,71 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_CMSG_IMPORT_MAIL_LIST)(struct _CRYPT_ALGORITHM_IDENTIFIER* pContentEncryptionAlgorithm,struct _CMSG_CTRL_MAIL_LIST_DECRYPT_PARA* pMailListDecryptPara,unsigned long dwFlags,void* pvReserved,unsigned long long* phContentEncryptKey);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_CMSG_IMPORT_MAIL_LIST)(PCRYPT_ALGORITHM_IDENTIFIER, PCMSG_CTRL_MAIL_LIST_DECRYPT_PARA, DWORD, void *, HCRYPTKEY *) __attribute__((stdcall))
  * }
  */
-public interface PFN_CMSG_IMPORT_MAIL_LIST {
+public class PFN_CMSG_IMPORT_MAIL_LIST {
 
-    int apply(java.lang.foreign.MemorySegment pContentEncryptionAlgorithm, java.lang.foreign.MemorySegment pMailListDecryptPara, int dwFlags, java.lang.foreign.MemorySegment pvReserved, java.lang.foreign.MemorySegment phContentEncryptKey);
-    static MemorySegment allocate(PFN_CMSG_IMPORT_MAIL_LIST fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2115.const$2, fi, constants$588.const$3, scope);
+    PFN_CMSG_IMPORT_MAIL_LIST() {
+        // Should not be called directly
     }
-    static PFN_CMSG_IMPORT_MAIL_LIST ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _pContentEncryptionAlgorithm, java.lang.foreign.MemorySegment _pMailListDecryptPara, int _dwFlags, java.lang.foreign.MemorySegment _pvReserved, java.lang.foreign.MemorySegment _phContentEncryptKey) -> {
-            try {
-                return (int)constants$1005.const$2.invokeExact(symbol, _pContentEncryptionAlgorithm, _pMailListDecryptPara, _dwFlags, _pvReserved, _phContentEncryptKey);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment pContentEncryptionAlgorithm, MemorySegment pMailListDecryptPara, int dwFlags, MemorySegment pvReserved, MemorySegment phContentEncryptKey);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CMSG_IMPORT_MAIL_LIST.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CMSG_IMPORT_MAIL_LIST.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment pContentEncryptionAlgorithm, MemorySegment pMailListDecryptPara, int dwFlags, MemorySegment pvReserved, MemorySegment phContentEncryptKey) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, pContentEncryptionAlgorithm, pMailListDecryptPara, dwFlags, pvReserved, phContentEncryptKey);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

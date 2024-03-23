@@ -2,88 +2,219 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _CERT_CHAIN {
  *     DWORD cCerts;
  *     PCERT_BLOB certs;
  *     CRYPT_KEY_PROV_INFO keyLocatorInfo;
- * };
+ * }
  * }
  */
 public class _CERT_CHAIN {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2187.const$0;
+    _CERT_CHAIN() {
+        // Should not be called directly
     }
-    public static VarHandle cCerts$VH() {
-        return constants$2187.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cCerts;
-     * }
-     */
-    public static int cCerts$get(MemorySegment seg) {
-        return (int)constants$2187.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cCerts;
-     * }
-     */
-    public static void cCerts$set(MemorySegment seg, int x) {
-        constants$2187.const$1.set(seg, x);
-    }
-    public static int cCerts$get(MemorySegment seg, long index) {
-        return (int)constants$2187.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cCerts$set(MemorySegment seg, long index, int x) {
-        constants$2187.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle certs$VH() {
-        return constants$2187.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCERT_BLOB certs;
-     * }
-     */
-    public static MemorySegment certs$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2187.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCERT_BLOB certs;
-     * }
-     */
-    public static void certs$set(MemorySegment seg, MemorySegment x) {
-        constants$2187.const$2.set(seg, x);
-    }
-    public static MemorySegment certs$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2187.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void certs$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2187.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment keyLocatorInfo$slice(MemorySegment seg) {
-        return seg.asSlice(16, 48);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("cCerts"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("certs"),
+        _CRYPT_KEY_PROV_INFO.layout().withName("keyLocatorInfo")
+    ).withName("_CERT_CHAIN");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt cCerts$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cCerts"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cCerts
+     * }
+     */
+    public static final OfInt cCerts$layout() {
+        return cCerts$LAYOUT;
+    }
+
+    private static final long cCerts$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cCerts
+     * }
+     */
+    public static final long cCerts$offset() {
+        return cCerts$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cCerts
+     * }
+     */
+    public static int cCerts(MemorySegment struct) {
+        return struct.get(cCerts$LAYOUT, cCerts$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cCerts
+     * }
+     */
+    public static void cCerts(MemorySegment struct, int fieldValue) {
+        struct.set(cCerts$LAYOUT, cCerts$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout certs$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("certs"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCERT_BLOB certs
+     * }
+     */
+    public static final AddressLayout certs$layout() {
+        return certs$LAYOUT;
+    }
+
+    private static final long certs$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCERT_BLOB certs
+     * }
+     */
+    public static final long certs$offset() {
+        return certs$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCERT_BLOB certs
+     * }
+     */
+    public static MemorySegment certs(MemorySegment struct) {
+        return struct.get(certs$LAYOUT, certs$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCERT_BLOB certs
+     * }
+     */
+    public static void certs(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(certs$LAYOUT, certs$OFFSET, fieldValue);
+    }
+
+    private static final GroupLayout keyLocatorInfo$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("keyLocatorInfo"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * CRYPT_KEY_PROV_INFO keyLocatorInfo
+     * }
+     */
+    public static final GroupLayout keyLocatorInfo$layout() {
+        return keyLocatorInfo$LAYOUT;
+    }
+
+    private static final long keyLocatorInfo$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * CRYPT_KEY_PROV_INFO keyLocatorInfo
+     * }
+     */
+    public static final long keyLocatorInfo$offset() {
+        return keyLocatorInfo$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * CRYPT_KEY_PROV_INFO keyLocatorInfo
+     * }
+     */
+    public static MemorySegment keyLocatorInfo(MemorySegment struct) {
+        return struct.asSlice(keyLocatorInfo$OFFSET, keyLocatorInfo$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * CRYPT_KEY_PROV_INFO keyLocatorInfo
+     * }
+     */
+    public static void keyLocatorInfo(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, keyLocatorInfo$OFFSET, keyLocatorInfo$LAYOUT.byteSize());
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

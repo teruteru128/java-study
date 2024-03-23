@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagCBT_CREATEWNDA CBT_CREATEWND;
+ * {@snippet lang=c :
+ * typedef CBT_CREATEWNDA CBT_CREATEWND
  * }
  */
-public final class CBT_CREATEWND extends tagCBT_CREATEWNDA {
+public class CBT_CREATEWND extends tagCBT_CREATEWNDA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CBT_CREATEWND() {}
+    CBT_CREATEWND() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagFILTERKEYS FILTERKEYS;
+ * {@snippet lang=c :
+ * typedef struct tagFILTERKEYS {
+ *     UINT cbSize;
+ *     DWORD dwFlags;
+ *     DWORD iWaitMSec;
+ *     DWORD iDelayMSec;
+ *     DWORD iRepeatMSec;
+ *     DWORD iBounceMSec;
+ * } FILTERKEYS
  * }
  */
-public final class FILTERKEYS extends tagFILTERKEYS {
+public class FILTERKEYS extends tagFILTERKEYS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private FILTERKEYS() {}
+    FILTERKEYS() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,96 +2,380 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP {
  *     DEVICEDUMP_STRUCTURE_VERSION Descriptor;
  *     DWORD dwReasonForCollection;
  *     BYTE cDriverName[16];
  *     DWORD uiNumRecords;
  *     DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD RecordArray[1];
- * };
+ * }
  * }
  */
 public class _DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2487.const$3;
+    _DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP() {
+        // Should not be called directly
     }
-    public static MemorySegment Descriptor$slice(MemorySegment seg) {
-        return seg.asSlice(0, 12);
-    }
-    public static VarHandle dwReasonForCollection$VH() {
-        return constants$2487.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwReasonForCollection;
-     * }
-     */
-    public static int dwReasonForCollection$get(MemorySegment seg) {
-        return (int)constants$2487.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwReasonForCollection;
-     * }
-     */
-    public static void dwReasonForCollection$set(MemorySegment seg, int x) {
-        constants$2487.const$4.set(seg, x);
-    }
-    public static int dwReasonForCollection$get(MemorySegment seg, long index) {
-        return (int)constants$2487.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwReasonForCollection$set(MemorySegment seg, long index, int x) {
-        constants$2487.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment cDriverName$slice(MemorySegment seg) {
-        return seg.asSlice(16, 16);
-    }
-    public static VarHandle uiNumRecords$VH() {
-        return constants$2487.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD uiNumRecords;
-     * }
-     */
-    public static int uiNumRecords$get(MemorySegment seg) {
-        return (int)constants$2487.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD uiNumRecords;
-     * }
-     */
-    public static void uiNumRecords$set(MemorySegment seg, int x) {
-        constants$2487.const$5.set(seg, x);
-    }
-    public static int uiNumRecords$get(MemorySegment seg, long index) {
-        return (int)constants$2487.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void uiNumRecords$set(MemorySegment seg, long index, int x) {
-        constants$2487.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment RecordArray$slice(MemorySegment seg) {
-        return seg.asSlice(36, 60);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        _DEVICEDUMP_STRUCTURE_VERSION.layout().withName("Descriptor"),
+        Windows_h.align(Windows_h.C_LONG, 1).withName("dwReasonForCollection"),
+        MemoryLayout.sequenceLayout(16, Windows_h.C_CHAR).withName("cDriverName"),
+        Windows_h.align(Windows_h.C_LONG, 1).withName("uiNumRecords"),
+        MemoryLayout.sequenceLayout(1, _DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD.layout()).withName("RecordArray")
+    ).withName("_DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final GroupLayout Descriptor$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("Descriptor"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DEVICEDUMP_STRUCTURE_VERSION Descriptor
+     * }
+     */
+    public static final GroupLayout Descriptor$layout() {
+        return Descriptor$LAYOUT;
+    }
+
+    private static final long Descriptor$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DEVICEDUMP_STRUCTURE_VERSION Descriptor
+     * }
+     */
+    public static final long Descriptor$offset() {
+        return Descriptor$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DEVICEDUMP_STRUCTURE_VERSION Descriptor
+     * }
+     */
+    public static MemorySegment Descriptor(MemorySegment struct) {
+        return struct.asSlice(Descriptor$OFFSET, Descriptor$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DEVICEDUMP_STRUCTURE_VERSION Descriptor
+     * }
+     */
+    public static void Descriptor(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, Descriptor$OFFSET, Descriptor$LAYOUT.byteSize());
+    }
+
+    private static final OfInt dwReasonForCollection$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwReasonForCollection"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwReasonForCollection
+     * }
+     */
+    public static final OfInt dwReasonForCollection$layout() {
+        return dwReasonForCollection$LAYOUT;
+    }
+
+    private static final long dwReasonForCollection$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwReasonForCollection
+     * }
+     */
+    public static final long dwReasonForCollection$offset() {
+        return dwReasonForCollection$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwReasonForCollection
+     * }
+     */
+    public static int dwReasonForCollection(MemorySegment struct) {
+        return struct.get(dwReasonForCollection$LAYOUT, dwReasonForCollection$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwReasonForCollection
+     * }
+     */
+    public static void dwReasonForCollection(MemorySegment struct, int fieldValue) {
+        struct.set(dwReasonForCollection$LAYOUT, dwReasonForCollection$OFFSET, fieldValue);
+    }
+
+    private static final SequenceLayout cDriverName$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("cDriverName"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BYTE cDriverName[16]
+     * }
+     */
+    public static final SequenceLayout cDriverName$layout() {
+        return cDriverName$LAYOUT;
+    }
+
+    private static final long cDriverName$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BYTE cDriverName[16]
+     * }
+     */
+    public static final long cDriverName$offset() {
+        return cDriverName$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BYTE cDriverName[16]
+     * }
+     */
+    public static MemorySegment cDriverName(MemorySegment struct) {
+        return struct.asSlice(cDriverName$OFFSET, cDriverName$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BYTE cDriverName[16]
+     * }
+     */
+    public static void cDriverName(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, cDriverName$OFFSET, cDriverName$LAYOUT.byteSize());
+    }
+
+    private static long[] cDriverName$DIMS = { 16 };
+
+    /**
+     * Dimensions for array field:
+     * {@snippet lang=c :
+     * BYTE cDriverName[16]
+     * }
+     */
+    public static long[] cDriverName$dimensions() {
+        return cDriverName$DIMS;
+    }
+    private static final VarHandle cDriverName$ELEM_HANDLE = cDriverName$LAYOUT.varHandle(sequenceElement());
+
+    /**
+     * Indexed getter for field:
+     * {@snippet lang=c :
+     * BYTE cDriverName[16]
+     * }
+     */
+    public static byte cDriverName(MemorySegment struct, long index0) {
+        return (byte)cDriverName$ELEM_HANDLE.get(struct, 0L, index0);
+    }
+
+    /**
+     * Indexed setter for field:
+     * {@snippet lang=c :
+     * BYTE cDriverName[16]
+     * }
+     */
+    public static void cDriverName(MemorySegment struct, long index0, byte fieldValue) {
+        cDriverName$ELEM_HANDLE.set(struct, 0L, index0, fieldValue);
+    }
+
+    private static final OfInt uiNumRecords$LAYOUT = (OfInt)$LAYOUT.select(groupElement("uiNumRecords"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD uiNumRecords
+     * }
+     */
+    public static final OfInt uiNumRecords$layout() {
+        return uiNumRecords$LAYOUT;
+    }
+
+    private static final long uiNumRecords$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD uiNumRecords
+     * }
+     */
+    public static final long uiNumRecords$offset() {
+        return uiNumRecords$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD uiNumRecords
+     * }
+     */
+    public static int uiNumRecords(MemorySegment struct) {
+        return struct.get(uiNumRecords$LAYOUT, uiNumRecords$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD uiNumRecords
+     * }
+     */
+    public static void uiNumRecords(MemorySegment struct, int fieldValue) {
+        struct.set(uiNumRecords$LAYOUT, uiNumRecords$OFFSET, fieldValue);
+    }
+
+    private static final SequenceLayout RecordArray$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("RecordArray"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD RecordArray[1]
+     * }
+     */
+    public static final SequenceLayout RecordArray$layout() {
+        return RecordArray$LAYOUT;
+    }
+
+    private static final long RecordArray$OFFSET = 36;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD RecordArray[1]
+     * }
+     */
+    public static final long RecordArray$offset() {
+        return RecordArray$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD RecordArray[1]
+     * }
+     */
+    public static MemorySegment RecordArray(MemorySegment struct) {
+        return struct.asSlice(RecordArray$OFFSET, RecordArray$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD RecordArray[1]
+     * }
+     */
+    public static void RecordArray(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, RecordArray$OFFSET, RecordArray$LAYOUT.byteSize());
+    }
+
+    private static long[] RecordArray$DIMS = { 1 };
+
+    /**
+     * Dimensions for array field:
+     * {@snippet lang=c :
+     * DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD RecordArray[1]
+     * }
+     */
+    public static long[] RecordArray$dimensions() {
+        return RecordArray$DIMS;
+    }
+    private static final MethodHandle RecordArray$ELEM_HANDLE = RecordArray$LAYOUT.sliceHandle(sequenceElement());
+
+    /**
+     * Indexed getter for field:
+     * {@snippet lang=c :
+     * DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD RecordArray[1]
+     * }
+     */
+    public static MemorySegment RecordArray(MemorySegment struct, long index0) {
+        try {
+            return (MemorySegment)RecordArray$ELEM_HANDLE.invokeExact(struct, 0L, index0);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    /**
+     * Indexed setter for field:
+     * {@snippet lang=c :
+     * DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD RecordArray[1]
+     * }
+     */
+    public static void RecordArray(MemorySegment struct, long index0, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, RecordArray(struct, index0), 0L, _DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD.layout().byteSize());
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct waveformat_tag WAVEFORMAT;
+ * {@snippet lang=c :
+ * typedef struct waveformat_tag {
+ *     WORD wFormatTag;
+ *     WORD nChannels;
+ *     DWORD nSamplesPerSec;
+ *     DWORD nAvgBytesPerSec;
+ *     WORD nBlockAlign;
+ * } WAVEFORMAT
  * }
  */
-public final class WAVEFORMAT extends waveformat_tag {
+public class WAVEFORMAT extends waveformat_tag {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private WAVEFORMAT() {}
+    WAVEFORMAT() {
+        // Should not be called directly
+    }
 }
-
 

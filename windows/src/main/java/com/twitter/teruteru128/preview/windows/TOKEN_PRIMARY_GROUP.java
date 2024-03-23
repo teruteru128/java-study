@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _TOKEN_PRIMARY_GROUP TOKEN_PRIMARY_GROUP;
+ * {@snippet lang=c :
+ * typedef struct _TOKEN_PRIMARY_GROUP {
+ *     PSID PrimaryGroup;
+ * } TOKEN_PRIMARY_GROUP
  * }
  */
-public final class TOKEN_PRIMARY_GROUP extends _TOKEN_PRIMARY_GROUP {
+public class TOKEN_PRIMARY_GROUP extends _TOKEN_PRIMARY_GROUP {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private TOKEN_PRIMARY_GROUP() {}
+    TOKEN_PRIMARY_GROUP() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,8013 +2,21680 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
-public class Windows_h_27 extends Windows_h_26 {
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
+public class Windows_h_27 extends Windows_h_28 {
+
+    Windows_h_27() {
+        // Should not be called directly
+    }
+    private static final int SCS_CAP_SETRECONVERTSTRING = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define SCS_CAP_SETRECONVERTSTRING 4
+     * }
+     */
+    public static int SCS_CAP_SETRECONVERTSTRING() {
+        return SCS_CAP_SETRECONVERTSTRING;
+    }
+    private static final int SELECT_CAP_CONVERSION = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define SELECT_CAP_CONVERSION 1
+     * }
+     */
+    public static int SELECT_CAP_CONVERSION() {
+        return SELECT_CAP_CONVERSION;
+    }
+    private static final int SELECT_CAP_SENTENCE = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define SELECT_CAP_SENTENCE 2
+     * }
+     */
+    public static int SELECT_CAP_SENTENCE() {
+        return SELECT_CAP_SENTENCE;
+    }
+    private static final int GGL_LEVEL = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define GGL_LEVEL 1
+     * }
+     */
+    public static int GGL_LEVEL() {
+        return GGL_LEVEL;
+    }
+    private static final int GGL_INDEX = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define GGL_INDEX 2
+     * }
+     */
+    public static int GGL_INDEX() {
+        return GGL_INDEX;
+    }
+    private static final int GGL_STRING = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define GGL_STRING 3
+     * }
+     */
+    public static int GGL_STRING() {
+        return GGL_STRING;
+    }
+    private static final int GGL_PRIVATE = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define GGL_PRIVATE 4
+     * }
+     */
+    public static int GGL_PRIVATE() {
+        return GGL_PRIVATE;
+    }
+    private static final int GL_LEVEL_NOGUIDELINE = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_LEVEL_NOGUIDELINE 0
+     * }
+     */
+    public static int GL_LEVEL_NOGUIDELINE() {
+        return GL_LEVEL_NOGUIDELINE;
+    }
+    private static final int GL_LEVEL_FATAL = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_LEVEL_FATAL 1
+     * }
+     */
+    public static int GL_LEVEL_FATAL() {
+        return GL_LEVEL_FATAL;
+    }
+    private static final int GL_LEVEL_ERROR = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_LEVEL_ERROR 2
+     * }
+     */
+    public static int GL_LEVEL_ERROR() {
+        return GL_LEVEL_ERROR;
+    }
+    private static final int GL_LEVEL_WARNING = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_LEVEL_WARNING 3
+     * }
+     */
+    public static int GL_LEVEL_WARNING() {
+        return GL_LEVEL_WARNING;
+    }
+    private static final int GL_LEVEL_INFORMATION = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_LEVEL_INFORMATION 4
+     * }
+     */
+    public static int GL_LEVEL_INFORMATION() {
+        return GL_LEVEL_INFORMATION;
+    }
+    private static final int GL_ID_UNKNOWN = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_UNKNOWN 0
+     * }
+     */
+    public static int GL_ID_UNKNOWN() {
+        return GL_ID_UNKNOWN;
+    }
+    private static final int GL_ID_NOMODULE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_NOMODULE 1
+     * }
+     */
+    public static int GL_ID_NOMODULE() {
+        return GL_ID_NOMODULE;
+    }
+    private static final int GL_ID_NODICTIONARY = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_NODICTIONARY 16
+     * }
+     */
+    public static int GL_ID_NODICTIONARY() {
+        return GL_ID_NODICTIONARY;
+    }
+    private static final int GL_ID_CANNOTSAVE = (int)17L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_CANNOTSAVE 17
+     * }
+     */
+    public static int GL_ID_CANNOTSAVE() {
+        return GL_ID_CANNOTSAVE;
+    }
+    private static final int GL_ID_NOCONVERT = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_NOCONVERT 32
+     * }
+     */
+    public static int GL_ID_NOCONVERT() {
+        return GL_ID_NOCONVERT;
+    }
+    private static final int GL_ID_TYPINGERROR = (int)33L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_TYPINGERROR 33
+     * }
+     */
+    public static int GL_ID_TYPINGERROR() {
+        return GL_ID_TYPINGERROR;
+    }
+    private static final int GL_ID_TOOMANYSTROKE = (int)34L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_TOOMANYSTROKE 34
+     * }
+     */
+    public static int GL_ID_TOOMANYSTROKE() {
+        return GL_ID_TOOMANYSTROKE;
+    }
+    private static final int GL_ID_READINGCONFLICT = (int)35L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_READINGCONFLICT 35
+     * }
+     */
+    public static int GL_ID_READINGCONFLICT() {
+        return GL_ID_READINGCONFLICT;
+    }
+    private static final int GL_ID_INPUTREADING = (int)36L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_INPUTREADING 36
+     * }
+     */
+    public static int GL_ID_INPUTREADING() {
+        return GL_ID_INPUTREADING;
+    }
+    private static final int GL_ID_INPUTRADICAL = (int)37L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_INPUTRADICAL 37
+     * }
+     */
+    public static int GL_ID_INPUTRADICAL() {
+        return GL_ID_INPUTRADICAL;
+    }
+    private static final int GL_ID_INPUTCODE = (int)38L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_INPUTCODE 38
+     * }
+     */
+    public static int GL_ID_INPUTCODE() {
+        return GL_ID_INPUTCODE;
+    }
+    private static final int GL_ID_INPUTSYMBOL = (int)39L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_INPUTSYMBOL 39
+     * }
+     */
+    public static int GL_ID_INPUTSYMBOL() {
+        return GL_ID_INPUTSYMBOL;
+    }
+    private static final int GL_ID_CHOOSECANDIDATE = (int)40L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_CHOOSECANDIDATE 40
+     * }
+     */
+    public static int GL_ID_CHOOSECANDIDATE() {
+        return GL_ID_CHOOSECANDIDATE;
+    }
+    private static final int GL_ID_REVERSECONVERSION = (int)41L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_REVERSECONVERSION 41
+     * }
+     */
+    public static int GL_ID_REVERSECONVERSION() {
+        return GL_ID_REVERSECONVERSION;
+    }
+    private static final int GL_ID_PRIVATE_FIRST = (int)32768L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_PRIVATE_FIRST 32768
+     * }
+     */
+    public static int GL_ID_PRIVATE_FIRST() {
+        return GL_ID_PRIVATE_FIRST;
+    }
+    private static final int GL_ID_PRIVATE_LAST = (int)65535L;
+    /**
+     * {@snippet lang=c :
+     * #define GL_ID_PRIVATE_LAST 65535
+     * }
+     */
+    public static int GL_ID_PRIVATE_LAST() {
+        return GL_ID_PRIVATE_LAST;
+    }
+    private static final int IGP_PROPERTY = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define IGP_PROPERTY 4
+     * }
+     */
+    public static int IGP_PROPERTY() {
+        return IGP_PROPERTY;
+    }
+    private static final int IGP_CONVERSION = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define IGP_CONVERSION 8
+     * }
+     */
+    public static int IGP_CONVERSION() {
+        return IGP_CONVERSION;
+    }
+    private static final int IGP_SENTENCE = (int)12L;
+    /**
+     * {@snippet lang=c :
+     * #define IGP_SENTENCE 12
+     * }
+     */
+    public static int IGP_SENTENCE() {
+        return IGP_SENTENCE;
+    }
+    private static final int IGP_UI = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define IGP_UI 16
+     * }
+     */
+    public static int IGP_UI() {
+        return IGP_UI;
+    }
+    private static final int IGP_SETCOMPSTR = (int)20L;
+    /**
+     * {@snippet lang=c :
+     * #define IGP_SETCOMPSTR 20
+     * }
+     */
+    public static int IGP_SETCOMPSTR() {
+        return IGP_SETCOMPSTR;
+    }
+    private static final int IGP_SELECT = (int)24L;
+    /**
+     * {@snippet lang=c :
+     * #define IGP_SELECT 24
+     * }
+     */
+    public static int IGP_SELECT() {
+        return IGP_SELECT;
+    }
+    private static final int SCS_SETRECONVERTSTRING = (int)65536L;
+    /**
+     * {@snippet lang=c :
+     * #define SCS_SETRECONVERTSTRING 65536
+     * }
+     */
+    public static int SCS_SETRECONVERTSTRING() {
+        return SCS_SETRECONVERTSTRING;
+    }
+    private static final int SCS_QUERYRECONVERTSTRING = (int)131072L;
+    /**
+     * {@snippet lang=c :
+     * #define SCS_QUERYRECONVERTSTRING 131072
+     * }
+     */
+    public static int SCS_QUERYRECONVERTSTRING() {
+        return SCS_QUERYRECONVERTSTRING;
+    }
+    private static final int ATTR_INPUT = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define ATTR_INPUT 0
+     * }
+     */
+    public static int ATTR_INPUT() {
+        return ATTR_INPUT;
+    }
+    private static final int ATTR_TARGET_CONVERTED = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define ATTR_TARGET_CONVERTED 1
+     * }
+     */
+    public static int ATTR_TARGET_CONVERTED() {
+        return ATTR_TARGET_CONVERTED;
+    }
+    private static final int ATTR_CONVERTED = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define ATTR_CONVERTED 2
+     * }
+     */
+    public static int ATTR_CONVERTED() {
+        return ATTR_CONVERTED;
+    }
+    private static final int ATTR_TARGET_NOTCONVERTED = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define ATTR_TARGET_NOTCONVERTED 3
+     * }
+     */
+    public static int ATTR_TARGET_NOTCONVERTED() {
+        return ATTR_TARGET_NOTCONVERTED;
+    }
+    private static final int ATTR_INPUT_ERROR = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define ATTR_INPUT_ERROR 4
+     * }
+     */
+    public static int ATTR_INPUT_ERROR() {
+        return ATTR_INPUT_ERROR;
+    }
+    private static final int ATTR_FIXEDCONVERTED = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * #define ATTR_FIXEDCONVERTED 5
+     * }
+     */
+    public static int ATTR_FIXEDCONVERTED() {
+        return ATTR_FIXEDCONVERTED;
+    }
+    private static final int CFS_DEFAULT = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define CFS_DEFAULT 0
+     * }
+     */
+    public static int CFS_DEFAULT() {
+        return CFS_DEFAULT;
+    }
+    private static final int CFS_RECT = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define CFS_RECT 1
+     * }
+     */
+    public static int CFS_RECT() {
+        return CFS_RECT;
+    }
+    private static final int CFS_POINT = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define CFS_POINT 2
+     * }
+     */
+    public static int CFS_POINT() {
+        return CFS_POINT;
+    }
+    private static final int CFS_FORCE_POSITION = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define CFS_FORCE_POSITION 32
+     * }
+     */
+    public static int CFS_FORCE_POSITION() {
+        return CFS_FORCE_POSITION;
+    }
+    private static final int CFS_CANDIDATEPOS = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define CFS_CANDIDATEPOS 64
+     * }
+     */
+    public static int CFS_CANDIDATEPOS() {
+        return CFS_CANDIDATEPOS;
+    }
+    private static final int CFS_EXCLUDE = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define CFS_EXCLUDE 128
+     * }
+     */
+    public static int CFS_EXCLUDE() {
+        return CFS_EXCLUDE;
+    }
+    private static final int GCL_CONVERSION = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define GCL_CONVERSION 1
+     * }
+     */
+    public static int GCL_CONVERSION() {
+        return GCL_CONVERSION;
+    }
+    private static final int GCL_REVERSECONVERSION = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define GCL_REVERSECONVERSION 2
+     * }
+     */
+    public static int GCL_REVERSECONVERSION() {
+        return GCL_REVERSECONVERSION;
+    }
+    private static final int GCL_REVERSE_LENGTH = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define GCL_REVERSE_LENGTH 3
+     * }
+     */
+    public static int GCL_REVERSE_LENGTH() {
+        return GCL_REVERSE_LENGTH;
+    }
+    private static final int IME_CMODE_ALPHANUMERIC = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CMODE_ALPHANUMERIC 0
+     * }
+     */
+    public static int IME_CMODE_ALPHANUMERIC() {
+        return IME_CMODE_ALPHANUMERIC;
+    }
+    private static final int IME_CMODE_NATIVE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CMODE_NATIVE 1
+     * }
+     */
+    public static int IME_CMODE_NATIVE() {
+        return IME_CMODE_NATIVE;
+    }
+    private static final int IME_CMODE_KATAKANA = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CMODE_KATAKANA 2
+     * }
+     */
+    public static int IME_CMODE_KATAKANA() {
+        return IME_CMODE_KATAKANA;
+    }
+    private static final int IME_CMODE_LANGUAGE = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CMODE_LANGUAGE 3
+     * }
+     */
+    public static int IME_CMODE_LANGUAGE() {
+        return IME_CMODE_LANGUAGE;
+    }
+    private static final int IME_CMODE_FULLSHAPE = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CMODE_FULLSHAPE 8
+     * }
+     */
+    public static int IME_CMODE_FULLSHAPE() {
+        return IME_CMODE_FULLSHAPE;
+    }
+    private static final int IME_CMODE_ROMAN = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CMODE_ROMAN 16
+     * }
+     */
+    public static int IME_CMODE_ROMAN() {
+        return IME_CMODE_ROMAN;
+    }
+    private static final int IME_CMODE_CHARCODE = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CMODE_CHARCODE 32
+     * }
+     */
+    public static int IME_CMODE_CHARCODE() {
+        return IME_CMODE_CHARCODE;
+    }
+    private static final int IME_CMODE_HANJACONVERT = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CMODE_HANJACONVERT 64
+     * }
+     */
+    public static int IME_CMODE_HANJACONVERT() {
+        return IME_CMODE_HANJACONVERT;
+    }
+    private static final int IME_CMODE_NATIVESYMBOL = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CMODE_NATIVESYMBOL 128
+     * }
+     */
+    public static int IME_CMODE_NATIVESYMBOL() {
+        return IME_CMODE_NATIVESYMBOL;
+    }
+    private static final int IME_CMODE_SOFTKBD = (int)128L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CMODE_SOFTKBD 128
+     * }
+     */
+    public static int IME_CMODE_SOFTKBD() {
+        return IME_CMODE_SOFTKBD;
+    }
+    private static final int IME_CMODE_NOCONVERSION = (int)256L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CMODE_NOCONVERSION 256
+     * }
+     */
+    public static int IME_CMODE_NOCONVERSION() {
+        return IME_CMODE_NOCONVERSION;
+    }
+    private static final int IME_CMODE_EUDC = (int)512L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CMODE_EUDC 512
+     * }
+     */
+    public static int IME_CMODE_EUDC() {
+        return IME_CMODE_EUDC;
+    }
+    private static final int IME_CMODE_SYMBOL = (int)1024L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CMODE_SYMBOL 1024
+     * }
+     */
+    public static int IME_CMODE_SYMBOL() {
+        return IME_CMODE_SYMBOL;
+    }
+    private static final int IME_CMODE_FIXED = (int)2048L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CMODE_FIXED 2048
+     * }
+     */
+    public static int IME_CMODE_FIXED() {
+        return IME_CMODE_FIXED;
+    }
+    private static final int IME_SMODE_NONE = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_SMODE_NONE 0
+     * }
+     */
+    public static int IME_SMODE_NONE() {
+        return IME_SMODE_NONE;
+    }
+    private static final int IME_SMODE_PLAURALCLAUSE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_SMODE_PLAURALCLAUSE 1
+     * }
+     */
+    public static int IME_SMODE_PLAURALCLAUSE() {
+        return IME_SMODE_PLAURALCLAUSE;
+    }
+    private static final int IME_SMODE_SINGLECONVERT = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_SMODE_SINGLECONVERT 2
+     * }
+     */
+    public static int IME_SMODE_SINGLECONVERT() {
+        return IME_SMODE_SINGLECONVERT;
+    }
+    private static final int IME_SMODE_AUTOMATIC = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_SMODE_AUTOMATIC 4
+     * }
+     */
+    public static int IME_SMODE_AUTOMATIC() {
+        return IME_SMODE_AUTOMATIC;
+    }
+    private static final int IME_SMODE_PHRASEPREDICT = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_SMODE_PHRASEPREDICT 8
+     * }
+     */
+    public static int IME_SMODE_PHRASEPREDICT() {
+        return IME_SMODE_PHRASEPREDICT;
+    }
+    private static final int IME_SMODE_CONVERSATION = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_SMODE_CONVERSATION 16
+     * }
+     */
+    public static int IME_SMODE_CONVERSATION() {
+        return IME_SMODE_CONVERSATION;
+    }
+    private static final int IME_SMODE_RESERVED = (int)61440L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_SMODE_RESERVED 61440
+     * }
+     */
+    public static int IME_SMODE_RESERVED() {
+        return IME_SMODE_RESERVED;
+    }
+    private static final int IME_CAND_UNKNOWN = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CAND_UNKNOWN 0
+     * }
+     */
+    public static int IME_CAND_UNKNOWN() {
+        return IME_CAND_UNKNOWN;
+    }
+    private static final int IME_CAND_READ = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CAND_READ 1
+     * }
+     */
+    public static int IME_CAND_READ() {
+        return IME_CAND_READ;
+    }
+    private static final int IME_CAND_CODE = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CAND_CODE 2
+     * }
+     */
+    public static int IME_CAND_CODE() {
+        return IME_CAND_CODE;
+    }
+    private static final int IME_CAND_MEANING = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CAND_MEANING 3
+     * }
+     */
+    public static int IME_CAND_MEANING() {
+        return IME_CAND_MEANING;
+    }
+    private static final int IME_CAND_RADICAL = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CAND_RADICAL 4
+     * }
+     */
+    public static int IME_CAND_RADICAL() {
+        return IME_CAND_RADICAL;
+    }
+    private static final int IME_CAND_STROKE = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CAND_STROKE 5
+     * }
+     */
+    public static int IME_CAND_STROKE() {
+        return IME_CAND_STROKE;
+    }
+    private static final int IMN_CLOSESTATUSWINDOW = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define IMN_CLOSESTATUSWINDOW 1
+     * }
+     */
+    public static int IMN_CLOSESTATUSWINDOW() {
+        return IMN_CLOSESTATUSWINDOW;
+    }
+    private static final int IMN_OPENSTATUSWINDOW = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define IMN_OPENSTATUSWINDOW 2
+     * }
+     */
+    public static int IMN_OPENSTATUSWINDOW() {
+        return IMN_OPENSTATUSWINDOW;
+    }
+    private static final int IMN_CHANGECANDIDATE = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define IMN_CHANGECANDIDATE 3
+     * }
+     */
+    public static int IMN_CHANGECANDIDATE() {
+        return IMN_CHANGECANDIDATE;
+    }
+    private static final int IMN_CLOSECANDIDATE = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define IMN_CLOSECANDIDATE 4
+     * }
+     */
+    public static int IMN_CLOSECANDIDATE() {
+        return IMN_CLOSECANDIDATE;
+    }
+    private static final int IMN_OPENCANDIDATE = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * #define IMN_OPENCANDIDATE 5
+     * }
+     */
+    public static int IMN_OPENCANDIDATE() {
+        return IMN_OPENCANDIDATE;
+    }
+    private static final int IMN_SETCONVERSIONMODE = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * #define IMN_SETCONVERSIONMODE 6
+     * }
+     */
+    public static int IMN_SETCONVERSIONMODE() {
+        return IMN_SETCONVERSIONMODE;
+    }
+    private static final int IMN_SETSENTENCEMODE = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * #define IMN_SETSENTENCEMODE 7
+     * }
+     */
+    public static int IMN_SETSENTENCEMODE() {
+        return IMN_SETSENTENCEMODE;
+    }
+    private static final int IMN_SETOPENSTATUS = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define IMN_SETOPENSTATUS 8
+     * }
+     */
+    public static int IMN_SETOPENSTATUS() {
+        return IMN_SETOPENSTATUS;
+    }
+    private static final int IMN_SETCANDIDATEPOS = (int)9L;
+    /**
+     * {@snippet lang=c :
+     * #define IMN_SETCANDIDATEPOS 9
+     * }
+     */
+    public static int IMN_SETCANDIDATEPOS() {
+        return IMN_SETCANDIDATEPOS;
+    }
+    private static final int IMN_SETCOMPOSITIONFONT = (int)10L;
+    /**
+     * {@snippet lang=c :
+     * #define IMN_SETCOMPOSITIONFONT 10
+     * }
+     */
+    public static int IMN_SETCOMPOSITIONFONT() {
+        return IMN_SETCOMPOSITIONFONT;
+    }
+    private static final int IMN_SETCOMPOSITIONWINDOW = (int)11L;
+    /**
+     * {@snippet lang=c :
+     * #define IMN_SETCOMPOSITIONWINDOW 11
+     * }
+     */
+    public static int IMN_SETCOMPOSITIONWINDOW() {
+        return IMN_SETCOMPOSITIONWINDOW;
+    }
+    private static final int IMN_SETSTATUSWINDOWPOS = (int)12L;
+    /**
+     * {@snippet lang=c :
+     * #define IMN_SETSTATUSWINDOWPOS 12
+     * }
+     */
+    public static int IMN_SETSTATUSWINDOWPOS() {
+        return IMN_SETSTATUSWINDOWPOS;
+    }
+    private static final int IMN_GUIDELINE = (int)13L;
+    /**
+     * {@snippet lang=c :
+     * #define IMN_GUIDELINE 13
+     * }
+     */
+    public static int IMN_GUIDELINE() {
+        return IMN_GUIDELINE;
+    }
+    private static final int IMN_PRIVATE = (int)14L;
+    /**
+     * {@snippet lang=c :
+     * #define IMN_PRIVATE 14
+     * }
+     */
+    public static int IMN_PRIVATE() {
+        return IMN_PRIVATE;
+    }
+    private static final int IMR_COMPOSITIONWINDOW = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define IMR_COMPOSITIONWINDOW 1
+     * }
+     */
+    public static int IMR_COMPOSITIONWINDOW() {
+        return IMR_COMPOSITIONWINDOW;
+    }
+    private static final int IMR_CANDIDATEWINDOW = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define IMR_CANDIDATEWINDOW 2
+     * }
+     */
+    public static int IMR_CANDIDATEWINDOW() {
+        return IMR_CANDIDATEWINDOW;
+    }
+    private static final int IMR_COMPOSITIONFONT = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define IMR_COMPOSITIONFONT 3
+     * }
+     */
+    public static int IMR_COMPOSITIONFONT() {
+        return IMR_COMPOSITIONFONT;
+    }
+    private static final int IMR_RECONVERTSTRING = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define IMR_RECONVERTSTRING 4
+     * }
+     */
+    public static int IMR_RECONVERTSTRING() {
+        return IMR_RECONVERTSTRING;
+    }
+    private static final int IMR_CONFIRMRECONVERTSTRING = (int)5L;
+    /**
+     * {@snippet lang=c :
+     * #define IMR_CONFIRMRECONVERTSTRING 5
+     * }
+     */
+    public static int IMR_CONFIRMRECONVERTSTRING() {
+        return IMR_CONFIRMRECONVERTSTRING;
+    }
+    private static final int IMR_QUERYCHARPOSITION = (int)6L;
+    /**
+     * {@snippet lang=c :
+     * #define IMR_QUERYCHARPOSITION 6
+     * }
+     */
+    public static int IMR_QUERYCHARPOSITION() {
+        return IMR_QUERYCHARPOSITION;
+    }
+    private static final int IMR_DOCUMENTFEED = (int)7L;
+    /**
+     * {@snippet lang=c :
+     * #define IMR_DOCUMENTFEED 7
+     * }
+     */
+    public static int IMR_DOCUMENTFEED() {
+        return IMR_DOCUMENTFEED;
+    }
+    private static final int IME_CONFIG_GENERAL = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CONFIG_GENERAL 1
+     * }
+     */
+    public static int IME_CONFIG_GENERAL() {
+        return IME_CONFIG_GENERAL;
+    }
+    private static final int IME_CONFIG_REGISTERWORD = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CONFIG_REGISTERWORD 2
+     * }
+     */
+    public static int IME_CONFIG_REGISTERWORD() {
+        return IME_CONFIG_REGISTERWORD;
+    }
+    private static final int IME_CONFIG_SELECTDICTIONARY = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_CONFIG_SELECTDICTIONARY 3
+     * }
+     */
+    public static int IME_CONFIG_SELECTDICTIONARY() {
+        return IME_CONFIG_SELECTDICTIONARY;
+    }
+    private static final int IME_ESC_QUERY_SUPPORT = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_QUERY_SUPPORT 3
+     * }
+     */
+    public static int IME_ESC_QUERY_SUPPORT() {
+        return IME_ESC_QUERY_SUPPORT;
+    }
+    private static final int IME_ESC_RESERVED_FIRST = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_RESERVED_FIRST 4
+     * }
+     */
+    public static int IME_ESC_RESERVED_FIRST() {
+        return IME_ESC_RESERVED_FIRST;
+    }
+    private static final int IME_ESC_RESERVED_LAST = (int)2047L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_RESERVED_LAST 2047
+     * }
+     */
+    public static int IME_ESC_RESERVED_LAST() {
+        return IME_ESC_RESERVED_LAST;
+    }
+    private static final int IME_ESC_PRIVATE_FIRST = (int)2048L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_PRIVATE_FIRST 2048
+     * }
+     */
+    public static int IME_ESC_PRIVATE_FIRST() {
+        return IME_ESC_PRIVATE_FIRST;
+    }
+    private static final int IME_ESC_PRIVATE_LAST = (int)4095L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_PRIVATE_LAST 4095
+     * }
+     */
+    public static int IME_ESC_PRIVATE_LAST() {
+        return IME_ESC_PRIVATE_LAST;
+    }
+    private static final int IME_ESC_SEQUENCE_TO_INTERNAL = (int)4097L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_SEQUENCE_TO_INTERNAL 4097
+     * }
+     */
+    public static int IME_ESC_SEQUENCE_TO_INTERNAL() {
+        return IME_ESC_SEQUENCE_TO_INTERNAL;
+    }
+    private static final int IME_ESC_GET_EUDC_DICTIONARY = (int)4099L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_GET_EUDC_DICTIONARY 4099
+     * }
+     */
+    public static int IME_ESC_GET_EUDC_DICTIONARY() {
+        return IME_ESC_GET_EUDC_DICTIONARY;
+    }
+    private static final int IME_ESC_SET_EUDC_DICTIONARY = (int)4100L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_SET_EUDC_DICTIONARY 4100
+     * }
+     */
+    public static int IME_ESC_SET_EUDC_DICTIONARY() {
+        return IME_ESC_SET_EUDC_DICTIONARY;
+    }
+    private static final int IME_ESC_MAX_KEY = (int)4101L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_MAX_KEY 4101
+     * }
+     */
+    public static int IME_ESC_MAX_KEY() {
+        return IME_ESC_MAX_KEY;
+    }
+    private static final int IME_ESC_IME_NAME = (int)4102L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_IME_NAME 4102
+     * }
+     */
+    public static int IME_ESC_IME_NAME() {
+        return IME_ESC_IME_NAME;
+    }
+    private static final int IME_ESC_SYNC_HOTKEY = (int)4103L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_SYNC_HOTKEY 4103
+     * }
+     */
+    public static int IME_ESC_SYNC_HOTKEY() {
+        return IME_ESC_SYNC_HOTKEY;
+    }
+    private static final int IME_ESC_HANJA_MODE = (int)4104L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_HANJA_MODE 4104
+     * }
+     */
+    public static int IME_ESC_HANJA_MODE() {
+        return IME_ESC_HANJA_MODE;
+    }
+    private static final int IME_ESC_AUTOMATA = (int)4105L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_AUTOMATA 4105
+     * }
+     */
+    public static int IME_ESC_AUTOMATA() {
+        return IME_ESC_AUTOMATA;
+    }
+    private static final int IME_ESC_PRIVATE_HOTKEY = (int)4106L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_PRIVATE_HOTKEY 4106
+     * }
+     */
+    public static int IME_ESC_PRIVATE_HOTKEY() {
+        return IME_ESC_PRIVATE_HOTKEY;
+    }
+    private static final int IME_ESC_GETHELPFILENAME = (int)4107L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_ESC_GETHELPFILENAME 4107
+     * }
+     */
+    public static int IME_ESC_GETHELPFILENAME() {
+        return IME_ESC_GETHELPFILENAME;
+    }
+    private static final int IME_REGWORD_STYLE_EUDC = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define IME_REGWORD_STYLE_EUDC 1
+     * }
+     */
+    public static int IME_REGWORD_STYLE_EUDC() {
+        return IME_REGWORD_STYLE_EUDC;
+    }
+    private static final int IACE_CHILDREN = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define IACE_CHILDREN 1
+     * }
+     */
+    public static int IACE_CHILDREN() {
+        return IACE_CHILDREN;
+    }
+    private static final int IACE_DEFAULT = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define IACE_DEFAULT 16
+     * }
+     */
+    public static int IACE_DEFAULT() {
+        return IACE_DEFAULT;
+    }
+    private static final int IACE_IGNORENOCONTEXT = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define IACE_IGNORENOCONTEXT 32
+     * }
+     */
+    public static int IACE_IGNORENOCONTEXT() {
+        return IACE_IGNORENOCONTEXT;
+    }
+    private static final int IGIMIF_RIGHTMENU = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define IGIMIF_RIGHTMENU 1
+     * }
+     */
+    public static int IGIMIF_RIGHTMENU() {
+        return IGIMIF_RIGHTMENU;
+    }
+    private static final int IGIMII_CMODE = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define IGIMII_CMODE 1
+     * }
+     */
+    public static int IGIMII_CMODE() {
+        return IGIMII_CMODE;
+    }
+    private static final int IGIMII_SMODE = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define IGIMII_SMODE 2
+     * }
+     */
+    public static int IGIMII_SMODE() {
+        return IGIMII_SMODE;
+    }
+    private static final int IGIMII_CONFIGURE = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define IGIMII_CONFIGURE 4
+     * }
+     */
+    public static int IGIMII_CONFIGURE() {
+        return IGIMII_CONFIGURE;
+    }
+    private static final int IGIMII_TOOLS = (int)8L;
+    /**
+     * {@snippet lang=c :
+     * #define IGIMII_TOOLS 8
+     * }
+     */
+    public static int IGIMII_TOOLS() {
+        return IGIMII_TOOLS;
+    }
+    private static final int IGIMII_HELP = (int)16L;
+    /**
+     * {@snippet lang=c :
+     * #define IGIMII_HELP 16
+     * }
+     */
+    public static int IGIMII_HELP() {
+        return IGIMII_HELP;
+    }
+    private static final int IGIMII_OTHER = (int)32L;
+    /**
+     * {@snippet lang=c :
+     * #define IGIMII_OTHER 32
+     * }
+     */
+    public static int IGIMII_OTHER() {
+        return IGIMII_OTHER;
+    }
+    private static final int IGIMII_INPUTTOOLS = (int)64L;
+    /**
+     * {@snippet lang=c :
+     * #define IGIMII_INPUTTOOLS 64
+     * }
+     */
+    public static int IGIMII_INPUTTOOLS() {
+        return IGIMII_INPUTTOOLS;
+    }
+    private static final int IMFT_RADIOCHECK = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define IMFT_RADIOCHECK 1
+     * }
+     */
+    public static int IMFT_RADIOCHECK() {
+        return IMFT_RADIOCHECK;
+    }
+    private static final int IMFT_SEPARATOR = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define IMFT_SEPARATOR 2
+     * }
+     */
+    public static int IMFT_SEPARATOR() {
+        return IMFT_SEPARATOR;
+    }
+    private static final int IMFT_SUBMENU = (int)4L;
+    /**
+     * {@snippet lang=c :
+     * #define IMFT_SUBMENU 4
+     * }
+     */
+    public static int IMFT_SUBMENU() {
+        return IMFT_SUBMENU;
+    }
+    private static final int SOFTKEYBOARD_TYPE_T1 = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * #define SOFTKEYBOARD_TYPE_T1 1
+     * }
+     */
+    public static int SOFTKEYBOARD_TYPE_T1() {
+        return SOFTKEYBOARD_TYPE_T1;
+    }
+    private static final int SOFTKEYBOARD_TYPE_C1 = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * #define SOFTKEYBOARD_TYPE_C1 2
+     * }
+     */
+    public static int SOFTKEYBOARD_TYPE_C1() {
+        return SOFTKEYBOARD_TYPE_C1;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long uintptr_t
+     * }
+     */
+    public static final OfLong uintptr_t = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef char *va_list
+     * }
+     */
+    public static final AddressLayout va_list = Windows_h.C_POINTER;
 
     /**
-     * {@snippet :
-     * #define FS_FILE_ENCRYPTION 131072
+     * Variadic invoker class for:
+     * {@snippet lang=c :
+     * void __va_start(va_list *, ...)
+     * }
+     */
+    public static class __va_start {
+        private static final FunctionDescriptor BASE_DESC = FunctionDescriptor.ofVoid(
+                Windows_h.C_POINTER
+            );
+        private static final MemorySegment ADDR = Windows_h.findOrThrow("__va_start");
+
+        private final MethodHandle handle;
+        private final FunctionDescriptor descriptor;
+        private final MethodHandle spreader;
+
+        private __va_start(MethodHandle handle, FunctionDescriptor descriptor, MethodHandle spreader) {
+            this.handle = handle;
+            this.descriptor = descriptor;
+            this.spreader = spreader;
+        }
+
+        /**
+         * Variadic invoker factory for:
+         * {@snippet lang=c :
+         * void __va_start(va_list *, ...)
+         * }
+         */
+        public static __va_start makeInvoker(MemoryLayout... layouts) {
+            FunctionDescriptor desc$ = BASE_DESC.appendArgumentLayouts(layouts);
+            Linker.Option fva$ = Linker.Option.firstVariadicArg(BASE_DESC.argumentLayouts().size());
+            var mh$ = Linker.nativeLinker().downcallHandle(ADDR, desc$, fva$);
+            var spreader$ = mh$.asSpreader(Object[].class, layouts.length);
+            return new __va_start(mh$, desc$, spreader$);
+        }
+
+        /**
+         * {@return the specialized method handle}
+         */
+        public MethodHandle handle() {
+            return handle;
+        }
+
+        /**
+         * {@return the specialized descriptor}
+         */
+        public FunctionDescriptor descriptor() {
+            return descriptor;
+        }
+
+        public void apply(MemorySegment x0, Object... x1) {
+            try {
+                if (TRACE_DOWNCALLS) {
+                    traceDowncall("__va_start", x0, x1);
+                }
+                spreader.invokeExact(x0, x1);
+            } catch(IllegalArgumentException | ClassCastException ex$)  {
+                throw ex$; // rethrow IAE from passing wrong number/type of args
+            } catch (Throwable ex$) {
+               throw new AssertionError("should not reach here", ex$);
+            }
+        }
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long size_t
+     * }
+     */
+    public static final OfLong size_t = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef long long ptrdiff_t
      * }
      */
-    public static int FS_FILE_ENCRYPTION() {
-        return (int)131072L;
+    public static final OfLong ptrdiff_t = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef long long intptr_t
+     * }
+     */
+    public static final OfLong intptr_t = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef _Bool __vcrt_bool
+     * }
+     */
+    public static final OfBoolean __vcrt_bool = Windows_h.C_BOOL;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned short wchar_t
+     * }
+     */
+    public static final OfShort wchar_t = Windows_h.C_SHORT;
+
+    private static class __security_init_cookie {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__security_init_cookie"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __security_init_cookie()
+     * }
+     */
+    public static FunctionDescriptor __security_init_cookie$descriptor() {
+        return __security_init_cookie.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __security_init_cookie()
+     * }
+     */
+    public static MethodHandle __security_init_cookie$handle() {
+        return __security_init_cookie.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void __security_init_cookie()
+     * }
+     */
+    public static void __security_init_cookie() {
+        var mh$ = __security_init_cookie.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__security_init_cookie");
+            }
+            mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __security_check_cookie {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__security_check_cookie"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __security_check_cookie(uintptr_t _StackCookie)
+     * }
+     */
+    public static FunctionDescriptor __security_check_cookie$descriptor() {
+        return __security_check_cookie.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __security_check_cookie(uintptr_t _StackCookie)
+     * }
+     */
+    public static MethodHandle __security_check_cookie$handle() {
+        return __security_check_cookie.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void __security_check_cookie(uintptr_t _StackCookie)
+     * }
+     */
+    public static void __security_check_cookie(long _StackCookie) {
+        var mh$ = __security_check_cookie.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__security_check_cookie", _StackCookie);
+            }
+            mh$.invokeExact(_StackCookie);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __report_gsfailure {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__report_gsfailure"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __report_gsfailure(uintptr_t _StackCookie)
+     * }
+     */
+    public static FunctionDescriptor __report_gsfailure$descriptor() {
+        return __report_gsfailure.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __report_gsfailure(uintptr_t _StackCookie)
+     * }
+     */
+    public static MethodHandle __report_gsfailure$handle() {
+        return __report_gsfailure.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void __report_gsfailure(uintptr_t _StackCookie)
+     * }
+     */
+    public static void __report_gsfailure(long _StackCookie) {
+        var mh$ = __report_gsfailure.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__report_gsfailure", _StackCookie);
+            }
+            mh$.invokeExact(_StackCookie);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __security_cookie$constants {
+        public static final OfLong LAYOUT = Windows_h.C_LONG_LONG;
+        public static final MemorySegment SEGMENT = Windows_h.findOrThrow("__security_cookie").reinterpret(LAYOUT.byteSize());
+    }
+
+    /**
+     * Layout for variable:
+     * {@snippet lang=c :
+     * extern uintptr_t __security_cookie
+     * }
+     */
+    public static OfLong __security_cookie$layout() {
+        return __security_cookie$constants.LAYOUT;
+    }
+
+    /**
+     * Segment for variable:
+     * {@snippet lang=c :
+     * extern uintptr_t __security_cookie
+     * }
+     */
+    public static MemorySegment __security_cookie$segment() {
+        return __security_cookie$constants.SEGMENT;
+    }
+
+    /**
+     * Getter for variable:
+     * {@snippet lang=c :
+     * extern uintptr_t __security_cookie
+     * }
+     */
+    public static long __security_cookie() {
+        return __security_cookie$constants.SEGMENT.get(__security_cookie$constants.LAYOUT, 0L);
+    }
+
+    /**
+     * Setter for variable:
+     * {@snippet lang=c :
+     * extern uintptr_t __security_cookie
+     * }
+     */
+    public static void __security_cookie(long varValue) {
+        __security_cookie$constants.SEGMENT.set(__security_cookie$constants.LAYOUT, 0L, varValue);
+    }
+    private static final int ExceptionContinueExecution = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum _EXCEPTION_DISPOSITION.ExceptionContinueExecution = 0
+     * }
+     */
+    public static int ExceptionContinueExecution() {
+        return ExceptionContinueExecution;
+    }
+    private static final int ExceptionContinueSearch = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum _EXCEPTION_DISPOSITION.ExceptionContinueSearch = 1
+     * }
+     */
+    public static int ExceptionContinueSearch() {
+        return ExceptionContinueSearch;
+    }
+    private static final int ExceptionNestedException = (int)2L;
+    /**
+     * {@snippet lang=c :
+     * enum _EXCEPTION_DISPOSITION.ExceptionNestedException = 2
+     * }
+     */
+    public static int ExceptionNestedException() {
+        return ExceptionNestedException;
+    }
+    private static final int ExceptionCollidedUnwind = (int)3L;
+    /**
+     * {@snippet lang=c :
+     * enum _EXCEPTION_DISPOSITION.ExceptionCollidedUnwind = 3
+     * }
+     */
+    public static int ExceptionCollidedUnwind() {
+        return ExceptionCollidedUnwind;
+    }
+
+    private static class __C_specific_handler {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__C_specific_handler"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * EXCEPTION_DISPOSITION __C_specific_handler(struct _EXCEPTION_RECORD *ExceptionRecord, void *EstablisherFrame, struct _CONTEXT *ContextRecord, struct _DISPATCHER_CONTEXT *DispatcherContext)
+     * }
+     */
+    public static FunctionDescriptor __C_specific_handler$descriptor() {
+        return __C_specific_handler.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * EXCEPTION_DISPOSITION __C_specific_handler(struct _EXCEPTION_RECORD *ExceptionRecord, void *EstablisherFrame, struct _CONTEXT *ContextRecord, struct _DISPATCHER_CONTEXT *DispatcherContext)
+     * }
+     */
+    public static MethodHandle __C_specific_handler$handle() {
+        return __C_specific_handler.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * EXCEPTION_DISPOSITION __C_specific_handler(struct _EXCEPTION_RECORD *ExceptionRecord, void *EstablisherFrame, struct _CONTEXT *ContextRecord, struct _DISPATCHER_CONTEXT *DispatcherContext)
+     * }
+     */
+    public static int __C_specific_handler(MemorySegment ExceptionRecord, MemorySegment EstablisherFrame, MemorySegment ContextRecord, MemorySegment DispatcherContext) {
+        var mh$ = __C_specific_handler.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__C_specific_handler", ExceptionRecord, EstablisherFrame, ContextRecord, DispatcherContext);
+            }
+            return (int)mh$.invokeExact(ExceptionRecord, EstablisherFrame, ContextRecord, DispatcherContext);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _exception_code {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_exception_code"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long _exception_code()
+     * }
+     */
+    public static FunctionDescriptor _exception_code$descriptor() {
+        return _exception_code.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long _exception_code()
+     * }
+     */
+    public static MethodHandle _exception_code$handle() {
+        return _exception_code.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned long _exception_code()
+     * }
+     */
+    public static int _exception_code() {
+        var mh$ = _exception_code.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_exception_code");
+            }
+            return (int)mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _exception_info {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_exception_info"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void *_exception_info()
+     * }
+     */
+    public static FunctionDescriptor _exception_info$descriptor() {
+        return _exception_info.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void *_exception_info()
+     * }
+     */
+    public static MethodHandle _exception_info$handle() {
+        return _exception_info.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void *_exception_info()
+     * }
+     */
+    public static MemorySegment _exception_info() {
+        var mh$ = _exception_info.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_exception_info");
+            }
+            return (MemorySegment)mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _abnormal_termination {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_abnormal_termination"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _abnormal_termination()
+     * }
+     */
+    public static FunctionDescriptor _abnormal_termination$descriptor() {
+        return _abnormal_termination.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _abnormal_termination()
+     * }
+     */
+    public static MethodHandle _abnormal_termination$handle() {
+        return _abnormal_termination.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _abnormal_termination()
+     * }
+     */
+    public static int _abnormal_termination() {
+        var mh$ = _abnormal_termination.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_abnormal_termination");
+            }
+            return (int)mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef __builtin_va_list __gnuc_va_list
+     * }
+     */
+    public static final AddressLayout __gnuc_va_list = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long ULONG
+     * }
+     */
+    public static final OfInt ULONG = Windows_h.C_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef ULONG *PULONG
+     * }
+     */
+    public static final AddressLayout PULONG = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned short USHORT
+     * }
+     */
+    public static final OfShort USHORT = Windows_h.C_SHORT;
+    /**
+     * {@snippet lang=c :
+     * typedef USHORT *PUSHORT
+     * }
+     */
+    public static final AddressLayout PUSHORT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned char UCHAR
+     * }
+     */
+    public static final OfByte UCHAR = Windows_h.C_CHAR;
+    /**
+     * {@snippet lang=c :
+     * typedef UCHAR *PUCHAR
+     * }
+     */
+    public static final AddressLayout PUCHAR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef char *PSZ
+     * }
+     */
+    public static final AddressLayout PSZ = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long DWORD
+     * }
+     */
+    public static final OfInt DWORD = Windows_h.C_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef int BOOL
+     * }
+     */
+    public static final OfInt BOOL = Windows_h.C_INT;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned char BYTE
+     * }
+     */
+    public static final OfByte BYTE = Windows_h.C_CHAR;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned short WORD
+     * }
+     */
+    public static final OfShort WORD = Windows_h.C_SHORT;
+    /**
+     * {@snippet lang=c :
+     * typedef float FLOAT
+     * }
+     */
+    public static final OfFloat FLOAT = Windows_h.C_FLOAT;
+    /**
+     * {@snippet lang=c :
+     * typedef FLOAT *PFLOAT
+     * }
+     */
+    public static final AddressLayout PFLOAT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef BOOL *PBOOL
+     * }
+     */
+    public static final AddressLayout PBOOL = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef BOOL *LPBOOL
+     * }
+     */
+    public static final AddressLayout LPBOOL = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef BYTE *PBYTE
+     * }
+     */
+    public static final AddressLayout PBYTE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef BYTE *LPBYTE
+     * }
+     */
+    public static final AddressLayout LPBYTE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef int *PINT
+     * }
+     */
+    public static final AddressLayout PINT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef int *LPINT
+     * }
+     */
+    public static final AddressLayout LPINT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef WORD *PWORD
+     * }
+     */
+    public static final AddressLayout PWORD = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef WORD *LPWORD
+     * }
+     */
+    public static final AddressLayout LPWORD = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef long *LPLONG
+     * }
+     */
+    public static final AddressLayout LPLONG = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef DWORD *PDWORD
+     * }
+     */
+    public static final AddressLayout PDWORD = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef DWORD *LPDWORD
+     * }
+     */
+    public static final AddressLayout LPDWORD = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef void *LPVOID
+     * }
+     */
+    public static final AddressLayout LPVOID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const void *LPCVOID
+     * }
+     */
+    public static final AddressLayout LPCVOID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef int INT
+     * }
+     */
+    public static final OfInt INT = Windows_h.C_INT;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned int UINT
+     * }
+     */
+    public static final OfInt UINT = Windows_h.C_INT;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned int *PUINT
+     * }
+     */
+    public static final AddressLayout PUINT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef _Bool __crt_bool
+     * }
+     */
+    public static final OfBoolean __crt_bool = Windows_h.C_BOOL;
+
+    private static class _invalid_parameter_noinfo {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_invalid_parameter_noinfo"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void _invalid_parameter_noinfo()
+     * }
+     */
+    public static FunctionDescriptor _invalid_parameter_noinfo$descriptor() {
+        return _invalid_parameter_noinfo.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void _invalid_parameter_noinfo()
+     * }
+     */
+    public static MethodHandle _invalid_parameter_noinfo$handle() {
+        return _invalid_parameter_noinfo.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void _invalid_parameter_noinfo()
+     * }
+     */
+    public static void _invalid_parameter_noinfo() {
+        var mh$ = _invalid_parameter_noinfo.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_invalid_parameter_noinfo");
+            }
+            mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _invalid_parameter_noinfo_noreturn {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_invalid_parameter_noinfo_noreturn"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void _invalid_parameter_noinfo_noreturn()
+     * }
+     */
+    public static FunctionDescriptor _invalid_parameter_noinfo_noreturn$descriptor() {
+        return _invalid_parameter_noinfo_noreturn.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void _invalid_parameter_noinfo_noreturn()
+     * }
+     */
+    public static MethodHandle _invalid_parameter_noinfo_noreturn$handle() {
+        return _invalid_parameter_noinfo_noreturn.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void _invalid_parameter_noinfo_noreturn()
+     * }
+     */
+    public static void _invalid_parameter_noinfo_noreturn() {
+        var mh$ = _invalid_parameter_noinfo_noreturn.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_invalid_parameter_noinfo_noreturn");
+            }
+            mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _invoke_watson {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_invoke_watson"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void _invoke_watson(const wchar_t *_Expression, const wchar_t *_FunctionName, const wchar_t *_FileName, unsigned int _LineNo, uintptr_t _Reserved)
+     * }
+     */
+    public static FunctionDescriptor _invoke_watson$descriptor() {
+        return _invoke_watson.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void _invoke_watson(const wchar_t *_Expression, const wchar_t *_FunctionName, const wchar_t *_FileName, unsigned int _LineNo, uintptr_t _Reserved)
+     * }
+     */
+    public static MethodHandle _invoke_watson$handle() {
+        return _invoke_watson.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * void _invoke_watson(const wchar_t *_Expression, const wchar_t *_FunctionName, const wchar_t *_FileName, unsigned int _LineNo, uintptr_t _Reserved)
+     * }
+     */
+    public static void _invoke_watson(MemorySegment _Expression, MemorySegment _FunctionName, MemorySegment _FileName, int _LineNo, long _Reserved) {
+        var mh$ = _invoke_watson.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_invoke_watson", _Expression, _FunctionName, _FileName, _LineNo, _Reserved);
+            }
+            mh$.invokeExact(_Expression, _FunctionName, _FileName, _LineNo, _Reserved);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef int errno_t
+     * }
+     */
+    public static final OfInt errno_t = Windows_h.C_INT;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned short wint_t
+     * }
+     */
+    public static final OfShort wint_t = Windows_h.C_SHORT;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned short wctype_t
+     * }
+     */
+    public static final OfShort wctype_t = Windows_h.C_SHORT;
+    /**
+     * {@snippet lang=c :
+     * typedef long __time32_t
+     * }
+     */
+    public static final OfInt __time32_t = Windows_h.C_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef long long __time64_t
+     * }
+     */
+    public static final OfLong __time64_t = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef __crt_locale_pointers *_locale_t
+     * }
+     */
+    public static final AddressLayout _locale_t = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __time64_t time_t
+     * }
+     */
+    public static final OfLong time_t = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef size_t rsize_t
+     * }
+     */
+    public static final OfLong rsize_t = Windows_h.C_LONG_LONG;
+
+    private static class __pctype_func {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__pctype_func"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * const unsigned short *__pctype_func()
+     * }
+     */
+    public static FunctionDescriptor __pctype_func$descriptor() {
+        return __pctype_func.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * const unsigned short *__pctype_func()
+     * }
+     */
+    public static MethodHandle __pctype_func$handle() {
+        return __pctype_func.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * const unsigned short *__pctype_func()
+     * }
+     */
+    public static MemorySegment __pctype_func() {
+        var mh$ = __pctype_func.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__pctype_func");
+            }
+            return (MemorySegment)mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __pwctype_func {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__pwctype_func"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * const wctype_t *__pwctype_func()
+     * }
+     */
+    public static FunctionDescriptor __pwctype_func$descriptor() {
+        return __pwctype_func.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * const wctype_t *__pwctype_func()
+     * }
+     */
+    public static MethodHandle __pwctype_func$handle() {
+        return __pwctype_func.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * const wctype_t *__pwctype_func()
+     * }
+     */
+    public static MemorySegment __pwctype_func() {
+        var mh$ = __pwctype_func.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__pwctype_func");
+            }
+            return (MemorySegment)mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iswalnum {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iswalnum"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iswalnum(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor iswalnum$descriptor() {
+        return iswalnum.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iswalnum(wint_t _C)
+     * }
+     */
+    public static MethodHandle iswalnum$handle() {
+        return iswalnum.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iswalnum(wint_t _C)
+     * }
+     */
+    public static int iswalnum(short _C) {
+        var mh$ = iswalnum.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iswalnum", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iswalpha {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iswalpha"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iswalpha(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor iswalpha$descriptor() {
+        return iswalpha.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iswalpha(wint_t _C)
+     * }
+     */
+    public static MethodHandle iswalpha$handle() {
+        return iswalpha.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iswalpha(wint_t _C)
+     * }
+     */
+    public static int iswalpha(short _C) {
+        var mh$ = iswalpha.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iswalpha", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iswascii {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iswascii"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iswascii(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor iswascii$descriptor() {
+        return iswascii.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iswascii(wint_t _C)
+     * }
+     */
+    public static MethodHandle iswascii$handle() {
+        return iswascii.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iswascii(wint_t _C)
+     * }
+     */
+    public static int iswascii(short _C) {
+        var mh$ = iswascii.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iswascii", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iswblank {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iswblank"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iswblank(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor iswblank$descriptor() {
+        return iswblank.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iswblank(wint_t _C)
+     * }
+     */
+    public static MethodHandle iswblank$handle() {
+        return iswblank.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iswblank(wint_t _C)
+     * }
+     */
+    public static int iswblank(short _C) {
+        var mh$ = iswblank.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iswblank", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iswcntrl {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iswcntrl"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iswcntrl(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor iswcntrl$descriptor() {
+        return iswcntrl.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iswcntrl(wint_t _C)
+     * }
+     */
+    public static MethodHandle iswcntrl$handle() {
+        return iswcntrl.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iswcntrl(wint_t _C)
+     * }
+     */
+    public static int iswcntrl(short _C) {
+        var mh$ = iswcntrl.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iswcntrl", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iswdigit {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iswdigit"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iswdigit(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor iswdigit$descriptor() {
+        return iswdigit.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iswdigit(wint_t _C)
+     * }
+     */
+    public static MethodHandle iswdigit$handle() {
+        return iswdigit.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iswdigit(wint_t _C)
+     * }
+     */
+    public static int iswdigit(short _C) {
+        var mh$ = iswdigit.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iswdigit", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iswgraph {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iswgraph"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iswgraph(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor iswgraph$descriptor() {
+        return iswgraph.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iswgraph(wint_t _C)
+     * }
+     */
+    public static MethodHandle iswgraph$handle() {
+        return iswgraph.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iswgraph(wint_t _C)
+     * }
+     */
+    public static int iswgraph(short _C) {
+        var mh$ = iswgraph.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iswgraph", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iswlower {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iswlower"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iswlower(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor iswlower$descriptor() {
+        return iswlower.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iswlower(wint_t _C)
+     * }
+     */
+    public static MethodHandle iswlower$handle() {
+        return iswlower.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iswlower(wint_t _C)
+     * }
+     */
+    public static int iswlower(short _C) {
+        var mh$ = iswlower.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iswlower", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iswprint {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iswprint"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iswprint(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor iswprint$descriptor() {
+        return iswprint.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iswprint(wint_t _C)
+     * }
+     */
+    public static MethodHandle iswprint$handle() {
+        return iswprint.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iswprint(wint_t _C)
+     * }
+     */
+    public static int iswprint(short _C) {
+        var mh$ = iswprint.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iswprint", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iswpunct {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iswpunct"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iswpunct(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor iswpunct$descriptor() {
+        return iswpunct.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iswpunct(wint_t _C)
+     * }
+     */
+    public static MethodHandle iswpunct$handle() {
+        return iswpunct.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iswpunct(wint_t _C)
+     * }
+     */
+    public static int iswpunct(short _C) {
+        var mh$ = iswpunct.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iswpunct", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iswspace {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iswspace"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iswspace(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor iswspace$descriptor() {
+        return iswspace.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iswspace(wint_t _C)
+     * }
+     */
+    public static MethodHandle iswspace$handle() {
+        return iswspace.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iswspace(wint_t _C)
+     * }
+     */
+    public static int iswspace(short _C) {
+        var mh$ = iswspace.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iswspace", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iswupper {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iswupper"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iswupper(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor iswupper$descriptor() {
+        return iswupper.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iswupper(wint_t _C)
+     * }
+     */
+    public static MethodHandle iswupper$handle() {
+        return iswupper.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iswupper(wint_t _C)
+     * }
+     */
+    public static int iswupper(short _C) {
+        var mh$ = iswupper.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iswupper", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iswxdigit {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iswxdigit"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iswxdigit(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor iswxdigit$descriptor() {
+        return iswxdigit.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iswxdigit(wint_t _C)
+     * }
+     */
+    public static MethodHandle iswxdigit$handle() {
+        return iswxdigit.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iswxdigit(wint_t _C)
+     * }
+     */
+    public static int iswxdigit(short _C) {
+        var mh$ = iswxdigit.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iswxdigit", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __iswcsymf {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__iswcsymf"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int __iswcsymf(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor __iswcsymf$descriptor() {
+        return __iswcsymf.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int __iswcsymf(wint_t _C)
+     * }
+     */
+    public static MethodHandle __iswcsymf$handle() {
+        return __iswcsymf.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int __iswcsymf(wint_t _C)
+     * }
+     */
+    public static int __iswcsymf(short _C) {
+        var mh$ = __iswcsymf.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__iswcsymf", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __iswcsym {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__iswcsym"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int __iswcsym(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor __iswcsym$descriptor() {
+        return __iswcsym.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int __iswcsym(wint_t _C)
+     * }
+     */
+    public static MethodHandle __iswcsym$handle() {
+        return __iswcsym.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int __iswcsym(wint_t _C)
+     * }
+     */
+    public static int __iswcsym(short _C) {
+        var mh$ = __iswcsym.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__iswcsym", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswalnum_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswalnum_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswalnum_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswalnum_l$descriptor() {
+        return _iswalnum_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswalnum_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswalnum_l$handle() {
+        return _iswalnum_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswalnum_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iswalnum_l(short _C, MemorySegment _Locale) {
+        var mh$ = _iswalnum_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswalnum_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswalpha_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswalpha_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswalpha_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswalpha_l$descriptor() {
+        return _iswalpha_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswalpha_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswalpha_l$handle() {
+        return _iswalpha_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswalpha_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iswalpha_l(short _C, MemorySegment _Locale) {
+        var mh$ = _iswalpha_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswalpha_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswblank_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswblank_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswblank_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswblank_l$descriptor() {
+        return _iswblank_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswblank_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswblank_l$handle() {
+        return _iswblank_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswblank_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iswblank_l(short _C, MemorySegment _Locale) {
+        var mh$ = _iswblank_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswblank_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswcntrl_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswcntrl_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswcntrl_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswcntrl_l$descriptor() {
+        return _iswcntrl_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswcntrl_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswcntrl_l$handle() {
+        return _iswcntrl_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswcntrl_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iswcntrl_l(short _C, MemorySegment _Locale) {
+        var mh$ = _iswcntrl_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswcntrl_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswdigit_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswdigit_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswdigit_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswdigit_l$descriptor() {
+        return _iswdigit_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswdigit_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswdigit_l$handle() {
+        return _iswdigit_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswdigit_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iswdigit_l(short _C, MemorySegment _Locale) {
+        var mh$ = _iswdigit_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswdigit_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswgraph_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswgraph_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswgraph_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswgraph_l$descriptor() {
+        return _iswgraph_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswgraph_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswgraph_l$handle() {
+        return _iswgraph_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswgraph_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iswgraph_l(short _C, MemorySegment _Locale) {
+        var mh$ = _iswgraph_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswgraph_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswlower_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswlower_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswlower_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswlower_l$descriptor() {
+        return _iswlower_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswlower_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswlower_l$handle() {
+        return _iswlower_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswlower_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iswlower_l(short _C, MemorySegment _Locale) {
+        var mh$ = _iswlower_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswlower_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswprint_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswprint_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswprint_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswprint_l$descriptor() {
+        return _iswprint_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswprint_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswprint_l$handle() {
+        return _iswprint_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswprint_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iswprint_l(short _C, MemorySegment _Locale) {
+        var mh$ = _iswprint_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswprint_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswpunct_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswpunct_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswpunct_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswpunct_l$descriptor() {
+        return _iswpunct_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswpunct_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswpunct_l$handle() {
+        return _iswpunct_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswpunct_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iswpunct_l(short _C, MemorySegment _Locale) {
+        var mh$ = _iswpunct_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswpunct_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswspace_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswspace_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswspace_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswspace_l$descriptor() {
+        return _iswspace_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswspace_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswspace_l$handle() {
+        return _iswspace_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswspace_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iswspace_l(short _C, MemorySegment _Locale) {
+        var mh$ = _iswspace_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswspace_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswupper_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswupper_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswupper_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswupper_l$descriptor() {
+        return _iswupper_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswupper_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswupper_l$handle() {
+        return _iswupper_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswupper_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iswupper_l(short _C, MemorySegment _Locale) {
+        var mh$ = _iswupper_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswupper_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswxdigit_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswxdigit_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswxdigit_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswxdigit_l$descriptor() {
+        return _iswxdigit_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswxdigit_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswxdigit_l$handle() {
+        return _iswxdigit_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswxdigit_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iswxdigit_l(short _C, MemorySegment _Locale) {
+        var mh$ = _iswxdigit_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswxdigit_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswcsymf_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswcsymf_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswcsymf_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswcsymf_l$descriptor() {
+        return _iswcsymf_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswcsymf_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswcsymf_l$handle() {
+        return _iswcsymf_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswcsymf_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iswcsymf_l(short _C, MemorySegment _Locale) {
+        var mh$ = _iswcsymf_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswcsymf_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswcsym_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswcsym_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswcsym_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswcsym_l$descriptor() {
+        return _iswcsym_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswcsym_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswcsym_l$handle() {
+        return _iswcsym_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswcsym_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iswcsym_l(short _C, MemorySegment _Locale) {
+        var mh$ = _iswcsym_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswcsym_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class towupper {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("towupper"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wint_t towupper(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor towupper$descriptor() {
+        return towupper.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wint_t towupper(wint_t _C)
+     * }
+     */
+    public static MethodHandle towupper$handle() {
+        return towupper.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * wint_t towupper(wint_t _C)
+     * }
+     */
+    public static short towupper(short _C) {
+        var mh$ = towupper.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("towupper", _C);
+            }
+            return (short)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class towlower {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("towlower"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wint_t towlower(wint_t _C)
+     * }
+     */
+    public static FunctionDescriptor towlower$descriptor() {
+        return towlower.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wint_t towlower(wint_t _C)
+     * }
+     */
+    public static MethodHandle towlower$handle() {
+        return towlower.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * wint_t towlower(wint_t _C)
+     * }
+     */
+    public static short towlower(short _C) {
+        var mh$ = towlower.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("towlower", _C);
+            }
+            return (short)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iswctype {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iswctype"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iswctype(wint_t _C, wctype_t _Type)
+     * }
+     */
+    public static FunctionDescriptor iswctype$descriptor() {
+        return iswctype.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iswctype(wint_t _C, wctype_t _Type)
+     * }
+     */
+    public static MethodHandle iswctype$handle() {
+        return iswctype.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iswctype(wint_t _C, wctype_t _Type)
+     * }
+     */
+    public static int iswctype(short _C, short _Type) {
+        var mh$ = iswctype.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iswctype", _C, _Type);
+            }
+            return (int)mh$.invokeExact(_C, _Type);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _towupper_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_towupper_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wint_t _towupper_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _towupper_l$descriptor() {
+        return _towupper_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wint_t _towupper_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _towupper_l$handle() {
+        return _towupper_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * wint_t _towupper_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static short _towupper_l(short _C, MemorySegment _Locale) {
+        var mh$ = _towupper_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_towupper_l", _C, _Locale);
+            }
+            return (short)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _towlower_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_towlower_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wint_t _towlower_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _towlower_l$descriptor() {
+        return _towlower_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wint_t _towlower_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _towlower_l$handle() {
+        return _towlower_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * wint_t _towlower_l(wint_t _C, _locale_t _Locale)
+     * }
+     */
+    public static short _towlower_l(short _C, MemorySegment _Locale) {
+        var mh$ = _towlower_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_towlower_l", _C, _Locale);
+            }
+            return (short)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iswctype_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iswctype_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iswctype_l(wint_t _C, wctype_t _Type, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iswctype_l$descriptor() {
+        return _iswctype_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iswctype_l(wint_t _C, wctype_t _Type, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iswctype_l$handle() {
+        return _iswctype_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iswctype_l(wint_t _C, wctype_t _Type, _locale_t _Locale)
+     * }
+     */
+    public static int _iswctype_l(short _C, short _Type, MemorySegment _Locale) {
+        var mh$ = _iswctype_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iswctype_l", _C, _Type, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Type, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class isleadbyte {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("isleadbyte"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int isleadbyte(int _C)
+     * }
+     */
+    public static FunctionDescriptor isleadbyte$descriptor() {
+        return isleadbyte.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int isleadbyte(int _C)
+     * }
+     */
+    public static MethodHandle isleadbyte$handle() {
+        return isleadbyte.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int isleadbyte(int _C)
+     * }
+     */
+    public static int isleadbyte(int _C) {
+        var mh$ = isleadbyte.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("isleadbyte", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _isleadbyte_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_isleadbyte_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _isleadbyte_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _isleadbyte_l$descriptor() {
+        return _isleadbyte_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _isleadbyte_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _isleadbyte_l$handle() {
+        return _isleadbyte_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _isleadbyte_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _isleadbyte_l(int _C, MemorySegment _Locale) {
+        var mh$ = _isleadbyte_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_isleadbyte_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class is_wctype {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_SHORT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("is_wctype"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int is_wctype(wint_t _C, wctype_t _Type)
+     * }
+     */
+    public static FunctionDescriptor is_wctype$descriptor() {
+        return is_wctype.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int is_wctype(wint_t _C, wctype_t _Type)
+     * }
+     */
+    public static MethodHandle is_wctype$handle() {
+        return is_wctype.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int is_wctype(wint_t _C, wctype_t _Type)
+     * }
+     */
+    public static int is_wctype(short _C, short _Type) {
+        var mh$ = is_wctype.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("is_wctype", _C, _Type);
+            }
+            return (int)mh$.invokeExact(_C, _Type);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _isctype {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_isctype"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _isctype(int _C, int _Type)
+     * }
+     */
+    public static FunctionDescriptor _isctype$descriptor() {
+        return _isctype.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _isctype(int _C, int _Type)
+     * }
+     */
+    public static MethodHandle _isctype$handle() {
+        return _isctype.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _isctype(int _C, int _Type)
+     * }
+     */
+    public static int _isctype(int _C, int _Type) {
+        var mh$ = _isctype.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_isctype", _C, _Type);
+            }
+            return (int)mh$.invokeExact(_C, _Type);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _isctype_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_isctype_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _isctype_l(int _C, int _Type, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _isctype_l$descriptor() {
+        return _isctype_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _isctype_l(int _C, int _Type, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _isctype_l$handle() {
+        return _isctype_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _isctype_l(int _C, int _Type, _locale_t _Locale)
+     * }
+     */
+    public static int _isctype_l(int _C, int _Type, MemorySegment _Locale) {
+        var mh$ = _isctype_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_isctype_l", _C, _Type, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Type, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class isalpha {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("isalpha"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int isalpha(int _C)
+     * }
+     */
+    public static FunctionDescriptor isalpha$descriptor() {
+        return isalpha.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int isalpha(int _C)
+     * }
+     */
+    public static MethodHandle isalpha$handle() {
+        return isalpha.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int isalpha(int _C)
+     * }
+     */
+    public static int isalpha(int _C) {
+        var mh$ = isalpha.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("isalpha", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _isalpha_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_isalpha_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _isalpha_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _isalpha_l$descriptor() {
+        return _isalpha_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _isalpha_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _isalpha_l$handle() {
+        return _isalpha_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _isalpha_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _isalpha_l(int _C, MemorySegment _Locale) {
+        var mh$ = _isalpha_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_isalpha_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class isupper {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("isupper"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int isupper(int _C)
+     * }
+     */
+    public static FunctionDescriptor isupper$descriptor() {
+        return isupper.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int isupper(int _C)
+     * }
+     */
+    public static MethodHandle isupper$handle() {
+        return isupper.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int isupper(int _C)
+     * }
+     */
+    public static int isupper(int _C) {
+        var mh$ = isupper.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("isupper", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _isupper_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_isupper_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _isupper_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _isupper_l$descriptor() {
+        return _isupper_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _isupper_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _isupper_l$handle() {
+        return _isupper_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _isupper_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _isupper_l(int _C, MemorySegment _Locale) {
+        var mh$ = _isupper_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_isupper_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class islower {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("islower"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int islower(int _C)
+     * }
+     */
+    public static FunctionDescriptor islower$descriptor() {
+        return islower.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int islower(int _C)
+     * }
+     */
+    public static MethodHandle islower$handle() {
+        return islower.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int islower(int _C)
+     * }
+     */
+    public static int islower(int _C) {
+        var mh$ = islower.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("islower", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _islower_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_islower_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _islower_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _islower_l$descriptor() {
+        return _islower_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _islower_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _islower_l$handle() {
+        return _islower_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _islower_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _islower_l(int _C, MemorySegment _Locale) {
+        var mh$ = _islower_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_islower_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class isdigit {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("isdigit"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int isdigit(int _C)
+     * }
+     */
+    public static FunctionDescriptor isdigit$descriptor() {
+        return isdigit.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int isdigit(int _C)
+     * }
+     */
+    public static MethodHandle isdigit$handle() {
+        return isdigit.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int isdigit(int _C)
+     * }
+     */
+    public static int isdigit(int _C) {
+        var mh$ = isdigit.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("isdigit", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _isdigit_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_isdigit_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _isdigit_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _isdigit_l$descriptor() {
+        return _isdigit_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _isdigit_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _isdigit_l$handle() {
+        return _isdigit_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _isdigit_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _isdigit_l(int _C, MemorySegment _Locale) {
+        var mh$ = _isdigit_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_isdigit_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class isxdigit {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("isxdigit"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int isxdigit(int _C)
+     * }
+     */
+    public static FunctionDescriptor isxdigit$descriptor() {
+        return isxdigit.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int isxdigit(int _C)
+     * }
+     */
+    public static MethodHandle isxdigit$handle() {
+        return isxdigit.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int isxdigit(int _C)
+     * }
+     */
+    public static int isxdigit(int _C) {
+        var mh$ = isxdigit.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("isxdigit", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _isxdigit_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_isxdigit_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _isxdigit_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _isxdigit_l$descriptor() {
+        return _isxdigit_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _isxdigit_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _isxdigit_l$handle() {
+        return _isxdigit_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _isxdigit_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _isxdigit_l(int _C, MemorySegment _Locale) {
+        var mh$ = _isxdigit_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_isxdigit_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class isspace {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("isspace"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int isspace(int _C)
+     * }
+     */
+    public static FunctionDescriptor isspace$descriptor() {
+        return isspace.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int isspace(int _C)
+     * }
+     */
+    public static MethodHandle isspace$handle() {
+        return isspace.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int isspace(int _C)
+     * }
+     */
+    public static int isspace(int _C) {
+        var mh$ = isspace.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("isspace", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _isspace_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_isspace_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _isspace_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _isspace_l$descriptor() {
+        return _isspace_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _isspace_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _isspace_l$handle() {
+        return _isspace_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _isspace_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _isspace_l(int _C, MemorySegment _Locale) {
+        var mh$ = _isspace_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_isspace_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class ispunct {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("ispunct"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int ispunct(int _C)
+     * }
+     */
+    public static FunctionDescriptor ispunct$descriptor() {
+        return ispunct.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int ispunct(int _C)
+     * }
+     */
+    public static MethodHandle ispunct$handle() {
+        return ispunct.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int ispunct(int _C)
+     * }
+     */
+    public static int ispunct(int _C) {
+        var mh$ = ispunct.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("ispunct", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _ispunct_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_ispunct_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _ispunct_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _ispunct_l$descriptor() {
+        return _ispunct_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _ispunct_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _ispunct_l$handle() {
+        return _ispunct_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _ispunct_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _ispunct_l(int _C, MemorySegment _Locale) {
+        var mh$ = _ispunct_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_ispunct_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class isblank {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("isblank"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int isblank(int _C)
+     * }
+     */
+    public static FunctionDescriptor isblank$descriptor() {
+        return isblank.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int isblank(int _C)
+     * }
+     */
+    public static MethodHandle isblank$handle() {
+        return isblank.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int isblank(int _C)
+     * }
+     */
+    public static int isblank(int _C) {
+        var mh$ = isblank.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("isblank", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _isblank_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_isblank_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _isblank_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _isblank_l$descriptor() {
+        return _isblank_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _isblank_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _isblank_l$handle() {
+        return _isblank_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _isblank_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _isblank_l(int _C, MemorySegment _Locale) {
+        var mh$ = _isblank_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_isblank_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class isalnum {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("isalnum"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int isalnum(int _C)
+     * }
+     */
+    public static FunctionDescriptor isalnum$descriptor() {
+        return isalnum.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int isalnum(int _C)
+     * }
+     */
+    public static MethodHandle isalnum$handle() {
+        return isalnum.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int isalnum(int _C)
+     * }
+     */
+    public static int isalnum(int _C) {
+        var mh$ = isalnum.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("isalnum", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _isalnum_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_isalnum_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _isalnum_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _isalnum_l$descriptor() {
+        return _isalnum_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _isalnum_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _isalnum_l$handle() {
+        return _isalnum_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _isalnum_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _isalnum_l(int _C, MemorySegment _Locale) {
+        var mh$ = _isalnum_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_isalnum_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class isprint {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("isprint"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int isprint(int _C)
+     * }
+     */
+    public static FunctionDescriptor isprint$descriptor() {
+        return isprint.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int isprint(int _C)
+     * }
+     */
+    public static MethodHandle isprint$handle() {
+        return isprint.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int isprint(int _C)
+     * }
+     */
+    public static int isprint(int _C) {
+        var mh$ = isprint.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("isprint", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _isprint_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_isprint_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _isprint_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _isprint_l$descriptor() {
+        return _isprint_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _isprint_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _isprint_l$handle() {
+        return _isprint_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _isprint_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _isprint_l(int _C, MemorySegment _Locale) {
+        var mh$ = _isprint_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_isprint_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class isgraph {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("isgraph"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int isgraph(int _C)
+     * }
+     */
+    public static FunctionDescriptor isgraph$descriptor() {
+        return isgraph.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int isgraph(int _C)
+     * }
+     */
+    public static MethodHandle isgraph$handle() {
+        return isgraph.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int isgraph(int _C)
+     * }
+     */
+    public static int isgraph(int _C) {
+        var mh$ = isgraph.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("isgraph", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _isgraph_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_isgraph_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _isgraph_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _isgraph_l$descriptor() {
+        return _isgraph_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _isgraph_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _isgraph_l$handle() {
+        return _isgraph_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _isgraph_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _isgraph_l(int _C, MemorySegment _Locale) {
+        var mh$ = _isgraph_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_isgraph_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class iscntrl {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("iscntrl"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int iscntrl(int _C)
+     * }
+     */
+    public static FunctionDescriptor iscntrl$descriptor() {
+        return iscntrl.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int iscntrl(int _C)
+     * }
+     */
+    public static MethodHandle iscntrl$handle() {
+        return iscntrl.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int iscntrl(int _C)
+     * }
+     */
+    public static int iscntrl(int _C) {
+        var mh$ = iscntrl.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("iscntrl", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _iscntrl_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_iscntrl_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _iscntrl_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _iscntrl_l$descriptor() {
+        return _iscntrl_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _iscntrl_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _iscntrl_l$handle() {
+        return _iscntrl_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _iscntrl_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _iscntrl_l(int _C, MemorySegment _Locale) {
+        var mh$ = _iscntrl_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_iscntrl_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class toupper {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("toupper"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int toupper(int _C)
+     * }
+     */
+    public static FunctionDescriptor toupper$descriptor() {
+        return toupper.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int toupper(int _C)
+     * }
+     */
+    public static MethodHandle toupper$handle() {
+        return toupper.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int toupper(int _C)
+     * }
+     */
+    public static int toupper(int _C) {
+        var mh$ = toupper.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("toupper", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class tolower {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("tolower"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int tolower(int _C)
+     * }
+     */
+    public static FunctionDescriptor tolower$descriptor() {
+        return tolower.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int tolower(int _C)
+     * }
+     */
+    public static MethodHandle tolower$handle() {
+        return tolower.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int tolower(int _C)
+     * }
+     */
+    public static int tolower(int _C) {
+        var mh$ = tolower.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("tolower", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _tolower {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_tolower"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _tolower(int _C)
+     * }
+     */
+    public static FunctionDescriptor _tolower$descriptor() {
+        return _tolower.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _tolower(int _C)
+     * }
+     */
+    public static MethodHandle _tolower$handle() {
+        return _tolower.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _tolower(int _C)
+     * }
+     */
+    public static int _tolower(int _C) {
+        var mh$ = _tolower.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_tolower", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _tolower_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_tolower_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _tolower_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _tolower_l$descriptor() {
+        return _tolower_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _tolower_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _tolower_l$handle() {
+        return _tolower_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _tolower_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _tolower_l(int _C, MemorySegment _Locale) {
+        var mh$ = _tolower_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_tolower_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _toupper {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_toupper"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _toupper(int _C)
+     * }
+     */
+    public static FunctionDescriptor _toupper$descriptor() {
+        return _toupper.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _toupper(int _C)
+     * }
+     */
+    public static MethodHandle _toupper$handle() {
+        return _toupper.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _toupper(int _C)
+     * }
+     */
+    public static int _toupper(int _C) {
+        var mh$ = _toupper.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_toupper", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _toupper_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_toupper_l"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _toupper_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor _toupper_l$descriptor() {
+        return _toupper_l.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _toupper_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static MethodHandle _toupper_l$handle() {
+        return _toupper_l.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int _toupper_l(int _C, _locale_t _Locale)
+     * }
+     */
+    public static int _toupper_l(int _C, MemorySegment _Locale) {
+        var mh$ = _toupper_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_toupper_l", _C, _Locale);
+            }
+            return (int)mh$.invokeExact(_C, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __isascii {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__isascii"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int __isascii(int _C)
+     * }
+     */
+    public static FunctionDescriptor __isascii$descriptor() {
+        return __isascii.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int __isascii(int _C)
+     * }
+     */
+    public static MethodHandle __isascii$handle() {
+        return __isascii.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int __isascii(int _C)
+     * }
+     */
+    public static int __isascii(int _C) {
+        var mh$ = __isascii.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__isascii", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __toascii {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__toascii"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int __toascii(int _C)
+     * }
+     */
+    public static FunctionDescriptor __toascii$descriptor() {
+        return __toascii.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int __toascii(int _C)
+     * }
+     */
+    public static MethodHandle __toascii$handle() {
+        return __toascii.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int __toascii(int _C)
+     * }
+     */
+    public static int __toascii(int _C) {
+        var mh$ = __toascii.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__toascii", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __iscsymf {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__iscsymf"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int __iscsymf(int _C)
+     * }
+     */
+    public static FunctionDescriptor __iscsymf$descriptor() {
+        return __iscsymf.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int __iscsymf(int _C)
+     * }
+     */
+    public static MethodHandle __iscsymf$handle() {
+        return __iscsymf.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int __iscsymf(int _C)
+     * }
+     */
+    public static int __iscsymf(int _C) {
+        var mh$ = __iscsymf.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__iscsymf", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __iscsym {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__iscsym"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int __iscsym(int _C)
+     * }
+     */
+    public static FunctionDescriptor __iscsym$descriptor() {
+        return __iscsym.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int __iscsym(int _C)
+     * }
+     */
+    public static MethodHandle __iscsym$handle() {
+        return __iscsym.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int __iscsym(int _C)
+     * }
+     */
+    public static int __iscsym(int _C) {
+        var mh$ = __iscsym.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__iscsym", _C);
+            }
+            return (int)mh$.invokeExact(_C);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class ___mb_cur_max_func {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("___mb_cur_max_func"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int ___mb_cur_max_func()
+     * }
+     */
+    public static FunctionDescriptor ___mb_cur_max_func$descriptor() {
+        return ___mb_cur_max_func.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int ___mb_cur_max_func()
+     * }
+     */
+    public static MethodHandle ___mb_cur_max_func$handle() {
+        return ___mb_cur_max_func.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int ___mb_cur_max_func()
+     * }
+     */
+    public static int ___mb_cur_max_func() {
+        var mh$ = ___mb_cur_max_func.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("___mb_cur_max_func");
+            }
+            return (int)mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class ___mb_cur_max_l_func {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("___mb_cur_max_l_func"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int ___mb_cur_max_l_func(_locale_t _Locale)
+     * }
+     */
+    public static FunctionDescriptor ___mb_cur_max_l_func$descriptor() {
+        return ___mb_cur_max_l_func.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int ___mb_cur_max_l_func(_locale_t _Locale)
+     * }
+     */
+    public static MethodHandle ___mb_cur_max_l_func$handle() {
+        return ___mb_cur_max_l_func.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int ___mb_cur_max_l_func(_locale_t _Locale)
+     * }
+     */
+    public static int ___mb_cur_max_l_func(MemorySegment _Locale) {
+        var mh$ = ___mb_cur_max_l_func.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("___mb_cur_max_l_func", _Locale);
+            }
+            return (int)mh$.invokeExact(_Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long POINTER_64_INT
+     * }
+     */
+    public static final OfLong POINTER_64_INT = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef signed char INT8
+     * }
+     */
+    public static final OfByte INT8 = Windows_h.C_CHAR;
+    /**
+     * {@snippet lang=c :
+     * typedef signed char *PINT8
+     * }
+     */
+    public static final AddressLayout PINT8 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef short INT16
+     * }
+     */
+    public static final OfShort INT16 = Windows_h.C_SHORT;
+    /**
+     * {@snippet lang=c :
+     * typedef short *PINT16
+     * }
+     */
+    public static final AddressLayout PINT16 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef int INT32
+     * }
+     */
+    public static final OfInt INT32 = Windows_h.C_INT;
+    /**
+     * {@snippet lang=c :
+     * typedef int *PINT32
+     * }
+     */
+    public static final AddressLayout PINT32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef long long INT64
+     * }
+     */
+    public static final OfLong INT64 = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef long long *PINT64
+     * }
+     */
+    public static final AddressLayout PINT64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned char UINT8
+     * }
+     */
+    public static final OfByte UINT8 = Windows_h.C_CHAR;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned char *PUINT8
+     * }
+     */
+    public static final AddressLayout PUINT8 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned short UINT16
+     * }
+     */
+    public static final OfShort UINT16 = Windows_h.C_SHORT;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned short *PUINT16
+     * }
+     */
+    public static final AddressLayout PUINT16 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned int UINT32
+     * }
+     */
+    public static final OfInt UINT32 = Windows_h.C_INT;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned int *PUINT32
+     * }
+     */
+    public static final AddressLayout PUINT32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long UINT64
+     * }
+     */
+    public static final OfLong UINT64 = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long *PUINT64
+     * }
+     */
+    public static final AddressLayout PUINT64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef int LONG32
+     * }
+     */
+    public static final OfInt LONG32 = Windows_h.C_INT;
+    /**
+     * {@snippet lang=c :
+     * typedef int *PLONG32
+     * }
+     */
+    public static final AddressLayout PLONG32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned int ULONG32
+     * }
+     */
+    public static final OfInt ULONG32 = Windows_h.C_INT;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned int *PULONG32
+     * }
+     */
+    public static final AddressLayout PULONG32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned int DWORD32
+     * }
+     */
+    public static final OfInt DWORD32 = Windows_h.C_INT;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned int *PDWORD32
+     * }
+     */
+    public static final AddressLayout PDWORD32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef long long INT_PTR
+     * }
+     */
+    public static final OfLong INT_PTR = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef long long *PINT_PTR
+     * }
+     */
+    public static final AddressLayout PINT_PTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long UINT_PTR
+     * }
+     */
+    public static final OfLong UINT_PTR = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long *PUINT_PTR
+     * }
+     */
+    public static final AddressLayout PUINT_PTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef long long LONG_PTR
+     * }
+     */
+    public static final OfLong LONG_PTR = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef long long *PLONG_PTR
+     * }
+     */
+    public static final AddressLayout PLONG_PTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long ULONG_PTR
+     * }
+     */
+    public static final OfLong ULONG_PTR = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long *PULONG_PTR
+     * }
+     */
+    public static final AddressLayout PULONG_PTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef void * __ptr64 HANDLE64
+     * }
+     */
+    public static final AddressLayout HANDLE64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef HANDLE64 *PHANDLE64
+     * }
+     */
+    public static final AddressLayout PHANDLE64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef long long SHANDLE_PTR
+     * }
+     */
+    public static final OfLong SHANDLE_PTR = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long HANDLE_PTR
+     * }
+     */
+    public static final OfLong HANDLE_PTR = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned int UHALF_PTR
+     * }
+     */
+    public static final OfInt UHALF_PTR = Windows_h.C_INT;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned int *PUHALF_PTR
+     * }
+     */
+    public static final AddressLayout PUHALF_PTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef int HALF_PTR
+     * }
+     */
+    public static final OfInt HALF_PTR = Windows_h.C_INT;
+    /**
+     * {@snippet lang=c :
+     * typedef int *PHALF_PTR
+     * }
+     */
+    public static final AddressLayout PHALF_PTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef ULONG_PTR SIZE_T
+     * }
+     */
+    public static final OfLong SIZE_T$1 = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef ULONG_PTR *PSIZE_T
+     * }
+     */
+    public static final AddressLayout PSIZE_T = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LONG_PTR SSIZE_T
+     * }
+     */
+    public static final OfLong SSIZE_T = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef LONG_PTR *PSSIZE_T
+     * }
+     */
+    public static final AddressLayout PSSIZE_T = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef ULONG_PTR DWORD_PTR
+     * }
+     */
+    public static final OfLong DWORD_PTR = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef ULONG_PTR *PDWORD_PTR
+     * }
+     */
+    public static final AddressLayout PDWORD_PTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef long long LONG64
+     * }
+     */
+    public static final OfLong LONG64 = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef long long *PLONG64
+     * }
+     */
+    public static final AddressLayout PLONG64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long ULONG64
+     * }
+     */
+    public static final OfLong ULONG64 = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long *PULONG64
+     * }
+     */
+    public static final AddressLayout PULONG64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long DWORD64
+     * }
+     */
+    public static final OfLong DWORD64 = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long *PDWORD64
+     * }
+     */
+    public static final AddressLayout PDWORD64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef ULONG_PTR KAFFINITY
+     * }
+     */
+    public static final OfLong KAFFINITY = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef KAFFINITY *PKAFFINITY
+     * }
+     */
+    public static final AddressLayout PKAFFINITY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef void *PVOID
+     * }
+     */
+    public static final AddressLayout PVOID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef void * __ptr64 PVOID64
+     * }
+     */
+    public static final AddressLayout PVOID64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef char CHAR
+     * }
+     */
+    public static final OfByte CHAR = Windows_h.C_CHAR;
+    /**
+     * {@snippet lang=c :
+     * typedef short SHORT
+     * }
+     */
+    public static final OfShort SHORT = Windows_h.C_SHORT;
+    /**
+     * {@snippet lang=c :
+     * typedef long LONG
+     * }
+     */
+    public static final OfInt LONG = Windows_h.C_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef wchar_t WCHAR
+     * }
+     */
+    public static final OfShort WCHAR = Windows_h.C_SHORT;
+    /**
+     * {@snippet lang=c :
+     * typedef WCHAR *PWCHAR
+     * }
+     */
+    public static final AddressLayout PWCHAR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef WCHAR *LPWCH
+     * }
+     */
+    public static final AddressLayout LPWCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef WCHAR *PWCH
+     * }
+     */
+    public static final AddressLayout PWCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const WCHAR *LPCWCH
+     * }
+     */
+    public static final AddressLayout LPCWCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const WCHAR *PCWCH
+     * }
+     */
+    public static final AddressLayout PCWCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef WCHAR *NWPSTR
+     * }
+     */
+    public static final AddressLayout NWPSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef WCHAR *LPWSTR
+     * }
+     */
+    public static final AddressLayout LPWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef WCHAR *PWSTR
+     * }
+     */
+    public static final AddressLayout PWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PWSTR *PZPWSTR
+     * }
+     */
+    public static final AddressLayout PZPWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const PWSTR *PCZPWSTR
+     * }
+     */
+    public static final AddressLayout PCZPWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned WCHAR *LPUWSTR
+     * }
+     */
+    public static final AddressLayout LPUWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned WCHAR *PUWSTR
+     * }
+     */
+    public static final AddressLayout PUWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const WCHAR *LPCWSTR
+     * }
+     */
+    public static final AddressLayout LPCWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const WCHAR *PCWSTR
+     * }
+     */
+    public static final AddressLayout PCWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PCWSTR *PZPCWSTR
+     * }
+     */
+    public static final AddressLayout PZPCWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const PCWSTR *PCZPCWSTR
+     * }
+     */
+    public static final AddressLayout PCZPCWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const __unaligned WCHAR *LPCUWSTR
+     * }
+     */
+    public static final AddressLayout LPCUWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const __unaligned WCHAR *PCUWSTR
+     * }
+     */
+    public static final AddressLayout PCUWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef WCHAR *PZZWSTR
+     * }
+     */
+    public static final AddressLayout PZZWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const WCHAR *PCZZWSTR
+     * }
+     */
+    public static final AddressLayout PCZZWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned WCHAR *PUZZWSTR
+     * }
+     */
+    public static final AddressLayout PUZZWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const __unaligned WCHAR *PCUZZWSTR
+     * }
+     */
+    public static final AddressLayout PCUZZWSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef WCHAR *PNZWCH
+     * }
+     */
+    public static final AddressLayout PNZWCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const WCHAR *PCNZWCH
+     * }
+     */
+    public static final AddressLayout PCNZWCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned WCHAR *PUNZWCH
+     * }
+     */
+    public static final AddressLayout PUNZWCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const __unaligned WCHAR *PCUNZWCH
+     * }
+     */
+    public static final AddressLayout PCUNZWCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const WCHAR *LPCWCHAR
+     * }
+     */
+    public static final AddressLayout LPCWCHAR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const WCHAR *PCWCHAR
+     * }
+     */
+    public static final AddressLayout PCWCHAR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const __unaligned WCHAR *LPCUWCHAR
+     * }
+     */
+    public static final AddressLayout LPCUWCHAR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const __unaligned WCHAR *PCUWCHAR
+     * }
+     */
+    public static final AddressLayout PCUWCHAR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long UCSCHAR
+     * }
+     */
+    public static final OfInt UCSCHAR = Windows_h.C_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef UCSCHAR *PUCSCHAR
+     * }
+     */
+    public static final AddressLayout PUCSCHAR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const UCSCHAR *PCUCSCHAR
+     * }
+     */
+    public static final AddressLayout PCUCSCHAR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef UCSCHAR *PUCSSTR
+     * }
+     */
+    public static final AddressLayout PUCSSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned UCSCHAR *PUUCSSTR
+     * }
+     */
+    public static final AddressLayout PUUCSSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const UCSCHAR *PCUCSSTR
+     * }
+     */
+    public static final AddressLayout PCUCSSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const __unaligned UCSCHAR *PCUUCSSTR
+     * }
+     */
+    public static final AddressLayout PCUUCSSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef __unaligned UCSCHAR *PUUCSCHAR
+     * }
+     */
+    public static final AddressLayout PUUCSCHAR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const __unaligned UCSCHAR *PCUUCSCHAR
+     * }
+     */
+    public static final AddressLayout PCUUCSCHAR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef CHAR *PCHAR
+     * }
+     */
+    public static final AddressLayout PCHAR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef CHAR *LPCH
+     * }
+     */
+    public static final AddressLayout LPCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef CHAR *PCH
+     * }
+     */
+    public static final AddressLayout PCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const CHAR *LPCCH
+     * }
+     */
+    public static final AddressLayout LPCCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const CHAR *PCCH
+     * }
+     */
+    public static final AddressLayout PCCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef CHAR *NPSTR
+     * }
+     */
+    public static final AddressLayout NPSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef CHAR *LPSTR
+     * }
+     */
+    public static final AddressLayout LPSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef CHAR *PSTR
+     * }
+     */
+    public static final AddressLayout PSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PSTR *PZPSTR
+     * }
+     */
+    public static final AddressLayout PZPSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const PSTR *PCZPSTR
+     * }
+     */
+    public static final AddressLayout PCZPSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const CHAR *LPCSTR
+     * }
+     */
+    public static final AddressLayout LPCSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const CHAR *PCSTR
+     * }
+     */
+    public static final AddressLayout PCSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PCSTR *PZPCSTR
+     * }
+     */
+    public static final AddressLayout PZPCSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const PCSTR *PCZPCSTR
+     * }
+     */
+    public static final AddressLayout PCZPCSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef CHAR *PZZSTR
+     * }
+     */
+    public static final AddressLayout PZZSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const CHAR *PCZZSTR
+     * }
+     */
+    public static final AddressLayout PCZZSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef CHAR *PNZCH
+     * }
+     */
+    public static final AddressLayout PNZCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const CHAR *PCNZCH
+     * }
+     */
+    public static final AddressLayout PCNZCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef char TCHAR
+     * }
+     */
+    public static final OfByte TCHAR = Windows_h.C_CHAR;
+    /**
+     * {@snippet lang=c :
+     * typedef char *PTCHAR
+     * }
+     */
+    public static final AddressLayout PTCHAR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned char TBYTE
+     * }
+     */
+    public static final OfByte TBYTE = Windows_h.C_CHAR;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned char *PTBYTE
+     * }
+     */
+    public static final AddressLayout PTBYTE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LPCH LPTCH
+     * }
+     */
+    public static final AddressLayout LPTCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LPCH PTCH
+     * }
+     */
+    public static final AddressLayout PTCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LPCCH LPCTCH
+     * }
+     */
+    public static final AddressLayout LPCTCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LPCCH PCTCH
+     * }
+     */
+    public static final AddressLayout PCTCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LPSTR PTSTR
+     * }
+     */
+    public static final AddressLayout PTSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LPSTR LPTSTR
+     * }
+     */
+    public static final AddressLayout LPTSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LPSTR PUTSTR
+     * }
+     */
+    public static final AddressLayout PUTSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LPSTR LPUTSTR
+     * }
+     */
+    public static final AddressLayout LPUTSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LPCSTR PCTSTR
+     * }
+     */
+    public static final AddressLayout PCTSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LPCSTR LPCTSTR
+     * }
+     */
+    public static final AddressLayout LPCTSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LPCSTR PCUTSTR
+     * }
+     */
+    public static final AddressLayout PCUTSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LPCSTR LPCUTSTR
+     * }
+     */
+    public static final AddressLayout LPCUTSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PZZSTR PZZTSTR
+     * }
+     */
+    public static final AddressLayout PZZTSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PZZSTR PUZZTSTR
+     * }
+     */
+    public static final AddressLayout PUZZTSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PCZZSTR PCZZTSTR
+     * }
+     */
+    public static final AddressLayout PCZZTSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PCZZSTR PCUZZTSTR
+     * }
+     */
+    public static final AddressLayout PCUZZTSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PZPSTR PZPTSTR
+     * }
+     */
+    public static final AddressLayout PZPTSTR = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PNZCH PNZTCH
+     * }
+     */
+    public static final AddressLayout PNZTCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PNZCH PUNZTCH
+     * }
+     */
+    public static final AddressLayout PUNZTCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PCNZCH PCNZTCH
+     * }
+     */
+    public static final AddressLayout PCNZTCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef PCNZCH PCUNZTCH
+     * }
+     */
+    public static final AddressLayout PCUNZTCH = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef SHORT *PSHORT
+     * }
+     */
+    public static final AddressLayout PSHORT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LONG *PLONG
+     * }
+     */
+    public static final AddressLayout PLONG = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _PROCESSOR_NUMBER {
+     *     WORD Group;
+     *     BYTE Number;
+     *     BYTE Reserved;
+     * } *PPROCESSOR_NUMBER
+     * }
+     */
+    public static final AddressLayout PPROCESSOR_NUMBER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _GROUP_AFFINITY {
+     *     KAFFINITY Mask;
+     *     WORD Group;
+     *     WORD Reserved[3];
+     * } *PGROUP_AFFINITY
+     * }
+     */
+    public static final AddressLayout PGROUP_AFFINITY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef void *HANDLE
+     * }
+     */
+    public static final AddressLayout HANDLE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef HANDLE *PHANDLE
+     * }
+     */
+    public static final AddressLayout PHANDLE = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef BYTE FCHAR
+     * }
+     */
+    public static final OfByte FCHAR = Windows_h.C_CHAR;
+    /**
+     * {@snippet lang=c :
+     * typedef WORD FSHORT
+     * }
+     */
+    public static final OfShort FSHORT = Windows_h.C_SHORT;
+    /**
+     * {@snippet lang=c :
+     * typedef DWORD FLONG
+     * }
+     */
+    public static final OfInt FLONG = Windows_h.C_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef long HRESULT
+     * }
+     */
+    public static final OfInt HRESULT = Windows_h.C_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef char CCHAR
+     * }
+     */
+    public static final OfByte CCHAR = Windows_h.C_CHAR;
+    /**
+     * {@snippet lang=c :
+     * typedef DWORD LCID
+     * }
+     */
+    public static final OfInt LCID = Windows_h.C_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef PDWORD PLCID
+     * }
+     */
+    public static final AddressLayout PLCID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef WORD LANGID
+     * }
+     */
+    public static final OfShort LANGID = Windows_h.C_SHORT;
+    private static final int UNSPECIFIED_COMPARTMENT_ID = (int)0L;
+    /**
+     * {@snippet lang=c :
+     * enum <anonymous>.UNSPECIFIED_COMPARTMENT_ID = 0
+     * }
+     */
+    public static int UNSPECIFIED_COMPARTMENT_ID() {
+        return UNSPECIFIED_COMPARTMENT_ID;
+    }
+    private static final int DEFAULT_COMPARTMENT_ID = (int)1L;
+    /**
+     * {@snippet lang=c :
+     * enum <anonymous>.DEFAULT_COMPARTMENT_ID = 1
+     * }
+     */
+    public static int DEFAULT_COMPARTMENT_ID() {
+        return DEFAULT_COMPARTMENT_ID;
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef enum {
+     *     UNSPECIFIED_COMPARTMENT_ID = 0,
+     *     DEFAULT_COMPARTMENT_ID
+     * } *PCOMPARTMENT_ID
+     * }
+     */
+    public static final AddressLayout PCOMPARTMENT_ID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef FLOAT128 *PFLOAT128
+     * }
+     */
+    public static final AddressLayout PFLOAT128 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef long long LONGLONG
+     * }
+     */
+    public static final OfLong LONGLONG = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef unsigned long long ULONGLONG
+     * }
+     */
+    public static final OfLong ULONGLONG = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef LONGLONG *PLONGLONG
+     * }
+     */
+    public static final AddressLayout PLONGLONG = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef ULONGLONG *PULONGLONG
+     * }
+     */
+    public static final AddressLayout PULONGLONG = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LONGLONG USN
+     * }
+     */
+    public static final OfLong USN = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef LARGE_INTEGER *PLARGE_INTEGER
+     * }
+     */
+    public static final AddressLayout PLARGE_INTEGER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef ULARGE_INTEGER *PULARGE_INTEGER
+     * }
+     */
+    public static final AddressLayout PULARGE_INTEGER = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LONG_PTR RTL_REFERENCE_COUNT
+     * }
+     */
+    public static final OfLong RTL_REFERENCE_COUNT = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef LONG_PTR *PRTL_REFERENCE_COUNT
+     * }
+     */
+    public static final AddressLayout PRTL_REFERENCE_COUNT = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LONG RTL_REFERENCE_COUNT32
+     * }
+     */
+    public static final OfInt RTL_REFERENCE_COUNT32 = Windows_h.C_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef LONG *PRTL_REFERENCE_COUNT32
+     * }
+     */
+    public static final AddressLayout PRTL_REFERENCE_COUNT32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _LUID {
+     *     DWORD LowPart;
+     *     LONG HighPart;
+     * } *PLUID
+     * }
+     */
+    public static final AddressLayout PLUID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef ULONGLONG DWORDLONG
+     * }
+     */
+    public static final OfLong DWORDLONG = Windows_h.C_LONG_LONG;
+    /**
+     * {@snippet lang=c :
+     * typedef DWORDLONG *PDWORDLONG
+     * }
+     */
+    public static final AddressLayout PDWORDLONG = Windows_h.C_POINTER;
+
+    private static class _rotl8 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_CHAR,
+            Windows_h.C_CHAR
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_rotl8"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _rotl8(unsigned char Value, unsigned char Shift)
+     * }
+     */
+    public static FunctionDescriptor _rotl8$descriptor() {
+        return _rotl8.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _rotl8(unsigned char Value, unsigned char Shift)
+     * }
+     */
+    public static MethodHandle _rotl8$handle() {
+        return _rotl8.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned char _rotl8(unsigned char Value, unsigned char Shift)
+     * }
+     */
+    public static byte _rotl8(byte Value, byte Shift) {
+        var mh$ = _rotl8.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_rotl8", Value, Shift);
+            }
+            return (byte)mh$.invokeExact(Value, Shift);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _rotl16 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_SHORT,
+            Windows_h.C_CHAR
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_rotl16"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned short _rotl16(unsigned short Value, unsigned char Shift)
+     * }
+     */
+    public static FunctionDescriptor _rotl16$descriptor() {
+        return _rotl16.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned short _rotl16(unsigned short Value, unsigned char Shift)
+     * }
+     */
+    public static MethodHandle _rotl16$handle() {
+        return _rotl16.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned short _rotl16(unsigned short Value, unsigned char Shift)
+     * }
+     */
+    public static short _rotl16(short Value, byte Shift) {
+        var mh$ = _rotl16.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_rotl16", Value, Shift);
+            }
+            return (short)mh$.invokeExact(Value, Shift);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _rotr8 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_CHAR,
+            Windows_h.C_CHAR
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_rotr8"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _rotr8(unsigned char Value, unsigned char Shift)
+     * }
+     */
+    public static FunctionDescriptor _rotr8$descriptor() {
+        return _rotr8.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _rotr8(unsigned char Value, unsigned char Shift)
+     * }
+     */
+    public static MethodHandle _rotr8$handle() {
+        return _rotr8.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned char _rotr8(unsigned char Value, unsigned char Shift)
+     * }
+     */
+    public static byte _rotr8(byte Value, byte Shift) {
+        var mh$ = _rotr8.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_rotr8", Value, Shift);
+            }
+            return (byte)mh$.invokeExact(Value, Shift);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _rotr16 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_SHORT,
+            Windows_h.C_CHAR
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_rotr16"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned short _rotr16(unsigned short Value, unsigned char Shift)
+     * }
+     */
+    public static FunctionDescriptor _rotr16$descriptor() {
+        return _rotr16.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned short _rotr16(unsigned short Value, unsigned char Shift)
+     * }
+     */
+    public static MethodHandle _rotr16$handle() {
+        return _rotr16.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned short _rotr16(unsigned short Value, unsigned char Shift)
+     * }
+     */
+    public static short _rotr16(short Value, byte Shift) {
+        var mh$ = _rotr16.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_rotr16", Value, Shift);
+            }
+            return (short)mh$.invokeExact(Value, Shift);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _rotl {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_rotl"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned int _rotl(unsigned int Value, int Shift)
+     * }
+     */
+    public static FunctionDescriptor _rotl$descriptor() {
+        return _rotl.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned int _rotl(unsigned int Value, int Shift)
+     * }
+     */
+    public static MethodHandle _rotl$handle() {
+        return _rotl.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned int _rotl(unsigned int Value, int Shift)
+     * }
+     */
+    public static int _rotl(int Value, int Shift) {
+        var mh$ = _rotl.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_rotl", Value, Shift);
+            }
+            return (int)mh$.invokeExact(Value, Shift);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _rotl64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_rotl64"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long long _rotl64(unsigned long long Value, int Shift)
+     * }
+     */
+    public static FunctionDescriptor _rotl64$descriptor() {
+        return _rotl64.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long long _rotl64(unsigned long long Value, int Shift)
+     * }
+     */
+    public static MethodHandle _rotl64$handle() {
+        return _rotl64.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned long long _rotl64(unsigned long long Value, int Shift)
+     * }
+     */
+    public static long _rotl64(long Value, int Shift) {
+        var mh$ = _rotl64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_rotl64", Value, Shift);
+            }
+            return (long)mh$.invokeExact(Value, Shift);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _rotr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_rotr"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned int _rotr(unsigned int Value, int Shift)
+     * }
+     */
+    public static FunctionDescriptor _rotr$descriptor() {
+        return _rotr.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned int _rotr(unsigned int Value, int Shift)
+     * }
+     */
+    public static MethodHandle _rotr$handle() {
+        return _rotr.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned int _rotr(unsigned int Value, int Shift)
+     * }
+     */
+    public static int _rotr(int Value, int Shift) {
+        var mh$ = _rotr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_rotr", Value, Shift);
+            }
+            return (int)mh$.invokeExact(Value, Shift);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _rotr64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_rotr64"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long long _rotr64(unsigned long long Value, int Shift)
+     * }
+     */
+    public static FunctionDescriptor _rotr64$descriptor() {
+        return _rotr64.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long long _rotr64(unsigned long long Value, int Shift)
+     * }
+     */
+    public static MethodHandle _rotr64$handle() {
+        return _rotr64.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * unsigned long long _rotr64(unsigned long long Value, int Shift)
+     * }
+     */
+    public static long _rotr64(long Value, int Shift) {
+        var mh$ = _rotr64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_rotr64", Value, Shift);
+            }
+            return (long)mh$.invokeExact(Value, Shift);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+    /**
+     * {@snippet lang=c :
+     * typedef BYTE BOOLEAN
+     * }
+     */
+    public static final OfByte BOOLEAN = Windows_h.C_CHAR;
+    /**
+     * {@snippet lang=c :
+     * typedef BOOLEAN *PBOOLEAN
+     * }
+     */
+    public static final AddressLayout PBOOLEAN = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _LIST_ENTRY {
+     *     struct _LIST_ENTRY *Flink;
+     *     struct _LIST_ENTRY *Blink;
+     * } *PLIST_ENTRY
+     * }
+     */
+    public static final AddressLayout PLIST_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _LIST_ENTRY {
+     *     struct _LIST_ENTRY *Flink;
+     *     struct _LIST_ENTRY *Blink;
+     * } *PRLIST_ENTRY
+     * }
+     */
+    public static final AddressLayout PRLIST_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef struct _SINGLE_LIST_ENTRY {
+     *     struct _SINGLE_LIST_ENTRY *Next;
+     * } *PSINGLE_LIST_ENTRY
+     * }
+     */
+    public static final AddressLayout PSINGLE_LIST_ENTRY = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LIST_ENTRY32 *PLIST_ENTRY32
+     * }
+     */
+    public static final AddressLayout PLIST_ENTRY32 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef LIST_ENTRY64 *PLIST_ENTRY64
+     * }
+     */
+    public static final AddressLayout PLIST_ENTRY64 = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef GUID *LPGUID
+     * }
+     */
+    public static final AddressLayout LPGUID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef const GUID *LPCGUID
+     * }
+     */
+    public static final AddressLayout LPCGUID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef IID *LPIID
+     * }
+     */
+    public static final AddressLayout LPIID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef CLSID *LPCLSID
+     * }
+     */
+    public static final AddressLayout LPCLSID = Windows_h.C_POINTER;
+    /**
+     * {@snippet lang=c :
+     * typedef FMTID *LPFMTID
+     * }
+     */
+    public static final AddressLayout LPFMTID = Windows_h.C_POINTER;
+
+    private static class _errno {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_errno"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int *_errno()
+     * }
+     */
+    public static FunctionDescriptor _errno$descriptor() {
+        return _errno.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int *_errno()
+     * }
+     */
+    public static MethodHandle _errno$handle() {
+        return _errno.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * int *_errno()
+     * }
+     */
+    public static MemorySegment _errno() {
+        var mh$ = _errno.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_errno");
+            }
+            return (MemorySegment)mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _set_errno {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_set_errno"),
+                    DESC);
+    }
+
+    /**
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _set_errno(int _Value)
+     * }
+     */
+    public static FunctionDescriptor _set_errno$descriptor() {
+        return _set_errno.DESC;
+    }
+
+    /**
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _set_errno(int _Value)
+     * }
+     */
+    public static MethodHandle _set_errno$handle() {
+        return _set_errno.HANDLE;
+    }
+    /**
+     * {@snippet lang=c :
+     * errno_t _set_errno(int _Value)
+     * }
+     */
+    public static int _set_errno(int _Value) {
+        var mh$ = _set_errno.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_set_errno", _Value);
+            }
+            return (int)mh$.invokeExact(_Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _get_errno {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_get_errno"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define INVALID_ATOM 0
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _get_errno(int *_Value)
      * }
      */
-    public static short INVALID_ATOM() {
-        return (short)0L;
+    public static FunctionDescriptor _get_errno$descriptor() {
+        return _get_errno.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define SCS_THIS_PLATFORM_BINARY 6
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _get_errno(int *_Value)
      * }
      */
-    public static int SCS_THIS_PLATFORM_BINARY() {
-        return (int)6L;
+    public static MethodHandle _get_errno$handle() {
+        return _get_errno.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define UMS_VERSION 256
+     * {@snippet lang=c :
+     * errno_t _get_errno(int *_Value)
      * }
      */
-    public static int UMS_VERSION() {
-        return (int)256L;
+    public static int _get_errno(MemorySegment _Value) {
+        var mh$ = _get_errno.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_get_errno", _Value);
+            }
+            return (int)mh$.invokeExact(_Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __doserrno {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__doserrno"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define CRITICAL_SECTION_NO_DEBUG_INFO 16777216
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long *__doserrno()
      * }
      */
-    public static int CRITICAL_SECTION_NO_DEBUG_INFO() {
-        return (int)16777216L;
+    public static FunctionDescriptor __doserrno$descriptor() {
+        return __doserrno.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define EFS_USE_RECOVERY_KEYS 1
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long *__doserrno()
      * }
      */
-    public static int EFS_USE_RECOVERY_KEYS() {
-        return (int)1L;
+    public static MethodHandle __doserrno$handle() {
+        return __doserrno.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define CREATE_FOR_IMPORT 1
+     * {@snippet lang=c :
+     * unsigned long *__doserrno()
      * }
      */
-    public static int CREATE_FOR_IMPORT() {
-        return (int)1L;
+    public static MemorySegment __doserrno() {
+        var mh$ = __doserrno.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__doserrno");
+            }
+            return (MemorySegment)mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _set_doserrno {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_set_doserrno"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define CREATE_FOR_DIR 2
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _set_doserrno(unsigned long _Value)
      * }
      */
-    public static int CREATE_FOR_DIR() {
-        return (int)2L;
+    public static FunctionDescriptor _set_doserrno$descriptor() {
+        return _set_doserrno.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define OVERWRITE_HIDDEN 4
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _set_doserrno(unsigned long _Value)
      * }
      */
-    public static int OVERWRITE_HIDDEN() {
-        return (int)4L;
+    public static MethodHandle _set_doserrno$handle() {
+        return _set_doserrno.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define EFSRPC_SECURE_ONLY 8
+     * {@snippet lang=c :
+     * errno_t _set_doserrno(unsigned long _Value)
      * }
      */
-    public static int EFSRPC_SECURE_ONLY() {
-        return (int)8L;
+    public static int _set_doserrno(int _Value) {
+        var mh$ = _set_doserrno.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_set_doserrno", _Value);
+            }
+            return (int)mh$.invokeExact(_Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _get_doserrno {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_get_doserrno"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define EFS_DROP_ALTERNATE_STREAMS 16
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _get_doserrno(unsigned long *_Value)
      * }
      */
-    public static int EFS_DROP_ALTERNATE_STREAMS() {
-        return (int)16L;
+    public static FunctionDescriptor _get_doserrno$descriptor() {
+        return _get_doserrno.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROTECTION_LEVEL_SAME 4294967295
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _get_doserrno(unsigned long *_Value)
      * }
      */
-    public static int PROTECTION_LEVEL_SAME() {
-        return (int)4294967295L;
+    public static MethodHandle _get_doserrno$handle() {
+        return _get_doserrno.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROTECTION_LEVEL_NONE 4294967294
+     * {@snippet lang=c :
+     * errno_t _get_doserrno(unsigned long *_Value)
      * }
      */
-    public static int PROTECTION_LEVEL_NONE() {
-        return (int)4294967294L;
+    public static int _get_doserrno(MemorySegment _Value) {
+        var mh$ = _get_doserrno.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_get_doserrno", _Value);
+            }
+            return (int)mh$.invokeExact(_Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class memchr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("memchr"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_PARENT_PROCESS 131072
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void *memchr(const void *_Buf, int _Val, size_t _MaxCount)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_PARENT_PROCESS() {
-        return (int)131072L;
+    public static FunctionDescriptor memchr$descriptor() {
+        return memchr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_HANDLE_LIST 131074
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void *memchr(const void *_Buf, int _Val, size_t _MaxCount)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_HANDLE_LIST() {
-        return (int)131074L;
+    public static MethodHandle memchr$handle() {
+        return memchr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_GROUP_AFFINITY 196611
+     * {@snippet lang=c :
+     * void *memchr(const void *_Buf, int _Val, size_t _MaxCount)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_GROUP_AFFINITY() {
-        return (int)196611L;
+    public static MemorySegment memchr(MemorySegment _Buf, int _Val, long _MaxCount) {
+        var mh$ = memchr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("memchr", _Buf, _Val, _MaxCount);
+            }
+            return (MemorySegment)mh$.invokeExact(_Buf, _Val, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class memcmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("memcmp"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_PREFERRED_NODE 131076
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int memcmp(const void *_Buf1, const void *_Buf2, size_t _Size)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_PREFERRED_NODE() {
-        return (int)131076L;
+    public static FunctionDescriptor memcmp$descriptor() {
+        return memcmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_IDEAL_PROCESSOR 196613
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int memcmp(const void *_Buf1, const void *_Buf2, size_t _Size)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_IDEAL_PROCESSOR() {
-        return (int)196613L;
+    public static MethodHandle memcmp$handle() {
+        return memcmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_UMS_THREAD 196614
+     * {@snippet lang=c :
+     * int memcmp(const void *_Buf1, const void *_Buf2, size_t _Size)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_UMS_THREAD() {
-        return (int)196614L;
+    public static int memcmp(MemorySegment _Buf1, MemorySegment _Buf2, long _Size) {
+        var mh$ = memcmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("memcmp", _Buf1, _Buf2, _Size);
+            }
+            return (int)mh$.invokeExact(_Buf1, _Buf2, _Size);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class memcpy {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("memcpy"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_MITIGATION_POLICY 131079
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void *memcpy(void *_Dst, const void *_Src, size_t _Size)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_MITIGATION_POLICY() {
-        return (int)131079L;
+    public static FunctionDescriptor memcpy$descriptor() {
+        return memcpy.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_SECURITY_CAPABILITIES 131081
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void *memcpy(void *_Dst, const void *_Src, size_t _Size)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_SECURITY_CAPABILITIES() {
-        return (int)131081L;
+    public static MethodHandle memcpy$handle() {
+        return memcpy.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_PROTECTION_LEVEL 131083
+     * {@snippet lang=c :
+     * void *memcpy(void *_Dst, const void *_Src, size_t _Size)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_PROTECTION_LEVEL() {
-        return (int)131083L;
+    public static MemorySegment memcpy(MemorySegment _Dst, MemorySegment _Src, long _Size) {
+        var mh$ = memcpy.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("memcpy", _Dst, _Src, _Size);
+            }
+            return (MemorySegment)mh$.invokeExact(_Dst, _Src, _Size);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class memmove {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("memmove"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE 131094
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void *memmove(void *_Dst, const void *_Src, size_t _Size)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_PSEUDOCONSOLE() {
-        return (int)131094L;
+    public static FunctionDescriptor memmove$descriptor() {
+        return memmove.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_MACHINE_TYPE 131097
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void *memmove(void *_Dst, const void *_Src, size_t _Size)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_MACHINE_TYPE() {
-        return (int)131097L;
+    public static MethodHandle memmove$handle() {
+        return memmove.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_ENABLE_OPTIONAL_XSTATE_FEATURES 196635
+     * {@snippet lang=c :
+     * void *memmove(void *_Dst, const void *_Src, size_t _Size)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_ENABLE_OPTIONAL_XSTATE_FEATURES() {
-        return (int)196635L;
+    public static MemorySegment memmove(MemorySegment _Dst, MemorySegment _Src, long _Size) {
+        var mh$ = memmove.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("memmove", _Dst, _Src, _Size);
+            }
+            return (MemorySegment)mh$.invokeExact(_Dst, _Src, _Size);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class memset {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("memset"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_MASK 768
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void *memset(void *_Dst, int _Val, size_t _Size)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_MASK() {
-        return (int)768L;
+    public static FunctionDescriptor memset$descriptor() {
+        return memset.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_DEFER 0
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void *memset(void *_Dst, int _Val, size_t _Size)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_DEFER() {
-        return (int)0L;
+    public static MethodHandle memset$handle() {
+        return memset.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_ALWAYS_ON 256
+     * {@snippet lang=c :
+     * void *memset(void *_Dst, int _Val, size_t _Size)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_ALWAYS_ON() {
-        return (int)256L;
+    public static MemorySegment memset(MemorySegment _Dst, int _Val, long _Size) {
+        var mh$ = memset.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("memset", _Dst, _Val, _Size);
+            }
+            return (MemorySegment)mh$.invokeExact(_Dst, _Val, _Size);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strchr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strchr"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_ALWAYS_OFF 512
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strchr(const char *_Str, int _Val)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_ALWAYS_OFF() {
-        return (int)512L;
+    public static FunctionDescriptor strchr$descriptor() {
+        return strchr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_ALWAYS_ON_REQ_RELOCS 768
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strchr(const char *_Str, int _Val)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_FORCE_RELOCATE_IMAGES_ALWAYS_ON_REQ_RELOCS() {
-        return (int)768L;
+    public static MethodHandle strchr$handle() {
+        return strchr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_MASK 12288
+     * {@snippet lang=c :
+     * char *strchr(const char *_Str, int _Val)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_MASK() {
-        return (int)12288L;
+    public static MemorySegment strchr(MemorySegment _Str, int _Val) {
+        var mh$ = strchr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strchr", _Str, _Val);
+            }
+            return (MemorySegment)mh$.invokeExact(_Str, _Val);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strrchr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strrchr"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_DEFER 0
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strrchr(const char *_Str, int _Ch)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_DEFER() {
-        return (int)0L;
+    public static FunctionDescriptor strrchr$descriptor() {
+        return strrchr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_ALWAYS_ON 4096
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strrchr(const char *_Str, int _Ch)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_ALWAYS_ON() {
-        return (int)4096L;
+    public static MethodHandle strrchr$handle() {
+        return strrchr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_ALWAYS_OFF 8192
+     * {@snippet lang=c :
+     * char *strrchr(const char *_Str, int _Ch)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_ALWAYS_OFF() {
-        return (int)8192L;
+    public static MemorySegment strrchr(MemorySegment _Str, int _Ch) {
+        var mh$ = strrchr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strrchr", _Str, _Ch);
+            }
+            return (MemorySegment)mh$.invokeExact(_Str, _Ch);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strstr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strstr"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_RESERVED 12288
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strstr(const char *_Str, const char *_SubStr)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_HEAP_TERMINATE_RESERVED() {
-        return (int)12288L;
+    public static FunctionDescriptor strstr$descriptor() {
+        return strstr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_MASK 196608
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strstr(const char *_Str, const char *_SubStr)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_MASK() {
-        return (int)196608L;
+    public static MethodHandle strstr$handle() {
+        return strstr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_DEFER 0
+     * {@snippet lang=c :
+     * char *strstr(const char *_Str, const char *_SubStr)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_DEFER() {
-        return (int)0L;
+    public static MemorySegment strstr(MemorySegment _Str, MemorySegment _SubStr) {
+        var mh$ = strstr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strstr", _Str, _SubStr);
+            }
+            return (MemorySegment)mh$.invokeExact(_Str, _SubStr);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcschr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcschr"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_ALWAYS_ON 65536
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned short *wcschr(const wchar_t *_Str, wchar_t _Ch)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_ALWAYS_ON() {
-        return (int)65536L;
+    public static FunctionDescriptor wcschr$descriptor() {
+        return wcschr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_ALWAYS_OFF 131072
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned short *wcschr(const wchar_t *_Str, wchar_t _Ch)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_ALWAYS_OFF() {
-        return (int)131072L;
+    public static MethodHandle wcschr$handle() {
+        return wcschr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_RESERVED 196608
+     * {@snippet lang=c :
+     * unsigned short *wcschr(const wchar_t *_Str, wchar_t _Ch)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_BOTTOM_UP_ASLR_RESERVED() {
-        return (int)196608L;
+    public static MemorySegment wcschr(MemorySegment _Str, short _Ch) {
+        var mh$ = wcschr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcschr", _Str, _Ch);
+            }
+            return (MemorySegment)mh$.invokeExact(_Str, _Ch);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcsrchr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsrchr"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_MASK 3145728
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcsrchr(const wchar_t *_Str, wchar_t _Ch)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_MASK() {
-        return (int)3145728L;
+    public static FunctionDescriptor wcsrchr$descriptor() {
+        return wcsrchr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_DEFER 0
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcsrchr(const wchar_t *_Str, wchar_t _Ch)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_DEFER() {
-        return (int)0L;
+    public static MethodHandle wcsrchr$handle() {
+        return wcsrchr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_ALWAYS_ON 1048576
+     * {@snippet lang=c :
+     * wchar_t *wcsrchr(const wchar_t *_Str, wchar_t _Ch)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_ALWAYS_ON() {
-        return (int)1048576L;
+    public static MemorySegment wcsrchr(MemorySegment _Str, short _Ch) {
+        var mh$ = wcsrchr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsrchr", _Str, _Ch);
+            }
+            return (MemorySegment)mh$.invokeExact(_Str, _Ch);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcsstr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsstr"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_ALWAYS_OFF 2097152
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcsstr(const wchar_t *_Str, const wchar_t *_SubStr)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_ALWAYS_OFF() {
-        return (int)2097152L;
+    public static FunctionDescriptor wcsstr$descriptor() {
+        return wcsstr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_RESERVED 3145728
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcsstr(const wchar_t *_Str, const wchar_t *_SubStr)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_HIGH_ENTROPY_ASLR_RESERVED() {
-        return (int)3145728L;
+    public static MethodHandle wcsstr$handle() {
+        return wcsstr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_MASK 50331648
+     * {@snippet lang=c :
+     * wchar_t *wcsstr(const wchar_t *_Str, const wchar_t *_SubStr)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_MASK() {
-        return (int)50331648L;
+    public static MemorySegment wcsstr(MemorySegment _Str, MemorySegment _SubStr) {
+        var mh$ = wcsstr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsstr", _Str, _SubStr);
+            }
+            return (MemorySegment)mh$.invokeExact(_Str, _SubStr);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _memicmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_memicmp"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_DEFER 0
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _memicmp(const void *_Buf1, const void *_Buf2, size_t _Size)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_DEFER() {
-        return (int)0L;
+    public static FunctionDescriptor _memicmp$descriptor() {
+        return _memicmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_ALWAYS_ON 16777216
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _memicmp(const void *_Buf1, const void *_Buf2, size_t _Size)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_ALWAYS_ON() {
-        return (int)16777216L;
+    public static MethodHandle _memicmp$handle() {
+        return _memicmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_ALWAYS_OFF 33554432
+     * {@snippet lang=c :
+     * int _memicmp(const void *_Buf1, const void *_Buf2, size_t _Size)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_ALWAYS_OFF() {
-        return (int)33554432L;
+    public static int _memicmp(MemorySegment _Buf1, MemorySegment _Buf2, long _Size) {
+        var mh$ = _memicmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_memicmp", _Buf1, _Buf2, _Size);
+            }
+            return (int)mh$.invokeExact(_Buf1, _Buf2, _Size);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _memicmp_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_memicmp_l"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_RESERVED 50331648
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _memicmp_l(const void *_Buf1, const void *_Buf2, size_t _Size, _locale_t _Locale)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_STRICT_HANDLE_CHECKS_RESERVED() {
-        return (int)50331648L;
+    public static FunctionDescriptor _memicmp_l$descriptor() {
+        return _memicmp_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_MASK 805306368
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _memicmp_l(const void *_Buf1, const void *_Buf2, size_t _Size, _locale_t _Locale)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_MASK() {
-        return (int)805306368L;
+    public static MethodHandle _memicmp_l$handle() {
+        return _memicmp_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_DEFER 0
+     * {@snippet lang=c :
+     * int _memicmp_l(const void *_Buf1, const void *_Buf2, size_t _Size, _locale_t _Locale)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_DEFER() {
-        return (int)0L;
+    public static int _memicmp_l(MemorySegment _Buf1, MemorySegment _Buf2, long _Size, MemorySegment _Locale) {
+        var mh$ = _memicmp_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_memicmp_l", _Buf1, _Buf2, _Size, _Locale);
+            }
+            return (int)mh$.invokeExact(_Buf1, _Buf2, _Size, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class memccpy {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("memccpy"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_ALWAYS_ON 268435456
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void *memccpy(void *_Dst, const void *_Src, int _Val, size_t _Size)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_ALWAYS_ON() {
-        return (int)268435456L;
+    public static FunctionDescriptor memccpy$descriptor() {
+        return memccpy.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_ALWAYS_OFF 536870912
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void *memccpy(void *_Dst, const void *_Src, int _Val, size_t _Size)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_ALWAYS_OFF() {
-        return (int)536870912L;
+    public static MethodHandle memccpy$handle() {
+        return memccpy.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_RESERVED 805306368
+     * {@snippet lang=c :
+     * void *memccpy(void *_Dst, const void *_Src, int _Val, size_t _Size)
      * }
      */
-    public static int PROCESS_CREATION_MITIGATION_POLICY_WIN32K_SYSTEM_CALL_DISABLE_RESERVED() {
-        return (int)805306368L;
+    public static MemorySegment memccpy(MemorySegment _Dst, MemorySegment _Src, int _Val, long _Size) {
+        var mh$ = memccpy.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("memccpy", _Dst, _Src, _Val, _Size);
+            }
+            return (MemorySegment)mh$.invokeExact(_Dst, _Src, _Val, _Size);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class memicmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("memicmp"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_MASK 12884901888
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int memicmp(const void *_Buf1, const void *_Buf2, size_t _Size)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_MASK() {
-        return 12884901888L;
+    public static FunctionDescriptor memicmp$descriptor() {
+        return memicmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_DEFER 0
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int memicmp(const void *_Buf1, const void *_Buf2, size_t _Size)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_DEFER() {
-        return 0L;
+    public static MethodHandle memicmp$handle() {
+        return memicmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_ALWAYS_ON 4294967296
+     * {@snippet lang=c :
+     * int memicmp(const void *_Buf1, const void *_Buf2, size_t _Size)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_ALWAYS_ON() {
-        return 4294967296L;
+    public static int memicmp(MemorySegment _Buf1, MemorySegment _Buf2, long _Size) {
+        var mh$ = memicmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("memicmp", _Buf1, _Buf2, _Size);
+            }
+            return (int)mh$.invokeExact(_Buf1, _Buf2, _Size);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcscat_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcscat_s"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_ALWAYS_OFF 8589934592
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t wcscat_s(wchar_t *_Destination, rsize_t _SizeInWords, const wchar_t *_Source)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_ALWAYS_OFF() {
-        return 8589934592L;
+    public static FunctionDescriptor wcscat_s$descriptor() {
+        return wcscat_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_RESERVED 12884901888
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t wcscat_s(wchar_t *_Destination, rsize_t _SizeInWords, const wchar_t *_Source)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_EXTENSION_POINT_DISABLE_RESERVED() {
-        return 12884901888L;
+    public static MethodHandle wcscat_s$handle() {
+        return wcscat_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_MASK 206158430208
+     * {@snippet lang=c :
+     * errno_t wcscat_s(wchar_t *_Destination, rsize_t _SizeInWords, const wchar_t *_Source)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_MASK() {
-        return 206158430208L;
+    public static int wcscat_s(MemorySegment _Destination, long _SizeInWords, MemorySegment _Source) {
+        var mh$ = wcscat_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcscat_s", _Destination, _SizeInWords, _Source);
+            }
+            return (int)mh$.invokeExact(_Destination, _SizeInWords, _Source);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcscpy_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcscpy_s"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_DEFER 0
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t wcscpy_s(wchar_t *_Destination, rsize_t _SizeInWords, const wchar_t *_Source)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_DEFER() {
-        return 0L;
+    public static FunctionDescriptor wcscpy_s$descriptor() {
+        return wcscpy_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_ALWAYS_ON 68719476736
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t wcscpy_s(wchar_t *_Destination, rsize_t _SizeInWords, const wchar_t *_Source)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_ALWAYS_ON() {
-        return 68719476736L;
+    public static MethodHandle wcscpy_s$handle() {
+        return wcscpy_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_ALWAYS_OFF 137438953472
+     * {@snippet lang=c :
+     * errno_t wcscpy_s(wchar_t *_Destination, rsize_t _SizeInWords, const wchar_t *_Source)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_ALWAYS_OFF() {
-        return 137438953472L;
+    public static int wcscpy_s(MemorySegment _Destination, long _SizeInWords, MemorySegment _Source) {
+        var mh$ = wcscpy_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcscpy_s", _Destination, _SizeInWords, _Source);
+            }
+            return (int)mh$.invokeExact(_Destination, _SizeInWords, _Source);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcsncat_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsncat_s"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_ALWAYS_ON_ALLOW_OPT_OUT 206158430208
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t wcsncat_s(wchar_t *_Destination, rsize_t _SizeInWords, const wchar_t *_Source, rsize_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_PROHIBIT_DYNAMIC_CODE_ALWAYS_ON_ALLOW_OPT_OUT() {
-        return 206158430208L;
+    public static FunctionDescriptor wcsncat_s$descriptor() {
+        return wcsncat_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_MASK 3298534883328
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t wcsncat_s(wchar_t *_Destination, rsize_t _SizeInWords, const wchar_t *_Source, rsize_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_MASK() {
-        return 3298534883328L;
+    public static MethodHandle wcsncat_s$handle() {
+        return wcsncat_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_DEFER 0
+     * {@snippet lang=c :
+     * errno_t wcsncat_s(wchar_t *_Destination, rsize_t _SizeInWords, const wchar_t *_Source, rsize_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_DEFER() {
-        return 0L;
+    public static int wcsncat_s(MemorySegment _Destination, long _SizeInWords, MemorySegment _Source, long _MaxCount) {
+        var mh$ = wcsncat_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsncat_s", _Destination, _SizeInWords, _Source, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_Destination, _SizeInWords, _Source, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcsncpy_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsncpy_s"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_ALWAYS_ON 1099511627776
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t wcsncpy_s(wchar_t *_Destination, rsize_t _SizeInWords, const wchar_t *_Source, rsize_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_ALWAYS_ON() {
-        return 1099511627776L;
+    public static FunctionDescriptor wcsncpy_s$descriptor() {
+        return wcsncpy_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_ALWAYS_OFF 2199023255552
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t wcsncpy_s(wchar_t *_Destination, rsize_t _SizeInWords, const wchar_t *_Source, rsize_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_ALWAYS_OFF() {
-        return 2199023255552L;
+    public static MethodHandle wcsncpy_s$handle() {
+        return wcsncpy_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_EXPORT_SUPPRESSION 3298534883328
+     * {@snippet lang=c :
+     * errno_t wcsncpy_s(wchar_t *_Destination, rsize_t _SizeInWords, const wchar_t *_Source, rsize_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_CONTROL_FLOW_GUARD_EXPORT_SUPPRESSION() {
-        return 3298534883328L;
+    public static int wcsncpy_s(MemorySegment _Destination, long _SizeInWords, MemorySegment _Source, long _MaxCount) {
+        var mh$ = wcsncpy_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsncpy_s", _Destination, _SizeInWords, _Source, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_Destination, _SizeInWords, _Source, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcstok_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcstok_s"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_MASK 52776558133248
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcstok_s(wchar_t *_String, const wchar_t *_Delimiter, wchar_t **_Context)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_MASK() {
-        return 52776558133248L;
+    public static FunctionDescriptor wcstok_s$descriptor() {
+        return wcstok_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_DEFER 0
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcstok_s(wchar_t *_String, const wchar_t *_Delimiter, wchar_t **_Context)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_DEFER() {
-        return 0L;
+    public static MethodHandle wcstok_s$handle() {
+        return wcstok_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_ALWAYS_ON 17592186044416
+     * {@snippet lang=c :
+     * wchar_t *wcstok_s(wchar_t *_String, const wchar_t *_Delimiter, wchar_t **_Context)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_ALWAYS_ON() {
-        return 17592186044416L;
+    public static MemorySegment wcstok_s(MemorySegment _String, MemorySegment _Delimiter, MemorySegment _Context) {
+        var mh$ = wcstok_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcstok_s", _String, _Delimiter, _Context);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Delimiter, _Context);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _wcsdup {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsdup"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_ALWAYS_OFF 35184372088832
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *_wcsdup(const wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_ALWAYS_OFF() {
-        return 35184372088832L;
+    public static FunctionDescriptor _wcsdup$descriptor() {
+        return _wcsdup.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_ALLOW_STORE 52776558133248
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *_wcsdup(const wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_BLOCK_NON_MICROSOFT_BINARIES_ALLOW_STORE() {
-        return 52776558133248L;
+    public static MethodHandle _wcsdup$handle() {
+        return _wcsdup.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_FONT_DISABLE_MASK 844424930131968
+     * {@snippet lang=c :
+     * wchar_t *_wcsdup(const wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_FONT_DISABLE_MASK() {
-        return 844424930131968L;
+    public static MemorySegment _wcsdup(MemorySegment _String) {
+        var mh$ = _wcsdup.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsdup", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcscat {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcscat"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_FONT_DISABLE_DEFER 0
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcscat(wchar_t *_Destination, const wchar_t *_Source)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_FONT_DISABLE_DEFER() {
-        return 0L;
+    public static FunctionDescriptor wcscat$descriptor() {
+        return wcscat.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_FONT_DISABLE_ALWAYS_ON 281474976710656
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcscat(wchar_t *_Destination, const wchar_t *_Source)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_FONT_DISABLE_ALWAYS_ON() {
-        return 281474976710656L;
+    public static MethodHandle wcscat$handle() {
+        return wcscat.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_FONT_DISABLE_ALWAYS_OFF 562949953421312
+     * {@snippet lang=c :
+     * wchar_t *wcscat(wchar_t *_Destination, const wchar_t *_Source)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_FONT_DISABLE_ALWAYS_OFF() {
-        return 562949953421312L;
+    public static MemorySegment wcscat(MemorySegment _Destination, MemorySegment _Source) {
+        var mh$ = wcscat.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcscat", _Destination, _Source);
+            }
+            return (MemorySegment)mh$.invokeExact(_Destination, _Source);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcscmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcscmp"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_AUDIT_NONSYSTEM_FONTS 844424930131968
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int wcscmp(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_AUDIT_NONSYSTEM_FONTS() {
-        return 844424930131968L;
+    public static FunctionDescriptor wcscmp$descriptor() {
+        return wcscmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_MASK 13510798882111488
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int wcscmp(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_MASK() {
-        return 13510798882111488L;
+    public static MethodHandle wcscmp$handle() {
+        return wcscmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_DEFER 0
+     * {@snippet lang=c :
+     * int wcscmp(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_DEFER() {
-        return 0L;
+    public static int wcscmp(MemorySegment _String1, MemorySegment _String2) {
+        var mh$ = wcscmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcscmp", _String1, _String2);
+            }
+            return (int)mh$.invokeExact(_String1, _String2);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcscpy {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcscpy"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_ALWAYS_ON 4503599627370496
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcscpy(wchar_t *_Destination, const wchar_t *_Source)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_ALWAYS_ON() {
-        return 4503599627370496L;
+    public static FunctionDescriptor wcscpy$descriptor() {
+        return wcscpy.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_ALWAYS_OFF 9007199254740992
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcscpy(wchar_t *_Destination, const wchar_t *_Source)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_ALWAYS_OFF() {
-        return 9007199254740992L;
+    public static MethodHandle wcscpy$handle() {
+        return wcscpy.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_RESERVED 13510798882111488
+     * {@snippet lang=c :
+     * wchar_t *wcscpy(wchar_t *_Destination, const wchar_t *_Source)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_REMOTE_RESERVED() {
-        return 13510798882111488L;
+    public static MemorySegment wcscpy(MemorySegment _Destination, MemorySegment _Source) {
+        var mh$ = wcscpy.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcscpy", _Destination, _Source);
+            }
+            return (MemorySegment)mh$.invokeExact(_Destination, _Source);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcscspn {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcscspn"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_MASK 216172782113783808
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * size_t wcscspn(const wchar_t *_String, const wchar_t *_Control)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_MASK() {
-        return 216172782113783808L;
+    public static FunctionDescriptor wcscspn$descriptor() {
+        return wcscspn.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_DEFER 0
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * size_t wcscspn(const wchar_t *_String, const wchar_t *_Control)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_DEFER() {
-        return 0L;
+    public static MethodHandle wcscspn$handle() {
+        return wcscspn.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_ALWAYS_ON 72057594037927936
+     * {@snippet lang=c :
+     * size_t wcscspn(const wchar_t *_String, const wchar_t *_Control)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_ALWAYS_ON() {
-        return 72057594037927936L;
+    public static long wcscspn(MemorySegment _String, MemorySegment _Control) {
+        var mh$ = wcscspn.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcscspn", _String, _Control);
+            }
+            return (long)mh$.invokeExact(_String, _Control);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcslen {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcslen"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_ALWAYS_OFF 144115188075855872
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long long wcslen(const wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_ALWAYS_OFF() {
-        return 144115188075855872L;
+    public static FunctionDescriptor wcslen$descriptor() {
+        return wcslen.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_RESERVED 216172782113783808
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long long wcslen(const wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_NO_LOW_LABEL_RESERVED() {
-        return 216172782113783808L;
+    public static MethodHandle wcslen$handle() {
+        return wcslen.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_MASK 3458764513820540928
+     * {@snippet lang=c :
+     * unsigned long long wcslen(const wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_MASK() {
-        return 3458764513820540928L;
+    public static long wcslen(MemorySegment _String) {
+        var mh$ = wcslen.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcslen", _String);
+            }
+            return (long)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcsnlen {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsnlen"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_DEFER 0
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * size_t wcsnlen(const wchar_t *_Source, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_DEFER() {
-        return 0L;
+    public static FunctionDescriptor wcsnlen$descriptor() {
+        return wcsnlen.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_ALWAYS_ON 1152921504606846976
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * size_t wcsnlen(const wchar_t *_Source, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_ALWAYS_ON() {
-        return 1152921504606846976L;
+    public static MethodHandle wcsnlen$handle() {
+        return wcsnlen.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_ALWAYS_OFF 2305843009213693952
+     * {@snippet lang=c :
+     * size_t wcsnlen(const wchar_t *_Source, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_ALWAYS_OFF() {
-        return 2305843009213693952L;
+    public static long wcsnlen(MemorySegment _Source, long _MaxCount) {
+        var mh$ = wcsnlen.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsnlen", _Source, _MaxCount);
+            }
+            return (long)mh$.invokeExact(_Source, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcsncat {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsncat"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_RESERVED 3458764513820540928
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcsncat(wchar_t *_Destination, const wchar_t *_Source, size_t _Count)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY_IMAGE_LOAD_PREFER_SYSTEM32_RESERVED() {
-        return 3458764513820540928L;
+    public static FunctionDescriptor wcsncat$descriptor() {
+        return wcsncat.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_MASK 48
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcsncat(wchar_t *_Destination, const wchar_t *_Source, size_t _Count)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_MASK() {
-        return 48L;
+    public static MethodHandle wcsncat$handle() {
+        return wcsncat.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_DEFER 0
+     * {@snippet lang=c :
+     * wchar_t *wcsncat(wchar_t *_Destination, const wchar_t *_Source, size_t _Count)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_DEFER() {
-        return 0L;
+    public static MemorySegment wcsncat(MemorySegment _Destination, MemorySegment _Source, long _Count) {
+        var mh$ = wcsncat.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsncat", _Destination, _Source, _Count);
+            }
+            return (MemorySegment)mh$.invokeExact(_Destination, _Source, _Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcsncmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsncmp"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_ALWAYS_ON 16
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int wcsncmp(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_ALWAYS_ON() {
-        return 16L;
+    public static FunctionDescriptor wcsncmp$descriptor() {
+        return wcsncmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_ALWAYS_OFF 32
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int wcsncmp(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_ALWAYS_OFF() {
-        return 32L;
+    public static MethodHandle wcsncmp$handle() {
+        return wcsncmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_AUDIT 48
+     * {@snippet lang=c :
+     * int wcsncmp(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_LOADER_INTEGRITY_CONTINUITY_AUDIT() {
-        return 48L;
+    public static int wcsncmp(MemorySegment _String1, MemorySegment _String2, long _MaxCount) {
+        var mh$ = wcsncmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsncmp", _String1, _String2, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcsncpy {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsncpy"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_MASK 768
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcsncpy(wchar_t *_Destination, const wchar_t *_Source, size_t _Count)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_MASK() {
-        return 768L;
+    public static FunctionDescriptor wcsncpy$descriptor() {
+        return wcsncpy.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_DEFER 0
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcsncpy(wchar_t *_Destination, const wchar_t *_Source, size_t _Count)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_DEFER() {
-        return 0L;
+    public static MethodHandle wcsncpy$handle() {
+        return wcsncpy.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_ALWAYS_ON 256
+     * {@snippet lang=c :
+     * wchar_t *wcsncpy(wchar_t *_Destination, const wchar_t *_Source, size_t _Count)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_ALWAYS_ON() {
-        return 256L;
+    public static MemorySegment wcsncpy(MemorySegment _Destination, MemorySegment _Source, long _Count) {
+        var mh$ = wcsncpy.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsncpy", _Destination, _Source, _Count);
+            }
+            return (MemorySegment)mh$.invokeExact(_Destination, _Source, _Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcspbrk {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcspbrk"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_ALWAYS_OFF 512
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcspbrk(const wchar_t *_String, const wchar_t *_Control)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_ALWAYS_OFF() {
-        return 512L;
+    public static FunctionDescriptor wcspbrk$descriptor() {
+        return wcspbrk.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_RESERVED 768
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcspbrk(const wchar_t *_String, const wchar_t *_Control)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_STRICT_CONTROL_FLOW_GUARD_RESERVED() {
-        return 768L;
+    public static MethodHandle wcspbrk$handle() {
+        return wcspbrk.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_MASK 12288
+     * {@snippet lang=c :
+     * wchar_t *wcspbrk(const wchar_t *_String, const wchar_t *_Control)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_MASK() {
-        return 12288L;
+    public static MemorySegment wcspbrk(MemorySegment _String, MemorySegment _Control) {
+        var mh$ = wcspbrk.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcspbrk", _String, _Control);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Control);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcsspn {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsspn"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_DEFER 0
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * size_t wcsspn(const wchar_t *_String, const wchar_t *_Control)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_DEFER() {
-        return 0L;
+    public static FunctionDescriptor wcsspn$descriptor() {
+        return wcsspn.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_ALWAYS_ON 4096
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * size_t wcsspn(const wchar_t *_String, const wchar_t *_Control)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_ALWAYS_ON() {
-        return 4096L;
+    public static MethodHandle wcsspn$handle() {
+        return wcsspn.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_ALWAYS_OFF 8192
+     * {@snippet lang=c :
+     * size_t wcsspn(const wchar_t *_String, const wchar_t *_Control)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_ALWAYS_OFF() {
-        return 8192L;
+    public static long wcsspn(MemorySegment _String, MemorySegment _Control) {
+        var mh$ = wcsspn.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsspn", _String, _Control);
+            }
+            return (long)mh$.invokeExact(_String, _Control);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcstok {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcstok"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_NOINHERIT 12288
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcstok(wchar_t *_String, const wchar_t *_Delimiter, wchar_t **_Context)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_MODULE_TAMPERING_PROTECTION_NOINHERIT() {
-        return 12288L;
+    public static FunctionDescriptor wcstok$descriptor() {
+        return wcstok.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_MASK 196608
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcstok(wchar_t *_String, const wchar_t *_Delimiter, wchar_t **_Context)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_MASK() {
-        return 196608L;
+    public static MethodHandle wcstok$handle() {
+        return wcstok.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_DEFER 0
+     * {@snippet lang=c :
+     * wchar_t *wcstok(wchar_t *_String, const wchar_t *_Delimiter, wchar_t **_Context)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_DEFER() {
-        return 0L;
+    public static MemorySegment wcstok(MemorySegment _String, MemorySegment _Delimiter, MemorySegment _Context) {
+        var mh$ = wcstok.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcstok", _String, _Delimiter, _Context);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Delimiter, _Context);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _wcserror {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcserror"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_ALWAYS_ON 65536
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *_wcserror(int _ErrorNumber)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_ALWAYS_ON() {
-        return 65536L;
+    public static FunctionDescriptor _wcserror$descriptor() {
+        return _wcserror.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_ALWAYS_OFF 131072
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *_wcserror(int _ErrorNumber)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_ALWAYS_OFF() {
-        return 131072L;
+    public static MethodHandle _wcserror$handle() {
+        return _wcserror.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_RESERVED 196608
+     * {@snippet lang=c :
+     * wchar_t *_wcserror(int _ErrorNumber)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_RESTRICT_INDIRECT_BRANCH_PREDICTION_RESERVED() {
-        return 196608L;
+    public static MemorySegment _wcserror(int _ErrorNumber) {
+        var mh$ = _wcserror.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcserror", _ErrorNumber);
+            }
+            return (MemorySegment)mh$.invokeExact(_ErrorNumber);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _wcserror_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcserror_s"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_MASK 3145728
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _wcserror_s(wchar_t *_Buffer, size_t _SizeInWords, int _ErrorNumber)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_MASK() {
-        return 3145728L;
+    public static FunctionDescriptor _wcserror_s$descriptor() {
+        return _wcserror_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_DEFER 0
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _wcserror_s(wchar_t *_Buffer, size_t _SizeInWords, int _ErrorNumber)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_DEFER() {
-        return 0L;
+    public static MethodHandle _wcserror_s$handle() {
+        return _wcserror_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_ALWAYS_ON 1048576
+     * {@snippet lang=c :
+     * errno_t _wcserror_s(wchar_t *_Buffer, size_t _SizeInWords, int _ErrorNumber)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_ALWAYS_ON() {
-        return 1048576L;
+    public static int _wcserror_s(MemorySegment _Buffer, long _SizeInWords, int _ErrorNumber) {
+        var mh$ = _wcserror_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcserror_s", _Buffer, _SizeInWords, _ErrorNumber);
+            }
+            return (int)mh$.invokeExact(_Buffer, _SizeInWords, _ErrorNumber);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __wcserror {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__wcserror"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_ALWAYS_OFF 2097152
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *__wcserror(const wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_ALWAYS_OFF() {
-        return 2097152L;
+    public static FunctionDescriptor __wcserror$descriptor() {
+        return __wcserror.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_RESERVED 3145728
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *__wcserror(const wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_ALLOW_DOWNGRADE_DYNAMIC_CODE_POLICY_RESERVED() {
-        return 3145728L;
+    public static MethodHandle __wcserror$handle() {
+        return __wcserror.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_MASK 50331648
+     * {@snippet lang=c :
+     * wchar_t *__wcserror(const wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_MASK() {
-        return 50331648L;
+    public static MemorySegment __wcserror(MemorySegment _String) {
+        var mh$ = __wcserror.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__wcserror", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __wcserror_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__wcserror_s"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_DEFER 0
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t __wcserror_s(wchar_t *_Buffer, size_t _SizeInWords, const wchar_t *_ErrorMessage)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_DEFER() {
-        return 0L;
+    public static FunctionDescriptor __wcserror_s$descriptor() {
+        return __wcserror_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_ALWAYS_ON 16777216
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t __wcserror_s(wchar_t *_Buffer, size_t _SizeInWords, const wchar_t *_ErrorMessage)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_ALWAYS_ON() {
-        return 16777216L;
+    public static MethodHandle __wcserror_s$handle() {
+        return __wcserror_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_ALWAYS_OFF 33554432
+     * {@snippet lang=c :
+     * errno_t __wcserror_s(wchar_t *_Buffer, size_t _SizeInWords, const wchar_t *_ErrorMessage)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_ALWAYS_OFF() {
-        return 33554432L;
+    public static int __wcserror_s(MemorySegment _Buffer, long _SizeInWords, MemorySegment _ErrorMessage) {
+        var mh$ = __wcserror_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__wcserror_s", _Buffer, _SizeInWords, _ErrorMessage);
+            }
+            return (int)mh$.invokeExact(_Buffer, _SizeInWords, _ErrorMessage);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _wcsicmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsicmp"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_RESERVED 50331648
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _wcsicmp(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_SPECULATIVE_STORE_BYPASS_DISABLE_RESERVED() {
-        return 50331648L;
+    public static FunctionDescriptor _wcsicmp$descriptor() {
+        return _wcsicmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_MASK 805306368
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _wcsicmp(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_MASK() {
-        return 805306368L;
+    public static MethodHandle _wcsicmp$handle() {
+        return _wcsicmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_DEFER 0
+     * {@snippet lang=c :
+     * int _wcsicmp(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_DEFER() {
-        return 0L;
+    public static int _wcsicmp(MemorySegment _String1, MemorySegment _String2) {
+        var mh$ = _wcsicmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsicmp", _String1, _String2);
+            }
+            return (int)mh$.invokeExact(_String1, _String2);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _wcsicmp_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsicmp_l"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_ALWAYS_ON 268435456
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _wcsicmp_l(const wchar_t *_String1, const wchar_t *_String2, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_ALWAYS_ON() {
-        return 268435456L;
+    public static FunctionDescriptor _wcsicmp_l$descriptor() {
+        return _wcsicmp_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_ALWAYS_OFF 536870912
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _wcsicmp_l(const wchar_t *_String1, const wchar_t *_String2, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_ALWAYS_OFF() {
-        return 536870912L;
+    public static MethodHandle _wcsicmp_l$handle() {
+        return _wcsicmp_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_STRICT_MODE 805306368
+     * {@snippet lang=c :
+     * int _wcsicmp_l(const wchar_t *_String1, const wchar_t *_String2, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_CET_USER_SHADOW_STACKS_STRICT_MODE() {
-        return 805306368L;
+    public static int _wcsicmp_l(MemorySegment _String1, MemorySegment _String2, MemorySegment _Locale) {
+        var mh$ = _wcsicmp_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsicmp_l", _String1, _String2, _Locale);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _wcsnicmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsnicmp"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_MASK 12884901888
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _wcsnicmp(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_MASK() {
-        return 12884901888L;
+    public static FunctionDescriptor _wcsnicmp$descriptor() {
+        return _wcsnicmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_DEFER 0
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _wcsnicmp(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_DEFER() {
-        return 0L;
+    public static MethodHandle _wcsnicmp$handle() {
+        return _wcsnicmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_ALWAYS_ON 4294967296
+     * {@snippet lang=c :
+     * int _wcsnicmp(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_ALWAYS_ON() {
-        return 4294967296L;
+    public static int _wcsnicmp(MemorySegment _String1, MemorySegment _String2, long _MaxCount) {
+        var mh$ = _wcsnicmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsnicmp", _String1, _String2, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _wcsnicmp_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsnicmp_l"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_ALWAYS_OFF 8589934592
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _wcsnicmp_l(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_ALWAYS_OFF() {
-        return 8589934592L;
+    public static FunctionDescriptor _wcsnicmp_l$descriptor() {
+        return _wcsnicmp_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_RELAXED_MODE 12884901888
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _wcsnicmp_l(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_RELAXED_MODE() {
-        return 12884901888L;
+    public static MethodHandle _wcsnicmp_l$handle() {
+        return _wcsnicmp_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_MASK 206158430208
+     * {@snippet lang=c :
+     * int _wcsnicmp_l(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_MASK() {
-        return 206158430208L;
+    public static int _wcsnicmp_l(MemorySegment _String1, MemorySegment _String2, long _MaxCount, MemorySegment _Locale) {
+        var mh$ = _wcsnicmp_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsnicmp_l", _String1, _String2, _MaxCount, _Locale);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _wcsnset_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_SHORT,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsnset_s"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_DEFER 0
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _wcsnset_s(wchar_t *_Destination, size_t _SizeInWords, wchar_t _Value, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_DEFER() {
-        return 0L;
+    public static FunctionDescriptor _wcsnset_s$descriptor() {
+        return _wcsnset_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_ALWAYS_ON 68719476736
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _wcsnset_s(wchar_t *_Destination, size_t _SizeInWords, wchar_t _Value, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_ALWAYS_ON() {
-        return 68719476736L;
+    public static MethodHandle _wcsnset_s$handle() {
+        return _wcsnset_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_ALWAYS_OFF 137438953472
+     * {@snippet lang=c :
+     * errno_t _wcsnset_s(wchar_t *_Destination, size_t _SizeInWords, wchar_t _Value, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_ALWAYS_OFF() {
-        return 137438953472L;
+    public static int _wcsnset_s(MemorySegment _Destination, long _SizeInWords, short _Value, long _MaxCount) {
+        var mh$ = _wcsnset_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsnset_s", _Destination, _SizeInWords, _Value, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_Destination, _SizeInWords, _Value, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _wcsnset {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_SHORT,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsnset"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_NON_EHCONT 206158430208
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *_wcsnset(wchar_t *_String, wchar_t _Value, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_BLOCK_NON_CET_BINARIES_NON_EHCONT() {
-        return 206158430208L;
+    public static FunctionDescriptor _wcsnset$descriptor() {
+        return _wcsnset.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_MASK 3298534883328
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *_wcsnset(wchar_t *_String, wchar_t _Value, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_MASK() {
-        return 3298534883328L;
+    public static MethodHandle _wcsnset$handle() {
+        return _wcsnset.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_DEFER 0
+     * {@snippet lang=c :
+     * wchar_t *_wcsnset(wchar_t *_String, wchar_t _Value, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_DEFER() {
-        return 0L;
+    public static MemorySegment _wcsnset(MemorySegment _String, short _Value, long _MaxCount) {
+        var mh$ = _wcsnset.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsnset", _String, _Value, _MaxCount);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Value, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _wcsrev {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsrev"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_ALWAYS_ON 1099511627776
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *_wcsrev(wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_ALWAYS_ON() {
-        return 1099511627776L;
+    public static FunctionDescriptor _wcsrev$descriptor() {
+        return _wcsrev.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_ALWAYS_OFF 2199023255552
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *_wcsrev(wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_ALWAYS_OFF() {
-        return 2199023255552L;
+    public static MethodHandle _wcsrev$handle() {
+        return _wcsrev.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_RESERVED 3298534883328
+     * {@snippet lang=c :
+     * wchar_t *_wcsrev(wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_XTENDED_CONTROL_FLOW_GUARD_RESERVED() {
-        return 3298534883328L;
+    public static MemorySegment _wcsrev(MemorySegment _String) {
+        var mh$ = _wcsrev.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsrev", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _wcsset_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsset_s"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_MASK 844424930131968
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _wcsset_s(wchar_t *_Destination, size_t _SizeInWords, wchar_t _Value)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_MASK() {
-        return 844424930131968L;
+    public static FunctionDescriptor _wcsset_s$descriptor() {
+        return _wcsset_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_DEFER 0
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _wcsset_s(wchar_t *_Destination, size_t _SizeInWords, wchar_t _Value)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_DEFER() {
-        return 0L;
+    public static MethodHandle _wcsset_s$handle() {
+        return _wcsset_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_ALWAYS_ON 281474976710656
+     * {@snippet lang=c :
+     * errno_t _wcsset_s(wchar_t *_Destination, size_t _SizeInWords, wchar_t _Value)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_ALWAYS_ON() {
-        return 281474976710656L;
+    public static int _wcsset_s(MemorySegment _Destination, long _SizeInWords, short _Value) {
+        var mh$ = _wcsset_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsset_s", _Destination, _SizeInWords, _Value);
+            }
+            return (int)mh$.invokeExact(_Destination, _SizeInWords, _Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _wcsset {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsset"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_ALWAYS_OFF 562949953421312
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *_wcsset(wchar_t *_String, wchar_t _Value)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_ALWAYS_OFF() {
-        return 562949953421312L;
+    public static FunctionDescriptor _wcsset$descriptor() {
+        return _wcsset.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_RESERVED 844424930131968
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *_wcsset(wchar_t *_String, wchar_t _Value)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_POLICY2_CET_DYNAMIC_APIS_OUT_OF_PROC_ONLY_RESERVED() {
-        return 844424930131968L;
+    public static MethodHandle _wcsset$handle() {
+        return _wcsset.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_JOB_LIST 131085
+     * {@snippet lang=c :
+     * wchar_t *_wcsset(wchar_t *_String, wchar_t _Value)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_JOB_LIST() {
-        return (int)131085L;
+    public static MemorySegment _wcsset(MemorySegment _String, short _Value) {
+        var mh$ = _wcsset.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsset", _String, _Value);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _wcslwr_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcslwr_s"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_CHILD_PROCESS_POLICY 131086
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _wcslwr_s(wchar_t *_String, size_t _SizeInWords)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_CHILD_PROCESS_POLICY() {
-        return (int)131086L;
+    public static FunctionDescriptor _wcslwr_s$descriptor() {
+        return _wcslwr_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_ALL_APPLICATION_PACKAGES_POLICY 131087
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _wcslwr_s(wchar_t *_String, size_t _SizeInWords)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_ALL_APPLICATION_PACKAGES_POLICY() {
-        return (int)131087L;
+    public static MethodHandle _wcslwr_s$handle() {
+        return _wcslwr_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_WIN32K_FILTER 131088
+     * {@snippet lang=c :
+     * errno_t _wcslwr_s(wchar_t *_String, size_t _SizeInWords)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_WIN32K_FILTER() {
-        return (int)131088L;
+    public static int _wcslwr_s(MemorySegment _String, long _SizeInWords) {
+        var mh$ = _wcslwr_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcslwr_s", _String, _SizeInWords);
+            }
+            return (int)mh$.invokeExact(_String, _SizeInWords);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _wcslwr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcslwr"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_DESKTOP_APP_POLICY 131090
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *_wcslwr(wchar_t *_String)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_DESKTOP_APP_POLICY() {
-        return (int)131090L;
+    public static FunctionDescriptor _wcslwr$descriptor() {
+        return _wcslwr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_MITIGATION_AUDIT_POLICY 131096
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *_wcslwr(wchar_t *_String)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_MITIGATION_AUDIT_POLICY() {
-        return (int)131096L;
+    public static MethodHandle _wcslwr$handle() {
+        return _wcslwr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROC_THREAD_ATTRIBUTE_COMPONENT_FILTER 131098
+     * {@snippet lang=c :
+     * wchar_t *_wcslwr(wchar_t *_String)
      * }
      */
-    public static int PROC_THREAD_ATTRIBUTE_COMPONENT_FILTER() {
-        return (int)131098L;
+    public static MemorySegment _wcslwr(MemorySegment _String) {
+        var mh$ = _wcslwr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcslwr", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _wcslwr_s_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcslwr_s_l"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_MASK 805306368
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _wcslwr_s_l(wchar_t *_String, size_t _SizeInWords, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_MASK() {
-        return 805306368L;
+    public static FunctionDescriptor _wcslwr_s_l$descriptor() {
+        return _wcslwr_s_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_DEFER 0
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _wcslwr_s_l(wchar_t *_String, size_t _SizeInWords, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_DEFER() {
-        return 0L;
+    public static MethodHandle _wcslwr_s_l$handle() {
+        return _wcslwr_s_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_ALWAYS_ON 268435456
+     * {@snippet lang=c :
+     * errno_t _wcslwr_s_l(wchar_t *_String, size_t _SizeInWords, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_ALWAYS_ON() {
-        return 268435456L;
+    public static int _wcslwr_s_l(MemorySegment _String, long _SizeInWords, MemorySegment _Locale) {
+        var mh$ = _wcslwr_s_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcslwr_s_l", _String, _SizeInWords, _Locale);
+            }
+            return (int)mh$.invokeExact(_String, _SizeInWords, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _wcslwr_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcslwr_l"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_ALWAYS_OFF 536870912
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *_wcslwr_l(wchar_t *_String, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_ALWAYS_OFF() {
-        return 536870912L;
+    public static FunctionDescriptor _wcslwr_l$descriptor() {
+        return _wcslwr_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_RESERVED 805306368
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *_wcslwr_l(wchar_t *_String, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_CET_USER_SHADOW_STACKS_RESERVED() {
-        return 805306368L;
+    public static MethodHandle _wcslwr_l$handle() {
+        return _wcslwr_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_MASK 12884901888
+     * {@snippet lang=c :
+     * wchar_t *_wcslwr_l(wchar_t *_String, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_MASK() {
-        return 12884901888L;
+    public static MemorySegment _wcslwr_l(MemorySegment _String, MemorySegment _Locale) {
+        var mh$ = _wcslwr_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcslwr_l", _String, _Locale);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _wcsupr_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsupr_s"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_DEFER 0
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _wcsupr_s(wchar_t *_String, size_t _Size)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_DEFER() {
-        return 0L;
+    public static FunctionDescriptor _wcsupr_s$descriptor() {
+        return _wcsupr_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_ALWAYS_ON 4294967296
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _wcsupr_s(wchar_t *_String, size_t _Size)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_ALWAYS_ON() {
-        return 4294967296L;
+    public static MethodHandle _wcsupr_s$handle() {
+        return _wcsupr_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_ALWAYS_OFF 8589934592
+     * {@snippet lang=c :
+     * errno_t _wcsupr_s(wchar_t *_String, size_t _Size)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_ALWAYS_OFF() {
-        return 8589934592L;
+    public static int _wcsupr_s(MemorySegment _String, long _Size) {
+        var mh$ = _wcsupr_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsupr_s", _String, _Size);
+            }
+            return (int)mh$.invokeExact(_String, _Size);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _wcsupr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsupr"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_RESERVED 12884901888
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *_wcsupr(wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_USER_CET_SET_CONTEXT_IP_VALIDATION_RESERVED() {
-        return 12884901888L;
+    public static FunctionDescriptor _wcsupr$descriptor() {
+        return _wcsupr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_MASK 206158430208
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *_wcsupr(wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_MASK() {
-        return 206158430208L;
+    public static MethodHandle _wcsupr$handle() {
+        return _wcsupr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_DEFER 0
+     * {@snippet lang=c :
+     * wchar_t *_wcsupr(wchar_t *_String)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_DEFER() {
-        return 0L;
+    public static MemorySegment _wcsupr(MemorySegment _String) {
+        var mh$ = _wcsupr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsupr", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _wcsupr_s_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsupr_s_l"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_ALWAYS_ON 68719476736
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _wcsupr_s_l(wchar_t *_String, size_t _Size, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_ALWAYS_ON() {
-        return 68719476736L;
+    public static FunctionDescriptor _wcsupr_s_l$descriptor() {
+        return _wcsupr_s_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_ALWAYS_OFF 137438953472
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _wcsupr_s_l(wchar_t *_String, size_t _Size, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_ALWAYS_OFF() {
-        return 137438953472L;
+    public static MethodHandle _wcsupr_s_l$handle() {
+        return _wcsupr_s_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_RESERVED 206158430208
+     * {@snippet lang=c :
+     * errno_t _wcsupr_s_l(wchar_t *_String, size_t _Size, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_BLOCK_NON_CET_BINARIES_RESERVED() {
-        return 206158430208L;
+    public static int _wcsupr_s_l(MemorySegment _String, long _Size, MemorySegment _Locale) {
+        var mh$ = _wcsupr_s_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsupr_s_l", _String, _Size, _Locale);
+            }
+            return (int)mh$.invokeExact(_String, _Size, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _wcsupr_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsupr_l"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_MASK 3298534883328
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *_wcsupr_l(wchar_t *_String, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_MASK() {
-        return 3298534883328L;
+    public static FunctionDescriptor _wcsupr_l$descriptor() {
+        return _wcsupr_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_DEFER 0
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *_wcsupr_l(wchar_t *_String, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_DEFER() {
-        return 0L;
+    public static MethodHandle _wcsupr_l$handle() {
+        return _wcsupr_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_ALWAYS_ON 1099511627776
+     * {@snippet lang=c :
+     * wchar_t *_wcsupr_l(wchar_t *_String, _locale_t _Locale)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_ALWAYS_ON() {
-        return 1099511627776L;
+    public static MemorySegment _wcsupr_l(MemorySegment _String, MemorySegment _Locale) {
+        var mh$ = _wcsupr_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsupr_l", _String, _Locale);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcsxfrm {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsxfrm"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_ALWAYS_OFF 2199023255552
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * size_t wcsxfrm(wchar_t *_Destination, const wchar_t *_Source, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_ALWAYS_OFF() {
-        return 2199023255552L;
+    public static FunctionDescriptor wcsxfrm$descriptor() {
+        return wcsxfrm.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_RESERVED 3298534883328
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * size_t wcsxfrm(wchar_t *_Destination, const wchar_t *_Source, size_t _MaxCount)
      * }
      */
-    public static long PROCESS_CREATION_MITIGATION_AUDIT_POLICY2_XTENDED_CONTROL_FLOW_GUARD_RESERVED() {
-        return 3298534883328L;
+    public static MethodHandle wcsxfrm$handle() {
+        return wcsxfrm.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A "GetSystemWow64DirectoryA"
+     * {@snippet lang=c :
+     * size_t wcsxfrm(wchar_t *_Destination, const wchar_t *_Source, size_t _MaxCount)
      * }
      */
-    public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A() {
-        return constants$4551.const$3;
+    public static long wcsxfrm(MemorySegment _Destination, MemorySegment _Source, long _MaxCount) {
+        var mh$ = wcsxfrm.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsxfrm", _Destination, _Source, _MaxCount);
+            }
+            return (long)mh$.invokeExact(_Destination, _Source, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _wcsxfrm_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsxfrm_l"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W "G"
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * size_t _wcsxfrm_l(wchar_t *_Destination, const wchar_t *_Source, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W() {
-        return constants$4551.const$4;
+    public static FunctionDescriptor _wcsxfrm_l$descriptor() {
+        return _wcsxfrm_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T "GetSystemWow64DirectoryA"
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * size_t _wcsxfrm_l(wchar_t *_Destination, const wchar_t *_Source, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T() {
-        return constants$4551.const$3;
+    public static MethodHandle _wcsxfrm_l$handle() {
+        return _wcsxfrm_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A "GetSystemWow64DirectoryW"
+     * {@snippet lang=c :
+     * size_t _wcsxfrm_l(wchar_t *_Destination, const wchar_t *_Source, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A() {
-        return constants$4551.const$5;
+    public static long _wcsxfrm_l(MemorySegment _Destination, MemorySegment _Source, long _MaxCount, MemorySegment _Locale) {
+        var mh$ = _wcsxfrm_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsxfrm_l", _Destination, _Source, _MaxCount, _Locale);
+            }
+            return (long)mh$.invokeExact(_Destination, _Source, _MaxCount, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcscoll {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcscoll"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W "G"
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int wcscoll(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W() {
-        return constants$4551.const$4;
+    public static FunctionDescriptor wcscoll$descriptor() {
+        return wcscoll.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T "GetSystemWow64DirectoryW"
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int wcscoll(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T() {
-        return constants$4551.const$5;
+    public static MethodHandle wcscoll$handle() {
+        return wcscoll.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A "GetSystemWow64DirectoryA"
+     * {@snippet lang=c :
+     * int wcscoll(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A() {
-        return constants$4551.const$3;
+    public static int wcscoll(MemorySegment _String1, MemorySegment _String2) {
+        var mh$ = wcscoll.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcscoll", _String1, _String2);
+            }
+            return (int)mh$.invokeExact(_String1, _String2);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _wcscoll_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcscoll_l"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W "G"
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _wcscoll_l(const wchar_t *_String1, const wchar_t *_String2, _locale_t _Locale)
      * }
      */
-    public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W() {
-        return constants$4551.const$4;
+    public static FunctionDescriptor _wcscoll_l$descriptor() {
+        return _wcscoll_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T "GetSystemWow64DirectoryA"
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _wcscoll_l(const wchar_t *_String1, const wchar_t *_String2, _locale_t _Locale)
      * }
      */
-    public static MemorySegment GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T() {
-        return constants$4551.const$3;
+    public static MethodHandle _wcscoll_l$handle() {
+        return _wcscoll_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define BASE_SEARCH_PATH_INVALID_FLAGS -98306
+     * {@snippet lang=c :
+     * int _wcscoll_l(const wchar_t *_String1, const wchar_t *_String2, _locale_t _Locale)
      * }
      */
-    public static int BASE_SEARCH_PATH_INVALID_FLAGS() {
-        return (int)-98306L;
+    public static int _wcscoll_l(MemorySegment _String1, MemorySegment _String2, MemorySegment _Locale) {
+        var mh$ = _wcscoll_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcscoll_l", _String1, _String2, _Locale);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _wcsicoll {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsicoll"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define COPYFILE2_MESSAGE_COPY_OFFLOAD 1
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _wcsicoll(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static int COPYFILE2_MESSAGE_COPY_OFFLOAD() {
-        return (int)1L;
+    public static FunctionDescriptor _wcsicoll$descriptor() {
+        return _wcsicoll.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define LOGON_ZERO_PASSWORD_BUFFER 2147483648
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _wcsicoll(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static int LOGON_ZERO_PASSWORD_BUFFER() {
-        return (int)2147483648L;
+    public static MethodHandle _wcsicoll$handle() {
+        return _wcsicoll.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define DOCKINFO_UNDOCKED 1
+     * {@snippet lang=c :
+     * int _wcsicoll(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static int DOCKINFO_UNDOCKED() {
-        return (int)1L;
+    public static int _wcsicoll(MemorySegment _String1, MemorySegment _String2) {
+        var mh$ = _wcsicoll.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsicoll", _String1, _String2);
+            }
+            return (int)mh$.invokeExact(_String1, _String2);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _wcsicoll_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsicoll_l"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define DOCKINFO_DOCKED 2
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _wcsicoll_l(const wchar_t *_String1, const wchar_t *_String2, _locale_t _Locale)
      * }
      */
-    public static int DOCKINFO_DOCKED() {
-        return (int)2L;
+    public static FunctionDescriptor _wcsicoll_l$descriptor() {
+        return _wcsicoll_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define DOCKINFO_USER_SUPPLIED 4
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _wcsicoll_l(const wchar_t *_String1, const wchar_t *_String2, _locale_t _Locale)
      * }
      */
-    public static int DOCKINFO_USER_SUPPLIED() {
-        return (int)4L;
+    public static MethodHandle _wcsicoll_l$handle() {
+        return _wcsicoll_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define DOCKINFO_USER_UNDOCKED 5
+     * {@snippet lang=c :
+     * int _wcsicoll_l(const wchar_t *_String1, const wchar_t *_String2, _locale_t _Locale)
      * }
      */
-    public static int DOCKINFO_USER_UNDOCKED() {
-        return (int)5L;
+    public static int _wcsicoll_l(MemorySegment _String1, MemorySegment _String2, MemorySegment _Locale) {
+        var mh$ = _wcsicoll_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsicoll_l", _String1, _String2, _Locale);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _wcsncoll {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsncoll"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define DOCKINFO_USER_DOCKED 6
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _wcsncoll(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static int DOCKINFO_USER_DOCKED() {
-        return (int)6L;
+    public static FunctionDescriptor _wcsncoll$descriptor() {
+        return _wcsncoll.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SUCCESS 0
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _wcsncoll(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_SUCCESS() {
-        return (int)0L;
+    public static MethodHandle _wcsncoll$handle() {
+        return _wcsncoll.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define NO_ERROR 0
+     * {@snippet lang=c :
+     * int _wcsncoll(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static int NO_ERROR() {
-        return (int)0L;
+    public static int _wcsncoll(MemorySegment _String1, MemorySegment _String2, long _MaxCount) {
+        var mh$ = _wcsncoll.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsncoll", _String1, _String2, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _wcsncoll_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsncoll_l"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define SEC_E_OK 0
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _wcsncoll_l(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int SEC_E_OK() {
-        return (int)0L;
+    public static FunctionDescriptor _wcsncoll_l$descriptor() {
+        return _wcsncoll_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_FUNCTION 1
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _wcsncoll_l(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_INVALID_FUNCTION() {
-        return (int)1L;
+    public static MethodHandle _wcsncoll_l$handle() {
+        return _wcsncoll_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_FILE_NOT_FOUND 2
+     * {@snippet lang=c :
+     * int _wcsncoll_l(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_FILE_NOT_FOUND() {
-        return (int)2L;
+    public static int _wcsncoll_l(MemorySegment _String1, MemorySegment _String2, long _MaxCount, MemorySegment _Locale) {
+        var mh$ = _wcsncoll_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsncoll_l", _String1, _String2, _MaxCount, _Locale);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _wcsnicoll {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsnicoll"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PATH_NOT_FOUND 3
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _wcsnicoll(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_PATH_NOT_FOUND() {
-        return (int)3L;
+    public static FunctionDescriptor _wcsnicoll$descriptor() {
+        return _wcsnicoll.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_TOO_MANY_OPEN_FILES 4
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _wcsnicoll(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_TOO_MANY_OPEN_FILES() {
-        return (int)4L;
+    public static MethodHandle _wcsnicoll$handle() {
+        return _wcsnicoll.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_ACCESS_DENIED 5
+     * {@snippet lang=c :
+     * int _wcsnicoll(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_ACCESS_DENIED() {
-        return (int)5L;
+    public static int _wcsnicoll(MemorySegment _String1, MemorySegment _String2, long _MaxCount) {
+        var mh$ = _wcsnicoll.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsnicoll", _String1, _String2, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _wcsnicoll_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_wcsnicoll_l"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_HANDLE 6
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _wcsnicoll_l(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_INVALID_HANDLE() {
-        return (int)6L;
+    public static FunctionDescriptor _wcsnicoll_l$descriptor() {
+        return _wcsnicoll_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_ARENA_TRASHED 7
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _wcsnicoll_l(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_ARENA_TRASHED() {
-        return (int)7L;
+    public static MethodHandle _wcsnicoll_l$handle() {
+        return _wcsnicoll_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_ENOUGH_MEMORY 8
+     * {@snippet lang=c :
+     * int _wcsnicoll_l(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_NOT_ENOUGH_MEMORY() {
-        return (int)8L;
+    public static int _wcsnicoll_l(MemorySegment _String1, MemorySegment _String2, long _MaxCount, MemorySegment _Locale) {
+        var mh$ = _wcsnicoll_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_wcsnicoll_l", _String1, _String2, _MaxCount, _Locale);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcsdup {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsdup"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_BLOCK 9
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcsdup(const wchar_t *_String)
      * }
      */
-    public static int ERROR_INVALID_BLOCK() {
-        return (int)9L;
+    public static FunctionDescriptor wcsdup$descriptor() {
+        return wcsdup.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_ENVIRONMENT 10
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcsdup(const wchar_t *_String)
      * }
      */
-    public static int ERROR_BAD_ENVIRONMENT() {
-        return (int)10L;
+    public static MethodHandle wcsdup$handle() {
+        return wcsdup.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_BAD_FORMAT 11
+     * {@snippet lang=c :
+     * wchar_t *wcsdup(const wchar_t *_String)
      * }
      */
-    public static int ERROR_BAD_FORMAT() {
-        return (int)11L;
+    public static MemorySegment wcsdup(MemorySegment _String) {
+        var mh$ = wcsdup.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsdup", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcsicmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsicmp"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_ACCESS 12
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int wcsicmp(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static int ERROR_INVALID_ACCESS() {
-        return (int)12L;
+    public static FunctionDescriptor wcsicmp$descriptor() {
+        return wcsicmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_DATA 13
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int wcsicmp(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static int ERROR_INVALID_DATA() {
-        return (int)13L;
+    public static MethodHandle wcsicmp$handle() {
+        return wcsicmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_OUTOFMEMORY 14
+     * {@snippet lang=c :
+     * int wcsicmp(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static int ERROR_OUTOFMEMORY() {
-        return (int)14L;
+    public static int wcsicmp(MemorySegment _String1, MemorySegment _String2) {
+        var mh$ = wcsicmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsicmp", _String1, _String2);
+            }
+            return (int)mh$.invokeExact(_String1, _String2);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcsnicmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsnicmp"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_DRIVE 15
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int wcsnicmp(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_INVALID_DRIVE() {
-        return (int)15L;
+    public static FunctionDescriptor wcsnicmp$descriptor() {
+        return wcsnicmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CURRENT_DIRECTORY 16
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int wcsnicmp(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_CURRENT_DIRECTORY() {
-        return (int)16L;
+    public static MethodHandle wcsnicmp$handle() {
+        return wcsnicmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SAME_DEVICE 17
+     * {@snippet lang=c :
+     * int wcsnicmp(const wchar_t *_String1, const wchar_t *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_NOT_SAME_DEVICE() {
-        return (int)17L;
+    public static int wcsnicmp(MemorySegment _String1, MemorySegment _String2, long _MaxCount) {
+        var mh$ = wcsnicmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsnicmp", _String1, _String2, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcsnset {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_SHORT,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsnset"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_NO_MORE_FILES 18
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcsnset(wchar_t *_String, wchar_t _Value, size_t _MaxCount)
      * }
      */
-    public static int ERROR_NO_MORE_FILES() {
-        return (int)18L;
+    public static FunctionDescriptor wcsnset$descriptor() {
+        return wcsnset.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_WRITE_PROTECT 19
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcsnset(wchar_t *_String, wchar_t _Value, size_t _MaxCount)
      * }
      */
-    public static int ERROR_WRITE_PROTECT() {
-        return (int)19L;
+    public static MethodHandle wcsnset$handle() {
+        return wcsnset.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_BAD_UNIT 20
+     * {@snippet lang=c :
+     * wchar_t *wcsnset(wchar_t *_String, wchar_t _Value, size_t _MaxCount)
      * }
      */
-    public static int ERROR_BAD_UNIT() {
-        return (int)20L;
+    public static MemorySegment wcsnset(MemorySegment _String, short _Value, long _MaxCount) {
+        var mh$ = wcsnset.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsnset", _String, _Value, _MaxCount);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Value, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcsrev {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsrev"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOT_READY 21
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcsrev(wchar_t *_String)
      * }
      */
-    public static int ERROR_NOT_READY() {
-        return (int)21L;
+    public static FunctionDescriptor wcsrev$descriptor() {
+        return wcsrev.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_COMMAND 22
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcsrev(wchar_t *_String)
      * }
      */
-    public static int ERROR_BAD_COMMAND() {
-        return (int)22L;
+    public static MethodHandle wcsrev$handle() {
+        return wcsrev.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CRC 23
+     * {@snippet lang=c :
+     * wchar_t *wcsrev(wchar_t *_String)
      * }
      */
-    public static int ERROR_CRC() {
-        return (int)23L;
+    public static MemorySegment wcsrev(MemorySegment _String) {
+        var mh$ = wcsrev.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsrev", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcsset {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsset"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_LENGTH 24
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcsset(wchar_t *_String, wchar_t _Value)
      * }
      */
-    public static int ERROR_BAD_LENGTH() {
-        return (int)24L;
+    public static FunctionDescriptor wcsset$descriptor() {
+        return wcsset.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SEEK 25
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcsset(wchar_t *_String, wchar_t _Value)
      * }
      */
-    public static int ERROR_SEEK() {
-        return (int)25L;
+    public static MethodHandle wcsset$handle() {
+        return wcsset.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_DOS_DISK 26
+     * {@snippet lang=c :
+     * wchar_t *wcsset(wchar_t *_String, wchar_t _Value)
      * }
      */
-    public static int ERROR_NOT_DOS_DISK() {
-        return (int)26L;
+    public static MemorySegment wcsset(MemorySegment _String, short _Value) {
+        var mh$ = wcsset.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsset", _String, _Value);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcslwr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcslwr"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SECTOR_NOT_FOUND 27
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcslwr(wchar_t *_String)
      * }
      */
-    public static int ERROR_SECTOR_NOT_FOUND() {
-        return (int)27L;
+    public static FunctionDescriptor wcslwr$descriptor() {
+        return wcslwr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_OUT_OF_PAPER 28
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcslwr(wchar_t *_String)
      * }
      */
-    public static int ERROR_OUT_OF_PAPER() {
-        return (int)28L;
+    public static MethodHandle wcslwr$handle() {
+        return wcslwr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_WRITE_FAULT 29
+     * {@snippet lang=c :
+     * wchar_t *wcslwr(wchar_t *_String)
      * }
      */
-    public static int ERROR_WRITE_FAULT() {
-        return (int)29L;
+    public static MemorySegment wcslwr(MemorySegment _String) {
+        var mh$ = wcslwr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcslwr", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class wcsupr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsupr"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_READ_FAULT 30
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * wchar_t *wcsupr(wchar_t *_String)
      * }
      */
-    public static int ERROR_READ_FAULT() {
-        return (int)30L;
+    public static FunctionDescriptor wcsupr$descriptor() {
+        return wcsupr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_GEN_FAILURE 31
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * wchar_t *wcsupr(wchar_t *_String)
      * }
      */
-    public static int ERROR_GEN_FAILURE() {
-        return (int)31L;
+    public static MethodHandle wcsupr$handle() {
+        return wcsupr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_SHARING_VIOLATION 32
+     * {@snippet lang=c :
+     * wchar_t *wcsupr(wchar_t *_String)
      * }
      */
-    public static int ERROR_SHARING_VIOLATION() {
-        return (int)32L;
+    public static MemorySegment wcsupr(MemorySegment _String) {
+        var mh$ = wcsupr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsupr", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class wcsicoll {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("wcsicoll"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_LOCK_VIOLATION 33
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int wcsicoll(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static int ERROR_LOCK_VIOLATION() {
-        return (int)33L;
+    public static FunctionDescriptor wcsicoll$descriptor() {
+        return wcsicoll.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_WRONG_DISK 34
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int wcsicoll(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static int ERROR_WRONG_DISK() {
-        return (int)34L;
+    public static MethodHandle wcsicoll$handle() {
+        return wcsicoll.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_SHARING_BUFFER_EXCEEDED 36
+     * {@snippet lang=c :
+     * int wcsicoll(const wchar_t *_String1, const wchar_t *_String2)
      * }
      */
-    public static int ERROR_SHARING_BUFFER_EXCEEDED() {
-        return (int)36L;
+    public static int wcsicoll(MemorySegment _String1, MemorySegment _String2) {
+        var mh$ = wcsicoll.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("wcsicoll", _String1, _String2);
+            }
+            return (int)mh$.invokeExact(_String1, _String2);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strcpy_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strcpy_s"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_HANDLE_EOF 38
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t strcpy_s(char *_Destination, rsize_t _SizeInBytes, const char *_Source)
      * }
      */
-    public static int ERROR_HANDLE_EOF() {
-        return (int)38L;
+    public static FunctionDescriptor strcpy_s$descriptor() {
+        return strcpy_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_HANDLE_DISK_FULL 39
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t strcpy_s(char *_Destination, rsize_t _SizeInBytes, const char *_Source)
      * }
      */
-    public static int ERROR_HANDLE_DISK_FULL() {
-        return (int)39L;
+    public static MethodHandle strcpy_s$handle() {
+        return strcpy_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SUPPORTED 50
+     * {@snippet lang=c :
+     * errno_t strcpy_s(char *_Destination, rsize_t _SizeInBytes, const char *_Source)
      * }
      */
-    public static int ERROR_NOT_SUPPORTED() {
-        return (int)50L;
+    public static int strcpy_s(MemorySegment _Destination, long _SizeInBytes, MemorySegment _Source) {
+        var mh$ = strcpy_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strcpy_s", _Destination, _SizeInBytes, _Source);
+            }
+            return (int)mh$.invokeExact(_Destination, _SizeInBytes, _Source);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strcat_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strcat_s"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_REM_NOT_LIST 51
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t strcat_s(char *_Destination, rsize_t _SizeInBytes, const char *_Source)
      * }
      */
-    public static int ERROR_REM_NOT_LIST() {
-        return (int)51L;
+    public static FunctionDescriptor strcat_s$descriptor() {
+        return strcat_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DUP_NAME 52
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t strcat_s(char *_Destination, rsize_t _SizeInBytes, const char *_Source)
      * }
      */
-    public static int ERROR_DUP_NAME() {
-        return (int)52L;
+    public static MethodHandle strcat_s$handle() {
+        return strcat_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_BAD_NETPATH 53
+     * {@snippet lang=c :
+     * errno_t strcat_s(char *_Destination, rsize_t _SizeInBytes, const char *_Source)
      * }
      */
-    public static int ERROR_BAD_NETPATH() {
-        return (int)53L;
+    public static int strcat_s(MemorySegment _Destination, long _SizeInBytes, MemorySegment _Source) {
+        var mh$ = strcat_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strcat_s", _Destination, _SizeInBytes, _Source);
+            }
+            return (int)mh$.invokeExact(_Destination, _SizeInBytes, _Source);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strerror_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strerror_s"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_NETWORK_BUSY 54
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t strerror_s(char *_Buffer, size_t _SizeInBytes, int _ErrorNumber)
      * }
      */
-    public static int ERROR_NETWORK_BUSY() {
-        return (int)54L;
+    public static FunctionDescriptor strerror_s$descriptor() {
+        return strerror_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DEV_NOT_EXIST 55
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t strerror_s(char *_Buffer, size_t _SizeInBytes, int _ErrorNumber)
      * }
      */
-    public static int ERROR_DEV_NOT_EXIST() {
-        return (int)55L;
+    public static MethodHandle strerror_s$handle() {
+        return strerror_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_TOO_MANY_CMDS 56
+     * {@snippet lang=c :
+     * errno_t strerror_s(char *_Buffer, size_t _SizeInBytes, int _ErrorNumber)
      * }
      */
-    public static int ERROR_TOO_MANY_CMDS() {
-        return (int)56L;
+    public static int strerror_s(MemorySegment _Buffer, long _SizeInBytes, int _ErrorNumber) {
+        var mh$ = strerror_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strerror_s", _Buffer, _SizeInBytes, _ErrorNumber);
+            }
+            return (int)mh$.invokeExact(_Buffer, _SizeInBytes, _ErrorNumber);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strncat_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strncat_s"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_ADAP_HDW_ERR 57
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t strncat_s(char *_Destination, rsize_t _SizeInBytes, const char *_Source, rsize_t _MaxCount)
      * }
      */
-    public static int ERROR_ADAP_HDW_ERR() {
-        return (int)57L;
+    public static FunctionDescriptor strncat_s$descriptor() {
+        return strncat_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_NET_RESP 58
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t strncat_s(char *_Destination, rsize_t _SizeInBytes, const char *_Source, rsize_t _MaxCount)
      * }
      */
-    public static int ERROR_BAD_NET_RESP() {
-        return (int)58L;
+    public static MethodHandle strncat_s$handle() {
+        return strncat_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_UNEXP_NET_ERR 59
+     * {@snippet lang=c :
+     * errno_t strncat_s(char *_Destination, rsize_t _SizeInBytes, const char *_Source, rsize_t _MaxCount)
      * }
      */
-    public static int ERROR_UNEXP_NET_ERR() {
-        return (int)59L;
+    public static int strncat_s(MemorySegment _Destination, long _SizeInBytes, MemorySegment _Source, long _MaxCount) {
+        var mh$ = strncat_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strncat_s", _Destination, _SizeInBytes, _Source, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_Destination, _SizeInBytes, _Source, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strncpy_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strncpy_s"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_REM_ADAP 60
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t strncpy_s(char *_Destination, rsize_t _SizeInBytes, const char *_Source, rsize_t _MaxCount)
      * }
      */
-    public static int ERROR_BAD_REM_ADAP() {
-        return (int)60L;
+    public static FunctionDescriptor strncpy_s$descriptor() {
+        return strncpy_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PRINTQ_FULL 61
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t strncpy_s(char *_Destination, rsize_t _SizeInBytes, const char *_Source, rsize_t _MaxCount)
      * }
      */
-    public static int ERROR_PRINTQ_FULL() {
-        return (int)61L;
+    public static MethodHandle strncpy_s$handle() {
+        return strncpy_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NO_SPOOL_SPACE 62
+     * {@snippet lang=c :
+     * errno_t strncpy_s(char *_Destination, rsize_t _SizeInBytes, const char *_Source, rsize_t _MaxCount)
      * }
      */
-    public static int ERROR_NO_SPOOL_SPACE() {
-        return (int)62L;
+    public static int strncpy_s(MemorySegment _Destination, long _SizeInBytes, MemorySegment _Source, long _MaxCount) {
+        var mh$ = strncpy_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strncpy_s", _Destination, _SizeInBytes, _Source, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_Destination, _SizeInBytes, _Source, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strtok_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strtok_s"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PRINT_CANCELLED 63
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strtok_s(char *_String, const char *_Delimiter, char **_Context)
      * }
      */
-    public static int ERROR_PRINT_CANCELLED() {
-        return (int)63L;
+    public static FunctionDescriptor strtok_s$descriptor() {
+        return strtok_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NETNAME_DELETED 64
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strtok_s(char *_String, const char *_Delimiter, char **_Context)
      * }
      */
-    public static int ERROR_NETNAME_DELETED() {
-        return (int)64L;
+    public static MethodHandle strtok_s$handle() {
+        return strtok_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NETWORK_ACCESS_DENIED 65
+     * {@snippet lang=c :
+     * char *strtok_s(char *_String, const char *_Delimiter, char **_Context)
      * }
      */
-    public static int ERROR_NETWORK_ACCESS_DENIED() {
-        return (int)65L;
+    public static MemorySegment strtok_s(MemorySegment _String, MemorySegment _Delimiter, MemorySegment _Context) {
+        var mh$ = strtok_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strtok_s", _String, _Delimiter, _Context);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Delimiter, _Context);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _memccpy {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_memccpy"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_DEV_TYPE 66
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void *_memccpy(void *_Dst, const void *_Src, int _Val, size_t _MaxCount)
      * }
      */
-    public static int ERROR_BAD_DEV_TYPE() {
-        return (int)66L;
+    public static FunctionDescriptor _memccpy$descriptor() {
+        return _memccpy.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_NET_NAME 67
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void *_memccpy(void *_Dst, const void *_Src, int _Val, size_t _MaxCount)
      * }
      */
-    public static int ERROR_BAD_NET_NAME() {
-        return (int)67L;
+    public static MethodHandle _memccpy$handle() {
+        return _memccpy.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_TOO_MANY_NAMES 68
+     * {@snippet lang=c :
+     * void *_memccpy(void *_Dst, const void *_Src, int _Val, size_t _MaxCount)
      * }
      */
-    public static int ERROR_TOO_MANY_NAMES() {
-        return (int)68L;
+    public static MemorySegment _memccpy(MemorySegment _Dst, MemorySegment _Src, int _Val, long _MaxCount) {
+        var mh$ = _memccpy.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_memccpy", _Dst, _Src, _Val, _MaxCount);
+            }
+            return (MemorySegment)mh$.invokeExact(_Dst, _Src, _Val, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strcat {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strcat"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_TOO_MANY_SESS 69
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strcat(char *_Destination, const char *_Source)
      * }
      */
-    public static int ERROR_TOO_MANY_SESS() {
-        return (int)69L;
+    public static FunctionDescriptor strcat$descriptor() {
+        return strcat.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SHARING_PAUSED 70
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strcat(char *_Destination, const char *_Source)
      * }
      */
-    public static int ERROR_SHARING_PAUSED() {
-        return (int)70L;
+    public static MethodHandle strcat$handle() {
+        return strcat.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_REQ_NOT_ACCEP 71
+     * {@snippet lang=c :
+     * char *strcat(char *_Destination, const char *_Source)
      * }
      */
-    public static int ERROR_REQ_NOT_ACCEP() {
-        return (int)71L;
+    public static MemorySegment strcat(MemorySegment _Destination, MemorySegment _Source) {
+        var mh$ = strcat.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strcat", _Destination, _Source);
+            }
+            return (MemorySegment)mh$.invokeExact(_Destination, _Source);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strcmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strcmp"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_REDIR_PAUSED 72
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int strcmp(const char *_Str1, const char *_Str2)
      * }
      */
-    public static int ERROR_REDIR_PAUSED() {
-        return (int)72L;
+    public static FunctionDescriptor strcmp$descriptor() {
+        return strcmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FILE_EXISTS 80
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int strcmp(const char *_Str1, const char *_Str2)
      * }
      */
-    public static int ERROR_FILE_EXISTS() {
-        return (int)80L;
+    public static MethodHandle strcmp$handle() {
+        return strcmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CANNOT_MAKE 82
+     * {@snippet lang=c :
+     * int strcmp(const char *_Str1, const char *_Str2)
      * }
      */
-    public static int ERROR_CANNOT_MAKE() {
-        return (int)82L;
+    public static int strcmp(MemorySegment _Str1, MemorySegment _Str2) {
+        var mh$ = strcmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strcmp", _Str1, _Str2);
+            }
+            return (int)mh$.invokeExact(_Str1, _Str2);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _strcmpi {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strcmpi"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FAIL_I24 83
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _strcmpi(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_FAIL_I24() {
-        return (int)83L;
+    public static FunctionDescriptor _strcmpi$descriptor() {
+        return _strcmpi.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_OUT_OF_STRUCTURES 84
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _strcmpi(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_OUT_OF_STRUCTURES() {
-        return (int)84L;
+    public static MethodHandle _strcmpi$handle() {
+        return _strcmpi.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_ALREADY_ASSIGNED 85
+     * {@snippet lang=c :
+     * int _strcmpi(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_ALREADY_ASSIGNED() {
-        return (int)85L;
+    public static int _strcmpi(MemorySegment _String1, MemorySegment _String2) {
+        var mh$ = _strcmpi.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strcmpi", _String1, _String2);
+            }
+            return (int)mh$.invokeExact(_String1, _String2);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strcoll {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strcoll"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_PASSWORD 86
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int strcoll(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_INVALID_PASSWORD() {
-        return (int)86L;
+    public static FunctionDescriptor strcoll$descriptor() {
+        return strcoll.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_PARAMETER 87
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int strcoll(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_INVALID_PARAMETER() {
-        return (int)87L;
+    public static MethodHandle strcoll$handle() {
+        return strcoll.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NET_WRITE_FAULT 88
+     * {@snippet lang=c :
+     * int strcoll(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_NET_WRITE_FAULT() {
-        return (int)88L;
+    public static int strcoll(MemorySegment _String1, MemorySegment _String2) {
+        var mh$ = strcoll.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strcoll", _String1, _String2);
+            }
+            return (int)mh$.invokeExact(_String1, _String2);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _strcoll_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strcoll_l"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NO_PROC_SLOTS 89
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _strcoll_l(const char *_String1, const char *_String2, _locale_t _Locale)
      * }
      */
-    public static int ERROR_NO_PROC_SLOTS() {
-        return (int)89L;
+    public static FunctionDescriptor _strcoll_l$descriptor() {
+        return _strcoll_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_TOO_MANY_SEMAPHORES 100
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _strcoll_l(const char *_String1, const char *_String2, _locale_t _Locale)
      * }
      */
-    public static int ERROR_TOO_MANY_SEMAPHORES() {
-        return (int)100L;
+    public static MethodHandle _strcoll_l$handle() {
+        return _strcoll_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_EXCL_SEM_ALREADY_OWNED 101
+     * {@snippet lang=c :
+     * int _strcoll_l(const char *_String1, const char *_String2, _locale_t _Locale)
      * }
      */
-    public static int ERROR_EXCL_SEM_ALREADY_OWNED() {
-        return (int)101L;
+    public static int _strcoll_l(MemorySegment _String1, MemorySegment _String2, MemorySegment _Locale) {
+        var mh$ = _strcoll_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strcoll_l", _String1, _String2, _Locale);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strcpy {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strcpy"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_SEM_IS_SET 102
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strcpy(char *_Destination, const char *_Source)
      * }
      */
-    public static int ERROR_SEM_IS_SET() {
-        return (int)102L;
+    public static FunctionDescriptor strcpy$descriptor() {
+        return strcpy.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_TOO_MANY_SEM_REQUESTS 103
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strcpy(char *_Destination, const char *_Source)
      * }
      */
-    public static int ERROR_TOO_MANY_SEM_REQUESTS() {
-        return (int)103L;
+    public static MethodHandle strcpy$handle() {
+        return strcpy.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_AT_INTERRUPT_TIME 104
+     * {@snippet lang=c :
+     * char *strcpy(char *_Destination, const char *_Source)
      * }
      */
-    public static int ERROR_INVALID_AT_INTERRUPT_TIME() {
-        return (int)104L;
+    public static MemorySegment strcpy(MemorySegment _Destination, MemorySegment _Source) {
+        var mh$ = strcpy.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strcpy", _Destination, _Source);
+            }
+            return (MemorySegment)mh$.invokeExact(_Destination, _Source);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strcspn {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strcspn"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SEM_OWNER_DIED 105
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long long strcspn(const char *_Str, const char *_Control)
      * }
      */
-    public static int ERROR_SEM_OWNER_DIED() {
-        return (int)105L;
+    public static FunctionDescriptor strcspn$descriptor() {
+        return strcspn.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SEM_USER_LIMIT 106
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long long strcspn(const char *_Str, const char *_Control)
      * }
      */
-    public static int ERROR_SEM_USER_LIMIT() {
-        return (int)106L;
+    public static MethodHandle strcspn$handle() {
+        return strcspn.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_DISK_CHANGE 107
+     * {@snippet lang=c :
+     * unsigned long long strcspn(const char *_Str, const char *_Control)
      * }
      */
-    public static int ERROR_DISK_CHANGE() {
-        return (int)107L;
+    public static long strcspn(MemorySegment _Str, MemorySegment _Control) {
+        var mh$ = strcspn.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strcspn", _Str, _Control);
+            }
+            return (long)mh$.invokeExact(_Str, _Control);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _strdup {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strdup"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_DRIVE_LOCKED 108
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *_strdup(const char *_Source)
      * }
      */
-    public static int ERROR_DRIVE_LOCKED() {
-        return (int)108L;
+    public static FunctionDescriptor _strdup$descriptor() {
+        return _strdup.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BROKEN_PIPE 109
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *_strdup(const char *_Source)
      * }
      */
-    public static int ERROR_BROKEN_PIPE() {
-        return (int)109L;
+    public static MethodHandle _strdup$handle() {
+        return _strdup.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_OPEN_FAILED 110
+     * {@snippet lang=c :
+     * char *_strdup(const char *_Source)
      * }
      */
-    public static int ERROR_OPEN_FAILED() {
-        return (int)110L;
+    public static MemorySegment _strdup(MemorySegment _Source) {
+        var mh$ = _strdup.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strdup", _Source);
+            }
+            return (MemorySegment)mh$.invokeExact(_Source);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _strerror {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strerror"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BUFFER_OVERFLOW 111
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *_strerror(const char *_ErrorMessage)
      * }
      */
-    public static int ERROR_BUFFER_OVERFLOW() {
-        return (int)111L;
+    public static FunctionDescriptor _strerror$descriptor() {
+        return _strerror.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DISK_FULL 112
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *_strerror(const char *_ErrorMessage)
      * }
      */
-    public static int ERROR_DISK_FULL() {
-        return (int)112L;
+    public static MethodHandle _strerror$handle() {
+        return _strerror.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NO_MORE_SEARCH_HANDLES 113
+     * {@snippet lang=c :
+     * char *_strerror(const char *_ErrorMessage)
      * }
      */
-    public static int ERROR_NO_MORE_SEARCH_HANDLES() {
-        return (int)113L;
+    public static MemorySegment _strerror(MemorySegment _ErrorMessage) {
+        var mh$ = _strerror.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strerror", _ErrorMessage);
+            }
+            return (MemorySegment)mh$.invokeExact(_ErrorMessage);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _strerror_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strerror_s"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_TARGET_HANDLE 114
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _strerror_s(char *_Buffer, size_t _SizeInBytes, const char *_ErrorMessage)
      * }
      */
-    public static int ERROR_INVALID_TARGET_HANDLE() {
-        return (int)114L;
+    public static FunctionDescriptor _strerror_s$descriptor() {
+        return _strerror_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_CATEGORY 117
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _strerror_s(char *_Buffer, size_t _SizeInBytes, const char *_ErrorMessage)
      * }
      */
-    public static int ERROR_INVALID_CATEGORY() {
-        return (int)117L;
+    public static MethodHandle _strerror_s$handle() {
+        return _strerror_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_VERIFY_SWITCH 118
+     * {@snippet lang=c :
+     * errno_t _strerror_s(char *_Buffer, size_t _SizeInBytes, const char *_ErrorMessage)
      * }
      */
-    public static int ERROR_INVALID_VERIFY_SWITCH() {
-        return (int)118L;
+    public static int _strerror_s(MemorySegment _Buffer, long _SizeInBytes, MemorySegment _ErrorMessage) {
+        var mh$ = _strerror_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strerror_s", _Buffer, _SizeInBytes, _ErrorMessage);
+            }
+            return (int)mh$.invokeExact(_Buffer, _SizeInBytes, _ErrorMessage);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strerror {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strerror"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_DRIVER_LEVEL 119
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strerror(int _ErrorMessage)
      * }
      */
-    public static int ERROR_BAD_DRIVER_LEVEL() {
-        return (int)119L;
+    public static FunctionDescriptor strerror$descriptor() {
+        return strerror.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CALL_NOT_IMPLEMENTED 120
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strerror(int _ErrorMessage)
      * }
      */
-    public static int ERROR_CALL_NOT_IMPLEMENTED() {
-        return (int)120L;
+    public static MethodHandle strerror$handle() {
+        return strerror.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_SEM_TIMEOUT 121
+     * {@snippet lang=c :
+     * char *strerror(int _ErrorMessage)
      * }
      */
-    public static int ERROR_SEM_TIMEOUT() {
-        return (int)121L;
+    public static MemorySegment strerror(int _ErrorMessage) {
+        var mh$ = strerror.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strerror", _ErrorMessage);
+            }
+            return (MemorySegment)mh$.invokeExact(_ErrorMessage);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _stricmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_stricmp"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_INSUFFICIENT_BUFFER 122
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _stricmp(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_INSUFFICIENT_BUFFER() {
-        return (int)122L;
+    public static FunctionDescriptor _stricmp$descriptor() {
+        return _stricmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_NAME 123
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _stricmp(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_INVALID_NAME() {
-        return (int)123L;
+    public static MethodHandle _stricmp$handle() {
+        return _stricmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_LEVEL 124
+     * {@snippet lang=c :
+     * int _stricmp(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_INVALID_LEVEL() {
-        return (int)124L;
+    public static int _stricmp(MemorySegment _String1, MemorySegment _String2) {
+        var mh$ = _stricmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_stricmp", _String1, _String2);
+            }
+            return (int)mh$.invokeExact(_String1, _String2);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _stricoll {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_stricoll"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NO_VOLUME_LABEL 125
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _stricoll(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_NO_VOLUME_LABEL() {
-        return (int)125L;
+    public static FunctionDescriptor _stricoll$descriptor() {
+        return _stricoll.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_MOD_NOT_FOUND 126
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _stricoll(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_MOD_NOT_FOUND() {
-        return (int)126L;
+    public static MethodHandle _stricoll$handle() {
+        return _stricoll.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_PROC_NOT_FOUND 127
+     * {@snippet lang=c :
+     * int _stricoll(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_PROC_NOT_FOUND() {
-        return (int)127L;
+    public static int _stricoll(MemorySegment _String1, MemorySegment _String2) {
+        var mh$ = _stricoll.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_stricoll", _String1, _String2);
+            }
+            return (int)mh$.invokeExact(_String1, _String2);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _stricoll_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_stricoll_l"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_WAIT_NO_CHILDREN 128
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _stricoll_l(const char *_String1, const char *_String2, _locale_t _Locale)
      * }
      */
-    public static int ERROR_WAIT_NO_CHILDREN() {
-        return (int)128L;
+    public static FunctionDescriptor _stricoll_l$descriptor() {
+        return _stricoll_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CHILD_NOT_COMPLETE 129
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _stricoll_l(const char *_String1, const char *_String2, _locale_t _Locale)
      * }
      */
-    public static int ERROR_CHILD_NOT_COMPLETE() {
-        return (int)129L;
+    public static MethodHandle _stricoll_l$handle() {
+        return _stricoll_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_DIRECT_ACCESS_HANDLE 130
+     * {@snippet lang=c :
+     * int _stricoll_l(const char *_String1, const char *_String2, _locale_t _Locale)
      * }
      */
-    public static int ERROR_DIRECT_ACCESS_HANDLE() {
-        return (int)130L;
+    public static int _stricoll_l(MemorySegment _String1, MemorySegment _String2, MemorySegment _Locale) {
+        var mh$ = _stricoll_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_stricoll_l", _String1, _String2, _Locale);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _stricmp_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_stricmp_l"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NEGATIVE_SEEK 131
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _stricmp_l(const char *_String1, const char *_String2, _locale_t _Locale)
      * }
      */
-    public static int ERROR_NEGATIVE_SEEK() {
-        return (int)131L;
+    public static FunctionDescriptor _stricmp_l$descriptor() {
+        return _stricmp_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SEEK_ON_DEVICE 132
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _stricmp_l(const char *_String1, const char *_String2, _locale_t _Locale)
      * }
      */
-    public static int ERROR_SEEK_ON_DEVICE() {
-        return (int)132L;
+    public static MethodHandle _stricmp_l$handle() {
+        return _stricmp_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_IS_JOIN_TARGET 133
+     * {@snippet lang=c :
+     * int _stricmp_l(const char *_String1, const char *_String2, _locale_t _Locale)
      * }
      */
-    public static int ERROR_IS_JOIN_TARGET() {
-        return (int)133L;
+    public static int _stricmp_l(MemorySegment _String1, MemorySegment _String2, MemorySegment _Locale) {
+        var mh$ = _stricmp_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_stricmp_l", _String1, _String2, _Locale);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strlen {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strlen"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_IS_JOINED 134
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long long strlen(const char *_Str)
      * }
      */
-    public static int ERROR_IS_JOINED() {
-        return (int)134L;
+    public static FunctionDescriptor strlen$descriptor() {
+        return strlen.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_IS_SUBSTED 135
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long long strlen(const char *_Str)
      * }
      */
-    public static int ERROR_IS_SUBSTED() {
-        return (int)135L;
+    public static MethodHandle strlen$handle() {
+        return strlen.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_JOINED 136
+     * {@snippet lang=c :
+     * unsigned long long strlen(const char *_Str)
      * }
      */
-    public static int ERROR_NOT_JOINED() {
-        return (int)136L;
+    public static long strlen(MemorySegment _Str) {
+        var mh$ = strlen.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strlen", _Str);
+            }
+            return (long)mh$.invokeExact(_Str);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _strlwr_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strlwr_s"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SUBSTED 137
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _strlwr_s(char *_String, size_t _Size)
      * }
      */
-    public static int ERROR_NOT_SUBSTED() {
-        return (int)137L;
+    public static FunctionDescriptor _strlwr_s$descriptor() {
+        return _strlwr_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_JOIN_TO_JOIN 138
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _strlwr_s(char *_String, size_t _Size)
      * }
      */
-    public static int ERROR_JOIN_TO_JOIN() {
-        return (int)138L;
+    public static MethodHandle _strlwr_s$handle() {
+        return _strlwr_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_SUBST_TO_SUBST 139
+     * {@snippet lang=c :
+     * errno_t _strlwr_s(char *_String, size_t _Size)
      * }
      */
-    public static int ERROR_SUBST_TO_SUBST() {
-        return (int)139L;
+    public static int _strlwr_s(MemorySegment _String, long _Size) {
+        var mh$ = _strlwr_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strlwr_s", _String, _Size);
+            }
+            return (int)mh$.invokeExact(_String, _Size);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _strlwr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strlwr"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_JOIN_TO_SUBST 140
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *_strlwr(char *_String)
      * }
      */
-    public static int ERROR_JOIN_TO_SUBST() {
-        return (int)140L;
+    public static FunctionDescriptor _strlwr$descriptor() {
+        return _strlwr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SUBST_TO_JOIN 141
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *_strlwr(char *_String)
      * }
      */
-    public static int ERROR_SUBST_TO_JOIN() {
-        return (int)141L;
+    public static MethodHandle _strlwr$handle() {
+        return _strlwr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_BUSY_DRIVE 142
+     * {@snippet lang=c :
+     * char *_strlwr(char *_String)
      * }
      */
-    public static int ERROR_BUSY_DRIVE() {
-        return (int)142L;
+    public static MemorySegment _strlwr(MemorySegment _String) {
+        var mh$ = _strlwr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strlwr", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _strlwr_s_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strlwr_s_l"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SAME_DRIVE 143
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _strlwr_s_l(char *_String, size_t _Size, _locale_t _Locale)
      * }
      */
-    public static int ERROR_SAME_DRIVE() {
-        return (int)143L;
+    public static FunctionDescriptor _strlwr_s_l$descriptor() {
+        return _strlwr_s_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DIR_NOT_ROOT 144
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _strlwr_s_l(char *_String, size_t _Size, _locale_t _Locale)
      * }
      */
-    public static int ERROR_DIR_NOT_ROOT() {
-        return (int)144L;
+    public static MethodHandle _strlwr_s_l$handle() {
+        return _strlwr_s_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_DIR_NOT_EMPTY 145
+     * {@snippet lang=c :
+     * errno_t _strlwr_s_l(char *_String, size_t _Size, _locale_t _Locale)
      * }
      */
-    public static int ERROR_DIR_NOT_EMPTY() {
-        return (int)145L;
+    public static int _strlwr_s_l(MemorySegment _String, long _Size, MemorySegment _Locale) {
+        var mh$ = _strlwr_s_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strlwr_s_l", _String, _Size, _Locale);
+            }
+            return (int)mh$.invokeExact(_String, _Size, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _strlwr_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strlwr_l"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_IS_SUBST_PATH 146
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *_strlwr_l(char *_String, _locale_t _Locale)
      * }
      */
-    public static int ERROR_IS_SUBST_PATH() {
-        return (int)146L;
+    public static FunctionDescriptor _strlwr_l$descriptor() {
+        return _strlwr_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_IS_JOIN_PATH 147
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *_strlwr_l(char *_String, _locale_t _Locale)
      * }
      */
-    public static int ERROR_IS_JOIN_PATH() {
-        return (int)147L;
+    public static MethodHandle _strlwr_l$handle() {
+        return _strlwr_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_PATH_BUSY 148
+     * {@snippet lang=c :
+     * char *_strlwr_l(char *_String, _locale_t _Locale)
      * }
      */
-    public static int ERROR_PATH_BUSY() {
-        return (int)148L;
+    public static MemorySegment _strlwr_l(MemorySegment _String, MemorySegment _Locale) {
+        var mh$ = _strlwr_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strlwr_l", _String, _Locale);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strncat {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strncat"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_IS_SUBST_TARGET 149
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strncat(char *_Destination, const char *_Source, size_t _Count)
      * }
      */
-    public static int ERROR_IS_SUBST_TARGET() {
-        return (int)149L;
+    public static FunctionDescriptor strncat$descriptor() {
+        return strncat.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SYSTEM_TRACE 150
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strncat(char *_Destination, const char *_Source, size_t _Count)
      * }
      */
-    public static int ERROR_SYSTEM_TRACE() {
-        return (int)150L;
+    public static MethodHandle strncat$handle() {
+        return strncat.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_EVENT_COUNT 151
+     * {@snippet lang=c :
+     * char *strncat(char *_Destination, const char *_Source, size_t _Count)
      * }
      */
-    public static int ERROR_INVALID_EVENT_COUNT() {
-        return (int)151L;
+    public static MemorySegment strncat(MemorySegment _Destination, MemorySegment _Source, long _Count) {
+        var mh$ = strncat.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strncat", _Destination, _Source, _Count);
+            }
+            return (MemorySegment)mh$.invokeExact(_Destination, _Source, _Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strncmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strncmp"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_TOO_MANY_MUXWAITERS 152
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int strncmp(const char *_Str1, const char *_Str2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_TOO_MANY_MUXWAITERS() {
-        return (int)152L;
+    public static FunctionDescriptor strncmp$descriptor() {
+        return strncmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_LIST_FORMAT 153
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int strncmp(const char *_Str1, const char *_Str2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_INVALID_LIST_FORMAT() {
-        return (int)153L;
+    public static MethodHandle strncmp$handle() {
+        return strncmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_LABEL_TOO_LONG 154
+     * {@snippet lang=c :
+     * int strncmp(const char *_Str1, const char *_Str2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_LABEL_TOO_LONG() {
-        return (int)154L;
+    public static int strncmp(MemorySegment _Str1, MemorySegment _Str2, long _MaxCount) {
+        var mh$ = strncmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strncmp", _Str1, _Str2, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_Str1, _Str2, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _strnicmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strnicmp"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_TOO_MANY_TCBS 155
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _strnicmp(const char *_String1, const char *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_TOO_MANY_TCBS() {
-        return (int)155L;
+    public static FunctionDescriptor _strnicmp$descriptor() {
+        return _strnicmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SIGNAL_REFUSED 156
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _strnicmp(const char *_String1, const char *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_SIGNAL_REFUSED() {
-        return (int)156L;
+    public static MethodHandle _strnicmp$handle() {
+        return _strnicmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_DISCARDED 157
+     * {@snippet lang=c :
+     * int _strnicmp(const char *_String1, const char *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_DISCARDED() {
-        return (int)157L;
+    public static int _strnicmp(MemorySegment _String1, MemorySegment _String2, long _MaxCount) {
+        var mh$ = _strnicmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strnicmp", _String1, _String2, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _strnicmp_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strnicmp_l"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOT_LOCKED 158
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _strnicmp_l(const char *_String1, const char *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_NOT_LOCKED() {
-        return (int)158L;
+    public static FunctionDescriptor _strnicmp_l$descriptor() {
+        return _strnicmp_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_THREADID_ADDR 159
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _strnicmp_l(const char *_String1, const char *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_BAD_THREADID_ADDR() {
-        return (int)159L;
+    public static MethodHandle _strnicmp_l$handle() {
+        return _strnicmp_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_BAD_ARGUMENTS 160
+     * {@snippet lang=c :
+     * int _strnicmp_l(const char *_String1, const char *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_BAD_ARGUMENTS() {
-        return (int)160L;
+    public static int _strnicmp_l(MemorySegment _String1, MemorySegment _String2, long _MaxCount, MemorySegment _Locale) {
+        var mh$ = _strnicmp_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strnicmp_l", _String1, _String2, _MaxCount, _Locale);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _strnicoll {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strnicoll"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_PATHNAME 161
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _strnicoll(const char *_String1, const char *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_BAD_PATHNAME() {
-        return (int)161L;
+    public static FunctionDescriptor _strnicoll$descriptor() {
+        return _strnicoll.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SIGNAL_PENDING 162
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _strnicoll(const char *_String1, const char *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_SIGNAL_PENDING() {
-        return (int)162L;
+    public static MethodHandle _strnicoll$handle() {
+        return _strnicoll.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_MAX_THRDS_REACHED 164
+     * {@snippet lang=c :
+     * int _strnicoll(const char *_String1, const char *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_MAX_THRDS_REACHED() {
-        return (int)164L;
+    public static int _strnicoll(MemorySegment _String1, MemorySegment _String2, long _MaxCount) {
+        var mh$ = _strnicoll.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strnicoll", _String1, _String2, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _strnicoll_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strnicoll_l"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_LOCK_FAILED 167
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _strnicoll_l(const char *_String1, const char *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_LOCK_FAILED() {
-        return (int)167L;
+    public static FunctionDescriptor _strnicoll_l$descriptor() {
+        return _strnicoll_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BUSY 170
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _strnicoll_l(const char *_String1, const char *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_BUSY() {
-        return (int)170L;
+    public static MethodHandle _strnicoll_l$handle() {
+        return _strnicoll_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_SUPPORT_IN_PROGRESS 171
+     * {@snippet lang=c :
+     * int _strnicoll_l(const char *_String1, const char *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_DEVICE_SUPPORT_IN_PROGRESS() {
-        return (int)171L;
+    public static int _strnicoll_l(MemorySegment _String1, MemorySegment _String2, long _MaxCount, MemorySegment _Locale) {
+        var mh$ = _strnicoll_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strnicoll_l", _String1, _String2, _MaxCount, _Locale);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _strncoll {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strncoll"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CANCEL_VIOLATION 173
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _strncoll(const char *_String1, const char *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_CANCEL_VIOLATION() {
-        return (int)173L;
+    public static FunctionDescriptor _strncoll$descriptor() {
+        return _strncoll.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_ATOMIC_LOCKS_NOT_SUPPORTED 174
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _strncoll(const char *_String1, const char *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_ATOMIC_LOCKS_NOT_SUPPORTED() {
-        return (int)174L;
+    public static MethodHandle _strncoll$handle() {
+        return _strncoll.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_SEGMENT_NUMBER 180
+     * {@snippet lang=c :
+     * int _strncoll(const char *_String1, const char *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_INVALID_SEGMENT_NUMBER() {
-        return (int)180L;
+    public static int _strncoll(MemorySegment _String1, MemorySegment _String2, long _MaxCount) {
+        var mh$ = _strncoll.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strncoll", _String1, _String2, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _strncoll_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strncoll_l"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_ORDINAL 182
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int _strncoll_l(const char *_String1, const char *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_INVALID_ORDINAL() {
-        return (int)182L;
+    public static FunctionDescriptor _strncoll_l$descriptor() {
+        return _strncoll_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_ALREADY_EXISTS 183
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int _strncoll_l(const char *_String1, const char *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_ALREADY_EXISTS() {
-        return (int)183L;
+    public static MethodHandle _strncoll_l$handle() {
+        return _strncoll_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_FLAG_NUMBER 186
+     * {@snippet lang=c :
+     * int _strncoll_l(const char *_String1, const char *_String2, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_INVALID_FLAG_NUMBER() {
-        return (int)186L;
+    public static int _strncoll_l(MemorySegment _String1, MemorySegment _String2, long _MaxCount, MemorySegment _Locale) {
+        var mh$ = _strncoll_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strncoll_l", _String1, _String2, _MaxCount, _Locale);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __strncnt {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__strncnt"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SEM_NOT_FOUND 187
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * size_t __strncnt(const char *_String, size_t _Count)
      * }
      */
-    public static int ERROR_SEM_NOT_FOUND() {
-        return (int)187L;
+    public static FunctionDescriptor __strncnt$descriptor() {
+        return __strncnt.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_STARTING_CODESEG 188
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * size_t __strncnt(const char *_String, size_t _Count)
      * }
      */
-    public static int ERROR_INVALID_STARTING_CODESEG() {
-        return (int)188L;
+    public static MethodHandle __strncnt$handle() {
+        return __strncnt.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_STACKSEG 189
+     * {@snippet lang=c :
+     * size_t __strncnt(const char *_String, size_t _Count)
      * }
      */
-    public static int ERROR_INVALID_STACKSEG() {
-        return (int)189L;
+    public static long __strncnt(MemorySegment _String, long _Count) {
+        var mh$ = __strncnt.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__strncnt", _String, _Count);
+            }
+            return (long)mh$.invokeExact(_String, _Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strncpy {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strncpy"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_MODULETYPE 190
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strncpy(char *_Destination, const char *_Source, size_t _Count)
      * }
      */
-    public static int ERROR_INVALID_MODULETYPE() {
-        return (int)190L;
+    public static FunctionDescriptor strncpy$descriptor() {
+        return strncpy.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_EXE_SIGNATURE 191
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strncpy(char *_Destination, const char *_Source, size_t _Count)
      * }
      */
-    public static int ERROR_INVALID_EXE_SIGNATURE() {
-        return (int)191L;
+    public static MethodHandle strncpy$handle() {
+        return strncpy.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_EXE_MARKED_INVALID 192
+     * {@snippet lang=c :
+     * char *strncpy(char *_Destination, const char *_Source, size_t _Count)
      * }
      */
-    public static int ERROR_EXE_MARKED_INVALID() {
-        return (int)192L;
+    public static MemorySegment strncpy(MemorySegment _Destination, MemorySegment _Source, long _Count) {
+        var mh$ = strncpy.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strncpy", _Destination, _Source, _Count);
+            }
+            return (MemorySegment)mh$.invokeExact(_Destination, _Source, _Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strnlen {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strnlen"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_EXE_FORMAT 193
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * size_t strnlen(const char *_String, size_t _MaxCount)
      * }
      */
-    public static int ERROR_BAD_EXE_FORMAT() {
-        return (int)193L;
+    public static FunctionDescriptor strnlen$descriptor() {
+        return strnlen.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_ITERATED_DATA_EXCEEDS_64k 194
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * size_t strnlen(const char *_String, size_t _MaxCount)
      * }
      */
-    public static int ERROR_ITERATED_DATA_EXCEEDS_64k() {
-        return (int)194L;
+    public static MethodHandle strnlen$handle() {
+        return strnlen.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_MINALLOCSIZE 195
+     * {@snippet lang=c :
+     * size_t strnlen(const char *_String, size_t _MaxCount)
      * }
      */
-    public static int ERROR_INVALID_MINALLOCSIZE() {
-        return (int)195L;
+    public static long strnlen(MemorySegment _String, long _MaxCount) {
+        var mh$ = strnlen.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strnlen", _String, _MaxCount);
+            }
+            return (long)mh$.invokeExact(_String, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _strnset_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_INT,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strnset_s"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_DYNLINK_FROM_INVALID_RING 196
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _strnset_s(char *_String, size_t _SizeInBytes, int _Value, size_t _MaxCount)
      * }
      */
-    public static int ERROR_DYNLINK_FROM_INVALID_RING() {
-        return (int)196L;
+    public static FunctionDescriptor _strnset_s$descriptor() {
+        return _strnset_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_IOPL_NOT_ENABLED 197
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _strnset_s(char *_String, size_t _SizeInBytes, int _Value, size_t _MaxCount)
      * }
      */
-    public static int ERROR_IOPL_NOT_ENABLED() {
-        return (int)197L;
+    public static MethodHandle _strnset_s$handle() {
+        return _strnset_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_SEGDPL 198
+     * {@snippet lang=c :
+     * errno_t _strnset_s(char *_String, size_t _SizeInBytes, int _Value, size_t _MaxCount)
      * }
      */
-    public static int ERROR_INVALID_SEGDPL() {
-        return (int)198L;
+    public static int _strnset_s(MemorySegment _String, long _SizeInBytes, int _Value, long _MaxCount) {
+        var mh$ = _strnset_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strnset_s", _String, _SizeInBytes, _Value, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_String, _SizeInBytes, _Value, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _strnset {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strnset"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_AUTODATASEG_EXCEEDS_64k 199
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *_strnset(char *_Destination, int _Value, size_t _Count)
      * }
      */
-    public static int ERROR_AUTODATASEG_EXCEEDS_64k() {
-        return (int)199L;
+    public static FunctionDescriptor _strnset$descriptor() {
+        return _strnset.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_RING2SEG_MUST_BE_MOVABLE 200
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *_strnset(char *_Destination, int _Value, size_t _Count)
      * }
      */
-    public static int ERROR_RING2SEG_MUST_BE_MOVABLE() {
-        return (int)200L;
+    public static MethodHandle _strnset$handle() {
+        return _strnset.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_RELOC_CHAIN_XEEDS_SEGLIM 201
+     * {@snippet lang=c :
+     * char *_strnset(char *_Destination, int _Value, size_t _Count)
      * }
      */
-    public static int ERROR_RELOC_CHAIN_XEEDS_SEGLIM() {
-        return (int)201L;
+    public static MemorySegment _strnset(MemorySegment _Destination, int _Value, long _Count) {
+        var mh$ = _strnset.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strnset", _Destination, _Value, _Count);
+            }
+            return (MemorySegment)mh$.invokeExact(_Destination, _Value, _Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strpbrk {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strpbrk"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_INFLOOP_IN_RELOC_CHAIN 202
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strpbrk(const char *_Str, const char *_Control)
      * }
      */
-    public static int ERROR_INFLOOP_IN_RELOC_CHAIN() {
-        return (int)202L;
+    public static FunctionDescriptor strpbrk$descriptor() {
+        return strpbrk.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_ENVVAR_NOT_FOUND 203
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strpbrk(const char *_Str, const char *_Control)
      * }
      */
-    public static int ERROR_ENVVAR_NOT_FOUND() {
-        return (int)203L;
+    public static MethodHandle strpbrk$handle() {
+        return strpbrk.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NO_SIGNAL_SENT 205
+     * {@snippet lang=c :
+     * char *strpbrk(const char *_Str, const char *_Control)
      * }
      */
-    public static int ERROR_NO_SIGNAL_SENT() {
-        return (int)205L;
+    public static MemorySegment strpbrk(MemorySegment _Str, MemorySegment _Control) {
+        var mh$ = strpbrk.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strpbrk", _Str, _Control);
+            }
+            return (MemorySegment)mh$.invokeExact(_Str, _Control);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _strrev {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strrev"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FILENAME_EXCED_RANGE 206
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *_strrev(char *_Str)
      * }
      */
-    public static int ERROR_FILENAME_EXCED_RANGE() {
-        return (int)206L;
+    public static FunctionDescriptor _strrev$descriptor() {
+        return _strrev.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_RING2_STACK_IN_USE 207
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *_strrev(char *_Str)
      * }
      */
-    public static int ERROR_RING2_STACK_IN_USE() {
-        return (int)207L;
+    public static MethodHandle _strrev$handle() {
+        return _strrev.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_META_EXPANSION_TOO_LONG 208
+     * {@snippet lang=c :
+     * char *_strrev(char *_Str)
      * }
      */
-    public static int ERROR_META_EXPANSION_TOO_LONG() {
-        return (int)208L;
+    public static MemorySegment _strrev(MemorySegment _Str) {
+        var mh$ = _strrev.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strrev", _Str);
+            }
+            return (MemorySegment)mh$.invokeExact(_Str);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _strset_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strset_s"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_SIGNAL_NUMBER 209
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _strset_s(char *_Destination, size_t _DestinationSize, int _Value)
      * }
      */
-    public static int ERROR_INVALID_SIGNAL_NUMBER() {
-        return (int)209L;
+    public static FunctionDescriptor _strset_s$descriptor() {
+        return _strset_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_THREAD_1_INACTIVE 210
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _strset_s(char *_Destination, size_t _DestinationSize, int _Value)
      * }
      */
-    public static int ERROR_THREAD_1_INACTIVE() {
-        return (int)210L;
+    public static MethodHandle _strset_s$handle() {
+        return _strset_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_LOCKED 212
+     * {@snippet lang=c :
+     * errno_t _strset_s(char *_Destination, size_t _DestinationSize, int _Value)
      * }
      */
-    public static int ERROR_LOCKED() {
-        return (int)212L;
+    public static int _strset_s(MemorySegment _Destination, long _DestinationSize, int _Value) {
+        var mh$ = _strset_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strset_s", _Destination, _DestinationSize, _Value);
+            }
+            return (int)mh$.invokeExact(_Destination, _DestinationSize, _Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _strset {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strset"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_TOO_MANY_MODULES 214
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *_strset(char *_Destination, int _Value)
      * }
      */
-    public static int ERROR_TOO_MANY_MODULES() {
-        return (int)214L;
+    public static FunctionDescriptor _strset$descriptor() {
+        return _strset.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NESTING_NOT_ALLOWED 215
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *_strset(char *_Destination, int _Value)
      * }
      */
-    public static int ERROR_NESTING_NOT_ALLOWED() {
-        return (int)215L;
+    public static MethodHandle _strset$handle() {
+        return _strset.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_EXE_MACHINE_TYPE_MISMATCH 216
+     * {@snippet lang=c :
+     * char *_strset(char *_Destination, int _Value)
      * }
      */
-    public static int ERROR_EXE_MACHINE_TYPE_MISMATCH() {
-        return (int)216L;
+    public static MemorySegment _strset(MemorySegment _Destination, int _Value) {
+        var mh$ = _strset.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strset", _Destination, _Value);
+            }
+            return (MemorySegment)mh$.invokeExact(_Destination, _Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strspn {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strspn"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_EXE_CANNOT_MODIFY_SIGNED_BINARY 217
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long long strspn(const char *_Str, const char *_Control)
      * }
      */
-    public static int ERROR_EXE_CANNOT_MODIFY_SIGNED_BINARY() {
-        return (int)217L;
+    public static FunctionDescriptor strspn$descriptor() {
+        return strspn.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_EXE_CANNOT_MODIFY_STRONG_SIGNED_BINARY 218
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long long strspn(const char *_Str, const char *_Control)
      * }
      */
-    public static int ERROR_EXE_CANNOT_MODIFY_STRONG_SIGNED_BINARY() {
-        return (int)218L;
+    public static MethodHandle strspn$handle() {
+        return strspn.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_FILE_CHECKED_OUT 220
+     * {@snippet lang=c :
+     * unsigned long long strspn(const char *_Str, const char *_Control)
      * }
      */
-    public static int ERROR_FILE_CHECKED_OUT() {
-        return (int)220L;
+    public static long strspn(MemorySegment _Str, MemorySegment _Control) {
+        var mh$ = strspn.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strspn", _Str, _Control);
+            }
+            return (long)mh$.invokeExact(_Str, _Control);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strtok {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strtok"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CHECKOUT_REQUIRED 221
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strtok(char *_String, const char *_Delimiter)
      * }
      */
-    public static int ERROR_CHECKOUT_REQUIRED() {
-        return (int)221L;
+    public static FunctionDescriptor strtok$descriptor() {
+        return strtok.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_FILE_TYPE 222
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strtok(char *_String, const char *_Delimiter)
      * }
      */
-    public static int ERROR_BAD_FILE_TYPE() {
-        return (int)222L;
+    public static MethodHandle strtok$handle() {
+        return strtok.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_FILE_TOO_LARGE 223
+     * {@snippet lang=c :
+     * char *strtok(char *_String, const char *_Delimiter)
      * }
      */
-    public static int ERROR_FILE_TOO_LARGE() {
-        return (int)223L;
+    public static MemorySegment strtok(MemorySegment _String, MemorySegment _Delimiter) {
+        var mh$ = strtok.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strtok", _String, _Delimiter);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Delimiter);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _strupr_s {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strupr_s"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_FORMS_AUTH_REQUIRED 224
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _strupr_s(char *_String, size_t _Size)
      * }
      */
-    public static int ERROR_FORMS_AUTH_REQUIRED() {
-        return (int)224L;
+    public static FunctionDescriptor _strupr_s$descriptor() {
+        return _strupr_s.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_VIRUS_INFECTED 225
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _strupr_s(char *_String, size_t _Size)
      * }
      */
-    public static int ERROR_VIRUS_INFECTED() {
-        return (int)225L;
+    public static MethodHandle _strupr_s$handle() {
+        return _strupr_s.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_VIRUS_DELETED 226
+     * {@snippet lang=c :
+     * errno_t _strupr_s(char *_String, size_t _Size)
      * }
      */
-    public static int ERROR_VIRUS_DELETED() {
-        return (int)226L;
+    public static int _strupr_s(MemorySegment _String, long _Size) {
+        var mh$ = _strupr_s.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strupr_s", _String, _Size);
+            }
+            return (int)mh$.invokeExact(_String, _Size);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _strupr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strupr"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PIPE_LOCAL 229
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *_strupr(char *_String)
      * }
      */
-    public static int ERROR_PIPE_LOCAL() {
-        return (int)229L;
+    public static FunctionDescriptor _strupr$descriptor() {
+        return _strupr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_PIPE 230
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *_strupr(char *_String)
      * }
      */
-    public static int ERROR_BAD_PIPE() {
-        return (int)230L;
+    public static MethodHandle _strupr$handle() {
+        return _strupr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_PIPE_BUSY 231
+     * {@snippet lang=c :
+     * char *_strupr(char *_String)
      * }
      */
-    public static int ERROR_PIPE_BUSY() {
-        return (int)231L;
+    public static MemorySegment _strupr(MemorySegment _String) {
+        var mh$ = _strupr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strupr", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _strupr_s_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strupr_s_l"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_NO_DATA 232
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * errno_t _strupr_s_l(char *_String, size_t _Size, _locale_t _Locale)
      * }
      */
-    public static int ERROR_NO_DATA() {
-        return (int)232L;
+    public static FunctionDescriptor _strupr_s_l$descriptor() {
+        return _strupr_s_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PIPE_NOT_CONNECTED 233
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * errno_t _strupr_s_l(char *_String, size_t _Size, _locale_t _Locale)
      * }
      */
-    public static int ERROR_PIPE_NOT_CONNECTED() {
-        return (int)233L;
+    public static MethodHandle _strupr_s_l$handle() {
+        return _strupr_s_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_MORE_DATA 234
+     * {@snippet lang=c :
+     * errno_t _strupr_s_l(char *_String, size_t _Size, _locale_t _Locale)
      * }
      */
-    public static int ERROR_MORE_DATA() {
-        return (int)234L;
+    public static int _strupr_s_l(MemorySegment _String, long _Size, MemorySegment _Locale) {
+        var mh$ = _strupr_s_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strupr_s_l", _String, _Size, _Locale);
+            }
+            return (int)mh$.invokeExact(_String, _Size, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _strupr_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strupr_l"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NO_WORK_DONE 235
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *_strupr_l(char *_String, _locale_t _Locale)
      * }
      */
-    public static int ERROR_NO_WORK_DONE() {
-        return (int)235L;
+    public static FunctionDescriptor _strupr_l$descriptor() {
+        return _strupr_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_VC_DISCONNECTED 240
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *_strupr_l(char *_String, _locale_t _Locale)
      * }
      */
-    public static int ERROR_VC_DISCONNECTED() {
-        return (int)240L;
+    public static MethodHandle _strupr_l$handle() {
+        return _strupr_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_EA_NAME 254
+     * {@snippet lang=c :
+     * char *_strupr_l(char *_String, _locale_t _Locale)
      * }
      */
-    public static int ERROR_INVALID_EA_NAME() {
-        return (int)254L;
+    public static MemorySegment _strupr_l(MemorySegment _String, MemorySegment _Locale) {
+        var mh$ = _strupr_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strupr_l", _String, _Locale);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strxfrm {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strxfrm"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_EA_LIST_INCONSISTENT 255
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long long strxfrm(char *_Destination, const char *_Source, size_t _MaxCount)
      * }
      */
-    public static int ERROR_EA_LIST_INCONSISTENT() {
-        return (int)255L;
+    public static FunctionDescriptor strxfrm$descriptor() {
+        return strxfrm.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define WAIT_TIMEOUT 258
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long long strxfrm(char *_Destination, const char *_Source, size_t _MaxCount)
      * }
      */
-    public static int WAIT_TIMEOUT() {
-        return (int)258L;
+    public static MethodHandle strxfrm$handle() {
+        return strxfrm.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NO_MORE_ITEMS 259
+     * {@snippet lang=c :
+     * unsigned long long strxfrm(char *_Destination, const char *_Source, size_t _MaxCount)
      * }
      */
-    public static int ERROR_NO_MORE_ITEMS() {
-        return (int)259L;
+    public static long strxfrm(MemorySegment _Destination, MemorySegment _Source, long _MaxCount) {
+        var mh$ = strxfrm.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strxfrm", _Destination, _Source, _MaxCount);
+            }
+            return (long)mh$.invokeExact(_Destination, _Source, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _strxfrm_l {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_strxfrm_l"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CANNOT_COPY 266
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * size_t _strxfrm_l(char *_Destination, const char *_Source, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_CANNOT_COPY() {
-        return (int)266L;
+    public static FunctionDescriptor _strxfrm_l$descriptor() {
+        return _strxfrm_l.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DIRECTORY 267
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * size_t _strxfrm_l(char *_Destination, const char *_Source, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_DIRECTORY() {
-        return (int)267L;
+    public static MethodHandle _strxfrm_l$handle() {
+        return _strxfrm_l.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_EAS_DIDNT_FIT 275
+     * {@snippet lang=c :
+     * size_t _strxfrm_l(char *_Destination, const char *_Source, size_t _MaxCount, _locale_t _Locale)
      * }
      */
-    public static int ERROR_EAS_DIDNT_FIT() {
-        return (int)275L;
+    public static long _strxfrm_l(MemorySegment _Destination, MemorySegment _Source, long _MaxCount, MemorySegment _Locale) {
+        var mh$ = _strxfrm_l.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_strxfrm_l", _Destination, _Source, _MaxCount, _Locale);
+            }
+            return (long)mh$.invokeExact(_Destination, _Source, _MaxCount, _Locale);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strdup {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strdup"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_EA_FILE_CORRUPT 276
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strdup(const char *_String)
      * }
      */
-    public static int ERROR_EA_FILE_CORRUPT() {
-        return (int)276L;
+    public static FunctionDescriptor strdup$descriptor() {
+        return strdup.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_EA_TABLE_FULL 277
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strdup(const char *_String)
      * }
      */
-    public static int ERROR_EA_TABLE_FULL() {
-        return (int)277L;
+    public static MethodHandle strdup$handle() {
+        return strdup.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_EA_HANDLE 278
+     * {@snippet lang=c :
+     * char *strdup(const char *_String)
      * }
      */
-    public static int ERROR_INVALID_EA_HANDLE() {
-        return (int)278L;
+    public static MemorySegment strdup(MemorySegment _String) {
+        var mh$ = strdup.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strdup", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strcmpi {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strcmpi"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_EAS_NOT_SUPPORTED 282
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int strcmpi(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_EAS_NOT_SUPPORTED() {
-        return (int)282L;
+    public static FunctionDescriptor strcmpi$descriptor() {
+        return strcmpi.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOT_OWNER 288
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int strcmpi(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_NOT_OWNER() {
-        return (int)288L;
+    public static MethodHandle strcmpi$handle() {
+        return strcmpi.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_TOO_MANY_POSTS 298
+     * {@snippet lang=c :
+     * int strcmpi(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_TOO_MANY_POSTS() {
-        return (int)298L;
+    public static int strcmpi(MemorySegment _String1, MemorySegment _String2) {
+        var mh$ = strcmpi.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strcmpi", _String1, _String2);
+            }
+            return (int)mh$.invokeExact(_String1, _String2);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class stricmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("stricmp"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_PARTIAL_COPY 299
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int stricmp(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_PARTIAL_COPY() {
-        return (int)299L;
+    public static FunctionDescriptor stricmp$descriptor() {
+        return stricmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_OPLOCK_NOT_GRANTED 300
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int stricmp(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_OPLOCK_NOT_GRANTED() {
-        return (int)300L;
+    public static MethodHandle stricmp$handle() {
+        return stricmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_OPLOCK_PROTOCOL 301
+     * {@snippet lang=c :
+     * int stricmp(const char *_String1, const char *_String2)
      * }
      */
-    public static int ERROR_INVALID_OPLOCK_PROTOCOL() {
-        return (int)301L;
+    public static int stricmp(MemorySegment _String1, MemorySegment _String2) {
+        var mh$ = stricmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("stricmp", _String1, _String2);
+            }
+            return (int)mh$.invokeExact(_String1, _String2);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strlwr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strlwr"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DISK_TOO_FRAGMENTED 302
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strlwr(char *_String)
      * }
      */
-    public static int ERROR_DISK_TOO_FRAGMENTED() {
-        return (int)302L;
+    public static FunctionDescriptor strlwr$descriptor() {
+        return strlwr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DELETE_PENDING 303
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strlwr(char *_String)
      * }
      */
-    public static int ERROR_DELETE_PENDING() {
-        return (int)303L;
+    public static MethodHandle strlwr$handle() {
+        return strlwr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INCOMPATIBLE_WITH_GLOBAL_SHORT_NAME_REGISTRY_SETTING 304
+     * {@snippet lang=c :
+     * char *strlwr(char *_String)
      * }
      */
-    public static int ERROR_INCOMPATIBLE_WITH_GLOBAL_SHORT_NAME_REGISTRY_SETTING() {
-        return (int)304L;
+    public static MemorySegment strlwr(MemorySegment _String) {
+        var mh$ = strlwr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strlwr", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strnicmp {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strnicmp"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_SHORT_NAMES_NOT_ENABLED_ON_VOLUME 305
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * int strnicmp(const char *_String1, const char *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_SHORT_NAMES_NOT_ENABLED_ON_VOLUME() {
-        return (int)305L;
+    public static FunctionDescriptor strnicmp$descriptor() {
+        return strnicmp.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SECURITY_STREAM_IS_INCONSISTENT 306
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * int strnicmp(const char *_String1, const char *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_SECURITY_STREAM_IS_INCONSISTENT() {
-        return (int)306L;
+    public static MethodHandle strnicmp$handle() {
+        return strnicmp.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_LOCK_RANGE 307
+     * {@snippet lang=c :
+     * int strnicmp(const char *_String1, const char *_String2, size_t _MaxCount)
      * }
      */
-    public static int ERROR_INVALID_LOCK_RANGE() {
-        return (int)307L;
+    public static int strnicmp(MemorySegment _String1, MemorySegment _String2, long _MaxCount) {
+        var mh$ = strnicmp.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strnicmp", _String1, _String2, _MaxCount);
+            }
+            return (int)mh$.invokeExact(_String1, _String2, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strnset {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strnset"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_IMAGE_SUBSYSTEM_NOT_PRESENT 308
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strnset(char *_String, int _Value, size_t _MaxCount)
      * }
      */
-    public static int ERROR_IMAGE_SUBSYSTEM_NOT_PRESENT() {
-        return (int)308L;
+    public static FunctionDescriptor strnset$descriptor() {
+        return strnset.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOTIFICATION_GUID_ALREADY_DEFINED 309
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strnset(char *_String, int _Value, size_t _MaxCount)
      * }
      */
-    public static int ERROR_NOTIFICATION_GUID_ALREADY_DEFINED() {
-        return (int)309L;
+    public static MethodHandle strnset$handle() {
+        return strnset.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_EXCEPTION_HANDLER 310
+     * {@snippet lang=c :
+     * char *strnset(char *_String, int _Value, size_t _MaxCount)
      * }
      */
-    public static int ERROR_INVALID_EXCEPTION_HANDLER() {
-        return (int)310L;
+    public static MemorySegment strnset(MemorySegment _String, int _Value, long _MaxCount) {
+        var mh$ = strnset.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strnset", _String, _Value, _MaxCount);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Value, _MaxCount);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strrev {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strrev"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_DUPLICATE_PRIVILEGES 311
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strrev(char *_String)
      * }
      */
-    public static int ERROR_DUPLICATE_PRIVILEGES() {
-        return (int)311L;
+    public static FunctionDescriptor strrev$descriptor() {
+        return strrev.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NO_RANGES_PROCESSED 312
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strrev(char *_String)
      * }
      */
-    public static int ERROR_NO_RANGES_PROCESSED() {
-        return (int)312L;
+    public static MethodHandle strrev$handle() {
+        return strrev.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_ALLOWED_ON_SYSTEM_FILE 313
+     * {@snippet lang=c :
+     * char *strrev(char *_String)
      * }
      */
-    public static int ERROR_NOT_ALLOWED_ON_SYSTEM_FILE() {
-        return (int)313L;
+    public static MemorySegment strrev(MemorySegment _String) {
+        var mh$ = strrev.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strrev", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class strset {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strset"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DISK_RESOURCES_EXHAUSTED 314
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strset(char *_String, int _Value)
      * }
      */
-    public static int ERROR_DISK_RESOURCES_EXHAUSTED() {
-        return (int)314L;
+    public static FunctionDescriptor strset$descriptor() {
+        return strset.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_TOKEN 315
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strset(char *_String, int _Value)
      * }
      */
-    public static int ERROR_INVALID_TOKEN() {
-        return (int)315L;
+    public static MethodHandle strset$handle() {
+        return strset.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_FEATURE_NOT_SUPPORTED 316
+     * {@snippet lang=c :
+     * char *strset(char *_String, int _Value)
      * }
      */
-    public static int ERROR_DEVICE_FEATURE_NOT_SUPPORTED() {
-        return (int)316L;
+    public static MemorySegment strset(MemorySegment _String, int _Value) {
+        var mh$ = strset.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strset", _String, _Value);
+            }
+            return (MemorySegment)mh$.invokeExact(_String, _Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class strupr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("strupr"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_MR_MID_NOT_FOUND 317
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char *strupr(char *_String)
      * }
      */
-    public static int ERROR_MR_MID_NOT_FOUND() {
-        return (int)317L;
+    public static FunctionDescriptor strupr$descriptor() {
+        return strupr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SCOPE_NOT_FOUND 318
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char *strupr(char *_String)
      * }
      */
-    public static int ERROR_SCOPE_NOT_FOUND() {
-        return (int)318L;
+    public static MethodHandle strupr$handle() {
+        return strupr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_UNDEFINED_SCOPE 319
+     * {@snippet lang=c :
+     * char *strupr(char *_String)
      * }
      */
-    public static int ERROR_UNDEFINED_SCOPE() {
-        return (int)319L;
+    public static MemorySegment strupr(MemorySegment _String) {
+        var mh$ = strupr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("strupr", _String);
+            }
+            return (MemorySegment)mh$.invokeExact(_String);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_CAP 320
+     * {@snippet lang=c :
+     * typedef ULONG_PTR KSPIN_LOCK
      * }
      */
-    public static int ERROR_INVALID_CAP() {
-        return (int)320L;
-    }
+    public static final OfLong KSPIN_LOCK = Windows_h.C_LONG_LONG;
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_UNREACHABLE 321
+     * {@snippet lang=c :
+     * typedef KSPIN_LOCK *PKSPIN_LOCK
      * }
      */
-    public static int ERROR_DEVICE_UNREACHABLE() {
-        return (int)321L;
-    }
+    public static final AddressLayout PKSPIN_LOCK = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_NO_RESOURCES 322
+     * {@snippet lang=c :
+     * typedef struct _M128A {
+     *     ULONGLONG Low;
+     *     LONGLONG High;
+     * } *PM128A
      * }
      */
-    public static int ERROR_DEVICE_NO_RESOURCES() {
-        return (int)322L;
-    }
+    public static final AddressLayout PM128A = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DATA_CHECKSUM_ERROR 323
+     * {@snippet lang=c :
+     * typedef struct _XSAVE_FORMAT {
+     *     WORD ControlWord;
+     *     WORD StatusWord;
+     *     BYTE TagWord;
+     *     BYTE Reserved1;
+     *     WORD ErrorOpcode;
+     *     DWORD ErrorOffset;
+     *     WORD ErrorSelector;
+     *     WORD Reserved2;
+     *     DWORD DataOffset;
+     *     WORD DataSelector;
+     *     WORD Reserved3;
+     *     DWORD MxCsr;
+     *     DWORD MxCsr_Mask;
+     *     M128A FloatRegisters[8];
+     *     M128A XmmRegisters[16];
+     *     BYTE Reserved4[96];
+     * } *PXSAVE_FORMAT
      * }
      */
-    public static int ERROR_DATA_CHECKSUM_ERROR() {
-        return (int)323L;
-    }
+    public static final AddressLayout PXSAVE_FORMAT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_INTERMIXED_KERNEL_EA_OPERATION 324
+     * {@snippet lang=c :
+     * typedef struct _XSAVE_CET_U_FORMAT {
+     *     DWORD64 Ia32CetUMsr;
+     *     DWORD64 Ia32Pl3SspMsr;
+     * } *PXSAVE_CET_U_FORMAT
      * }
      */
-    public static int ERROR_INTERMIXED_KERNEL_EA_OPERATION() {
-        return (int)324L;
-    }
+    public static final AddressLayout PXSAVE_CET_U_FORMAT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_FILE_LEVEL_TRIM_NOT_SUPPORTED 326
+     * {@snippet lang=c :
+     * typedef struct _XSAVE_AREA_HEADER {
+     *     DWORD64 Mask;
+     *     DWORD64 CompactionMask;
+     *     DWORD64 Reserved2[6];
+     * } *PXSAVE_AREA_HEADER
      * }
      */
-    public static int ERROR_FILE_LEVEL_TRIM_NOT_SUPPORTED() {
-        return (int)326L;
-    }
+    public static final AddressLayout PXSAVE_AREA_HEADER = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_OFFSET_ALIGNMENT_VIOLATION 327
+     * {@snippet lang=c :
+     * typedef struct _XSAVE_AREA {
+     *     XSAVE_FORMAT LegacyState;
+     *     XSAVE_AREA_HEADER Header;
+     * } *PXSAVE_AREA
      * }
      */
-    public static int ERROR_OFFSET_ALIGNMENT_VIOLATION() {
-        return (int)327L;
-    }
+    public static final AddressLayout PXSAVE_AREA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_FIELD_IN_PARAMETER_LIST 328
+     * {@snippet lang=c :
+     * typedef struct _XSTATE_CONTEXT {
+     *     DWORD64 Mask;
+     *     DWORD Length;
+     *     DWORD Reserved1;
+     *     PXSAVE_AREA Area;
+     *     PVOID Buffer;
+     * } *PXSTATE_CONTEXT
      * }
      */
-    public static int ERROR_INVALID_FIELD_IN_PARAMETER_LIST() {
-        return (int)328L;
-    }
+    public static final AddressLayout PXSTATE_CONTEXT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_OPERATION_IN_PROGRESS 329
+     * {@snippet lang=c :
+     * typedef struct _KERNEL_CET_CONTEXT {
+     *     DWORD64 Ssp;
+     *     DWORD64 Rip;
+     *     WORD SegCs;
+     *     union {
+     *         WORD AllFlags;
+     *         struct {
+     *             WORD UseWrss : 1;
+     *             WORD PopShadowStackOne : 1;
+     *             WORD Unused : 14;
+     *         };
+     *     };
+     *     WORD Fill[2];
+     * } *PKERNEL_CET_CONTEXT
      * }
      */
-    public static int ERROR_OPERATION_IN_PROGRESS() {
-        return (int)329L;
-    }
+    public static final AddressLayout PKERNEL_CET_CONTEXT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_BAD_DEVICE_PATH 330
+     * {@snippet lang=c :
+     * typedef struct _SCOPE_TABLE_AMD64 {
+     *     DWORD Count;
+     *     struct {
+     *         DWORD BeginAddress;
+     *         DWORD EndAddress;
+     *         DWORD HandlerAddress;
+     *         DWORD JumpTarget;
+     *     } ScopeRecord[1];
+     * } *PSCOPE_TABLE_AMD64
      * }
      */
-    public static int ERROR_BAD_DEVICE_PATH() {
-        return (int)330L;
+    public static final AddressLayout PSCOPE_TABLE_AMD64 = Windows_h.C_POINTER;
+
+    private static class _bittest {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_bittest"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_TOO_MANY_DESCRIPTORS 331
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _bittest(const LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_TOO_MANY_DESCRIPTORS() {
-        return (int)331L;
+    public static FunctionDescriptor _bittest$descriptor() {
+        return _bittest.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SCRUB_DATA_DISABLED 332
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _bittest(const LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_SCRUB_DATA_DISABLED() {
-        return (int)332L;
+    public static MethodHandle _bittest$handle() {
+        return _bittest.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_REDUNDANT_STORAGE 333
+     * {@snippet lang=c :
+     * unsigned char _bittest(const LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_NOT_REDUNDANT_STORAGE() {
-        return (int)333L;
+    public static byte _bittest(MemorySegment Base, int Offset) {
+        var mh$ = _bittest.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_bittest", Base, Offset);
+            }
+            return (byte)mh$.invokeExact(Base, Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _bittestandcomplement {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_bittestandcomplement"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_RESIDENT_FILE_NOT_SUPPORTED 334
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _bittestandcomplement(LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_RESIDENT_FILE_NOT_SUPPORTED() {
-        return (int)334L;
+    public static FunctionDescriptor _bittestandcomplement$descriptor() {
+        return _bittestandcomplement.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_COMPRESSED_FILE_NOT_SUPPORTED 335
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _bittestandcomplement(LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_COMPRESSED_FILE_NOT_SUPPORTED() {
-        return (int)335L;
+    public static MethodHandle _bittestandcomplement$handle() {
+        return _bittestandcomplement.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_DIRECTORY_NOT_SUPPORTED 336
+     * {@snippet lang=c :
+     * unsigned char _bittestandcomplement(LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_DIRECTORY_NOT_SUPPORTED() {
-        return (int)336L;
+    public static byte _bittestandcomplement(MemorySegment Base, int Offset) {
+        var mh$ = _bittestandcomplement.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_bittestandcomplement", Base, Offset);
+            }
+            return (byte)mh$.invokeExact(Base, Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _bittestandset {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_bittestandset"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOT_READ_FROM_COPY 337
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _bittestandset(LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_NOT_READ_FROM_COPY() {
-        return (int)337L;
+    public static FunctionDescriptor _bittestandset$descriptor() {
+        return _bittestandset.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FT_WRITE_FAILURE 338
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _bittestandset(LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_FT_WRITE_FAILURE() {
-        return (int)338L;
+    public static MethodHandle _bittestandset$handle() {
+        return _bittestandset.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_FT_DI_SCAN_REQUIRED 339
+     * {@snippet lang=c :
+     * unsigned char _bittestandset(LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_FT_DI_SCAN_REQUIRED() {
-        return (int)339L;
+    public static byte _bittestandset(MemorySegment Base, int Offset) {
+        var mh$ = _bittestandset.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_bittestandset", Base, Offset);
+            }
+            return (byte)mh$.invokeExact(Base, Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _bittestandreset {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_bittestandreset"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_KERNEL_INFO_VERSION 340
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _bittestandreset(LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_INVALID_KERNEL_INFO_VERSION() {
-        return (int)340L;
+    public static FunctionDescriptor _bittestandreset$descriptor() {
+        return _bittestandreset.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_PEP_INFO_VERSION 341
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _bittestandreset(LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_INVALID_PEP_INFO_VERSION() {
-        return (int)341L;
+    public static MethodHandle _bittestandreset$handle() {
+        return _bittestandreset.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_OBJECT_NOT_EXTERNALLY_BACKED 342
+     * {@snippet lang=c :
+     * unsigned char _bittestandreset(LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_OBJECT_NOT_EXTERNALLY_BACKED() {
-        return (int)342L;
+    public static byte _bittestandreset(MemorySegment Base, int Offset) {
+        var mh$ = _bittestandreset.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_bittestandreset", Base, Offset);
+            }
+            return (byte)mh$.invokeExact(Base, Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _interlockedbittestandset {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_interlockedbittestandset"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_EXTERNAL_BACKING_PROVIDER_UNKNOWN 343
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _interlockedbittestandset(volatile LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_EXTERNAL_BACKING_PROVIDER_UNKNOWN() {
-        return (int)343L;
+    public static FunctionDescriptor _interlockedbittestandset$descriptor() {
+        return _interlockedbittestandset.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_COMPRESSION_NOT_BENEFICIAL 344
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _interlockedbittestandset(volatile LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_COMPRESSION_NOT_BENEFICIAL() {
-        return (int)344L;
+    public static MethodHandle _interlockedbittestandset$handle() {
+        return _interlockedbittestandset.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_STORAGE_TOPOLOGY_ID_MISMATCH 345
+     * {@snippet lang=c :
+     * unsigned char _interlockedbittestandset(volatile LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_STORAGE_TOPOLOGY_ID_MISMATCH() {
-        return (int)345L;
+    public static byte _interlockedbittestandset(MemorySegment Base, int Offset) {
+        var mh$ = _interlockedbittestandset.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_interlockedbittestandset", Base, Offset);
+            }
+            return (byte)mh$.invokeExact(Base, Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _interlockedbittestandreset {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_interlockedbittestandreset"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_BLOCKED_BY_PARENTAL_CONTROLS 346
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _interlockedbittestandreset(volatile LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_BLOCKED_BY_PARENTAL_CONTROLS() {
-        return (int)346L;
+    public static FunctionDescriptor _interlockedbittestandreset$descriptor() {
+        return _interlockedbittestandreset.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BLOCK_TOO_MANY_REFERENCES 347
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _interlockedbittestandreset(volatile LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_BLOCK_TOO_MANY_REFERENCES() {
-        return (int)347L;
+    public static MethodHandle _interlockedbittestandreset$handle() {
+        return _interlockedbittestandreset.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_MARKED_TO_DISALLOW_WRITES 348
+     * {@snippet lang=c :
+     * unsigned char _interlockedbittestandreset(volatile LONG *Base, LONG Offset)
      * }
      */
-    public static int ERROR_MARKED_TO_DISALLOW_WRITES() {
-        return (int)348L;
+    public static byte _interlockedbittestandreset(MemorySegment Base, int Offset) {
+        var mh$ = _interlockedbittestandreset.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_interlockedbittestandreset", Base, Offset);
+            }
+            return (byte)mh$.invokeExact(Base, Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _bittest64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_bittest64"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_ENCLAVE_FAILURE 349
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _bittest64(const LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_ENCLAVE_FAILURE() {
-        return (int)349L;
+    public static FunctionDescriptor _bittest64$descriptor() {
+        return _bittest64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FAIL_NOACTION_REBOOT 350
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _bittest64(const LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_FAIL_NOACTION_REBOOT() {
-        return (int)350L;
+    public static MethodHandle _bittest64$handle() {
+        return _bittest64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_FAIL_SHUTDOWN 351
+     * {@snippet lang=c :
+     * unsigned char _bittest64(const LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_FAIL_SHUTDOWN() {
-        return (int)351L;
+    public static byte _bittest64(MemorySegment Base, long Offset) {
+        var mh$ = _bittest64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_bittest64", Base, Offset);
+            }
+            return (byte)mh$.invokeExact(Base, Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _bittestandcomplement64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_bittestandcomplement64"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_FAIL_RESTART 352
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _bittestandcomplement64(LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_FAIL_RESTART() {
-        return (int)352L;
+    public static FunctionDescriptor _bittestandcomplement64$descriptor() {
+        return _bittestandcomplement64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_MAX_SESSIONS_REACHED 353
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _bittestandcomplement64(LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_MAX_SESSIONS_REACHED() {
-        return (int)353L;
+    public static MethodHandle _bittestandcomplement64$handle() {
+        return _bittestandcomplement64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NETWORK_ACCESS_DENIED_EDP 354
+     * {@snippet lang=c :
+     * unsigned char _bittestandcomplement64(LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_NETWORK_ACCESS_DENIED_EDP() {
-        return (int)354L;
+    public static byte _bittestandcomplement64(MemorySegment Base, long Offset) {
+        var mh$ = _bittestandcomplement64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_bittestandcomplement64", Base, Offset);
+            }
+            return (byte)mh$.invokeExact(Base, Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _bittestandset64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_bittestandset64"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_HINT_NAME_BUFFER_TOO_SMALL 355
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _bittestandset64(LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_DEVICE_HINT_NAME_BUFFER_TOO_SMALL() {
-        return (int)355L;
+    public static FunctionDescriptor _bittestandset64$descriptor() {
+        return _bittestandset64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_EDP_POLICY_DENIES_OPERATION 356
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _bittestandset64(LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_EDP_POLICY_DENIES_OPERATION() {
-        return (int)356L;
+    public static MethodHandle _bittestandset64$handle() {
+        return _bittestandset64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_EDP_DPL_POLICY_CANT_BE_SATISFIED 357
+     * {@snippet lang=c :
+     * unsigned char _bittestandset64(LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_EDP_DPL_POLICY_CANT_BE_SATISFIED() {
-        return (int)357L;
+    public static byte _bittestandset64(MemorySegment Base, long Offset) {
+        var mh$ = _bittestandset64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_bittestandset64", Base, Offset);
+            }
+            return (byte)mh$.invokeExact(Base, Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _bittestandreset64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_bittestandreset64"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_SYNC_ROOT_METADATA_CORRUPT 358
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _bittestandreset64(LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_CLOUD_FILE_SYNC_ROOT_METADATA_CORRUPT() {
-        return (int)358L;
+    public static FunctionDescriptor _bittestandreset64$descriptor() {
+        return _bittestandreset64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_IN_MAINTENANCE 359
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _bittestandreset64(LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_DEVICE_IN_MAINTENANCE() {
-        return (int)359L;
+    public static MethodHandle _bittestandreset64$handle() {
+        return _bittestandreset64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SUPPORTED_ON_DAX 360
+     * {@snippet lang=c :
+     * unsigned char _bittestandreset64(LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_NOT_SUPPORTED_ON_DAX() {
-        return (int)360L;
+    public static byte _bittestandreset64(MemorySegment Base, long Offset) {
+        var mh$ = _bittestandreset64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_bittestandreset64", Base, Offset);
+            }
+            return (byte)mh$.invokeExact(Base, Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _interlockedbittestandset64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_interlockedbittestandset64"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DAX_MAPPING_EXISTS 361
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _interlockedbittestandset64(volatile LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_DAX_MAPPING_EXISTS() {
-        return (int)361L;
+    public static FunctionDescriptor _interlockedbittestandset64$descriptor() {
+        return _interlockedbittestandset64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_PROVIDER_NOT_RUNNING 362
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _interlockedbittestandset64(volatile LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_CLOUD_FILE_PROVIDER_NOT_RUNNING() {
-        return (int)362L;
+    public static MethodHandle _interlockedbittestandset64$handle() {
+        return _interlockedbittestandset64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_METADATA_CORRUPT 363
+     * {@snippet lang=c :
+     * unsigned char _interlockedbittestandset64(volatile LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_CLOUD_FILE_METADATA_CORRUPT() {
-        return (int)363L;
+    public static byte _interlockedbittestandset64(MemorySegment Base, long Offset) {
+        var mh$ = _interlockedbittestandset64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_interlockedbittestandset64", Base, Offset);
+            }
+            return (byte)mh$.invokeExact(Base, Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _interlockedbittestandreset64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_interlockedbittestandreset64"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_METADATA_TOO_LARGE 364
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _interlockedbittestandreset64(volatile LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_CLOUD_FILE_METADATA_TOO_LARGE() {
-        return (int)364L;
+    public static FunctionDescriptor _interlockedbittestandreset64$descriptor() {
+        return _interlockedbittestandreset64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_PROPERTY_BLOB_TOO_LARGE 365
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _interlockedbittestandreset64(volatile LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_CLOUD_FILE_PROPERTY_BLOB_TOO_LARGE() {
-        return (int)365L;
+    public static MethodHandle _interlockedbittestandreset64$handle() {
+        return _interlockedbittestandreset64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_PROPERTY_BLOB_CHECKSUM_MISMATCH 366
+     * {@snippet lang=c :
+     * unsigned char _interlockedbittestandreset64(volatile LONG64 *Base, LONG64 Offset)
      * }
      */
-    public static int ERROR_CLOUD_FILE_PROPERTY_BLOB_CHECKSUM_MISMATCH() {
-        return (int)366L;
+    public static byte _interlockedbittestandreset64(MemorySegment Base, long Offset) {
+        var mh$ = _interlockedbittestandreset64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_interlockedbittestandreset64", Base, Offset);
+            }
+            return (byte)mh$.invokeExact(Base, Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _BitScanForward {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_BitScanForward"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CHILD_PROCESS_BLOCKED 367
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _BitScanForward(DWORD *Index, DWORD Mask)
      * }
      */
-    public static int ERROR_CHILD_PROCESS_BLOCKED() {
-        return (int)367L;
+    public static FunctionDescriptor _BitScanForward$descriptor() {
+        return _BitScanForward.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_STORAGE_LOST_DATA_PERSISTENCE 368
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _BitScanForward(DWORD *Index, DWORD Mask)
      * }
      */
-    public static int ERROR_STORAGE_LOST_DATA_PERSISTENCE() {
-        return (int)368L;
+    public static MethodHandle _BitScanForward$handle() {
+        return _BitScanForward.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_FILE_SYSTEM_VIRTUALIZATION_UNAVAILABLE 369
+     * {@snippet lang=c :
+     * unsigned char _BitScanForward(DWORD *Index, DWORD Mask)
      * }
      */
-    public static int ERROR_FILE_SYSTEM_VIRTUALIZATION_UNAVAILABLE() {
-        return (int)369L;
+    public static byte _BitScanForward(MemorySegment Index, int Mask) {
+        var mh$ = _BitScanForward.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_BitScanForward", Index, Mask);
+            }
+            return (byte)mh$.invokeExact(Index, Mask);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _BitScanReverse {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_BitScanReverse"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_FILE_SYSTEM_VIRTUALIZATION_METADATA_CORRUPT 370
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _BitScanReverse(DWORD *Index, DWORD Mask)
      * }
      */
-    public static int ERROR_FILE_SYSTEM_VIRTUALIZATION_METADATA_CORRUPT() {
-        return (int)370L;
+    public static FunctionDescriptor _BitScanReverse$descriptor() {
+        return _BitScanReverse.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FILE_SYSTEM_VIRTUALIZATION_BUSY 371
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _BitScanReverse(DWORD *Index, DWORD Mask)
      * }
      */
-    public static int ERROR_FILE_SYSTEM_VIRTUALIZATION_BUSY() {
-        return (int)371L;
+    public static MethodHandle _BitScanReverse$handle() {
+        return _BitScanReverse.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_FILE_SYSTEM_VIRTUALIZATION_PROVIDER_UNKNOWN 372
+     * {@snippet lang=c :
+     * unsigned char _BitScanReverse(DWORD *Index, DWORD Mask)
      * }
      */
-    public static int ERROR_FILE_SYSTEM_VIRTUALIZATION_PROVIDER_UNKNOWN() {
-        return (int)372L;
+    public static byte _BitScanReverse(MemorySegment Index, int Mask) {
+        var mh$ = _BitScanReverse.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_BitScanReverse", Index, Mask);
+            }
+            return (byte)mh$.invokeExact(Index, Mask);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _BitScanForward64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_BitScanForward64"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_GDI_HANDLE_LEAK 373
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _BitScanForward64(DWORD *Index, DWORD64 Mask)
      * }
      */
-    public static int ERROR_GDI_HANDLE_LEAK() {
-        return (int)373L;
+    public static FunctionDescriptor _BitScanForward64$descriptor() {
+        return _BitScanForward64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_TOO_MANY_PROPERTY_BLOBS 374
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _BitScanForward64(DWORD *Index, DWORD64 Mask)
      * }
      */
-    public static int ERROR_CLOUD_FILE_TOO_MANY_PROPERTY_BLOBS() {
-        return (int)374L;
+    public static MethodHandle _BitScanForward64$handle() {
+        return _BitScanForward64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_PROPERTY_VERSION_NOT_SUPPORTED 375
+     * {@snippet lang=c :
+     * unsigned char _BitScanForward64(DWORD *Index, DWORD64 Mask)
      * }
      */
-    public static int ERROR_CLOUD_FILE_PROPERTY_VERSION_NOT_SUPPORTED() {
-        return (int)375L;
+    public static byte _BitScanForward64(MemorySegment Index, long Mask) {
+        var mh$ = _BitScanForward64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_BitScanForward64", Index, Mask);
+            }
+            return (byte)mh$.invokeExact(Index, Mask);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _BitScanReverse64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_BitScanReverse64"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOT_A_CLOUD_FILE 376
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _BitScanReverse64(DWORD *Index, DWORD64 Mask)
      * }
      */
-    public static int ERROR_NOT_A_CLOUD_FILE() {
-        return (int)376L;
+    public static FunctionDescriptor _BitScanReverse64$descriptor() {
+        return _BitScanReverse64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_NOT_IN_SYNC 377
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _BitScanReverse64(DWORD *Index, DWORD64 Mask)
      * }
      */
-    public static int ERROR_CLOUD_FILE_NOT_IN_SYNC() {
-        return (int)377L;
+    public static MethodHandle _BitScanReverse64$handle() {
+        return _BitScanReverse64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_ALREADY_CONNECTED 378
+     * {@snippet lang=c :
+     * unsigned char _BitScanReverse64(DWORD *Index, DWORD64 Mask)
      * }
      */
-    public static int ERROR_CLOUD_FILE_ALREADY_CONNECTED() {
-        return (int)378L;
+    public static byte _BitScanReverse64(MemorySegment Index, long Mask) {
+        var mh$ = _BitScanReverse64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_BitScanReverse64", Index, Mask);
+            }
+            return (byte)mh$.invokeExact(Index, Mask);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedIncrement16 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedIncrement16"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_NOT_SUPPORTED 379
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * short _InterlockedIncrement16(volatile SHORT *Addend)
      * }
      */
-    public static int ERROR_CLOUD_FILE_NOT_SUPPORTED() {
-        return (int)379L;
+    public static FunctionDescriptor _InterlockedIncrement16$descriptor() {
+        return _InterlockedIncrement16.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_INVALID_REQUEST 380
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * short _InterlockedIncrement16(volatile SHORT *Addend)
      * }
      */
-    public static int ERROR_CLOUD_FILE_INVALID_REQUEST() {
-        return (int)380L;
+    public static MethodHandle _InterlockedIncrement16$handle() {
+        return _InterlockedIncrement16.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_READ_ONLY_VOLUME 381
+     * {@snippet lang=c :
+     * short _InterlockedIncrement16(volatile SHORT *Addend)
      * }
      */
-    public static int ERROR_CLOUD_FILE_READ_ONLY_VOLUME() {
-        return (int)381L;
+    public static short _InterlockedIncrement16(MemorySegment Addend) {
+        var mh$ = _InterlockedIncrement16.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedIncrement16", Addend);
+            }
+            return (short)mh$.invokeExact(Addend);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedDecrement16 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedDecrement16"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_CONNECTED_PROVIDER_ONLY 382
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * short _InterlockedDecrement16(volatile SHORT *Addend)
      * }
      */
-    public static int ERROR_CLOUD_FILE_CONNECTED_PROVIDER_ONLY() {
-        return (int)382L;
+    public static FunctionDescriptor _InterlockedDecrement16$descriptor() {
+        return _InterlockedDecrement16.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_VALIDATION_FAILED 383
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * short _InterlockedDecrement16(volatile SHORT *Addend)
      * }
      */
-    public static int ERROR_CLOUD_FILE_VALIDATION_FAILED() {
-        return (int)383L;
+    public static MethodHandle _InterlockedDecrement16$handle() {
+        return _InterlockedDecrement16.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_SMB1_NOT_AVAILABLE 384
+     * {@snippet lang=c :
+     * short _InterlockedDecrement16(volatile SHORT *Addend)
      * }
      */
-    public static int ERROR_SMB1_NOT_AVAILABLE() {
-        return (int)384L;
+    public static short _InterlockedDecrement16(MemorySegment Addend) {
+        var mh$ = _InterlockedDecrement16.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedDecrement16", Addend);
+            }
+            return (short)mh$.invokeExact(Addend);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedCompareExchange16 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER,
+            Windows_h.C_SHORT,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedCompareExchange16"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FILE_SYSTEM_VIRTUALIZATION_INVALID_OPERATION 385
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * short _InterlockedCompareExchange16(volatile SHORT *Destination, SHORT ExChange, SHORT Comperand)
      * }
      */
-    public static int ERROR_FILE_SYSTEM_VIRTUALIZATION_INVALID_OPERATION() {
-        return (int)385L;
+    public static FunctionDescriptor _InterlockedCompareExchange16$descriptor() {
+        return _InterlockedCompareExchange16.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_AUTHENTICATION_FAILED 386
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * short _InterlockedCompareExchange16(volatile SHORT *Destination, SHORT ExChange, SHORT Comperand)
      * }
      */
-    public static int ERROR_CLOUD_FILE_AUTHENTICATION_FAILED() {
-        return (int)386L;
+    public static MethodHandle _InterlockedCompareExchange16$handle() {
+        return _InterlockedCompareExchange16.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_INSUFFICIENT_RESOURCES 387
+     * {@snippet lang=c :
+     * short _InterlockedCompareExchange16(volatile SHORT *Destination, SHORT ExChange, SHORT Comperand)
      * }
      */
-    public static int ERROR_CLOUD_FILE_INSUFFICIENT_RESOURCES() {
-        return (int)387L;
+    public static short _InterlockedCompareExchange16(MemorySegment Destination, short ExChange, short Comperand) {
+        var mh$ = _InterlockedCompareExchange16.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedCompareExchange16", Destination, ExChange, Comperand);
+            }
+            return (short)mh$.invokeExact(Destination, ExChange, Comperand);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedAnd {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedAnd"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_NETWORK_UNAVAILABLE 388
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long _InterlockedAnd(volatile LONG *Destination, LONG Value)
      * }
      */
-    public static int ERROR_CLOUD_FILE_NETWORK_UNAVAILABLE() {
-        return (int)388L;
+    public static FunctionDescriptor _InterlockedAnd$descriptor() {
+        return _InterlockedAnd.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_UNSUCCESSFUL 389
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long _InterlockedAnd(volatile LONG *Destination, LONG Value)
      * }
      */
-    public static int ERROR_CLOUD_FILE_UNSUCCESSFUL() {
-        return (int)389L;
+    public static MethodHandle _InterlockedAnd$handle() {
+        return _InterlockedAnd.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_NOT_UNDER_SYNC_ROOT 390
+     * {@snippet lang=c :
+     * long _InterlockedAnd(volatile LONG *Destination, LONG Value)
      * }
      */
-    public static int ERROR_CLOUD_FILE_NOT_UNDER_SYNC_ROOT() {
-        return (int)390L;
+    public static int _InterlockedAnd(MemorySegment Destination, int Value) {
+        var mh$ = _InterlockedAnd.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedAnd", Destination, Value);
+            }
+            return (int)mh$.invokeExact(Destination, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedOr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedOr"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_IN_USE 391
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long _InterlockedOr(volatile LONG *Destination, LONG Value)
      * }
      */
-    public static int ERROR_CLOUD_FILE_IN_USE() {
-        return (int)391L;
+    public static FunctionDescriptor _InterlockedOr$descriptor() {
+        return _InterlockedOr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_PINNED 392
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long _InterlockedOr(volatile LONG *Destination, LONG Value)
      * }
      */
-    public static int ERROR_CLOUD_FILE_PINNED() {
-        return (int)392L;
+    public static MethodHandle _InterlockedOr$handle() {
+        return _InterlockedOr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_REQUEST_ABORTED 393
+     * {@snippet lang=c :
+     * long _InterlockedOr(volatile LONG *Destination, LONG Value)
      * }
      */
-    public static int ERROR_CLOUD_FILE_REQUEST_ABORTED() {
-        return (int)393L;
+    public static int _InterlockedOr(MemorySegment Destination, int Value) {
+        var mh$ = _InterlockedOr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedOr", Destination, Value);
+            }
+            return (int)mh$.invokeExact(Destination, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedXor {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedXor"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_PROPERTY_CORRUPT 394
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long _InterlockedXor(volatile LONG *Destination, LONG Value)
      * }
      */
-    public static int ERROR_CLOUD_FILE_PROPERTY_CORRUPT() {
-        return (int)394L;
+    public static FunctionDescriptor _InterlockedXor$descriptor() {
+        return _InterlockedXor.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_ACCESS_DENIED 395
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long _InterlockedXor(volatile LONG *Destination, LONG Value)
      * }
      */
-    public static int ERROR_CLOUD_FILE_ACCESS_DENIED() {
-        return (int)395L;
+    public static MethodHandle _InterlockedXor$handle() {
+        return _InterlockedXor.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_INCOMPATIBLE_HARDLINKS 396
+     * {@snippet lang=c :
+     * long _InterlockedXor(volatile LONG *Destination, LONG Value)
      * }
      */
-    public static int ERROR_CLOUD_FILE_INCOMPATIBLE_HARDLINKS() {
-        return (int)396L;
+    public static int _InterlockedXor(MemorySegment Destination, int Value) {
+        var mh$ = _InterlockedXor.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedXor", Destination, Value);
+            }
+            return (int)mh$.invokeExact(Destination, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedAnd64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedAnd64"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_PROPERTY_LOCK_CONFLICT 397
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long long _InterlockedAnd64(volatile LONG64 *Destination, LONG64 Value)
      * }
      */
-    public static int ERROR_CLOUD_FILE_PROPERTY_LOCK_CONFLICT() {
-        return (int)397L;
+    public static FunctionDescriptor _InterlockedAnd64$descriptor() {
+        return _InterlockedAnd64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_REQUEST_CANCELED 398
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long long _InterlockedAnd64(volatile LONG64 *Destination, LONG64 Value)
      * }
      */
-    public static int ERROR_CLOUD_FILE_REQUEST_CANCELED() {
-        return (int)398L;
+    public static MethodHandle _InterlockedAnd64$handle() {
+        return _InterlockedAnd64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_EXTERNAL_SYSKEY_NOT_SUPPORTED 399
+     * {@snippet lang=c :
+     * long long _InterlockedAnd64(volatile LONG64 *Destination, LONG64 Value)
      * }
      */
-    public static int ERROR_EXTERNAL_SYSKEY_NOT_SUPPORTED() {
-        return (int)399L;
+    public static long _InterlockedAnd64(MemorySegment Destination, long Value) {
+        var mh$ = _InterlockedAnd64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedAnd64", Destination, Value);
+            }
+            return (long)mh$.invokeExact(Destination, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedOr64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedOr64"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_THREAD_MODE_ALREADY_BACKGROUND 400
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long long _InterlockedOr64(volatile LONG64 *Destination, LONG64 Value)
      * }
      */
-    public static int ERROR_THREAD_MODE_ALREADY_BACKGROUND() {
-        return (int)400L;
+    public static FunctionDescriptor _InterlockedOr64$descriptor() {
+        return _InterlockedOr64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_THREAD_MODE_NOT_BACKGROUND 401
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long long _InterlockedOr64(volatile LONG64 *Destination, LONG64 Value)
      * }
      */
-    public static int ERROR_THREAD_MODE_NOT_BACKGROUND() {
-        return (int)401L;
+    public static MethodHandle _InterlockedOr64$handle() {
+        return _InterlockedOr64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_PROCESS_MODE_ALREADY_BACKGROUND 402
+     * {@snippet lang=c :
+     * long long _InterlockedOr64(volatile LONG64 *Destination, LONG64 Value)
      * }
      */
-    public static int ERROR_PROCESS_MODE_ALREADY_BACKGROUND() {
-        return (int)402L;
+    public static long _InterlockedOr64(MemorySegment Destination, long Value) {
+        var mh$ = _InterlockedOr64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedOr64", Destination, Value);
+            }
+            return (long)mh$.invokeExact(Destination, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedXor64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedXor64"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PROCESS_MODE_NOT_BACKGROUND 403
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long long _InterlockedXor64(volatile LONG64 *Destination, LONG64 Value)
      * }
      */
-    public static int ERROR_PROCESS_MODE_NOT_BACKGROUND() {
-        return (int)403L;
+    public static FunctionDescriptor _InterlockedXor64$descriptor() {
+        return _InterlockedXor64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_PROVIDER_TERMINATED 404
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long long _InterlockedXor64(volatile LONG64 *Destination, LONG64 Value)
      * }
      */
-    public static int ERROR_CLOUD_FILE_PROVIDER_TERMINATED() {
-        return (int)404L;
+    public static MethodHandle _InterlockedXor64$handle() {
+        return _InterlockedXor64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_A_CLOUD_SYNC_ROOT 405
+     * {@snippet lang=c :
+     * long long _InterlockedXor64(volatile LONG64 *Destination, LONG64 Value)
      * }
      */
-    public static int ERROR_NOT_A_CLOUD_SYNC_ROOT() {
-        return (int)405L;
+    public static long _InterlockedXor64(MemorySegment Destination, long Value) {
+        var mh$ = _InterlockedXor64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedXor64", Destination, Value);
+            }
+            return (long)mh$.invokeExact(Destination, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedIncrement {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedIncrement"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_FILE_PROTECTED_UNDER_DPL 406
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long _InterlockedIncrement(volatile LONG *Addend)
      * }
      */
-    public static int ERROR_FILE_PROTECTED_UNDER_DPL() {
-        return (int)406L;
+    public static FunctionDescriptor _InterlockedIncrement$descriptor() {
+        return _InterlockedIncrement.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_VOLUME_NOT_CLUSTER_ALIGNED 407
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long _InterlockedIncrement(volatile LONG *Addend)
      * }
      */
-    public static int ERROR_VOLUME_NOT_CLUSTER_ALIGNED() {
-        return (int)407L;
+    public static MethodHandle _InterlockedIncrement$handle() {
+        return _InterlockedIncrement.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NO_PHYSICALLY_ALIGNED_FREE_SPACE_FOUND 408
+     * {@snippet lang=c :
+     * long _InterlockedIncrement(volatile LONG *Addend)
      * }
      */
-    public static int ERROR_NO_PHYSICALLY_ALIGNED_FREE_SPACE_FOUND() {
-        return (int)408L;
+    public static int _InterlockedIncrement(MemorySegment Addend) {
+        var mh$ = _InterlockedIncrement.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedIncrement", Addend);
+            }
+            return (int)mh$.invokeExact(Addend);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedDecrement {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedDecrement"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_APPX_FILE_NOT_ENCRYPTED 409
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long _InterlockedDecrement(volatile LONG *Addend)
      * }
      */
-    public static int ERROR_APPX_FILE_NOT_ENCRYPTED() {
-        return (int)409L;
+    public static FunctionDescriptor _InterlockedDecrement$descriptor() {
+        return _InterlockedDecrement.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_RWRAW_ENCRYPTED_FILE_NOT_ENCRYPTED 410
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long _InterlockedDecrement(volatile LONG *Addend)
      * }
      */
-    public static int ERROR_RWRAW_ENCRYPTED_FILE_NOT_ENCRYPTED() {
-        return (int)410L;
+    public static MethodHandle _InterlockedDecrement$handle() {
+        return _InterlockedDecrement.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_RWRAW_ENCRYPTED_INVALID_EDATAINFO_FILEOFFSET 411
+     * {@snippet lang=c :
+     * long _InterlockedDecrement(volatile LONG *Addend)
      * }
      */
-    public static int ERROR_RWRAW_ENCRYPTED_INVALID_EDATAINFO_FILEOFFSET() {
-        return (int)411L;
+    public static int _InterlockedDecrement(MemorySegment Addend) {
+        var mh$ = _InterlockedDecrement.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedDecrement", Addend);
+            }
+            return (int)mh$.invokeExact(Addend);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedExchange {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedExchange"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_RWRAW_ENCRYPTED_INVALID_EDATAINFO_FILERANGE 412
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long _InterlockedExchange(volatile LONG *Target, LONG Value)
      * }
      */
-    public static int ERROR_RWRAW_ENCRYPTED_INVALID_EDATAINFO_FILERANGE() {
-        return (int)412L;
+    public static FunctionDescriptor _InterlockedExchange$descriptor() {
+        return _InterlockedExchange.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_RWRAW_ENCRYPTED_INVALID_EDATAINFO_PARAMETER 413
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long _InterlockedExchange(volatile LONG *Target, LONG Value)
      * }
      */
-    public static int ERROR_RWRAW_ENCRYPTED_INVALID_EDATAINFO_PARAMETER() {
-        return (int)413L;
+    public static MethodHandle _InterlockedExchange$handle() {
+        return _InterlockedExchange.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_LINUX_SUBSYSTEM_NOT_PRESENT 414
+     * {@snippet lang=c :
+     * long _InterlockedExchange(volatile LONG *Target, LONG Value)
      * }
      */
-    public static int ERROR_LINUX_SUBSYSTEM_NOT_PRESENT() {
-        return (int)414L;
+    public static int _InterlockedExchange(MemorySegment Target, int Value) {
+        var mh$ = _InterlockedExchange.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedExchange", Target, Value);
+            }
+            return (int)mh$.invokeExact(Target, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedExchangeAdd {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedExchangeAdd"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FT_READ_FAILURE 415
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long _InterlockedExchangeAdd(volatile LONG *Addend, LONG Value)
      * }
      */
-    public static int ERROR_FT_READ_FAILURE() {
-        return (int)415L;
+    public static FunctionDescriptor _InterlockedExchangeAdd$descriptor() {
+        return _InterlockedExchangeAdd.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_STORAGE_RESERVE_ID_INVALID 416
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long _InterlockedExchangeAdd(volatile LONG *Addend, LONG Value)
      * }
      */
-    public static int ERROR_STORAGE_RESERVE_ID_INVALID() {
-        return (int)416L;
+    public static MethodHandle _InterlockedExchangeAdd$handle() {
+        return _InterlockedExchangeAdd.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_STORAGE_RESERVE_DOES_NOT_EXIST 417
+     * {@snippet lang=c :
+     * long _InterlockedExchangeAdd(volatile LONG *Addend, LONG Value)
      * }
      */
-    public static int ERROR_STORAGE_RESERVE_DOES_NOT_EXIST() {
-        return (int)417L;
+    public static int _InterlockedExchangeAdd(MemorySegment Addend, int Value) {
+        var mh$ = _InterlockedExchangeAdd.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedExchangeAdd", Addend, Value);
+            }
+            return (int)mh$.invokeExact(Addend, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedCompareExchange {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedCompareExchange"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_STORAGE_RESERVE_ALREADY_EXISTS 418
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long _InterlockedCompareExchange(volatile LONG *Destination, LONG ExChange, LONG Comperand)
      * }
      */
-    public static int ERROR_STORAGE_RESERVE_ALREADY_EXISTS() {
-        return (int)418L;
+    public static FunctionDescriptor _InterlockedCompareExchange$descriptor() {
+        return _InterlockedCompareExchange.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_STORAGE_RESERVE_NOT_EMPTY 419
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long _InterlockedCompareExchange(volatile LONG *Destination, LONG ExChange, LONG Comperand)
      * }
      */
-    public static int ERROR_STORAGE_RESERVE_NOT_EMPTY() {
-        return (int)419L;
+    public static MethodHandle _InterlockedCompareExchange$handle() {
+        return _InterlockedCompareExchange.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_A_DAX_VOLUME 420
+     * {@snippet lang=c :
+     * long _InterlockedCompareExchange(volatile LONG *Destination, LONG ExChange, LONG Comperand)
      * }
      */
-    public static int ERROR_NOT_A_DAX_VOLUME() {
-        return (int)420L;
+    public static int _InterlockedCompareExchange(MemorySegment Destination, int ExChange, int Comperand) {
+        var mh$ = _InterlockedCompareExchange.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedCompareExchange", Destination, ExChange, Comperand);
+            }
+            return (int)mh$.invokeExact(Destination, ExChange, Comperand);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedIncrement64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedIncrement64"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOT_DAX_MAPPABLE 421
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long long _InterlockedIncrement64(volatile LONG64 *Addend)
      * }
      */
-    public static int ERROR_NOT_DAX_MAPPABLE() {
-        return (int)421L;
+    public static FunctionDescriptor _InterlockedIncrement64$descriptor() {
+        return _InterlockedIncrement64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_TIME_SENSITIVE_THREAD 422
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long long _InterlockedIncrement64(volatile LONG64 *Addend)
      * }
      */
-    public static int ERROR_TIME_SENSITIVE_THREAD() {
-        return (int)422L;
+    public static MethodHandle _InterlockedIncrement64$handle() {
+        return _InterlockedIncrement64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_DPL_NOT_SUPPORTED_FOR_USER 423
+     * {@snippet lang=c :
+     * long long _InterlockedIncrement64(volatile LONG64 *Addend)
      * }
      */
-    public static int ERROR_DPL_NOT_SUPPORTED_FOR_USER() {
-        return (int)423L;
+    public static long _InterlockedIncrement64(MemorySegment Addend) {
+        var mh$ = _InterlockedIncrement64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedIncrement64", Addend);
+            }
+            return (long)mh$.invokeExact(Addend);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedDecrement64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedDecrement64"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_CASE_DIFFERING_NAMES_IN_DIR 424
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long long _InterlockedDecrement64(volatile LONG64 *Addend)
      * }
      */
-    public static int ERROR_CASE_DIFFERING_NAMES_IN_DIR() {
-        return (int)424L;
+    public static FunctionDescriptor _InterlockedDecrement64$descriptor() {
+        return _InterlockedDecrement64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FILE_NOT_SUPPORTED 425
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long long _InterlockedDecrement64(volatile LONG64 *Addend)
      * }
      */
-    public static int ERROR_FILE_NOT_SUPPORTED() {
-        return (int)425L;
+    public static MethodHandle _InterlockedDecrement64$handle() {
+        return _InterlockedDecrement64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_REQUEST_TIMEOUT 426
+     * {@snippet lang=c :
+     * long long _InterlockedDecrement64(volatile LONG64 *Addend)
      * }
      */
-    public static int ERROR_CLOUD_FILE_REQUEST_TIMEOUT() {
-        return (int)426L;
+    public static long _InterlockedDecrement64(MemorySegment Addend) {
+        var mh$ = _InterlockedDecrement64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedDecrement64", Addend);
+            }
+            return (long)mh$.invokeExact(Addend);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedExchange64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedExchange64"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NO_TASK_QUEUE 427
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long long _InterlockedExchange64(volatile LONG64 *Target, LONG64 Value)
      * }
      */
-    public static int ERROR_NO_TASK_QUEUE() {
-        return (int)427L;
+    public static FunctionDescriptor _InterlockedExchange64$descriptor() {
+        return _InterlockedExchange64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SRC_SRV_DLL_LOAD_FAILED 428
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long long _InterlockedExchange64(volatile LONG64 *Target, LONG64 Value)
      * }
      */
-    public static int ERROR_SRC_SRV_DLL_LOAD_FAILED() {
-        return (int)428L;
+    public static MethodHandle _InterlockedExchange64$handle() {
+        return _InterlockedExchange64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SUPPORTED_WITH_BTT 429
+     * {@snippet lang=c :
+     * long long _InterlockedExchange64(volatile LONG64 *Target, LONG64 Value)
      * }
      */
-    public static int ERROR_NOT_SUPPORTED_WITH_BTT() {
-        return (int)429L;
+    public static long _InterlockedExchange64(MemorySegment Target, long Value) {
+        var mh$ = _InterlockedExchange64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedExchange64", Target, Value);
+            }
+            return (long)mh$.invokeExact(Target, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedExchangeAdd64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedExchangeAdd64"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_ENCRYPTION_DISABLED 430
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long long _InterlockedExchangeAdd64(volatile LONG64 *Addend, LONG64 Value)
      * }
      */
-    public static int ERROR_ENCRYPTION_DISABLED() {
-        return (int)430L;
+    public static FunctionDescriptor _InterlockedExchangeAdd64$descriptor() {
+        return _InterlockedExchangeAdd64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_ENCRYPTING_METADATA_DISALLOWED 431
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long long _InterlockedExchangeAdd64(volatile LONG64 *Addend, LONG64 Value)
      * }
      */
-    public static int ERROR_ENCRYPTING_METADATA_DISALLOWED() {
-        return (int)431L;
+    public static MethodHandle _InterlockedExchangeAdd64$handle() {
+        return _InterlockedExchangeAdd64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CANT_CLEAR_ENCRYPTION_FLAG 432
+     * {@snippet lang=c :
+     * long long _InterlockedExchangeAdd64(volatile LONG64 *Addend, LONG64 Value)
      * }
      */
-    public static int ERROR_CANT_CLEAR_ENCRYPTION_FLAG() {
-        return (int)432L;
+    public static long _InterlockedExchangeAdd64(MemorySegment Addend, long Value) {
+        var mh$ = _InterlockedExchangeAdd64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedExchangeAdd64", Addend, Value);
+            }
+            return (long)mh$.invokeExact(Addend, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedCompareExchange64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedCompareExchange64"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NO_SUCH_DEVICE 433
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long long _InterlockedCompareExchange64(volatile LONG64 *Destination, LONG64 ExChange, LONG64 Comperand)
      * }
      */
-    public static int ERROR_NO_SUCH_DEVICE() {
-        return (int)433L;
+    public static FunctionDescriptor _InterlockedCompareExchange64$descriptor() {
+        return _InterlockedCompareExchange64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_DEHYDRATION_DISALLOWED 434
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long long _InterlockedCompareExchange64(volatile LONG64 *Destination, LONG64 ExChange, LONG64 Comperand)
      * }
      */
-    public static int ERROR_CLOUD_FILE_DEHYDRATION_DISALLOWED() {
-        return (int)434L;
+    public static MethodHandle _InterlockedCompareExchange64$handle() {
+        return _InterlockedCompareExchange64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_FILE_SNAP_IN_PROGRESS 435
+     * {@snippet lang=c :
+     * long long _InterlockedCompareExchange64(volatile LONG64 *Destination, LONG64 ExChange, LONG64 Comperand)
      * }
      */
-    public static int ERROR_FILE_SNAP_IN_PROGRESS() {
-        return (int)435L;
+    public static long _InterlockedCompareExchange64(MemorySegment Destination, long ExChange, long Comperand) {
+        var mh$ = _InterlockedCompareExchange64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedCompareExchange64", Destination, ExChange, Comperand);
+            }
+            return (long)mh$.invokeExact(Destination, ExChange, Comperand);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedCompareExchange128 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedCompareExchange128"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_FILE_SNAP_USER_SECTION_NOT_SUPPORTED 436
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char _InterlockedCompareExchange128(volatile LONG64 *Destination, LONG64 ExchangeHigh, LONG64 ExchangeLow, LONG64 *ComparandResult)
      * }
      */
-    public static int ERROR_FILE_SNAP_USER_SECTION_NOT_SUPPORTED() {
-        return (int)436L;
+    public static FunctionDescriptor _InterlockedCompareExchange128$descriptor() {
+        return _InterlockedCompareExchange128.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FILE_SNAP_MODIFY_NOT_SUPPORTED 437
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char _InterlockedCompareExchange128(volatile LONG64 *Destination, LONG64 ExchangeHigh, LONG64 ExchangeLow, LONG64 *ComparandResult)
      * }
      */
-    public static int ERROR_FILE_SNAP_MODIFY_NOT_SUPPORTED() {
-        return (int)437L;
+    public static MethodHandle _InterlockedCompareExchange128$handle() {
+        return _InterlockedCompareExchange128.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_FILE_SNAP_IO_NOT_COORDINATED 438
+     * {@snippet lang=c :
+     * unsigned char _InterlockedCompareExchange128(volatile LONG64 *Destination, LONG64 ExchangeHigh, LONG64 ExchangeLow, LONG64 *ComparandResult)
      * }
      */
-    public static int ERROR_FILE_SNAP_IO_NOT_COORDINATED() {
-        return (int)438L;
+    public static byte _InterlockedCompareExchange128(MemorySegment Destination, long ExchangeHigh, long ExchangeLow, MemorySegment ComparandResult) {
+        var mh$ = _InterlockedCompareExchange128.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedCompareExchange128", Destination, ExchangeHigh, ExchangeLow, ComparandResult);
+            }
+            return (byte)mh$.invokeExact(Destination, ExchangeHigh, ExchangeLow, ComparandResult);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedCompareExchangePointer {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedCompareExchangePointer"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FILE_SNAP_UNEXPECTED_ERROR 439
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void *_InterlockedCompareExchangePointer(volatile PVOID *Destination, PVOID Exchange, PVOID Comperand)
      * }
      */
-    public static int ERROR_FILE_SNAP_UNEXPECTED_ERROR() {
-        return (int)439L;
+    public static FunctionDescriptor _InterlockedCompareExchangePointer$descriptor() {
+        return _InterlockedCompareExchangePointer.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FILE_SNAP_INVALID_PARAMETER 440
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void *_InterlockedCompareExchangePointer(volatile PVOID *Destination, PVOID Exchange, PVOID Comperand)
      * }
      */
-    public static int ERROR_FILE_SNAP_INVALID_PARAMETER() {
-        return (int)440L;
+    public static MethodHandle _InterlockedCompareExchangePointer$handle() {
+        return _InterlockedCompareExchangePointer.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_UNSATISFIED_DEPENDENCIES 441
+     * {@snippet lang=c :
+     * void *_InterlockedCompareExchangePointer(volatile PVOID *Destination, PVOID Exchange, PVOID Comperand)
      * }
      */
-    public static int ERROR_UNSATISFIED_DEPENDENCIES() {
-        return (int)441L;
+    public static MemorySegment _InterlockedCompareExchangePointer(MemorySegment Destination, MemorySegment Exchange, MemorySegment Comperand) {
+        var mh$ = _InterlockedCompareExchangePointer.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedCompareExchangePointer", Destination, Exchange, Comperand);
+            }
+            return (MemorySegment)mh$.invokeExact(Destination, Exchange, Comperand);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedExchangePointer {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedExchangePointer"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_CASE_SENSITIVE_PATH 442
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void *_InterlockedExchangePointer(volatile PVOID *Target, PVOID Value)
      * }
      */
-    public static int ERROR_CASE_SENSITIVE_PATH() {
-        return (int)442L;
+    public static FunctionDescriptor _InterlockedExchangePointer$descriptor() {
+        return _InterlockedExchangePointer.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_UNEXPECTED_NTCACHEMANAGER_ERROR 443
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void *_InterlockedExchangePointer(volatile PVOID *Target, PVOID Value)
      * }
      */
-    public static int ERROR_UNEXPECTED_NTCACHEMANAGER_ERROR() {
-        return (int)443L;
+    public static MethodHandle _InterlockedExchangePointer$handle() {
+        return _InterlockedExchangePointer.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_LINUX_SUBSYSTEM_UPDATE_REQUIRED 444
+     * {@snippet lang=c :
+     * void *_InterlockedExchangePointer(volatile PVOID *Target, PVOID Value)
      * }
      */
-    public static int ERROR_LINUX_SUBSYSTEM_UPDATE_REQUIRED() {
-        return (int)444L;
+    public static MemorySegment _InterlockedExchangePointer(MemorySegment Target, MemorySegment Value) {
+        var mh$ = _InterlockedExchangePointer.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedExchangePointer", Target, Value);
+            }
+            return (MemorySegment)mh$.invokeExact(Target, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedExchange8 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_CHAR
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedExchange8"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DLP_POLICY_WARNS_AGAINST_OPERATION 445
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char _InterlockedExchange8(volatile CHAR *Target, CHAR Value)
      * }
      */
-    public static int ERROR_DLP_POLICY_WARNS_AGAINST_OPERATION() {
-        return (int)445L;
+    public static FunctionDescriptor _InterlockedExchange8$descriptor() {
+        return _InterlockedExchange8.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DLP_POLICY_DENIES_OPERATION 446
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char _InterlockedExchange8(volatile CHAR *Target, CHAR Value)
      * }
      */
-    public static int ERROR_DLP_POLICY_DENIES_OPERATION() {
-        return (int)446L;
+    public static MethodHandle _InterlockedExchange8$handle() {
+        return _InterlockedExchange8.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_SECURITY_DENIES_OPERATION 447
+     * {@snippet lang=c :
+     * char _InterlockedExchange8(volatile CHAR *Target, CHAR Value)
      * }
      */
-    public static int ERROR_SECURITY_DENIES_OPERATION() {
-        return (int)447L;
+    public static byte _InterlockedExchange8(MemorySegment Target, byte Value) {
+        var mh$ = _InterlockedExchange8.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedExchange8", Target, Value);
+            }
+            return (byte)mh$.invokeExact(Target, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedExchange16 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedExchange16"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_UNTRUSTED_MOUNT_POINT 448
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * short _InterlockedExchange16(volatile SHORT *Destination, SHORT ExChange)
      * }
      */
-    public static int ERROR_UNTRUSTED_MOUNT_POINT() {
-        return (int)448L;
+    public static FunctionDescriptor _InterlockedExchange16$descriptor() {
+        return _InterlockedExchange16.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DLP_POLICY_SILENTLY_FAIL 449
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * short _InterlockedExchange16(volatile SHORT *Destination, SHORT ExChange)
      * }
      */
-    public static int ERROR_DLP_POLICY_SILENTLY_FAIL() {
-        return (int)449L;
+    public static MethodHandle _InterlockedExchange16$handle() {
+        return _InterlockedExchange16.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CAPAUTHZ_NOT_DEVUNLOCKED 450
+     * {@snippet lang=c :
+     * short _InterlockedExchange16(volatile SHORT *Destination, SHORT ExChange)
      * }
      */
-    public static int ERROR_CAPAUTHZ_NOT_DEVUNLOCKED() {
-        return (int)450L;
+    public static short _InterlockedExchange16(MemorySegment Destination, short ExChange) {
+        var mh$ = _InterlockedExchange16.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedExchange16", Destination, ExChange);
+            }
+            return (short)mh$.invokeExact(Destination, ExChange);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedExchangeAdd8 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_CHAR
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedExchangeAdd8"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CAPAUTHZ_CHANGE_TYPE 451
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char _InterlockedExchangeAdd8(volatile char *_Addend, char _Value)
      * }
      */
-    public static int ERROR_CAPAUTHZ_CHANGE_TYPE() {
-        return (int)451L;
+    public static FunctionDescriptor _InterlockedExchangeAdd8$descriptor() {
+        return _InterlockedExchangeAdd8.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CAPAUTHZ_NOT_PROVISIONED 452
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char _InterlockedExchangeAdd8(volatile char *_Addend, char _Value)
      * }
      */
-    public static int ERROR_CAPAUTHZ_NOT_PROVISIONED() {
-        return (int)452L;
+    public static MethodHandle _InterlockedExchangeAdd8$handle() {
+        return _InterlockedExchangeAdd8.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CAPAUTHZ_NOT_AUTHORIZED 453
+     * {@snippet lang=c :
+     * char _InterlockedExchangeAdd8(volatile char *_Addend, char _Value)
      * }
      */
-    public static int ERROR_CAPAUTHZ_NOT_AUTHORIZED() {
-        return (int)453L;
+    public static byte _InterlockedExchangeAdd8(MemorySegment _Addend, byte _Value) {
+        var mh$ = _InterlockedExchangeAdd8.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedExchangeAdd8", _Addend, _Value);
+            }
+            return (byte)mh$.invokeExact(_Addend, _Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedAnd8 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_CHAR
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedAnd8"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_CAPAUTHZ_NO_POLICY 454
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char _InterlockedAnd8(volatile char *Destination, char Value)
      * }
      */
-    public static int ERROR_CAPAUTHZ_NO_POLICY() {
-        return (int)454L;
+    public static FunctionDescriptor _InterlockedAnd8$descriptor() {
+        return _InterlockedAnd8.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CAPAUTHZ_DB_CORRUPTED 455
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char _InterlockedAnd8(volatile char *Destination, char Value)
      * }
      */
-    public static int ERROR_CAPAUTHZ_DB_CORRUPTED() {
-        return (int)455L;
+    public static MethodHandle _InterlockedAnd8$handle() {
+        return _InterlockedAnd8.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CAPAUTHZ_SCCD_INVALID_CATALOG 456
+     * {@snippet lang=c :
+     * char _InterlockedAnd8(volatile char *Destination, char Value)
      * }
      */
-    public static int ERROR_CAPAUTHZ_SCCD_INVALID_CATALOG() {
-        return (int)456L;
+    public static byte _InterlockedAnd8(MemorySegment Destination, byte Value) {
+        var mh$ = _InterlockedAnd8.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedAnd8", Destination, Value);
+            }
+            return (byte)mh$.invokeExact(Destination, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedOr8 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_CHAR
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedOr8"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CAPAUTHZ_SCCD_NO_AUTH_ENTITY 457
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char _InterlockedOr8(volatile char *Destination, char Value)
      * }
      */
-    public static int ERROR_CAPAUTHZ_SCCD_NO_AUTH_ENTITY() {
-        return (int)457L;
+    public static FunctionDescriptor _InterlockedOr8$descriptor() {
+        return _InterlockedOr8.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CAPAUTHZ_SCCD_PARSE_ERROR 458
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char _InterlockedOr8(volatile char *Destination, char Value)
      * }
      */
-    public static int ERROR_CAPAUTHZ_SCCD_PARSE_ERROR() {
-        return (int)458L;
+    public static MethodHandle _InterlockedOr8$handle() {
+        return _InterlockedOr8.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CAPAUTHZ_SCCD_DEV_MODE_REQUIRED 459
+     * {@snippet lang=c :
+     * char _InterlockedOr8(volatile char *Destination, char Value)
      * }
      */
-    public static int ERROR_CAPAUTHZ_SCCD_DEV_MODE_REQUIRED() {
-        return (int)459L;
+    public static byte _InterlockedOr8(MemorySegment Destination, byte Value) {
+        var mh$ = _InterlockedOr8.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedOr8", Destination, Value);
+            }
+            return (byte)mh$.invokeExact(Destination, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedXor8 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_POINTER,
+            Windows_h.C_CHAR
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedXor8"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_CAPAUTHZ_SCCD_NO_CAPABILITY_MATCH 460
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * char _InterlockedXor8(volatile char *Destination, char Value)
      * }
      */
-    public static int ERROR_CAPAUTHZ_SCCD_NO_CAPABILITY_MATCH() {
-        return (int)460L;
+    public static FunctionDescriptor _InterlockedXor8$descriptor() {
+        return _InterlockedXor8.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CIMFS_IMAGE_CORRUPT 470
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * char _InterlockedXor8(volatile char *Destination, char Value)
      * }
      */
-    public static int ERROR_CIMFS_IMAGE_CORRUPT() {
-        return (int)470L;
+    public static MethodHandle _InterlockedXor8$handle() {
+        return _InterlockedXor8.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CIMFS_IMAGE_VERSION_NOT_SUPPORTED 471
+     * {@snippet lang=c :
+     * char _InterlockedXor8(volatile char *Destination, char Value)
      * }
      */
-    public static int ERROR_CIMFS_IMAGE_VERSION_NOT_SUPPORTED() {
-        return (int)471L;
+    public static byte _InterlockedXor8(MemorySegment Destination, byte Value) {
+        var mh$ = _InterlockedXor8.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedXor8", Destination, Value);
+            }
+            return (byte)mh$.invokeExact(Destination, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedAnd16 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedAnd16"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_STORAGE_STACK_ACCESS_DENIED 472
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * short _InterlockedAnd16(volatile SHORT *Destination, SHORT Value)
      * }
      */
-    public static int ERROR_STORAGE_STACK_ACCESS_DENIED() {
-        return (int)472L;
+    public static FunctionDescriptor _InterlockedAnd16$descriptor() {
+        return _InterlockedAnd16.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INSUFFICIENT_VIRTUAL_ADDR_RESOURCES 473
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * short _InterlockedAnd16(volatile SHORT *Destination, SHORT Value)
      * }
      */
-    public static int ERROR_INSUFFICIENT_VIRTUAL_ADDR_RESOURCES() {
-        return (int)473L;
+    public static MethodHandle _InterlockedAnd16$handle() {
+        return _InterlockedAnd16.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INDEX_OUT_OF_BOUNDS 474
+     * {@snippet lang=c :
+     * short _InterlockedAnd16(volatile SHORT *Destination, SHORT Value)
      * }
      */
-    public static int ERROR_INDEX_OUT_OF_BOUNDS() {
-        return (int)474L;
+    public static short _InterlockedAnd16(MemorySegment Destination, short Value) {
+        var mh$ = _InterlockedAnd16.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedAnd16", Destination, Value);
+            }
+            return (short)mh$.invokeExact(Destination, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _InterlockedOr16 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedOr16"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLOUD_FILE_US_MESSAGE_TIMEOUT 475
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * short _InterlockedOr16(volatile SHORT *Destination, SHORT Value)
      * }
      */
-    public static int ERROR_CLOUD_FILE_US_MESSAGE_TIMEOUT() {
-        return (int)475L;
+    public static FunctionDescriptor _InterlockedOr16$descriptor() {
+        return _InterlockedOr16.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PNP_QUERY_REMOVE_DEVICE_TIMEOUT 480
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * short _InterlockedOr16(volatile SHORT *Destination, SHORT Value)
      * }
      */
-    public static int ERROR_PNP_QUERY_REMOVE_DEVICE_TIMEOUT() {
-        return (int)480L;
+    public static MethodHandle _InterlockedOr16$handle() {
+        return _InterlockedOr16.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_PNP_QUERY_REMOVE_RELATED_DEVICE_TIMEOUT 481
+     * {@snippet lang=c :
+     * short _InterlockedOr16(volatile SHORT *Destination, SHORT Value)
      * }
      */
-    public static int ERROR_PNP_QUERY_REMOVE_RELATED_DEVICE_TIMEOUT() {
-        return (int)481L;
+    public static short _InterlockedOr16(MemorySegment Destination, short Value) {
+        var mh$ = _InterlockedOr16.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedOr16", Destination, Value);
+            }
+            return (short)mh$.invokeExact(Destination, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _InterlockedXor16 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_POINTER,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_InterlockedXor16"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PNP_QUERY_REMOVE_UNRELATED_DEVICE_TIMEOUT 482
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * short _InterlockedXor16(volatile SHORT *Destination, SHORT Value)
      * }
      */
-    public static int ERROR_PNP_QUERY_REMOVE_UNRELATED_DEVICE_TIMEOUT() {
-        return (int)482L;
+    public static FunctionDescriptor _InterlockedXor16$descriptor() {
+        return _InterlockedXor16.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_HARDWARE_ERROR 483
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * short _InterlockedXor16(volatile SHORT *Destination, SHORT Value)
      * }
      */
-    public static int ERROR_DEVICE_HARDWARE_ERROR() {
-        return (int)483L;
+    public static MethodHandle _InterlockedXor16$handle() {
+        return _InterlockedXor16.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_ADDRESS 487
+     * {@snippet lang=c :
+     * short _InterlockedXor16(volatile SHORT *Destination, SHORT Value)
      * }
      */
-    public static int ERROR_INVALID_ADDRESS() {
-        return (int)487L;
+    public static short _InterlockedXor16(MemorySegment Destination, short Value) {
+        var mh$ = _InterlockedXor16.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_InterlockedXor16", Destination, Value);
+            }
+            return (short)mh$.invokeExact(Destination, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __cpuidex {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__cpuidex"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_HAS_SYSTEM_CRITICAL_FILES 488
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __cpuidex(int CPUInfo[4], int Function, int SubLeaf)
      * }
      */
-    public static int ERROR_HAS_SYSTEM_CRITICAL_FILES() {
-        return (int)488L;
+    public static FunctionDescriptor __cpuidex$descriptor() {
+        return __cpuidex.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_ENCRYPTED_FILE_NOT_SUPPORTED 489
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __cpuidex(int CPUInfo[4], int Function, int SubLeaf)
      * }
      */
-    public static int ERROR_ENCRYPTED_FILE_NOT_SUPPORTED() {
-        return (int)489L;
+    public static MethodHandle __cpuidex$handle() {
+        return __cpuidex.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_SPARSE_FILE_NOT_SUPPORTED 490
+     * {@snippet lang=c :
+     * void __cpuidex(int CPUInfo[4], int Function, int SubLeaf)
      * }
      */
-    public static int ERROR_SPARSE_FILE_NOT_SUPPORTED() {
-        return (int)490L;
+    public static void __cpuidex(MemorySegment CPUInfo, int Function, int SubLeaf) {
+        var mh$ = __cpuidex.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__cpuidex", CPUInfo, Function, SubLeaf);
+            }
+            mh$.invokeExact(CPUInfo, Function, SubLeaf);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _mm_clflush {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_mm_clflush"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PAGEFILE_NOT_SUPPORTED 491
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void _mm_clflush(const void *Address)
      * }
      */
-    public static int ERROR_PAGEFILE_NOT_SUPPORTED() {
-        return (int)491L;
+    public static FunctionDescriptor _mm_clflush$descriptor() {
+        return _mm_clflush.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_VOLUME_NOT_SUPPORTED 492
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void _mm_clflush(const void *Address)
      * }
      */
-    public static int ERROR_VOLUME_NOT_SUPPORTED() {
-        return (int)492L;
+    public static MethodHandle _mm_clflush$handle() {
+        return _mm_clflush.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SUPPORTED_WITH_BYPASSIO 493
+     * {@snippet lang=c :
+     * void _mm_clflush(const void *Address)
      * }
      */
-    public static int ERROR_NOT_SUPPORTED_WITH_BYPASSIO() {
-        return (int)493L;
+    public static void _mm_clflush(MemorySegment Address) {
+        var mh$ = _mm_clflush.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_mm_clflush", Address);
+            }
+            mh$.invokeExact(Address);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _ReadWriteBarrier {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_ReadWriteBarrier"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_NO_BYPASSIO_DRIVER_SUPPORT 494
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void _ReadWriteBarrier()
      * }
      */
-    public static int ERROR_NO_BYPASSIO_DRIVER_SUPPORT() {
-        return (int)494L;
+    public static FunctionDescriptor _ReadWriteBarrier$descriptor() {
+        return _ReadWriteBarrier.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SUPPORTED_WITH_ENCRYPTION 495
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void _ReadWriteBarrier()
      * }
      */
-    public static int ERROR_NOT_SUPPORTED_WITH_ENCRYPTION() {
-        return (int)495L;
+    public static MethodHandle _ReadWriteBarrier$handle() {
+        return _ReadWriteBarrier.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SUPPORTED_WITH_COMPRESSION 496
+     * {@snippet lang=c :
+     * void _ReadWriteBarrier()
      * }
      */
-    public static int ERROR_NOT_SUPPORTED_WITH_COMPRESSION() {
-        return (int)496L;
+    public static void _ReadWriteBarrier() {
+        var mh$ = _ReadWriteBarrier.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_ReadWriteBarrier");
+            }
+            mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __faststorefence {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__faststorefence"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SUPPORTED_WITH_REPLICATION 497
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __faststorefence()
      * }
      */
-    public static int ERROR_NOT_SUPPORTED_WITH_REPLICATION() {
-        return (int)497L;
+    public static FunctionDescriptor __faststorefence$descriptor() {
+        return __faststorefence.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SUPPORTED_WITH_DEDUPLICATION 498
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __faststorefence()
      * }
      */
-    public static int ERROR_NOT_SUPPORTED_WITH_DEDUPLICATION() {
-        return (int)498L;
+    public static MethodHandle __faststorefence$handle() {
+        return __faststorefence.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SUPPORTED_WITH_AUDITING 499
+     * {@snippet lang=c :
+     * void __faststorefence()
      * }
      */
-    public static int ERROR_NOT_SUPPORTED_WITH_AUDITING() {
-        return (int)499L;
+    public static void __faststorefence() {
+        var mh$ = __faststorefence.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__faststorefence");
+            }
+            mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _mm_lfence {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_mm_lfence"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_USER_PROFILE_LOAD 500
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void _mm_lfence()
      * }
      */
-    public static int ERROR_USER_PROFILE_LOAD() {
-        return (int)500L;
+    public static FunctionDescriptor _mm_lfence$descriptor() {
+        return _mm_lfence.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SESSION_KEY_TOO_SHORT 501
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void _mm_lfence()
      * }
      */
-    public static int ERROR_SESSION_KEY_TOO_SHORT() {
-        return (int)501L;
+    public static MethodHandle _mm_lfence$handle() {
+        return _mm_lfence.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_ACCESS_DENIED_APPDATA 502
+     * {@snippet lang=c :
+     * void _mm_lfence()
      * }
      */
-    public static int ERROR_ACCESS_DENIED_APPDATA() {
-        return (int)502L;
+    public static void _mm_lfence() {
+        var mh$ = _mm_lfence.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_mm_lfence");
+            }
+            mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _mm_mfence {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_mm_mfence"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SUPPORTED_WITH_MONITORING 503
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void _mm_mfence()
      * }
      */
-    public static int ERROR_NOT_SUPPORTED_WITH_MONITORING() {
-        return (int)503L;
+    public static FunctionDescriptor _mm_mfence$descriptor() {
+        return _mm_mfence.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SUPPORTED_WITH_SNAPSHOT 504
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void _mm_mfence()
      * }
      */
-    public static int ERROR_NOT_SUPPORTED_WITH_SNAPSHOT() {
-        return (int)504L;
+    public static MethodHandle _mm_mfence$handle() {
+        return _mm_mfence.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SUPPORTED_WITH_VIRTUALIZATION 505
+     * {@snippet lang=c :
+     * void _mm_mfence()
      * }
      */
-    public static int ERROR_NOT_SUPPORTED_WITH_VIRTUALIZATION() {
-        return (int)505L;
+    public static void _mm_mfence() {
+        var mh$ = _mm_mfence.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_mm_mfence");
+            }
+            mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _mm_sfence {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_mm_sfence"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_BYPASSIO_FLT_NOT_SUPPORTED 506
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void _mm_sfence()
      * }
      */
-    public static int ERROR_BYPASSIO_FLT_NOT_SUPPORTED() {
-        return (int)506L;
+    public static FunctionDescriptor _mm_sfence$descriptor() {
+        return _mm_sfence.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_RESET_REQUIRED 507
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void _mm_sfence()
      * }
      */
-    public static int ERROR_DEVICE_RESET_REQUIRED() {
-        return (int)507L;
+    public static MethodHandle _mm_sfence$handle() {
+        return _mm_sfence.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_VOLUME_WRITE_ACCESS_DENIED 508
+     * {@snippet lang=c :
+     * void _mm_sfence()
      * }
      */
-    public static int ERROR_VOLUME_WRITE_ACCESS_DENIED() {
-        return (int)508L;
+    public static void _mm_sfence() {
+        var mh$ = _mm_sfence.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_mm_sfence");
+            }
+            mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _mm_pause {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_mm_pause"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SUPPORTED_WITH_CACHED_HANDLE 509
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void _mm_pause()
      * }
      */
-    public static int ERROR_NOT_SUPPORTED_WITH_CACHED_HANDLE() {
-        return (int)509L;
+    public static FunctionDescriptor _mm_pause$descriptor() {
+        return _mm_pause.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FS_METADATA_INCONSISTENT 510
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void _mm_pause()
      * }
      */
-    public static int ERROR_FS_METADATA_INCONSISTENT() {
-        return (int)510L;
+    public static MethodHandle _mm_pause$handle() {
+        return _mm_pause.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_ARITHMETIC_OVERFLOW 534
+     * {@snippet lang=c :
+     * void _mm_pause()
      * }
      */
-    public static int ERROR_ARITHMETIC_OVERFLOW() {
-        return (int)534L;
+    public static void _mm_pause() {
+        var mh$ = _mm_pause.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_mm_pause");
+            }
+            mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _mm_prefetch {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_mm_prefetch"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_PIPE_CONNECTED 535
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void _mm_prefetch(const CHAR *a, int sel)
      * }
      */
-    public static int ERROR_PIPE_CONNECTED() {
-        return (int)535L;
+    public static FunctionDescriptor _mm_prefetch$descriptor() {
+        return _mm_prefetch.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PIPE_LISTENING 536
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void _mm_prefetch(const CHAR *a, int sel)
      * }
      */
-    public static int ERROR_PIPE_LISTENING() {
-        return (int)536L;
+    public static MethodHandle _mm_prefetch$handle() {
+        return _mm_prefetch.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_VERIFIER_STOP 537
+     * {@snippet lang=c :
+     * void _mm_prefetch(const CHAR *a, int sel)
      * }
      */
-    public static int ERROR_VERIFIER_STOP() {
-        return (int)537L;
+    public static void _mm_prefetch(MemorySegment a, int sel) {
+        var mh$ = _mm_prefetch.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_mm_prefetch", a, sel);
+            }
+            mh$.invokeExact(a, sel);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _m_prefetchw {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_m_prefetchw"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_ABIOS_ERROR 538
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void _m_prefetchw(const volatile void *Source)
      * }
      */
-    public static int ERROR_ABIOS_ERROR() {
-        return (int)538L;
+    public static FunctionDescriptor _m_prefetchw$descriptor() {
+        return _m_prefetchw.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_WX86_WARNING 539
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void _m_prefetchw(const volatile void *Source)
      * }
      */
-    public static int ERROR_WX86_WARNING() {
-        return (int)539L;
+    public static MethodHandle _m_prefetchw$handle() {
+        return _m_prefetchw.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_WX86_ERROR 540
+     * {@snippet lang=c :
+     * void _m_prefetchw(const volatile void *Source)
      * }
      */
-    public static int ERROR_WX86_ERROR() {
-        return (int)540L;
+    public static void _m_prefetchw(MemorySegment Source) {
+        var mh$ = _m_prefetchw.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_m_prefetchw", Source);
+            }
+            mh$.invokeExact(Source);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class _mm_getcsr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_mm_getcsr"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_TIMER_NOT_CANCELED 541
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned int _mm_getcsr()
      * }
      */
-    public static int ERROR_TIMER_NOT_CANCELED() {
-        return (int)541L;
+    public static FunctionDescriptor _mm_getcsr$descriptor() {
+        return _mm_getcsr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_UNWIND 542
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned int _mm_getcsr()
      * }
      */
-    public static int ERROR_UNWIND() {
-        return (int)542L;
+    public static MethodHandle _mm_getcsr$handle() {
+        return _mm_getcsr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_BAD_STACK 543
+     * {@snippet lang=c :
+     * unsigned int _mm_getcsr()
      * }
      */
-    public static int ERROR_BAD_STACK() {
-        return (int)543L;
+    public static int _mm_getcsr() {
+        var mh$ = _mm_getcsr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_mm_getcsr");
+            }
+            return (int)mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _mm_setcsr {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_INT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_mm_setcsr"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_UNWIND_TARGET 544
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void _mm_setcsr(unsigned int MxCsr)
      * }
      */
-    public static int ERROR_INVALID_UNWIND_TARGET() {
-        return (int)544L;
+    public static FunctionDescriptor _mm_setcsr$descriptor() {
+        return _mm_setcsr.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_PORT_ATTRIBUTES 545
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void _mm_setcsr(unsigned int MxCsr)
      * }
      */
-    public static int ERROR_INVALID_PORT_ATTRIBUTES() {
-        return (int)545L;
+    public static MethodHandle _mm_setcsr$handle() {
+        return _mm_setcsr.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_PORT_MESSAGE_TOO_LONG 546
+     * {@snippet lang=c :
+     * void _mm_setcsr(unsigned int MxCsr)
      * }
      */
-    public static int ERROR_PORT_MESSAGE_TOO_LONG() {
-        return (int)546L;
+    public static void _mm_setcsr(int MxCsr) {
+        var mh$ = _mm_setcsr.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_mm_setcsr", MxCsr);
+            }
+            mh$.invokeExact(MxCsr);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __getcallerseflags {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_INT    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__getcallerseflags"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_QUOTA_LOWER 547
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned int __getcallerseflags()
      * }
      */
-    public static int ERROR_INVALID_QUOTA_LOWER() {
-        return (int)547L;
+    public static FunctionDescriptor __getcallerseflags$descriptor() {
+        return __getcallerseflags.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_ALREADY_ATTACHED 548
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned int __getcallerseflags()
      * }
      */
-    public static int ERROR_DEVICE_ALREADY_ATTACHED() {
-        return (int)548L;
+    public static MethodHandle __getcallerseflags$handle() {
+        return __getcallerseflags.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INSTRUCTION_MISALIGNMENT 549
+     * {@snippet lang=c :
+     * unsigned int __getcallerseflags()
      * }
      */
-    public static int ERROR_INSTRUCTION_MISALIGNMENT() {
-        return (int)549L;
+    public static int __getcallerseflags() {
+        var mh$ = __getcallerseflags.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__getcallerseflags");
+            }
+            return (int)mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __segmentlimit {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__segmentlimit"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PROFILING_NOT_STARTED 550
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD __segmentlimit(DWORD Selector)
      * }
      */
-    public static int ERROR_PROFILING_NOT_STARTED() {
-        return (int)550L;
+    public static FunctionDescriptor __segmentlimit$descriptor() {
+        return __segmentlimit.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PROFILING_NOT_STOPPED 551
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD __segmentlimit(DWORD Selector)
      * }
      */
-    public static int ERROR_PROFILING_NOT_STOPPED() {
-        return (int)551L;
+    public static MethodHandle __segmentlimit$handle() {
+        return __segmentlimit.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_COULD_NOT_INTERPRET 552
+     * {@snippet lang=c :
+     * DWORD __segmentlimit(DWORD Selector)
      * }
      */
-    public static int ERROR_COULD_NOT_INTERPRET() {
-        return (int)552L;
+    public static int __segmentlimit(int Selector) {
+        var mh$ = __segmentlimit.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__segmentlimit", Selector);
+            }
+            return (int)mh$.invokeExact(Selector);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __readpmc {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__readpmc"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_PROFILING_AT_LIMIT 553
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD64 __readpmc(DWORD Counter)
      * }
      */
-    public static int ERROR_PROFILING_AT_LIMIT() {
-        return (int)553L;
+    public static FunctionDescriptor __readpmc$descriptor() {
+        return __readpmc.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CANT_WAIT 554
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD64 __readpmc(DWORD Counter)
      * }
      */
-    public static int ERROR_CANT_WAIT() {
-        return (int)554L;
+    public static MethodHandle __readpmc$handle() {
+        return __readpmc.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CANT_TERMINATE_SELF 555
+     * {@snippet lang=c :
+     * DWORD64 __readpmc(DWORD Counter)
      * }
      */
-    public static int ERROR_CANT_TERMINATE_SELF() {
-        return (int)555L;
+    public static long __readpmc(int Counter) {
+        var mh$ = __readpmc.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__readpmc", Counter);
+            }
+            return (long)mh$.invokeExact(Counter);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __rdtsc {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__rdtsc"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_UNEXPECTED_MM_CREATE_ERR 556
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long long __rdtsc()
      * }
      */
-    public static int ERROR_UNEXPECTED_MM_CREATE_ERR() {
-        return (int)556L;
+    public static FunctionDescriptor __rdtsc$descriptor() {
+        return __rdtsc.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_UNEXPECTED_MM_MAP_ERROR 557
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long long __rdtsc()
      * }
      */
-    public static int ERROR_UNEXPECTED_MM_MAP_ERROR() {
-        return (int)557L;
+    public static MethodHandle __rdtsc$handle() {
+        return __rdtsc.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_UNEXPECTED_MM_EXTEND_ERR 558
+     * {@snippet lang=c :
+     * unsigned long long __rdtsc()
      * }
      */
-    public static int ERROR_UNEXPECTED_MM_EXTEND_ERR() {
-        return (int)558L;
+    public static long __rdtsc() {
+        var mh$ = __rdtsc.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__rdtsc");
+            }
+            return (long)mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __movsb {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__movsb"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_FUNCTION_TABLE 559
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __movsb(PBYTE Destination, const BYTE *Source, SIZE_T Count)
      * }
      */
-    public static int ERROR_BAD_FUNCTION_TABLE() {
-        return (int)559L;
+    public static FunctionDescriptor __movsb$descriptor() {
+        return __movsb.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NO_GUID_TRANSLATION 560
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __movsb(PBYTE Destination, const BYTE *Source, SIZE_T Count)
      * }
      */
-    public static int ERROR_NO_GUID_TRANSLATION() {
-        return (int)560L;
+    public static MethodHandle __movsb$handle() {
+        return __movsb.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_LDT_SIZE 561
+     * {@snippet lang=c :
+     * void __movsb(PBYTE Destination, const BYTE *Source, SIZE_T Count)
      * }
      */
-    public static int ERROR_INVALID_LDT_SIZE() {
-        return (int)561L;
+    public static void __movsb(MemorySegment Destination, MemorySegment Source, long Count) {
+        var mh$ = __movsb.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__movsb", Destination, Source, Count);
+            }
+            mh$.invokeExact(Destination, Source, Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __movsw {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__movsw"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_LDT_OFFSET 563
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __movsw(PWORD Destination, const WORD *Source, SIZE_T Count)
      * }
      */
-    public static int ERROR_INVALID_LDT_OFFSET() {
-        return (int)563L;
+    public static FunctionDescriptor __movsw$descriptor() {
+        return __movsw.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_LDT_DESCRIPTOR 564
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __movsw(PWORD Destination, const WORD *Source, SIZE_T Count)
      * }
      */
-    public static int ERROR_INVALID_LDT_DESCRIPTOR() {
-        return (int)564L;
+    public static MethodHandle __movsw$handle() {
+        return __movsw.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_TOO_MANY_THREADS 565
+     * {@snippet lang=c :
+     * void __movsw(PWORD Destination, const WORD *Source, SIZE_T Count)
      * }
      */
-    public static int ERROR_TOO_MANY_THREADS() {
-        return (int)565L;
+    public static void __movsw(MemorySegment Destination, MemorySegment Source, long Count) {
+        var mh$ = __movsw.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__movsw", Destination, Source, Count);
+            }
+            mh$.invokeExact(Destination, Source, Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __movsd {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__movsd"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_THREAD_NOT_IN_PROCESS 566
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __movsd(PDWORD Destination, const DWORD *Source, SIZE_T Count)
      * }
      */
-    public static int ERROR_THREAD_NOT_IN_PROCESS() {
-        return (int)566L;
+    public static FunctionDescriptor __movsd$descriptor() {
+        return __movsd.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PAGEFILE_QUOTA_EXCEEDED 567
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __movsd(PDWORD Destination, const DWORD *Source, SIZE_T Count)
      * }
      */
-    public static int ERROR_PAGEFILE_QUOTA_EXCEEDED() {
-        return (int)567L;
+    public static MethodHandle __movsd$handle() {
+        return __movsd.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_LOGON_SERVER_CONFLICT 568
+     * {@snippet lang=c :
+     * void __movsd(PDWORD Destination, const DWORD *Source, SIZE_T Count)
      * }
      */
-    public static int ERROR_LOGON_SERVER_CONFLICT() {
-        return (int)568L;
+    public static void __movsd(MemorySegment Destination, MemorySegment Source, long Count) {
+        var mh$ = __movsd.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__movsd", Destination, Source, Count);
+            }
+            mh$.invokeExact(Destination, Source, Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __movsq {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__movsq"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SYNCHRONIZATION_REQUIRED 569
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __movsq(PDWORD64 Destination, const DWORD64 *Source, SIZE_T Count)
      * }
      */
-    public static int ERROR_SYNCHRONIZATION_REQUIRED() {
-        return (int)569L;
+    public static FunctionDescriptor __movsq$descriptor() {
+        return __movsq.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NET_OPEN_FAILED 570
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __movsq(PDWORD64 Destination, const DWORD64 *Source, SIZE_T Count)
      * }
      */
-    public static int ERROR_NET_OPEN_FAILED() {
-        return (int)570L;
+    public static MethodHandle __movsq$handle() {
+        return __movsq.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_IO_PRIVILEGE_FAILED 571
+     * {@snippet lang=c :
+     * void __movsq(PDWORD64 Destination, const DWORD64 *Source, SIZE_T Count)
      * }
      */
-    public static int ERROR_IO_PRIVILEGE_FAILED() {
-        return (int)571L;
+    public static void __movsq(MemorySegment Destination, MemorySegment Source, long Count) {
+        var mh$ = __movsq.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__movsq", Destination, Source, Count);
+            }
+            mh$.invokeExact(Destination, Source, Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __stosb {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_CHAR,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__stosb"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_CONTROL_C_EXIT 572
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __stosb(PBYTE Destination, BYTE Value, SIZE_T Count)
      * }
      */
-    public static int ERROR_CONTROL_C_EXIT() {
-        return (int)572L;
+    public static FunctionDescriptor __stosb$descriptor() {
+        return __stosb.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_MISSING_SYSTEMFILE 573
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __stosb(PBYTE Destination, BYTE Value, SIZE_T Count)
      * }
      */
-    public static int ERROR_MISSING_SYSTEMFILE() {
-        return (int)573L;
+    public static MethodHandle __stosb$handle() {
+        return __stosb.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_UNHANDLED_EXCEPTION 574
+     * {@snippet lang=c :
+     * void __stosb(PBYTE Destination, BYTE Value, SIZE_T Count)
      * }
      */
-    public static int ERROR_UNHANDLED_EXCEPTION() {
-        return (int)574L;
+    public static void __stosb(MemorySegment Destination, byte Value, long Count) {
+        var mh$ = __stosb.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__stosb", Destination, Value, Count);
+            }
+            mh$.invokeExact(Destination, Value, Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __stosw {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_SHORT,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__stosw"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_APP_INIT_FAILURE 575
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __stosw(PWORD Destination, WORD Value, SIZE_T Count)
      * }
      */
-    public static int ERROR_APP_INIT_FAILURE() {
-        return (int)575L;
+    public static FunctionDescriptor __stosw$descriptor() {
+        return __stosw.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PAGEFILE_CREATE_FAILED 576
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __stosw(PWORD Destination, WORD Value, SIZE_T Count)
      * }
      */
-    public static int ERROR_PAGEFILE_CREATE_FAILED() {
-        return (int)576L;
+    public static MethodHandle __stosw$handle() {
+        return __stosw.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_IMAGE_HASH 577
+     * {@snippet lang=c :
+     * void __stosw(PWORD Destination, WORD Value, SIZE_T Count)
      * }
      */
-    public static int ERROR_INVALID_IMAGE_HASH() {
-        return (int)577L;
+    public static void __stosw(MemorySegment Destination, short Value, long Count) {
+        var mh$ = __stosw.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__stosw", Destination, Value, Count);
+            }
+            mh$.invokeExact(Destination, Value, Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __stosd {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__stosd"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_NO_PAGEFILE 578
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __stosd(PDWORD Destination, DWORD Value, SIZE_T Count)
      * }
      */
-    public static int ERROR_NO_PAGEFILE() {
-        return (int)578L;
+    public static FunctionDescriptor __stosd$descriptor() {
+        return __stosd.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_ILLEGAL_FLOAT_CONTEXT 579
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __stosd(PDWORD Destination, DWORD Value, SIZE_T Count)
      * }
      */
-    public static int ERROR_ILLEGAL_FLOAT_CONTEXT() {
-        return (int)579L;
+    public static MethodHandle __stosd$handle() {
+        return __stosd.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NO_EVENT_PAIR 580
+     * {@snippet lang=c :
+     * void __stosd(PDWORD Destination, DWORD Value, SIZE_T Count)
      * }
      */
-    public static int ERROR_NO_EVENT_PAIR() {
-        return (int)580L;
+    public static void __stosd(MemorySegment Destination, int Value, long Count) {
+        var mh$ = __stosd.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__stosd", Destination, Value, Count);
+            }
+            mh$.invokeExact(Destination, Value, Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __stosq {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__stosq"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DOMAIN_CTRLR_CONFIG_ERROR 581
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __stosq(PDWORD64 Destination, DWORD64 Value, SIZE_T Count)
      * }
      */
-    public static int ERROR_DOMAIN_CTRLR_CONFIG_ERROR() {
-        return (int)581L;
+    public static FunctionDescriptor __stosq$descriptor() {
+        return __stosq.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_ILLEGAL_CHARACTER 582
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __stosq(PDWORD64 Destination, DWORD64 Value, SIZE_T Count)
      * }
      */
-    public static int ERROR_ILLEGAL_CHARACTER() {
-        return (int)582L;
+    public static MethodHandle __stosq$handle() {
+        return __stosq.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_UNDEFINED_CHARACTER 583
+     * {@snippet lang=c :
+     * void __stosq(PDWORD64 Destination, DWORD64 Value, SIZE_T Count)
      * }
      */
-    public static int ERROR_UNDEFINED_CHARACTER() {
-        return (int)583L;
+    public static void __stosq(MemorySegment Destination, long Value, long Count) {
+        var mh$ = __stosq.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__stosq", Destination, Value, Count);
+            }
+            mh$.invokeExact(Destination, Value, Count);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __mulh {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__mulh"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_FLOPPY_VOLUME 584
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long long __mulh(LONG64 Multiplier, LONG64 Multiplicand)
      * }
      */
-    public static int ERROR_FLOPPY_VOLUME() {
-        return (int)584L;
+    public static FunctionDescriptor __mulh$descriptor() {
+        return __mulh.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BIOS_FAILED_TO_CONNECT_INTERRUPT 585
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long long __mulh(LONG64 Multiplier, LONG64 Multiplicand)
      * }
      */
-    public static int ERROR_BIOS_FAILED_TO_CONNECT_INTERRUPT() {
-        return (int)585L;
+    public static MethodHandle __mulh$handle() {
+        return __mulh.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_BACKUP_CONTROLLER 586
+     * {@snippet lang=c :
+     * long long __mulh(LONG64 Multiplier, LONG64 Multiplicand)
      * }
      */
-    public static int ERROR_BACKUP_CONTROLLER() {
-        return (int)586L;
+    public static long __mulh(long Multiplier, long Multiplicand) {
+        var mh$ = __mulh.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__mulh", Multiplier, Multiplicand);
+            }
+            return (long)mh$.invokeExact(Multiplier, Multiplicand);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __umulh {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__umulh"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_MUTANT_LIMIT_EXCEEDED 587
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long long __umulh(DWORD64 Multiplier, DWORD64 Multiplicand)
      * }
      */
-    public static int ERROR_MUTANT_LIMIT_EXCEEDED() {
-        return (int)587L;
+    public static FunctionDescriptor __umulh$descriptor() {
+        return __umulh.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FS_DRIVER_REQUIRED 588
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long long __umulh(DWORD64 Multiplier, DWORD64 Multiplicand)
      * }
      */
-    public static int ERROR_FS_DRIVER_REQUIRED() {
-        return (int)588L;
+    public static MethodHandle __umulh$handle() {
+        return __umulh.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CANNOT_LOAD_REGISTRY_FILE 589
+     * {@snippet lang=c :
+     * unsigned long long __umulh(DWORD64 Multiplier, DWORD64 Multiplicand)
      * }
      */
-    public static int ERROR_CANNOT_LOAD_REGISTRY_FILE() {
-        return (int)589L;
+    public static long __umulh(long Multiplier, long Multiplicand) {
+        var mh$ = __umulh.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__umulh", Multiplier, Multiplicand);
+            }
+            return (long)mh$.invokeExact(Multiplier, Multiplicand);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __popcnt64 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__popcnt64"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_DEBUG_ATTACH_FAILED 590
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long long __popcnt64(DWORD64 operand)
      * }
      */
-    public static int ERROR_DEBUG_ATTACH_FAILED() {
-        return (int)590L;
+    public static FunctionDescriptor __popcnt64$descriptor() {
+        return __popcnt64.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SYSTEM_PROCESS_TERMINATED 591
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long long __popcnt64(DWORD64 operand)
      * }
      */
-    public static int ERROR_SYSTEM_PROCESS_TERMINATED() {
-        return (int)591L;
+    public static MethodHandle __popcnt64$handle() {
+        return __popcnt64.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_DATA_NOT_ACCEPTED 592
+     * {@snippet lang=c :
+     * unsigned long long __popcnt64(DWORD64 operand)
      * }
      */
-    public static int ERROR_DATA_NOT_ACCEPTED() {
-        return (int)592L;
+    public static long __popcnt64(long operand) {
+        var mh$ = __popcnt64.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__popcnt64", operand);
+            }
+            return (long)mh$.invokeExact(operand);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __shiftleft128 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_CHAR
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__shiftleft128"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_VDM_HARD_ERROR 593
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long long __shiftleft128(DWORD64 LowPart, DWORD64 HighPart, BYTE Shift)
      * }
      */
-    public static int ERROR_VDM_HARD_ERROR() {
-        return (int)593L;
+    public static FunctionDescriptor __shiftleft128$descriptor() {
+        return __shiftleft128.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DRIVER_CANCEL_TIMEOUT 594
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long long __shiftleft128(DWORD64 LowPart, DWORD64 HighPart, BYTE Shift)
      * }
      */
-    public static int ERROR_DRIVER_CANCEL_TIMEOUT() {
-        return (int)594L;
+    public static MethodHandle __shiftleft128$handle() {
+        return __shiftleft128.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_REPLY_MESSAGE_MISMATCH 595
+     * {@snippet lang=c :
+     * unsigned long long __shiftleft128(DWORD64 LowPart, DWORD64 HighPart, BYTE Shift)
      * }
      */
-    public static int ERROR_REPLY_MESSAGE_MISMATCH() {
-        return (int)595L;
+    public static long __shiftleft128(long LowPart, long HighPart, byte Shift) {
+        var mh$ = __shiftleft128.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__shiftleft128", LowPart, HighPart, Shift);
+            }
+            return (long)mh$.invokeExact(LowPart, HighPart, Shift);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __shiftright128 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_CHAR
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__shiftright128"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_LOST_WRITEBEHIND_DATA 596
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long long __shiftright128(DWORD64 LowPart, DWORD64 HighPart, BYTE Shift)
      * }
      */
-    public static int ERROR_LOST_WRITEBEHIND_DATA() {
-        return (int)596L;
+    public static FunctionDescriptor __shiftright128$descriptor() {
+        return __shiftright128.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CLIENT_SERVER_PARAMETERS_INVALID 597
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long long __shiftright128(DWORD64 LowPart, DWORD64 HighPart, BYTE Shift)
      * }
      */
-    public static int ERROR_CLIENT_SERVER_PARAMETERS_INVALID() {
-        return (int)597L;
+    public static MethodHandle __shiftright128$handle() {
+        return __shiftright128.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_TINY_STREAM 598
+     * {@snippet lang=c :
+     * unsigned long long __shiftright128(DWORD64 LowPart, DWORD64 HighPart, BYTE Shift)
      * }
      */
-    public static int ERROR_NOT_TINY_STREAM() {
-        return (int)598L;
+    public static long __shiftright128(long LowPart, long HighPart, byte Shift) {
+        var mh$ = __shiftright128.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__shiftright128", LowPart, HighPart, Shift);
+            }
+            return (long)mh$.invokeExact(LowPart, HighPart, Shift);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _mul128 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_mul128"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_STACK_OVERFLOW_READ 599
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * long long _mul128(LONG64 Multiplier, LONG64 Multiplicand, LONG64 *HighProduct)
      * }
      */
-    public static int ERROR_STACK_OVERFLOW_READ() {
-        return (int)599L;
+    public static FunctionDescriptor _mul128$descriptor() {
+        return _mul128.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CONVERT_TO_LARGE 600
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * long long _mul128(LONG64 Multiplier, LONG64 Multiplicand, LONG64 *HighProduct)
      * }
      */
-    public static int ERROR_CONVERT_TO_LARGE() {
-        return (int)600L;
+    public static MethodHandle _mul128$handle() {
+        return _mul128.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_FOUND_OUT_OF_SCOPE 601
+     * {@snippet lang=c :
+     * long long _mul128(LONG64 Multiplier, LONG64 Multiplicand, LONG64 *HighProduct)
      * }
      */
-    public static int ERROR_FOUND_OUT_OF_SCOPE() {
-        return (int)601L;
+    public static long _mul128(long Multiplier, long Multiplicand, MemorySegment HighProduct) {
+        var mh$ = _mul128.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_mul128", Multiplier, Multiplicand, HighProduct);
+            }
+            return (long)mh$.invokeExact(Multiplier, Multiplicand, HighProduct);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class UnsignedMultiply128 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("UnsignedMultiply128"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_ALLOCATE_BUCKET 602
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * DWORD64 UnsignedMultiply128(DWORD64 Multiplier, DWORD64 Multiplicand, DWORD64 *HighProduct)
      * }
      */
-    public static int ERROR_ALLOCATE_BUCKET() {
-        return (int)602L;
+    public static FunctionDescriptor UnsignedMultiply128$descriptor() {
+        return UnsignedMultiply128.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_MARSHALL_OVERFLOW 603
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * DWORD64 UnsignedMultiply128(DWORD64 Multiplier, DWORD64 Multiplicand, DWORD64 *HighProduct)
      * }
      */
-    public static int ERROR_MARSHALL_OVERFLOW() {
-        return (int)603L;
+    public static MethodHandle UnsignedMultiply128$handle() {
+        return UnsignedMultiply128.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_VARIANT 604
+     * {@snippet lang=c :
+     * DWORD64 UnsignedMultiply128(DWORD64 Multiplier, DWORD64 Multiplicand, DWORD64 *HighProduct)
      * }
      */
-    public static int ERROR_INVALID_VARIANT() {
-        return (int)604L;
+    public static long UnsignedMultiply128(long Multiplier, long Multiplicand, MemorySegment HighProduct) {
+        var mh$ = UnsignedMultiply128.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("UnsignedMultiply128", Multiplier, Multiplicand, HighProduct);
+            }
+            return (long)mh$.invokeExact(Multiplier, Multiplicand, HighProduct);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class _umul128 {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_POINTER
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("_umul128"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_COMPRESSION_BUFFER 605
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long long _umul128(DWORD64 Multiplier, DWORD64 Multiplicand, DWORD64 *HighProduct)
      * }
      */
-    public static int ERROR_BAD_COMPRESSION_BUFFER() {
-        return (int)605L;
+    public static FunctionDescriptor _umul128$descriptor() {
+        return _umul128.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_AUDIT_FAILED 606
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long long _umul128(DWORD64 Multiplier, DWORD64 Multiplicand, DWORD64 *HighProduct)
      * }
      */
-    public static int ERROR_AUDIT_FAILED() {
-        return (int)606L;
+    public static MethodHandle _umul128$handle() {
+        return _umul128.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_TIMER_RESOLUTION_NOT_SET 607
+     * {@snippet lang=c :
+     * unsigned long long _umul128(DWORD64 Multiplier, DWORD64 Multiplicand, DWORD64 *HighProduct)
      * }
      */
-    public static int ERROR_TIMER_RESOLUTION_NOT_SET() {
-        return (int)607L;
+    public static long _umul128(long Multiplier, long Multiplicand, MemorySegment HighProduct) {
+        var mh$ = _umul128.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("_umul128", Multiplier, Multiplicand, HighProduct);
+            }
+            return (long)mh$.invokeExact(Multiplier, Multiplicand, HighProduct);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __readgsbyte {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_CHAR,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__readgsbyte"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_INSUFFICIENT_LOGON_INFO 608
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned char __readgsbyte(DWORD Offset)
      * }
      */
-    public static int ERROR_INSUFFICIENT_LOGON_INFO() {
-        return (int)608L;
+    public static FunctionDescriptor __readgsbyte$descriptor() {
+        return __readgsbyte.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_BAD_DLL_ENTRYPOINT 609
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned char __readgsbyte(DWORD Offset)
      * }
      */
-    public static int ERROR_BAD_DLL_ENTRYPOINT() {
-        return (int)609L;
+    public static MethodHandle __readgsbyte$handle() {
+        return __readgsbyte.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_BAD_SERVICE_ENTRYPOINT 610
+     * {@snippet lang=c :
+     * unsigned char __readgsbyte(DWORD Offset)
      * }
      */
-    public static int ERROR_BAD_SERVICE_ENTRYPOINT() {
-        return (int)610L;
+    public static byte __readgsbyte(int Offset) {
+        var mh$ = __readgsbyte.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__readgsbyte", Offset);
+            }
+            return (byte)mh$.invokeExact(Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __readgsword {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_SHORT,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__readgsword"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_IP_ADDRESS_CONFLICT1 611
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned short __readgsword(DWORD Offset)
      * }
      */
-    public static int ERROR_IP_ADDRESS_CONFLICT1() {
-        return (int)611L;
+    public static FunctionDescriptor __readgsword$descriptor() {
+        return __readgsword.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_IP_ADDRESS_CONFLICT2 612
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned short __readgsword(DWORD Offset)
      * }
      */
-    public static int ERROR_IP_ADDRESS_CONFLICT2() {
-        return (int)612L;
+    public static MethodHandle __readgsword$handle() {
+        return __readgsword.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_REGISTRY_QUOTA_LIMIT 613
+     * {@snippet lang=c :
+     * unsigned short __readgsword(DWORD Offset)
      * }
      */
-    public static int ERROR_REGISTRY_QUOTA_LIMIT() {
-        return (int)613L;
+    public static short __readgsword(int Offset) {
+        var mh$ = __readgsword.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__readgsword", Offset);
+            }
+            return (short)mh$.invokeExact(Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __readgsdword {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__readgsdword"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_NO_CALLBACK_ACTIVE 614
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long __readgsdword(DWORD Offset)
      * }
      */
-    public static int ERROR_NO_CALLBACK_ACTIVE() {
-        return (int)614L;
+    public static FunctionDescriptor __readgsdword$descriptor() {
+        return __readgsdword.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PWD_TOO_SHORT 615
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long __readgsdword(DWORD Offset)
      * }
      */
-    public static int ERROR_PWD_TOO_SHORT() {
-        return (int)615L;
+    public static MethodHandle __readgsdword$handle() {
+        return __readgsdword.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_PWD_TOO_RECENT 616
+     * {@snippet lang=c :
+     * unsigned long __readgsdword(DWORD Offset)
      * }
      */
-    public static int ERROR_PWD_TOO_RECENT() {
-        return (int)616L;
+    public static int __readgsdword(int Offset) {
+        var mh$ = __readgsdword.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__readgsdword", Offset);
+            }
+            return (int)mh$.invokeExact(Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __readgsqword {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG_LONG,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__readgsqword"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PWD_HISTORY_CONFLICT 617
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * unsigned long long __readgsqword(DWORD Offset)
      * }
      */
-    public static int ERROR_PWD_HISTORY_CONFLICT() {
-        return (int)617L;
+    public static FunctionDescriptor __readgsqword$descriptor() {
+        return __readgsqword.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_UNSUPPORTED_COMPRESSION 618
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * unsigned long long __readgsqword(DWORD Offset)
      * }
      */
-    public static int ERROR_UNSUPPORTED_COMPRESSION() {
-        return (int)618L;
+    public static MethodHandle __readgsqword$handle() {
+        return __readgsqword.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_HW_PROFILE 619
+     * {@snippet lang=c :
+     * unsigned long long __readgsqword(DWORD Offset)
      * }
      */
-    public static int ERROR_INVALID_HW_PROFILE() {
-        return (int)619L;
+    public static long __readgsqword(int Offset) {
+        var mh$ = __readgsqword.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__readgsqword", Offset);
+            }
+            return (long)mh$.invokeExact(Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __writegsbyte {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_LONG,
+            Windows_h.C_CHAR
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__writegsbyte"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_PLUGPLAY_DEVICE_PATH 620
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __writegsbyte(DWORD Offset, BYTE Data)
      * }
      */
-    public static int ERROR_INVALID_PLUGPLAY_DEVICE_PATH() {
-        return (int)620L;
+    public static FunctionDescriptor __writegsbyte$descriptor() {
+        return __writegsbyte.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_QUOTA_LIST_INCONSISTENT 621
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __writegsbyte(DWORD Offset, BYTE Data)
      * }
      */
-    public static int ERROR_QUOTA_LIST_INCONSISTENT() {
-        return (int)621L;
+    public static MethodHandle __writegsbyte$handle() {
+        return __writegsbyte.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_EVALUATION_EXPIRATION 622
+     * {@snippet lang=c :
+     * void __writegsbyte(DWORD Offset, BYTE Data)
      * }
      */
-    public static int ERROR_EVALUATION_EXPIRATION() {
-        return (int)622L;
+    public static void __writegsbyte(int Offset, byte Data) {
+        var mh$ = __writegsbyte.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__writegsbyte", Offset, Data);
+            }
+            mh$.invokeExact(Offset, Data);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __writegsword {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_LONG,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__writegsword"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_ILLEGAL_DLL_RELOCATION 623
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __writegsword(DWORD Offset, WORD Data)
      * }
      */
-    public static int ERROR_ILLEGAL_DLL_RELOCATION() {
-        return (int)623L;
+    public static FunctionDescriptor __writegsword$descriptor() {
+        return __writegsword.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DLL_INIT_FAILED_LOGOFF 624
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __writegsword(DWORD Offset, WORD Data)
      * }
      */
-    public static int ERROR_DLL_INIT_FAILED_LOGOFF() {
-        return (int)624L;
+    public static MethodHandle __writegsword$handle() {
+        return __writegsword.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_VALIDATE_CONTINUE 625
+     * {@snippet lang=c :
+     * void __writegsword(DWORD Offset, WORD Data)
      * }
      */
-    public static int ERROR_VALIDATE_CONTINUE() {
-        return (int)625L;
+    public static void __writegsword(int Offset, short Data) {
+        var mh$ = __writegsword.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__writegsword", Offset, Data);
+            }
+            mh$.invokeExact(Offset, Data);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __writegsdword {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__writegsdword"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_NO_MORE_MATCHES 626
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __writegsdword(DWORD Offset, DWORD Data)
      * }
      */
-    public static int ERROR_NO_MORE_MATCHES() {
-        return (int)626L;
+    public static FunctionDescriptor __writegsdword$descriptor() {
+        return __writegsdword.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_RANGE_LIST_CONFLICT 627
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __writegsdword(DWORD Offset, DWORD Data)
      * }
      */
-    public static int ERROR_RANGE_LIST_CONFLICT() {
-        return (int)627L;
+    public static MethodHandle __writegsdword$handle() {
+        return __writegsdword.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_SERVER_SID_MISMATCH 628
+     * {@snippet lang=c :
+     * void __writegsdword(DWORD Offset, DWORD Data)
      * }
      */
-    public static int ERROR_SERVER_SID_MISMATCH() {
-        return (int)628L;
+    public static void __writegsdword(int Offset, int Data) {
+        var mh$ = __writegsdword.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__writegsdword", Offset, Data);
+            }
+            mh$.invokeExact(Offset, Data);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __writegsqword {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__writegsqword"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_CANT_ENABLE_DENY_ONLY 629
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __writegsqword(DWORD Offset, DWORD64 Data)
      * }
      */
-    public static int ERROR_CANT_ENABLE_DENY_ONLY() {
-        return (int)629L;
+    public static FunctionDescriptor __writegsqword$descriptor() {
+        return __writegsqword.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_FLOAT_MULTIPLE_FAULTS 630
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __writegsqword(DWORD Offset, DWORD64 Data)
      * }
      */
-    public static int ERROR_FLOAT_MULTIPLE_FAULTS() {
-        return (int)630L;
+    public static MethodHandle __writegsqword$handle() {
+        return __writegsqword.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_FLOAT_MULTIPLE_TRAPS 631
+     * {@snippet lang=c :
+     * void __writegsqword(DWORD Offset, DWORD64 Data)
      * }
      */
-    public static int ERROR_FLOAT_MULTIPLE_TRAPS() {
-        return (int)631L;
+    public static void __writegsqword(int Offset, long Data) {
+        var mh$ = __writegsqword.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__writegsqword", Offset, Data);
+            }
+            mh$.invokeExact(Offset, Data);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __incgsbyte {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__incgsbyte"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOINTERFACE 632
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __incgsbyte(DWORD Offset)
      * }
      */
-    public static int ERROR_NOINTERFACE() {
-        return (int)632L;
+    public static FunctionDescriptor __incgsbyte$descriptor() {
+        return __incgsbyte.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DRIVER_FAILED_SLEEP 633
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __incgsbyte(DWORD Offset)
      * }
      */
-    public static int ERROR_DRIVER_FAILED_SLEEP() {
-        return (int)633L;
+    public static MethodHandle __incgsbyte$handle() {
+        return __incgsbyte.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_CORRUPT_SYSTEM_FILE 634
+     * {@snippet lang=c :
+     * void __incgsbyte(DWORD Offset)
      * }
      */
-    public static int ERROR_CORRUPT_SYSTEM_FILE() {
-        return (int)634L;
+    public static void __incgsbyte(int Offset) {
+        var mh$ = __incgsbyte.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__incgsbyte", Offset);
+            }
+            mh$.invokeExact(Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __addgsbyte {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_LONG,
+            Windows_h.C_CHAR
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__addgsbyte"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_COMMITMENT_MINIMUM 635
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __addgsbyte(DWORD Offset, BYTE Value)
      * }
      */
-    public static int ERROR_COMMITMENT_MINIMUM() {
-        return (int)635L;
+    public static FunctionDescriptor __addgsbyte$descriptor() {
+        return __addgsbyte.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PNP_RESTART_ENUMERATION 636
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __addgsbyte(DWORD Offset, BYTE Value)
      * }
      */
-    public static int ERROR_PNP_RESTART_ENUMERATION() {
-        return (int)636L;
+    public static MethodHandle __addgsbyte$handle() {
+        return __addgsbyte.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_SYSTEM_IMAGE_BAD_SIGNATURE 637
+     * {@snippet lang=c :
+     * void __addgsbyte(DWORD Offset, BYTE Value)
      * }
      */
-    public static int ERROR_SYSTEM_IMAGE_BAD_SIGNATURE() {
-        return (int)637L;
+    public static void __addgsbyte(int Offset, byte Value) {
+        var mh$ = __addgsbyte.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__addgsbyte", Offset, Value);
+            }
+            mh$.invokeExact(Offset, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __incgsword {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__incgsword"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_PNP_REBOOT_REQUIRED 638
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __incgsword(DWORD Offset)
      * }
      */
-    public static int ERROR_PNP_REBOOT_REQUIRED() {
-        return (int)638L;
+    public static FunctionDescriptor __incgsword$descriptor() {
+        return __incgsword.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_INSUFFICIENT_POWER 639
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __incgsword(DWORD Offset)
      * }
      */
-    public static int ERROR_INSUFFICIENT_POWER() {
-        return (int)639L;
+    public static MethodHandle __incgsword$handle() {
+        return __incgsword.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_MULTIPLE_FAULT_VIOLATION 640
+     * {@snippet lang=c :
+     * void __incgsword(DWORD Offset)
      * }
      */
-    public static int ERROR_MULTIPLE_FAULT_VIOLATION() {
-        return (int)640L;
+    public static void __incgsword(int Offset) {
+        var mh$ = __incgsword.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__incgsword", Offset);
+            }
+            mh$.invokeExact(Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __addgsword {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_LONG,
+            Windows_h.C_SHORT
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__addgsword"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_SYSTEM_SHUTDOWN 641
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __addgsword(DWORD Offset, WORD Value)
      * }
      */
-    public static int ERROR_SYSTEM_SHUTDOWN() {
-        return (int)641L;
+    public static FunctionDescriptor __addgsword$descriptor() {
+        return __addgsword.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_PORT_NOT_SET 642
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __addgsword(DWORD Offset, WORD Value)
      * }
      */
-    public static int ERROR_PORT_NOT_SET() {
-        return (int)642L;
+    public static MethodHandle __addgsword$handle() {
+        return __addgsword.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_DS_VERSION_CHECK_FAILURE 643
+     * {@snippet lang=c :
+     * void __addgsword(DWORD Offset, WORD Value)
      * }
      */
-    public static int ERROR_DS_VERSION_CHECK_FAILURE() {
-        return (int)643L;
+    public static void __addgsword(int Offset, short Value) {
+        var mh$ = __addgsword.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__addgsword", Offset, Value);
+            }
+            mh$.invokeExact(Offset, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __incgsdword {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__incgsdword"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_RANGE_NOT_FOUND 644
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __incgsdword(DWORD Offset)
      * }
      */
-    public static int ERROR_RANGE_NOT_FOUND() {
-        return (int)644L;
+    public static FunctionDescriptor __incgsdword$descriptor() {
+        return __incgsdword.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SAFE_MODE_DRIVER 646
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __incgsdword(DWORD Offset)
      * }
      */
-    public static int ERROR_NOT_SAFE_MODE_DRIVER() {
-        return (int)646L;
+    public static MethodHandle __incgsdword$handle() {
+        return __incgsdword.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_FAILED_DRIVER_ENTRY 647
+     * {@snippet lang=c :
+     * void __incgsdword(DWORD Offset)
      * }
      */
-    public static int ERROR_FAILED_DRIVER_ENTRY() {
-        return (int)647L;
+    public static void __incgsdword(int Offset) {
+        var mh$ = __incgsdword.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__incgsdword", Offset);
+            }
+            mh$.invokeExact(Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __addgsdword {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__addgsdword"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_ENUMERATION_ERROR 648
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __addgsdword(DWORD Offset, DWORD Value)
      * }
      */
-    public static int ERROR_DEVICE_ENUMERATION_ERROR() {
-        return (int)648L;
+    public static FunctionDescriptor __addgsdword$descriptor() {
+        return __addgsdword.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_MOUNT_POINT_NOT_RESOLVED 649
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __addgsdword(DWORD Offset, DWORD Value)
      * }
      */
-    public static int ERROR_MOUNT_POINT_NOT_RESOLVED() {
-        return (int)649L;
+    public static MethodHandle __addgsdword$handle() {
+        return __addgsdword.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_DEVICE_OBJECT_PARAMETER 650
+     * {@snippet lang=c :
+     * void __addgsdword(DWORD Offset, DWORD Value)
      * }
      */
-    public static int ERROR_INVALID_DEVICE_OBJECT_PARAMETER() {
-        return (int)650L;
+    public static void __addgsdword(int Offset, int Value) {
+        var mh$ = __addgsdword.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__addgsdword", Offset, Value);
+            }
+            mh$.invokeExact(Offset, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
+
+    private static class __incgsqword {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__incgsqword"),
+                    DESC);
+    }
+
     /**
-     * {@snippet :
-     * #define ERROR_MCA_OCCURED 651
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __incgsqword(DWORD Offset)
      * }
      */
-    public static int ERROR_MCA_OCCURED() {
-        return (int)651L;
+    public static FunctionDescriptor __incgsqword$descriptor() {
+        return __incgsqword.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DRIVER_DATABASE_ERROR 652
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __incgsqword(DWORD Offset)
      * }
      */
-    public static int ERROR_DRIVER_DATABASE_ERROR() {
-        return (int)652L;
+    public static MethodHandle __incgsqword$handle() {
+        return __incgsqword.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_SYSTEM_HIVE_TOO_LARGE 653
+     * {@snippet lang=c :
+     * void __incgsqword(DWORD Offset)
      * }
      */
-    public static int ERROR_SYSTEM_HIVE_TOO_LARGE() {
-        return (int)653L;
+    public static void __incgsqword(int Offset) {
+        var mh$ = __incgsqword.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__incgsqword", Offset);
+            }
+            mh$.invokeExact(Offset);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    private static class __addgsqword {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(
+            Windows_h.C_LONG,
+            Windows_h.C_LONG_LONG
+        );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__addgsqword"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_DRIVER_FAILED_PRIOR_UNLOAD 654
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __addgsqword(DWORD Offset, DWORD64 Value)
      * }
      */
-    public static int ERROR_DRIVER_FAILED_PRIOR_UNLOAD() {
-        return (int)654L;
+    public static FunctionDescriptor __addgsqword$descriptor() {
+        return __addgsqword.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_VOLSNAP_PREPARE_HIBERNATE 655
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __addgsqword(DWORD Offset, DWORD64 Value)
      * }
      */
-    public static int ERROR_VOLSNAP_PREPARE_HIBERNATE() {
-        return (int)655L;
+    public static MethodHandle __addgsqword$handle() {
+        return __addgsqword.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_HIBERNATION_FAILURE 656
+     * {@snippet lang=c :
+     * void __addgsqword(DWORD Offset, DWORD64 Value)
      * }
      */
-    public static int ERROR_HIBERNATION_FAILURE() {
-        return (int)656L;
+    public static void __addgsqword(int Offset, long Value) {
+        var mh$ = __addgsqword.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__addgsqword", Offset, Value);
+            }
+            mh$.invokeExact(Offset, Value);
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
     /**
-     * {@snippet :
-     * #define ERROR_PWD_TOO_LONG 657
+     * {@snippet lang=c :
+     * typedef XSAVE_FORMAT *PXMM_SAVE_AREA32
      * }
      */
-    public static int ERROR_PWD_TOO_LONG() {
-        return (int)657L;
-    }
+    public static final AddressLayout PXMM_SAVE_AREA32 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_FILE_SYSTEM_LIMITATION 665
+     * {@snippet lang=c :
+     * typedef struct _CONTEXT {
+     *     DWORD64 P1Home;
+     *     DWORD64 P2Home;
+     *     DWORD64 P3Home;
+     *     DWORD64 P4Home;
+     *     DWORD64 P5Home;
+     *     DWORD64 P6Home;
+     *     DWORD ContextFlags;
+     *     DWORD MxCsr;
+     *     WORD SegCs;
+     *     WORD SegDs;
+     *     WORD SegEs;
+     *     WORD SegFs;
+     *     WORD SegGs;
+     *     WORD SegSs;
+     *     DWORD EFlags;
+     *     DWORD64 Dr0;
+     *     DWORD64 Dr1;
+     *     DWORD64 Dr2;
+     *     DWORD64 Dr3;
+     *     DWORD64 Dr6;
+     *     DWORD64 Dr7;
+     *     DWORD64 Rax;
+     *     DWORD64 Rcx;
+     *     DWORD64 Rdx;
+     *     DWORD64 Rbx;
+     *     DWORD64 Rsp;
+     *     DWORD64 Rbp;
+     *     DWORD64 Rsi;
+     *     DWORD64 Rdi;
+     *     DWORD64 R8;
+     *     DWORD64 R9;
+     *     DWORD64 R10;
+     *     DWORD64 R11;
+     *     DWORD64 R12;
+     *     DWORD64 R13;
+     *     DWORD64 R14;
+     *     DWORD64 R15;
+     *     DWORD64 Rip;
+     *     union {
+     *         XMM_SAVE_AREA32 FltSave;
+     *         struct {
+     *             M128A Header[2];
+     *             M128A Legacy[8];
+     *             M128A Xmm0;
+     *             M128A Xmm1;
+     *             M128A Xmm2;
+     *             M128A Xmm3;
+     *             M128A Xmm4;
+     *             M128A Xmm5;
+     *             M128A Xmm6;
+     *             M128A Xmm7;
+     *             M128A Xmm8;
+     *             M128A Xmm9;
+     *             M128A Xmm10;
+     *             M128A Xmm11;
+     *             M128A Xmm12;
+     *             M128A Xmm13;
+     *             M128A Xmm14;
+     *             M128A Xmm15;
+     *         };
+     *     };
+     *     M128A VectorRegister[26];
+     *     DWORD64 VectorControl;
+     *     DWORD64 DebugControl;
+     *     DWORD64 LastBranchToRip;
+     *     DWORD64 LastBranchFromRip;
+     *     DWORD64 LastExceptionToRip;
+     *     DWORD64 LastExceptionFromRip;
+     * } *PCONTEXT
      * }
      */
-    public static int ERROR_FILE_SYSTEM_LIMITATION() {
-        return (int)665L;
-    }
+    public static final AddressLayout PCONTEXT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_ASSERTION_FAILURE 668
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_RUNTIME_FUNCTION_ENTRY *PRUNTIME_FUNCTION
      * }
      */
-    public static int ERROR_ASSERTION_FAILURE() {
-        return (int)668L;
-    }
+    public static final AddressLayout PRUNTIME_FUNCTION = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_ACPI_ERROR 669
+     * {@snippet lang=c :
+     * typedef SCOPE_TABLE_AMD64 *PSCOPE_TABLE
      * }
      */
-    public static int ERROR_ACPI_ERROR() {
-        return (int)669L;
-    }
+    public static final AddressLayout PSCOPE_TABLE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_WOW_ASSERTION 670
+     * {@snippet lang=c :
+     * typedef struct _DISPATCHER_CONTEXT {
+     *     DWORD64 ControlPc;
+     *     DWORD64 ImageBase;
+     *     PRUNTIME_FUNCTION FunctionEntry;
+     *     DWORD64 EstablisherFrame;
+     *     DWORD64 TargetIp;
+     *     PCONTEXT ContextRecord;
+     *     PEXCEPTION_ROUTINE LanguageHandler;
+     *     PVOID HandlerData;
+     *     struct _UNWIND_HISTORY_TABLE *HistoryTable;
+     *     DWORD ScopeIndex;
+     *     DWORD Fill0;
+     * } *PDISPATCHER_CONTEXT
      * }
      */
-    public static int ERROR_WOW_ASSERTION() {
-        return (int)670L;
-    }
+    public static final AddressLayout PDISPATCHER_CONTEXT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_PNP_BAD_MPS_TABLE 671
+     * {@snippet lang=c :
+     * typedef struct _KNONVOLATILE_CONTEXT_POINTERS {
+     *     union {
+     *         PM128A FloatingContext[16];
+     *         struct {
+     *             PM128A Xmm0;
+     *             PM128A Xmm1;
+     *             PM128A Xmm2;
+     *             PM128A Xmm3;
+     *             PM128A Xmm4;
+     *             PM128A Xmm5;
+     *             PM128A Xmm6;
+     *             PM128A Xmm7;
+     *             PM128A Xmm8;
+     *             PM128A Xmm9;
+     *             PM128A Xmm10;
+     *             PM128A Xmm11;
+     *             PM128A Xmm12;
+     *             PM128A Xmm13;
+     *             PM128A Xmm14;
+     *             PM128A Xmm15;
+     *         };
+     *     };
+     *     union {
+     *         PDWORD64 IntegerContext[16];
+     *         struct {
+     *             PDWORD64 Rax;
+     *             PDWORD64 Rcx;
+     *             PDWORD64 Rdx;
+     *             PDWORD64 Rbx;
+     *             PDWORD64 Rsp;
+     *             PDWORD64 Rbp;
+     *             PDWORD64 Rsi;
+     *             PDWORD64 Rdi;
+     *             PDWORD64 R8;
+     *             PDWORD64 R9;
+     *             PDWORD64 R10;
+     *             PDWORD64 R11;
+     *             PDWORD64 R12;
+     *             PDWORD64 R13;
+     *             PDWORD64 R14;
+     *             PDWORD64 R15;
+     *         };
+     *     };
+     * } *PKNONVOLATILE_CONTEXT_POINTERS
      * }
      */
-    public static int ERROR_PNP_BAD_MPS_TABLE() {
-        return (int)671L;
-    }
+    public static final AddressLayout PKNONVOLATILE_CONTEXT_POINTERS = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_PNP_TRANSLATION_FAILED 672
+     * {@snippet lang=c :
+     * typedef struct _SCOPE_TABLE_ARM {
+     *     DWORD Count;
+     *     struct {
+     *         DWORD BeginAddress;
+     *         DWORD EndAddress;
+     *         DWORD HandlerAddress;
+     *         DWORD JumpTarget;
+     *     } ScopeRecord[1];
+     * } *PSCOPE_TABLE_ARM
      * }
      */
-    public static int ERROR_PNP_TRANSLATION_FAILED() {
-        return (int)672L;
-    }
+    public static final AddressLayout PSCOPE_TABLE_ARM = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_PNP_IRQ_TRANSLATION_FAILED 673
+     * {@snippet lang=c :
+     * typedef struct _SCOPE_TABLE_ARM64 {
+     *     DWORD Count;
+     *     struct {
+     *         DWORD BeginAddress;
+     *         DWORD EndAddress;
+     *         DWORD HandlerAddress;
+     *         DWORD JumpTarget;
+     *     } ScopeRecord[1];
+     * } *PSCOPE_TABLE_ARM64
      * }
      */
-    public static int ERROR_PNP_IRQ_TRANSLATION_FAILED() {
-        return (int)673L;
-    }
+    public static final AddressLayout PSCOPE_TABLE_ARM64 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_PNP_INVALID_ID 674
+     * {@snippet lang=c :
+     * typedef union _ARM64_NT_NEON128 {
+     *     struct {
+     *         ULONGLONG Low;
+     *         LONGLONG High;
+     *     };
+     *     double D[2];
+     *     float S[4];
+     *     WORD H[8];
+     *     BYTE B[16];
+     * } *PARM64_NT_NEON128
      * }
      */
-    public static int ERROR_PNP_INVALID_ID() {
-        return (int)674L;
-    }
+    public static final AddressLayout PARM64_NT_NEON128 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_WAKE_SYSTEM_DEBUGGER 675
+     * {@snippet lang=c :
+     * typedef struct _ARM64_NT_CONTEXT {
+     *     DWORD ContextFlags;
+     *     DWORD Cpsr;
+     *     union {
+     *         struct {
+     *             DWORD64 X0;
+     *             DWORD64 X1;
+     *             DWORD64 X2;
+     *             DWORD64 X3;
+     *             DWORD64 X4;
+     *             DWORD64 X5;
+     *             DWORD64 X6;
+     *             DWORD64 X7;
+     *             DWORD64 X8;
+     *             DWORD64 X9;
+     *             DWORD64 X10;
+     *             DWORD64 X11;
+     *             DWORD64 X12;
+     *             DWORD64 X13;
+     *             DWORD64 X14;
+     *             DWORD64 X15;
+     *             DWORD64 X16;
+     *             DWORD64 X17;
+     *             DWORD64 X18;
+     *             DWORD64 X19;
+     *             DWORD64 X20;
+     *             DWORD64 X21;
+     *             DWORD64 X22;
+     *             DWORD64 X23;
+     *             DWORD64 X24;
+     *             DWORD64 X25;
+     *             DWORD64 X26;
+     *             DWORD64 X27;
+     *             DWORD64 X28;
+     *             DWORD64 Fp;
+     *             DWORD64 Lr;
+     *         };
+     *         DWORD64 X[31];
+     *     };
+     *     DWORD64 Sp;
+     *     DWORD64 Pc;
+     *     ARM64_NT_NEON128 V[32];
+     *     DWORD Fpcr;
+     *     DWORD Fpsr;
+     *     DWORD Bcr[8];
+     *     DWORD64 Bvr[8];
+     *     DWORD Wcr[2];
+     *     DWORD64 Wvr[2];
+     * } *PARM64_NT_CONTEXT
      * }
      */
-    public static int ERROR_WAKE_SYSTEM_DEBUGGER() {
-        return (int)675L;
-    }
+    public static final AddressLayout PARM64_NT_CONTEXT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_HANDLES_CLOSED 676
+     * {@snippet lang=c :
+     * typedef struct _ARM64EC_NT_CONTEXT {
+     *     union {
+     *         struct {
+     *             DWORD64 AMD64_P1Home;
+     *             DWORD64 AMD64_P2Home;
+     *             DWORD64 AMD64_P3Home;
+     *             DWORD64 AMD64_P4Home;
+     *             DWORD64 AMD64_P5Home;
+     *             DWORD64 AMD64_P6Home;
+     *             DWORD ContextFlags;
+     *             DWORD AMD64_MxCsr_copy;
+     *             WORD AMD64_SegCs;
+     *             WORD AMD64_SegDs;
+     *             WORD AMD64_SegEs;
+     *             WORD AMD64_SegFs;
+     *             WORD AMD64_SegGs;
+     *             WORD AMD64_SegSs;
+     *             DWORD AMD64_EFlags;
+     *             DWORD64 AMD64_Dr0;
+     *             DWORD64 AMD64_Dr1;
+     *             DWORD64 AMD64_Dr2;
+     *             DWORD64 AMD64_Dr3;
+     *             DWORD64 AMD64_Dr6;
+     *             DWORD64 AMD64_Dr7;
+     *             DWORD64 X8;
+     *             DWORD64 X0;
+     *             DWORD64 X1;
+     *             DWORD64 X27;
+     *             DWORD64 Sp;
+     *             DWORD64 Fp;
+     *             DWORD64 X25;
+     *             DWORD64 X26;
+     *             DWORD64 X2;
+     *             DWORD64 X3;
+     *             DWORD64 X4;
+     *             DWORD64 X5;
+     *             DWORD64 X19;
+     *             DWORD64 X20;
+     *             DWORD64 X21;
+     *             DWORD64 X22;
+     *             DWORD64 Pc;
+     *             struct {
+     *                 WORD AMD64_ControlWord;
+     *                 WORD AMD64_StatusWord;
+     *                 BYTE AMD64_TagWord;
+     *                 BYTE AMD64_Reserved1;
+     *                 WORD AMD64_ErrorOpcode;
+     *                 DWORD AMD64_ErrorOffset;
+     *                 WORD AMD64_ErrorSelector;
+     *                 WORD AMD64_Reserved2;
+     *                 DWORD AMD64_DataOffset;
+     *                 WORD AMD64_DataSelector;
+     *                 WORD AMD64_Reserved3;
+     *                 DWORD AMD64_MxCsr;
+     *                 DWORD AMD64_MxCsr_Mask;
+     *                 DWORD64 Lr;
+     *                 WORD X16_0;
+     *                 WORD AMD64_St0_Reserved1;
+     *                 DWORD AMD64_St0_Reserved2;
+     *                 DWORD64 X6;
+     *                 WORD X16_1;
+     *                 WORD AMD64_St1_Reserved1;
+     *                 DWORD AMD64_St1_Reserved2;
+     *                 DWORD64 X7;
+     *                 WORD X16_2;
+     *                 WORD AMD64_St2_Reserved1;
+     *                 DWORD AMD64_St2_Reserved2;
+     *                 DWORD64 X9;
+     *                 WORD X16_3;
+     *                 WORD AMD64_St3_Reserved1;
+     *                 DWORD AMD64_St3_Reserved2;
+     *                 DWORD64 X10;
+     *                 WORD X17_0;
+     *                 WORD AMD64_St4_Reserved1;
+     *                 DWORD AMD64_St4_Reserved2;
+     *                 DWORD64 X11;
+     *                 WORD X17_1;
+     *                 WORD AMD64_St5_Reserved1;
+     *                 DWORD AMD64_St5_Reserved2;
+     *                 DWORD64 X12;
+     *                 WORD X17_2;
+     *                 WORD AMD64_St6_Reserved1;
+     *                 DWORD AMD64_St6_Reserved2;
+     *                 DWORD64 X15;
+     *                 WORD X17_3;
+     *                 WORD AMD64_St7_Reserved1;
+     *                 DWORD AMD64_St7_Reserved2;
+     *                 ARM64_NT_NEON128 V[16];
+     *                 BYTE AMD64_XSAVE_FORMAT_Reserved4[96];
+     *             };
+     *             ARM64_NT_NEON128 AMD64_VectorRegister[26];
+     *             DWORD64 AMD64_VectorControl;
+     *             DWORD64 AMD64_DebugControl;
+     *             DWORD64 AMD64_LastBranchToRip;
+     *             DWORD64 AMD64_LastBranchFromRip;
+     *             DWORD64 AMD64_LastExceptionToRip;
+     *             DWORD64 AMD64_LastExceptionFromRip;
+     *         };
+     *     };
+     * } *PARM64EC_NT_CONTEXT
      * }
      */
-    public static int ERROR_HANDLES_CLOSED() {
-        return (int)676L;
-    }
+    public static final AddressLayout PARM64EC_NT_CONTEXT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_EXTRANEOUS_INFORMATION 677
+     * {@snippet lang=c :
+     * typedef struct _IMAGE_ARM64_RUNTIME_FUNCTION_ENTRY *PARM64_RUNTIME_FUNCTION
      * }
      */
-    public static int ERROR_EXTRANEOUS_INFORMATION() {
-        return (int)677L;
-    }
+    public static final AddressLayout PARM64_RUNTIME_FUNCTION = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_RXACT_COMMIT_NECESSARY 678
+     * {@snippet lang=c :
+     * typedef struct _DISPATCHER_CONTEXT_ARM64 {
+     *     ULONG_PTR ControlPc;
+     *     ULONG_PTR ImageBase;
+     *     PARM64_RUNTIME_FUNCTION FunctionEntry;
+     *     ULONG_PTR EstablisherFrame;
+     *     ULONG_PTR TargetPc;
+     *     PARM64_NT_CONTEXT ContextRecord;
+     *     PEXCEPTION_ROUTINE LanguageHandler;
+     *     PVOID HandlerData;
+     *     struct _UNWIND_HISTORY_TABLE *HistoryTable;
+     *     DWORD ScopeIndex;
+     *     BOOLEAN ControlPcIsUnwound;
+     *     PBYTE NonVolatileRegisters;
+     * } *PDISPATCHER_CONTEXT_ARM64
      * }
      */
-    public static int ERROR_RXACT_COMMIT_NECESSARY() {
-        return (int)678L;
-    }
+    public static final AddressLayout PDISPATCHER_CONTEXT_ARM64 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_MEDIA_CHECK 679
+     * {@snippet lang=c :
+     * typedef struct _KNONVOLATILE_CONTEXT_POINTERS_ARM64 {
+     *     PDWORD64 X19;
+     *     PDWORD64 X20;
+     *     PDWORD64 X21;
+     *     PDWORD64 X22;
+     *     PDWORD64 X23;
+     *     PDWORD64 X24;
+     *     PDWORD64 X25;
+     *     PDWORD64 X26;
+     *     PDWORD64 X27;
+     *     PDWORD64 X28;
+     *     PDWORD64 Fp;
+     *     PDWORD64 Lr;
+     *     PDWORD64 D8;
+     *     PDWORD64 D9;
+     *     PDWORD64 D10;
+     *     PDWORD64 D11;
+     *     PDWORD64 D12;
+     *     PDWORD64 D13;
+     *     PDWORD64 D14;
+     *     PDWORD64 D15;
+     * } *PKNONVOLATILE_CONTEXT_POINTERS_ARM64
      * }
      */
-    public static int ERROR_MEDIA_CHECK() {
-        return (int)679L;
+    public static final AddressLayout PKNONVOLATILE_CONTEXT_POINTERS_ARM64 = Windows_h.C_POINTER;
+
+    private static class __int2c {
+        public static final FunctionDescriptor DESC = FunctionDescriptor.ofVoid(    );
+
+        public static final MethodHandle HANDLE = Linker.nativeLinker().downcallHandle(
+                    Windows_h.findOrThrow("__int2c"),
+                    DESC);
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_GUID_SUBSTITUTION_MADE 680
+     * Function descriptor for:
+     * {@snippet lang=c :
+     * void __int2c()
      * }
      */
-    public static int ERROR_GUID_SUBSTITUTION_MADE() {
-        return (int)680L;
+    public static FunctionDescriptor __int2c$descriptor() {
+        return __int2c.DESC;
     }
+
     /**
-     * {@snippet :
-     * #define ERROR_STOPPED_ON_SYMLINK 681
+     * Downcall method handle for:
+     * {@snippet lang=c :
+     * void __int2c()
      * }
      */
-    public static int ERROR_STOPPED_ON_SYMLINK() {
-        return (int)681L;
+    public static MethodHandle __int2c$handle() {
+        return __int2c.HANDLE;
     }
     /**
-     * {@snippet :
-     * #define ERROR_LONGJUMP 682
+     * {@snippet lang=c :
+     * void __int2c()
      * }
      */
-    public static int ERROR_LONGJUMP() {
-        return (int)682L;
+    public static void __int2c() {
+        var mh$ = __int2c.HANDLE;
+        try {
+            if (TRACE_DOWNCALLS) {
+                traceDowncall("__int2c");
+            }
+            mh$.invokeExact();
+        } catch (Throwable ex$) {
+           throw new AssertionError("should not reach here", ex$);
+        }
     }
     /**
-     * {@snippet :
-     * #define ERROR_PLUGPLAY_QUERY_VETOED 683
+     * {@snippet lang=c :
+     * typedef struct _LDT_ENTRY {
+     *     WORD LimitLow;
+     *     WORD BaseLow;
+     *     union {
+     *         struct {
+     *             BYTE BaseMid;
+     *             BYTE Flags1;
+     *             BYTE Flags2;
+     *             BYTE BaseHi;
+     *         } Bytes;
+     *         struct {
+     *             DWORD BaseMid : 8;
+     *             DWORD Type : 5;
+     *             DWORD Dpl : 2;
+     *             DWORD Pres : 1;
+     *             DWORD LimitHi : 4;
+     *             DWORD Sys : 1;
+     *             DWORD Reserved_0 : 1;
+     *             DWORD Default_Big : 1;
+     *             DWORD Granularity : 1;
+     *             DWORD BaseHi : 8;
+     *         } Bits;
+     *     } HighWord;
+     * } *PLDT_ENTRY
      * }
      */
-    public static int ERROR_PLUGPLAY_QUERY_VETOED() {
-        return (int)683L;
-    }
+    public static final AddressLayout PLDT_ENTRY = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_UNWIND_CONSOLIDATE 684
+     * {@snippet lang=c :
+     * typedef WOW64_FLOATING_SAVE_AREA *PWOW64_FLOATING_SAVE_AREA
      * }
      */
-    public static int ERROR_UNWIND_CONSOLIDATE() {
-        return (int)684L;
-    }
+    public static final AddressLayout PWOW64_FLOATING_SAVE_AREA = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_REGISTRY_HIVE_RECOVERED 685
+     * {@snippet lang=c :
+     * typedef WOW64_CONTEXT *PWOW64_CONTEXT
      * }
      */
-    public static int ERROR_REGISTRY_HIVE_RECOVERED() {
-        return (int)685L;
-    }
+    public static final AddressLayout PWOW64_CONTEXT = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DLL_MIGHT_BE_INSECURE 686
+     * {@snippet lang=c :
+     * typedef struct _WOW64_LDT_ENTRY {
+     *     WORD LimitLow;
+     *     WORD BaseLow;
+     *     union {
+     *         struct {
+     *             BYTE BaseMid;
+     *             BYTE Flags1;
+     *             BYTE Flags2;
+     *             BYTE BaseHi;
+     *         } Bytes;
+     *         struct {
+     *             DWORD BaseMid : 8;
+     *             DWORD Type : 5;
+     *             DWORD Dpl : 2;
+     *             DWORD Pres : 1;
+     *             DWORD LimitHi : 4;
+     *             DWORD Sys : 1;
+     *             DWORD Reserved_0 : 1;
+     *             DWORD Default_Big : 1;
+     *             DWORD Granularity : 1;
+     *             DWORD BaseHi : 8;
+     *         } Bits;
+     *     } HighWord;
+     * } *PWOW64_LDT_ENTRY
      * }
      */
-    public static int ERROR_DLL_MIGHT_BE_INSECURE() {
-        return (int)686L;
-    }
+    public static final AddressLayout PWOW64_LDT_ENTRY = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DLL_MIGHT_BE_INCOMPATIBLE 687
+     * {@snippet lang=c :
+     * typedef struct _WOW64_DESCRIPTOR_TABLE_ENTRY {
+     *     DWORD Selector;
+     *     WOW64_LDT_ENTRY Descriptor;
+     * } *PWOW64_DESCRIPTOR_TABLE_ENTRY
      * }
      */
-    public static int ERROR_DLL_MIGHT_BE_INCOMPATIBLE() {
-        return (int)687L;
-    }
+    public static final AddressLayout PWOW64_DESCRIPTOR_TABLE_ENTRY = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DBG_EXCEPTION_NOT_HANDLED 688
+     * {@snippet lang=c :
+     * typedef EXCEPTION_RECORD *PEXCEPTION_RECORD
      * }
      */
-    public static int ERROR_DBG_EXCEPTION_NOT_HANDLED() {
-        return (int)688L;
-    }
+    public static final AddressLayout PEXCEPTION_RECORD = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DBG_REPLY_LATER 689
+     * {@snippet lang=c :
+     * typedef struct _EXCEPTION_RECORD32 {
+     *     DWORD ExceptionCode;
+     *     DWORD ExceptionFlags;
+     *     DWORD ExceptionRecord;
+     *     DWORD ExceptionAddress;
+     *     DWORD NumberParameters;
+     *     DWORD ExceptionInformation[15];
+     * } *PEXCEPTION_RECORD32
      * }
      */
-    public static int ERROR_DBG_REPLY_LATER() {
-        return (int)689L;
-    }
+    public static final AddressLayout PEXCEPTION_RECORD32 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DBG_UNABLE_TO_PROVIDE_HANDLE 690
+     * {@snippet lang=c :
+     * typedef struct _EXCEPTION_RECORD64 {
+     *     DWORD ExceptionCode;
+     *     DWORD ExceptionFlags;
+     *     DWORD64 ExceptionRecord;
+     *     DWORD64 ExceptionAddress;
+     *     DWORD NumberParameters;
+     *     DWORD __unusedAlignment;
+     *     DWORD64 ExceptionInformation[15];
+     * } *PEXCEPTION_RECORD64
      * }
      */
-    public static int ERROR_DBG_UNABLE_TO_PROVIDE_HANDLE() {
-        return (int)690L;
-    }
+    public static final AddressLayout PEXCEPTION_RECORD64 = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DBG_TERMINATE_THREAD 691
+     * {@snippet lang=c :
+     * typedef struct _EXCEPTION_POINTERS {
+     *     PEXCEPTION_RECORD ExceptionRecord;
+     *     PCONTEXT ContextRecord;
+     * } *PEXCEPTION_POINTERS
      * }
      */
-    public static int ERROR_DBG_TERMINATE_THREAD() {
-        return (int)691L;
-    }
+    public static final AddressLayout PEXCEPTION_POINTERS = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DBG_TERMINATE_PROCESS 692
+     * {@snippet lang=c :
+     * typedef PVOID PACCESS_TOKEN
      * }
      */
-    public static int ERROR_DBG_TERMINATE_PROCESS() {
-        return (int)692L;
-    }
+    public static final AddressLayout PACCESS_TOKEN = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DBG_CONTROL_C 693
+     * {@snippet lang=c :
+     * typedef PVOID PSECURITY_DESCRIPTOR
      * }
      */
-    public static int ERROR_DBG_CONTROL_C() {
-        return (int)693L;
-    }
+    public static final AddressLayout PSECURITY_DESCRIPTOR = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DBG_PRINTEXCEPTION_C 694
+     * {@snippet lang=c :
+     * typedef PVOID PSID
      * }
      */
-    public static int ERROR_DBG_PRINTEXCEPTION_C() {
-        return (int)694L;
-    }
+    public static final AddressLayout PSID = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DBG_RIPEXCEPTION 695
+     * {@snippet lang=c :
+     * typedef PVOID PCLAIMS_BLOB
      * }
      */
-    public static int ERROR_DBG_RIPEXCEPTION() {
-        return (int)695L;
-    }
+    public static final AddressLayout PCLAIMS_BLOB = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DBG_CONTROL_BREAK 696
+     * {@snippet lang=c :
+     * typedef DWORD ACCESS_MASK
      * }
      */
-    public static int ERROR_DBG_CONTROL_BREAK() {
-        return (int)696L;
-    }
+    public static final OfInt ACCESS_MASK = Windows_h.C_LONG;
     /**
-     * {@snippet :
-     * #define ERROR_DBG_COMMAND_EXCEPTION 697
+     * {@snippet lang=c :
+     * typedef ACCESS_MASK *PACCESS_MASK
      * }
      */
-    public static int ERROR_DBG_COMMAND_EXCEPTION() {
-        return (int)697L;
-    }
+    public static final AddressLayout PACCESS_MASK = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_OBJECT_NAME_EXISTS 698
+     * {@snippet lang=c :
+     * typedef GENERIC_MAPPING *PGENERIC_MAPPING
      * }
      */
-    public static int ERROR_OBJECT_NAME_EXISTS() {
-        return (int)698L;
-    }
+    public static final AddressLayout PGENERIC_MAPPING = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_THREAD_WAS_SUSPENDED 699
+     * {@snippet lang=c :
+     * typedef struct _LUID_AND_ATTRIBUTES {
+     *     LUID Luid;
+     *     DWORD Attributes;
+     * } *PLUID_AND_ATTRIBUTES
      * }
      */
-    public static int ERROR_THREAD_WAS_SUSPENDED() {
-        return (int)699L;
-    }
+    public static final AddressLayout PLUID_AND_ATTRIBUTES = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_IMAGE_NOT_AT_BASE 700
+     * {@snippet lang=c :
+     * typedef LUID_AND_ATTRIBUTES_ARRAY *PLUID_AND_ATTRIBUTES_ARRAY
      * }
      */
-    public static int ERROR_IMAGE_NOT_AT_BASE() {
-        return (int)700L;
-    }
+    public static final AddressLayout PLUID_AND_ATTRIBUTES_ARRAY = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_RXACT_STATE_CREATED 701
+     * {@snippet lang=c :
+     * typedef struct _SID_IDENTIFIER_AUTHORITY {
+     *     BYTE Value[6];
+     * } *PSID_IDENTIFIER_AUTHORITY
      * }
      */
-    public static int ERROR_RXACT_STATE_CREATED() {
-        return (int)701L;
-    }
+    public static final AddressLayout PSID_IDENTIFIER_AUTHORITY = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SEGMENT_NOTIFICATION 702
+     * {@snippet lang=c :
+     * typedef struct _SID {
+     *     BYTE Revision;
+     *     BYTE SubAuthorityCount;
+     *     SID_IDENTIFIER_AUTHORITY IdentifierAuthority;
+     *     DWORD SubAuthority[1];
+     * } *PISID
      * }
      */
-    public static int ERROR_SEGMENT_NOTIFICATION() {
-        return (int)702L;
-    }
+    public static final AddressLayout PISID = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_BAD_CURRENT_DIRECTORY 703
+     * {@snippet lang=c :
+     * typedef union _SE_SID {
+     *     SID Sid;
+     *     BYTE Buffer[68];
+     * } *PSE_SID
      * }
      */
-    public static int ERROR_BAD_CURRENT_DIRECTORY() {
-        return (int)703L;
-    }
+    public static final AddressLayout PSE_SID = Windows_h.C_POINTER;
+    private static final int SidTypeUser = (int)1L;
     /**
-     * {@snippet :
-     * #define ERROR_FT_READ_RECOVERY_FROM_BACKUP 704
+     * {@snippet lang=c :
+     * enum _SID_NAME_USE.SidTypeUser = 1
      * }
      */
-    public static int ERROR_FT_READ_RECOVERY_FROM_BACKUP() {
-        return (int)704L;
+    public static int SidTypeUser() {
+        return SidTypeUser;
     }
+    private static final int SidTypeGroup = (int)2L;
     /**
-     * {@snippet :
-     * #define ERROR_FT_WRITE_RECOVERY 705
+     * {@snippet lang=c :
+     * enum _SID_NAME_USE.SidTypeGroup = 2
      * }
      */
-    public static int ERROR_FT_WRITE_RECOVERY() {
-        return (int)705L;
+    public static int SidTypeGroup() {
+        return SidTypeGroup;
     }
+    private static final int SidTypeDomain = (int)3L;
     /**
-     * {@snippet :
-     * #define ERROR_IMAGE_MACHINE_TYPE_MISMATCH 706
+     * {@snippet lang=c :
+     * enum _SID_NAME_USE.SidTypeDomain = 3
      * }
      */
-    public static int ERROR_IMAGE_MACHINE_TYPE_MISMATCH() {
-        return (int)706L;
+    public static int SidTypeDomain() {
+        return SidTypeDomain;
     }
+    private static final int SidTypeAlias = (int)4L;
     /**
-     * {@snippet :
-     * #define ERROR_RECEIVE_PARTIAL 707
+     * {@snippet lang=c :
+     * enum _SID_NAME_USE.SidTypeAlias = 4
      * }
      */
-    public static int ERROR_RECEIVE_PARTIAL() {
-        return (int)707L;
+    public static int SidTypeAlias() {
+        return SidTypeAlias;
     }
+    private static final int SidTypeWellKnownGroup = (int)5L;
     /**
-     * {@snippet :
-     * #define ERROR_RECEIVE_EXPEDITED 708
+     * {@snippet lang=c :
+     * enum _SID_NAME_USE.SidTypeWellKnownGroup = 5
      * }
      */
-    public static int ERROR_RECEIVE_EXPEDITED() {
-        return (int)708L;
+    public static int SidTypeWellKnownGroup() {
+        return SidTypeWellKnownGroup;
     }
+    private static final int SidTypeDeletedAccount = (int)6L;
     /**
-     * {@snippet :
-     * #define ERROR_RECEIVE_PARTIAL_EXPEDITED 709
+     * {@snippet lang=c :
+     * enum _SID_NAME_USE.SidTypeDeletedAccount = 6
      * }
      */
-    public static int ERROR_RECEIVE_PARTIAL_EXPEDITED() {
-        return (int)709L;
+    public static int SidTypeDeletedAccount() {
+        return SidTypeDeletedAccount;
     }
+    private static final int SidTypeInvalid = (int)7L;
     /**
-     * {@snippet :
-     * #define ERROR_EVENT_DONE 710
+     * {@snippet lang=c :
+     * enum _SID_NAME_USE.SidTypeInvalid = 7
      * }
      */
-    public static int ERROR_EVENT_DONE() {
-        return (int)710L;
+    public static int SidTypeInvalid() {
+        return SidTypeInvalid;
     }
+    private static final int SidTypeUnknown = (int)8L;
     /**
-     * {@snippet :
-     * #define ERROR_EVENT_PENDING 711
+     * {@snippet lang=c :
+     * enum _SID_NAME_USE.SidTypeUnknown = 8
      * }
      */
-    public static int ERROR_EVENT_PENDING() {
-        return (int)711L;
+    public static int SidTypeUnknown() {
+        return SidTypeUnknown;
     }
+    private static final int SidTypeComputer = (int)9L;
     /**
-     * {@snippet :
-     * #define ERROR_CHECKING_FILE_SYSTEM 712
+     * {@snippet lang=c :
+     * enum _SID_NAME_USE.SidTypeComputer = 9
      * }
      */
-    public static int ERROR_CHECKING_FILE_SYSTEM() {
-        return (int)712L;
+    public static int SidTypeComputer() {
+        return SidTypeComputer;
     }
+    private static final int SidTypeLabel = (int)10L;
     /**
-     * {@snippet :
-     * #define ERROR_FATAL_APP_EXIT 713
+     * {@snippet lang=c :
+     * enum _SID_NAME_USE.SidTypeLabel = 10
      * }
      */
-    public static int ERROR_FATAL_APP_EXIT() {
-        return (int)713L;
+    public static int SidTypeLabel() {
+        return SidTypeLabel;
     }
+    private static final int SidTypeLogonSession = (int)11L;
     /**
-     * {@snippet :
-     * #define ERROR_PREDEFINED_HANDLE 714
+     * {@snippet lang=c :
+     * enum _SID_NAME_USE.SidTypeLogonSession = 11
      * }
      */
-    public static int ERROR_PREDEFINED_HANDLE() {
-        return (int)714L;
+    public static int SidTypeLogonSession() {
+        return SidTypeLogonSession;
     }
     /**
-     * {@snippet :
-     * #define ERROR_WAS_UNLOCKED 715
+     * {@snippet lang=c :
+     * typedef enum _SID_NAME_USE {
+     *     SidTypeUser = 1,
+     *     SidTypeGroup,
+     *     SidTypeDomain,
+     *     SidTypeAlias,
+     *     SidTypeWellKnownGroup,
+     *     SidTypeDeletedAccount,
+     *     SidTypeInvalid,
+     *     SidTypeUnknown,
+     *     SidTypeComputer,
+     *     SidTypeLabel,
+     *     SidTypeLogonSession
+     * } *PSID_NAME_USE
      * }
      */
-    public static int ERROR_WAS_UNLOCKED() {
-        return (int)715L;
-    }
+    public static final AddressLayout PSID_NAME_USE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_NOTIFICATION 716
+     * {@snippet lang=c :
+     * typedef struct _SID_AND_ATTRIBUTES {
+     *     PSID Sid;
+     *     DWORD Attributes;
+     * } *PSID_AND_ATTRIBUTES
      * }
      */
-    public static int ERROR_SERVICE_NOTIFICATION() {
-        return (int)716L;
-    }
+    public static final AddressLayout PSID_AND_ATTRIBUTES = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_WAS_LOCKED 717
+     * {@snippet lang=c :
+     * typedef SID_AND_ATTRIBUTES_ARRAY *PSID_AND_ATTRIBUTES_ARRAY
      * }
      */
-    public static int ERROR_WAS_LOCKED() {
-        return (int)717L;
-    }
+    public static final AddressLayout PSID_AND_ATTRIBUTES_ARRAY = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_LOG_HARD_ERROR 718
+     * {@snippet lang=c :
+     * typedef ULONG_PTR SID_HASH_ENTRY
      * }
      */
-    public static int ERROR_LOG_HARD_ERROR() {
-        return (int)718L;
-    }
+    public static final OfLong SID_HASH_ENTRY = Windows_h.C_LONG_LONG;
     /**
-     * {@snippet :
-     * #define ERROR_ALREADY_WIN32 719
+     * {@snippet lang=c :
+     * typedef ULONG_PTR *PSID_HASH_ENTRY
      * }
      */
-    public static int ERROR_ALREADY_WIN32() {
-        return (int)719L;
-    }
+    public static final AddressLayout PSID_HASH_ENTRY = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_IMAGE_MACHINE_TYPE_MISMATCH_EXE 720
+     * {@snippet lang=c :
+     * typedef struct _SID_AND_ATTRIBUTES_HASH {
+     *     DWORD SidCount;
+     *     PSID_AND_ATTRIBUTES SidAttr;
+     *     SID_HASH_ENTRY Hash[32];
+     * } *PSID_AND_ATTRIBUTES_HASH
      * }
      */
-    public static int ERROR_IMAGE_MACHINE_TYPE_MISMATCH_EXE() {
-        return (int)720L;
-    }
+    public static final AddressLayout PSID_AND_ATTRIBUTES_HASH = Windows_h.C_POINTER;
+    private static final int WinNullSid = (int)0L;
     /**
-     * {@snippet :
-     * #define ERROR_NO_YIELD_PERFORMED 721
+     * {@snippet lang=c :
+     * enum <anonymous>.WinNullSid = 0
      * }
      */
-    public static int ERROR_NO_YIELD_PERFORMED() {
-        return (int)721L;
+    public static int WinNullSid() {
+        return WinNullSid;
     }
+    private static final int WinWorldSid = (int)1L;
     /**
-     * {@snippet :
-     * #define ERROR_TIMER_RESUME_IGNORED 722
+     * {@snippet lang=c :
+     * enum <anonymous>.WinWorldSid = 1
      * }
      */
-    public static int ERROR_TIMER_RESUME_IGNORED() {
-        return (int)722L;
+    public static int WinWorldSid() {
+        return WinWorldSid;
     }
+    private static final int WinLocalSid = (int)2L;
     /**
-     * {@snippet :
-     * #define ERROR_ARBITRATION_UNHANDLED 723
+     * {@snippet lang=c :
+     * enum <anonymous>.WinLocalSid = 2
      * }
      */
-    public static int ERROR_ARBITRATION_UNHANDLED() {
-        return (int)723L;
+    public static int WinLocalSid() {
+        return WinLocalSid;
     }
+    private static final int WinCreatorOwnerSid = (int)3L;
     /**
-     * {@snippet :
-     * #define ERROR_CARDBUS_NOT_SUPPORTED 724
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCreatorOwnerSid = 3
      * }
      */
-    public static int ERROR_CARDBUS_NOT_SUPPORTED() {
-        return (int)724L;
+    public static int WinCreatorOwnerSid() {
+        return WinCreatorOwnerSid;
     }
+    private static final int WinCreatorGroupSid = (int)4L;
     /**
-     * {@snippet :
-     * #define ERROR_MP_PROCESSOR_MISMATCH 725
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCreatorGroupSid = 4
      * }
      */
-    public static int ERROR_MP_PROCESSOR_MISMATCH() {
-        return (int)725L;
+    public static int WinCreatorGroupSid() {
+        return WinCreatorGroupSid;
     }
+    private static final int WinCreatorOwnerServerSid = (int)5L;
     /**
-     * {@snippet :
-     * #define ERROR_HIBERNATED 726
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCreatorOwnerServerSid = 5
      * }
      */
-    public static int ERROR_HIBERNATED() {
-        return (int)726L;
+    public static int WinCreatorOwnerServerSid() {
+        return WinCreatorOwnerServerSid;
     }
+    private static final int WinCreatorGroupServerSid = (int)6L;
     /**
-     * {@snippet :
-     * #define ERROR_RESUME_HIBERNATION 727
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCreatorGroupServerSid = 6
      * }
      */
-    public static int ERROR_RESUME_HIBERNATION() {
-        return (int)727L;
+    public static int WinCreatorGroupServerSid() {
+        return WinCreatorGroupServerSid;
     }
+    private static final int WinNtAuthoritySid = (int)7L;
     /**
-     * {@snippet :
-     * #define ERROR_FIRMWARE_UPDATED 728
+     * {@snippet lang=c :
+     * enum <anonymous>.WinNtAuthoritySid = 7
      * }
      */
-    public static int ERROR_FIRMWARE_UPDATED() {
-        return (int)728L;
+    public static int WinNtAuthoritySid() {
+        return WinNtAuthoritySid;
     }
+    private static final int WinDialupSid = (int)8L;
     /**
-     * {@snippet :
-     * #define ERROR_DRIVERS_LEAKING_LOCKED_PAGES 729
+     * {@snippet lang=c :
+     * enum <anonymous>.WinDialupSid = 8
      * }
      */
-    public static int ERROR_DRIVERS_LEAKING_LOCKED_PAGES() {
-        return (int)729L;
+    public static int WinDialupSid() {
+        return WinDialupSid;
     }
+    private static final int WinNetworkSid = (int)9L;
     /**
-     * {@snippet :
-     * #define ERROR_WAKE_SYSTEM 730
+     * {@snippet lang=c :
+     * enum <anonymous>.WinNetworkSid = 9
      * }
      */
-    public static int ERROR_WAKE_SYSTEM() {
-        return (int)730L;
+    public static int WinNetworkSid() {
+        return WinNetworkSid;
     }
+    private static final int WinBatchSid = (int)10L;
     /**
-     * {@snippet :
-     * #define ERROR_WAIT_1 731
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBatchSid = 10
      * }
      */
-    public static int ERROR_WAIT_1() {
-        return (int)731L;
+    public static int WinBatchSid() {
+        return WinBatchSid;
     }
+    private static final int WinInteractiveSid = (int)11L;
     /**
-     * {@snippet :
-     * #define ERROR_WAIT_2 732
+     * {@snippet lang=c :
+     * enum <anonymous>.WinInteractiveSid = 11
      * }
      */
-    public static int ERROR_WAIT_2() {
-        return (int)732L;
+    public static int WinInteractiveSid() {
+        return WinInteractiveSid;
     }
+    private static final int WinServiceSid = (int)12L;
     /**
-     * {@snippet :
-     * #define ERROR_WAIT_3 733
+     * {@snippet lang=c :
+     * enum <anonymous>.WinServiceSid = 12
      * }
      */
-    public static int ERROR_WAIT_3() {
-        return (int)733L;
+    public static int WinServiceSid() {
+        return WinServiceSid;
     }
+    private static final int WinAnonymousSid = (int)13L;
     /**
-     * {@snippet :
-     * #define ERROR_WAIT_63 734
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAnonymousSid = 13
      * }
      */
-    public static int ERROR_WAIT_63() {
-        return (int)734L;
+    public static int WinAnonymousSid() {
+        return WinAnonymousSid;
     }
+    private static final int WinProxySid = (int)14L;
     /**
-     * {@snippet :
-     * #define ERROR_ABANDONED_WAIT_0 735
+     * {@snippet lang=c :
+     * enum <anonymous>.WinProxySid = 14
      * }
      */
-    public static int ERROR_ABANDONED_WAIT_0() {
-        return (int)735L;
+    public static int WinProxySid() {
+        return WinProxySid;
     }
+    private static final int WinEnterpriseControllersSid = (int)15L;
     /**
-     * {@snippet :
-     * #define ERROR_ABANDONED_WAIT_63 736
+     * {@snippet lang=c :
+     * enum <anonymous>.WinEnterpriseControllersSid = 15
      * }
      */
-    public static int ERROR_ABANDONED_WAIT_63() {
-        return (int)736L;
+    public static int WinEnterpriseControllersSid() {
+        return WinEnterpriseControllersSid;
     }
+    private static final int WinSelfSid = (int)16L;
     /**
-     * {@snippet :
-     * #define ERROR_USER_APC 737
+     * {@snippet lang=c :
+     * enum <anonymous>.WinSelfSid = 16
      * }
      */
-    public static int ERROR_USER_APC() {
-        return (int)737L;
+    public static int WinSelfSid() {
+        return WinSelfSid;
     }
+    private static final int WinAuthenticatedUserSid = (int)17L;
     /**
-     * {@snippet :
-     * #define ERROR_KERNEL_APC 738
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAuthenticatedUserSid = 17
      * }
      */
-    public static int ERROR_KERNEL_APC() {
-        return (int)738L;
+    public static int WinAuthenticatedUserSid() {
+        return WinAuthenticatedUserSid;
     }
+    private static final int WinRestrictedCodeSid = (int)18L;
     /**
-     * {@snippet :
-     * #define ERROR_ALERTED 739
+     * {@snippet lang=c :
+     * enum <anonymous>.WinRestrictedCodeSid = 18
      * }
      */
-    public static int ERROR_ALERTED() {
-        return (int)739L;
+    public static int WinRestrictedCodeSid() {
+        return WinRestrictedCodeSid;
     }
+    private static final int WinTerminalServerSid = (int)19L;
     /**
-     * {@snippet :
-     * #define ERROR_ELEVATION_REQUIRED 740
+     * {@snippet lang=c :
+     * enum <anonymous>.WinTerminalServerSid = 19
      * }
      */
-    public static int ERROR_ELEVATION_REQUIRED() {
-        return (int)740L;
+    public static int WinTerminalServerSid() {
+        return WinTerminalServerSid;
     }
+    private static final int WinRemoteLogonIdSid = (int)20L;
     /**
-     * {@snippet :
-     * #define ERROR_REPARSE 741
+     * {@snippet lang=c :
+     * enum <anonymous>.WinRemoteLogonIdSid = 20
      * }
      */
-    public static int ERROR_REPARSE() {
-        return (int)741L;
+    public static int WinRemoteLogonIdSid() {
+        return WinRemoteLogonIdSid;
     }
+    private static final int WinLogonIdsSid = (int)21L;
     /**
-     * {@snippet :
-     * #define ERROR_OPLOCK_BREAK_IN_PROGRESS 742
+     * {@snippet lang=c :
+     * enum <anonymous>.WinLogonIdsSid = 21
      * }
      */
-    public static int ERROR_OPLOCK_BREAK_IN_PROGRESS() {
-        return (int)742L;
+    public static int WinLogonIdsSid() {
+        return WinLogonIdsSid;
     }
+    private static final int WinLocalSystemSid = (int)22L;
     /**
-     * {@snippet :
-     * #define ERROR_VOLUME_MOUNTED 743
+     * {@snippet lang=c :
+     * enum <anonymous>.WinLocalSystemSid = 22
      * }
      */
-    public static int ERROR_VOLUME_MOUNTED() {
-        return (int)743L;
+    public static int WinLocalSystemSid() {
+        return WinLocalSystemSid;
     }
+    private static final int WinLocalServiceSid = (int)23L;
     /**
-     * {@snippet :
-     * #define ERROR_RXACT_COMMITTED 744
+     * {@snippet lang=c :
+     * enum <anonymous>.WinLocalServiceSid = 23
      * }
      */
-    public static int ERROR_RXACT_COMMITTED() {
-        return (int)744L;
+    public static int WinLocalServiceSid() {
+        return WinLocalServiceSid;
     }
+    private static final int WinNetworkServiceSid = (int)24L;
     /**
-     * {@snippet :
-     * #define ERROR_NOTIFY_CLEANUP 745
+     * {@snippet lang=c :
+     * enum <anonymous>.WinNetworkServiceSid = 24
      * }
      */
-    public static int ERROR_NOTIFY_CLEANUP() {
-        return (int)745L;
+    public static int WinNetworkServiceSid() {
+        return WinNetworkServiceSid;
     }
+    private static final int WinBuiltinDomainSid = (int)25L;
     /**
-     * {@snippet :
-     * #define ERROR_PRIMARY_TRANSPORT_CONNECT_FAILED 746
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinDomainSid = 25
      * }
      */
-    public static int ERROR_PRIMARY_TRANSPORT_CONNECT_FAILED() {
-        return (int)746L;
+    public static int WinBuiltinDomainSid() {
+        return WinBuiltinDomainSid;
     }
+    private static final int WinBuiltinAdministratorsSid = (int)26L;
     /**
-     * {@snippet :
-     * #define ERROR_PAGE_FAULT_TRANSITION 747
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinAdministratorsSid = 26
      * }
      */
-    public static int ERROR_PAGE_FAULT_TRANSITION() {
-        return (int)747L;
+    public static int WinBuiltinAdministratorsSid() {
+        return WinBuiltinAdministratorsSid;
     }
+    private static final int WinBuiltinUsersSid = (int)27L;
     /**
-     * {@snippet :
-     * #define ERROR_PAGE_FAULT_DEMAND_ZERO 748
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinUsersSid = 27
      * }
      */
-    public static int ERROR_PAGE_FAULT_DEMAND_ZERO() {
-        return (int)748L;
+    public static int WinBuiltinUsersSid() {
+        return WinBuiltinUsersSid;
     }
+    private static final int WinBuiltinGuestsSid = (int)28L;
     /**
-     * {@snippet :
-     * #define ERROR_PAGE_FAULT_COPY_ON_WRITE 749
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinGuestsSid = 28
      * }
      */
-    public static int ERROR_PAGE_FAULT_COPY_ON_WRITE() {
-        return (int)749L;
+    public static int WinBuiltinGuestsSid() {
+        return WinBuiltinGuestsSid;
     }
+    private static final int WinBuiltinPowerUsersSid = (int)29L;
     /**
-     * {@snippet :
-     * #define ERROR_PAGE_FAULT_GUARD_PAGE 750
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinPowerUsersSid = 29
      * }
      */
-    public static int ERROR_PAGE_FAULT_GUARD_PAGE() {
-        return (int)750L;
+    public static int WinBuiltinPowerUsersSid() {
+        return WinBuiltinPowerUsersSid;
     }
+    private static final int WinBuiltinAccountOperatorsSid = (int)30L;
     /**
-     * {@snippet :
-     * #define ERROR_PAGE_FAULT_PAGING_FILE 751
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinAccountOperatorsSid = 30
      * }
      */
-    public static int ERROR_PAGE_FAULT_PAGING_FILE() {
-        return (int)751L;
+    public static int WinBuiltinAccountOperatorsSid() {
+        return WinBuiltinAccountOperatorsSid;
     }
+    private static final int WinBuiltinSystemOperatorsSid = (int)31L;
     /**
-     * {@snippet :
-     * #define ERROR_CACHE_PAGE_LOCKED 752
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinSystemOperatorsSid = 31
      * }
      */
-    public static int ERROR_CACHE_PAGE_LOCKED() {
-        return (int)752L;
+    public static int WinBuiltinSystemOperatorsSid() {
+        return WinBuiltinSystemOperatorsSid;
     }
+    private static final int WinBuiltinPrintOperatorsSid = (int)32L;
     /**
-     * {@snippet :
-     * #define ERROR_CRASH_DUMP 753
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinPrintOperatorsSid = 32
      * }
      */
-    public static int ERROR_CRASH_DUMP() {
-        return (int)753L;
+    public static int WinBuiltinPrintOperatorsSid() {
+        return WinBuiltinPrintOperatorsSid;
     }
+    private static final int WinBuiltinBackupOperatorsSid = (int)33L;
     /**
-     * {@snippet :
-     * #define ERROR_BUFFER_ALL_ZEROS 754
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinBackupOperatorsSid = 33
      * }
      */
-    public static int ERROR_BUFFER_ALL_ZEROS() {
-        return (int)754L;
+    public static int WinBuiltinBackupOperatorsSid() {
+        return WinBuiltinBackupOperatorsSid;
     }
+    private static final int WinBuiltinReplicatorSid = (int)34L;
     /**
-     * {@snippet :
-     * #define ERROR_REPARSE_OBJECT 755
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinReplicatorSid = 34
      * }
      */
-    public static int ERROR_REPARSE_OBJECT() {
-        return (int)755L;
+    public static int WinBuiltinReplicatorSid() {
+        return WinBuiltinReplicatorSid;
     }
+    private static final int WinBuiltinPreWindows2000CompatibleAccessSid = (int)35L;
     /**
-     * {@snippet :
-     * #define ERROR_RESOURCE_REQUIREMENTS_CHANGED 756
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinPreWindows2000CompatibleAccessSid = 35
      * }
      */
-    public static int ERROR_RESOURCE_REQUIREMENTS_CHANGED() {
-        return (int)756L;
+    public static int WinBuiltinPreWindows2000CompatibleAccessSid() {
+        return WinBuiltinPreWindows2000CompatibleAccessSid;
     }
+    private static final int WinBuiltinRemoteDesktopUsersSid = (int)36L;
     /**
-     * {@snippet :
-     * #define ERROR_TRANSLATION_COMPLETE 757
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinRemoteDesktopUsersSid = 36
      * }
      */
-    public static int ERROR_TRANSLATION_COMPLETE() {
-        return (int)757L;
+    public static int WinBuiltinRemoteDesktopUsersSid() {
+        return WinBuiltinRemoteDesktopUsersSid;
     }
+    private static final int WinBuiltinNetworkConfigurationOperatorsSid = (int)37L;
     /**
-     * {@snippet :
-     * #define ERROR_NOTHING_TO_TERMINATE 758
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinNetworkConfigurationOperatorsSid = 37
      * }
      */
-    public static int ERROR_NOTHING_TO_TERMINATE() {
-        return (int)758L;
+    public static int WinBuiltinNetworkConfigurationOperatorsSid() {
+        return WinBuiltinNetworkConfigurationOperatorsSid;
     }
+    private static final int WinAccountAdministratorSid = (int)38L;
     /**
-     * {@snippet :
-     * #define ERROR_PROCESS_NOT_IN_JOB 759
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountAdministratorSid = 38
      * }
      */
-    public static int ERROR_PROCESS_NOT_IN_JOB() {
-        return (int)759L;
+    public static int WinAccountAdministratorSid() {
+        return WinAccountAdministratorSid;
     }
+    private static final int WinAccountGuestSid = (int)39L;
     /**
-     * {@snippet :
-     * #define ERROR_PROCESS_IN_JOB 760
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountGuestSid = 39
      * }
      */
-    public static int ERROR_PROCESS_IN_JOB() {
-        return (int)760L;
+    public static int WinAccountGuestSid() {
+        return WinAccountGuestSid;
     }
+    private static final int WinAccountKrbtgtSid = (int)40L;
     /**
-     * {@snippet :
-     * #define ERROR_VOLSNAP_HIBERNATE_READY 761
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountKrbtgtSid = 40
      * }
      */
-    public static int ERROR_VOLSNAP_HIBERNATE_READY() {
-        return (int)761L;
+    public static int WinAccountKrbtgtSid() {
+        return WinAccountKrbtgtSid;
     }
+    private static final int WinAccountDomainAdminsSid = (int)41L;
     /**
-     * {@snippet :
-     * #define ERROR_FSFILTER_OP_COMPLETED_SUCCESSFULLY 762
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountDomainAdminsSid = 41
      * }
      */
-    public static int ERROR_FSFILTER_OP_COMPLETED_SUCCESSFULLY() {
-        return (int)762L;
+    public static int WinAccountDomainAdminsSid() {
+        return WinAccountDomainAdminsSid;
     }
+    private static final int WinAccountDomainUsersSid = (int)42L;
     /**
-     * {@snippet :
-     * #define ERROR_INTERRUPT_VECTOR_ALREADY_CONNECTED 763
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountDomainUsersSid = 42
      * }
      */
-    public static int ERROR_INTERRUPT_VECTOR_ALREADY_CONNECTED() {
-        return (int)763L;
+    public static int WinAccountDomainUsersSid() {
+        return WinAccountDomainUsersSid;
     }
+    private static final int WinAccountDomainGuestsSid = (int)43L;
     /**
-     * {@snippet :
-     * #define ERROR_INTERRUPT_STILL_CONNECTED 764
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountDomainGuestsSid = 43
      * }
      */
-    public static int ERROR_INTERRUPT_STILL_CONNECTED() {
-        return (int)764L;
+    public static int WinAccountDomainGuestsSid() {
+        return WinAccountDomainGuestsSid;
     }
+    private static final int WinAccountComputersSid = (int)44L;
     /**
-     * {@snippet :
-     * #define ERROR_WAIT_FOR_OPLOCK 765
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountComputersSid = 44
      * }
      */
-    public static int ERROR_WAIT_FOR_OPLOCK() {
-        return (int)765L;
+    public static int WinAccountComputersSid() {
+        return WinAccountComputersSid;
     }
+    private static final int WinAccountControllersSid = (int)45L;
     /**
-     * {@snippet :
-     * #define ERROR_DBG_EXCEPTION_HANDLED 766
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountControllersSid = 45
      * }
      */
-    public static int ERROR_DBG_EXCEPTION_HANDLED() {
-        return (int)766L;
+    public static int WinAccountControllersSid() {
+        return WinAccountControllersSid;
     }
+    private static final int WinAccountCertAdminsSid = (int)46L;
     /**
-     * {@snippet :
-     * #define ERROR_DBG_CONTINUE 767
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountCertAdminsSid = 46
      * }
      */
-    public static int ERROR_DBG_CONTINUE() {
-        return (int)767L;
+    public static int WinAccountCertAdminsSid() {
+        return WinAccountCertAdminsSid;
     }
+    private static final int WinAccountSchemaAdminsSid = (int)47L;
     /**
-     * {@snippet :
-     * #define ERROR_CALLBACK_POP_STACK 768
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountSchemaAdminsSid = 47
      * }
      */
-    public static int ERROR_CALLBACK_POP_STACK() {
-        return (int)768L;
+    public static int WinAccountSchemaAdminsSid() {
+        return WinAccountSchemaAdminsSid;
     }
+    private static final int WinAccountEnterpriseAdminsSid = (int)48L;
     /**
-     * {@snippet :
-     * #define ERROR_COMPRESSION_DISABLED 769
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountEnterpriseAdminsSid = 48
      * }
      */
-    public static int ERROR_COMPRESSION_DISABLED() {
-        return (int)769L;
+    public static int WinAccountEnterpriseAdminsSid() {
+        return WinAccountEnterpriseAdminsSid;
     }
+    private static final int WinAccountPolicyAdminsSid = (int)49L;
     /**
-     * {@snippet :
-     * #define ERROR_CANTFETCHBACKWARDS 770
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountPolicyAdminsSid = 49
      * }
      */
-    public static int ERROR_CANTFETCHBACKWARDS() {
-        return (int)770L;
+    public static int WinAccountPolicyAdminsSid() {
+        return WinAccountPolicyAdminsSid;
     }
+    private static final int WinAccountRasAndIasServersSid = (int)50L;
     /**
-     * {@snippet :
-     * #define ERROR_CANTSCROLLBACKWARDS 771
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountRasAndIasServersSid = 50
      * }
      */
-    public static int ERROR_CANTSCROLLBACKWARDS() {
-        return (int)771L;
+    public static int WinAccountRasAndIasServersSid() {
+        return WinAccountRasAndIasServersSid;
     }
+    private static final int WinNTLMAuthenticationSid = (int)51L;
     /**
-     * {@snippet :
-     * #define ERROR_ROWSNOTRELEASED 772
+     * {@snippet lang=c :
+     * enum <anonymous>.WinNTLMAuthenticationSid = 51
      * }
      */
-    public static int ERROR_ROWSNOTRELEASED() {
-        return (int)772L;
+    public static int WinNTLMAuthenticationSid() {
+        return WinNTLMAuthenticationSid;
     }
+    private static final int WinDigestAuthenticationSid = (int)52L;
     /**
-     * {@snippet :
-     * #define ERROR_BAD_ACCESSOR_FLAGS 773
+     * {@snippet lang=c :
+     * enum <anonymous>.WinDigestAuthenticationSid = 52
      * }
      */
-    public static int ERROR_BAD_ACCESSOR_FLAGS() {
-        return (int)773L;
+    public static int WinDigestAuthenticationSid() {
+        return WinDigestAuthenticationSid;
     }
+    private static final int WinSChannelAuthenticationSid = (int)53L;
     /**
-     * {@snippet :
-     * #define ERROR_ERRORS_ENCOUNTERED 774
+     * {@snippet lang=c :
+     * enum <anonymous>.WinSChannelAuthenticationSid = 53
      * }
      */
-    public static int ERROR_ERRORS_ENCOUNTERED() {
-        return (int)774L;
+    public static int WinSChannelAuthenticationSid() {
+        return WinSChannelAuthenticationSid;
     }
+    private static final int WinThisOrganizationSid = (int)54L;
     /**
-     * {@snippet :
-     * #define ERROR_NOT_CAPABLE 775
+     * {@snippet lang=c :
+     * enum <anonymous>.WinThisOrganizationSid = 54
      * }
      */
-    public static int ERROR_NOT_CAPABLE() {
-        return (int)775L;
+    public static int WinThisOrganizationSid() {
+        return WinThisOrganizationSid;
     }
+    private static final int WinOtherOrganizationSid = (int)55L;
     /**
-     * {@snippet :
-     * #define ERROR_REQUEST_OUT_OF_SEQUENCE 776
+     * {@snippet lang=c :
+     * enum <anonymous>.WinOtherOrganizationSid = 55
      * }
      */
-    public static int ERROR_REQUEST_OUT_OF_SEQUENCE() {
-        return (int)776L;
+    public static int WinOtherOrganizationSid() {
+        return WinOtherOrganizationSid;
     }
+    private static final int WinBuiltinIncomingForestTrustBuildersSid = (int)56L;
     /**
-     * {@snippet :
-     * #define ERROR_VERSION_PARSE_ERROR 777
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinIncomingForestTrustBuildersSid = 56
      * }
      */
-    public static int ERROR_VERSION_PARSE_ERROR() {
-        return (int)777L;
+    public static int WinBuiltinIncomingForestTrustBuildersSid() {
+        return WinBuiltinIncomingForestTrustBuildersSid;
     }
+    private static final int WinBuiltinPerfMonitoringUsersSid = (int)57L;
     /**
-     * {@snippet :
-     * #define ERROR_BADSTARTPOSITION 778
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinPerfMonitoringUsersSid = 57
      * }
      */
-    public static int ERROR_BADSTARTPOSITION() {
-        return (int)778L;
+    public static int WinBuiltinPerfMonitoringUsersSid() {
+        return WinBuiltinPerfMonitoringUsersSid;
     }
+    private static final int WinBuiltinPerfLoggingUsersSid = (int)58L;
     /**
-     * {@snippet :
-     * #define ERROR_MEMORY_HARDWARE 779
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinPerfLoggingUsersSid = 58
      * }
      */
-    public static int ERROR_MEMORY_HARDWARE() {
-        return (int)779L;
+    public static int WinBuiltinPerfLoggingUsersSid() {
+        return WinBuiltinPerfLoggingUsersSid;
     }
+    private static final int WinBuiltinAuthorizationAccessSid = (int)59L;
     /**
-     * {@snippet :
-     * #define ERROR_DISK_REPAIR_DISABLED 780
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinAuthorizationAccessSid = 59
      * }
      */
-    public static int ERROR_DISK_REPAIR_DISABLED() {
-        return (int)780L;
+    public static int WinBuiltinAuthorizationAccessSid() {
+        return WinBuiltinAuthorizationAccessSid;
     }
+    private static final int WinBuiltinTerminalServerLicenseServersSid = (int)60L;
     /**
-     * {@snippet :
-     * #define ERROR_INSUFFICIENT_RESOURCE_FOR_SPECIFIED_SHARED_SECTION_SIZE 781
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinTerminalServerLicenseServersSid = 60
      * }
      */
-    public static int ERROR_INSUFFICIENT_RESOURCE_FOR_SPECIFIED_SHARED_SECTION_SIZE() {
-        return (int)781L;
+    public static int WinBuiltinTerminalServerLicenseServersSid() {
+        return WinBuiltinTerminalServerLicenseServersSid;
     }
+    private static final int WinBuiltinDCOMUsersSid = (int)61L;
     /**
-     * {@snippet :
-     * #define ERROR_SYSTEM_POWERSTATE_TRANSITION 782
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinDCOMUsersSid = 61
      * }
      */
-    public static int ERROR_SYSTEM_POWERSTATE_TRANSITION() {
-        return (int)782L;
+    public static int WinBuiltinDCOMUsersSid() {
+        return WinBuiltinDCOMUsersSid;
     }
+    private static final int WinBuiltinIUsersSid = (int)62L;
     /**
-     * {@snippet :
-     * #define ERROR_SYSTEM_POWERSTATE_COMPLEX_TRANSITION 783
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinIUsersSid = 62
      * }
      */
-    public static int ERROR_SYSTEM_POWERSTATE_COMPLEX_TRANSITION() {
-        return (int)783L;
+    public static int WinBuiltinIUsersSid() {
+        return WinBuiltinIUsersSid;
     }
+    private static final int WinIUserSid = (int)63L;
     /**
-     * {@snippet :
-     * #define ERROR_MCA_EXCEPTION 784
+     * {@snippet lang=c :
+     * enum <anonymous>.WinIUserSid = 63
      * }
      */
-    public static int ERROR_MCA_EXCEPTION() {
-        return (int)784L;
+    public static int WinIUserSid() {
+        return WinIUserSid;
     }
+    private static final int WinBuiltinCryptoOperatorsSid = (int)64L;
     /**
-     * {@snippet :
-     * #define ERROR_ACCESS_AUDIT_BY_POLICY 785
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinCryptoOperatorsSid = 64
      * }
      */
-    public static int ERROR_ACCESS_AUDIT_BY_POLICY() {
-        return (int)785L;
+    public static int WinBuiltinCryptoOperatorsSid() {
+        return WinBuiltinCryptoOperatorsSid;
     }
+    private static final int WinUntrustedLabelSid = (int)65L;
     /**
-     * {@snippet :
-     * #define ERROR_ACCESS_DISABLED_NO_SAFER_UI_BY_POLICY 786
+     * {@snippet lang=c :
+     * enum <anonymous>.WinUntrustedLabelSid = 65
      * }
      */
-    public static int ERROR_ACCESS_DISABLED_NO_SAFER_UI_BY_POLICY() {
-        return (int)786L;
+    public static int WinUntrustedLabelSid() {
+        return WinUntrustedLabelSid;
     }
+    private static final int WinLowLabelSid = (int)66L;
     /**
-     * {@snippet :
-     * #define ERROR_ABANDON_HIBERFILE 787
+     * {@snippet lang=c :
+     * enum <anonymous>.WinLowLabelSid = 66
      * }
      */
-    public static int ERROR_ABANDON_HIBERFILE() {
-        return (int)787L;
+    public static int WinLowLabelSid() {
+        return WinLowLabelSid;
     }
+    private static final int WinMediumLabelSid = (int)67L;
     /**
-     * {@snippet :
-     * #define ERROR_LOST_WRITEBEHIND_DATA_NETWORK_DISCONNECTED 788
+     * {@snippet lang=c :
+     * enum <anonymous>.WinMediumLabelSid = 67
      * }
      */
-    public static int ERROR_LOST_WRITEBEHIND_DATA_NETWORK_DISCONNECTED() {
-        return (int)788L;
+    public static int WinMediumLabelSid() {
+        return WinMediumLabelSid;
     }
+    private static final int WinHighLabelSid = (int)68L;
     /**
-     * {@snippet :
-     * #define ERROR_LOST_WRITEBEHIND_DATA_NETWORK_SERVER_ERROR 789
+     * {@snippet lang=c :
+     * enum <anonymous>.WinHighLabelSid = 68
      * }
      */
-    public static int ERROR_LOST_WRITEBEHIND_DATA_NETWORK_SERVER_ERROR() {
-        return (int)789L;
+    public static int WinHighLabelSid() {
+        return WinHighLabelSid;
     }
+    private static final int WinSystemLabelSid = (int)69L;
     /**
-     * {@snippet :
-     * #define ERROR_LOST_WRITEBEHIND_DATA_LOCAL_DISK_ERROR 790
+     * {@snippet lang=c :
+     * enum <anonymous>.WinSystemLabelSid = 69
      * }
      */
-    public static int ERROR_LOST_WRITEBEHIND_DATA_LOCAL_DISK_ERROR() {
-        return (int)790L;
+    public static int WinSystemLabelSid() {
+        return WinSystemLabelSid;
     }
+    private static final int WinWriteRestrictedCodeSid = (int)70L;
     /**
-     * {@snippet :
-     * #define ERROR_BAD_MCFG_TABLE 791
+     * {@snippet lang=c :
+     * enum <anonymous>.WinWriteRestrictedCodeSid = 70
      * }
      */
-    public static int ERROR_BAD_MCFG_TABLE() {
-        return (int)791L;
+    public static int WinWriteRestrictedCodeSid() {
+        return WinWriteRestrictedCodeSid;
     }
+    private static final int WinCreatorOwnerRightsSid = (int)71L;
     /**
-     * {@snippet :
-     * #define ERROR_DISK_REPAIR_REDIRECTED 792
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCreatorOwnerRightsSid = 71
      * }
      */
-    public static int ERROR_DISK_REPAIR_REDIRECTED() {
-        return (int)792L;
+    public static int WinCreatorOwnerRightsSid() {
+        return WinCreatorOwnerRightsSid;
     }
+    private static final int WinCacheablePrincipalsGroupSid = (int)72L;
     /**
-     * {@snippet :
-     * #define ERROR_DISK_REPAIR_UNSUCCESSFUL 793
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCacheablePrincipalsGroupSid = 72
      * }
      */
-    public static int ERROR_DISK_REPAIR_UNSUCCESSFUL() {
-        return (int)793L;
+    public static int WinCacheablePrincipalsGroupSid() {
+        return WinCacheablePrincipalsGroupSid;
     }
+    private static final int WinNonCacheablePrincipalsGroupSid = (int)73L;
     /**
-     * {@snippet :
-     * #define ERROR_CORRUPT_LOG_OVERFULL 794
+     * {@snippet lang=c :
+     * enum <anonymous>.WinNonCacheablePrincipalsGroupSid = 73
      * }
      */
-    public static int ERROR_CORRUPT_LOG_OVERFULL() {
-        return (int)794L;
+    public static int WinNonCacheablePrincipalsGroupSid() {
+        return WinNonCacheablePrincipalsGroupSid;
     }
+    private static final int WinEnterpriseReadonlyControllersSid = (int)74L;
     /**
-     * {@snippet :
-     * #define ERROR_CORRUPT_LOG_CORRUPTED 795
+     * {@snippet lang=c :
+     * enum <anonymous>.WinEnterpriseReadonlyControllersSid = 74
      * }
      */
-    public static int ERROR_CORRUPT_LOG_CORRUPTED() {
-        return (int)795L;
+    public static int WinEnterpriseReadonlyControllersSid() {
+        return WinEnterpriseReadonlyControllersSid;
     }
+    private static final int WinAccountReadonlyControllersSid = (int)75L;
     /**
-     * {@snippet :
-     * #define ERROR_CORRUPT_LOG_UNAVAILABLE 796
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountReadonlyControllersSid = 75
      * }
      */
-    public static int ERROR_CORRUPT_LOG_UNAVAILABLE() {
-        return (int)796L;
+    public static int WinAccountReadonlyControllersSid() {
+        return WinAccountReadonlyControllersSid;
     }
+    private static final int WinBuiltinEventLogReadersGroup = (int)76L;
     /**
-     * {@snippet :
-     * #define ERROR_CORRUPT_LOG_DELETED_FULL 797
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinEventLogReadersGroup = 76
      * }
      */
-    public static int ERROR_CORRUPT_LOG_DELETED_FULL() {
-        return (int)797L;
+    public static int WinBuiltinEventLogReadersGroup() {
+        return WinBuiltinEventLogReadersGroup;
     }
+    private static final int WinNewEnterpriseReadonlyControllersSid = (int)77L;
     /**
-     * {@snippet :
-     * #define ERROR_CORRUPT_LOG_CLEARED 798
+     * {@snippet lang=c :
+     * enum <anonymous>.WinNewEnterpriseReadonlyControllersSid = 77
      * }
      */
-    public static int ERROR_CORRUPT_LOG_CLEARED() {
-        return (int)798L;
+    public static int WinNewEnterpriseReadonlyControllersSid() {
+        return WinNewEnterpriseReadonlyControllersSid;
     }
+    private static final int WinBuiltinCertSvcDComAccessGroup = (int)78L;
     /**
-     * {@snippet :
-     * #define ERROR_ORPHAN_NAME_EXHAUSTED 799
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinCertSvcDComAccessGroup = 78
      * }
      */
-    public static int ERROR_ORPHAN_NAME_EXHAUSTED() {
-        return (int)799L;
+    public static int WinBuiltinCertSvcDComAccessGroup() {
+        return WinBuiltinCertSvcDComAccessGroup;
     }
+    private static final int WinMediumPlusLabelSid = (int)79L;
     /**
-     * {@snippet :
-     * #define ERROR_OPLOCK_SWITCHED_TO_NEW_HANDLE 800
+     * {@snippet lang=c :
+     * enum <anonymous>.WinMediumPlusLabelSid = 79
      * }
      */
-    public static int ERROR_OPLOCK_SWITCHED_TO_NEW_HANDLE() {
-        return (int)800L;
+    public static int WinMediumPlusLabelSid() {
+        return WinMediumPlusLabelSid;
     }
+    private static final int WinLocalLogonSid = (int)80L;
     /**
-     * {@snippet :
-     * #define ERROR_CANNOT_GRANT_REQUESTED_OPLOCK 801
+     * {@snippet lang=c :
+     * enum <anonymous>.WinLocalLogonSid = 80
      * }
      */
-    public static int ERROR_CANNOT_GRANT_REQUESTED_OPLOCK() {
-        return (int)801L;
+    public static int WinLocalLogonSid() {
+        return WinLocalLogonSid;
     }
+    private static final int WinConsoleLogonSid = (int)81L;
     /**
-     * {@snippet :
-     * #define ERROR_CANNOT_BREAK_OPLOCK 802
+     * {@snippet lang=c :
+     * enum <anonymous>.WinConsoleLogonSid = 81
      * }
      */
-    public static int ERROR_CANNOT_BREAK_OPLOCK() {
-        return (int)802L;
+    public static int WinConsoleLogonSid() {
+        return WinConsoleLogonSid;
     }
+    private static final int WinThisOrganizationCertificateSid = (int)82L;
     /**
-     * {@snippet :
-     * #define ERROR_OPLOCK_HANDLE_CLOSED 803
+     * {@snippet lang=c :
+     * enum <anonymous>.WinThisOrganizationCertificateSid = 82
      * }
      */
-    public static int ERROR_OPLOCK_HANDLE_CLOSED() {
-        return (int)803L;
+    public static int WinThisOrganizationCertificateSid() {
+        return WinThisOrganizationCertificateSid;
     }
+    private static final int WinApplicationPackageAuthoritySid = (int)83L;
     /**
-     * {@snippet :
-     * #define ERROR_NO_ACE_CONDITION 804
+     * {@snippet lang=c :
+     * enum <anonymous>.WinApplicationPackageAuthoritySid = 83
      * }
      */
-    public static int ERROR_NO_ACE_CONDITION() {
-        return (int)804L;
+    public static int WinApplicationPackageAuthoritySid() {
+        return WinApplicationPackageAuthoritySid;
     }
+    private static final int WinBuiltinAnyPackageSid = (int)84L;
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_ACE_CONDITION 805
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinAnyPackageSid = 84
      * }
      */
-    public static int ERROR_INVALID_ACE_CONDITION() {
-        return (int)805L;
+    public static int WinBuiltinAnyPackageSid() {
+        return WinBuiltinAnyPackageSid;
     }
+    private static final int WinCapabilityInternetClientSid = (int)85L;
     /**
-     * {@snippet :
-     * #define ERROR_FILE_HANDLE_REVOKED 806
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCapabilityInternetClientSid = 85
      * }
      */
-    public static int ERROR_FILE_HANDLE_REVOKED() {
-        return (int)806L;
+    public static int WinCapabilityInternetClientSid() {
+        return WinCapabilityInternetClientSid;
     }
+    private static final int WinCapabilityInternetClientServerSid = (int)86L;
     /**
-     * {@snippet :
-     * #define ERROR_IMAGE_AT_DIFFERENT_BASE 807
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCapabilityInternetClientServerSid = 86
      * }
      */
-    public static int ERROR_IMAGE_AT_DIFFERENT_BASE() {
-        return (int)807L;
+    public static int WinCapabilityInternetClientServerSid() {
+        return WinCapabilityInternetClientServerSid;
     }
+    private static final int WinCapabilityPrivateNetworkClientServerSid = (int)87L;
     /**
-     * {@snippet :
-     * #define ERROR_ENCRYPTED_IO_NOT_POSSIBLE 808
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCapabilityPrivateNetworkClientServerSid = 87
      * }
      */
-    public static int ERROR_ENCRYPTED_IO_NOT_POSSIBLE() {
-        return (int)808L;
+    public static int WinCapabilityPrivateNetworkClientServerSid() {
+        return WinCapabilityPrivateNetworkClientServerSid;
     }
+    private static final int WinCapabilityPicturesLibrarySid = (int)88L;
     /**
-     * {@snippet :
-     * #define ERROR_FILE_METADATA_OPTIMIZATION_IN_PROGRESS 809
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCapabilityPicturesLibrarySid = 88
      * }
      */
-    public static int ERROR_FILE_METADATA_OPTIMIZATION_IN_PROGRESS() {
-        return (int)809L;
+    public static int WinCapabilityPicturesLibrarySid() {
+        return WinCapabilityPicturesLibrarySid;
     }
+    private static final int WinCapabilityVideosLibrarySid = (int)89L;
     /**
-     * {@snippet :
-     * #define ERROR_QUOTA_ACTIVITY 810
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCapabilityVideosLibrarySid = 89
      * }
      */
-    public static int ERROR_QUOTA_ACTIVITY() {
-        return (int)810L;
+    public static int WinCapabilityVideosLibrarySid() {
+        return WinCapabilityVideosLibrarySid;
     }
+    private static final int WinCapabilityMusicLibrarySid = (int)90L;
     /**
-     * {@snippet :
-     * #define ERROR_HANDLE_REVOKED 811
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCapabilityMusicLibrarySid = 90
      * }
      */
-    public static int ERROR_HANDLE_REVOKED() {
-        return (int)811L;
+    public static int WinCapabilityMusicLibrarySid() {
+        return WinCapabilityMusicLibrarySid;
     }
+    private static final int WinCapabilityDocumentsLibrarySid = (int)91L;
     /**
-     * {@snippet :
-     * #define ERROR_CALLBACK_INVOKE_INLINE 812
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCapabilityDocumentsLibrarySid = 91
      * }
      */
-    public static int ERROR_CALLBACK_INVOKE_INLINE() {
-        return (int)812L;
+    public static int WinCapabilityDocumentsLibrarySid() {
+        return WinCapabilityDocumentsLibrarySid;
     }
+    private static final int WinCapabilitySharedUserCertificatesSid = (int)92L;
     /**
-     * {@snippet :
-     * #define ERROR_CPU_SET_INVALID 813
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCapabilitySharedUserCertificatesSid = 92
      * }
      */
-    public static int ERROR_CPU_SET_INVALID() {
-        return (int)813L;
+    public static int WinCapabilitySharedUserCertificatesSid() {
+        return WinCapabilitySharedUserCertificatesSid;
     }
+    private static final int WinCapabilityEnterpriseAuthenticationSid = (int)93L;
     /**
-     * {@snippet :
-     * #define ERROR_ENCLAVE_NOT_TERMINATED 814
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCapabilityEnterpriseAuthenticationSid = 93
      * }
      */
-    public static int ERROR_ENCLAVE_NOT_TERMINATED() {
-        return (int)814L;
+    public static int WinCapabilityEnterpriseAuthenticationSid() {
+        return WinCapabilityEnterpriseAuthenticationSid;
     }
+    private static final int WinCapabilityRemovableStorageSid = (int)94L;
     /**
-     * {@snippet :
-     * #define ERROR_ENCLAVE_VIOLATION 815
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCapabilityRemovableStorageSid = 94
      * }
      */
-    public static int ERROR_ENCLAVE_VIOLATION() {
-        return (int)815L;
+    public static int WinCapabilityRemovableStorageSid() {
+        return WinCapabilityRemovableStorageSid;
     }
+    private static final int WinBuiltinRDSRemoteAccessServersSid = (int)95L;
     /**
-     * {@snippet :
-     * #define ERROR_SERVER_TRANSPORT_CONFLICT 816
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinRDSRemoteAccessServersSid = 95
      * }
      */
-    public static int ERROR_SERVER_TRANSPORT_CONFLICT() {
-        return (int)816L;
+    public static int WinBuiltinRDSRemoteAccessServersSid() {
+        return WinBuiltinRDSRemoteAccessServersSid;
     }
+    private static final int WinBuiltinRDSEndpointServersSid = (int)96L;
     /**
-     * {@snippet :
-     * #define ERROR_CERTIFICATE_VALIDATION_PREFERENCE_CONFLICT 817
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinRDSEndpointServersSid = 96
      * }
      */
-    public static int ERROR_CERTIFICATE_VALIDATION_PREFERENCE_CONFLICT() {
-        return (int)817L;
+    public static int WinBuiltinRDSEndpointServersSid() {
+        return WinBuiltinRDSEndpointServersSid;
     }
+    private static final int WinBuiltinRDSManagementServersSid = (int)97L;
     /**
-     * {@snippet :
-     * #define ERROR_FT_READ_FROM_COPY_FAILURE 818
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinRDSManagementServersSid = 97
      * }
      */
-    public static int ERROR_FT_READ_FROM_COPY_FAILURE() {
-        return (int)818L;
+    public static int WinBuiltinRDSManagementServersSid() {
+        return WinBuiltinRDSManagementServersSid;
     }
+    private static final int WinUserModeDriversSid = (int)98L;
     /**
-     * {@snippet :
-     * #define ERROR_SECTION_DIRECT_MAP_ONLY 819
+     * {@snippet lang=c :
+     * enum <anonymous>.WinUserModeDriversSid = 98
      * }
      */
-    public static int ERROR_SECTION_DIRECT_MAP_ONLY() {
-        return (int)819L;
+    public static int WinUserModeDriversSid() {
+        return WinUserModeDriversSid;
     }
+    private static final int WinBuiltinHyperVAdminsSid = (int)99L;
     /**
-     * {@snippet :
-     * #define ERROR_EA_ACCESS_DENIED 994
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinHyperVAdminsSid = 99
      * }
      */
-    public static int ERROR_EA_ACCESS_DENIED() {
-        return (int)994L;
+    public static int WinBuiltinHyperVAdminsSid() {
+        return WinBuiltinHyperVAdminsSid;
     }
+    private static final int WinAccountCloneableControllersSid = (int)100L;
     /**
-     * {@snippet :
-     * #define ERROR_OPERATION_ABORTED 995
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountCloneableControllersSid = 100
      * }
      */
-    public static int ERROR_OPERATION_ABORTED() {
-        return (int)995L;
+    public static int WinAccountCloneableControllersSid() {
+        return WinAccountCloneableControllersSid;
     }
+    private static final int WinBuiltinAccessControlAssistanceOperatorsSid = (int)101L;
     /**
-     * {@snippet :
-     * #define ERROR_IO_INCOMPLETE 996
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinAccessControlAssistanceOperatorsSid = 101
      * }
      */
-    public static int ERROR_IO_INCOMPLETE() {
-        return (int)996L;
+    public static int WinBuiltinAccessControlAssistanceOperatorsSid() {
+        return WinBuiltinAccessControlAssistanceOperatorsSid;
     }
+    private static final int WinBuiltinRemoteManagementUsersSid = (int)102L;
     /**
-     * {@snippet :
-     * #define ERROR_IO_PENDING 997
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinRemoteManagementUsersSid = 102
      * }
      */
-    public static int ERROR_IO_PENDING() {
-        return (int)997L;
+    public static int WinBuiltinRemoteManagementUsersSid() {
+        return WinBuiltinRemoteManagementUsersSid;
     }
+    private static final int WinAuthenticationAuthorityAssertedSid = (int)103L;
     /**
-     * {@snippet :
-     * #define ERROR_NOACCESS 998
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAuthenticationAuthorityAssertedSid = 103
      * }
      */
-    public static int ERROR_NOACCESS() {
-        return (int)998L;
+    public static int WinAuthenticationAuthorityAssertedSid() {
+        return WinAuthenticationAuthorityAssertedSid;
     }
+    private static final int WinAuthenticationServiceAssertedSid = (int)104L;
     /**
-     * {@snippet :
-     * #define ERROR_SWAPERROR 999
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAuthenticationServiceAssertedSid = 104
      * }
      */
-    public static int ERROR_SWAPERROR() {
-        return (int)999L;
+    public static int WinAuthenticationServiceAssertedSid() {
+        return WinAuthenticationServiceAssertedSid;
     }
+    private static final int WinLocalAccountSid = (int)105L;
     /**
-     * {@snippet :
-     * #define ERROR_STACK_OVERFLOW 1001
+     * {@snippet lang=c :
+     * enum <anonymous>.WinLocalAccountSid = 105
      * }
      */
-    public static int ERROR_STACK_OVERFLOW() {
-        return (int)1001L;
+    public static int WinLocalAccountSid() {
+        return WinLocalAccountSid;
     }
+    private static final int WinLocalAccountAndAdministratorSid = (int)106L;
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_MESSAGE 1002
+     * {@snippet lang=c :
+     * enum <anonymous>.WinLocalAccountAndAdministratorSid = 106
      * }
      */
-    public static int ERROR_INVALID_MESSAGE() {
-        return (int)1002L;
+    public static int WinLocalAccountAndAdministratorSid() {
+        return WinLocalAccountAndAdministratorSid;
     }
+    private static final int WinAccountProtectedUsersSid = (int)107L;
     /**
-     * {@snippet :
-     * #define ERROR_CAN_NOT_COMPLETE 1003
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountProtectedUsersSid = 107
      * }
      */
-    public static int ERROR_CAN_NOT_COMPLETE() {
-        return (int)1003L;
+    public static int WinAccountProtectedUsersSid() {
+        return WinAccountProtectedUsersSid;
     }
+    private static final int WinCapabilityAppointmentsSid = (int)108L;
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_FLAGS 1004
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCapabilityAppointmentsSid = 108
      * }
      */
-    public static int ERROR_INVALID_FLAGS() {
-        return (int)1004L;
+    public static int WinCapabilityAppointmentsSid() {
+        return WinCapabilityAppointmentsSid;
     }
+    private static final int WinCapabilityContactsSid = (int)109L;
     /**
-     * {@snippet :
-     * #define ERROR_UNRECOGNIZED_VOLUME 1005
+     * {@snippet lang=c :
+     * enum <anonymous>.WinCapabilityContactsSid = 109
      * }
      */
-    public static int ERROR_UNRECOGNIZED_VOLUME() {
-        return (int)1005L;
+    public static int WinCapabilityContactsSid() {
+        return WinCapabilityContactsSid;
     }
+    private static final int WinAccountDefaultSystemManagedSid = (int)110L;
     /**
-     * {@snippet :
-     * #define ERROR_FILE_INVALID 1006
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountDefaultSystemManagedSid = 110
      * }
      */
-    public static int ERROR_FILE_INVALID() {
-        return (int)1006L;
+    public static int WinAccountDefaultSystemManagedSid() {
+        return WinAccountDefaultSystemManagedSid;
     }
+    private static final int WinBuiltinDefaultSystemManagedGroupSid = (int)111L;
     /**
-     * {@snippet :
-     * #define ERROR_FULLSCREEN_MODE 1007
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinDefaultSystemManagedGroupSid = 111
      * }
      */
-    public static int ERROR_FULLSCREEN_MODE() {
-        return (int)1007L;
+    public static int WinBuiltinDefaultSystemManagedGroupSid() {
+        return WinBuiltinDefaultSystemManagedGroupSid;
     }
+    private static final int WinBuiltinStorageReplicaAdminsSid = (int)112L;
     /**
-     * {@snippet :
-     * #define ERROR_NO_TOKEN 1008
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinStorageReplicaAdminsSid = 112
      * }
      */
-    public static int ERROR_NO_TOKEN() {
-        return (int)1008L;
+    public static int WinBuiltinStorageReplicaAdminsSid() {
+        return WinBuiltinStorageReplicaAdminsSid;
     }
+    private static final int WinAccountKeyAdminsSid = (int)113L;
     /**
-     * {@snippet :
-     * #define ERROR_BADDB 1009
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountKeyAdminsSid = 113
      * }
      */
-    public static int ERROR_BADDB() {
-        return (int)1009L;
+    public static int WinAccountKeyAdminsSid() {
+        return WinAccountKeyAdminsSid;
     }
+    private static final int WinAccountEnterpriseKeyAdminsSid = (int)114L;
     /**
-     * {@snippet :
-     * #define ERROR_BADKEY 1010
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAccountEnterpriseKeyAdminsSid = 114
      * }
      */
-    public static int ERROR_BADKEY() {
-        return (int)1010L;
+    public static int WinAccountEnterpriseKeyAdminsSid() {
+        return WinAccountEnterpriseKeyAdminsSid;
     }
+    private static final int WinAuthenticationKeyTrustSid = (int)115L;
     /**
-     * {@snippet :
-     * #define ERROR_CANTOPEN 1011
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAuthenticationKeyTrustSid = 115
      * }
      */
-    public static int ERROR_CANTOPEN() {
-        return (int)1011L;
+    public static int WinAuthenticationKeyTrustSid() {
+        return WinAuthenticationKeyTrustSid;
     }
+    private static final int WinAuthenticationKeyPropertyMFASid = (int)116L;
     /**
-     * {@snippet :
-     * #define ERROR_CANTREAD 1012
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAuthenticationKeyPropertyMFASid = 116
      * }
      */
-    public static int ERROR_CANTREAD() {
-        return (int)1012L;
+    public static int WinAuthenticationKeyPropertyMFASid() {
+        return WinAuthenticationKeyPropertyMFASid;
     }
+    private static final int WinAuthenticationKeyPropertyAttestationSid = (int)117L;
     /**
-     * {@snippet :
-     * #define ERROR_CANTWRITE 1013
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAuthenticationKeyPropertyAttestationSid = 117
      * }
      */
-    public static int ERROR_CANTWRITE() {
-        return (int)1013L;
+    public static int WinAuthenticationKeyPropertyAttestationSid() {
+        return WinAuthenticationKeyPropertyAttestationSid;
     }
+    private static final int WinAuthenticationFreshKeyAuthSid = (int)118L;
     /**
-     * {@snippet :
-     * #define ERROR_REGISTRY_RECOVERED 1014
+     * {@snippet lang=c :
+     * enum <anonymous>.WinAuthenticationFreshKeyAuthSid = 118
      * }
      */
-    public static int ERROR_REGISTRY_RECOVERED() {
-        return (int)1014L;
+    public static int WinAuthenticationFreshKeyAuthSid() {
+        return WinAuthenticationFreshKeyAuthSid;
     }
+    private static final int WinBuiltinDeviceOwnersSid = (int)119L;
     /**
-     * {@snippet :
-     * #define ERROR_REGISTRY_CORRUPT 1015
+     * {@snippet lang=c :
+     * enum <anonymous>.WinBuiltinDeviceOwnersSid = 119
      * }
      */
-    public static int ERROR_REGISTRY_CORRUPT() {
-        return (int)1015L;
+    public static int WinBuiltinDeviceOwnersSid() {
+        return WinBuiltinDeviceOwnersSid;
     }
     /**
-     * {@snippet :
-     * #define ERROR_REGISTRY_IO_FAILED 1016
+     * {@snippet lang=c :
+     * typedef ACL *PACL
      * }
      */
-    public static int ERROR_REGISTRY_IO_FAILED() {
-        return (int)1016L;
-    }
+    public static final AddressLayout PACL = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_NOT_REGISTRY_FILE 1017
+     * {@snippet lang=c :
+     * typedef ACE_HEADER *PACE_HEADER
      * }
      */
-    public static int ERROR_NOT_REGISTRY_FILE() {
-        return (int)1017L;
-    }
+    public static final AddressLayout PACE_HEADER = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_KEY_DELETED 1018
+     * {@snippet lang=c :
+     * typedef ACCESS_ALLOWED_ACE *PACCESS_ALLOWED_ACE
      * }
      */
-    public static int ERROR_KEY_DELETED() {
-        return (int)1018L;
-    }
+    public static final AddressLayout PACCESS_ALLOWED_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_NO_LOG_SPACE 1019
+     * {@snippet lang=c :
+     * typedef ACCESS_DENIED_ACE *PACCESS_DENIED_ACE
      * }
      */
-    public static int ERROR_NO_LOG_SPACE() {
-        return (int)1019L;
-    }
+    public static final AddressLayout PACCESS_DENIED_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_KEY_HAS_CHILDREN 1020
+     * {@snippet lang=c :
+     * typedef SYSTEM_AUDIT_ACE *PSYSTEM_AUDIT_ACE
      * }
      */
-    public static int ERROR_KEY_HAS_CHILDREN() {
-        return (int)1020L;
-    }
+    public static final AddressLayout PSYSTEM_AUDIT_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_CHILD_MUST_BE_VOLATILE 1021
+     * {@snippet lang=c :
+     * typedef SYSTEM_ALARM_ACE *PSYSTEM_ALARM_ACE
      * }
      */
-    public static int ERROR_CHILD_MUST_BE_VOLATILE() {
-        return (int)1021L;
-    }
+    public static final AddressLayout PSYSTEM_ALARM_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_NOTIFY_ENUM_DIR 1022
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_RESOURCE_ATTRIBUTE_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD SidStart;
+     * } *PSYSTEM_RESOURCE_ATTRIBUTE_ACE
      * }
      */
-    public static int ERROR_NOTIFY_ENUM_DIR() {
-        return (int)1022L;
-    }
+    public static final AddressLayout PSYSTEM_RESOURCE_ATTRIBUTE_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DEPENDENT_SERVICES_RUNNING 1051
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_SCOPED_POLICY_ID_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD SidStart;
+     * } *PSYSTEM_SCOPED_POLICY_ID_ACE
      * }
      */
-    public static int ERROR_DEPENDENT_SERVICES_RUNNING() {
-        return (int)1051L;
-    }
+    public static final AddressLayout PSYSTEM_SCOPED_POLICY_ID_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_SERVICE_CONTROL 1052
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_MANDATORY_LABEL_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD SidStart;
+     * } *PSYSTEM_MANDATORY_LABEL_ACE
      * }
      */
-    public static int ERROR_INVALID_SERVICE_CONTROL() {
-        return (int)1052L;
-    }
+    public static final AddressLayout PSYSTEM_MANDATORY_LABEL_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_REQUEST_TIMEOUT 1053
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_PROCESS_TRUST_LABEL_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD SidStart;
+     * } *PSYSTEM_PROCESS_TRUST_LABEL_ACE
      * }
      */
-    public static int ERROR_SERVICE_REQUEST_TIMEOUT() {
-        return (int)1053L;
-    }
+    public static final AddressLayout PSYSTEM_PROCESS_TRUST_LABEL_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_NO_THREAD 1054
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_ACCESS_FILTER_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD SidStart;
+     * } *PSYSTEM_ACCESS_FILTER_ACE
      * }
      */
-    public static int ERROR_SERVICE_NO_THREAD() {
-        return (int)1054L;
-    }
+    public static final AddressLayout PSYSTEM_ACCESS_FILTER_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_DATABASE_LOCKED 1055
+     * {@snippet lang=c :
+     * typedef struct _ACCESS_ALLOWED_OBJECT_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD Flags;
+     *     GUID ObjectType;
+     *     GUID InheritedObjectType;
+     *     DWORD SidStart;
+     * } *PACCESS_ALLOWED_OBJECT_ACE
      * }
      */
-    public static int ERROR_SERVICE_DATABASE_LOCKED() {
-        return (int)1055L;
-    }
+    public static final AddressLayout PACCESS_ALLOWED_OBJECT_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_ALREADY_RUNNING 1056
+     * {@snippet lang=c :
+     * typedef struct _ACCESS_DENIED_OBJECT_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD Flags;
+     *     GUID ObjectType;
+     *     GUID InheritedObjectType;
+     *     DWORD SidStart;
+     * } *PACCESS_DENIED_OBJECT_ACE
      * }
      */
-    public static int ERROR_SERVICE_ALREADY_RUNNING() {
-        return (int)1056L;
-    }
+    public static final AddressLayout PACCESS_DENIED_OBJECT_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_SERVICE_ACCOUNT 1057
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_AUDIT_OBJECT_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD Flags;
+     *     GUID ObjectType;
+     *     GUID InheritedObjectType;
+     *     DWORD SidStart;
+     * } *PSYSTEM_AUDIT_OBJECT_ACE
      * }
      */
-    public static int ERROR_INVALID_SERVICE_ACCOUNT() {
-        return (int)1057L;
-    }
+    public static final AddressLayout PSYSTEM_AUDIT_OBJECT_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_DISABLED 1058
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_ALARM_OBJECT_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD Flags;
+     *     GUID ObjectType;
+     *     GUID InheritedObjectType;
+     *     DWORD SidStart;
+     * } *PSYSTEM_ALARM_OBJECT_ACE
      * }
      */
-    public static int ERROR_SERVICE_DISABLED() {
-        return (int)1058L;
-    }
+    public static final AddressLayout PSYSTEM_ALARM_OBJECT_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_CIRCULAR_DEPENDENCY 1059
+     * {@snippet lang=c :
+     * typedef struct _ACCESS_ALLOWED_CALLBACK_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD SidStart;
+     * } *PACCESS_ALLOWED_CALLBACK_ACE
      * }
      */
-    public static int ERROR_CIRCULAR_DEPENDENCY() {
-        return (int)1059L;
-    }
+    public static final AddressLayout PACCESS_ALLOWED_CALLBACK_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_DOES_NOT_EXIST 1060
+     * {@snippet lang=c :
+     * typedef struct _ACCESS_DENIED_CALLBACK_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD SidStart;
+     * } *PACCESS_DENIED_CALLBACK_ACE
      * }
      */
-    public static int ERROR_SERVICE_DOES_NOT_EXIST() {
-        return (int)1060L;
-    }
+    public static final AddressLayout PACCESS_DENIED_CALLBACK_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_CANNOT_ACCEPT_CTRL 1061
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_AUDIT_CALLBACK_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD SidStart;
+     * } *PSYSTEM_AUDIT_CALLBACK_ACE
      * }
      */
-    public static int ERROR_SERVICE_CANNOT_ACCEPT_CTRL() {
-        return (int)1061L;
-    }
+    public static final AddressLayout PSYSTEM_AUDIT_CALLBACK_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_NOT_ACTIVE 1062
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_ALARM_CALLBACK_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD SidStart;
+     * } *PSYSTEM_ALARM_CALLBACK_ACE
      * }
      */
-    public static int ERROR_SERVICE_NOT_ACTIVE() {
-        return (int)1062L;
-    }
+    public static final AddressLayout PSYSTEM_ALARM_CALLBACK_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_FAILED_SERVICE_CONTROLLER_CONNECT 1063
+     * {@snippet lang=c :
+     * typedef struct _ACCESS_ALLOWED_CALLBACK_OBJECT_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD Flags;
+     *     GUID ObjectType;
+     *     GUID InheritedObjectType;
+     *     DWORD SidStart;
+     * } *PACCESS_ALLOWED_CALLBACK_OBJECT_ACE
      * }
      */
-    public static int ERROR_FAILED_SERVICE_CONTROLLER_CONNECT() {
-        return (int)1063L;
-    }
+    public static final AddressLayout PACCESS_ALLOWED_CALLBACK_OBJECT_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_EXCEPTION_IN_SERVICE 1064
+     * {@snippet lang=c :
+     * typedef struct _ACCESS_DENIED_CALLBACK_OBJECT_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD Flags;
+     *     GUID ObjectType;
+     *     GUID InheritedObjectType;
+     *     DWORD SidStart;
+     * } *PACCESS_DENIED_CALLBACK_OBJECT_ACE
      * }
      */
-    public static int ERROR_EXCEPTION_IN_SERVICE() {
-        return (int)1064L;
-    }
+    public static final AddressLayout PACCESS_DENIED_CALLBACK_OBJECT_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_DATABASE_DOES_NOT_EXIST 1065
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_AUDIT_CALLBACK_OBJECT_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD Flags;
+     *     GUID ObjectType;
+     *     GUID InheritedObjectType;
+     *     DWORD SidStart;
+     * } *PSYSTEM_AUDIT_CALLBACK_OBJECT_ACE
      * }
      */
-    public static int ERROR_DATABASE_DOES_NOT_EXIST() {
-        return (int)1065L;
-    }
+    public static final AddressLayout PSYSTEM_AUDIT_CALLBACK_OBJECT_ACE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_SPECIFIC_ERROR 1066
+     * {@snippet lang=c :
+     * typedef struct _SYSTEM_ALARM_CALLBACK_OBJECT_ACE {
+     *     ACE_HEADER Header;
+     *     ACCESS_MASK Mask;
+     *     DWORD Flags;
+     *     GUID ObjectType;
+     *     GUID InheritedObjectType;
+     *     DWORD SidStart;
+     * } *PSYSTEM_ALARM_CALLBACK_OBJECT_ACE
      * }
      */
-    public static int ERROR_SERVICE_SPECIFIC_ERROR() {
-        return (int)1066L;
-    }
+    public static final AddressLayout PSYSTEM_ALARM_CALLBACK_OBJECT_ACE = Windows_h.C_POINTER;
+    private static final int AclRevisionInformation = (int)1L;
     /**
-     * {@snippet :
-     * #define ERROR_PROCESS_ABORTED 1067
+     * {@snippet lang=c :
+     * enum _ACL_INFORMATION_CLASS.AclRevisionInformation = 1
      * }
      */
-    public static int ERROR_PROCESS_ABORTED() {
-        return (int)1067L;
+    public static int AclRevisionInformation() {
+        return AclRevisionInformation;
     }
+    private static final int AclSizeInformation = (int)2L;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_DEPENDENCY_FAIL 1068
+     * {@snippet lang=c :
+     * enum _ACL_INFORMATION_CLASS.AclSizeInformation = 2
      * }
      */
-    public static int ERROR_SERVICE_DEPENDENCY_FAIL() {
-        return (int)1068L;
+    public static int AclSizeInformation() {
+        return AclSizeInformation;
     }
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_LOGON_FAILED 1069
+     * {@snippet lang=c :
+     * typedef ACL_REVISION_INFORMATION *PACL_REVISION_INFORMATION
      * }
      */
-    public static int ERROR_SERVICE_LOGON_FAILED() {
-        return (int)1069L;
-    }
+    public static final AddressLayout PACL_REVISION_INFORMATION = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_START_HANG 1070
+     * {@snippet lang=c :
+     * typedef ACL_SIZE_INFORMATION *PACL_SIZE_INFORMATION
      * }
      */
-    public static int ERROR_SERVICE_START_HANG() {
-        return (int)1070L;
-    }
+    public static final AddressLayout PACL_SIZE_INFORMATION = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_SERVICE_LOCK 1071
+     * {@snippet lang=c :
+     * typedef WORD SECURITY_DESCRIPTOR_CONTROL
      * }
      */
-    public static int ERROR_INVALID_SERVICE_LOCK() {
-        return (int)1071L;
-    }
+    public static final OfShort SECURITY_DESCRIPTOR_CONTROL = Windows_h.C_SHORT;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_MARKED_FOR_DELETE 1072
+     * {@snippet lang=c :
+     * typedef WORD *PSECURITY_DESCRIPTOR_CONTROL
      * }
      */
-    public static int ERROR_SERVICE_MARKED_FOR_DELETE() {
-        return (int)1072L;
-    }
+    public static final AddressLayout PSECURITY_DESCRIPTOR_CONTROL = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_EXISTS 1073
+     * {@snippet lang=c :
+     * typedef struct _SECURITY_DESCRIPTOR_RELATIVE {
+     *     BYTE Revision;
+     *     BYTE Sbz1;
+     *     SECURITY_DESCRIPTOR_CONTROL Control;
+     *     DWORD Owner;
+     *     DWORD Group;
+     *     DWORD Sacl;
+     *     DWORD Dacl;
+     * } *PISECURITY_DESCRIPTOR_RELATIVE
      * }
      */
-    public static int ERROR_SERVICE_EXISTS() {
-        return (int)1073L;
-    }
+    public static final AddressLayout PISECURITY_DESCRIPTOR_RELATIVE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_ALREADY_RUNNING_LKG 1074
+     * {@snippet lang=c :
+     * typedef struct _SECURITY_DESCRIPTOR {
+     *     BYTE Revision;
+     *     BYTE Sbz1;
+     *     SECURITY_DESCRIPTOR_CONTROL Control;
+     *     PSID Owner;
+     *     PSID Group;
+     *     PACL Sacl;
+     *     PACL Dacl;
+     * } *PISECURITY_DESCRIPTOR
      * }
      */
-    public static int ERROR_ALREADY_RUNNING_LKG() {
-        return (int)1074L;
-    }
+    public static final AddressLayout PISECURITY_DESCRIPTOR = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_DEPENDENCY_DELETED 1075
+     * {@snippet lang=c :
+     * typedef struct _SECURITY_OBJECT_AI_PARAMS {
+     *     DWORD Size;
+     *     DWORD ConstraintMask;
+     * } *PSECURITY_OBJECT_AI_PARAMS
      * }
      */
-    public static int ERROR_SERVICE_DEPENDENCY_DELETED() {
-        return (int)1075L;
-    }
+    public static final AddressLayout PSECURITY_OBJECT_AI_PARAMS = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_BOOT_ALREADY_ACCEPTED 1076
+     * {@snippet lang=c :
+     * typedef struct _OBJECT_TYPE_LIST {
+     *     WORD Level;
+     *     WORD Sbz;
+     *     GUID *ObjectType;
+     * } *POBJECT_TYPE_LIST
      * }
      */
-    public static int ERROR_BOOT_ALREADY_ACCEPTED() {
-        return (int)1076L;
-    }
+    public static final AddressLayout POBJECT_TYPE_LIST = Windows_h.C_POINTER;
+    private static final int AuditEventObjectAccess = (int)0L;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_NEVER_STARTED 1077
+     * {@snippet lang=c :
+     * enum _AUDIT_EVENT_TYPE.AuditEventObjectAccess = 0
      * }
      */
-    public static int ERROR_SERVICE_NEVER_STARTED() {
-        return (int)1077L;
+    public static int AuditEventObjectAccess() {
+        return AuditEventObjectAccess;
     }
+    private static final int AuditEventDirectoryServiceAccess = (int)1L;
     /**
-     * {@snippet :
-     * #define ERROR_DUPLICATE_SERVICE_NAME 1078
+     * {@snippet lang=c :
+     * enum _AUDIT_EVENT_TYPE.AuditEventDirectoryServiceAccess = 1
      * }
      */
-    public static int ERROR_DUPLICATE_SERVICE_NAME() {
-        return (int)1078L;
+    public static int AuditEventDirectoryServiceAccess() {
+        return AuditEventDirectoryServiceAccess;
     }
     /**
-     * {@snippet :
-     * #define ERROR_DIFFERENT_SERVICE_ACCOUNT 1079
+     * {@snippet lang=c :
+     * typedef enum _AUDIT_EVENT_TYPE {
+     *     AuditEventObjectAccess,
+     *     AuditEventDirectoryServiceAccess
+     * } *PAUDIT_EVENT_TYPE
      * }
      */
-    public static int ERROR_DIFFERENT_SERVICE_ACCOUNT() {
-        return (int)1079L;
-    }
+    public static final AddressLayout PAUDIT_EVENT_TYPE = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_CANNOT_DETECT_DRIVER_FAILURE 1080
+     * {@snippet lang=c :
+     * typedef struct _PRIVILEGE_SET {
+     *     DWORD PrivilegeCount;
+     *     DWORD Control;
+     *     LUID_AND_ATTRIBUTES Privilege[1];
+     * } *PPRIVILEGE_SET
      * }
      */
-    public static int ERROR_CANNOT_DETECT_DRIVER_FAILURE() {
-        return (int)1080L;
-    }
+    public static final AddressLayout PPRIVILEGE_SET = Windows_h.C_POINTER;
+    private static final int AccessReasonNone = (int)0L;
     /**
-     * {@snippet :
-     * #define ERROR_CANNOT_DETECT_PROCESS_ABORT 1081
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonNone = 0
      * }
      */
-    public static int ERROR_CANNOT_DETECT_PROCESS_ABORT() {
-        return (int)1081L;
+    public static int AccessReasonNone() {
+        return AccessReasonNone;
     }
+    private static final int AccessReasonAllowedAce = (int)65536L;
     /**
-     * {@snippet :
-     * #define ERROR_NO_RECOVERY_PROGRAM 1082
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonAllowedAce = 65536
      * }
      */
-    public static int ERROR_NO_RECOVERY_PROGRAM() {
-        return (int)1082L;
+    public static int AccessReasonAllowedAce() {
+        return AccessReasonAllowedAce;
     }
+    private static final int AccessReasonDeniedAce = (int)131072L;
     /**
-     * {@snippet :
-     * #define ERROR_SERVICE_NOT_IN_EXE 1083
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonDeniedAce = 131072
      * }
      */
-    public static int ERROR_SERVICE_NOT_IN_EXE() {
-        return (int)1083L;
+    public static int AccessReasonDeniedAce() {
+        return AccessReasonDeniedAce;
     }
+    private static final int AccessReasonAllowedParentAce = (int)196608L;
     /**
-     * {@snippet :
-     * #define ERROR_NOT_SAFEBOOT_SERVICE 1084
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonAllowedParentAce = 196608
      * }
      */
-    public static int ERROR_NOT_SAFEBOOT_SERVICE() {
-        return (int)1084L;
+    public static int AccessReasonAllowedParentAce() {
+        return AccessReasonAllowedParentAce;
     }
+    private static final int AccessReasonDeniedParentAce = (int)262144L;
     /**
-     * {@snippet :
-     * #define ERROR_END_OF_MEDIA 1100
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonDeniedParentAce = 262144
      * }
      */
-    public static int ERROR_END_OF_MEDIA() {
-        return (int)1100L;
+    public static int AccessReasonDeniedParentAce() {
+        return AccessReasonDeniedParentAce;
     }
+    private static final int AccessReasonNotGrantedByCape = (int)327680L;
     /**
-     * {@snippet :
-     * #define ERROR_FILEMARK_DETECTED 1101
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonNotGrantedByCape = 327680
      * }
      */
-    public static int ERROR_FILEMARK_DETECTED() {
-        return (int)1101L;
+    public static int AccessReasonNotGrantedByCape() {
+        return AccessReasonNotGrantedByCape;
     }
+    private static final int AccessReasonNotGrantedByParentCape = (int)393216L;
     /**
-     * {@snippet :
-     * #define ERROR_BEGINNING_OF_MEDIA 1102
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonNotGrantedByParentCape = 393216
      * }
      */
-    public static int ERROR_BEGINNING_OF_MEDIA() {
-        return (int)1102L;
+    public static int AccessReasonNotGrantedByParentCape() {
+        return AccessReasonNotGrantedByParentCape;
     }
+    private static final int AccessReasonNotGrantedToAppContainer = (int)458752L;
     /**
-     * {@snippet :
-     * #define ERROR_SETMARK_DETECTED 1103
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonNotGrantedToAppContainer = 458752
      * }
      */
-    public static int ERROR_SETMARK_DETECTED() {
-        return (int)1103L;
+    public static int AccessReasonNotGrantedToAppContainer() {
+        return AccessReasonNotGrantedToAppContainer;
     }
+    private static final int AccessReasonMissingPrivilege = (int)1048576L;
     /**
-     * {@snippet :
-     * #define ERROR_NO_DATA_DETECTED 1104
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonMissingPrivilege = 1048576
      * }
      */
-    public static int ERROR_NO_DATA_DETECTED() {
-        return (int)1104L;
+    public static int AccessReasonMissingPrivilege() {
+        return AccessReasonMissingPrivilege;
     }
+    private static final int AccessReasonFromPrivilege = (int)2097152L;
     /**
-     * {@snippet :
-     * #define ERROR_PARTITION_FAILURE 1105
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonFromPrivilege = 2097152
      * }
      */
-    public static int ERROR_PARTITION_FAILURE() {
-        return (int)1105L;
+    public static int AccessReasonFromPrivilege() {
+        return AccessReasonFromPrivilege;
     }
+    private static final int AccessReasonIntegrityLevel = (int)3145728L;
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_BLOCK_LENGTH 1106
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonIntegrityLevel = 3145728
      * }
      */
-    public static int ERROR_INVALID_BLOCK_LENGTH() {
-        return (int)1106L;
+    public static int AccessReasonIntegrityLevel() {
+        return AccessReasonIntegrityLevel;
     }
+    private static final int AccessReasonOwnership = (int)4194304L;
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_NOT_PARTITIONED 1107
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonOwnership = 4194304
      * }
      */
-    public static int ERROR_DEVICE_NOT_PARTITIONED() {
-        return (int)1107L;
+    public static int AccessReasonOwnership() {
+        return AccessReasonOwnership;
     }
+    private static final int AccessReasonNullDacl = (int)5242880L;
     /**
-     * {@snippet :
-     * #define ERROR_UNABLE_TO_LOCK_MEDIA 1108
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonNullDacl = 5242880
      * }
      */
-    public static int ERROR_UNABLE_TO_LOCK_MEDIA() {
-        return (int)1108L;
+    public static int AccessReasonNullDacl() {
+        return AccessReasonNullDacl;
     }
+    private static final int AccessReasonEmptyDacl = (int)6291456L;
     /**
-     * {@snippet :
-     * #define ERROR_UNABLE_TO_UNLOAD_MEDIA 1109
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonEmptyDacl = 6291456
      * }
      */
-    public static int ERROR_UNABLE_TO_UNLOAD_MEDIA() {
-        return (int)1109L;
+    public static int AccessReasonEmptyDacl() {
+        return AccessReasonEmptyDacl;
     }
+    private static final int AccessReasonNoSD = (int)7340032L;
     /**
-     * {@snippet :
-     * #define ERROR_MEDIA_CHANGED 1110
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonNoSD = 7340032
      * }
      */
-    public static int ERROR_MEDIA_CHANGED() {
-        return (int)1110L;
+    public static int AccessReasonNoSD() {
+        return AccessReasonNoSD;
     }
+    private static final int AccessReasonNoGrant = (int)8388608L;
     /**
-     * {@snippet :
-     * #define ERROR_BUS_RESET 1111
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonNoGrant = 8388608
      * }
      */
-    public static int ERROR_BUS_RESET() {
-        return (int)1111L;
+    public static int AccessReasonNoGrant() {
+        return AccessReasonNoGrant;
     }
+    private static final int AccessReasonTrustLabel = (int)9437184L;
     /**
-     * {@snippet :
-     * #define ERROR_NO_MEDIA_IN_DRIVE 1112
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonTrustLabel = 9437184
      * }
      */
-    public static int ERROR_NO_MEDIA_IN_DRIVE() {
-        return (int)1112L;
+    public static int AccessReasonTrustLabel() {
+        return AccessReasonTrustLabel;
     }
+    private static final int AccessReasonFilterAce = (int)10485760L;
     /**
-     * {@snippet :
-     * #define ERROR_NO_UNICODE_TRANSLATION 1113
+     * {@snippet lang=c :
+     * enum _ACCESS_REASON_TYPE.AccessReasonFilterAce = 10485760
      * }
      */
-    public static int ERROR_NO_UNICODE_TRANSLATION() {
-        return (int)1113L;
+    public static int AccessReasonFilterAce() {
+        return AccessReasonFilterAce;
     }
     /**
-     * {@snippet :
-     * #define ERROR_DLL_INIT_FAILED 1114
+     * {@snippet lang=c :
+     * typedef DWORD ACCESS_REASON
      * }
      */
-    public static int ERROR_DLL_INIT_FAILED() {
-        return (int)1114L;
-    }
+    public static final OfInt ACCESS_REASON = Windows_h.C_LONG;
     /**
-     * {@snippet :
-     * #define ERROR_SHUTDOWN_IN_PROGRESS 1115
+     * {@snippet lang=c :
+     * typedef struct _ACCESS_REASONS {
+     *     ACCESS_REASON Data[32];
+     * } *PACCESS_REASONS
      * }
      */
-    public static int ERROR_SHUTDOWN_IN_PROGRESS() {
-        return (int)1115L;
-    }
+    public static final AddressLayout PACCESS_REASONS = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_NO_SHUTDOWN_IN_PROGRESS 1116
+     * {@snippet lang=c :
+     * typedef struct _SE_SECURITY_DESCRIPTOR {
+     *     DWORD Size;
+     *     DWORD Flags;
+     *     PSECURITY_DESCRIPTOR SecurityDescriptor;
+     * } *PSE_SECURITY_DESCRIPTOR
      * }
      */
-    public static int ERROR_NO_SHUTDOWN_IN_PROGRESS() {
-        return (int)1116L;
-    }
+    public static final AddressLayout PSE_SECURITY_DESCRIPTOR = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_IO_DEVICE 1117
+     * {@snippet lang=c :
+     * typedef struct _SE_ACCESS_REQUEST {
+     *     DWORD Size;
+     *     PSE_SECURITY_DESCRIPTOR SeSecurityDescriptor;
+     *     ACCESS_MASK DesiredAccess;
+     *     ACCESS_MASK PreviouslyGrantedAccess;
+     *     PSID PrincipalSelfSid;
+     *     PGENERIC_MAPPING GenericMapping;
+     *     DWORD ObjectTypeListCount;
+     *     POBJECT_TYPE_LIST ObjectTypeList;
+     * } *PSE_ACCESS_REQUEST
      * }
      */
-    public static int ERROR_IO_DEVICE() {
-        return (int)1117L;
-    }
+    public static final AddressLayout PSE_ACCESS_REQUEST = Windows_h.C_POINTER;
     /**
-     * {@snippet :
-     * #define ERROR_SERIAL_NO_DEVICE 1118
+     * {@snippet lang=c :
+     * typedef struct _SE_ACCESS_REPLY {
+     *     DWORD Size;
+     *     DWORD ResultListCount;
+     *     PACCESS_MASK GrantedAccess;
+     *     PDWORD AccessStatus;
+     *     PACCESS_REASONS AccessReason;
+     *     PPRIVILEGE_SET *Privileges;
+     * } *PSE_ACCESS_REPLY
      * }
      */
-    public static int ERROR_SERIAL_NO_DEVICE() {
-        return (int)1118L;
-    }
+    public static final AddressLayout PSE_ACCESS_REPLY = Windows_h.C_POINTER;
+    private static final int SecurityAnonymous = (int)0L;
     /**
-     * {@snippet :
-     * #define ERROR_IRQ_BUSY 1119
+     * {@snippet lang=c :
+     * enum _SECURITY_IMPERSONATION_LEVEL.SecurityAnonymous = 0
      * }
      */
-    public static int ERROR_IRQ_BUSY() {
-        return (int)1119L;
+    public static int SecurityAnonymous() {
+        return SecurityAnonymous;
     }
+    private static final int SecurityIdentification = (int)1L;
     /**
-     * {@snippet :
-     * #define ERROR_MORE_WRITES 1120
+     * {@snippet lang=c :
+     * enum _SECURITY_IMPERSONATION_LEVEL.SecurityIdentification = 1
      * }
      */
-    public static int ERROR_MORE_WRITES() {
-        return (int)1120L;
+    public static int SecurityIdentification() {
+        return SecurityIdentification;
     }
+    private static final int SecurityImpersonation = (int)2L;
     /**
-     * {@snippet :
-     * #define ERROR_COUNTER_TIMEOUT 1121
+     * {@snippet lang=c :
+     * enum _SECURITY_IMPERSONATION_LEVEL.SecurityImpersonation = 2
      * }
      */
-    public static int ERROR_COUNTER_TIMEOUT() {
-        return (int)1121L;
+    public static int SecurityImpersonation() {
+        return SecurityImpersonation;
     }
+    private static final int SecurityDelegation = (int)3L;
     /**
-     * {@snippet :
-     * #define ERROR_FLOPPY_ID_MARK_NOT_FOUND 1122
+     * {@snippet lang=c :
+     * enum _SECURITY_IMPERSONATION_LEVEL.SecurityDelegation = 3
      * }
      */
-    public static int ERROR_FLOPPY_ID_MARK_NOT_FOUND() {
-        return (int)1122L;
+    public static int SecurityDelegation() {
+        return SecurityDelegation;
     }
     /**
-     * {@snippet :
-     * #define ERROR_FLOPPY_WRONG_CYLINDER 1123
+     * {@snippet lang=c :
+     * typedef enum _SECURITY_IMPERSONATION_LEVEL {
+     *     SecurityAnonymous,
+     *     SecurityIdentification,
+     *     SecurityImpersonation,
+     *     SecurityDelegation
+     * } *PSECURITY_IMPERSONATION_LEVEL
      * }
      */
-    public static int ERROR_FLOPPY_WRONG_CYLINDER() {
-        return (int)1123L;
-    }
+    public static final AddressLayout PSECURITY_IMPERSONATION_LEVEL = Windows_h.C_POINTER;
+    private static final int TokenPrimary = (int)1L;
     /**
-     * {@snippet :
-     * #define ERROR_FLOPPY_UNKNOWN_ERROR 1124
+     * {@snippet lang=c :
+     * enum _TOKEN_TYPE.TokenPrimary = 1
      * }
      */
-    public static int ERROR_FLOPPY_UNKNOWN_ERROR() {
-        return (int)1124L;
+    public static int TokenPrimary() {
+        return TokenPrimary;
     }
+    private static final int TokenImpersonation = (int)2L;
     /**
-     * {@snippet :
-     * #define ERROR_FLOPPY_BAD_REGISTERS 1125
+     * {@snippet lang=c :
+     * enum _TOKEN_TYPE.TokenImpersonation = 2
      * }
      */
-    public static int ERROR_FLOPPY_BAD_REGISTERS() {
-        return (int)1125L;
+    public static int TokenImpersonation() {
+        return TokenImpersonation;
     }
     /**
-     * {@snippet :
-     * #define ERROR_DISK_RECALIBRATE_FAILED 1126
+     * {@snippet lang=c :
+     * typedef TOKEN_TYPE *PTOKEN_TYPE
      * }
      */
-    public static int ERROR_DISK_RECALIBRATE_FAILED() {
-        return (int)1126L;
-    }
+    public static final AddressLayout PTOKEN_TYPE = Windows_h.C_POINTER;
+    private static final int TokenElevationTypeDefault = (int)1L;
     /**
-     * {@snippet :
-     * #define ERROR_DISK_OPERATION_FAILED 1127
+     * {@snippet lang=c :
+     * enum _TOKEN_ELEVATION_TYPE.TokenElevationTypeDefault = 1
      * }
      */
-    public static int ERROR_DISK_OPERATION_FAILED() {
-        return (int)1127L;
+    public static int TokenElevationTypeDefault() {
+        return TokenElevationTypeDefault;
     }
+    private static final int TokenElevationTypeFull = (int)2L;
     /**
-     * {@snippet :
-     * #define ERROR_DISK_RESET_FAILED 1128
+     * {@snippet lang=c :
+     * enum _TOKEN_ELEVATION_TYPE.TokenElevationTypeFull = 2
      * }
      */
-    public static int ERROR_DISK_RESET_FAILED() {
-        return (int)1128L;
+    public static int TokenElevationTypeFull() {
+        return TokenElevationTypeFull;
     }
+    private static final int TokenElevationTypeLimited = (int)3L;
     /**
-     * {@snippet :
-     * #define ERROR_EOM_OVERFLOW 1129
+     * {@snippet lang=c :
+     * enum _TOKEN_ELEVATION_TYPE.TokenElevationTypeLimited = 3
      * }
      */
-    public static int ERROR_EOM_OVERFLOW() {
-        return (int)1129L;
+    public static int TokenElevationTypeLimited() {
+        return TokenElevationTypeLimited;
     }
     /**
-     * {@snippet :
-     * #define ERROR_NOT_ENOUGH_SERVER_MEMORY 1130
+     * {@snippet lang=c :
+     * typedef enum _TOKEN_ELEVATION_TYPE {
+     *     TokenElevationTypeDefault = 1,
+     *     TokenElevationTypeFull,
+     *     TokenElevationTypeLimited
+     * } *PTOKEN_ELEVATION_TYPE
      * }
      */
-    public static int ERROR_NOT_ENOUGH_SERVER_MEMORY() {
-        return (int)1130L;
-    }
+    public static final AddressLayout PTOKEN_ELEVATION_TYPE = Windows_h.C_POINTER;
+    private static final int TokenUser = (int)1L;
     /**
-     * {@snippet :
-     * #define ERROR_POSSIBLE_DEADLOCK 1131
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenUser = 1
      * }
      */
-    public static int ERROR_POSSIBLE_DEADLOCK() {
-        return (int)1131L;
+    public static int TokenUser() {
+        return TokenUser;
     }
+    private static final int TokenGroups = (int)2L;
     /**
-     * {@snippet :
-     * #define ERROR_MAPPED_ALIGNMENT 1132
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenGroups = 2
      * }
      */
-    public static int ERROR_MAPPED_ALIGNMENT() {
-        return (int)1132L;
+    public static int TokenGroups() {
+        return TokenGroups;
     }
+    private static final int TokenPrivileges = (int)3L;
     /**
-     * {@snippet :
-     * #define ERROR_SET_POWER_STATE_VETOED 1140
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenPrivileges = 3
      * }
      */
-    public static int ERROR_SET_POWER_STATE_VETOED() {
-        return (int)1140L;
+    public static int TokenPrivileges() {
+        return TokenPrivileges;
     }
+    private static final int TokenOwner = (int)4L;
     /**
-     * {@snippet :
-     * #define ERROR_SET_POWER_STATE_FAILED 1141
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenOwner = 4
      * }
      */
-    public static int ERROR_SET_POWER_STATE_FAILED() {
-        return (int)1141L;
+    public static int TokenOwner() {
+        return TokenOwner;
     }
+    private static final int TokenPrimaryGroup = (int)5L;
     /**
-     * {@snippet :
-     * #define ERROR_TOO_MANY_LINKS 1142
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenPrimaryGroup = 5
      * }
      */
-    public static int ERROR_TOO_MANY_LINKS() {
-        return (int)1142L;
+    public static int TokenPrimaryGroup() {
+        return TokenPrimaryGroup;
     }
+    private static final int TokenDefaultDacl = (int)6L;
     /**
-     * {@snippet :
-     * #define ERROR_OLD_WIN_VERSION 1150
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenDefaultDacl = 6
      * }
      */
-    public static int ERROR_OLD_WIN_VERSION() {
-        return (int)1150L;
+    public static int TokenDefaultDacl() {
+        return TokenDefaultDacl;
     }
+    private static final int TokenSource = (int)7L;
     /**
-     * {@snippet :
-     * #define ERROR_APP_WRONG_OS 1151
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenSource = 7
      * }
      */
-    public static int ERROR_APP_WRONG_OS() {
-        return (int)1151L;
+    public static int TokenSource() {
+        return TokenSource;
     }
+    private static final int TokenType = (int)8L;
     /**
-     * {@snippet :
-     * #define ERROR_SINGLE_INSTANCE_APP 1152
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenType = 8
      * }
      */
-    public static int ERROR_SINGLE_INSTANCE_APP() {
-        return (int)1152L;
+    public static int TokenType() {
+        return TokenType;
     }
+    private static final int TokenImpersonationLevel = (int)9L;
     /**
-     * {@snippet :
-     * #define ERROR_RMODE_APP 1153
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenImpersonationLevel = 9
      * }
      */
-    public static int ERROR_RMODE_APP() {
-        return (int)1153L;
+    public static int TokenImpersonationLevel() {
+        return TokenImpersonationLevel;
     }
+    private static final int TokenStatistics = (int)10L;
     /**
-     * {@snippet :
-     * #define ERROR_INVALID_DLL 1154
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenStatistics = 10
      * }
      */
-    public static int ERROR_INVALID_DLL() {
-        return (int)1154L;
+    public static int TokenStatistics() {
+        return TokenStatistics;
     }
+    private static final int TokenRestrictedSids = (int)11L;
     /**
-     * {@snippet :
-     * #define ERROR_NO_ASSOCIATION 1155
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenRestrictedSids = 11
      * }
      */
-    public static int ERROR_NO_ASSOCIATION() {
-        return (int)1155L;
+    public static int TokenRestrictedSids() {
+        return TokenRestrictedSids;
     }
+    private static final int TokenSessionId = (int)12L;
     /**
-     * {@snippet :
-     * #define ERROR_DDE_FAIL 1156
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenSessionId = 12
      * }
      */
-    public static int ERROR_DDE_FAIL() {
-        return (int)1156L;
+    public static int TokenSessionId() {
+        return TokenSessionId;
     }
+    private static final int TokenGroupsAndPrivileges = (int)13L;
     /**
-     * {@snippet :
-     * #define ERROR_DLL_NOT_FOUND 1157
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenGroupsAndPrivileges = 13
      * }
      */
-    public static int ERROR_DLL_NOT_FOUND() {
-        return (int)1157L;
+    public static int TokenGroupsAndPrivileges() {
+        return TokenGroupsAndPrivileges;
     }
+    private static final int TokenSessionReference = (int)14L;
     /**
-     * {@snippet :
-     * #define ERROR_NO_MORE_USER_HANDLES 1158
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenSessionReference = 14
      * }
      */
-    public static int ERROR_NO_MORE_USER_HANDLES() {
-        return (int)1158L;
+    public static int TokenSessionReference() {
+        return TokenSessionReference;
     }
+    private static final int TokenSandBoxInert = (int)15L;
     /**
-     * {@snippet :
-     * #define ERROR_MESSAGE_SYNC_ONLY 1159
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenSandBoxInert = 15
      * }
      */
-    public static int ERROR_MESSAGE_SYNC_ONLY() {
-        return (int)1159L;
+    public static int TokenSandBoxInert() {
+        return TokenSandBoxInert;
     }
+    private static final int TokenAuditPolicy = (int)16L;
     /**
-     * {@snippet :
-     * #define ERROR_SOURCE_ELEMENT_EMPTY 1160
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenAuditPolicy = 16
      * }
      */
-    public static int ERROR_SOURCE_ELEMENT_EMPTY() {
-        return (int)1160L;
+    public static int TokenAuditPolicy() {
+        return TokenAuditPolicy;
     }
+    private static final int TokenOrigin = (int)17L;
     /**
-     * {@snippet :
-     * #define ERROR_DESTINATION_ELEMENT_FULL 1161
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenOrigin = 17
      * }
      */
-    public static int ERROR_DESTINATION_ELEMENT_FULL() {
-        return (int)1161L;
+    public static int TokenOrigin() {
+        return TokenOrigin;
     }
+    private static final int TokenElevationType = (int)18L;
     /**
-     * {@snippet :
-     * #define ERROR_ILLEGAL_ELEMENT_ADDRESS 1162
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenElevationType = 18
      * }
      */
-    public static int ERROR_ILLEGAL_ELEMENT_ADDRESS() {
-        return (int)1162L;
+    public static int TokenElevationType() {
+        return TokenElevationType;
     }
+    private static final int TokenLinkedToken = (int)19L;
     /**
-     * {@snippet :
-     * #define ERROR_MAGAZINE_NOT_PRESENT 1163
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenLinkedToken = 19
      * }
      */
-    public static int ERROR_MAGAZINE_NOT_PRESENT() {
-        return (int)1163L;
+    public static int TokenLinkedToken() {
+        return TokenLinkedToken;
     }
+    private static final int TokenElevation = (int)20L;
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_REINITIALIZATION_NEEDED 1164
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenElevation = 20
      * }
      */
-    public static int ERROR_DEVICE_REINITIALIZATION_NEEDED() {
-        return (int)1164L;
+    public static int TokenElevation() {
+        return TokenElevation;
     }
+    private static final int TokenHasRestrictions = (int)21L;
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_REQUIRES_CLEANING 1165
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenHasRestrictions = 21
      * }
      */
-    public static int ERROR_DEVICE_REQUIRES_CLEANING() {
-        return (int)1165L;
+    public static int TokenHasRestrictions() {
+        return TokenHasRestrictions;
     }
+    private static final int TokenAccessInformation = (int)22L;
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_DOOR_OPEN 1166
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenAccessInformation = 22
      * }
      */
-    public static int ERROR_DEVICE_DOOR_OPEN() {
-        return (int)1166L;
+    public static int TokenAccessInformation() {
+        return TokenAccessInformation;
     }
+    private static final int TokenVirtualizationAllowed = (int)23L;
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_NOT_CONNECTED 1167
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenVirtualizationAllowed = 23
      * }
      */
-    public static int ERROR_DEVICE_NOT_CONNECTED() {
-        return (int)1167L;
+    public static int TokenVirtualizationAllowed() {
+        return TokenVirtualizationAllowed;
     }
+    private static final int TokenVirtualizationEnabled = (int)24L;
     /**
-     * {@snippet :
-     * #define ERROR_NOT_FOUND 1168
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenVirtualizationEnabled = 24
      * }
      */
-    public static int ERROR_NOT_FOUND() {
-        return (int)1168L;
+    public static int TokenVirtualizationEnabled() {
+        return TokenVirtualizationEnabled;
     }
+    private static final int TokenIntegrityLevel = (int)25L;
     /**
-     * {@snippet :
-     * #define ERROR_NO_MATCH 1169
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenIntegrityLevel = 25
      * }
      */
-    public static int ERROR_NO_MATCH() {
-        return (int)1169L;
+    public static int TokenIntegrityLevel() {
+        return TokenIntegrityLevel;
     }
+    private static final int TokenUIAccess = (int)26L;
     /**
-     * {@snippet :
-     * #define ERROR_SET_NOT_FOUND 1170
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenUIAccess = 26
      * }
      */
-    public static int ERROR_SET_NOT_FOUND() {
-        return (int)1170L;
+    public static int TokenUIAccess() {
+        return TokenUIAccess;
     }
+    private static final int TokenMandatoryPolicy = (int)27L;
     /**
-     * {@snippet :
-     * #define ERROR_POINT_NOT_FOUND 1171
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenMandatoryPolicy = 27
      * }
      */
-    public static int ERROR_POINT_NOT_FOUND() {
-        return (int)1171L;
+    public static int TokenMandatoryPolicy() {
+        return TokenMandatoryPolicy;
     }
+    private static final int TokenLogonSid = (int)28L;
     /**
-     * {@snippet :
-     * #define ERROR_NO_TRACKING_SERVICE 1172
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenLogonSid = 28
      * }
      */
-    public static int ERROR_NO_TRACKING_SERVICE() {
-        return (int)1172L;
+    public static int TokenLogonSid() {
+        return TokenLogonSid;
     }
+    private static final int TokenIsAppContainer = (int)29L;
     /**
-     * {@snippet :
-     * #define ERROR_NO_VOLUME_ID 1173
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenIsAppContainer = 29
      * }
      */
-    public static int ERROR_NO_VOLUME_ID() {
-        return (int)1173L;
+    public static int TokenIsAppContainer() {
+        return TokenIsAppContainer;
     }
+    private static final int TokenCapabilities = (int)30L;
     /**
-     * {@snippet :
-     * #define ERROR_UNABLE_TO_REMOVE_REPLACED 1175
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenCapabilities = 30
      * }
      */
-    public static int ERROR_UNABLE_TO_REMOVE_REPLACED() {
-        return (int)1175L;
+    public static int TokenCapabilities() {
+        return TokenCapabilities;
     }
+    private static final int TokenAppContainerSid = (int)31L;
     /**
-     * {@snippet :
-     * #define ERROR_UNABLE_TO_MOVE_REPLACEMENT 1176
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenAppContainerSid = 31
      * }
      */
-    public static int ERROR_UNABLE_TO_MOVE_REPLACEMENT() {
-        return (int)1176L;
+    public static int TokenAppContainerSid() {
+        return TokenAppContainerSid;
     }
+    private static final int TokenAppContainerNumber = (int)32L;
     /**
-     * {@snippet :
-     * #define ERROR_UNABLE_TO_MOVE_REPLACEMENT_2 1177
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenAppContainerNumber = 32
      * }
      */
-    public static int ERROR_UNABLE_TO_MOVE_REPLACEMENT_2() {
-        return (int)1177L;
+    public static int TokenAppContainerNumber() {
+        return TokenAppContainerNumber;
     }
+    private static final int TokenUserClaimAttributes = (int)33L;
     /**
-     * {@snippet :
-     * #define ERROR_JOURNAL_DELETE_IN_PROGRESS 1178
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenUserClaimAttributes = 33
      * }
      */
-    public static int ERROR_JOURNAL_DELETE_IN_PROGRESS() {
-        return (int)1178L;
+    public static int TokenUserClaimAttributes() {
+        return TokenUserClaimAttributes;
     }
+    private static final int TokenDeviceClaimAttributes = (int)34L;
     /**
-     * {@snippet :
-     * #define ERROR_JOURNAL_NOT_ACTIVE 1179
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenDeviceClaimAttributes = 34
      * }
      */
-    public static int ERROR_JOURNAL_NOT_ACTIVE() {
-        return (int)1179L;
+    public static int TokenDeviceClaimAttributes() {
+        return TokenDeviceClaimAttributes;
     }
+    private static final int TokenRestrictedUserClaimAttributes = (int)35L;
     /**
-     * {@snippet :
-     * #define ERROR_POTENTIAL_FILE_FOUND 1180
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenRestrictedUserClaimAttributes = 35
      * }
      */
-    public static int ERROR_POTENTIAL_FILE_FOUND() {
-        return (int)1180L;
+    public static int TokenRestrictedUserClaimAttributes() {
+        return TokenRestrictedUserClaimAttributes;
     }
+    private static final int TokenRestrictedDeviceClaimAttributes = (int)36L;
     /**
-     * {@snippet :
-     * #define ERROR_JOURNAL_ENTRY_DELETED 1181
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenRestrictedDeviceClaimAttributes = 36
      * }
      */
-    public static int ERROR_JOURNAL_ENTRY_DELETED() {
-        return (int)1181L;
+    public static int TokenRestrictedDeviceClaimAttributes() {
+        return TokenRestrictedDeviceClaimAttributes;
     }
+    private static final int TokenDeviceGroups = (int)37L;
     /**
-     * {@snippet :
-     * #define ERROR_PARTITION_TERMINATING 1184
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenDeviceGroups = 37
      * }
      */
-    public static int ERROR_PARTITION_TERMINATING() {
-        return (int)1184L;
+    public static int TokenDeviceGroups() {
+        return TokenDeviceGroups;
     }
+    private static final int TokenRestrictedDeviceGroups = (int)38L;
     /**
-     * {@snippet :
-     * #define ERROR_SHUTDOWN_IS_SCHEDULED 1190
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenRestrictedDeviceGroups = 38
      * }
      */
-    public static int ERROR_SHUTDOWN_IS_SCHEDULED() {
-        return (int)1190L;
+    public static int TokenRestrictedDeviceGroups() {
+        return TokenRestrictedDeviceGroups;
     }
+    private static final int TokenSecurityAttributes = (int)39L;
     /**
-     * {@snippet :
-     * #define ERROR_SHUTDOWN_USERS_LOGGED_ON 1191
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenSecurityAttributes = 39
      * }
      */
-    public static int ERROR_SHUTDOWN_USERS_LOGGED_ON() {
-        return (int)1191L;
+    public static int TokenSecurityAttributes() {
+        return TokenSecurityAttributes;
     }
+    private static final int TokenIsRestricted = (int)40L;
     /**
-     * {@snippet :
-     * #define ERROR_SHUTDOWN_DISKS_NOT_IN_MAINTENANCE_MODE 1192
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenIsRestricted = 40
      * }
      */
-    public static int ERROR_SHUTDOWN_DISKS_NOT_IN_MAINTENANCE_MODE() {
-        return (int)1192L;
+    public static int TokenIsRestricted() {
+        return TokenIsRestricted;
     }
+    private static final int TokenProcessTrustLevel = (int)41L;
     /**
-     * {@snippet :
-     * #define ERROR_BAD_DEVICE 1200
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenProcessTrustLevel = 41
      * }
      */
-    public static int ERROR_BAD_DEVICE() {
-        return (int)1200L;
+    public static int TokenProcessTrustLevel() {
+        return TokenProcessTrustLevel;
     }
+    private static final int TokenPrivateNameSpace = (int)42L;
     /**
-     * {@snippet :
-     * #define ERROR_CONNECTION_UNAVAIL 1201
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenPrivateNameSpace = 42
      * }
      */
-    public static int ERROR_CONNECTION_UNAVAIL() {
-        return (int)1201L;
+    public static int TokenPrivateNameSpace() {
+        return TokenPrivateNameSpace;
     }
+    private static final int TokenSingletonAttributes = (int)43L;
     /**
-     * {@snippet :
-     * #define ERROR_DEVICE_ALREADY_REMEMBERED 1202
+     * {@snippet lang=c :
+     * enum _TOKEN_INFORMATION_CLASS.TokenSingletonAttributes = 43
      * }
      */
-    public static int ERROR_DEVICE_ALREADY_REMEMBERED() {
-        return (int)1202L;
+    public static int TokenSingletonAttributes() {
+        return TokenSingletonAttributes;
     }
 }
-
 

@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagCAH CAH;
+ * {@snippet lang=c :
+ * typedef struct tagCAH {
+ *     ULONG cElems;
+ *     LARGE_INTEGER *pElems;
+ * } CAH
  * }
  */
-public final class CAH extends tagCAH {
+public class CAH extends tagCAH {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CAH() {}
+    CAH() {
+        // Should not be called directly
+    }
 }
-
 

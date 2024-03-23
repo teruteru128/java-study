@@ -2,20 +2,35 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _RTL_CRITICAL_SECTION_DEBUG RTL_RESOURCE_DEBUG;
+ * {@snippet lang=c :
+ * typedef struct _RTL_CRITICAL_SECTION_DEBUG {
+ *     WORD Type;
+ *     WORD CreatorBackTraceIndex;
+ *     struct _RTL_CRITICAL_SECTION *CriticalSection;
+ *     LIST_ENTRY ProcessLocksList;
+ *     DWORD EntryCount;
+ *     DWORD ContentionCount;
+ *     DWORD Flags;
+ *     WORD CreatorBackTraceIndexHigh;
+ *     WORD SpareWORD;
+ * } RTL_RESOURCE_DEBUG
  * }
  */
-public final class RTL_RESOURCE_DEBUG extends _RTL_CRITICAL_SECTION_DEBUG {
+public class RTL_RESOURCE_DEBUG extends _RTL_CRITICAL_SECTION_DEBUG {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private RTL_RESOURCE_DEBUG() {}
+    RTL_RESOURCE_DEBUG() {
+        // Should not be called directly
+    }
 }
-
 

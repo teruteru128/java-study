@@ -2,112 +2,219 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _UMS_CREATE_THREAD_ATTRIBUTES {
  *     DWORD UmsVersion;
  *     PVOID UmsContext;
  *     PVOID UmsCompletionList;
- * };
+ * }
  * }
  */
 public class _UMS_CREATE_THREAD_ATTRIBUTES {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$188.const$3;
+    _UMS_CREATE_THREAD_ATTRIBUTES() {
+        // Should not be called directly
     }
-    public static VarHandle UmsVersion$VH() {
-        return constants$188.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD UmsVersion;
-     * }
-     */
-    public static int UmsVersion$get(MemorySegment seg) {
-        return (int)constants$188.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD UmsVersion;
-     * }
-     */
-    public static void UmsVersion$set(MemorySegment seg, int x) {
-        constants$188.const$4.set(seg, x);
-    }
-    public static int UmsVersion$get(MemorySegment seg, long index) {
-        return (int)constants$188.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void UmsVersion$set(MemorySegment seg, long index, int x) {
-        constants$188.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle UmsContext$VH() {
-        return constants$188.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PVOID UmsContext;
-     * }
-     */
-    public static MemorySegment UmsContext$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$188.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PVOID UmsContext;
-     * }
-     */
-    public static void UmsContext$set(MemorySegment seg, MemorySegment x) {
-        constants$188.const$5.set(seg, x);
-    }
-    public static MemorySegment UmsContext$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$188.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void UmsContext$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$188.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle UmsCompletionList$VH() {
-        return constants$189.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PVOID UmsCompletionList;
-     * }
-     */
-    public static MemorySegment UmsCompletionList$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$189.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PVOID UmsCompletionList;
-     * }
-     */
-    public static void UmsCompletionList$set(MemorySegment seg, MemorySegment x) {
-        constants$189.const$0.set(seg, x);
-    }
-    public static MemorySegment UmsCompletionList$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$189.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void UmsCompletionList$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$189.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("UmsVersion"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("UmsContext"),
+        Windows_h.C_POINTER.withName("UmsCompletionList")
+    ).withName("_UMS_CREATE_THREAD_ATTRIBUTES");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt UmsVersion$LAYOUT = (OfInt)$LAYOUT.select(groupElement("UmsVersion"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD UmsVersion
+     * }
+     */
+    public static final OfInt UmsVersion$layout() {
+        return UmsVersion$LAYOUT;
+    }
+
+    private static final long UmsVersion$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD UmsVersion
+     * }
+     */
+    public static final long UmsVersion$offset() {
+        return UmsVersion$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD UmsVersion
+     * }
+     */
+    public static int UmsVersion(MemorySegment struct) {
+        return struct.get(UmsVersion$LAYOUT, UmsVersion$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD UmsVersion
+     * }
+     */
+    public static void UmsVersion(MemorySegment struct, int fieldValue) {
+        struct.set(UmsVersion$LAYOUT, UmsVersion$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout UmsContext$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("UmsContext"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PVOID UmsContext
+     * }
+     */
+    public static final AddressLayout UmsContext$layout() {
+        return UmsContext$LAYOUT;
+    }
+
+    private static final long UmsContext$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PVOID UmsContext
+     * }
+     */
+    public static final long UmsContext$offset() {
+        return UmsContext$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PVOID UmsContext
+     * }
+     */
+    public static MemorySegment UmsContext(MemorySegment struct) {
+        return struct.get(UmsContext$LAYOUT, UmsContext$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PVOID UmsContext
+     * }
+     */
+    public static void UmsContext(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(UmsContext$LAYOUT, UmsContext$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout UmsCompletionList$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("UmsCompletionList"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PVOID UmsCompletionList
+     * }
+     */
+    public static final AddressLayout UmsCompletionList$layout() {
+        return UmsCompletionList$LAYOUT;
+    }
+
+    private static final long UmsCompletionList$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PVOID UmsCompletionList
+     * }
+     */
+    public static final long UmsCompletionList$offset() {
+        return UmsCompletionList$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PVOID UmsCompletionList
+     * }
+     */
+    public static MemorySegment UmsCompletionList(MemorySegment struct) {
+        return struct.get(UmsCompletionList$LAYOUT, UmsCompletionList$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PVOID UmsCompletionList
+     * }
+     */
+    public static void UmsCompletionList(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(UmsCompletionList$LAYOUT, UmsCompletionList$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

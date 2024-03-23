@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct __NCRYPT_PCP_RAW_POLICYDIGEST NCRYPT_PCP_RAW_POLICYDIGEST_INFO;
+ * {@snippet lang=c :
+ * typedef struct __NCRYPT_PCP_RAW_POLICYDIGEST {
+ *     DWORD dwVersion;
+ *     DWORD cbDigest;
+ * } NCRYPT_PCP_RAW_POLICYDIGEST_INFO
  * }
  */
-public final class NCRYPT_PCP_RAW_POLICYDIGEST_INFO extends __NCRYPT_PCP_RAW_POLICYDIGEST {
+public class NCRYPT_PCP_RAW_POLICYDIGEST_INFO extends __NCRYPT_PCP_RAW_POLICYDIGEST {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private NCRYPT_PCP_RAW_POLICYDIGEST_INFO() {}
+    NCRYPT_PCP_RAW_POLICYDIGEST_INFO() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,33 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMOUSEKEYS MOUSEKEYS;
+ * {@snippet lang=c :
+ * typedef struct tagMOUSEKEYS {
+ *     UINT cbSize;
+ *     DWORD dwFlags;
+ *     DWORD iMaxSpeed;
+ *     DWORD iTimeToMaxSpeed;
+ *     DWORD iCtrlSpeed;
+ *     DWORD dwReserved1;
+ *     DWORD dwReserved2;
+ * } MOUSEKEYS
  * }
  */
-public final class MOUSEKEYS extends tagMOUSEKEYS {
+public class MOUSEKEYS extends tagMOUSEKEYS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MOUSEKEYS() {}
+    MOUSEKEYS() {
+        // Should not be called directly
+    }
 }
-
 

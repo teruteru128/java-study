@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CSV_CONTROL_PARAM CSV_CONTROL_PARAM;
+ * {@snippet lang=c :
+ * typedef struct _CSV_CONTROL_PARAM {
+ *     CSV_CONTROL_OP Operation;
+ *     LONGLONG Unused;
+ * } CSV_CONTROL_PARAM
  * }
  */
-public final class CSV_CONTROL_PARAM extends _CSV_CONTROL_PARAM {
+public class CSV_CONTROL_PARAM extends _CSV_CONTROL_PARAM {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CSV_CONTROL_PARAM() {}
+    CSV_CONTROL_PARAM() {
+        // Should not be called directly
+    }
 }
-
 

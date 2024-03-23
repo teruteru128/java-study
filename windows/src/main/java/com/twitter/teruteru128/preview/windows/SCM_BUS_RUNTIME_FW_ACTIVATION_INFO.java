@@ -2,20 +2,40 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SCM_BUS_RUNTIME_FW_ACTIVATION_INFO SCM_BUS_RUNTIME_FW_ACTIVATION_INFO;
+ * {@snippet lang=c :
+ * typedef struct _SCM_BUS_RUNTIME_FW_ACTIVATION_INFO {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     BOOLEAN RuntimeFwActivationSupported;
+ *     SCM_BUS_FIRMWARE_ACTIVATION_STATE FirmwareActivationState;
+ *     struct {
+ *         DWORD FwManagedIoQuiesceFwActivationSupported : 1;
+ *         DWORD OsManagedIoQuiesceFwActivationSupported : 1;
+ *         DWORD WarmResetBasedFwActivationSupported : 1;
+ *         DWORD Reserved : 29;
+ *     } FirmwareActivationCapability;
+ *     DWORDLONG EstimatedFirmwareActivationTimeInUSecs;
+ *     DWORDLONG EstimatedProcessorAccessQuiesceTimeInUSecs;
+ *     DWORDLONG EstimatedIOAccessQuiesceTimeInUSecs;
+ *     DWORDLONG PlatformSupportedMaxIOAccessQuiesceTimeInUSecs;
+ * } SCM_BUS_RUNTIME_FW_ACTIVATION_INFO
  * }
  */
-public final class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends _SCM_BUS_RUNTIME_FW_ACTIVATION_INFO {
+public class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends _SCM_BUS_RUNTIME_FW_ACTIVATION_INFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SCM_BUS_RUNTIME_FW_ACTIVATION_INFO() {}
+    SCM_BUS_RUNTIME_FW_ACTIVATION_INFO() {
+        // Should not be called directly
+    }
 }
-
 

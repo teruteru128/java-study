@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CERT_RDN CERT_RDN;
+ * {@snippet lang=c :
+ * typedef struct _CERT_RDN {
+ *     DWORD cRDNAttr;
+ *     PCERT_RDN_ATTR rgRDNAttr;
+ * } CERT_RDN
  * }
  */
-public final class CERT_RDN extends _CERT_RDN {
+public class CERT_RDN extends _CERT_RDN {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CERT_RDN() {}
+    CERT_RDN() {
+        // Should not be called directly
+    }
 }
-
 

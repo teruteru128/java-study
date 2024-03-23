@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _userHBITMAP userHBITMAP;
+ * {@snippet lang=c :
+ * typedef struct _userHBITMAP {
+ *     LONG fContext;
+ *     union __MIDL_IWinTypes_0007 {
+ *         LONG hInproc;
+ *         userBITMAP *hRemote;
+ *         long long hInproc64;
+ *     } u;
+ * } userHBITMAP
  * }
  */
-public final class userHBITMAP extends _userHBITMAP {
+public class userHBITMAP extends _userHBITMAP {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private userHBITMAP() {}
+    userHBITMAP() {
+        // Should not be called directly
+    }
 }
-
 

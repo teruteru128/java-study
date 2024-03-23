@@ -2,20 +2,40 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _PERF_OBJECT_TYPE PERF_OBJECT_TYPE;
+ * {@snippet lang=c :
+ * typedef struct _PERF_OBJECT_TYPE {
+ *     DWORD TotalByteLength;
+ *     DWORD DefinitionLength;
+ *     DWORD HeaderLength;
+ *     DWORD ObjectNameTitleIndex;
+ *     DWORD ObjectNameTitle;
+ *     DWORD ObjectHelpTitleIndex;
+ *     DWORD ObjectHelpTitle;
+ *     DWORD DetailLevel;
+ *     DWORD NumCounters;
+ *     LONG DefaultCounter;
+ *     LONG NumInstances;
+ *     DWORD CodePage;
+ *     LARGE_INTEGER PerfTime;
+ *     LARGE_INTEGER PerfFreq;
+ * } PERF_OBJECT_TYPE
  * }
  */
-public final class PERF_OBJECT_TYPE extends _PERF_OBJECT_TYPE {
+public class PERF_OBJECT_TYPE extends _PERF_OBJECT_TYPE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private PERF_OBJECT_TYPE() {}
+    PERF_OBJECT_TYPE() {
+        // Should not be called directly
+    }
 }
-
 

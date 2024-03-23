@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _DUPLICATE_EXTENTS_DATA_EX32 DUPLICATE_EXTENTS_DATA_EX32;
+ * {@snippet lang=c :
+ * typedef struct _DUPLICATE_EXTENTS_DATA_EX32 {
+ *     DWORD32 Size;
+ *     DWORD32 FileHandle;
+ *     LARGE_INTEGER SourceFileOffset;
+ *     LARGE_INTEGER TargetFileOffset;
+ *     LARGE_INTEGER ByteCount;
+ *     DWORD Flags;
+ * } DUPLICATE_EXTENTS_DATA_EX32
  * }
  */
-public final class DUPLICATE_EXTENTS_DATA_EX32 extends _DUPLICATE_EXTENTS_DATA_EX32 {
+public class DUPLICATE_EXTENTS_DATA_EX32 extends _DUPLICATE_EXTENTS_DATA_EX32 {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private DUPLICATE_EXTENTS_DATA_EX32() {}
+    DUPLICATE_EXTENTS_DATA_EX32() {
+        // Should not be called directly
+    }
 }
-
 

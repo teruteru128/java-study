@@ -2,112 +2,219 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _CERT_LOGOTYPE_DETAILS {
  *     LPWSTR pwszMimeType;
  *     DWORD cHashedUrl;
  *     PCERT_HASHED_URL rgHashedUrl;
- * };
+ * }
  * }
  */
 public class _CERT_LOGOTYPE_DETAILS {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2056.const$5;
+    _CERT_LOGOTYPE_DETAILS() {
+        // Should not be called directly
     }
-    public static VarHandle pwszMimeType$VH() {
-        return constants$2057.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pwszMimeType;
-     * }
-     */
-    public static MemorySegment pwszMimeType$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2057.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pwszMimeType;
-     * }
-     */
-    public static void pwszMimeType$set(MemorySegment seg, MemorySegment x) {
-        constants$2057.const$0.set(seg, x);
-    }
-    public static MemorySegment pwszMimeType$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2057.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pwszMimeType$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2057.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cHashedUrl$VH() {
-        return constants$2057.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cHashedUrl;
-     * }
-     */
-    public static int cHashedUrl$get(MemorySegment seg) {
-        return (int)constants$2057.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cHashedUrl;
-     * }
-     */
-    public static void cHashedUrl$set(MemorySegment seg, int x) {
-        constants$2057.const$1.set(seg, x);
-    }
-    public static int cHashedUrl$get(MemorySegment seg, long index) {
-        return (int)constants$2057.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cHashedUrl$set(MemorySegment seg, long index, int x) {
-        constants$2057.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle rgHashedUrl$VH() {
-        return constants$2057.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCERT_HASHED_URL rgHashedUrl;
-     * }
-     */
-    public static MemorySegment rgHashedUrl$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2057.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCERT_HASHED_URL rgHashedUrl;
-     * }
-     */
-    public static void rgHashedUrl$set(MemorySegment seg, MemorySegment x) {
-        constants$2057.const$2.set(seg, x);
-    }
-    public static MemorySegment rgHashedUrl$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2057.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void rgHashedUrl$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2057.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("pwszMimeType"),
+        Windows_h.C_LONG.withName("cHashedUrl"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("rgHashedUrl")
+    ).withName("_CERT_LOGOTYPE_DETAILS");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final AddressLayout pwszMimeType$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pwszMimeType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pwszMimeType
+     * }
+     */
+    public static final AddressLayout pwszMimeType$layout() {
+        return pwszMimeType$LAYOUT;
+    }
+
+    private static final long pwszMimeType$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pwszMimeType
+     * }
+     */
+    public static final long pwszMimeType$offset() {
+        return pwszMimeType$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pwszMimeType
+     * }
+     */
+    public static MemorySegment pwszMimeType(MemorySegment struct) {
+        return struct.get(pwszMimeType$LAYOUT, pwszMimeType$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pwszMimeType
+     * }
+     */
+    public static void pwszMimeType(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pwszMimeType$LAYOUT, pwszMimeType$OFFSET, fieldValue);
+    }
+
+    private static final OfInt cHashedUrl$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cHashedUrl"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cHashedUrl
+     * }
+     */
+    public static final OfInt cHashedUrl$layout() {
+        return cHashedUrl$LAYOUT;
+    }
+
+    private static final long cHashedUrl$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cHashedUrl
+     * }
+     */
+    public static final long cHashedUrl$offset() {
+        return cHashedUrl$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cHashedUrl
+     * }
+     */
+    public static int cHashedUrl(MemorySegment struct) {
+        return struct.get(cHashedUrl$LAYOUT, cHashedUrl$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cHashedUrl
+     * }
+     */
+    public static void cHashedUrl(MemorySegment struct, int fieldValue) {
+        struct.set(cHashedUrl$LAYOUT, cHashedUrl$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout rgHashedUrl$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("rgHashedUrl"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCERT_HASHED_URL rgHashedUrl
+     * }
+     */
+    public static final AddressLayout rgHashedUrl$layout() {
+        return rgHashedUrl$LAYOUT;
+    }
+
+    private static final long rgHashedUrl$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCERT_HASHED_URL rgHashedUrl
+     * }
+     */
+    public static final long rgHashedUrl$offset() {
+        return rgHashedUrl$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCERT_HASHED_URL rgHashedUrl
+     * }
+     */
+    public static MemorySegment rgHashedUrl(MemorySegment struct) {
+        return struct.get(rgHashedUrl$LAYOUT, rgHashedUrl$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCERT_HASHED_URL rgHashedUrl
+     * }
+     */
+    public static void rgHashedUrl(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(rgHashedUrl$LAYOUT, rgHashedUrl$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

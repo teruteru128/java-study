@@ -2,60 +2,133 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * union _RATE_QUOTA_LIMIT {
  *     DWORD RateData;
  *     struct {
- *          *         DWORD RatePercent;
- *         DWORD Reserved0;
+ *         DWORD RatePercent : 7;
+ *         DWORD Reserved0 : 25;
  *     };
- * };
+ * }
  * }
  */
 public class _RATE_QUOTA_LIMIT {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$193.const$2;
+    _RATE_QUOTA_LIMIT() {
+        // Should not be called directly
     }
-    public static VarHandle RateData$VH() {
-        return constants$193.const$3;
+
+    private static final GroupLayout $LAYOUT = MemoryLayout.unionLayout(
+        Windows_h.C_LONG.withName("RateData"),
+        MemoryLayout.structLayout(
+            MemoryLayout.paddingLayout(4)
+        ).withName("$anon$12413:5")
+    ).withName("_RATE_QUOTA_LIMIT");
+
+    /**
+     * The layout of this union
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
     }
+
+    private static final OfInt RateData$LAYOUT = (OfInt)$LAYOUT.select(groupElement("RateData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD RateData
+     * }
+     */
+    public static final OfInt RateData$layout() {
+        return RateData$LAYOUT;
+    }
+
+    private static final long RateData$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD RateData
+     * }
+     */
+    public static final long RateData$offset() {
+        return RateData$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * DWORD RateData;
+     * {@snippet lang=c :
+     * DWORD RateData
      * }
      */
-    public static int RateData$get(MemorySegment seg) {
-        return (int)constants$193.const$3.get(seg);
+    public static int RateData(MemorySegment union) {
+        return union.get(RateData$LAYOUT, RateData$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * DWORD RateData;
+     * {@snippet lang=c :
+     * DWORD RateData
      * }
      */
-    public static void RateData$set(MemorySegment seg, int x) {
-        constants$193.const$3.set(seg, x);
+    public static void RateData(MemorySegment union, int fieldValue) {
+        union.set(RateData$LAYOUT, RateData$OFFSET, fieldValue);
     }
-    public static int RateData$get(MemorySegment seg, long index) {
-        return (int)constants$193.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void RateData$set(MemorySegment seg, long index, int x) {
-        constants$193.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this union
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

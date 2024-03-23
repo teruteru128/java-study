@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagCOLORCORRECTPALETTE EMRCOLORCORRECTPALETTE;
+ * {@snippet lang=c :
+ * typedef struct tagCOLORCORRECTPALETTE {
+ *     EMR emr;
+ *     DWORD ihPalette;
+ *     DWORD nFirstEntry;
+ *     DWORD nPalEntries;
+ *     DWORD nReserved;
+ * } EMRCOLORCORRECTPALETTE
  * }
  */
-public final class EMRCOLORCORRECTPALETTE extends tagCOLORCORRECTPALETTE {
+public class EMRCOLORCORRECTPALETTE extends tagCOLORCORRECTPALETTE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private EMRCOLORCORRECTPALETTE() {}
+    EMRCOLORCORRECTPALETTE() {
+        // Should not be called directly
+    }
 }
-
 

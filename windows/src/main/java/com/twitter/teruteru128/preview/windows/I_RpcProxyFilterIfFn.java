@@ -2,32 +2,70 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * long (*I_RpcProxyFilterIfFn)(void* Context,struct _GUID* IfUuid,unsigned short IfMajorVersion,int* fAllow);
+ * {@snippet lang=c :
+ * typedef RPC_STATUS (*I_RpcProxyFilterIfFn)(void *, UUID *, unsigned short, int *) __attribute__((stdcall))
  * }
  */
-public interface I_RpcProxyFilterIfFn {
+public class I_RpcProxyFilterIfFn {
 
-    int apply(java.lang.foreign.MemorySegment Context, java.lang.foreign.MemorySegment IfUuid, short IfMajorVersion, java.lang.foreign.MemorySegment fAllow);
-    static MemorySegment allocate(I_RpcProxyFilterIfFn fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$1804.const$4, fi, constants$658.const$4, scope);
+    I_RpcProxyFilterIfFn() {
+        // Should not be called directly
     }
-    static I_RpcProxyFilterIfFn ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _Context, java.lang.foreign.MemorySegment _IfUuid, short _IfMajorVersion, java.lang.foreign.MemorySegment _fAllow) -> {
-            try {
-                return (int)constants$1804.const$5.invokeExact(symbol, _Context, _IfUuid, _IfMajorVersion, _fAllow);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment Context, MemorySegment IfUuid, short IfMajorVersion, MemorySegment fAllow);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_SHORT,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(I_RpcProxyFilterIfFn.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(I_RpcProxyFilterIfFn.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment Context, MemorySegment IfUuid, short IfMajorVersion, MemorySegment fAllow) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, Context, IfUuid, IfMajorVersion, fAllow);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

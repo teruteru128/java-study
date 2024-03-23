@@ -2,363 +2,1081 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _STORAGE_ZONED_DEVICE_DESCRIPTOR {
  *     DWORD Version;
  *     DWORD Size;
  *     STORAGE_ZONED_DEVICE_TYPES DeviceType;
  *     DWORD ZoneCount;
- *     union  ZoneAttributes;
+ *     union {
+ *         struct {
+ *             DWORD MaxOpenZoneCount;
+ *             BOOLEAN UnrestrictedRead;
+ *             BYTE Reserved[3];
+ *         } SequentialRequiredZone;
+ *         struct {
+ *             DWORD OptimalOpenZoneCount;
+ *             DWORD Reserved;
+ *         } SequentialPreferredZone;
+ *     } ZoneAttributes;
  *     DWORD ZoneGroupCount;
  *     STORAGE_ZONE_GROUP ZoneGroup[1];
- * };
+ * }
  * }
  */
 public class _STORAGE_ZONED_DEVICE_DESCRIPTOR {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2431.const$1;
+    _STORAGE_ZONED_DEVICE_DESCRIPTOR() {
+        // Should not be called directly
     }
-    public static VarHandle Version$VH() {
-        return constants$2431.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Version;
-     * }
-     */
-    public static int Version$get(MemorySegment seg) {
-        return (int)constants$2431.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Version;
-     * }
-     */
-    public static void Version$set(MemorySegment seg, int x) {
-        constants$2431.const$2.set(seg, x);
-    }
-    public static int Version$get(MemorySegment seg, long index) {
-        return (int)constants$2431.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Version$set(MemorySegment seg, long index, int x) {
-        constants$2431.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Size$VH() {
-        return constants$2431.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Size;
-     * }
-     */
-    public static int Size$get(MemorySegment seg) {
-        return (int)constants$2431.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Size;
-     * }
-     */
-    public static void Size$set(MemorySegment seg, int x) {
-        constants$2431.const$3.set(seg, x);
-    }
-    public static int Size$get(MemorySegment seg, long index) {
-        return (int)constants$2431.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Size$set(MemorySegment seg, long index, int x) {
-        constants$2431.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle DeviceType$VH() {
-        return constants$2431.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * STORAGE_ZONED_DEVICE_TYPES DeviceType;
-     * }
-     */
-    public static int DeviceType$get(MemorySegment seg) {
-        return (int)constants$2431.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * STORAGE_ZONED_DEVICE_TYPES DeviceType;
-     * }
-     */
-    public static void DeviceType$set(MemorySegment seg, int x) {
-        constants$2431.const$4.set(seg, x);
-    }
-    public static int DeviceType$get(MemorySegment seg, long index) {
-        return (int)constants$2431.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void DeviceType$set(MemorySegment seg, long index, int x) {
-        constants$2431.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ZoneCount$VH() {
-        return constants$2431.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ZoneCount;
-     * }
-     */
-    public static int ZoneCount$get(MemorySegment seg) {
-        return (int)constants$2431.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ZoneCount;
-     * }
-     */
-    public static void ZoneCount$set(MemorySegment seg, int x) {
-        constants$2431.const$5.set(seg, x);
-    }
-    public static int ZoneCount$get(MemorySegment seg, long index) {
-        return (int)constants$2431.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ZoneCount$set(MemorySegment seg, long index, int x) {
-        constants$2431.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    /**
-     * {@snippet :
-     * union {
-     *     struct  SequentialRequiredZone;
-     *     struct  SequentialPreferredZone;
-     * };
-     * }
-     */
-    public static final class ZoneAttributes {
 
-        // Suppresses default constructor, ensuring non-instantiability.
-        private ZoneAttributes() {}
-        public static MemoryLayout $LAYOUT() {
-            return constants$2432.const$0;
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("Version"),
+        Windows_h.C_LONG.withName("Size"),
+        Windows_h.C_INT.withName("DeviceType"),
+        Windows_h.C_LONG.withName("ZoneCount"),
+        _STORAGE_ZONED_DEVICE_DESCRIPTOR.ZoneAttributes.layout().withName("ZoneAttributes"),
+        Windows_h.C_LONG.withName("ZoneGroupCount"),
+        MemoryLayout.paddingLayout(4),
+        MemoryLayout.sequenceLayout(1, _STORAGE_ZONE_GROUP.layout()).withName("ZoneGroup")
+    ).withName("_STORAGE_ZONED_DEVICE_DESCRIPTOR");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt Version$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Version"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static final OfInt Version$layout() {
+        return Version$LAYOUT;
+    }
+
+    private static final long Version$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static final long Version$offset() {
+        return Version$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static int Version(MemorySegment struct) {
+        return struct.get(Version$LAYOUT, Version$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static void Version(MemorySegment struct, int fieldValue) {
+        struct.set(Version$LAYOUT, Version$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Size$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Size"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static final OfInt Size$layout() {
+        return Size$LAYOUT;
+    }
+
+    private static final long Size$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static final long Size$offset() {
+        return Size$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static int Size(MemorySegment struct) {
+        return struct.get(Size$LAYOUT, Size$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static void Size(MemorySegment struct, int fieldValue) {
+        struct.set(Size$LAYOUT, Size$OFFSET, fieldValue);
+    }
+
+    private static final OfInt DeviceType$LAYOUT = (OfInt)$LAYOUT.select(groupElement("DeviceType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * STORAGE_ZONED_DEVICE_TYPES DeviceType
+     * }
+     */
+    public static final OfInt DeviceType$layout() {
+        return DeviceType$LAYOUT;
+    }
+
+    private static final long DeviceType$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * STORAGE_ZONED_DEVICE_TYPES DeviceType
+     * }
+     */
+    public static final long DeviceType$offset() {
+        return DeviceType$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * STORAGE_ZONED_DEVICE_TYPES DeviceType
+     * }
+     */
+    public static int DeviceType(MemorySegment struct) {
+        return struct.get(DeviceType$LAYOUT, DeviceType$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * STORAGE_ZONED_DEVICE_TYPES DeviceType
+     * }
+     */
+    public static void DeviceType(MemorySegment struct, int fieldValue) {
+        struct.set(DeviceType$LAYOUT, DeviceType$OFFSET, fieldValue);
+    }
+
+    private static final OfInt ZoneCount$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ZoneCount"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ZoneCount
+     * }
+     */
+    public static final OfInt ZoneCount$layout() {
+        return ZoneCount$LAYOUT;
+    }
+
+    private static final long ZoneCount$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ZoneCount
+     * }
+     */
+    public static final long ZoneCount$offset() {
+        return ZoneCount$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ZoneCount
+     * }
+     */
+    public static int ZoneCount(MemorySegment struct) {
+        return struct.get(ZoneCount$LAYOUT, ZoneCount$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ZoneCount
+     * }
+     */
+    public static void ZoneCount(MemorySegment struct, int fieldValue) {
+        struct.set(ZoneCount$LAYOUT, ZoneCount$OFFSET, fieldValue);
+    }
+
+    /**
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD MaxOpenZoneCount;
+     *         BOOLEAN UnrestrictedRead;
+     *         BYTE Reserved[3];
+     *     } SequentialRequiredZone;
+     *     struct {
+     *         DWORD OptimalOpenZoneCount;
+     *         DWORD Reserved;
+     *     } SequentialPreferredZone;
+     * }
+     * }
+     */
+    public static class ZoneAttributes {
+
+        ZoneAttributes() {
+            // Should not be called directly
         }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.unionLayout(
+            _STORAGE_ZONED_DEVICE_DESCRIPTOR.ZoneAttributes.SequentialRequiredZone.layout().withName("SequentialRequiredZone"),
+            _STORAGE_ZONED_DEVICE_DESCRIPTOR.ZoneAttributes.SequentialPreferredZone.layout().withName("SequentialPreferredZone")
+        ).withName("$anon$2936:5");
+
         /**
-         * {@snippet :
+         * The layout of this union
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
          * struct {
          *     DWORD MaxOpenZoneCount;
          *     BOOLEAN UnrestrictedRead;
          *     BYTE Reserved[3];
-         * };
+         * }
          * }
          */
-        public static final class SequentialRequiredZone {
+        public static class SequentialRequiredZone {
 
-            // Suppresses default constructor, ensuring non-instantiability.
-            private SequentialRequiredZone() {}
-            public static MemoryLayout $LAYOUT() {
-                return constants$2432.const$1;
+            SequentialRequiredZone() {
+                // Should not be called directly
             }
-            public static VarHandle MaxOpenZoneCount$VH() {
-                return constants$2432.const$2;
+
+            private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+                Windows_h.C_LONG.withName("MaxOpenZoneCount"),
+                Windows_h.C_CHAR.withName("UnrestrictedRead"),
+                MemoryLayout.sequenceLayout(3, Windows_h.C_CHAR).withName("Reserved")
+            ).withName("$anon$2937:9");
+
+            /**
+             * The layout of this struct
+             */
+            public static final GroupLayout layout() {
+                return $LAYOUT;
             }
+
+            private static final OfInt MaxOpenZoneCount$LAYOUT = (OfInt)$LAYOUT.select(groupElement("MaxOpenZoneCount"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD MaxOpenZoneCount
+             * }
+             */
+            public static final OfInt MaxOpenZoneCount$layout() {
+                return MaxOpenZoneCount$LAYOUT;
+            }
+
+            private static final long MaxOpenZoneCount$OFFSET = 0;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD MaxOpenZoneCount
+             * }
+             */
+            public static final long MaxOpenZoneCount$offset() {
+                return MaxOpenZoneCount$OFFSET;
+            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD MaxOpenZoneCount;
+             * {@snippet lang=c :
+             * DWORD MaxOpenZoneCount
              * }
              */
-            public static int MaxOpenZoneCount$get(MemorySegment seg) {
-                return (int)constants$2432.const$2.get(seg);
+            public static int MaxOpenZoneCount(MemorySegment struct) {
+                return struct.get(MaxOpenZoneCount$LAYOUT, MaxOpenZoneCount$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD MaxOpenZoneCount;
+             * {@snippet lang=c :
+             * DWORD MaxOpenZoneCount
              * }
              */
-            public static void MaxOpenZoneCount$set(MemorySegment seg, int x) {
-                constants$2432.const$2.set(seg, x);
+            public static void MaxOpenZoneCount(MemorySegment struct, int fieldValue) {
+                struct.set(MaxOpenZoneCount$LAYOUT, MaxOpenZoneCount$OFFSET, fieldValue);
             }
-            public static int MaxOpenZoneCount$get(MemorySegment seg, long index) {
-                return (int)constants$2432.const$2.get(seg.asSlice(index*sizeof()));
+
+            private static final OfByte UnrestrictedRead$LAYOUT = (OfByte)$LAYOUT.select(groupElement("UnrestrictedRead"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * BOOLEAN UnrestrictedRead
+             * }
+             */
+            public static final OfByte UnrestrictedRead$layout() {
+                return UnrestrictedRead$LAYOUT;
             }
-            public static void MaxOpenZoneCount$set(MemorySegment seg, long index, int x) {
-                constants$2432.const$2.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long UnrestrictedRead$OFFSET = 4;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * BOOLEAN UnrestrictedRead
+             * }
+             */
+            public static final long UnrestrictedRead$offset() {
+                return UnrestrictedRead$OFFSET;
             }
-            public static VarHandle UnrestrictedRead$VH() {
-                return constants$2432.const$3;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * BOOLEAN UnrestrictedRead;
+             * {@snippet lang=c :
+             * BOOLEAN UnrestrictedRead
              * }
              */
-            public static byte UnrestrictedRead$get(MemorySegment seg) {
-                return (byte)constants$2432.const$3.get(seg);
+            public static byte UnrestrictedRead(MemorySegment struct) {
+                return struct.get(UnrestrictedRead$LAYOUT, UnrestrictedRead$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * BOOLEAN UnrestrictedRead;
+             * {@snippet lang=c :
+             * BOOLEAN UnrestrictedRead
              * }
              */
-            public static void UnrestrictedRead$set(MemorySegment seg, byte x) {
-                constants$2432.const$3.set(seg, x);
+            public static void UnrestrictedRead(MemorySegment struct, byte fieldValue) {
+                struct.set(UnrestrictedRead$LAYOUT, UnrestrictedRead$OFFSET, fieldValue);
             }
-            public static byte UnrestrictedRead$get(MemorySegment seg, long index) {
-                return (byte)constants$2432.const$3.get(seg.asSlice(index*sizeof()));
+
+            private static final SequenceLayout Reserved$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("Reserved"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * BYTE Reserved[3]
+             * }
+             */
+            public static final SequenceLayout Reserved$layout() {
+                return Reserved$LAYOUT;
             }
-            public static void UnrestrictedRead$set(MemorySegment seg, long index, byte x) {
-                constants$2432.const$3.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long Reserved$OFFSET = 5;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * BYTE Reserved[3]
+             * }
+             */
+            public static final long Reserved$offset() {
+                return Reserved$OFFSET;
             }
-            public static MemorySegment Reserved$slice(MemorySegment seg) {
-                return seg.asSlice(5, 3);
+
+            /**
+             * Getter for field:
+             * {@snippet lang=c :
+             * BYTE Reserved[3]
+             * }
+             */
+            public static MemorySegment Reserved(MemorySegment struct) {
+                return struct.asSlice(Reserved$OFFSET, Reserved$LAYOUT.byteSize());
             }
-            public static long sizeof() { return $LAYOUT().byteSize(); }
-            public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-            public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-                return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+            /**
+             * Setter for field:
+             * {@snippet lang=c :
+             * BYTE Reserved[3]
+             * }
+             */
+            public static void Reserved(MemorySegment struct, MemorySegment fieldValue) {
+                MemorySegment.copy(fieldValue, 0L, struct, Reserved$OFFSET, Reserved$LAYOUT.byteSize());
             }
-            public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+            private static long[] Reserved$DIMS = { 3 };
+
+            /**
+             * Dimensions for array field:
+             * {@snippet lang=c :
+             * BYTE Reserved[3]
+             * }
+             */
+            public static long[] Reserved$dimensions() {
+                return Reserved$DIMS;
+            }
+            private static final VarHandle Reserved$ELEM_HANDLE = Reserved$LAYOUT.varHandle(sequenceElement());
+
+            /**
+             * Indexed getter for field:
+             * {@snippet lang=c :
+             * BYTE Reserved[3]
+             * }
+             */
+            public static byte Reserved(MemorySegment struct, long index0) {
+                return (byte)Reserved$ELEM_HANDLE.get(struct, 0L, index0);
+            }
+
+            /**
+             * Indexed setter for field:
+             * {@snippet lang=c :
+             * BYTE Reserved[3]
+             * }
+             */
+            public static void Reserved(MemorySegment struct, long index0, byte fieldValue) {
+                Reserved$ELEM_HANDLE.set(struct, 0L, index0, fieldValue);
+            }
+
+            /**
+             * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+             * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+             */
+            public static MemorySegment asSlice(MemorySegment array, long index) {
+                return array.asSlice(layout().byteSize() * index);
+            }
+
+            /**
+             * The size (in bytes) of this struct
+             */
+            public static long sizeof() { return layout().byteSize(); }
+
+            /**
+             * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+             */
+            public static MemorySegment allocate(SegmentAllocator allocator) {
+                return allocator.allocate(layout());
+            }
+
+            /**
+             * Allocate an array of size {@code elementCount} using {@code allocator}.
+             * The returned segment has size {@code elementCount * layout().byteSize()}.
+             */
+            public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+                return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+                return reinterpret(addr, 1, arena, cleanup);
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code elementCount * layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+                return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+            }
         }
 
-        public static MemorySegment SequentialRequiredZone$slice(MemorySegment seg) {
-            return seg.asSlice(0, 8);
-        }
+        private static final GroupLayout SequentialRequiredZone$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("SequentialRequiredZone"));
+
         /**
-         * {@snippet :
+         * Layout for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD MaxOpenZoneCount;
+         *     BOOLEAN UnrestrictedRead;
+         *     BYTE Reserved[3];
+         * } SequentialRequiredZone
+         * }
+         */
+        public static final GroupLayout SequentialRequiredZone$layout() {
+            return SequentialRequiredZone$LAYOUT;
+        }
+
+        private static final long SequentialRequiredZone$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD MaxOpenZoneCount;
+         *     BOOLEAN UnrestrictedRead;
+         *     BYTE Reserved[3];
+         * } SequentialRequiredZone
+         * }
+         */
+        public static final long SequentialRequiredZone$offset() {
+            return SequentialRequiredZone$OFFSET;
+        }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD MaxOpenZoneCount;
+         *     BOOLEAN UnrestrictedRead;
+         *     BYTE Reserved[3];
+         * } SequentialRequiredZone
+         * }
+         */
+        public static MemorySegment SequentialRequiredZone(MemorySegment union) {
+            return union.asSlice(SequentialRequiredZone$OFFSET, SequentialRequiredZone$LAYOUT.byteSize());
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD MaxOpenZoneCount;
+         *     BOOLEAN UnrestrictedRead;
+         *     BYTE Reserved[3];
+         * } SequentialRequiredZone
+         * }
+         */
+        public static void SequentialRequiredZone(MemorySegment union, MemorySegment fieldValue) {
+            MemorySegment.copy(fieldValue, 0L, union, SequentialRequiredZone$OFFSET, SequentialRequiredZone$LAYOUT.byteSize());
+        }
+
+        /**
+         * {@snippet lang=c :
          * struct {
          *     DWORD OptimalOpenZoneCount;
          *     DWORD Reserved;
-         * };
+         * }
          * }
          */
-        public static final class SequentialPreferredZone {
+        public static class SequentialPreferredZone {
 
-            // Suppresses default constructor, ensuring non-instantiability.
-            private SequentialPreferredZone() {}
-            public static MemoryLayout $LAYOUT() {
-                return constants$2432.const$4;
+            SequentialPreferredZone() {
+                // Should not be called directly
             }
-            public static VarHandle OptimalOpenZoneCount$VH() {
-                return constants$2432.const$5;
+
+            private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+                Windows_h.C_LONG.withName("OptimalOpenZoneCount"),
+                Windows_h.C_LONG.withName("Reserved")
+            ).withName("$anon$2947:9");
+
+            /**
+             * The layout of this struct
+             */
+            public static final GroupLayout layout() {
+                return $LAYOUT;
             }
+
+            private static final OfInt OptimalOpenZoneCount$LAYOUT = (OfInt)$LAYOUT.select(groupElement("OptimalOpenZoneCount"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD OptimalOpenZoneCount
+             * }
+             */
+            public static final OfInt OptimalOpenZoneCount$layout() {
+                return OptimalOpenZoneCount$LAYOUT;
+            }
+
+            private static final long OptimalOpenZoneCount$OFFSET = 0;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD OptimalOpenZoneCount
+             * }
+             */
+            public static final long OptimalOpenZoneCount$offset() {
+                return OptimalOpenZoneCount$OFFSET;
+            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD OptimalOpenZoneCount;
+             * {@snippet lang=c :
+             * DWORD OptimalOpenZoneCount
              * }
              */
-            public static int OptimalOpenZoneCount$get(MemorySegment seg) {
-                return (int)constants$2432.const$5.get(seg);
+            public static int OptimalOpenZoneCount(MemorySegment struct) {
+                return struct.get(OptimalOpenZoneCount$LAYOUT, OptimalOpenZoneCount$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD OptimalOpenZoneCount;
+             * {@snippet lang=c :
+             * DWORD OptimalOpenZoneCount
              * }
              */
-            public static void OptimalOpenZoneCount$set(MemorySegment seg, int x) {
-                constants$2432.const$5.set(seg, x);
+            public static void OptimalOpenZoneCount(MemorySegment struct, int fieldValue) {
+                struct.set(OptimalOpenZoneCount$LAYOUT, OptimalOpenZoneCount$OFFSET, fieldValue);
             }
-            public static int OptimalOpenZoneCount$get(MemorySegment seg, long index) {
-                return (int)constants$2432.const$5.get(seg.asSlice(index*sizeof()));
+
+            private static final OfInt Reserved$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Reserved"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD Reserved
+             * }
+             */
+            public static final OfInt Reserved$layout() {
+                return Reserved$LAYOUT;
             }
-            public static void OptimalOpenZoneCount$set(MemorySegment seg, long index, int x) {
-                constants$2432.const$5.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long Reserved$OFFSET = 4;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD Reserved
+             * }
+             */
+            public static final long Reserved$offset() {
+                return Reserved$OFFSET;
             }
-            public static VarHandle Reserved$VH() {
-                return constants$2433.const$0;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD Reserved;
+             * {@snippet lang=c :
+             * DWORD Reserved
              * }
              */
-            public static int Reserved$get(MemorySegment seg) {
-                return (int)constants$2433.const$0.get(seg);
+            public static int Reserved(MemorySegment struct) {
+                return struct.get(Reserved$LAYOUT, Reserved$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD Reserved;
+             * {@snippet lang=c :
+             * DWORD Reserved
              * }
              */
-            public static void Reserved$set(MemorySegment seg, int x) {
-                constants$2433.const$0.set(seg, x);
+            public static void Reserved(MemorySegment struct, int fieldValue) {
+                struct.set(Reserved$LAYOUT, Reserved$OFFSET, fieldValue);
             }
-            public static int Reserved$get(MemorySegment seg, long index) {
-                return (int)constants$2433.const$0.get(seg.asSlice(index*sizeof()));
+
+            /**
+             * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+             * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+             */
+            public static MemorySegment asSlice(MemorySegment array, long index) {
+                return array.asSlice(layout().byteSize() * index);
             }
-            public static void Reserved$set(MemorySegment seg, long index, int x) {
-                constants$2433.const$0.set(seg.asSlice(index*sizeof()), x);
+
+            /**
+             * The size (in bytes) of this struct
+             */
+            public static long sizeof() { return layout().byteSize(); }
+
+            /**
+             * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+             */
+            public static MemorySegment allocate(SegmentAllocator allocator) {
+                return allocator.allocate(layout());
             }
-            public static long sizeof() { return $LAYOUT().byteSize(); }
-            public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-            public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-                return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+            /**
+             * Allocate an array of size {@code elementCount} using {@code allocator}.
+             * The returned segment has size {@code elementCount * layout().byteSize()}.
+             */
+            public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+                return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
             }
-            public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+                return reinterpret(addr, 1, arena, cleanup);
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code elementCount * layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+                return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+            }
         }
 
-        public static MemorySegment SequentialPreferredZone$slice(MemorySegment seg) {
-            return seg.asSlice(0, 8);
+        private static final GroupLayout SequentialPreferredZone$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("SequentialPreferredZone"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD OptimalOpenZoneCount;
+         *     DWORD Reserved;
+         * } SequentialPreferredZone
+         * }
+         */
+        public static final GroupLayout SequentialPreferredZone$layout() {
+            return SequentialPreferredZone$LAYOUT;
         }
-        public static long sizeof() { return $LAYOUT().byteSize(); }
-        public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-        public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-            return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+        private static final long SequentialPreferredZone$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD OptimalOpenZoneCount;
+         *     DWORD Reserved;
+         * } SequentialPreferredZone
+         * }
+         */
+        public static final long SequentialPreferredZone$offset() {
+            return SequentialPreferredZone$OFFSET;
         }
-        public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD OptimalOpenZoneCount;
+         *     DWORD Reserved;
+         * } SequentialPreferredZone
+         * }
+         */
+        public static MemorySegment SequentialPreferredZone(MemorySegment union) {
+            return union.asSlice(SequentialPreferredZone$OFFSET, SequentialPreferredZone$LAYOUT.byteSize());
+        }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD OptimalOpenZoneCount;
+         *     DWORD Reserved;
+         * } SequentialPreferredZone
+         * }
+         */
+        public static void SequentialPreferredZone(MemorySegment union, MemorySegment fieldValue) {
+            MemorySegment.copy(fieldValue, 0L, union, SequentialPreferredZone$OFFSET, SequentialPreferredZone$LAYOUT.byteSize());
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this union
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
     }
 
-    public static MemorySegment ZoneAttributes$slice(MemorySegment seg) {
-        return seg.asSlice(16, 8);
+    private static final GroupLayout ZoneAttributes$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("ZoneAttributes"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD MaxOpenZoneCount;
+     *         BOOLEAN UnrestrictedRead;
+     *         BYTE Reserved[3];
+     *     } SequentialRequiredZone;
+     *     struct {
+     *         DWORD OptimalOpenZoneCount;
+     *         DWORD Reserved;
+     *     } SequentialPreferredZone;
+     * } ZoneAttributes
+     * }
+     */
+    public static final GroupLayout ZoneAttributes$layout() {
+        return ZoneAttributes$LAYOUT;
     }
-    public static VarHandle ZoneGroupCount$VH() {
-        return constants$2433.const$1;
+
+    private static final long ZoneAttributes$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD MaxOpenZoneCount;
+     *         BOOLEAN UnrestrictedRead;
+     *         BYTE Reserved[3];
+     *     } SequentialRequiredZone;
+     *     struct {
+     *         DWORD OptimalOpenZoneCount;
+     *         DWORD Reserved;
+     *     } SequentialPreferredZone;
+     * } ZoneAttributes
+     * }
+     */
+    public static final long ZoneAttributes$offset() {
+        return ZoneAttributes$OFFSET;
     }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * DWORD ZoneGroupCount;
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD MaxOpenZoneCount;
+     *         BOOLEAN UnrestrictedRead;
+     *         BYTE Reserved[3];
+     *     } SequentialRequiredZone;
+     *     struct {
+     *         DWORD OptimalOpenZoneCount;
+     *         DWORD Reserved;
+     *     } SequentialPreferredZone;
+     * } ZoneAttributes
      * }
      */
-    public static int ZoneGroupCount$get(MemorySegment seg) {
-        return (int)constants$2433.const$1.get(seg);
+    public static MemorySegment ZoneAttributes(MemorySegment struct) {
+        return struct.asSlice(ZoneAttributes$OFFSET, ZoneAttributes$LAYOUT.byteSize());
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * DWORD ZoneGroupCount;
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD MaxOpenZoneCount;
+     *         BOOLEAN UnrestrictedRead;
+     *         BYTE Reserved[3];
+     *     } SequentialRequiredZone;
+     *     struct {
+     *         DWORD OptimalOpenZoneCount;
+     *         DWORD Reserved;
+     *     } SequentialPreferredZone;
+     * } ZoneAttributes
      * }
      */
-    public static void ZoneGroupCount$set(MemorySegment seg, int x) {
-        constants$2433.const$1.set(seg, x);
+    public static void ZoneAttributes(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, ZoneAttributes$OFFSET, ZoneAttributes$LAYOUT.byteSize());
     }
-    public static int ZoneGroupCount$get(MemorySegment seg, long index) {
-        return (int)constants$2433.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ZoneGroupCount$set(MemorySegment seg, long index, int x) {
-        constants$2433.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment ZoneGroup$slice(MemorySegment seg) {
-        return seg.asSlice(32, 16);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final OfInt ZoneGroupCount$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ZoneGroupCount"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ZoneGroupCount
+     * }
+     */
+    public static final OfInt ZoneGroupCount$layout() {
+        return ZoneGroupCount$LAYOUT;
+    }
+
+    private static final long ZoneGroupCount$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ZoneGroupCount
+     * }
+     */
+    public static final long ZoneGroupCount$offset() {
+        return ZoneGroupCount$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ZoneGroupCount
+     * }
+     */
+    public static int ZoneGroupCount(MemorySegment struct) {
+        return struct.get(ZoneGroupCount$LAYOUT, ZoneGroupCount$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ZoneGroupCount
+     * }
+     */
+    public static void ZoneGroupCount(MemorySegment struct, int fieldValue) {
+        struct.set(ZoneGroupCount$LAYOUT, ZoneGroupCount$OFFSET, fieldValue);
+    }
+
+    private static final SequenceLayout ZoneGroup$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("ZoneGroup"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * STORAGE_ZONE_GROUP ZoneGroup[1]
+     * }
+     */
+    public static final SequenceLayout ZoneGroup$layout() {
+        return ZoneGroup$LAYOUT;
+    }
+
+    private static final long ZoneGroup$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * STORAGE_ZONE_GROUP ZoneGroup[1]
+     * }
+     */
+    public static final long ZoneGroup$offset() {
+        return ZoneGroup$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * STORAGE_ZONE_GROUP ZoneGroup[1]
+     * }
+     */
+    public static MemorySegment ZoneGroup(MemorySegment struct) {
+        return struct.asSlice(ZoneGroup$OFFSET, ZoneGroup$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * STORAGE_ZONE_GROUP ZoneGroup[1]
+     * }
+     */
+    public static void ZoneGroup(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, ZoneGroup$OFFSET, ZoneGroup$LAYOUT.byteSize());
+    }
+
+    private static long[] ZoneGroup$DIMS = { 1 };
+
+    /**
+     * Dimensions for array field:
+     * {@snippet lang=c :
+     * STORAGE_ZONE_GROUP ZoneGroup[1]
+     * }
+     */
+    public static long[] ZoneGroup$dimensions() {
+        return ZoneGroup$DIMS;
+    }
+    private static final MethodHandle ZoneGroup$ELEM_HANDLE = ZoneGroup$LAYOUT.sliceHandle(sequenceElement());
+
+    /**
+     * Indexed getter for field:
+     * {@snippet lang=c :
+     * STORAGE_ZONE_GROUP ZoneGroup[1]
+     * }
+     */
+    public static MemorySegment ZoneGroup(MemorySegment struct, long index0) {
+        try {
+            return (MemorySegment)ZoneGroup$ELEM_HANDLE.invokeExact(struct, 0L, index0);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
+    }
+
+    /**
+     * Indexed setter for field:
+     * {@snippet lang=c :
+     * STORAGE_ZONE_GROUP ZoneGroup[1]
+     * }
+     */
+    public static void ZoneGroup(MemorySegment struct, long index0, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, ZoneGroup(struct, index0), 0L, _STORAGE_ZONE_GROUP.layout().byteSize());
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

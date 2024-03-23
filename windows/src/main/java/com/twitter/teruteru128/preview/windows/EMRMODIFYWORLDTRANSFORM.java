@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagEMRMODIFYWORLDTRANSFORM EMRMODIFYWORLDTRANSFORM;
+ * {@snippet lang=c :
+ * typedef struct tagEMRMODIFYWORLDTRANSFORM {
+ *     EMR emr;
+ *     XFORM xform;
+ *     DWORD iMode;
+ * } EMRMODIFYWORLDTRANSFORM
  * }
  */
-public final class EMRMODIFYWORLDTRANSFORM extends tagEMRMODIFYWORLDTRANSFORM {
+public class EMRMODIFYWORLDTRANSFORM extends tagEMRMODIFYWORLDTRANSFORM {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private EMRMODIFYWORLDTRANSFORM() {}
+    EMRMODIFYWORLDTRANSFORM() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagDROPSTRUCT {
  *     HWND hwndSource;
  *     HWND hwndSink;
@@ -16,158 +21,339 @@ import static java.lang.foreign.ValueLayout.*;
  *     ULONG_PTR dwData;
  *     POINT ptDrop;
  *     DWORD dwControlData;
- * };
+ * }
  * }
  */
 public class tagDROPSTRUCT {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1273.const$0;
+    tagDROPSTRUCT() {
+        // Should not be called directly
     }
-    public static VarHandle hwndSource$VH() {
-        return constants$1273.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * HWND hwndSource;
-     * }
-     */
-    public static MemorySegment hwndSource$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$1273.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * HWND hwndSource;
-     * }
-     */
-    public static void hwndSource$set(MemorySegment seg, MemorySegment x) {
-        constants$1273.const$1.set(seg, x);
-    }
-    public static MemorySegment hwndSource$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$1273.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void hwndSource$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$1273.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle hwndSink$VH() {
-        return constants$1273.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * HWND hwndSink;
-     * }
-     */
-    public static MemorySegment hwndSink$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$1273.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * HWND hwndSink;
-     * }
-     */
-    public static void hwndSink$set(MemorySegment seg, MemorySegment x) {
-        constants$1273.const$2.set(seg, x);
-    }
-    public static MemorySegment hwndSink$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$1273.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void hwndSink$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$1273.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle wFmt$VH() {
-        return constants$1273.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD wFmt;
-     * }
-     */
-    public static int wFmt$get(MemorySegment seg) {
-        return (int)constants$1273.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD wFmt;
-     * }
-     */
-    public static void wFmt$set(MemorySegment seg, int x) {
-        constants$1273.const$3.set(seg, x);
-    }
-    public static int wFmt$get(MemorySegment seg, long index) {
-        return (int)constants$1273.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wFmt$set(MemorySegment seg, long index, int x) {
-        constants$1273.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwData$VH() {
-        return constants$1273.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG_PTR dwData;
-     * }
-     */
-    public static long dwData$get(MemorySegment seg) {
-        return (long)constants$1273.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG_PTR dwData;
-     * }
-     */
-    public static void dwData$set(MemorySegment seg, long x) {
-        constants$1273.const$4.set(seg, x);
-    }
-    public static long dwData$get(MemorySegment seg, long index) {
-        return (long)constants$1273.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwData$set(MemorySegment seg, long index, long x) {
-        constants$1273.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment ptDrop$slice(MemorySegment seg) {
-        return seg.asSlice(32, 8);
-    }
-    public static VarHandle dwControlData$VH() {
-        return constants$1273.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwControlData;
-     * }
-     */
-    public static int dwControlData$get(MemorySegment seg) {
-        return (int)constants$1273.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwControlData;
-     * }
-     */
-    public static void dwControlData$set(MemorySegment seg, int x) {
-        constants$1273.const$5.set(seg, x);
-    }
-    public static int dwControlData$get(MemorySegment seg, long index) {
-        return (int)constants$1273.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwControlData$set(MemorySegment seg, long index, int x) {
-        constants$1273.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("hwndSource"),
+        Windows_h.C_POINTER.withName("hwndSink"),
+        Windows_h.C_LONG.withName("wFmt"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_LONG_LONG.withName("dwData"),
+        tagPOINT.layout().withName("ptDrop"),
+        Windows_h.C_LONG.withName("dwControlData"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("tagDROPSTRUCT");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final AddressLayout hwndSource$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hwndSource"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HWND hwndSource
+     * }
+     */
+    public static final AddressLayout hwndSource$layout() {
+        return hwndSource$LAYOUT;
+    }
+
+    private static final long hwndSource$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HWND hwndSource
+     * }
+     */
+    public static final long hwndSource$offset() {
+        return hwndSource$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * HWND hwndSource
+     * }
+     */
+    public static MemorySegment hwndSource(MemorySegment struct) {
+        return struct.get(hwndSource$LAYOUT, hwndSource$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * HWND hwndSource
+     * }
+     */
+    public static void hwndSource(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(hwndSource$LAYOUT, hwndSource$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout hwndSink$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hwndSink"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HWND hwndSink
+     * }
+     */
+    public static final AddressLayout hwndSink$layout() {
+        return hwndSink$LAYOUT;
+    }
+
+    private static final long hwndSink$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HWND hwndSink
+     * }
+     */
+    public static final long hwndSink$offset() {
+        return hwndSink$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * HWND hwndSink
+     * }
+     */
+    public static MemorySegment hwndSink(MemorySegment struct) {
+        return struct.get(hwndSink$LAYOUT, hwndSink$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * HWND hwndSink
+     * }
+     */
+    public static void hwndSink(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(hwndSink$LAYOUT, hwndSink$OFFSET, fieldValue);
+    }
+
+    private static final OfInt wFmt$LAYOUT = (OfInt)$LAYOUT.select(groupElement("wFmt"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD wFmt
+     * }
+     */
+    public static final OfInt wFmt$layout() {
+        return wFmt$LAYOUT;
+    }
+
+    private static final long wFmt$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD wFmt
+     * }
+     */
+    public static final long wFmt$offset() {
+        return wFmt$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD wFmt
+     * }
+     */
+    public static int wFmt(MemorySegment struct) {
+        return struct.get(wFmt$LAYOUT, wFmt$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD wFmt
+     * }
+     */
+    public static void wFmt(MemorySegment struct, int fieldValue) {
+        struct.set(wFmt$LAYOUT, wFmt$OFFSET, fieldValue);
+    }
+
+    private static final OfLong dwData$LAYOUT = (OfLong)$LAYOUT.select(groupElement("dwData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG_PTR dwData
+     * }
+     */
+    public static final OfLong dwData$layout() {
+        return dwData$LAYOUT;
+    }
+
+    private static final long dwData$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG_PTR dwData
+     * }
+     */
+    public static final long dwData$offset() {
+        return dwData$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG_PTR dwData
+     * }
+     */
+    public static long dwData(MemorySegment struct) {
+        return struct.get(dwData$LAYOUT, dwData$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG_PTR dwData
+     * }
+     */
+    public static void dwData(MemorySegment struct, long fieldValue) {
+        struct.set(dwData$LAYOUT, dwData$OFFSET, fieldValue);
+    }
+
+    private static final GroupLayout ptDrop$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("ptDrop"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * POINT ptDrop
+     * }
+     */
+    public static final GroupLayout ptDrop$layout() {
+        return ptDrop$LAYOUT;
+    }
+
+    private static final long ptDrop$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * POINT ptDrop
+     * }
+     */
+    public static final long ptDrop$offset() {
+        return ptDrop$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * POINT ptDrop
+     * }
+     */
+    public static MemorySegment ptDrop(MemorySegment struct) {
+        return struct.asSlice(ptDrop$OFFSET, ptDrop$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * POINT ptDrop
+     * }
+     */
+    public static void ptDrop(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, ptDrop$OFFSET, ptDrop$LAYOUT.byteSize());
+    }
+
+    private static final OfInt dwControlData$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwControlData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwControlData
+     * }
+     */
+    public static final OfInt dwControlData$layout() {
+        return dwControlData$LAYOUT;
+    }
+
+    private static final long dwControlData$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwControlData
+     * }
+     */
+    public static final long dwControlData$offset() {
+        return dwControlData$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwControlData
+     * }
+     */
+    public static int dwControlData(MemorySegment struct) {
+        return struct.get(dwControlData$LAYOUT, dwControlData$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwControlData
+     * }
+     */
+    public static void dwControlData(MemorySegment struct, int fieldValue) {
+        struct.set(dwControlData$LAYOUT, dwControlData$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

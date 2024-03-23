@@ -2,20 +2,36 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _DRIVER_INFO_3A DRIVER_INFO_3A;
+ * {@snippet lang=c :
+ * typedef struct _DRIVER_INFO_3A {
+ *     DWORD cVersion;
+ *     LPSTR pName;
+ *     LPSTR pEnvironment;
+ *     LPSTR pDriverPath;
+ *     LPSTR pDataFile;
+ *     LPSTR pConfigFile;
+ *     LPSTR pHelpFile;
+ *     LPSTR pDependentFiles;
+ *     LPSTR pMonitorName;
+ *     LPSTR pDefaultDataType;
+ * } DRIVER_INFO_3A
  * }
  */
-public final class DRIVER_INFO_3A extends _DRIVER_INFO_3A {
+public class DRIVER_INFO_3A extends _DRIVER_INFO_3A {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private DRIVER_INFO_3A() {}
+    DRIVER_INFO_3A() {
+        // Should not be called directly
+    }
 }
-
 

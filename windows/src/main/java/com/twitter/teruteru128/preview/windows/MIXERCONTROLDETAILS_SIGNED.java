@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tMIXERCONTROLDETAILS_SIGNED MIXERCONTROLDETAILS_SIGNED;
+ * {@snippet lang=c :
+ * typedef struct tMIXERCONTROLDETAILS_SIGNED {
+ *     LONG lValue;
+ * } MIXERCONTROLDETAILS_SIGNED
  * }
  */
-public final class MIXERCONTROLDETAILS_SIGNED extends tMIXERCONTROLDETAILS_SIGNED {
+public class MIXERCONTROLDETAILS_SIGNED extends tMIXERCONTROLDETAILS_SIGNED {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MIXERCONTROLDETAILS_SIGNED() {}
+    MIXERCONTROLDETAILS_SIGNED() {
+        // Should not be called directly
+    }
 }
-
 

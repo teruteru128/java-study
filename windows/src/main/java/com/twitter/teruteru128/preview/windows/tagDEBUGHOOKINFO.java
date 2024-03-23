@@ -2,168 +2,311 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagDEBUGHOOKINFO {
  *     DWORD idThread;
  *     DWORD idThreadInstaller;
  *     LPARAM lParam;
  *     WPARAM wParam;
  *     int code;
- * };
+ * }
  * }
  */
 public class tagDEBUGHOOKINFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1145.const$3;
+    tagDEBUGHOOKINFO() {
+        // Should not be called directly
     }
-    public static VarHandle idThread$VH() {
-        return constants$1145.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD idThread;
-     * }
-     */
-    public static int idThread$get(MemorySegment seg) {
-        return (int)constants$1145.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD idThread;
-     * }
-     */
-    public static void idThread$set(MemorySegment seg, int x) {
-        constants$1145.const$4.set(seg, x);
-    }
-    public static int idThread$get(MemorySegment seg, long index) {
-        return (int)constants$1145.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void idThread$set(MemorySegment seg, long index, int x) {
-        constants$1145.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle idThreadInstaller$VH() {
-        return constants$1145.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD idThreadInstaller;
-     * }
-     */
-    public static int idThreadInstaller$get(MemorySegment seg) {
-        return (int)constants$1145.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD idThreadInstaller;
-     * }
-     */
-    public static void idThreadInstaller$set(MemorySegment seg, int x) {
-        constants$1145.const$5.set(seg, x);
-    }
-    public static int idThreadInstaller$get(MemorySegment seg, long index) {
-        return (int)constants$1145.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void idThreadInstaller$set(MemorySegment seg, long index, int x) {
-        constants$1145.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle lParam$VH() {
-        return constants$1146.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPARAM lParam;
-     * }
-     */
-    public static long lParam$get(MemorySegment seg) {
-        return (long)constants$1146.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPARAM lParam;
-     * }
-     */
-    public static void lParam$set(MemorySegment seg, long x) {
-        constants$1146.const$0.set(seg, x);
-    }
-    public static long lParam$get(MemorySegment seg, long index) {
-        return (long)constants$1146.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lParam$set(MemorySegment seg, long index, long x) {
-        constants$1146.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle wParam$VH() {
-        return constants$1146.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WPARAM wParam;
-     * }
-     */
-    public static long wParam$get(MemorySegment seg) {
-        return (long)constants$1146.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WPARAM wParam;
-     * }
-     */
-    public static void wParam$set(MemorySegment seg, long x) {
-        constants$1146.const$1.set(seg, x);
-    }
-    public static long wParam$get(MemorySegment seg, long index) {
-        return (long)constants$1146.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wParam$set(MemorySegment seg, long index, long x) {
-        constants$1146.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle code$VH() {
-        return constants$1146.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * int code;
-     * }
-     */
-    public static int code$get(MemorySegment seg) {
-        return (int)constants$1146.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * int code;
-     * }
-     */
-    public static void code$set(MemorySegment seg, int x) {
-        constants$1146.const$2.set(seg, x);
-    }
-    public static int code$get(MemorySegment seg, long index) {
-        return (int)constants$1146.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void code$set(MemorySegment seg, long index, int x) {
-        constants$1146.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("idThread"),
+        Windows_h.C_LONG.withName("idThreadInstaller"),
+        Windows_h.C_LONG_LONG.withName("lParam"),
+        Windows_h.C_LONG_LONG.withName("wParam"),
+        Windows_h.C_INT.withName("code"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("tagDEBUGHOOKINFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt idThread$LAYOUT = (OfInt)$LAYOUT.select(groupElement("idThread"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD idThread
+     * }
+     */
+    public static final OfInt idThread$layout() {
+        return idThread$LAYOUT;
+    }
+
+    private static final long idThread$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD idThread
+     * }
+     */
+    public static final long idThread$offset() {
+        return idThread$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD idThread
+     * }
+     */
+    public static int idThread(MemorySegment struct) {
+        return struct.get(idThread$LAYOUT, idThread$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD idThread
+     * }
+     */
+    public static void idThread(MemorySegment struct, int fieldValue) {
+        struct.set(idThread$LAYOUT, idThread$OFFSET, fieldValue);
+    }
+
+    private static final OfInt idThreadInstaller$LAYOUT = (OfInt)$LAYOUT.select(groupElement("idThreadInstaller"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD idThreadInstaller
+     * }
+     */
+    public static final OfInt idThreadInstaller$layout() {
+        return idThreadInstaller$LAYOUT;
+    }
+
+    private static final long idThreadInstaller$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD idThreadInstaller
+     * }
+     */
+    public static final long idThreadInstaller$offset() {
+        return idThreadInstaller$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD idThreadInstaller
+     * }
+     */
+    public static int idThreadInstaller(MemorySegment struct) {
+        return struct.get(idThreadInstaller$LAYOUT, idThreadInstaller$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD idThreadInstaller
+     * }
+     */
+    public static void idThreadInstaller(MemorySegment struct, int fieldValue) {
+        struct.set(idThreadInstaller$LAYOUT, idThreadInstaller$OFFSET, fieldValue);
+    }
+
+    private static final OfLong lParam$LAYOUT = (OfLong)$LAYOUT.select(groupElement("lParam"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPARAM lParam
+     * }
+     */
+    public static final OfLong lParam$layout() {
+        return lParam$LAYOUT;
+    }
+
+    private static final long lParam$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPARAM lParam
+     * }
+     */
+    public static final long lParam$offset() {
+        return lParam$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPARAM lParam
+     * }
+     */
+    public static long lParam(MemorySegment struct) {
+        return struct.get(lParam$LAYOUT, lParam$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPARAM lParam
+     * }
+     */
+    public static void lParam(MemorySegment struct, long fieldValue) {
+        struct.set(lParam$LAYOUT, lParam$OFFSET, fieldValue);
+    }
+
+    private static final OfLong wParam$LAYOUT = (OfLong)$LAYOUT.select(groupElement("wParam"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WPARAM wParam
+     * }
+     */
+    public static final OfLong wParam$layout() {
+        return wParam$LAYOUT;
+    }
+
+    private static final long wParam$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WPARAM wParam
+     * }
+     */
+    public static final long wParam$offset() {
+        return wParam$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WPARAM wParam
+     * }
+     */
+    public static long wParam(MemorySegment struct) {
+        return struct.get(wParam$LAYOUT, wParam$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WPARAM wParam
+     * }
+     */
+    public static void wParam(MemorySegment struct, long fieldValue) {
+        struct.set(wParam$LAYOUT, wParam$OFFSET, fieldValue);
+    }
+
+    private static final OfInt code$LAYOUT = (OfInt)$LAYOUT.select(groupElement("code"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int code
+     * }
+     */
+    public static final OfInt code$layout() {
+        return code$LAYOUT;
+    }
+
+    private static final long code$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int code
+     * }
+     */
+    public static final long code$offset() {
+        return code$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int code
+     * }
+     */
+    public static int code(MemorySegment struct) {
+        return struct.get(code$LAYOUT, code$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int code
+     * }
+     */
+    public static void code(MemorySegment struct, int fieldValue) {
+        struct.set(code$LAYOUT, code$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

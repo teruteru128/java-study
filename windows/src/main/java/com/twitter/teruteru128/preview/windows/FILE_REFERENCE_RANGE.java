@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _FILE_REFERENCE_RANGE FILE_REFERENCE_RANGE;
+ * {@snippet lang=c :
+ * typedef struct _FILE_REFERENCE_RANGE {
+ *     DWORDLONG StartingFileReferenceNumber;
+ *     DWORDLONG EndingFileReferenceNumber;
+ * } FILE_REFERENCE_RANGE
  * }
  */
-public final class FILE_REFERENCE_RANGE extends _FILE_REFERENCE_RANGE {
+public class FILE_REFERENCE_RANGE extends _FILE_REFERENCE_RANGE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private FILE_REFERENCE_RANGE() {}
+    FILE_REFERENCE_RANGE() {
+        // Should not be called directly
+    }
 }
-
 

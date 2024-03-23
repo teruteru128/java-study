@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagEMRGLSRECORD EMRGLSRECORD;
+ * {@snippet lang=c :
+ * typedef struct tagEMRGLSRECORD {
+ *     EMR emr;
+ *     DWORD cbData;
+ *     BYTE Data[1];
+ * } EMRGLSRECORD
  * }
  */
-public final class EMRGLSRECORD extends tagEMRGLSRECORD {
+public class EMRGLSRECORD extends tagEMRGLSRECORD {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private EMRGLSRECORD() {}
+    EMRGLSRECORD() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CRYPT_CREDENTIALS CRYPT_CREDENTIALS;
+ * {@snippet lang=c :
+ * typedef struct _CRYPT_CREDENTIALS {
+ *     DWORD cbSize;
+ *     LPCSTR pszCredentialsOid;
+ *     LPVOID pvCredentials;
+ * } CRYPT_CREDENTIALS
  * }
  */
-public final class CRYPT_CREDENTIALS extends _CRYPT_CREDENTIALS {
+public class CRYPT_CREDENTIALS extends _CRYPT_CREDENTIALS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CRYPT_CREDENTIALS() {}
+    CRYPT_CREDENTIALS() {
+        // Should not be called directly
+    }
 }
-
 

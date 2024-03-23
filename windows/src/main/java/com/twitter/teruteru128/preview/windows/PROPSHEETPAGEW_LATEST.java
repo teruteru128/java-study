@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _PROPSHEETPAGEW PROPSHEETPAGEW_LATEST;
+ * {@snippet lang=c :
+ * typedef PROPSHEETPAGEW_V4 PROPSHEETPAGEW_LATEST
  * }
  */
-public final class PROPSHEETPAGEW_LATEST extends _PROPSHEETPAGEW {
+public class PROPSHEETPAGEW_LATEST extends _PROPSHEETPAGEW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private PROPSHEETPAGEW_LATEST() {}
+    PROPSHEETPAGEW_LATEST() {
+        // Should not be called directly
+    }
 }
-
 

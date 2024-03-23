@@ -2,32 +2,72 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void (*CS_TYPE_TO_NETCS_ROUTINE)(void* hBinding,unsigned long ulNetworkCodeSet,void* pLocalData,unsigned long ulLocalDataLength,unsigned char* pNetworkData,unsigned long* pulNetworkDataLength,unsigned long* pStatus);
+ * {@snippet lang=c :
+ * typedef void (*CS_TYPE_TO_NETCS_ROUTINE)(RPC_BINDING_HANDLE, unsigned long, void *, unsigned long, byte *, unsigned long *, error_status_t *) __attribute__((stdcall))
  * }
  */
-public interface CS_TYPE_TO_NETCS_ROUTINE {
+public class CS_TYPE_TO_NETCS_ROUTINE {
 
-    void apply(java.lang.foreign.MemorySegment hBinding, int ulNetworkCodeSet, java.lang.foreign.MemorySegment pLocalData, int ulLocalDataLength, java.lang.foreign.MemorySegment pNetworkData, java.lang.foreign.MemorySegment pulNetworkDataLength, java.lang.foreign.MemorySegment pStatus);
-    static MemorySegment allocate(CS_TYPE_TO_NETCS_ROUTINE fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2284.const$3, fi, constants$2284.const$2, scope);
+    CS_TYPE_TO_NETCS_ROUTINE() {
+        // Should not be called directly
     }
-    static CS_TYPE_TO_NETCS_ROUTINE ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _hBinding, int _ulNetworkCodeSet, java.lang.foreign.MemorySegment _pLocalData, int _ulLocalDataLength, java.lang.foreign.MemorySegment _pNetworkData, java.lang.foreign.MemorySegment _pulNetworkDataLength, java.lang.foreign.MemorySegment _pStatus) -> {
-            try {
-                constants$2284.const$4.invokeExact(symbol, _hBinding, _ulNetworkCodeSet, _pLocalData, _ulLocalDataLength, _pNetworkData, _pulNetworkDataLength, _pStatus);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        void apply(MemorySegment hBinding, int ulNetworkCodeSet, MemorySegment pLocalData, int ulLocalDataLength, MemorySegment pNetworkData, MemorySegment pulNetworkDataLength, MemorySegment pStatus);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(CS_TYPE_TO_NETCS_ROUTINE.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(CS_TYPE_TO_NETCS_ROUTINE.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static void invoke(MemorySegment funcPtr,MemorySegment hBinding, int ulNetworkCodeSet, MemorySegment pLocalData, int ulLocalDataLength, MemorySegment pNetworkData, MemorySegment pulNetworkDataLength, MemorySegment pStatus) {
+        try {
+             DOWN$MH.invokeExact(funcPtr, hBinding, ulNetworkCodeSet, pLocalData, ulLocalDataLength, pNetworkData, pulNetworkDataLength, pStatus);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

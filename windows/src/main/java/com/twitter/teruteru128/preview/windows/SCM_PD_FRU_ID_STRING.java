@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SCM_PD_FRU_ID_STRING SCM_PD_FRU_ID_STRING;
+ * {@snippet lang=c :
+ * typedef struct _SCM_PD_FRU_ID_STRING {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     DWORD IdentifierSize;
+ *     BYTE Identifier[1];
+ * } SCM_PD_FRU_ID_STRING
  * }
  */
-public final class SCM_PD_FRU_ID_STRING extends _SCM_PD_FRU_ID_STRING {
+public class SCM_PD_FRU_ID_STRING extends _SCM_PD_FRU_ID_STRING {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SCM_PD_FRU_ID_STRING() {}
+    SCM_PD_FRU_ID_STRING() {
+        // Should not be called directly
+    }
 }
-
 

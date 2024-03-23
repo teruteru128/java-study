@@ -2,20 +2,45 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct mmtime_tag MMTIME;
+ * {@snippet lang=c :
+ * typedef struct mmtime_tag {
+ *     UINT wType;
+ *     union {
+ *         DWORD ms;
+ *         DWORD sample;
+ *         DWORD cb;
+ *         DWORD ticks;
+ *         struct {
+ *             BYTE hour;
+ *             BYTE min;
+ *             BYTE sec;
+ *             BYTE frame;
+ *             BYTE fps;
+ *             BYTE dummy;
+ *             BYTE pad[2];
+ *         } smpte;
+ *         struct {
+ *             DWORD songptrpos;
+ *         } midi;
+ *     } u;
+ * } MMTIME
  * }
  */
-public final class MMTIME extends mmtime_tag {
+public class MMTIME extends mmtime_tag {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MMTIME() {}
+    MMTIME() {
+        // Should not be called directly
+    }
 }
-
 

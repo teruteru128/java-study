@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _LANA_ENUM LANA_ENUM;
+ * {@snippet lang=c :
+ * typedef struct _LANA_ENUM {
+ *     UCHAR length;
+ *     UCHAR lana[255];
+ * } LANA_ENUM
  * }
  */
-public final class LANA_ENUM extends _LANA_ENUM {
+public class LANA_ENUM extends _LANA_ENUM {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private LANA_ENUM() {}
+    LANA_ENUM() {
+        // Should not be called directly
+    }
 }
-
 

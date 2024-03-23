@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _DEVICE_DATA_SET_SCRUB_EX_OUTPUT DEVICE_DSM_SCRUB_OUTPUT2;
+ * {@snippet lang=c :
+ * typedef struct _DEVICE_DATA_SET_SCRUB_EX_OUTPUT {
+ *     DWORDLONG BytesProcessed;
+ *     DWORDLONG BytesRepaired;
+ *     DWORDLONG BytesFailed;
+ *     DEVICE_DSM_RANGE ParityExtent;
+ *     DWORDLONG BytesScrubbed;
+ * } DEVICE_DSM_SCRUB_OUTPUT2
  * }
  */
-public final class DEVICE_DSM_SCRUB_OUTPUT2 extends _DEVICE_DATA_SET_SCRUB_EX_OUTPUT {
+public class DEVICE_DSM_SCRUB_OUTPUT2 extends _DEVICE_DATA_SET_SCRUB_EX_OUTPUT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private DEVICE_DSM_SCRUB_OUTPUT2() {}
+    DEVICE_DSM_SCRUB_OUTPUT2() {
+        // Should not be called directly
+    }
 }
-
 

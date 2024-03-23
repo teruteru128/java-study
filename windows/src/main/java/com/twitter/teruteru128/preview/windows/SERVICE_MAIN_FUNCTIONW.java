@@ -2,32 +2,67 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void (*SERVICE_MAIN_FUNCTIONW)(DWORD dwNumServicesArgs,LPWSTR* lpServiceArgVectors);
+ * {@snippet lang=c :
+ * typedef void (SERVICE_MAIN_FUNCTIONW)(DWORD, LPWSTR *) __attribute__((stdcall))
  * }
  */
-public interface SERVICE_MAIN_FUNCTIONW {
+public class SERVICE_MAIN_FUNCTIONW {
 
-    void apply(int dwNumServicesArgs, java.lang.foreign.MemorySegment lpServiceArgVectors);
-    static MemorySegment allocate(SERVICE_MAIN_FUNCTIONW fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$4497.const$3, fi, constants$605.const$4, scope);
+    SERVICE_MAIN_FUNCTIONW() {
+        // Should not be called directly
     }
-    static SERVICE_MAIN_FUNCTIONW ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (int _dwNumServicesArgs, java.lang.foreign.MemorySegment _lpServiceArgVectors) -> {
-            try {
-                constants$2242.const$2.invokeExact(symbol, _dwNumServicesArgs, _lpServiceArgVectors);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        void apply(int dwNumServicesArgs, MemorySegment lpServiceArgVectors);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(SERVICE_MAIN_FUNCTIONW.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(SERVICE_MAIN_FUNCTIONW.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static void invoke(MemorySegment funcPtr,int dwNumServicesArgs, MemorySegment lpServiceArgVectors) {
+        try {
+             DOWN$MH.invokeExact(funcPtr, dwNumServicesArgs, lpServiceArgVectors);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

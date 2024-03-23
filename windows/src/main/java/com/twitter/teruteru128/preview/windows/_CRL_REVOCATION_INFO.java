@@ -2,112 +2,218 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _CRL_REVOCATION_INFO {
  *     PCRL_ENTRY pCrlEntry;
  *     PCCRL_CONTEXT pCrlContext;
  *     PCCERT_CHAIN_CONTEXT pCrlIssuerChain;
- * };
+ * }
  * }
  */
 public class _CRL_REVOCATION_INFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2216.const$5;
+    _CRL_REVOCATION_INFO() {
+        // Should not be called directly
     }
-    public static VarHandle pCrlEntry$VH() {
-        return constants$2217.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCRL_ENTRY pCrlEntry;
-     * }
-     */
-    public static MemorySegment pCrlEntry$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2217.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCRL_ENTRY pCrlEntry;
-     * }
-     */
-    public static void pCrlEntry$set(MemorySegment seg, MemorySegment x) {
-        constants$2217.const$0.set(seg, x);
-    }
-    public static MemorySegment pCrlEntry$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2217.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pCrlEntry$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2217.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pCrlContext$VH() {
-        return constants$2217.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCCRL_CONTEXT pCrlContext;
-     * }
-     */
-    public static MemorySegment pCrlContext$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2217.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCCRL_CONTEXT pCrlContext;
-     * }
-     */
-    public static void pCrlContext$set(MemorySegment seg, MemorySegment x) {
-        constants$2217.const$1.set(seg, x);
-    }
-    public static MemorySegment pCrlContext$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2217.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pCrlContext$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2217.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pCrlIssuerChain$VH() {
-        return constants$2217.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCCERT_CHAIN_CONTEXT pCrlIssuerChain;
-     * }
-     */
-    public static MemorySegment pCrlIssuerChain$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2217.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCCERT_CHAIN_CONTEXT pCrlIssuerChain;
-     * }
-     */
-    public static void pCrlIssuerChain$set(MemorySegment seg, MemorySegment x) {
-        constants$2217.const$2.set(seg, x);
-    }
-    public static MemorySegment pCrlIssuerChain$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2217.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pCrlIssuerChain$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2217.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("pCrlEntry"),
+        Windows_h.C_POINTER.withName("pCrlContext"),
+        Windows_h.C_POINTER.withName("pCrlIssuerChain")
+    ).withName("_CRL_REVOCATION_INFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final AddressLayout pCrlEntry$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pCrlEntry"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCRL_ENTRY pCrlEntry
+     * }
+     */
+    public static final AddressLayout pCrlEntry$layout() {
+        return pCrlEntry$LAYOUT;
+    }
+
+    private static final long pCrlEntry$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCRL_ENTRY pCrlEntry
+     * }
+     */
+    public static final long pCrlEntry$offset() {
+        return pCrlEntry$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCRL_ENTRY pCrlEntry
+     * }
+     */
+    public static MemorySegment pCrlEntry(MemorySegment struct) {
+        return struct.get(pCrlEntry$LAYOUT, pCrlEntry$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCRL_ENTRY pCrlEntry
+     * }
+     */
+    public static void pCrlEntry(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pCrlEntry$LAYOUT, pCrlEntry$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pCrlContext$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pCrlContext"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCCRL_CONTEXT pCrlContext
+     * }
+     */
+    public static final AddressLayout pCrlContext$layout() {
+        return pCrlContext$LAYOUT;
+    }
+
+    private static final long pCrlContext$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCCRL_CONTEXT pCrlContext
+     * }
+     */
+    public static final long pCrlContext$offset() {
+        return pCrlContext$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCCRL_CONTEXT pCrlContext
+     * }
+     */
+    public static MemorySegment pCrlContext(MemorySegment struct) {
+        return struct.get(pCrlContext$LAYOUT, pCrlContext$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCCRL_CONTEXT pCrlContext
+     * }
+     */
+    public static void pCrlContext(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pCrlContext$LAYOUT, pCrlContext$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pCrlIssuerChain$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pCrlIssuerChain"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCCERT_CHAIN_CONTEXT pCrlIssuerChain
+     * }
+     */
+    public static final AddressLayout pCrlIssuerChain$layout() {
+        return pCrlIssuerChain$LAYOUT;
+    }
+
+    private static final long pCrlIssuerChain$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCCERT_CHAIN_CONTEXT pCrlIssuerChain
+     * }
+     */
+    public static final long pCrlIssuerChain$offset() {
+        return pCrlIssuerChain$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCCERT_CHAIN_CONTEXT pCrlIssuerChain
+     * }
+     */
+    public static MemorySegment pCrlIssuerChain(MemorySegment struct) {
+        return struct.get(pCrlIssuerChain$LAYOUT, pCrlIssuerChain$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCCERT_CHAIN_CONTEXT pCrlIssuerChain
+     * }
+     */
+    public static void pCrlIssuerChain(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pCrlIssuerChain$LAYOUT, pCrlIssuerChain$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

@@ -2,281 +2,593 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _SCM_BUS_RUNTIME_FW_ACTIVATION_INFO {
  *     DWORD Version;
  *     DWORD Size;
  *     BOOLEAN RuntimeFwActivationSupported;
  *     SCM_BUS_FIRMWARE_ACTIVATION_STATE FirmwareActivationState;
- *     struct  FirmwareActivationCapability;
+ *     struct {
+ *         DWORD FwManagedIoQuiesceFwActivationSupported : 1;
+ *         DWORD OsManagedIoQuiesceFwActivationSupported : 1;
+ *         DWORD WarmResetBasedFwActivationSupported : 1;
+ *         DWORD Reserved : 29;
+ *     } FirmwareActivationCapability;
  *     DWORDLONG EstimatedFirmwareActivationTimeInUSecs;
  *     DWORDLONG EstimatedProcessorAccessQuiesceTimeInUSecs;
  *     DWORDLONG EstimatedIOAccessQuiesceTimeInUSecs;
  *     DWORDLONG PlatformSupportedMaxIOAccessQuiesceTimeInUSecs;
- * };
+ * }
  * }
  */
 public class _SCM_BUS_RUNTIME_FW_ACTIVATION_INFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2509.const$1;
+    _SCM_BUS_RUNTIME_FW_ACTIVATION_INFO() {
+        // Should not be called directly
     }
-    public static VarHandle Version$VH() {
-        return constants$2509.const$2;
+
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("Version"),
+        Windows_h.C_LONG.withName("Size"),
+        Windows_h.C_CHAR.withName("RuntimeFwActivationSupported"),
+        MemoryLayout.paddingLayout(3),
+        Windows_h.C_INT.withName("FirmwareActivationState"),
+        _SCM_BUS_RUNTIME_FW_ACTIVATION_INFO.FirmwareActivationCapability.layout().withName("FirmwareActivationCapability"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_LONG_LONG.withName("EstimatedFirmwareActivationTimeInUSecs"),
+        Windows_h.C_LONG_LONG.withName("EstimatedProcessorAccessQuiesceTimeInUSecs"),
+        Windows_h.C_LONG_LONG.withName("EstimatedIOAccessQuiesceTimeInUSecs"),
+        Windows_h.C_LONG_LONG.withName("PlatformSupportedMaxIOAccessQuiesceTimeInUSecs")
+    ).withName("_SCM_BUS_RUNTIME_FW_ACTIVATION_INFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
     }
+
+    private static final OfInt Version$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Version"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static final OfInt Version$layout() {
+        return Version$LAYOUT;
+    }
+
+    private static final long Version$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Version
+     * }
+     */
+    public static final long Version$offset() {
+        return Version$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * DWORD Version;
+     * {@snippet lang=c :
+     * DWORD Version
      * }
      */
-    public static int Version$get(MemorySegment seg) {
-        return (int)constants$2509.const$2.get(seg);
+    public static int Version(MemorySegment struct) {
+        return struct.get(Version$LAYOUT, Version$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * DWORD Version;
+     * {@snippet lang=c :
+     * DWORD Version
      * }
      */
-    public static void Version$set(MemorySegment seg, int x) {
-        constants$2509.const$2.set(seg, x);
+    public static void Version(MemorySegment struct, int fieldValue) {
+        struct.set(Version$LAYOUT, Version$OFFSET, fieldValue);
     }
-    public static int Version$get(MemorySegment seg, long index) {
-        return (int)constants$2509.const$2.get(seg.asSlice(index*sizeof()));
+
+    private static final OfInt Size$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Size"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static final OfInt Size$layout() {
+        return Size$LAYOUT;
     }
-    public static void Version$set(MemorySegment seg, long index, int x) {
-        constants$2509.const$2.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long Size$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Size
+     * }
+     */
+    public static final long Size$offset() {
+        return Size$OFFSET;
     }
-    public static VarHandle Size$VH() {
-        return constants$2509.const$3;
-    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * DWORD Size;
+     * {@snippet lang=c :
+     * DWORD Size
      * }
      */
-    public static int Size$get(MemorySegment seg) {
-        return (int)constants$2509.const$3.get(seg);
+    public static int Size(MemorySegment struct) {
+        return struct.get(Size$LAYOUT, Size$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * DWORD Size;
+     * {@snippet lang=c :
+     * DWORD Size
      * }
      */
-    public static void Size$set(MemorySegment seg, int x) {
-        constants$2509.const$3.set(seg, x);
+    public static void Size(MemorySegment struct, int fieldValue) {
+        struct.set(Size$LAYOUT, Size$OFFSET, fieldValue);
     }
-    public static int Size$get(MemorySegment seg, long index) {
-        return (int)constants$2509.const$3.get(seg.asSlice(index*sizeof()));
+
+    private static final OfByte RuntimeFwActivationSupported$LAYOUT = (OfByte)$LAYOUT.select(groupElement("RuntimeFwActivationSupported"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BOOLEAN RuntimeFwActivationSupported
+     * }
+     */
+    public static final OfByte RuntimeFwActivationSupported$layout() {
+        return RuntimeFwActivationSupported$LAYOUT;
     }
-    public static void Size$set(MemorySegment seg, long index, int x) {
-        constants$2509.const$3.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long RuntimeFwActivationSupported$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BOOLEAN RuntimeFwActivationSupported
+     * }
+     */
+    public static final long RuntimeFwActivationSupported$offset() {
+        return RuntimeFwActivationSupported$OFFSET;
     }
-    public static VarHandle RuntimeFwActivationSupported$VH() {
-        return constants$2509.const$4;
-    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * BOOLEAN RuntimeFwActivationSupported;
+     * {@snippet lang=c :
+     * BOOLEAN RuntimeFwActivationSupported
      * }
      */
-    public static byte RuntimeFwActivationSupported$get(MemorySegment seg) {
-        return (byte)constants$2509.const$4.get(seg);
+    public static byte RuntimeFwActivationSupported(MemorySegment struct) {
+        return struct.get(RuntimeFwActivationSupported$LAYOUT, RuntimeFwActivationSupported$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * BOOLEAN RuntimeFwActivationSupported;
+     * {@snippet lang=c :
+     * BOOLEAN RuntimeFwActivationSupported
      * }
      */
-    public static void RuntimeFwActivationSupported$set(MemorySegment seg, byte x) {
-        constants$2509.const$4.set(seg, x);
+    public static void RuntimeFwActivationSupported(MemorySegment struct, byte fieldValue) {
+        struct.set(RuntimeFwActivationSupported$LAYOUT, RuntimeFwActivationSupported$OFFSET, fieldValue);
     }
-    public static byte RuntimeFwActivationSupported$get(MemorySegment seg, long index) {
-        return (byte)constants$2509.const$4.get(seg.asSlice(index*sizeof()));
+
+    private static final OfInt FirmwareActivationState$LAYOUT = (OfInt)$LAYOUT.select(groupElement("FirmwareActivationState"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SCM_BUS_FIRMWARE_ACTIVATION_STATE FirmwareActivationState
+     * }
+     */
+    public static final OfInt FirmwareActivationState$layout() {
+        return FirmwareActivationState$LAYOUT;
     }
-    public static void RuntimeFwActivationSupported$set(MemorySegment seg, long index, byte x) {
-        constants$2509.const$4.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long FirmwareActivationState$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SCM_BUS_FIRMWARE_ACTIVATION_STATE FirmwareActivationState
+     * }
+     */
+    public static final long FirmwareActivationState$offset() {
+        return FirmwareActivationState$OFFSET;
     }
-    public static VarHandle FirmwareActivationState$VH() {
-        return constants$2509.const$5;
-    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * SCM_BUS_FIRMWARE_ACTIVATION_STATE FirmwareActivationState;
+     * {@snippet lang=c :
+     * SCM_BUS_FIRMWARE_ACTIVATION_STATE FirmwareActivationState
      * }
      */
-    public static int FirmwareActivationState$get(MemorySegment seg) {
-        return (int)constants$2509.const$5.get(seg);
+    public static int FirmwareActivationState(MemorySegment struct) {
+        return struct.get(FirmwareActivationState$LAYOUT, FirmwareActivationState$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * SCM_BUS_FIRMWARE_ACTIVATION_STATE FirmwareActivationState;
+     * {@snippet lang=c :
+     * SCM_BUS_FIRMWARE_ACTIVATION_STATE FirmwareActivationState
      * }
      */
-    public static void FirmwareActivationState$set(MemorySegment seg, int x) {
-        constants$2509.const$5.set(seg, x);
+    public static void FirmwareActivationState(MemorySegment struct, int fieldValue) {
+        struct.set(FirmwareActivationState$LAYOUT, FirmwareActivationState$OFFSET, fieldValue);
     }
-    public static int FirmwareActivationState$get(MemorySegment seg, long index) {
-        return (int)constants$2509.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void FirmwareActivationState$set(MemorySegment seg, long index, int x) {
-        constants$2509.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
+
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * struct {
-     *          *     DWORD FwManagedIoQuiesceFwActivationSupported;
-     *     DWORD OsManagedIoQuiesceFwActivationSupported;
-     *     DWORD WarmResetBasedFwActivationSupported;
-     *     DWORD Reserved;
-     * };
+     *     DWORD FwManagedIoQuiesceFwActivationSupported : 1;
+     *     DWORD OsManagedIoQuiesceFwActivationSupported : 1;
+     *     DWORD WarmResetBasedFwActivationSupported : 1;
+     *     DWORD Reserved : 29;
+     * }
      * }
      */
-    public static final class FirmwareActivationCapability {
+    public static class FirmwareActivationCapability {
 
-        // Suppresses default constructor, ensuring non-instantiability.
-        private FirmwareActivationCapability() {}
-        public static MemoryLayout $LAYOUT() {
-            return constants$128.const$3;
+        FirmwareActivationCapability() {
+            // Should not be called directly
         }
-        public static long sizeof() { return $LAYOUT().byteSize(); }
-        public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-        public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-            return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+            MemoryLayout.paddingLayout(4)
+        ).withName("$anon$7328:5");
+
+        /**
+         * The layout of this struct
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
         }
-        public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this struct
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
     }
 
-    public static MemorySegment FirmwareActivationCapability$slice(MemorySegment seg) {
-        return seg.asSlice(16, 4);
+    private static final GroupLayout FirmwareActivationCapability$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("FirmwareActivationCapability"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * struct {
+     *     DWORD FwManagedIoQuiesceFwActivationSupported : 1;
+     *     DWORD OsManagedIoQuiesceFwActivationSupported : 1;
+     *     DWORD WarmResetBasedFwActivationSupported : 1;
+     *     DWORD Reserved : 29;
+     * } FirmwareActivationCapability
+     * }
+     */
+    public static final GroupLayout FirmwareActivationCapability$layout() {
+        return FirmwareActivationCapability$LAYOUT;
     }
-    public static VarHandle EstimatedFirmwareActivationTimeInUSecs$VH() {
-        return constants$2510.const$0;
+
+    private static final long FirmwareActivationCapability$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * struct {
+     *     DWORD FwManagedIoQuiesceFwActivationSupported : 1;
+     *     DWORD OsManagedIoQuiesceFwActivationSupported : 1;
+     *     DWORD WarmResetBasedFwActivationSupported : 1;
+     *     DWORD Reserved : 29;
+     * } FirmwareActivationCapability
+     * }
+     */
+    public static final long FirmwareActivationCapability$offset() {
+        return FirmwareActivationCapability$OFFSET;
     }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * DWORDLONG EstimatedFirmwareActivationTimeInUSecs;
+     * {@snippet lang=c :
+     * struct {
+     *     DWORD FwManagedIoQuiesceFwActivationSupported : 1;
+     *     DWORD OsManagedIoQuiesceFwActivationSupported : 1;
+     *     DWORD WarmResetBasedFwActivationSupported : 1;
+     *     DWORD Reserved : 29;
+     * } FirmwareActivationCapability
      * }
      */
-    public static long EstimatedFirmwareActivationTimeInUSecs$get(MemorySegment seg) {
-        return (long)constants$2510.const$0.get(seg);
+    public static MemorySegment FirmwareActivationCapability(MemorySegment struct) {
+        return struct.asSlice(FirmwareActivationCapability$OFFSET, FirmwareActivationCapability$LAYOUT.byteSize());
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * DWORDLONG EstimatedFirmwareActivationTimeInUSecs;
+     * {@snippet lang=c :
+     * struct {
+     *     DWORD FwManagedIoQuiesceFwActivationSupported : 1;
+     *     DWORD OsManagedIoQuiesceFwActivationSupported : 1;
+     *     DWORD WarmResetBasedFwActivationSupported : 1;
+     *     DWORD Reserved : 29;
+     * } FirmwareActivationCapability
      * }
      */
-    public static void EstimatedFirmwareActivationTimeInUSecs$set(MemorySegment seg, long x) {
-        constants$2510.const$0.set(seg, x);
+    public static void FirmwareActivationCapability(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, FirmwareActivationCapability$OFFSET, FirmwareActivationCapability$LAYOUT.byteSize());
     }
-    public static long EstimatedFirmwareActivationTimeInUSecs$get(MemorySegment seg, long index) {
-        return (long)constants$2510.const$0.get(seg.asSlice(index*sizeof()));
+
+    private static final OfLong EstimatedFirmwareActivationTimeInUSecs$LAYOUT = (OfLong)$LAYOUT.select(groupElement("EstimatedFirmwareActivationTimeInUSecs"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORDLONG EstimatedFirmwareActivationTimeInUSecs
+     * }
+     */
+    public static final OfLong EstimatedFirmwareActivationTimeInUSecs$layout() {
+        return EstimatedFirmwareActivationTimeInUSecs$LAYOUT;
     }
-    public static void EstimatedFirmwareActivationTimeInUSecs$set(MemorySegment seg, long index, long x) {
-        constants$2510.const$0.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long EstimatedFirmwareActivationTimeInUSecs$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORDLONG EstimatedFirmwareActivationTimeInUSecs
+     * }
+     */
+    public static final long EstimatedFirmwareActivationTimeInUSecs$offset() {
+        return EstimatedFirmwareActivationTimeInUSecs$OFFSET;
     }
-    public static VarHandle EstimatedProcessorAccessQuiesceTimeInUSecs$VH() {
-        return constants$2510.const$1;
-    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * DWORDLONG EstimatedProcessorAccessQuiesceTimeInUSecs;
+     * {@snippet lang=c :
+     * DWORDLONG EstimatedFirmwareActivationTimeInUSecs
      * }
      */
-    public static long EstimatedProcessorAccessQuiesceTimeInUSecs$get(MemorySegment seg) {
-        return (long)constants$2510.const$1.get(seg);
+    public static long EstimatedFirmwareActivationTimeInUSecs(MemorySegment struct) {
+        return struct.get(EstimatedFirmwareActivationTimeInUSecs$LAYOUT, EstimatedFirmwareActivationTimeInUSecs$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * DWORDLONG EstimatedProcessorAccessQuiesceTimeInUSecs;
+     * {@snippet lang=c :
+     * DWORDLONG EstimatedFirmwareActivationTimeInUSecs
      * }
      */
-    public static void EstimatedProcessorAccessQuiesceTimeInUSecs$set(MemorySegment seg, long x) {
-        constants$2510.const$1.set(seg, x);
+    public static void EstimatedFirmwareActivationTimeInUSecs(MemorySegment struct, long fieldValue) {
+        struct.set(EstimatedFirmwareActivationTimeInUSecs$LAYOUT, EstimatedFirmwareActivationTimeInUSecs$OFFSET, fieldValue);
     }
-    public static long EstimatedProcessorAccessQuiesceTimeInUSecs$get(MemorySegment seg, long index) {
-        return (long)constants$2510.const$1.get(seg.asSlice(index*sizeof()));
+
+    private static final OfLong EstimatedProcessorAccessQuiesceTimeInUSecs$LAYOUT = (OfLong)$LAYOUT.select(groupElement("EstimatedProcessorAccessQuiesceTimeInUSecs"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORDLONG EstimatedProcessorAccessQuiesceTimeInUSecs
+     * }
+     */
+    public static final OfLong EstimatedProcessorAccessQuiesceTimeInUSecs$layout() {
+        return EstimatedProcessorAccessQuiesceTimeInUSecs$LAYOUT;
     }
-    public static void EstimatedProcessorAccessQuiesceTimeInUSecs$set(MemorySegment seg, long index, long x) {
-        constants$2510.const$1.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long EstimatedProcessorAccessQuiesceTimeInUSecs$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORDLONG EstimatedProcessorAccessQuiesceTimeInUSecs
+     * }
+     */
+    public static final long EstimatedProcessorAccessQuiesceTimeInUSecs$offset() {
+        return EstimatedProcessorAccessQuiesceTimeInUSecs$OFFSET;
     }
-    public static VarHandle EstimatedIOAccessQuiesceTimeInUSecs$VH() {
-        return constants$2510.const$2;
-    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * DWORDLONG EstimatedIOAccessQuiesceTimeInUSecs;
+     * {@snippet lang=c :
+     * DWORDLONG EstimatedProcessorAccessQuiesceTimeInUSecs
      * }
      */
-    public static long EstimatedIOAccessQuiesceTimeInUSecs$get(MemorySegment seg) {
-        return (long)constants$2510.const$2.get(seg);
+    public static long EstimatedProcessorAccessQuiesceTimeInUSecs(MemorySegment struct) {
+        return struct.get(EstimatedProcessorAccessQuiesceTimeInUSecs$LAYOUT, EstimatedProcessorAccessQuiesceTimeInUSecs$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * DWORDLONG EstimatedIOAccessQuiesceTimeInUSecs;
+     * {@snippet lang=c :
+     * DWORDLONG EstimatedProcessorAccessQuiesceTimeInUSecs
      * }
      */
-    public static void EstimatedIOAccessQuiesceTimeInUSecs$set(MemorySegment seg, long x) {
-        constants$2510.const$2.set(seg, x);
+    public static void EstimatedProcessorAccessQuiesceTimeInUSecs(MemorySegment struct, long fieldValue) {
+        struct.set(EstimatedProcessorAccessQuiesceTimeInUSecs$LAYOUT, EstimatedProcessorAccessQuiesceTimeInUSecs$OFFSET, fieldValue);
     }
-    public static long EstimatedIOAccessQuiesceTimeInUSecs$get(MemorySegment seg, long index) {
-        return (long)constants$2510.const$2.get(seg.asSlice(index*sizeof()));
+
+    private static final OfLong EstimatedIOAccessQuiesceTimeInUSecs$LAYOUT = (OfLong)$LAYOUT.select(groupElement("EstimatedIOAccessQuiesceTimeInUSecs"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORDLONG EstimatedIOAccessQuiesceTimeInUSecs
+     * }
+     */
+    public static final OfLong EstimatedIOAccessQuiesceTimeInUSecs$layout() {
+        return EstimatedIOAccessQuiesceTimeInUSecs$LAYOUT;
     }
-    public static void EstimatedIOAccessQuiesceTimeInUSecs$set(MemorySegment seg, long index, long x) {
-        constants$2510.const$2.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long EstimatedIOAccessQuiesceTimeInUSecs$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORDLONG EstimatedIOAccessQuiesceTimeInUSecs
+     * }
+     */
+    public static final long EstimatedIOAccessQuiesceTimeInUSecs$offset() {
+        return EstimatedIOAccessQuiesceTimeInUSecs$OFFSET;
     }
-    public static VarHandle PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$VH() {
-        return constants$2510.const$3;
-    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * DWORDLONG PlatformSupportedMaxIOAccessQuiesceTimeInUSecs;
+     * {@snippet lang=c :
+     * DWORDLONG EstimatedIOAccessQuiesceTimeInUSecs
      * }
      */
-    public static long PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$get(MemorySegment seg) {
-        return (long)constants$2510.const$3.get(seg);
+    public static long EstimatedIOAccessQuiesceTimeInUSecs(MemorySegment struct) {
+        return struct.get(EstimatedIOAccessQuiesceTimeInUSecs$LAYOUT, EstimatedIOAccessQuiesceTimeInUSecs$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * DWORDLONG PlatformSupportedMaxIOAccessQuiesceTimeInUSecs;
+     * {@snippet lang=c :
+     * DWORDLONG EstimatedIOAccessQuiesceTimeInUSecs
      * }
      */
-    public static void PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$set(MemorySegment seg, long x) {
-        constants$2510.const$3.set(seg, x);
+    public static void EstimatedIOAccessQuiesceTimeInUSecs(MemorySegment struct, long fieldValue) {
+        struct.set(EstimatedIOAccessQuiesceTimeInUSecs$LAYOUT, EstimatedIOAccessQuiesceTimeInUSecs$OFFSET, fieldValue);
     }
-    public static long PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$get(MemorySegment seg, long index) {
-        return (long)constants$2510.const$3.get(seg.asSlice(index*sizeof()));
+
+    private static final OfLong PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$LAYOUT = (OfLong)$LAYOUT.select(groupElement("PlatformSupportedMaxIOAccessQuiesceTimeInUSecs"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORDLONG PlatformSupportedMaxIOAccessQuiesceTimeInUSecs
+     * }
+     */
+    public static final OfLong PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$layout() {
+        return PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$LAYOUT;
     }
-    public static void PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$set(MemorySegment seg, long index, long x) {
-        constants$2510.const$3.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORDLONG PlatformSupportedMaxIOAccessQuiesceTimeInUSecs
+     * }
+     */
+    public static final long PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$offset() {
+        return PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$OFFSET;
     }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORDLONG PlatformSupportedMaxIOAccessQuiesceTimeInUSecs
+     * }
+     */
+    public static long PlatformSupportedMaxIOAccessQuiesceTimeInUSecs(MemorySegment struct) {
+        return struct.get(PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$LAYOUT, PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$OFFSET);
     }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORDLONG PlatformSupportedMaxIOAccessQuiesceTimeInUSecs
+     * }
+     */
+    public static void PlatformSupportedMaxIOAccessQuiesceTimeInUSecs(MemorySegment struct, long fieldValue) {
+        struct.set(PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$LAYOUT, PlatformSupportedMaxIOAccessQuiesceTimeInUSecs$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
 }
-
 

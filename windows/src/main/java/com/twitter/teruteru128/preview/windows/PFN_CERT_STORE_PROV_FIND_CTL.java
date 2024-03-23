@@ -2,32 +2,72 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_CERT_STORE_PROV_FIND_CTL)(void* hStoreProv,struct _CERT_STORE_PROV_FIND_INFO* pFindInfo,struct _CTL_CONTEXT* pPrevCtlContext,unsigned long dwFlags,void** ppvStoreProvFindInfo,struct _CTL_CONTEXT** ppProvCtlContext);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_CERT_STORE_PROV_FIND_CTL)(HCERTSTOREPROV, PCCERT_STORE_PROV_FIND_INFO, PCCTL_CONTEXT, DWORD, void **, PCCTL_CONTEXT *) __attribute__((stdcall))
  * }
  */
-public interface PFN_CERT_STORE_PROV_FIND_CTL {
+public class PFN_CERT_STORE_PROV_FIND_CTL {
 
-    int apply(java.lang.foreign.MemorySegment hStoreProv, java.lang.foreign.MemorySegment pFindInfo, java.lang.foreign.MemorySegment pPrevCtlContext, int dwFlags, java.lang.foreign.MemorySegment ppvStoreProvFindInfo, java.lang.foreign.MemorySegment ppProvCtlContext);
-    static MemorySegment allocate(PFN_CERT_STORE_PROV_FIND_CTL fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2134.const$3, fi, constants$572.const$3, scope);
+    PFN_CERT_STORE_PROV_FIND_CTL() {
+        // Should not be called directly
     }
-    static PFN_CERT_STORE_PROV_FIND_CTL ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _hStoreProv, java.lang.foreign.MemorySegment _pFindInfo, java.lang.foreign.MemorySegment _pPrevCtlContext, int _dwFlags, java.lang.foreign.MemorySegment _ppvStoreProvFindInfo, java.lang.foreign.MemorySegment _ppProvCtlContext) -> {
-            try {
-                return (int)constants$2133.const$1.invokeExact(symbol, _hStoreProv, _pFindInfo, _pPrevCtlContext, _dwFlags, _ppvStoreProvFindInfo, _ppProvCtlContext);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment hStoreProv, MemorySegment pFindInfo, MemorySegment pPrevCtlContext, int dwFlags, MemorySegment ppvStoreProvFindInfo, MemorySegment ppProvCtlContext);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CERT_STORE_PROV_FIND_CTL.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CERT_STORE_PROV_FIND_CTL.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment hStoreProv, MemorySegment pFindInfo, MemorySegment pPrevCtlContext, int dwFlags, MemorySegment ppvStoreProvFindInfo, MemorySegment ppProvCtlContext) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, hStoreProv, pFindInfo, pPrevCtlContext, dwFlags, ppvStoreProvFindInfo, ppProvCtlContext);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

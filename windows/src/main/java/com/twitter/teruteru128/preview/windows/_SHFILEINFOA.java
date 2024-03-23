@@ -2,120 +2,377 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _SHFILEINFOA {
  *     HICON hIcon;
  *     int iIcon;
  *     DWORD dwAttributes;
  *     CHAR szDisplayName[260];
  *     CHAR szTypeName[80];
- * };
+ * }
  * }
  */
 public class _SHFILEINFOA {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1879.const$1;
+    _SHFILEINFOA() {
+        // Should not be called directly
     }
-    public static VarHandle hIcon$VH() {
-        return constants$1879.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * HICON hIcon;
-     * }
-     */
-    public static MemorySegment hIcon$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$1879.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * HICON hIcon;
-     * }
-     */
-    public static void hIcon$set(MemorySegment seg, MemorySegment x) {
-        constants$1879.const$2.set(seg, x);
-    }
-    public static MemorySegment hIcon$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$1879.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void hIcon$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$1879.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle iIcon$VH() {
-        return constants$1879.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * int iIcon;
-     * }
-     */
-    public static int iIcon$get(MemorySegment seg) {
-        return (int)constants$1879.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * int iIcon;
-     * }
-     */
-    public static void iIcon$set(MemorySegment seg, int x) {
-        constants$1879.const$3.set(seg, x);
-    }
-    public static int iIcon$get(MemorySegment seg, long index) {
-        return (int)constants$1879.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void iIcon$set(MemorySegment seg, long index, int x) {
-        constants$1879.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwAttributes$VH() {
-        return constants$1879.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwAttributes;
-     * }
-     */
-    public static int dwAttributes$get(MemorySegment seg) {
-        return (int)constants$1879.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwAttributes;
-     * }
-     */
-    public static void dwAttributes$set(MemorySegment seg, int x) {
-        constants$1879.const$4.set(seg, x);
-    }
-    public static int dwAttributes$get(MemorySegment seg, long index) {
-        return (int)constants$1879.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwAttributes$set(MemorySegment seg, long index, int x) {
-        constants$1879.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment szDisplayName$slice(MemorySegment seg) {
-        return seg.asSlice(16, 260);
-    }
-    public static MemorySegment szTypeName$slice(MemorySegment seg) {
-        return seg.asSlice(276, 80);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("hIcon"),
+        Windows_h.C_INT.withName("iIcon"),
+        Windows_h.C_LONG.withName("dwAttributes"),
+        MemoryLayout.sequenceLayout(260, Windows_h.C_CHAR).withName("szDisplayName"),
+        MemoryLayout.sequenceLayout(80, Windows_h.C_CHAR).withName("szTypeName"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("_SHFILEINFOA");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final AddressLayout hIcon$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hIcon"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HICON hIcon
+     * }
+     */
+    public static final AddressLayout hIcon$layout() {
+        return hIcon$LAYOUT;
+    }
+
+    private static final long hIcon$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HICON hIcon
+     * }
+     */
+    public static final long hIcon$offset() {
+        return hIcon$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * HICON hIcon
+     * }
+     */
+    public static MemorySegment hIcon(MemorySegment struct) {
+        return struct.get(hIcon$LAYOUT, hIcon$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * HICON hIcon
+     * }
+     */
+    public static void hIcon(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(hIcon$LAYOUT, hIcon$OFFSET, fieldValue);
+    }
+
+    private static final OfInt iIcon$LAYOUT = (OfInt)$LAYOUT.select(groupElement("iIcon"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * int iIcon
+     * }
+     */
+    public static final OfInt iIcon$layout() {
+        return iIcon$LAYOUT;
+    }
+
+    private static final long iIcon$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * int iIcon
+     * }
+     */
+    public static final long iIcon$offset() {
+        return iIcon$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * int iIcon
+     * }
+     */
+    public static int iIcon(MemorySegment struct) {
+        return struct.get(iIcon$LAYOUT, iIcon$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * int iIcon
+     * }
+     */
+    public static void iIcon(MemorySegment struct, int fieldValue) {
+        struct.set(iIcon$LAYOUT, iIcon$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwAttributes$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwAttributes"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwAttributes
+     * }
+     */
+    public static final OfInt dwAttributes$layout() {
+        return dwAttributes$LAYOUT;
+    }
+
+    private static final long dwAttributes$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwAttributes
+     * }
+     */
+    public static final long dwAttributes$offset() {
+        return dwAttributes$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwAttributes
+     * }
+     */
+    public static int dwAttributes(MemorySegment struct) {
+        return struct.get(dwAttributes$LAYOUT, dwAttributes$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwAttributes
+     * }
+     */
+    public static void dwAttributes(MemorySegment struct, int fieldValue) {
+        struct.set(dwAttributes$LAYOUT, dwAttributes$OFFSET, fieldValue);
+    }
+
+    private static final SequenceLayout szDisplayName$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("szDisplayName"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * CHAR szDisplayName[260]
+     * }
+     */
+    public static final SequenceLayout szDisplayName$layout() {
+        return szDisplayName$LAYOUT;
+    }
+
+    private static final long szDisplayName$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * CHAR szDisplayName[260]
+     * }
+     */
+    public static final long szDisplayName$offset() {
+        return szDisplayName$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * CHAR szDisplayName[260]
+     * }
+     */
+    public static MemorySegment szDisplayName(MemorySegment struct) {
+        return struct.asSlice(szDisplayName$OFFSET, szDisplayName$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * CHAR szDisplayName[260]
+     * }
+     */
+    public static void szDisplayName(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, szDisplayName$OFFSET, szDisplayName$LAYOUT.byteSize());
+    }
+
+    private static long[] szDisplayName$DIMS = { 260 };
+
+    /**
+     * Dimensions for array field:
+     * {@snippet lang=c :
+     * CHAR szDisplayName[260]
+     * }
+     */
+    public static long[] szDisplayName$dimensions() {
+        return szDisplayName$DIMS;
+    }
+    private static final VarHandle szDisplayName$ELEM_HANDLE = szDisplayName$LAYOUT.varHandle(sequenceElement());
+
+    /**
+     * Indexed getter for field:
+     * {@snippet lang=c :
+     * CHAR szDisplayName[260]
+     * }
+     */
+    public static byte szDisplayName(MemorySegment struct, long index0) {
+        return (byte)szDisplayName$ELEM_HANDLE.get(struct, 0L, index0);
+    }
+
+    /**
+     * Indexed setter for field:
+     * {@snippet lang=c :
+     * CHAR szDisplayName[260]
+     * }
+     */
+    public static void szDisplayName(MemorySegment struct, long index0, byte fieldValue) {
+        szDisplayName$ELEM_HANDLE.set(struct, 0L, index0, fieldValue);
+    }
+
+    private static final SequenceLayout szTypeName$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("szTypeName"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * CHAR szTypeName[80]
+     * }
+     */
+    public static final SequenceLayout szTypeName$layout() {
+        return szTypeName$LAYOUT;
+    }
+
+    private static final long szTypeName$OFFSET = 276;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * CHAR szTypeName[80]
+     * }
+     */
+    public static final long szTypeName$offset() {
+        return szTypeName$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * CHAR szTypeName[80]
+     * }
+     */
+    public static MemorySegment szTypeName(MemorySegment struct) {
+        return struct.asSlice(szTypeName$OFFSET, szTypeName$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * CHAR szTypeName[80]
+     * }
+     */
+    public static void szTypeName(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, szTypeName$OFFSET, szTypeName$LAYOUT.byteSize());
+    }
+
+    private static long[] szTypeName$DIMS = { 80 };
+
+    /**
+     * Dimensions for array field:
+     * {@snippet lang=c :
+     * CHAR szTypeName[80]
+     * }
+     */
+    public static long[] szTypeName$dimensions() {
+        return szTypeName$DIMS;
+    }
+    private static final VarHandle szTypeName$ELEM_HANDLE = szTypeName$LAYOUT.varHandle(sequenceElement());
+
+    /**
+     * Indexed getter for field:
+     * {@snippet lang=c :
+     * CHAR szTypeName[80]
+     * }
+     */
+    public static byte szTypeName(MemorySegment struct, long index0) {
+        return (byte)szTypeName$ELEM_HANDLE.get(struct, 0L, index0);
+    }
+
+    /**
+     * Indexed setter for field:
+     * {@snippet lang=c :
+     * CHAR szTypeName[80]
+     * }
+     */
+    public static void szTypeName(MemorySegment struct, long index0, byte fieldValue) {
+        szTypeName$ELEM_HANDLE.set(struct, 0L, index0, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

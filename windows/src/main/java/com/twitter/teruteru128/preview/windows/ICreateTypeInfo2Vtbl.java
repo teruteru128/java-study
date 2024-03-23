@@ -2,2242 +2,4247 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct ICreateTypeInfo2Vtbl {
- *     HRESULT (*QueryInterface)(ICreateTypeInfo2*,const IID*,void**);
- *     ULONG (*AddRef)(ICreateTypeInfo2*);
- *     ULONG (*Release)(ICreateTypeInfo2*);
- *     HRESULT (*SetGuid)(ICreateTypeInfo2*,const GUID*);
- *     HRESULT (*SetTypeFlags)(ICreateTypeInfo2*,UINT);
- *     HRESULT (*SetDocString)(ICreateTypeInfo2*,LPOLESTR);
- *     HRESULT (*SetHelpContext)(ICreateTypeInfo2*,DWORD);
- *     HRESULT (*SetVersion)(ICreateTypeInfo2*,WORD,WORD);
- *     HRESULT (*AddRefTypeInfo)(ICreateTypeInfo2*,ITypeInfo*,HREFTYPE*);
- *     HRESULT (*AddFuncDesc)(ICreateTypeInfo2*,UINT,FUNCDESC*);
- *     HRESULT (*AddImplType)(ICreateTypeInfo2*,UINT,HREFTYPE);
- *     HRESULT (*SetImplTypeFlags)(ICreateTypeInfo2*,UINT,INT);
- *     HRESULT (*SetAlignment)(ICreateTypeInfo2*,WORD);
- *     HRESULT (*SetSchema)(ICreateTypeInfo2*,LPOLESTR);
- *     HRESULT (*AddVarDesc)(ICreateTypeInfo2*,UINT,VARDESC*);
- *     HRESULT (*SetFuncAndParamNames)(ICreateTypeInfo2*,UINT,LPOLESTR*,UINT);
- *     HRESULT (*SetVarName)(ICreateTypeInfo2*,UINT,LPOLESTR);
- *     HRESULT (*SetTypeDescAlias)(ICreateTypeInfo2*,TYPEDESC*);
- *     HRESULT (*DefineFuncAsDllEntry)(ICreateTypeInfo2*,UINT,LPOLESTR,LPOLESTR);
- *     HRESULT (*SetFuncDocString)(ICreateTypeInfo2*,UINT,LPOLESTR);
- *     HRESULT (*SetVarDocString)(ICreateTypeInfo2*,UINT,LPOLESTR);
- *     HRESULT (*SetFuncHelpContext)(ICreateTypeInfo2*,UINT,DWORD);
- *     HRESULT (*SetVarHelpContext)(ICreateTypeInfo2*,UINT,DWORD);
- *     HRESULT (*SetMops)(ICreateTypeInfo2*,UINT,BSTR);
- *     HRESULT (*SetTypeIdldesc)(ICreateTypeInfo2*,IDLDESC*);
- *     HRESULT (*LayOut)(ICreateTypeInfo2*);
- *     HRESULT (*DeleteFuncDesc)(ICreateTypeInfo2*,UINT);
- *     HRESULT (*DeleteFuncDescByMemId)(ICreateTypeInfo2*,MEMBERID,INVOKEKIND);
- *     HRESULT (*DeleteVarDesc)(ICreateTypeInfo2*,UINT);
- *     HRESULT (*DeleteVarDescByMemId)(ICreateTypeInfo2*,MEMBERID);
- *     HRESULT (*DeleteImplType)(ICreateTypeInfo2*,UINT);
- *     HRESULT (*SetCustData)(ICreateTypeInfo2*,const GUID*,VARIANT*);
- *     HRESULT (*SetFuncCustData)(ICreateTypeInfo2*,UINT,const GUID*,VARIANT*);
- *     HRESULT (*SetParamCustData)(ICreateTypeInfo2*,UINT,UINT,const GUID*,VARIANT*);
- *     HRESULT (*SetVarCustData)(ICreateTypeInfo2*,UINT,const GUID*,VARIANT*);
- *     HRESULT (*SetImplTypeCustData)(ICreateTypeInfo2*,UINT,const GUID*,VARIANT*);
- *     HRESULT (*SetHelpStringContext)(ICreateTypeInfo2*,ULONG);
- *     HRESULT (*SetFuncHelpStringContext)(ICreateTypeInfo2*,UINT,ULONG);
- *     HRESULT (*SetVarHelpStringContext)(ICreateTypeInfo2*,UINT,ULONG);
- *     HRESULT (*Invalidate)(ICreateTypeInfo2*);
- *     HRESULT (*SetName)(ICreateTypeInfo2*,LPOLESTR);
- * };
+ *     HRESULT (*QueryInterface)(ICreateTypeInfo2 *, const IID *const, void **) __attribute__((stdcall));
+ *     ULONG (*AddRef)(ICreateTypeInfo2 *) __attribute__((stdcall));
+ *     ULONG (*Release)(ICreateTypeInfo2 *) __attribute__((stdcall));
+ *     HRESULT (*SetGuid)(ICreateTypeInfo2 *, const GUID *const) __attribute__((stdcall));
+ *     HRESULT (*SetTypeFlags)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall));
+ *     HRESULT (*SetDocString)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall));
+ *     HRESULT (*SetHelpContext)(ICreateTypeInfo2 *, DWORD) __attribute__((stdcall));
+ *     HRESULT (*SetVersion)(ICreateTypeInfo2 *, WORD, WORD) __attribute__((stdcall));
+ *     HRESULT (*AddRefTypeInfo)(ICreateTypeInfo2 *, ITypeInfo *, HREFTYPE *) __attribute__((stdcall));
+ *     HRESULT (*AddFuncDesc)(ICreateTypeInfo2 *, UINT, FUNCDESC *) __attribute__((stdcall));
+ *     HRESULT (*AddImplType)(ICreateTypeInfo2 *, UINT, HREFTYPE) __attribute__((stdcall));
+ *     HRESULT (*SetImplTypeFlags)(ICreateTypeInfo2 *, UINT, INT) __attribute__((stdcall));
+ *     HRESULT (*SetAlignment)(ICreateTypeInfo2 *, WORD) __attribute__((stdcall));
+ *     HRESULT (*SetSchema)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall));
+ *     HRESULT (*AddVarDesc)(ICreateTypeInfo2 *, UINT, VARDESC *) __attribute__((stdcall));
+ *     HRESULT (*SetFuncAndParamNames)(ICreateTypeInfo2 *, UINT, LPOLESTR *, UINT) __attribute__((stdcall));
+ *     HRESULT (*SetVarName)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall));
+ *     HRESULT (*SetTypeDescAlias)(ICreateTypeInfo2 *, TYPEDESC *) __attribute__((stdcall));
+ *     HRESULT (*DefineFuncAsDllEntry)(ICreateTypeInfo2 *, UINT, LPOLESTR, LPOLESTR) __attribute__((stdcall));
+ *     HRESULT (*SetFuncDocString)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall));
+ *     HRESULT (*SetVarDocString)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall));
+ *     HRESULT (*SetFuncHelpContext)(ICreateTypeInfo2 *, UINT, DWORD) __attribute__((stdcall));
+ *     HRESULT (*SetVarHelpContext)(ICreateTypeInfo2 *, UINT, DWORD) __attribute__((stdcall));
+ *     HRESULT (*SetMops)(ICreateTypeInfo2 *, UINT, BSTR) __attribute__((stdcall));
+ *     HRESULT (*SetTypeIdldesc)(ICreateTypeInfo2 *, IDLDESC *) __attribute__((stdcall));
+ *     HRESULT (*LayOut)(ICreateTypeInfo2 *) __attribute__((stdcall));
+ *     HRESULT (*DeleteFuncDesc)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall));
+ *     HRESULT (*DeleteFuncDescByMemId)(ICreateTypeInfo2 *, MEMBERID, INVOKEKIND) __attribute__((stdcall));
+ *     HRESULT (*DeleteVarDesc)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall));
+ *     HRESULT (*DeleteVarDescByMemId)(ICreateTypeInfo2 *, MEMBERID) __attribute__((stdcall));
+ *     HRESULT (*DeleteImplType)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall));
+ *     HRESULT (*SetCustData)(ICreateTypeInfo2 *, const GUID *const, VARIANT *) __attribute__((stdcall));
+ *     HRESULT (*SetFuncCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall));
+ *     HRESULT (*SetParamCustData)(ICreateTypeInfo2 *, UINT, UINT, const GUID *const, VARIANT *) __attribute__((stdcall));
+ *     HRESULT (*SetVarCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall));
+ *     HRESULT (*SetImplTypeCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall));
+ *     HRESULT (*SetHelpStringContext)(ICreateTypeInfo2 *, ULONG) __attribute__((stdcall));
+ *     HRESULT (*SetFuncHelpStringContext)(ICreateTypeInfo2 *, UINT, ULONG) __attribute__((stdcall));
+ *     HRESULT (*SetVarHelpStringContext)(ICreateTypeInfo2 *, UINT, ULONG) __attribute__((stdcall));
+ *     HRESULT (*Invalidate)(ICreateTypeInfo2 *) __attribute__((stdcall));
+ *     HRESULT (*SetName)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall));
+ * }
  * }
  */
 public class ICreateTypeInfo2Vtbl {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$3455.const$4;
-    }
-    /**
-     * {@snippet :
- * HRESULT (*QueryInterface)(ICreateTypeInfo2*,const IID*,void**);
-     * }
-     */
-    public interface QueryInterface {
-
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1, java.lang.foreign.MemorySegment _x2);
-        static MemorySegment allocate(QueryInterface fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3455.const$5, fi, constants$37.const$3, scope);
-        }
-        static QueryInterface ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1, java.lang.foreign.MemorySegment __x2) -> {
-                try {
-                    return (int)constants$620.const$5.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
-        }
+    ICreateTypeInfo2Vtbl() {
+        // Should not be called directly
     }
 
-    public static VarHandle QueryInterface$VH() {
-        return constants$3456.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * HRESULT (*QueryInterface)(ICreateTypeInfo2*,const IID*,void**);
-     * }
-     */
-    public static MemorySegment QueryInterface$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3456.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * HRESULT (*QueryInterface)(ICreateTypeInfo2*,const IID*,void**);
-     * }
-     */
-    public static void QueryInterface$set(MemorySegment seg, MemorySegment x) {
-        constants$3456.const$0.set(seg, x);
-    }
-    public static MemorySegment QueryInterface$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3456.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void QueryInterface$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3456.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static QueryInterface QueryInterface(MemorySegment segment, Arena scope) {
-        return QueryInterface.ofAddress(QueryInterface$get(segment), scope);
-    }
-    /**
-     * {@snippet :
- * ULONG (*AddRef)(ICreateTypeInfo2*);
-     * }
-     */
-    public interface AddRef {
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("QueryInterface"),
+        Windows_h.C_POINTER.withName("AddRef"),
+        Windows_h.C_POINTER.withName("Release"),
+        Windows_h.C_POINTER.withName("SetGuid"),
+        Windows_h.C_POINTER.withName("SetTypeFlags"),
+        Windows_h.C_POINTER.withName("SetDocString"),
+        Windows_h.C_POINTER.withName("SetHelpContext"),
+        Windows_h.C_POINTER.withName("SetVersion"),
+        Windows_h.C_POINTER.withName("AddRefTypeInfo"),
+        Windows_h.C_POINTER.withName("AddFuncDesc"),
+        Windows_h.C_POINTER.withName("AddImplType"),
+        Windows_h.C_POINTER.withName("SetImplTypeFlags"),
+        Windows_h.C_POINTER.withName("SetAlignment"),
+        Windows_h.C_POINTER.withName("SetSchema"),
+        Windows_h.C_POINTER.withName("AddVarDesc"),
+        Windows_h.C_POINTER.withName("SetFuncAndParamNames"),
+        Windows_h.C_POINTER.withName("SetVarName"),
+        Windows_h.C_POINTER.withName("SetTypeDescAlias"),
+        Windows_h.C_POINTER.withName("DefineFuncAsDllEntry"),
+        Windows_h.C_POINTER.withName("SetFuncDocString"),
+        Windows_h.C_POINTER.withName("SetVarDocString"),
+        Windows_h.C_POINTER.withName("SetFuncHelpContext"),
+        Windows_h.C_POINTER.withName("SetVarHelpContext"),
+        Windows_h.C_POINTER.withName("SetMops"),
+        Windows_h.C_POINTER.withName("SetTypeIdldesc"),
+        Windows_h.C_POINTER.withName("LayOut"),
+        Windows_h.C_POINTER.withName("DeleteFuncDesc"),
+        Windows_h.C_POINTER.withName("DeleteFuncDescByMemId"),
+        Windows_h.C_POINTER.withName("DeleteVarDesc"),
+        Windows_h.C_POINTER.withName("DeleteVarDescByMemId"),
+        Windows_h.C_POINTER.withName("DeleteImplType"),
+        Windows_h.C_POINTER.withName("SetCustData"),
+        Windows_h.C_POINTER.withName("SetFuncCustData"),
+        Windows_h.C_POINTER.withName("SetParamCustData"),
+        Windows_h.C_POINTER.withName("SetVarCustData"),
+        Windows_h.C_POINTER.withName("SetImplTypeCustData"),
+        Windows_h.C_POINTER.withName("SetHelpStringContext"),
+        Windows_h.C_POINTER.withName("SetFuncHelpStringContext"),
+        Windows_h.C_POINTER.withName("SetVarHelpStringContext"),
+        Windows_h.C_POINTER.withName("Invalidate"),
+        Windows_h.C_POINTER.withName("SetName")
+    ).withName("ICreateTypeInfo2Vtbl");
 
-        int apply(java.lang.foreign.MemorySegment _x0);
-        static MemorySegment allocate(AddRef fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3456.const$1, fi, constants$18.const$5, scope);
-        }
-        static AddRef ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0) -> {
-                try {
-                    return (int)constants$495.const$0.invokeExact(symbol, __x0);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
-        }
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
     }
 
-    public static VarHandle AddRef$VH() {
-        return constants$3456.const$2;
-    }
     /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG (*AddRef)(ICreateTypeInfo2*);
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(ICreateTypeInfo2 *, const IID *const, void **) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment AddRef$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3456.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG (*AddRef)(ICreateTypeInfo2*);
-     * }
-     */
-    public static void AddRef$set(MemorySegment seg, MemorySegment x) {
-        constants$3456.const$2.set(seg, x);
-    }
-    public static MemorySegment AddRef$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3456.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void AddRef$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3456.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static AddRef AddRef(MemorySegment segment, Arena scope) {
-        return AddRef.ofAddress(AddRef$get(segment), scope);
-    }
-    /**
-     * {@snippet :
- * ULONG (*Release)(ICreateTypeInfo2*);
-     * }
-     */
-    public interface Release {
+    public static class QueryInterface {
 
-        int apply(java.lang.foreign.MemorySegment _x0);
-        static MemorySegment allocate(Release fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3456.const$3, fi, constants$18.const$5, scope);
+        QueryInterface() {
+            // Should not be called directly
         }
-        static Release ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0) -> {
-                try {
-                    return (int)constants$495.const$0.invokeExact(symbol, __x0);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(QueryInterface.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(QueryInterface.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle Release$VH() {
-        return constants$3456.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG (*Release)(ICreateTypeInfo2*);
-     * }
-     */
-    public static MemorySegment Release$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3456.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG (*Release)(ICreateTypeInfo2*);
-     * }
-     */
-    public static void Release$set(MemorySegment seg, MemorySegment x) {
-        constants$3456.const$4.set(seg, x);
-    }
-    public static MemorySegment Release$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3456.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Release$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3456.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static Release Release(MemorySegment segment, Arena scope) {
-        return Release.ofAddress(Release$get(segment), scope);
-    }
-    /**
-     * {@snippet :
- * HRESULT (*SetGuid)(ICreateTypeInfo2*,const GUID*);
-     * }
-     */
-    public interface SetGuid {
+    private static final AddressLayout QueryInterface$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("QueryInterface"));
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1);
-        static MemorySegment allocate(SetGuid fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3456.const$5, fi, constants$34.const$0, scope);
-        }
-        static SetGuid ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1) -> {
-                try {
-                    return (int)constants$92.const$2.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
-        }
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(ICreateTypeInfo2 *, const IID *const, void **) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout QueryInterface$layout() {
+        return QueryInterface$LAYOUT;
     }
 
-    public static VarHandle SetGuid$VH() {
-        return constants$3457.const$0;
+    private static final long QueryInterface$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(ICreateTypeInfo2 *, const IID *const, void **) __attribute__((stdcall))
+     * }
+     */
+    public static final long QueryInterface$offset() {
+        return QueryInterface$OFFSET;
     }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetGuid)(ICreateTypeInfo2*,const GUID*);
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(ICreateTypeInfo2 *, const IID *const, void **) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetGuid$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3457.const$0.get(seg);
+    public static MemorySegment QueryInterface(MemorySegment struct) {
+        return struct.get(QueryInterface$LAYOUT, QueryInterface$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetGuid)(ICreateTypeInfo2*,const GUID*);
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(ICreateTypeInfo2 *, const IID *const, void **) __attribute__((stdcall))
      * }
      */
-    public static void SetGuid$set(MemorySegment seg, MemorySegment x) {
-        constants$3457.const$0.set(seg, x);
+    public static void QueryInterface(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(QueryInterface$LAYOUT, QueryInterface$OFFSET, fieldValue);
     }
-    public static MemorySegment SetGuid$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3457.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetGuid$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3457.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetGuid SetGuid(MemorySegment segment, Arena scope) {
-        return SetGuid.ofAddress(SetGuid$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetTypeFlags)(ICreateTypeInfo2*,UINT);
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(ICreateTypeInfo2 *) __attribute__((stdcall))
      * }
      */
-    public interface SetTypeFlags {
+    public static class AddRef {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1);
-        static MemorySegment allocate(SetTypeFlags fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3457.const$1, fi, constants$65.const$2, scope);
+        AddRef() {
+            // Should not be called directly
         }
-        static SetTypeFlags ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1) -> {
-                try {
-                    return (int)constants$800.const$4.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(AddRef.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(AddRef.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetTypeFlags$VH() {
-        return constants$3457.const$2;
+    private static final AddressLayout AddRef$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("AddRef"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(ICreateTypeInfo2 *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout AddRef$layout() {
+        return AddRef$LAYOUT;
     }
+
+    private static final long AddRef$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(ICreateTypeInfo2 *) __attribute__((stdcall))
+     * }
+     */
+    public static final long AddRef$offset() {
+        return AddRef$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetTypeFlags)(ICreateTypeInfo2*,UINT);
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(ICreateTypeInfo2 *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetTypeFlags$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3457.const$2.get(seg);
+    public static MemorySegment AddRef(MemorySegment struct) {
+        return struct.get(AddRef$LAYOUT, AddRef$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetTypeFlags)(ICreateTypeInfo2*,UINT);
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(ICreateTypeInfo2 *) __attribute__((stdcall))
      * }
      */
-    public static void SetTypeFlags$set(MemorySegment seg, MemorySegment x) {
-        constants$3457.const$2.set(seg, x);
+    public static void AddRef(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(AddRef$LAYOUT, AddRef$OFFSET, fieldValue);
     }
-    public static MemorySegment SetTypeFlags$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3457.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetTypeFlags$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3457.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetTypeFlags SetTypeFlags(MemorySegment segment, Arena scope) {
-        return SetTypeFlags.ofAddress(SetTypeFlags$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetDocString)(ICreateTypeInfo2*,LPOLESTR);
+     * {@snippet lang=c :
+     * ULONG (*Release)(ICreateTypeInfo2 *) __attribute__((stdcall))
      * }
      */
-    public interface SetDocString {
+    public static class Release {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1);
-        static MemorySegment allocate(SetDocString fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3457.const$3, fi, constants$34.const$0, scope);
+        Release() {
+            // Should not be called directly
         }
-        static SetDocString ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1) -> {
-                try {
-                    return (int)constants$92.const$2.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(Release.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(Release.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetDocString$VH() {
-        return constants$3457.const$4;
+    private static final AddressLayout Release$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("Release"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG (*Release)(ICreateTypeInfo2 *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout Release$layout() {
+        return Release$LAYOUT;
     }
+
+    private static final long Release$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG (*Release)(ICreateTypeInfo2 *) __attribute__((stdcall))
+     * }
+     */
+    public static final long Release$offset() {
+        return Release$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetDocString)(ICreateTypeInfo2*,LPOLESTR);
+     * {@snippet lang=c :
+     * ULONG (*Release)(ICreateTypeInfo2 *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetDocString$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3457.const$4.get(seg);
+    public static MemorySegment Release(MemorySegment struct) {
+        return struct.get(Release$LAYOUT, Release$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetDocString)(ICreateTypeInfo2*,LPOLESTR);
+     * {@snippet lang=c :
+     * ULONG (*Release)(ICreateTypeInfo2 *) __attribute__((stdcall))
      * }
      */
-    public static void SetDocString$set(MemorySegment seg, MemorySegment x) {
-        constants$3457.const$4.set(seg, x);
+    public static void Release(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(Release$LAYOUT, Release$OFFSET, fieldValue);
     }
-    public static MemorySegment SetDocString$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3457.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetDocString$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3457.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetDocString SetDocString(MemorySegment segment, Arena scope) {
-        return SetDocString.ofAddress(SetDocString$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetHelpContext)(ICreateTypeInfo2*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*SetGuid)(ICreateTypeInfo2 *, const GUID *const) __attribute__((stdcall))
      * }
      */
-    public interface SetHelpContext {
+    public static class SetGuid {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1);
-        static MemorySegment allocate(SetHelpContext fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3457.const$5, fi, constants$65.const$2, scope);
+        SetGuid() {
+            // Should not be called directly
         }
-        static SetHelpContext ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1) -> {
-                try {
-                    return (int)constants$800.const$4.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetGuid.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetGuid.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetHelpContext$VH() {
-        return constants$3458.const$0;
+    private static final AddressLayout SetGuid$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetGuid"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetGuid)(ICreateTypeInfo2 *, const GUID *const) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetGuid$layout() {
+        return SetGuid$LAYOUT;
     }
+
+    private static final long SetGuid$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetGuid)(ICreateTypeInfo2 *, const GUID *const) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetGuid$offset() {
+        return SetGuid$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetHelpContext)(ICreateTypeInfo2*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*SetGuid)(ICreateTypeInfo2 *, const GUID *const) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetHelpContext$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3458.const$0.get(seg);
+    public static MemorySegment SetGuid(MemorySegment struct) {
+        return struct.get(SetGuid$LAYOUT, SetGuid$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetHelpContext)(ICreateTypeInfo2*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*SetGuid)(ICreateTypeInfo2 *, const GUID *const) __attribute__((stdcall))
      * }
      */
-    public static void SetHelpContext$set(MemorySegment seg, MemorySegment x) {
-        constants$3458.const$0.set(seg, x);
+    public static void SetGuid(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetGuid$LAYOUT, SetGuid$OFFSET, fieldValue);
     }
-    public static MemorySegment SetHelpContext$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3458.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetHelpContext$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3458.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetHelpContext SetHelpContext(MemorySegment segment, Arena scope) {
-        return SetHelpContext.ofAddress(SetHelpContext$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetVersion)(ICreateTypeInfo2*,WORD,WORD);
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeFlags)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
      * }
      */
-    public interface SetVersion {
+    public static class SetTypeFlags {
 
-        int apply(java.lang.foreign.MemorySegment _x0, short _x1, short _x2);
-        static MemorySegment allocate(SetVersion fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3458.const$1, fi, constants$736.const$1, scope);
+        SetTypeFlags() {
+            // Should not be called directly
         }
-        static SetVersion ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, short __x1, short __x2) -> {
-                try {
-                    return (int)constants$3448.const$3.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetTypeFlags.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetTypeFlags.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetVersion$VH() {
-        return constants$3458.const$2;
+    private static final AddressLayout SetTypeFlags$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetTypeFlags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeFlags)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetTypeFlags$layout() {
+        return SetTypeFlags$LAYOUT;
     }
+
+    private static final long SetTypeFlags$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeFlags)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetTypeFlags$offset() {
+        return SetTypeFlags$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetVersion)(ICreateTypeInfo2*,WORD,WORD);
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeFlags)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetVersion$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3458.const$2.get(seg);
+    public static MemorySegment SetTypeFlags(MemorySegment struct) {
+        return struct.get(SetTypeFlags$LAYOUT, SetTypeFlags$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetVersion)(ICreateTypeInfo2*,WORD,WORD);
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeFlags)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
      * }
      */
-    public static void SetVersion$set(MemorySegment seg, MemorySegment x) {
-        constants$3458.const$2.set(seg, x);
+    public static void SetTypeFlags(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetTypeFlags$LAYOUT, SetTypeFlags$OFFSET, fieldValue);
     }
-    public static MemorySegment SetVersion$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3458.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetVersion$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3458.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetVersion SetVersion(MemorySegment segment, Arena scope) {
-        return SetVersion.ofAddress(SetVersion$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*AddRefTypeInfo)(ICreateTypeInfo2*,ITypeInfo*,HREFTYPE*);
+     * {@snippet lang=c :
+     * HRESULT (*SetDocString)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public interface AddRefTypeInfo {
+    public static class SetDocString {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1, java.lang.foreign.MemorySegment _x2);
-        static MemorySegment allocate(AddRefTypeInfo fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3458.const$3, fi, constants$37.const$3, scope);
+        SetDocString() {
+            // Should not be called directly
         }
-        static AddRefTypeInfo ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1, java.lang.foreign.MemorySegment __x2) -> {
-                try {
-                    return (int)constants$620.const$5.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetDocString.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetDocString.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle AddRefTypeInfo$VH() {
-        return constants$3458.const$4;
+    private static final AddressLayout SetDocString$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetDocString"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetDocString)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetDocString$layout() {
+        return SetDocString$LAYOUT;
     }
+
+    private static final long SetDocString$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetDocString)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetDocString$offset() {
+        return SetDocString$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*AddRefTypeInfo)(ICreateTypeInfo2*,ITypeInfo*,HREFTYPE*);
+     * {@snippet lang=c :
+     * HRESULT (*SetDocString)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment AddRefTypeInfo$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3458.const$4.get(seg);
+    public static MemorySegment SetDocString(MemorySegment struct) {
+        return struct.get(SetDocString$LAYOUT, SetDocString$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*AddRefTypeInfo)(ICreateTypeInfo2*,ITypeInfo*,HREFTYPE*);
+     * {@snippet lang=c :
+     * HRESULT (*SetDocString)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public static void AddRefTypeInfo$set(MemorySegment seg, MemorySegment x) {
-        constants$3458.const$4.set(seg, x);
+    public static void SetDocString(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetDocString$LAYOUT, SetDocString$OFFSET, fieldValue);
     }
-    public static MemorySegment AddRefTypeInfo$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3458.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void AddRefTypeInfo$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3458.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static AddRefTypeInfo AddRefTypeInfo(MemorySegment segment, Arena scope) {
-        return AddRefTypeInfo.ofAddress(AddRefTypeInfo$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*AddFuncDesc)(ICreateTypeInfo2*,UINT,FUNCDESC*);
+     * {@snippet lang=c :
+     * HRESULT (*SetHelpContext)(ICreateTypeInfo2 *, DWORD) __attribute__((stdcall))
      * }
      */
-    public interface AddFuncDesc {
+    public static class SetHelpContext {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2);
-        static MemorySegment allocate(AddFuncDesc fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3458.const$5, fi, constants$485.const$5, scope);
+        SetHelpContext() {
+            // Should not be called directly
         }
-        static AddFuncDesc ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2) -> {
-                try {
-                    return (int)constants$1770.const$5.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetHelpContext.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetHelpContext.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle AddFuncDesc$VH() {
-        return constants$3459.const$0;
+    private static final AddressLayout SetHelpContext$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetHelpContext"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetHelpContext)(ICreateTypeInfo2 *, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetHelpContext$layout() {
+        return SetHelpContext$LAYOUT;
     }
+
+    private static final long SetHelpContext$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetHelpContext)(ICreateTypeInfo2 *, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetHelpContext$offset() {
+        return SetHelpContext$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*AddFuncDesc)(ICreateTypeInfo2*,UINT,FUNCDESC*);
+     * {@snippet lang=c :
+     * HRESULT (*SetHelpContext)(ICreateTypeInfo2 *, DWORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment AddFuncDesc$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3459.const$0.get(seg);
+    public static MemorySegment SetHelpContext(MemorySegment struct) {
+        return struct.get(SetHelpContext$LAYOUT, SetHelpContext$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*AddFuncDesc)(ICreateTypeInfo2*,UINT,FUNCDESC*);
+     * {@snippet lang=c :
+     * HRESULT (*SetHelpContext)(ICreateTypeInfo2 *, DWORD) __attribute__((stdcall))
      * }
      */
-    public static void AddFuncDesc$set(MemorySegment seg, MemorySegment x) {
-        constants$3459.const$0.set(seg, x);
+    public static void SetHelpContext(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetHelpContext$LAYOUT, SetHelpContext$OFFSET, fieldValue);
     }
-    public static MemorySegment AddFuncDesc$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3459.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void AddFuncDesc$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3459.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static AddFuncDesc AddFuncDesc(MemorySegment segment, Arena scope) {
-        return AddFuncDesc.ofAddress(AddFuncDesc$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*AddImplType)(ICreateTypeInfo2*,UINT,HREFTYPE);
+     * {@snippet lang=c :
+     * HRESULT (*SetVersion)(ICreateTypeInfo2 *, WORD, WORD) __attribute__((stdcall))
      * }
      */
-    public interface AddImplType {
+    public static class SetVersion {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, int _x2);
-        static MemorySegment allocate(AddImplType fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3459.const$1, fi, constants$67.const$1, scope);
+        SetVersion() {
+            // Should not be called directly
         }
-        static AddImplType ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, int __x2) -> {
-                try {
-                    return (int)constants$3030.const$1.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, short _x1, short _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_SHORT,
+            Windows_h.C_SHORT
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetVersion.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetVersion.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, short _x1, short _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle AddImplType$VH() {
-        return constants$3459.const$2;
+    private static final AddressLayout SetVersion$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetVersion"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetVersion)(ICreateTypeInfo2 *, WORD, WORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetVersion$layout() {
+        return SetVersion$LAYOUT;
     }
+
+    private static final long SetVersion$OFFSET = 56;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetVersion)(ICreateTypeInfo2 *, WORD, WORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetVersion$offset() {
+        return SetVersion$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*AddImplType)(ICreateTypeInfo2*,UINT,HREFTYPE);
+     * {@snippet lang=c :
+     * HRESULT (*SetVersion)(ICreateTypeInfo2 *, WORD, WORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment AddImplType$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3459.const$2.get(seg);
+    public static MemorySegment SetVersion(MemorySegment struct) {
+        return struct.get(SetVersion$LAYOUT, SetVersion$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*AddImplType)(ICreateTypeInfo2*,UINT,HREFTYPE);
+     * {@snippet lang=c :
+     * HRESULT (*SetVersion)(ICreateTypeInfo2 *, WORD, WORD) __attribute__((stdcall))
      * }
      */
-    public static void AddImplType$set(MemorySegment seg, MemorySegment x) {
-        constants$3459.const$2.set(seg, x);
+    public static void SetVersion(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetVersion$LAYOUT, SetVersion$OFFSET, fieldValue);
     }
-    public static MemorySegment AddImplType$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3459.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void AddImplType$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3459.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static AddImplType AddImplType(MemorySegment segment, Arena scope) {
-        return AddImplType.ofAddress(AddImplType$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetImplTypeFlags)(ICreateTypeInfo2*,UINT,INT);
+     * {@snippet lang=c :
+     * HRESULT (*AddRefTypeInfo)(ICreateTypeInfo2 *, ITypeInfo *, HREFTYPE *) __attribute__((stdcall))
      * }
      */
-    public interface SetImplTypeFlags {
+    public static class AddRefTypeInfo {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, int _x2);
-        static MemorySegment allocate(SetImplTypeFlags fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3459.const$3, fi, constants$67.const$1, scope);
+        AddRefTypeInfo() {
+            // Should not be called directly
         }
-        static SetImplTypeFlags ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, int __x2) -> {
-                try {
-                    return (int)constants$3030.const$1.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(AddRefTypeInfo.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(AddRefTypeInfo.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetImplTypeFlags$VH() {
-        return constants$3459.const$4;
+    private static final AddressLayout AddRefTypeInfo$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("AddRefTypeInfo"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*AddRefTypeInfo)(ICreateTypeInfo2 *, ITypeInfo *, HREFTYPE *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout AddRefTypeInfo$layout() {
+        return AddRefTypeInfo$LAYOUT;
     }
+
+    private static final long AddRefTypeInfo$OFFSET = 64;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*AddRefTypeInfo)(ICreateTypeInfo2 *, ITypeInfo *, HREFTYPE *) __attribute__((stdcall))
+     * }
+     */
+    public static final long AddRefTypeInfo$offset() {
+        return AddRefTypeInfo$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetImplTypeFlags)(ICreateTypeInfo2*,UINT,INT);
+     * {@snippet lang=c :
+     * HRESULT (*AddRefTypeInfo)(ICreateTypeInfo2 *, ITypeInfo *, HREFTYPE *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetImplTypeFlags$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3459.const$4.get(seg);
+    public static MemorySegment AddRefTypeInfo(MemorySegment struct) {
+        return struct.get(AddRefTypeInfo$LAYOUT, AddRefTypeInfo$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetImplTypeFlags)(ICreateTypeInfo2*,UINT,INT);
+     * {@snippet lang=c :
+     * HRESULT (*AddRefTypeInfo)(ICreateTypeInfo2 *, ITypeInfo *, HREFTYPE *) __attribute__((stdcall))
      * }
      */
-    public static void SetImplTypeFlags$set(MemorySegment seg, MemorySegment x) {
-        constants$3459.const$4.set(seg, x);
+    public static void AddRefTypeInfo(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(AddRefTypeInfo$LAYOUT, AddRefTypeInfo$OFFSET, fieldValue);
     }
-    public static MemorySegment SetImplTypeFlags$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3459.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetImplTypeFlags$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3459.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetImplTypeFlags SetImplTypeFlags(MemorySegment segment, Arena scope) {
-        return SetImplTypeFlags.ofAddress(SetImplTypeFlags$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetAlignment)(ICreateTypeInfo2*,WORD);
+     * {@snippet lang=c :
+     * HRESULT (*AddFuncDesc)(ICreateTypeInfo2 *, UINT, FUNCDESC *) __attribute__((stdcall))
      * }
      */
-    public interface SetAlignment {
+    public static class AddFuncDesc {
 
-        int apply(java.lang.foreign.MemorySegment _x0, short _x1);
-        static MemorySegment allocate(SetAlignment fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3459.const$5, fi, constants$1463.const$0, scope);
+        AddFuncDesc() {
+            // Should not be called directly
         }
-        static SetAlignment ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, short __x1) -> {
-                try {
-                    return (int)constants$3450.const$2.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(AddFuncDesc.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(AddFuncDesc.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetAlignment$VH() {
-        return constants$3460.const$0;
+    private static final AddressLayout AddFuncDesc$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("AddFuncDesc"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*AddFuncDesc)(ICreateTypeInfo2 *, UINT, FUNCDESC *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout AddFuncDesc$layout() {
+        return AddFuncDesc$LAYOUT;
     }
+
+    private static final long AddFuncDesc$OFFSET = 72;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*AddFuncDesc)(ICreateTypeInfo2 *, UINT, FUNCDESC *) __attribute__((stdcall))
+     * }
+     */
+    public static final long AddFuncDesc$offset() {
+        return AddFuncDesc$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetAlignment)(ICreateTypeInfo2*,WORD);
+     * {@snippet lang=c :
+     * HRESULT (*AddFuncDesc)(ICreateTypeInfo2 *, UINT, FUNCDESC *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetAlignment$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3460.const$0.get(seg);
+    public static MemorySegment AddFuncDesc(MemorySegment struct) {
+        return struct.get(AddFuncDesc$LAYOUT, AddFuncDesc$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetAlignment)(ICreateTypeInfo2*,WORD);
+     * {@snippet lang=c :
+     * HRESULT (*AddFuncDesc)(ICreateTypeInfo2 *, UINT, FUNCDESC *) __attribute__((stdcall))
      * }
      */
-    public static void SetAlignment$set(MemorySegment seg, MemorySegment x) {
-        constants$3460.const$0.set(seg, x);
+    public static void AddFuncDesc(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(AddFuncDesc$LAYOUT, AddFuncDesc$OFFSET, fieldValue);
     }
-    public static MemorySegment SetAlignment$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3460.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetAlignment$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3460.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetAlignment SetAlignment(MemorySegment segment, Arena scope) {
-        return SetAlignment.ofAddress(SetAlignment$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetSchema)(ICreateTypeInfo2*,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*AddImplType)(ICreateTypeInfo2 *, UINT, HREFTYPE) __attribute__((stdcall))
      * }
      */
-    public interface SetSchema {
+    public static class AddImplType {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1);
-        static MemorySegment allocate(SetSchema fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3460.const$1, fi, constants$34.const$0, scope);
+        AddImplType() {
+            // Should not be called directly
         }
-        static SetSchema ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1) -> {
-                try {
-                    return (int)constants$92.const$2.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, int _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(AddImplType.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(AddImplType.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, int _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetSchema$VH() {
-        return constants$3460.const$2;
+    private static final AddressLayout AddImplType$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("AddImplType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*AddImplType)(ICreateTypeInfo2 *, UINT, HREFTYPE) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout AddImplType$layout() {
+        return AddImplType$LAYOUT;
     }
+
+    private static final long AddImplType$OFFSET = 80;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*AddImplType)(ICreateTypeInfo2 *, UINT, HREFTYPE) __attribute__((stdcall))
+     * }
+     */
+    public static final long AddImplType$offset() {
+        return AddImplType$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetSchema)(ICreateTypeInfo2*,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*AddImplType)(ICreateTypeInfo2 *, UINT, HREFTYPE) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetSchema$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3460.const$2.get(seg);
+    public static MemorySegment AddImplType(MemorySegment struct) {
+        return struct.get(AddImplType$LAYOUT, AddImplType$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetSchema)(ICreateTypeInfo2*,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*AddImplType)(ICreateTypeInfo2 *, UINT, HREFTYPE) __attribute__((stdcall))
      * }
      */
-    public static void SetSchema$set(MemorySegment seg, MemorySegment x) {
-        constants$3460.const$2.set(seg, x);
+    public static void AddImplType(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(AddImplType$LAYOUT, AddImplType$OFFSET, fieldValue);
     }
-    public static MemorySegment SetSchema$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3460.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetSchema$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3460.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetSchema SetSchema(MemorySegment segment, Arena scope) {
-        return SetSchema.ofAddress(SetSchema$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*AddVarDesc)(ICreateTypeInfo2*,UINT,VARDESC*);
+     * {@snippet lang=c :
+     * HRESULT (*SetImplTypeFlags)(ICreateTypeInfo2 *, UINT, INT) __attribute__((stdcall))
      * }
      */
-    public interface AddVarDesc {
+    public static class SetImplTypeFlags {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2);
-        static MemorySegment allocate(AddVarDesc fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3460.const$3, fi, constants$485.const$5, scope);
+        SetImplTypeFlags() {
+            // Should not be called directly
         }
-        static AddVarDesc ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2) -> {
-                try {
-                    return (int)constants$1770.const$5.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, int _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_INT
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetImplTypeFlags.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetImplTypeFlags.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, int _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle AddVarDesc$VH() {
-        return constants$3460.const$4;
+    private static final AddressLayout SetImplTypeFlags$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetImplTypeFlags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetImplTypeFlags)(ICreateTypeInfo2 *, UINT, INT) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetImplTypeFlags$layout() {
+        return SetImplTypeFlags$LAYOUT;
     }
+
+    private static final long SetImplTypeFlags$OFFSET = 88;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetImplTypeFlags)(ICreateTypeInfo2 *, UINT, INT) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetImplTypeFlags$offset() {
+        return SetImplTypeFlags$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*AddVarDesc)(ICreateTypeInfo2*,UINT,VARDESC*);
+     * {@snippet lang=c :
+     * HRESULT (*SetImplTypeFlags)(ICreateTypeInfo2 *, UINT, INT) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment AddVarDesc$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3460.const$4.get(seg);
+    public static MemorySegment SetImplTypeFlags(MemorySegment struct) {
+        return struct.get(SetImplTypeFlags$LAYOUT, SetImplTypeFlags$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*AddVarDesc)(ICreateTypeInfo2*,UINT,VARDESC*);
+     * {@snippet lang=c :
+     * HRESULT (*SetImplTypeFlags)(ICreateTypeInfo2 *, UINT, INT) __attribute__((stdcall))
      * }
      */
-    public static void AddVarDesc$set(MemorySegment seg, MemorySegment x) {
-        constants$3460.const$4.set(seg, x);
+    public static void SetImplTypeFlags(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetImplTypeFlags$LAYOUT, SetImplTypeFlags$OFFSET, fieldValue);
     }
-    public static MemorySegment AddVarDesc$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3460.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void AddVarDesc$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3460.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static AddVarDesc AddVarDesc(MemorySegment segment, Arena scope) {
-        return AddVarDesc.ofAddress(AddVarDesc$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetFuncAndParamNames)(ICreateTypeInfo2*,UINT,LPOLESTR*,UINT);
+     * {@snippet lang=c :
+     * HRESULT (*SetAlignment)(ICreateTypeInfo2 *, WORD) __attribute__((stdcall))
      * }
      */
-    public interface SetFuncAndParamNames {
+    public static class SetAlignment {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2, int _x3);
-        static MemorySegment allocate(SetFuncAndParamNames fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3460.const$5, fi, constants$590.const$0, scope);
+        SetAlignment() {
+            // Should not be called directly
         }
-        static SetFuncAndParamNames ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2, int __x3) -> {
-                try {
-                    return (int)constants$3451.const$3.invokeExact(symbol, __x0, __x1, __x2, __x3);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, short _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_SHORT
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetAlignment.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetAlignment.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, short _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetFuncAndParamNames$VH() {
-        return constants$3461.const$0;
+    private static final AddressLayout SetAlignment$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetAlignment"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetAlignment)(ICreateTypeInfo2 *, WORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetAlignment$layout() {
+        return SetAlignment$LAYOUT;
     }
+
+    private static final long SetAlignment$OFFSET = 96;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetAlignment)(ICreateTypeInfo2 *, WORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetAlignment$offset() {
+        return SetAlignment$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetFuncAndParamNames)(ICreateTypeInfo2*,UINT,LPOLESTR*,UINT);
+     * {@snippet lang=c :
+     * HRESULT (*SetAlignment)(ICreateTypeInfo2 *, WORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetFuncAndParamNames$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3461.const$0.get(seg);
+    public static MemorySegment SetAlignment(MemorySegment struct) {
+        return struct.get(SetAlignment$LAYOUT, SetAlignment$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetFuncAndParamNames)(ICreateTypeInfo2*,UINT,LPOLESTR*,UINT);
+     * {@snippet lang=c :
+     * HRESULT (*SetAlignment)(ICreateTypeInfo2 *, WORD) __attribute__((stdcall))
      * }
      */
-    public static void SetFuncAndParamNames$set(MemorySegment seg, MemorySegment x) {
-        constants$3461.const$0.set(seg, x);
+    public static void SetAlignment(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetAlignment$LAYOUT, SetAlignment$OFFSET, fieldValue);
     }
-    public static MemorySegment SetFuncAndParamNames$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3461.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetFuncAndParamNames$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3461.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetFuncAndParamNames SetFuncAndParamNames(MemorySegment segment, Arena scope) {
-        return SetFuncAndParamNames.ofAddress(SetFuncAndParamNames$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetVarName)(ICreateTypeInfo2*,UINT,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetSchema)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public interface SetVarName {
+    public static class SetSchema {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2);
-        static MemorySegment allocate(SetVarName fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3461.const$1, fi, constants$485.const$5, scope);
+        SetSchema() {
+            // Should not be called directly
         }
-        static SetVarName ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2) -> {
-                try {
-                    return (int)constants$1770.const$5.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetSchema.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetSchema.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetVarName$VH() {
-        return constants$3461.const$2;
+    private static final AddressLayout SetSchema$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetSchema"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetSchema)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetSchema$layout() {
+        return SetSchema$LAYOUT;
     }
+
+    private static final long SetSchema$OFFSET = 104;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetSchema)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetSchema$offset() {
+        return SetSchema$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetVarName)(ICreateTypeInfo2*,UINT,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetSchema)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetVarName$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3461.const$2.get(seg);
+    public static MemorySegment SetSchema(MemorySegment struct) {
+        return struct.get(SetSchema$LAYOUT, SetSchema$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetVarName)(ICreateTypeInfo2*,UINT,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetSchema)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public static void SetVarName$set(MemorySegment seg, MemorySegment x) {
-        constants$3461.const$2.set(seg, x);
+    public static void SetSchema(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetSchema$LAYOUT, SetSchema$OFFSET, fieldValue);
     }
-    public static MemorySegment SetVarName$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3461.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetVarName$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3461.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetVarName SetVarName(MemorySegment segment, Arena scope) {
-        return SetVarName.ofAddress(SetVarName$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetTypeDescAlias)(ICreateTypeInfo2*,TYPEDESC*);
+     * {@snippet lang=c :
+     * HRESULT (*AddVarDesc)(ICreateTypeInfo2 *, UINT, VARDESC *) __attribute__((stdcall))
      * }
      */
-    public interface SetTypeDescAlias {
+    public static class AddVarDesc {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1);
-        static MemorySegment allocate(SetTypeDescAlias fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3461.const$3, fi, constants$34.const$0, scope);
+        AddVarDesc() {
+            // Should not be called directly
         }
-        static SetTypeDescAlias ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1) -> {
-                try {
-                    return (int)constants$92.const$2.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(AddVarDesc.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(AddVarDesc.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetTypeDescAlias$VH() {
-        return constants$3461.const$4;
+    private static final AddressLayout AddVarDesc$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("AddVarDesc"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*AddVarDesc)(ICreateTypeInfo2 *, UINT, VARDESC *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout AddVarDesc$layout() {
+        return AddVarDesc$LAYOUT;
     }
+
+    private static final long AddVarDesc$OFFSET = 112;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*AddVarDesc)(ICreateTypeInfo2 *, UINT, VARDESC *) __attribute__((stdcall))
+     * }
+     */
+    public static final long AddVarDesc$offset() {
+        return AddVarDesc$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetTypeDescAlias)(ICreateTypeInfo2*,TYPEDESC*);
+     * {@snippet lang=c :
+     * HRESULT (*AddVarDesc)(ICreateTypeInfo2 *, UINT, VARDESC *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetTypeDescAlias$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3461.const$4.get(seg);
+    public static MemorySegment AddVarDesc(MemorySegment struct) {
+        return struct.get(AddVarDesc$LAYOUT, AddVarDesc$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetTypeDescAlias)(ICreateTypeInfo2*,TYPEDESC*);
+     * {@snippet lang=c :
+     * HRESULT (*AddVarDesc)(ICreateTypeInfo2 *, UINT, VARDESC *) __attribute__((stdcall))
      * }
      */
-    public static void SetTypeDescAlias$set(MemorySegment seg, MemorySegment x) {
-        constants$3461.const$4.set(seg, x);
+    public static void AddVarDesc(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(AddVarDesc$LAYOUT, AddVarDesc$OFFSET, fieldValue);
     }
-    public static MemorySegment SetTypeDescAlias$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3461.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetTypeDescAlias$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3461.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetTypeDescAlias SetTypeDescAlias(MemorySegment segment, Arena scope) {
-        return SetTypeDescAlias.ofAddress(SetTypeDescAlias$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*DefineFuncAsDllEntry)(ICreateTypeInfo2*,UINT,LPOLESTR,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncAndParamNames)(ICreateTypeInfo2 *, UINT, LPOLESTR *, UINT) __attribute__((stdcall))
      * }
      */
-    public interface DefineFuncAsDllEntry {
+    public static class SetFuncAndParamNames {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2, java.lang.foreign.MemorySegment _x3);
-        static MemorySegment allocate(DefineFuncAsDllEntry fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3461.const$5, fi, constants$585.const$2, scope);
+        SetFuncAndParamNames() {
+            // Should not be called directly
         }
-        static DefineFuncAsDllEntry ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2, java.lang.foreign.MemorySegment __x3) -> {
-                try {
-                    return (int)constants$2151.const$1.invokeExact(symbol, __x0, __x1, __x2, __x3);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2, int _x3);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetFuncAndParamNames.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetFuncAndParamNames.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2, int _x3) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle DefineFuncAsDllEntry$VH() {
-        return constants$3462.const$0;
+    private static final AddressLayout SetFuncAndParamNames$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetFuncAndParamNames"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncAndParamNames)(ICreateTypeInfo2 *, UINT, LPOLESTR *, UINT) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetFuncAndParamNames$layout() {
+        return SetFuncAndParamNames$LAYOUT;
     }
+
+    private static final long SetFuncAndParamNames$OFFSET = 120;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncAndParamNames)(ICreateTypeInfo2 *, UINT, LPOLESTR *, UINT) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetFuncAndParamNames$offset() {
+        return SetFuncAndParamNames$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*DefineFuncAsDllEntry)(ICreateTypeInfo2*,UINT,LPOLESTR,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncAndParamNames)(ICreateTypeInfo2 *, UINT, LPOLESTR *, UINT) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment DefineFuncAsDllEntry$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3462.const$0.get(seg);
+    public static MemorySegment SetFuncAndParamNames(MemorySegment struct) {
+        return struct.get(SetFuncAndParamNames$LAYOUT, SetFuncAndParamNames$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*DefineFuncAsDllEntry)(ICreateTypeInfo2*,UINT,LPOLESTR,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncAndParamNames)(ICreateTypeInfo2 *, UINT, LPOLESTR *, UINT) __attribute__((stdcall))
      * }
      */
-    public static void DefineFuncAsDllEntry$set(MemorySegment seg, MemorySegment x) {
-        constants$3462.const$0.set(seg, x);
+    public static void SetFuncAndParamNames(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetFuncAndParamNames$LAYOUT, SetFuncAndParamNames$OFFSET, fieldValue);
     }
-    public static MemorySegment DefineFuncAsDllEntry$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3462.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void DefineFuncAsDllEntry$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3462.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static DefineFuncAsDllEntry DefineFuncAsDllEntry(MemorySegment segment, Arena scope) {
-        return DefineFuncAsDllEntry.ofAddress(DefineFuncAsDllEntry$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetFuncDocString)(ICreateTypeInfo2*,UINT,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetVarName)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public interface SetFuncDocString {
+    public static class SetVarName {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2);
-        static MemorySegment allocate(SetFuncDocString fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3462.const$1, fi, constants$485.const$5, scope);
+        SetVarName() {
+            // Should not be called directly
         }
-        static SetFuncDocString ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2) -> {
-                try {
-                    return (int)constants$1770.const$5.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetVarName.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetVarName.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetFuncDocString$VH() {
-        return constants$3462.const$2;
+    private static final AddressLayout SetVarName$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetVarName"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetVarName)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetVarName$layout() {
+        return SetVarName$LAYOUT;
     }
+
+    private static final long SetVarName$OFFSET = 128;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetVarName)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetVarName$offset() {
+        return SetVarName$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetFuncDocString)(ICreateTypeInfo2*,UINT,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetVarName)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetFuncDocString$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3462.const$2.get(seg);
+    public static MemorySegment SetVarName(MemorySegment struct) {
+        return struct.get(SetVarName$LAYOUT, SetVarName$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetFuncDocString)(ICreateTypeInfo2*,UINT,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetVarName)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public static void SetFuncDocString$set(MemorySegment seg, MemorySegment x) {
-        constants$3462.const$2.set(seg, x);
+    public static void SetVarName(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetVarName$LAYOUT, SetVarName$OFFSET, fieldValue);
     }
-    public static MemorySegment SetFuncDocString$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3462.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetFuncDocString$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3462.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetFuncDocString SetFuncDocString(MemorySegment segment, Arena scope) {
-        return SetFuncDocString.ofAddress(SetFuncDocString$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetVarDocString)(ICreateTypeInfo2*,UINT,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeDescAlias)(ICreateTypeInfo2 *, TYPEDESC *) __attribute__((stdcall))
      * }
      */
-    public interface SetVarDocString {
+    public static class SetTypeDescAlias {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2);
-        static MemorySegment allocate(SetVarDocString fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3462.const$3, fi, constants$485.const$5, scope);
+        SetTypeDescAlias() {
+            // Should not be called directly
         }
-        static SetVarDocString ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2) -> {
-                try {
-                    return (int)constants$1770.const$5.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetTypeDescAlias.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetTypeDescAlias.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetVarDocString$VH() {
-        return constants$3462.const$4;
+    private static final AddressLayout SetTypeDescAlias$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetTypeDescAlias"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeDescAlias)(ICreateTypeInfo2 *, TYPEDESC *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetTypeDescAlias$layout() {
+        return SetTypeDescAlias$LAYOUT;
     }
+
+    private static final long SetTypeDescAlias$OFFSET = 136;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeDescAlias)(ICreateTypeInfo2 *, TYPEDESC *) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetTypeDescAlias$offset() {
+        return SetTypeDescAlias$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetVarDocString)(ICreateTypeInfo2*,UINT,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeDescAlias)(ICreateTypeInfo2 *, TYPEDESC *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetVarDocString$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3462.const$4.get(seg);
+    public static MemorySegment SetTypeDescAlias(MemorySegment struct) {
+        return struct.get(SetTypeDescAlias$LAYOUT, SetTypeDescAlias$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetVarDocString)(ICreateTypeInfo2*,UINT,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeDescAlias)(ICreateTypeInfo2 *, TYPEDESC *) __attribute__((stdcall))
      * }
      */
-    public static void SetVarDocString$set(MemorySegment seg, MemorySegment x) {
-        constants$3462.const$4.set(seg, x);
+    public static void SetTypeDescAlias(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetTypeDescAlias$LAYOUT, SetTypeDescAlias$OFFSET, fieldValue);
     }
-    public static MemorySegment SetVarDocString$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3462.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetVarDocString$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3462.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetVarDocString SetVarDocString(MemorySegment segment, Arena scope) {
-        return SetVarDocString.ofAddress(SetVarDocString$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetFuncHelpContext)(ICreateTypeInfo2*,UINT,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*DefineFuncAsDllEntry)(ICreateTypeInfo2 *, UINT, LPOLESTR, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public interface SetFuncHelpContext {
+    public static class DefineFuncAsDllEntry {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, int _x2);
-        static MemorySegment allocate(SetFuncHelpContext fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3462.const$5, fi, constants$67.const$1, scope);
+        DefineFuncAsDllEntry() {
+            // Should not be called directly
         }
-        static SetFuncHelpContext ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, int __x2) -> {
-                try {
-                    return (int)constants$3030.const$1.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(DefineFuncAsDllEntry.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(DefineFuncAsDllEntry.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetFuncHelpContext$VH() {
-        return constants$3463.const$0;
+    private static final AddressLayout DefineFuncAsDllEntry$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("DefineFuncAsDllEntry"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*DefineFuncAsDllEntry)(ICreateTypeInfo2 *, UINT, LPOLESTR, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout DefineFuncAsDllEntry$layout() {
+        return DefineFuncAsDllEntry$LAYOUT;
     }
+
+    private static final long DefineFuncAsDllEntry$OFFSET = 144;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*DefineFuncAsDllEntry)(ICreateTypeInfo2 *, UINT, LPOLESTR, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static final long DefineFuncAsDllEntry$offset() {
+        return DefineFuncAsDllEntry$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetFuncHelpContext)(ICreateTypeInfo2*,UINT,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*DefineFuncAsDllEntry)(ICreateTypeInfo2 *, UINT, LPOLESTR, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetFuncHelpContext$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3463.const$0.get(seg);
+    public static MemorySegment DefineFuncAsDllEntry(MemorySegment struct) {
+        return struct.get(DefineFuncAsDllEntry$LAYOUT, DefineFuncAsDllEntry$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetFuncHelpContext)(ICreateTypeInfo2*,UINT,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*DefineFuncAsDllEntry)(ICreateTypeInfo2 *, UINT, LPOLESTR, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public static void SetFuncHelpContext$set(MemorySegment seg, MemorySegment x) {
-        constants$3463.const$0.set(seg, x);
+    public static void DefineFuncAsDllEntry(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(DefineFuncAsDllEntry$LAYOUT, DefineFuncAsDllEntry$OFFSET, fieldValue);
     }
-    public static MemorySegment SetFuncHelpContext$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3463.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetFuncHelpContext$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3463.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetFuncHelpContext SetFuncHelpContext(MemorySegment segment, Arena scope) {
-        return SetFuncHelpContext.ofAddress(SetFuncHelpContext$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetVarHelpContext)(ICreateTypeInfo2*,UINT,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncDocString)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public interface SetVarHelpContext {
+    public static class SetFuncDocString {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, int _x2);
-        static MemorySegment allocate(SetVarHelpContext fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3463.const$1, fi, constants$67.const$1, scope);
+        SetFuncDocString() {
+            // Should not be called directly
         }
-        static SetVarHelpContext ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, int __x2) -> {
-                try {
-                    return (int)constants$3030.const$1.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetFuncDocString.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetFuncDocString.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetVarHelpContext$VH() {
-        return constants$3463.const$2;
+    private static final AddressLayout SetFuncDocString$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetFuncDocString"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncDocString)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetFuncDocString$layout() {
+        return SetFuncDocString$LAYOUT;
     }
+
+    private static final long SetFuncDocString$OFFSET = 152;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncDocString)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetFuncDocString$offset() {
+        return SetFuncDocString$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetVarHelpContext)(ICreateTypeInfo2*,UINT,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncDocString)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetVarHelpContext$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3463.const$2.get(seg);
+    public static MemorySegment SetFuncDocString(MemorySegment struct) {
+        return struct.get(SetFuncDocString$LAYOUT, SetFuncDocString$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetVarHelpContext)(ICreateTypeInfo2*,UINT,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncDocString)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public static void SetVarHelpContext$set(MemorySegment seg, MemorySegment x) {
-        constants$3463.const$2.set(seg, x);
+    public static void SetFuncDocString(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetFuncDocString$LAYOUT, SetFuncDocString$OFFSET, fieldValue);
     }
-    public static MemorySegment SetVarHelpContext$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3463.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetVarHelpContext$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3463.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetVarHelpContext SetVarHelpContext(MemorySegment segment, Arena scope) {
-        return SetVarHelpContext.ofAddress(SetVarHelpContext$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetMops)(ICreateTypeInfo2*,UINT,BSTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetVarDocString)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public interface SetMops {
+    public static class SetVarDocString {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2);
-        static MemorySegment allocate(SetMops fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3463.const$3, fi, constants$485.const$5, scope);
+        SetVarDocString() {
+            // Should not be called directly
         }
-        static SetMops ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2) -> {
-                try {
-                    return (int)constants$1770.const$5.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetVarDocString.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetVarDocString.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetMops$VH() {
-        return constants$3463.const$4;
+    private static final AddressLayout SetVarDocString$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetVarDocString"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetVarDocString)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetVarDocString$layout() {
+        return SetVarDocString$LAYOUT;
     }
+
+    private static final long SetVarDocString$OFFSET = 160;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetVarDocString)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetVarDocString$offset() {
+        return SetVarDocString$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetMops)(ICreateTypeInfo2*,UINT,BSTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetVarDocString)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetMops$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3463.const$4.get(seg);
+    public static MemorySegment SetVarDocString(MemorySegment struct) {
+        return struct.get(SetVarDocString$LAYOUT, SetVarDocString$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetMops)(ICreateTypeInfo2*,UINT,BSTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetVarDocString)(ICreateTypeInfo2 *, UINT, LPOLESTR) __attribute__((stdcall))
      * }
      */
-    public static void SetMops$set(MemorySegment seg, MemorySegment x) {
-        constants$3463.const$4.set(seg, x);
+    public static void SetVarDocString(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetVarDocString$LAYOUT, SetVarDocString$OFFSET, fieldValue);
     }
-    public static MemorySegment SetMops$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3463.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetMops$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3463.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetMops SetMops(MemorySegment segment, Arena scope) {
-        return SetMops.ofAddress(SetMops$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetTypeIdldesc)(ICreateTypeInfo2*,IDLDESC*);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncHelpContext)(ICreateTypeInfo2 *, UINT, DWORD) __attribute__((stdcall))
      * }
      */
-    public interface SetTypeIdldesc {
+    public static class SetFuncHelpContext {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1);
-        static MemorySegment allocate(SetTypeIdldesc fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3463.const$5, fi, constants$34.const$0, scope);
+        SetFuncHelpContext() {
+            // Should not be called directly
         }
-        static SetTypeIdldesc ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1) -> {
-                try {
-                    return (int)constants$92.const$2.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, int _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetFuncHelpContext.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetFuncHelpContext.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, int _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetTypeIdldesc$VH() {
-        return constants$3464.const$0;
+    private static final AddressLayout SetFuncHelpContext$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetFuncHelpContext"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncHelpContext)(ICreateTypeInfo2 *, UINT, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetFuncHelpContext$layout() {
+        return SetFuncHelpContext$LAYOUT;
     }
+
+    private static final long SetFuncHelpContext$OFFSET = 168;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncHelpContext)(ICreateTypeInfo2 *, UINT, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetFuncHelpContext$offset() {
+        return SetFuncHelpContext$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetTypeIdldesc)(ICreateTypeInfo2*,IDLDESC*);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncHelpContext)(ICreateTypeInfo2 *, UINT, DWORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetTypeIdldesc$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3464.const$0.get(seg);
+    public static MemorySegment SetFuncHelpContext(MemorySegment struct) {
+        return struct.get(SetFuncHelpContext$LAYOUT, SetFuncHelpContext$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetTypeIdldesc)(ICreateTypeInfo2*,IDLDESC*);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncHelpContext)(ICreateTypeInfo2 *, UINT, DWORD) __attribute__((stdcall))
      * }
      */
-    public static void SetTypeIdldesc$set(MemorySegment seg, MemorySegment x) {
-        constants$3464.const$0.set(seg, x);
+    public static void SetFuncHelpContext(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetFuncHelpContext$LAYOUT, SetFuncHelpContext$OFFSET, fieldValue);
     }
-    public static MemorySegment SetTypeIdldesc$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3464.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetTypeIdldesc$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3464.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetTypeIdldesc SetTypeIdldesc(MemorySegment segment, Arena scope) {
-        return SetTypeIdldesc.ofAddress(SetTypeIdldesc$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*LayOut)(ICreateTypeInfo2*);
+     * {@snippet lang=c :
+     * HRESULT (*SetVarHelpContext)(ICreateTypeInfo2 *, UINT, DWORD) __attribute__((stdcall))
      * }
      */
-    public interface LayOut {
+    public static class SetVarHelpContext {
 
-        int apply(java.lang.foreign.MemorySegment _x0);
-        static MemorySegment allocate(LayOut fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3464.const$1, fi, constants$18.const$5, scope);
+        SetVarHelpContext() {
+            // Should not be called directly
         }
-        static LayOut ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0) -> {
-                try {
-                    return (int)constants$495.const$0.invokeExact(symbol, __x0);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, int _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetVarHelpContext.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetVarHelpContext.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, int _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle LayOut$VH() {
-        return constants$3464.const$2;
+    private static final AddressLayout SetVarHelpContext$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetVarHelpContext"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetVarHelpContext)(ICreateTypeInfo2 *, UINT, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetVarHelpContext$layout() {
+        return SetVarHelpContext$LAYOUT;
     }
+
+    private static final long SetVarHelpContext$OFFSET = 176;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetVarHelpContext)(ICreateTypeInfo2 *, UINT, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetVarHelpContext$offset() {
+        return SetVarHelpContext$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*LayOut)(ICreateTypeInfo2*);
+     * {@snippet lang=c :
+     * HRESULT (*SetVarHelpContext)(ICreateTypeInfo2 *, UINT, DWORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment LayOut$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3464.const$2.get(seg);
+    public static MemorySegment SetVarHelpContext(MemorySegment struct) {
+        return struct.get(SetVarHelpContext$LAYOUT, SetVarHelpContext$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*LayOut)(ICreateTypeInfo2*);
+     * {@snippet lang=c :
+     * HRESULT (*SetVarHelpContext)(ICreateTypeInfo2 *, UINT, DWORD) __attribute__((stdcall))
      * }
      */
-    public static void LayOut$set(MemorySegment seg, MemorySegment x) {
-        constants$3464.const$2.set(seg, x);
+    public static void SetVarHelpContext(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetVarHelpContext$LAYOUT, SetVarHelpContext$OFFSET, fieldValue);
     }
-    public static MemorySegment LayOut$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3464.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void LayOut$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3464.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static LayOut LayOut(MemorySegment segment, Arena scope) {
-        return LayOut.ofAddress(LayOut$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*DeleteFuncDesc)(ICreateTypeInfo2*,UINT);
+     * {@snippet lang=c :
+     * HRESULT (*SetMops)(ICreateTypeInfo2 *, UINT, BSTR) __attribute__((stdcall))
      * }
      */
-    public interface DeleteFuncDesc {
+    public static class SetMops {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1);
-        static MemorySegment allocate(DeleteFuncDesc fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3464.const$3, fi, constants$65.const$2, scope);
+        SetMops() {
+            // Should not be called directly
         }
-        static DeleteFuncDesc ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1) -> {
-                try {
-                    return (int)constants$800.const$4.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetMops.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetMops.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle DeleteFuncDesc$VH() {
-        return constants$3464.const$4;
+    private static final AddressLayout SetMops$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetMops"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetMops)(ICreateTypeInfo2 *, UINT, BSTR) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetMops$layout() {
+        return SetMops$LAYOUT;
     }
+
+    private static final long SetMops$OFFSET = 184;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetMops)(ICreateTypeInfo2 *, UINT, BSTR) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetMops$offset() {
+        return SetMops$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*DeleteFuncDesc)(ICreateTypeInfo2*,UINT);
+     * {@snippet lang=c :
+     * HRESULT (*SetMops)(ICreateTypeInfo2 *, UINT, BSTR) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment DeleteFuncDesc$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3464.const$4.get(seg);
+    public static MemorySegment SetMops(MemorySegment struct) {
+        return struct.get(SetMops$LAYOUT, SetMops$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*DeleteFuncDesc)(ICreateTypeInfo2*,UINT);
+     * {@snippet lang=c :
+     * HRESULT (*SetMops)(ICreateTypeInfo2 *, UINT, BSTR) __attribute__((stdcall))
      * }
      */
-    public static void DeleteFuncDesc$set(MemorySegment seg, MemorySegment x) {
-        constants$3464.const$4.set(seg, x);
+    public static void SetMops(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetMops$LAYOUT, SetMops$OFFSET, fieldValue);
     }
-    public static MemorySegment DeleteFuncDesc$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3464.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void DeleteFuncDesc$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3464.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static DeleteFuncDesc DeleteFuncDesc(MemorySegment segment, Arena scope) {
-        return DeleteFuncDesc.ofAddress(DeleteFuncDesc$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*DeleteFuncDescByMemId)(ICreateTypeInfo2*,MEMBERID,INVOKEKIND);
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeIdldesc)(ICreateTypeInfo2 *, IDLDESC *) __attribute__((stdcall))
      * }
      */
-    public interface DeleteFuncDescByMemId {
+    public static class SetTypeIdldesc {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, int _x2);
-        static MemorySegment allocate(DeleteFuncDescByMemId fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3464.const$5, fi, constants$67.const$1, scope);
+        SetTypeIdldesc() {
+            // Should not be called directly
         }
-        static DeleteFuncDescByMemId ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, int __x2) -> {
-                try {
-                    return (int)constants$3030.const$1.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetTypeIdldesc.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetTypeIdldesc.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle DeleteFuncDescByMemId$VH() {
-        return constants$3465.const$0;
+    private static final AddressLayout SetTypeIdldesc$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetTypeIdldesc"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeIdldesc)(ICreateTypeInfo2 *, IDLDESC *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetTypeIdldesc$layout() {
+        return SetTypeIdldesc$LAYOUT;
     }
+
+    private static final long SetTypeIdldesc$OFFSET = 192;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeIdldesc)(ICreateTypeInfo2 *, IDLDESC *) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetTypeIdldesc$offset() {
+        return SetTypeIdldesc$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*DeleteFuncDescByMemId)(ICreateTypeInfo2*,MEMBERID,INVOKEKIND);
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeIdldesc)(ICreateTypeInfo2 *, IDLDESC *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment DeleteFuncDescByMemId$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3465.const$0.get(seg);
+    public static MemorySegment SetTypeIdldesc(MemorySegment struct) {
+        return struct.get(SetTypeIdldesc$LAYOUT, SetTypeIdldesc$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*DeleteFuncDescByMemId)(ICreateTypeInfo2*,MEMBERID,INVOKEKIND);
+     * {@snippet lang=c :
+     * HRESULT (*SetTypeIdldesc)(ICreateTypeInfo2 *, IDLDESC *) __attribute__((stdcall))
      * }
      */
-    public static void DeleteFuncDescByMemId$set(MemorySegment seg, MemorySegment x) {
-        constants$3465.const$0.set(seg, x);
+    public static void SetTypeIdldesc(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetTypeIdldesc$LAYOUT, SetTypeIdldesc$OFFSET, fieldValue);
     }
-    public static MemorySegment DeleteFuncDescByMemId$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3465.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void DeleteFuncDescByMemId$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3465.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static DeleteFuncDescByMemId DeleteFuncDescByMemId(MemorySegment segment, Arena scope) {
-        return DeleteFuncDescByMemId.ofAddress(DeleteFuncDescByMemId$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*DeleteVarDesc)(ICreateTypeInfo2*,UINT);
+     * {@snippet lang=c :
+     * HRESULT (*LayOut)(ICreateTypeInfo2 *) __attribute__((stdcall))
      * }
      */
-    public interface DeleteVarDesc {
+    public static class LayOut {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1);
-        static MemorySegment allocate(DeleteVarDesc fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3465.const$1, fi, constants$65.const$2, scope);
+        LayOut() {
+            // Should not be called directly
         }
-        static DeleteVarDesc ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1) -> {
-                try {
-                    return (int)constants$800.const$4.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(LayOut.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(LayOut.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle DeleteVarDesc$VH() {
-        return constants$3465.const$2;
+    private static final AddressLayout LayOut$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("LayOut"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*LayOut)(ICreateTypeInfo2 *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout LayOut$layout() {
+        return LayOut$LAYOUT;
     }
+
+    private static final long LayOut$OFFSET = 200;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*LayOut)(ICreateTypeInfo2 *) __attribute__((stdcall))
+     * }
+     */
+    public static final long LayOut$offset() {
+        return LayOut$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*DeleteVarDesc)(ICreateTypeInfo2*,UINT);
+     * {@snippet lang=c :
+     * HRESULT (*LayOut)(ICreateTypeInfo2 *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment DeleteVarDesc$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3465.const$2.get(seg);
+    public static MemorySegment LayOut(MemorySegment struct) {
+        return struct.get(LayOut$LAYOUT, LayOut$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*DeleteVarDesc)(ICreateTypeInfo2*,UINT);
+     * {@snippet lang=c :
+     * HRESULT (*LayOut)(ICreateTypeInfo2 *) __attribute__((stdcall))
      * }
      */
-    public static void DeleteVarDesc$set(MemorySegment seg, MemorySegment x) {
-        constants$3465.const$2.set(seg, x);
+    public static void LayOut(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(LayOut$LAYOUT, LayOut$OFFSET, fieldValue);
     }
-    public static MemorySegment DeleteVarDesc$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3465.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void DeleteVarDesc$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3465.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static DeleteVarDesc DeleteVarDesc(MemorySegment segment, Arena scope) {
-        return DeleteVarDesc.ofAddress(DeleteVarDesc$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*DeleteVarDescByMemId)(ICreateTypeInfo2*,MEMBERID);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteFuncDesc)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
      * }
      */
-    public interface DeleteVarDescByMemId {
+    public static class DeleteFuncDesc {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1);
-        static MemorySegment allocate(DeleteVarDescByMemId fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3465.const$3, fi, constants$65.const$2, scope);
+        DeleteFuncDesc() {
+            // Should not be called directly
         }
-        static DeleteVarDescByMemId ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1) -> {
-                try {
-                    return (int)constants$800.const$4.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(DeleteFuncDesc.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(DeleteFuncDesc.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle DeleteVarDescByMemId$VH() {
-        return constants$3465.const$4;
+    private static final AddressLayout DeleteFuncDesc$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("DeleteFuncDesc"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*DeleteFuncDesc)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout DeleteFuncDesc$layout() {
+        return DeleteFuncDesc$LAYOUT;
     }
+
+    private static final long DeleteFuncDesc$OFFSET = 208;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*DeleteFuncDesc)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
+     * }
+     */
+    public static final long DeleteFuncDesc$offset() {
+        return DeleteFuncDesc$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*DeleteVarDescByMemId)(ICreateTypeInfo2*,MEMBERID);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteFuncDesc)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment DeleteVarDescByMemId$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3465.const$4.get(seg);
+    public static MemorySegment DeleteFuncDesc(MemorySegment struct) {
+        return struct.get(DeleteFuncDesc$LAYOUT, DeleteFuncDesc$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*DeleteVarDescByMemId)(ICreateTypeInfo2*,MEMBERID);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteFuncDesc)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
      * }
      */
-    public static void DeleteVarDescByMemId$set(MemorySegment seg, MemorySegment x) {
-        constants$3465.const$4.set(seg, x);
+    public static void DeleteFuncDesc(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(DeleteFuncDesc$LAYOUT, DeleteFuncDesc$OFFSET, fieldValue);
     }
-    public static MemorySegment DeleteVarDescByMemId$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3465.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void DeleteVarDescByMemId$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3465.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static DeleteVarDescByMemId DeleteVarDescByMemId(MemorySegment segment, Arena scope) {
-        return DeleteVarDescByMemId.ofAddress(DeleteVarDescByMemId$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*DeleteImplType)(ICreateTypeInfo2*,UINT);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteFuncDescByMemId)(ICreateTypeInfo2 *, MEMBERID, INVOKEKIND) __attribute__((stdcall))
      * }
      */
-    public interface DeleteImplType {
+    public static class DeleteFuncDescByMemId {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1);
-        static MemorySegment allocate(DeleteImplType fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3465.const$5, fi, constants$65.const$2, scope);
+        DeleteFuncDescByMemId() {
+            // Should not be called directly
         }
-        static DeleteImplType ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1) -> {
-                try {
-                    return (int)constants$800.const$4.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, int _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_INT
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(DeleteFuncDescByMemId.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(DeleteFuncDescByMemId.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, int _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle DeleteImplType$VH() {
-        return constants$3466.const$0;
+    private static final AddressLayout DeleteFuncDescByMemId$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("DeleteFuncDescByMemId"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*DeleteFuncDescByMemId)(ICreateTypeInfo2 *, MEMBERID, INVOKEKIND) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout DeleteFuncDescByMemId$layout() {
+        return DeleteFuncDescByMemId$LAYOUT;
     }
+
+    private static final long DeleteFuncDescByMemId$OFFSET = 216;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*DeleteFuncDescByMemId)(ICreateTypeInfo2 *, MEMBERID, INVOKEKIND) __attribute__((stdcall))
+     * }
+     */
+    public static final long DeleteFuncDescByMemId$offset() {
+        return DeleteFuncDescByMemId$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*DeleteImplType)(ICreateTypeInfo2*,UINT);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteFuncDescByMemId)(ICreateTypeInfo2 *, MEMBERID, INVOKEKIND) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment DeleteImplType$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3466.const$0.get(seg);
+    public static MemorySegment DeleteFuncDescByMemId(MemorySegment struct) {
+        return struct.get(DeleteFuncDescByMemId$LAYOUT, DeleteFuncDescByMemId$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*DeleteImplType)(ICreateTypeInfo2*,UINT);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteFuncDescByMemId)(ICreateTypeInfo2 *, MEMBERID, INVOKEKIND) __attribute__((stdcall))
      * }
      */
-    public static void DeleteImplType$set(MemorySegment seg, MemorySegment x) {
-        constants$3466.const$0.set(seg, x);
+    public static void DeleteFuncDescByMemId(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(DeleteFuncDescByMemId$LAYOUT, DeleteFuncDescByMemId$OFFSET, fieldValue);
     }
-    public static MemorySegment DeleteImplType$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3466.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void DeleteImplType$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3466.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static DeleteImplType DeleteImplType(MemorySegment segment, Arena scope) {
-        return DeleteImplType.ofAddress(DeleteImplType$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetCustData)(ICreateTypeInfo2*,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteVarDesc)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
      * }
      */
-    public interface SetCustData {
+    public static class DeleteVarDesc {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1, java.lang.foreign.MemorySegment _x2);
-        static MemorySegment allocate(SetCustData fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3466.const$1, fi, constants$37.const$3, scope);
+        DeleteVarDesc() {
+            // Should not be called directly
         }
-        static SetCustData ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1, java.lang.foreign.MemorySegment __x2) -> {
-                try {
-                    return (int)constants$620.const$5.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(DeleteVarDesc.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(DeleteVarDesc.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetCustData$VH() {
-        return constants$3466.const$2;
+    private static final AddressLayout DeleteVarDesc$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("DeleteVarDesc"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*DeleteVarDesc)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout DeleteVarDesc$layout() {
+        return DeleteVarDesc$LAYOUT;
     }
+
+    private static final long DeleteVarDesc$OFFSET = 224;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*DeleteVarDesc)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
+     * }
+     */
+    public static final long DeleteVarDesc$offset() {
+        return DeleteVarDesc$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetCustData)(ICreateTypeInfo2*,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteVarDesc)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetCustData$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3466.const$2.get(seg);
+    public static MemorySegment DeleteVarDesc(MemorySegment struct) {
+        return struct.get(DeleteVarDesc$LAYOUT, DeleteVarDesc$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetCustData)(ICreateTypeInfo2*,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteVarDesc)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
      * }
      */
-    public static void SetCustData$set(MemorySegment seg, MemorySegment x) {
-        constants$3466.const$2.set(seg, x);
+    public static void DeleteVarDesc(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(DeleteVarDesc$LAYOUT, DeleteVarDesc$OFFSET, fieldValue);
     }
-    public static MemorySegment SetCustData$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3466.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetCustData$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3466.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetCustData SetCustData(MemorySegment segment, Arena scope) {
-        return SetCustData.ofAddress(SetCustData$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetFuncCustData)(ICreateTypeInfo2*,UINT,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteVarDescByMemId)(ICreateTypeInfo2 *, MEMBERID) __attribute__((stdcall))
      * }
      */
-    public interface SetFuncCustData {
+    public static class DeleteVarDescByMemId {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2, java.lang.foreign.MemorySegment _x3);
-        static MemorySegment allocate(SetFuncCustData fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3466.const$3, fi, constants$585.const$2, scope);
+        DeleteVarDescByMemId() {
+            // Should not be called directly
         }
-        static SetFuncCustData ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2, java.lang.foreign.MemorySegment __x3) -> {
-                try {
-                    return (int)constants$2151.const$1.invokeExact(symbol, __x0, __x1, __x2, __x3);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(DeleteVarDescByMemId.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(DeleteVarDescByMemId.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetFuncCustData$VH() {
-        return constants$3466.const$4;
+    private static final AddressLayout DeleteVarDescByMemId$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("DeleteVarDescByMemId"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*DeleteVarDescByMemId)(ICreateTypeInfo2 *, MEMBERID) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout DeleteVarDescByMemId$layout() {
+        return DeleteVarDescByMemId$LAYOUT;
     }
+
+    private static final long DeleteVarDescByMemId$OFFSET = 232;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*DeleteVarDescByMemId)(ICreateTypeInfo2 *, MEMBERID) __attribute__((stdcall))
+     * }
+     */
+    public static final long DeleteVarDescByMemId$offset() {
+        return DeleteVarDescByMemId$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetFuncCustData)(ICreateTypeInfo2*,UINT,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteVarDescByMemId)(ICreateTypeInfo2 *, MEMBERID) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetFuncCustData$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3466.const$4.get(seg);
+    public static MemorySegment DeleteVarDescByMemId(MemorySegment struct) {
+        return struct.get(DeleteVarDescByMemId$LAYOUT, DeleteVarDescByMemId$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetFuncCustData)(ICreateTypeInfo2*,UINT,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteVarDescByMemId)(ICreateTypeInfo2 *, MEMBERID) __attribute__((stdcall))
      * }
      */
-    public static void SetFuncCustData$set(MemorySegment seg, MemorySegment x) {
-        constants$3466.const$4.set(seg, x);
+    public static void DeleteVarDescByMemId(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(DeleteVarDescByMemId$LAYOUT, DeleteVarDescByMemId$OFFSET, fieldValue);
     }
-    public static MemorySegment SetFuncCustData$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3466.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetFuncCustData$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3466.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetFuncCustData SetFuncCustData(MemorySegment segment, Arena scope) {
-        return SetFuncCustData.ofAddress(SetFuncCustData$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetParamCustData)(ICreateTypeInfo2*,UINT,UINT,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteImplType)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
      * }
      */
-    public interface SetParamCustData {
+    public static class DeleteImplType {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, int _x2, java.lang.foreign.MemorySegment _x3, java.lang.foreign.MemorySegment _x4);
-        static MemorySegment allocate(SetParamCustData fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3466.const$5, fi, constants$1007.const$4, scope);
+        DeleteImplType() {
+            // Should not be called directly
         }
-        static SetParamCustData ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, int __x2, java.lang.foreign.MemorySegment __x3, java.lang.foreign.MemorySegment __x4) -> {
-                try {
-                    return (int)constants$3467.const$0.invokeExact(symbol, __x0, __x1, __x2, __x3, __x4);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(DeleteImplType.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(DeleteImplType.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetParamCustData$VH() {
-        return constants$3467.const$1;
+    private static final AddressLayout DeleteImplType$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("DeleteImplType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*DeleteImplType)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout DeleteImplType$layout() {
+        return DeleteImplType$LAYOUT;
     }
+
+    private static final long DeleteImplType$OFFSET = 240;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*DeleteImplType)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
+     * }
+     */
+    public static final long DeleteImplType$offset() {
+        return DeleteImplType$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetParamCustData)(ICreateTypeInfo2*,UINT,UINT,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteImplType)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetParamCustData$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3467.const$1.get(seg);
+    public static MemorySegment DeleteImplType(MemorySegment struct) {
+        return struct.get(DeleteImplType$LAYOUT, DeleteImplType$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetParamCustData)(ICreateTypeInfo2*,UINT,UINT,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*DeleteImplType)(ICreateTypeInfo2 *, UINT) __attribute__((stdcall))
      * }
      */
-    public static void SetParamCustData$set(MemorySegment seg, MemorySegment x) {
-        constants$3467.const$1.set(seg, x);
+    public static void DeleteImplType(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(DeleteImplType$LAYOUT, DeleteImplType$OFFSET, fieldValue);
     }
-    public static MemorySegment SetParamCustData$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3467.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetParamCustData$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3467.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetParamCustData SetParamCustData(MemorySegment segment, Arena scope) {
-        return SetParamCustData.ofAddress(SetParamCustData$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetVarCustData)(ICreateTypeInfo2*,UINT,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*SetCustData)(ICreateTypeInfo2 *, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public interface SetVarCustData {
+    public static class SetCustData {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2, java.lang.foreign.MemorySegment _x3);
-        static MemorySegment allocate(SetVarCustData fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3467.const$2, fi, constants$585.const$2, scope);
+        SetCustData() {
+            // Should not be called directly
         }
-        static SetVarCustData ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2, java.lang.foreign.MemorySegment __x3) -> {
-                try {
-                    return (int)constants$2151.const$1.invokeExact(symbol, __x0, __x1, __x2, __x3);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetCustData.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetCustData.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetVarCustData$VH() {
-        return constants$3467.const$3;
+    private static final AddressLayout SetCustData$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetCustData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetCustData)(ICreateTypeInfo2 *, const GUID *const, VARIANT *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetCustData$layout() {
+        return SetCustData$LAYOUT;
     }
+
+    private static final long SetCustData$OFFSET = 248;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetCustData)(ICreateTypeInfo2 *, const GUID *const, VARIANT *) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetCustData$offset() {
+        return SetCustData$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetVarCustData)(ICreateTypeInfo2*,UINT,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*SetCustData)(ICreateTypeInfo2 *, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetVarCustData$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3467.const$3.get(seg);
+    public static MemorySegment SetCustData(MemorySegment struct) {
+        return struct.get(SetCustData$LAYOUT, SetCustData$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetVarCustData)(ICreateTypeInfo2*,UINT,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*SetCustData)(ICreateTypeInfo2 *, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public static void SetVarCustData$set(MemorySegment seg, MemorySegment x) {
-        constants$3467.const$3.set(seg, x);
+    public static void SetCustData(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetCustData$LAYOUT, SetCustData$OFFSET, fieldValue);
     }
-    public static MemorySegment SetVarCustData$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3467.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetVarCustData$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3467.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetVarCustData SetVarCustData(MemorySegment segment, Arena scope) {
-        return SetVarCustData.ofAddress(SetVarCustData$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetImplTypeCustData)(ICreateTypeInfo2*,UINT,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public interface SetImplTypeCustData {
+    public static class SetFuncCustData {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2, java.lang.foreign.MemorySegment _x3);
-        static MemorySegment allocate(SetImplTypeCustData fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3467.const$4, fi, constants$585.const$2, scope);
+        SetFuncCustData() {
+            // Should not be called directly
         }
-        static SetImplTypeCustData ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2, java.lang.foreign.MemorySegment __x3) -> {
-                try {
-                    return (int)constants$2151.const$1.invokeExact(symbol, __x0, __x1, __x2, __x3);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetFuncCustData.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetFuncCustData.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetImplTypeCustData$VH() {
-        return constants$3467.const$5;
+    private static final AddressLayout SetFuncCustData$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetFuncCustData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetFuncCustData$layout() {
+        return SetFuncCustData$LAYOUT;
     }
+
+    private static final long SetFuncCustData$OFFSET = 256;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetFuncCustData$offset() {
+        return SetFuncCustData$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetImplTypeCustData)(ICreateTypeInfo2*,UINT,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetImplTypeCustData$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3467.const$5.get(seg);
+    public static MemorySegment SetFuncCustData(MemorySegment struct) {
+        return struct.get(SetFuncCustData$LAYOUT, SetFuncCustData$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetImplTypeCustData)(ICreateTypeInfo2*,UINT,const GUID*,VARIANT*);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public static void SetImplTypeCustData$set(MemorySegment seg, MemorySegment x) {
-        constants$3467.const$5.set(seg, x);
+    public static void SetFuncCustData(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetFuncCustData$LAYOUT, SetFuncCustData$OFFSET, fieldValue);
     }
-    public static MemorySegment SetImplTypeCustData$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3467.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetImplTypeCustData$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3467.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetImplTypeCustData SetImplTypeCustData(MemorySegment segment, Arena scope) {
-        return SetImplTypeCustData.ofAddress(SetImplTypeCustData$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetHelpStringContext)(ICreateTypeInfo2*,ULONG);
+     * {@snippet lang=c :
+     * HRESULT (*SetParamCustData)(ICreateTypeInfo2 *, UINT, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public interface SetHelpStringContext {
+    public static class SetParamCustData {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1);
-        static MemorySegment allocate(SetHelpStringContext fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3468.const$0, fi, constants$65.const$2, scope);
+        SetParamCustData() {
+            // Should not be called directly
         }
-        static SetHelpStringContext ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1) -> {
-                try {
-                    return (int)constants$800.const$4.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, int _x2, MemorySegment _x3, MemorySegment _x4);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetParamCustData.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetParamCustData.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, int _x2, MemorySegment _x3, MemorySegment _x4) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetHelpStringContext$VH() {
-        return constants$3468.const$1;
+    private static final AddressLayout SetParamCustData$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetParamCustData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetParamCustData)(ICreateTypeInfo2 *, UINT, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetParamCustData$layout() {
+        return SetParamCustData$LAYOUT;
     }
+
+    private static final long SetParamCustData$OFFSET = 264;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetParamCustData)(ICreateTypeInfo2 *, UINT, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetParamCustData$offset() {
+        return SetParamCustData$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetHelpStringContext)(ICreateTypeInfo2*,ULONG);
+     * {@snippet lang=c :
+     * HRESULT (*SetParamCustData)(ICreateTypeInfo2 *, UINT, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetHelpStringContext$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3468.const$1.get(seg);
+    public static MemorySegment SetParamCustData(MemorySegment struct) {
+        return struct.get(SetParamCustData$LAYOUT, SetParamCustData$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetHelpStringContext)(ICreateTypeInfo2*,ULONG);
+     * {@snippet lang=c :
+     * HRESULT (*SetParamCustData)(ICreateTypeInfo2 *, UINT, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public static void SetHelpStringContext$set(MemorySegment seg, MemorySegment x) {
-        constants$3468.const$1.set(seg, x);
+    public static void SetParamCustData(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetParamCustData$LAYOUT, SetParamCustData$OFFSET, fieldValue);
     }
-    public static MemorySegment SetHelpStringContext$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3468.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetHelpStringContext$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3468.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetHelpStringContext SetHelpStringContext(MemorySegment segment, Arena scope) {
-        return SetHelpStringContext.ofAddress(SetHelpStringContext$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetFuncHelpStringContext)(ICreateTypeInfo2*,UINT,ULONG);
+     * {@snippet lang=c :
+     * HRESULT (*SetVarCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public interface SetFuncHelpStringContext {
+    public static class SetVarCustData {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, int _x2);
-        static MemorySegment allocate(SetFuncHelpStringContext fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3468.const$2, fi, constants$67.const$1, scope);
+        SetVarCustData() {
+            // Should not be called directly
         }
-        static SetFuncHelpStringContext ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, int __x2) -> {
-                try {
-                    return (int)constants$3030.const$1.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetVarCustData.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetVarCustData.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetFuncHelpStringContext$VH() {
-        return constants$3468.const$3;
+    private static final AddressLayout SetVarCustData$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetVarCustData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetVarCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetVarCustData$layout() {
+        return SetVarCustData$LAYOUT;
     }
+
+    private static final long SetVarCustData$OFFSET = 272;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetVarCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetVarCustData$offset() {
+        return SetVarCustData$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetFuncHelpStringContext)(ICreateTypeInfo2*,UINT,ULONG);
+     * {@snippet lang=c :
+     * HRESULT (*SetVarCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetFuncHelpStringContext$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3468.const$3.get(seg);
+    public static MemorySegment SetVarCustData(MemorySegment struct) {
+        return struct.get(SetVarCustData$LAYOUT, SetVarCustData$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetFuncHelpStringContext)(ICreateTypeInfo2*,UINT,ULONG);
+     * {@snippet lang=c :
+     * HRESULT (*SetVarCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public static void SetFuncHelpStringContext$set(MemorySegment seg, MemorySegment x) {
-        constants$3468.const$3.set(seg, x);
+    public static void SetVarCustData(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetVarCustData$LAYOUT, SetVarCustData$OFFSET, fieldValue);
     }
-    public static MemorySegment SetFuncHelpStringContext$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3468.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetFuncHelpStringContext$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3468.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetFuncHelpStringContext SetFuncHelpStringContext(MemorySegment segment, Arena scope) {
-        return SetFuncHelpStringContext.ofAddress(SetFuncHelpStringContext$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetVarHelpStringContext)(ICreateTypeInfo2*,UINT,ULONG);
+     * {@snippet lang=c :
+     * HRESULT (*SetImplTypeCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public interface SetVarHelpStringContext {
+    public static class SetImplTypeCustData {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, int _x2);
-        static MemorySegment allocate(SetVarHelpStringContext fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3468.const$4, fi, constants$67.const$1, scope);
+        SetImplTypeCustData() {
+            // Should not be called directly
         }
-        static SetVarHelpStringContext ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, int __x2) -> {
-                try {
-                    return (int)constants$3030.const$1.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetImplTypeCustData.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetImplTypeCustData.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetVarHelpStringContext$VH() {
-        return constants$3468.const$5;
+    private static final AddressLayout SetImplTypeCustData$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetImplTypeCustData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetImplTypeCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetImplTypeCustData$layout() {
+        return SetImplTypeCustData$LAYOUT;
     }
+
+    private static final long SetImplTypeCustData$OFFSET = 280;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetImplTypeCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetImplTypeCustData$offset() {
+        return SetImplTypeCustData$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetVarHelpStringContext)(ICreateTypeInfo2*,UINT,ULONG);
+     * {@snippet lang=c :
+     * HRESULT (*SetImplTypeCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetVarHelpStringContext$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3468.const$5.get(seg);
+    public static MemorySegment SetImplTypeCustData(MemorySegment struct) {
+        return struct.get(SetImplTypeCustData$LAYOUT, SetImplTypeCustData$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetVarHelpStringContext)(ICreateTypeInfo2*,UINT,ULONG);
+     * {@snippet lang=c :
+     * HRESULT (*SetImplTypeCustData)(ICreateTypeInfo2 *, UINT, const GUID *const, VARIANT *) __attribute__((stdcall))
      * }
      */
-    public static void SetVarHelpStringContext$set(MemorySegment seg, MemorySegment x) {
-        constants$3468.const$5.set(seg, x);
+    public static void SetImplTypeCustData(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetImplTypeCustData$LAYOUT, SetImplTypeCustData$OFFSET, fieldValue);
     }
-    public static MemorySegment SetVarHelpStringContext$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3468.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetVarHelpStringContext$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3468.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetVarHelpStringContext SetVarHelpStringContext(MemorySegment segment, Arena scope) {
-        return SetVarHelpStringContext.ofAddress(SetVarHelpStringContext$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*Invalidate)(ICreateTypeInfo2*);
+     * {@snippet lang=c :
+     * HRESULT (*SetHelpStringContext)(ICreateTypeInfo2 *, ULONG) __attribute__((stdcall))
      * }
      */
-    public interface Invalidate {
+    public static class SetHelpStringContext {
 
-        int apply(java.lang.foreign.MemorySegment _x0);
-        static MemorySegment allocate(Invalidate fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3469.const$0, fi, constants$18.const$5, scope);
+        SetHelpStringContext() {
+            // Should not be called directly
         }
-        static Invalidate ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0) -> {
-                try {
-                    return (int)constants$495.const$0.invokeExact(symbol, __x0);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetHelpStringContext.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetHelpStringContext.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle Invalidate$VH() {
-        return constants$3469.const$1;
+    private static final AddressLayout SetHelpStringContext$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetHelpStringContext"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetHelpStringContext)(ICreateTypeInfo2 *, ULONG) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetHelpStringContext$layout() {
+        return SetHelpStringContext$LAYOUT;
     }
+
+    private static final long SetHelpStringContext$OFFSET = 288;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetHelpStringContext)(ICreateTypeInfo2 *, ULONG) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetHelpStringContext$offset() {
+        return SetHelpStringContext$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*Invalidate)(ICreateTypeInfo2*);
+     * {@snippet lang=c :
+     * HRESULT (*SetHelpStringContext)(ICreateTypeInfo2 *, ULONG) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment Invalidate$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3469.const$1.get(seg);
+    public static MemorySegment SetHelpStringContext(MemorySegment struct) {
+        return struct.get(SetHelpStringContext$LAYOUT, SetHelpStringContext$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*Invalidate)(ICreateTypeInfo2*);
+     * {@snippet lang=c :
+     * HRESULT (*SetHelpStringContext)(ICreateTypeInfo2 *, ULONG) __attribute__((stdcall))
      * }
      */
-    public static void Invalidate$set(MemorySegment seg, MemorySegment x) {
-        constants$3469.const$1.set(seg, x);
+    public static void SetHelpStringContext(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetHelpStringContext$LAYOUT, SetHelpStringContext$OFFSET, fieldValue);
     }
-    public static MemorySegment Invalidate$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3469.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Invalidate$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3469.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static Invalidate Invalidate(MemorySegment segment, Arena scope) {
-        return Invalidate.ofAddress(Invalidate$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetName)(ICreateTypeInfo2*,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncHelpStringContext)(ICreateTypeInfo2 *, UINT, ULONG) __attribute__((stdcall))
      * }
      */
-    public interface SetName {
+    public static class SetFuncHelpStringContext {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1);
-        static MemorySegment allocate(SetName fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3469.const$2, fi, constants$34.const$0, scope);
+        SetFuncHelpStringContext() {
+            // Should not be called directly
         }
-        static SetName ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1) -> {
-                try {
-                    return (int)constants$92.const$2.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, int _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetFuncHelpStringContext.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetFuncHelpStringContext.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, int _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetName$VH() {
-        return constants$3469.const$3;
+    private static final AddressLayout SetFuncHelpStringContext$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetFuncHelpStringContext"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncHelpStringContext)(ICreateTypeInfo2 *, UINT, ULONG) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetFuncHelpStringContext$layout() {
+        return SetFuncHelpStringContext$LAYOUT;
     }
+
+    private static final long SetFuncHelpStringContext$OFFSET = 296;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncHelpStringContext)(ICreateTypeInfo2 *, UINT, ULONG) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetFuncHelpStringContext$offset() {
+        return SetFuncHelpStringContext$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetName)(ICreateTypeInfo2*,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncHelpStringContext)(ICreateTypeInfo2 *, UINT, ULONG) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetName$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3469.const$3.get(seg);
+    public static MemorySegment SetFuncHelpStringContext(MemorySegment struct) {
+        return struct.get(SetFuncHelpStringContext$LAYOUT, SetFuncHelpStringContext$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetName)(ICreateTypeInfo2*,LPOLESTR);
+     * {@snippet lang=c :
+     * HRESULT (*SetFuncHelpStringContext)(ICreateTypeInfo2 *, UINT, ULONG) __attribute__((stdcall))
      * }
      */
-    public static void SetName$set(MemorySegment seg, MemorySegment x) {
-        constants$3469.const$3.set(seg, x);
+    public static void SetFuncHelpStringContext(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetFuncHelpStringContext$LAYOUT, SetFuncHelpStringContext$OFFSET, fieldValue);
     }
-    public static MemorySegment SetName$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3469.const$3.get(seg.asSlice(index*sizeof()));
+
+    /**
+     * {@snippet lang=c :
+     * HRESULT (*SetVarHelpStringContext)(ICreateTypeInfo2 *, UINT, ULONG) __attribute__((stdcall))
+     * }
+     */
+    public static class SetVarHelpStringContext {
+
+        SetVarHelpStringContext() {
+            // Should not be called directly
+        }
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, int _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetVarHelpStringContext.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetVarHelpStringContext.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, int _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
+        }
     }
-    public static void SetName$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3469.const$3.set(seg.asSlice(index*sizeof()), x);
+
+    private static final AddressLayout SetVarHelpStringContext$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetVarHelpStringContext"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetVarHelpStringContext)(ICreateTypeInfo2 *, UINT, ULONG) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetVarHelpStringContext$layout() {
+        return SetVarHelpStringContext$LAYOUT;
     }
-    public static SetName SetName(MemorySegment segment, Arena scope) {
-        return SetName.ofAddress(SetName$get(segment), scope);
+
+    private static final long SetVarHelpStringContext$OFFSET = 304;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetVarHelpStringContext)(ICreateTypeInfo2 *, UINT, ULONG) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetVarHelpStringContext$offset() {
+        return SetVarHelpStringContext$OFFSET;
     }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetVarHelpStringContext)(ICreateTypeInfo2 *, UINT, ULONG) __attribute__((stdcall))
+     * }
+     */
+    public static MemorySegment SetVarHelpStringContext(MemorySegment struct) {
+        return struct.get(SetVarHelpStringContext$LAYOUT, SetVarHelpStringContext$OFFSET);
     }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetVarHelpStringContext)(ICreateTypeInfo2 *, UINT, ULONG) __attribute__((stdcall))
+     * }
+     */
+    public static void SetVarHelpStringContext(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetVarHelpStringContext$LAYOUT, SetVarHelpStringContext$OFFSET, fieldValue);
+    }
+
+    /**
+     * {@snippet lang=c :
+     * HRESULT (*Invalidate)(ICreateTypeInfo2 *) __attribute__((stdcall))
+     * }
+     */
+    public static class Invalidate {
+
+        Invalidate() {
+            // Should not be called directly
+        }
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(Invalidate.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(Invalidate.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
+        }
+    }
+
+    private static final AddressLayout Invalidate$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("Invalidate"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*Invalidate)(ICreateTypeInfo2 *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout Invalidate$layout() {
+        return Invalidate$LAYOUT;
+    }
+
+    private static final long Invalidate$OFFSET = 312;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*Invalidate)(ICreateTypeInfo2 *) __attribute__((stdcall))
+     * }
+     */
+    public static final long Invalidate$offset() {
+        return Invalidate$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * HRESULT (*Invalidate)(ICreateTypeInfo2 *) __attribute__((stdcall))
+     * }
+     */
+    public static MemorySegment Invalidate(MemorySegment struct) {
+        return struct.get(Invalidate$LAYOUT, Invalidate$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * HRESULT (*Invalidate)(ICreateTypeInfo2 *) __attribute__((stdcall))
+     * }
+     */
+    public static void Invalidate(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(Invalidate$LAYOUT, Invalidate$OFFSET, fieldValue);
+    }
+
+    /**
+     * {@snippet lang=c :
+     * HRESULT (*SetName)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static class SetName {
+
+        SetName() {
+            // Should not be called directly
+        }
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetName.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetName.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
+        }
+    }
+
+    private static final AddressLayout SetName$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetName"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetName)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetName$layout() {
+        return SetName$LAYOUT;
+    }
+
+    private static final long SetName$OFFSET = 320;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetName)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetName$offset() {
+        return SetName$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetName)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static MemorySegment SetName(MemorySegment struct) {
+        return struct.get(SetName$LAYOUT, SetName$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetName)(ICreateTypeInfo2 *, LPOLESTR) __attribute__((stdcall))
+     * }
+     */
+    public static void SetName(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetName$LAYOUT, SetName$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
 }
-
 

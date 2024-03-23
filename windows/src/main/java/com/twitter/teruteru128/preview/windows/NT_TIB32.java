@@ -2,20 +2,36 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _NT_TIB32 NT_TIB32;
+ * {@snippet lang=c :
+ * typedef struct _NT_TIB32 {
+ *     DWORD ExceptionList;
+ *     DWORD StackBase;
+ *     DWORD StackLimit;
+ *     DWORD SubSystemTib;
+ *     union {
+ *         DWORD FiberData;
+ *         DWORD Version;
+ *     };
+ *     DWORD ArbitraryUserPointer;
+ *     DWORD Self;
+ * } NT_TIB32
  * }
  */
-public final class NT_TIB32 extends _NT_TIB32 {
+public class NT_TIB32 extends _NT_TIB32 {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private NT_TIB32() {}
+    NT_TIB32() {
+        // Should not be called directly
+    }
 }
-
 

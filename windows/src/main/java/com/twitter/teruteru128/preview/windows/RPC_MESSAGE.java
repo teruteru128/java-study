@@ -2,20 +2,37 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _RPC_MESSAGE RPC_MESSAGE;
+ * {@snippet lang=c :
+ * typedef struct _RPC_MESSAGE {
+ *     RPC_BINDING_HANDLE Handle;
+ *     unsigned long DataRepresentation;
+ *     void *Buffer;
+ *     unsigned int BufferLength;
+ *     unsigned int ProcNum;
+ *     PRPC_SYNTAX_IDENTIFIER TransferSyntax;
+ *     void *RpcInterfaceInformation;
+ *     void *ReservedForRuntime;
+ *     void *ManagerEpv;
+ *     void *ImportContext;
+ *     unsigned long RpcFlags;
+ * } RPC_MESSAGE
  * }
  */
-public final class RPC_MESSAGE extends _RPC_MESSAGE {
+public class RPC_MESSAGE extends _RPC_MESSAGE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private RPC_MESSAGE() {}
+    RPC_MESSAGE() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMCI_VD_ESCAPE_PARMSW MCI_VD_ESCAPE_PARMSW;
+ * {@snippet lang=c :
+ * typedef struct tagMCI_VD_ESCAPE_PARMSW {
+ *     DWORD_PTR dwCallback;
+ *     LPCWSTR lpstrCommand;
+ * } MCI_VD_ESCAPE_PARMSW
  * }
  */
-public final class MCI_VD_ESCAPE_PARMSW extends tagMCI_VD_ESCAPE_PARMSW {
+public class MCI_VD_ESCAPE_PARMSW extends tagMCI_VD_ESCAPE_PARMSW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MCI_VD_ESCAPE_PARMSW() {}
+    MCI_VD_ESCAPE_PARMSW() {
+        // Should not be called directly
+    }
 }
-
 

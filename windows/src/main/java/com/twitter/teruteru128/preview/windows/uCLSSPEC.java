@@ -2,20 +2,42 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct __MIDL___MIDL_itf_wtypes_0000_0001_0001 uCLSSPEC;
+ * {@snippet lang=c :
+ * typedef struct __MIDL___MIDL_itf_wtypes_0000_0001_0001 {
+ *     DWORD tyspec;
+ *     union __MIDL___MIDL_itf_wtypes_0000_0001_0005 {
+ *         CLSID clsid;
+ *         LPOLESTR pFileExt;
+ *         LPOLESTR pMimeType;
+ *         LPOLESTR pProgId;
+ *         LPOLESTR pFileName;
+ *         struct {
+ *             LPOLESTR pPackageName;
+ *             GUID PolicyId;
+ *         } ByName;
+ *         struct {
+ *             GUID ObjectId;
+ *             GUID PolicyId;
+ *         } ByObjectId;
+ *     } tagged_union;
+ * } uCLSSPEC
  * }
  */
-public final class uCLSSPEC extends __MIDL___MIDL_itf_wtypes_0000_0001_0001 {
+public class uCLSSPEC extends __MIDL___MIDL_itf_wtypes_0000_0001_0001 {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private uCLSSPEC() {}
+    uCLSSPEC() {
+        // Should not be called directly
+    }
 }
-
 

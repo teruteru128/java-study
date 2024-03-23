@@ -2,283 +2,497 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagCHOOSECOLORW {
  *     DWORD lStructSize;
  *     HWND hwndOwner;
  *     HWND hInstance;
  *     COLORREF rgbResult;
- *     COLORREF* lpCustColors;
+ *     COLORREF *lpCustColors;
  *     DWORD Flags;
  *     LPARAM lCustData;
  *     LPCCHOOKPROC lpfnHook;
  *     LPCWSTR lpTemplateName;
- * };
+ * }
  * }
  */
 public class tagCHOOSECOLORW {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$4435.const$0;
+    tagCHOOSECOLORW() {
+        // Should not be called directly
     }
-    public static VarHandle lStructSize$VH() {
-        return constants$4435.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD lStructSize;
-     * }
-     */
-    public static int lStructSize$get(MemorySegment seg) {
-        return (int)constants$4435.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD lStructSize;
-     * }
-     */
-    public static void lStructSize$set(MemorySegment seg, int x) {
-        constants$4435.const$1.set(seg, x);
-    }
-    public static int lStructSize$get(MemorySegment seg, long index) {
-        return (int)constants$4435.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lStructSize$set(MemorySegment seg, long index, int x) {
-        constants$4435.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle hwndOwner$VH() {
-        return constants$4435.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * HWND hwndOwner;
-     * }
-     */
-    public static MemorySegment hwndOwner$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4435.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * HWND hwndOwner;
-     * }
-     */
-    public static void hwndOwner$set(MemorySegment seg, MemorySegment x) {
-        constants$4435.const$2.set(seg, x);
-    }
-    public static MemorySegment hwndOwner$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4435.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void hwndOwner$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4435.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle hInstance$VH() {
-        return constants$4435.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * HWND hInstance;
-     * }
-     */
-    public static MemorySegment hInstance$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4435.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * HWND hInstance;
-     * }
-     */
-    public static void hInstance$set(MemorySegment seg, MemorySegment x) {
-        constants$4435.const$3.set(seg, x);
-    }
-    public static MemorySegment hInstance$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4435.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void hInstance$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4435.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle rgbResult$VH() {
-        return constants$4435.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * COLORREF rgbResult;
-     * }
-     */
-    public static int rgbResult$get(MemorySegment seg) {
-        return (int)constants$4435.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * COLORREF rgbResult;
-     * }
-     */
-    public static void rgbResult$set(MemorySegment seg, int x) {
-        constants$4435.const$4.set(seg, x);
-    }
-    public static int rgbResult$get(MemorySegment seg, long index) {
-        return (int)constants$4435.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void rgbResult$set(MemorySegment seg, long index, int x) {
-        constants$4435.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle lpCustColors$VH() {
-        return constants$4435.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * COLORREF* lpCustColors;
-     * }
-     */
-    public static MemorySegment lpCustColors$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4435.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * COLORREF* lpCustColors;
-     * }
-     */
-    public static void lpCustColors$set(MemorySegment seg, MemorySegment x) {
-        constants$4435.const$5.set(seg, x);
-    }
-    public static MemorySegment lpCustColors$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4435.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lpCustColors$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4435.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Flags$VH() {
-        return constants$4436.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Flags;
-     * }
-     */
-    public static int Flags$get(MemorySegment seg) {
-        return (int)constants$4436.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Flags;
-     * }
-     */
-    public static void Flags$set(MemorySegment seg, int x) {
-        constants$4436.const$0.set(seg, x);
-    }
-    public static int Flags$get(MemorySegment seg, long index) {
-        return (int)constants$4436.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Flags$set(MemorySegment seg, long index, int x) {
-        constants$4436.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle lCustData$VH() {
-        return constants$4436.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPARAM lCustData;
-     * }
-     */
-    public static long lCustData$get(MemorySegment seg) {
-        return (long)constants$4436.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPARAM lCustData;
-     * }
-     */
-    public static void lCustData$set(MemorySegment seg, long x) {
-        constants$4436.const$1.set(seg, x);
-    }
-    public static long lCustData$get(MemorySegment seg, long index) {
-        return (long)constants$4436.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lCustData$set(MemorySegment seg, long index, long x) {
-        constants$4436.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle lpfnHook$VH() {
-        return constants$4436.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPCCHOOKPROC lpfnHook;
-     * }
-     */
-    public static MemorySegment lpfnHook$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4436.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPCCHOOKPROC lpfnHook;
-     * }
-     */
-    public static void lpfnHook$set(MemorySegment seg, MemorySegment x) {
-        constants$4436.const$2.set(seg, x);
-    }
-    public static MemorySegment lpfnHook$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4436.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lpfnHook$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4436.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static LPCCHOOKPROC lpfnHook(MemorySegment segment, Arena scope) {
-        return LPCCHOOKPROC.ofAddress(lpfnHook$get(segment), scope);
-    }
-    public static VarHandle lpTemplateName$VH() {
-        return constants$4436.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPCWSTR lpTemplateName;
-     * }
-     */
-    public static MemorySegment lpTemplateName$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4436.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPCWSTR lpTemplateName;
-     * }
-     */
-    public static void lpTemplateName$set(MemorySegment seg, MemorySegment x) {
-        constants$4436.const$3.set(seg, x);
-    }
-    public static MemorySegment lpTemplateName$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4436.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lpTemplateName$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4436.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("lStructSize"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("hwndOwner"),
+        Windows_h.C_POINTER.withName("hInstance"),
+        Windows_h.C_LONG.withName("rgbResult"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("lpCustColors"),
+        Windows_h.C_LONG.withName("Flags"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_LONG_LONG.withName("lCustData"),
+        Windows_h.C_POINTER.withName("lpfnHook"),
+        Windows_h.C_POINTER.withName("lpTemplateName")
+    ).withName("tagCHOOSECOLORW");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt lStructSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("lStructSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD lStructSize
+     * }
+     */
+    public static final OfInt lStructSize$layout() {
+        return lStructSize$LAYOUT;
+    }
+
+    private static final long lStructSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD lStructSize
+     * }
+     */
+    public static final long lStructSize$offset() {
+        return lStructSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD lStructSize
+     * }
+     */
+    public static int lStructSize(MemorySegment struct) {
+        return struct.get(lStructSize$LAYOUT, lStructSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD lStructSize
+     * }
+     */
+    public static void lStructSize(MemorySegment struct, int fieldValue) {
+        struct.set(lStructSize$LAYOUT, lStructSize$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout hwndOwner$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hwndOwner"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HWND hwndOwner
+     * }
+     */
+    public static final AddressLayout hwndOwner$layout() {
+        return hwndOwner$LAYOUT;
+    }
+
+    private static final long hwndOwner$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HWND hwndOwner
+     * }
+     */
+    public static final long hwndOwner$offset() {
+        return hwndOwner$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * HWND hwndOwner
+     * }
+     */
+    public static MemorySegment hwndOwner(MemorySegment struct) {
+        return struct.get(hwndOwner$LAYOUT, hwndOwner$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * HWND hwndOwner
+     * }
+     */
+    public static void hwndOwner(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(hwndOwner$LAYOUT, hwndOwner$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout hInstance$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hInstance"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HWND hInstance
+     * }
+     */
+    public static final AddressLayout hInstance$layout() {
+        return hInstance$LAYOUT;
+    }
+
+    private static final long hInstance$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HWND hInstance
+     * }
+     */
+    public static final long hInstance$offset() {
+        return hInstance$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * HWND hInstance
+     * }
+     */
+    public static MemorySegment hInstance(MemorySegment struct) {
+        return struct.get(hInstance$LAYOUT, hInstance$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * HWND hInstance
+     * }
+     */
+    public static void hInstance(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(hInstance$LAYOUT, hInstance$OFFSET, fieldValue);
+    }
+
+    private static final OfInt rgbResult$LAYOUT = (OfInt)$LAYOUT.select(groupElement("rgbResult"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * COLORREF rgbResult
+     * }
+     */
+    public static final OfInt rgbResult$layout() {
+        return rgbResult$LAYOUT;
+    }
+
+    private static final long rgbResult$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * COLORREF rgbResult
+     * }
+     */
+    public static final long rgbResult$offset() {
+        return rgbResult$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * COLORREF rgbResult
+     * }
+     */
+    public static int rgbResult(MemorySegment struct) {
+        return struct.get(rgbResult$LAYOUT, rgbResult$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * COLORREF rgbResult
+     * }
+     */
+    public static void rgbResult(MemorySegment struct, int fieldValue) {
+        struct.set(rgbResult$LAYOUT, rgbResult$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout lpCustColors$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("lpCustColors"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * COLORREF *lpCustColors
+     * }
+     */
+    public static final AddressLayout lpCustColors$layout() {
+        return lpCustColors$LAYOUT;
+    }
+
+    private static final long lpCustColors$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * COLORREF *lpCustColors
+     * }
+     */
+    public static final long lpCustColors$offset() {
+        return lpCustColors$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * COLORREF *lpCustColors
+     * }
+     */
+    public static MemorySegment lpCustColors(MemorySegment struct) {
+        return struct.get(lpCustColors$LAYOUT, lpCustColors$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * COLORREF *lpCustColors
+     * }
+     */
+    public static void lpCustColors(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(lpCustColors$LAYOUT, lpCustColors$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Flags$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Flags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static final OfInt Flags$layout() {
+        return Flags$LAYOUT;
+    }
+
+    private static final long Flags$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static final long Flags$offset() {
+        return Flags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static int Flags(MemorySegment struct) {
+        return struct.get(Flags$LAYOUT, Flags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static void Flags(MemorySegment struct, int fieldValue) {
+        struct.set(Flags$LAYOUT, Flags$OFFSET, fieldValue);
+    }
+
+    private static final OfLong lCustData$LAYOUT = (OfLong)$LAYOUT.select(groupElement("lCustData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPARAM lCustData
+     * }
+     */
+    public static final OfLong lCustData$layout() {
+        return lCustData$LAYOUT;
+    }
+
+    private static final long lCustData$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPARAM lCustData
+     * }
+     */
+    public static final long lCustData$offset() {
+        return lCustData$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPARAM lCustData
+     * }
+     */
+    public static long lCustData(MemorySegment struct) {
+        return struct.get(lCustData$LAYOUT, lCustData$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPARAM lCustData
+     * }
+     */
+    public static void lCustData(MemorySegment struct, long fieldValue) {
+        struct.set(lCustData$LAYOUT, lCustData$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout lpfnHook$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("lpfnHook"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPCCHOOKPROC lpfnHook
+     * }
+     */
+    public static final AddressLayout lpfnHook$layout() {
+        return lpfnHook$LAYOUT;
+    }
+
+    private static final long lpfnHook$OFFSET = 56;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPCCHOOKPROC lpfnHook
+     * }
+     */
+    public static final long lpfnHook$offset() {
+        return lpfnHook$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPCCHOOKPROC lpfnHook
+     * }
+     */
+    public static MemorySegment lpfnHook(MemorySegment struct) {
+        return struct.get(lpfnHook$LAYOUT, lpfnHook$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPCCHOOKPROC lpfnHook
+     * }
+     */
+    public static void lpfnHook(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(lpfnHook$LAYOUT, lpfnHook$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout lpTemplateName$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("lpTemplateName"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPCWSTR lpTemplateName
+     * }
+     */
+    public static final AddressLayout lpTemplateName$layout() {
+        return lpTemplateName$LAYOUT;
+    }
+
+    private static final long lpTemplateName$OFFSET = 64;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPCWSTR lpTemplateName
+     * }
+     */
+    public static final long lpTemplateName$offset() {
+        return lpTemplateName$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPCWSTR lpTemplateName
+     * }
+     */
+    public static MemorySegment lpTemplateName(MemorySegment struct) {
+        return struct.get(lpTemplateName$LAYOUT, lpTemplateName$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPCWSTR lpTemplateName
+     * }
+     */
+    public static void lpTemplateName(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(lpTemplateName$LAYOUT, lpTemplateName$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

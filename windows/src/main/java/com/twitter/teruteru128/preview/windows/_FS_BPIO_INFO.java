@@ -2,88 +2,252 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _FS_BPIO_INFO {
  *     DWORD ActiveBypassIoCount;
  *     WORD StorageDriverNameLen;
  *     WCHAR StorageDriverName[32];
- * };
+ * }
  * }
  */
 public class _FS_BPIO_INFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2739.const$5;
+    _FS_BPIO_INFO() {
+        // Should not be called directly
     }
-    public static VarHandle ActiveBypassIoCount$VH() {
-        return constants$2740.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ActiveBypassIoCount;
-     * }
-     */
-    public static int ActiveBypassIoCount$get(MemorySegment seg) {
-        return (int)constants$2740.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ActiveBypassIoCount;
-     * }
-     */
-    public static void ActiveBypassIoCount$set(MemorySegment seg, int x) {
-        constants$2740.const$0.set(seg, x);
-    }
-    public static int ActiveBypassIoCount$get(MemorySegment seg, long index) {
-        return (int)constants$2740.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ActiveBypassIoCount$set(MemorySegment seg, long index, int x) {
-        constants$2740.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle StorageDriverNameLen$VH() {
-        return constants$2740.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD StorageDriverNameLen;
-     * }
-     */
-    public static short StorageDriverNameLen$get(MemorySegment seg) {
-        return (short)constants$2740.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD StorageDriverNameLen;
-     * }
-     */
-    public static void StorageDriverNameLen$set(MemorySegment seg, short x) {
-        constants$2740.const$1.set(seg, x);
-    }
-    public static short StorageDriverNameLen$get(MemorySegment seg, long index) {
-        return (short)constants$2740.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void StorageDriverNameLen$set(MemorySegment seg, long index, short x) {
-        constants$2740.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment StorageDriverName$slice(MemorySegment seg) {
-        return seg.asSlice(6, 64);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("ActiveBypassIoCount"),
+        Windows_h.C_SHORT.withName("StorageDriverNameLen"),
+        MemoryLayout.sequenceLayout(32, Windows_h.C_SHORT).withName("StorageDriverName"),
+        MemoryLayout.paddingLayout(2)
+    ).withName("_FS_BPIO_INFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt ActiveBypassIoCount$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ActiveBypassIoCount"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ActiveBypassIoCount
+     * }
+     */
+    public static final OfInt ActiveBypassIoCount$layout() {
+        return ActiveBypassIoCount$LAYOUT;
+    }
+
+    private static final long ActiveBypassIoCount$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ActiveBypassIoCount
+     * }
+     */
+    public static final long ActiveBypassIoCount$offset() {
+        return ActiveBypassIoCount$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ActiveBypassIoCount
+     * }
+     */
+    public static int ActiveBypassIoCount(MemorySegment struct) {
+        return struct.get(ActiveBypassIoCount$LAYOUT, ActiveBypassIoCount$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ActiveBypassIoCount
+     * }
+     */
+    public static void ActiveBypassIoCount(MemorySegment struct, int fieldValue) {
+        struct.set(ActiveBypassIoCount$LAYOUT, ActiveBypassIoCount$OFFSET, fieldValue);
+    }
+
+    private static final OfShort StorageDriverNameLen$LAYOUT = (OfShort)$LAYOUT.select(groupElement("StorageDriverNameLen"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD StorageDriverNameLen
+     * }
+     */
+    public static final OfShort StorageDriverNameLen$layout() {
+        return StorageDriverNameLen$LAYOUT;
+    }
+
+    private static final long StorageDriverNameLen$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD StorageDriverNameLen
+     * }
+     */
+    public static final long StorageDriverNameLen$offset() {
+        return StorageDriverNameLen$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD StorageDriverNameLen
+     * }
+     */
+    public static short StorageDriverNameLen(MemorySegment struct) {
+        return struct.get(StorageDriverNameLen$LAYOUT, StorageDriverNameLen$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD StorageDriverNameLen
+     * }
+     */
+    public static void StorageDriverNameLen(MemorySegment struct, short fieldValue) {
+        struct.set(StorageDriverNameLen$LAYOUT, StorageDriverNameLen$OFFSET, fieldValue);
+    }
+
+    private static final SequenceLayout StorageDriverName$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("StorageDriverName"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WCHAR StorageDriverName[32]
+     * }
+     */
+    public static final SequenceLayout StorageDriverName$layout() {
+        return StorageDriverName$LAYOUT;
+    }
+
+    private static final long StorageDriverName$OFFSET = 6;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WCHAR StorageDriverName[32]
+     * }
+     */
+    public static final long StorageDriverName$offset() {
+        return StorageDriverName$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WCHAR StorageDriverName[32]
+     * }
+     */
+    public static MemorySegment StorageDriverName(MemorySegment struct) {
+        return struct.asSlice(StorageDriverName$OFFSET, StorageDriverName$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WCHAR StorageDriverName[32]
+     * }
+     */
+    public static void StorageDriverName(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, StorageDriverName$OFFSET, StorageDriverName$LAYOUT.byteSize());
+    }
+
+    private static long[] StorageDriverName$DIMS = { 32 };
+
+    /**
+     * Dimensions for array field:
+     * {@snippet lang=c :
+     * WCHAR StorageDriverName[32]
+     * }
+     */
+    public static long[] StorageDriverName$dimensions() {
+        return StorageDriverName$DIMS;
+    }
+    private static final VarHandle StorageDriverName$ELEM_HANDLE = StorageDriverName$LAYOUT.varHandle(sequenceElement());
+
+    /**
+     * Indexed getter for field:
+     * {@snippet lang=c :
+     * WCHAR StorageDriverName[32]
+     * }
+     */
+    public static short StorageDriverName(MemorySegment struct, long index0) {
+        return (short)StorageDriverName$ELEM_HANDLE.get(struct, 0L, index0);
+    }
+
+    /**
+     * Indexed setter for field:
+     * {@snippet lang=c :
+     * WCHAR StorageDriverName[32]
+     * }
+     */
+    public static void StorageDriverName(MemorySegment struct, long index0, short fieldValue) {
+        StorageDriverName$ELEM_HANDLE.set(struct, 0L, index0, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

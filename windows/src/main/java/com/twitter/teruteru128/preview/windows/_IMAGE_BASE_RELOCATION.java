@@ -2,84 +2,172 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _IMAGE_BASE_RELOCATION {
  *     DWORD VirtualAddress;
  *     DWORD SizeOfBlock;
- * };
+ * }
  * }
  */
 public class _IMAGE_BASE_RELOCATION {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$401.const$3;
+    _IMAGE_BASE_RELOCATION() {
+        // Should not be called directly
     }
-    public static VarHandle VirtualAddress$VH() {
-        return constants$401.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD VirtualAddress;
-     * }
-     */
-    public static int VirtualAddress$get(MemorySegment seg) {
-        return (int)constants$401.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD VirtualAddress;
-     * }
-     */
-    public static void VirtualAddress$set(MemorySegment seg, int x) {
-        constants$401.const$4.set(seg, x);
-    }
-    public static int VirtualAddress$get(MemorySegment seg, long index) {
-        return (int)constants$401.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void VirtualAddress$set(MemorySegment seg, long index, int x) {
-        constants$401.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle SizeOfBlock$VH() {
-        return constants$401.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD SizeOfBlock;
-     * }
-     */
-    public static int SizeOfBlock$get(MemorySegment seg) {
-        return (int)constants$401.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD SizeOfBlock;
-     * }
-     */
-    public static void SizeOfBlock$set(MemorySegment seg, int x) {
-        constants$401.const$5.set(seg, x);
-    }
-    public static int SizeOfBlock$get(MemorySegment seg, long index) {
-        return (int)constants$401.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SizeOfBlock$set(MemorySegment seg, long index, int x) {
-        constants$401.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("VirtualAddress"),
+        Windows_h.C_LONG.withName("SizeOfBlock")
+    ).withName("_IMAGE_BASE_RELOCATION");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt VirtualAddress$LAYOUT = (OfInt)$LAYOUT.select(groupElement("VirtualAddress"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD VirtualAddress
+     * }
+     */
+    public static final OfInt VirtualAddress$layout() {
+        return VirtualAddress$LAYOUT;
+    }
+
+    private static final long VirtualAddress$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD VirtualAddress
+     * }
+     */
+    public static final long VirtualAddress$offset() {
+        return VirtualAddress$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD VirtualAddress
+     * }
+     */
+    public static int VirtualAddress(MemorySegment struct) {
+        return struct.get(VirtualAddress$LAYOUT, VirtualAddress$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD VirtualAddress
+     * }
+     */
+    public static void VirtualAddress(MemorySegment struct, int fieldValue) {
+        struct.set(VirtualAddress$LAYOUT, VirtualAddress$OFFSET, fieldValue);
+    }
+
+    private static final OfInt SizeOfBlock$LAYOUT = (OfInt)$LAYOUT.select(groupElement("SizeOfBlock"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD SizeOfBlock
+     * }
+     */
+    public static final OfInt SizeOfBlock$layout() {
+        return SizeOfBlock$LAYOUT;
+    }
+
+    private static final long SizeOfBlock$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD SizeOfBlock
+     * }
+     */
+    public static final long SizeOfBlock$offset() {
+        return SizeOfBlock$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD SizeOfBlock
+     * }
+     */
+    public static int SizeOfBlock(MemorySegment struct) {
+        return struct.get(SizeOfBlock$LAYOUT, SizeOfBlock$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD SizeOfBlock
+     * }
+     */
+    public static void SizeOfBlock(MemorySegment struct, int fieldValue) {
+        struct.set(SizeOfBlock$LAYOUT, SizeOfBlock$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

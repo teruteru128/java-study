@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SCARD_T1_REQUEST SCARD_T1_REQUEST;
+ * {@snippet lang=c :
+ * typedef struct _SCARD_T1_REQUEST {
+ *     SCARD_IO_REQUEST ioRequest;
+ * } SCARD_T1_REQUEST
  * }
  */
-public final class SCARD_T1_REQUEST extends _SCARD_T1_REQUEST {
+public class SCARD_T1_REQUEST extends _SCARD_T1_REQUEST {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SCARD_T1_REQUEST() {}
+    SCARD_T1_REQUEST() {
+        // Should not be called directly
+    }
 }
-
 

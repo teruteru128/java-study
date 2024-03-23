@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _NOTIFYICONIDENTIFIER NOTIFYICONIDENTIFIER;
+ * {@snippet lang=c :
+ * typedef struct _NOTIFYICONIDENTIFIER {
+ *     DWORD cbSize;
+ *     HWND hWnd;
+ *     UINT uID;
+ *     GUID guidItem;
+ * } NOTIFYICONIDENTIFIER
  * }
  */
-public final class NOTIFYICONIDENTIFIER extends _NOTIFYICONIDENTIFIER {
+public class NOTIFYICONIDENTIFIER extends _NOTIFYICONIDENTIFIER {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private NOTIFYICONIDENTIFIER() {}
+    NOTIFYICONIDENTIFIER() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagRemFORMATETC RemFORMATETC;
+ * {@snippet lang=c :
+ * typedef struct tagRemFORMATETC {
+ *     DWORD cfFormat;
+ *     DWORD ptd;
+ *     DWORD dwAspect;
+ *     LONG lindex;
+ *     DWORD tymed;
+ * } RemFORMATETC
  * }
  */
-public final class RemFORMATETC extends tagRemFORMATETC {
+public class RemFORMATETC extends tagRemFORMATETC {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private RemFORMATETC() {}
+    RemFORMATETC() {
+        // Should not be called directly
+    }
 }
-
 

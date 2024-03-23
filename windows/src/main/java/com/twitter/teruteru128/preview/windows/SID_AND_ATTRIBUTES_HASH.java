@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SID_AND_ATTRIBUTES_HASH SID_AND_ATTRIBUTES_HASH;
+ * {@snippet lang=c :
+ * typedef struct _SID_AND_ATTRIBUTES_HASH {
+ *     DWORD SidCount;
+ *     PSID_AND_ATTRIBUTES SidAttr;
+ *     SID_HASH_ENTRY Hash[32];
+ * } SID_AND_ATTRIBUTES_HASH
  * }
  */
-public final class SID_AND_ATTRIBUTES_HASH extends _SID_AND_ATTRIBUTES_HASH {
+public class SID_AND_ATTRIBUTES_HASH extends _SID_AND_ATTRIBUTES_HASH {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SID_AND_ATTRIBUTES_HASH() {}
+    SID_AND_ATTRIBUTES_HASH() {
+        // Should not be called directly
+    }
 }
-
 

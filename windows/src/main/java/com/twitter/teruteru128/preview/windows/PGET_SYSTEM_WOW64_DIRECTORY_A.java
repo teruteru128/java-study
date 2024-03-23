@@ -2,32 +2,68 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * unsigned int (*PGET_SYSTEM_WOW64_DIRECTORY_A)(char* lpBuffer,unsigned int uSize);
+ * {@snippet lang=c :
+ * typedef UINT (*PGET_SYSTEM_WOW64_DIRECTORY_A)(LPSTR, UINT) __attribute__((stdcall))
  * }
  */
-public interface PGET_SYSTEM_WOW64_DIRECTORY_A {
+public class PGET_SYSTEM_WOW64_DIRECTORY_A {
 
-    int apply(java.lang.foreign.MemorySegment lpBuffer, int uSize);
-    static MemorySegment allocate(PGET_SYSTEM_WOW64_DIRECTORY_A fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$800.const$3, fi, constants$65.const$2, scope);
+    PGET_SYSTEM_WOW64_DIRECTORY_A() {
+        // Should not be called directly
     }
-    static PGET_SYSTEM_WOW64_DIRECTORY_A ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _lpBuffer, int _uSize) -> {
-            try {
-                return (int)constants$800.const$4.invokeExact(symbol, _lpBuffer, _uSize);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment lpBuffer, int uSize);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_INT
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PGET_SYSTEM_WOW64_DIRECTORY_A.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PGET_SYSTEM_WOW64_DIRECTORY_A.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment lpBuffer, int uSize) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, lpBuffer, uSize);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

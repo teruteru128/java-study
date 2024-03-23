@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CERT_PRIVATE_KEY_VALIDITY CERT_PRIVATE_KEY_VALIDITY;
+ * {@snippet lang=c :
+ * typedef struct _CERT_PRIVATE_KEY_VALIDITY {
+ *     FILETIME NotBefore;
+ *     FILETIME NotAfter;
+ * } CERT_PRIVATE_KEY_VALIDITY
  * }
  */
-public final class CERT_PRIVATE_KEY_VALIDITY extends _CERT_PRIVATE_KEY_VALIDITY {
+public class CERT_PRIVATE_KEY_VALIDITY extends _CERT_PRIVATE_KEY_VALIDITY {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CERT_PRIVATE_KEY_VALIDITY() {}
+    CERT_PRIVATE_KEY_VALIDITY() {
+        // Should not be called directly
+    }
 }
-
 

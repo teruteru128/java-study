@@ -2,20 +2,40 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagLOGFONTA LOGFONTA;
+ * {@snippet lang=c :
+ * typedef struct tagLOGFONTA {
+ *     LONG lfHeight;
+ *     LONG lfWidth;
+ *     LONG lfEscapement;
+ *     LONG lfOrientation;
+ *     LONG lfWeight;
+ *     BYTE lfItalic;
+ *     BYTE lfUnderline;
+ *     BYTE lfStrikeOut;
+ *     BYTE lfCharSet;
+ *     BYTE lfOutPrecision;
+ *     BYTE lfClipPrecision;
+ *     BYTE lfQuality;
+ *     BYTE lfPitchAndFamily;
+ *     CHAR lfFaceName[32];
+ * } LOGFONTA
  * }
  */
-public final class LOGFONTA extends tagLOGFONTA {
+public class LOGFONTA extends tagLOGFONTA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private LOGFONTA() {}
+    LOGFONTA() {
+        // Should not be called directly
+    }
 }
-
 

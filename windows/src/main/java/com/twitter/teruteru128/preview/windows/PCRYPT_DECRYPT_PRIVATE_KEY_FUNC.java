@@ -2,32 +2,71 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PCRYPT_DECRYPT_PRIVATE_KEY_FUNC)(struct _CRYPT_ALGORITHM_IDENTIFIER Algorithm,struct _CRYPTOAPI_BLOB EncryptedPrivateKey,unsigned char* pbClearTextKey,unsigned long* pcbClearTextKey,void* pVoidDecryptFunc);
+ * {@snippet lang=c :
+ * typedef BOOL (*PCRYPT_DECRYPT_PRIVATE_KEY_FUNC)(CRYPT_ALGORITHM_IDENTIFIER, CRYPT_DATA_BLOB, BYTE *, DWORD *, LPVOID) __attribute__((stdcall))
  * }
  */
-public interface PCRYPT_DECRYPT_PRIVATE_KEY_FUNC {
+public class PCRYPT_DECRYPT_PRIVATE_KEY_FUNC {
 
-    int apply(java.lang.foreign.MemorySegment Algorithm, java.lang.foreign.MemorySegment EncryptedPrivateKey, java.lang.foreign.MemorySegment pbClearTextKey, java.lang.foreign.MemorySegment pcbClearTextKey, java.lang.foreign.MemorySegment pVoidDecryptFunc);
-    static MemorySegment allocate(PCRYPT_DECRYPT_PRIVATE_KEY_FUNC fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2010.const$0, fi, constants$2009.const$5, scope);
+    PCRYPT_DECRYPT_PRIVATE_KEY_FUNC() {
+        // Should not be called directly
     }
-    static PCRYPT_DECRYPT_PRIVATE_KEY_FUNC ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _Algorithm, java.lang.foreign.MemorySegment _EncryptedPrivateKey, java.lang.foreign.MemorySegment _pbClearTextKey, java.lang.foreign.MemorySegment _pcbClearTextKey, java.lang.foreign.MemorySegment _pVoidDecryptFunc) -> {
-            try {
-                return (int)constants$2010.const$1.invokeExact(symbol, _Algorithm, _EncryptedPrivateKey, _pbClearTextKey, _pcbClearTextKey, _pVoidDecryptFunc);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment Algorithm, MemorySegment EncryptedPrivateKey, MemorySegment pbClearTextKey, MemorySegment pcbClearTextKey, MemorySegment pVoidDecryptFunc);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        _CRYPT_ALGORITHM_IDENTIFIER.layout(),
+        _CRYPTOAPI_BLOB.layout(),
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PCRYPT_DECRYPT_PRIVATE_KEY_FUNC.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PCRYPT_DECRYPT_PRIVATE_KEY_FUNC.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment Algorithm, MemorySegment EncryptedPrivateKey, MemorySegment pbClearTextKey, MemorySegment pcbClearTextKey, MemorySegment pVoidDecryptFunc) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, Algorithm, EncryptedPrivateKey, pbClearTextKey, pcbClearTextKey, pVoidDecryptFunc);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

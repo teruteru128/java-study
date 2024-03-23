@@ -2,20 +2,36 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CMSG_CTRL_KEY_AGREE_DECRYPT_PARA CMSG_CTRL_KEY_AGREE_DECRYPT_PARA;
+ * {@snippet lang=c :
+ * typedef struct _CMSG_CTRL_KEY_AGREE_DECRYPT_PARA {
+ *     DWORD cbSize;
+ *     union {
+ *         HCRYPTPROV hCryptProv;
+ *         NCRYPT_KEY_HANDLE hNCryptKey;
+ *     };
+ *     DWORD dwKeySpec;
+ *     PCMSG_KEY_AGREE_RECIPIENT_INFO pKeyAgree;
+ *     DWORD dwRecipientIndex;
+ *     DWORD dwRecipientEncryptedKeyIndex;
+ *     CRYPT_BIT_BLOB OriginatorPublicKey;
+ * } CMSG_CTRL_KEY_AGREE_DECRYPT_PARA
  * }
  */
-public final class CMSG_CTRL_KEY_AGREE_DECRYPT_PARA extends _CMSG_CTRL_KEY_AGREE_DECRYPT_PARA {
+public class CMSG_CTRL_KEY_AGREE_DECRYPT_PARA extends _CMSG_CTRL_KEY_AGREE_DECRYPT_PARA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CMSG_CTRL_KEY_AGREE_DECRYPT_PARA() {}
+    CMSG_CTRL_KEY_AGREE_DECRYPT_PARA() {
+        // Should not be called directly
+    }
 }
-
 

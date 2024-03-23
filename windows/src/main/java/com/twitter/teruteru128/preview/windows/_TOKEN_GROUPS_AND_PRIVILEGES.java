@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _TOKEN_GROUPS_AND_PRIVILEGES {
  *     DWORD SidCount;
  *     DWORD SidLength;
@@ -20,266 +25,517 @@ import static java.lang.foreign.ValueLayout.*;
  *     DWORD PrivilegeLength;
  *     PLUID_AND_ATTRIBUTES Privileges;
  *     LUID AuthenticationId;
- * };
+ * }
  * }
  */
 public class _TOKEN_GROUPS_AND_PRIVILEGES {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$167.const$2;
+    _TOKEN_GROUPS_AND_PRIVILEGES() {
+        // Should not be called directly
     }
-    public static VarHandle SidCount$VH() {
-        return constants$167.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD SidCount;
-     * }
-     */
-    public static int SidCount$get(MemorySegment seg) {
-        return (int)constants$167.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD SidCount;
-     * }
-     */
-    public static void SidCount$set(MemorySegment seg, int x) {
-        constants$167.const$3.set(seg, x);
-    }
-    public static int SidCount$get(MemorySegment seg, long index) {
-        return (int)constants$167.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SidCount$set(MemorySegment seg, long index, int x) {
-        constants$167.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle SidLength$VH() {
-        return constants$167.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD SidLength;
-     * }
-     */
-    public static int SidLength$get(MemorySegment seg) {
-        return (int)constants$167.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD SidLength;
-     * }
-     */
-    public static void SidLength$set(MemorySegment seg, int x) {
-        constants$167.const$4.set(seg, x);
-    }
-    public static int SidLength$get(MemorySegment seg, long index) {
-        return (int)constants$167.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SidLength$set(MemorySegment seg, long index, int x) {
-        constants$167.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Sids$VH() {
-        return constants$167.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PSID_AND_ATTRIBUTES Sids;
-     * }
-     */
-    public static MemorySegment Sids$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$167.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PSID_AND_ATTRIBUTES Sids;
-     * }
-     */
-    public static void Sids$set(MemorySegment seg, MemorySegment x) {
-        constants$167.const$5.set(seg, x);
-    }
-    public static MemorySegment Sids$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$167.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Sids$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$167.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle RestrictedSidCount$VH() {
-        return constants$168.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD RestrictedSidCount;
-     * }
-     */
-    public static int RestrictedSidCount$get(MemorySegment seg) {
-        return (int)constants$168.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD RestrictedSidCount;
-     * }
-     */
-    public static void RestrictedSidCount$set(MemorySegment seg, int x) {
-        constants$168.const$0.set(seg, x);
-    }
-    public static int RestrictedSidCount$get(MemorySegment seg, long index) {
-        return (int)constants$168.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void RestrictedSidCount$set(MemorySegment seg, long index, int x) {
-        constants$168.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle RestrictedSidLength$VH() {
-        return constants$168.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD RestrictedSidLength;
-     * }
-     */
-    public static int RestrictedSidLength$get(MemorySegment seg) {
-        return (int)constants$168.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD RestrictedSidLength;
-     * }
-     */
-    public static void RestrictedSidLength$set(MemorySegment seg, int x) {
-        constants$168.const$1.set(seg, x);
-    }
-    public static int RestrictedSidLength$get(MemorySegment seg, long index) {
-        return (int)constants$168.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void RestrictedSidLength$set(MemorySegment seg, long index, int x) {
-        constants$168.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle RestrictedSids$VH() {
-        return constants$168.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PSID_AND_ATTRIBUTES RestrictedSids;
-     * }
-     */
-    public static MemorySegment RestrictedSids$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$168.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PSID_AND_ATTRIBUTES RestrictedSids;
-     * }
-     */
-    public static void RestrictedSids$set(MemorySegment seg, MemorySegment x) {
-        constants$168.const$2.set(seg, x);
-    }
-    public static MemorySegment RestrictedSids$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$168.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void RestrictedSids$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$168.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle PrivilegeCount$VH() {
-        return constants$168.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD PrivilegeCount;
-     * }
-     */
-    public static int PrivilegeCount$get(MemorySegment seg) {
-        return (int)constants$168.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD PrivilegeCount;
-     * }
-     */
-    public static void PrivilegeCount$set(MemorySegment seg, int x) {
-        constants$168.const$3.set(seg, x);
-    }
-    public static int PrivilegeCount$get(MemorySegment seg, long index) {
-        return (int)constants$168.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void PrivilegeCount$set(MemorySegment seg, long index, int x) {
-        constants$168.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle PrivilegeLength$VH() {
-        return constants$168.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD PrivilegeLength;
-     * }
-     */
-    public static int PrivilegeLength$get(MemorySegment seg) {
-        return (int)constants$168.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD PrivilegeLength;
-     * }
-     */
-    public static void PrivilegeLength$set(MemorySegment seg, int x) {
-        constants$168.const$4.set(seg, x);
-    }
-    public static int PrivilegeLength$get(MemorySegment seg, long index) {
-        return (int)constants$168.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void PrivilegeLength$set(MemorySegment seg, long index, int x) {
-        constants$168.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Privileges$VH() {
-        return constants$168.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PLUID_AND_ATTRIBUTES Privileges;
-     * }
-     */
-    public static MemorySegment Privileges$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$168.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PLUID_AND_ATTRIBUTES Privileges;
-     * }
-     */
-    public static void Privileges$set(MemorySegment seg, MemorySegment x) {
-        constants$168.const$5.set(seg, x);
-    }
-    public static MemorySegment Privileges$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$168.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Privileges$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$168.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment AuthenticationId$slice(MemorySegment seg) {
-        return seg.asSlice(48, 8);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("SidCount"),
+        Windows_h.C_LONG.withName("SidLength"),
+        Windows_h.C_POINTER.withName("Sids"),
+        Windows_h.C_LONG.withName("RestrictedSidCount"),
+        Windows_h.C_LONG.withName("RestrictedSidLength"),
+        Windows_h.C_POINTER.withName("RestrictedSids"),
+        Windows_h.C_LONG.withName("PrivilegeCount"),
+        Windows_h.C_LONG.withName("PrivilegeLength"),
+        Windows_h.C_POINTER.withName("Privileges"),
+        _LUID.layout().withName("AuthenticationId")
+    ).withName("_TOKEN_GROUPS_AND_PRIVILEGES");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt SidCount$LAYOUT = (OfInt)$LAYOUT.select(groupElement("SidCount"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD SidCount
+     * }
+     */
+    public static final OfInt SidCount$layout() {
+        return SidCount$LAYOUT;
+    }
+
+    private static final long SidCount$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD SidCount
+     * }
+     */
+    public static final long SidCount$offset() {
+        return SidCount$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD SidCount
+     * }
+     */
+    public static int SidCount(MemorySegment struct) {
+        return struct.get(SidCount$LAYOUT, SidCount$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD SidCount
+     * }
+     */
+    public static void SidCount(MemorySegment struct, int fieldValue) {
+        struct.set(SidCount$LAYOUT, SidCount$OFFSET, fieldValue);
+    }
+
+    private static final OfInt SidLength$LAYOUT = (OfInt)$LAYOUT.select(groupElement("SidLength"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD SidLength
+     * }
+     */
+    public static final OfInt SidLength$layout() {
+        return SidLength$LAYOUT;
+    }
+
+    private static final long SidLength$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD SidLength
+     * }
+     */
+    public static final long SidLength$offset() {
+        return SidLength$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD SidLength
+     * }
+     */
+    public static int SidLength(MemorySegment struct) {
+        return struct.get(SidLength$LAYOUT, SidLength$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD SidLength
+     * }
+     */
+    public static void SidLength(MemorySegment struct, int fieldValue) {
+        struct.set(SidLength$LAYOUT, SidLength$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout Sids$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("Sids"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PSID_AND_ATTRIBUTES Sids
+     * }
+     */
+    public static final AddressLayout Sids$layout() {
+        return Sids$LAYOUT;
+    }
+
+    private static final long Sids$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PSID_AND_ATTRIBUTES Sids
+     * }
+     */
+    public static final long Sids$offset() {
+        return Sids$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PSID_AND_ATTRIBUTES Sids
+     * }
+     */
+    public static MemorySegment Sids(MemorySegment struct) {
+        return struct.get(Sids$LAYOUT, Sids$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PSID_AND_ATTRIBUTES Sids
+     * }
+     */
+    public static void Sids(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(Sids$LAYOUT, Sids$OFFSET, fieldValue);
+    }
+
+    private static final OfInt RestrictedSidCount$LAYOUT = (OfInt)$LAYOUT.select(groupElement("RestrictedSidCount"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD RestrictedSidCount
+     * }
+     */
+    public static final OfInt RestrictedSidCount$layout() {
+        return RestrictedSidCount$LAYOUT;
+    }
+
+    private static final long RestrictedSidCount$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD RestrictedSidCount
+     * }
+     */
+    public static final long RestrictedSidCount$offset() {
+        return RestrictedSidCount$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD RestrictedSidCount
+     * }
+     */
+    public static int RestrictedSidCount(MemorySegment struct) {
+        return struct.get(RestrictedSidCount$LAYOUT, RestrictedSidCount$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD RestrictedSidCount
+     * }
+     */
+    public static void RestrictedSidCount(MemorySegment struct, int fieldValue) {
+        struct.set(RestrictedSidCount$LAYOUT, RestrictedSidCount$OFFSET, fieldValue);
+    }
+
+    private static final OfInt RestrictedSidLength$LAYOUT = (OfInt)$LAYOUT.select(groupElement("RestrictedSidLength"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD RestrictedSidLength
+     * }
+     */
+    public static final OfInt RestrictedSidLength$layout() {
+        return RestrictedSidLength$LAYOUT;
+    }
+
+    private static final long RestrictedSidLength$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD RestrictedSidLength
+     * }
+     */
+    public static final long RestrictedSidLength$offset() {
+        return RestrictedSidLength$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD RestrictedSidLength
+     * }
+     */
+    public static int RestrictedSidLength(MemorySegment struct) {
+        return struct.get(RestrictedSidLength$LAYOUT, RestrictedSidLength$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD RestrictedSidLength
+     * }
+     */
+    public static void RestrictedSidLength(MemorySegment struct, int fieldValue) {
+        struct.set(RestrictedSidLength$LAYOUT, RestrictedSidLength$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout RestrictedSids$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("RestrictedSids"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PSID_AND_ATTRIBUTES RestrictedSids
+     * }
+     */
+    public static final AddressLayout RestrictedSids$layout() {
+        return RestrictedSids$LAYOUT;
+    }
+
+    private static final long RestrictedSids$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PSID_AND_ATTRIBUTES RestrictedSids
+     * }
+     */
+    public static final long RestrictedSids$offset() {
+        return RestrictedSids$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PSID_AND_ATTRIBUTES RestrictedSids
+     * }
+     */
+    public static MemorySegment RestrictedSids(MemorySegment struct) {
+        return struct.get(RestrictedSids$LAYOUT, RestrictedSids$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PSID_AND_ATTRIBUTES RestrictedSids
+     * }
+     */
+    public static void RestrictedSids(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(RestrictedSids$LAYOUT, RestrictedSids$OFFSET, fieldValue);
+    }
+
+    private static final OfInt PrivilegeCount$LAYOUT = (OfInt)$LAYOUT.select(groupElement("PrivilegeCount"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD PrivilegeCount
+     * }
+     */
+    public static final OfInt PrivilegeCount$layout() {
+        return PrivilegeCount$LAYOUT;
+    }
+
+    private static final long PrivilegeCount$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD PrivilegeCount
+     * }
+     */
+    public static final long PrivilegeCount$offset() {
+        return PrivilegeCount$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD PrivilegeCount
+     * }
+     */
+    public static int PrivilegeCount(MemorySegment struct) {
+        return struct.get(PrivilegeCount$LAYOUT, PrivilegeCount$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD PrivilegeCount
+     * }
+     */
+    public static void PrivilegeCount(MemorySegment struct, int fieldValue) {
+        struct.set(PrivilegeCount$LAYOUT, PrivilegeCount$OFFSET, fieldValue);
+    }
+
+    private static final OfInt PrivilegeLength$LAYOUT = (OfInt)$LAYOUT.select(groupElement("PrivilegeLength"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD PrivilegeLength
+     * }
+     */
+    public static final OfInt PrivilegeLength$layout() {
+        return PrivilegeLength$LAYOUT;
+    }
+
+    private static final long PrivilegeLength$OFFSET = 36;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD PrivilegeLength
+     * }
+     */
+    public static final long PrivilegeLength$offset() {
+        return PrivilegeLength$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD PrivilegeLength
+     * }
+     */
+    public static int PrivilegeLength(MemorySegment struct) {
+        return struct.get(PrivilegeLength$LAYOUT, PrivilegeLength$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD PrivilegeLength
+     * }
+     */
+    public static void PrivilegeLength(MemorySegment struct, int fieldValue) {
+        struct.set(PrivilegeLength$LAYOUT, PrivilegeLength$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout Privileges$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("Privileges"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PLUID_AND_ATTRIBUTES Privileges
+     * }
+     */
+    public static final AddressLayout Privileges$layout() {
+        return Privileges$LAYOUT;
+    }
+
+    private static final long Privileges$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PLUID_AND_ATTRIBUTES Privileges
+     * }
+     */
+    public static final long Privileges$offset() {
+        return Privileges$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PLUID_AND_ATTRIBUTES Privileges
+     * }
+     */
+    public static MemorySegment Privileges(MemorySegment struct) {
+        return struct.get(Privileges$LAYOUT, Privileges$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PLUID_AND_ATTRIBUTES Privileges
+     * }
+     */
+    public static void Privileges(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(Privileges$LAYOUT, Privileges$OFFSET, fieldValue);
+    }
+
+    private static final GroupLayout AuthenticationId$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("AuthenticationId"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LUID AuthenticationId
+     * }
+     */
+    public static final GroupLayout AuthenticationId$layout() {
+        return AuthenticationId$LAYOUT;
+    }
+
+    private static final long AuthenticationId$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LUID AuthenticationId
+     * }
+     */
+    public static final long AuthenticationId$offset() {
+        return AuthenticationId$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LUID AuthenticationId
+     * }
+     */
+    public static MemorySegment AuthenticationId(MemorySegment struct) {
+        return struct.asSlice(AuthenticationId$OFFSET, AuthenticationId$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LUID AuthenticationId
+     * }
+     */
+    public static void AuthenticationId(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, AuthenticationId$OFFSET, AuthenticationId$LAYOUT.byteSize());
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

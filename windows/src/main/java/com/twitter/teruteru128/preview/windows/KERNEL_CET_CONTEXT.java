@@ -2,20 +2,38 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _KERNEL_CET_CONTEXT KERNEL_CET_CONTEXT;
+ * {@snippet lang=c :
+ * typedef struct _KERNEL_CET_CONTEXT {
+ *     DWORD64 Ssp;
+ *     DWORD64 Rip;
+ *     WORD SegCs;
+ *     union {
+ *         WORD AllFlags;
+ *         struct {
+ *             WORD UseWrss : 1;
+ *             WORD PopShadowStackOne : 1;
+ *             WORD Unused : 14;
+ *         };
+ *     };
+ *     WORD Fill[2];
+ * } KERNEL_CET_CONTEXT
  * }
  */
-public final class KERNEL_CET_CONTEXT extends _KERNEL_CET_CONTEXT {
+public class KERNEL_CET_CONTEXT extends _KERNEL_CET_CONTEXT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private KERNEL_CET_CONTEXT() {}
+    KERNEL_CET_CONTEXT() {
+        // Should not be called directly
+    }
 }
-
 

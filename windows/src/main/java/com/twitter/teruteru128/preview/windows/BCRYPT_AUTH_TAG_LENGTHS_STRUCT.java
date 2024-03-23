@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct __BCRYPT_KEY_LENGTHS_STRUCT BCRYPT_AUTH_TAG_LENGTHS_STRUCT;
+ * {@snippet lang=c :
+ * typedef BCRYPT_KEY_LENGTHS_STRUCT BCRYPT_AUTH_TAG_LENGTHS_STRUCT
  * }
  */
-public final class BCRYPT_AUTH_TAG_LENGTHS_STRUCT extends __BCRYPT_KEY_LENGTHS_STRUCT {
+public class BCRYPT_AUTH_TAG_LENGTHS_STRUCT extends __BCRYPT_KEY_LENGTHS_STRUCT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private BCRYPT_AUTH_TAG_LENGTHS_STRUCT() {}
+    BCRYPT_AUTH_TAG_LENGTHS_STRUCT() {
+        // Should not be called directly
+    }
 }
-
 

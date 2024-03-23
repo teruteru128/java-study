@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _ACTIVATION_CONTEXT_DETAILED_INFORMATION {
  *     DWORD dwFlags;
  *     DWORD ulFormatVersion;
@@ -22,344 +27,608 @@ import static java.lang.foreign.ValueLayout.*;
  *     PCWSTR lpRootManifestPath;
  *     PCWSTR lpRootConfigurationPath;
  *     PCWSTR lpAppDirPath;
- * };
+ * }
  * }
  */
 public class _ACTIVATION_CONTEXT_DETAILED_INFORMATION {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$504.const$3;
+    _ACTIVATION_CONTEXT_DETAILED_INFORMATION() {
+        // Should not be called directly
     }
-    public static VarHandle dwFlags$VH() {
-        return constants$504.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwFlags;
-     * }
-     */
-    public static int dwFlags$get(MemorySegment seg) {
-        return (int)constants$504.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwFlags;
-     * }
-     */
-    public static void dwFlags$set(MemorySegment seg, int x) {
-        constants$504.const$4.set(seg, x);
-    }
-    public static int dwFlags$get(MemorySegment seg, long index) {
-        return (int)constants$504.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwFlags$set(MemorySegment seg, long index, int x) {
-        constants$504.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ulFormatVersion$VH() {
-        return constants$504.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ulFormatVersion;
-     * }
-     */
-    public static int ulFormatVersion$get(MemorySegment seg) {
-        return (int)constants$504.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ulFormatVersion;
-     * }
-     */
-    public static void ulFormatVersion$set(MemorySegment seg, int x) {
-        constants$504.const$5.set(seg, x);
-    }
-    public static int ulFormatVersion$get(MemorySegment seg, long index) {
-        return (int)constants$504.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ulFormatVersion$set(MemorySegment seg, long index, int x) {
-        constants$504.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ulAssemblyCount$VH() {
-        return constants$505.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ulAssemblyCount;
-     * }
-     */
-    public static int ulAssemblyCount$get(MemorySegment seg) {
-        return (int)constants$505.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ulAssemblyCount;
-     * }
-     */
-    public static void ulAssemblyCount$set(MemorySegment seg, int x) {
-        constants$505.const$0.set(seg, x);
-    }
-    public static int ulAssemblyCount$get(MemorySegment seg, long index) {
-        return (int)constants$505.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ulAssemblyCount$set(MemorySegment seg, long index, int x) {
-        constants$505.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ulRootManifestPathType$VH() {
-        return constants$505.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ulRootManifestPathType;
-     * }
-     */
-    public static int ulRootManifestPathType$get(MemorySegment seg) {
-        return (int)constants$505.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ulRootManifestPathType;
-     * }
-     */
-    public static void ulRootManifestPathType$set(MemorySegment seg, int x) {
-        constants$505.const$1.set(seg, x);
-    }
-    public static int ulRootManifestPathType$get(MemorySegment seg, long index) {
-        return (int)constants$505.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ulRootManifestPathType$set(MemorySegment seg, long index, int x) {
-        constants$505.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ulRootManifestPathChars$VH() {
-        return constants$505.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ulRootManifestPathChars;
-     * }
-     */
-    public static int ulRootManifestPathChars$get(MemorySegment seg) {
-        return (int)constants$505.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ulRootManifestPathChars;
-     * }
-     */
-    public static void ulRootManifestPathChars$set(MemorySegment seg, int x) {
-        constants$505.const$2.set(seg, x);
-    }
-    public static int ulRootManifestPathChars$get(MemorySegment seg, long index) {
-        return (int)constants$505.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ulRootManifestPathChars$set(MemorySegment seg, long index, int x) {
-        constants$505.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ulRootConfigurationPathType$VH() {
-        return constants$505.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ulRootConfigurationPathType;
-     * }
-     */
-    public static int ulRootConfigurationPathType$get(MemorySegment seg) {
-        return (int)constants$505.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ulRootConfigurationPathType;
-     * }
-     */
-    public static void ulRootConfigurationPathType$set(MemorySegment seg, int x) {
-        constants$505.const$3.set(seg, x);
-    }
-    public static int ulRootConfigurationPathType$get(MemorySegment seg, long index) {
-        return (int)constants$505.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ulRootConfigurationPathType$set(MemorySegment seg, long index, int x) {
-        constants$505.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ulRootConfigurationPathChars$VH() {
-        return constants$505.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ulRootConfigurationPathChars;
-     * }
-     */
-    public static int ulRootConfigurationPathChars$get(MemorySegment seg) {
-        return (int)constants$505.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ulRootConfigurationPathChars;
-     * }
-     */
-    public static void ulRootConfigurationPathChars$set(MemorySegment seg, int x) {
-        constants$505.const$4.set(seg, x);
-    }
-    public static int ulRootConfigurationPathChars$get(MemorySegment seg, long index) {
-        return (int)constants$505.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ulRootConfigurationPathChars$set(MemorySegment seg, long index, int x) {
-        constants$505.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ulAppDirPathType$VH() {
-        return constants$505.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ulAppDirPathType;
-     * }
-     */
-    public static int ulAppDirPathType$get(MemorySegment seg) {
-        return (int)constants$505.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ulAppDirPathType;
-     * }
-     */
-    public static void ulAppDirPathType$set(MemorySegment seg, int x) {
-        constants$505.const$5.set(seg, x);
-    }
-    public static int ulAppDirPathType$get(MemorySegment seg, long index) {
-        return (int)constants$505.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ulAppDirPathType$set(MemorySegment seg, long index, int x) {
-        constants$505.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ulAppDirPathChars$VH() {
-        return constants$506.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ulAppDirPathChars;
-     * }
-     */
-    public static int ulAppDirPathChars$get(MemorySegment seg) {
-        return (int)constants$506.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ulAppDirPathChars;
-     * }
-     */
-    public static void ulAppDirPathChars$set(MemorySegment seg, int x) {
-        constants$506.const$0.set(seg, x);
-    }
-    public static int ulAppDirPathChars$get(MemorySegment seg, long index) {
-        return (int)constants$506.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ulAppDirPathChars$set(MemorySegment seg, long index, int x) {
-        constants$506.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle lpRootManifestPath$VH() {
-        return constants$506.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCWSTR lpRootManifestPath;
-     * }
-     */
-    public static MemorySegment lpRootManifestPath$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$506.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCWSTR lpRootManifestPath;
-     * }
-     */
-    public static void lpRootManifestPath$set(MemorySegment seg, MemorySegment x) {
-        constants$506.const$1.set(seg, x);
-    }
-    public static MemorySegment lpRootManifestPath$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$506.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lpRootManifestPath$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$506.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle lpRootConfigurationPath$VH() {
-        return constants$506.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCWSTR lpRootConfigurationPath;
-     * }
-     */
-    public static MemorySegment lpRootConfigurationPath$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$506.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCWSTR lpRootConfigurationPath;
-     * }
-     */
-    public static void lpRootConfigurationPath$set(MemorySegment seg, MemorySegment x) {
-        constants$506.const$2.set(seg, x);
-    }
-    public static MemorySegment lpRootConfigurationPath$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$506.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lpRootConfigurationPath$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$506.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle lpAppDirPath$VH() {
-        return constants$506.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCWSTR lpAppDirPath;
-     * }
-     */
-    public static MemorySegment lpAppDirPath$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$506.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCWSTR lpAppDirPath;
-     * }
-     */
-    public static void lpAppDirPath$set(MemorySegment seg, MemorySegment x) {
-        constants$506.const$3.set(seg, x);
-    }
-    public static MemorySegment lpAppDirPath$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$506.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lpAppDirPath$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$506.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("dwFlags"),
+        Windows_h.C_LONG.withName("ulFormatVersion"),
+        Windows_h.C_LONG.withName("ulAssemblyCount"),
+        Windows_h.C_LONG.withName("ulRootManifestPathType"),
+        Windows_h.C_LONG.withName("ulRootManifestPathChars"),
+        Windows_h.C_LONG.withName("ulRootConfigurationPathType"),
+        Windows_h.C_LONG.withName("ulRootConfigurationPathChars"),
+        Windows_h.C_LONG.withName("ulAppDirPathType"),
+        Windows_h.C_LONG.withName("ulAppDirPathChars"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("lpRootManifestPath"),
+        Windows_h.C_POINTER.withName("lpRootConfigurationPath"),
+        Windows_h.C_POINTER.withName("lpAppDirPath")
+    ).withName("_ACTIVATION_CONTEXT_DETAILED_INFORMATION");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt dwFlags$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwFlags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwFlags
+     * }
+     */
+    public static final OfInt dwFlags$layout() {
+        return dwFlags$LAYOUT;
+    }
+
+    private static final long dwFlags$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwFlags
+     * }
+     */
+    public static final long dwFlags$offset() {
+        return dwFlags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwFlags
+     * }
+     */
+    public static int dwFlags(MemorySegment struct) {
+        return struct.get(dwFlags$LAYOUT, dwFlags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwFlags
+     * }
+     */
+    public static void dwFlags(MemorySegment struct, int fieldValue) {
+        struct.set(dwFlags$LAYOUT, dwFlags$OFFSET, fieldValue);
+    }
+
+    private static final OfInt ulFormatVersion$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ulFormatVersion"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ulFormatVersion
+     * }
+     */
+    public static final OfInt ulFormatVersion$layout() {
+        return ulFormatVersion$LAYOUT;
+    }
+
+    private static final long ulFormatVersion$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ulFormatVersion
+     * }
+     */
+    public static final long ulFormatVersion$offset() {
+        return ulFormatVersion$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ulFormatVersion
+     * }
+     */
+    public static int ulFormatVersion(MemorySegment struct) {
+        return struct.get(ulFormatVersion$LAYOUT, ulFormatVersion$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ulFormatVersion
+     * }
+     */
+    public static void ulFormatVersion(MemorySegment struct, int fieldValue) {
+        struct.set(ulFormatVersion$LAYOUT, ulFormatVersion$OFFSET, fieldValue);
+    }
+
+    private static final OfInt ulAssemblyCount$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ulAssemblyCount"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ulAssemblyCount
+     * }
+     */
+    public static final OfInt ulAssemblyCount$layout() {
+        return ulAssemblyCount$LAYOUT;
+    }
+
+    private static final long ulAssemblyCount$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ulAssemblyCount
+     * }
+     */
+    public static final long ulAssemblyCount$offset() {
+        return ulAssemblyCount$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ulAssemblyCount
+     * }
+     */
+    public static int ulAssemblyCount(MemorySegment struct) {
+        return struct.get(ulAssemblyCount$LAYOUT, ulAssemblyCount$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ulAssemblyCount
+     * }
+     */
+    public static void ulAssemblyCount(MemorySegment struct, int fieldValue) {
+        struct.set(ulAssemblyCount$LAYOUT, ulAssemblyCount$OFFSET, fieldValue);
+    }
+
+    private static final OfInt ulRootManifestPathType$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ulRootManifestPathType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ulRootManifestPathType
+     * }
+     */
+    public static final OfInt ulRootManifestPathType$layout() {
+        return ulRootManifestPathType$LAYOUT;
+    }
+
+    private static final long ulRootManifestPathType$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ulRootManifestPathType
+     * }
+     */
+    public static final long ulRootManifestPathType$offset() {
+        return ulRootManifestPathType$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ulRootManifestPathType
+     * }
+     */
+    public static int ulRootManifestPathType(MemorySegment struct) {
+        return struct.get(ulRootManifestPathType$LAYOUT, ulRootManifestPathType$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ulRootManifestPathType
+     * }
+     */
+    public static void ulRootManifestPathType(MemorySegment struct, int fieldValue) {
+        struct.set(ulRootManifestPathType$LAYOUT, ulRootManifestPathType$OFFSET, fieldValue);
+    }
+
+    private static final OfInt ulRootManifestPathChars$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ulRootManifestPathChars"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ulRootManifestPathChars
+     * }
+     */
+    public static final OfInt ulRootManifestPathChars$layout() {
+        return ulRootManifestPathChars$LAYOUT;
+    }
+
+    private static final long ulRootManifestPathChars$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ulRootManifestPathChars
+     * }
+     */
+    public static final long ulRootManifestPathChars$offset() {
+        return ulRootManifestPathChars$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ulRootManifestPathChars
+     * }
+     */
+    public static int ulRootManifestPathChars(MemorySegment struct) {
+        return struct.get(ulRootManifestPathChars$LAYOUT, ulRootManifestPathChars$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ulRootManifestPathChars
+     * }
+     */
+    public static void ulRootManifestPathChars(MemorySegment struct, int fieldValue) {
+        struct.set(ulRootManifestPathChars$LAYOUT, ulRootManifestPathChars$OFFSET, fieldValue);
+    }
+
+    private static final OfInt ulRootConfigurationPathType$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ulRootConfigurationPathType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ulRootConfigurationPathType
+     * }
+     */
+    public static final OfInt ulRootConfigurationPathType$layout() {
+        return ulRootConfigurationPathType$LAYOUT;
+    }
+
+    private static final long ulRootConfigurationPathType$OFFSET = 20;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ulRootConfigurationPathType
+     * }
+     */
+    public static final long ulRootConfigurationPathType$offset() {
+        return ulRootConfigurationPathType$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ulRootConfigurationPathType
+     * }
+     */
+    public static int ulRootConfigurationPathType(MemorySegment struct) {
+        return struct.get(ulRootConfigurationPathType$LAYOUT, ulRootConfigurationPathType$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ulRootConfigurationPathType
+     * }
+     */
+    public static void ulRootConfigurationPathType(MemorySegment struct, int fieldValue) {
+        struct.set(ulRootConfigurationPathType$LAYOUT, ulRootConfigurationPathType$OFFSET, fieldValue);
+    }
+
+    private static final OfInt ulRootConfigurationPathChars$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ulRootConfigurationPathChars"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ulRootConfigurationPathChars
+     * }
+     */
+    public static final OfInt ulRootConfigurationPathChars$layout() {
+        return ulRootConfigurationPathChars$LAYOUT;
+    }
+
+    private static final long ulRootConfigurationPathChars$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ulRootConfigurationPathChars
+     * }
+     */
+    public static final long ulRootConfigurationPathChars$offset() {
+        return ulRootConfigurationPathChars$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ulRootConfigurationPathChars
+     * }
+     */
+    public static int ulRootConfigurationPathChars(MemorySegment struct) {
+        return struct.get(ulRootConfigurationPathChars$LAYOUT, ulRootConfigurationPathChars$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ulRootConfigurationPathChars
+     * }
+     */
+    public static void ulRootConfigurationPathChars(MemorySegment struct, int fieldValue) {
+        struct.set(ulRootConfigurationPathChars$LAYOUT, ulRootConfigurationPathChars$OFFSET, fieldValue);
+    }
+
+    private static final OfInt ulAppDirPathType$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ulAppDirPathType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ulAppDirPathType
+     * }
+     */
+    public static final OfInt ulAppDirPathType$layout() {
+        return ulAppDirPathType$LAYOUT;
+    }
+
+    private static final long ulAppDirPathType$OFFSET = 28;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ulAppDirPathType
+     * }
+     */
+    public static final long ulAppDirPathType$offset() {
+        return ulAppDirPathType$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ulAppDirPathType
+     * }
+     */
+    public static int ulAppDirPathType(MemorySegment struct) {
+        return struct.get(ulAppDirPathType$LAYOUT, ulAppDirPathType$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ulAppDirPathType
+     * }
+     */
+    public static void ulAppDirPathType(MemorySegment struct, int fieldValue) {
+        struct.set(ulAppDirPathType$LAYOUT, ulAppDirPathType$OFFSET, fieldValue);
+    }
+
+    private static final OfInt ulAppDirPathChars$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ulAppDirPathChars"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ulAppDirPathChars
+     * }
+     */
+    public static final OfInt ulAppDirPathChars$layout() {
+        return ulAppDirPathChars$LAYOUT;
+    }
+
+    private static final long ulAppDirPathChars$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ulAppDirPathChars
+     * }
+     */
+    public static final long ulAppDirPathChars$offset() {
+        return ulAppDirPathChars$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ulAppDirPathChars
+     * }
+     */
+    public static int ulAppDirPathChars(MemorySegment struct) {
+        return struct.get(ulAppDirPathChars$LAYOUT, ulAppDirPathChars$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ulAppDirPathChars
+     * }
+     */
+    public static void ulAppDirPathChars(MemorySegment struct, int fieldValue) {
+        struct.set(ulAppDirPathChars$LAYOUT, ulAppDirPathChars$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout lpRootManifestPath$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("lpRootManifestPath"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCWSTR lpRootManifestPath
+     * }
+     */
+    public static final AddressLayout lpRootManifestPath$layout() {
+        return lpRootManifestPath$LAYOUT;
+    }
+
+    private static final long lpRootManifestPath$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCWSTR lpRootManifestPath
+     * }
+     */
+    public static final long lpRootManifestPath$offset() {
+        return lpRootManifestPath$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCWSTR lpRootManifestPath
+     * }
+     */
+    public static MemorySegment lpRootManifestPath(MemorySegment struct) {
+        return struct.get(lpRootManifestPath$LAYOUT, lpRootManifestPath$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCWSTR lpRootManifestPath
+     * }
+     */
+    public static void lpRootManifestPath(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(lpRootManifestPath$LAYOUT, lpRootManifestPath$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout lpRootConfigurationPath$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("lpRootConfigurationPath"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCWSTR lpRootConfigurationPath
+     * }
+     */
+    public static final AddressLayout lpRootConfigurationPath$layout() {
+        return lpRootConfigurationPath$LAYOUT;
+    }
+
+    private static final long lpRootConfigurationPath$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCWSTR lpRootConfigurationPath
+     * }
+     */
+    public static final long lpRootConfigurationPath$offset() {
+        return lpRootConfigurationPath$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCWSTR lpRootConfigurationPath
+     * }
+     */
+    public static MemorySegment lpRootConfigurationPath(MemorySegment struct) {
+        return struct.get(lpRootConfigurationPath$LAYOUT, lpRootConfigurationPath$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCWSTR lpRootConfigurationPath
+     * }
+     */
+    public static void lpRootConfigurationPath(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(lpRootConfigurationPath$LAYOUT, lpRootConfigurationPath$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout lpAppDirPath$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("lpAppDirPath"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCWSTR lpAppDirPath
+     * }
+     */
+    public static final AddressLayout lpAppDirPath$layout() {
+        return lpAppDirPath$LAYOUT;
+    }
+
+    private static final long lpAppDirPath$OFFSET = 56;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCWSTR lpAppDirPath
+     * }
+     */
+    public static final long lpAppDirPath$offset() {
+        return lpAppDirPath$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCWSTR lpAppDirPath
+     * }
+     */
+    public static MemorySegment lpAppDirPath(MemorySegment struct) {
+        return struct.get(lpAppDirPath$LAYOUT, lpAppDirPath$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCWSTR lpAppDirPath
+     * }
+     */
+    public static void lpAppDirPath(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(lpAppDirPath$LAYOUT, lpAppDirPath$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

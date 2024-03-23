@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagMENUINFO {
  *     DWORD cbSize;
  *     DWORD fMask;
@@ -17,209 +22,383 @@ import static java.lang.foreign.ValueLayout.*;
  *     HBRUSH hbrBack;
  *     DWORD dwContextHelpID;
  *     ULONG_PTR dwMenuData;
- * };
+ * }
  * }
  */
 public class tagMENUINFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1264.const$1;
+    tagMENUINFO() {
+        // Should not be called directly
     }
-    public static VarHandle cbSize$VH() {
-        return constants$1264.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cbSize;
-     * }
-     */
-    public static int cbSize$get(MemorySegment seg) {
-        return (int)constants$1264.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cbSize;
-     * }
-     */
-    public static void cbSize$set(MemorySegment seg, int x) {
-        constants$1264.const$2.set(seg, x);
-    }
-    public static int cbSize$get(MemorySegment seg, long index) {
-        return (int)constants$1264.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cbSize$set(MemorySegment seg, long index, int x) {
-        constants$1264.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle fMask$VH() {
-        return constants$1264.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD fMask;
-     * }
-     */
-    public static int fMask$get(MemorySegment seg) {
-        return (int)constants$1264.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD fMask;
-     * }
-     */
-    public static void fMask$set(MemorySegment seg, int x) {
-        constants$1264.const$3.set(seg, x);
-    }
-    public static int fMask$get(MemorySegment seg, long index) {
-        return (int)constants$1264.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void fMask$set(MemorySegment seg, long index, int x) {
-        constants$1264.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwStyle$VH() {
-        return constants$1264.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwStyle;
-     * }
-     */
-    public static int dwStyle$get(MemorySegment seg) {
-        return (int)constants$1264.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwStyle;
-     * }
-     */
-    public static void dwStyle$set(MemorySegment seg, int x) {
-        constants$1264.const$4.set(seg, x);
-    }
-    public static int dwStyle$get(MemorySegment seg, long index) {
-        return (int)constants$1264.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwStyle$set(MemorySegment seg, long index, int x) {
-        constants$1264.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle cyMax$VH() {
-        return constants$1264.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * UINT cyMax;
-     * }
-     */
-    public static int cyMax$get(MemorySegment seg) {
-        return (int)constants$1264.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * UINT cyMax;
-     * }
-     */
-    public static void cyMax$set(MemorySegment seg, int x) {
-        constants$1264.const$5.set(seg, x);
-    }
-    public static int cyMax$get(MemorySegment seg, long index) {
-        return (int)constants$1264.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cyMax$set(MemorySegment seg, long index, int x) {
-        constants$1264.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle hbrBack$VH() {
-        return constants$1265.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * HBRUSH hbrBack;
-     * }
-     */
-    public static MemorySegment hbrBack$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$1265.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * HBRUSH hbrBack;
-     * }
-     */
-    public static void hbrBack$set(MemorySegment seg, MemorySegment x) {
-        constants$1265.const$0.set(seg, x);
-    }
-    public static MemorySegment hbrBack$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$1265.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void hbrBack$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$1265.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwContextHelpID$VH() {
-        return constants$1265.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwContextHelpID;
-     * }
-     */
-    public static int dwContextHelpID$get(MemorySegment seg) {
-        return (int)constants$1265.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwContextHelpID;
-     * }
-     */
-    public static void dwContextHelpID$set(MemorySegment seg, int x) {
-        constants$1265.const$1.set(seg, x);
-    }
-    public static int dwContextHelpID$get(MemorySegment seg, long index) {
-        return (int)constants$1265.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwContextHelpID$set(MemorySegment seg, long index, int x) {
-        constants$1265.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwMenuData$VH() {
-        return constants$1265.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONG_PTR dwMenuData;
-     * }
-     */
-    public static long dwMenuData$get(MemorySegment seg) {
-        return (long)constants$1265.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONG_PTR dwMenuData;
-     * }
-     */
-    public static void dwMenuData$set(MemorySegment seg, long x) {
-        constants$1265.const$2.set(seg, x);
-    }
-    public static long dwMenuData$get(MemorySegment seg, long index) {
-        return (long)constants$1265.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwMenuData$set(MemorySegment seg, long index, long x) {
-        constants$1265.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("cbSize"),
+        Windows_h.C_LONG.withName("fMask"),
+        Windows_h.C_LONG.withName("dwStyle"),
+        Windows_h.C_INT.withName("cyMax"),
+        Windows_h.C_POINTER.withName("hbrBack"),
+        Windows_h.C_LONG.withName("dwContextHelpID"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_LONG_LONG.withName("dwMenuData")
+    ).withName("tagMENUINFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt cbSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cbSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static final OfInt cbSize$layout() {
+        return cbSize$LAYOUT;
+    }
+
+    private static final long cbSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static final long cbSize$offset() {
+        return cbSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static int cbSize(MemorySegment struct) {
+        return struct.get(cbSize$LAYOUT, cbSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static void cbSize(MemorySegment struct, int fieldValue) {
+        struct.set(cbSize$LAYOUT, cbSize$OFFSET, fieldValue);
+    }
+
+    private static final OfInt fMask$LAYOUT = (OfInt)$LAYOUT.select(groupElement("fMask"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD fMask
+     * }
+     */
+    public static final OfInt fMask$layout() {
+        return fMask$LAYOUT;
+    }
+
+    private static final long fMask$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD fMask
+     * }
+     */
+    public static final long fMask$offset() {
+        return fMask$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD fMask
+     * }
+     */
+    public static int fMask(MemorySegment struct) {
+        return struct.get(fMask$LAYOUT, fMask$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD fMask
+     * }
+     */
+    public static void fMask(MemorySegment struct, int fieldValue) {
+        struct.set(fMask$LAYOUT, fMask$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwStyle$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwStyle"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwStyle
+     * }
+     */
+    public static final OfInt dwStyle$layout() {
+        return dwStyle$LAYOUT;
+    }
+
+    private static final long dwStyle$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwStyle
+     * }
+     */
+    public static final long dwStyle$offset() {
+        return dwStyle$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwStyle
+     * }
+     */
+    public static int dwStyle(MemorySegment struct) {
+        return struct.get(dwStyle$LAYOUT, dwStyle$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwStyle
+     * }
+     */
+    public static void dwStyle(MemorySegment struct, int fieldValue) {
+        struct.set(dwStyle$LAYOUT, dwStyle$OFFSET, fieldValue);
+    }
+
+    private static final OfInt cyMax$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cyMax"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * UINT cyMax
+     * }
+     */
+    public static final OfInt cyMax$layout() {
+        return cyMax$LAYOUT;
+    }
+
+    private static final long cyMax$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * UINT cyMax
+     * }
+     */
+    public static final long cyMax$offset() {
+        return cyMax$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * UINT cyMax
+     * }
+     */
+    public static int cyMax(MemorySegment struct) {
+        return struct.get(cyMax$LAYOUT, cyMax$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * UINT cyMax
+     * }
+     */
+    public static void cyMax(MemorySegment struct, int fieldValue) {
+        struct.set(cyMax$LAYOUT, cyMax$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout hbrBack$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hbrBack"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HBRUSH hbrBack
+     * }
+     */
+    public static final AddressLayout hbrBack$layout() {
+        return hbrBack$LAYOUT;
+    }
+
+    private static final long hbrBack$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HBRUSH hbrBack
+     * }
+     */
+    public static final long hbrBack$offset() {
+        return hbrBack$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * HBRUSH hbrBack
+     * }
+     */
+    public static MemorySegment hbrBack(MemorySegment struct) {
+        return struct.get(hbrBack$LAYOUT, hbrBack$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * HBRUSH hbrBack
+     * }
+     */
+    public static void hbrBack(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(hbrBack$LAYOUT, hbrBack$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwContextHelpID$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwContextHelpID"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwContextHelpID
+     * }
+     */
+    public static final OfInt dwContextHelpID$layout() {
+        return dwContextHelpID$LAYOUT;
+    }
+
+    private static final long dwContextHelpID$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwContextHelpID
+     * }
+     */
+    public static final long dwContextHelpID$offset() {
+        return dwContextHelpID$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwContextHelpID
+     * }
+     */
+    public static int dwContextHelpID(MemorySegment struct) {
+        return struct.get(dwContextHelpID$LAYOUT, dwContextHelpID$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwContextHelpID
+     * }
+     */
+    public static void dwContextHelpID(MemorySegment struct, int fieldValue) {
+        struct.set(dwContextHelpID$LAYOUT, dwContextHelpID$OFFSET, fieldValue);
+    }
+
+    private static final OfLong dwMenuData$LAYOUT = (OfLong)$LAYOUT.select(groupElement("dwMenuData"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG_PTR dwMenuData
+     * }
+     */
+    public static final OfLong dwMenuData$layout() {
+        return dwMenuData$LAYOUT;
+    }
+
+    private static final long dwMenuData$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG_PTR dwMenuData
+     * }
+     */
+    public static final long dwMenuData$offset() {
+        return dwMenuData$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONG_PTR dwMenuData
+     * }
+     */
+    public static long dwMenuData(MemorySegment struct) {
+        return struct.get(dwMenuData$LAYOUT, dwMenuData$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONG_PTR dwMenuData
+     * }
+     */
+    public static void dwMenuData(MemorySegment struct, long fieldValue) {
+        struct.set(dwMenuData$LAYOUT, dwMenuData$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

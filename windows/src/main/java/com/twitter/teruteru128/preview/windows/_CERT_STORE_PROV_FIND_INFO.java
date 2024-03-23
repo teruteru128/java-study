@@ -2,168 +2,310 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _CERT_STORE_PROV_FIND_INFO {
  *     DWORD cbSize;
  *     DWORD dwMsgAndCertEncodingType;
  *     DWORD dwFindFlags;
  *     DWORD dwFindType;
- *     void* pvFindPara;
- * };
+ *     const void *pvFindPara;
+ * }
  * }
  */
 public class _CERT_STORE_PROV_FIND_INFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2132.const$0;
+    _CERT_STORE_PROV_FIND_INFO() {
+        // Should not be called directly
     }
-    public static VarHandle cbSize$VH() {
-        return constants$2132.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cbSize;
-     * }
-     */
-    public static int cbSize$get(MemorySegment seg) {
-        return (int)constants$2132.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cbSize;
-     * }
-     */
-    public static void cbSize$set(MemorySegment seg, int x) {
-        constants$2132.const$1.set(seg, x);
-    }
-    public static int cbSize$get(MemorySegment seg, long index) {
-        return (int)constants$2132.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cbSize$set(MemorySegment seg, long index, int x) {
-        constants$2132.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwMsgAndCertEncodingType$VH() {
-        return constants$2132.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwMsgAndCertEncodingType;
-     * }
-     */
-    public static int dwMsgAndCertEncodingType$get(MemorySegment seg) {
-        return (int)constants$2132.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwMsgAndCertEncodingType;
-     * }
-     */
-    public static void dwMsgAndCertEncodingType$set(MemorySegment seg, int x) {
-        constants$2132.const$2.set(seg, x);
-    }
-    public static int dwMsgAndCertEncodingType$get(MemorySegment seg, long index) {
-        return (int)constants$2132.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwMsgAndCertEncodingType$set(MemorySegment seg, long index, int x) {
-        constants$2132.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwFindFlags$VH() {
-        return constants$2132.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwFindFlags;
-     * }
-     */
-    public static int dwFindFlags$get(MemorySegment seg) {
-        return (int)constants$2132.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwFindFlags;
-     * }
-     */
-    public static void dwFindFlags$set(MemorySegment seg, int x) {
-        constants$2132.const$3.set(seg, x);
-    }
-    public static int dwFindFlags$get(MemorySegment seg, long index) {
-        return (int)constants$2132.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwFindFlags$set(MemorySegment seg, long index, int x) {
-        constants$2132.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwFindType$VH() {
-        return constants$2132.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwFindType;
-     * }
-     */
-    public static int dwFindType$get(MemorySegment seg) {
-        return (int)constants$2132.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwFindType;
-     * }
-     */
-    public static void dwFindType$set(MemorySegment seg, int x) {
-        constants$2132.const$4.set(seg, x);
-    }
-    public static int dwFindType$get(MemorySegment seg, long index) {
-        return (int)constants$2132.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwFindType$set(MemorySegment seg, long index, int x) {
-        constants$2132.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pvFindPara$VH() {
-        return constants$2132.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * void* pvFindPara;
-     * }
-     */
-    public static MemorySegment pvFindPara$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2132.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * void* pvFindPara;
-     * }
-     */
-    public static void pvFindPara$set(MemorySegment seg, MemorySegment x) {
-        constants$2132.const$5.set(seg, x);
-    }
-    public static MemorySegment pvFindPara$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2132.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pvFindPara$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2132.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("cbSize"),
+        Windows_h.C_LONG.withName("dwMsgAndCertEncodingType"),
+        Windows_h.C_LONG.withName("dwFindFlags"),
+        Windows_h.C_LONG.withName("dwFindType"),
+        Windows_h.C_POINTER.withName("pvFindPara")
+    ).withName("_CERT_STORE_PROV_FIND_INFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt cbSize$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cbSize"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static final OfInt cbSize$layout() {
+        return cbSize$LAYOUT;
+    }
+
+    private static final long cbSize$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static final long cbSize$offset() {
+        return cbSize$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static int cbSize(MemorySegment struct) {
+        return struct.get(cbSize$LAYOUT, cbSize$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cbSize
+     * }
+     */
+    public static void cbSize(MemorySegment struct, int fieldValue) {
+        struct.set(cbSize$LAYOUT, cbSize$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwMsgAndCertEncodingType$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwMsgAndCertEncodingType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwMsgAndCertEncodingType
+     * }
+     */
+    public static final OfInt dwMsgAndCertEncodingType$layout() {
+        return dwMsgAndCertEncodingType$LAYOUT;
+    }
+
+    private static final long dwMsgAndCertEncodingType$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwMsgAndCertEncodingType
+     * }
+     */
+    public static final long dwMsgAndCertEncodingType$offset() {
+        return dwMsgAndCertEncodingType$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwMsgAndCertEncodingType
+     * }
+     */
+    public static int dwMsgAndCertEncodingType(MemorySegment struct) {
+        return struct.get(dwMsgAndCertEncodingType$LAYOUT, dwMsgAndCertEncodingType$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwMsgAndCertEncodingType
+     * }
+     */
+    public static void dwMsgAndCertEncodingType(MemorySegment struct, int fieldValue) {
+        struct.set(dwMsgAndCertEncodingType$LAYOUT, dwMsgAndCertEncodingType$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwFindFlags$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwFindFlags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwFindFlags
+     * }
+     */
+    public static final OfInt dwFindFlags$layout() {
+        return dwFindFlags$LAYOUT;
+    }
+
+    private static final long dwFindFlags$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwFindFlags
+     * }
+     */
+    public static final long dwFindFlags$offset() {
+        return dwFindFlags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwFindFlags
+     * }
+     */
+    public static int dwFindFlags(MemorySegment struct) {
+        return struct.get(dwFindFlags$LAYOUT, dwFindFlags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwFindFlags
+     * }
+     */
+    public static void dwFindFlags(MemorySegment struct, int fieldValue) {
+        struct.set(dwFindFlags$LAYOUT, dwFindFlags$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwFindType$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwFindType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwFindType
+     * }
+     */
+    public static final OfInt dwFindType$layout() {
+        return dwFindType$LAYOUT;
+    }
+
+    private static final long dwFindType$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwFindType
+     * }
+     */
+    public static final long dwFindType$offset() {
+        return dwFindType$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwFindType
+     * }
+     */
+    public static int dwFindType(MemorySegment struct) {
+        return struct.get(dwFindType$LAYOUT, dwFindType$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwFindType
+     * }
+     */
+    public static void dwFindType(MemorySegment struct, int fieldValue) {
+        struct.set(dwFindType$LAYOUT, dwFindType$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pvFindPara$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pvFindPara"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * const void *pvFindPara
+     * }
+     */
+    public static final AddressLayout pvFindPara$layout() {
+        return pvFindPara$LAYOUT;
+    }
+
+    private static final long pvFindPara$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * const void *pvFindPara
+     * }
+     */
+    public static final long pvFindPara$offset() {
+        return pvFindPara$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * const void *pvFindPara
+     * }
+     */
+    public static MemorySegment pvFindPara(MemorySegment struct) {
+        return struct.get(pvFindPara$LAYOUT, pvFindPara$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * const void *pvFindPara
+     * }
+     */
+    public static void pvFindPara(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pvFindPara$LAYOUT, pvFindPara$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

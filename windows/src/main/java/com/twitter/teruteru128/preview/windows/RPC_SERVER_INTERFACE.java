@@ -2,20 +2,35 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _RPC_SERVER_INTERFACE RPC_SERVER_INTERFACE;
+ * {@snippet lang=c :
+ * typedef struct _RPC_SERVER_INTERFACE {
+ *     unsigned int Length;
+ *     RPC_SYNTAX_IDENTIFIER InterfaceId;
+ *     RPC_SYNTAX_IDENTIFIER TransferSyntax;
+ *     PRPC_DISPATCH_TABLE DispatchTable;
+ *     unsigned int RpcProtseqEndpointCount;
+ *     PRPC_PROTSEQ_ENDPOINT RpcProtseqEndpoint;
+ *     void *DefaultManagerEpv;
+ *     const void *InterpreterInfo;
+ *     unsigned int Flags;
+ * } RPC_SERVER_INTERFACE
  * }
  */
-public final class RPC_SERVER_INTERFACE extends _RPC_SERVER_INTERFACE {
+public class RPC_SERVER_INTERFACE extends _RPC_SERVER_INTERFACE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private RPC_SERVER_INTERFACE() {}
+    RPC_SERVER_INTERFACE() {
+        // Should not be called directly
+    }
 }
-
 

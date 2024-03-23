@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _TAPE_GET_STATISTICS TAPE_GET_STATISTICS;
+ * {@snippet lang=c :
+ * typedef struct _TAPE_GET_STATISTICS {
+ *     DWORD Operation;
+ * } TAPE_GET_STATISTICS
  * }
  */
-public final class TAPE_GET_STATISTICS extends _TAPE_GET_STATISTICS {
+public class TAPE_GET_STATISTICS extends _TAPE_GET_STATISTICS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private TAPE_GET_STATISTICS() {}
+    TAPE_GET_STATISTICS() {
+        // Should not be called directly
+    }
 }
-
 

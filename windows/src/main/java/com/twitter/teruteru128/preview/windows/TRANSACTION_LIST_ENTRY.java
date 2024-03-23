@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _TRANSACTION_LIST_ENTRY TRANSACTION_LIST_ENTRY;
+ * {@snippet lang=c :
+ * typedef struct _TRANSACTION_LIST_ENTRY {
+ *     UOW UOW;
+ * } TRANSACTION_LIST_ENTRY
  * }
  */
-public final class TRANSACTION_LIST_ENTRY extends _TRANSACTION_LIST_ENTRY {
+public class TRANSACTION_LIST_ENTRY extends _TRANSACTION_LIST_ENTRY {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private TRANSACTION_LIST_ENTRY() {}
+    TRANSACTION_LIST_ENTRY() {
+        // Should not be called directly
+    }
 }
-
 

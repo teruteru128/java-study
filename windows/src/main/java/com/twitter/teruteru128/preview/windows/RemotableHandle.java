@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _RemotableHandle RemotableHandle;
+ * {@snippet lang=c :
+ * typedef struct _RemotableHandle {
+ *     LONG fContext;
+ *     union __MIDL_IWinTypes_0009 {
+ *         LONG hInproc;
+ *         LONG hRemote;
+ *     } u;
+ * } RemotableHandle
  * }
  */
-public final class RemotableHandle extends _RemotableHandle {
+public class RemotableHandle extends _RemotableHandle {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private RemotableHandle() {}
+    RemotableHandle() {
+        // Should not be called directly
+    }
 }
-
 

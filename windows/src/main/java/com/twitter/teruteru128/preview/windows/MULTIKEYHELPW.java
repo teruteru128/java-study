@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMULTIKEYHELPW MULTIKEYHELPW;
+ * {@snippet lang=c :
+ * typedef struct tagMULTIKEYHELPW {
+ *     DWORD mkSize;
+ *     WCHAR mkKeylist;
+ *     WCHAR szKeyphrase[1];
+ * } MULTIKEYHELPW
  * }
  */
-public final class MULTIKEYHELPW extends tagMULTIKEYHELPW {
+public class MULTIKEYHELPW extends tagMULTIKEYHELPW {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MULTIKEYHELPW() {}
+    MULTIKEYHELPW() {
+        // Should not be called directly
+    }
 }
-
 

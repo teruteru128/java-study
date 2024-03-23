@@ -2,84 +2,172 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct LIST_ENTRY64 {
  *     ULONGLONG Flink;
  *     ULONGLONG Blink;
- * };
+ * }
  * }
  */
 public class LIST_ENTRY64 {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$26.const$3;
+    LIST_ENTRY64() {
+        // Should not be called directly
     }
-    public static VarHandle Flink$VH() {
-        return constants$26.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONGLONG Flink;
-     * }
-     */
-    public static long Flink$get(MemorySegment seg) {
-        return (long)constants$26.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONGLONG Flink;
-     * }
-     */
-    public static void Flink$set(MemorySegment seg, long x) {
-        constants$26.const$4.set(seg, x);
-    }
-    public static long Flink$get(MemorySegment seg, long index) {
-        return (long)constants$26.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Flink$set(MemorySegment seg, long index, long x) {
-        constants$26.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Blink$VH() {
-        return constants$26.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * ULONGLONG Blink;
-     * }
-     */
-    public static long Blink$get(MemorySegment seg) {
-        return (long)constants$26.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * ULONGLONG Blink;
-     * }
-     */
-    public static void Blink$set(MemorySegment seg, long x) {
-        constants$26.const$5.set(seg, x);
-    }
-    public static long Blink$get(MemorySegment seg, long index) {
-        return (long)constants$26.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Blink$set(MemorySegment seg, long index, long x) {
-        constants$26.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG_LONG.withName("Flink"),
+        Windows_h.C_LONG_LONG.withName("Blink")
+    ).withName("LIST_ENTRY64");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfLong Flink$LAYOUT = (OfLong)$LAYOUT.select(groupElement("Flink"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONGLONG Flink
+     * }
+     */
+    public static final OfLong Flink$layout() {
+        return Flink$LAYOUT;
+    }
+
+    private static final long Flink$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONGLONG Flink
+     * }
+     */
+    public static final long Flink$offset() {
+        return Flink$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONGLONG Flink
+     * }
+     */
+    public static long Flink(MemorySegment struct) {
+        return struct.get(Flink$LAYOUT, Flink$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONGLONG Flink
+     * }
+     */
+    public static void Flink(MemorySegment struct, long fieldValue) {
+        struct.set(Flink$LAYOUT, Flink$OFFSET, fieldValue);
+    }
+
+    private static final OfLong Blink$LAYOUT = (OfLong)$LAYOUT.select(groupElement("Blink"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONGLONG Blink
+     * }
+     */
+    public static final OfLong Blink$layout() {
+        return Blink$LAYOUT;
+    }
+
+    private static final long Blink$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONGLONG Blink
+     * }
+     */
+    public static final long Blink$offset() {
+        return Blink$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * ULONGLONG Blink
+     * }
+     */
+    public static long Blink(MemorySegment struct) {
+        return struct.get(Blink$LAYOUT, Blink$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * ULONGLONG Blink
+     * }
+     */
+    public static void Blink(MemorySegment struct, long fieldValue) {
+        struct.set(Blink$LAYOUT, Blink$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

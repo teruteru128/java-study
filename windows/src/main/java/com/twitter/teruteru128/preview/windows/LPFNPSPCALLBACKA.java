@@ -2,32 +2,93 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * unsigned int (*LPFNPSPCALLBACKA)(struct HWND__* hwnd,unsigned int uMsg,struct _PROPSHEETPAGEA* ppsp);
+ * {@snippet lang=c :
+ * typedef UINT (*LPFNPSPCALLBACKA)(HWND, UINT, struct _PROPSHEETPAGEA {
+ *     DWORD dwSize;
+ *     DWORD dwFlags;
+ *     HINSTANCE hInstance;
+ *     union {
+ *         LPCSTR pszTemplate;
+ *         PROPSHEETPAGE_RESOURCE pResource;
+ *     };
+ *     union {
+ *         HICON hIcon;
+ *         LPCSTR pszIcon;
+ *     };
+ *     LPCSTR pszTitle;
+ *     DLGPROC pfnDlgProc;
+ *     LPARAM lParam;
+ *     LPFNPSPCALLBACKA pfnCallback;
+ *     UINT *pcRefParent;
+ *     LPCSTR pszHeaderTitle;
+ *     LPCSTR pszHeaderSubTitle;
+ *     HANDLE hActCtx;
+ *     union {
+ *         HBITMAP hbmHeader;
+ *         LPCSTR pszbmHeader;
+ *     };
+ * } *) __attribute__((stdcall))
  * }
  */
-public interface LPFNPSPCALLBACKA {
+public class LPFNPSPCALLBACKA {
 
-    int apply(java.lang.foreign.MemorySegment hwnd, int uMsg, java.lang.foreign.MemorySegment ppsp);
-    static MemorySegment allocate(LPFNPSPCALLBACKA fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2787.const$0, fi, constants$485.const$5, scope);
+    LPFNPSPCALLBACKA() {
+        // Should not be called directly
     }
-    static LPFNPSPCALLBACKA ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _hwnd, int _uMsg, java.lang.foreign.MemorySegment _ppsp) -> {
-            try {
-                return (int)constants$1770.const$5.invokeExact(symbol, _hwnd, _uMsg, _ppsp);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment hwnd, int uMsg, MemorySegment ppsp);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_INT,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(LPFNPSPCALLBACKA.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(LPFNPSPCALLBACKA.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment hwnd, int uMsg, MemorySegment ppsp) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, hwnd, uMsg, ppsp);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

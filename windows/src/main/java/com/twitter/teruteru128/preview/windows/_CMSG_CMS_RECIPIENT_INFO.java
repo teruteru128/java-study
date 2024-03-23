@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _CMSG_CMS_RECIPIENT_INFO {
  *     DWORD dwRecipientChoice;
  *     union {
@@ -16,128 +21,250 @@ import static java.lang.foreign.ValueLayout.*;
  *         PCMSG_KEY_AGREE_RECIPIENT_INFO pKeyAgree;
  *         PCMSG_MAIL_LIST_RECIPIENT_INFO pMailList;
  *     };
- * };
+ * }
  * }
  */
 public class _CMSG_CMS_RECIPIENT_INFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2097.const$4;
+    _CMSG_CMS_RECIPIENT_INFO() {
+        // Should not be called directly
     }
-    public static VarHandle dwRecipientChoice$VH() {
-        return constants$2097.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwRecipientChoice;
-     * }
-     */
-    public static int dwRecipientChoice$get(MemorySegment seg) {
-        return (int)constants$2097.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwRecipientChoice;
-     * }
-     */
-    public static void dwRecipientChoice$set(MemorySegment seg, int x) {
-        constants$2097.const$5.set(seg, x);
-    }
-    public static int dwRecipientChoice$get(MemorySegment seg, long index) {
-        return (int)constants$2097.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwRecipientChoice$set(MemorySegment seg, long index, int x) {
-        constants$2097.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pKeyTrans$VH() {
-        return constants$2098.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCMSG_KEY_TRANS_RECIPIENT_INFO pKeyTrans;
-     * }
-     */
-    public static MemorySegment pKeyTrans$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2098.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCMSG_KEY_TRANS_RECIPIENT_INFO pKeyTrans;
-     * }
-     */
-    public static void pKeyTrans$set(MemorySegment seg, MemorySegment x) {
-        constants$2098.const$0.set(seg, x);
-    }
-    public static MemorySegment pKeyTrans$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2098.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pKeyTrans$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2098.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pKeyAgree$VH() {
-        return constants$2098.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCMSG_KEY_AGREE_RECIPIENT_INFO pKeyAgree;
-     * }
-     */
-    public static MemorySegment pKeyAgree$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2098.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCMSG_KEY_AGREE_RECIPIENT_INFO pKeyAgree;
-     * }
-     */
-    public static void pKeyAgree$set(MemorySegment seg, MemorySegment x) {
-        constants$2098.const$1.set(seg, x);
-    }
-    public static MemorySegment pKeyAgree$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2098.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pKeyAgree$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2098.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pMailList$VH() {
-        return constants$2098.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PCMSG_MAIL_LIST_RECIPIENT_INFO pMailList;
-     * }
-     */
-    public static MemorySegment pMailList$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2098.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PCMSG_MAIL_LIST_RECIPIENT_INFO pMailList;
-     * }
-     */
-    public static void pMailList$set(MemorySegment seg, MemorySegment x) {
-        constants$2098.const$2.set(seg, x);
-    }
-    public static MemorySegment pMailList$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2098.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pMailList$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2098.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("dwRecipientChoice"),
+        MemoryLayout.paddingLayout(4),
+        MemoryLayout.unionLayout(
+            Windows_h.C_POINTER.withName("pKeyTrans"),
+            Windows_h.C_POINTER.withName("pKeyAgree"),
+            Windows_h.C_POINTER.withName("pMailList")
+        ).withName("$anon$7831:5")
+    ).withName("_CMSG_CMS_RECIPIENT_INFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt dwRecipientChoice$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwRecipientChoice"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwRecipientChoice
+     * }
+     */
+    public static final OfInt dwRecipientChoice$layout() {
+        return dwRecipientChoice$LAYOUT;
+    }
+
+    private static final long dwRecipientChoice$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwRecipientChoice
+     * }
+     */
+    public static final long dwRecipientChoice$offset() {
+        return dwRecipientChoice$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwRecipientChoice
+     * }
+     */
+    public static int dwRecipientChoice(MemorySegment struct) {
+        return struct.get(dwRecipientChoice$LAYOUT, dwRecipientChoice$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwRecipientChoice
+     * }
+     */
+    public static void dwRecipientChoice(MemorySegment struct, int fieldValue) {
+        struct.set(dwRecipientChoice$LAYOUT, dwRecipientChoice$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pKeyTrans$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$7831:5"), groupElement("pKeyTrans"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCMSG_KEY_TRANS_RECIPIENT_INFO pKeyTrans
+     * }
+     */
+    public static final AddressLayout pKeyTrans$layout() {
+        return pKeyTrans$LAYOUT;
+    }
+
+    private static final long pKeyTrans$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCMSG_KEY_TRANS_RECIPIENT_INFO pKeyTrans
+     * }
+     */
+    public static final long pKeyTrans$offset() {
+        return pKeyTrans$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCMSG_KEY_TRANS_RECIPIENT_INFO pKeyTrans
+     * }
+     */
+    public static MemorySegment pKeyTrans(MemorySegment struct) {
+        return struct.get(pKeyTrans$LAYOUT, pKeyTrans$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCMSG_KEY_TRANS_RECIPIENT_INFO pKeyTrans
+     * }
+     */
+    public static void pKeyTrans(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pKeyTrans$LAYOUT, pKeyTrans$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pKeyAgree$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$7831:5"), groupElement("pKeyAgree"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCMSG_KEY_AGREE_RECIPIENT_INFO pKeyAgree
+     * }
+     */
+    public static final AddressLayout pKeyAgree$layout() {
+        return pKeyAgree$LAYOUT;
+    }
+
+    private static final long pKeyAgree$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCMSG_KEY_AGREE_RECIPIENT_INFO pKeyAgree
+     * }
+     */
+    public static final long pKeyAgree$offset() {
+        return pKeyAgree$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCMSG_KEY_AGREE_RECIPIENT_INFO pKeyAgree
+     * }
+     */
+    public static MemorySegment pKeyAgree(MemorySegment struct) {
+        return struct.get(pKeyAgree$LAYOUT, pKeyAgree$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCMSG_KEY_AGREE_RECIPIENT_INFO pKeyAgree
+     * }
+     */
+    public static void pKeyAgree(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pKeyAgree$LAYOUT, pKeyAgree$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pMailList$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("$anon$7831:5"), groupElement("pMailList"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PCMSG_MAIL_LIST_RECIPIENT_INFO pMailList
+     * }
+     */
+    public static final AddressLayout pMailList$layout() {
+        return pMailList$LAYOUT;
+    }
+
+    private static final long pMailList$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PCMSG_MAIL_LIST_RECIPIENT_INFO pMailList
+     * }
+     */
+    public static final long pMailList$offset() {
+        return pMailList$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PCMSG_MAIL_LIST_RECIPIENT_INFO pMailList
+     * }
+     */
+    public static MemorySegment pMailList(MemorySegment struct) {
+        return struct.get(pMailList$LAYOUT, pMailList$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PCMSG_MAIL_LIST_RECIPIENT_INFO pMailList
+     * }
+     */
+    public static void pMailList(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pMailList$LAYOUT, pMailList$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

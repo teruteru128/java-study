@@ -2,32 +2,71 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_CMSG_EXPORT_KEY_TRANS)(struct _CMSG_CONTENT_ENCRYPT_INFO* pContentEncryptInfo,struct _CMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO* pKeyTransEncodeInfo,struct _CMSG_KEY_TRANS_ENCRYPT_INFO* pKeyTransEncryptInfo,unsigned long dwFlags,void* pvReserved);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_CMSG_EXPORT_KEY_TRANS)(PCMSG_CONTENT_ENCRYPT_INFO, PCMSG_KEY_TRANS_RECIPIENT_ENCODE_INFO, PCMSG_KEY_TRANS_ENCRYPT_INFO, DWORD, void *) __attribute__((stdcall))
  * }
  */
-public interface PFN_CMSG_EXPORT_KEY_TRANS {
+public class PFN_CMSG_EXPORT_KEY_TRANS {
 
-    int apply(java.lang.foreign.MemorySegment pContentEncryptInfo, java.lang.foreign.MemorySegment pMailListEncodeInfo, java.lang.foreign.MemorySegment pMailListEncryptInfo, int dwFlags, java.lang.foreign.MemorySegment pvReserved);
-    static MemorySegment allocate(PFN_CMSG_EXPORT_KEY_TRANS fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2112.const$1, fi, constants$691.const$2, scope);
+    PFN_CMSG_EXPORT_KEY_TRANS() {
+        // Should not be called directly
     }
-    static PFN_CMSG_EXPORT_KEY_TRANS ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _pContentEncryptInfo, java.lang.foreign.MemorySegment _pMailListEncodeInfo, java.lang.foreign.MemorySegment _pMailListEncryptInfo, int _dwFlags, java.lang.foreign.MemorySegment _pvReserved) -> {
-            try {
-                return (int)constants$2112.const$2.invokeExact(symbol, _pContentEncryptInfo, _pMailListEncodeInfo, _pMailListEncryptInfo, _dwFlags, _pvReserved);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment pContentEncryptInfo, MemorySegment pKeyTransEncodeInfo, MemorySegment pKeyTransEncryptInfo, int dwFlags, MemorySegment pvReserved);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CMSG_EXPORT_KEY_TRANS.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CMSG_EXPORT_KEY_TRANS.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment pContentEncryptInfo, MemorySegment pKeyTransEncodeInfo, MemorySegment pKeyTransEncryptInfo, int dwFlags, MemorySegment pvReserved) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, pContentEncryptInfo, pKeyTransEncodeInfo, pKeyTransEncryptInfo, dwFlags, pvReserved);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

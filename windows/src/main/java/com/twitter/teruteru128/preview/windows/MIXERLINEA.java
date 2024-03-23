@@ -2,20 +2,46 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMIXERLINEA MIXERLINEA;
+ * {@snippet lang=c :
+ * typedef struct tagMIXERLINEA {
+ *     DWORD cbStruct;
+ *     DWORD dwDestination;
+ *     DWORD dwSource;
+ *     DWORD dwLineID;
+ *     DWORD fdwLine;
+ *     DWORD_PTR dwUser;
+ *     DWORD dwComponentType;
+ *     DWORD cChannels;
+ *     DWORD cConnections;
+ *     DWORD cControls;
+ *     CHAR szShortName[16];
+ *     CHAR szName[64];
+ *     struct {
+ *         DWORD dwType;
+ *         DWORD dwDeviceID;
+ *         WORD wMid;
+ *         WORD wPid;
+ *         MMVERSION vDriverVersion;
+ *         CHAR szPname[32];
+ *     } Target;
+ * } MIXERLINEA
  * }
  */
-public final class MIXERLINEA extends tagMIXERLINEA {
+public class MIXERLINEA extends tagMIXERLINEA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MIXERLINEA() {}
+    MIXERLINEA() {
+        // Should not be called directly
+    }
 }
-
 

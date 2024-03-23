@@ -2,32 +2,67 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void* (*PENCLAVE_ROUTINE)(void* lpThreadParameter);
+ * {@snippet lang=c :
+ * typedef LPVOID (*PENCLAVE_ROUTINE)(LPVOID) __attribute__((stdcall))
  * }
  */
-public interface PENCLAVE_ROUTINE {
+public class PENCLAVE_ROUTINE {
 
-    java.lang.foreign.MemorySegment apply(java.lang.foreign.MemorySegment _x0);
-    static MemorySegment allocate(PENCLAVE_ROUTINE fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$561.const$3, fi, constants$33.const$3, scope);
+    PENCLAVE_ROUTINE() {
+        // Should not be called directly
     }
-    static PENCLAVE_ROUTINE ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment __x0) -> {
-            try {
-                return (java.lang.foreign.MemorySegment)constants$250.const$3.invokeExact(symbol, __x0);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        MemorySegment apply(MemorySegment lpThreadParameter);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PENCLAVE_ROUTINE.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PENCLAVE_ROUTINE.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static MemorySegment invoke(MemorySegment funcPtr,MemorySegment lpThreadParameter) {
+        try {
+            return (MemorySegment) DOWN$MH.invokeExact(funcPtr, lpThreadParameter);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

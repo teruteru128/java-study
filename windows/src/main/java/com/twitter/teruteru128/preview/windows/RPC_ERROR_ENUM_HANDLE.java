@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagRPC_ERROR_ENUM_HANDLE RPC_ERROR_ENUM_HANDLE;
+ * {@snippet lang=c :
+ * typedef struct tagRPC_ERROR_ENUM_HANDLE {
+ *     ULONG Signature;
+ *     void *CurrentPos;
+ *     void *Head;
+ * } RPC_ERROR_ENUM_HANDLE
  * }
  */
-public final class RPC_ERROR_ENUM_HANDLE extends tagRPC_ERROR_ENUM_HANDLE {
+public class RPC_ERROR_ENUM_HANDLE extends tagRPC_ERROR_ENUM_HANDLE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private RPC_ERROR_ENUM_HANDLE() {}
+    RPC_ERROR_ENUM_HANDLE() {
+        // Should not be called directly
+    }
 }
-
 

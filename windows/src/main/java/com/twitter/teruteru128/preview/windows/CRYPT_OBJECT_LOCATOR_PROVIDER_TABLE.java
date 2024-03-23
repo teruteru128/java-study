@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE;
+ * {@snippet lang=c :
+ * typedef struct _CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE {
+ *     DWORD cbSize;
+ *     PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_GET pfnGet;
+ *     PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_RELEASE pfnRelease;
+ *     PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_PASSWORD pfnFreePassword;
+ *     PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE pfnFree;
+ *     PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FREE_IDENTIFIER pfnFreeIdentifier;
+ * } CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE
  * }
  */
-public final class CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE extends _CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE {
+public class CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE extends _CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE() {}
+    CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE() {
+        // Should not be called directly
+    }
 }
-
 

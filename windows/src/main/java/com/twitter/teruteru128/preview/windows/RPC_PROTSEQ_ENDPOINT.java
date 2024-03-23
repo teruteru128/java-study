@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _RPC_PROTSEQ_ENDPOINT RPC_PROTSEQ_ENDPOINT;
+ * {@snippet lang=c :
+ * typedef struct _RPC_PROTSEQ_ENDPOINT {
+ *     unsigned char *RpcProtocolSequence;
+ *     unsigned char *Endpoint;
+ * } RPC_PROTSEQ_ENDPOINT
  * }
  */
-public final class RPC_PROTSEQ_ENDPOINT extends _RPC_PROTSEQ_ENDPOINT {
+public class RPC_PROTSEQ_ENDPOINT extends _RPC_PROTSEQ_ENDPOINT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private RPC_PROTSEQ_ENDPOINT() {}
+    RPC_PROTSEQ_ENDPOINT() {
+        // Should not be called directly
+    }
 }
-
 

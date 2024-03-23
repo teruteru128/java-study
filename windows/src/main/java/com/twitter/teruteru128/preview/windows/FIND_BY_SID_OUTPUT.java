@@ -2,116 +2,298 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct {
  *     DWORD NextEntryOffset;
  *     DWORD FileIndex;
  *     DWORD FileNameLength;
  *     WCHAR FileName[1];
- * };
+ * }
  * }
  */
 public class FIND_BY_SID_OUTPUT {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2580.const$5;
+    FIND_BY_SID_OUTPUT() {
+        // Should not be called directly
     }
-    public static VarHandle NextEntryOffset$VH() {
-        return constants$2581.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD NextEntryOffset;
-     * }
-     */
-    public static int NextEntryOffset$get(MemorySegment seg) {
-        return (int)constants$2581.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD NextEntryOffset;
-     * }
-     */
-    public static void NextEntryOffset$set(MemorySegment seg, int x) {
-        constants$2581.const$0.set(seg, x);
-    }
-    public static int NextEntryOffset$get(MemorySegment seg, long index) {
-        return (int)constants$2581.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void NextEntryOffset$set(MemorySegment seg, long index, int x) {
-        constants$2581.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle FileIndex$VH() {
-        return constants$2581.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD FileIndex;
-     * }
-     */
-    public static int FileIndex$get(MemorySegment seg) {
-        return (int)constants$2581.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD FileIndex;
-     * }
-     */
-    public static void FileIndex$set(MemorySegment seg, int x) {
-        constants$2581.const$1.set(seg, x);
-    }
-    public static int FileIndex$get(MemorySegment seg, long index) {
-        return (int)constants$2581.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void FileIndex$set(MemorySegment seg, long index, int x) {
-        constants$2581.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle FileNameLength$VH() {
-        return constants$2581.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD FileNameLength;
-     * }
-     */
-    public static int FileNameLength$get(MemorySegment seg) {
-        return (int)constants$2581.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD FileNameLength;
-     * }
-     */
-    public static void FileNameLength$set(MemorySegment seg, int x) {
-        constants$2581.const$2.set(seg, x);
-    }
-    public static int FileNameLength$get(MemorySegment seg, long index) {
-        return (int)constants$2581.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void FileNameLength$set(MemorySegment seg, long index, int x) {
-        constants$2581.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment FileName$slice(MemorySegment seg) {
-        return seg.asSlice(12, 2);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("NextEntryOffset"),
+        Windows_h.C_LONG.withName("FileIndex"),
+        Windows_h.C_LONG.withName("FileNameLength"),
+        MemoryLayout.sequenceLayout(1, Windows_h.C_SHORT).withName("FileName"),
+        MemoryLayout.paddingLayout(2)
+    ).withName("$anon$11409:9");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt NextEntryOffset$LAYOUT = (OfInt)$LAYOUT.select(groupElement("NextEntryOffset"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD NextEntryOffset
+     * }
+     */
+    public static final OfInt NextEntryOffset$layout() {
+        return NextEntryOffset$LAYOUT;
+    }
+
+    private static final long NextEntryOffset$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD NextEntryOffset
+     * }
+     */
+    public static final long NextEntryOffset$offset() {
+        return NextEntryOffset$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD NextEntryOffset
+     * }
+     */
+    public static int NextEntryOffset(MemorySegment struct) {
+        return struct.get(NextEntryOffset$LAYOUT, NextEntryOffset$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD NextEntryOffset
+     * }
+     */
+    public static void NextEntryOffset(MemorySegment struct, int fieldValue) {
+        struct.set(NextEntryOffset$LAYOUT, NextEntryOffset$OFFSET, fieldValue);
+    }
+
+    private static final OfInt FileIndex$LAYOUT = (OfInt)$LAYOUT.select(groupElement("FileIndex"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD FileIndex
+     * }
+     */
+    public static final OfInt FileIndex$layout() {
+        return FileIndex$LAYOUT;
+    }
+
+    private static final long FileIndex$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD FileIndex
+     * }
+     */
+    public static final long FileIndex$offset() {
+        return FileIndex$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD FileIndex
+     * }
+     */
+    public static int FileIndex(MemorySegment struct) {
+        return struct.get(FileIndex$LAYOUT, FileIndex$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD FileIndex
+     * }
+     */
+    public static void FileIndex(MemorySegment struct, int fieldValue) {
+        struct.set(FileIndex$LAYOUT, FileIndex$OFFSET, fieldValue);
+    }
+
+    private static final OfInt FileNameLength$LAYOUT = (OfInt)$LAYOUT.select(groupElement("FileNameLength"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD FileNameLength
+     * }
+     */
+    public static final OfInt FileNameLength$layout() {
+        return FileNameLength$LAYOUT;
+    }
+
+    private static final long FileNameLength$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD FileNameLength
+     * }
+     */
+    public static final long FileNameLength$offset() {
+        return FileNameLength$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD FileNameLength
+     * }
+     */
+    public static int FileNameLength(MemorySegment struct) {
+        return struct.get(FileNameLength$LAYOUT, FileNameLength$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD FileNameLength
+     * }
+     */
+    public static void FileNameLength(MemorySegment struct, int fieldValue) {
+        struct.set(FileNameLength$LAYOUT, FileNameLength$OFFSET, fieldValue);
+    }
+
+    private static final SequenceLayout FileName$LAYOUT = (SequenceLayout)$LAYOUT.select(groupElement("FileName"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WCHAR FileName[1]
+     * }
+     */
+    public static final SequenceLayout FileName$layout() {
+        return FileName$LAYOUT;
+    }
+
+    private static final long FileName$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WCHAR FileName[1]
+     * }
+     */
+    public static final long FileName$offset() {
+        return FileName$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WCHAR FileName[1]
+     * }
+     */
+    public static MemorySegment FileName(MemorySegment struct) {
+        return struct.asSlice(FileName$OFFSET, FileName$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WCHAR FileName[1]
+     * }
+     */
+    public static void FileName(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, FileName$OFFSET, FileName$LAYOUT.byteSize());
+    }
+
+    private static long[] FileName$DIMS = { 1 };
+
+    /**
+     * Dimensions for array field:
+     * {@snippet lang=c :
+     * WCHAR FileName[1]
+     * }
+     */
+    public static long[] FileName$dimensions() {
+        return FileName$DIMS;
+    }
+    private static final VarHandle FileName$ELEM_HANDLE = FileName$LAYOUT.varHandle(sequenceElement());
+
+    /**
+     * Indexed getter for field:
+     * {@snippet lang=c :
+     * WCHAR FileName[1]
+     * }
+     */
+    public static short FileName(MemorySegment struct, long index0) {
+        return (short)FileName$ELEM_HANDLE.get(struct, 0L, index0);
+    }
+
+    /**
+     * Indexed setter for field:
+     * {@snippet lang=c :
+     * WCHAR FileName[1]
+     * }
+     */
+    public static void FileName(MemorySegment struct, long index0, short fieldValue) {
+        FileName$ELEM_HANDLE.set(struct, 0L, index0, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

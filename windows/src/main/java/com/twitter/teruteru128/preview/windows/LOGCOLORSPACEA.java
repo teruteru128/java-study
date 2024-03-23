@@ -2,20 +2,36 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagLOGCOLORSPACEA LOGCOLORSPACEA;
+ * {@snippet lang=c :
+ * typedef struct tagLOGCOLORSPACEA {
+ *     DWORD lcsSignature;
+ *     DWORD lcsVersion;
+ *     DWORD lcsSize;
+ *     LCSCSTYPE lcsCSType;
+ *     LCSGAMUTMATCH lcsIntent;
+ *     CIEXYZTRIPLE lcsEndpoints;
+ *     DWORD lcsGammaRed;
+ *     DWORD lcsGammaGreen;
+ *     DWORD lcsGammaBlue;
+ *     CHAR lcsFilename[260];
+ * } LOGCOLORSPACEA
  * }
  */
-public final class LOGCOLORSPACEA extends tagLOGCOLORSPACEA {
+public class LOGCOLORSPACEA extends tagLOGCOLORSPACEA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private LOGCOLORSPACEA() {}
+    LOGCOLORSPACEA() {
+        // Should not be called directly
+    }
 }
-
 

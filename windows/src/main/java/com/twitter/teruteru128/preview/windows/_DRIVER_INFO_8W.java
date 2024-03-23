@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _DRIVER_INFO_8W {
  *     DWORD cVersion;
  *     LPWSTR pName;
@@ -35,647 +40,1194 @@ import static java.lang.foreign.ValueLayout.*;
  *     LPWSTR pszzCoreDriverDependencies;
  *     FILETIME ftMinInboxDriverVerDate;
  *     DWORDLONG dwlMinInboxDriverVerVersion;
- * };
+ * }
  * }
  */
 public class _DRIVER_INFO_8W {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2881.const$2;
+    _DRIVER_INFO_8W() {
+        // Should not be called directly
     }
-    public static VarHandle cVersion$VH() {
-        return constants$2881.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cVersion;
-     * }
-     */
-    public static int cVersion$get(MemorySegment seg) {
-        return (int)constants$2881.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cVersion;
-     * }
-     */
-    public static void cVersion$set(MemorySegment seg, int x) {
-        constants$2881.const$3.set(seg, x);
-    }
-    public static int cVersion$get(MemorySegment seg, long index) {
-        return (int)constants$2881.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cVersion$set(MemorySegment seg, long index, int x) {
-        constants$2881.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pName$VH() {
-        return constants$2881.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pName;
-     * }
-     */
-    public static MemorySegment pName$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2881.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pName;
-     * }
-     */
-    public static void pName$set(MemorySegment seg, MemorySegment x) {
-        constants$2881.const$4.set(seg, x);
-    }
-    public static MemorySegment pName$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2881.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pName$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2881.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pEnvironment$VH() {
-        return constants$2881.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pEnvironment;
-     * }
-     */
-    public static MemorySegment pEnvironment$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2881.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pEnvironment;
-     * }
-     */
-    public static void pEnvironment$set(MemorySegment seg, MemorySegment x) {
-        constants$2881.const$5.set(seg, x);
-    }
-    public static MemorySegment pEnvironment$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2881.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pEnvironment$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2881.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pDriverPath$VH() {
-        return constants$2882.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pDriverPath;
-     * }
-     */
-    public static MemorySegment pDriverPath$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2882.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pDriverPath;
-     * }
-     */
-    public static void pDriverPath$set(MemorySegment seg, MemorySegment x) {
-        constants$2882.const$0.set(seg, x);
-    }
-    public static MemorySegment pDriverPath$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2882.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pDriverPath$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2882.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pDataFile$VH() {
-        return constants$2882.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pDataFile;
-     * }
-     */
-    public static MemorySegment pDataFile$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2882.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pDataFile;
-     * }
-     */
-    public static void pDataFile$set(MemorySegment seg, MemorySegment x) {
-        constants$2882.const$1.set(seg, x);
-    }
-    public static MemorySegment pDataFile$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2882.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pDataFile$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2882.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pConfigFile$VH() {
-        return constants$2882.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pConfigFile;
-     * }
-     */
-    public static MemorySegment pConfigFile$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2882.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pConfigFile;
-     * }
-     */
-    public static void pConfigFile$set(MemorySegment seg, MemorySegment x) {
-        constants$2882.const$2.set(seg, x);
-    }
-    public static MemorySegment pConfigFile$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2882.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pConfigFile$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2882.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pHelpFile$VH() {
-        return constants$2882.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pHelpFile;
-     * }
-     */
-    public static MemorySegment pHelpFile$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2882.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pHelpFile;
-     * }
-     */
-    public static void pHelpFile$set(MemorySegment seg, MemorySegment x) {
-        constants$2882.const$3.set(seg, x);
-    }
-    public static MemorySegment pHelpFile$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2882.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pHelpFile$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2882.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pDependentFiles$VH() {
-        return constants$2882.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pDependentFiles;
-     * }
-     */
-    public static MemorySegment pDependentFiles$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2882.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pDependentFiles;
-     * }
-     */
-    public static void pDependentFiles$set(MemorySegment seg, MemorySegment x) {
-        constants$2882.const$4.set(seg, x);
-    }
-    public static MemorySegment pDependentFiles$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2882.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pDependentFiles$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2882.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pMonitorName$VH() {
-        return constants$2882.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pMonitorName;
-     * }
-     */
-    public static MemorySegment pMonitorName$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2882.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pMonitorName;
-     * }
-     */
-    public static void pMonitorName$set(MemorySegment seg, MemorySegment x) {
-        constants$2882.const$5.set(seg, x);
-    }
-    public static MemorySegment pMonitorName$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2882.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pMonitorName$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2882.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pDefaultDataType$VH() {
-        return constants$2883.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pDefaultDataType;
-     * }
-     */
-    public static MemorySegment pDefaultDataType$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2883.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pDefaultDataType;
-     * }
-     */
-    public static void pDefaultDataType$set(MemorySegment seg, MemorySegment x) {
-        constants$2883.const$0.set(seg, x);
-    }
-    public static MemorySegment pDefaultDataType$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2883.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pDefaultDataType$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2883.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pszzPreviousNames$VH() {
-        return constants$2883.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pszzPreviousNames;
-     * }
-     */
-    public static MemorySegment pszzPreviousNames$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2883.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pszzPreviousNames;
-     * }
-     */
-    public static void pszzPreviousNames$set(MemorySegment seg, MemorySegment x) {
-        constants$2883.const$1.set(seg, x);
-    }
-    public static MemorySegment pszzPreviousNames$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2883.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pszzPreviousNames$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2883.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment ftDriverDate$slice(MemorySegment seg) {
-        return seg.asSlice(88, 8);
-    }
-    public static VarHandle dwlDriverVersion$VH() {
-        return constants$2883.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORDLONG dwlDriverVersion;
-     * }
-     */
-    public static long dwlDriverVersion$get(MemorySegment seg) {
-        return (long)constants$2883.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORDLONG dwlDriverVersion;
-     * }
-     */
-    public static void dwlDriverVersion$set(MemorySegment seg, long x) {
-        constants$2883.const$2.set(seg, x);
-    }
-    public static long dwlDriverVersion$get(MemorySegment seg, long index) {
-        return (long)constants$2883.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwlDriverVersion$set(MemorySegment seg, long index, long x) {
-        constants$2883.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pszMfgName$VH() {
-        return constants$2883.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pszMfgName;
-     * }
-     */
-    public static MemorySegment pszMfgName$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2883.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pszMfgName;
-     * }
-     */
-    public static void pszMfgName$set(MemorySegment seg, MemorySegment x) {
-        constants$2883.const$3.set(seg, x);
-    }
-    public static MemorySegment pszMfgName$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2883.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pszMfgName$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2883.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pszOEMUrl$VH() {
-        return constants$2883.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pszOEMUrl;
-     * }
-     */
-    public static MemorySegment pszOEMUrl$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2883.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pszOEMUrl;
-     * }
-     */
-    public static void pszOEMUrl$set(MemorySegment seg, MemorySegment x) {
-        constants$2883.const$4.set(seg, x);
-    }
-    public static MemorySegment pszOEMUrl$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2883.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pszOEMUrl$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2883.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pszHardwareID$VH() {
-        return constants$2883.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pszHardwareID;
-     * }
-     */
-    public static MemorySegment pszHardwareID$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2883.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pszHardwareID;
-     * }
-     */
-    public static void pszHardwareID$set(MemorySegment seg, MemorySegment x) {
-        constants$2883.const$5.set(seg, x);
-    }
-    public static MemorySegment pszHardwareID$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2883.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pszHardwareID$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2883.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pszProvider$VH() {
-        return constants$2884.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pszProvider;
-     * }
-     */
-    public static MemorySegment pszProvider$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2884.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pszProvider;
-     * }
-     */
-    public static void pszProvider$set(MemorySegment seg, MemorySegment x) {
-        constants$2884.const$0.set(seg, x);
-    }
-    public static MemorySegment pszProvider$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2884.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pszProvider$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2884.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pszPrintProcessor$VH() {
-        return constants$2884.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pszPrintProcessor;
-     * }
-     */
-    public static MemorySegment pszPrintProcessor$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2884.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pszPrintProcessor;
-     * }
-     */
-    public static void pszPrintProcessor$set(MemorySegment seg, MemorySegment x) {
-        constants$2884.const$1.set(seg, x);
-    }
-    public static MemorySegment pszPrintProcessor$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2884.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pszPrintProcessor$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2884.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pszVendorSetup$VH() {
-        return constants$2884.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pszVendorSetup;
-     * }
-     */
-    public static MemorySegment pszVendorSetup$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2884.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pszVendorSetup;
-     * }
-     */
-    public static void pszVendorSetup$set(MemorySegment seg, MemorySegment x) {
-        constants$2884.const$2.set(seg, x);
-    }
-    public static MemorySegment pszVendorSetup$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2884.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pszVendorSetup$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2884.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pszzColorProfiles$VH() {
-        return constants$2884.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pszzColorProfiles;
-     * }
-     */
-    public static MemorySegment pszzColorProfiles$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2884.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pszzColorProfiles;
-     * }
-     */
-    public static void pszzColorProfiles$set(MemorySegment seg, MemorySegment x) {
-        constants$2884.const$3.set(seg, x);
-    }
-    public static MemorySegment pszzColorProfiles$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2884.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pszzColorProfiles$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2884.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pszInfPath$VH() {
-        return constants$2884.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pszInfPath;
-     * }
-     */
-    public static MemorySegment pszInfPath$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2884.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pszInfPath;
-     * }
-     */
-    public static void pszInfPath$set(MemorySegment seg, MemorySegment x) {
-        constants$2884.const$4.set(seg, x);
-    }
-    public static MemorySegment pszInfPath$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2884.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pszInfPath$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2884.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwPrinterDriverAttributes$VH() {
-        return constants$2884.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwPrinterDriverAttributes;
-     * }
-     */
-    public static int dwPrinterDriverAttributes$get(MemorySegment seg) {
-        return (int)constants$2884.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwPrinterDriverAttributes;
-     * }
-     */
-    public static void dwPrinterDriverAttributes$set(MemorySegment seg, int x) {
-        constants$2884.const$5.set(seg, x);
-    }
-    public static int dwPrinterDriverAttributes$get(MemorySegment seg, long index) {
-        return (int)constants$2884.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwPrinterDriverAttributes$set(MemorySegment seg, long index, int x) {
-        constants$2884.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pszzCoreDriverDependencies$VH() {
-        return constants$2885.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR pszzCoreDriverDependencies;
-     * }
-     */
-    public static MemorySegment pszzCoreDriverDependencies$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$2885.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR pszzCoreDriverDependencies;
-     * }
-     */
-    public static void pszzCoreDriverDependencies$set(MemorySegment seg, MemorySegment x) {
-        constants$2885.const$0.set(seg, x);
-    }
-    public static MemorySegment pszzCoreDriverDependencies$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$2885.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pszzCoreDriverDependencies$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$2885.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static MemorySegment ftMinInboxDriverVerDate$slice(MemorySegment seg) {
-        return seg.asSlice(184, 8);
-    }
-    public static VarHandle dwlMinInboxDriverVerVersion$VH() {
-        return constants$2885.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORDLONG dwlMinInboxDriverVerVersion;
-     * }
-     */
-    public static long dwlMinInboxDriverVerVersion$get(MemorySegment seg) {
-        return (long)constants$2885.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORDLONG dwlMinInboxDriverVerVersion;
-     * }
-     */
-    public static void dwlMinInboxDriverVerVersion$set(MemorySegment seg, long x) {
-        constants$2885.const$1.set(seg, x);
-    }
-    public static long dwlMinInboxDriverVerVersion$get(MemorySegment seg, long index) {
-        return (long)constants$2885.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwlMinInboxDriverVerVersion$set(MemorySegment seg, long index, long x) {
-        constants$2885.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("cVersion"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("pName"),
+        Windows_h.C_POINTER.withName("pEnvironment"),
+        Windows_h.C_POINTER.withName("pDriverPath"),
+        Windows_h.C_POINTER.withName("pDataFile"),
+        Windows_h.C_POINTER.withName("pConfigFile"),
+        Windows_h.C_POINTER.withName("pHelpFile"),
+        Windows_h.C_POINTER.withName("pDependentFiles"),
+        Windows_h.C_POINTER.withName("pMonitorName"),
+        Windows_h.C_POINTER.withName("pDefaultDataType"),
+        Windows_h.C_POINTER.withName("pszzPreviousNames"),
+        _FILETIME.layout().withName("ftDriverDate"),
+        Windows_h.C_LONG_LONG.withName("dwlDriverVersion"),
+        Windows_h.C_POINTER.withName("pszMfgName"),
+        Windows_h.C_POINTER.withName("pszOEMUrl"),
+        Windows_h.C_POINTER.withName("pszHardwareID"),
+        Windows_h.C_POINTER.withName("pszProvider"),
+        Windows_h.C_POINTER.withName("pszPrintProcessor"),
+        Windows_h.C_POINTER.withName("pszVendorSetup"),
+        Windows_h.C_POINTER.withName("pszzColorProfiles"),
+        Windows_h.C_POINTER.withName("pszInfPath"),
+        Windows_h.C_LONG.withName("dwPrinterDriverAttributes"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("pszzCoreDriverDependencies"),
+        _FILETIME.layout().withName("ftMinInboxDriverVerDate"),
+        Windows_h.C_LONG_LONG.withName("dwlMinInboxDriverVerVersion")
+    ).withName("_DRIVER_INFO_8W");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt cVersion$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cVersion"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cVersion
+     * }
+     */
+    public static final OfInt cVersion$layout() {
+        return cVersion$LAYOUT;
+    }
+
+    private static final long cVersion$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cVersion
+     * }
+     */
+    public static final long cVersion$offset() {
+        return cVersion$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cVersion
+     * }
+     */
+    public static int cVersion(MemorySegment struct) {
+        return struct.get(cVersion$LAYOUT, cVersion$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cVersion
+     * }
+     */
+    public static void cVersion(MemorySegment struct, int fieldValue) {
+        struct.set(cVersion$LAYOUT, cVersion$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pName$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pName"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pName
+     * }
+     */
+    public static final AddressLayout pName$layout() {
+        return pName$LAYOUT;
+    }
+
+    private static final long pName$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pName
+     * }
+     */
+    public static final long pName$offset() {
+        return pName$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pName
+     * }
+     */
+    public static MemorySegment pName(MemorySegment struct) {
+        return struct.get(pName$LAYOUT, pName$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pName
+     * }
+     */
+    public static void pName(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pName$LAYOUT, pName$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pEnvironment$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pEnvironment"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pEnvironment
+     * }
+     */
+    public static final AddressLayout pEnvironment$layout() {
+        return pEnvironment$LAYOUT;
+    }
+
+    private static final long pEnvironment$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pEnvironment
+     * }
+     */
+    public static final long pEnvironment$offset() {
+        return pEnvironment$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pEnvironment
+     * }
+     */
+    public static MemorySegment pEnvironment(MemorySegment struct) {
+        return struct.get(pEnvironment$LAYOUT, pEnvironment$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pEnvironment
+     * }
+     */
+    public static void pEnvironment(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pEnvironment$LAYOUT, pEnvironment$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pDriverPath$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pDriverPath"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pDriverPath
+     * }
+     */
+    public static final AddressLayout pDriverPath$layout() {
+        return pDriverPath$LAYOUT;
+    }
+
+    private static final long pDriverPath$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pDriverPath
+     * }
+     */
+    public static final long pDriverPath$offset() {
+        return pDriverPath$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pDriverPath
+     * }
+     */
+    public static MemorySegment pDriverPath(MemorySegment struct) {
+        return struct.get(pDriverPath$LAYOUT, pDriverPath$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pDriverPath
+     * }
+     */
+    public static void pDriverPath(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pDriverPath$LAYOUT, pDriverPath$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pDataFile$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pDataFile"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pDataFile
+     * }
+     */
+    public static final AddressLayout pDataFile$layout() {
+        return pDataFile$LAYOUT;
+    }
+
+    private static final long pDataFile$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pDataFile
+     * }
+     */
+    public static final long pDataFile$offset() {
+        return pDataFile$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pDataFile
+     * }
+     */
+    public static MemorySegment pDataFile(MemorySegment struct) {
+        return struct.get(pDataFile$LAYOUT, pDataFile$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pDataFile
+     * }
+     */
+    public static void pDataFile(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pDataFile$LAYOUT, pDataFile$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pConfigFile$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pConfigFile"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pConfigFile
+     * }
+     */
+    public static final AddressLayout pConfigFile$layout() {
+        return pConfigFile$LAYOUT;
+    }
+
+    private static final long pConfigFile$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pConfigFile
+     * }
+     */
+    public static final long pConfigFile$offset() {
+        return pConfigFile$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pConfigFile
+     * }
+     */
+    public static MemorySegment pConfigFile(MemorySegment struct) {
+        return struct.get(pConfigFile$LAYOUT, pConfigFile$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pConfigFile
+     * }
+     */
+    public static void pConfigFile(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pConfigFile$LAYOUT, pConfigFile$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pHelpFile$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pHelpFile"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pHelpFile
+     * }
+     */
+    public static final AddressLayout pHelpFile$layout() {
+        return pHelpFile$LAYOUT;
+    }
+
+    private static final long pHelpFile$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pHelpFile
+     * }
+     */
+    public static final long pHelpFile$offset() {
+        return pHelpFile$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pHelpFile
+     * }
+     */
+    public static MemorySegment pHelpFile(MemorySegment struct) {
+        return struct.get(pHelpFile$LAYOUT, pHelpFile$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pHelpFile
+     * }
+     */
+    public static void pHelpFile(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pHelpFile$LAYOUT, pHelpFile$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pDependentFiles$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pDependentFiles"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pDependentFiles
+     * }
+     */
+    public static final AddressLayout pDependentFiles$layout() {
+        return pDependentFiles$LAYOUT;
+    }
+
+    private static final long pDependentFiles$OFFSET = 56;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pDependentFiles
+     * }
+     */
+    public static final long pDependentFiles$offset() {
+        return pDependentFiles$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pDependentFiles
+     * }
+     */
+    public static MemorySegment pDependentFiles(MemorySegment struct) {
+        return struct.get(pDependentFiles$LAYOUT, pDependentFiles$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pDependentFiles
+     * }
+     */
+    public static void pDependentFiles(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pDependentFiles$LAYOUT, pDependentFiles$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pMonitorName$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pMonitorName"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pMonitorName
+     * }
+     */
+    public static final AddressLayout pMonitorName$layout() {
+        return pMonitorName$LAYOUT;
+    }
+
+    private static final long pMonitorName$OFFSET = 64;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pMonitorName
+     * }
+     */
+    public static final long pMonitorName$offset() {
+        return pMonitorName$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pMonitorName
+     * }
+     */
+    public static MemorySegment pMonitorName(MemorySegment struct) {
+        return struct.get(pMonitorName$LAYOUT, pMonitorName$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pMonitorName
+     * }
+     */
+    public static void pMonitorName(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pMonitorName$LAYOUT, pMonitorName$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pDefaultDataType$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pDefaultDataType"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pDefaultDataType
+     * }
+     */
+    public static final AddressLayout pDefaultDataType$layout() {
+        return pDefaultDataType$LAYOUT;
+    }
+
+    private static final long pDefaultDataType$OFFSET = 72;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pDefaultDataType
+     * }
+     */
+    public static final long pDefaultDataType$offset() {
+        return pDefaultDataType$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pDefaultDataType
+     * }
+     */
+    public static MemorySegment pDefaultDataType(MemorySegment struct) {
+        return struct.get(pDefaultDataType$LAYOUT, pDefaultDataType$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pDefaultDataType
+     * }
+     */
+    public static void pDefaultDataType(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pDefaultDataType$LAYOUT, pDefaultDataType$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pszzPreviousNames$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pszzPreviousNames"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pszzPreviousNames
+     * }
+     */
+    public static final AddressLayout pszzPreviousNames$layout() {
+        return pszzPreviousNames$LAYOUT;
+    }
+
+    private static final long pszzPreviousNames$OFFSET = 80;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pszzPreviousNames
+     * }
+     */
+    public static final long pszzPreviousNames$offset() {
+        return pszzPreviousNames$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszzPreviousNames
+     * }
+     */
+    public static MemorySegment pszzPreviousNames(MemorySegment struct) {
+        return struct.get(pszzPreviousNames$LAYOUT, pszzPreviousNames$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszzPreviousNames
+     * }
+     */
+    public static void pszzPreviousNames(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pszzPreviousNames$LAYOUT, pszzPreviousNames$OFFSET, fieldValue);
+    }
+
+    private static final GroupLayout ftDriverDate$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("ftDriverDate"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * FILETIME ftDriverDate
+     * }
+     */
+    public static final GroupLayout ftDriverDate$layout() {
+        return ftDriverDate$LAYOUT;
+    }
+
+    private static final long ftDriverDate$OFFSET = 88;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * FILETIME ftDriverDate
+     * }
+     */
+    public static final long ftDriverDate$offset() {
+        return ftDriverDate$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * FILETIME ftDriverDate
+     * }
+     */
+    public static MemorySegment ftDriverDate(MemorySegment struct) {
+        return struct.asSlice(ftDriverDate$OFFSET, ftDriverDate$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * FILETIME ftDriverDate
+     * }
+     */
+    public static void ftDriverDate(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, ftDriverDate$OFFSET, ftDriverDate$LAYOUT.byteSize());
+    }
+
+    private static final OfLong dwlDriverVersion$LAYOUT = (OfLong)$LAYOUT.select(groupElement("dwlDriverVersion"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORDLONG dwlDriverVersion
+     * }
+     */
+    public static final OfLong dwlDriverVersion$layout() {
+        return dwlDriverVersion$LAYOUT;
+    }
+
+    private static final long dwlDriverVersion$OFFSET = 96;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORDLONG dwlDriverVersion
+     * }
+     */
+    public static final long dwlDriverVersion$offset() {
+        return dwlDriverVersion$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORDLONG dwlDriverVersion
+     * }
+     */
+    public static long dwlDriverVersion(MemorySegment struct) {
+        return struct.get(dwlDriverVersion$LAYOUT, dwlDriverVersion$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORDLONG dwlDriverVersion
+     * }
+     */
+    public static void dwlDriverVersion(MemorySegment struct, long fieldValue) {
+        struct.set(dwlDriverVersion$LAYOUT, dwlDriverVersion$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pszMfgName$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pszMfgName"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pszMfgName
+     * }
+     */
+    public static final AddressLayout pszMfgName$layout() {
+        return pszMfgName$LAYOUT;
+    }
+
+    private static final long pszMfgName$OFFSET = 104;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pszMfgName
+     * }
+     */
+    public static final long pszMfgName$offset() {
+        return pszMfgName$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszMfgName
+     * }
+     */
+    public static MemorySegment pszMfgName(MemorySegment struct) {
+        return struct.get(pszMfgName$LAYOUT, pszMfgName$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszMfgName
+     * }
+     */
+    public static void pszMfgName(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pszMfgName$LAYOUT, pszMfgName$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pszOEMUrl$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pszOEMUrl"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pszOEMUrl
+     * }
+     */
+    public static final AddressLayout pszOEMUrl$layout() {
+        return pszOEMUrl$LAYOUT;
+    }
+
+    private static final long pszOEMUrl$OFFSET = 112;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pszOEMUrl
+     * }
+     */
+    public static final long pszOEMUrl$offset() {
+        return pszOEMUrl$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszOEMUrl
+     * }
+     */
+    public static MemorySegment pszOEMUrl(MemorySegment struct) {
+        return struct.get(pszOEMUrl$LAYOUT, pszOEMUrl$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszOEMUrl
+     * }
+     */
+    public static void pszOEMUrl(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pszOEMUrl$LAYOUT, pszOEMUrl$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pszHardwareID$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pszHardwareID"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pszHardwareID
+     * }
+     */
+    public static final AddressLayout pszHardwareID$layout() {
+        return pszHardwareID$LAYOUT;
+    }
+
+    private static final long pszHardwareID$OFFSET = 120;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pszHardwareID
+     * }
+     */
+    public static final long pszHardwareID$offset() {
+        return pszHardwareID$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszHardwareID
+     * }
+     */
+    public static MemorySegment pszHardwareID(MemorySegment struct) {
+        return struct.get(pszHardwareID$LAYOUT, pszHardwareID$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszHardwareID
+     * }
+     */
+    public static void pszHardwareID(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pszHardwareID$LAYOUT, pszHardwareID$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pszProvider$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pszProvider"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pszProvider
+     * }
+     */
+    public static final AddressLayout pszProvider$layout() {
+        return pszProvider$LAYOUT;
+    }
+
+    private static final long pszProvider$OFFSET = 128;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pszProvider
+     * }
+     */
+    public static final long pszProvider$offset() {
+        return pszProvider$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszProvider
+     * }
+     */
+    public static MemorySegment pszProvider(MemorySegment struct) {
+        return struct.get(pszProvider$LAYOUT, pszProvider$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszProvider
+     * }
+     */
+    public static void pszProvider(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pszProvider$LAYOUT, pszProvider$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pszPrintProcessor$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pszPrintProcessor"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pszPrintProcessor
+     * }
+     */
+    public static final AddressLayout pszPrintProcessor$layout() {
+        return pszPrintProcessor$LAYOUT;
+    }
+
+    private static final long pszPrintProcessor$OFFSET = 136;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pszPrintProcessor
+     * }
+     */
+    public static final long pszPrintProcessor$offset() {
+        return pszPrintProcessor$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszPrintProcessor
+     * }
+     */
+    public static MemorySegment pszPrintProcessor(MemorySegment struct) {
+        return struct.get(pszPrintProcessor$LAYOUT, pszPrintProcessor$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszPrintProcessor
+     * }
+     */
+    public static void pszPrintProcessor(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pszPrintProcessor$LAYOUT, pszPrintProcessor$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pszVendorSetup$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pszVendorSetup"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pszVendorSetup
+     * }
+     */
+    public static final AddressLayout pszVendorSetup$layout() {
+        return pszVendorSetup$LAYOUT;
+    }
+
+    private static final long pszVendorSetup$OFFSET = 144;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pszVendorSetup
+     * }
+     */
+    public static final long pszVendorSetup$offset() {
+        return pszVendorSetup$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszVendorSetup
+     * }
+     */
+    public static MemorySegment pszVendorSetup(MemorySegment struct) {
+        return struct.get(pszVendorSetup$LAYOUT, pszVendorSetup$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszVendorSetup
+     * }
+     */
+    public static void pszVendorSetup(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pszVendorSetup$LAYOUT, pszVendorSetup$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pszzColorProfiles$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pszzColorProfiles"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pszzColorProfiles
+     * }
+     */
+    public static final AddressLayout pszzColorProfiles$layout() {
+        return pszzColorProfiles$LAYOUT;
+    }
+
+    private static final long pszzColorProfiles$OFFSET = 152;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pszzColorProfiles
+     * }
+     */
+    public static final long pszzColorProfiles$offset() {
+        return pszzColorProfiles$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszzColorProfiles
+     * }
+     */
+    public static MemorySegment pszzColorProfiles(MemorySegment struct) {
+        return struct.get(pszzColorProfiles$LAYOUT, pszzColorProfiles$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszzColorProfiles
+     * }
+     */
+    public static void pszzColorProfiles(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pszzColorProfiles$LAYOUT, pszzColorProfiles$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pszInfPath$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pszInfPath"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pszInfPath
+     * }
+     */
+    public static final AddressLayout pszInfPath$layout() {
+        return pszInfPath$LAYOUT;
+    }
+
+    private static final long pszInfPath$OFFSET = 160;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pszInfPath
+     * }
+     */
+    public static final long pszInfPath$offset() {
+        return pszInfPath$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszInfPath
+     * }
+     */
+    public static MemorySegment pszInfPath(MemorySegment struct) {
+        return struct.get(pszInfPath$LAYOUT, pszInfPath$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszInfPath
+     * }
+     */
+    public static void pszInfPath(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pszInfPath$LAYOUT, pszInfPath$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwPrinterDriverAttributes$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwPrinterDriverAttributes"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwPrinterDriverAttributes
+     * }
+     */
+    public static final OfInt dwPrinterDriverAttributes$layout() {
+        return dwPrinterDriverAttributes$LAYOUT;
+    }
+
+    private static final long dwPrinterDriverAttributes$OFFSET = 168;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwPrinterDriverAttributes
+     * }
+     */
+    public static final long dwPrinterDriverAttributes$offset() {
+        return dwPrinterDriverAttributes$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwPrinterDriverAttributes
+     * }
+     */
+    public static int dwPrinterDriverAttributes(MemorySegment struct) {
+        return struct.get(dwPrinterDriverAttributes$LAYOUT, dwPrinterDriverAttributes$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwPrinterDriverAttributes
+     * }
+     */
+    public static void dwPrinterDriverAttributes(MemorySegment struct, int fieldValue) {
+        struct.set(dwPrinterDriverAttributes$LAYOUT, dwPrinterDriverAttributes$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pszzCoreDriverDependencies$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pszzCoreDriverDependencies"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR pszzCoreDriverDependencies
+     * }
+     */
+    public static final AddressLayout pszzCoreDriverDependencies$layout() {
+        return pszzCoreDriverDependencies$LAYOUT;
+    }
+
+    private static final long pszzCoreDriverDependencies$OFFSET = 176;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR pszzCoreDriverDependencies
+     * }
+     */
+    public static final long pszzCoreDriverDependencies$offset() {
+        return pszzCoreDriverDependencies$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszzCoreDriverDependencies
+     * }
+     */
+    public static MemorySegment pszzCoreDriverDependencies(MemorySegment struct) {
+        return struct.get(pszzCoreDriverDependencies$LAYOUT, pszzCoreDriverDependencies$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR pszzCoreDriverDependencies
+     * }
+     */
+    public static void pszzCoreDriverDependencies(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pszzCoreDriverDependencies$LAYOUT, pszzCoreDriverDependencies$OFFSET, fieldValue);
+    }
+
+    private static final GroupLayout ftMinInboxDriverVerDate$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("ftMinInboxDriverVerDate"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * FILETIME ftMinInboxDriverVerDate
+     * }
+     */
+    public static final GroupLayout ftMinInboxDriverVerDate$layout() {
+        return ftMinInboxDriverVerDate$LAYOUT;
+    }
+
+    private static final long ftMinInboxDriverVerDate$OFFSET = 184;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * FILETIME ftMinInboxDriverVerDate
+     * }
+     */
+    public static final long ftMinInboxDriverVerDate$offset() {
+        return ftMinInboxDriverVerDate$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * FILETIME ftMinInboxDriverVerDate
+     * }
+     */
+    public static MemorySegment ftMinInboxDriverVerDate(MemorySegment struct) {
+        return struct.asSlice(ftMinInboxDriverVerDate$OFFSET, ftMinInboxDriverVerDate$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * FILETIME ftMinInboxDriverVerDate
+     * }
+     */
+    public static void ftMinInboxDriverVerDate(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, ftMinInboxDriverVerDate$OFFSET, ftMinInboxDriverVerDate$LAYOUT.byteSize());
+    }
+
+    private static final OfLong dwlMinInboxDriverVerVersion$LAYOUT = (OfLong)$LAYOUT.select(groupElement("dwlMinInboxDriverVerVersion"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORDLONG dwlMinInboxDriverVerVersion
+     * }
+     */
+    public static final OfLong dwlMinInboxDriverVerVersion$layout() {
+        return dwlMinInboxDriverVerVersion$LAYOUT;
+    }
+
+    private static final long dwlMinInboxDriverVerVersion$OFFSET = 192;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORDLONG dwlMinInboxDriverVerVersion
+     * }
+     */
+    public static final long dwlMinInboxDriverVerVersion$offset() {
+        return dwlMinInboxDriverVerVersion$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORDLONG dwlMinInboxDriverVerVersion
+     * }
+     */
+    public static long dwlMinInboxDriverVerVersion(MemorySegment struct) {
+        return struct.get(dwlMinInboxDriverVerVersion$LAYOUT, dwlMinInboxDriverVerVersion$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORDLONG dwlMinInboxDriverVerVersion
+     * }
+     */
+    public static void dwlMinInboxDriverVerVersion(MemorySegment struct, long fieldValue) {
+        struct.set(dwlMinInboxDriverVerVersion$LAYOUT, dwlMinInboxDriverVerVersion$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

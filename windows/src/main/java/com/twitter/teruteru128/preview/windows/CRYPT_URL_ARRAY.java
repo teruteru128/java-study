@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CRYPT_URL_ARRAY CRYPT_URL_ARRAY;
+ * {@snippet lang=c :
+ * typedef struct _CRYPT_URL_ARRAY {
+ *     DWORD cUrl;
+ *     LPWSTR *rgwszUrl;
+ * } CRYPT_URL_ARRAY
  * }
  */
-public final class CRYPT_URL_ARRAY extends _CRYPT_URL_ARRAY {
+public class CRYPT_URL_ARRAY extends _CRYPT_URL_ARRAY {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CRYPT_URL_ARRAY() {}
+    CRYPT_URL_ARRAY() {
+        // Should not be called directly
+    }
 }
-
 

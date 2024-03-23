@@ -2,20 +2,35 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CMSG_CTRL_MAIL_LIST_DECRYPT_PARA CMSG_CTRL_MAIL_LIST_DECRYPT_PARA;
+ * {@snippet lang=c :
+ * typedef struct _CMSG_CTRL_MAIL_LIST_DECRYPT_PARA {
+ *     DWORD cbSize;
+ *     HCRYPTPROV hCryptProv;
+ *     PCMSG_MAIL_LIST_RECIPIENT_INFO pMailList;
+ *     DWORD dwRecipientIndex;
+ *     DWORD dwKeyChoice;
+ *     union {
+ *         HCRYPTKEY hKeyEncryptionKey;
+ *         void *pvKeyEncryptionKey;
+ *     };
+ * } CMSG_CTRL_MAIL_LIST_DECRYPT_PARA
  * }
  */
-public final class CMSG_CTRL_MAIL_LIST_DECRYPT_PARA extends _CMSG_CTRL_MAIL_LIST_DECRYPT_PARA {
+public class CMSG_CTRL_MAIL_LIST_DECRYPT_PARA extends _CMSG_CTRL_MAIL_LIST_DECRYPT_PARA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CMSG_CTRL_MAIL_LIST_DECRYPT_PARA() {}
+    CMSG_CTRL_MAIL_LIST_DECRYPT_PARA() {
+        // Should not be called directly
+    }
 }
-
 

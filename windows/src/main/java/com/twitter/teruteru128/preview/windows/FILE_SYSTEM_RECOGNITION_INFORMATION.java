@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _FILE_SYSTEM_RECOGNITION_INFORMATION FILE_SYSTEM_RECOGNITION_INFORMATION;
+ * {@snippet lang=c :
+ * typedef struct _FILE_SYSTEM_RECOGNITION_INFORMATION {
+ *     CHAR FileSystem[9];
+ * } FILE_SYSTEM_RECOGNITION_INFORMATION
  * }
  */
-public final class FILE_SYSTEM_RECOGNITION_INFORMATION extends _FILE_SYSTEM_RECOGNITION_INFORMATION {
+public class FILE_SYSTEM_RECOGNITION_INFORMATION extends _FILE_SYSTEM_RECOGNITION_INFORMATION {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private FILE_SYSTEM_RECOGNITION_INFORMATION() {}
+    FILE_SYSTEM_RECOGNITION_INFORMATION() {
+        // Should not be called directly
+    }
 }
-
 

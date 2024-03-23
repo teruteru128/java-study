@@ -2,32 +2,70 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC)(unsigned long dwCertEncodingType,struct _CRYPT_ALGORITHM_IDENTIFIER* pSignatureAlgorithm,void** ppvDecodedSignPara,unsigned short** ppwszCNGHashAlgid);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC)(DWORD, PCRYPT_ALGORITHM_IDENTIFIER, void **, LPWSTR *) __attribute__((stdcall))
  * }
  */
-public interface PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC {
+public class PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC {
 
-    int apply(int dwCertEncodingType, java.lang.foreign.MemorySegment pSignatureAlgorithm, java.lang.foreign.MemorySegment ppvDecodedSignPara, java.lang.foreign.MemorySegment ppwszCNGHashAlgid);
-    static MemorySegment allocate(PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2164.const$4, fi, constants$725.const$4, scope);
+    PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC() {
+        // Should not be called directly
     }
-    static PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (int _dwCertEncodingType, java.lang.foreign.MemorySegment _pSignatureAlgorithm, java.lang.foreign.MemorySegment _ppvDecodedSignPara, java.lang.foreign.MemorySegment _ppwszCNGHashAlgid) -> {
-            try {
-                return (int)constants$2164.const$5.invokeExact(symbol, _dwCertEncodingType, _pSignatureAlgorithm, _ppvDecodedSignPara, _ppwszCNGHashAlgid);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(int dwCertEncodingType, MemorySegment pSignatureAlgorithm, MemorySegment ppvDecodedSignPara, MemorySegment ppwszCNGHashAlgid);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CRYPT_EXTRACT_ENCODED_SIGNATURE_PARAMETERS_FUNC.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,int dwCertEncodingType, MemorySegment pSignatureAlgorithm, MemorySegment ppvDecodedSignPara, MemorySegment ppwszCNGHashAlgid) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, dwCertEncodingType, pSignatureAlgorithm, ppvDecodedSignPara, ppwszCNGHashAlgid);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

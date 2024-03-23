@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _JOBOBJECT_CPU_RATE_CONTROL_INFORMATION {
  *     DWORD ControlFlags;
  *     union {
@@ -19,155 +24,296 @@ import static java.lang.foreign.ValueLayout.*;
  *             WORD MaxRate;
  *         };
  *     };
- * };
+ * }
  * }
  */
 public class _JOBOBJECT_CPU_RATE_CONTROL_INFORMATION {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$217.const$0;
+    _JOBOBJECT_CPU_RATE_CONTROL_INFORMATION() {
+        // Should not be called directly
     }
-    public static VarHandle ControlFlags$VH() {
-        return constants$217.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ControlFlags;
-     * }
-     */
-    public static int ControlFlags$get(MemorySegment seg) {
-        return (int)constants$217.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ControlFlags;
-     * }
-     */
-    public static void ControlFlags$set(MemorySegment seg, int x) {
-        constants$217.const$1.set(seg, x);
-    }
-    public static int ControlFlags$get(MemorySegment seg, long index) {
-        return (int)constants$217.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ControlFlags$set(MemorySegment seg, long index, int x) {
-        constants$217.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle CpuRate$VH() {
-        return constants$217.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD CpuRate;
-     * }
-     */
-    public static int CpuRate$get(MemorySegment seg) {
-        return (int)constants$217.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD CpuRate;
-     * }
-     */
-    public static void CpuRate$set(MemorySegment seg, int x) {
-        constants$217.const$2.set(seg, x);
-    }
-    public static int CpuRate$get(MemorySegment seg, long index) {
-        return (int)constants$217.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void CpuRate$set(MemorySegment seg, long index, int x) {
-        constants$217.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Weight$VH() {
-        return constants$217.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Weight;
-     * }
-     */
-    public static int Weight$get(MemorySegment seg) {
-        return (int)constants$217.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Weight;
-     * }
-     */
-    public static void Weight$set(MemorySegment seg, int x) {
-        constants$217.const$3.set(seg, x);
-    }
-    public static int Weight$get(MemorySegment seg, long index) {
-        return (int)constants$217.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Weight$set(MemorySegment seg, long index, int x) {
-        constants$217.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle MinRate$VH() {
-        return constants$217.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD MinRate;
-     * }
-     */
-    public static short MinRate$get(MemorySegment seg) {
-        return (short)constants$217.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD MinRate;
-     * }
-     */
-    public static void MinRate$set(MemorySegment seg, short x) {
-        constants$217.const$4.set(seg, x);
-    }
-    public static short MinRate$get(MemorySegment seg, long index) {
-        return (short)constants$217.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void MinRate$set(MemorySegment seg, long index, short x) {
-        constants$217.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle MaxRate$VH() {
-        return constants$217.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD MaxRate;
-     * }
-     */
-    public static short MaxRate$get(MemorySegment seg) {
-        return (short)constants$217.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD MaxRate;
-     * }
-     */
-    public static void MaxRate$set(MemorySegment seg, short x) {
-        constants$217.const$5.set(seg, x);
-    }
-    public static short MaxRate$get(MemorySegment seg, long index) {
-        return (short)constants$217.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void MaxRate$set(MemorySegment seg, long index, short x) {
-        constants$217.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("ControlFlags"),
+        MemoryLayout.unionLayout(
+            Windows_h.C_LONG.withName("CpuRate"),
+            Windows_h.C_LONG.withName("Weight"),
+            MemoryLayout.structLayout(
+                Windows_h.C_SHORT.withName("MinRate"),
+                Windows_h.C_SHORT.withName("MaxRate")
+            ).withName("$anon$12928:9")
+        ).withName("$anon$12925:5")
+    ).withName("_JOBOBJECT_CPU_RATE_CONTROL_INFORMATION");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt ControlFlags$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ControlFlags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ControlFlags
+     * }
+     */
+    public static final OfInt ControlFlags$layout() {
+        return ControlFlags$LAYOUT;
+    }
+
+    private static final long ControlFlags$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ControlFlags
+     * }
+     */
+    public static final long ControlFlags$offset() {
+        return ControlFlags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ControlFlags
+     * }
+     */
+    public static int ControlFlags(MemorySegment struct) {
+        return struct.get(ControlFlags$LAYOUT, ControlFlags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ControlFlags
+     * }
+     */
+    public static void ControlFlags(MemorySegment struct, int fieldValue) {
+        struct.set(ControlFlags$LAYOUT, ControlFlags$OFFSET, fieldValue);
+    }
+
+    private static final OfInt CpuRate$LAYOUT = (OfInt)$LAYOUT.select(groupElement("$anon$12925:5"), groupElement("CpuRate"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD CpuRate
+     * }
+     */
+    public static final OfInt CpuRate$layout() {
+        return CpuRate$LAYOUT;
+    }
+
+    private static final long CpuRate$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD CpuRate
+     * }
+     */
+    public static final long CpuRate$offset() {
+        return CpuRate$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD CpuRate
+     * }
+     */
+    public static int CpuRate(MemorySegment struct) {
+        return struct.get(CpuRate$LAYOUT, CpuRate$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD CpuRate
+     * }
+     */
+    public static void CpuRate(MemorySegment struct, int fieldValue) {
+        struct.set(CpuRate$LAYOUT, CpuRate$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Weight$LAYOUT = (OfInt)$LAYOUT.select(groupElement("$anon$12925:5"), groupElement("Weight"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Weight
+     * }
+     */
+    public static final OfInt Weight$layout() {
+        return Weight$LAYOUT;
+    }
+
+    private static final long Weight$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Weight
+     * }
+     */
+    public static final long Weight$offset() {
+        return Weight$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Weight
+     * }
+     */
+    public static int Weight(MemorySegment struct) {
+        return struct.get(Weight$LAYOUT, Weight$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Weight
+     * }
+     */
+    public static void Weight(MemorySegment struct, int fieldValue) {
+        struct.set(Weight$LAYOUT, Weight$OFFSET, fieldValue);
+    }
+
+    private static final OfShort MinRate$LAYOUT = (OfShort)$LAYOUT.select(groupElement("$anon$12925:5"), groupElement("$anon$12928:9"), groupElement("MinRate"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD MinRate
+     * }
+     */
+    public static final OfShort MinRate$layout() {
+        return MinRate$LAYOUT;
+    }
+
+    private static final long MinRate$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD MinRate
+     * }
+     */
+    public static final long MinRate$offset() {
+        return MinRate$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD MinRate
+     * }
+     */
+    public static short MinRate(MemorySegment struct) {
+        return struct.get(MinRate$LAYOUT, MinRate$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD MinRate
+     * }
+     */
+    public static void MinRate(MemorySegment struct, short fieldValue) {
+        struct.set(MinRate$LAYOUT, MinRate$OFFSET, fieldValue);
+    }
+
+    private static final OfShort MaxRate$LAYOUT = (OfShort)$LAYOUT.select(groupElement("$anon$12925:5"), groupElement("$anon$12928:9"), groupElement("MaxRate"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD MaxRate
+     * }
+     */
+    public static final OfShort MaxRate$layout() {
+        return MaxRate$LAYOUT;
+    }
+
+    private static final long MaxRate$OFFSET = 6;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD MaxRate
+     * }
+     */
+    public static final long MaxRate$offset() {
+        return MaxRate$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD MaxRate
+     * }
+     */
+    public static short MaxRate(MemorySegment struct) {
+        return struct.get(MaxRate$LAYOUT, MaxRate$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD MaxRate
+     * }
+     */
+    public static void MaxRate(MemorySegment struct, short fieldValue) {
+        struct.set(MaxRate$LAYOUT, MaxRate$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

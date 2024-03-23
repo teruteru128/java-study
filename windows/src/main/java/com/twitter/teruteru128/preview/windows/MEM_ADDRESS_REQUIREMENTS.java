@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _MEM_ADDRESS_REQUIREMENTS MEM_ADDRESS_REQUIREMENTS;
+ * {@snippet lang=c :
+ * typedef struct _MEM_ADDRESS_REQUIREMENTS {
+ *     PVOID LowestStartingAddress;
+ *     PVOID HighestEndingAddress;
+ *     SIZE_T Alignment;
+ * } MEM_ADDRESS_REQUIREMENTS
  * }
  */
-public final class MEM_ADDRESS_REQUIREMENTS extends _MEM_ADDRESS_REQUIREMENTS {
+public class MEM_ADDRESS_REQUIREMENTS extends _MEM_ADDRESS_REQUIREMENTS {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private MEM_ADDRESS_REQUIREMENTS() {}
+    MEM_ADDRESS_REQUIREMENTS() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,32 +2,68 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * void (*RTL_UMS_SCHEDULER_ENTRY_POINT)(RTL_UMS_SCHEDULER_REASON Reason,ULONG_PTR ActivationPayload,PVOID SchedulerParam);
+ * {@snippet lang=c :
+ * typedef void (RTL_UMS_SCHEDULER_ENTRY_POINT)(RTL_UMS_SCHEDULER_REASON, ULONG_PTR, PVOID) __attribute__((stdcall))
  * }
  */
-public interface RTL_UMS_SCHEDULER_ENTRY_POINT {
+public class RTL_UMS_SCHEDULER_ENTRY_POINT {
 
-    void apply(int Reason, long ActivationPayload, java.lang.foreign.MemorySegment SchedulerParam);
-    static MemorySegment allocate(RTL_UMS_SCHEDULER_ENTRY_POINT fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$482.const$3, fi, constants$482.const$2, scope);
+    RTL_UMS_SCHEDULER_ENTRY_POINT() {
+        // Should not be called directly
     }
-    static RTL_UMS_SCHEDULER_ENTRY_POINT ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (int _Reason, long _ActivationPayload, java.lang.foreign.MemorySegment _SchedulerParam) -> {
-            try {
-                constants$482.const$4.invokeExact(symbol, _Reason, _ActivationPayload, _SchedulerParam);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        void apply(int Reason, long ActivationPayload, MemorySegment SchedulerParam);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.ofVoid(
+        Windows_h.C_INT,
+        Windows_h.C_LONG_LONG,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(RTL_UMS_SCHEDULER_ENTRY_POINT.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(RTL_UMS_SCHEDULER_ENTRY_POINT.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static void invoke(MemorySegment funcPtr,int Reason, long ActivationPayload, MemorySegment SchedulerParam) {
+        try {
+             DOWN$MH.invokeExact(funcPtr, Reason, ActivationPayload, SchedulerParam);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

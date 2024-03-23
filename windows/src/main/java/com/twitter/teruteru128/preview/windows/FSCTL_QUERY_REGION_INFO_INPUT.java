@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _FSCTL_QUERY_REGION_INFO_INPUT FSCTL_QUERY_REGION_INFO_INPUT;
+ * {@snippet lang=c :
+ * typedef struct _FSCTL_QUERY_REGION_INFO_INPUT {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     DWORD Flags;
+ *     DWORD NumberOfTierIds;
+ *     GUID TierIds[1];
+ * } FSCTL_QUERY_REGION_INFO_INPUT
  * }
  */
-public final class FSCTL_QUERY_REGION_INFO_INPUT extends _FSCTL_QUERY_REGION_INFO_INPUT {
+public class FSCTL_QUERY_REGION_INFO_INPUT extends _FSCTL_QUERY_REGION_INFO_INPUT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private FSCTL_QUERY_REGION_INFO_INPUT() {}
+    FSCTL_QUERY_REGION_INFO_INPUT() {
+        // Should not be called directly
+    }
 }
-
 

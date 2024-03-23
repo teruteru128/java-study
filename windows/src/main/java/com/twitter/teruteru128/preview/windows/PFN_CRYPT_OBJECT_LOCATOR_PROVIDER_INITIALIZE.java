@@ -2,32 +2,71 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE)(int (*pfnFlush)(void*,struct _CRYPTOAPI_BLOB**,unsigned long),void* pContext,unsigned long* pdwExpectedObjectCount,struct _CRYPT_OBJECT_LOCATOR_PROVIDER_TABLE** ppFuncTable,void** ppPluginContext);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE)(PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_FLUSH, LPVOID, DWORD *, PCRYPT_OBJECT_LOCATOR_PROVIDER_TABLE *, void **) __attribute__((stdcall))
  * }
  */
-public interface PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE {
+public class PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE {
 
-    int apply(java.lang.foreign.MemorySegment pfnFlush, java.lang.foreign.MemorySegment pContext, java.lang.foreign.MemorySegment pdwExpectedObjectCount, java.lang.foreign.MemorySegment ppFuncTable, java.lang.foreign.MemorySegment ppPluginContext);
-    static MemorySegment allocate(PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2244.const$1, fi, constants$577.const$5, scope);
+    PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE() {
+        // Should not be called directly
     }
-    static PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _pfnFlush, java.lang.foreign.MemorySegment _pContext, java.lang.foreign.MemorySegment _pdwExpectedObjectCount, java.lang.foreign.MemorySegment _ppFuncTable, java.lang.foreign.MemorySegment _ppPluginContext) -> {
-            try {
-                return (int)constants$1781.const$5.invokeExact(symbol, _pfnFlush, _pContext, _pdwExpectedObjectCount, _ppFuncTable, _ppPluginContext);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment pfnFlush, MemorySegment pContext, MemorySegment pdwExpectedObjectCount, MemorySegment ppFuncTable, MemorySegment ppPluginContext);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CRYPT_OBJECT_LOCATOR_PROVIDER_INITIALIZE.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment pfnFlush, MemorySegment pContext, MemorySegment pdwExpectedObjectCount, MemorySegment ppFuncTable, MemorySegment ppPluginContext) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, pfnFlush, pContext, pdwExpectedObjectCount, ppFuncTable, ppPluginContext);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

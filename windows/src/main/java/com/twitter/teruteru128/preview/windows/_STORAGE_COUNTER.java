@@ -2,190 +2,536 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _STORAGE_COUNTER {
  *     STORAGE_COUNTER_TYPE Type;
- *     union  Value;
- * };
+ *     union {
+ *         struct {
+ *             DWORD Week;
+ *             DWORD Year;
+ *         } ManufactureDate;
+ *         DWORDLONG AsUlonglong;
+ *     } Value;
+ * }
  * }
  */
 public class _STORAGE_COUNTER {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2491.const$0;
+    _STORAGE_COUNTER() {
+        // Should not be called directly
     }
-    public static VarHandle Type$VH() {
-        return constants$2491.const$1;
+
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_INT.withName("Type"),
+        MemoryLayout.paddingLayout(4),
+        _STORAGE_COUNTER.Value.layout().withName("Value")
+    ).withName("_STORAGE_COUNTER");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
     }
+
+    private static final OfInt Type$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Type"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * STORAGE_COUNTER_TYPE Type
+     * }
+     */
+    public static final OfInt Type$layout() {
+        return Type$LAYOUT;
+    }
+
+    private static final long Type$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * STORAGE_COUNTER_TYPE Type
+     * }
+     */
+    public static final long Type$offset() {
+        return Type$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * STORAGE_COUNTER_TYPE Type;
+     * {@snippet lang=c :
+     * STORAGE_COUNTER_TYPE Type
      * }
      */
-    public static int Type$get(MemorySegment seg) {
-        return (int)constants$2491.const$1.get(seg);
+    public static int Type(MemorySegment struct) {
+        return struct.get(Type$LAYOUT, Type$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * STORAGE_COUNTER_TYPE Type;
+     * {@snippet lang=c :
+     * STORAGE_COUNTER_TYPE Type
      * }
      */
-    public static void Type$set(MemorySegment seg, int x) {
-        constants$2491.const$1.set(seg, x);
+    public static void Type(MemorySegment struct, int fieldValue) {
+        struct.set(Type$LAYOUT, Type$OFFSET, fieldValue);
     }
-    public static int Type$get(MemorySegment seg, long index) {
-        return (int)constants$2491.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Type$set(MemorySegment seg, long index, int x) {
-        constants$2491.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    /**
-     * {@snippet :
-     * union {
-     *     struct  ManufactureDate;
-     *     DWORDLONG AsUlonglong;
-     * };
-     * }
-     */
-    public static final class Value {
 
-        // Suppresses default constructor, ensuring non-instantiability.
-        private Value() {}
-        public static MemoryLayout $LAYOUT() {
-            return constants$2491.const$2;
+    /**
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD Week;
+     *         DWORD Year;
+     *     } ManufactureDate;
+     *     DWORDLONG AsUlonglong;
+     * }
+     * }
+     */
+    public static class Value {
+
+        Value() {
+            // Should not be called directly
         }
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.unionLayout(
+            _STORAGE_COUNTER.Value.ManufactureDate.layout().withName("ManufactureDate"),
+            Windows_h.C_LONG_LONG.withName("AsUlonglong")
+        ).withName("$anon$6465:5");
+
         /**
-         * {@snippet :
+         * The layout of this union
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
+        }
+
+        /**
+         * {@snippet lang=c :
          * struct {
          *     DWORD Week;
          *     DWORD Year;
-         * };
+         * }
          * }
          */
-        public static final class ManufactureDate {
+        public static class ManufactureDate {
 
-            // Suppresses default constructor, ensuring non-instantiability.
-            private ManufactureDate() {}
-            public static MemoryLayout $LAYOUT() {
-                return constants$2491.const$3;
+            ManufactureDate() {
+                // Should not be called directly
             }
-            public static VarHandle Week$VH() {
-                return constants$2491.const$4;
+
+            private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+                Windows_h.C_LONG.withName("Week"),
+                Windows_h.C_LONG.withName("Year")
+            ).withName("$anon$6467:9");
+
+            /**
+             * The layout of this struct
+             */
+            public static final GroupLayout layout() {
+                return $LAYOUT;
             }
+
+            private static final OfInt Week$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Week"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD Week
+             * }
+             */
+            public static final OfInt Week$layout() {
+                return Week$LAYOUT;
+            }
+
+            private static final long Week$OFFSET = 0;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD Week
+             * }
+             */
+            public static final long Week$offset() {
+                return Week$OFFSET;
+            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD Week;
+             * {@snippet lang=c :
+             * DWORD Week
              * }
              */
-            public static int Week$get(MemorySegment seg) {
-                return (int)constants$2491.const$4.get(seg);
+            public static int Week(MemorySegment struct) {
+                return struct.get(Week$LAYOUT, Week$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD Week;
+             * {@snippet lang=c :
+             * DWORD Week
              * }
              */
-            public static void Week$set(MemorySegment seg, int x) {
-                constants$2491.const$4.set(seg, x);
+            public static void Week(MemorySegment struct, int fieldValue) {
+                struct.set(Week$LAYOUT, Week$OFFSET, fieldValue);
             }
-            public static int Week$get(MemorySegment seg, long index) {
-                return (int)constants$2491.const$4.get(seg.asSlice(index*sizeof()));
+
+            private static final OfInt Year$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Year"));
+
+            /**
+             * Layout for field:
+             * {@snippet lang=c :
+             * DWORD Year
+             * }
+             */
+            public static final OfInt Year$layout() {
+                return Year$LAYOUT;
             }
-            public static void Week$set(MemorySegment seg, long index, int x) {
-                constants$2491.const$4.set(seg.asSlice(index*sizeof()), x);
+
+            private static final long Year$OFFSET = 4;
+
+            /**
+             * Offset for field:
+             * {@snippet lang=c :
+             * DWORD Year
+             * }
+             */
+            public static final long Year$offset() {
+                return Year$OFFSET;
             }
-            public static VarHandle Year$VH() {
-                return constants$2491.const$5;
-            }
+
             /**
              * Getter for field:
-             * {@snippet :
-             * DWORD Year;
+             * {@snippet lang=c :
+             * DWORD Year
              * }
              */
-            public static int Year$get(MemorySegment seg) {
-                return (int)constants$2491.const$5.get(seg);
+            public static int Year(MemorySegment struct) {
+                return struct.get(Year$LAYOUT, Year$OFFSET);
             }
+
             /**
              * Setter for field:
-             * {@snippet :
-             * DWORD Year;
+             * {@snippet lang=c :
+             * DWORD Year
              * }
              */
-            public static void Year$set(MemorySegment seg, int x) {
-                constants$2491.const$5.set(seg, x);
+            public static void Year(MemorySegment struct, int fieldValue) {
+                struct.set(Year$LAYOUT, Year$OFFSET, fieldValue);
             }
-            public static int Year$get(MemorySegment seg, long index) {
-                return (int)constants$2491.const$5.get(seg.asSlice(index*sizeof()));
+
+            /**
+             * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+             * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+             */
+            public static MemorySegment asSlice(MemorySegment array, long index) {
+                return array.asSlice(layout().byteSize() * index);
             }
-            public static void Year$set(MemorySegment seg, long index, int x) {
-                constants$2491.const$5.set(seg.asSlice(index*sizeof()), x);
+
+            /**
+             * The size (in bytes) of this struct
+             */
+            public static long sizeof() { return layout().byteSize(); }
+
+            /**
+             * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+             */
+            public static MemorySegment allocate(SegmentAllocator allocator) {
+                return allocator.allocate(layout());
             }
-            public static long sizeof() { return $LAYOUT().byteSize(); }
-            public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-            public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-                return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+            /**
+             * Allocate an array of size {@code elementCount} using {@code allocator}.
+             * The returned segment has size {@code elementCount * layout().byteSize()}.
+             */
+            public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+                return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
             }
-            public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+                return reinterpret(addr, 1, arena, cleanup);
+            }
+
+            /**
+             * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+             * The returned segment has size {@code elementCount * layout().byteSize()}
+             */
+            public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+                return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+            }
         }
 
-        public static MemorySegment ManufactureDate$slice(MemorySegment seg) {
-            return seg.asSlice(0, 8);
+        private static final GroupLayout ManufactureDate$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("ManufactureDate"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD Week;
+         *     DWORD Year;
+         * } ManufactureDate
+         * }
+         */
+        public static final GroupLayout ManufactureDate$layout() {
+            return ManufactureDate$LAYOUT;
         }
-        public static VarHandle AsUlonglong$VH() {
-            return constants$2492.const$0;
+
+        private static final long ManufactureDate$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD Week;
+         *     DWORD Year;
+         * } ManufactureDate
+         * }
+         */
+        public static final long ManufactureDate$offset() {
+            return ManufactureDate$OFFSET;
         }
+
         /**
          * Getter for field:
-         * {@snippet :
-         * DWORDLONG AsUlonglong;
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD Week;
+         *     DWORD Year;
+         * } ManufactureDate
          * }
          */
-        public static long AsUlonglong$get(MemorySegment seg) {
-            return (long)constants$2492.const$0.get(seg);
+        public static MemorySegment ManufactureDate(MemorySegment union) {
+            return union.asSlice(ManufactureDate$OFFSET, ManufactureDate$LAYOUT.byteSize());
         }
+
         /**
          * Setter for field:
-         * {@snippet :
-         * DWORDLONG AsUlonglong;
+         * {@snippet lang=c :
+         * struct {
+         *     DWORD Week;
+         *     DWORD Year;
+         * } ManufactureDate
          * }
          */
-        public static void AsUlonglong$set(MemorySegment seg, long x) {
-            constants$2492.const$0.set(seg, x);
+        public static void ManufactureDate(MemorySegment union, MemorySegment fieldValue) {
+            MemorySegment.copy(fieldValue, 0L, union, ManufactureDate$OFFSET, ManufactureDate$LAYOUT.byteSize());
         }
-        public static long AsUlonglong$get(MemorySegment seg, long index) {
-            return (long)constants$2492.const$0.get(seg.asSlice(index*sizeof()));
+
+        private static final OfLong AsUlonglong$LAYOUT = (OfLong)$LAYOUT.select(groupElement("AsUlonglong"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * DWORDLONG AsUlonglong
+         * }
+         */
+        public static final OfLong AsUlonglong$layout() {
+            return AsUlonglong$LAYOUT;
         }
-        public static void AsUlonglong$set(MemorySegment seg, long index, long x) {
-            constants$2492.const$0.set(seg.asSlice(index*sizeof()), x);
+
+        private static final long AsUlonglong$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * DWORDLONG AsUlonglong
+         * }
+         */
+        public static final long AsUlonglong$offset() {
+            return AsUlonglong$OFFSET;
         }
-        public static long sizeof() { return $LAYOUT().byteSize(); }
-        public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-        public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-            return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+        /**
+         * Getter for field:
+         * {@snippet lang=c :
+         * DWORDLONG AsUlonglong
+         * }
+         */
+        public static long AsUlonglong(MemorySegment union) {
+            return union.get(AsUlonglong$LAYOUT, AsUlonglong$OFFSET);
         }
-        public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+        /**
+         * Setter for field:
+         * {@snippet lang=c :
+         * DWORDLONG AsUlonglong
+         * }
+         */
+        public static void AsUlonglong(MemorySegment union, long fieldValue) {
+            union.set(AsUlonglong$LAYOUT, AsUlonglong$OFFSET, fieldValue);
+        }
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
+        }
+
+        /**
+         * The size (in bytes) of this union
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
+        }
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
     }
 
-    public static MemorySegment Value$slice(MemorySegment seg) {
-        return seg.asSlice(8, 8);
+    private static final GroupLayout Value$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("Value"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD Week;
+     *         DWORD Year;
+     *     } ManufactureDate;
+     *     DWORDLONG AsUlonglong;
+     * } Value
+     * }
+     */
+    public static final GroupLayout Value$layout() {
+        return Value$LAYOUT;
     }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+    private static final long Value$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD Week;
+     *         DWORD Year;
+     *     } ManufactureDate;
+     *     DWORDLONG AsUlonglong;
+     * } Value
+     * }
+     */
+    public static final long Value$offset() {
+        return Value$OFFSET;
     }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD Week;
+     *         DWORD Year;
+     *     } ManufactureDate;
+     *     DWORDLONG AsUlonglong;
+     * } Value
+     * }
+     */
+    public static MemorySegment Value(MemorySegment struct) {
+        return struct.asSlice(Value$OFFSET, Value$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * union {
+     *     struct {
+     *         DWORD Week;
+     *         DWORD Year;
+     *     } ManufactureDate;
+     *     DWORDLONG AsUlonglong;
+     * } Value
+     * }
+     */
+    public static void Value(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, Value$OFFSET, Value$LAYOUT.byteSize());
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
 }
-
 

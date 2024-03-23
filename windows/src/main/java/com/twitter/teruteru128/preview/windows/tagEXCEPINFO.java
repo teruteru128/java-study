@@ -2,13 +2,18 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagEXCEPINFO {
  *     WORD wCode;
  *     WORD wReserved;
@@ -17,291 +22,531 @@ import static java.lang.foreign.ValueLayout.*;
  *     BSTR bstrHelpFile;
  *     DWORD dwHelpContext;
  *     PVOID pvReserved;
- *     HRESULT (*pfnDeferredFillIn)(struct tagEXCEPINFO*);
+ *     HRESULT (*pfnDeferredFillIn)(struct tagEXCEPINFO *) __attribute__((stdcall));
  *     SCODE scode;
- * };
+ * }
  * }
  */
 public class tagEXCEPINFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$3438.const$4;
-    }
-    public static VarHandle wCode$VH() {
-        return constants$3438.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD wCode;
-     * }
-     */
-    public static short wCode$get(MemorySegment seg) {
-        return (short)constants$3438.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD wCode;
-     * }
-     */
-    public static void wCode$set(MemorySegment seg, short x) {
-        constants$3438.const$5.set(seg, x);
-    }
-    public static short wCode$get(MemorySegment seg, long index) {
-        return (short)constants$3438.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wCode$set(MemorySegment seg, long index, short x) {
-        constants$3438.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle wReserved$VH() {
-        return constants$3439.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD wReserved;
-     * }
-     */
-    public static short wReserved$get(MemorySegment seg) {
-        return (short)constants$3439.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD wReserved;
-     * }
-     */
-    public static void wReserved$set(MemorySegment seg, short x) {
-        constants$3439.const$0.set(seg, x);
-    }
-    public static short wReserved$get(MemorySegment seg, long index) {
-        return (short)constants$3439.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void wReserved$set(MemorySegment seg, long index, short x) {
-        constants$3439.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle bstrSource$VH() {
-        return constants$3439.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BSTR bstrSource;
-     * }
-     */
-    public static MemorySegment bstrSource$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3439.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BSTR bstrSource;
-     * }
-     */
-    public static void bstrSource$set(MemorySegment seg, MemorySegment x) {
-        constants$3439.const$1.set(seg, x);
-    }
-    public static MemorySegment bstrSource$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3439.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void bstrSource$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3439.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle bstrDescription$VH() {
-        return constants$3439.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BSTR bstrDescription;
-     * }
-     */
-    public static MemorySegment bstrDescription$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3439.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BSTR bstrDescription;
-     * }
-     */
-    public static void bstrDescription$set(MemorySegment seg, MemorySegment x) {
-        constants$3439.const$2.set(seg, x);
-    }
-    public static MemorySegment bstrDescription$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3439.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void bstrDescription$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3439.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle bstrHelpFile$VH() {
-        return constants$3439.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * BSTR bstrHelpFile;
-     * }
-     */
-    public static MemorySegment bstrHelpFile$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3439.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * BSTR bstrHelpFile;
-     * }
-     */
-    public static void bstrHelpFile$set(MemorySegment seg, MemorySegment x) {
-        constants$3439.const$3.set(seg, x);
-    }
-    public static MemorySegment bstrHelpFile$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3439.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void bstrHelpFile$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3439.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle dwHelpContext$VH() {
-        return constants$3439.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD dwHelpContext;
-     * }
-     */
-    public static int dwHelpContext$get(MemorySegment seg) {
-        return (int)constants$3439.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD dwHelpContext;
-     * }
-     */
-    public static void dwHelpContext$set(MemorySegment seg, int x) {
-        constants$3439.const$4.set(seg, x);
-    }
-    public static int dwHelpContext$get(MemorySegment seg, long index) {
-        return (int)constants$3439.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void dwHelpContext$set(MemorySegment seg, long index, int x) {
-        constants$3439.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pvReserved$VH() {
-        return constants$3439.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PVOID pvReserved;
-     * }
-     */
-    public static MemorySegment pvReserved$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3439.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PVOID pvReserved;
-     * }
-     */
-    public static void pvReserved$set(MemorySegment seg, MemorySegment x) {
-        constants$3439.const$5.set(seg, x);
-    }
-    public static MemorySegment pvReserved$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3439.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pvReserved$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3439.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    /**
-     * {@snippet :
- * HRESULT (*pfnDeferredFillIn)(struct tagEXCEPINFO*);
-     * }
-     */
-    public interface pfnDeferredFillIn {
-
-        int apply(java.lang.foreign.MemorySegment _x0);
-        static MemorySegment allocate(pfnDeferredFillIn fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$3440.const$0, fi, constants$18.const$5, scope);
-        }
-        static pfnDeferredFillIn ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0) -> {
-                try {
-                    return (int)constants$495.const$0.invokeExact(symbol, __x0);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
-        }
+    tagEXCEPINFO() {
+        // Should not be called directly
     }
 
-    public static VarHandle pfnDeferredFillIn$VH() {
-        return constants$3440.const$1;
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_SHORT.withName("wCode"),
+        Windows_h.C_SHORT.withName("wReserved"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("bstrSource"),
+        Windows_h.C_POINTER.withName("bstrDescription"),
+        Windows_h.C_POINTER.withName("bstrHelpFile"),
+        Windows_h.C_LONG.withName("dwHelpContext"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("pvReserved"),
+        Windows_h.C_POINTER.withName("pfnDeferredFillIn"),
+        Windows_h.C_LONG.withName("scode"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("tagEXCEPINFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
     }
+
+    private static final OfShort wCode$LAYOUT = (OfShort)$LAYOUT.select(groupElement("wCode"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD wCode
+     * }
+     */
+    public static final OfShort wCode$layout() {
+        return wCode$LAYOUT;
+    }
+
+    private static final long wCode$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD wCode
+     * }
+     */
+    public static final long wCode$offset() {
+        return wCode$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*pfnDeferredFillIn)(struct tagEXCEPINFO*);
+     * {@snippet lang=c :
+     * WORD wCode
      * }
      */
-    public static MemorySegment pfnDeferredFillIn$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3440.const$1.get(seg);
+    public static short wCode(MemorySegment struct) {
+        return struct.get(wCode$LAYOUT, wCode$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*pfnDeferredFillIn)(struct tagEXCEPINFO*);
+     * {@snippet lang=c :
+     * WORD wCode
      * }
      */
-    public static void pfnDeferredFillIn$set(MemorySegment seg, MemorySegment x) {
-        constants$3440.const$1.set(seg, x);
+    public static void wCode(MemorySegment struct, short fieldValue) {
+        struct.set(wCode$LAYOUT, wCode$OFFSET, fieldValue);
     }
-    public static MemorySegment pfnDeferredFillIn$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3440.const$1.get(seg.asSlice(index*sizeof()));
+
+    private static final OfShort wReserved$LAYOUT = (OfShort)$LAYOUT.select(groupElement("wReserved"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD wReserved
+     * }
+     */
+    public static final OfShort wReserved$layout() {
+        return wReserved$LAYOUT;
     }
-    public static void pfnDeferredFillIn$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3440.const$1.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long wReserved$OFFSET = 2;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD wReserved
+     * }
+     */
+    public static final long wReserved$offset() {
+        return wReserved$OFFSET;
     }
-    public static pfnDeferredFillIn pfnDeferredFillIn(MemorySegment segment, Arena scope) {
-        return pfnDeferredFillIn.ofAddress(pfnDeferredFillIn$get(segment), scope);
-    }
-    public static VarHandle scode$VH() {
-        return constants$3440.const$2;
-    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * SCODE scode;
+     * {@snippet lang=c :
+     * WORD wReserved
      * }
      */
-    public static int scode$get(MemorySegment seg) {
-        return (int)constants$3440.const$2.get(seg);
+    public static short wReserved(MemorySegment struct) {
+        return struct.get(wReserved$LAYOUT, wReserved$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * SCODE scode;
+     * {@snippet lang=c :
+     * WORD wReserved
      * }
      */
-    public static void scode$set(MemorySegment seg, int x) {
-        constants$3440.const$2.set(seg, x);
+    public static void wReserved(MemorySegment struct, short fieldValue) {
+        struct.set(wReserved$LAYOUT, wReserved$OFFSET, fieldValue);
     }
-    public static int scode$get(MemorySegment seg, long index) {
-        return (int)constants$3440.const$2.get(seg.asSlice(index*sizeof()));
+
+    private static final AddressLayout bstrSource$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("bstrSource"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BSTR bstrSource
+     * }
+     */
+    public static final AddressLayout bstrSource$layout() {
+        return bstrSource$LAYOUT;
     }
-    public static void scode$set(MemorySegment seg, long index, int x) {
-        constants$3440.const$2.set(seg.asSlice(index*sizeof()), x);
+
+    private static final long bstrSource$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BSTR bstrSource
+     * }
+     */
+    public static final long bstrSource$offset() {
+        return bstrSource$OFFSET;
     }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BSTR bstrSource
+     * }
+     */
+    public static MemorySegment bstrSource(MemorySegment struct) {
+        return struct.get(bstrSource$LAYOUT, bstrSource$OFFSET);
     }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BSTR bstrSource
+     * }
+     */
+    public static void bstrSource(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(bstrSource$LAYOUT, bstrSource$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout bstrDescription$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("bstrDescription"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BSTR bstrDescription
+     * }
+     */
+    public static final AddressLayout bstrDescription$layout() {
+        return bstrDescription$LAYOUT;
+    }
+
+    private static final long bstrDescription$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BSTR bstrDescription
+     * }
+     */
+    public static final long bstrDescription$offset() {
+        return bstrDescription$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BSTR bstrDescription
+     * }
+     */
+    public static MemorySegment bstrDescription(MemorySegment struct) {
+        return struct.get(bstrDescription$LAYOUT, bstrDescription$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BSTR bstrDescription
+     * }
+     */
+    public static void bstrDescription(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(bstrDescription$LAYOUT, bstrDescription$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout bstrHelpFile$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("bstrHelpFile"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * BSTR bstrHelpFile
+     * }
+     */
+    public static final AddressLayout bstrHelpFile$layout() {
+        return bstrHelpFile$LAYOUT;
+    }
+
+    private static final long bstrHelpFile$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * BSTR bstrHelpFile
+     * }
+     */
+    public static final long bstrHelpFile$offset() {
+        return bstrHelpFile$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * BSTR bstrHelpFile
+     * }
+     */
+    public static MemorySegment bstrHelpFile(MemorySegment struct) {
+        return struct.get(bstrHelpFile$LAYOUT, bstrHelpFile$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * BSTR bstrHelpFile
+     * }
+     */
+    public static void bstrHelpFile(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(bstrHelpFile$LAYOUT, bstrHelpFile$OFFSET, fieldValue);
+    }
+
+    private static final OfInt dwHelpContext$LAYOUT = (OfInt)$LAYOUT.select(groupElement("dwHelpContext"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD dwHelpContext
+     * }
+     */
+    public static final OfInt dwHelpContext$layout() {
+        return dwHelpContext$LAYOUT;
+    }
+
+    private static final long dwHelpContext$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD dwHelpContext
+     * }
+     */
+    public static final long dwHelpContext$offset() {
+        return dwHelpContext$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD dwHelpContext
+     * }
+     */
+    public static int dwHelpContext(MemorySegment struct) {
+        return struct.get(dwHelpContext$LAYOUT, dwHelpContext$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD dwHelpContext
+     * }
+     */
+    public static void dwHelpContext(MemorySegment struct, int fieldValue) {
+        struct.set(dwHelpContext$LAYOUT, dwHelpContext$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pvReserved$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pvReserved"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PVOID pvReserved
+     * }
+     */
+    public static final AddressLayout pvReserved$layout() {
+        return pvReserved$LAYOUT;
+    }
+
+    private static final long pvReserved$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PVOID pvReserved
+     * }
+     */
+    public static final long pvReserved$offset() {
+        return pvReserved$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PVOID pvReserved
+     * }
+     */
+    public static MemorySegment pvReserved(MemorySegment struct) {
+        return struct.get(pvReserved$LAYOUT, pvReserved$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PVOID pvReserved
+     * }
+     */
+    public static void pvReserved(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pvReserved$LAYOUT, pvReserved$OFFSET, fieldValue);
+    }
+
+    /**
+     * {@snippet lang=c :
+     * HRESULT (*pfnDeferredFillIn)(struct tagEXCEPINFO *) __attribute__((stdcall))
+     * }
+     */
+    public static class pfnDeferredFillIn {
+
+        pfnDeferredFillIn() {
+            // Should not be called directly
+        }
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(pfnDeferredFillIn.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(pfnDeferredFillIn.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
+        }
+    }
+
+    private static final AddressLayout pfnDeferredFillIn$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pfnDeferredFillIn"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*pfnDeferredFillIn)(struct tagEXCEPINFO *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout pfnDeferredFillIn$layout() {
+        return pfnDeferredFillIn$LAYOUT;
+    }
+
+    private static final long pfnDeferredFillIn$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*pfnDeferredFillIn)(struct tagEXCEPINFO *) __attribute__((stdcall))
+     * }
+     */
+    public static final long pfnDeferredFillIn$offset() {
+        return pfnDeferredFillIn$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * HRESULT (*pfnDeferredFillIn)(struct tagEXCEPINFO *) __attribute__((stdcall))
+     * }
+     */
+    public static MemorySegment pfnDeferredFillIn(MemorySegment struct) {
+        return struct.get(pfnDeferredFillIn$LAYOUT, pfnDeferredFillIn$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * HRESULT (*pfnDeferredFillIn)(struct tagEXCEPINFO *) __attribute__((stdcall))
+     * }
+     */
+    public static void pfnDeferredFillIn(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pfnDeferredFillIn$LAYOUT, pfnDeferredFillIn$OFFSET, fieldValue);
+    }
+
+    private static final OfInt scode$LAYOUT = (OfInt)$LAYOUT.select(groupElement("scode"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * SCODE scode
+     * }
+     */
+    public static final OfInt scode$layout() {
+        return scode$LAYOUT;
+    }
+
+    private static final long scode$OFFSET = 56;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * SCODE scode
+     * }
+     */
+    public static final long scode$offset() {
+        return scode$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * SCODE scode
+     * }
+     */
+    public static int scode(MemorySegment struct) {
+        return struct.get(scode$LAYOUT, scode$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * SCODE scode
+     * }
+     */
+    public static void scode(MemorySegment struct, int fieldValue) {
+        struct.set(scode$LAYOUT, scode$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
 }
-
 

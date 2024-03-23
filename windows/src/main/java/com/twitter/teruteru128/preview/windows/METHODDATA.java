@@ -2,20 +2,34 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagMETHODDATA METHODDATA;
+ * {@snippet lang=c :
+ * typedef struct tagMETHODDATA {
+ *     OLECHAR *szName;
+ *     PARAMDATA *ppdata;
+ *     DISPID dispid;
+ *     UINT iMeth;
+ *     CALLCONV cc;
+ *     UINT cArgs;
+ *     WORD wFlags;
+ *     VARTYPE vtReturn;
+ * } METHODDATA
  * }
  */
-public final class METHODDATA extends tagMETHODDATA {
+public class METHODDATA extends tagMETHODDATA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private METHODDATA() {}
+    METHODDATA() {
+        // Should not be called directly
+    }
 }
-
 

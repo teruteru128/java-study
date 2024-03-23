@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _ENCLAVE_INIT_INFO_SGX ENCLAVE_INIT_INFO_SGX;
+ * {@snippet lang=c :
+ * typedef struct _ENCLAVE_INIT_INFO_SGX {
+ *     BYTE SigStruct[1808];
+ *     BYTE Reserved1[240];
+ *     BYTE EInitToken[304];
+ *     BYTE Reserved2[1744];
+ * } ENCLAVE_INIT_INFO_SGX
  * }
  */
-public final class ENCLAVE_INIT_INFO_SGX extends _ENCLAVE_INIT_INFO_SGX {
+public class ENCLAVE_INIT_INFO_SGX extends _ENCLAVE_INIT_INFO_SGX {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private ENCLAVE_INIT_INFO_SGX() {}
+    ENCLAVE_INIT_INFO_SGX() {
+        // Should not be called directly
+    }
 }
-
 

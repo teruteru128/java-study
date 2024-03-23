@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct value_entA VALENT;
+ * {@snippet lang=c :
+ * typedef VALENTA VALENT
  * }
  */
-public final class VALENT extends value_entA {
+public class VALENT extends value_entA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private VALENT() {}
+    VALENT() {
+        // Should not be called directly
+    }
 }
-
 

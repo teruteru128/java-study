@@ -2,32 +2,73 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * int (*PFN_CERT_DLL_OPEN_STORE_PROV_FUNC)(char* lpszStoreProvider,unsigned long dwEncodingType,unsigned long long hCryptProv,unsigned long dwFlags,void* pvPara,void* hCertStore,struct _CERT_STORE_PROV_INFO* pStoreProvInfo);
+ * {@snippet lang=c :
+ * typedef BOOL (*PFN_CERT_DLL_OPEN_STORE_PROV_FUNC)(LPCSTR, DWORD, HCRYPTPROV_LEGACY, DWORD, const void *, HCERTSTORE, PCERT_STORE_PROV_INFO) __attribute__((stdcall))
  * }
  */
-public interface PFN_CERT_DLL_OPEN_STORE_PROV_FUNC {
+public class PFN_CERT_DLL_OPEN_STORE_PROV_FUNC {
 
-    int apply(java.lang.foreign.MemorySegment lpszStoreProvider, int dwEncodingType, long hCryptProv, int dwFlags, java.lang.foreign.MemorySegment pvPara, java.lang.foreign.MemorySegment hCertStore, java.lang.foreign.MemorySegment pStoreProvInfo);
-    static MemorySegment allocate(PFN_CERT_DLL_OPEN_STORE_PROV_FUNC fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$2129.const$0, fi, constants$2128.const$5, scope);
+    PFN_CERT_DLL_OPEN_STORE_PROV_FUNC() {
+        // Should not be called directly
     }
-    static PFN_CERT_DLL_OPEN_STORE_PROV_FUNC ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (java.lang.foreign.MemorySegment _lpszStoreProvider, int _dwEncodingType, long _hCryptProv, int _dwFlags, java.lang.foreign.MemorySegment _pvPara, java.lang.foreign.MemorySegment _hCertStore, java.lang.foreign.MemorySegment _pStoreProvInfo) -> {
-            try {
-                return (int)constants$2129.const$1.invokeExact(symbol, _lpszStoreProvider, _dwEncodingType, _hCryptProv, _dwFlags, _pvPara, _hCertStore, _pStoreProvInfo);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(MemorySegment lpszStoreProvider, int dwEncodingType, long hCryptProv, int dwFlags, MemorySegment pvPara, MemorySegment hCertStore, MemorySegment pStoreProvInfo);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_LONG_LONG,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(PFN_CERT_DLL_OPEN_STORE_PROV_FUNC.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(PFN_CERT_DLL_OPEN_STORE_PROV_FUNC.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,MemorySegment lpszStoreProvider, int dwEncodingType, long hCryptProv, int dwFlags, MemorySegment pvPara, MemorySegment hCertStore, MemorySegment pStoreProvInfo) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, lpszStoreProvider, dwEncodingType, hCryptProv, dwFlags, pvPara, hCertStore, pStoreProvInfo);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

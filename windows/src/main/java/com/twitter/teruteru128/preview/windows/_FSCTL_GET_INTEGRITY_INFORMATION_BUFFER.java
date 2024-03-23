@@ -2,168 +2,310 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _FSCTL_GET_INTEGRITY_INFORMATION_BUFFER {
  *     WORD ChecksumAlgorithm;
  *     WORD Reserved;
  *     DWORD Flags;
  *     DWORD ChecksumChunkSizeInBytes;
  *     DWORD ClusterSizeInBytes;
- * };
+ * }
  * }
  */
 public class _FSCTL_GET_INTEGRITY_INFORMATION_BUFFER {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2698.const$0;
+    _FSCTL_GET_INTEGRITY_INFORMATION_BUFFER() {
+        // Should not be called directly
     }
-    public static VarHandle ChecksumAlgorithm$VH() {
-        return constants$2698.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD ChecksumAlgorithm;
-     * }
-     */
-    public static short ChecksumAlgorithm$get(MemorySegment seg) {
-        return (short)constants$2698.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD ChecksumAlgorithm;
-     * }
-     */
-    public static void ChecksumAlgorithm$set(MemorySegment seg, short x) {
-        constants$2698.const$1.set(seg, x);
-    }
-    public static short ChecksumAlgorithm$get(MemorySegment seg, long index) {
-        return (short)constants$2698.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ChecksumAlgorithm$set(MemorySegment seg, long index, short x) {
-        constants$2698.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Reserved$VH() {
-        return constants$2698.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD Reserved;
-     * }
-     */
-    public static short Reserved$get(MemorySegment seg) {
-        return (short)constants$2698.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD Reserved;
-     * }
-     */
-    public static void Reserved$set(MemorySegment seg, short x) {
-        constants$2698.const$2.set(seg, x);
-    }
-    public static short Reserved$get(MemorySegment seg, long index) {
-        return (short)constants$2698.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Reserved$set(MemorySegment seg, long index, short x) {
-        constants$2698.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle Flags$VH() {
-        return constants$2698.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD Flags;
-     * }
-     */
-    public static int Flags$get(MemorySegment seg) {
-        return (int)constants$2698.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD Flags;
-     * }
-     */
-    public static void Flags$set(MemorySegment seg, int x) {
-        constants$2698.const$3.set(seg, x);
-    }
-    public static int Flags$get(MemorySegment seg, long index) {
-        return (int)constants$2698.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Flags$set(MemorySegment seg, long index, int x) {
-        constants$2698.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ChecksumChunkSizeInBytes$VH() {
-        return constants$2698.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ChecksumChunkSizeInBytes;
-     * }
-     */
-    public static int ChecksumChunkSizeInBytes$get(MemorySegment seg) {
-        return (int)constants$2698.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ChecksumChunkSizeInBytes;
-     * }
-     */
-    public static void ChecksumChunkSizeInBytes$set(MemorySegment seg, int x) {
-        constants$2698.const$4.set(seg, x);
-    }
-    public static int ChecksumChunkSizeInBytes$get(MemorySegment seg, long index) {
-        return (int)constants$2698.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ChecksumChunkSizeInBytes$set(MemorySegment seg, long index, int x) {
-        constants$2698.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle ClusterSizeInBytes$VH() {
-        return constants$2698.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD ClusterSizeInBytes;
-     * }
-     */
-    public static int ClusterSizeInBytes$get(MemorySegment seg) {
-        return (int)constants$2698.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD ClusterSizeInBytes;
-     * }
-     */
-    public static void ClusterSizeInBytes$set(MemorySegment seg, int x) {
-        constants$2698.const$5.set(seg, x);
-    }
-    public static int ClusterSizeInBytes$get(MemorySegment seg, long index) {
-        return (int)constants$2698.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void ClusterSizeInBytes$set(MemorySegment seg, long index, int x) {
-        constants$2698.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_SHORT.withName("ChecksumAlgorithm"),
+        Windows_h.C_SHORT.withName("Reserved"),
+        Windows_h.C_LONG.withName("Flags"),
+        Windows_h.C_LONG.withName("ChecksumChunkSizeInBytes"),
+        Windows_h.C_LONG.withName("ClusterSizeInBytes")
+    ).withName("_FSCTL_GET_INTEGRITY_INFORMATION_BUFFER");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfShort ChecksumAlgorithm$LAYOUT = (OfShort)$LAYOUT.select(groupElement("ChecksumAlgorithm"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD ChecksumAlgorithm
+     * }
+     */
+    public static final OfShort ChecksumAlgorithm$layout() {
+        return ChecksumAlgorithm$LAYOUT;
+    }
+
+    private static final long ChecksumAlgorithm$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD ChecksumAlgorithm
+     * }
+     */
+    public static final long ChecksumAlgorithm$offset() {
+        return ChecksumAlgorithm$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD ChecksumAlgorithm
+     * }
+     */
+    public static short ChecksumAlgorithm(MemorySegment struct) {
+        return struct.get(ChecksumAlgorithm$LAYOUT, ChecksumAlgorithm$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD ChecksumAlgorithm
+     * }
+     */
+    public static void ChecksumAlgorithm(MemorySegment struct, short fieldValue) {
+        struct.set(ChecksumAlgorithm$LAYOUT, ChecksumAlgorithm$OFFSET, fieldValue);
+    }
+
+    private static final OfShort Reserved$LAYOUT = (OfShort)$LAYOUT.select(groupElement("Reserved"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD Reserved
+     * }
+     */
+    public static final OfShort Reserved$layout() {
+        return Reserved$LAYOUT;
+    }
+
+    private static final long Reserved$OFFSET = 2;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD Reserved
+     * }
+     */
+    public static final long Reserved$offset() {
+        return Reserved$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD Reserved
+     * }
+     */
+    public static short Reserved(MemorySegment struct) {
+        return struct.get(Reserved$LAYOUT, Reserved$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD Reserved
+     * }
+     */
+    public static void Reserved(MemorySegment struct, short fieldValue) {
+        struct.set(Reserved$LAYOUT, Reserved$OFFSET, fieldValue);
+    }
+
+    private static final OfInt Flags$LAYOUT = (OfInt)$LAYOUT.select(groupElement("Flags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static final OfInt Flags$layout() {
+        return Flags$LAYOUT;
+    }
+
+    private static final long Flags$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static final long Flags$offset() {
+        return Flags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static int Flags(MemorySegment struct) {
+        return struct.get(Flags$LAYOUT, Flags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD Flags
+     * }
+     */
+    public static void Flags(MemorySegment struct, int fieldValue) {
+        struct.set(Flags$LAYOUT, Flags$OFFSET, fieldValue);
+    }
+
+    private static final OfInt ChecksumChunkSizeInBytes$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ChecksumChunkSizeInBytes"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ChecksumChunkSizeInBytes
+     * }
+     */
+    public static final OfInt ChecksumChunkSizeInBytes$layout() {
+        return ChecksumChunkSizeInBytes$LAYOUT;
+    }
+
+    private static final long ChecksumChunkSizeInBytes$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ChecksumChunkSizeInBytes
+     * }
+     */
+    public static final long ChecksumChunkSizeInBytes$offset() {
+        return ChecksumChunkSizeInBytes$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ChecksumChunkSizeInBytes
+     * }
+     */
+    public static int ChecksumChunkSizeInBytes(MemorySegment struct) {
+        return struct.get(ChecksumChunkSizeInBytes$LAYOUT, ChecksumChunkSizeInBytes$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ChecksumChunkSizeInBytes
+     * }
+     */
+    public static void ChecksumChunkSizeInBytes(MemorySegment struct, int fieldValue) {
+        struct.set(ChecksumChunkSizeInBytes$LAYOUT, ChecksumChunkSizeInBytes$OFFSET, fieldValue);
+    }
+
+    private static final OfInt ClusterSizeInBytes$LAYOUT = (OfInt)$LAYOUT.select(groupElement("ClusterSizeInBytes"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD ClusterSizeInBytes
+     * }
+     */
+    public static final OfInt ClusterSizeInBytes$layout() {
+        return ClusterSizeInBytes$LAYOUT;
+    }
+
+    private static final long ClusterSizeInBytes$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD ClusterSizeInBytes
+     * }
+     */
+    public static final long ClusterSizeInBytes$offset() {
+        return ClusterSizeInBytes$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD ClusterSizeInBytes
+     * }
+     */
+    public static int ClusterSizeInBytes(MemorySegment struct) {
+        return struct.get(ClusterSizeInBytes$LAYOUT, ClusterSizeInBytes$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD ClusterSizeInBytes
+     * }
+     */
+    public static void ClusterSizeInBytes(MemorySegment struct, int fieldValue) {
+        struct.set(ClusterSizeInBytes$LAYOUT, ClusterSizeInBytes$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

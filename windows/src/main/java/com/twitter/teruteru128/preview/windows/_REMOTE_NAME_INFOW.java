@@ -2,112 +2,218 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _REMOTE_NAME_INFOW {
  *     LPWSTR lpUniversalName;
  *     LPWSTR lpConnectionName;
  *     LPWSTR lpRemainingPath;
- * };
+ * }
  * }
  */
 public class _REMOTE_NAME_INFOW {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$1516.const$3;
+    _REMOTE_NAME_INFOW() {
+        // Should not be called directly
     }
-    public static VarHandle lpUniversalName$VH() {
-        return constants$1516.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR lpUniversalName;
-     * }
-     */
-    public static MemorySegment lpUniversalName$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$1516.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR lpUniversalName;
-     * }
-     */
-    public static void lpUniversalName$set(MemorySegment seg, MemorySegment x) {
-        constants$1516.const$4.set(seg, x);
-    }
-    public static MemorySegment lpUniversalName$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$1516.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lpUniversalName$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$1516.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle lpConnectionName$VH() {
-        return constants$1516.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR lpConnectionName;
-     * }
-     */
-    public static MemorySegment lpConnectionName$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$1516.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR lpConnectionName;
-     * }
-     */
-    public static void lpConnectionName$set(MemorySegment seg, MemorySegment x) {
-        constants$1516.const$5.set(seg, x);
-    }
-    public static MemorySegment lpConnectionName$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$1516.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lpConnectionName$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$1516.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle lpRemainingPath$VH() {
-        return constants$1517.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * LPWSTR lpRemainingPath;
-     * }
-     */
-    public static MemorySegment lpRemainingPath$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$1517.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * LPWSTR lpRemainingPath;
-     * }
-     */
-    public static void lpRemainingPath$set(MemorySegment seg, MemorySegment x) {
-        constants$1517.const$0.set(seg, x);
-    }
-    public static MemorySegment lpRemainingPath$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$1517.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void lpRemainingPath$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$1517.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("lpUniversalName"),
+        Windows_h.C_POINTER.withName("lpConnectionName"),
+        Windows_h.C_POINTER.withName("lpRemainingPath")
+    ).withName("_REMOTE_NAME_INFOW");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final AddressLayout lpUniversalName$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("lpUniversalName"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR lpUniversalName
+     * }
+     */
+    public static final AddressLayout lpUniversalName$layout() {
+        return lpUniversalName$LAYOUT;
+    }
+
+    private static final long lpUniversalName$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR lpUniversalName
+     * }
+     */
+    public static final long lpUniversalName$offset() {
+        return lpUniversalName$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR lpUniversalName
+     * }
+     */
+    public static MemorySegment lpUniversalName(MemorySegment struct) {
+        return struct.get(lpUniversalName$LAYOUT, lpUniversalName$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR lpUniversalName
+     * }
+     */
+    public static void lpUniversalName(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(lpUniversalName$LAYOUT, lpUniversalName$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout lpConnectionName$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("lpConnectionName"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR lpConnectionName
+     * }
+     */
+    public static final AddressLayout lpConnectionName$layout() {
+        return lpConnectionName$LAYOUT;
+    }
+
+    private static final long lpConnectionName$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR lpConnectionName
+     * }
+     */
+    public static final long lpConnectionName$offset() {
+        return lpConnectionName$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR lpConnectionName
+     * }
+     */
+    public static MemorySegment lpConnectionName(MemorySegment struct) {
+        return struct.get(lpConnectionName$LAYOUT, lpConnectionName$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR lpConnectionName
+     * }
+     */
+    public static void lpConnectionName(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(lpConnectionName$LAYOUT, lpConnectionName$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout lpRemainingPath$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("lpRemainingPath"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LPWSTR lpRemainingPath
+     * }
+     */
+    public static final AddressLayout lpRemainingPath$layout() {
+        return lpRemainingPath$LAYOUT;
+    }
+
+    private static final long lpRemainingPath$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LPWSTR lpRemainingPath
+     * }
+     */
+    public static final long lpRemainingPath$offset() {
+        return lpRemainingPath$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * LPWSTR lpRemainingPath
+     * }
+     */
+    public static MemorySegment lpRemainingPath(MemorySegment struct) {
+        return struct.get(lpRemainingPath$LAYOUT, lpRemainingPath$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * LPWSTR lpRemainingPath
+     * }
+     */
+    public static void lpRemainingPath(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(lpRemainingPath$LAYOUT, lpRemainingPath$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

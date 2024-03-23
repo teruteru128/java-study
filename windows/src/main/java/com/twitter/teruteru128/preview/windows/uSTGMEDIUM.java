@@ -2,20 +2,37 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagSTGMEDIUM uSTGMEDIUM;
+ * {@snippet lang=c :
+ * typedef struct tagSTGMEDIUM {
+ *     DWORD tymed;
+ *     union {
+ *         HBITMAP hBitmap;
+ *         HMETAFILEPICT hMetaFilePict;
+ *         HENHMETAFILE hEnhMetaFile;
+ *         HGLOBAL hGlobal;
+ *         LPOLESTR lpszFileName;
+ *         IStream *pstm;
+ *         IStorage *pstg;
+ *     };
+ *     IUnknown *pUnkForRelease;
+ * } uSTGMEDIUM
  * }
  */
-public final class uSTGMEDIUM extends tagSTGMEDIUM {
+public class uSTGMEDIUM extends tagSTGMEDIUM {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private uSTGMEDIUM() {}
+    uSTGMEDIUM() {
+        // Should not be called directly
+    }
 }
-
 

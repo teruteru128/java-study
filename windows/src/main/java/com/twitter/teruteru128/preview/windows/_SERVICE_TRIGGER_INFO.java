@@ -2,112 +2,219 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _SERVICE_TRIGGER_INFO {
  *     DWORD cTriggers;
  *     PSERVICE_TRIGGER pTriggers;
  *     PBYTE pReserved;
- * };
+ * }
  * }
  */
 public class _SERVICE_TRIGGER_INFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$4485.const$3;
+    _SERVICE_TRIGGER_INFO() {
+        // Should not be called directly
     }
-    public static VarHandle cTriggers$VH() {
-        return constants$4485.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD cTriggers;
-     * }
-     */
-    public static int cTriggers$get(MemorySegment seg) {
-        return (int)constants$4485.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD cTriggers;
-     * }
-     */
-    public static void cTriggers$set(MemorySegment seg, int x) {
-        constants$4485.const$4.set(seg, x);
-    }
-    public static int cTriggers$get(MemorySegment seg, long index) {
-        return (int)constants$4485.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void cTriggers$set(MemorySegment seg, long index, int x) {
-        constants$4485.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pTriggers$VH() {
-        return constants$4485.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PSERVICE_TRIGGER pTriggers;
-     * }
-     */
-    public static MemorySegment pTriggers$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4485.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PSERVICE_TRIGGER pTriggers;
-     * }
-     */
-    public static void pTriggers$set(MemorySegment seg, MemorySegment x) {
-        constants$4485.const$5.set(seg, x);
-    }
-    public static MemorySegment pTriggers$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4485.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pTriggers$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4485.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pReserved$VH() {
-        return constants$4486.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PBYTE pReserved;
-     * }
-     */
-    public static MemorySegment pReserved$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4486.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PBYTE pReserved;
-     * }
-     */
-    public static void pReserved$set(MemorySegment seg, MemorySegment x) {
-        constants$4486.const$0.set(seg, x);
-    }
-    public static MemorySegment pReserved$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4486.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pReserved$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4486.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("cTriggers"),
+        MemoryLayout.paddingLayout(4),
+        Windows_h.C_POINTER.withName("pTriggers"),
+        Windows_h.C_POINTER.withName("pReserved")
+    ).withName("_SERVICE_TRIGGER_INFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfInt cTriggers$LAYOUT = (OfInt)$LAYOUT.select(groupElement("cTriggers"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD cTriggers
+     * }
+     */
+    public static final OfInt cTriggers$layout() {
+        return cTriggers$LAYOUT;
+    }
+
+    private static final long cTriggers$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD cTriggers
+     * }
+     */
+    public static final long cTriggers$offset() {
+        return cTriggers$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD cTriggers
+     * }
+     */
+    public static int cTriggers(MemorySegment struct) {
+        return struct.get(cTriggers$LAYOUT, cTriggers$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD cTriggers
+     * }
+     */
+    public static void cTriggers(MemorySegment struct, int fieldValue) {
+        struct.set(cTriggers$LAYOUT, cTriggers$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pTriggers$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pTriggers"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PSERVICE_TRIGGER pTriggers
+     * }
+     */
+    public static final AddressLayout pTriggers$layout() {
+        return pTriggers$LAYOUT;
+    }
+
+    private static final long pTriggers$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PSERVICE_TRIGGER pTriggers
+     * }
+     */
+    public static final long pTriggers$offset() {
+        return pTriggers$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PSERVICE_TRIGGER pTriggers
+     * }
+     */
+    public static MemorySegment pTriggers(MemorySegment struct) {
+        return struct.get(pTriggers$LAYOUT, pTriggers$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PSERVICE_TRIGGER pTriggers
+     * }
+     */
+    public static void pTriggers(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pTriggers$LAYOUT, pTriggers$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pReserved$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pReserved"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PBYTE pReserved
+     * }
+     */
+    public static final AddressLayout pReserved$layout() {
+        return pReserved$LAYOUT;
+    }
+
+    private static final long pReserved$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PBYTE pReserved
+     * }
+     */
+    public static final long pReserved$offset() {
+        return pReserved$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PBYTE pReserved
+     * }
+     */
+    public static MemorySegment pReserved(MemorySegment struct) {
+        return struct.get(pReserved$LAYOUT, pReserved$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PBYTE pReserved
+     * }
+     */
+    public static void pReserved(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pReserved$LAYOUT, pReserved$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

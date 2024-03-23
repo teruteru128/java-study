@@ -2,20 +2,35 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _NON_PAGED_DEBUG_INFO NON_PAGED_DEBUG_INFO;
+ * {@snippet lang=c :
+ * typedef struct _NON_PAGED_DEBUG_INFO {
+ *     WORD Signature;
+ *     WORD Flags;
+ *     DWORD Size;
+ *     WORD Machine;
+ *     WORD Characteristics;
+ *     DWORD TimeDateStamp;
+ *     DWORD CheckSum;
+ *     DWORD SizeOfImage;
+ *     ULONGLONG ImageBase;
+ * } NON_PAGED_DEBUG_INFO
  * }
  */
-public final class NON_PAGED_DEBUG_INFO extends _NON_PAGED_DEBUG_INFO {
+public class NON_PAGED_DEBUG_INFO extends _NON_PAGED_DEBUG_INFO {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private NON_PAGED_DEBUG_INFO() {}
+    NON_PAGED_DEBUG_INFO() {
+        // Should not be called directly
+    }
 }
-
 

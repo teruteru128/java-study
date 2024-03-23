@@ -2,20 +2,27 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _VIRTUALIZATION_INSTANCE_INFO_OUTPUT VIRTUALIZATION_INSTANCE_INFO_OUTPUT;
+ * {@snippet lang=c :
+ * typedef struct _VIRTUALIZATION_INSTANCE_INFO_OUTPUT {
+ *     GUID VirtualizationInstanceID;
+ * } VIRTUALIZATION_INSTANCE_INFO_OUTPUT
  * }
  */
-public final class VIRTUALIZATION_INSTANCE_INFO_OUTPUT extends _VIRTUALIZATION_INSTANCE_INFO_OUTPUT {
+public class VIRTUALIZATION_INSTANCE_INFO_OUTPUT extends _VIRTUALIZATION_INSTANCE_INFO_OUTPUT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private VIRTUALIZATION_INSTANCE_INFO_OUTPUT() {}
+    VIRTUALIZATION_INSTANCE_INFO_OUTPUT() {
+        // Should not be called directly
+    }
 }
-
 

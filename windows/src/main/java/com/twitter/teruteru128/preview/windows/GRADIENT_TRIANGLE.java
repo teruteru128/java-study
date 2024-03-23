@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _GRADIENT_TRIANGLE GRADIENT_TRIANGLE;
+ * {@snippet lang=c :
+ * typedef struct _GRADIENT_TRIANGLE {
+ *     ULONG Vertex1;
+ *     ULONG Vertex2;
+ *     ULONG Vertex3;
+ * } GRADIENT_TRIANGLE
  * }
  */
-public final class GRADIENT_TRIANGLE extends _GRADIENT_TRIANGLE {
+public class GRADIENT_TRIANGLE extends _GRADIENT_TRIANGLE {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private GRADIENT_TRIANGLE() {}
+    GRADIENT_TRIANGLE() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _JOB_INFO_1A JOB_INFO_1;
+ * {@snippet lang=c :
+ * typedef JOB_INFO_1A JOB_INFO_1
  * }
  */
-public final class JOB_INFO_1 extends _JOB_INFO_1A {
+public class JOB_INFO_1 extends _JOB_INFO_1A {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private JOB_INFO_1() {}
+    JOB_INFO_1() {
+        // Should not be called directly
+    }
 }
-
 

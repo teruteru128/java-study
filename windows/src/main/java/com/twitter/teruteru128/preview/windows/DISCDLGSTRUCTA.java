@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _DISCDLGSTRUCTA DISCDLGSTRUCTA;
+ * {@snippet lang=c :
+ * typedef struct _DISCDLGSTRUCTA {
+ *     DWORD cbStructure;
+ *     HWND hwndOwner;
+ *     LPSTR lpLocalName;
+ *     LPSTR lpRemoteName;
+ *     DWORD dwFlags;
+ * } DISCDLGSTRUCTA
  * }
  */
-public final class DISCDLGSTRUCTA extends _DISCDLGSTRUCTA {
+public class DISCDLGSTRUCTA extends _DISCDLGSTRUCTA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private DISCDLGSTRUCTA() {}
+    DISCDLGSTRUCTA() {
+        // Should not be called directly
+    }
 }
-
 

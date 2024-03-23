@@ -2,20 +2,32 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CERT_KEY_CONTEXT CERT_KEY_CONTEXT;
+ * {@snippet lang=c :
+ * typedef struct _CERT_KEY_CONTEXT {
+ *     DWORD cbSize;
+ *     union {
+ *         HCRYPTPROV hCryptProv;
+ *         NCRYPT_KEY_HANDLE hNCryptKey;
+ *     };
+ *     DWORD dwKeySpec;
+ * } CERT_KEY_CONTEXT
  * }
  */
-public final class CERT_KEY_CONTEXT extends _CERT_KEY_CONTEXT {
+public class CERT_KEY_CONTEXT extends _CERT_KEY_CONTEXT {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CERT_KEY_CONTEXT() {}
+    CERT_KEY_CONTEXT() {
+        // Should not be called directly
+    }
 }
-
 

@@ -2,20 +2,30 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _CRYPT_KEY_PROV_PARAM CRYPT_KEY_PROV_PARAM;
+ * {@snippet lang=c :
+ * typedef struct _CRYPT_KEY_PROV_PARAM {
+ *     DWORD dwParam;
+ *     BYTE *pbData;
+ *     DWORD cbData;
+ *     DWORD dwFlags;
+ * } CRYPT_KEY_PROV_PARAM
  * }
  */
-public final class CRYPT_KEY_PROV_PARAM extends _CRYPT_KEY_PROV_PARAM {
+public class CRYPT_KEY_PROV_PARAM extends _CRYPT_KEY_PROV_PARAM {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CRYPT_KEY_PROV_PARAM() {}
+    CRYPT_KEY_PROV_PARAM() {
+        // Should not be called directly
+    }
 }
-
 

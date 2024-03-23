@@ -2,8013 +2,9308 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
-import static java.lang.foreign.ValueLayout.*;
-public class Windows_h_1 {
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
 
+import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
+public class Windows_h_1 extends Windows_h_2 {
+
+    Windows_h_1() {
+        // Should not be called directly
+    }
+    private static final int FSCTL_GET_NTFS_FILE_RECORD = (int)589928L;
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_CPU_RATE_CONTROL_ENABLE 1
+     * {@snippet lang=c :
+     * #define FSCTL_GET_NTFS_FILE_RECORD 589928
      * }
      */
-    public static int JOB_OBJECT_CPU_RATE_CONTROL_ENABLE() {
-        return (int)1L;
+    public static int FSCTL_GET_NTFS_FILE_RECORD() {
+        return FSCTL_GET_NTFS_FILE_RECORD;
     }
+    private static final int FSCTL_GET_VOLUME_BITMAP = (int)589935L;
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_CPU_RATE_CONTROL_WEIGHT_BASED 2
+     * {@snippet lang=c :
+     * #define FSCTL_GET_VOLUME_BITMAP 589935
      * }
      */
-    public static int JOB_OBJECT_CPU_RATE_CONTROL_WEIGHT_BASED() {
-        return (int)2L;
+    public static int FSCTL_GET_VOLUME_BITMAP() {
+        return FSCTL_GET_VOLUME_BITMAP;
     }
+    private static final int FSCTL_GET_RETRIEVAL_POINTERS = (int)589939L;
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_CPU_RATE_CONTROL_HARD_CAP 4
+     * {@snippet lang=c :
+     * #define FSCTL_GET_RETRIEVAL_POINTERS 589939
      * }
      */
-    public static int JOB_OBJECT_CPU_RATE_CONTROL_HARD_CAP() {
-        return (int)4L;
+    public static int FSCTL_GET_RETRIEVAL_POINTERS() {
+        return FSCTL_GET_RETRIEVAL_POINTERS;
     }
+    private static final int FSCTL_MOVE_FILE = (int)589940L;
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_CPU_RATE_CONTROL_NOTIFY 8
+     * {@snippet lang=c :
+     * #define FSCTL_MOVE_FILE 589940
      * }
      */
-    public static int JOB_OBJECT_CPU_RATE_CONTROL_NOTIFY() {
-        return (int)8L;
+    public static int FSCTL_MOVE_FILE() {
+        return FSCTL_MOVE_FILE;
     }
+    private static final int FSCTL_IS_VOLUME_DIRTY = (int)589944L;
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_CPU_RATE_CONTROL_MIN_MAX_RATE 16
+     * {@snippet lang=c :
+     * #define FSCTL_IS_VOLUME_DIRTY 589944
      * }
      */
-    public static int JOB_OBJECT_CPU_RATE_CONTROL_MIN_MAX_RATE() {
-        return (int)16L;
+    public static int FSCTL_IS_VOLUME_DIRTY() {
+        return FSCTL_IS_VOLUME_DIRTY;
     }
+    private static final int FSCTL_ALLOW_EXTENDED_DASD_IO = (int)589955L;
     /**
-     * {@snippet :
-     * #define JOB_OBJECT_CPU_RATE_CONTROL_VALID_FLAGS 31
+     * {@snippet lang=c :
+     * #define FSCTL_ALLOW_EXTENDED_DASD_IO 589955
      * }
      */
-    public static int JOB_OBJECT_CPU_RATE_CONTROL_VALID_FLAGS() {
-        return (int)31L;
+    public static int FSCTL_ALLOW_EXTENDED_DASD_IO() {
+        return FSCTL_ALLOW_EXTENDED_DASD_IO;
     }
+    private static final int FSCTL_FIND_FILES_BY_SID = (int)589967L;
     /**
-     * {@snippet :
-     * #define MEMORY_PARTITION_QUERY_ACCESS 1
+     * {@snippet lang=c :
+     * #define FSCTL_FIND_FILES_BY_SID 589967
      * }
      */
-    public static int MEMORY_PARTITION_QUERY_ACCESS() {
-        return (int)1L;
+    public static int FSCTL_FIND_FILES_BY_SID() {
+        return FSCTL_FIND_FILES_BY_SID;
     }
+    private static final int FSCTL_SET_OBJECT_ID = (int)589976L;
     /**
-     * {@snippet :
-     * #define MEMORY_PARTITION_MODIFY_ACCESS 2
+     * {@snippet lang=c :
+     * #define FSCTL_SET_OBJECT_ID 589976
      * }
      */
-    public static int MEMORY_PARTITION_MODIFY_ACCESS() {
-        return (int)2L;
+    public static int FSCTL_SET_OBJECT_ID() {
+        return FSCTL_SET_OBJECT_ID;
     }
+    private static final int FSCTL_GET_OBJECT_ID = (int)589980L;
     /**
-     * {@snippet :
-     * #define EVENT_MODIFY_STATE 2
+     * {@snippet lang=c :
+     * #define FSCTL_GET_OBJECT_ID 589980
      * }
      */
-    public static int EVENT_MODIFY_STATE() {
-        return (int)2L;
+    public static int FSCTL_GET_OBJECT_ID() {
+        return FSCTL_GET_OBJECT_ID;
     }
+    private static final int FSCTL_DELETE_OBJECT_ID = (int)589984L;
     /**
-     * {@snippet :
-     * #define MUTANT_QUERY_STATE 1
+     * {@snippet lang=c :
+     * #define FSCTL_DELETE_OBJECT_ID 589984
      * }
      */
-    public static int MUTANT_QUERY_STATE() {
-        return (int)1L;
+    public static int FSCTL_DELETE_OBJECT_ID() {
+        return FSCTL_DELETE_OBJECT_ID;
     }
+    private static final int FSCTL_SET_REPARSE_POINT = (int)589988L;
     /**
-     * {@snippet :
-     * #define SEMAPHORE_MODIFY_STATE 2
+     * {@snippet lang=c :
+     * #define FSCTL_SET_REPARSE_POINT 589988
      * }
      */
-    public static int SEMAPHORE_MODIFY_STATE() {
-        return (int)2L;
+    public static int FSCTL_SET_REPARSE_POINT() {
+        return FSCTL_SET_REPARSE_POINT;
     }
+    private static final int FSCTL_GET_REPARSE_POINT = (int)589992L;
     /**
-     * {@snippet :
-     * #define TIMER_QUERY_STATE 1
+     * {@snippet lang=c :
+     * #define FSCTL_GET_REPARSE_POINT 589992
      * }
      */
-    public static int TIMER_QUERY_STATE() {
-        return (int)1L;
+    public static int FSCTL_GET_REPARSE_POINT() {
+        return FSCTL_GET_REPARSE_POINT;
     }
+    private static final int FSCTL_DELETE_REPARSE_POINT = (int)589996L;
     /**
-     * {@snippet :
-     * #define TIMER_MODIFY_STATE 2
+     * {@snippet lang=c :
+     * #define FSCTL_DELETE_REPARSE_POINT 589996
      * }
      */
-    public static int TIMER_MODIFY_STATE() {
-        return (int)2L;
+    public static int FSCTL_DELETE_REPARSE_POINT() {
+        return FSCTL_DELETE_REPARSE_POINT;
     }
+    private static final int FSCTL_ENUM_USN_DATA = (int)590003L;
     /**
-     * {@snippet :
-     * #define TIME_ZONE_ID_UNKNOWN 0
+     * {@snippet lang=c :
+     * #define FSCTL_ENUM_USN_DATA 590003
      * }
      */
-    public static int TIME_ZONE_ID_UNKNOWN() {
-        return (int)0L;
+    public static int FSCTL_ENUM_USN_DATA() {
+        return FSCTL_ENUM_USN_DATA;
     }
+    private static final int FSCTL_SECURITY_ID_CHECK = (int)606391L;
     /**
-     * {@snippet :
-     * #define TIME_ZONE_ID_STANDARD 1
+     * {@snippet lang=c :
+     * #define FSCTL_SECURITY_ID_CHECK 606391
      * }
      */
-    public static int TIME_ZONE_ID_STANDARD() {
-        return (int)1L;
+    public static int FSCTL_SECURITY_ID_CHECK() {
+        return FSCTL_SECURITY_ID_CHECK;
     }
+    private static final int FSCTL_READ_USN_JOURNAL = (int)590011L;
     /**
-     * {@snippet :
-     * #define TIME_ZONE_ID_DAYLIGHT 2
+     * {@snippet lang=c :
+     * #define FSCTL_READ_USN_JOURNAL 590011
      * }
      */
-    public static int TIME_ZONE_ID_DAYLIGHT() {
-        return (int)2L;
+    public static int FSCTL_READ_USN_JOURNAL() {
+        return FSCTL_READ_USN_JOURNAL;
     }
+    private static final int FSCTL_SET_OBJECT_ID_EXTENDED = (int)590012L;
     /**
-     * {@snippet :
-     * #define LTP_PC_SMT 1
+     * {@snippet lang=c :
+     * #define FSCTL_SET_OBJECT_ID_EXTENDED 590012
      * }
      */
-    public static int LTP_PC_SMT() {
-        return (int)1L;
+    public static int FSCTL_SET_OBJECT_ID_EXTENDED() {
+        return FSCTL_SET_OBJECT_ID_EXTENDED;
     }
+    private static final int FSCTL_CREATE_OR_GET_OBJECT_ID = (int)590016L;
     /**
-     * {@snippet :
-     * #define CACHE_FULLY_ASSOCIATIVE 255
+     * {@snippet lang=c :
+     * #define FSCTL_CREATE_OR_GET_OBJECT_ID 590016
      * }
      */
-    public static int CACHE_FULLY_ASSOCIATIVE() {
-        return (int)255L;
+    public static int FSCTL_CREATE_OR_GET_OBJECT_ID() {
+        return FSCTL_CREATE_OR_GET_OBJECT_ID;
     }
+    private static final int FSCTL_SET_SPARSE = (int)590020L;
     /**
-     * {@snippet :
-     * #define SYSTEM_CPU_SET_INFORMATION_PARKED 1
+     * {@snippet lang=c :
+     * #define FSCTL_SET_SPARSE 590020
      * }
      */
-    public static int SYSTEM_CPU_SET_INFORMATION_PARKED() {
-        return (int)1L;
+    public static int FSCTL_SET_SPARSE() {
+        return FSCTL_SET_SPARSE;
     }
+    private static final int FSCTL_SET_ZERO_DATA = (int)622792L;
     /**
-     * {@snippet :
-     * #define SYSTEM_CPU_SET_INFORMATION_ALLOCATED 2
+     * {@snippet lang=c :
+     * #define FSCTL_SET_ZERO_DATA 622792
      * }
      */
-    public static int SYSTEM_CPU_SET_INFORMATION_ALLOCATED() {
-        return (int)2L;
+    public static int FSCTL_SET_ZERO_DATA() {
+        return FSCTL_SET_ZERO_DATA;
     }
+    private static final int FSCTL_QUERY_ALLOCATED_RANGES = (int)606415L;
     /**
-     * {@snippet :
-     * #define SYSTEM_CPU_SET_INFORMATION_ALLOCATED_TO_TARGET_PROCESS 4
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_ALLOCATED_RANGES 606415
      * }
      */
-    public static int SYSTEM_CPU_SET_INFORMATION_ALLOCATED_TO_TARGET_PROCESS() {
-        return (int)4L;
+    public static int FSCTL_QUERY_ALLOCATED_RANGES() {
+        return FSCTL_QUERY_ALLOCATED_RANGES;
     }
+    private static final int FSCTL_ENABLE_UPGRADE = (int)622800L;
     /**
-     * {@snippet :
-     * #define SYSTEM_CPU_SET_INFORMATION_REALTIME 8
+     * {@snippet lang=c :
+     * #define FSCTL_ENABLE_UPGRADE 622800
      * }
      */
-    public static int SYSTEM_CPU_SET_INFORMATION_REALTIME() {
-        return (int)8L;
+    public static int FSCTL_ENABLE_UPGRADE() {
+        return FSCTL_ENABLE_UPGRADE;
     }
+    private static final int FSCTL_SET_ENCRYPTION = (int)590039L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_INTEL_386 386
+     * {@snippet lang=c :
+     * #define FSCTL_SET_ENCRYPTION 590039
      * }
      */
-    public static int PROCESSOR_INTEL_386() {
-        return (int)386L;
+    public static int FSCTL_SET_ENCRYPTION() {
+        return FSCTL_SET_ENCRYPTION;
     }
+    private static final int FSCTL_ENCRYPTION_FSCTL_IO = (int)590043L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_INTEL_486 486
+     * {@snippet lang=c :
+     * #define FSCTL_ENCRYPTION_FSCTL_IO 590043
      * }
      */
-    public static int PROCESSOR_INTEL_486() {
-        return (int)486L;
+    public static int FSCTL_ENCRYPTION_FSCTL_IO() {
+        return FSCTL_ENCRYPTION_FSCTL_IO;
     }
+    private static final int FSCTL_WRITE_RAW_ENCRYPTED = (int)590047L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_INTEL_PENTIUM 586
+     * {@snippet lang=c :
+     * #define FSCTL_WRITE_RAW_ENCRYPTED 590047
      * }
      */
-    public static int PROCESSOR_INTEL_PENTIUM() {
-        return (int)586L;
+    public static int FSCTL_WRITE_RAW_ENCRYPTED() {
+        return FSCTL_WRITE_RAW_ENCRYPTED;
     }
+    private static final int FSCTL_READ_RAW_ENCRYPTED = (int)590051L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_INTEL_IA64 2200
+     * {@snippet lang=c :
+     * #define FSCTL_READ_RAW_ENCRYPTED 590051
      * }
      */
-    public static int PROCESSOR_INTEL_IA64() {
-        return (int)2200L;
+    public static int FSCTL_READ_RAW_ENCRYPTED() {
+        return FSCTL_READ_RAW_ENCRYPTED;
     }
+    private static final int FSCTL_CREATE_USN_JOURNAL = (int)590055L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_AMD_X8664 8664
+     * {@snippet lang=c :
+     * #define FSCTL_CREATE_USN_JOURNAL 590055
      * }
      */
-    public static int PROCESSOR_AMD_X8664() {
-        return (int)8664L;
+    public static int FSCTL_CREATE_USN_JOURNAL() {
+        return FSCTL_CREATE_USN_JOURNAL;
     }
+    private static final int FSCTL_READ_FILE_USN_DATA = (int)590059L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_MIPS_R4000 4000
+     * {@snippet lang=c :
+     * #define FSCTL_READ_FILE_USN_DATA 590059
      * }
      */
-    public static int PROCESSOR_MIPS_R4000() {
-        return (int)4000L;
+    public static int FSCTL_READ_FILE_USN_DATA() {
+        return FSCTL_READ_FILE_USN_DATA;
     }
+    private static final int FSCTL_WRITE_USN_CLOSE_RECORD = (int)590063L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ALPHA_21064 21064
+     * {@snippet lang=c :
+     * #define FSCTL_WRITE_USN_CLOSE_RECORD 590063
      * }
      */
-    public static int PROCESSOR_ALPHA_21064() {
-        return (int)21064L;
+    public static int FSCTL_WRITE_USN_CLOSE_RECORD() {
+        return FSCTL_WRITE_USN_CLOSE_RECORD;
     }
+    private static final int FSCTL_EXTEND_VOLUME = (int)590064L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PPC_601 601
+     * {@snippet lang=c :
+     * #define FSCTL_EXTEND_VOLUME 590064
      * }
      */
-    public static int PROCESSOR_PPC_601() {
-        return (int)601L;
+    public static int FSCTL_EXTEND_VOLUME() {
+        return FSCTL_EXTEND_VOLUME;
     }
+    private static final int FSCTL_QUERY_USN_JOURNAL = (int)590068L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PPC_603 603
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_USN_JOURNAL 590068
      * }
      */
-    public static int PROCESSOR_PPC_603() {
-        return (int)603L;
+    public static int FSCTL_QUERY_USN_JOURNAL() {
+        return FSCTL_QUERY_USN_JOURNAL;
     }
+    private static final int FSCTL_DELETE_USN_JOURNAL = (int)590072L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PPC_604 604
+     * {@snippet lang=c :
+     * #define FSCTL_DELETE_USN_JOURNAL 590072
      * }
      */
-    public static int PROCESSOR_PPC_604() {
-        return (int)604L;
+    public static int FSCTL_DELETE_USN_JOURNAL() {
+        return FSCTL_DELETE_USN_JOURNAL;
     }
+    private static final int FSCTL_MARK_HANDLE = (int)590076L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PPC_620 620
+     * {@snippet lang=c :
+     * #define FSCTL_MARK_HANDLE 590076
      * }
      */
-    public static int PROCESSOR_PPC_620() {
-        return (int)620L;
+    public static int FSCTL_MARK_HANDLE() {
+        return FSCTL_MARK_HANDLE;
     }
+    private static final int FSCTL_SIS_COPYFILE = (int)590080L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_HITACHI_SH3 10003
+     * {@snippet lang=c :
+     * #define FSCTL_SIS_COPYFILE 590080
      * }
      */
-    public static int PROCESSOR_HITACHI_SH3() {
-        return (int)10003L;
+    public static int FSCTL_SIS_COPYFILE() {
+        return FSCTL_SIS_COPYFILE;
     }
+    private static final int FSCTL_SIS_LINK_FILES = (int)639236L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_HITACHI_SH3E 10004
+     * {@snippet lang=c :
+     * #define FSCTL_SIS_LINK_FILES 639236
      * }
      */
-    public static int PROCESSOR_HITACHI_SH3E() {
-        return (int)10004L;
+    public static int FSCTL_SIS_LINK_FILES() {
+        return FSCTL_SIS_LINK_FILES;
     }
+    private static final int FSCTL_RECALL_FILE = (int)590103L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_HITACHI_SH4 10005
+     * {@snippet lang=c :
+     * #define FSCTL_RECALL_FILE 590103
      * }
      */
-    public static int PROCESSOR_HITACHI_SH4() {
-        return (int)10005L;
+    public static int FSCTL_RECALL_FILE() {
+        return FSCTL_RECALL_FILE;
     }
+    private static final int FSCTL_READ_FROM_PLEX = (int)606494L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_MOTOROLA_821 821
+     * {@snippet lang=c :
+     * #define FSCTL_READ_FROM_PLEX 606494
      * }
      */
-    public static int PROCESSOR_MOTOROLA_821() {
-        return (int)821L;
+    public static int FSCTL_READ_FROM_PLEX() {
+        return FSCTL_READ_FROM_PLEX;
     }
+    private static final int FSCTL_FILE_PREFETCH = (int)590112L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_SHx_SH3 103
+     * {@snippet lang=c :
+     * #define FSCTL_FILE_PREFETCH 590112
      * }
      */
-    public static int PROCESSOR_SHx_SH3() {
-        return (int)103L;
+    public static int FSCTL_FILE_PREFETCH() {
+        return FSCTL_FILE_PREFETCH;
     }
+    private static final int FSCTL_MAKE_MEDIA_COMPATIBLE = (int)622896L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_SHx_SH4 104
+     * {@snippet lang=c :
+     * #define FSCTL_MAKE_MEDIA_COMPATIBLE 622896
      * }
      */
-    public static int PROCESSOR_SHx_SH4() {
-        return (int)104L;
+    public static int FSCTL_MAKE_MEDIA_COMPATIBLE() {
+        return FSCTL_MAKE_MEDIA_COMPATIBLE;
     }
+    private static final int FSCTL_SET_DEFECT_MANAGEMENT = (int)622900L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_STRONGARM 2577
+     * {@snippet lang=c :
+     * #define FSCTL_SET_DEFECT_MANAGEMENT 622900
      * }
      */
-    public static int PROCESSOR_STRONGARM() {
-        return (int)2577L;
+    public static int FSCTL_SET_DEFECT_MANAGEMENT() {
+        return FSCTL_SET_DEFECT_MANAGEMENT;
     }
+    private static final int FSCTL_QUERY_SPARING_INFO = (int)590136L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARM720 1824
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_SPARING_INFO 590136
      * }
      */
-    public static int PROCESSOR_ARM720() {
-        return (int)1824L;
+    public static int FSCTL_QUERY_SPARING_INFO() {
+        return FSCTL_QUERY_SPARING_INFO;
     }
+    private static final int FSCTL_QUERY_ON_DISK_VOLUME_INFO = (int)590140L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARM820 2080
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_ON_DISK_VOLUME_INFO 590140
      * }
      */
-    public static int PROCESSOR_ARM820() {
-        return (int)2080L;
+    public static int FSCTL_QUERY_ON_DISK_VOLUME_INFO() {
+        return FSCTL_QUERY_ON_DISK_VOLUME_INFO;
     }
+    private static final int FSCTL_SET_VOLUME_COMPRESSION_STATE = (int)590144L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARM920 2336
+     * {@snippet lang=c :
+     * #define FSCTL_SET_VOLUME_COMPRESSION_STATE 590144
      * }
      */
-    public static int PROCESSOR_ARM920() {
-        return (int)2336L;
+    public static int FSCTL_SET_VOLUME_COMPRESSION_STATE() {
+        return FSCTL_SET_VOLUME_COMPRESSION_STATE;
     }
+    private static final int FSCTL_TXFS_MODIFY_RM = (int)622916L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARM_7TDMI 70001
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_MODIFY_RM 622916
      * }
      */
-    public static int PROCESSOR_ARM_7TDMI() {
-        return (int)70001L;
+    public static int FSCTL_TXFS_MODIFY_RM() {
+        return FSCTL_TXFS_MODIFY_RM;
     }
+    private static final int FSCTL_TXFS_QUERY_RM_INFORMATION = (int)606536L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_OPTIL 18767
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_QUERY_RM_INFORMATION 606536
      * }
      */
-    public static int PROCESSOR_OPTIL() {
-        return (int)18767L;
+    public static int FSCTL_TXFS_QUERY_RM_INFORMATION() {
+        return FSCTL_TXFS_QUERY_RM_INFORMATION;
     }
+    private static final int FSCTL_TXFS_ROLLFORWARD_REDO = (int)622928L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_INTEL 0
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_ROLLFORWARD_REDO 622928
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_INTEL() {
-        return (int)0L;
+    public static int FSCTL_TXFS_ROLLFORWARD_REDO() {
+        return FSCTL_TXFS_ROLLFORWARD_REDO;
     }
+    private static final int FSCTL_TXFS_ROLLFORWARD_UNDO = (int)622932L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_MIPS 1
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_ROLLFORWARD_UNDO 622932
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_MIPS() {
-        return (int)1L;
+    public static int FSCTL_TXFS_ROLLFORWARD_UNDO() {
+        return FSCTL_TXFS_ROLLFORWARD_UNDO;
     }
+    private static final int FSCTL_TXFS_START_RM = (int)622936L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_ALPHA 2
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_START_RM 622936
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_ALPHA() {
-        return (int)2L;
+    public static int FSCTL_TXFS_START_RM() {
+        return FSCTL_TXFS_START_RM;
     }
+    private static final int FSCTL_TXFS_SHUTDOWN_RM = (int)622940L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_PPC 3
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_SHUTDOWN_RM 622940
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_PPC() {
-        return (int)3L;
+    public static int FSCTL_TXFS_SHUTDOWN_RM() {
+        return FSCTL_TXFS_SHUTDOWN_RM;
     }
+    private static final int FSCTL_TXFS_READ_BACKUP_INFORMATION = (int)606560L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_SHX 4
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_READ_BACKUP_INFORMATION 606560
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_SHX() {
-        return (int)4L;
+    public static int FSCTL_TXFS_READ_BACKUP_INFORMATION() {
+        return FSCTL_TXFS_READ_BACKUP_INFORMATION;
     }
+    private static final int FSCTL_TXFS_WRITE_BACKUP_INFORMATION = (int)622948L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_ARM 5
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_WRITE_BACKUP_INFORMATION 622948
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_ARM() {
-        return (int)5L;
+    public static int FSCTL_TXFS_WRITE_BACKUP_INFORMATION() {
+        return FSCTL_TXFS_WRITE_BACKUP_INFORMATION;
     }
+    private static final int FSCTL_TXFS_CREATE_SECONDARY_RM = (int)622952L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_IA64 6
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_CREATE_SECONDARY_RM 622952
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_IA64() {
-        return (int)6L;
+    public static int FSCTL_TXFS_CREATE_SECONDARY_RM() {
+        return FSCTL_TXFS_CREATE_SECONDARY_RM;
     }
+    private static final int FSCTL_TXFS_GET_METADATA_INFO = (int)606572L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_ALPHA64 7
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_GET_METADATA_INFO 606572
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_ALPHA64() {
-        return (int)7L;
+    public static int FSCTL_TXFS_GET_METADATA_INFO() {
+        return FSCTL_TXFS_GET_METADATA_INFO;
     }
+    private static final int FSCTL_TXFS_GET_TRANSACTED_VERSION = (int)606576L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_MSIL 8
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_GET_TRANSACTED_VERSION 606576
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_MSIL() {
-        return (int)8L;
+    public static int FSCTL_TXFS_GET_TRANSACTED_VERSION() {
+        return FSCTL_TXFS_GET_TRANSACTED_VERSION;
     }
+    private static final int FSCTL_TXFS_SAVEPOINT_INFORMATION = (int)622968L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_AMD64 9
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_SAVEPOINT_INFORMATION 622968
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_AMD64() {
-        return (int)9L;
+    public static int FSCTL_TXFS_SAVEPOINT_INFORMATION() {
+        return FSCTL_TXFS_SAVEPOINT_INFORMATION;
     }
+    private static final int FSCTL_TXFS_CREATE_MINIVERSION = (int)622972L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_IA32_ON_WIN64 10
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_CREATE_MINIVERSION 622972
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_IA32_ON_WIN64() {
-        return (int)10L;
+    public static int FSCTL_TXFS_CREATE_MINIVERSION() {
+        return FSCTL_TXFS_CREATE_MINIVERSION;
     }
+    private static final int FSCTL_TXFS_TRANSACTION_ACTIVE = (int)606604L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_NEUTRAL 11
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_TRANSACTION_ACTIVE 606604
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_NEUTRAL() {
-        return (int)11L;
+    public static int FSCTL_TXFS_TRANSACTION_ACTIVE() {
+        return FSCTL_TXFS_TRANSACTION_ACTIVE;
     }
+    private static final int FSCTL_SET_ZERO_ON_DEALLOCATION = (int)590228L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_ARM64 12
+     * {@snippet lang=c :
+     * #define FSCTL_SET_ZERO_ON_DEALLOCATION 590228
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_ARM64() {
-        return (int)12L;
+    public static int FSCTL_SET_ZERO_ON_DEALLOCATION() {
+        return FSCTL_SET_ZERO_ON_DEALLOCATION;
     }
+    private static final int FSCTL_SET_REPAIR = (int)590232L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_ARM32_ON_WIN64 13
+     * {@snippet lang=c :
+     * #define FSCTL_SET_REPAIR 590232
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_ARM32_ON_WIN64() {
-        return (int)13L;
+    public static int FSCTL_SET_REPAIR() {
+        return FSCTL_SET_REPAIR;
     }
+    private static final int FSCTL_GET_REPAIR = (int)590236L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_IA32_ON_ARM64 14
+     * {@snippet lang=c :
+     * #define FSCTL_GET_REPAIR 590236
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_IA32_ON_ARM64() {
-        return (int)14L;
+    public static int FSCTL_GET_REPAIR() {
+        return FSCTL_GET_REPAIR;
     }
+    private static final int FSCTL_WAIT_FOR_REPAIR = (int)590240L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_ARCHITECTURE_UNKNOWN 65535
+     * {@snippet lang=c :
+     * #define FSCTL_WAIT_FOR_REPAIR 590240
      * }
      */
-    public static int PROCESSOR_ARCHITECTURE_UNKNOWN() {
-        return (int)65535L;
+    public static int FSCTL_WAIT_FOR_REPAIR() {
+        return FSCTL_WAIT_FOR_REPAIR;
     }
+    private static final int FSCTL_INITIATE_REPAIR = (int)590248L;
     /**
-     * {@snippet :
-     * #define PF_FLOATING_POINT_PRECISION_ERRATA 0
+     * {@snippet lang=c :
+     * #define FSCTL_INITIATE_REPAIR 590248
      * }
      */
-    public static int PF_FLOATING_POINT_PRECISION_ERRATA() {
-        return (int)0L;
+    public static int FSCTL_INITIATE_REPAIR() {
+        return FSCTL_INITIATE_REPAIR;
     }
+    private static final int FSCTL_CSC_INTERNAL = (int)590255L;
     /**
-     * {@snippet :
-     * #define PF_FLOATING_POINT_EMULATED 1
+     * {@snippet lang=c :
+     * #define FSCTL_CSC_INTERNAL 590255
      * }
      */
-    public static int PF_FLOATING_POINT_EMULATED() {
-        return (int)1L;
+    public static int FSCTL_CSC_INTERNAL() {
+        return FSCTL_CSC_INTERNAL;
     }
+    private static final int FSCTL_SHRINK_VOLUME = (int)590256L;
     /**
-     * {@snippet :
-     * #define PF_COMPARE_EXCHANGE_DOUBLE 2
+     * {@snippet lang=c :
+     * #define FSCTL_SHRINK_VOLUME 590256
      * }
      */
-    public static int PF_COMPARE_EXCHANGE_DOUBLE() {
-        return (int)2L;
+    public static int FSCTL_SHRINK_VOLUME() {
+        return FSCTL_SHRINK_VOLUME;
     }
+    private static final int FSCTL_SET_SHORT_NAME_BEHAVIOR = (int)590260L;
     /**
-     * {@snippet :
-     * #define PF_MMX_INSTRUCTIONS_AVAILABLE 3
+     * {@snippet lang=c :
+     * #define FSCTL_SET_SHORT_NAME_BEHAVIOR 590260
      * }
      */
-    public static int PF_MMX_INSTRUCTIONS_AVAILABLE() {
-        return (int)3L;
+    public static int FSCTL_SET_SHORT_NAME_BEHAVIOR() {
+        return FSCTL_SET_SHORT_NAME_BEHAVIOR;
     }
+    private static final int FSCTL_DFSR_SET_GHOST_HANDLE_STATE = (int)590264L;
     /**
-     * {@snippet :
-     * #define PF_PPC_MOVEMEM_64BIT_OK 4
+     * {@snippet lang=c :
+     * #define FSCTL_DFSR_SET_GHOST_HANDLE_STATE 590264
      * }
      */
-    public static int PF_PPC_MOVEMEM_64BIT_OK() {
-        return (int)4L;
+    public static int FSCTL_DFSR_SET_GHOST_HANDLE_STATE() {
+        return FSCTL_DFSR_SET_GHOST_HANDLE_STATE;
     }
+    private static final int FSCTL_TXFS_LIST_TRANSACTION_LOCKED_FILES = (int)606688L;
     /**
-     * {@snippet :
-     * #define PF_ALPHA_BYTE_INSTRUCTIONS 5
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_LIST_TRANSACTION_LOCKED_FILES 606688
      * }
      */
-    public static int PF_ALPHA_BYTE_INSTRUCTIONS() {
-        return (int)5L;
+    public static int FSCTL_TXFS_LIST_TRANSACTION_LOCKED_FILES() {
+        return FSCTL_TXFS_LIST_TRANSACTION_LOCKED_FILES;
     }
+    private static final int FSCTL_TXFS_LIST_TRANSACTIONS = (int)606692L;
     /**
-     * {@snippet :
-     * #define PF_XMMI_INSTRUCTIONS_AVAILABLE 6
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_LIST_TRANSACTIONS 606692
      * }
      */
-    public static int PF_XMMI_INSTRUCTIONS_AVAILABLE() {
-        return (int)6L;
+    public static int FSCTL_TXFS_LIST_TRANSACTIONS() {
+        return FSCTL_TXFS_LIST_TRANSACTIONS;
     }
+    private static final int FSCTL_QUERY_PAGEFILE_ENCRYPTION = (int)590312L;
     /**
-     * {@snippet :
-     * #define PF_3DNOW_INSTRUCTIONS_AVAILABLE 7
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_PAGEFILE_ENCRYPTION 590312
      * }
      */
-    public static int PF_3DNOW_INSTRUCTIONS_AVAILABLE() {
-        return (int)7L;
+    public static int FSCTL_QUERY_PAGEFILE_ENCRYPTION() {
+        return FSCTL_QUERY_PAGEFILE_ENCRYPTION;
     }
+    private static final int FSCTL_RESET_VOLUME_ALLOCATION_HINTS = (int)590316L;
     /**
-     * {@snippet :
-     * #define PF_RDTSC_INSTRUCTION_AVAILABLE 8
+     * {@snippet lang=c :
+     * #define FSCTL_RESET_VOLUME_ALLOCATION_HINTS 590316
      * }
      */
-    public static int PF_RDTSC_INSTRUCTION_AVAILABLE() {
-        return (int)8L;
+    public static int FSCTL_RESET_VOLUME_ALLOCATION_HINTS() {
+        return FSCTL_RESET_VOLUME_ALLOCATION_HINTS;
     }
+    private static final int FSCTL_QUERY_DEPENDENT_VOLUME = (int)590320L;
     /**
-     * {@snippet :
-     * #define PF_PAE_ENABLED 9
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_DEPENDENT_VOLUME 590320
      * }
      */
-    public static int PF_PAE_ENABLED() {
-        return (int)9L;
+    public static int FSCTL_QUERY_DEPENDENT_VOLUME() {
+        return FSCTL_QUERY_DEPENDENT_VOLUME;
     }
+    private static final int FSCTL_SD_GLOBAL_CHANGE = (int)590324L;
     /**
-     * {@snippet :
-     * #define PF_XMMI64_INSTRUCTIONS_AVAILABLE 10
+     * {@snippet lang=c :
+     * #define FSCTL_SD_GLOBAL_CHANGE 590324
      * }
      */
-    public static int PF_XMMI64_INSTRUCTIONS_AVAILABLE() {
-        return (int)10L;
+    public static int FSCTL_SD_GLOBAL_CHANGE() {
+        return FSCTL_SD_GLOBAL_CHANGE;
     }
+    private static final int FSCTL_TXFS_READ_BACKUP_INFORMATION2 = (int)590328L;
     /**
-     * {@snippet :
-     * #define PF_SSE_DAZ_MODE_AVAILABLE 11
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_READ_BACKUP_INFORMATION2 590328
      * }
      */
-    public static int PF_SSE_DAZ_MODE_AVAILABLE() {
-        return (int)11L;
+    public static int FSCTL_TXFS_READ_BACKUP_INFORMATION2() {
+        return FSCTL_TXFS_READ_BACKUP_INFORMATION2;
     }
+    private static final int FSCTL_LOOKUP_STREAM_FROM_CLUSTER = (int)590332L;
     /**
-     * {@snippet :
-     * #define PF_NX_ENABLED 12
+     * {@snippet lang=c :
+     * #define FSCTL_LOOKUP_STREAM_FROM_CLUSTER 590332
      * }
      */
-    public static int PF_NX_ENABLED() {
-        return (int)12L;
+    public static int FSCTL_LOOKUP_STREAM_FROM_CLUSTER() {
+        return FSCTL_LOOKUP_STREAM_FROM_CLUSTER;
     }
+    private static final int FSCTL_TXFS_WRITE_BACKUP_INFORMATION2 = (int)590336L;
     /**
-     * {@snippet :
-     * #define PF_SSE3_INSTRUCTIONS_AVAILABLE 13
+     * {@snippet lang=c :
+     * #define FSCTL_TXFS_WRITE_BACKUP_INFORMATION2 590336
      * }
      */
-    public static int PF_SSE3_INSTRUCTIONS_AVAILABLE() {
-        return (int)13L;
+    public static int FSCTL_TXFS_WRITE_BACKUP_INFORMATION2() {
+        return FSCTL_TXFS_WRITE_BACKUP_INFORMATION2;
     }
+    private static final int FSCTL_FILE_TYPE_NOTIFICATION = (int)590340L;
     /**
-     * {@snippet :
-     * #define PF_COMPARE_EXCHANGE128 14
+     * {@snippet lang=c :
+     * #define FSCTL_FILE_TYPE_NOTIFICATION 590340
      * }
      */
-    public static int PF_COMPARE_EXCHANGE128() {
-        return (int)14L;
+    public static int FSCTL_FILE_TYPE_NOTIFICATION() {
+        return FSCTL_FILE_TYPE_NOTIFICATION;
     }
+    private static final int FSCTL_FILE_LEVEL_TRIM = (int)623112L;
     /**
-     * {@snippet :
-     * #define PF_COMPARE64_EXCHANGE128 15
+     * {@snippet lang=c :
+     * #define FSCTL_FILE_LEVEL_TRIM 623112
      * }
      */
-    public static int PF_COMPARE64_EXCHANGE128() {
-        return (int)15L;
+    public static int FSCTL_FILE_LEVEL_TRIM() {
+        return FSCTL_FILE_LEVEL_TRIM;
     }
+    private static final int FSCTL_GET_BOOT_AREA_INFO = (int)590384L;
     /**
-     * {@snippet :
-     * #define PF_CHANNELS_ENABLED 16
+     * {@snippet lang=c :
+     * #define FSCTL_GET_BOOT_AREA_INFO 590384
      * }
      */
-    public static int PF_CHANNELS_ENABLED() {
-        return (int)16L;
+    public static int FSCTL_GET_BOOT_AREA_INFO() {
+        return FSCTL_GET_BOOT_AREA_INFO;
     }
+    private static final int FSCTL_GET_RETRIEVAL_POINTER_BASE = (int)590388L;
     /**
-     * {@snippet :
-     * #define PF_XSAVE_ENABLED 17
+     * {@snippet lang=c :
+     * #define FSCTL_GET_RETRIEVAL_POINTER_BASE 590388
      * }
      */
-    public static int PF_XSAVE_ENABLED() {
-        return (int)17L;
+    public static int FSCTL_GET_RETRIEVAL_POINTER_BASE() {
+        return FSCTL_GET_RETRIEVAL_POINTER_BASE;
     }
+    private static final int FSCTL_SET_PERSISTENT_VOLUME_STATE = (int)590392L;
     /**
-     * {@snippet :
-     * #define PF_ARM_VFP_32_REGISTERS_AVAILABLE 18
+     * {@snippet lang=c :
+     * #define FSCTL_SET_PERSISTENT_VOLUME_STATE 590392
      * }
      */
-    public static int PF_ARM_VFP_32_REGISTERS_AVAILABLE() {
-        return (int)18L;
+    public static int FSCTL_SET_PERSISTENT_VOLUME_STATE() {
+        return FSCTL_SET_PERSISTENT_VOLUME_STATE;
     }
+    private static final int FSCTL_QUERY_PERSISTENT_VOLUME_STATE = (int)590396L;
     /**
-     * {@snippet :
-     * #define PF_ARM_NEON_INSTRUCTIONS_AVAILABLE 19
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_PERSISTENT_VOLUME_STATE 590396
      * }
      */
-    public static int PF_ARM_NEON_INSTRUCTIONS_AVAILABLE() {
-        return (int)19L;
+    public static int FSCTL_QUERY_PERSISTENT_VOLUME_STATE() {
+        return FSCTL_QUERY_PERSISTENT_VOLUME_STATE;
     }
+    private static final int FSCTL_REQUEST_OPLOCK = (int)590400L;
     /**
-     * {@snippet :
-     * #define PF_SECOND_LEVEL_ADDRESS_TRANSLATION 20
+     * {@snippet lang=c :
+     * #define FSCTL_REQUEST_OPLOCK 590400
      * }
      */
-    public static int PF_SECOND_LEVEL_ADDRESS_TRANSLATION() {
-        return (int)20L;
+    public static int FSCTL_REQUEST_OPLOCK() {
+        return FSCTL_REQUEST_OPLOCK;
     }
+    private static final int FSCTL_CSV_TUNNEL_REQUEST = (int)590404L;
     /**
-     * {@snippet :
-     * #define PF_VIRT_FIRMWARE_ENABLED 21
+     * {@snippet lang=c :
+     * #define FSCTL_CSV_TUNNEL_REQUEST 590404
      * }
      */
-    public static int PF_VIRT_FIRMWARE_ENABLED() {
-        return (int)21L;
+    public static int FSCTL_CSV_TUNNEL_REQUEST() {
+        return FSCTL_CSV_TUNNEL_REQUEST;
     }
+    private static final int FSCTL_IS_CSV_FILE = (int)590408L;
     /**
-     * {@snippet :
-     * #define PF_RDWRFSGSBASE_AVAILABLE 22
+     * {@snippet lang=c :
+     * #define FSCTL_IS_CSV_FILE 590408
      * }
      */
-    public static int PF_RDWRFSGSBASE_AVAILABLE() {
-        return (int)22L;
+    public static int FSCTL_IS_CSV_FILE() {
+        return FSCTL_IS_CSV_FILE;
     }
+    private static final int FSCTL_QUERY_FILE_SYSTEM_RECOGNITION = (int)590412L;
     /**
-     * {@snippet :
-     * #define PF_FASTFAIL_AVAILABLE 23
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_FILE_SYSTEM_RECOGNITION 590412
      * }
      */
-    public static int PF_FASTFAIL_AVAILABLE() {
-        return (int)23L;
+    public static int FSCTL_QUERY_FILE_SYSTEM_RECOGNITION() {
+        return FSCTL_QUERY_FILE_SYSTEM_RECOGNITION;
     }
+    private static final int FSCTL_CSV_GET_VOLUME_PATH_NAME = (int)590416L;
     /**
-     * {@snippet :
-     * #define PF_ARM_DIVIDE_INSTRUCTION_AVAILABLE 24
+     * {@snippet lang=c :
+     * #define FSCTL_CSV_GET_VOLUME_PATH_NAME 590416
      * }
      */
-    public static int PF_ARM_DIVIDE_INSTRUCTION_AVAILABLE() {
-        return (int)24L;
+    public static int FSCTL_CSV_GET_VOLUME_PATH_NAME() {
+        return FSCTL_CSV_GET_VOLUME_PATH_NAME;
     }
+    private static final int FSCTL_CSV_GET_VOLUME_NAME_FOR_VOLUME_MOUNT_POINT = (int)590420L;
     /**
-     * {@snippet :
-     * #define PF_ARM_64BIT_LOADSTORE_ATOMIC 25
+     * {@snippet lang=c :
+     * #define FSCTL_CSV_GET_VOLUME_NAME_FOR_VOLUME_MOUNT_POINT 590420
      * }
      */
-    public static int PF_ARM_64BIT_LOADSTORE_ATOMIC() {
-        return (int)25L;
+    public static int FSCTL_CSV_GET_VOLUME_NAME_FOR_VOLUME_MOUNT_POINT() {
+        return FSCTL_CSV_GET_VOLUME_NAME_FOR_VOLUME_MOUNT_POINT;
     }
+    private static final int FSCTL_CSV_GET_VOLUME_PATH_NAMES_FOR_VOLUME_NAME = (int)590424L;
     /**
-     * {@snippet :
-     * #define PF_ARM_EXTERNAL_CACHE_AVAILABLE 26
+     * {@snippet lang=c :
+     * #define FSCTL_CSV_GET_VOLUME_PATH_NAMES_FOR_VOLUME_NAME 590424
      * }
      */
-    public static int PF_ARM_EXTERNAL_CACHE_AVAILABLE() {
-        return (int)26L;
+    public static int FSCTL_CSV_GET_VOLUME_PATH_NAMES_FOR_VOLUME_NAME() {
+        return FSCTL_CSV_GET_VOLUME_PATH_NAMES_FOR_VOLUME_NAME;
     }
+    private static final int FSCTL_IS_FILE_ON_CSV_VOLUME = (int)590428L;
     /**
-     * {@snippet :
-     * #define PF_ARM_FMAC_INSTRUCTIONS_AVAILABLE 27
+     * {@snippet lang=c :
+     * #define FSCTL_IS_FILE_ON_CSV_VOLUME 590428
      * }
      */
-    public static int PF_ARM_FMAC_INSTRUCTIONS_AVAILABLE() {
-        return (int)27L;
+    public static int FSCTL_IS_FILE_ON_CSV_VOLUME() {
+        return FSCTL_IS_FILE_ON_CSV_VOLUME;
     }
+    private static final int FSCTL_CORRUPTION_HANDLING = (int)590432L;
     /**
-     * {@snippet :
-     * #define PF_RDRAND_INSTRUCTION_AVAILABLE 28
+     * {@snippet lang=c :
+     * #define FSCTL_CORRUPTION_HANDLING 590432
      * }
      */
-    public static int PF_RDRAND_INSTRUCTION_AVAILABLE() {
-        return (int)28L;
+    public static int FSCTL_CORRUPTION_HANDLING() {
+        return FSCTL_CORRUPTION_HANDLING;
     }
+    private static final int FSCTL_OFFLOAD_READ = (int)606820L;
     /**
-     * {@snippet :
-     * #define PF_ARM_V8_INSTRUCTIONS_AVAILABLE 29
+     * {@snippet lang=c :
+     * #define FSCTL_OFFLOAD_READ 606820
      * }
      */
-    public static int PF_ARM_V8_INSTRUCTIONS_AVAILABLE() {
-        return (int)29L;
+    public static int FSCTL_OFFLOAD_READ() {
+        return FSCTL_OFFLOAD_READ;
     }
+    private static final int FSCTL_OFFLOAD_WRITE = (int)623208L;
     /**
-     * {@snippet :
-     * #define PF_ARM_V8_CRYPTO_INSTRUCTIONS_AVAILABLE 30
+     * {@snippet lang=c :
+     * #define FSCTL_OFFLOAD_WRITE 623208
      * }
      */
-    public static int PF_ARM_V8_CRYPTO_INSTRUCTIONS_AVAILABLE() {
-        return (int)30L;
+    public static int FSCTL_OFFLOAD_WRITE() {
+        return FSCTL_OFFLOAD_WRITE;
     }
+    private static final int FSCTL_CSV_INTERNAL = (int)590444L;
     /**
-     * {@snippet :
-     * #define PF_ARM_V8_CRC32_INSTRUCTIONS_AVAILABLE 31
+     * {@snippet lang=c :
+     * #define FSCTL_CSV_INTERNAL 590444
      * }
      */
-    public static int PF_ARM_V8_CRC32_INSTRUCTIONS_AVAILABLE() {
-        return (int)31L;
+    public static int FSCTL_CSV_INTERNAL() {
+        return FSCTL_CSV_INTERNAL;
     }
+    private static final int FSCTL_SET_PURGE_FAILURE_MODE = (int)590448L;
     /**
-     * {@snippet :
-     * #define PF_RDTSCP_INSTRUCTION_AVAILABLE 32
+     * {@snippet lang=c :
+     * #define FSCTL_SET_PURGE_FAILURE_MODE 590448
      * }
      */
-    public static int PF_RDTSCP_INSTRUCTION_AVAILABLE() {
-        return (int)32L;
+    public static int FSCTL_SET_PURGE_FAILURE_MODE() {
+        return FSCTL_SET_PURGE_FAILURE_MODE;
     }
+    private static final int FSCTL_QUERY_FILE_LAYOUT = (int)590455L;
     /**
-     * {@snippet :
-     * #define PF_RDPID_INSTRUCTION_AVAILABLE 33
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_FILE_LAYOUT 590455
      * }
      */
-    public static int PF_RDPID_INSTRUCTION_AVAILABLE() {
-        return (int)33L;
+    public static int FSCTL_QUERY_FILE_LAYOUT() {
+        return FSCTL_QUERY_FILE_LAYOUT;
     }
+    private static final int FSCTL_IS_VOLUME_OWNED_BYCSVFS = (int)590456L;
     /**
-     * {@snippet :
-     * #define PF_ARM_V81_ATOMIC_INSTRUCTIONS_AVAILABLE 34
+     * {@snippet lang=c :
+     * #define FSCTL_IS_VOLUME_OWNED_BYCSVFS 590456
      * }
      */
-    public static int PF_ARM_V81_ATOMIC_INSTRUCTIONS_AVAILABLE() {
-        return (int)34L;
+    public static int FSCTL_IS_VOLUME_OWNED_BYCSVFS() {
+        return FSCTL_IS_VOLUME_OWNED_BYCSVFS;
     }
+    private static final int FSCTL_GET_INTEGRITY_INFORMATION = (int)590460L;
     /**
-     * {@snippet :
-     * #define PF_MONITORX_INSTRUCTION_AVAILABLE 35
+     * {@snippet lang=c :
+     * #define FSCTL_GET_INTEGRITY_INFORMATION 590460
      * }
      */
-    public static int PF_MONITORX_INSTRUCTION_AVAILABLE() {
-        return (int)35L;
+    public static int FSCTL_GET_INTEGRITY_INFORMATION() {
+        return FSCTL_GET_INTEGRITY_INFORMATION;
     }
+    private static final int FSCTL_SET_INTEGRITY_INFORMATION = (int)639616L;
     /**
-     * {@snippet :
-     * #define PF_SSSE3_INSTRUCTIONS_AVAILABLE 36
+     * {@snippet lang=c :
+     * #define FSCTL_SET_INTEGRITY_INFORMATION 639616
      * }
      */
-    public static int PF_SSSE3_INSTRUCTIONS_AVAILABLE() {
-        return (int)36L;
+    public static int FSCTL_SET_INTEGRITY_INFORMATION() {
+        return FSCTL_SET_INTEGRITY_INFORMATION;
     }
+    private static final int FSCTL_QUERY_FILE_REGIONS = (int)590468L;
     /**
-     * {@snippet :
-     * #define PF_SSE4_1_INSTRUCTIONS_AVAILABLE 37
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_FILE_REGIONS 590468
      * }
      */
-    public static int PF_SSE4_1_INSTRUCTIONS_AVAILABLE() {
-        return (int)37L;
+    public static int FSCTL_QUERY_FILE_REGIONS() {
+        return FSCTL_QUERY_FILE_REGIONS;
     }
+    private static final int FSCTL_RKF_INTERNAL = (int)590511L;
     /**
-     * {@snippet :
-     * #define PF_SSE4_2_INSTRUCTIONS_AVAILABLE 38
+     * {@snippet lang=c :
+     * #define FSCTL_RKF_INTERNAL 590511
      * }
      */
-    public static int PF_SSE4_2_INSTRUCTIONS_AVAILABLE() {
-        return (int)38L;
+    public static int FSCTL_RKF_INTERNAL() {
+        return FSCTL_RKF_INTERNAL;
     }
+    private static final int FSCTL_SCRUB_DATA = (int)590512L;
     /**
-     * {@snippet :
-     * #define PF_AVX_INSTRUCTIONS_AVAILABLE 39
+     * {@snippet lang=c :
+     * #define FSCTL_SCRUB_DATA 590512
      * }
      */
-    public static int PF_AVX_INSTRUCTIONS_AVAILABLE() {
-        return (int)39L;
+    public static int FSCTL_SCRUB_DATA() {
+        return FSCTL_SCRUB_DATA;
     }
+    private static final int FSCTL_REPAIR_COPIES = (int)639668L;
     /**
-     * {@snippet :
-     * #define PF_AVX2_INSTRUCTIONS_AVAILABLE 40
+     * {@snippet lang=c :
+     * #define FSCTL_REPAIR_COPIES 639668
      * }
      */
-    public static int PF_AVX2_INSTRUCTIONS_AVAILABLE() {
-        return (int)40L;
+    public static int FSCTL_REPAIR_COPIES() {
+        return FSCTL_REPAIR_COPIES;
     }
+    private static final int FSCTL_DISABLE_LOCAL_BUFFERING = (int)590520L;
     /**
-     * {@snippet :
-     * #define PF_AVX512F_INSTRUCTIONS_AVAILABLE 41
+     * {@snippet lang=c :
+     * #define FSCTL_DISABLE_LOCAL_BUFFERING 590520
      * }
      */
-    public static int PF_AVX512F_INSTRUCTIONS_AVAILABLE() {
-        return (int)41L;
+    public static int FSCTL_DISABLE_LOCAL_BUFFERING() {
+        return FSCTL_DISABLE_LOCAL_BUFFERING;
     }
+    private static final int FSCTL_CSV_MGMT_LOCK = (int)590524L;
     /**
-     * {@snippet :
-     * #define PF_ERMS_AVAILABLE 42
+     * {@snippet lang=c :
+     * #define FSCTL_CSV_MGMT_LOCK 590524
      * }
      */
-    public static int PF_ERMS_AVAILABLE() {
-        return (int)42L;
+    public static int FSCTL_CSV_MGMT_LOCK() {
+        return FSCTL_CSV_MGMT_LOCK;
     }
+    private static final int FSCTL_CSV_QUERY_DOWN_LEVEL_FILE_SYSTEM_CHARACTERISTICS = (int)590528L;
     /**
-     * {@snippet :
-     * #define PF_ARM_V82_DP_INSTRUCTIONS_AVAILABLE 43
+     * {@snippet lang=c :
+     * #define FSCTL_CSV_QUERY_DOWN_LEVEL_FILE_SYSTEM_CHARACTERISTICS 590528
      * }
      */
-    public static int PF_ARM_V82_DP_INSTRUCTIONS_AVAILABLE() {
-        return (int)43L;
+    public static int FSCTL_CSV_QUERY_DOWN_LEVEL_FILE_SYSTEM_CHARACTERISTICS() {
+        return FSCTL_CSV_QUERY_DOWN_LEVEL_FILE_SYSTEM_CHARACTERISTICS;
     }
+    private static final int FSCTL_ADVANCE_FILE_ID = (int)590532L;
     /**
-     * {@snippet :
-     * #define PF_ARM_V83_JSCVT_INSTRUCTIONS_AVAILABLE 44
+     * {@snippet lang=c :
+     * #define FSCTL_ADVANCE_FILE_ID 590532
      * }
      */
-    public static int PF_ARM_V83_JSCVT_INSTRUCTIONS_AVAILABLE() {
-        return (int)44L;
+    public static int FSCTL_ADVANCE_FILE_ID() {
+        return FSCTL_ADVANCE_FILE_ID;
     }
+    private static final int FSCTL_CSV_SYNC_TUNNEL_REQUEST = (int)590536L;
     /**
-     * {@snippet :
-     * #define SECTION_QUERY 1
+     * {@snippet lang=c :
+     * #define FSCTL_CSV_SYNC_TUNNEL_REQUEST 590536
      * }
      */
-    public static int SECTION_QUERY() {
-        return (int)1L;
+    public static int FSCTL_CSV_SYNC_TUNNEL_REQUEST() {
+        return FSCTL_CSV_SYNC_TUNNEL_REQUEST;
     }
+    private static final int FSCTL_CSV_QUERY_VETO_FILE_DIRECT_IO = (int)590540L;
     /**
-     * {@snippet :
-     * #define SECTION_MAP_WRITE 2
+     * {@snippet lang=c :
+     * #define FSCTL_CSV_QUERY_VETO_FILE_DIRECT_IO 590540
      * }
      */
-    public static int SECTION_MAP_WRITE() {
-        return (int)2L;
+    public static int FSCTL_CSV_QUERY_VETO_FILE_DIRECT_IO() {
+        return FSCTL_CSV_QUERY_VETO_FILE_DIRECT_IO;
     }
+    private static final int FSCTL_WRITE_USN_REASON = (int)590544L;
     /**
-     * {@snippet :
-     * #define SECTION_MAP_READ 4
+     * {@snippet lang=c :
+     * #define FSCTL_WRITE_USN_REASON 590544
      * }
      */
-    public static int SECTION_MAP_READ() {
-        return (int)4L;
+    public static int FSCTL_WRITE_USN_REASON() {
+        return FSCTL_WRITE_USN_REASON;
     }
+    private static final int FSCTL_CSV_CONTROL = (int)590548L;
     /**
-     * {@snippet :
-     * #define SECTION_MAP_EXECUTE 8
+     * {@snippet lang=c :
+     * #define FSCTL_CSV_CONTROL 590548
      * }
      */
-    public static int SECTION_MAP_EXECUTE() {
-        return (int)8L;
+    public static int FSCTL_CSV_CONTROL() {
+        return FSCTL_CSV_CONTROL;
     }
+    private static final int FSCTL_GET_REFS_VOLUME_DATA = (int)590552L;
     /**
-     * {@snippet :
-     * #define SECTION_EXTEND_SIZE 16
+     * {@snippet lang=c :
+     * #define FSCTL_GET_REFS_VOLUME_DATA 590552
      * }
      */
-    public static int SECTION_EXTEND_SIZE() {
-        return (int)16L;
+    public static int FSCTL_GET_REFS_VOLUME_DATA() {
+        return FSCTL_GET_REFS_VOLUME_DATA;
     }
+    private static final int FSCTL_CSV_H_BREAKING_SYNC_TUNNEL_REQUEST = (int)590564L;
     /**
-     * {@snippet :
-     * #define SECTION_MAP_EXECUTE_EXPLICIT 32
+     * {@snippet lang=c :
+     * #define FSCTL_CSV_H_BREAKING_SYNC_TUNNEL_REQUEST 590564
      * }
      */
-    public static int SECTION_MAP_EXECUTE_EXPLICIT() {
-        return (int)32L;
+    public static int FSCTL_CSV_H_BREAKING_SYNC_TUNNEL_REQUEST() {
+        return FSCTL_CSV_H_BREAKING_SYNC_TUNNEL_REQUEST;
     }
+    private static final int FSCTL_QUERY_STORAGE_CLASSES = (int)590572L;
     /**
-     * {@snippet :
-     * #define SESSION_QUERY_ACCESS 1
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_STORAGE_CLASSES 590572
      * }
      */
-    public static int SESSION_QUERY_ACCESS() {
-        return (int)1L;
+    public static int FSCTL_QUERY_STORAGE_CLASSES() {
+        return FSCTL_QUERY_STORAGE_CLASSES;
     }
+    private static final int FSCTL_QUERY_REGION_INFO = (int)590576L;
     /**
-     * {@snippet :
-     * #define SESSION_MODIFY_ACCESS 2
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_REGION_INFO 590576
      * }
      */
-    public static int SESSION_MODIFY_ACCESS() {
-        return (int)2L;
+    public static int FSCTL_QUERY_REGION_INFO() {
+        return FSCTL_QUERY_REGION_INFO;
     }
+    private static final int FSCTL_USN_TRACK_MODIFIED_RANGES = (int)590580L;
     /**
-     * {@snippet :
-     * #define PAGE_NOACCESS 1
+     * {@snippet lang=c :
+     * #define FSCTL_USN_TRACK_MODIFIED_RANGES 590580
      * }
      */
-    public static int PAGE_NOACCESS() {
-        return (int)1L;
+    public static int FSCTL_USN_TRACK_MODIFIED_RANGES() {
+        return FSCTL_USN_TRACK_MODIFIED_RANGES;
     }
+    private static final int FSCTL_QUERY_SHARED_VIRTUAL_DISK_SUPPORT = (int)590592L;
     /**
-     * {@snippet :
-     * #define PAGE_READONLY 2
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_SHARED_VIRTUAL_DISK_SUPPORT 590592
      * }
      */
-    public static int PAGE_READONLY() {
-        return (int)2L;
+    public static int FSCTL_QUERY_SHARED_VIRTUAL_DISK_SUPPORT() {
+        return FSCTL_QUERY_SHARED_VIRTUAL_DISK_SUPPORT;
     }
+    private static final int FSCTL_SVHDX_SYNC_TUNNEL_REQUEST = (int)590596L;
     /**
-     * {@snippet :
-     * #define PAGE_READWRITE 4
+     * {@snippet lang=c :
+     * #define FSCTL_SVHDX_SYNC_TUNNEL_REQUEST 590596
      * }
      */
-    public static int PAGE_READWRITE() {
-        return (int)4L;
+    public static int FSCTL_SVHDX_SYNC_TUNNEL_REQUEST() {
+        return FSCTL_SVHDX_SYNC_TUNNEL_REQUEST;
     }
+    private static final int FSCTL_SVHDX_SET_INITIATOR_INFORMATION = (int)590600L;
     /**
-     * {@snippet :
-     * #define PAGE_WRITECOPY 8
+     * {@snippet lang=c :
+     * #define FSCTL_SVHDX_SET_INITIATOR_INFORMATION 590600
      * }
      */
-    public static int PAGE_WRITECOPY() {
-        return (int)8L;
+    public static int FSCTL_SVHDX_SET_INITIATOR_INFORMATION() {
+        return FSCTL_SVHDX_SET_INITIATOR_INFORMATION;
     }
+    private static final int FSCTL_SET_EXTERNAL_BACKING = (int)590604L;
     /**
-     * {@snippet :
-     * #define PAGE_EXECUTE 16
+     * {@snippet lang=c :
+     * #define FSCTL_SET_EXTERNAL_BACKING 590604
      * }
      */
-    public static int PAGE_EXECUTE() {
-        return (int)16L;
+    public static int FSCTL_SET_EXTERNAL_BACKING() {
+        return FSCTL_SET_EXTERNAL_BACKING;
     }
+    private static final int FSCTL_GET_EXTERNAL_BACKING = (int)590608L;
     /**
-     * {@snippet :
-     * #define PAGE_EXECUTE_READ 32
+     * {@snippet lang=c :
+     * #define FSCTL_GET_EXTERNAL_BACKING 590608
      * }
      */
-    public static int PAGE_EXECUTE_READ() {
-        return (int)32L;
+    public static int FSCTL_GET_EXTERNAL_BACKING() {
+        return FSCTL_GET_EXTERNAL_BACKING;
     }
+    private static final int FSCTL_DELETE_EXTERNAL_BACKING = (int)590612L;
     /**
-     * {@snippet :
-     * #define PAGE_EXECUTE_READWRITE 64
+     * {@snippet lang=c :
+     * #define FSCTL_DELETE_EXTERNAL_BACKING 590612
      * }
      */
-    public static int PAGE_EXECUTE_READWRITE() {
-        return (int)64L;
+    public static int FSCTL_DELETE_EXTERNAL_BACKING() {
+        return FSCTL_DELETE_EXTERNAL_BACKING;
     }
+    private static final int FSCTL_ENUM_EXTERNAL_BACKING = (int)590616L;
     /**
-     * {@snippet :
-     * #define PAGE_EXECUTE_WRITECOPY 128
+     * {@snippet lang=c :
+     * #define FSCTL_ENUM_EXTERNAL_BACKING 590616
      * }
      */
-    public static int PAGE_EXECUTE_WRITECOPY() {
-        return (int)128L;
+    public static int FSCTL_ENUM_EXTERNAL_BACKING() {
+        return FSCTL_ENUM_EXTERNAL_BACKING;
     }
+    private static final int FSCTL_ENUM_OVERLAY = (int)590623L;
     /**
-     * {@snippet :
-     * #define PAGE_GUARD 256
+     * {@snippet lang=c :
+     * #define FSCTL_ENUM_OVERLAY 590623
      * }
      */
-    public static int PAGE_GUARD() {
-        return (int)256L;
+    public static int FSCTL_ENUM_OVERLAY() {
+        return FSCTL_ENUM_OVERLAY;
     }
+    private static final int FSCTL_ADD_OVERLAY = (int)623408L;
     /**
-     * {@snippet :
-     * #define PAGE_NOCACHE 512
+     * {@snippet lang=c :
+     * #define FSCTL_ADD_OVERLAY 623408
      * }
      */
-    public static int PAGE_NOCACHE() {
-        return (int)512L;
+    public static int FSCTL_ADD_OVERLAY() {
+        return FSCTL_ADD_OVERLAY;
     }
+    private static final int FSCTL_REMOVE_OVERLAY = (int)623412L;
     /**
-     * {@snippet :
-     * #define PAGE_WRITECOMBINE 1024
+     * {@snippet lang=c :
+     * #define FSCTL_REMOVE_OVERLAY 623412
      * }
      */
-    public static int PAGE_WRITECOMBINE() {
-        return (int)1024L;
+    public static int FSCTL_REMOVE_OVERLAY() {
+        return FSCTL_REMOVE_OVERLAY;
     }
+    private static final int FSCTL_UPDATE_OVERLAY = (int)623416L;
     /**
-     * {@snippet :
-     * #define PAGE_GRAPHICS_NOACCESS 2048
+     * {@snippet lang=c :
+     * #define FSCTL_UPDATE_OVERLAY 623416
      * }
      */
-    public static int PAGE_GRAPHICS_NOACCESS() {
-        return (int)2048L;
+    public static int FSCTL_UPDATE_OVERLAY() {
+        return FSCTL_UPDATE_OVERLAY;
     }
+    private static final int FSCTL_SHUFFLE_FILE = (int)639808L;
     /**
-     * {@snippet :
-     * #define PAGE_GRAPHICS_READONLY 4096
+     * {@snippet lang=c :
+     * #define FSCTL_SHUFFLE_FILE 639808
      * }
      */
-    public static int PAGE_GRAPHICS_READONLY() {
-        return (int)4096L;
+    public static int FSCTL_SHUFFLE_FILE() {
+        return FSCTL_SHUFFLE_FILE;
     }
+    private static final int FSCTL_DUPLICATE_EXTENTS_TO_FILE = (int)623428L;
     /**
-     * {@snippet :
-     * #define PAGE_GRAPHICS_READWRITE 8192
+     * {@snippet lang=c :
+     * #define FSCTL_DUPLICATE_EXTENTS_TO_FILE 623428
      * }
      */
-    public static int PAGE_GRAPHICS_READWRITE() {
-        return (int)8192L;
+    public static int FSCTL_DUPLICATE_EXTENTS_TO_FILE() {
+        return FSCTL_DUPLICATE_EXTENTS_TO_FILE;
     }
+    private static final int FSCTL_SPARSE_OVERALLOCATE = (int)590668L;
     /**
-     * {@snippet :
-     * #define PAGE_GRAPHICS_EXECUTE 16384
+     * {@snippet lang=c :
+     * #define FSCTL_SPARSE_OVERALLOCATE 590668
      * }
      */
-    public static int PAGE_GRAPHICS_EXECUTE() {
-        return (int)16384L;
+    public static int FSCTL_SPARSE_OVERALLOCATE() {
+        return FSCTL_SPARSE_OVERALLOCATE;
     }
+    private static final int FSCTL_STORAGE_QOS_CONTROL = (int)590672L;
     /**
-     * {@snippet :
-     * #define PAGE_GRAPHICS_EXECUTE_READ 32768
+     * {@snippet lang=c :
+     * #define FSCTL_STORAGE_QOS_CONTROL 590672
      * }
      */
-    public static int PAGE_GRAPHICS_EXECUTE_READ() {
-        return (int)32768L;
+    public static int FSCTL_STORAGE_QOS_CONTROL() {
+        return FSCTL_STORAGE_QOS_CONTROL;
     }
+    private static final int FSCTL_INITIATE_FILE_METADATA_OPTIMIZATION = (int)590684L;
     /**
-     * {@snippet :
-     * #define PAGE_GRAPHICS_EXECUTE_READWRITE 65536
+     * {@snippet lang=c :
+     * #define FSCTL_INITIATE_FILE_METADATA_OPTIMIZATION 590684
      * }
      */
-    public static int PAGE_GRAPHICS_EXECUTE_READWRITE() {
-        return (int)65536L;
+    public static int FSCTL_INITIATE_FILE_METADATA_OPTIMIZATION() {
+        return FSCTL_INITIATE_FILE_METADATA_OPTIMIZATION;
     }
+    private static final int FSCTL_QUERY_FILE_METADATA_OPTIMIZATION = (int)590688L;
     /**
-     * {@snippet :
-     * #define PAGE_GRAPHICS_COHERENT 131072
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_FILE_METADATA_OPTIMIZATION 590688
      * }
      */
-    public static int PAGE_GRAPHICS_COHERENT() {
-        return (int)131072L;
+    public static int FSCTL_QUERY_FILE_METADATA_OPTIMIZATION() {
+        return FSCTL_QUERY_FILE_METADATA_OPTIMIZATION;
     }
+    private static final int FSCTL_SVHDX_ASYNC_TUNNEL_REQUEST = (int)590692L;
     /**
-     * {@snippet :
-     * #define PAGE_GRAPHICS_NOCACHE 262144
+     * {@snippet lang=c :
+     * #define FSCTL_SVHDX_ASYNC_TUNNEL_REQUEST 590692
      * }
      */
-    public static int PAGE_GRAPHICS_NOCACHE() {
-        return (int)262144L;
+    public static int FSCTL_SVHDX_ASYNC_TUNNEL_REQUEST() {
+        return FSCTL_SVHDX_ASYNC_TUNNEL_REQUEST;
     }
+    private static final int FSCTL_GET_WOF_VERSION = (int)590696L;
     /**
-     * {@snippet :
-     * #define PAGE_TARGETS_NO_UPDATE 1073741824
+     * {@snippet lang=c :
+     * #define FSCTL_GET_WOF_VERSION 590696
      * }
      */
-    public static int PAGE_TARGETS_NO_UPDATE() {
-        return (int)1073741824L;
+    public static int FSCTL_GET_WOF_VERSION() {
+        return FSCTL_GET_WOF_VERSION;
     }
+    private static final int FSCTL_HCS_SYNC_TUNNEL_REQUEST = (int)590700L;
     /**
-     * {@snippet :
-     * #define PAGE_TARGETS_INVALID 1073741824
+     * {@snippet lang=c :
+     * #define FSCTL_HCS_SYNC_TUNNEL_REQUEST 590700
      * }
      */
-    public static int PAGE_TARGETS_INVALID() {
-        return (int)1073741824L;
+    public static int FSCTL_HCS_SYNC_TUNNEL_REQUEST() {
+        return FSCTL_HCS_SYNC_TUNNEL_REQUEST;
     }
+    private static final int FSCTL_HCS_ASYNC_TUNNEL_REQUEST = (int)590704L;
     /**
-     * {@snippet :
-     * #define PAGE_ENCLAVE_UNVALIDATED 536870912
+     * {@snippet lang=c :
+     * #define FSCTL_HCS_ASYNC_TUNNEL_REQUEST 590704
      * }
      */
-    public static int PAGE_ENCLAVE_UNVALIDATED() {
-        return (int)536870912L;
+    public static int FSCTL_HCS_ASYNC_TUNNEL_REQUEST() {
+        return FSCTL_HCS_ASYNC_TUNNEL_REQUEST;
     }
+    private static final int FSCTL_QUERY_EXTENT_READ_CACHE_INFO = (int)590711L;
     /**
-     * {@snippet :
-     * #define PAGE_ENCLAVE_MASK 268435456
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_EXTENT_READ_CACHE_INFO 590711
      * }
      */
-    public static int PAGE_ENCLAVE_MASK() {
-        return (int)268435456L;
+    public static int FSCTL_QUERY_EXTENT_READ_CACHE_INFO() {
+        return FSCTL_QUERY_EXTENT_READ_CACHE_INFO;
     }
+    private static final int FSCTL_QUERY_REFS_VOLUME_COUNTER_INFO = (int)590715L;
     /**
-     * {@snippet :
-     * #define MEM_COMMIT 4096
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_REFS_VOLUME_COUNTER_INFO 590715
      * }
      */
-    public static int MEM_COMMIT() {
-        return (int)4096L;
+    public static int FSCTL_QUERY_REFS_VOLUME_COUNTER_INFO() {
+        return FSCTL_QUERY_REFS_VOLUME_COUNTER_INFO;
     }
+    private static final int FSCTL_CLEAN_VOLUME_METADATA = (int)590716L;
     /**
-     * {@snippet :
-     * #define MEM_RESERVE 8192
+     * {@snippet lang=c :
+     * #define FSCTL_CLEAN_VOLUME_METADATA 590716
      * }
      */
-    public static int MEM_RESERVE() {
-        return (int)8192L;
+    public static int FSCTL_CLEAN_VOLUME_METADATA() {
+        return FSCTL_CLEAN_VOLUME_METADATA;
     }
+    private static final int FSCTL_SET_INTEGRITY_INFORMATION_EX = (int)590720L;
     /**
-     * {@snippet :
-     * #define MEM_REPLACE_PLACEHOLDER 16384
+     * {@snippet lang=c :
+     * #define FSCTL_SET_INTEGRITY_INFORMATION_EX 590720
      * }
      */
-    public static int MEM_REPLACE_PLACEHOLDER() {
-        return (int)16384L;
+    public static int FSCTL_SET_INTEGRITY_INFORMATION_EX() {
+        return FSCTL_SET_INTEGRITY_INFORMATION_EX;
     }
+    private static final int FSCTL_SUSPEND_OVERLAY = (int)590724L;
     /**
-     * {@snippet :
-     * #define MEM_RESERVE_PLACEHOLDER 262144
+     * {@snippet lang=c :
+     * #define FSCTL_SUSPEND_OVERLAY 590724
      * }
      */
-    public static int MEM_RESERVE_PLACEHOLDER() {
-        return (int)262144L;
+    public static int FSCTL_SUSPEND_OVERLAY() {
+        return FSCTL_SUSPEND_OVERLAY;
     }
+    private static final int FSCTL_VIRTUAL_STORAGE_QUERY_PROPERTY = (int)590728L;
     /**
-     * {@snippet :
-     * #define MEM_RESET 524288
+     * {@snippet lang=c :
+     * #define FSCTL_VIRTUAL_STORAGE_QUERY_PROPERTY 590728
      * }
      */
-    public static int MEM_RESET() {
-        return (int)524288L;
+    public static int FSCTL_VIRTUAL_STORAGE_QUERY_PROPERTY() {
+        return FSCTL_VIRTUAL_STORAGE_QUERY_PROPERTY;
     }
+    private static final int FSCTL_FILESYSTEM_GET_STATISTICS_EX = (int)590732L;
     /**
-     * {@snippet :
-     * #define MEM_TOP_DOWN 1048576
+     * {@snippet lang=c :
+     * #define FSCTL_FILESYSTEM_GET_STATISTICS_EX 590732
      * }
      */
-    public static int MEM_TOP_DOWN() {
-        return (int)1048576L;
+    public static int FSCTL_FILESYSTEM_GET_STATISTICS_EX() {
+        return FSCTL_FILESYSTEM_GET_STATISTICS_EX;
     }
+    private static final int FSCTL_QUERY_VOLUME_CONTAINER_STATE = (int)590736L;
     /**
-     * {@snippet :
-     * #define MEM_WRITE_WATCH 2097152
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_VOLUME_CONTAINER_STATE 590736
      * }
      */
-    public static int MEM_WRITE_WATCH() {
-        return (int)2097152L;
+    public static int FSCTL_QUERY_VOLUME_CONTAINER_STATE() {
+        return FSCTL_QUERY_VOLUME_CONTAINER_STATE;
     }
+    private static final int FSCTL_SET_LAYER_ROOT = (int)590740L;
     /**
-     * {@snippet :
-     * #define MEM_PHYSICAL 4194304
+     * {@snippet lang=c :
+     * #define FSCTL_SET_LAYER_ROOT 590740
      * }
      */
-    public static int MEM_PHYSICAL() {
-        return (int)4194304L;
+    public static int FSCTL_SET_LAYER_ROOT() {
+        return FSCTL_SET_LAYER_ROOT;
     }
+    private static final int FSCTL_QUERY_DIRECT_ACCESS_EXTENTS = (int)590747L;
     /**
-     * {@snippet :
-     * #define MEM_ROTATE 8388608
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_DIRECT_ACCESS_EXTENTS 590747
      * }
      */
-    public static int MEM_ROTATE() {
-        return (int)8388608L;
+    public static int FSCTL_QUERY_DIRECT_ACCESS_EXTENTS() {
+        return FSCTL_QUERY_DIRECT_ACCESS_EXTENTS;
     }
+    private static final int FSCTL_NOTIFY_STORAGE_SPACE_ALLOCATION = (int)590748L;
     /**
-     * {@snippet :
-     * #define MEM_DIFFERENT_IMAGE_BASE_OK 8388608
+     * {@snippet lang=c :
+     * #define FSCTL_NOTIFY_STORAGE_SPACE_ALLOCATION 590748
      * }
      */
-    public static int MEM_DIFFERENT_IMAGE_BASE_OK() {
-        return (int)8388608L;
+    public static int FSCTL_NOTIFY_STORAGE_SPACE_ALLOCATION() {
+        return FSCTL_NOTIFY_STORAGE_SPACE_ALLOCATION;
     }
+    private static final int FSCTL_SSDI_STORAGE_REQUEST = (int)590752L;
     /**
-     * {@snippet :
-     * #define MEM_RESET_UNDO 16777216
+     * {@snippet lang=c :
+     * #define FSCTL_SSDI_STORAGE_REQUEST 590752
      * }
      */
-    public static int MEM_RESET_UNDO() {
-        return (int)16777216L;
+    public static int FSCTL_SSDI_STORAGE_REQUEST() {
+        return FSCTL_SSDI_STORAGE_REQUEST;
     }
+    private static final int FSCTL_QUERY_DIRECT_IMAGE_ORIGINAL_BASE = (int)590756L;
     /**
-     * {@snippet :
-     * #define MEM_LARGE_PAGES 536870912
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_DIRECT_IMAGE_ORIGINAL_BASE 590756
      * }
      */
-    public static int MEM_LARGE_PAGES() {
-        return (int)536870912L;
+    public static int FSCTL_QUERY_DIRECT_IMAGE_ORIGINAL_BASE() {
+        return FSCTL_QUERY_DIRECT_IMAGE_ORIGINAL_BASE;
     }
+    private static final int FSCTL_READ_UNPRIVILEGED_USN_JOURNAL = (int)590763L;
     /**
-     * {@snippet :
-     * #define MEM_UNMAP_WITH_TRANSIENT_BOOST 1
+     * {@snippet lang=c :
+     * #define FSCTL_READ_UNPRIVILEGED_USN_JOURNAL 590763
      * }
      */
-    public static int MEM_UNMAP_WITH_TRANSIENT_BOOST() {
-        return (int)1L;
+    public static int FSCTL_READ_UNPRIVILEGED_USN_JOURNAL() {
+        return FSCTL_READ_UNPRIVILEGED_USN_JOURNAL;
     }
+    private static final int FSCTL_GHOST_FILE_EXTENTS = (int)623532L;
     /**
-     * {@snippet :
-     * #define MEM_COALESCE_PLACEHOLDERS 1
+     * {@snippet lang=c :
+     * #define FSCTL_GHOST_FILE_EXTENTS 623532
      * }
      */
-    public static int MEM_COALESCE_PLACEHOLDERS() {
-        return (int)1L;
+    public static int FSCTL_GHOST_FILE_EXTENTS() {
+        return FSCTL_GHOST_FILE_EXTENTS;
     }
+    private static final int FSCTL_QUERY_GHOSTED_FILE_EXTENTS = (int)590768L;
     /**
-     * {@snippet :
-     * #define MEM_PRESERVE_PLACEHOLDER 2
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_GHOSTED_FILE_EXTENTS 590768
      * }
      */
-    public static int MEM_PRESERVE_PLACEHOLDER() {
-        return (int)2L;
+    public static int FSCTL_QUERY_GHOSTED_FILE_EXTENTS() {
+        return FSCTL_QUERY_GHOSTED_FILE_EXTENTS;
     }
+    private static final int FSCTL_UNMAP_SPACE = (int)590772L;
     /**
-     * {@snippet :
-     * #define MEM_DECOMMIT 16384
+     * {@snippet lang=c :
+     * #define FSCTL_UNMAP_SPACE 590772
      * }
      */
-    public static int MEM_DECOMMIT() {
-        return (int)16384L;
+    public static int FSCTL_UNMAP_SPACE() {
+        return FSCTL_UNMAP_SPACE;
     }
+    private static final int FSCTL_HCS_SYNC_NO_WRITE_TUNNEL_REQUEST = (int)590776L;
     /**
-     * {@snippet :
-     * #define MEM_RELEASE 32768
+     * {@snippet lang=c :
+     * #define FSCTL_HCS_SYNC_NO_WRITE_TUNNEL_REQUEST 590776
      * }
      */
-    public static int MEM_RELEASE() {
-        return (int)32768L;
+    public static int FSCTL_HCS_SYNC_NO_WRITE_TUNNEL_REQUEST() {
+        return FSCTL_HCS_SYNC_NO_WRITE_TUNNEL_REQUEST;
     }
+    private static final int FSCTL_START_VIRTUALIZATION_INSTANCE = (int)590784L;
     /**
-     * {@snippet :
-     * #define MEM_FREE 65536
+     * {@snippet lang=c :
+     * #define FSCTL_START_VIRTUALIZATION_INSTANCE 590784
      * }
      */
-    public static int MEM_FREE() {
-        return (int)65536L;
+    public static int FSCTL_START_VIRTUALIZATION_INSTANCE() {
+        return FSCTL_START_VIRTUALIZATION_INSTANCE;
     }
+    private static final int FSCTL_GET_FILTER_FILE_IDENTIFIER = (int)590788L;
     /**
-     * {@snippet :
-     * #define MEM_EXTENDED_PARAMETER_GRAPHICS 1
+     * {@snippet lang=c :
+     * #define FSCTL_GET_FILTER_FILE_IDENTIFIER 590788
      * }
      */
-    public static int MEM_EXTENDED_PARAMETER_GRAPHICS() {
-        return (int)1L;
+    public static int FSCTL_GET_FILTER_FILE_IDENTIFIER() {
+        return FSCTL_GET_FILTER_FILE_IDENTIFIER;
     }
+    private static final int FSCTL_STREAMS_QUERY_PARAMETERS = (int)590788L;
     /**
-     * {@snippet :
-     * #define MEM_EXTENDED_PARAMETER_NONPAGED 2
+     * {@snippet lang=c :
+     * #define FSCTL_STREAMS_QUERY_PARAMETERS 590788
      * }
      */
-    public static int MEM_EXTENDED_PARAMETER_NONPAGED() {
-        return (int)2L;
+    public static int FSCTL_STREAMS_QUERY_PARAMETERS() {
+        return FSCTL_STREAMS_QUERY_PARAMETERS;
     }
+    private static final int FSCTL_STREAMS_ASSOCIATE_ID = (int)590792L;
     /**
-     * {@snippet :
-     * #define MEM_EXTENDED_PARAMETER_ZERO_PAGES_OPTIONAL 4
+     * {@snippet lang=c :
+     * #define FSCTL_STREAMS_ASSOCIATE_ID 590792
      * }
      */
-    public static int MEM_EXTENDED_PARAMETER_ZERO_PAGES_OPTIONAL() {
-        return (int)4L;
+    public static int FSCTL_STREAMS_ASSOCIATE_ID() {
+        return FSCTL_STREAMS_ASSOCIATE_ID;
     }
+    private static final int FSCTL_STREAMS_QUERY_ID = (int)590796L;
     /**
-     * {@snippet :
-     * #define MEM_EXTENDED_PARAMETER_NONPAGED_LARGE 8
+     * {@snippet lang=c :
+     * #define FSCTL_STREAMS_QUERY_ID 590796
      * }
      */
-    public static int MEM_EXTENDED_PARAMETER_NONPAGED_LARGE() {
-        return (int)8L;
+    public static int FSCTL_STREAMS_QUERY_ID() {
+        return FSCTL_STREAMS_QUERY_ID;
     }
+    private static final int FSCTL_GET_RETRIEVAL_POINTERS_AND_REFCOUNT = (int)590803L;
     /**
-     * {@snippet :
-     * #define MEM_EXTENDED_PARAMETER_NONPAGED_HUGE 16
+     * {@snippet lang=c :
+     * #define FSCTL_GET_RETRIEVAL_POINTERS_AND_REFCOUNT 590803
      * }
      */
-    public static int MEM_EXTENDED_PARAMETER_NONPAGED_HUGE() {
-        return (int)16L;
+    public static int FSCTL_GET_RETRIEVAL_POINTERS_AND_REFCOUNT() {
+        return FSCTL_GET_RETRIEVAL_POINTERS_AND_REFCOUNT;
     }
+    private static final int FSCTL_QUERY_VOLUME_NUMA_INFO = (int)590804L;
     /**
-     * {@snippet :
-     * #define MEM_EXTENDED_PARAMETER_SOFT_FAULT_PAGES 32
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_VOLUME_NUMA_INFO 590804
      * }
      */
-    public static int MEM_EXTENDED_PARAMETER_SOFT_FAULT_PAGES() {
-        return (int)32L;
+    public static int FSCTL_QUERY_VOLUME_NUMA_INFO() {
+        return FSCTL_QUERY_VOLUME_NUMA_INFO;
     }
+    private static final int FSCTL_REFS_DEALLOCATE_RANGES = (int)590808L;
     /**
-     * {@snippet :
-     * #define MEM_EXTENDED_PARAMETER_EC_CODE 64
+     * {@snippet lang=c :
+     * #define FSCTL_REFS_DEALLOCATE_RANGES 590808
      * }
      */
-    public static int MEM_EXTENDED_PARAMETER_EC_CODE() {
-        return (int)64L;
+    public static int FSCTL_REFS_DEALLOCATE_RANGES() {
+        return FSCTL_REFS_DEALLOCATE_RANGES;
     }
+    private static final int FSCTL_QUERY_REFS_SMR_VOLUME_INFO = (int)590812L;
     /**
-     * {@snippet :
-     * #define MEM_EXTENDED_PARAMETER_TYPE_BITS 8
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_REFS_SMR_VOLUME_INFO 590812
      * }
      */
-    public static int MEM_EXTENDED_PARAMETER_TYPE_BITS() {
-        return (int)8L;
+    public static int FSCTL_QUERY_REFS_SMR_VOLUME_INFO() {
+        return FSCTL_QUERY_REFS_SMR_VOLUME_INFO;
     }
+    private static final int FSCTL_SET_REFS_SMR_VOLUME_GC_PARAMETERS = (int)590816L;
     /**
-     * {@snippet :
-     * #define SEC_HUGE_PAGES 131072
+     * {@snippet lang=c :
+     * #define FSCTL_SET_REFS_SMR_VOLUME_GC_PARAMETERS 590816
      * }
      */
-    public static int SEC_HUGE_PAGES() {
-        return (int)131072L;
+    public static int FSCTL_SET_REFS_SMR_VOLUME_GC_PARAMETERS() {
+        return FSCTL_SET_REFS_SMR_VOLUME_GC_PARAMETERS;
     }
+    private static final int FSCTL_SET_REFS_FILE_STRICTLY_SEQUENTIAL = (int)590820L;
     /**
-     * {@snippet :
-     * #define SEC_PARTITION_OWNER_HANDLE 262144
+     * {@snippet lang=c :
+     * #define FSCTL_SET_REFS_FILE_STRICTLY_SEQUENTIAL 590820
      * }
      */
-    public static int SEC_PARTITION_OWNER_HANDLE() {
-        return (int)262144L;
+    public static int FSCTL_SET_REFS_FILE_STRICTLY_SEQUENTIAL() {
+        return FSCTL_SET_REFS_FILE_STRICTLY_SEQUENTIAL;
     }
+    private static final int FSCTL_DUPLICATE_EXTENTS_TO_FILE_EX = (int)623592L;
     /**
-     * {@snippet :
-     * #define SEC_64K_PAGES 524288
+     * {@snippet lang=c :
+     * #define FSCTL_DUPLICATE_EXTENTS_TO_FILE_EX 623592
      * }
      */
-    public static int SEC_64K_PAGES() {
-        return (int)524288L;
+    public static int FSCTL_DUPLICATE_EXTENTS_TO_FILE_EX() {
+        return FSCTL_DUPLICATE_EXTENTS_TO_FILE_EX;
     }
+    private static final int FSCTL_QUERY_BAD_RANGES = (int)590828L;
     /**
-     * {@snippet :
-     * #define SEC_FILE 8388608
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_BAD_RANGES 590828
      * }
      */
-    public static int SEC_FILE() {
-        return (int)8388608L;
+    public static int FSCTL_QUERY_BAD_RANGES() {
+        return FSCTL_QUERY_BAD_RANGES;
     }
+    private static final int FSCTL_SET_DAX_ALLOC_ALIGNMENT_HINT = (int)590832L;
     /**
-     * {@snippet :
-     * #define SEC_IMAGE 16777216
+     * {@snippet lang=c :
+     * #define FSCTL_SET_DAX_ALLOC_ALIGNMENT_HINT 590832
      * }
      */
-    public static int SEC_IMAGE() {
-        return (int)16777216L;
+    public static int FSCTL_SET_DAX_ALLOC_ALIGNMENT_HINT() {
+        return FSCTL_SET_DAX_ALLOC_ALIGNMENT_HINT;
     }
+    private static final int FSCTL_DELETE_CORRUPTED_REFS_CONTAINER = (int)590836L;
     /**
-     * {@snippet :
-     * #define SEC_PROTECTED_IMAGE 33554432
+     * {@snippet lang=c :
+     * #define FSCTL_DELETE_CORRUPTED_REFS_CONTAINER 590836
      * }
      */
-    public static int SEC_PROTECTED_IMAGE() {
-        return (int)33554432L;
+    public static int FSCTL_DELETE_CORRUPTED_REFS_CONTAINER() {
+        return FSCTL_DELETE_CORRUPTED_REFS_CONTAINER;
     }
+    private static final int FSCTL_SCRUB_UNDISCOVERABLE_ID = (int)590840L;
     /**
-     * {@snippet :
-     * #define SEC_RESERVE 67108864
+     * {@snippet lang=c :
+     * #define FSCTL_SCRUB_UNDISCOVERABLE_ID 590840
      * }
      */
-    public static int SEC_RESERVE() {
-        return (int)67108864L;
+    public static int FSCTL_SCRUB_UNDISCOVERABLE_ID() {
+        return FSCTL_SCRUB_UNDISCOVERABLE_ID;
     }
+    private static final int FSCTL_NOTIFY_DATA_CHANGE = (int)590844L;
     /**
-     * {@snippet :
-     * #define SEC_COMMIT 134217728
+     * {@snippet lang=c :
+     * #define FSCTL_NOTIFY_DATA_CHANGE 590844
      * }
      */
-    public static int SEC_COMMIT() {
-        return (int)134217728L;
+    public static int FSCTL_NOTIFY_DATA_CHANGE() {
+        return FSCTL_NOTIFY_DATA_CHANGE;
     }
+    private static final int FSCTL_START_VIRTUALIZATION_INSTANCE_EX = (int)590848L;
     /**
-     * {@snippet :
-     * #define SEC_NOCACHE 268435456
+     * {@snippet lang=c :
+     * #define FSCTL_START_VIRTUALIZATION_INSTANCE_EX 590848
      * }
      */
-    public static int SEC_NOCACHE() {
-        return (int)268435456L;
+    public static int FSCTL_START_VIRTUALIZATION_INSTANCE_EX() {
+        return FSCTL_START_VIRTUALIZATION_INSTANCE_EX;
     }
+    private static final int FSCTL_ENCRYPTION_KEY_CONTROL = (int)590852L;
     /**
-     * {@snippet :
-     * #define SEC_WRITECOMBINE 1073741824
+     * {@snippet lang=c :
+     * #define FSCTL_ENCRYPTION_KEY_CONTROL 590852
      * }
      */
-    public static int SEC_WRITECOMBINE() {
-        return (int)1073741824L;
+    public static int FSCTL_ENCRYPTION_KEY_CONTROL() {
+        return FSCTL_ENCRYPTION_KEY_CONTROL;
     }
+    private static final int FSCTL_VIRTUAL_STORAGE_SET_BEHAVIOR = (int)590856L;
     /**
-     * {@snippet :
-     * #define MEM_PRIVATE 131072
+     * {@snippet lang=c :
+     * #define FSCTL_VIRTUAL_STORAGE_SET_BEHAVIOR 590856
      * }
      */
-    public static int MEM_PRIVATE() {
-        return (int)131072L;
+    public static int FSCTL_VIRTUAL_STORAGE_SET_BEHAVIOR() {
+        return FSCTL_VIRTUAL_STORAGE_SET_BEHAVIOR;
     }
+    private static final int FSCTL_SET_REPARSE_POINT_EX = (int)590860L;
     /**
-     * {@snippet :
-     * #define MEM_MAPPED 262144
+     * {@snippet lang=c :
+     * #define FSCTL_SET_REPARSE_POINT_EX 590860
      * }
      */
-    public static int MEM_MAPPED() {
-        return (int)262144L;
+    public static int FSCTL_SET_REPARSE_POINT_EX() {
+        return FSCTL_SET_REPARSE_POINT_EX;
     }
+    private static final int FSCTL_REARRANGE_FILE = (int)640032L;
     /**
-     * {@snippet :
-     * #define MEM_IMAGE 16777216
+     * {@snippet lang=c :
+     * #define FSCTL_REARRANGE_FILE 640032
      * }
      */
-    public static int MEM_IMAGE() {
-        return (int)16777216L;
+    public static int FSCTL_REARRANGE_FILE() {
+        return FSCTL_REARRANGE_FILE;
     }
+    private static final int FSCTL_VIRTUAL_STORAGE_PASSTHROUGH = (int)590884L;
     /**
-     * {@snippet :
-     * #define WRITE_WATCH_FLAG_RESET 1
+     * {@snippet lang=c :
+     * #define FSCTL_VIRTUAL_STORAGE_PASSTHROUGH 590884
      * }
      */
-    public static int WRITE_WATCH_FLAG_RESET() {
-        return (int)1L;
+    public static int FSCTL_VIRTUAL_STORAGE_PASSTHROUGH() {
+        return FSCTL_VIRTUAL_STORAGE_PASSTHROUGH;
     }
+    private static final int FSCTL_GET_RETRIEVAL_POINTER_COUNT = (int)590891L;
     /**
-     * {@snippet :
-     * #define ENCLAVE_TYPE_SGX 1
+     * {@snippet lang=c :
+     * #define FSCTL_GET_RETRIEVAL_POINTER_COUNT 590891
      * }
      */
-    public static int ENCLAVE_TYPE_SGX() {
-        return (int)1L;
+    public static int FSCTL_GET_RETRIEVAL_POINTER_COUNT() {
+        return FSCTL_GET_RETRIEVAL_POINTER_COUNT;
     }
+    private static final int FSCTL_ENABLE_PER_IO_FLAGS = (int)590892L;
     /**
-     * {@snippet :
-     * #define ENCLAVE_TYPE_SGX2 2
+     * {@snippet lang=c :
+     * #define FSCTL_ENABLE_PER_IO_FLAGS 590892
      * }
      */
-    public static int ENCLAVE_TYPE_SGX2() {
-        return (int)2L;
+    public static int FSCTL_ENABLE_PER_IO_FLAGS() {
+        return FSCTL_ENABLE_PER_IO_FLAGS;
     }
+    private static final int FSCTL_QUERY_ASYNC_DUPLICATE_EXTENTS_STATUS = (int)590896L;
     /**
-     * {@snippet :
-     * #define ENCLAVE_TYPE_VBS 16
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_ASYNC_DUPLICATE_EXTENTS_STATUS 590896
      * }
      */
-    public static int ENCLAVE_TYPE_VBS() {
-        return (int)16L;
+    public static int FSCTL_QUERY_ASYNC_DUPLICATE_EXTENTS_STATUS() {
+        return FSCTL_QUERY_ASYNC_DUPLICATE_EXTENTS_STATUS;
     }
+    private static final int FSCTL_SMB_SHARE_FLUSH_AND_PURGE = (int)590908L;
     /**
-     * {@snippet :
-     * #define ENCLAVE_VBS_FLAG_DEBUG 1
+     * {@snippet lang=c :
+     * #define FSCTL_SMB_SHARE_FLUSH_AND_PURGE 590908
      * }
      */
-    public static int ENCLAVE_VBS_FLAG_DEBUG() {
-        return (int)1L;
+    public static int FSCTL_SMB_SHARE_FLUSH_AND_PURGE() {
+        return FSCTL_SMB_SHARE_FLUSH_AND_PURGE;
     }
+    private static final int FSCTL_REFS_STREAM_SNAPSHOT_MANAGEMENT = (int)590912L;
     /**
-     * {@snippet :
-     * #define ENCLAVE_TYPE_VBS_BASIC 17
+     * {@snippet lang=c :
+     * #define FSCTL_REFS_STREAM_SNAPSHOT_MANAGEMENT 590912
      * }
      */
-    public static int ENCLAVE_TYPE_VBS_BASIC() {
-        return (int)17L;
+    public static int FSCTL_REFS_STREAM_SNAPSHOT_MANAGEMENT() {
+        return FSCTL_REFS_STREAM_SNAPSHOT_MANAGEMENT;
     }
+    private static final int FSCTL_MANAGE_BYPASS_IO = (int)590920L;
     /**
-     * {@snippet :
-     * #define VBS_BASIC_PAGE_MEASURED_DATA 1
+     * {@snippet lang=c :
+     * #define FSCTL_MANAGE_BYPASS_IO 590920
      * }
      */
-    public static int VBS_BASIC_PAGE_MEASURED_DATA() {
-        return (int)1L;
+    public static int FSCTL_MANAGE_BYPASS_IO() {
+        return FSCTL_MANAGE_BYPASS_IO;
     }
+    private static final int FSCTL_LMR_QUERY_INFO = (int)590968L;
     /**
-     * {@snippet :
-     * #define VBS_BASIC_PAGE_UNMEASURED_DATA 2
+     * {@snippet lang=c :
+     * #define FSCTL_LMR_QUERY_INFO 590968
      * }
      */
-    public static int VBS_BASIC_PAGE_UNMEASURED_DATA() {
-        return (int)2L;
+    public static int FSCTL_LMR_QUERY_INFO() {
+        return FSCTL_LMR_QUERY_INFO;
     }
+    private static final int USN_PAGE_SIZE = (int)4096L;
     /**
-     * {@snippet :
-     * #define VBS_BASIC_PAGE_ZERO_FILL 3
+     * {@snippet lang=c :
+     * #define USN_PAGE_SIZE 4096
      * }
      */
-    public static int VBS_BASIC_PAGE_ZERO_FILL() {
-        return (int)3L;
+    public static int USN_PAGE_SIZE() {
+        return USN_PAGE_SIZE;
     }
+    private static final int USN_REASON_DATA_OVERWRITE = (int)1L;
     /**
-     * {@snippet :
-     * #define VBS_BASIC_PAGE_THREAD_DESCRIPTOR 4
+     * {@snippet lang=c :
+     * #define USN_REASON_DATA_OVERWRITE 1
      * }
      */
-    public static int VBS_BASIC_PAGE_THREAD_DESCRIPTOR() {
-        return (int)4L;
+    public static int USN_REASON_DATA_OVERWRITE() {
+        return USN_REASON_DATA_OVERWRITE;
     }
+    private static final int USN_REASON_DATA_EXTEND = (int)2L;
     /**
-     * {@snippet :
-     * #define VBS_BASIC_PAGE_SYSTEM_CALL 5
+     * {@snippet lang=c :
+     * #define USN_REASON_DATA_EXTEND 2
      * }
      */
-    public static int VBS_BASIC_PAGE_SYSTEM_CALL() {
-        return (int)5L;
+    public static int USN_REASON_DATA_EXTEND() {
+        return USN_REASON_DATA_EXTEND;
     }
+    private static final int USN_REASON_DATA_TRUNCATION = (int)4L;
     /**
-     * {@snippet :
-     * #define DEDICATED_MEMORY_CACHE_ELIGIBLE 1
+     * {@snippet lang=c :
+     * #define USN_REASON_DATA_TRUNCATION 4
      * }
      */
-    public static int DEDICATED_MEMORY_CACHE_ELIGIBLE() {
-        return (int)1L;
+    public static int USN_REASON_DATA_TRUNCATION() {
+        return USN_REASON_DATA_TRUNCATION;
     }
+    private static final int USN_REASON_NAMED_DATA_OVERWRITE = (int)16L;
     /**
-     * {@snippet :
-     * #define FILE_SHARE_READ 1
+     * {@snippet lang=c :
+     * #define USN_REASON_NAMED_DATA_OVERWRITE 16
      * }
      */
-    public static int FILE_SHARE_READ() {
-        return (int)1L;
+    public static int USN_REASON_NAMED_DATA_OVERWRITE() {
+        return USN_REASON_NAMED_DATA_OVERWRITE;
     }
+    private static final int USN_REASON_NAMED_DATA_EXTEND = (int)32L;
     /**
-     * {@snippet :
-     * #define FILE_SHARE_WRITE 2
+     * {@snippet lang=c :
+     * #define USN_REASON_NAMED_DATA_EXTEND 32
      * }
      */
-    public static int FILE_SHARE_WRITE() {
-        return (int)2L;
+    public static int USN_REASON_NAMED_DATA_EXTEND() {
+        return USN_REASON_NAMED_DATA_EXTEND;
     }
+    private static final int USN_REASON_NAMED_DATA_TRUNCATION = (int)64L;
     /**
-     * {@snippet :
-     * #define FILE_SHARE_DELETE 4
+     * {@snippet lang=c :
+     * #define USN_REASON_NAMED_DATA_TRUNCATION 64
      * }
      */
-    public static int FILE_SHARE_DELETE() {
-        return (int)4L;
+    public static int USN_REASON_NAMED_DATA_TRUNCATION() {
+        return USN_REASON_NAMED_DATA_TRUNCATION;
     }
+    private static final int USN_REASON_FILE_CREATE = (int)256L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_READONLY 1
+     * {@snippet lang=c :
+     * #define USN_REASON_FILE_CREATE 256
      * }
      */
-    public static int FILE_ATTRIBUTE_READONLY() {
-        return (int)1L;
+    public static int USN_REASON_FILE_CREATE() {
+        return USN_REASON_FILE_CREATE;
     }
+    private static final int USN_REASON_FILE_DELETE = (int)512L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_HIDDEN 2
+     * {@snippet lang=c :
+     * #define USN_REASON_FILE_DELETE 512
      * }
      */
-    public static int FILE_ATTRIBUTE_HIDDEN() {
-        return (int)2L;
+    public static int USN_REASON_FILE_DELETE() {
+        return USN_REASON_FILE_DELETE;
     }
+    private static final int USN_REASON_EA_CHANGE = (int)1024L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_SYSTEM 4
+     * {@snippet lang=c :
+     * #define USN_REASON_EA_CHANGE 1024
      * }
      */
-    public static int FILE_ATTRIBUTE_SYSTEM() {
-        return (int)4L;
+    public static int USN_REASON_EA_CHANGE() {
+        return USN_REASON_EA_CHANGE;
     }
+    private static final int USN_REASON_SECURITY_CHANGE = (int)2048L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_DIRECTORY 16
+     * {@snippet lang=c :
+     * #define USN_REASON_SECURITY_CHANGE 2048
      * }
      */
-    public static int FILE_ATTRIBUTE_DIRECTORY() {
-        return (int)16L;
+    public static int USN_REASON_SECURITY_CHANGE() {
+        return USN_REASON_SECURITY_CHANGE;
     }
+    private static final int USN_REASON_RENAME_OLD_NAME = (int)4096L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_ARCHIVE 32
+     * {@snippet lang=c :
+     * #define USN_REASON_RENAME_OLD_NAME 4096
      * }
      */
-    public static int FILE_ATTRIBUTE_ARCHIVE() {
-        return (int)32L;
+    public static int USN_REASON_RENAME_OLD_NAME() {
+        return USN_REASON_RENAME_OLD_NAME;
     }
+    private static final int USN_REASON_RENAME_NEW_NAME = (int)8192L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_DEVICE 64
+     * {@snippet lang=c :
+     * #define USN_REASON_RENAME_NEW_NAME 8192
      * }
      */
-    public static int FILE_ATTRIBUTE_DEVICE() {
-        return (int)64L;
+    public static int USN_REASON_RENAME_NEW_NAME() {
+        return USN_REASON_RENAME_NEW_NAME;
     }
+    private static final int USN_REASON_INDEXABLE_CHANGE = (int)16384L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_NORMAL 128
+     * {@snippet lang=c :
+     * #define USN_REASON_INDEXABLE_CHANGE 16384
      * }
      */
-    public static int FILE_ATTRIBUTE_NORMAL() {
-        return (int)128L;
+    public static int USN_REASON_INDEXABLE_CHANGE() {
+        return USN_REASON_INDEXABLE_CHANGE;
     }
+    private static final int USN_REASON_BASIC_INFO_CHANGE = (int)32768L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_TEMPORARY 256
+     * {@snippet lang=c :
+     * #define USN_REASON_BASIC_INFO_CHANGE 32768
      * }
      */
-    public static int FILE_ATTRIBUTE_TEMPORARY() {
-        return (int)256L;
+    public static int USN_REASON_BASIC_INFO_CHANGE() {
+        return USN_REASON_BASIC_INFO_CHANGE;
     }
+    private static final int USN_REASON_HARD_LINK_CHANGE = (int)65536L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_SPARSE_FILE 512
+     * {@snippet lang=c :
+     * #define USN_REASON_HARD_LINK_CHANGE 65536
      * }
      */
-    public static int FILE_ATTRIBUTE_SPARSE_FILE() {
-        return (int)512L;
+    public static int USN_REASON_HARD_LINK_CHANGE() {
+        return USN_REASON_HARD_LINK_CHANGE;
     }
+    private static final int USN_REASON_COMPRESSION_CHANGE = (int)131072L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_REPARSE_POINT 1024
+     * {@snippet lang=c :
+     * #define USN_REASON_COMPRESSION_CHANGE 131072
      * }
      */
-    public static int FILE_ATTRIBUTE_REPARSE_POINT() {
-        return (int)1024L;
+    public static int USN_REASON_COMPRESSION_CHANGE() {
+        return USN_REASON_COMPRESSION_CHANGE;
     }
+    private static final int USN_REASON_ENCRYPTION_CHANGE = (int)262144L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_COMPRESSED 2048
+     * {@snippet lang=c :
+     * #define USN_REASON_ENCRYPTION_CHANGE 262144
      * }
      */
-    public static int FILE_ATTRIBUTE_COMPRESSED() {
-        return (int)2048L;
+    public static int USN_REASON_ENCRYPTION_CHANGE() {
+        return USN_REASON_ENCRYPTION_CHANGE;
     }
+    private static final int USN_REASON_OBJECT_ID_CHANGE = (int)524288L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_OFFLINE 4096
+     * {@snippet lang=c :
+     * #define USN_REASON_OBJECT_ID_CHANGE 524288
      * }
      */
-    public static int FILE_ATTRIBUTE_OFFLINE() {
-        return (int)4096L;
+    public static int USN_REASON_OBJECT_ID_CHANGE() {
+        return USN_REASON_OBJECT_ID_CHANGE;
     }
+    private static final int USN_REASON_REPARSE_POINT_CHANGE = (int)1048576L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_NOT_CONTENT_INDEXED 8192
+     * {@snippet lang=c :
+     * #define USN_REASON_REPARSE_POINT_CHANGE 1048576
      * }
      */
-    public static int FILE_ATTRIBUTE_NOT_CONTENT_INDEXED() {
-        return (int)8192L;
+    public static int USN_REASON_REPARSE_POINT_CHANGE() {
+        return USN_REASON_REPARSE_POINT_CHANGE;
     }
+    private static final int USN_REASON_STREAM_CHANGE = (int)2097152L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_ENCRYPTED 16384
+     * {@snippet lang=c :
+     * #define USN_REASON_STREAM_CHANGE 2097152
      * }
      */
-    public static int FILE_ATTRIBUTE_ENCRYPTED() {
-        return (int)16384L;
+    public static int USN_REASON_STREAM_CHANGE() {
+        return USN_REASON_STREAM_CHANGE;
     }
+    private static final int USN_REASON_TRANSACTED_CHANGE = (int)4194304L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_INTEGRITY_STREAM 32768
+     * {@snippet lang=c :
+     * #define USN_REASON_TRANSACTED_CHANGE 4194304
      * }
      */
-    public static int FILE_ATTRIBUTE_INTEGRITY_STREAM() {
-        return (int)32768L;
+    public static int USN_REASON_TRANSACTED_CHANGE() {
+        return USN_REASON_TRANSACTED_CHANGE;
     }
+    private static final int USN_REASON_INTEGRITY_CHANGE = (int)8388608L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_VIRTUAL 65536
+     * {@snippet lang=c :
+     * #define USN_REASON_INTEGRITY_CHANGE 8388608
      * }
      */
-    public static int FILE_ATTRIBUTE_VIRTUAL() {
-        return (int)65536L;
+    public static int USN_REASON_INTEGRITY_CHANGE() {
+        return USN_REASON_INTEGRITY_CHANGE;
     }
+    private static final int USN_REASON_DESIRED_STORAGE_CLASS_CHANGE = (int)16777216L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_NO_SCRUB_DATA 131072
+     * {@snippet lang=c :
+     * #define USN_REASON_DESIRED_STORAGE_CLASS_CHANGE 16777216
      * }
      */
-    public static int FILE_ATTRIBUTE_NO_SCRUB_DATA() {
-        return (int)131072L;
+    public static int USN_REASON_DESIRED_STORAGE_CLASS_CHANGE() {
+        return USN_REASON_DESIRED_STORAGE_CLASS_CHANGE;
     }
+    private static final int USN_REASON_CLOSE = (int)2147483648L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_EA 262144
+     * {@snippet lang=c :
+     * #define USN_REASON_CLOSE 2147483648
      * }
      */
-    public static int FILE_ATTRIBUTE_EA() {
-        return (int)262144L;
+    public static int USN_REASON_CLOSE() {
+        return USN_REASON_CLOSE;
     }
+    private static final int USN_DELETE_FLAG_DELETE = (int)1L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_PINNED 524288
+     * {@snippet lang=c :
+     * #define USN_DELETE_FLAG_DELETE 1
      * }
      */
-    public static int FILE_ATTRIBUTE_PINNED() {
-        return (int)524288L;
+    public static int USN_DELETE_FLAG_DELETE() {
+        return USN_DELETE_FLAG_DELETE;
     }
+    private static final int USN_DELETE_FLAG_NOTIFY = (int)2L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_UNPINNED 1048576
+     * {@snippet lang=c :
+     * #define USN_DELETE_FLAG_NOTIFY 2
      * }
      */
-    public static int FILE_ATTRIBUTE_UNPINNED() {
-        return (int)1048576L;
+    public static int USN_DELETE_FLAG_NOTIFY() {
+        return USN_DELETE_FLAG_NOTIFY;
     }
+    private static final int USN_DELETE_VALID_FLAGS = (int)3L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_RECALL_ON_OPEN 262144
+     * {@snippet lang=c :
+     * #define USN_DELETE_VALID_FLAGS 3
      * }
      */
-    public static int FILE_ATTRIBUTE_RECALL_ON_OPEN() {
-        return (int)262144L;
+    public static int USN_DELETE_VALID_FLAGS() {
+        return USN_DELETE_VALID_FLAGS;
     }
+    private static final int USN_SOURCE_DATA_MANAGEMENT = (int)1L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_RECALL_ON_DATA_ACCESS 4194304
+     * {@snippet lang=c :
+     * #define USN_SOURCE_DATA_MANAGEMENT 1
      * }
      */
-    public static int FILE_ATTRIBUTE_RECALL_ON_DATA_ACCESS() {
-        return (int)4194304L;
+    public static int USN_SOURCE_DATA_MANAGEMENT() {
+        return USN_SOURCE_DATA_MANAGEMENT;
     }
+    private static final int USN_SOURCE_AUXILIARY_DATA = (int)2L;
     /**
-     * {@snippet :
-     * #define TREE_CONNECT_ATTRIBUTE_PRIVACY 16384
+     * {@snippet lang=c :
+     * #define USN_SOURCE_AUXILIARY_DATA 2
      * }
      */
-    public static int TREE_CONNECT_ATTRIBUTE_PRIVACY() {
-        return (int)16384L;
+    public static int USN_SOURCE_AUXILIARY_DATA() {
+        return USN_SOURCE_AUXILIARY_DATA;
     }
+    private static final int USN_SOURCE_REPLICATION_MANAGEMENT = (int)4L;
     /**
-     * {@snippet :
-     * #define TREE_CONNECT_ATTRIBUTE_INTEGRITY 32768
+     * {@snippet lang=c :
+     * #define USN_SOURCE_REPLICATION_MANAGEMENT 4
      * }
      */
-    public static int TREE_CONNECT_ATTRIBUTE_INTEGRITY() {
-        return (int)32768L;
+    public static int USN_SOURCE_REPLICATION_MANAGEMENT() {
+        return USN_SOURCE_REPLICATION_MANAGEMENT;
     }
+    private static final int USN_SOURCE_CLIENT_REPLICATION_MANAGEMENT = (int)8L;
     /**
-     * {@snippet :
-     * #define TREE_CONNECT_ATTRIBUTE_GLOBAL 4
+     * {@snippet lang=c :
+     * #define USN_SOURCE_CLIENT_REPLICATION_MANAGEMENT 8
      * }
      */
-    public static int TREE_CONNECT_ATTRIBUTE_GLOBAL() {
-        return (int)4L;
+    public static int USN_SOURCE_CLIENT_REPLICATION_MANAGEMENT() {
+        return USN_SOURCE_CLIENT_REPLICATION_MANAGEMENT;
     }
+    private static final int USN_SOURCE_VALID_FLAGS = (int)15L;
     /**
-     * {@snippet :
-     * #define TREE_CONNECT_ATTRIBUTE_PINNED 2
+     * {@snippet lang=c :
+     * #define USN_SOURCE_VALID_FLAGS 15
      * }
      */
-    public static int TREE_CONNECT_ATTRIBUTE_PINNED() {
-        return (int)2L;
+    public static int USN_SOURCE_VALID_FLAGS() {
+        return USN_SOURCE_VALID_FLAGS;
     }
+    private static final int MARK_HANDLE_PROTECT_CLUSTERS = (int)1L;
     /**
-     * {@snippet :
-     * #define FILE_ATTRIBUTE_STRICTLY_SEQUENTIAL 536870912
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_PROTECT_CLUSTERS 1
      * }
      */
-    public static int FILE_ATTRIBUTE_STRICTLY_SEQUENTIAL() {
-        return (int)536870912L;
+    public static int MARK_HANDLE_PROTECT_CLUSTERS() {
+        return MARK_HANDLE_PROTECT_CLUSTERS;
     }
+    private static final int MARK_HANDLE_TXF_SYSTEM_LOG = (int)4L;
     /**
-     * {@snippet :
-     * #define FILE_NOTIFY_CHANGE_FILE_NAME 1
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_TXF_SYSTEM_LOG 4
      * }
      */
-    public static int FILE_NOTIFY_CHANGE_FILE_NAME() {
-        return (int)1L;
+    public static int MARK_HANDLE_TXF_SYSTEM_LOG() {
+        return MARK_HANDLE_TXF_SYSTEM_LOG;
     }
+    private static final int MARK_HANDLE_NOT_TXF_SYSTEM_LOG = (int)8L;
     /**
-     * {@snippet :
-     * #define FILE_NOTIFY_CHANGE_DIR_NAME 2
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_NOT_TXF_SYSTEM_LOG 8
      * }
      */
-    public static int FILE_NOTIFY_CHANGE_DIR_NAME() {
-        return (int)2L;
+    public static int MARK_HANDLE_NOT_TXF_SYSTEM_LOG() {
+        return MARK_HANDLE_NOT_TXF_SYSTEM_LOG;
     }
+    private static final int MARK_HANDLE_REALTIME = (int)32L;
     /**
-     * {@snippet :
-     * #define FILE_NOTIFY_CHANGE_ATTRIBUTES 4
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_REALTIME 32
      * }
      */
-    public static int FILE_NOTIFY_CHANGE_ATTRIBUTES() {
-        return (int)4L;
+    public static int MARK_HANDLE_REALTIME() {
+        return MARK_HANDLE_REALTIME;
     }
+    private static final int MARK_HANDLE_NOT_REALTIME = (int)64L;
     /**
-     * {@snippet :
-     * #define FILE_NOTIFY_CHANGE_SIZE 8
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_NOT_REALTIME 64
      * }
      */
-    public static int FILE_NOTIFY_CHANGE_SIZE() {
-        return (int)8L;
+    public static int MARK_HANDLE_NOT_REALTIME() {
+        return MARK_HANDLE_NOT_REALTIME;
     }
+    private static final int MARK_HANDLE_CLOUD_SYNC = (int)2048L;
     /**
-     * {@snippet :
-     * #define FILE_NOTIFY_CHANGE_LAST_WRITE 16
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_CLOUD_SYNC 2048
      * }
      */
-    public static int FILE_NOTIFY_CHANGE_LAST_WRITE() {
-        return (int)16L;
+    public static int MARK_HANDLE_CLOUD_SYNC() {
+        return MARK_HANDLE_CLOUD_SYNC;
     }
+    private static final int MARK_HANDLE_READ_COPY = (int)128L;
     /**
-     * {@snippet :
-     * #define FILE_NOTIFY_CHANGE_LAST_ACCESS 32
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_READ_COPY 128
      * }
      */
-    public static int FILE_NOTIFY_CHANGE_LAST_ACCESS() {
-        return (int)32L;
+    public static int MARK_HANDLE_READ_COPY() {
+        return MARK_HANDLE_READ_COPY;
     }
+    private static final int MARK_HANDLE_NOT_READ_COPY = (int)256L;
     /**
-     * {@snippet :
-     * #define FILE_NOTIFY_CHANGE_CREATION 64
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_NOT_READ_COPY 256
      * }
      */
-    public static int FILE_NOTIFY_CHANGE_CREATION() {
-        return (int)64L;
+    public static int MARK_HANDLE_NOT_READ_COPY() {
+        return MARK_HANDLE_NOT_READ_COPY;
     }
+    private static final int MARK_HANDLE_FILTER_METADATA = (int)512L;
     /**
-     * {@snippet :
-     * #define FILE_NOTIFY_CHANGE_SECURITY 256
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_FILTER_METADATA 512
      * }
      */
-    public static int FILE_NOTIFY_CHANGE_SECURITY() {
-        return (int)256L;
+    public static int MARK_HANDLE_FILTER_METADATA() {
+        return MARK_HANDLE_FILTER_METADATA;
     }
+    private static final int MARK_HANDLE_RETURN_PURGE_FAILURE = (int)1024L;
     /**
-     * {@snippet :
-     * #define FILE_ACTION_ADDED 1
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_RETURN_PURGE_FAILURE 1024
      * }
      */
-    public static int FILE_ACTION_ADDED() {
-        return (int)1L;
+    public static int MARK_HANDLE_RETURN_PURGE_FAILURE() {
+        return MARK_HANDLE_RETURN_PURGE_FAILURE;
     }
+    private static final int MARK_HANDLE_DISABLE_FILE_METADATA_OPTIMIZATION = (int)4096L;
     /**
-     * {@snippet :
-     * #define FILE_ACTION_REMOVED 2
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_DISABLE_FILE_METADATA_OPTIMIZATION 4096
      * }
      */
-    public static int FILE_ACTION_REMOVED() {
-        return (int)2L;
+    public static int MARK_HANDLE_DISABLE_FILE_METADATA_OPTIMIZATION() {
+        return MARK_HANDLE_DISABLE_FILE_METADATA_OPTIMIZATION;
     }
+    private static final int MARK_HANDLE_ENABLE_USN_SOURCE_ON_PAGING_IO = (int)8192L;
     /**
-     * {@snippet :
-     * #define FILE_ACTION_MODIFIED 3
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_ENABLE_USN_SOURCE_ON_PAGING_IO 8192
      * }
      */
-    public static int FILE_ACTION_MODIFIED() {
-        return (int)3L;
+    public static int MARK_HANDLE_ENABLE_USN_SOURCE_ON_PAGING_IO() {
+        return MARK_HANDLE_ENABLE_USN_SOURCE_ON_PAGING_IO;
     }
+    private static final int MARK_HANDLE_SKIP_COHERENCY_SYNC_DISALLOW_WRITES = (int)16384L;
     /**
-     * {@snippet :
-     * #define FILE_ACTION_RENAMED_OLD_NAME 4
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_SKIP_COHERENCY_SYNC_DISALLOW_WRITES 16384
      * }
      */
-    public static int FILE_ACTION_RENAMED_OLD_NAME() {
-        return (int)4L;
+    public static int MARK_HANDLE_SKIP_COHERENCY_SYNC_DISALLOW_WRITES() {
+        return MARK_HANDLE_SKIP_COHERENCY_SYNC_DISALLOW_WRITES;
     }
+    private static final int MARK_HANDLE_SUPPRESS_VOLUME_OPEN_FLUSH = (int)32768L;
     /**
-     * {@snippet :
-     * #define FILE_ACTION_RENAMED_NEW_NAME 5
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_SUPPRESS_VOLUME_OPEN_FLUSH 32768
      * }
      */
-    public static int FILE_ACTION_RENAMED_NEW_NAME() {
-        return (int)5L;
+    public static int MARK_HANDLE_SUPPRESS_VOLUME_OPEN_FLUSH() {
+        return MARK_HANDLE_SUPPRESS_VOLUME_OPEN_FLUSH;
     }
+    private static final int MARK_HANDLE_ENABLE_CPU_CACHE = (int)268435456L;
     /**
-     * {@snippet :
-     * #define FILE_CASE_SENSITIVE_SEARCH 1
+     * {@snippet lang=c :
+     * #define MARK_HANDLE_ENABLE_CPU_CACHE 268435456
      * }
      */
-    public static int FILE_CASE_SENSITIVE_SEARCH() {
-        return (int)1L;
+    public static int MARK_HANDLE_ENABLE_CPU_CACHE() {
+        return MARK_HANDLE_ENABLE_CPU_CACHE;
     }
+    private static final int VOLUME_IS_DIRTY = (int)1L;
     /**
-     * {@snippet :
-     * #define FILE_CASE_PRESERVED_NAMES 2
+     * {@snippet lang=c :
+     * #define VOLUME_IS_DIRTY 1
      * }
      */
-    public static int FILE_CASE_PRESERVED_NAMES() {
-        return (int)2L;
+    public static int VOLUME_IS_DIRTY() {
+        return VOLUME_IS_DIRTY;
     }
+    private static final int VOLUME_UPGRADE_SCHEDULED = (int)2L;
     /**
-     * {@snippet :
-     * #define FILE_UNICODE_ON_DISK 4
+     * {@snippet lang=c :
+     * #define VOLUME_UPGRADE_SCHEDULED 2
      * }
      */
-    public static int FILE_UNICODE_ON_DISK() {
-        return (int)4L;
+    public static int VOLUME_UPGRADE_SCHEDULED() {
+        return VOLUME_UPGRADE_SCHEDULED;
     }
+    private static final int VOLUME_SESSION_OPEN = (int)4L;
     /**
-     * {@snippet :
-     * #define FILE_PERSISTENT_ACLS 8
+     * {@snippet lang=c :
+     * #define VOLUME_SESSION_OPEN 4
      * }
      */
-    public static int FILE_PERSISTENT_ACLS() {
-        return (int)8L;
+    public static int VOLUME_SESSION_OPEN() {
+        return VOLUME_SESSION_OPEN;
     }
+    private static final int FILE_ZERO_DATA_INFORMATION_FLAG_PRESERVE_CACHED_DATA = (int)1L;
     /**
-     * {@snippet :
-     * #define FILE_FILE_COMPRESSION 16
+     * {@snippet lang=c :
+     * #define FILE_ZERO_DATA_INFORMATION_FLAG_PRESERVE_CACHED_DATA 1
      * }
      */
-    public static int FILE_FILE_COMPRESSION() {
-        return (int)16L;
+    public static int FILE_ZERO_DATA_INFORMATION_FLAG_PRESERVE_CACHED_DATA() {
+        return FILE_ZERO_DATA_INFORMATION_FLAG_PRESERVE_CACHED_DATA;
     }
+    private static final int ENCRYPTION_FORMAT_DEFAULT = (int)1L;
     /**
-     * {@snippet :
-     * #define FILE_VOLUME_QUOTAS 32
+     * {@snippet lang=c :
+     * #define ENCRYPTION_FORMAT_DEFAULT 1
      * }
      */
-    public static int FILE_VOLUME_QUOTAS() {
-        return (int)32L;
+    public static int ENCRYPTION_FORMAT_DEFAULT() {
+        return ENCRYPTION_FORMAT_DEFAULT;
     }
+    private static final int SET_REPAIR_ENABLED = (int)1L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_SPARSE_FILES 64
+     * {@snippet lang=c :
+     * #define SET_REPAIR_ENABLED 1
      * }
      */
-    public static int FILE_SUPPORTS_SPARSE_FILES() {
-        return (int)64L;
+    public static int SET_REPAIR_ENABLED() {
+        return SET_REPAIR_ENABLED;
     }
+    private static final int SET_REPAIR_WARN_ABOUT_DATA_LOSS = (int)8L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_REPARSE_POINTS 128
+     * {@snippet lang=c :
+     * #define SET_REPAIR_WARN_ABOUT_DATA_LOSS 8
      * }
      */
-    public static int FILE_SUPPORTS_REPARSE_POINTS() {
-        return (int)128L;
+    public static int SET_REPAIR_WARN_ABOUT_DATA_LOSS() {
+        return SET_REPAIR_WARN_ABOUT_DATA_LOSS;
     }
+    private static final int SET_REPAIR_DISABLED_AND_BUGCHECK_ON_CORRUPT = (int)16L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_REMOTE_STORAGE 256
+     * {@snippet lang=c :
+     * #define SET_REPAIR_DISABLED_AND_BUGCHECK_ON_CORRUPT 16
      * }
      */
-    public static int FILE_SUPPORTS_REMOTE_STORAGE() {
-        return (int)256L;
+    public static int SET_REPAIR_DISABLED_AND_BUGCHECK_ON_CORRUPT() {
+        return SET_REPAIR_DISABLED_AND_BUGCHECK_ON_CORRUPT;
     }
+    private static final int SET_REPAIR_VALID_MASK = (int)25L;
     /**
-     * {@snippet :
-     * #define FILE_RETURNS_CLEANUP_RESULT_INFO 512
+     * {@snippet lang=c :
+     * #define SET_REPAIR_VALID_MASK 25
      * }
      */
-    public static int FILE_RETURNS_CLEANUP_RESULT_INFO() {
-        return (int)512L;
+    public static int SET_REPAIR_VALID_MASK() {
+        return SET_REPAIR_VALID_MASK;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_IN_USE = (int)1L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_POSIX_UNLINK_RENAME 1024
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_IN_USE 1
      * }
      */
-    public static int FILE_SUPPORTS_POSIX_UNLINK_RENAME() {
-        return (int)1024L;
+    public static int FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_IN_USE() {
+        return FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_IN_USE;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_REUSED = (int)2L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_BYPASS_IO 2048
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_REUSED 2
      * }
      */
-    public static int FILE_SUPPORTS_BYPASS_IO() {
-        return (int)2048L;
+    public static int FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_REUSED() {
+        return FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_REUSED;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_EXIST = (int)4L;
     /**
-     * {@snippet :
-     * #define FILE_VOLUME_IS_COMPRESSED 32768
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_EXIST 4
      * }
      */
-    public static int FILE_VOLUME_IS_COMPRESSED() {
-        return (int)32768L;
+    public static int FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_EXIST() {
+        return FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_EXIST;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_BASE_RECORD = (int)8L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_OBJECT_IDS 65536
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_BASE_RECORD 8
      * }
      */
-    public static int FILE_SUPPORTS_OBJECT_IDS() {
-        return (int)65536L;
+    public static int FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_BASE_RECORD() {
+        return FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_BASE_RECORD;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_SYSTEM_FILE = (int)16L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_ENCRYPTION 131072
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_SYSTEM_FILE 16
      * }
      */
-    public static int FILE_SUPPORTS_ENCRYPTION() {
-        return (int)131072L;
+    public static int FILE_INITIATE_REPAIR_HINT1_SYSTEM_FILE() {
+        return FILE_INITIATE_REPAIR_HINT1_SYSTEM_FILE;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_NOT_IMPLEMENTED = (int)32L;
     /**
-     * {@snippet :
-     * #define FILE_NAMED_STREAMS 262144
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_NOT_IMPLEMENTED 32
      * }
      */
-    public static int FILE_NAMED_STREAMS() {
-        return (int)262144L;
+    public static int FILE_INITIATE_REPAIR_HINT1_NOT_IMPLEMENTED() {
+        return FILE_INITIATE_REPAIR_HINT1_NOT_IMPLEMENTED;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_UNABLE_TO_REPAIR = (int)64L;
     /**
-     * {@snippet :
-     * #define FILE_READ_ONLY_VOLUME 524288
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_UNABLE_TO_REPAIR 64
      * }
      */
-    public static int FILE_READ_ONLY_VOLUME() {
-        return (int)524288L;
+    public static int FILE_INITIATE_REPAIR_HINT1_UNABLE_TO_REPAIR() {
+        return FILE_INITIATE_REPAIR_HINT1_UNABLE_TO_REPAIR;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_REPAIR_DISABLED = (int)128L;
     /**
-     * {@snippet :
-     * #define FILE_SEQUENTIAL_WRITE_ONCE 1048576
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_REPAIR_DISABLED 128
      * }
      */
-    public static int FILE_SEQUENTIAL_WRITE_ONCE() {
-        return (int)1048576L;
+    public static int FILE_INITIATE_REPAIR_HINT1_REPAIR_DISABLED() {
+        return FILE_INITIATE_REPAIR_HINT1_REPAIR_DISABLED;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_RECURSIVELY_CORRUPTED = (int)256L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_TRANSACTIONS 2097152
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_RECURSIVELY_CORRUPTED 256
      * }
      */
-    public static int FILE_SUPPORTS_TRANSACTIONS() {
-        return (int)2097152L;
+    public static int FILE_INITIATE_REPAIR_HINT1_RECURSIVELY_CORRUPTED() {
+        return FILE_INITIATE_REPAIR_HINT1_RECURSIVELY_CORRUPTED;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_ORPHAN_GENERATED = (int)512L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_HARD_LINKS 4194304
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_ORPHAN_GENERATED 512
      * }
      */
-    public static int FILE_SUPPORTS_HARD_LINKS() {
-        return (int)4194304L;
+    public static int FILE_INITIATE_REPAIR_HINT1_ORPHAN_GENERATED() {
+        return FILE_INITIATE_REPAIR_HINT1_ORPHAN_GENERATED;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_REPAIRED = (int)1024L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_EXTENDED_ATTRIBUTES 8388608
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_REPAIRED 1024
      * }
      */
-    public static int FILE_SUPPORTS_EXTENDED_ATTRIBUTES() {
-        return (int)8388608L;
+    public static int FILE_INITIATE_REPAIR_HINT1_REPAIRED() {
+        return FILE_INITIATE_REPAIR_HINT1_REPAIRED;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_NOTHING_WRONG = (int)2048L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_OPEN_BY_FILE_ID 16777216
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_NOTHING_WRONG 2048
      * }
      */
-    public static int FILE_SUPPORTS_OPEN_BY_FILE_ID() {
-        return (int)16777216L;
+    public static int FILE_INITIATE_REPAIR_HINT1_NOTHING_WRONG() {
+        return FILE_INITIATE_REPAIR_HINT1_NOTHING_WRONG;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_NOT_FOUND = (int)4096L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_USN_JOURNAL 33554432
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_NOT_FOUND 4096
      * }
      */
-    public static int FILE_SUPPORTS_USN_JOURNAL() {
-        return (int)33554432L;
+    public static int FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_NOT_FOUND() {
+        return FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_NOT_FOUND;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_POTENTIAL_CROSSLINK = (int)8192L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_INTEGRITY_STREAMS 67108864
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_POTENTIAL_CROSSLINK 8192
      * }
      */
-    public static int FILE_SUPPORTS_INTEGRITY_STREAMS() {
-        return (int)67108864L;
+    public static int FILE_INITIATE_REPAIR_HINT1_POTENTIAL_CROSSLINK() {
+        return FILE_INITIATE_REPAIR_HINT1_POTENTIAL_CROSSLINK;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_STALE_INFORMATION = (int)16384L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_BLOCK_REFCOUNTING 134217728
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_STALE_INFORMATION 16384
      * }
      */
-    public static int FILE_SUPPORTS_BLOCK_REFCOUNTING() {
-        return (int)134217728L;
+    public static int FILE_INITIATE_REPAIR_HINT1_STALE_INFORMATION() {
+        return FILE_INITIATE_REPAIR_HINT1_STALE_INFORMATION;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_CLUSTERS_ALREADY_IN_USE = (int)32768L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_SPARSE_VDL 268435456
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_CLUSTERS_ALREADY_IN_USE 32768
      * }
      */
-    public static int FILE_SUPPORTS_SPARSE_VDL() {
-        return (int)268435456L;
+    public static int FILE_INITIATE_REPAIR_HINT1_CLUSTERS_ALREADY_IN_USE() {
+        return FILE_INITIATE_REPAIR_HINT1_CLUSTERS_ALREADY_IN_USE;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_LCN_NOT_EXIST = (int)65536L;
     /**
-     * {@snippet :
-     * #define FILE_DAX_VOLUME 536870912
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_LCN_NOT_EXIST 65536
      * }
      */
-    public static int FILE_DAX_VOLUME() {
-        return (int)536870912L;
+    public static int FILE_INITIATE_REPAIR_HINT1_LCN_NOT_EXIST() {
+        return FILE_INITIATE_REPAIR_HINT1_LCN_NOT_EXIST;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_INVALID_RUN_LENGTH = (int)131072L;
     /**
-     * {@snippet :
-     * #define FILE_SUPPORTS_GHOSTING 1073741824
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_INVALID_RUN_LENGTH 131072
      * }
      */
-    public static int FILE_SUPPORTS_GHOSTING() {
-        return (int)1073741824L;
+    public static int FILE_INITIATE_REPAIR_HINT1_INVALID_RUN_LENGTH() {
+        return FILE_INITIATE_REPAIR_HINT1_INVALID_RUN_LENGTH;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_ORPHAN = (int)262144L;
     /**
-     * {@snippet :
-     * #define FILE_CS_FLAG_CASE_SENSITIVE_DIR 1
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_ORPHAN 262144
      * }
      */
-    public static int FILE_CS_FLAG_CASE_SENSITIVE_DIR() {
-        return (int)1L;
+    public static int FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_ORPHAN() {
+        return FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_NOT_ORPHAN;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_IS_BASE_RECORD = (int)524288L;
     /**
-     * {@snippet :
-     * #define FLUSH_FLAGS_FILE_DATA_ONLY 1
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_IS_BASE_RECORD 524288
      * }
      */
-    public static int FLUSH_FLAGS_FILE_DATA_ONLY() {
-        return (int)1L;
+    public static int FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_IS_BASE_RECORD() {
+        return FILE_INITIATE_REPAIR_HINT1_FILE_RECORD_IS_BASE_RECORD;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_INVALID_ARRAY_LENGTH_COUNT = (int)1048576L;
     /**
-     * {@snippet :
-     * #define FLUSH_FLAGS_NO_SYNC 2
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_INVALID_ARRAY_LENGTH_COUNT 1048576
      * }
      */
-    public static int FLUSH_FLAGS_NO_SYNC() {
-        return (int)2L;
+    public static int FILE_INITIATE_REPAIR_HINT1_INVALID_ARRAY_LENGTH_COUNT() {
+        return FILE_INITIATE_REPAIR_HINT1_INVALID_ARRAY_LENGTH_COUNT;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_SID_VALID = (int)2097152L;
     /**
-     * {@snippet :
-     * #define FLUSH_FLAGS_FILE_DATA_SYNC_ONLY 4
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_SID_VALID 2097152
      * }
      */
-    public static int FLUSH_FLAGS_FILE_DATA_SYNC_ONLY() {
-        return (int)4L;
+    public static int FILE_INITIATE_REPAIR_HINT1_SID_VALID() {
+        return FILE_INITIATE_REPAIR_HINT1_SID_VALID;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_SID_MISMATCH = (int)4194304L;
     /**
-     * {@snippet :
-     * #define SCRUB_DATA_INPUT_FLAG_RESUME 1
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_SID_MISMATCH 4194304
      * }
      */
-    public static int SCRUB_DATA_INPUT_FLAG_RESUME() {
-        return (int)1L;
+    public static int FILE_INITIATE_REPAIR_HINT1_SID_MISMATCH() {
+        return FILE_INITIATE_REPAIR_HINT1_SID_MISMATCH;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_INVALID_PARENT = (int)8388608L;
     /**
-     * {@snippet :
-     * #define SCRUB_DATA_INPUT_FLAG_SKIP_IN_SYNC 2
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_INVALID_PARENT 8388608
      * }
      */
-    public static int SCRUB_DATA_INPUT_FLAG_SKIP_IN_SYNC() {
-        return (int)2L;
+    public static int FILE_INITIATE_REPAIR_HINT1_INVALID_PARENT() {
+        return FILE_INITIATE_REPAIR_HINT1_INVALID_PARENT;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_IN_USE = (int)16777216L;
     /**
-     * {@snippet :
-     * #define SCRUB_DATA_INPUT_FLAG_SKIP_NON_INTEGRITY_DATA 4
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_IN_USE 16777216
      * }
      */
-    public static int SCRUB_DATA_INPUT_FLAG_SKIP_NON_INTEGRITY_DATA() {
-        return (int)4L;
+    public static int FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_IN_USE() {
+        return FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_IN_USE;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_REUSED = (int)33554432L;
     /**
-     * {@snippet :
-     * #define SCRUB_DATA_INPUT_FLAG_IGNORE_REDUNDANCY 8
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_REUSED 33554432
      * }
      */
-    public static int SCRUB_DATA_INPUT_FLAG_IGNORE_REDUNDANCY() {
-        return (int)8L;
+    public static int FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_REUSED() {
+        return FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_REUSED;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_EXIST = (int)67108864L;
     /**
-     * {@snippet :
-     * #define SCRUB_DATA_INPUT_FLAG_SKIP_DATA 16
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_EXIST 67108864
      * }
      */
-    public static int SCRUB_DATA_INPUT_FLAG_SKIP_DATA() {
-        return (int)16L;
+    public static int FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_EXIST() {
+        return FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_EXIST;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_BASE_RECORD = (int)134217728L;
     /**
-     * {@snippet :
-     * #define SCRUB_DATA_INPUT_FLAG_SCRUB_BY_OBJECT_ID 32
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_BASE_RECORD 134217728
      * }
      */
-    public static int SCRUB_DATA_INPUT_FLAG_SCRUB_BY_OBJECT_ID() {
-        return (int)32L;
+    public static int FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_BASE_RECORD() {
+        return FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_BASE_RECORD;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_INDEX = (int)268435456L;
     /**
-     * {@snippet :
-     * #define SCRUB_DATA_INPUT_FLAG_OPLOCK_NOT_ACQUIRED 64
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_INDEX 268435456
      * }
      */
-    public static int SCRUB_DATA_INPUT_FLAG_OPLOCK_NOT_ACQUIRED() {
-        return (int)64L;
+    public static int FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_INDEX() {
+        return FILE_INITIATE_REPAIR_HINT1_PARENT_FILE_RECORD_NOT_INDEX;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_VALID_INDEX_ENTRY = (int)536870912L;
     /**
-     * {@snippet :
-     * #define SCRUB_DATA_OUTPUT_FLAG_INCOMPLETE 1
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_VALID_INDEX_ENTRY 536870912
      * }
      */
-    public static int SCRUB_DATA_OUTPUT_FLAG_INCOMPLETE() {
-        return (int)1L;
+    public static int FILE_INITIATE_REPAIR_HINT1_VALID_INDEX_ENTRY() {
+        return FILE_INITIATE_REPAIR_HINT1_VALID_INDEX_ENTRY;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_OUT_OF_GENERIC_NAMES = (int)1073741824L;
     /**
-     * {@snippet :
-     * #define SCRUB_DATA_OUTPUT_FLAG_NON_USER_DATA_RANGE 65536
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_OUT_OF_GENERIC_NAMES 1073741824
      * }
      */
-    public static int SCRUB_DATA_OUTPUT_FLAG_NON_USER_DATA_RANGE() {
-        return (int)65536L;
+    public static int FILE_INITIATE_REPAIR_HINT1_OUT_OF_GENERIC_NAMES() {
+        return FILE_INITIATE_REPAIR_HINT1_OUT_OF_GENERIC_NAMES;
     }
+    private static final int FILE_INITIATE_REPAIR_HINT1_OUT_OF_RESOURCE = (int)2147483648L;
     /**
-     * {@snippet :
-     * #define SCRUB_DATA_OUTPUT_FLAG_PARITY_EXTENT_DATA_RETURNED 131072
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_OUT_OF_RESOURCE 2147483648
      * }
      */
-    public static int SCRUB_DATA_OUTPUT_FLAG_PARITY_EXTENT_DATA_RETURNED() {
-        return (int)131072L;
+    public static int FILE_INITIATE_REPAIR_HINT1_OUT_OF_RESOURCE() {
+        return FILE_INITIATE_REPAIR_HINT1_OUT_OF_RESOURCE;
     }
+    private static final long FILE_INITIATE_REPAIR_HINT1_INVALID_LCN = 4294967296L;
     /**
-     * {@snippet :
-     * #define SCRUB_DATA_OUTPUT_FLAG_RESUME_CONTEXT_LENGTH_SPECIFIED 262144
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_INVALID_LCN 4294967296
      * }
      */
-    public static int SCRUB_DATA_OUTPUT_FLAG_RESUME_CONTEXT_LENGTH_SPECIFIED() {
-        return (int)262144L;
+    public static long FILE_INITIATE_REPAIR_HINT1_INVALID_LCN() {
+        return FILE_INITIATE_REPAIR_HINT1_INVALID_LCN;
     }
+    private static final long FILE_INITIATE_REPAIR_HINT1_INVALID_VCN = 8589934592L;
     /**
-     * {@snippet :
-     * #define IO_COMPLETION_MODIFY_STATE 2
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_INVALID_VCN 8589934592
      * }
      */
-    public static int IO_COMPLETION_MODIFY_STATE() {
-        return (int)2L;
+    public static long FILE_INITIATE_REPAIR_HINT1_INVALID_VCN() {
+        return FILE_INITIATE_REPAIR_HINT1_INVALID_VCN;
     }
+    private static final long FILE_INITIATE_REPAIR_HINT1_NAME_CONFLICT = 17179869184L;
     /**
-     * {@snippet :
-     * #define NETWORK_APP_INSTANCE_CSV_FLAGS_VALID_ONLY_IF_CSV_COORDINATOR 1
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_NAME_CONFLICT 17179869184
      * }
      */
-    public static int NETWORK_APP_INSTANCE_CSV_FLAGS_VALID_ONLY_IF_CSV_COORDINATOR() {
-        return (int)1L;
+    public static long FILE_INITIATE_REPAIR_HINT1_NAME_CONFLICT() {
+        return FILE_INITIATE_REPAIR_HINT1_NAME_CONFLICT;
     }
+    private static final long FILE_INITIATE_REPAIR_HINT1_ORPHAN = 34359738368L;
     /**
-     * {@snippet :
-     * #define DUPLICATE_CLOSE_SOURCE 1
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_ORPHAN 34359738368
      * }
      */
-    public static int DUPLICATE_CLOSE_SOURCE() {
-        return (int)1L;
+    public static long FILE_INITIATE_REPAIR_HINT1_ORPHAN() {
+        return FILE_INITIATE_REPAIR_HINT1_ORPHAN;
     }
+    private static final long FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_TOO_SMALL = 68719476736L;
     /**
-     * {@snippet :
-     * #define DUPLICATE_SAME_ACCESS 2
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_TOO_SMALL 68719476736
      * }
      */
-    public static int DUPLICATE_SAME_ACCESS() {
-        return (int)2L;
+    public static long FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_TOO_SMALL() {
+        return FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_TOO_SMALL;
     }
+    private static final long FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_NON_RESIDENT = 137438953472L;
     /**
-     * {@snippet :
-     * #define POWERBUTTON_ACTION_INDEX_NOTHING 0
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_NON_RESIDENT 137438953472
      * }
      */
-    public static int POWERBUTTON_ACTION_INDEX_NOTHING() {
-        return (int)0L;
+    public static long FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_NON_RESIDENT() {
+        return FILE_INITIATE_REPAIR_HINT1_ATTRIBUTE_NON_RESIDENT;
     }
+    private static final long FILE_INITIATE_REPAIR_HINT1_DENY_DEFRAG = 274877906944L;
     /**
-     * {@snippet :
-     * #define POWERBUTTON_ACTION_INDEX_SLEEP 1
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_DENY_DEFRAG 274877906944
      * }
      */
-    public static int POWERBUTTON_ACTION_INDEX_SLEEP() {
-        return (int)1L;
+    public static long FILE_INITIATE_REPAIR_HINT1_DENY_DEFRAG() {
+        return FILE_INITIATE_REPAIR_HINT1_DENY_DEFRAG;
     }
+    private static final long FILE_INITIATE_REPAIR_HINT1_PREVIOUS_PARENT_STILL_VALID = 549755813888L;
     /**
-     * {@snippet :
-     * #define POWERBUTTON_ACTION_INDEX_HIBERNATE 2
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_PREVIOUS_PARENT_STILL_VALID 549755813888
      * }
      */
-    public static int POWERBUTTON_ACTION_INDEX_HIBERNATE() {
-        return (int)2L;
+    public static long FILE_INITIATE_REPAIR_HINT1_PREVIOUS_PARENT_STILL_VALID() {
+        return FILE_INITIATE_REPAIR_HINT1_PREVIOUS_PARENT_STILL_VALID;
     }
+    private static final long FILE_INITIATE_REPAIR_HINT1_INDEX_ENTRY_MISMATCH = 1099511627776L;
     /**
-     * {@snippet :
-     * #define POWERBUTTON_ACTION_INDEX_SHUTDOWN 3
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_INDEX_ENTRY_MISMATCH 1099511627776
      * }
      */
-    public static int POWERBUTTON_ACTION_INDEX_SHUTDOWN() {
-        return (int)3L;
+    public static long FILE_INITIATE_REPAIR_HINT1_INDEX_ENTRY_MISMATCH() {
+        return FILE_INITIATE_REPAIR_HINT1_INDEX_ENTRY_MISMATCH;
     }
+    private static final long FILE_INITIATE_REPAIR_HINT1_INVALID_ORPHAN_RECOVERY_NAME = 2199023255552L;
     /**
-     * {@snippet :
-     * #define POWERBUTTON_ACTION_INDEX_TURN_OFF_THE_DISPLAY 4
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_INVALID_ORPHAN_RECOVERY_NAME 2199023255552
      * }
      */
-    public static int POWERBUTTON_ACTION_INDEX_TURN_OFF_THE_DISPLAY() {
-        return (int)4L;
+    public static long FILE_INITIATE_REPAIR_HINT1_INVALID_ORPHAN_RECOVERY_NAME() {
+        return FILE_INITIATE_REPAIR_HINT1_INVALID_ORPHAN_RECOVERY_NAME;
     }
+    private static final long FILE_INITIATE_REPAIR_HINT1_MULTIPLE_FILE_NAME_ATTRIBUTES = 4398046511104L;
     /**
-     * {@snippet :
-     * #define POWERBUTTON_ACTION_VALUE_NOTHING 0
+     * {@snippet lang=c :
+     * #define FILE_INITIATE_REPAIR_HINT1_MULTIPLE_FILE_NAME_ATTRIBUTES 4398046511104
      * }
      */
-    public static int POWERBUTTON_ACTION_VALUE_NOTHING() {
-        return (int)0L;
+    public static long FILE_INITIATE_REPAIR_HINT1_MULTIPLE_FILE_NAME_ATTRIBUTES() {
+        return FILE_INITIATE_REPAIR_HINT1_MULTIPLE_FILE_NAME_ATTRIBUTES;
     }
+    private static final int TXFS_LOGGING_MODE_SIMPLE = (int)1L;
     /**
-     * {@snippet :
-     * #define POWERBUTTON_ACTION_VALUE_SLEEP 2
+     * {@snippet lang=c :
+     * #define TXFS_LOGGING_MODE_SIMPLE 1
      * }
      */
-    public static int POWERBUTTON_ACTION_VALUE_SLEEP() {
-        return (int)2L;
+    public static int TXFS_LOGGING_MODE_SIMPLE() {
+        return TXFS_LOGGING_MODE_SIMPLE;
     }
+    private static final int TXFS_LOGGING_MODE_FULL = (int)2L;
     /**
-     * {@snippet :
-     * #define POWERBUTTON_ACTION_VALUE_HIBERNATE 3
+     * {@snippet lang=c :
+     * #define TXFS_LOGGING_MODE_FULL 2
      * }
      */
-    public static int POWERBUTTON_ACTION_VALUE_HIBERNATE() {
-        return (int)3L;
+    public static int TXFS_LOGGING_MODE_FULL() {
+        return TXFS_LOGGING_MODE_FULL;
     }
+    private static final int TXFS_MODIFY_RM_VALID_FLAGS = (int)261631L;
     /**
-     * {@snippet :
-     * #define POWERBUTTON_ACTION_VALUE_SHUTDOWN 6
+     * {@snippet lang=c :
+     * #define TXFS_MODIFY_RM_VALID_FLAGS 261631
      * }
      */
-    public static int POWERBUTTON_ACTION_VALUE_SHUTDOWN() {
-        return (int)6L;
+    public static int TXFS_MODIFY_RM_VALID_FLAGS() {
+        return TXFS_MODIFY_RM_VALID_FLAGS;
     }
+    private static final int TXFS_QUERY_RM_INFORMATION_VALID_FLAGS = (int)246192L;
     /**
-     * {@snippet :
-     * #define POWERBUTTON_ACTION_VALUE_TURN_OFF_THE_DISPLAY 8
+     * {@snippet lang=c :
+     * #define TXFS_QUERY_RM_INFORMATION_VALID_FLAGS 246192
      * }
      */
-    public static int POWERBUTTON_ACTION_VALUE_TURN_OFF_THE_DISPLAY() {
-        return (int)8L;
+    public static int TXFS_QUERY_RM_INFORMATION_VALID_FLAGS() {
+        return TXFS_QUERY_RM_INFORMATION_VALID_FLAGS;
     }
+    private static final int TXFS_ROLLFORWARD_REDO_VALID_FLAGS = (int)3L;
     /**
-     * {@snippet :
-     * #define PERFSTATE_POLICY_CHANGE_IDEAL 0
+     * {@snippet lang=c :
+     * #define TXFS_ROLLFORWARD_REDO_VALID_FLAGS 3
      * }
      */
-    public static int PERFSTATE_POLICY_CHANGE_IDEAL() {
-        return (int)0L;
+    public static int TXFS_ROLLFORWARD_REDO_VALID_FLAGS() {
+        return TXFS_ROLLFORWARD_REDO_VALID_FLAGS;
     }
+    private static final int TXFS_START_RM_VALID_FLAGS = (int)15999L;
     /**
-     * {@snippet :
-     * #define PERFSTATE_POLICY_CHANGE_SINGLE 1
+     * {@snippet lang=c :
+     * #define TXFS_START_RM_VALID_FLAGS 15999
      * }
      */
-    public static int PERFSTATE_POLICY_CHANGE_SINGLE() {
-        return (int)1L;
+    public static int TXFS_START_RM_VALID_FLAGS() {
+        return TXFS_START_RM_VALID_FLAGS;
     }
+    private static final int TXFS_TRANSACTED_VERSION_NONTRANSACTED = (int)4294967294L;
     /**
-     * {@snippet :
-     * #define PERFSTATE_POLICY_CHANGE_ROCKET 2
+     * {@snippet lang=c :
+     * #define TXFS_TRANSACTED_VERSION_NONTRANSACTED 4294967294
      * }
      */
-    public static int PERFSTATE_POLICY_CHANGE_ROCKET() {
-        return (int)2L;
+    public static int TXFS_TRANSACTED_VERSION_NONTRANSACTED() {
+        return TXFS_TRANSACTED_VERSION_NONTRANSACTED;
     }
+    private static final int TXFS_TRANSACTED_VERSION_UNCOMMITTED = (int)4294967295L;
     /**
-     * {@snippet :
-     * #define PERFSTATE_POLICY_CHANGE_IDEAL_AGGRESSIVE 3
+     * {@snippet lang=c :
+     * #define TXFS_TRANSACTED_VERSION_UNCOMMITTED 4294967295
      * }
      */
-    public static int PERFSTATE_POLICY_CHANGE_IDEAL_AGGRESSIVE() {
-        return (int)3L;
+    public static int TXFS_TRANSACTED_VERSION_UNCOMMITTED() {
+        return TXFS_TRANSACTED_VERSION_UNCOMMITTED;
     }
+    private static final int PERSISTENT_VOLUME_STATE_SHORT_NAME_CREATION_DISABLED = (int)1L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_THROTTLE_DISABLED 0
+     * {@snippet lang=c :
+     * #define PERSISTENT_VOLUME_STATE_SHORT_NAME_CREATION_DISABLED 1
      * }
      */
-    public static int PROCESSOR_THROTTLE_DISABLED() {
-        return (int)0L;
+    public static int PERSISTENT_VOLUME_STATE_SHORT_NAME_CREATION_DISABLED() {
+        return PERSISTENT_VOLUME_STATE_SHORT_NAME_CREATION_DISABLED;
     }
+    private static final int PERSISTENT_VOLUME_STATE_VOLUME_SCRUB_DISABLED = (int)2L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_THROTTLE_ENABLED 1
+     * {@snippet lang=c :
+     * #define PERSISTENT_VOLUME_STATE_VOLUME_SCRUB_DISABLED 2
      * }
      */
-    public static int PROCESSOR_THROTTLE_ENABLED() {
-        return (int)1L;
+    public static int PERSISTENT_VOLUME_STATE_VOLUME_SCRUB_DISABLED() {
+        return PERSISTENT_VOLUME_STATE_VOLUME_SCRUB_DISABLED;
     }
+    private static final int PERSISTENT_VOLUME_STATE_GLOBAL_METADATA_NO_SEEK_PENALTY = (int)4L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_THROTTLE_AUTOMATIC 2
+     * {@snippet lang=c :
+     * #define PERSISTENT_VOLUME_STATE_GLOBAL_METADATA_NO_SEEK_PENALTY 4
      * }
      */
-    public static int PROCESSOR_THROTTLE_AUTOMATIC() {
-        return (int)2L;
+    public static int PERSISTENT_VOLUME_STATE_GLOBAL_METADATA_NO_SEEK_PENALTY() {
+        return PERSISTENT_VOLUME_STATE_GLOBAL_METADATA_NO_SEEK_PENALTY;
     }
+    private static final int PERSISTENT_VOLUME_STATE_LOCAL_METADATA_NO_SEEK_PENALTY = (int)8L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_BOOST_POLICY_DISABLED 0
+     * {@snippet lang=c :
+     * #define PERSISTENT_VOLUME_STATE_LOCAL_METADATA_NO_SEEK_PENALTY 8
      * }
      */
-    public static int PROCESSOR_PERF_BOOST_POLICY_DISABLED() {
-        return (int)0L;
+    public static int PERSISTENT_VOLUME_STATE_LOCAL_METADATA_NO_SEEK_PENALTY() {
+        return PERSISTENT_VOLUME_STATE_LOCAL_METADATA_NO_SEEK_PENALTY;
     }
+    private static final int PERSISTENT_VOLUME_STATE_NO_HEAT_GATHERING = (int)16L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_BOOST_POLICY_MAX 100
+     * {@snippet lang=c :
+     * #define PERSISTENT_VOLUME_STATE_NO_HEAT_GATHERING 16
      * }
      */
-    public static int PROCESSOR_PERF_BOOST_POLICY_MAX() {
-        return (int)100L;
+    public static int PERSISTENT_VOLUME_STATE_NO_HEAT_GATHERING() {
+        return PERSISTENT_VOLUME_STATE_NO_HEAT_GATHERING;
     }
+    private static final int PERSISTENT_VOLUME_STATE_CONTAINS_BACKING_WIM = (int)32L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_BOOST_MODE_DISABLED 0
+     * {@snippet lang=c :
+     * #define PERSISTENT_VOLUME_STATE_CONTAINS_BACKING_WIM 32
      * }
      */
-    public static int PROCESSOR_PERF_BOOST_MODE_DISABLED() {
-        return (int)0L;
+    public static int PERSISTENT_VOLUME_STATE_CONTAINS_BACKING_WIM() {
+        return PERSISTENT_VOLUME_STATE_CONTAINS_BACKING_WIM;
     }
+    private static final int PERSISTENT_VOLUME_STATE_BACKED_BY_WIM = (int)64L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_BOOST_MODE_ENABLED 1
+     * {@snippet lang=c :
+     * #define PERSISTENT_VOLUME_STATE_BACKED_BY_WIM 64
      * }
      */
-    public static int PROCESSOR_PERF_BOOST_MODE_ENABLED() {
-        return (int)1L;
+    public static int PERSISTENT_VOLUME_STATE_BACKED_BY_WIM() {
+        return PERSISTENT_VOLUME_STATE_BACKED_BY_WIM;
     }
+    private static final int PERSISTENT_VOLUME_STATE_NO_WRITE_AUTO_TIERING = (int)128L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_BOOST_MODE_AGGRESSIVE 2
+     * {@snippet lang=c :
+     * #define PERSISTENT_VOLUME_STATE_NO_WRITE_AUTO_TIERING 128
      * }
      */
-    public static int PROCESSOR_PERF_BOOST_MODE_AGGRESSIVE() {
-        return (int)2L;
+    public static int PERSISTENT_VOLUME_STATE_NO_WRITE_AUTO_TIERING() {
+        return PERSISTENT_VOLUME_STATE_NO_WRITE_AUTO_TIERING;
     }
+    private static final int PERSISTENT_VOLUME_STATE_TXF_DISABLED = (int)256L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_BOOST_MODE_EFFICIENT_ENABLED 3
+     * {@snippet lang=c :
+     * #define PERSISTENT_VOLUME_STATE_TXF_DISABLED 256
      * }
      */
-    public static int PROCESSOR_PERF_BOOST_MODE_EFFICIENT_ENABLED() {
-        return (int)3L;
+    public static int PERSISTENT_VOLUME_STATE_TXF_DISABLED() {
+        return PERSISTENT_VOLUME_STATE_TXF_DISABLED;
     }
+    private static final int PERSISTENT_VOLUME_STATE_REALLOCATE_ALL_DATA_WRITES = (int)512L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_BOOST_MODE_EFFICIENT_AGGRESSIVE 4
+     * {@snippet lang=c :
+     * #define PERSISTENT_VOLUME_STATE_REALLOCATE_ALL_DATA_WRITES 512
      * }
      */
-    public static int PROCESSOR_PERF_BOOST_MODE_EFFICIENT_AGGRESSIVE() {
-        return (int)4L;
+    public static int PERSISTENT_VOLUME_STATE_REALLOCATE_ALL_DATA_WRITES() {
+        return PERSISTENT_VOLUME_STATE_REALLOCATE_ALL_DATA_WRITES;
     }
+    private static final int PERSISTENT_VOLUME_STATE_CHKDSK_RAN_ONCE = (int)1024L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_BOOST_MODE_AGGRESSIVE_AT_GUARANTEED 5
+     * {@snippet lang=c :
+     * #define PERSISTENT_VOLUME_STATE_CHKDSK_RAN_ONCE 1024
      * }
      */
-    public static int PROCESSOR_PERF_BOOST_MODE_AGGRESSIVE_AT_GUARANTEED() {
-        return (int)5L;
+    public static int PERSISTENT_VOLUME_STATE_CHKDSK_RAN_ONCE() {
+        return PERSISTENT_VOLUME_STATE_CHKDSK_RAN_ONCE;
     }
+    private static final int PERSISTENT_VOLUME_STATE_MODIFIED_BY_CHKDSK = (int)2048L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_BOOST_MODE_EFFICIENT_AGGRESSIVE_AT_GUARANTEED 6
+     * {@snippet lang=c :
+     * #define PERSISTENT_VOLUME_STATE_MODIFIED_BY_CHKDSK 2048
      * }
      */
-    public static int PROCESSOR_PERF_BOOST_MODE_EFFICIENT_AGGRESSIVE_AT_GUARANTEED() {
-        return (int)6L;
+    public static int PERSISTENT_VOLUME_STATE_MODIFIED_BY_CHKDSK() {
+        return PERSISTENT_VOLUME_STATE_MODIFIED_BY_CHKDSK;
     }
+    private static final int PERSISTENT_VOLUME_STATE_DAX_FORMATTED = (int)4096L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_AUTONOMOUS_MODE_DISABLED 0
+     * {@snippet lang=c :
+     * #define PERSISTENT_VOLUME_STATE_DAX_FORMATTED 4096
      * }
      */
-    public static int PROCESSOR_PERF_AUTONOMOUS_MODE_DISABLED() {
-        return (int)0L;
+    public static int PERSISTENT_VOLUME_STATE_DAX_FORMATTED() {
+        return PERSISTENT_VOLUME_STATE_DAX_FORMATTED;
     }
+    private static final int OPLOCK_LEVEL_CACHE_READ = (int)1L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_AUTONOMOUS_MODE_ENABLED 1
+     * {@snippet lang=c :
+     * #define OPLOCK_LEVEL_CACHE_READ 1
      * }
      */
-    public static int PROCESSOR_PERF_AUTONOMOUS_MODE_ENABLED() {
-        return (int)1L;
+    public static int OPLOCK_LEVEL_CACHE_READ() {
+        return OPLOCK_LEVEL_CACHE_READ;
     }
+    private static final int OPLOCK_LEVEL_CACHE_HANDLE = (int)2L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_PERFORMANCE_PREFERENCE 255
+     * {@snippet lang=c :
+     * #define OPLOCK_LEVEL_CACHE_HANDLE 2
      * }
      */
-    public static int PROCESSOR_PERF_PERFORMANCE_PREFERENCE() {
-        return (int)255L;
+    public static int OPLOCK_LEVEL_CACHE_HANDLE() {
+        return OPLOCK_LEVEL_CACHE_HANDLE;
     }
+    private static final int OPLOCK_LEVEL_CACHE_WRITE = (int)4L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_ENERGY_PREFERENCE 0
+     * {@snippet lang=c :
+     * #define OPLOCK_LEVEL_CACHE_WRITE 4
      * }
      */
-    public static int PROCESSOR_PERF_ENERGY_PREFERENCE() {
-        return (int)0L;
+    public static int OPLOCK_LEVEL_CACHE_WRITE() {
+        return OPLOCK_LEVEL_CACHE_WRITE;
     }
+    private static final int REQUEST_OPLOCK_INPUT_FLAG_REQUEST = (int)1L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_MINIMUM_ACTIVITY_WINDOW 0
+     * {@snippet lang=c :
+     * #define REQUEST_OPLOCK_INPUT_FLAG_REQUEST 1
      * }
      */
-    public static int PROCESSOR_PERF_MINIMUM_ACTIVITY_WINDOW() {
-        return (int)0L;
+    public static int REQUEST_OPLOCK_INPUT_FLAG_REQUEST() {
+        return REQUEST_OPLOCK_INPUT_FLAG_REQUEST;
     }
+    private static final int REQUEST_OPLOCK_INPUT_FLAG_ACK = (int)2L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_PERF_MAXIMUM_ACTIVITY_WINDOW 1270000000
+     * {@snippet lang=c :
+     * #define REQUEST_OPLOCK_INPUT_FLAG_ACK 2
      * }
      */
-    public static int PROCESSOR_PERF_MAXIMUM_ACTIVITY_WINDOW() {
-        return (int)1270000000L;
+    public static int REQUEST_OPLOCK_INPUT_FLAG_ACK() {
+        return REQUEST_OPLOCK_INPUT_FLAG_ACK;
     }
+    private static final int REQUEST_OPLOCK_INPUT_FLAG_COMPLETE_ACK_ON_CLOSE = (int)4L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_DUTY_CYCLING_DISABLED 0
+     * {@snippet lang=c :
+     * #define REQUEST_OPLOCK_INPUT_FLAG_COMPLETE_ACK_ON_CLOSE 4
      * }
      */
-    public static int PROCESSOR_DUTY_CYCLING_DISABLED() {
-        return (int)0L;
+    public static int REQUEST_OPLOCK_INPUT_FLAG_COMPLETE_ACK_ON_CLOSE() {
+        return REQUEST_OPLOCK_INPUT_FLAG_COMPLETE_ACK_ON_CLOSE;
     }
+    private static final int REQUEST_OPLOCK_OUTPUT_FLAG_ACK_REQUIRED = (int)1L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_DUTY_CYCLING_ENABLED 1
+     * {@snippet lang=c :
+     * #define REQUEST_OPLOCK_OUTPUT_FLAG_ACK_REQUIRED 1
      * }
      */
-    public static int PROCESSOR_DUTY_CYCLING_ENABLED() {
-        return (int)1L;
+    public static int REQUEST_OPLOCK_OUTPUT_FLAG_ACK_REQUIRED() {
+        return REQUEST_OPLOCK_OUTPUT_FLAG_ACK_REQUIRED;
     }
+    private static final int REQUEST_OPLOCK_OUTPUT_FLAG_MODES_PROVIDED = (int)2L;
     /**
-     * {@snippet :
-     * #define CORE_PARKING_POLICY_CHANGE_IDEAL 0
+     * {@snippet lang=c :
+     * #define REQUEST_OPLOCK_OUTPUT_FLAG_MODES_PROVIDED 2
      * }
      */
-    public static int CORE_PARKING_POLICY_CHANGE_IDEAL() {
-        return (int)0L;
+    public static int REQUEST_OPLOCK_OUTPUT_FLAG_MODES_PROVIDED() {
+        return REQUEST_OPLOCK_OUTPUT_FLAG_MODES_PROVIDED;
     }
+    private static final int SD_GLOBAL_CHANGE_TYPE_QUERY_STATS = (int)65536L;
     /**
-     * {@snippet :
-     * #define CORE_PARKING_POLICY_CHANGE_SINGLE 1
+     * {@snippet lang=c :
+     * #define SD_GLOBAL_CHANGE_TYPE_QUERY_STATS 65536
      * }
      */
-    public static int CORE_PARKING_POLICY_CHANGE_SINGLE() {
-        return (int)1L;
+    public static int SD_GLOBAL_CHANGE_TYPE_QUERY_STATS() {
+        return SD_GLOBAL_CHANGE_TYPE_QUERY_STATS;
     }
+    private static final int SD_GLOBAL_CHANGE_TYPE_ENUM_SDS = (int)131072L;
     /**
-     * {@snippet :
-     * #define CORE_PARKING_POLICY_CHANGE_ROCKET 2
+     * {@snippet lang=c :
+     * #define SD_GLOBAL_CHANGE_TYPE_ENUM_SDS 131072
      * }
      */
-    public static int CORE_PARKING_POLICY_CHANGE_ROCKET() {
-        return (int)2L;
+    public static int SD_GLOBAL_CHANGE_TYPE_ENUM_SDS() {
+        return SD_GLOBAL_CHANGE_TYPE_ENUM_SDS;
     }
+    private static final int LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_MASK = (int)4278190080L;
     /**
-     * {@snippet :
-     * #define CORE_PARKING_POLICY_CHANGE_MULTISTEP 3
+     * {@snippet lang=c :
+     * #define LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_MASK 4278190080
      * }
      */
-    public static int CORE_PARKING_POLICY_CHANGE_MULTISTEP() {
-        return (int)3L;
+    public static int LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_MASK() {
+        return LOOKUP_STREAM_FROM_CLUSTER_ENTRY_ATTRIBUTE_MASK;
     }
+    private static final long CSV_NAMESPACE_INFO_V1 = 24L;
     /**
-     * {@snippet :
-     * #define POWER_DEVICE_IDLE_POLICY_PERFORMANCE 0
+     * {@snippet lang=c :
+     * #define CSV_NAMESPACE_INFO_V1 24
      * }
      */
-    public static int POWER_DEVICE_IDLE_POLICY_PERFORMANCE() {
-        return (int)0L;
+    public static long CSV_NAMESPACE_INFO_V1() {
+        return CSV_NAMESPACE_INFO_V1;
     }
+    private static final int CSV_INVALID_DEVICE_NUMBER = (int)4294967295L;
     /**
-     * {@snippet :
-     * #define POWER_DEVICE_IDLE_POLICY_CONSERVATIVE 1
+     * {@snippet lang=c :
+     * #define CSV_INVALID_DEVICE_NUMBER 4294967295
      * }
      */
-    public static int POWER_DEVICE_IDLE_POLICY_CONSERVATIVE() {
-        return (int)1L;
+    public static int CSV_INVALID_DEVICE_NUMBER() {
+        return CSV_INVALID_DEVICE_NUMBER;
     }
+    private static final int QUERY_FILE_LAYOUT_RESTART = (int)1L;
     /**
-     * {@snippet :
-     * #define POWER_CONNECTIVITY_IN_STANDBY_DISABLED 0
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_RESTART 1
      * }
      */
-    public static int POWER_CONNECTIVITY_IN_STANDBY_DISABLED() {
-        return (int)0L;
+    public static int QUERY_FILE_LAYOUT_RESTART() {
+        return QUERY_FILE_LAYOUT_RESTART;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_NAMES = (int)2L;
     /**
-     * {@snippet :
-     * #define POWER_CONNECTIVITY_IN_STANDBY_ENABLED 1
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_NAMES 2
      * }
      */
-    public static int POWER_CONNECTIVITY_IN_STANDBY_ENABLED() {
-        return (int)1L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_NAMES() {
+        return QUERY_FILE_LAYOUT_INCLUDE_NAMES;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_STREAMS = (int)4L;
     /**
-     * {@snippet :
-     * #define POWER_CONNECTIVITY_IN_STANDBY_SYSTEM_MANAGED 2
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_STREAMS 4
      * }
      */
-    public static int POWER_CONNECTIVITY_IN_STANDBY_SYSTEM_MANAGED() {
-        return (int)2L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_STREAMS() {
+        return QUERY_FILE_LAYOUT_INCLUDE_STREAMS;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_EXTENTS = (int)8L;
     /**
-     * {@snippet :
-     * #define POWER_DISCONNECTED_STANDBY_MODE_NORMAL 0
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_EXTENTS 8
      * }
      */
-    public static int POWER_DISCONNECTED_STANDBY_MODE_NORMAL() {
-        return (int)0L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_EXTENTS() {
+        return QUERY_FILE_LAYOUT_INCLUDE_EXTENTS;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_EXTRA_INFO = (int)16L;
     /**
-     * {@snippet :
-     * #define POWER_DISCONNECTED_STANDBY_MODE_AGGRESSIVE 1
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_EXTRA_INFO 16
      * }
      */
-    public static int POWER_DISCONNECTED_STANDBY_MODE_AGGRESSIVE() {
-        return (int)1L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_EXTRA_INFO() {
+        return QUERY_FILE_LAYOUT_INCLUDE_EXTRA_INFO;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_STREAMS_WITH_NO_CLUSTERS_ALLOCATED = (int)32L;
     /**
-     * {@snippet :
-     * #define POWER_SYSTEM_MAXIMUM 7
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_STREAMS_WITH_NO_CLUSTERS_ALLOCATED 32
      * }
      */
-    public static int POWER_SYSTEM_MAXIMUM() {
-        return (int)7L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_STREAMS_WITH_NO_CLUSTERS_ALLOCATED() {
+        return QUERY_FILE_LAYOUT_INCLUDE_STREAMS_WITH_NO_CLUSTERS_ALLOCATED;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_FULL_PATH_IN_NAMES = (int)64L;
     /**
-     * {@snippet :
-     * #define DIAGNOSTIC_REASON_VERSION 0
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_FULL_PATH_IN_NAMES 64
      * }
      */
-    public static int DIAGNOSTIC_REASON_VERSION() {
-        return (int)0L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_FULL_PATH_IN_NAMES() {
+        return QUERY_FILE_LAYOUT_INCLUDE_FULL_PATH_IN_NAMES;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION = (int)128L;
     /**
-     * {@snippet :
-     * #define DIAGNOSTIC_REASON_SIMPLE_STRING 1
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION 128
      * }
      */
-    public static int DIAGNOSTIC_REASON_SIMPLE_STRING() {
-        return (int)1L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION() {
+        return QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_DSC_ATTRIBUTE = (int)256L;
     /**
-     * {@snippet :
-     * #define DIAGNOSTIC_REASON_DETAILED_STRING 2
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_DSC_ATTRIBUTE 256
      * }
      */
-    public static int DIAGNOSTIC_REASON_DETAILED_STRING() {
-        return (int)2L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_DSC_ATTRIBUTE() {
+        return QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_DSC_ATTRIBUTE;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_TXF_ATTRIBUTE = (int)512L;
     /**
-     * {@snippet :
-     * #define PDCAP_D0_SUPPORTED 1
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_TXF_ATTRIBUTE 512
      * }
      */
-    public static int PDCAP_D0_SUPPORTED() {
-        return (int)1L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_TXF_ATTRIBUTE() {
+        return QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_TXF_ATTRIBUTE;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_EFS_ATTRIBUTE = (int)1024L;
     /**
-     * {@snippet :
-     * #define PDCAP_D1_SUPPORTED 2
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_EFS_ATTRIBUTE 1024
      * }
      */
-    public static int PDCAP_D1_SUPPORTED() {
-        return (int)2L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_EFS_ATTRIBUTE() {
+        return QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_EFS_ATTRIBUTE;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_ONLY_FILES_WITH_SPECIFIC_ATTRIBUTES = (int)2048L;
     /**
-     * {@snippet :
-     * #define PDCAP_D2_SUPPORTED 4
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_ONLY_FILES_WITH_SPECIFIC_ATTRIBUTES 2048
      * }
      */
-    public static int PDCAP_D2_SUPPORTED() {
-        return (int)4L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_ONLY_FILES_WITH_SPECIFIC_ATTRIBUTES() {
+        return QUERY_FILE_LAYOUT_INCLUDE_ONLY_FILES_WITH_SPECIFIC_ATTRIBUTES;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_FILES_WITH_DSC_ATTRIBUTE = (int)4096L;
     /**
-     * {@snippet :
-     * #define PDCAP_D3_SUPPORTED 8
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_FILES_WITH_DSC_ATTRIBUTE 4096
      * }
      */
-    public static int PDCAP_D3_SUPPORTED() {
-        return (int)8L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_FILES_WITH_DSC_ATTRIBUTE() {
+        return QUERY_FILE_LAYOUT_INCLUDE_FILES_WITH_DSC_ATTRIBUTE;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_DATA_ATTRIBUTE = (int)8192L;
     /**
-     * {@snippet :
-     * #define PDCAP_WAKE_FROM_D0_SUPPORTED 16
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_DATA_ATTRIBUTE 8192
      * }
      */
-    public static int PDCAP_WAKE_FROM_D0_SUPPORTED() {
-        return (int)16L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_DATA_ATTRIBUTE() {
+        return QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_DATA_ATTRIBUTE;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_REPARSE_ATTRIBUTE = (int)16384L;
     /**
-     * {@snippet :
-     * #define PDCAP_WAKE_FROM_D1_SUPPORTED 32
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_REPARSE_ATTRIBUTE 16384
      * }
      */
-    public static int PDCAP_WAKE_FROM_D1_SUPPORTED() {
-        return (int)32L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_REPARSE_ATTRIBUTE() {
+        return QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_REPARSE_ATTRIBUTE;
     }
+    private static final int QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_EA_ATTRIBUTE = (int)32768L;
     /**
-     * {@snippet :
-     * #define PDCAP_WAKE_FROM_D2_SUPPORTED 64
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_EA_ATTRIBUTE 32768
      * }
      */
-    public static int PDCAP_WAKE_FROM_D2_SUPPORTED() {
-        return (int)64L;
+    public static int QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_EA_ATTRIBUTE() {
+        return QUERY_FILE_LAYOUT_INCLUDE_STREAM_INFORMATION_FOR_EA_ATTRIBUTE;
     }
+    private static final int QUERY_FILE_LAYOUT_SINGLE_INSTANCED = (int)1L;
     /**
-     * {@snippet :
-     * #define PDCAP_WAKE_FROM_D3_SUPPORTED 128
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_SINGLE_INSTANCED 1
      * }
      */
-    public static int PDCAP_WAKE_FROM_D3_SUPPORTED() {
-        return (int)128L;
+    public static int QUERY_FILE_LAYOUT_SINGLE_INSTANCED() {
+        return QUERY_FILE_LAYOUT_SINGLE_INSTANCED;
     }
+    private static final int FILE_LAYOUT_NAME_ENTRY_PRIMARY = (int)1L;
     /**
-     * {@snippet :
-     * #define PDCAP_WARM_EJECT_SUPPORTED 256
+     * {@snippet lang=c :
+     * #define FILE_LAYOUT_NAME_ENTRY_PRIMARY 1
      * }
      */
-    public static int PDCAP_WARM_EJECT_SUPPORTED() {
-        return (int)256L;
+    public static int FILE_LAYOUT_NAME_ENTRY_PRIMARY() {
+        return FILE_LAYOUT_NAME_ENTRY_PRIMARY;
     }
+    private static final int FILE_LAYOUT_NAME_ENTRY_DOS = (int)2L;
     /**
-     * {@snippet :
-     * #define PROC_IDLE_BUCKET_COUNT 6
+     * {@snippet lang=c :
+     * #define FILE_LAYOUT_NAME_ENTRY_DOS 2
      * }
      */
-    public static int PROC_IDLE_BUCKET_COUNT() {
-        return (int)6L;
+    public static int FILE_LAYOUT_NAME_ENTRY_DOS() {
+        return FILE_LAYOUT_NAME_ENTRY_DOS;
     }
+    private static final int STREAM_LAYOUT_ENTRY_IMMOVABLE = (int)1L;
     /**
-     * {@snippet :
-     * #define PROC_IDLE_BUCKET_COUNT_EX 16
+     * {@snippet lang=c :
+     * #define STREAM_LAYOUT_ENTRY_IMMOVABLE 1
      * }
      */
-    public static int PROC_IDLE_BUCKET_COUNT_EX() {
-        return (int)16L;
+    public static int STREAM_LAYOUT_ENTRY_IMMOVABLE() {
+        return STREAM_LAYOUT_ENTRY_IMMOVABLE;
     }
+    private static final int STREAM_LAYOUT_ENTRY_PINNED = (int)2L;
     /**
-     * {@snippet :
-     * #define ACPI_PPM_SOFTWARE_ALL 252
+     * {@snippet lang=c :
+     * #define STREAM_LAYOUT_ENTRY_PINNED 2
      * }
      */
-    public static int ACPI_PPM_SOFTWARE_ALL() {
-        return (int)252L;
+    public static int STREAM_LAYOUT_ENTRY_PINNED() {
+        return STREAM_LAYOUT_ENTRY_PINNED;
     }
+    private static final int STREAM_LAYOUT_ENTRY_RESIDENT = (int)4L;
     /**
-     * {@snippet :
-     * #define ACPI_PPM_SOFTWARE_ANY 253
+     * {@snippet lang=c :
+     * #define STREAM_LAYOUT_ENTRY_RESIDENT 4
      * }
      */
-    public static int ACPI_PPM_SOFTWARE_ANY() {
-        return (int)253L;
+    public static int STREAM_LAYOUT_ENTRY_RESIDENT() {
+        return STREAM_LAYOUT_ENTRY_RESIDENT;
     }
+    private static final int STREAM_LAYOUT_ENTRY_NO_CLUSTERS_ALLOCATED = (int)8L;
     /**
-     * {@snippet :
-     * #define ACPI_PPM_HARDWARE_ALL 254
+     * {@snippet lang=c :
+     * #define STREAM_LAYOUT_ENTRY_NO_CLUSTERS_ALLOCATED 8
      * }
      */
-    public static int ACPI_PPM_HARDWARE_ALL() {
-        return (int)254L;
+    public static int STREAM_LAYOUT_ENTRY_NO_CLUSTERS_ALLOCATED() {
+        return STREAM_LAYOUT_ENTRY_NO_CLUSTERS_ALLOCATED;
     }
+    private static final int STREAM_LAYOUT_ENTRY_HAS_INFORMATION = (int)16L;
     /**
-     * {@snippet :
-     * #define MS_PPM_SOFTWARE_ALL 1
+     * {@snippet lang=c :
+     * #define STREAM_LAYOUT_ENTRY_HAS_INFORMATION 16
      * }
      */
-    public static int MS_PPM_SOFTWARE_ALL() {
-        return (int)1L;
+    public static int STREAM_LAYOUT_ENTRY_HAS_INFORMATION() {
+        return STREAM_LAYOUT_ENTRY_HAS_INFORMATION;
     }
+    private static final int STREAM_EXTENT_ENTRY_AS_RETRIEVAL_POINTERS = (int)1L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_ACPI1C2 1
+     * {@snippet lang=c :
+     * #define STREAM_EXTENT_ENTRY_AS_RETRIEVAL_POINTERS 1
      * }
      */
-    public static int PPM_FIRMWARE_ACPI1C2() {
-        return (int)1L;
+    public static int STREAM_EXTENT_ENTRY_AS_RETRIEVAL_POINTERS() {
+        return STREAM_EXTENT_ENTRY_AS_RETRIEVAL_POINTERS;
     }
+    private static final int STREAM_EXTENT_ENTRY_ALL_EXTENTS = (int)2L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_ACPI1C3 2
+     * {@snippet lang=c :
+     * #define STREAM_EXTENT_ENTRY_ALL_EXTENTS 2
      * }
      */
-    public static int PPM_FIRMWARE_ACPI1C3() {
-        return (int)2L;
+    public static int STREAM_EXTENT_ENTRY_ALL_EXTENTS() {
+        return STREAM_EXTENT_ENTRY_ALL_EXTENTS;
     }
+    private static final int CHECKSUM_TYPE_UNCHANGED = (int)-1L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_ACPI1TSTATES 4
+     * {@snippet lang=c :
+     * #define CHECKSUM_TYPE_UNCHANGED -1
      * }
      */
-    public static int PPM_FIRMWARE_ACPI1TSTATES() {
-        return (int)4L;
+    public static int CHECKSUM_TYPE_UNCHANGED() {
+        return CHECKSUM_TYPE_UNCHANGED;
     }
+    private static final int CHECKSUM_TYPE_NONE = (int)0L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_CST 8
+     * {@snippet lang=c :
+     * #define CHECKSUM_TYPE_NONE 0
      * }
      */
-    public static int PPM_FIRMWARE_CST() {
-        return (int)8L;
+    public static int CHECKSUM_TYPE_NONE() {
+        return CHECKSUM_TYPE_NONE;
     }
+    private static final int CHECKSUM_TYPE_CRC32 = (int)1L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_CSD 16
+     * {@snippet lang=c :
+     * #define CHECKSUM_TYPE_CRC32 1
      * }
      */
-    public static int PPM_FIRMWARE_CSD() {
-        return (int)16L;
+    public static int CHECKSUM_TYPE_CRC32() {
+        return CHECKSUM_TYPE_CRC32;
     }
+    private static final int CHECKSUM_TYPE_CRC64 = (int)2L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_PCT 32
+     * {@snippet lang=c :
+     * #define CHECKSUM_TYPE_CRC64 2
      * }
      */
-    public static int PPM_FIRMWARE_PCT() {
-        return (int)32L;
+    public static int CHECKSUM_TYPE_CRC64() {
+        return CHECKSUM_TYPE_CRC64;
     }
+    private static final int CHECKSUM_TYPE_ECC = (int)3L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_PSS 64
+     * {@snippet lang=c :
+     * #define CHECKSUM_TYPE_ECC 3
      * }
      */
-    public static int PPM_FIRMWARE_PSS() {
-        return (int)64L;
+    public static int CHECKSUM_TYPE_ECC() {
+        return CHECKSUM_TYPE_ECC;
     }
+    private static final int CHECKSUM_TYPE_FIRST_UNUSED_TYPE = (int)4L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_XPSS 128
+     * {@snippet lang=c :
+     * #define CHECKSUM_TYPE_FIRST_UNUSED_TYPE 4
      * }
      */
-    public static int PPM_FIRMWARE_XPSS() {
-        return (int)128L;
+    public static int CHECKSUM_TYPE_FIRST_UNUSED_TYPE() {
+        return CHECKSUM_TYPE_FIRST_UNUSED_TYPE;
     }
+    private static final int FSCTL_INTEGRITY_FLAG_CHECKSUM_ENFORCEMENT_OFF = (int)1L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_PPC 256
+     * {@snippet lang=c :
+     * #define FSCTL_INTEGRITY_FLAG_CHECKSUM_ENFORCEMENT_OFF 1
      * }
      */
-    public static int PPM_FIRMWARE_PPC() {
-        return (int)256L;
+    public static int FSCTL_INTEGRITY_FLAG_CHECKSUM_ENFORCEMENT_OFF() {
+        return FSCTL_INTEGRITY_FLAG_CHECKSUM_ENFORCEMENT_OFF;
     }
+    private static final int OFFLOAD_READ_FLAG_ALL_ZERO_BEYOND_CURRENT_RANGE = (int)1L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_PSD 512
+     * {@snippet lang=c :
+     * #define OFFLOAD_READ_FLAG_ALL_ZERO_BEYOND_CURRENT_RANGE 1
      * }
      */
-    public static int PPM_FIRMWARE_PSD() {
-        return (int)512L;
+    public static int OFFLOAD_READ_FLAG_ALL_ZERO_BEYOND_CURRENT_RANGE() {
+        return OFFLOAD_READ_FLAG_ALL_ZERO_BEYOND_CURRENT_RANGE;
     }
+    private static final int FILE_REGION_USAGE_QUERY_ALIGNMENT = (int)24L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_PTC 1024
+     * {@snippet lang=c :
+     * #define FILE_REGION_USAGE_QUERY_ALIGNMENT 24
      * }
      */
-    public static int PPM_FIRMWARE_PTC() {
-        return (int)1024L;
+    public static int FILE_REGION_USAGE_QUERY_ALIGNMENT() {
+        return FILE_REGION_USAGE_QUERY_ALIGNMENT;
     }
+    private static final int VALID_WRITE_USN_REASON_MASK = (int)2147483649L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_TSS 2048
+     * {@snippet lang=c :
+     * #define VALID_WRITE_USN_REASON_MASK 2147483649
      * }
      */
-    public static int PPM_FIRMWARE_TSS() {
-        return (int)2048L;
+    public static int VALID_WRITE_USN_REASON_MASK() {
+        return VALID_WRITE_USN_REASON_MASK;
     }
+    private static final int FILE_STORAGE_TIER_NAME_LENGTH = (int)256L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_TPC 4096
+     * {@snippet lang=c :
+     * #define FILE_STORAGE_TIER_NAME_LENGTH 256
      * }
      */
-    public static int PPM_FIRMWARE_TPC() {
-        return (int)4096L;
+    public static int FILE_STORAGE_TIER_NAME_LENGTH() {
+        return FILE_STORAGE_TIER_NAME_LENGTH;
     }
+    private static final int FILE_STORAGE_TIER_DESCRIPTION_LENGTH = (int)512L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_TSD 8192
+     * {@snippet lang=c :
+     * #define FILE_STORAGE_TIER_DESCRIPTION_LENGTH 512
      * }
      */
-    public static int PPM_FIRMWARE_TSD() {
-        return (int)8192L;
+    public static int FILE_STORAGE_TIER_DESCRIPTION_LENGTH() {
+        return FILE_STORAGE_TIER_DESCRIPTION_LENGTH;
     }
+    private static final int FILE_STORAGE_TIER_FLAG_NO_SEEK_PENALTY = (int)131072L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_PCCH 16384
+     * {@snippet lang=c :
+     * #define FILE_STORAGE_TIER_FLAG_NO_SEEK_PENALTY 131072
      * }
      */
-    public static int PPM_FIRMWARE_PCCH() {
-        return (int)16384L;
+    public static int FILE_STORAGE_TIER_FLAG_NO_SEEK_PENALTY() {
+        return FILE_STORAGE_TIER_FLAG_NO_SEEK_PENALTY;
     }
+    private static final int FILE_STORAGE_TIER_FLAG_WRITE_BACK_CACHE = (int)2097152L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_PCCP 32768
+     * {@snippet lang=c :
+     * #define FILE_STORAGE_TIER_FLAG_WRITE_BACK_CACHE 2097152
      * }
      */
-    public static int PPM_FIRMWARE_PCCP() {
-        return (int)32768L;
+    public static int FILE_STORAGE_TIER_FLAG_WRITE_BACK_CACHE() {
+        return FILE_STORAGE_TIER_FLAG_WRITE_BACK_CACHE;
     }
+    private static final int FILE_STORAGE_TIER_FLAG_READ_CACHE = (int)4194304L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_OSC 65536
+     * {@snippet lang=c :
+     * #define FILE_STORAGE_TIER_FLAG_READ_CACHE 4194304
      * }
      */
-    public static int PPM_FIRMWARE_OSC() {
-        return (int)65536L;
+    public static int FILE_STORAGE_TIER_FLAG_READ_CACHE() {
+        return FILE_STORAGE_TIER_FLAG_READ_CACHE;
     }
+    private static final int FILE_STORAGE_TIER_FLAG_PARITY = (int)8388608L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_PDC 131072
+     * {@snippet lang=c :
+     * #define FILE_STORAGE_TIER_FLAG_PARITY 8388608
      * }
      */
-    public static int PPM_FIRMWARE_PDC() {
-        return (int)131072L;
+    public static int FILE_STORAGE_TIER_FLAG_PARITY() {
+        return FILE_STORAGE_TIER_FLAG_PARITY;
     }
+    private static final int FILE_STORAGE_TIER_FLAG_SMR = (int)16777216L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_CPC 262144
+     * {@snippet lang=c :
+     * #define FILE_STORAGE_TIER_FLAG_SMR 16777216
      * }
      */
-    public static int PPM_FIRMWARE_CPC() {
-        return (int)262144L;
+    public static int FILE_STORAGE_TIER_FLAG_SMR() {
+        return FILE_STORAGE_TIER_FLAG_SMR;
     }
+    private static final int QUERY_STORAGE_CLASSES_FLAGS_MEASURE_WRITE = (int)2147483648L;
     /**
-     * {@snippet :
-     * #define PPM_FIRMWARE_LPI 524288
+     * {@snippet lang=c :
+     * #define QUERY_STORAGE_CLASSES_FLAGS_MEASURE_WRITE 2147483648
      * }
      */
-    public static int PPM_FIRMWARE_LPI() {
-        return (int)524288L;
+    public static int QUERY_STORAGE_CLASSES_FLAGS_MEASURE_WRITE() {
+        return QUERY_STORAGE_CLASSES_FLAGS_MEASURE_WRITE;
     }
+    private static final long FSCTL_QUERY_STORAGE_CLASSES_OUTPUT_VERSION = 1088L;
     /**
-     * {@snippet :
-     * #define PPM_PERFORMANCE_IMPLEMENTATION_NONE 0
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_STORAGE_CLASSES_OUTPUT_VERSION 1088
      * }
      */
-    public static int PPM_PERFORMANCE_IMPLEMENTATION_NONE() {
-        return (int)0L;
+    public static long FSCTL_QUERY_STORAGE_CLASSES_OUTPUT_VERSION() {
+        return FSCTL_QUERY_STORAGE_CLASSES_OUTPUT_VERSION;
     }
+    private static final int QUERY_FILE_LAYOUT_REPARSE_DATA_INVALID = (int)1L;
     /**
-     * {@snippet :
-     * #define PPM_PERFORMANCE_IMPLEMENTATION_PSTATES 1
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_REPARSE_DATA_INVALID 1
      * }
      */
-    public static int PPM_PERFORMANCE_IMPLEMENTATION_PSTATES() {
-        return (int)1L;
+    public static int QUERY_FILE_LAYOUT_REPARSE_DATA_INVALID() {
+        return QUERY_FILE_LAYOUT_REPARSE_DATA_INVALID;
     }
+    private static final int QUERY_FILE_LAYOUT_REPARSE_TAG_INVALID = (int)2L;
     /**
-     * {@snippet :
-     * #define PPM_PERFORMANCE_IMPLEMENTATION_PCCV1 2
+     * {@snippet lang=c :
+     * #define QUERY_FILE_LAYOUT_REPARSE_TAG_INVALID 2
      * }
      */
-    public static int PPM_PERFORMANCE_IMPLEMENTATION_PCCV1() {
-        return (int)2L;
+    public static int QUERY_FILE_LAYOUT_REPARSE_TAG_INVALID() {
+        return QUERY_FILE_LAYOUT_REPARSE_TAG_INVALID;
     }
+    private static final long FSCTL_QUERY_REGION_INFO_INPUT_VERSION = 32L;
     /**
-     * {@snippet :
-     * #define PPM_PERFORMANCE_IMPLEMENTATION_CPPC 3
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_REGION_INFO_INPUT_VERSION 32
      * }
      */
-    public static int PPM_PERFORMANCE_IMPLEMENTATION_CPPC() {
-        return (int)3L;
+    public static long FSCTL_QUERY_REGION_INFO_INPUT_VERSION() {
+        return FSCTL_QUERY_REGION_INFO_INPUT_VERSION;
     }
+    private static final long FSCTL_QUERY_REGION_INFO_OUTPUT_VERSION = 64L;
     /**
-     * {@snippet :
-     * #define PPM_PERFORMANCE_IMPLEMENTATION_PEP 4
+     * {@snippet lang=c :
+     * #define FSCTL_QUERY_REGION_INFO_OUTPUT_VERSION 64
      * }
      */
-    public static int PPM_PERFORMANCE_IMPLEMENTATION_PEP() {
-        return (int)4L;
+    public static long FSCTL_QUERY_REGION_INFO_OUTPUT_VERSION() {
+        return FSCTL_QUERY_REGION_INFO_OUTPUT_VERSION;
     }
+    private static final long ASYNC_DUPLICATE_EXTENTS_STATUS_V1 = 40L;
     /**
-     * {@snippet :
-     * #define PPM_IDLE_IMPLEMENTATION_NONE 0
+     * {@snippet lang=c :
+     * #define ASYNC_DUPLICATE_EXTENTS_STATUS_V1 40
      * }
      */
-    public static int PPM_IDLE_IMPLEMENTATION_NONE() {
-        return (int)0L;
+    public static long ASYNC_DUPLICATE_EXTENTS_STATUS_V1() {
+        return ASYNC_DUPLICATE_EXTENTS_STATUS_V1;
     }
+    private static final int STREAMS_INVALID_ID = (int)0L;
     /**
-     * {@snippet :
-     * #define PPM_IDLE_IMPLEMENTATION_CSTATES 1
+     * {@snippet lang=c :
+     * #define STREAMS_INVALID_ID 0
      * }
      */
-    public static int PPM_IDLE_IMPLEMENTATION_CSTATES() {
-        return (int)1L;
+    public static int STREAMS_INVALID_ID() {
+        return STREAMS_INVALID_ID;
     }
+    private static final int STREAMS_MAX_ID = (int)65535L;
     /**
-     * {@snippet :
-     * #define PPM_IDLE_IMPLEMENTATION_PEP 2
+     * {@snippet lang=c :
+     * #define STREAMS_MAX_ID 65535
      * }
      */
-    public static int PPM_IDLE_IMPLEMENTATION_PEP() {
-        return (int)2L;
+    public static int STREAMS_MAX_ID() {
+        return STREAMS_MAX_ID;
     }
+    private static final int STREAMS_ASSOCIATE_ID_CLEAR = (int)1L;
     /**
-     * {@snippet :
-     * #define PPM_IDLE_IMPLEMENTATION_MICROPEP 3
+     * {@snippet lang=c :
+     * #define STREAMS_ASSOCIATE_ID_CLEAR 1
      * }
      */
-    public static int PPM_IDLE_IMPLEMENTATION_MICROPEP() {
-        return (int)3L;
+    public static int STREAMS_ASSOCIATE_ID_CLEAR() {
+        return STREAMS_ASSOCIATE_ID_CLEAR;
     }
+    private static final int STREAMS_ASSOCIATE_ID_SET = (int)2L;
     /**
-     * {@snippet :
-     * #define PPM_IDLE_IMPLEMENTATION_LPISTATES 4
+     * {@snippet lang=c :
+     * #define STREAMS_ASSOCIATE_ID_SET 2
      * }
      */
-    public static int PPM_IDLE_IMPLEMENTATION_LPISTATES() {
-        return (int)4L;
+    public static int STREAMS_ASSOCIATE_ID_SET() {
+        return STREAMS_ASSOCIATE_ID_SET;
     }
+    private static final int DAX_ALLOC_ALIGNMENT_FLAG_MANDATORY = (int)1L;
     /**
-     * {@snippet :
-     * #define POWER_ACTION_QUERY_ALLOWED 1
+     * {@snippet lang=c :
+     * #define DAX_ALLOC_ALIGNMENT_FLAG_MANDATORY 1
      * }
      */
-    public static int POWER_ACTION_QUERY_ALLOWED() {
-        return (int)1L;
+    public static int DAX_ALLOC_ALIGNMENT_FLAG_MANDATORY() {
+        return DAX_ALLOC_ALIGNMENT_FLAG_MANDATORY;
     }
+    private static final int DAX_ALLOC_ALIGNMENT_FLAG_FALLBACK_SPECIFIED = (int)2L;
     /**
-     * {@snippet :
-     * #define POWER_ACTION_UI_ALLOWED 2
+     * {@snippet lang=c :
+     * #define DAX_ALLOC_ALIGNMENT_FLAG_FALLBACK_SPECIFIED 2
      * }
      */
-    public static int POWER_ACTION_UI_ALLOWED() {
-        return (int)2L;
+    public static int DAX_ALLOC_ALIGNMENT_FLAG_FALLBACK_SPECIFIED() {
+        return DAX_ALLOC_ALIGNMENT_FLAG_FALLBACK_SPECIFIED;
     }
+    private static final int WOF_CURRENT_VERSION = (int)1L;
     /**
-     * {@snippet :
-     * #define POWER_ACTION_OVERRIDE_APPS 4
+     * {@snippet lang=c :
+     * #define WOF_CURRENT_VERSION 1
      * }
      */
-    public static int POWER_ACTION_OVERRIDE_APPS() {
-        return (int)4L;
+    public static int WOF_CURRENT_VERSION() {
+        return WOF_CURRENT_VERSION;
     }
+    private static final int WOF_PROVIDER_WIM = (int)1L;
     /**
-     * {@snippet :
-     * #define POWER_ACTION_HIBERBOOT 8
+     * {@snippet lang=c :
+     * #define WOF_PROVIDER_WIM 1
      * }
      */
-    public static int POWER_ACTION_HIBERBOOT() {
-        return (int)8L;
+    public static int WOF_PROVIDER_WIM() {
+        return WOF_PROVIDER_WIM;
     }
+    private static final int WOF_PROVIDER_FILE = (int)2L;
     /**
-     * {@snippet :
-     * #define POWER_ACTION_USER_NOTIFY 16
+     * {@snippet lang=c :
+     * #define WOF_PROVIDER_FILE 2
      * }
      */
-    public static int POWER_ACTION_USER_NOTIFY() {
-        return (int)16L;
+    public static int WOF_PROVIDER_FILE() {
+        return WOF_PROVIDER_FILE;
     }
+    private static final int WOF_PROVIDER_CLOUD = (int)3L;
     /**
-     * {@snippet :
-     * #define POWER_ACTION_DOZE_TO_HIBERNATE 32
+     * {@snippet lang=c :
+     * #define WOF_PROVIDER_CLOUD 3
      * }
      */
-    public static int POWER_ACTION_DOZE_TO_HIBERNATE() {
-        return (int)32L;
+    public static int WOF_PROVIDER_CLOUD() {
+        return WOF_PROVIDER_CLOUD;
     }
+    private static final int WIM_PROVIDER_CURRENT_VERSION = (int)1L;
     /**
-     * {@snippet :
-     * #define POWER_ACTION_ACPI_CRITICAL 16777216
+     * {@snippet lang=c :
+     * #define WIM_PROVIDER_CURRENT_VERSION 1
      * }
      */
-    public static int POWER_ACTION_ACPI_CRITICAL() {
-        return (int)16777216L;
+    public static int WIM_PROVIDER_CURRENT_VERSION() {
+        return WIM_PROVIDER_CURRENT_VERSION;
     }
+    private static final int WIM_PROVIDER_EXTERNAL_FLAG_NOT_ACTIVE = (int)1L;
     /**
-     * {@snippet :
-     * #define POWER_ACTION_ACPI_USER_NOTIFY 33554432
+     * {@snippet lang=c :
+     * #define WIM_PROVIDER_EXTERNAL_FLAG_NOT_ACTIVE 1
      * }
      */
-    public static int POWER_ACTION_ACPI_USER_NOTIFY() {
-        return (int)33554432L;
+    public static int WIM_PROVIDER_EXTERNAL_FLAG_NOT_ACTIVE() {
+        return WIM_PROVIDER_EXTERNAL_FLAG_NOT_ACTIVE;
     }
+    private static final int WIM_PROVIDER_EXTERNAL_FLAG_SUSPENDED = (int)2L;
     /**
-     * {@snippet :
-     * #define POWER_ACTION_DIRECTED_DRIPS 67108864
+     * {@snippet lang=c :
+     * #define WIM_PROVIDER_EXTERNAL_FLAG_SUSPENDED 2
      * }
      */
-    public static int POWER_ACTION_DIRECTED_DRIPS() {
-        return (int)67108864L;
+    public static int WIM_PROVIDER_EXTERNAL_FLAG_SUSPENDED() {
+        return WIM_PROVIDER_EXTERNAL_FLAG_SUSPENDED;
     }
+    private static final int WIM_BOOT_OS_WIM = (int)1L;
     /**
-     * {@snippet :
-     * #define POWER_ACTION_PSEUDO_TRANSITION 134217728
+     * {@snippet lang=c :
+     * #define WIM_BOOT_OS_WIM 1
      * }
      */
-    public static int POWER_ACTION_PSEUDO_TRANSITION() {
-        return (int)134217728L;
+    public static int WIM_BOOT_OS_WIM() {
+        return WIM_BOOT_OS_WIM;
     }
+    private static final int WIM_BOOT_NOT_OS_WIM = (int)0L;
     /**
-     * {@snippet :
-     * #define POWER_ACTION_LIGHTEST_FIRST 268435456
+     * {@snippet lang=c :
+     * #define WIM_BOOT_NOT_OS_WIM 0
      * }
      */
-    public static int POWER_ACTION_LIGHTEST_FIRST() {
-        return (int)268435456L;
+    public static int WIM_BOOT_NOT_OS_WIM() {
+        return WIM_BOOT_NOT_OS_WIM;
     }
+    private static final int FILE_PROVIDER_CURRENT_VERSION = (int)1L;
     /**
-     * {@snippet :
-     * #define POWER_ACTION_LOCK_CONSOLE 536870912
+     * {@snippet lang=c :
+     * #define FILE_PROVIDER_CURRENT_VERSION 1
      * }
      */
-    public static int POWER_ACTION_LOCK_CONSOLE() {
-        return (int)536870912L;
+    public static int FILE_PROVIDER_CURRENT_VERSION() {
+        return FILE_PROVIDER_CURRENT_VERSION;
     }
+    private static final int FILE_PROVIDER_SINGLE_FILE = (int)1L;
     /**
-     * {@snippet :
-     * #define POWER_ACTION_DISABLE_WAKES 1073741824
+     * {@snippet lang=c :
+     * #define FILE_PROVIDER_SINGLE_FILE 1
      * }
      */
-    public static int POWER_ACTION_DISABLE_WAKES() {
-        return (int)1073741824L;
+    public static int FILE_PROVIDER_SINGLE_FILE() {
+        return FILE_PROVIDER_SINGLE_FILE;
     }
+    private static final int FILE_PROVIDER_COMPRESSION_XPRESS4K = (int)0L;
     /**
-     * {@snippet :
-     * #define POWER_LEVEL_USER_NOTIFY_TEXT 1
+     * {@snippet lang=c :
+     * #define FILE_PROVIDER_COMPRESSION_XPRESS4K 0
      * }
      */
-    public static int POWER_LEVEL_USER_NOTIFY_TEXT() {
-        return (int)1L;
+    public static int FILE_PROVIDER_COMPRESSION_XPRESS4K() {
+        return FILE_PROVIDER_COMPRESSION_XPRESS4K;
     }
+    private static final int FILE_PROVIDER_COMPRESSION_LZX = (int)1L;
     /**
-     * {@snippet :
-     * #define POWER_LEVEL_USER_NOTIFY_SOUND 2
+     * {@snippet lang=c :
+     * #define FILE_PROVIDER_COMPRESSION_LZX 1
      * }
      */
-    public static int POWER_LEVEL_USER_NOTIFY_SOUND() {
-        return (int)2L;
+    public static int FILE_PROVIDER_COMPRESSION_LZX() {
+        return FILE_PROVIDER_COMPRESSION_LZX;
     }
+    private static final int FILE_PROVIDER_COMPRESSION_XPRESS8K = (int)2L;
     /**
-     * {@snippet :
-     * #define POWER_LEVEL_USER_NOTIFY_EXEC 4
+     * {@snippet lang=c :
+     * #define FILE_PROVIDER_COMPRESSION_XPRESS8K 2
      * }
      */
-    public static int POWER_LEVEL_USER_NOTIFY_EXEC() {
-        return (int)4L;
+    public static int FILE_PROVIDER_COMPRESSION_XPRESS8K() {
+        return FILE_PROVIDER_COMPRESSION_XPRESS8K;
     }
+    private static final int FILE_PROVIDER_COMPRESSION_XPRESS16K = (int)3L;
     /**
-     * {@snippet :
-     * #define POWER_USER_NOTIFY_BUTTON 8
+     * {@snippet lang=c :
+     * #define FILE_PROVIDER_COMPRESSION_XPRESS16K 3
      * }
      */
-    public static int POWER_USER_NOTIFY_BUTTON() {
-        return (int)8L;
+    public static int FILE_PROVIDER_COMPRESSION_XPRESS16K() {
+        return FILE_PROVIDER_COMPRESSION_XPRESS16K;
     }
+    private static final int FILE_PROVIDER_COMPRESSION_MAXIMUM = (int)4L;
     /**
-     * {@snippet :
-     * #define POWER_USER_NOTIFY_SHUTDOWN 16
+     * {@snippet lang=c :
+     * #define FILE_PROVIDER_COMPRESSION_MAXIMUM 4
      * }
      */
-    public static int POWER_USER_NOTIFY_SHUTDOWN() {
-        return (int)16L;
+    public static int FILE_PROVIDER_COMPRESSION_MAXIMUM() {
+        return FILE_PROVIDER_COMPRESSION_MAXIMUM;
     }
+    private static final int FILE_PROVIDER_FLAG_COMPRESS_ON_WRITE = (int)1L;
     /**
-     * {@snippet :
-     * #define POWER_USER_NOTIFY_FORCED_SHUTDOWN 32
+     * {@snippet lang=c :
+     * #define FILE_PROVIDER_FLAG_COMPRESS_ON_WRITE 1
      * }
      */
-    public static int POWER_USER_NOTIFY_FORCED_SHUTDOWN() {
-        return (int)32L;
+    public static int FILE_PROVIDER_FLAG_COMPRESS_ON_WRITE() {
+        return FILE_PROVIDER_FLAG_COMPRESS_ON_WRITE;
     }
+    private static final int CONTAINER_VOLUME_STATE_HOSTING_CONTAINER = (int)1L;
     /**
-     * {@snippet :
-     * #define BATTERY_DISCHARGE_FLAGS_EVENTCODE_MASK 7
+     * {@snippet lang=c :
+     * #define CONTAINER_VOLUME_STATE_HOSTING_CONTAINER 1
      * }
      */
-    public static int BATTERY_DISCHARGE_FLAGS_EVENTCODE_MASK() {
-        return (int)7L;
+    public static int CONTAINER_VOLUME_STATE_HOSTING_CONTAINER() {
+        return CONTAINER_VOLUME_STATE_HOSTING_CONTAINER;
     }
+    private static final int CONTAINER_ROOT_INFO_FLAG_SCRATCH_ROOT = (int)1L;
     /**
-     * {@snippet :
-     * #define NUM_DISCHARGE_POLICIES 4
+     * {@snippet lang=c :
+     * #define CONTAINER_ROOT_INFO_FLAG_SCRATCH_ROOT 1
      * }
      */
-    public static int NUM_DISCHARGE_POLICIES() {
-        return (int)4L;
+    public static int CONTAINER_ROOT_INFO_FLAG_SCRATCH_ROOT() {
+        return CONTAINER_ROOT_INFO_FLAG_SCRATCH_ROOT;
     }
+    private static final int CONTAINER_ROOT_INFO_FLAG_LAYER_ROOT = (int)2L;
     /**
-     * {@snippet :
-     * #define DISCHARGE_POLICY_CRITICAL 0
+     * {@snippet lang=c :
+     * #define CONTAINER_ROOT_INFO_FLAG_LAYER_ROOT 2
      * }
      */
-    public static int DISCHARGE_POLICY_CRITICAL() {
-        return (int)0L;
+    public static int CONTAINER_ROOT_INFO_FLAG_LAYER_ROOT() {
+        return CONTAINER_ROOT_INFO_FLAG_LAYER_ROOT;
     }
+    private static final int CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_ROOT = (int)4L;
     /**
-     * {@snippet :
-     * #define DISCHARGE_POLICY_LOW 1
+     * {@snippet lang=c :
+     * #define CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_ROOT 4
      * }
      */
-    public static int DISCHARGE_POLICY_LOW() {
-        return (int)1L;
+    public static int CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_ROOT() {
+        return CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_ROOT;
     }
+    private static final int CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_TARGET_ROOT = (int)8L;
     /**
-     * {@snippet :
-     * #define PROCESSOR_IDLESTATE_POLICY_COUNT 3
+     * {@snippet lang=c :
+     * #define CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_TARGET_ROOT 8
      * }
      */
-    public static int PROCESSOR_IDLESTATE_POLICY_COUNT() {
-        return (int)3L;
+    public static int CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_TARGET_ROOT() {
+        return CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_TARGET_ROOT;
     }
+    private static final int CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_EXCEPTION_ROOT = (int)16L;
     /**
-     * {@snippet :
-     * #define PO_THROTTLE_NONE 0
+     * {@snippet lang=c :
+     * #define CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_EXCEPTION_ROOT 16
      * }
      */
-    public static int PO_THROTTLE_NONE() {
-        return (int)0L;
+    public static int CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_EXCEPTION_ROOT() {
+        return CONTAINER_ROOT_INFO_FLAG_VIRTUALIZATION_EXCEPTION_ROOT;
     }
+    private static final int CONTAINER_ROOT_INFO_FLAG_BIND_ROOT = (int)32L;
     /**
-     * {@snippet :
-     * #define PO_THROTTLE_CONSTANT 1
+     * {@snippet lang=c :
+     * #define CONTAINER_ROOT_INFO_FLAG_BIND_ROOT 32
      * }
      */
-    public static int PO_THROTTLE_CONSTANT() {
-        return (int)1L;
+    public static int CONTAINER_ROOT_INFO_FLAG_BIND_ROOT() {
+        return CONTAINER_ROOT_INFO_FLAG_BIND_ROOT;
     }
+    private static final int CONTAINER_ROOT_INFO_FLAG_BIND_TARGET_ROOT = (int)64L;
     /**
-     * {@snippet :
-     * #define PO_THROTTLE_DEGRADE 2
+     * {@snippet lang=c :
+     * #define CONTAINER_ROOT_INFO_FLAG_BIND_TARGET_ROOT 64
      * }
      */
-    public static int PO_THROTTLE_DEGRADE() {
-        return (int)2L;
+    public static int CONTAINER_ROOT_INFO_FLAG_BIND_TARGET_ROOT() {
+        return CONTAINER_ROOT_INFO_FLAG_BIND_TARGET_ROOT;
     }
+    private static final int CONTAINER_ROOT_INFO_FLAG_BIND_EXCEPTION_ROOT = (int)128L;
     /**
-     * {@snippet :
-     * #define PO_THROTTLE_ADAPTIVE 3
+     * {@snippet lang=c :
+     * #define CONTAINER_ROOT_INFO_FLAG_BIND_EXCEPTION_ROOT 128
      * }
      */
-    public static int PO_THROTTLE_ADAPTIVE() {
-        return (int)3L;
+    public static int CONTAINER_ROOT_INFO_FLAG_BIND_EXCEPTION_ROOT() {
+        return CONTAINER_ROOT_INFO_FLAG_BIND_EXCEPTION_ROOT;
     }
+    private static final int CONTAINER_ROOT_INFO_FLAG_BIND_DO_NOT_MAP_NAME = (int)256L;
     /**
-     * {@snippet :
-     * #define PO_THROTTLE_MAXIMUM 4
+     * {@snippet lang=c :
+     * #define CONTAINER_ROOT_INFO_FLAG_BIND_DO_NOT_MAP_NAME 256
      * }
      */
-    public static int PO_THROTTLE_MAXIMUM() {
-        return (int)4L;
+    public static int CONTAINER_ROOT_INFO_FLAG_BIND_DO_NOT_MAP_NAME() {
+        return CONTAINER_ROOT_INFO_FLAG_BIND_DO_NOT_MAP_NAME;
     }
+    private static final int CONTAINER_ROOT_INFO_FLAG_UNION_LAYER_ROOT = (int)512L;
     /**
-     * {@snippet :
-     * #define HIBERFILE_TYPE_NONE 0
+     * {@snippet lang=c :
+     * #define CONTAINER_ROOT_INFO_FLAG_UNION_LAYER_ROOT 512
      * }
      */
-    public static int HIBERFILE_TYPE_NONE() {
-        return (int)0L;
+    public static int CONTAINER_ROOT_INFO_FLAG_UNION_LAYER_ROOT() {
+        return CONTAINER_ROOT_INFO_FLAG_UNION_LAYER_ROOT;
     }
+    private static final int CONTAINER_ROOT_INFO_VALID_FLAGS = (int)1023L;
     /**
-     * {@snippet :
-     * #define HIBERFILE_TYPE_REDUCED 1
+     * {@snippet lang=c :
+     * #define CONTAINER_ROOT_INFO_VALID_FLAGS 1023
      * }
      */
-    public static int HIBERFILE_TYPE_REDUCED() {
-        return (int)1L;
+    public static int CONTAINER_ROOT_INFO_VALID_FLAGS() {
+        return CONTAINER_ROOT_INFO_VALID_FLAGS;
     }
+    private static final long FS_BPIO_OUTPUT_ENABLE_SIZE = 352L;
     /**
-     * {@snippet :
-     * #define HIBERFILE_TYPE_FULL 2
+     * {@snippet lang=c :
+     * #define FS_BPIO_OUTPUT_ENABLE_SIZE 352
      * }
      */
-    public static int HIBERFILE_TYPE_FULL() {
-        return (int)2L;
+    public static long FS_BPIO_OUTPUT_ENABLE_SIZE() {
+        return FS_BPIO_OUTPUT_ENABLE_SIZE;
     }
+    private static final long FS_BPIO_OUTPUT_QUERY_SIZE = 352L;
     /**
-     * {@snippet :
-     * #define HIBERFILE_TYPE_MAX 3
+     * {@snippet lang=c :
+     * #define FS_BPIO_OUTPUT_QUERY_SIZE 352
      * }
      */
-    public static int HIBERFILE_TYPE_MAX() {
-        return (int)3L;
+    public static long FS_BPIO_OUTPUT_QUERY_SIZE() {
+        return FS_BPIO_OUTPUT_QUERY_SIZE;
     }
+    private static final long FS_BPIO_OUTPUT_DISABLE_SIZE = 24L;
     /**
-     * {@snippet :
-     * #define IMAGE_DOS_SIGNATURE 23117
+     * {@snippet lang=c :
+     * #define FS_BPIO_OUTPUT_DISABLE_SIZE 24
      * }
      */
-    public static int IMAGE_DOS_SIGNATURE() {
-        return (int)23117L;
+    public static long FS_BPIO_OUTPUT_DISABLE_SIZE() {
+        return FS_BPIO_OUTPUT_DISABLE_SIZE;
     }
+    private static final long FS_BPIO_OUTPUT_VOLUME_STACK_PAUSE_SIZE = 24L;
     /**
-     * {@snippet :
-     * #define IMAGE_OS2_SIGNATURE 17742
+     * {@snippet lang=c :
+     * #define FS_BPIO_OUTPUT_VOLUME_STACK_PAUSE_SIZE 24
      * }
      */
-    public static int IMAGE_OS2_SIGNATURE() {
-        return (int)17742L;
+    public static long FS_BPIO_OUTPUT_VOLUME_STACK_PAUSE_SIZE() {
+        return FS_BPIO_OUTPUT_VOLUME_STACK_PAUSE_SIZE;
     }
+    private static final long FS_BPIO_OUTPUT_VOLUME_STACK_RESUME_SIZE = 352L;
     /**
-     * {@snippet :
-     * #define IMAGE_OS2_SIGNATURE_LE 17740
+     * {@snippet lang=c :
+     * #define FS_BPIO_OUTPUT_VOLUME_STACK_RESUME_SIZE 352
      * }
      */
-    public static int IMAGE_OS2_SIGNATURE_LE() {
-        return (int)17740L;
+    public static long FS_BPIO_OUTPUT_VOLUME_STACK_RESUME_SIZE() {
+        return FS_BPIO_OUTPUT_VOLUME_STACK_RESUME_SIZE;
     }
+    private static final long FS_BPIO_OUTPUT_STREAM_PAUSE_SIZE = 24L;
     /**
-     * {@snippet :
-     * #define IMAGE_VXD_SIGNATURE 17740
+     * {@snippet lang=c :
+     * #define FS_BPIO_OUTPUT_STREAM_PAUSE_SIZE 24
      * }
      */
-    public static int IMAGE_VXD_SIGNATURE() {
-        return (int)17740L;
+    public static long FS_BPIO_OUTPUT_STREAM_PAUSE_SIZE() {
+        return FS_BPIO_OUTPUT_STREAM_PAUSE_SIZE;
     }
+    private static final long FS_BPIO_OUTPUT_STREAM_RESUME_SIZE = 352L;
     /**
-     * {@snippet :
-     * #define IMAGE_NT_SIGNATURE 17744
+     * {@snippet lang=c :
+     * #define FS_BPIO_OUTPUT_STREAM_RESUME_SIZE 352
      * }
      */
-    public static int IMAGE_NT_SIGNATURE() {
-        return (int)17744L;
+    public static long FS_BPIO_OUTPUT_STREAM_RESUME_SIZE() {
+        return FS_BPIO_OUTPUT_STREAM_RESUME_SIZE;
     }
+    private static final long FS_BPIO_OUTPUT_GET_INFO_SIZE = 96L;
     /**
-     * {@snippet :
-     * #define IMAGE_SIZEOF_FILE_HEADER 20
+     * {@snippet lang=c :
+     * #define FS_BPIO_OUTPUT_GET_INFO_SIZE 96
      * }
      */
-    public static int IMAGE_SIZEOF_FILE_HEADER() {
-        return (int)20L;
+    public static long FS_BPIO_OUTPUT_GET_INFO_SIZE() {
+        return FS_BPIO_OUTPUT_GET_INFO_SIZE;
     }
+    private static final int IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS = (int)5636096L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_RELOCS_STRIPPED 1
+     * {@snippet lang=c :
+     * #define IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS 5636096
      * }
      */
-    public static int IMAGE_FILE_RELOCS_STRIPPED() {
-        return (int)1L;
+    public static int IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS() {
+        return IOCTL_VOLUME_GET_VOLUME_DISK_EXTENTS;
     }
+    private static final int IOCTL_VOLUME_ONLINE = (int)5685256L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_EXECUTABLE_IMAGE 2
+     * {@snippet lang=c :
+     * #define IOCTL_VOLUME_ONLINE 5685256
      * }
      */
-    public static int IMAGE_FILE_EXECUTABLE_IMAGE() {
-        return (int)2L;
+    public static int IOCTL_VOLUME_ONLINE() {
+        return IOCTL_VOLUME_ONLINE;
     }
+    private static final int IOCTL_VOLUME_OFFLINE = (int)5685260L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_LINE_NUMS_STRIPPED 4
+     * {@snippet lang=c :
+     * #define IOCTL_VOLUME_OFFLINE 5685260
      * }
      */
-    public static int IMAGE_FILE_LINE_NUMS_STRIPPED() {
-        return (int)4L;
+    public static int IOCTL_VOLUME_OFFLINE() {
+        return IOCTL_VOLUME_OFFLINE;
     }
+    private static final int IOCTL_VOLUME_IS_CLUSTERED = (int)5636144L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_LOCAL_SYMS_STRIPPED 8
+     * {@snippet lang=c :
+     * #define IOCTL_VOLUME_IS_CLUSTERED 5636144
      * }
      */
-    public static int IMAGE_FILE_LOCAL_SYMS_STRIPPED() {
-        return (int)8L;
+    public static int IOCTL_VOLUME_IS_CLUSTERED() {
+        return IOCTL_VOLUME_IS_CLUSTERED;
     }
+    private static final int IOCTL_VOLUME_GET_GPT_ATTRIBUTES = (int)5636152L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_AGGRESIVE_WS_TRIM 16
+     * {@snippet lang=c :
+     * #define IOCTL_VOLUME_GET_GPT_ATTRIBUTES 5636152
      * }
      */
-    public static int IMAGE_FILE_AGGRESIVE_WS_TRIM() {
-        return (int)16L;
+    public static int IOCTL_VOLUME_GET_GPT_ATTRIBUTES() {
+        return IOCTL_VOLUME_GET_GPT_ATTRIBUTES;
     }
+    private static final int IRP_EXT_TRACK_OFFSET_HEADER_VALIDATION_VALUE = (int)21583L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_LARGE_ADDRESS_AWARE 32
+     * {@snippet lang=c :
+     * #define IRP_EXT_TRACK_OFFSET_HEADER_VALIDATION_VALUE 21583
      * }
      */
-    public static int IMAGE_FILE_LARGE_ADDRESS_AWARE() {
-        return (int)32L;
+    public static int IRP_EXT_TRACK_OFFSET_HEADER_VALIDATION_VALUE() {
+        return IRP_EXT_TRACK_OFFSET_HEADER_VALIDATION_VALUE;
     }
+    private static final int SCARD_PROTOCOL_Tx = (int)3L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_BYTES_REVERSED_LO 128
+     * {@snippet lang=c :
+     * #define SCARD_PROTOCOL_Tx 3
      * }
      */
-    public static int IMAGE_FILE_BYTES_REVERSED_LO() {
-        return (int)128L;
+    public static int SCARD_PROTOCOL_Tx() {
+        return SCARD_PROTOCOL_Tx;
     }
+    private static final int SCARD_PROTOCOL_DEFAULT = (int)2147483648L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_32BIT_MACHINE 256
+     * {@snippet lang=c :
+     * #define SCARD_PROTOCOL_DEFAULT 2147483648
      * }
      */
-    public static int IMAGE_FILE_32BIT_MACHINE() {
-        return (int)256L;
+    public static int SCARD_PROTOCOL_DEFAULT() {
+        return SCARD_PROTOCOL_DEFAULT;
     }
+    private static final int IOCTL_SMARTCARD_POWER = (int)3211268L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_DEBUG_STRIPPED 512
+     * {@snippet lang=c :
+     * #define IOCTL_SMARTCARD_POWER 3211268
      * }
      */
-    public static int IMAGE_FILE_DEBUG_STRIPPED() {
-        return (int)512L;
+    public static int IOCTL_SMARTCARD_POWER() {
+        return IOCTL_SMARTCARD_POWER;
     }
+    private static final int IOCTL_SMARTCARD_GET_ATTRIBUTE = (int)3211272L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP 1024
+     * {@snippet lang=c :
+     * #define IOCTL_SMARTCARD_GET_ATTRIBUTE 3211272
      * }
      */
-    public static int IMAGE_FILE_REMOVABLE_RUN_FROM_SWAP() {
-        return (int)1024L;
+    public static int IOCTL_SMARTCARD_GET_ATTRIBUTE() {
+        return IOCTL_SMARTCARD_GET_ATTRIBUTE;
     }
+    private static final int IOCTL_SMARTCARD_SET_ATTRIBUTE = (int)3211276L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_NET_RUN_FROM_SWAP 2048
+     * {@snippet lang=c :
+     * #define IOCTL_SMARTCARD_SET_ATTRIBUTE 3211276
      * }
      */
-    public static int IMAGE_FILE_NET_RUN_FROM_SWAP() {
-        return (int)2048L;
+    public static int IOCTL_SMARTCARD_SET_ATTRIBUTE() {
+        return IOCTL_SMARTCARD_SET_ATTRIBUTE;
     }
+    private static final int IOCTL_SMARTCARD_CONFISCATE = (int)3211280L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_SYSTEM 4096
+     * {@snippet lang=c :
+     * #define IOCTL_SMARTCARD_CONFISCATE 3211280
      * }
      */
-    public static int IMAGE_FILE_SYSTEM() {
-        return (int)4096L;
+    public static int IOCTL_SMARTCARD_CONFISCATE() {
+        return IOCTL_SMARTCARD_CONFISCATE;
     }
+    private static final int IOCTL_SMARTCARD_TRANSMIT = (int)3211284L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_DLL 8192
+     * {@snippet lang=c :
+     * #define IOCTL_SMARTCARD_TRANSMIT 3211284
      * }
      */
-    public static int IMAGE_FILE_DLL() {
-        return (int)8192L;
+    public static int IOCTL_SMARTCARD_TRANSMIT() {
+        return IOCTL_SMARTCARD_TRANSMIT;
     }
+    private static final int IOCTL_SMARTCARD_EJECT = (int)3211288L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_UP_SYSTEM_ONLY 16384
+     * {@snippet lang=c :
+     * #define IOCTL_SMARTCARD_EJECT 3211288
      * }
      */
-    public static int IMAGE_FILE_UP_SYSTEM_ONLY() {
-        return (int)16384L;
+    public static int IOCTL_SMARTCARD_EJECT() {
+        return IOCTL_SMARTCARD_EJECT;
     }
+    private static final int IOCTL_SMARTCARD_SWALLOW = (int)3211292L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_BYTES_REVERSED_HI 32768
+     * {@snippet lang=c :
+     * #define IOCTL_SMARTCARD_SWALLOW 3211292
      * }
      */
-    public static int IMAGE_FILE_BYTES_REVERSED_HI() {
-        return (int)32768L;
+    public static int IOCTL_SMARTCARD_SWALLOW() {
+        return IOCTL_SMARTCARD_SWALLOW;
     }
+    private static final int IOCTL_SMARTCARD_IS_PRESENT = (int)3211304L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_UNKNOWN 0
+     * {@snippet lang=c :
+     * #define IOCTL_SMARTCARD_IS_PRESENT 3211304
      * }
      */
-    public static int IMAGE_FILE_MACHINE_UNKNOWN() {
-        return (int)0L;
+    public static int IOCTL_SMARTCARD_IS_PRESENT() {
+        return IOCTL_SMARTCARD_IS_PRESENT;
     }
+    private static final int IOCTL_SMARTCARD_IS_ABSENT = (int)3211308L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_TARGET_HOST 1
+     * {@snippet lang=c :
+     * #define IOCTL_SMARTCARD_IS_ABSENT 3211308
      * }
      */
-    public static int IMAGE_FILE_MACHINE_TARGET_HOST() {
-        return (int)1L;
+    public static int IOCTL_SMARTCARD_IS_ABSENT() {
+        return IOCTL_SMARTCARD_IS_ABSENT;
     }
+    private static final int IOCTL_SMARTCARD_SET_PROTOCOL = (int)3211312L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_I386 332
+     * {@snippet lang=c :
+     * #define IOCTL_SMARTCARD_SET_PROTOCOL 3211312
      * }
      */
-    public static int IMAGE_FILE_MACHINE_I386() {
-        return (int)332L;
+    public static int IOCTL_SMARTCARD_SET_PROTOCOL() {
+        return IOCTL_SMARTCARD_SET_PROTOCOL;
     }
+    private static final int IOCTL_SMARTCARD_GET_STATE = (int)3211320L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_R3000 354
+     * {@snippet lang=c :
+     * #define IOCTL_SMARTCARD_GET_STATE 3211320
      * }
      */
-    public static int IMAGE_FILE_MACHINE_R3000() {
-        return (int)354L;
+    public static int IOCTL_SMARTCARD_GET_STATE() {
+        return IOCTL_SMARTCARD_GET_STATE;
     }
+    private static final int IOCTL_SMARTCARD_GET_LAST_ERROR = (int)3211324L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_R4000 358
+     * {@snippet lang=c :
+     * #define IOCTL_SMARTCARD_GET_LAST_ERROR 3211324
      * }
      */
-    public static int IMAGE_FILE_MACHINE_R4000() {
-        return (int)358L;
+    public static int IOCTL_SMARTCARD_GET_LAST_ERROR() {
+        return IOCTL_SMARTCARD_GET_LAST_ERROR;
     }
+    private static final int IOCTL_SMARTCARD_GET_PERF_CNTR = (int)3211328L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_R10000 360
+     * {@snippet lang=c :
+     * #define IOCTL_SMARTCARD_GET_PERF_CNTR 3211328
      * }
      */
-    public static int IMAGE_FILE_MACHINE_R10000() {
-        return (int)360L;
+    public static int IOCTL_SMARTCARD_GET_PERF_CNTR() {
+        return IOCTL_SMARTCARD_GET_PERF_CNTR;
     }
+    private static final int IOCTL_SMARTCARD_GET_FEATURE_REQUEST = (int)3224864L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_WCEMIPSV2 361
+     * {@snippet lang=c :
+     * #define IOCTL_SMARTCARD_GET_FEATURE_REQUEST 3224864
      * }
      */
-    public static int IMAGE_FILE_MACHINE_WCEMIPSV2() {
-        return (int)361L;
+    public static int IOCTL_SMARTCARD_GET_FEATURE_REQUEST() {
+        return IOCTL_SMARTCARD_GET_FEATURE_REQUEST;
     }
+    private static final int SCARD_ATTR_VENDOR_NAME = (int)65792L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_ALPHA 388
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_VENDOR_NAME 65792
      * }
      */
-    public static int IMAGE_FILE_MACHINE_ALPHA() {
-        return (int)388L;
+    public static int SCARD_ATTR_VENDOR_NAME() {
+        return SCARD_ATTR_VENDOR_NAME;
     }
+    private static final int SCARD_ATTR_VENDOR_IFD_TYPE = (int)65793L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_SH3 418
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_VENDOR_IFD_TYPE 65793
      * }
      */
-    public static int IMAGE_FILE_MACHINE_SH3() {
-        return (int)418L;
+    public static int SCARD_ATTR_VENDOR_IFD_TYPE() {
+        return SCARD_ATTR_VENDOR_IFD_TYPE;
     }
+    private static final int SCARD_ATTR_VENDOR_IFD_VERSION = (int)65794L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_SH3DSP 419
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_VENDOR_IFD_VERSION 65794
      * }
      */
-    public static int IMAGE_FILE_MACHINE_SH3DSP() {
-        return (int)419L;
+    public static int SCARD_ATTR_VENDOR_IFD_VERSION() {
+        return SCARD_ATTR_VENDOR_IFD_VERSION;
     }
+    private static final int SCARD_ATTR_VENDOR_IFD_SERIAL_NO = (int)65795L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_SH3E 420
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_VENDOR_IFD_SERIAL_NO 65795
      * }
      */
-    public static int IMAGE_FILE_MACHINE_SH3E() {
-        return (int)420L;
+    public static int SCARD_ATTR_VENDOR_IFD_SERIAL_NO() {
+        return SCARD_ATTR_VENDOR_IFD_SERIAL_NO;
     }
+    private static final int SCARD_ATTR_CHANNEL_ID = (int)131344L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_SH4 422
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_CHANNEL_ID 131344
      * }
      */
-    public static int IMAGE_FILE_MACHINE_SH4() {
-        return (int)422L;
+    public static int SCARD_ATTR_CHANNEL_ID() {
+        return SCARD_ATTR_CHANNEL_ID;
     }
+    private static final int SCARD_ATTR_PROTOCOL_TYPES = (int)196896L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_SH5 424
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_PROTOCOL_TYPES 196896
      * }
      */
-    public static int IMAGE_FILE_MACHINE_SH5() {
-        return (int)424L;
+    public static int SCARD_ATTR_PROTOCOL_TYPES() {
+        return SCARD_ATTR_PROTOCOL_TYPES;
     }
+    private static final int SCARD_ATTR_DEFAULT_CLK = (int)196897L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_ARM 448
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_DEFAULT_CLK 196897
      * }
      */
-    public static int IMAGE_FILE_MACHINE_ARM() {
-        return (int)448L;
+    public static int SCARD_ATTR_DEFAULT_CLK() {
+        return SCARD_ATTR_DEFAULT_CLK;
     }
+    private static final int SCARD_ATTR_MAX_CLK = (int)196898L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_THUMB 450
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_MAX_CLK 196898
      * }
      */
-    public static int IMAGE_FILE_MACHINE_THUMB() {
-        return (int)450L;
+    public static int SCARD_ATTR_MAX_CLK() {
+        return SCARD_ATTR_MAX_CLK;
     }
+    private static final int SCARD_ATTR_DEFAULT_DATA_RATE = (int)196899L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_ARMNT 452
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_DEFAULT_DATA_RATE 196899
      * }
      */
-    public static int IMAGE_FILE_MACHINE_ARMNT() {
-        return (int)452L;
+    public static int SCARD_ATTR_DEFAULT_DATA_RATE() {
+        return SCARD_ATTR_DEFAULT_DATA_RATE;
     }
+    private static final int SCARD_ATTR_MAX_DATA_RATE = (int)196900L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_AM33 467
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_MAX_DATA_RATE 196900
      * }
      */
-    public static int IMAGE_FILE_MACHINE_AM33() {
-        return (int)467L;
+    public static int SCARD_ATTR_MAX_DATA_RATE() {
+        return SCARD_ATTR_MAX_DATA_RATE;
     }
+    private static final int SCARD_ATTR_MAX_IFSD = (int)196901L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_POWERPC 496
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_MAX_IFSD 196901
      * }
      */
-    public static int IMAGE_FILE_MACHINE_POWERPC() {
-        return (int)496L;
+    public static int SCARD_ATTR_MAX_IFSD() {
+        return SCARD_ATTR_MAX_IFSD;
     }
+    private static final int SCARD_ATTR_POWER_MGMT_SUPPORT = (int)262449L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_POWERPCFP 497
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_POWER_MGMT_SUPPORT 262449
      * }
      */
-    public static int IMAGE_FILE_MACHINE_POWERPCFP() {
-        return (int)497L;
+    public static int SCARD_ATTR_POWER_MGMT_SUPPORT() {
+        return SCARD_ATTR_POWER_MGMT_SUPPORT;
     }
+    private static final int SCARD_ATTR_USER_TO_CARD_AUTH_DEVICE = (int)328000L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_IA64 512
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_USER_TO_CARD_AUTH_DEVICE 328000
      * }
      */
-    public static int IMAGE_FILE_MACHINE_IA64() {
-        return (int)512L;
+    public static int SCARD_ATTR_USER_TO_CARD_AUTH_DEVICE() {
+        return SCARD_ATTR_USER_TO_CARD_AUTH_DEVICE;
     }
+    private static final int SCARD_ATTR_USER_AUTH_INPUT_DEVICE = (int)328002L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_MIPS16 614
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_USER_AUTH_INPUT_DEVICE 328002
      * }
      */
-    public static int IMAGE_FILE_MACHINE_MIPS16() {
-        return (int)614L;
+    public static int SCARD_ATTR_USER_AUTH_INPUT_DEVICE() {
+        return SCARD_ATTR_USER_AUTH_INPUT_DEVICE;
     }
+    private static final int SCARD_ATTR_CHARACTERISTICS = (int)393552L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_ALPHA64 644
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_CHARACTERISTICS 393552
      * }
      */
-    public static int IMAGE_FILE_MACHINE_ALPHA64() {
-        return (int)644L;
+    public static int SCARD_ATTR_CHARACTERISTICS() {
+        return SCARD_ATTR_CHARACTERISTICS;
     }
+    private static final int SCARD_ATTR_CURRENT_PROTOCOL_TYPE = (int)524801L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_MIPSFPU 870
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_CURRENT_PROTOCOL_TYPE 524801
      * }
      */
-    public static int IMAGE_FILE_MACHINE_MIPSFPU() {
-        return (int)870L;
+    public static int SCARD_ATTR_CURRENT_PROTOCOL_TYPE() {
+        return SCARD_ATTR_CURRENT_PROTOCOL_TYPE;
     }
+    private static final int SCARD_ATTR_CURRENT_CLK = (int)524802L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_MIPSFPU16 1126
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_CURRENT_CLK 524802
      * }
      */
-    public static int IMAGE_FILE_MACHINE_MIPSFPU16() {
-        return (int)1126L;
+    public static int SCARD_ATTR_CURRENT_CLK() {
+        return SCARD_ATTR_CURRENT_CLK;
     }
+    private static final int SCARD_ATTR_CURRENT_F = (int)524803L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_TRICORE 1312
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_CURRENT_F 524803
      * }
      */
-    public static int IMAGE_FILE_MACHINE_TRICORE() {
-        return (int)1312L;
+    public static int SCARD_ATTR_CURRENT_F() {
+        return SCARD_ATTR_CURRENT_F;
     }
+    private static final int SCARD_ATTR_CURRENT_D = (int)524804L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_CEF 3311
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_CURRENT_D 524804
      * }
      */
-    public static int IMAGE_FILE_MACHINE_CEF() {
-        return (int)3311L;
+    public static int SCARD_ATTR_CURRENT_D() {
+        return SCARD_ATTR_CURRENT_D;
     }
+    private static final int SCARD_ATTR_CURRENT_N = (int)524805L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_EBC 3772
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_CURRENT_N 524805
      * }
      */
-    public static int IMAGE_FILE_MACHINE_EBC() {
-        return (int)3772L;
+    public static int SCARD_ATTR_CURRENT_N() {
+        return SCARD_ATTR_CURRENT_N;
     }
+    private static final int SCARD_ATTR_CURRENT_W = (int)524806L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_AMD64 34404
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_CURRENT_W 524806
      * }
      */
-    public static int IMAGE_FILE_MACHINE_AMD64() {
-        return (int)34404L;
+    public static int SCARD_ATTR_CURRENT_W() {
+        return SCARD_ATTR_CURRENT_W;
     }
+    private static final int SCARD_ATTR_CURRENT_IFSC = (int)524807L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_M32R 36929
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_CURRENT_IFSC 524807
      * }
      */
-    public static int IMAGE_FILE_MACHINE_M32R() {
-        return (int)36929L;
+    public static int SCARD_ATTR_CURRENT_IFSC() {
+        return SCARD_ATTR_CURRENT_IFSC;
     }
+    private static final int SCARD_ATTR_CURRENT_IFSD = (int)524808L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_ARM64 43620
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_CURRENT_IFSD 524808
      * }
      */
-    public static int IMAGE_FILE_MACHINE_ARM64() {
-        return (int)43620L;
+    public static int SCARD_ATTR_CURRENT_IFSD() {
+        return SCARD_ATTR_CURRENT_IFSD;
     }
+    private static final int SCARD_ATTR_CURRENT_BWT = (int)524809L;
     /**
-     * {@snippet :
-     * #define IMAGE_FILE_MACHINE_CEE 49390
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_CURRENT_BWT 524809
      * }
      */
-    public static int IMAGE_FILE_MACHINE_CEE() {
-        return (int)49390L;
+    public static int SCARD_ATTR_CURRENT_BWT() {
+        return SCARD_ATTR_CURRENT_BWT;
     }
+    private static final int SCARD_ATTR_CURRENT_CWT = (int)524810L;
     /**
-     * {@snippet :
-     * #define IMAGE_NUMBEROF_DIRECTORY_ENTRIES 16
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_CURRENT_CWT 524810
      * }
      */
-    public static int IMAGE_NUMBEROF_DIRECTORY_ENTRIES() {
-        return (int)16L;
+    public static int SCARD_ATTR_CURRENT_CWT() {
+        return SCARD_ATTR_CURRENT_CWT;
     }
+    private static final int SCARD_ATTR_CURRENT_EBC_ENCODING = (int)524811L;
     /**
-     * {@snippet :
-     * #define IMAGE_NT_OPTIONAL_HDR32_MAGIC 267
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_CURRENT_EBC_ENCODING 524811
      * }
      */
-    public static int IMAGE_NT_OPTIONAL_HDR32_MAGIC() {
-        return (int)267L;
+    public static int SCARD_ATTR_CURRENT_EBC_ENCODING() {
+        return SCARD_ATTR_CURRENT_EBC_ENCODING;
     }
+    private static final int SCARD_ATTR_EXTENDED_BWT = (int)524812L;
     /**
-     * {@snippet :
-     * #define IMAGE_NT_OPTIONAL_HDR64_MAGIC 523
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_EXTENDED_BWT 524812
      * }
      */
-    public static int IMAGE_NT_OPTIONAL_HDR64_MAGIC() {
-        return (int)523L;
+    public static int SCARD_ATTR_EXTENDED_BWT() {
+        return SCARD_ATTR_EXTENDED_BWT;
     }
+    private static final int SCARD_ATTR_ICC_PRESENCE = (int)590592L;
     /**
-     * {@snippet :
-     * #define IMAGE_ROM_OPTIONAL_HDR_MAGIC 263
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_ICC_PRESENCE 590592
      * }
      */
-    public static int IMAGE_ROM_OPTIONAL_HDR_MAGIC() {
-        return (int)263L;
+    public static int SCARD_ATTR_ICC_PRESENCE() {
+        return SCARD_ATTR_ICC_PRESENCE;
     }
+    private static final int SCARD_ATTR_ICC_INTERFACE_STATUS = (int)590593L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_UNKNOWN 0
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_ICC_INTERFACE_STATUS 590593
      * }
      */
-    public static int IMAGE_SUBSYSTEM_UNKNOWN() {
-        return (int)0L;
+    public static int SCARD_ATTR_ICC_INTERFACE_STATUS() {
+        return SCARD_ATTR_ICC_INTERFACE_STATUS;
     }
+    private static final int SCARD_ATTR_CURRENT_IO_STATE = (int)590594L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_NATIVE 1
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_CURRENT_IO_STATE 590594
      * }
      */
-    public static int IMAGE_SUBSYSTEM_NATIVE() {
-        return (int)1L;
+    public static int SCARD_ATTR_CURRENT_IO_STATE() {
+        return SCARD_ATTR_CURRENT_IO_STATE;
     }
+    private static final int SCARD_ATTR_ATR_STRING = (int)590595L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_WINDOWS_GUI 2
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_ATR_STRING 590595
      * }
      */
-    public static int IMAGE_SUBSYSTEM_WINDOWS_GUI() {
-        return (int)2L;
+    public static int SCARD_ATTR_ATR_STRING() {
+        return SCARD_ATTR_ATR_STRING;
     }
+    private static final int SCARD_ATTR_ICC_TYPE_PER_ATR = (int)590596L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_WINDOWS_CUI 3
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_ICC_TYPE_PER_ATR 590596
      * }
      */
-    public static int IMAGE_SUBSYSTEM_WINDOWS_CUI() {
-        return (int)3L;
+    public static int SCARD_ATTR_ICC_TYPE_PER_ATR() {
+        return SCARD_ATTR_ICC_TYPE_PER_ATR;
     }
+    private static final int SCARD_ATTR_ESC_RESET = (int)499712L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_OS2_CUI 5
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_ESC_RESET 499712
      * }
      */
-    public static int IMAGE_SUBSYSTEM_OS2_CUI() {
-        return (int)5L;
+    public static int SCARD_ATTR_ESC_RESET() {
+        return SCARD_ATTR_ESC_RESET;
     }
+    private static final int SCARD_ATTR_ESC_CANCEL = (int)499715L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_POSIX_CUI 7
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_ESC_CANCEL 499715
      * }
      */
-    public static int IMAGE_SUBSYSTEM_POSIX_CUI() {
-        return (int)7L;
+    public static int SCARD_ATTR_ESC_CANCEL() {
+        return SCARD_ATTR_ESC_CANCEL;
     }
+    private static final int SCARD_ATTR_ESC_AUTHREQUEST = (int)499717L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_NATIVE_WINDOWS 8
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_ESC_AUTHREQUEST 499717
      * }
      */
-    public static int IMAGE_SUBSYSTEM_NATIVE_WINDOWS() {
-        return (int)8L;
+    public static int SCARD_ATTR_ESC_AUTHREQUEST() {
+        return SCARD_ATTR_ESC_AUTHREQUEST;
     }
+    private static final int SCARD_ATTR_MAXINPUT = (int)499719L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_WINDOWS_CE_GUI 9
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_MAXINPUT 499719
      * }
      */
-    public static int IMAGE_SUBSYSTEM_WINDOWS_CE_GUI() {
-        return (int)9L;
+    public static int SCARD_ATTR_MAXINPUT() {
+        return SCARD_ATTR_MAXINPUT;
     }
+    private static final int SCARD_ATTR_VENDOR_SPECIFIC_INFO = (int)499720L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_EFI_APPLICATION 10
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_VENDOR_SPECIFIC_INFO 499720
      * }
      */
-    public static int IMAGE_SUBSYSTEM_EFI_APPLICATION() {
-        return (int)10L;
+    public static int SCARD_ATTR_VENDOR_SPECIFIC_INFO() {
+        return SCARD_ATTR_VENDOR_SPECIFIC_INFO;
     }
+    private static final int SCARD_ATTR_DEVICE_UNIT = (int)2147418113L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER 11
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_DEVICE_UNIT 2147418113
      * }
      */
-    public static int IMAGE_SUBSYSTEM_EFI_BOOT_SERVICE_DRIVER() {
-        return (int)11L;
+    public static int SCARD_ATTR_DEVICE_UNIT() {
+        return SCARD_ATTR_DEVICE_UNIT;
     }
+    private static final int SCARD_ATTR_DEVICE_IN_USE = (int)2147418114L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER 12
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_DEVICE_IN_USE 2147418114
      * }
      */
-    public static int IMAGE_SUBSYSTEM_EFI_RUNTIME_DRIVER() {
-        return (int)12L;
+    public static int SCARD_ATTR_DEVICE_IN_USE() {
+        return SCARD_ATTR_DEVICE_IN_USE;
     }
+    private static final int SCARD_ATTR_DEVICE_FRIENDLY_NAME_A = (int)2147418115L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_EFI_ROM 13
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_DEVICE_FRIENDLY_NAME_A 2147418115
      * }
      */
-    public static int IMAGE_SUBSYSTEM_EFI_ROM() {
-        return (int)13L;
+    public static int SCARD_ATTR_DEVICE_FRIENDLY_NAME_A() {
+        return SCARD_ATTR_DEVICE_FRIENDLY_NAME_A;
     }
+    private static final int SCARD_ATTR_DEVICE_SYSTEM_NAME_A = (int)2147418116L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_XBOX 14
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_DEVICE_SYSTEM_NAME_A 2147418116
      * }
      */
-    public static int IMAGE_SUBSYSTEM_XBOX() {
-        return (int)14L;
+    public static int SCARD_ATTR_DEVICE_SYSTEM_NAME_A() {
+        return SCARD_ATTR_DEVICE_SYSTEM_NAME_A;
     }
+    private static final int SCARD_ATTR_DEVICE_FRIENDLY_NAME_W = (int)2147418117L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_WINDOWS_BOOT_APPLICATION 16
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_DEVICE_FRIENDLY_NAME_W 2147418117
      * }
      */
-    public static int IMAGE_SUBSYSTEM_WINDOWS_BOOT_APPLICATION() {
-        return (int)16L;
+    public static int SCARD_ATTR_DEVICE_FRIENDLY_NAME_W() {
+        return SCARD_ATTR_DEVICE_FRIENDLY_NAME_W;
     }
+    private static final int SCARD_ATTR_DEVICE_SYSTEM_NAME_W = (int)2147418118L;
     /**
-     * {@snippet :
-     * #define IMAGE_SUBSYSTEM_XBOX_CODE_CATALOG 17
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_DEVICE_SYSTEM_NAME_W 2147418118
      * }
      */
-    public static int IMAGE_SUBSYSTEM_XBOX_CODE_CATALOG() {
-        return (int)17L;
+    public static int SCARD_ATTR_DEVICE_SYSTEM_NAME_W() {
+        return SCARD_ATTR_DEVICE_SYSTEM_NAME_W;
     }
+    private static final int SCARD_ATTR_SUPRESS_T1_IFS_REQUEST = (int)2147418119L;
     /**
-     * {@snippet :
-     * #define IMAGE_DLLCHARACTERISTICS_HIGH_ENTROPY_VA 32
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_SUPRESS_T1_IFS_REQUEST 2147418119
      * }
      */
-    public static int IMAGE_DLLCHARACTERISTICS_HIGH_ENTROPY_VA() {
-        return (int)32L;
+    public static int SCARD_ATTR_SUPRESS_T1_IFS_REQUEST() {
+        return SCARD_ATTR_SUPRESS_T1_IFS_REQUEST;
     }
+    private static final int SCARD_PERF_NUM_TRANSMISSIONS = (int)2147352577L;
     /**
-     * {@snippet :
-     * #define IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 64
+     * {@snippet lang=c :
+     * #define SCARD_PERF_NUM_TRANSMISSIONS 2147352577
      * }
      */
-    public static int IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE() {
-        return (int)64L;
+    public static int SCARD_PERF_NUM_TRANSMISSIONS() {
+        return SCARD_PERF_NUM_TRANSMISSIONS;
     }
+    private static final int SCARD_PERF_BYTES_TRANSMITTED = (int)2147352578L;
     /**
-     * {@snippet :
-     * #define IMAGE_DLLCHARACTERISTICS_FORCE_INTEGRITY 128
+     * {@snippet lang=c :
+     * #define SCARD_PERF_BYTES_TRANSMITTED 2147352578
      * }
      */
-    public static int IMAGE_DLLCHARACTERISTICS_FORCE_INTEGRITY() {
-        return (int)128L;
+    public static int SCARD_PERF_BYTES_TRANSMITTED() {
+        return SCARD_PERF_BYTES_TRANSMITTED;
     }
+    private static final int SCARD_PERF_TRANSMISSION_TIME = (int)2147352579L;
     /**
-     * {@snippet :
-     * #define IMAGE_DLLCHARACTERISTICS_NX_COMPAT 256
+     * {@snippet lang=c :
+     * #define SCARD_PERF_TRANSMISSION_TIME 2147352579
      * }
      */
-    public static int IMAGE_DLLCHARACTERISTICS_NX_COMPAT() {
-        return (int)256L;
+    public static int SCARD_PERF_TRANSMISSION_TIME() {
+        return SCARD_PERF_TRANSMISSION_TIME;
     }
+    private static final int SCARD_ATTR_DEVICE_FRIENDLY_NAME = (int)2147418115L;
     /**
-     * {@snippet :
-     * #define IMAGE_DLLCHARACTERISTICS_NO_ISOLATION 512
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_DEVICE_FRIENDLY_NAME 2147418115
      * }
      */
-    public static int IMAGE_DLLCHARACTERISTICS_NO_ISOLATION() {
-        return (int)512L;
+    public static int SCARD_ATTR_DEVICE_FRIENDLY_NAME() {
+        return SCARD_ATTR_DEVICE_FRIENDLY_NAME;
     }
+    private static final int SCARD_ATTR_DEVICE_SYSTEM_NAME = (int)2147418116L;
     /**
-     * {@snippet :
-     * #define IMAGE_DLLCHARACTERISTICS_NO_SEH 1024
+     * {@snippet lang=c :
+     * #define SCARD_ATTR_DEVICE_SYSTEM_NAME 2147418116
      * }
      */
-    public static int IMAGE_DLLCHARACTERISTICS_NO_SEH() {
-        return (int)1024L;
+    public static int SCARD_ATTR_DEVICE_SYSTEM_NAME() {
+        return SCARD_ATTR_DEVICE_SYSTEM_NAME;
     }
+    private static final int SCARD_AUTOALLOCATE = (int)4294967295L;
     /**
-     * {@snippet :
-     * #define IMAGE_DLLCHARACTERISTICS_NO_BIND 2048
+     * {@snippet lang=c :
+     * #define SCARD_AUTOALLOCATE 4294967295
      * }
      */
-    public static int IMAGE_DLLCHARACTERISTICS_NO_BIND() {
-        return (int)2048L;
+    public static int SCARD_AUTOALLOCATE() {
+        return SCARD_AUTOALLOCATE;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_DLLCHARACTERISTICS_APPCONTAINER 4096
+     * {@snippet lang=c :
+     * #define SCARD_ALL_READERS "SCard$AllReaders"
      * }
      */
-    public static int IMAGE_DLLCHARACTERISTICS_APPCONTAINER() {
-        return (int)4096L;
+    public static MemorySegment SCARD_ALL_READERS() {
+        class Holder {
+            static final MemorySegment SCARD_ALL_READERS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SCard$AllReaders");
+        }
+        return Holder.SCARD_ALL_READERS;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_DLLCHARACTERISTICS_WDM_DRIVER 8192
+     * {@snippet lang=c :
+     * #define SCARD_DEFAULT_READERS "SCard$DefaultReaders"
      * }
      */
-    public static int IMAGE_DLLCHARACTERISTICS_WDM_DRIVER() {
-        return (int)8192L;
+    public static MemorySegment SCARD_DEFAULT_READERS() {
+        class Holder {
+            static final MemorySegment SCARD_DEFAULT_READERS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SCard$DefaultReaders");
+        }
+        return Holder.SCARD_DEFAULT_READERS;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_DLLCHARACTERISTICS_GUARD_CF 16384
+     * {@snippet lang=c :
+     * #define SCARD_LOCAL_READERS "SCard$LocalReaders"
      * }
      */
-    public static int IMAGE_DLLCHARACTERISTICS_GUARD_CF() {
-        return (int)16384L;
+    public static MemorySegment SCARD_LOCAL_READERS() {
+        class Holder {
+            static final MemorySegment SCARD_LOCAL_READERS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SCard$LocalReaders");
+        }
+        return Holder.SCARD_LOCAL_READERS;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE 32768
+     * {@snippet lang=c :
+     * #define SCARD_SYSTEM_READERS "SCard$SystemReaders"
      * }
      */
-    public static int IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE() {
-        return (int)32768L;
+    public static MemorySegment SCARD_SYSTEM_READERS() {
+        class Holder {
+            static final MemorySegment SCARD_SYSTEM_READERS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SCard$SystemReaders");
+        }
+        return Holder.SCARD_SYSTEM_READERS;
     }
+    private static final int SCARD_READER_SEL_AUTH_PACKAGE = (int)4294966667L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_EXPORT 0
+     * {@snippet lang=c :
+     * #define SCARD_READER_SEL_AUTH_PACKAGE 4294966667
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_EXPORT() {
-        return (int)0L;
+    public static int SCARD_READER_SEL_AUTH_PACKAGE() {
+        return SCARD_READER_SEL_AUTH_PACKAGE;
     }
+    private static final long PROPSHEETPAGEA_V1_SIZE = 72L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_IMPORT 1
+     * {@snippet lang=c :
+     * #define PROPSHEETPAGEA_V1_SIZE 72
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_IMPORT() {
-        return (int)1L;
+    public static long PROPSHEETPAGEA_V1_SIZE() {
+        return PROPSHEETPAGEA_V1_SIZE;
     }
+    private static final long PROPSHEETPAGEW_V1_SIZE = 72L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_RESOURCE 2
+     * {@snippet lang=c :
+     * #define PROPSHEETPAGEW_V1_SIZE 72
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_RESOURCE() {
-        return (int)2L;
+    public static long PROPSHEETPAGEW_V1_SIZE() {
+        return PROPSHEETPAGEW_V1_SIZE;
     }
+    private static final long PROPSHEETPAGEA_V2_SIZE = 88L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_EXCEPTION 3
+     * {@snippet lang=c :
+     * #define PROPSHEETPAGEA_V2_SIZE 88
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_EXCEPTION() {
-        return (int)3L;
+    public static long PROPSHEETPAGEA_V2_SIZE() {
+        return PROPSHEETPAGEA_V2_SIZE;
     }
+    private static final long PROPSHEETPAGEW_V2_SIZE = 88L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_SECURITY 4
+     * {@snippet lang=c :
+     * #define PROPSHEETPAGEW_V2_SIZE 88
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_SECURITY() {
-        return (int)4L;
+    public static long PROPSHEETPAGEW_V2_SIZE() {
+        return PROPSHEETPAGEW_V2_SIZE;
     }
+    private static final long PROPSHEETPAGEA_V3_SIZE = 96L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_BASERELOC 5
+     * {@snippet lang=c :
+     * #define PROPSHEETPAGEA_V3_SIZE 96
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_BASERELOC() {
-        return (int)5L;
+    public static long PROPSHEETPAGEA_V3_SIZE() {
+        return PROPSHEETPAGEA_V3_SIZE;
     }
+    private static final long PROPSHEETPAGEW_V3_SIZE = 96L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_DEBUG 6
+     * {@snippet lang=c :
+     * #define PROPSHEETPAGEW_V3_SIZE 96
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_DEBUG() {
-        return (int)6L;
+    public static long PROPSHEETPAGEW_V3_SIZE() {
+        return PROPSHEETPAGEW_V3_SIZE;
     }
+    private static final long PROPSHEETPAGEA_V4_SIZE = 104L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_ARCHITECTURE 7
+     * {@snippet lang=c :
+     * #define PROPSHEETPAGEA_V4_SIZE 104
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_ARCHITECTURE() {
-        return (int)7L;
+    public static long PROPSHEETPAGEA_V4_SIZE() {
+        return PROPSHEETPAGEA_V4_SIZE;
     }
+    private static final long PROPSHEETPAGEW_V4_SIZE = 104L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_GLOBALPTR 8
+     * {@snippet lang=c :
+     * #define PROPSHEETPAGEW_V4_SIZE 104
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_GLOBALPTR() {
-        return (int)8L;
+    public static long PROPSHEETPAGEW_V4_SIZE() {
+        return PROPSHEETPAGEW_V4_SIZE;
     }
+    private static final long PROPSHEETPAGE_V1_SIZE = 72L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_TLS 9
+     * {@snippet lang=c :
+     * #define PROPSHEETPAGE_V1_SIZE 72
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_TLS() {
-        return (int)9L;
+    public static long PROPSHEETPAGE_V1_SIZE() {
+        return PROPSHEETPAGE_V1_SIZE;
     }
+    private static final long PROPSHEETPAGE_V2_SIZE = 88L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG 10
+     * {@snippet lang=c :
+     * #define PROPSHEETPAGE_V2_SIZE 88
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG() {
-        return (int)10L;
+    public static long PROPSHEETPAGE_V2_SIZE() {
+        return PROPSHEETPAGE_V2_SIZE;
     }
+    private static final long PROPSHEETHEADERA_V1_SIZE = 72L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT 11
+     * {@snippet lang=c :
+     * #define PROPSHEETHEADERA_V1_SIZE 72
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT() {
-        return (int)11L;
+    public static long PROPSHEETHEADERA_V1_SIZE() {
+        return PROPSHEETHEADERA_V1_SIZE;
     }
+    private static final long PROPSHEETHEADERW_V1_SIZE = 72L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_IAT 12
+     * {@snippet lang=c :
+     * #define PROPSHEETHEADERW_V1_SIZE 72
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_IAT() {
-        return (int)12L;
+    public static long PROPSHEETHEADERW_V1_SIZE() {
+        return PROPSHEETHEADERW_V1_SIZE;
     }
+    private static final long PROPSHEETHEADERA_V2_SIZE = 96L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT 13
+     * {@snippet lang=c :
+     * #define PROPSHEETHEADERA_V2_SIZE 96
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT() {
-        return (int)13L;
+    public static long PROPSHEETHEADERA_V2_SIZE() {
+        return PROPSHEETHEADERA_V2_SIZE;
     }
+    private static final long PROPSHEETHEADERW_V2_SIZE = 96L;
     /**
-     * {@snippet :
-     * #define IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR 14
+     * {@snippet lang=c :
+     * #define PROPSHEETHEADERW_V2_SIZE 96
      * }
      */
-    public static int IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR() {
-        return (int)14L;
+    public static long PROPSHEETHEADERW_V2_SIZE() {
+        return PROPSHEETHEADERW_V2_SIZE;
     }
+    private static final long PROPSHEETHEADER_V1_SIZE = 72L;
     /**
-     * {@snippet :
-     * #define IMAGE_SIZEOF_SHORT_NAME 8
+     * {@snippet lang=c :
+     * #define PROPSHEETHEADER_V1_SIZE 72
      * }
      */
-    public static int IMAGE_SIZEOF_SHORT_NAME() {
-        return (int)8L;
+    public static long PROPSHEETHEADER_V1_SIZE() {
+        return PROPSHEETHEADER_V1_SIZE;
     }
+    private static final long PROPSHEETHEADER_V2_SIZE = 96L;
     /**
-     * {@snippet :
-     * #define IMAGE_SIZEOF_SECTION_HEADER 40
+     * {@snippet lang=c :
+     * #define PROPSHEETHEADER_V2_SIZE 96
      * }
      */
-    public static int IMAGE_SIZEOF_SECTION_HEADER() {
-        return (int)40L;
+    public static long PROPSHEETHEADER_V2_SIZE() {
+        return PROPSHEETHEADER_V2_SIZE;
     }
+    private static final int PSN_FIRST = (int)4294967096L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_TYPE_NO_PAD 8
+     * {@snippet lang=c :
+     * #define PSN_FIRST 4294967096
      * }
      */
-    public static int IMAGE_SCN_TYPE_NO_PAD() {
-        return (int)8L;
+    public static int PSN_FIRST() {
+        return PSN_FIRST;
     }
+    private static final int PSN_LAST = (int)4294966997L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_CNT_CODE 32
+     * {@snippet lang=c :
+     * #define PSN_LAST 4294966997
      * }
      */
-    public static int IMAGE_SCN_CNT_CODE() {
-        return (int)32L;
+    public static int PSN_LAST() {
+        return PSN_LAST;
     }
+    private static final int PSN_SETACTIVE = (int)4294967096L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_CNT_INITIALIZED_DATA 64
+     * {@snippet lang=c :
+     * #define PSN_SETACTIVE 4294967096
      * }
      */
-    public static int IMAGE_SCN_CNT_INITIALIZED_DATA() {
-        return (int)64L;
+    public static int PSN_SETACTIVE() {
+        return PSN_SETACTIVE;
     }
+    private static final int PSN_KILLACTIVE = (int)4294967095L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_CNT_UNINITIALIZED_DATA 128
+     * {@snippet lang=c :
+     * #define PSN_KILLACTIVE 4294967095
      * }
      */
-    public static int IMAGE_SCN_CNT_UNINITIALIZED_DATA() {
-        return (int)128L;
+    public static int PSN_KILLACTIVE() {
+        return PSN_KILLACTIVE;
     }
+    private static final int PSN_APPLY = (int)4294967094L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_LNK_OTHER 256
+     * {@snippet lang=c :
+     * #define PSN_APPLY 4294967094
      * }
      */
-    public static int IMAGE_SCN_LNK_OTHER() {
-        return (int)256L;
+    public static int PSN_APPLY() {
+        return PSN_APPLY;
     }
+    private static final int PSN_RESET = (int)4294967093L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_LNK_INFO 512
+     * {@snippet lang=c :
+     * #define PSN_RESET 4294967093
      * }
      */
-    public static int IMAGE_SCN_LNK_INFO() {
-        return (int)512L;
+    public static int PSN_RESET() {
+        return PSN_RESET;
     }
+    private static final int PSN_HELP = (int)4294967091L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_LNK_REMOVE 2048
+     * {@snippet lang=c :
+     * #define PSN_HELP 4294967091
      * }
      */
-    public static int IMAGE_SCN_LNK_REMOVE() {
-        return (int)2048L;
+    public static int PSN_HELP() {
+        return PSN_HELP;
     }
+    private static final int PSN_WIZBACK = (int)4294967090L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_LNK_COMDAT 4096
+     * {@snippet lang=c :
+     * #define PSN_WIZBACK 4294967090
      * }
      */
-    public static int IMAGE_SCN_LNK_COMDAT() {
-        return (int)4096L;
+    public static int PSN_WIZBACK() {
+        return PSN_WIZBACK;
     }
+    private static final int PSN_WIZNEXT = (int)4294967089L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_NO_DEFER_SPEC_EXC 16384
+     * {@snippet lang=c :
+     * #define PSN_WIZNEXT 4294967089
      * }
      */
-    public static int IMAGE_SCN_NO_DEFER_SPEC_EXC() {
-        return (int)16384L;
+    public static int PSN_WIZNEXT() {
+        return PSN_WIZNEXT;
     }
+    private static final int PSN_WIZFINISH = (int)4294967088L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_GPREL 32768
+     * {@snippet lang=c :
+     * #define PSN_WIZFINISH 4294967088
      * }
      */
-    public static int IMAGE_SCN_GPREL() {
-        return (int)32768L;
+    public static int PSN_WIZFINISH() {
+        return PSN_WIZFINISH;
     }
+    private static final int PSN_QUERYCANCEL = (int)4294967087L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_MEM_FARDATA 32768
+     * {@snippet lang=c :
+     * #define PSN_QUERYCANCEL 4294967087
      * }
      */
-    public static int IMAGE_SCN_MEM_FARDATA() {
-        return (int)32768L;
+    public static int PSN_QUERYCANCEL() {
+        return PSN_QUERYCANCEL;
     }
+    private static final int PSN_GETOBJECT = (int)4294967086L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_MEM_PURGEABLE 131072
+     * {@snippet lang=c :
+     * #define PSN_GETOBJECT 4294967086
      * }
      */
-    public static int IMAGE_SCN_MEM_PURGEABLE() {
-        return (int)131072L;
+    public static int PSN_GETOBJECT() {
+        return PSN_GETOBJECT;
     }
+    private static final int PSN_TRANSLATEACCELERATOR = (int)4294967084L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_MEM_16BIT 131072
+     * {@snippet lang=c :
+     * #define PSN_TRANSLATEACCELERATOR 4294967084
      * }
      */
-    public static int IMAGE_SCN_MEM_16BIT() {
-        return (int)131072L;
+    public static int PSN_TRANSLATEACCELERATOR() {
+        return PSN_TRANSLATEACCELERATOR;
     }
+    private static final int PSN_QUERYINITIALFOCUS = (int)4294967083L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_MEM_LOCKED 262144
+     * {@snippet lang=c :
+     * #define PSN_QUERYINITIALFOCUS 4294967083
      * }
      */
-    public static int IMAGE_SCN_MEM_LOCKED() {
-        return (int)262144L;
+    public static int PSN_QUERYINITIALFOCUS() {
+        return PSN_QUERYINITIALFOCUS;
     }
+    private static final int PSM_SETCURSEL = (int)1125L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_MEM_PRELOAD 524288
+     * {@snippet lang=c :
+     * #define PSM_SETCURSEL 1125
      * }
      */
-    public static int IMAGE_SCN_MEM_PRELOAD() {
-        return (int)524288L;
+    public static int PSM_SETCURSEL() {
+        return PSM_SETCURSEL;
     }
+    private static final int PSM_REMOVEPAGE = (int)1126L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_1BYTES 1048576
+     * {@snippet lang=c :
+     * #define PSM_REMOVEPAGE 1126
      * }
      */
-    public static int IMAGE_SCN_ALIGN_1BYTES() {
-        return (int)1048576L;
+    public static int PSM_REMOVEPAGE() {
+        return PSM_REMOVEPAGE;
     }
+    private static final int PSM_ADDPAGE = (int)1127L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_2BYTES 2097152
+     * {@snippet lang=c :
+     * #define PSM_ADDPAGE 1127
      * }
      */
-    public static int IMAGE_SCN_ALIGN_2BYTES() {
-        return (int)2097152L;
+    public static int PSM_ADDPAGE() {
+        return PSM_ADDPAGE;
     }
+    private static final int PSM_CHANGED = (int)1128L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_4BYTES 3145728
+     * {@snippet lang=c :
+     * #define PSM_CHANGED 1128
      * }
      */
-    public static int IMAGE_SCN_ALIGN_4BYTES() {
-        return (int)3145728L;
+    public static int PSM_CHANGED() {
+        return PSM_CHANGED;
     }
+    private static final int PSM_RESTARTWINDOWS = (int)1129L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_8BYTES 4194304
+     * {@snippet lang=c :
+     * #define PSM_RESTARTWINDOWS 1129
      * }
      */
-    public static int IMAGE_SCN_ALIGN_8BYTES() {
-        return (int)4194304L;
+    public static int PSM_RESTARTWINDOWS() {
+        return PSM_RESTARTWINDOWS;
     }
+    private static final int PSM_REBOOTSYSTEM = (int)1130L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_16BYTES 5242880
+     * {@snippet lang=c :
+     * #define PSM_REBOOTSYSTEM 1130
      * }
      */
-    public static int IMAGE_SCN_ALIGN_16BYTES() {
-        return (int)5242880L;
+    public static int PSM_REBOOTSYSTEM() {
+        return PSM_REBOOTSYSTEM;
     }
+    private static final int PSM_CANCELTOCLOSE = (int)1131L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_32BYTES 6291456
+     * {@snippet lang=c :
+     * #define PSM_CANCELTOCLOSE 1131
      * }
      */
-    public static int IMAGE_SCN_ALIGN_32BYTES() {
-        return (int)6291456L;
+    public static int PSM_CANCELTOCLOSE() {
+        return PSM_CANCELTOCLOSE;
     }
+    private static final int PSM_QUERYSIBLINGS = (int)1132L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_64BYTES 7340032
+     * {@snippet lang=c :
+     * #define PSM_QUERYSIBLINGS 1132
      * }
      */
-    public static int IMAGE_SCN_ALIGN_64BYTES() {
-        return (int)7340032L;
+    public static int PSM_QUERYSIBLINGS() {
+        return PSM_QUERYSIBLINGS;
     }
+    private static final int PSM_UNCHANGED = (int)1133L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_128BYTES 8388608
+     * {@snippet lang=c :
+     * #define PSM_UNCHANGED 1133
      * }
      */
-    public static int IMAGE_SCN_ALIGN_128BYTES() {
-        return (int)8388608L;
+    public static int PSM_UNCHANGED() {
+        return PSM_UNCHANGED;
     }
+    private static final int PSM_APPLY = (int)1134L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_256BYTES 9437184
+     * {@snippet lang=c :
+     * #define PSM_APPLY 1134
      * }
      */
-    public static int IMAGE_SCN_ALIGN_256BYTES() {
-        return (int)9437184L;
+    public static int PSM_APPLY() {
+        return PSM_APPLY;
     }
+    private static final int PSM_SETTITLEA = (int)1135L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_512BYTES 10485760
+     * {@snippet lang=c :
+     * #define PSM_SETTITLEA 1135
      * }
      */
-    public static int IMAGE_SCN_ALIGN_512BYTES() {
-        return (int)10485760L;
+    public static int PSM_SETTITLEA() {
+        return PSM_SETTITLEA;
     }
+    private static final int PSM_SETTITLEW = (int)1144L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_1024BYTES 11534336
+     * {@snippet lang=c :
+     * #define PSM_SETTITLEW 1144
      * }
      */
-    public static int IMAGE_SCN_ALIGN_1024BYTES() {
-        return (int)11534336L;
+    public static int PSM_SETTITLEW() {
+        return PSM_SETTITLEW;
     }
+    private static final int PSM_SETTITLE = (int)1135L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_2048BYTES 12582912
+     * {@snippet lang=c :
+     * #define PSM_SETTITLE 1135
      * }
      */
-    public static int IMAGE_SCN_ALIGN_2048BYTES() {
-        return (int)12582912L;
+    public static int PSM_SETTITLE() {
+        return PSM_SETTITLE;
     }
+    private static final int PSM_SETWIZBUTTONS = (int)1136L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_4096BYTES 13631488
+     * {@snippet lang=c :
+     * #define PSM_SETWIZBUTTONS 1136
      * }
      */
-    public static int IMAGE_SCN_ALIGN_4096BYTES() {
-        return (int)13631488L;
+    public static int PSM_SETWIZBUTTONS() {
+        return PSM_SETWIZBUTTONS;
     }
+    private static final int PSM_PRESSBUTTON = (int)1137L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_8192BYTES 14680064
+     * {@snippet lang=c :
+     * #define PSM_PRESSBUTTON 1137
      * }
      */
-    public static int IMAGE_SCN_ALIGN_8192BYTES() {
-        return (int)14680064L;
+    public static int PSM_PRESSBUTTON() {
+        return PSM_PRESSBUTTON;
     }
+    private static final int PSM_SETCURSELID = (int)1138L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_ALIGN_MASK 15728640
+     * {@snippet lang=c :
+     * #define PSM_SETCURSELID 1138
      * }
      */
-    public static int IMAGE_SCN_ALIGN_MASK() {
-        return (int)15728640L;
+    public static int PSM_SETCURSELID() {
+        return PSM_SETCURSELID;
     }
+    private static final int PSM_SETFINISHTEXTA = (int)1139L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_LNK_NRELOC_OVFL 16777216
+     * {@snippet lang=c :
+     * #define PSM_SETFINISHTEXTA 1139
      * }
      */
-    public static int IMAGE_SCN_LNK_NRELOC_OVFL() {
-        return (int)16777216L;
+    public static int PSM_SETFINISHTEXTA() {
+        return PSM_SETFINISHTEXTA;
     }
+    private static final int PSM_SETFINISHTEXTW = (int)1145L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_MEM_DISCARDABLE 33554432
+     * {@snippet lang=c :
+     * #define PSM_SETFINISHTEXTW 1145
      * }
      */
-    public static int IMAGE_SCN_MEM_DISCARDABLE() {
-        return (int)33554432L;
+    public static int PSM_SETFINISHTEXTW() {
+        return PSM_SETFINISHTEXTW;
     }
+    private static final int PSM_SETFINISHTEXT = (int)1139L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_MEM_NOT_CACHED 67108864
+     * {@snippet lang=c :
+     * #define PSM_SETFINISHTEXT 1139
      * }
      */
-    public static int IMAGE_SCN_MEM_NOT_CACHED() {
-        return (int)67108864L;
+    public static int PSM_SETFINISHTEXT() {
+        return PSM_SETFINISHTEXT;
     }
+    private static final int PSM_GETTABCONTROL = (int)1140L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_MEM_NOT_PAGED 134217728
+     * {@snippet lang=c :
+     * #define PSM_GETTABCONTROL 1140
      * }
      */
-    public static int IMAGE_SCN_MEM_NOT_PAGED() {
-        return (int)134217728L;
+    public static int PSM_GETTABCONTROL() {
+        return PSM_GETTABCONTROL;
     }
+    private static final int PSM_ISDIALOGMESSAGE = (int)1141L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_MEM_SHARED 268435456
+     * {@snippet lang=c :
+     * #define PSM_ISDIALOGMESSAGE 1141
      * }
      */
-    public static int IMAGE_SCN_MEM_SHARED() {
-        return (int)268435456L;
+    public static int PSM_ISDIALOGMESSAGE() {
+        return PSM_ISDIALOGMESSAGE;
     }
+    private static final int PSM_GETCURRENTPAGEHWND = (int)1142L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_MEM_EXECUTE 536870912
+     * {@snippet lang=c :
+     * #define PSM_GETCURRENTPAGEHWND 1142
      * }
      */
-    public static int IMAGE_SCN_MEM_EXECUTE() {
-        return (int)536870912L;
+    public static int PSM_GETCURRENTPAGEHWND() {
+        return PSM_GETCURRENTPAGEHWND;
     }
+    private static final int PSM_INSERTPAGE = (int)1143L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_MEM_READ 1073741824
+     * {@snippet lang=c :
+     * #define PSM_INSERTPAGE 1143
      * }
      */
-    public static int IMAGE_SCN_MEM_READ() {
-        return (int)1073741824L;
+    public static int PSM_INSERTPAGE() {
+        return PSM_INSERTPAGE;
     }
+    private static final int PSWIZF_SETCOLOR = (int)4294967295L;
     /**
-     * {@snippet :
-     * #define IMAGE_SCN_SCALE_INDEX 1
+     * {@snippet lang=c :
+     * #define PSWIZF_SETCOLOR 4294967295
      * }
      */
-    public static int IMAGE_SCN_SCALE_INDEX() {
-        return (int)1L;
+    public static int PSWIZF_SETCOLOR() {
+        return PSWIZF_SETCOLOR;
     }
+    private static final int PSM_SETHEADERTITLEA = (int)1149L;
     /**
-     * {@snippet :
-     * #define IMAGE_SIZEOF_SYMBOL 18
+     * {@snippet lang=c :
+     * #define PSM_SETHEADERTITLEA 1149
      * }
      */
-    public static int IMAGE_SIZEOF_SYMBOL() {
-        return (int)18L;
+    public static int PSM_SETHEADERTITLEA() {
+        return PSM_SETHEADERTITLEA;
     }
+    private static final int PSM_SETHEADERTITLEW = (int)1150L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_SECTION_MAX 65279
+     * {@snippet lang=c :
+     * #define PSM_SETHEADERTITLEW 1150
      * }
      */
-    public static int IMAGE_SYM_SECTION_MAX() {
-        return (int)65279L;
+    public static int PSM_SETHEADERTITLEW() {
+        return PSM_SETHEADERTITLEW;
     }
+    private static final int PSM_SETHEADERTITLE = (int)1149L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_NULL 0
+     * {@snippet lang=c :
+     * #define PSM_SETHEADERTITLE 1149
      * }
      */
-    public static int IMAGE_SYM_TYPE_NULL() {
-        return (int)0L;
+    public static int PSM_SETHEADERTITLE() {
+        return PSM_SETHEADERTITLE;
     }
+    private static final int PSM_SETHEADERSUBTITLEA = (int)1151L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_VOID 1
+     * {@snippet lang=c :
+     * #define PSM_SETHEADERSUBTITLEA 1151
      * }
      */
-    public static int IMAGE_SYM_TYPE_VOID() {
-        return (int)1L;
+    public static int PSM_SETHEADERSUBTITLEA() {
+        return PSM_SETHEADERSUBTITLEA;
     }
+    private static final int PSM_SETHEADERSUBTITLEW = (int)1152L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_CHAR 2
+     * {@snippet lang=c :
+     * #define PSM_SETHEADERSUBTITLEW 1152
      * }
      */
-    public static int IMAGE_SYM_TYPE_CHAR() {
-        return (int)2L;
+    public static int PSM_SETHEADERSUBTITLEW() {
+        return PSM_SETHEADERSUBTITLEW;
     }
+    private static final int PSM_SETHEADERSUBTITLE = (int)1151L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_SHORT 3
+     * {@snippet lang=c :
+     * #define PSM_SETHEADERSUBTITLE 1151
      * }
      */
-    public static int IMAGE_SYM_TYPE_SHORT() {
-        return (int)3L;
+    public static int PSM_SETHEADERSUBTITLE() {
+        return PSM_SETHEADERSUBTITLE;
     }
+    private static final int PSM_HWNDTOINDEX = (int)1153L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_INT 4
+     * {@snippet lang=c :
+     * #define PSM_HWNDTOINDEX 1153
      * }
      */
-    public static int IMAGE_SYM_TYPE_INT() {
-        return (int)4L;
+    public static int PSM_HWNDTOINDEX() {
+        return PSM_HWNDTOINDEX;
     }
+    private static final int PSM_INDEXTOHWND = (int)1154L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_LONG 5
+     * {@snippet lang=c :
+     * #define PSM_INDEXTOHWND 1154
      * }
      */
-    public static int IMAGE_SYM_TYPE_LONG() {
-        return (int)5L;
+    public static int PSM_INDEXTOHWND() {
+        return PSM_INDEXTOHWND;
     }
+    private static final int PSM_PAGETOINDEX = (int)1155L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_FLOAT 6
+     * {@snippet lang=c :
+     * #define PSM_PAGETOINDEX 1155
      * }
      */
-    public static int IMAGE_SYM_TYPE_FLOAT() {
-        return (int)6L;
+    public static int PSM_PAGETOINDEX() {
+        return PSM_PAGETOINDEX;
     }
+    private static final int PSM_INDEXTOPAGE = (int)1156L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_DOUBLE 7
+     * {@snippet lang=c :
+     * #define PSM_INDEXTOPAGE 1156
      * }
      */
-    public static int IMAGE_SYM_TYPE_DOUBLE() {
-        return (int)7L;
+    public static int PSM_INDEXTOPAGE() {
+        return PSM_INDEXTOPAGE;
     }
+    private static final int PSM_IDTOINDEX = (int)1157L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_STRUCT 8
+     * {@snippet lang=c :
+     * #define PSM_IDTOINDEX 1157
      * }
      */
-    public static int IMAGE_SYM_TYPE_STRUCT() {
-        return (int)8L;
+    public static int PSM_IDTOINDEX() {
+        return PSM_IDTOINDEX;
     }
+    private static final int PSM_INDEXTOID = (int)1158L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_UNION 9
+     * {@snippet lang=c :
+     * #define PSM_INDEXTOID 1158
      * }
      */
-    public static int IMAGE_SYM_TYPE_UNION() {
-        return (int)9L;
+    public static int PSM_INDEXTOID() {
+        return PSM_INDEXTOID;
     }
+    private static final int PSM_GETRESULT = (int)1159L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_ENUM 10
+     * {@snippet lang=c :
+     * #define PSM_GETRESULT 1159
      * }
      */
-    public static int IMAGE_SYM_TYPE_ENUM() {
-        return (int)10L;
+    public static int PSM_GETRESULT() {
+        return PSM_GETRESULT;
     }
+    private static final int PSM_RECALCPAGESIZES = (int)1160L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_MOE 11
+     * {@snippet lang=c :
+     * #define PSM_RECALCPAGESIZES 1160
      * }
      */
-    public static int IMAGE_SYM_TYPE_MOE() {
-        return (int)11L;
+    public static int PSM_RECALCPAGESIZES() {
+        return PSM_RECALCPAGESIZES;
     }
+    private static final int PSM_SETNEXTTEXTW = (int)1161L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_BYTE 12
+     * {@snippet lang=c :
+     * #define PSM_SETNEXTTEXTW 1161
      * }
      */
-    public static int IMAGE_SYM_TYPE_BYTE() {
-        return (int)12L;
+    public static int PSM_SETNEXTTEXTW() {
+        return PSM_SETNEXTTEXTW;
     }
+    private static final int PSM_SETNEXTTEXT = (int)1161L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_WORD 13
+     * {@snippet lang=c :
+     * #define PSM_SETNEXTTEXT 1161
      * }
      */
-    public static int IMAGE_SYM_TYPE_WORD() {
-        return (int)13L;
+    public static int PSM_SETNEXTTEXT() {
+        return PSM_SETNEXTTEXT;
     }
+    private static final int PSM_SHOWWIZBUTTONS = (int)1162L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_UINT 14
+     * {@snippet lang=c :
+     * #define PSM_SHOWWIZBUTTONS 1162
      * }
      */
-    public static int IMAGE_SYM_TYPE_UINT() {
-        return (int)14L;
+    public static int PSM_SHOWWIZBUTTONS() {
+        return PSM_SHOWWIZBUTTONS;
     }
+    private static final int PSM_ENABLEWIZBUTTONS = (int)1163L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_DWORD 15
+     * {@snippet lang=c :
+     * #define PSM_ENABLEWIZBUTTONS 1163
      * }
      */
-    public static int IMAGE_SYM_TYPE_DWORD() {
-        return (int)15L;
+    public static int PSM_ENABLEWIZBUTTONS() {
+        return PSM_ENABLEWIZBUTTONS;
     }
+    private static final int PSM_SETBUTTONTEXTW = (int)1164L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_TYPE_PCODE 32768
+     * {@snippet lang=c :
+     * #define PSM_SETBUTTONTEXTW 1164
      * }
      */
-    public static int IMAGE_SYM_TYPE_PCODE() {
-        return (int)32768L;
+    public static int PSM_SETBUTTONTEXTW() {
+        return PSM_SETBUTTONTEXTW;
     }
+    private static final int PSM_SETBUTTONTEXT = (int)1164L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_DTYPE_NULL 0
+     * {@snippet lang=c :
+     * #define PSM_SETBUTTONTEXT 1164
      * }
      */
-    public static int IMAGE_SYM_DTYPE_NULL() {
-        return (int)0L;
+    public static int PSM_SETBUTTONTEXT() {
+        return PSM_SETBUTTONTEXT;
     }
+    private static final int ID_PSREBOOTSYSTEM = (int)3L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_DTYPE_POINTER 1
+     * {@snippet lang=c :
+     * #define ID_PSREBOOTSYSTEM 3
      * }
      */
-    public static int IMAGE_SYM_DTYPE_POINTER() {
-        return (int)1L;
+    public static int ID_PSREBOOTSYSTEM() {
+        return ID_PSREBOOTSYSTEM;
     }
+    private static final int DSPRINT_PENDING = (int)2147483648L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_DTYPE_FUNCTION 2
+     * {@snippet lang=c :
+     * #define DSPRINT_PENDING 2147483648
      * }
      */
-    public static int IMAGE_SYM_DTYPE_FUNCTION() {
-        return (int)2L;
+    public static int DSPRINT_PENDING() {
+        return DSPRINT_PENDING;
     }
+    private static final int MAX_FORM_KEYWORD_LENGTH = (int)64L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_DTYPE_ARRAY 3
+     * {@snippet lang=c :
+     * #define MAX_FORM_KEYWORD_LENGTH 64
      * }
      */
-    public static int IMAGE_SYM_DTYPE_ARRAY() {
-        return (int)3L;
+    public static int MAX_FORM_KEYWORD_LENGTH() {
+        return MAX_FORM_KEYWORD_LENGTH;
     }
+    private static final int NORMAL_PRINT = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_NULL 0
+     * {@snippet lang=c :
+     * #define NORMAL_PRINT 0
      * }
      */
-    public static int IMAGE_SYM_CLASS_NULL() {
-        return (int)0L;
+    public static int NORMAL_PRINT() {
+        return NORMAL_PRINT;
     }
+    private static final int REVERSE_PRINT = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_AUTOMATIC 1
+     * {@snippet lang=c :
+     * #define REVERSE_PRINT 1
      * }
      */
-    public static int IMAGE_SYM_CLASS_AUTOMATIC() {
-        return (int)1L;
+    public static int REVERSE_PRINT() {
+        return REVERSE_PRINT;
     }
+    private static final int PPCAPS_RIGHT_THEN_DOWN = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_EXTERNAL 2
+     * {@snippet lang=c :
+     * #define PPCAPS_RIGHT_THEN_DOWN 1
      * }
      */
-    public static int IMAGE_SYM_CLASS_EXTERNAL() {
-        return (int)2L;
+    public static int PPCAPS_RIGHT_THEN_DOWN() {
+        return PPCAPS_RIGHT_THEN_DOWN;
     }
+    private static final int PPCAPS_DOWN_THEN_RIGHT = (int)2L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_STATIC 3
+     * {@snippet lang=c :
+     * #define PPCAPS_DOWN_THEN_RIGHT 2
      * }
      */
-    public static int IMAGE_SYM_CLASS_STATIC() {
-        return (int)3L;
+    public static int PPCAPS_DOWN_THEN_RIGHT() {
+        return PPCAPS_DOWN_THEN_RIGHT;
     }
+    private static final int PPCAPS_LEFT_THEN_DOWN = (int)4L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_REGISTER 4
+     * {@snippet lang=c :
+     * #define PPCAPS_LEFT_THEN_DOWN 4
      * }
      */
-    public static int IMAGE_SYM_CLASS_REGISTER() {
-        return (int)4L;
+    public static int PPCAPS_LEFT_THEN_DOWN() {
+        return PPCAPS_LEFT_THEN_DOWN;
     }
+    private static final int PPCAPS_DOWN_THEN_LEFT = (int)8L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_EXTERNAL_DEF 5
+     * {@snippet lang=c :
+     * #define PPCAPS_DOWN_THEN_LEFT 8
      * }
      */
-    public static int IMAGE_SYM_CLASS_EXTERNAL_DEF() {
-        return (int)5L;
+    public static int PPCAPS_DOWN_THEN_LEFT() {
+        return PPCAPS_DOWN_THEN_LEFT;
     }
+    private static final int PPCAPS_BORDER_PRINT = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_LABEL 6
+     * {@snippet lang=c :
+     * #define PPCAPS_BORDER_PRINT 1
      * }
      */
-    public static int IMAGE_SYM_CLASS_LABEL() {
-        return (int)6L;
+    public static int PPCAPS_BORDER_PRINT() {
+        return PPCAPS_BORDER_PRINT;
     }
+    private static final int PPCAPS_BOOKLET_EDGE = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_UNDEFINED_LABEL 7
+     * {@snippet lang=c :
+     * #define PPCAPS_BOOKLET_EDGE 1
      * }
      */
-    public static int IMAGE_SYM_CLASS_UNDEFINED_LABEL() {
-        return (int)7L;
+    public static int PPCAPS_BOOKLET_EDGE() {
+        return PPCAPS_BOOKLET_EDGE;
     }
+    private static final int PPCAPS_REVERSE_PAGES_FOR_REVERSE_DUPLEX = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_MEMBER_OF_STRUCT 8
+     * {@snippet lang=c :
+     * #define PPCAPS_REVERSE_PAGES_FOR_REVERSE_DUPLEX 1
      * }
      */
-    public static int IMAGE_SYM_CLASS_MEMBER_OF_STRUCT() {
-        return (int)8L;
+    public static int PPCAPS_REVERSE_PAGES_FOR_REVERSE_DUPLEX() {
+        return PPCAPS_REVERSE_PAGES_FOR_REVERSE_DUPLEX;
     }
+    private static final int PPCAPS_DONT_SEND_EXTRA_PAGES_FOR_DUPLEX = (int)2L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_ARGUMENT 9
+     * {@snippet lang=c :
+     * #define PPCAPS_DONT_SEND_EXTRA_PAGES_FOR_DUPLEX 2
      * }
      */
-    public static int IMAGE_SYM_CLASS_ARGUMENT() {
-        return (int)9L;
+    public static int PPCAPS_DONT_SEND_EXTRA_PAGES_FOR_DUPLEX() {
+        return PPCAPS_DONT_SEND_EXTRA_PAGES_FOR_DUPLEX;
     }
+    private static final int PPCAPS_SQUARE_SCALING = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_STRUCT_TAG 10
+     * {@snippet lang=c :
+     * #define PPCAPS_SQUARE_SCALING 1
      * }
      */
-    public static int IMAGE_SYM_CLASS_STRUCT_TAG() {
-        return (int)10L;
+    public static int PPCAPS_SQUARE_SCALING() {
+        return PPCAPS_SQUARE_SCALING;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_MEMBER_OF_UNION 11
+     * {@snippet lang=c :
+     * #define BIDI_ACTION_ENUM_SCHEMA "E"
      * }
      */
-    public static int IMAGE_SYM_CLASS_MEMBER_OF_UNION() {
-        return (int)11L;
+    public static MemorySegment BIDI_ACTION_ENUM_SCHEMA() {
+        class Holder {
+            static final MemorySegment BIDI_ACTION_ENUM_SCHEMA
+                = Windows_h.LIBRARY_ARENA.allocateFrom("E");
+        }
+        return Holder.BIDI_ACTION_ENUM_SCHEMA;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_UNION_TAG 12
+     * {@snippet lang=c :
+     * #define BIDI_ACTION_GET "G"
      * }
      */
-    public static int IMAGE_SYM_CLASS_UNION_TAG() {
-        return (int)12L;
+    public static MemorySegment BIDI_ACTION_GET() {
+        class Holder {
+            static final MemorySegment BIDI_ACTION_GET
+                = Windows_h.LIBRARY_ARENA.allocateFrom("G");
+        }
+        return Holder.BIDI_ACTION_GET;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_TYPE_DEFINITION 13
+     * {@snippet lang=c :
+     * #define BIDI_ACTION_SET "S"
      * }
      */
-    public static int IMAGE_SYM_CLASS_TYPE_DEFINITION() {
-        return (int)13L;
+    public static MemorySegment BIDI_ACTION_SET() {
+        class Holder {
+            static final MemorySegment BIDI_ACTION_SET
+                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+        }
+        return Holder.BIDI_ACTION_SET;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_UNDEFINED_STATIC 14
+     * {@snippet lang=c :
+     * #define BIDI_ACTION_GET_ALL "G"
      * }
      */
-    public static int IMAGE_SYM_CLASS_UNDEFINED_STATIC() {
-        return (int)14L;
+    public static MemorySegment BIDI_ACTION_GET_ALL() {
+        class Holder {
+            static final MemorySegment BIDI_ACTION_GET_ALL
+                = Windows_h.LIBRARY_ARENA.allocateFrom("G");
+        }
+        return Holder.BIDI_ACTION_GET_ALL;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_ENUM_TAG 15
+     * {@snippet lang=c :
+     * #define BIDI_ACTION_GET_WITH_ARGUMENT "G"
      * }
      */
-    public static int IMAGE_SYM_CLASS_ENUM_TAG() {
-        return (int)15L;
+    public static MemorySegment BIDI_ACTION_GET_WITH_ARGUMENT() {
+        class Holder {
+            static final MemorySegment BIDI_ACTION_GET_WITH_ARGUMENT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("G");
+        }
+        return Holder.BIDI_ACTION_GET_WITH_ARGUMENT;
     }
+    private static final int ERROR_BIDI_NOT_SUPPORTED = (int)50L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_MEMBER_OF_ENUM 16
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_NOT_SUPPORTED 50
      * }
      */
-    public static int IMAGE_SYM_CLASS_MEMBER_OF_ENUM() {
-        return (int)16L;
+    public static int ERROR_BIDI_NOT_SUPPORTED() {
+        return ERROR_BIDI_NOT_SUPPORTED;
     }
+    private static final int ERROR_BIDI_STATUS_WARNING = (int)13001L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_REGISTER_PARAM 17
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_STATUS_WARNING 13001
      * }
      */
-    public static int IMAGE_SYM_CLASS_REGISTER_PARAM() {
-        return (int)17L;
+    public static int ERROR_BIDI_STATUS_WARNING() {
+        return ERROR_BIDI_STATUS_WARNING;
     }
+    private static final int ERROR_BIDI_SCHEMA_READ_ONLY = (int)13002L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_BIT_FIELD 18
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_SCHEMA_READ_ONLY 13002
      * }
      */
-    public static int IMAGE_SYM_CLASS_BIT_FIELD() {
-        return (int)18L;
+    public static int ERROR_BIDI_SCHEMA_READ_ONLY() {
+        return ERROR_BIDI_SCHEMA_READ_ONLY;
     }
+    private static final int ERROR_BIDI_SERVER_OFFLINE = (int)13003L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_FAR_EXTERNAL 68
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_SERVER_OFFLINE 13003
      * }
      */
-    public static int IMAGE_SYM_CLASS_FAR_EXTERNAL() {
-        return (int)68L;
+    public static int ERROR_BIDI_SERVER_OFFLINE() {
+        return ERROR_BIDI_SERVER_OFFLINE;
     }
+    private static final int ERROR_BIDI_DEVICE_OFFLINE = (int)13004L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_BLOCK 100
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_DEVICE_OFFLINE 13004
      * }
      */
-    public static int IMAGE_SYM_CLASS_BLOCK() {
-        return (int)100L;
+    public static int ERROR_BIDI_DEVICE_OFFLINE() {
+        return ERROR_BIDI_DEVICE_OFFLINE;
     }
+    private static final int ERROR_BIDI_SCHEMA_NOT_SUPPORTED = (int)13005L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_FUNCTION 101
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_SCHEMA_NOT_SUPPORTED 13005
      * }
      */
-    public static int IMAGE_SYM_CLASS_FUNCTION() {
-        return (int)101L;
+    public static int ERROR_BIDI_SCHEMA_NOT_SUPPORTED() {
+        return ERROR_BIDI_SCHEMA_NOT_SUPPORTED;
     }
+    private static final int ERROR_BIDI_SET_DIFFERENT_TYPE = (int)13006L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_END_OF_STRUCT 102
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_SET_DIFFERENT_TYPE 13006
      * }
      */
-    public static int IMAGE_SYM_CLASS_END_OF_STRUCT() {
-        return (int)102L;
+    public static int ERROR_BIDI_SET_DIFFERENT_TYPE() {
+        return ERROR_BIDI_SET_DIFFERENT_TYPE;
     }
+    private static final int ERROR_BIDI_SET_MULTIPLE_SCHEMAPATH = (int)13007L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_FILE 103
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_SET_MULTIPLE_SCHEMAPATH 13007
      * }
      */
-    public static int IMAGE_SYM_CLASS_FILE() {
-        return (int)103L;
+    public static int ERROR_BIDI_SET_MULTIPLE_SCHEMAPATH() {
+        return ERROR_BIDI_SET_MULTIPLE_SCHEMAPATH;
     }
+    private static final int ERROR_BIDI_SET_INVALID_SCHEMAPATH = (int)13008L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_SECTION 104
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_SET_INVALID_SCHEMAPATH 13008
      * }
      */
-    public static int IMAGE_SYM_CLASS_SECTION() {
-        return (int)104L;
+    public static int ERROR_BIDI_SET_INVALID_SCHEMAPATH() {
+        return ERROR_BIDI_SET_INVALID_SCHEMAPATH;
     }
+    private static final int ERROR_BIDI_SET_UNKNOWN_FAILURE = (int)13009L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_WEAK_EXTERNAL 105
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_SET_UNKNOWN_FAILURE 13009
      * }
      */
-    public static int IMAGE_SYM_CLASS_WEAK_EXTERNAL() {
-        return (int)105L;
+    public static int ERROR_BIDI_SET_UNKNOWN_FAILURE() {
+        return ERROR_BIDI_SET_UNKNOWN_FAILURE;
     }
+    private static final int ERROR_BIDI_SCHEMA_WRITE_ONLY = (int)13010L;
     /**
-     * {@snippet :
-     * #define IMAGE_SYM_CLASS_CLR_TOKEN 107
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_SCHEMA_WRITE_ONLY 13010
      * }
      */
-    public static int IMAGE_SYM_CLASS_CLR_TOKEN() {
-        return (int)107L;
+    public static int ERROR_BIDI_SCHEMA_WRITE_ONLY() {
+        return ERROR_BIDI_SCHEMA_WRITE_ONLY;
     }
+    private static final int ERROR_BIDI_GET_REQUIRES_ARGUMENT = (int)13011L;
     /**
-     * {@snippet :
-     * #define N_BTMASK 15
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_GET_REQUIRES_ARGUMENT 13011
      * }
      */
-    public static int N_BTMASK() {
-        return (int)15L;
+    public static int ERROR_BIDI_GET_REQUIRES_ARGUMENT() {
+        return ERROR_BIDI_GET_REQUIRES_ARGUMENT;
     }
+    private static final int ERROR_BIDI_GET_ARGUMENT_NOT_SUPPORTED = (int)13012L;
     /**
-     * {@snippet :
-     * #define N_TMASK 48
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_GET_ARGUMENT_NOT_SUPPORTED 13012
      * }
      */
-    public static int N_TMASK() {
-        return (int)48L;
+    public static int ERROR_BIDI_GET_ARGUMENT_NOT_SUPPORTED() {
+        return ERROR_BIDI_GET_ARGUMENT_NOT_SUPPORTED;
     }
+    private static final int ERROR_BIDI_GET_MISSING_ARGUMENT = (int)13013L;
     /**
-     * {@snippet :
-     * #define N_TMASK1 192
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_GET_MISSING_ARGUMENT 13013
      * }
      */
-    public static int N_TMASK1() {
-        return (int)192L;
+    public static int ERROR_BIDI_GET_MISSING_ARGUMENT() {
+        return ERROR_BIDI_GET_MISSING_ARGUMENT;
     }
+    private static final int ERROR_BIDI_DEVICE_CONFIG_UNCHANGED = (int)13014L;
     /**
-     * {@snippet :
-     * #define N_TMASK2 240
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_DEVICE_CONFIG_UNCHANGED 13014
      * }
      */
-    public static int N_TMASK2() {
-        return (int)240L;
+    public static int ERROR_BIDI_DEVICE_CONFIG_UNCHANGED() {
+        return ERROR_BIDI_DEVICE_CONFIG_UNCHANGED;
     }
+    private static final int ERROR_BIDI_NO_LOCALIZED_RESOURCES = (int)13015L;
     /**
-     * {@snippet :
-     * #define N_BTSHFT 4
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_NO_LOCALIZED_RESOURCES 13015
      * }
      */
-    public static int N_BTSHFT() {
-        return (int)4L;
+    public static int ERROR_BIDI_NO_LOCALIZED_RESOURCES() {
+        return ERROR_BIDI_NO_LOCALIZED_RESOURCES;
     }
+    private static final int ERROR_BIDI_NO_BIDI_SCHEMA_EXTENSIONS = (int)13016L;
     /**
-     * {@snippet :
-     * #define N_TSHIFT 2
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_NO_BIDI_SCHEMA_EXTENSIONS 13016
      * }
      */
-    public static int N_TSHIFT() {
-        return (int)2L;
+    public static int ERROR_BIDI_NO_BIDI_SCHEMA_EXTENSIONS() {
+        return ERROR_BIDI_NO_BIDI_SCHEMA_EXTENSIONS;
     }
+    private static final int ERROR_BIDI_UNSUPPORTED_CLIENT_LANGUAGE = (int)13017L;
     /**
-     * {@snippet :
-     * #define IMAGE_COMDAT_SELECT_NODUPLICATES 1
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_UNSUPPORTED_CLIENT_LANGUAGE 13017
      * }
      */
-    public static int IMAGE_COMDAT_SELECT_NODUPLICATES() {
-        return (int)1L;
+    public static int ERROR_BIDI_UNSUPPORTED_CLIENT_LANGUAGE() {
+        return ERROR_BIDI_UNSUPPORTED_CLIENT_LANGUAGE;
     }
+    private static final int ERROR_BIDI_UNSUPPORTED_RESOURCE_FORMAT = (int)13018L;
     /**
-     * {@snippet :
-     * #define IMAGE_COMDAT_SELECT_ANY 2
+     * {@snippet lang=c :
+     * #define ERROR_BIDI_UNSUPPORTED_RESOURCE_FORMAT 13018
      * }
      */
-    public static int IMAGE_COMDAT_SELECT_ANY() {
-        return (int)2L;
+    public static int ERROR_BIDI_UNSUPPORTED_RESOURCE_FORMAT() {
+        return ERROR_BIDI_UNSUPPORTED_RESOURCE_FORMAT;
     }
+    private static final int PRINTER_CHANGE_TIMEOUT = (int)2147483648L;
     /**
-     * {@snippet :
-     * #define IMAGE_COMDAT_SELECT_SAME_SIZE 3
+     * {@snippet lang=c :
+     * #define PRINTER_CHANGE_TIMEOUT 2147483648
      * }
      */
-    public static int IMAGE_COMDAT_SELECT_SAME_SIZE() {
-        return (int)3L;
+    public static int PRINTER_CHANGE_TIMEOUT() {
+        return PRINTER_CHANGE_TIMEOUT;
     }
+    private static final int PRINTER_ERROR_INFORMATION = (int)2147483648L;
     /**
-     * {@snippet :
-     * #define IMAGE_COMDAT_SELECT_EXACT_MATCH 4
+     * {@snippet lang=c :
+     * #define PRINTER_ERROR_INFORMATION 2147483648
      * }
      */
-    public static int IMAGE_COMDAT_SELECT_EXACT_MATCH() {
-        return (int)4L;
+    public static int PRINTER_ERROR_INFORMATION() {
+        return PRINTER_ERROR_INFORMATION;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_COMDAT_SELECT_ASSOCIATIVE 5
+     * {@snippet lang=c :
+     * #define SPLREG_DEFAULT_SPOOL_DIRECTORY "DefaultSpoolDirectory"
      * }
      */
-    public static int IMAGE_COMDAT_SELECT_ASSOCIATIVE() {
-        return (int)5L;
+    public static MemorySegment SPLREG_DEFAULT_SPOOL_DIRECTORY() {
+        class Holder {
+            static final MemorySegment SPLREG_DEFAULT_SPOOL_DIRECTORY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("DefaultSpoolDirectory");
+        }
+        return Holder.SPLREG_DEFAULT_SPOOL_DIRECTORY;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_COMDAT_SELECT_LARGEST 6
+     * {@snippet lang=c :
+     * #define SPLREG_PORT_THREAD_PRIORITY_DEFAULT "PortThreadPriorityDefault"
      * }
      */
-    public static int IMAGE_COMDAT_SELECT_LARGEST() {
-        return (int)6L;
+    public static MemorySegment SPLREG_PORT_THREAD_PRIORITY_DEFAULT() {
+        class Holder {
+            static final MemorySegment SPLREG_PORT_THREAD_PRIORITY_DEFAULT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("PortThreadPriorityDefault");
+        }
+        return Holder.SPLREG_PORT_THREAD_PRIORITY_DEFAULT;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_COMDAT_SELECT_NEWEST 7
+     * {@snippet lang=c :
+     * #define SPLREG_PORT_THREAD_PRIORITY "PortThreadPriority"
      * }
      */
-    public static int IMAGE_COMDAT_SELECT_NEWEST() {
-        return (int)7L;
+    public static MemorySegment SPLREG_PORT_THREAD_PRIORITY() {
+        class Holder {
+            static final MemorySegment SPLREG_PORT_THREAD_PRIORITY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("PortThreadPriority");
+        }
+        return Holder.SPLREG_PORT_THREAD_PRIORITY;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_WEAK_EXTERN_SEARCH_NOLIBRARY 1
+     * {@snippet lang=c :
+     * #define SPLREG_SCHEDULER_THREAD_PRIORITY_DEFAULT "SchedulerThreadPriorityDefault"
      * }
      */
-    public static int IMAGE_WEAK_EXTERN_SEARCH_NOLIBRARY() {
-        return (int)1L;
+    public static MemorySegment SPLREG_SCHEDULER_THREAD_PRIORITY_DEFAULT() {
+        class Holder {
+            static final MemorySegment SPLREG_SCHEDULER_THREAD_PRIORITY_DEFAULT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SchedulerThreadPriorityDefault");
+        }
+        return Holder.SPLREG_SCHEDULER_THREAD_PRIORITY_DEFAULT;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_WEAK_EXTERN_SEARCH_LIBRARY 2
+     * {@snippet lang=c :
+     * #define SPLREG_SCHEDULER_THREAD_PRIORITY "SchedulerThreadPriority"
      * }
      */
-    public static int IMAGE_WEAK_EXTERN_SEARCH_LIBRARY() {
-        return (int)2L;
+    public static MemorySegment SPLREG_SCHEDULER_THREAD_PRIORITY() {
+        class Holder {
+            static final MemorySegment SPLREG_SCHEDULER_THREAD_PRIORITY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SchedulerThreadPriority");
+        }
+        return Holder.SPLREG_SCHEDULER_THREAD_PRIORITY;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_WEAK_EXTERN_SEARCH_ALIAS 3
+     * {@snippet lang=c :
+     * #define SPLREG_BEEP_ENABLED "BeepEnabled"
      * }
      */
-    public static int IMAGE_WEAK_EXTERN_SEARCH_ALIAS() {
-        return (int)3L;
+    public static MemorySegment SPLREG_BEEP_ENABLED() {
+        class Holder {
+            static final MemorySegment SPLREG_BEEP_ENABLED
+                = Windows_h.LIBRARY_ARENA.allocateFrom("BeepEnabled");
+        }
+        return Holder.SPLREG_BEEP_ENABLED;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_WEAK_EXTERN_ANTI_DEPENDENCY 4
+     * {@snippet lang=c :
+     * #define SPLREG_NET_POPUP "NetPopup"
      * }
      */
-    public static int IMAGE_WEAK_EXTERN_ANTI_DEPENDENCY() {
-        return (int)4L;
+    public static MemorySegment SPLREG_NET_POPUP() {
+        class Holder {
+            static final MemorySegment SPLREG_NET_POPUP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("NetPopup");
+        }
+        return Holder.SPLREG_NET_POPUP;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_I386_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define SPLREG_RETRY_POPUP "RetryPopup"
      * }
      */
-    public static int IMAGE_REL_I386_ABSOLUTE() {
-        return (int)0L;
+    public static MemorySegment SPLREG_RETRY_POPUP() {
+        class Holder {
+            static final MemorySegment SPLREG_RETRY_POPUP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("RetryPopup");
+        }
+        return Holder.SPLREG_RETRY_POPUP;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_I386_DIR16 1
+     * {@snippet lang=c :
+     * #define SPLREG_NET_POPUP_TO_COMPUTER "NetPopupToComputer"
      * }
      */
-    public static int IMAGE_REL_I386_DIR16() {
-        return (int)1L;
+    public static MemorySegment SPLREG_NET_POPUP_TO_COMPUTER() {
+        class Holder {
+            static final MemorySegment SPLREG_NET_POPUP_TO_COMPUTER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("NetPopupToComputer");
+        }
+        return Holder.SPLREG_NET_POPUP_TO_COMPUTER;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_I386_REL16 2
+     * {@snippet lang=c :
+     * #define SPLREG_EVENT_LOG "EventLog"
      * }
      */
-    public static int IMAGE_REL_I386_REL16() {
-        return (int)2L;
+    public static MemorySegment SPLREG_EVENT_LOG() {
+        class Holder {
+            static final MemorySegment SPLREG_EVENT_LOG
+                = Windows_h.LIBRARY_ARENA.allocateFrom("EventLog");
+        }
+        return Holder.SPLREG_EVENT_LOG;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_I386_DIR32 6
+     * {@snippet lang=c :
+     * #define SPLREG_MAJOR_VERSION "MajorVersion"
      * }
      */
-    public static int IMAGE_REL_I386_DIR32() {
-        return (int)6L;
+    public static MemorySegment SPLREG_MAJOR_VERSION() {
+        class Holder {
+            static final MemorySegment SPLREG_MAJOR_VERSION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("MajorVersion");
+        }
+        return Holder.SPLREG_MAJOR_VERSION;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_I386_DIR32NB 7
+     * {@snippet lang=c :
+     * #define SPLREG_MINOR_VERSION "MinorVersion"
      * }
      */
-    public static int IMAGE_REL_I386_DIR32NB() {
-        return (int)7L;
+    public static MemorySegment SPLREG_MINOR_VERSION() {
+        class Holder {
+            static final MemorySegment SPLREG_MINOR_VERSION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("MinorVersion");
+        }
+        return Holder.SPLREG_MINOR_VERSION;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_I386_SEG12 9
+     * {@snippet lang=c :
+     * #define SPLREG_ARCHITECTURE "Architecture"
      * }
      */
-    public static int IMAGE_REL_I386_SEG12() {
-        return (int)9L;
+    public static MemorySegment SPLREG_ARCHITECTURE() {
+        class Holder {
+            static final MemorySegment SPLREG_ARCHITECTURE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("Architecture");
+        }
+        return Holder.SPLREG_ARCHITECTURE;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_I386_SECTION 10
+     * {@snippet lang=c :
+     * #define SPLREG_OS_VERSION "OSVersion"
      * }
      */
-    public static int IMAGE_REL_I386_SECTION() {
-        return (int)10L;
+    public static MemorySegment SPLREG_OS_VERSION() {
+        class Holder {
+            static final MemorySegment SPLREG_OS_VERSION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("OSVersion");
+        }
+        return Holder.SPLREG_OS_VERSION;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_I386_SECREL 11
+     * {@snippet lang=c :
+     * #define SPLREG_OS_VERSIONEX "OSVersionEx"
      * }
      */
-    public static int IMAGE_REL_I386_SECREL() {
-        return (int)11L;
+    public static MemorySegment SPLREG_OS_VERSIONEX() {
+        class Holder {
+            static final MemorySegment SPLREG_OS_VERSIONEX
+                = Windows_h.LIBRARY_ARENA.allocateFrom("OSVersionEx");
+        }
+        return Holder.SPLREG_OS_VERSIONEX;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_I386_TOKEN 12
+     * {@snippet lang=c :
+     * #define SPLREG_DS_PRESENT "DsPresent"
      * }
      */
-    public static int IMAGE_REL_I386_TOKEN() {
-        return (int)12L;
+    public static MemorySegment SPLREG_DS_PRESENT() {
+        class Holder {
+            static final MemorySegment SPLREG_DS_PRESENT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("DsPresent");
+        }
+        return Holder.SPLREG_DS_PRESENT;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_I386_SECREL7 13
+     * {@snippet lang=c :
+     * #define SPLREG_DS_PRESENT_FOR_USER "DsPresentForUser"
      * }
      */
-    public static int IMAGE_REL_I386_SECREL7() {
-        return (int)13L;
+    public static MemorySegment SPLREG_DS_PRESENT_FOR_USER() {
+        class Holder {
+            static final MemorySegment SPLREG_DS_PRESENT_FOR_USER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("DsPresentForUser");
+        }
+        return Holder.SPLREG_DS_PRESENT_FOR_USER;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_I386_REL32 20
+     * {@snippet lang=c :
+     * #define SPLREG_REMOTE_FAX "RemoteFax"
      * }
      */
-    public static int IMAGE_REL_I386_REL32() {
-        return (int)20L;
+    public static MemorySegment SPLREG_REMOTE_FAX() {
+        class Holder {
+            static final MemorySegment SPLREG_REMOTE_FAX
+                = Windows_h.LIBRARY_ARENA.allocateFrom("RemoteFax");
+        }
+        return Holder.SPLREG_REMOTE_FAX;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define SPLREG_RESTART_JOB_ON_POOL_ERROR "RestartJobOnPoolError"
      * }
      */
-    public static int IMAGE_REL_MIPS_ABSOLUTE() {
-        return (int)0L;
+    public static MemorySegment SPLREG_RESTART_JOB_ON_POOL_ERROR() {
+        class Holder {
+            static final MemorySegment SPLREG_RESTART_JOB_ON_POOL_ERROR
+                = Windows_h.LIBRARY_ARENA.allocateFrom("RestartJobOnPoolError");
+        }
+        return Holder.SPLREG_RESTART_JOB_ON_POOL_ERROR;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_REFHALF 1
+     * {@snippet lang=c :
+     * #define SPLREG_RESTART_JOB_ON_POOL_ENABLED "RestartJobOnPoolEnabled"
      * }
      */
-    public static int IMAGE_REL_MIPS_REFHALF() {
-        return (int)1L;
+    public static MemorySegment SPLREG_RESTART_JOB_ON_POOL_ENABLED() {
+        class Holder {
+            static final MemorySegment SPLREG_RESTART_JOB_ON_POOL_ENABLED
+                = Windows_h.LIBRARY_ARENA.allocateFrom("RestartJobOnPoolEnabled");
+        }
+        return Holder.SPLREG_RESTART_JOB_ON_POOL_ENABLED;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_REFWORD 2
+     * {@snippet lang=c :
+     * #define SPLREG_DNS_MACHINE_NAME "DNSMachineName"
      * }
      */
-    public static int IMAGE_REL_MIPS_REFWORD() {
-        return (int)2L;
+    public static MemorySegment SPLREG_DNS_MACHINE_NAME() {
+        class Holder {
+            static final MemorySegment SPLREG_DNS_MACHINE_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("DNSMachineName");
+        }
+        return Holder.SPLREG_DNS_MACHINE_NAME;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_JMPADDR 3
+     * {@snippet lang=c :
+     * #define SPLREG_ALLOW_USER_MANAGEFORMS "AllowUserManageForms"
      * }
      */
-    public static int IMAGE_REL_MIPS_JMPADDR() {
-        return (int)3L;
+    public static MemorySegment SPLREG_ALLOW_USER_MANAGEFORMS() {
+        class Holder {
+            static final MemorySegment SPLREG_ALLOW_USER_MANAGEFORMS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("AllowUserManageForms");
+        }
+        return Holder.SPLREG_ALLOW_USER_MANAGEFORMS;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_REFHI 4
+     * {@snippet lang=c :
+     * #define SPLREG_WEBSHAREMGMT "WebShareMgmt"
      * }
      */
-    public static int IMAGE_REL_MIPS_REFHI() {
-        return (int)4L;
+    public static MemorySegment SPLREG_WEBSHAREMGMT() {
+        class Holder {
+            static final MemorySegment SPLREG_WEBSHAREMGMT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("WebShareMgmt");
+        }
+        return Holder.SPLREG_WEBSHAREMGMT;
     }
+    private static final short SPLREG_PRINT_DRIVER_ISOLATION_GROUPS_SEPARATOR = (short)92L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_REFLO 5
+     * {@snippet lang=c :
+     * #define SPLREG_PRINT_DRIVER_ISOLATION_GROUPS_SEPARATOR 92
      * }
      */
-    public static int IMAGE_REL_MIPS_REFLO() {
-        return (int)5L;
+    public static short SPLREG_PRINT_DRIVER_ISOLATION_GROUPS_SEPARATOR() {
+        return SPLREG_PRINT_DRIVER_ISOLATION_GROUPS_SEPARATOR;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_GPREL 6
+     * {@snippet lang=c :
+     * #define SPLREG_PRINT_DRIVER_ISOLATION_GROUPS "PrintDriverIsolationGroups"
      * }
      */
-    public static int IMAGE_REL_MIPS_GPREL() {
-        return (int)6L;
+    public static MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_GROUPS() {
+        class Holder {
+            static final MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_GROUPS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("PrintDriverIsolationGroups");
+        }
+        return Holder.SPLREG_PRINT_DRIVER_ISOLATION_GROUPS;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_LITERAL 7
+     * {@snippet lang=c :
+     * #define SPLREG_PRINT_DRIVER_ISOLATION_TIME_BEFORE_RECYCLE "PrintDriverIsolationTimeBeforeRecycle"
      * }
      */
-    public static int IMAGE_REL_MIPS_LITERAL() {
-        return (int)7L;
+    public static MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_TIME_BEFORE_RECYCLE() {
+        class Holder {
+            static final MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_TIME_BEFORE_RECYCLE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("PrintDriverIsolationTimeBeforeRecycle");
+        }
+        return Holder.SPLREG_PRINT_DRIVER_ISOLATION_TIME_BEFORE_RECYCLE;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_SECTION 10
+     * {@snippet lang=c :
+     * #define SPLREG_PRINT_DRIVER_ISOLATION_MAX_OBJECTS_BEFORE_RECYCLE "PrintDriverIsolationMaxobjsBeforeRecycle"
      * }
      */
-    public static int IMAGE_REL_MIPS_SECTION() {
-        return (int)10L;
+    public static MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_MAX_OBJECTS_BEFORE_RECYCLE() {
+        class Holder {
+            static final MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_MAX_OBJECTS_BEFORE_RECYCLE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("PrintDriverIsolationMaxobjsBeforeRecycle");
+        }
+        return Holder.SPLREG_PRINT_DRIVER_ISOLATION_MAX_OBJECTS_BEFORE_RECYCLE;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_SECREL 11
+     * {@snippet lang=c :
+     * #define SPLREG_PRINT_DRIVER_ISOLATION_IDLE_TIMEOUT "PrintDriverIsolationIdleTimeout"
      * }
      */
-    public static int IMAGE_REL_MIPS_SECREL() {
-        return (int)11L;
+    public static MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_IDLE_TIMEOUT() {
+        class Holder {
+            static final MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_IDLE_TIMEOUT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("PrintDriverIsolationIdleTimeout");
+        }
+        return Holder.SPLREG_PRINT_DRIVER_ISOLATION_IDLE_TIMEOUT;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_SECRELLO 12
+     * {@snippet lang=c :
+     * #define SPLREG_PRINT_DRIVER_ISOLATION_EXECUTION_POLICY "PrintDriverIsolationExecutionPolicy"
      * }
      */
-    public static int IMAGE_REL_MIPS_SECRELLO() {
-        return (int)12L;
+    public static MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_EXECUTION_POLICY() {
+        class Holder {
+            static final MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_EXECUTION_POLICY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("PrintDriverIsolationExecutionPolicy");
+        }
+        return Holder.SPLREG_PRINT_DRIVER_ISOLATION_EXECUTION_POLICY;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_SECRELHI 13
+     * {@snippet lang=c :
+     * #define SPLREG_PRINT_DRIVER_ISOLATION_OVERRIDE_POLICY "PrintDriverIsolationOverrideCompat"
      * }
      */
-    public static int IMAGE_REL_MIPS_SECRELHI() {
-        return (int)13L;
+    public static MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_OVERRIDE_POLICY() {
+        class Holder {
+            static final MemorySegment SPLREG_PRINT_DRIVER_ISOLATION_OVERRIDE_POLICY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("PrintDriverIsolationOverrideCompat");
+        }
+        return Holder.SPLREG_PRINT_DRIVER_ISOLATION_OVERRIDE_POLICY;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_TOKEN 14
+     * {@snippet lang=c :
+     * #define SPLREG_PRINT_QUEUE_V4_DRIVER_DIRECTORY "PrintQueueV4DriverDirectory"
      * }
      */
-    public static int IMAGE_REL_MIPS_TOKEN() {
-        return (int)14L;
+    public static MemorySegment SPLREG_PRINT_QUEUE_V4_DRIVER_DIRECTORY() {
+        class Holder {
+            static final MemorySegment SPLREG_PRINT_QUEUE_V4_DRIVER_DIRECTORY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("PrintQueueV4DriverDirectory");
+        }
+        return Holder.SPLREG_PRINT_QUEUE_V4_DRIVER_DIRECTORY;
     }
+    private static final int SERVER_ALL_ACCESS = (int)983043L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_JMPADDR16 16
+     * {@snippet lang=c :
+     * #define SERVER_ALL_ACCESS 983043
      * }
      */
-    public static int IMAGE_REL_MIPS_JMPADDR16() {
-        return (int)16L;
+    public static int SERVER_ALL_ACCESS() {
+        return SERVER_ALL_ACCESS;
     }
+    private static final int SERVER_READ = (int)131074L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_REFWORDNB 34
+     * {@snippet lang=c :
+     * #define SERVER_READ 131074
      * }
      */
-    public static int IMAGE_REL_MIPS_REFWORDNB() {
-        return (int)34L;
+    public static int SERVER_READ() {
+        return SERVER_READ;
     }
+    private static final int SERVER_WRITE = (int)131075L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_MIPS_PAIR 37
+     * {@snippet lang=c :
+     * #define SERVER_WRITE 131075
      * }
      */
-    public static int IMAGE_REL_MIPS_PAIR() {
-        return (int)37L;
+    public static int SERVER_WRITE() {
+        return SERVER_WRITE;
     }
+    private static final int SERVER_EXECUTE = (int)131074L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define SERVER_EXECUTE 131074
      * }
      */
-    public static int IMAGE_REL_ALPHA_ABSOLUTE() {
-        return (int)0L;
+    public static int SERVER_EXECUTE() {
+        return SERVER_EXECUTE;
     }
+    private static final int PRINTER_ALL_ACCESS = (int)983052L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_REFLONG 1
+     * {@snippet lang=c :
+     * #define PRINTER_ALL_ACCESS 983052
      * }
      */
-    public static int IMAGE_REL_ALPHA_REFLONG() {
-        return (int)1L;
+    public static int PRINTER_ALL_ACCESS() {
+        return PRINTER_ALL_ACCESS;
     }
+    private static final int PRINTER_READ = (int)131080L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_REFQUAD 2
+     * {@snippet lang=c :
+     * #define PRINTER_READ 131080
      * }
      */
-    public static int IMAGE_REL_ALPHA_REFQUAD() {
-        return (int)2L;
+    public static int PRINTER_READ() {
+        return PRINTER_READ;
     }
+    private static final int PRINTER_WRITE = (int)131080L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_GPREL32 3
+     * {@snippet lang=c :
+     * #define PRINTER_WRITE 131080
      * }
      */
-    public static int IMAGE_REL_ALPHA_GPREL32() {
-        return (int)3L;
+    public static int PRINTER_WRITE() {
+        return PRINTER_WRITE;
     }
+    private static final int PRINTER_EXECUTE = (int)131080L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_LITERAL 4
+     * {@snippet lang=c :
+     * #define PRINTER_EXECUTE 131080
      * }
      */
-    public static int IMAGE_REL_ALPHA_LITERAL() {
-        return (int)4L;
+    public static int PRINTER_EXECUTE() {
+        return PRINTER_EXECUTE;
     }
+    private static final int JOB_ALL_ACCESS = (int)983088L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_LITUSE 5
+     * {@snippet lang=c :
+     * #define JOB_ALL_ACCESS 983088
      * }
      */
-    public static int IMAGE_REL_ALPHA_LITUSE() {
-        return (int)5L;
+    public static int JOB_ALL_ACCESS() {
+        return JOB_ALL_ACCESS;
     }
+    private static final int JOB_READ = (int)131104L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_GPDISP 6
+     * {@snippet lang=c :
+     * #define JOB_READ 131104
      * }
      */
-    public static int IMAGE_REL_ALPHA_GPDISP() {
-        return (int)6L;
+    public static int JOB_READ() {
+        return JOB_READ;
     }
+    private static final int JOB_WRITE = (int)131088L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_BRADDR 7
+     * {@snippet lang=c :
+     * #define JOB_WRITE 131088
      * }
      */
-    public static int IMAGE_REL_ALPHA_BRADDR() {
-        return (int)7L;
+    public static int JOB_WRITE() {
+        return JOB_WRITE;
     }
+    private static final int JOB_EXECUTE = (int)131088L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_HINT 8
+     * {@snippet lang=c :
+     * #define JOB_EXECUTE 131088
      * }
      */
-    public static int IMAGE_REL_ALPHA_HINT() {
-        return (int)8L;
+    public static int JOB_EXECUTE() {
+        return JOB_EXECUTE;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_INLINE_REFLONG 9
+     * {@snippet lang=c :
+     * #define SPLDS_SPOOLER_KEY "DsSpooler"
      * }
      */
-    public static int IMAGE_REL_ALPHA_INLINE_REFLONG() {
-        return (int)9L;
+    public static MemorySegment SPLDS_SPOOLER_KEY() {
+        class Holder {
+            static final MemorySegment SPLDS_SPOOLER_KEY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("DsSpooler");
+        }
+        return Holder.SPLDS_SPOOLER_KEY;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_REFHI 10
+     * {@snippet lang=c :
+     * #define SPLDS_DRIVER_KEY "DsDriver"
      * }
      */
-    public static int IMAGE_REL_ALPHA_REFHI() {
-        return (int)10L;
+    public static MemorySegment SPLDS_DRIVER_KEY() {
+        class Holder {
+            static final MemorySegment SPLDS_DRIVER_KEY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("DsDriver");
+        }
+        return Holder.SPLDS_DRIVER_KEY;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_REFLO 11
+     * {@snippet lang=c :
+     * #define SPLDS_USER_KEY "DsUser"
      * }
      */
-    public static int IMAGE_REL_ALPHA_REFLO() {
-        return (int)11L;
+    public static MemorySegment SPLDS_USER_KEY() {
+        class Holder {
+            static final MemorySegment SPLDS_USER_KEY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("DsUser");
+        }
+        return Holder.SPLDS_USER_KEY;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_PAIR 12
+     * {@snippet lang=c :
+     * #define SPLDS_ASSET_NUMBER "assetNumber"
      * }
      */
-    public static int IMAGE_REL_ALPHA_PAIR() {
-        return (int)12L;
+    public static MemorySegment SPLDS_ASSET_NUMBER() {
+        class Holder {
+            static final MemorySegment SPLDS_ASSET_NUMBER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("assetNumber");
+        }
+        return Holder.SPLDS_ASSET_NUMBER;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_MATCH 13
+     * {@snippet lang=c :
+     * #define SPLDS_BYTES_PER_MINUTE "bytesPerMinute"
      * }
      */
-    public static int IMAGE_REL_ALPHA_MATCH() {
-        return (int)13L;
+    public static MemorySegment SPLDS_BYTES_PER_MINUTE() {
+        class Holder {
+            static final MemorySegment SPLDS_BYTES_PER_MINUTE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("bytesPerMinute");
+        }
+        return Holder.SPLDS_BYTES_PER_MINUTE;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_SECTION 14
+     * {@snippet lang=c :
+     * #define SPLDS_DESCRIPTION "description"
      * }
      */
-    public static int IMAGE_REL_ALPHA_SECTION() {
-        return (int)14L;
+    public static MemorySegment SPLDS_DESCRIPTION() {
+        class Holder {
+            static final MemorySegment SPLDS_DESCRIPTION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("description");
+        }
+        return Holder.SPLDS_DESCRIPTION;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_SECREL 15
+     * {@snippet lang=c :
+     * #define SPLDS_DRIVER_NAME "driverName"
      * }
      */
-    public static int IMAGE_REL_ALPHA_SECREL() {
-        return (int)15L;
+    public static MemorySegment SPLDS_DRIVER_NAME() {
+        class Holder {
+            static final MemorySegment SPLDS_DRIVER_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("driverName");
+        }
+        return Holder.SPLDS_DRIVER_NAME;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_REFLONGNB 16
+     * {@snippet lang=c :
+     * #define SPLDS_DRIVER_VERSION "driverVersion"
      * }
      */
-    public static int IMAGE_REL_ALPHA_REFLONGNB() {
-        return (int)16L;
+    public static MemorySegment SPLDS_DRIVER_VERSION() {
+        class Holder {
+            static final MemorySegment SPLDS_DRIVER_VERSION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("driverVersion");
+        }
+        return Holder.SPLDS_DRIVER_VERSION;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_SECRELLO 17
+     * {@snippet lang=c :
+     * #define SPLDS_LOCATION "location"
      * }
      */
-    public static int IMAGE_REL_ALPHA_SECRELLO() {
-        return (int)17L;
+    public static MemorySegment SPLDS_LOCATION() {
+        class Holder {
+            static final MemorySegment SPLDS_LOCATION
+                = Windows_h.LIBRARY_ARENA.allocateFrom("location");
+        }
+        return Holder.SPLDS_LOCATION;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_SECRELHI 18
+     * {@snippet lang=c :
+     * #define SPLDS_PORT_NAME "portName"
      * }
      */
-    public static int IMAGE_REL_ALPHA_SECRELHI() {
-        return (int)18L;
+    public static MemorySegment SPLDS_PORT_NAME() {
+        class Holder {
+            static final MemorySegment SPLDS_PORT_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("portName");
+        }
+        return Holder.SPLDS_PORT_NAME;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_REFQ3 19
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_ATTRIBUTES "printAttributes"
      * }
      */
-    public static int IMAGE_REL_ALPHA_REFQ3() {
-        return (int)19L;
+    public static MemorySegment SPLDS_PRINT_ATTRIBUTES() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_ATTRIBUTES
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printAttributes");
+        }
+        return Holder.SPLDS_PRINT_ATTRIBUTES;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_REFQ2 20
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_BIN_NAMES "printBinNames"
      * }
      */
-    public static int IMAGE_REL_ALPHA_REFQ2() {
-        return (int)20L;
+    public static MemorySegment SPLDS_PRINT_BIN_NAMES() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_BIN_NAMES
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printBinNames");
+        }
+        return Holder.SPLDS_PRINT_BIN_NAMES;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_REFQ1 21
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_COLLATE "printCollate"
      * }
      */
-    public static int IMAGE_REL_ALPHA_REFQ1() {
-        return (int)21L;
+    public static MemorySegment SPLDS_PRINT_COLLATE() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_COLLATE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printCollate");
+        }
+        return Holder.SPLDS_PRINT_COLLATE;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_GPRELLO 22
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_COLOR "printColor"
      * }
      */
-    public static int IMAGE_REL_ALPHA_GPRELLO() {
-        return (int)22L;
+    public static MemorySegment SPLDS_PRINT_COLOR() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_COLOR
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printColor");
+        }
+        return Holder.SPLDS_PRINT_COLOR;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ALPHA_GPRELHI 23
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_DUPLEX_SUPPORTED "printDuplexSupported"
      * }
      */
-    public static int IMAGE_REL_ALPHA_GPRELHI() {
-        return (int)23L;
+    public static MemorySegment SPLDS_PRINT_DUPLEX_SUPPORTED() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_DUPLEX_SUPPORTED
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printDuplexSupported");
+        }
+        return Holder.SPLDS_PRINT_DUPLEX_SUPPORTED;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_END_TIME "printEndTime"
      * }
      */
-    public static int IMAGE_REL_PPC_ABSOLUTE() {
-        return (int)0L;
+    public static MemorySegment SPLDS_PRINT_END_TIME() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_END_TIME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printEndTime");
+        }
+        return Holder.SPLDS_PRINT_END_TIME;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_ADDR64 1
+     * {@snippet lang=c :
+     * #define SPLDS_PRINTER_CLASS "printQueue"
      * }
      */
-    public static int IMAGE_REL_PPC_ADDR64() {
-        return (int)1L;
+    public static MemorySegment SPLDS_PRINTER_CLASS() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINTER_CLASS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printQueue");
+        }
+        return Holder.SPLDS_PRINTER_CLASS;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_ADDR32 2
+     * {@snippet lang=c :
+     * #define SPLDS_PRINTER_NAME "printerName"
      * }
      */
-    public static int IMAGE_REL_PPC_ADDR32() {
-        return (int)2L;
+    public static MemorySegment SPLDS_PRINTER_NAME() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINTER_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printerName");
+        }
+        return Holder.SPLDS_PRINTER_NAME;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_ADDR24 3
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_KEEP_PRINTED_JOBS "printKeepPrintedJobs"
      * }
      */
-    public static int IMAGE_REL_PPC_ADDR24() {
-        return (int)3L;
+    public static MemorySegment SPLDS_PRINT_KEEP_PRINTED_JOBS() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_KEEP_PRINTED_JOBS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printKeepPrintedJobs");
+        }
+        return Holder.SPLDS_PRINT_KEEP_PRINTED_JOBS;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_ADDR16 4
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_LANGUAGE "printLanguage"
      * }
      */
-    public static int IMAGE_REL_PPC_ADDR16() {
-        return (int)4L;
+    public static MemorySegment SPLDS_PRINT_LANGUAGE() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_LANGUAGE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printLanguage");
+        }
+        return Holder.SPLDS_PRINT_LANGUAGE;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_ADDR14 5
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_MAC_ADDRESS "printMACAddress"
      * }
      */
-    public static int IMAGE_REL_PPC_ADDR14() {
-        return (int)5L;
+    public static MemorySegment SPLDS_PRINT_MAC_ADDRESS() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_MAC_ADDRESS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printMACAddress");
+        }
+        return Holder.SPLDS_PRINT_MAC_ADDRESS;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_REL24 6
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_MAX_X_EXTENT "printMaxXExtent"
      * }
      */
-    public static int IMAGE_REL_PPC_REL24() {
-        return (int)6L;
+    public static MemorySegment SPLDS_PRINT_MAX_X_EXTENT() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_MAX_X_EXTENT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printMaxXExtent");
+        }
+        return Holder.SPLDS_PRINT_MAX_X_EXTENT;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_REL14 7
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_MAX_Y_EXTENT "printMaxYExtent"
      * }
      */
-    public static int IMAGE_REL_PPC_REL14() {
-        return (int)7L;
+    public static MemorySegment SPLDS_PRINT_MAX_Y_EXTENT() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_MAX_Y_EXTENT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printMaxYExtent");
+        }
+        return Holder.SPLDS_PRINT_MAX_Y_EXTENT;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_TOCREL16 8
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_MAX_RESOLUTION_SUPPORTED "printMaxResolutionSupported"
      * }
      */
-    public static int IMAGE_REL_PPC_TOCREL16() {
-        return (int)8L;
+    public static MemorySegment SPLDS_PRINT_MAX_RESOLUTION_SUPPORTED() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_MAX_RESOLUTION_SUPPORTED
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printMaxResolutionSupported");
+        }
+        return Holder.SPLDS_PRINT_MAX_RESOLUTION_SUPPORTED;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_TOCREL14 9
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_MEDIA_READY "printMediaReady"
      * }
      */
-    public static int IMAGE_REL_PPC_TOCREL14() {
-        return (int)9L;
+    public static MemorySegment SPLDS_PRINT_MEDIA_READY() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_MEDIA_READY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printMediaReady");
+        }
+        return Holder.SPLDS_PRINT_MEDIA_READY;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_ADDR32NB 10
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_MEDIA_SUPPORTED "printMediaSupported"
      * }
      */
-    public static int IMAGE_REL_PPC_ADDR32NB() {
-        return (int)10L;
+    public static MemorySegment SPLDS_PRINT_MEDIA_SUPPORTED() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_MEDIA_SUPPORTED
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printMediaSupported");
+        }
+        return Holder.SPLDS_PRINT_MEDIA_SUPPORTED;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_SECREL 11
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_MEMORY "printMemory"
      * }
      */
-    public static int IMAGE_REL_PPC_SECREL() {
-        return (int)11L;
+    public static MemorySegment SPLDS_PRINT_MEMORY() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_MEMORY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printMemory");
+        }
+        return Holder.SPLDS_PRINT_MEMORY;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_SECTION 12
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_MIN_X_EXTENT "printMinXExtent"
      * }
      */
-    public static int IMAGE_REL_PPC_SECTION() {
-        return (int)12L;
+    public static MemorySegment SPLDS_PRINT_MIN_X_EXTENT() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_MIN_X_EXTENT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printMinXExtent");
+        }
+        return Holder.SPLDS_PRINT_MIN_X_EXTENT;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_IFGLUE 13
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_MIN_Y_EXTENT "printMinYExtent"
      * }
      */
-    public static int IMAGE_REL_PPC_IFGLUE() {
-        return (int)13L;
+    public static MemorySegment SPLDS_PRINT_MIN_Y_EXTENT() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_MIN_Y_EXTENT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printMinYExtent");
+        }
+        return Holder.SPLDS_PRINT_MIN_Y_EXTENT;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_IMGLUE 14
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_NETWORK_ADDRESS "printNetworkAddress"
      * }
      */
-    public static int IMAGE_REL_PPC_IMGLUE() {
-        return (int)14L;
+    public static MemorySegment SPLDS_PRINT_NETWORK_ADDRESS() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_NETWORK_ADDRESS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printNetworkAddress");
+        }
+        return Holder.SPLDS_PRINT_NETWORK_ADDRESS;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_SECREL16 15
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_NOTIFY "printNotify"
      * }
      */
-    public static int IMAGE_REL_PPC_SECREL16() {
-        return (int)15L;
+    public static MemorySegment SPLDS_PRINT_NOTIFY() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_NOTIFY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printNotify");
+        }
+        return Holder.SPLDS_PRINT_NOTIFY;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_REFHI 16
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_NUMBER_UP "printNumberUp"
      * }
      */
-    public static int IMAGE_REL_PPC_REFHI() {
-        return (int)16L;
+    public static MemorySegment SPLDS_PRINT_NUMBER_UP() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_NUMBER_UP
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printNumberUp");
+        }
+        return Holder.SPLDS_PRINT_NUMBER_UP;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_REFLO 17
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_ORIENTATIONS_SUPPORTED "printOrientationsSupported"
      * }
      */
-    public static int IMAGE_REL_PPC_REFLO() {
-        return (int)17L;
+    public static MemorySegment SPLDS_PRINT_ORIENTATIONS_SUPPORTED() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_ORIENTATIONS_SUPPORTED
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printOrientationsSupported");
+        }
+        return Holder.SPLDS_PRINT_ORIENTATIONS_SUPPORTED;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_PAIR 18
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_OWNER "printOwner"
      * }
      */
-    public static int IMAGE_REL_PPC_PAIR() {
-        return (int)18L;
+    public static MemorySegment SPLDS_PRINT_OWNER() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_OWNER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printOwner");
+        }
+        return Holder.SPLDS_PRINT_OWNER;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_SECRELLO 19
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_PAGES_PER_MINUTE "printPagesPerMinute"
      * }
      */
-    public static int IMAGE_REL_PPC_SECRELLO() {
-        return (int)19L;
+    public static MemorySegment SPLDS_PRINT_PAGES_PER_MINUTE() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_PAGES_PER_MINUTE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printPagesPerMinute");
+        }
+        return Holder.SPLDS_PRINT_PAGES_PER_MINUTE;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_SECRELHI 20
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_RATE "printRate"
      * }
      */
-    public static int IMAGE_REL_PPC_SECRELHI() {
-        return (int)20L;
+    public static MemorySegment SPLDS_PRINT_RATE() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_RATE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printRate");
+        }
+        return Holder.SPLDS_PRINT_RATE;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_GPREL 21
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_RATE_UNIT "printRateUnit"
      * }
      */
-    public static int IMAGE_REL_PPC_GPREL() {
-        return (int)21L;
+    public static MemorySegment SPLDS_PRINT_RATE_UNIT() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_RATE_UNIT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printRateUnit");
+        }
+        return Holder.SPLDS_PRINT_RATE_UNIT;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_TOKEN 22
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_SEPARATOR_FILE "printSeparatorFile"
      * }
      */
-    public static int IMAGE_REL_PPC_TOKEN() {
-        return (int)22L;
+    public static MemorySegment SPLDS_PRINT_SEPARATOR_FILE() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_SEPARATOR_FILE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printSeparatorFile");
+        }
+        return Holder.SPLDS_PRINT_SEPARATOR_FILE;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_TYPEMASK 255
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_SHARE_NAME "printShareName"
      * }
      */
-    public static int IMAGE_REL_PPC_TYPEMASK() {
-        return (int)255L;
+    public static MemorySegment SPLDS_PRINT_SHARE_NAME() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_SHARE_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printShareName");
+        }
+        return Holder.SPLDS_PRINT_SHARE_NAME;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_NEG 256
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_SPOOLING "printSpooling"
      * }
      */
-    public static int IMAGE_REL_PPC_NEG() {
-        return (int)256L;
+    public static MemorySegment SPLDS_PRINT_SPOOLING() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_SPOOLING
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printSpooling");
+        }
+        return Holder.SPLDS_PRINT_SPOOLING;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_BRTAKEN 512
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_STAPLING_SUPPORTED "printStaplingSupported"
      * }
      */
-    public static int IMAGE_REL_PPC_BRTAKEN() {
-        return (int)512L;
+    public static MemorySegment SPLDS_PRINT_STAPLING_SUPPORTED() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_STAPLING_SUPPORTED
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printStaplingSupported");
+        }
+        return Holder.SPLDS_PRINT_STAPLING_SUPPORTED;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_BRNTAKEN 1024
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_START_TIME "printStartTime"
      * }
      */
-    public static int IMAGE_REL_PPC_BRNTAKEN() {
-        return (int)1024L;
+    public static MemorySegment SPLDS_PRINT_START_TIME() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_START_TIME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printStartTime");
+        }
+        return Holder.SPLDS_PRINT_START_TIME;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_PPC_TOCDEFN 2048
+     * {@snippet lang=c :
+     * #define SPLDS_PRINT_STATUS "printStatus"
      * }
      */
-    public static int IMAGE_REL_PPC_TOCDEFN() {
-        return (int)2048L;
+    public static MemorySegment SPLDS_PRINT_STATUS() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINT_STATUS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printStatus");
+        }
+        return Holder.SPLDS_PRINT_STATUS;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define SPLDS_PRIORITY "priority"
      * }
      */
-    public static int IMAGE_REL_SH3_ABSOLUTE() {
-        return (int)0L;
+    public static MemorySegment SPLDS_PRIORITY() {
+        class Holder {
+            static final MemorySegment SPLDS_PRIORITY
+                = Windows_h.LIBRARY_ARENA.allocateFrom("priority");
+        }
+        return Holder.SPLDS_PRIORITY;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_DIRECT16 1
+     * {@snippet lang=c :
+     * #define SPLDS_SERVER_NAME "serverName"
      * }
      */
-    public static int IMAGE_REL_SH3_DIRECT16() {
-        return (int)1L;
+    public static MemorySegment SPLDS_SERVER_NAME() {
+        class Holder {
+            static final MemorySegment SPLDS_SERVER_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("serverName");
+        }
+        return Holder.SPLDS_SERVER_NAME;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_DIRECT32 2
+     * {@snippet lang=c :
+     * #define SPLDS_SHORT_SERVER_NAME "shortServerName"
      * }
      */
-    public static int IMAGE_REL_SH3_DIRECT32() {
-        return (int)2L;
+    public static MemorySegment SPLDS_SHORT_SERVER_NAME() {
+        class Holder {
+            static final MemorySegment SPLDS_SHORT_SERVER_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("shortServerName");
+        }
+        return Holder.SPLDS_SHORT_SERVER_NAME;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_DIRECT8 3
+     * {@snippet lang=c :
+     * #define SPLDS_UNC_NAME "uNCName"
      * }
      */
-    public static int IMAGE_REL_SH3_DIRECT8() {
-        return (int)3L;
+    public static MemorySegment SPLDS_UNC_NAME() {
+        class Holder {
+            static final MemorySegment SPLDS_UNC_NAME
+                = Windows_h.LIBRARY_ARENA.allocateFrom("uNCName");
+        }
+        return Holder.SPLDS_UNC_NAME;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_DIRECT8_WORD 4
+     * {@snippet lang=c :
+     * #define SPLDS_URL "url"
      * }
      */
-    public static int IMAGE_REL_SH3_DIRECT8_WORD() {
-        return (int)4L;
+    public static MemorySegment SPLDS_URL() {
+        class Holder {
+            static final MemorySegment SPLDS_URL
+                = Windows_h.LIBRARY_ARENA.allocateFrom("url");
+        }
+        return Holder.SPLDS_URL;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_DIRECT8_LONG 5
+     * {@snippet lang=c :
+     * #define SPLDS_FLAGS "flags"
      * }
      */
-    public static int IMAGE_REL_SH3_DIRECT8_LONG() {
-        return (int)5L;
+    public static MemorySegment SPLDS_FLAGS() {
+        class Holder {
+            static final MemorySegment SPLDS_FLAGS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("flags");
+        }
+        return Holder.SPLDS_FLAGS;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_DIRECT4 6
+     * {@snippet lang=c :
+     * #define SPLDS_VERSION_NUMBER "versionNumber"
      * }
      */
-    public static int IMAGE_REL_SH3_DIRECT4() {
-        return (int)6L;
+    public static MemorySegment SPLDS_VERSION_NUMBER() {
+        class Holder {
+            static final MemorySegment SPLDS_VERSION_NUMBER
+                = Windows_h.LIBRARY_ARENA.allocateFrom("versionNumber");
+        }
+        return Holder.SPLDS_VERSION_NUMBER;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_DIRECT4_WORD 7
+     * {@snippet lang=c :
+     * #define SPLDS_PRINTER_NAME_ALIASES "printerNameAliases"
      * }
      */
-    public static int IMAGE_REL_SH3_DIRECT4_WORD() {
-        return (int)7L;
+    public static MemorySegment SPLDS_PRINTER_NAME_ALIASES() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINTER_NAME_ALIASES
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printerNameAliases");
+        }
+        return Holder.SPLDS_PRINTER_NAME_ALIASES;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_DIRECT4_LONG 8
+     * {@snippet lang=c :
+     * #define SPLDS_PRINTER_LOCATIONS "printerLocations"
      * }
      */
-    public static int IMAGE_REL_SH3_DIRECT4_LONG() {
-        return (int)8L;
+    public static MemorySegment SPLDS_PRINTER_LOCATIONS() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINTER_LOCATIONS
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printerLocations");
+        }
+        return Holder.SPLDS_PRINTER_LOCATIONS;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_PCREL8_WORD 9
+     * {@snippet lang=c :
+     * #define SPLDS_PRINTER_MODEL "printerModel"
      * }
      */
-    public static int IMAGE_REL_SH3_PCREL8_WORD() {
-        return (int)9L;
+    public static MemorySegment SPLDS_PRINTER_MODEL() {
+        class Holder {
+            static final MemorySegment SPLDS_PRINTER_MODEL
+                = Windows_h.LIBRARY_ARENA.allocateFrom("printerModel");
+        }
+        return Holder.SPLDS_PRINTER_MODEL;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_PCREL8_LONG 10
+     * {@snippet lang=c :
+     * #define MS_PRINT_JOB_OUTPUT_FILE "M"
      * }
      */
-    public static int IMAGE_REL_SH3_PCREL8_LONG() {
-        return (int)10L;
+    public static MemorySegment MS_PRINT_JOB_OUTPUT_FILE() {
+        class Holder {
+            static final MemorySegment MS_PRINT_JOB_OUTPUT_FILE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("M");
+        }
+        return Holder.MS_PRINT_JOB_OUTPUT_FILE;
     }
+    private static final int _MAX_ITOSTR_BASE16_COUNT = (int)9L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_PCREL12_WORD 11
+     * {@snippet lang=c :
+     * #define _MAX_ITOSTR_BASE16_COUNT 9
      * }
      */
-    public static int IMAGE_REL_SH3_PCREL12_WORD() {
-        return (int)11L;
+    public static int _MAX_ITOSTR_BASE16_COUNT() {
+        return _MAX_ITOSTR_BASE16_COUNT;
     }
+    private static final int _MAX_ITOSTR_BASE10_COUNT = (int)12L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_STARTOF_SECTION 12
+     * {@snippet lang=c :
+     * #define _MAX_ITOSTR_BASE10_COUNT 12
      * }
      */
-    public static int IMAGE_REL_SH3_STARTOF_SECTION() {
-        return (int)12L;
+    public static int _MAX_ITOSTR_BASE10_COUNT() {
+        return _MAX_ITOSTR_BASE10_COUNT;
     }
+    private static final int _MAX_ITOSTR_BASE8_COUNT = (int)12L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_SIZEOF_SECTION 13
+     * {@snippet lang=c :
+     * #define _MAX_ITOSTR_BASE8_COUNT 12
      * }
      */
-    public static int IMAGE_REL_SH3_SIZEOF_SECTION() {
-        return (int)13L;
+    public static int _MAX_ITOSTR_BASE8_COUNT() {
+        return _MAX_ITOSTR_BASE8_COUNT;
     }
+    private static final int _MAX_ITOSTR_BASE2_COUNT = (int)33L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_SECTION 14
+     * {@snippet lang=c :
+     * #define _MAX_ITOSTR_BASE2_COUNT 33
      * }
      */
-    public static int IMAGE_REL_SH3_SECTION() {
-        return (int)14L;
+    public static int _MAX_ITOSTR_BASE2_COUNT() {
+        return _MAX_ITOSTR_BASE2_COUNT;
     }
+    private static final int _MAX_LTOSTR_BASE16_COUNT = (int)9L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_SECREL 15
+     * {@snippet lang=c :
+     * #define _MAX_LTOSTR_BASE16_COUNT 9
      * }
      */
-    public static int IMAGE_REL_SH3_SECREL() {
-        return (int)15L;
+    public static int _MAX_LTOSTR_BASE16_COUNT() {
+        return _MAX_LTOSTR_BASE16_COUNT;
     }
+    private static final int _MAX_LTOSTR_BASE10_COUNT = (int)12L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_DIRECT32_NB 16
+     * {@snippet lang=c :
+     * #define _MAX_LTOSTR_BASE10_COUNT 12
      * }
      */
-    public static int IMAGE_REL_SH3_DIRECT32_NB() {
-        return (int)16L;
+    public static int _MAX_LTOSTR_BASE10_COUNT() {
+        return _MAX_LTOSTR_BASE10_COUNT;
     }
+    private static final int _MAX_LTOSTR_BASE8_COUNT = (int)12L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_GPREL4_LONG 17
+     * {@snippet lang=c :
+     * #define _MAX_LTOSTR_BASE8_COUNT 12
      * }
      */
-    public static int IMAGE_REL_SH3_GPREL4_LONG() {
-        return (int)17L;
+    public static int _MAX_LTOSTR_BASE8_COUNT() {
+        return _MAX_LTOSTR_BASE8_COUNT;
     }
+    private static final int _MAX_LTOSTR_BASE2_COUNT = (int)33L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH3_TOKEN 18
+     * {@snippet lang=c :
+     * #define _MAX_LTOSTR_BASE2_COUNT 33
      * }
      */
-    public static int IMAGE_REL_SH3_TOKEN() {
-        return (int)18L;
+    public static int _MAX_LTOSTR_BASE2_COUNT() {
+        return _MAX_LTOSTR_BASE2_COUNT;
     }
+    private static final int _MAX_ULTOSTR_BASE16_COUNT = (int)9L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SHM_PCRELPT 19
+     * {@snippet lang=c :
+     * #define _MAX_ULTOSTR_BASE16_COUNT 9
      * }
      */
-    public static int IMAGE_REL_SHM_PCRELPT() {
-        return (int)19L;
+    public static int _MAX_ULTOSTR_BASE16_COUNT() {
+        return _MAX_ULTOSTR_BASE16_COUNT;
     }
+    private static final int _MAX_ULTOSTR_BASE10_COUNT = (int)11L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SHM_REFLO 20
+     * {@snippet lang=c :
+     * #define _MAX_ULTOSTR_BASE10_COUNT 11
      * }
      */
-    public static int IMAGE_REL_SHM_REFLO() {
-        return (int)20L;
+    public static int _MAX_ULTOSTR_BASE10_COUNT() {
+        return _MAX_ULTOSTR_BASE10_COUNT;
     }
+    private static final int _MAX_ULTOSTR_BASE8_COUNT = (int)12L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SHM_REFHALF 21
+     * {@snippet lang=c :
+     * #define _MAX_ULTOSTR_BASE8_COUNT 12
      * }
      */
-    public static int IMAGE_REL_SHM_REFHALF() {
-        return (int)21L;
+    public static int _MAX_ULTOSTR_BASE8_COUNT() {
+        return _MAX_ULTOSTR_BASE8_COUNT;
     }
+    private static final int _MAX_ULTOSTR_BASE2_COUNT = (int)33L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SHM_RELLO 22
+     * {@snippet lang=c :
+     * #define _MAX_ULTOSTR_BASE2_COUNT 33
      * }
      */
-    public static int IMAGE_REL_SHM_RELLO() {
-        return (int)22L;
+    public static int _MAX_ULTOSTR_BASE2_COUNT() {
+        return _MAX_ULTOSTR_BASE2_COUNT;
     }
+    private static final int _MAX_I64TOSTR_BASE16_COUNT = (int)17L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SHM_RELHALF 23
+     * {@snippet lang=c :
+     * #define _MAX_I64TOSTR_BASE16_COUNT 17
      * }
      */
-    public static int IMAGE_REL_SHM_RELHALF() {
-        return (int)23L;
+    public static int _MAX_I64TOSTR_BASE16_COUNT() {
+        return _MAX_I64TOSTR_BASE16_COUNT;
     }
+    private static final int _MAX_I64TOSTR_BASE10_COUNT = (int)21L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SHM_PAIR 24
+     * {@snippet lang=c :
+     * #define _MAX_I64TOSTR_BASE10_COUNT 21
      * }
      */
-    public static int IMAGE_REL_SHM_PAIR() {
-        return (int)24L;
+    public static int _MAX_I64TOSTR_BASE10_COUNT() {
+        return _MAX_I64TOSTR_BASE10_COUNT;
     }
+    private static final int _MAX_I64TOSTR_BASE8_COUNT = (int)23L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_SH_NOMODE 32768
+     * {@snippet lang=c :
+     * #define _MAX_I64TOSTR_BASE8_COUNT 23
      * }
      */
-    public static int IMAGE_REL_SH_NOMODE() {
-        return (int)32768L;
+    public static int _MAX_I64TOSTR_BASE8_COUNT() {
+        return _MAX_I64TOSTR_BASE8_COUNT;
     }
+    private static final int _MAX_I64TOSTR_BASE2_COUNT = (int)65L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define _MAX_I64TOSTR_BASE2_COUNT 65
      * }
      */
-    public static int IMAGE_REL_ARM_ABSOLUTE() {
-        return (int)0L;
+    public static int _MAX_I64TOSTR_BASE2_COUNT() {
+        return _MAX_I64TOSTR_BASE2_COUNT;
     }
+    private static final int _MAX_U64TOSTR_BASE16_COUNT = (int)17L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_ADDR32 1
+     * {@snippet lang=c :
+     * #define _MAX_U64TOSTR_BASE16_COUNT 17
      * }
      */
-    public static int IMAGE_REL_ARM_ADDR32() {
-        return (int)1L;
+    public static int _MAX_U64TOSTR_BASE16_COUNT() {
+        return _MAX_U64TOSTR_BASE16_COUNT;
     }
+    private static final int _MAX_U64TOSTR_BASE10_COUNT = (int)21L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_ADDR32NB 2
+     * {@snippet lang=c :
+     * #define _MAX_U64TOSTR_BASE10_COUNT 21
      * }
      */
-    public static int IMAGE_REL_ARM_ADDR32NB() {
-        return (int)2L;
+    public static int _MAX_U64TOSTR_BASE10_COUNT() {
+        return _MAX_U64TOSTR_BASE10_COUNT;
     }
+    private static final int _MAX_U64TOSTR_BASE8_COUNT = (int)23L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_BRANCH24 3
+     * {@snippet lang=c :
+     * #define _MAX_U64TOSTR_BASE8_COUNT 23
      * }
      */
-    public static int IMAGE_REL_ARM_BRANCH24() {
-        return (int)3L;
+    public static int _MAX_U64TOSTR_BASE8_COUNT() {
+        return _MAX_U64TOSTR_BASE8_COUNT;
     }
+    private static final int _MAX_U64TOSTR_BASE2_COUNT = (int)65L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_BRANCH11 4
+     * {@snippet lang=c :
+     * #define _MAX_U64TOSTR_BASE2_COUNT 65
      * }
      */
-    public static int IMAGE_REL_ARM_BRANCH11() {
-        return (int)4L;
+    public static int _MAX_U64TOSTR_BASE2_COUNT() {
+        return _MAX_U64TOSTR_BASE2_COUNT;
     }
+    private static final int SCHAR_MIN = (int)-128L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_TOKEN 5
+     * {@snippet lang=c :
+     * #define SCHAR_MIN -128
      * }
      */
-    public static int IMAGE_REL_ARM_TOKEN() {
-        return (int)5L;
+    public static int SCHAR_MIN() {
+        return SCHAR_MIN;
     }
+    private static final int CHAR_MIN = (int)-128L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_GPREL12 6
+     * {@snippet lang=c :
+     * #define CHAR_MIN -128
      * }
      */
-    public static int IMAGE_REL_ARM_GPREL12() {
-        return (int)6L;
+    public static int CHAR_MIN() {
+        return CHAR_MIN;
     }
+    private static final int CHAR_MAX = (int)127L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_GPREL7 7
+     * {@snippet lang=c :
+     * #define CHAR_MAX 127
      * }
      */
-    public static int IMAGE_REL_ARM_GPREL7() {
-        return (int)7L;
+    public static int CHAR_MAX() {
+        return CHAR_MAX;
     }
+    private static final int SHRT_MIN = (int)-32768L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_BLX24 8
+     * {@snippet lang=c :
+     * #define SHRT_MIN -32768
      * }
      */
-    public static int IMAGE_REL_ARM_BLX24() {
-        return (int)8L;
+    public static int SHRT_MIN() {
+        return SHRT_MIN;
     }
+    private static final int INT_MIN = (int)-2147483648L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_BLX11 9
+     * {@snippet lang=c :
+     * #define INT_MIN -2147483648
      * }
      */
-    public static int IMAGE_REL_ARM_BLX11() {
-        return (int)9L;
+    public static int INT_MIN() {
+        return INT_MIN;
     }
+    private static final int UINT_MAX = (int)4294967295L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_SECTION 14
+     * {@snippet lang=c :
+     * #define UINT_MAX 4294967295
      * }
      */
-    public static int IMAGE_REL_ARM_SECTION() {
-        return (int)14L;
+    public static int UINT_MAX() {
+        return UINT_MAX;
     }
+    private static final int LONG_MIN = (int)-2147483648L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_SECREL 15
+     * {@snippet lang=c :
+     * #define LONG_MIN -2147483648
      * }
      */
-    public static int IMAGE_REL_ARM_SECREL() {
-        return (int)15L;
+    public static int LONG_MIN() {
+        return LONG_MIN;
     }
+    private static final int LONG_MAX = (int)2147483647L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_MOV32A 16
+     * {@snippet lang=c :
+     * #define LONG_MAX 2147483647
      * }
      */
-    public static int IMAGE_REL_ARM_MOV32A() {
-        return (int)16L;
+    public static int LONG_MAX() {
+        return LONG_MAX;
     }
+    private static final int ULONG_MAX = (int)4294967295L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_MOV32 16
+     * {@snippet lang=c :
+     * #define ULONG_MAX 4294967295
      * }
      */
-    public static int IMAGE_REL_ARM_MOV32() {
-        return (int)16L;
+    public static int ULONG_MAX() {
+        return ULONG_MAX;
     }
+    private static final long LLONG_MAX = 9223372036854775807L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_MOV32T 17
+     * {@snippet lang=c :
+     * #define LLONG_MAX 9223372036854775807
      * }
      */
-    public static int IMAGE_REL_ARM_MOV32T() {
-        return (int)17L;
+    public static long LLONG_MAX() {
+        return LLONG_MAX;
     }
+    private static final long LLONG_MIN = -9223372036854775808L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_THUMB_MOV32 17
+     * {@snippet lang=c :
+     * #define LLONG_MIN -9223372036854775808
      * }
      */
-    public static int IMAGE_REL_THUMB_MOV32() {
-        return (int)17L;
+    public static long LLONG_MIN() {
+        return LLONG_MIN;
     }
+    private static final long ULLONG_MAX = -1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_BRANCH20T 18
+     * {@snippet lang=c :
+     * #define ULLONG_MAX -1
      * }
      */
-    public static int IMAGE_REL_ARM_BRANCH20T() {
-        return (int)18L;
+    public static long ULLONG_MAX() {
+        return ULLONG_MAX;
     }
+    private static final int _I8_MIN = (int)-128L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_THUMB_BRANCH20 18
+     * {@snippet lang=c :
+     * #define _I8_MIN -128
      * }
      */
-    public static int IMAGE_REL_THUMB_BRANCH20() {
-        return (int)18L;
+    public static int _I8_MIN() {
+        return _I8_MIN;
     }
+    private static final byte _I8_MAX = (byte)127L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_BRANCH24T 20
+     * {@snippet lang=c :
+     * #define _I8_MAX 127
      * }
      */
-    public static int IMAGE_REL_ARM_BRANCH24T() {
-        return (int)20L;
+    public static byte _I8_MAX() {
+        return _I8_MAX;
     }
+    private static final byte _UI8_MAX = (byte)255L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_THUMB_BRANCH24 20
+     * {@snippet lang=c :
+     * #define _UI8_MAX 255
      * }
      */
-    public static int IMAGE_REL_THUMB_BRANCH24() {
-        return (int)20L;
+    public static byte _UI8_MAX() {
+        return _UI8_MAX;
     }
+    private static final int _I16_MIN = (int)-32768L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM_BLX23T 21
+     * {@snippet lang=c :
+     * #define _I16_MIN -32768
      * }
      */
-    public static int IMAGE_REL_ARM_BLX23T() {
-        return (int)21L;
+    public static int _I16_MIN() {
+        return _I16_MIN;
     }
+    private static final short _I16_MAX = (short)32767L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_THUMB_BLX23 21
+     * {@snippet lang=c :
+     * #define _I16_MAX 32767
      * }
      */
-    public static int IMAGE_REL_THUMB_BLX23() {
-        return (int)21L;
+    public static short _I16_MAX() {
+        return _I16_MAX;
     }
+    private static final short _UI16_MAX = (short)65535L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AM_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define _UI16_MAX 65535
      * }
      */
-    public static int IMAGE_REL_AM_ABSOLUTE() {
-        return (int)0L;
+    public static short _UI16_MAX() {
+        return _UI16_MAX;
     }
+    private static final int _I32_MIN = (int)-2147483648L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AM_ADDR32 1
+     * {@snippet lang=c :
+     * #define _I32_MIN -2147483648
      * }
      */
-    public static int IMAGE_REL_AM_ADDR32() {
-        return (int)1L;
+    public static int _I32_MIN() {
+        return _I32_MIN;
     }
+    private static final int _I32_MAX = (int)2147483647L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AM_ADDR32NB 2
+     * {@snippet lang=c :
+     * #define _I32_MAX 2147483647
      * }
      */
-    public static int IMAGE_REL_AM_ADDR32NB() {
-        return (int)2L;
+    public static int _I32_MAX() {
+        return _I32_MAX;
     }
+    private static final int _UI32_MAX = (int)4294967295L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AM_CALL32 3
+     * {@snippet lang=c :
+     * #define _UI32_MAX 4294967295
      * }
      */
-    public static int IMAGE_REL_AM_CALL32() {
-        return (int)3L;
+    public static int _UI32_MAX() {
+        return _UI32_MAX;
     }
+    private static final long _I64_MIN = -9223372036854775808L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AM_FUNCINFO 4
+     * {@snippet lang=c :
+     * #define _I64_MIN -9223372036854775808
      * }
      */
-    public static int IMAGE_REL_AM_FUNCINFO() {
-        return (int)4L;
+    public static long _I64_MIN() {
+        return _I64_MIN;
     }
+    private static final long _I64_MAX = 9223372036854775807L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AM_REL32_1 5
+     * {@snippet lang=c :
+     * #define _I64_MAX 9223372036854775807
      * }
      */
-    public static int IMAGE_REL_AM_REL32_1() {
-        return (int)5L;
+    public static long _I64_MAX() {
+        return _I64_MAX;
     }
+    private static final long _UI64_MAX = -1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AM_REL32_2 6
+     * {@snippet lang=c :
+     * #define _UI64_MAX -1
      * }
      */
-    public static int IMAGE_REL_AM_REL32_2() {
-        return (int)6L;
+    public static long _UI64_MAX() {
+        return _UI64_MAX;
     }
+    private static final long SIZE_MAX = -1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AM_SECREL 7
+     * {@snippet lang=c :
+     * #define SIZE_MAX -1
      * }
      */
-    public static int IMAGE_REL_AM_SECREL() {
-        return (int)7L;
+    public static long SIZE_MAX() {
+        return SIZE_MAX;
     }
+    private static final long RSIZE_MAX = 9223372036854775807L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AM_SECTION 8
+     * {@snippet lang=c :
+     * #define RSIZE_MAX 9223372036854775807
      * }
      */
-    public static int IMAGE_REL_AM_SECTION() {
-        return (int)8L;
+    public static long RSIZE_MAX() {
+        return RSIZE_MAX;
     }
+    private static final long LONG_LONG_MAX = 9223372036854775807L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AM_TOKEN 9
+     * {@snippet lang=c :
+     * #define LONG_LONG_MAX 9223372036854775807
      * }
      */
-    public static int IMAGE_REL_AM_TOKEN() {
-        return (int)9L;
+    public static long LONG_LONG_MAX() {
+        return LONG_LONG_MAX;
     }
+    private static final long LONG_LONG_MIN = -9223372036854775808L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define LONG_LONG_MIN -9223372036854775808
      * }
      */
-    public static int IMAGE_REL_ARM64_ABSOLUTE() {
-        return (int)0L;
+    public static long LONG_LONG_MIN() {
+        return LONG_LONG_MIN;
     }
+    private static final long ULONG_LONG_MAX = -1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_ADDR32 1
+     * {@snippet lang=c :
+     * #define ULONG_LONG_MAX -1
      * }
      */
-    public static int IMAGE_REL_ARM64_ADDR32() {
-        return (int)1L;
+    public static long ULONG_LONG_MAX() {
+        return ULONG_LONG_MAX;
     }
+    private static final int _CVTBUFSIZE = (int)349L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_ADDR32NB 2
+     * {@snippet lang=c :
+     * #define _CVTBUFSIZE 349
      * }
      */
-    public static int IMAGE_REL_ARM64_ADDR32NB() {
-        return (int)2L;
+    public static int _CVTBUFSIZE() {
+        return _CVTBUFSIZE;
     }
+    private static final int CLSCTX_INPROC = (int)3L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_BRANCH26 3
+     * {@snippet lang=c :
+     * #define CLSCTX_INPROC 3
      * }
      */
-    public static int IMAGE_REL_ARM64_BRANCH26() {
-        return (int)3L;
+    public static int CLSCTX_INPROC() {
+        return CLSCTX_INPROC;
     }
+    private static final int CLSCTX_ALL = (int)23L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_PAGEBASE_REL21 4
+     * {@snippet lang=c :
+     * #define CLSCTX_ALL 23
      * }
      */
-    public static int IMAGE_REL_ARM64_PAGEBASE_REL21() {
-        return (int)4L;
+    public static int CLSCTX_ALL() {
+        return CLSCTX_ALL;
     }
+    private static final int CLSCTX_SERVER = (int)21L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_REL21 5
+     * {@snippet lang=c :
+     * #define CLSCTX_SERVER 21
      * }
      */
-    public static int IMAGE_REL_ARM64_REL21() {
-        return (int)5L;
+    public static int CLSCTX_SERVER() {
+        return CLSCTX_SERVER;
     }
+    private static final MemorySegment COLE_DEFAULT_PRINCIPAL = MemorySegment.ofAddress(-1L);
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_PAGEOFFSET_12A 6
+     * {@snippet lang=c :
+     * #define COLE_DEFAULT_PRINCIPAL (void*) -1
      * }
      */
-    public static int IMAGE_REL_ARM64_PAGEOFFSET_12A() {
-        return (int)6L;
+    public static MemorySegment COLE_DEFAULT_PRINCIPAL() {
+        return COLE_DEFAULT_PRINCIPAL;
     }
+    private static final MemorySegment COLE_DEFAULT_AUTHINFO = MemorySegment.ofAddress(-1L);
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_PAGEOFFSET_12L 7
+     * {@snippet lang=c :
+     * #define COLE_DEFAULT_AUTHINFO (void*) -1
      * }
      */
-    public static int IMAGE_REL_ARM64_PAGEOFFSET_12L() {
-        return (int)7L;
+    public static MemorySegment COLE_DEFAULT_AUTHINFO() {
+        return COLE_DEFAULT_AUTHINFO;
     }
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_SECREL 8
+     * {@snippet lang=c :
+     * #define _CRT_INTERNAL_COMBASE_SYMBOL_PREFIX ""
      * }
      */
-    public static int IMAGE_REL_ARM64_SECREL() {
-        return (int)8L;
+    public static MemorySegment _CRT_INTERNAL_COMBASE_SYMBOL_PREFIX() {
+        class Holder {
+            static final MemorySegment _CRT_INTERNAL_COMBASE_SYMBOL_PREFIX
+                = Windows_h.LIBRARY_ARENA.allocateFrom("");
+        }
+        return Holder._CRT_INTERNAL_COMBASE_SYMBOL_PREFIX;
     }
+    private static final int FADF_AUTO = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_SECREL_LOW12A 9
+     * {@snippet lang=c :
+     * #define FADF_AUTO 1
      * }
      */
-    public static int IMAGE_REL_ARM64_SECREL_LOW12A() {
-        return (int)9L;
+    public static int FADF_AUTO() {
+        return FADF_AUTO;
     }
+    private static final int FADF_STATIC = (int)2L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_SECREL_HIGH12A 10
+     * {@snippet lang=c :
+     * #define FADF_STATIC 2
      * }
      */
-    public static int IMAGE_REL_ARM64_SECREL_HIGH12A() {
-        return (int)10L;
+    public static int FADF_STATIC() {
+        return FADF_STATIC;
     }
+    private static final int FADF_EMBEDDED = (int)4L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_SECREL_LOW12L 11
+     * {@snippet lang=c :
+     * #define FADF_EMBEDDED 4
      * }
      */
-    public static int IMAGE_REL_ARM64_SECREL_LOW12L() {
-        return (int)11L;
+    public static int FADF_EMBEDDED() {
+        return FADF_EMBEDDED;
     }
+    private static final int FADF_FIXEDSIZE = (int)16L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_TOKEN 12
+     * {@snippet lang=c :
+     * #define FADF_FIXEDSIZE 16
      * }
      */
-    public static int IMAGE_REL_ARM64_TOKEN() {
-        return (int)12L;
+    public static int FADF_FIXEDSIZE() {
+        return FADF_FIXEDSIZE;
     }
+    private static final int FADF_RECORD = (int)32L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_SECTION 13
+     * {@snippet lang=c :
+     * #define FADF_RECORD 32
      * }
      */
-    public static int IMAGE_REL_ARM64_SECTION() {
-        return (int)13L;
+    public static int FADF_RECORD() {
+        return FADF_RECORD;
     }
+    private static final int FADF_HAVEIID = (int)64L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_ADDR64 14
+     * {@snippet lang=c :
+     * #define FADF_HAVEIID 64
      * }
      */
-    public static int IMAGE_REL_ARM64_ADDR64() {
-        return (int)14L;
+    public static int FADF_HAVEIID() {
+        return FADF_HAVEIID;
     }
+    private static final int FADF_HAVEVARTYPE = (int)128L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_ARM64_BRANCH19 15
+     * {@snippet lang=c :
+     * #define FADF_HAVEVARTYPE 128
      * }
      */
-    public static int IMAGE_REL_ARM64_BRANCH19() {
-        return (int)15L;
+    public static int FADF_HAVEVARTYPE() {
+        return FADF_HAVEVARTYPE;
     }
+    private static final int FADF_BSTR = (int)256L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define FADF_BSTR 256
      * }
      */
-    public static int IMAGE_REL_AMD64_ABSOLUTE() {
-        return (int)0L;
+    public static int FADF_BSTR() {
+        return FADF_BSTR;
     }
+    private static final int FADF_UNKNOWN = (int)512L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_ADDR64 1
+     * {@snippet lang=c :
+     * #define FADF_UNKNOWN 512
      * }
      */
-    public static int IMAGE_REL_AMD64_ADDR64() {
-        return (int)1L;
+    public static int FADF_UNKNOWN() {
+        return FADF_UNKNOWN;
     }
+    private static final int FADF_DISPATCH = (int)1024L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_ADDR32 2
+     * {@snippet lang=c :
+     * #define FADF_DISPATCH 1024
      * }
      */
-    public static int IMAGE_REL_AMD64_ADDR32() {
-        return (int)2L;
+    public static int FADF_DISPATCH() {
+        return FADF_DISPATCH;
     }
+    private static final int FADF_VARIANT = (int)2048L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_ADDR32NB 3
+     * {@snippet lang=c :
+     * #define FADF_VARIANT 2048
      * }
      */
-    public static int IMAGE_REL_AMD64_ADDR32NB() {
-        return (int)3L;
+    public static int FADF_VARIANT() {
+        return FADF_VARIANT;
     }
+    private static final int FADF_RESERVED = (int)61448L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_REL32 4
+     * {@snippet lang=c :
+     * #define FADF_RESERVED 61448
      * }
      */
-    public static int IMAGE_REL_AMD64_REL32() {
-        return (int)4L;
+    public static int FADF_RESERVED() {
+        return FADF_RESERVED;
     }
+    private static final int PARAMFLAG_NONE = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_REL32_1 5
+     * {@snippet lang=c :
+     * #define PARAMFLAG_NONE 0
      * }
      */
-    public static int IMAGE_REL_AMD64_REL32_1() {
-        return (int)5L;
+    public static int PARAMFLAG_NONE() {
+        return PARAMFLAG_NONE;
     }
+    private static final int PARAMFLAG_FIN = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_REL32_2 6
+     * {@snippet lang=c :
+     * #define PARAMFLAG_FIN 1
      * }
      */
-    public static int IMAGE_REL_AMD64_REL32_2() {
-        return (int)6L;
+    public static int PARAMFLAG_FIN() {
+        return PARAMFLAG_FIN;
     }
+    private static final int PARAMFLAG_FOUT = (int)2L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_REL32_3 7
+     * {@snippet lang=c :
+     * #define PARAMFLAG_FOUT 2
      * }
      */
-    public static int IMAGE_REL_AMD64_REL32_3() {
-        return (int)7L;
+    public static int PARAMFLAG_FOUT() {
+        return PARAMFLAG_FOUT;
     }
+    private static final int PARAMFLAG_FLCID = (int)4L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_REL32_4 8
+     * {@snippet lang=c :
+     * #define PARAMFLAG_FLCID 4
      * }
      */
-    public static int IMAGE_REL_AMD64_REL32_4() {
-        return (int)8L;
+    public static int PARAMFLAG_FLCID() {
+        return PARAMFLAG_FLCID;
     }
+    private static final int PARAMFLAG_FRETVAL = (int)8L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_REL32_5 9
+     * {@snippet lang=c :
+     * #define PARAMFLAG_FRETVAL 8
      * }
      */
-    public static int IMAGE_REL_AMD64_REL32_5() {
-        return (int)9L;
+    public static int PARAMFLAG_FRETVAL() {
+        return PARAMFLAG_FRETVAL;
     }
+    private static final int PARAMFLAG_FOPT = (int)16L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_SECTION 10
+     * {@snippet lang=c :
+     * #define PARAMFLAG_FOPT 16
      * }
      */
-    public static int IMAGE_REL_AMD64_SECTION() {
-        return (int)10L;
+    public static int PARAMFLAG_FOPT() {
+        return PARAMFLAG_FOPT;
     }
+    private static final int PARAMFLAG_FHASDEFAULT = (int)32L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_SECREL 11
+     * {@snippet lang=c :
+     * #define PARAMFLAG_FHASDEFAULT 32
      * }
      */
-    public static int IMAGE_REL_AMD64_SECREL() {
-        return (int)11L;
+    public static int PARAMFLAG_FHASDEFAULT() {
+        return PARAMFLAG_FHASDEFAULT;
     }
+    private static final int PARAMFLAG_FHASCUSTDATA = (int)64L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_SECREL7 12
+     * {@snippet lang=c :
+     * #define PARAMFLAG_FHASCUSTDATA 64
      * }
      */
-    public static int IMAGE_REL_AMD64_SECREL7() {
-        return (int)12L;
+    public static int PARAMFLAG_FHASCUSTDATA() {
+        return PARAMFLAG_FHASCUSTDATA;
     }
+    private static final int IDLFLAG_NONE = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_TOKEN 13
+     * {@snippet lang=c :
+     * #define IDLFLAG_NONE 0
      * }
      */
-    public static int IMAGE_REL_AMD64_TOKEN() {
-        return (int)13L;
+    public static int IDLFLAG_NONE() {
+        return IDLFLAG_NONE;
     }
+    private static final int IDLFLAG_FIN = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_SREL32 14
+     * {@snippet lang=c :
+     * #define IDLFLAG_FIN 1
      * }
      */
-    public static int IMAGE_REL_AMD64_SREL32() {
-        return (int)14L;
+    public static int IDLFLAG_FIN() {
+        return IDLFLAG_FIN;
     }
+    private static final int IDLFLAG_FOUT = (int)2L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_PAIR 15
+     * {@snippet lang=c :
+     * #define IDLFLAG_FOUT 2
      * }
      */
-    public static int IMAGE_REL_AMD64_PAIR() {
-        return (int)15L;
+    public static int IDLFLAG_FOUT() {
+        return IDLFLAG_FOUT;
     }
+    private static final int IDLFLAG_FLCID = (int)4L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_SSPAN32 16
+     * {@snippet lang=c :
+     * #define IDLFLAG_FLCID 4
      * }
      */
-    public static int IMAGE_REL_AMD64_SSPAN32() {
-        return (int)16L;
+    public static int IDLFLAG_FLCID() {
+        return IDLFLAG_FLCID;
     }
+    private static final int IDLFLAG_FRETVAL = (int)8L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_EHANDLER 17
+     * {@snippet lang=c :
+     * #define IDLFLAG_FRETVAL 8
      * }
      */
-    public static int IMAGE_REL_AMD64_EHANDLER() {
-        return (int)17L;
+    public static int IDLFLAG_FRETVAL() {
+        return IDLFLAG_FRETVAL;
     }
+    private static final int IMPLTYPEFLAG_FDEFAULT = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_IMPORT_BR 18
+     * {@snippet lang=c :
+     * #define IMPLTYPEFLAG_FDEFAULT 1
      * }
      */
-    public static int IMAGE_REL_AMD64_IMPORT_BR() {
-        return (int)18L;
+    public static int IMPLTYPEFLAG_FDEFAULT() {
+        return IMPLTYPEFLAG_FDEFAULT;
     }
+    private static final int IMPLTYPEFLAG_FSOURCE = (int)2L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_IMPORT_CALL 19
+     * {@snippet lang=c :
+     * #define IMPLTYPEFLAG_FSOURCE 2
      * }
      */
-    public static int IMAGE_REL_AMD64_IMPORT_CALL() {
-        return (int)19L;
+    public static int IMPLTYPEFLAG_FSOURCE() {
+        return IMPLTYPEFLAG_FSOURCE;
     }
+    private static final int IMPLTYPEFLAG_FRESTRICTED = (int)4L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_CFG_BR 20
+     * {@snippet lang=c :
+     * #define IMPLTYPEFLAG_FRESTRICTED 4
      * }
      */
-    public static int IMAGE_REL_AMD64_CFG_BR() {
-        return (int)20L;
+    public static int IMPLTYPEFLAG_FRESTRICTED() {
+        return IMPLTYPEFLAG_FRESTRICTED;
     }
+    private static final int IMPLTYPEFLAG_FDEFAULTVTABLE = (int)8L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_CFG_BR_REX 21
+     * {@snippet lang=c :
+     * #define IMPLTYPEFLAG_FDEFAULTVTABLE 8
      * }
      */
-    public static int IMAGE_REL_AMD64_CFG_BR_REX() {
-        return (int)21L;
+    public static int IMPLTYPEFLAG_FDEFAULTVTABLE() {
+        return IMPLTYPEFLAG_FDEFAULTVTABLE;
     }
+    private static final int DISPID_UNKNOWN = (int)-1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_CFG_CALL 22
+     * {@snippet lang=c :
+     * #define DISPID_UNKNOWN -1
      * }
      */
-    public static int IMAGE_REL_AMD64_CFG_CALL() {
-        return (int)22L;
+    public static int DISPID_UNKNOWN() {
+        return DISPID_UNKNOWN;
     }
+    private static final int DISPID_VALUE = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_INDIR_BR 23
+     * {@snippet lang=c :
+     * #define DISPID_VALUE 0
      * }
      */
-    public static int IMAGE_REL_AMD64_INDIR_BR() {
-        return (int)23L;
+    public static int DISPID_VALUE() {
+        return DISPID_VALUE;
     }
+    private static final int DISPID_PROPERTYPUT = (int)-3L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_INDIR_BR_REX 24
+     * {@snippet lang=c :
+     * #define DISPID_PROPERTYPUT -3
      * }
      */
-    public static int IMAGE_REL_AMD64_INDIR_BR_REX() {
-        return (int)24L;
+    public static int DISPID_PROPERTYPUT() {
+        return DISPID_PROPERTYPUT;
     }
+    private static final int DISPID_NEWENUM = (int)-4L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_INDIR_CALL 25
+     * {@snippet lang=c :
+     * #define DISPID_NEWENUM -4
      * }
      */
-    public static int IMAGE_REL_AMD64_INDIR_CALL() {
-        return (int)25L;
+    public static int DISPID_NEWENUM() {
+        return DISPID_NEWENUM;
     }
+    private static final int DISPID_EVALUATE = (int)-5L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_INDIR_BR_SWITCHTABLE_FIRST 32
+     * {@snippet lang=c :
+     * #define DISPID_EVALUATE -5
      * }
      */
-    public static int IMAGE_REL_AMD64_INDIR_BR_SWITCHTABLE_FIRST() {
-        return (int)32L;
+    public static int DISPID_EVALUATE() {
+        return DISPID_EVALUATE;
     }
+    private static final int DISPID_CONSTRUCTOR = (int)-6L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_AMD64_INDIR_BR_SWITCHTABLE_LAST 47
+     * {@snippet lang=c :
+     * #define DISPID_CONSTRUCTOR -6
      * }
      */
-    public static int IMAGE_REL_AMD64_INDIR_BR_SWITCHTABLE_LAST() {
-        return (int)47L;
+    public static int DISPID_CONSTRUCTOR() {
+        return DISPID_CONSTRUCTOR;
     }
+    private static final int DISPID_DESTRUCTOR = (int)-7L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define DISPID_DESTRUCTOR -7
      * }
      */
-    public static int IMAGE_REL_IA64_ABSOLUTE() {
-        return (int)0L;
+    public static int DISPID_DESTRUCTOR() {
+        return DISPID_DESTRUCTOR;
     }
+    private static final int DISPID_COLLECT = (int)-8L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_IMM14 1
+     * {@snippet lang=c :
+     * #define DISPID_COLLECT -8
      * }
      */
-    public static int IMAGE_REL_IA64_IMM14() {
-        return (int)1L;
+    public static int DISPID_COLLECT() {
+        return DISPID_COLLECT;
     }
+    private static final int PROPSETFLAG_DEFAULT = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_IMM22 2
+     * {@snippet lang=c :
+     * #define PROPSETFLAG_DEFAULT 0
      * }
      */
-    public static int IMAGE_REL_IA64_IMM22() {
-        return (int)2L;
+    public static int PROPSETFLAG_DEFAULT() {
+        return PROPSETFLAG_DEFAULT;
     }
+    private static final int PROPSETFLAG_NONSIMPLE = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_IMM64 3
+     * {@snippet lang=c :
+     * #define PROPSETFLAG_NONSIMPLE 1
      * }
      */
-    public static int IMAGE_REL_IA64_IMM64() {
-        return (int)3L;
+    public static int PROPSETFLAG_NONSIMPLE() {
+        return PROPSETFLAG_NONSIMPLE;
     }
+    private static final int PROPSETFLAG_ANSI = (int)2L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_DIR32 4
+     * {@snippet lang=c :
+     * #define PROPSETFLAG_ANSI 2
      * }
      */
-    public static int IMAGE_REL_IA64_DIR32() {
-        return (int)4L;
+    public static int PROPSETFLAG_ANSI() {
+        return PROPSETFLAG_ANSI;
     }
+    private static final int PROPSETFLAG_UNBUFFERED = (int)4L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_DIR64 5
+     * {@snippet lang=c :
+     * #define PROPSETFLAG_UNBUFFERED 4
      * }
      */
-    public static int IMAGE_REL_IA64_DIR64() {
-        return (int)5L;
+    public static int PROPSETFLAG_UNBUFFERED() {
+        return PROPSETFLAG_UNBUFFERED;
     }
+    private static final int PROPSETFLAG_CASE_SENSITIVE = (int)8L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_PCREL21B 6
+     * {@snippet lang=c :
+     * #define PROPSETFLAG_CASE_SENSITIVE 8
      * }
      */
-    public static int IMAGE_REL_IA64_PCREL21B() {
-        return (int)6L;
+    public static int PROPSETFLAG_CASE_SENSITIVE() {
+        return PROPSETFLAG_CASE_SENSITIVE;
     }
+    private static final int PROPSET_BEHAVIOR_CASE_SENSITIVE = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_PCREL21M 7
+     * {@snippet lang=c :
+     * #define PROPSET_BEHAVIOR_CASE_SENSITIVE 1
      * }
      */
-    public static int IMAGE_REL_IA64_PCREL21M() {
-        return (int)7L;
+    public static int PROPSET_BEHAVIOR_CASE_SENSITIVE() {
+        return PROPSET_BEHAVIOR_CASE_SENSITIVE;
     }
+    private static final int PID_DICTIONARY = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_PCREL21F 8
+     * {@snippet lang=c :
+     * #define PID_DICTIONARY 0
      * }
      */
-    public static int IMAGE_REL_IA64_PCREL21F() {
-        return (int)8L;
+    public static int PID_DICTIONARY() {
+        return PID_DICTIONARY;
     }
+    private static final int PID_CODEPAGE = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_GPREL22 9
+     * {@snippet lang=c :
+     * #define PID_CODEPAGE 1
      * }
      */
-    public static int IMAGE_REL_IA64_GPREL22() {
-        return (int)9L;
+    public static int PID_CODEPAGE() {
+        return PID_CODEPAGE;
     }
+    private static final int PID_FIRST_USABLE = (int)2L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_LTOFF22 10
+     * {@snippet lang=c :
+     * #define PID_FIRST_USABLE 2
      * }
      */
-    public static int IMAGE_REL_IA64_LTOFF22() {
-        return (int)10L;
+    public static int PID_FIRST_USABLE() {
+        return PID_FIRST_USABLE;
     }
+    private static final int PID_FIRST_NAME_DEFAULT = (int)4095L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_SECTION 11
+     * {@snippet lang=c :
+     * #define PID_FIRST_NAME_DEFAULT 4095
      * }
      */
-    public static int IMAGE_REL_IA64_SECTION() {
-        return (int)11L;
+    public static int PID_FIRST_NAME_DEFAULT() {
+        return PID_FIRST_NAME_DEFAULT;
     }
+    private static final int PID_LOCALE = (int)2147483648L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_SECREL22 12
+     * {@snippet lang=c :
+     * #define PID_LOCALE 2147483648
      * }
      */
-    public static int IMAGE_REL_IA64_SECREL22() {
-        return (int)12L;
+    public static int PID_LOCALE() {
+        return PID_LOCALE;
     }
+    private static final int PID_MODIFY_TIME = (int)2147483649L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_SECREL64I 13
+     * {@snippet lang=c :
+     * #define PID_MODIFY_TIME 2147483649
      * }
      */
-    public static int IMAGE_REL_IA64_SECREL64I() {
-        return (int)13L;
+    public static int PID_MODIFY_TIME() {
+        return PID_MODIFY_TIME;
     }
+    private static final int PID_SECURITY = (int)2147483650L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_SECREL32 14
+     * {@snippet lang=c :
+     * #define PID_SECURITY 2147483650
      * }
      */
-    public static int IMAGE_REL_IA64_SECREL32() {
-        return (int)14L;
+    public static int PID_SECURITY() {
+        return PID_SECURITY;
     }
+    private static final int PID_BEHAVIOR = (int)2147483651L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_DIR32NB 16
+     * {@snippet lang=c :
+     * #define PID_BEHAVIOR 2147483651
      * }
      */
-    public static int IMAGE_REL_IA64_DIR32NB() {
-        return (int)16L;
+    public static int PID_BEHAVIOR() {
+        return PID_BEHAVIOR;
     }
+    private static final int PID_ILLEGAL = (int)4294967295L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_SREL14 17
+     * {@snippet lang=c :
+     * #define PID_ILLEGAL 4294967295
      * }
      */
-    public static int IMAGE_REL_IA64_SREL14() {
-        return (int)17L;
+    public static int PID_ILLEGAL() {
+        return PID_ILLEGAL;
     }
+    private static final int PID_MIN_READONLY = (int)2147483648L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_SREL22 18
+     * {@snippet lang=c :
+     * #define PID_MIN_READONLY 2147483648
      * }
      */
-    public static int IMAGE_REL_IA64_SREL22() {
-        return (int)18L;
+    public static int PID_MIN_READONLY() {
+        return PID_MIN_READONLY;
     }
+    private static final int PID_MAX_READONLY = (int)3221225471L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_SREL32 19
+     * {@snippet lang=c :
+     * #define PID_MAX_READONLY 3221225471
      * }
      */
-    public static int IMAGE_REL_IA64_SREL32() {
-        return (int)19L;
+    public static int PID_MAX_READONLY() {
+        return PID_MAX_READONLY;
     }
+    private static final int PRSPEC_INVALID = (int)4294967295L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_UREL32 20
+     * {@snippet lang=c :
+     * #define PRSPEC_INVALID 4294967295
      * }
      */
-    public static int IMAGE_REL_IA64_UREL32() {
-        return (int)20L;
+    public static int PRSPEC_INVALID() {
+        return PRSPEC_INVALID;
     }
+    private static final int PRSPEC_LPWSTR = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_PCREL60X 21
+     * {@snippet lang=c :
+     * #define PRSPEC_LPWSTR 0
      * }
      */
-    public static int IMAGE_REL_IA64_PCREL60X() {
-        return (int)21L;
+    public static int PRSPEC_LPWSTR() {
+        return PRSPEC_LPWSTR;
     }
+    private static final int PRSPEC_PROPID = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_PCREL60B 22
+     * {@snippet lang=c :
+     * #define PRSPEC_PROPID 1
      * }
      */
-    public static int IMAGE_REL_IA64_PCREL60B() {
-        return (int)22L;
+    public static int PRSPEC_PROPID() {
+        return PRSPEC_PROPID;
     }
+    private static final int PROPSETHDR_OSVERSION_UNKNOWN = (int)4294967295L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_PCREL60F 23
+     * {@snippet lang=c :
+     * #define PROPSETHDR_OSVERSION_UNKNOWN 4294967295
      * }
      */
-    public static int IMAGE_REL_IA64_PCREL60F() {
-        return (int)23L;
+    public static int PROPSETHDR_OSVERSION_UNKNOWN() {
+        return PROPSETHDR_OSVERSION_UNKNOWN;
     }
+    private static final int STGM_DIRECT = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_PCREL60I 24
+     * {@snippet lang=c :
+     * #define STGM_DIRECT 0
      * }
      */
-    public static int IMAGE_REL_IA64_PCREL60I() {
-        return (int)24L;
+    public static int STGM_DIRECT() {
+        return STGM_DIRECT;
     }
+    private static final int STGM_TRANSACTED = (int)65536L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_PCREL60M 25
+     * {@snippet lang=c :
+     * #define STGM_TRANSACTED 65536
      * }
      */
-    public static int IMAGE_REL_IA64_PCREL60M() {
-        return (int)25L;
+    public static int STGM_TRANSACTED() {
+        return STGM_TRANSACTED;
     }
+    private static final int STGM_SIMPLE = (int)134217728L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_IMMGPREL64 26
+     * {@snippet lang=c :
+     * #define STGM_SIMPLE 134217728
      * }
      */
-    public static int IMAGE_REL_IA64_IMMGPREL64() {
-        return (int)26L;
+    public static int STGM_SIMPLE() {
+        return STGM_SIMPLE;
     }
+    private static final int STGM_READ = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_TOKEN 27
+     * {@snippet lang=c :
+     * #define STGM_READ 0
      * }
      */
-    public static int IMAGE_REL_IA64_TOKEN() {
-        return (int)27L;
+    public static int STGM_READ() {
+        return STGM_READ;
     }
+    private static final int STGM_WRITE = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_GPREL32 28
+     * {@snippet lang=c :
+     * #define STGM_WRITE 1
      * }
      */
-    public static int IMAGE_REL_IA64_GPREL32() {
-        return (int)28L;
+    public static int STGM_WRITE() {
+        return STGM_WRITE;
     }
+    private static final int STGM_READWRITE = (int)2L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_IA64_ADDEND 31
+     * {@snippet lang=c :
+     * #define STGM_READWRITE 2
      * }
      */
-    public static int IMAGE_REL_IA64_ADDEND() {
-        return (int)31L;
+    public static int STGM_READWRITE() {
+        return STGM_READWRITE;
     }
+    private static final int STGM_SHARE_DENY_NONE = (int)64L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_CEF_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define STGM_SHARE_DENY_NONE 64
      * }
      */
-    public static int IMAGE_REL_CEF_ABSOLUTE() {
-        return (int)0L;
+    public static int STGM_SHARE_DENY_NONE() {
+        return STGM_SHARE_DENY_NONE;
     }
+    private static final int STGM_SHARE_DENY_READ = (int)48L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_CEF_ADDR32 1
+     * {@snippet lang=c :
+     * #define STGM_SHARE_DENY_READ 48
      * }
      */
-    public static int IMAGE_REL_CEF_ADDR32() {
-        return (int)1L;
+    public static int STGM_SHARE_DENY_READ() {
+        return STGM_SHARE_DENY_READ;
     }
+    private static final int STGM_SHARE_DENY_WRITE = (int)32L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_CEF_ADDR64 2
+     * {@snippet lang=c :
+     * #define STGM_SHARE_DENY_WRITE 32
      * }
      */
-    public static int IMAGE_REL_CEF_ADDR64() {
-        return (int)2L;
+    public static int STGM_SHARE_DENY_WRITE() {
+        return STGM_SHARE_DENY_WRITE;
     }
+    private static final int STGM_SHARE_EXCLUSIVE = (int)16L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_CEF_ADDR32NB 3
+     * {@snippet lang=c :
+     * #define STGM_SHARE_EXCLUSIVE 16
      * }
      */
-    public static int IMAGE_REL_CEF_ADDR32NB() {
-        return (int)3L;
+    public static int STGM_SHARE_EXCLUSIVE() {
+        return STGM_SHARE_EXCLUSIVE;
     }
+    private static final int STGM_PRIORITY = (int)262144L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_CEF_SECTION 4
+     * {@snippet lang=c :
+     * #define STGM_PRIORITY 262144
      * }
      */
-    public static int IMAGE_REL_CEF_SECTION() {
-        return (int)4L;
+    public static int STGM_PRIORITY() {
+        return STGM_PRIORITY;
     }
+    private static final int STGM_DELETEONRELEASE = (int)67108864L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_CEF_SECREL 5
+     * {@snippet lang=c :
+     * #define STGM_DELETEONRELEASE 67108864
      * }
      */
-    public static int IMAGE_REL_CEF_SECREL() {
-        return (int)5L;
+    public static int STGM_DELETEONRELEASE() {
+        return STGM_DELETEONRELEASE;
     }
+    private static final int STGM_NOSCRATCH = (int)1048576L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_CEF_TOKEN 6
+     * {@snippet lang=c :
+     * #define STGM_NOSCRATCH 1048576
      * }
      */
-    public static int IMAGE_REL_CEF_TOKEN() {
-        return (int)6L;
+    public static int STGM_NOSCRATCH() {
+        return STGM_NOSCRATCH;
     }
+    private static final int STGM_CREATE = (int)4096L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_CEE_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define STGM_CREATE 4096
      * }
      */
-    public static int IMAGE_REL_CEE_ABSOLUTE() {
-        return (int)0L;
+    public static int STGM_CREATE() {
+        return STGM_CREATE;
     }
+    private static final int STGM_CONVERT = (int)131072L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_CEE_ADDR32 1
+     * {@snippet lang=c :
+     * #define STGM_CONVERT 131072
      * }
      */
-    public static int IMAGE_REL_CEE_ADDR32() {
-        return (int)1L;
+    public static int STGM_CONVERT() {
+        return STGM_CONVERT;
     }
+    private static final int STGM_FAILIFTHERE = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_CEE_ADDR64 2
+     * {@snippet lang=c :
+     * #define STGM_FAILIFTHERE 0
      * }
      */
-    public static int IMAGE_REL_CEE_ADDR64() {
-        return (int)2L;
+    public static int STGM_FAILIFTHERE() {
+        return STGM_FAILIFTHERE;
     }
+    private static final int STGM_NOSNAPSHOT = (int)2097152L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_CEE_ADDR32NB 3
+     * {@snippet lang=c :
+     * #define STGM_NOSNAPSHOT 2097152
      * }
      */
-    public static int IMAGE_REL_CEE_ADDR32NB() {
-        return (int)3L;
+    public static int STGM_NOSNAPSHOT() {
+        return STGM_NOSNAPSHOT;
     }
+    private static final int STGM_DIRECT_SWMR = (int)4194304L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_CEE_SECTION 4
+     * {@snippet lang=c :
+     * #define STGM_DIRECT_SWMR 4194304
      * }
      */
-    public static int IMAGE_REL_CEE_SECTION() {
-        return (int)4L;
+    public static int STGM_DIRECT_SWMR() {
+        return STGM_DIRECT_SWMR;
     }
+    private static final int ASYNC_MODE_COMPATIBILITY = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_CEE_SECREL 5
+     * {@snippet lang=c :
+     * #define ASYNC_MODE_COMPATIBILITY 1
      * }
      */
-    public static int IMAGE_REL_CEE_SECREL() {
-        return (int)5L;
+    public static int ASYNC_MODE_COMPATIBILITY() {
+        return ASYNC_MODE_COMPATIBILITY;
     }
+    private static final int ASYNC_MODE_DEFAULT = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_CEE_TOKEN 6
+     * {@snippet lang=c :
+     * #define ASYNC_MODE_DEFAULT 0
      * }
      */
-    public static int IMAGE_REL_CEE_TOKEN() {
-        return (int)6L;
+    public static int ASYNC_MODE_DEFAULT() {
+        return ASYNC_MODE_DEFAULT;
     }
+    private static final int STGTY_REPEAT = (int)256L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define STGTY_REPEAT 256
      * }
      */
-    public static int IMAGE_REL_M32R_ABSOLUTE() {
-        return (int)0L;
+    public static int STGTY_REPEAT() {
+        return STGTY_REPEAT;
     }
+    private static final int STG_TOEND = (int)4294967295L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_ADDR32 1
+     * {@snippet lang=c :
+     * #define STG_TOEND 4294967295
      * }
      */
-    public static int IMAGE_REL_M32R_ADDR32() {
-        return (int)1L;
+    public static int STG_TOEND() {
+        return STG_TOEND;
     }
+    private static final int STG_LAYOUT_SEQUENTIAL = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_ADDR32NB 2
+     * {@snippet lang=c :
+     * #define STG_LAYOUT_SEQUENTIAL 0
      * }
      */
-    public static int IMAGE_REL_M32R_ADDR32NB() {
-        return (int)2L;
+    public static int STG_LAYOUT_SEQUENTIAL() {
+        return STG_LAYOUT_SEQUENTIAL;
     }
+    private static final int STG_LAYOUT_INTERLEAVED = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_ADDR24 3
+     * {@snippet lang=c :
+     * #define STG_LAYOUT_INTERLEAVED 1
      * }
      */
-    public static int IMAGE_REL_M32R_ADDR24() {
-        return (int)3L;
+    public static int STG_LAYOUT_INTERLEAVED() {
+        return STG_LAYOUT_INTERLEAVED;
     }
+    private static final int UPDFCACHE_NODATACACHE = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_GPREL16 4
+     * {@snippet lang=c :
+     * #define UPDFCACHE_NODATACACHE 1
      * }
      */
-    public static int IMAGE_REL_M32R_GPREL16() {
-        return (int)4L;
+    public static int UPDFCACHE_NODATACACHE() {
+        return UPDFCACHE_NODATACACHE;
     }
+    private static final int UPDFCACHE_ONSAVECACHE = (int)2L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_PCREL24 5
+     * {@snippet lang=c :
+     * #define UPDFCACHE_ONSAVECACHE 2
      * }
      */
-    public static int IMAGE_REL_M32R_PCREL24() {
-        return (int)5L;
+    public static int UPDFCACHE_ONSAVECACHE() {
+        return UPDFCACHE_ONSAVECACHE;
     }
+    private static final int UPDFCACHE_ONSTOPCACHE = (int)4L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_PCREL16 6
+     * {@snippet lang=c :
+     * #define UPDFCACHE_ONSTOPCACHE 4
      * }
      */
-    public static int IMAGE_REL_M32R_PCREL16() {
-        return (int)6L;
+    public static int UPDFCACHE_ONSTOPCACHE() {
+        return UPDFCACHE_ONSTOPCACHE;
     }
+    private static final int UPDFCACHE_NORMALCACHE = (int)8L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_PCREL8 7
+     * {@snippet lang=c :
+     * #define UPDFCACHE_NORMALCACHE 8
      * }
      */
-    public static int IMAGE_REL_M32R_PCREL8() {
-        return (int)7L;
+    public static int UPDFCACHE_NORMALCACHE() {
+        return UPDFCACHE_NORMALCACHE;
     }
+    private static final int UPDFCACHE_IFBLANK = (int)16L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_REFHALF 8
+     * {@snippet lang=c :
+     * #define UPDFCACHE_IFBLANK 16
      * }
      */
-    public static int IMAGE_REL_M32R_REFHALF() {
-        return (int)8L;
+    public static int UPDFCACHE_IFBLANK() {
+        return UPDFCACHE_IFBLANK;
     }
+    private static final int UPDFCACHE_ONLYIFBLANK = (int)2147483648L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_REFHI 9
+     * {@snippet lang=c :
+     * #define UPDFCACHE_ONLYIFBLANK 2147483648
      * }
      */
-    public static int IMAGE_REL_M32R_REFHI() {
-        return (int)9L;
+    public static int UPDFCACHE_ONLYIFBLANK() {
+        return UPDFCACHE_ONLYIFBLANK;
     }
+    private static final int UPDFCACHE_IFBLANKORONSAVECACHE = (int)18L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_REFLO 10
+     * {@snippet lang=c :
+     * #define UPDFCACHE_IFBLANKORONSAVECACHE 18
      * }
      */
-    public static int IMAGE_REL_M32R_REFLO() {
-        return (int)10L;
+    public static int UPDFCACHE_IFBLANKORONSAVECACHE() {
+        return UPDFCACHE_IFBLANKORONSAVECACHE;
     }
+    private static final int UPDFCACHE_ALL = (int)2147483647L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_PAIR 11
+     * {@snippet lang=c :
+     * #define UPDFCACHE_ALL 2147483647
      * }
      */
-    public static int IMAGE_REL_M32R_PAIR() {
-        return (int)11L;
+    public static int UPDFCACHE_ALL() {
+        return UPDFCACHE_ALL;
     }
+    private static final int UPDFCACHE_ALLBUTNODATACACHE = (int)2147483646L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_SECTION 12
+     * {@snippet lang=c :
+     * #define UPDFCACHE_ALLBUTNODATACACHE 2147483646
      * }
      */
-    public static int IMAGE_REL_M32R_SECTION() {
-        return (int)12L;
+    public static int UPDFCACHE_ALLBUTNODATACACHE() {
+        return UPDFCACHE_ALLBUTNODATACACHE;
     }
+    private static final int MK_ALT = (int)32L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_SECREL32 13
+     * {@snippet lang=c :
+     * #define MK_ALT 32
      * }
      */
-    public static int IMAGE_REL_M32R_SECREL32() {
-        return (int)13L;
+    public static int MK_ALT() {
+        return MK_ALT;
     }
+    private static final int DROPEFFECT_NONE = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_M32R_TOKEN 14
+     * {@snippet lang=c :
+     * #define DROPEFFECT_NONE 0
      * }
      */
-    public static int IMAGE_REL_M32R_TOKEN() {
-        return (int)14L;
+    public static int DROPEFFECT_NONE() {
+        return DROPEFFECT_NONE;
     }
+    private static final int DROPEFFECT_COPY = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_EBC_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define DROPEFFECT_COPY 1
      * }
      */
-    public static int IMAGE_REL_EBC_ABSOLUTE() {
-        return (int)0L;
+    public static int DROPEFFECT_COPY() {
+        return DROPEFFECT_COPY;
     }
+    private static final int DROPEFFECT_MOVE = (int)2L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_EBC_ADDR32NB 1
+     * {@snippet lang=c :
+     * #define DROPEFFECT_MOVE 2
      * }
      */
-    public static int IMAGE_REL_EBC_ADDR32NB() {
-        return (int)1L;
+    public static int DROPEFFECT_MOVE() {
+        return DROPEFFECT_MOVE;
     }
+    private static final int DROPEFFECT_LINK = (int)4L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_EBC_REL32 2
+     * {@snippet lang=c :
+     * #define DROPEFFECT_LINK 4
      * }
      */
-    public static int IMAGE_REL_EBC_REL32() {
-        return (int)2L;
+    public static int DROPEFFECT_LINK() {
+        return DROPEFFECT_LINK;
     }
+    private static final int DROPEFFECT_SCROLL = (int)2147483648L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_EBC_SECTION 3
+     * {@snippet lang=c :
+     * #define DROPEFFECT_SCROLL 2147483648
      * }
      */
-    public static int IMAGE_REL_EBC_SECTION() {
-        return (int)3L;
+    public static int DROPEFFECT_SCROLL() {
+        return DROPEFFECT_SCROLL;
     }
+    private static final int DD_DEFSCROLLINSET = (int)11L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_EBC_SECREL 4
+     * {@snippet lang=c :
+     * #define DD_DEFSCROLLINSET 11
      * }
      */
-    public static int IMAGE_REL_EBC_SECREL() {
-        return (int)4L;
+    public static int DD_DEFSCROLLINSET() {
+        return DD_DEFSCROLLINSET;
     }
+    private static final int DD_DEFSCROLLDELAY = (int)50L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM7B_INST_WORD_X 3
+     * {@snippet lang=c :
+     * #define DD_DEFSCROLLDELAY 50
      * }
      */
-    public static int EMARCH_ENC_I17_IMM7B_INST_WORD_X() {
-        return (int)3L;
+    public static int DD_DEFSCROLLDELAY() {
+        return DD_DEFSCROLLDELAY;
     }
+    private static final int DD_DEFSCROLLINTERVAL = (int)50L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM7B_SIZE_X 7
+     * {@snippet lang=c :
+     * #define DD_DEFSCROLLINTERVAL 50
      * }
      */
-    public static int EMARCH_ENC_I17_IMM7B_SIZE_X() {
-        return (int)7L;
+    public static int DD_DEFSCROLLINTERVAL() {
+        return DD_DEFSCROLLINTERVAL;
     }
+    private static final int DD_DEFDRAGDELAY = (int)200L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM7B_INST_WORD_POS_X 4
+     * {@snippet lang=c :
+     * #define DD_DEFDRAGDELAY 200
      * }
      */
-    public static int EMARCH_ENC_I17_IMM7B_INST_WORD_POS_X() {
-        return (int)4L;
+    public static int DD_DEFDRAGDELAY() {
+        return DD_DEFDRAGDELAY;
     }
+    private static final int DD_DEFDRAGMINDIST = (int)2L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM7B_VAL_POS_X 0
+     * {@snippet lang=c :
+     * #define DD_DEFDRAGMINDIST 2
      * }
      */
-    public static int EMARCH_ENC_I17_IMM7B_VAL_POS_X() {
-        return (int)0L;
+    public static int DD_DEFDRAGMINDIST() {
+        return DD_DEFDRAGMINDIST;
     }
+    private static final int BINDF_DONTUSECACHE = (int)16L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM9D_INST_WORD_X 3
+     * {@snippet lang=c :
+     * #define BINDF_DONTUSECACHE 16
      * }
      */
-    public static int EMARCH_ENC_I17_IMM9D_INST_WORD_X() {
-        return (int)3L;
+    public static int BINDF_DONTUSECACHE() {
+        return BINDF_DONTUSECACHE;
     }
+    private static final int BINDF_DONTPUTINCACHE = (int)32L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM9D_SIZE_X 9
+     * {@snippet lang=c :
+     * #define BINDF_DONTPUTINCACHE 32
      * }
      */
-    public static int EMARCH_ENC_I17_IMM9D_SIZE_X() {
-        return (int)9L;
+    public static int BINDF_DONTPUTINCACHE() {
+        return BINDF_DONTPUTINCACHE;
     }
+    private static final int BINDF_NOCOPYDATA = (int)128L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM9D_INST_WORD_POS_X 18
+     * {@snippet lang=c :
+     * #define BINDF_NOCOPYDATA 128
      * }
      */
-    public static int EMARCH_ENC_I17_IMM9D_INST_WORD_POS_X() {
-        return (int)18L;
+    public static int BINDF_NOCOPYDATA() {
+        return BINDF_NOCOPYDATA;
     }
+    private static final MemorySegment INVALID_P_ROOT_SECURITY_ID = MemorySegment.ofAddress(-1L);
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM9D_VAL_POS_X 7
+     * {@snippet lang=c :
+     * #define INVALID_P_ROOT_SECURITY_ID (void*) -1
      * }
      */
-    public static int EMARCH_ENC_I17_IMM9D_VAL_POS_X() {
-        return (int)7L;
+    public static MemorySegment INVALID_P_ROOT_SECURITY_ID() {
+        return INVALID_P_ROOT_SECURITY_ID;
     }
+    private static final int PI_DOCFILECLSIDLOOKUP = (int)32L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM5C_INST_WORD_X 3
+     * {@snippet lang=c :
+     * #define PI_DOCFILECLSIDLOOKUP 32
      * }
      */
-    public static int EMARCH_ENC_I17_IMM5C_INST_WORD_X() {
-        return (int)3L;
+    public static int PI_DOCFILECLSIDLOOKUP() {
+        return PI_DOCFILECLSIDLOOKUP;
     }
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM5C_SIZE_X 5
+     * {@snippet lang=c :
+     * #define SZ_URLCONTEXT "U"
      * }
      */
-    public static int EMARCH_ENC_I17_IMM5C_SIZE_X() {
-        return (int)5L;
+    public static MemorySegment SZ_URLCONTEXT() {
+        class Holder {
+            static final MemorySegment SZ_URLCONTEXT
+                = Windows_h.LIBRARY_ARENA.allocateFrom("U");
+        }
+        return Holder.SZ_URLCONTEXT;
     }
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM5C_INST_WORD_POS_X 13
+     * {@snippet lang=c :
+     * #define SZ_ASYNC_CALLEE "A"
      * }
      */
-    public static int EMARCH_ENC_I17_IMM5C_INST_WORD_POS_X() {
-        return (int)13L;
+    public static MemorySegment SZ_ASYNC_CALLEE() {
+        class Holder {
+            static final MemorySegment SZ_ASYNC_CALLEE
+                = Windows_h.LIBRARY_ARENA.allocateFrom("A");
+        }
+        return Holder.SZ_ASYNC_CALLEE;
     }
+    private static final MemorySegment CFSTR_MIME_NULL = MemorySegment.ofAddress(0L);
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM5C_VAL_POS_X 16
+     * {@snippet lang=c :
+     * #define CFSTR_MIME_NULL (void*) 0
      * }
      */
-    public static int EMARCH_ENC_I17_IMM5C_VAL_POS_X() {
-        return (int)16L;
+    public static MemorySegment CFSTR_MIME_NULL() {
+        return CFSTR_MIME_NULL;
     }
+    private static final int MK_S_ASYNCHRONOUS = (int)262632L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IC_INST_WORD_X 3
+     * {@snippet lang=c :
+     * #define MK_S_ASYNCHRONOUS 262632
      * }
      */
-    public static int EMARCH_ENC_I17_IC_INST_WORD_X() {
-        return (int)3L;
+    public static int MK_S_ASYNCHRONOUS() {
+        return MK_S_ASYNCHRONOUS;
     }
+    private static final int S_ASYNCHRONOUS = (int)262632L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IC_SIZE_X 1
+     * {@snippet lang=c :
+     * #define S_ASYNCHRONOUS 262632
      * }
      */
-    public static int EMARCH_ENC_I17_IC_SIZE_X() {
-        return (int)1L;
+    public static int S_ASYNCHRONOUS() {
+        return S_ASYNCHRONOUS;
     }
+    private static final int INET_E_CANNOT_LOCK_REQUEST = (int)-2146697194L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IC_INST_WORD_POS_X 12
+     * {@snippet lang=c :
+     * #define INET_E_CANNOT_LOCK_REQUEST -2146697194
      * }
      */
-    public static int EMARCH_ENC_I17_IC_INST_WORD_POS_X() {
-        return (int)12L;
+    public static int INET_E_CANNOT_LOCK_REQUEST() {
+        return INET_E_CANNOT_LOCK_REQUEST;
     }
+    private static final int INET_E_USE_EXTEND_BINDING = (int)-2146697193L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IC_VAL_POS_X 21
+     * {@snippet lang=c :
+     * #define INET_E_USE_EXTEND_BINDING -2146697193
      * }
      */
-    public static int EMARCH_ENC_I17_IC_VAL_POS_X() {
-        return (int)21L;
+    public static int INET_E_USE_EXTEND_BINDING() {
+        return INET_E_USE_EXTEND_BINDING;
     }
+    private static final int INET_E_TERMINATED_BIND = (int)-2146697192L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM41a_INST_WORD_X 1
+     * {@snippet lang=c :
+     * #define INET_E_TERMINATED_BIND -2146697192
      * }
      */
-    public static int EMARCH_ENC_I17_IMM41a_INST_WORD_X() {
-        return (int)1L;
+    public static int INET_E_TERMINATED_BIND() {
+        return INET_E_TERMINATED_BIND;
     }
+    private static final int INET_E_RESERVED_1 = (int)-2146697190L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM41a_SIZE_X 10
+     * {@snippet lang=c :
+     * #define INET_E_RESERVED_1 -2146697190
      * }
      */
-    public static int EMARCH_ENC_I17_IMM41a_SIZE_X() {
-        return (int)10L;
+    public static int INET_E_RESERVED_1() {
+        return INET_E_RESERVED_1;
     }
+    private static final int INET_E_BLOCKED_REDIRECT_XSECURITYID = (int)-2146697189L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM41a_INST_WORD_POS_X 14
+     * {@snippet lang=c :
+     * #define INET_E_BLOCKED_REDIRECT_XSECURITYID -2146697189
      * }
      */
-    public static int EMARCH_ENC_I17_IMM41a_INST_WORD_POS_X() {
-        return (int)14L;
+    public static int INET_E_BLOCKED_REDIRECT_XSECURITYID() {
+        return INET_E_BLOCKED_REDIRECT_XSECURITYID;
     }
+    private static final int INET_E_DOMINJECTIONVALIDATION = (int)-2146697188L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM41a_VAL_POS_X 22
+     * {@snippet lang=c :
+     * #define INET_E_DOMINJECTIONVALIDATION -2146697188
      * }
      */
-    public static int EMARCH_ENC_I17_IMM41a_VAL_POS_X() {
-        return (int)22L;
+    public static int INET_E_DOMINJECTIONVALIDATION() {
+        return INET_E_DOMINJECTIONVALIDATION;
     }
+    private static final int INET_E_VTAB_SWITCH_FORCE_ENGINE = (int)-2146697187L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM41b_INST_WORD_X 1
+     * {@snippet lang=c :
+     * #define INET_E_VTAB_SWITCH_FORCE_ENGINE -2146697187
      * }
      */
-    public static int EMARCH_ENC_I17_IMM41b_INST_WORD_X() {
-        return (int)1L;
+    public static int INET_E_VTAB_SWITCH_FORCE_ENGINE() {
+        return INET_E_VTAB_SWITCH_FORCE_ENGINE;
     }
+    private static final int INET_E_HSTS_CERTIFICATE_ERROR = (int)-2146697186L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM41b_SIZE_X 8
+     * {@snippet lang=c :
+     * #define INET_E_HSTS_CERTIFICATE_ERROR -2146697186
      * }
      */
-    public static int EMARCH_ENC_I17_IMM41b_SIZE_X() {
-        return (int)8L;
+    public static int INET_E_HSTS_CERTIFICATE_ERROR() {
+        return INET_E_HSTS_CERTIFICATE_ERROR;
     }
+    private static final int INET_E_RESERVED_2 = (int)-2146697185L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM41b_INST_WORD_POS_X 24
+     * {@snippet lang=c :
+     * #define INET_E_RESERVED_2 -2146697185
      * }
      */
-    public static int EMARCH_ENC_I17_IMM41b_INST_WORD_POS_X() {
-        return (int)24L;
+    public static int INET_E_RESERVED_2() {
+        return INET_E_RESERVED_2;
     }
+    private static final int INET_E_RESERVED_3 = (int)-2146697184L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM41b_VAL_POS_X 32
+     * {@snippet lang=c :
+     * #define INET_E_RESERVED_3 -2146697184
      * }
      */
-    public static int EMARCH_ENC_I17_IMM41b_VAL_POS_X() {
-        return (int)32L;
+    public static int INET_E_RESERVED_3() {
+        return INET_E_RESERVED_3;
     }
+    private static final int INET_E_RESERVED_4 = (int)-2146697183L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM41c_INST_WORD_X 2
+     * {@snippet lang=c :
+     * #define INET_E_RESERVED_4 -2146697183
      * }
      */
-    public static int EMARCH_ENC_I17_IMM41c_INST_WORD_X() {
-        return (int)2L;
+    public static int INET_E_RESERVED_4() {
+        return INET_E_RESERVED_4;
     }
+    private static final int INET_E_RESERVED_5 = (int)-2146697182L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM41c_SIZE_X 23
+     * {@snippet lang=c :
+     * #define INET_E_RESERVED_5 -2146697182
      * }
      */
-    public static int EMARCH_ENC_I17_IMM41c_SIZE_X() {
-        return (int)23L;
+    public static int INET_E_RESERVED_5() {
+        return INET_E_RESERVED_5;
     }
+    private static final int INET_E_ERROR_FIRST = (int)-2146697214L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM41c_INST_WORD_POS_X 0
+     * {@snippet lang=c :
+     * #define INET_E_ERROR_FIRST -2146697214
      * }
      */
-    public static int EMARCH_ENC_I17_IMM41c_INST_WORD_POS_X() {
-        return (int)0L;
+    public static int INET_E_ERROR_FIRST() {
+        return INET_E_ERROR_FIRST;
     }
+    private static final int INET_E_CODE_DOWNLOAD_DECLINED = (int)-2146696960L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_IMM41c_VAL_POS_X 40
+     * {@snippet lang=c :
+     * #define INET_E_CODE_DOWNLOAD_DECLINED -2146696960
      * }
      */
-    public static int EMARCH_ENC_I17_IMM41c_VAL_POS_X() {
-        return (int)40L;
+    public static int INET_E_CODE_DOWNLOAD_DECLINED() {
+        return INET_E_CODE_DOWNLOAD_DECLINED;
     }
+    private static final int INET_E_RESULT_DISPATCHED = (int)-2146696704L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_SIGN_INST_WORD_X 3
+     * {@snippet lang=c :
+     * #define INET_E_RESULT_DISPATCHED -2146696704
      * }
      */
-    public static int EMARCH_ENC_I17_SIGN_INST_WORD_X() {
-        return (int)3L;
+    public static int INET_E_RESULT_DISPATCHED() {
+        return INET_E_RESULT_DISPATCHED;
     }
+    private static final int INET_E_CANNOT_REPLACE_SFP_FILE = (int)-2146696448L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_SIGN_SIZE_X 1
+     * {@snippet lang=c :
+     * #define INET_E_CANNOT_REPLACE_SFP_FILE -2146696448
      * }
      */
-    public static int EMARCH_ENC_I17_SIGN_SIZE_X() {
-        return (int)1L;
+    public static int INET_E_CANNOT_REPLACE_SFP_FILE() {
+        return INET_E_CANNOT_REPLACE_SFP_FILE;
     }
+    private static final int INET_E_CODE_INSTALL_SUPPRESSED = (int)-2146696192L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_SIGN_INST_WORD_POS_X 27
+     * {@snippet lang=c :
+     * #define INET_E_CODE_INSTALL_SUPPRESSED -2146696192
      * }
      */
-    public static int EMARCH_ENC_I17_SIGN_INST_WORD_POS_X() {
-        return (int)27L;
+    public static int INET_E_CODE_INSTALL_SUPPRESSED() {
+        return INET_E_CODE_INSTALL_SUPPRESSED;
     }
+    private static final int INET_E_CODE_INSTALL_BLOCKED_BY_HASH_POLICY = (int)-2146695936L;
     /**
-     * {@snippet :
-     * #define EMARCH_ENC_I17_SIGN_VAL_POS_X 63
+     * {@snippet lang=c :
+     * #define INET_E_CODE_INSTALL_BLOCKED_BY_HASH_POLICY -2146695936
      * }
      */
-    public static int EMARCH_ENC_I17_SIGN_VAL_POS_X() {
-        return (int)63L;
+    public static int INET_E_CODE_INSTALL_BLOCKED_BY_HASH_POLICY() {
+        return INET_E_CODE_INSTALL_BLOCKED_BY_HASH_POLICY;
     }
+    private static final int INET_E_DOWNLOAD_BLOCKED_BY_INPRIVATE = (int)-2146695935L;
     /**
-     * {@snippet :
-     * #define X3_OPCODE_INST_WORD_X 3
+     * {@snippet lang=c :
+     * #define INET_E_DOWNLOAD_BLOCKED_BY_INPRIVATE -2146695935
      * }
      */
-    public static int X3_OPCODE_INST_WORD_X() {
-        return (int)3L;
+    public static int INET_E_DOWNLOAD_BLOCKED_BY_INPRIVATE() {
+        return INET_E_DOWNLOAD_BLOCKED_BY_INPRIVATE;
     }
+    private static final int INET_E_CODE_INSTALL_BLOCKED_IMMERSIVE = (int)-2146695934L;
     /**
-     * {@snippet :
-     * #define X3_OPCODE_SIZE_X 4
+     * {@snippet lang=c :
+     * #define INET_E_CODE_INSTALL_BLOCKED_IMMERSIVE -2146695934
      * }
      */
-    public static int X3_OPCODE_SIZE_X() {
-        return (int)4L;
+    public static int INET_E_CODE_INSTALL_BLOCKED_IMMERSIVE() {
+        return INET_E_CODE_INSTALL_BLOCKED_IMMERSIVE;
     }
+    private static final int INET_E_FORBIDFRAMING = (int)-2146695933L;
     /**
-     * {@snippet :
-     * #define X3_OPCODE_INST_WORD_POS_X 28
+     * {@snippet lang=c :
+     * #define INET_E_FORBIDFRAMING -2146695933
      * }
      */
-    public static int X3_OPCODE_INST_WORD_POS_X() {
-        return (int)28L;
+    public static int INET_E_FORBIDFRAMING() {
+        return INET_E_FORBIDFRAMING;
     }
+    private static final int INET_E_CODE_INSTALL_BLOCKED_ARM = (int)-2146695932L;
     /**
-     * {@snippet :
-     * #define X3_OPCODE_SIGN_VAL_POS_X 0
+     * {@snippet lang=c :
+     * #define INET_E_CODE_INSTALL_BLOCKED_ARM -2146695932
      * }
      */
-    public static int X3_OPCODE_SIGN_VAL_POS_X() {
-        return (int)0L;
+    public static int INET_E_CODE_INSTALL_BLOCKED_ARM() {
+        return INET_E_CODE_INSTALL_BLOCKED_ARM;
     }
+    private static final int INET_E_BLOCKED_PLUGGABLE_PROTOCOL = (int)-2146695931L;
     /**
-     * {@snippet :
-     * #define X3_I_INST_WORD_X 3
+     * {@snippet lang=c :
+     * #define INET_E_BLOCKED_PLUGGABLE_PROTOCOL -2146695931
      * }
      */
-    public static int X3_I_INST_WORD_X() {
-        return (int)3L;
+    public static int INET_E_BLOCKED_PLUGGABLE_PROTOCOL() {
+        return INET_E_BLOCKED_PLUGGABLE_PROTOCOL;
     }
+    private static final int INET_E_BLOCKED_ENHANCEDPROTECTEDMODE = (int)-2146695930L;
     /**
-     * {@snippet :
-     * #define X3_I_SIZE_X 1
+     * {@snippet lang=c :
+     * #define INET_E_BLOCKED_ENHANCEDPROTECTEDMODE -2146695930
      * }
      */
-    public static int X3_I_SIZE_X() {
-        return (int)1L;
+    public static int INET_E_BLOCKED_ENHANCEDPROTECTEDMODE() {
+        return INET_E_BLOCKED_ENHANCEDPROTECTEDMODE;
     }
+    private static final int INET_E_CODE_INSTALL_BLOCKED_BITNESS = (int)-2146695929L;
     /**
-     * {@snippet :
-     * #define X3_I_INST_WORD_POS_X 27
+     * {@snippet lang=c :
+     * #define INET_E_CODE_INSTALL_BLOCKED_BITNESS -2146695929
      * }
      */
-    public static int X3_I_INST_WORD_POS_X() {
-        return (int)27L;
+    public static int INET_E_CODE_INSTALL_BLOCKED_BITNESS() {
+        return INET_E_CODE_INSTALL_BLOCKED_BITNESS;
     }
+    private static final int INET_E_DOWNLOAD_BLOCKED_BY_CSP = (int)-2146695928L;
     /**
-     * {@snippet :
-     * #define X3_I_SIGN_VAL_POS_X 59
+     * {@snippet lang=c :
+     * #define INET_E_DOWNLOAD_BLOCKED_BY_CSP -2146695928
      * }
      */
-    public static int X3_I_SIGN_VAL_POS_X() {
-        return (int)59L;
+    public static int INET_E_DOWNLOAD_BLOCKED_BY_CSP() {
+        return INET_E_DOWNLOAD_BLOCKED_BY_CSP;
     }
+    private static final int INET_E_ERROR_LAST = (int)-2146695928L;
     /**
-     * {@snippet :
-     * #define X3_D_WH_INST_WORD_X 3
+     * {@snippet lang=c :
+     * #define INET_E_ERROR_LAST -2146695928
      * }
      */
-    public static int X3_D_WH_INST_WORD_X() {
-        return (int)3L;
+    public static int INET_E_ERROR_LAST() {
+        return INET_E_ERROR_LAST;
     }
+    private static final int Uri_HAS_ABSOLUTE_URI = (int)1L;
     /**
-     * {@snippet :
-     * #define X3_D_WH_SIZE_X 3
+     * {@snippet lang=c :
+     * #define Uri_HAS_ABSOLUTE_URI 1
      * }
      */
-    public static int X3_D_WH_SIZE_X() {
-        return (int)3L;
+    public static int Uri_HAS_ABSOLUTE_URI() {
+        return Uri_HAS_ABSOLUTE_URI;
     }
+    private static final int Uri_HAS_AUTHORITY = (int)2L;
     /**
-     * {@snippet :
-     * #define X3_D_WH_INST_WORD_POS_X 24
+     * {@snippet lang=c :
+     * #define Uri_HAS_AUTHORITY 2
      * }
      */
-    public static int X3_D_WH_INST_WORD_POS_X() {
-        return (int)24L;
+    public static int Uri_HAS_AUTHORITY() {
+        return Uri_HAS_AUTHORITY;
     }
+    private static final int Uri_HAS_DISPLAY_URI = (int)4L;
     /**
-     * {@snippet :
-     * #define X3_D_WH_SIGN_VAL_POS_X 0
+     * {@snippet lang=c :
+     * #define Uri_HAS_DISPLAY_URI 4
      * }
      */
-    public static int X3_D_WH_SIGN_VAL_POS_X() {
-        return (int)0L;
+    public static int Uri_HAS_DISPLAY_URI() {
+        return Uri_HAS_DISPLAY_URI;
     }
+    private static final int Uri_HAS_DOMAIN = (int)8L;
     /**
-     * {@snippet :
-     * #define X3_IMM20_INST_WORD_X 3
+     * {@snippet lang=c :
+     * #define Uri_HAS_DOMAIN 8
      * }
      */
-    public static int X3_IMM20_INST_WORD_X() {
-        return (int)3L;
+    public static int Uri_HAS_DOMAIN() {
+        return Uri_HAS_DOMAIN;
     }
+    private static final int Uri_HAS_EXTENSION = (int)16L;
     /**
-     * {@snippet :
-     * #define X3_IMM20_SIZE_X 20
+     * {@snippet lang=c :
+     * #define Uri_HAS_EXTENSION 16
      * }
      */
-    public static int X3_IMM20_SIZE_X() {
-        return (int)20L;
+    public static int Uri_HAS_EXTENSION() {
+        return Uri_HAS_EXTENSION;
     }
+    private static final int Uri_HAS_FRAGMENT = (int)32L;
     /**
-     * {@snippet :
-     * #define X3_IMM20_INST_WORD_POS_X 4
+     * {@snippet lang=c :
+     * #define Uri_HAS_FRAGMENT 32
      * }
      */
-    public static int X3_IMM20_INST_WORD_POS_X() {
-        return (int)4L;
+    public static int Uri_HAS_FRAGMENT() {
+        return Uri_HAS_FRAGMENT;
     }
+    private static final int Uri_HAS_HOST = (int)64L;
     /**
-     * {@snippet :
-     * #define X3_IMM20_SIGN_VAL_POS_X 0
+     * {@snippet lang=c :
+     * #define Uri_HAS_HOST 64
      * }
      */
-    public static int X3_IMM20_SIGN_VAL_POS_X() {
-        return (int)0L;
+    public static int Uri_HAS_HOST() {
+        return Uri_HAS_HOST;
     }
+    private static final int Uri_HAS_PASSWORD = (int)128L;
     /**
-     * {@snippet :
-     * #define X3_IMM39_1_INST_WORD_X 2
+     * {@snippet lang=c :
+     * #define Uri_HAS_PASSWORD 128
      * }
      */
-    public static int X3_IMM39_1_INST_WORD_X() {
-        return (int)2L;
+    public static int Uri_HAS_PASSWORD() {
+        return Uri_HAS_PASSWORD;
     }
+    private static final int Uri_HAS_PATH = (int)256L;
     /**
-     * {@snippet :
-     * #define X3_IMM39_1_SIZE_X 23
+     * {@snippet lang=c :
+     * #define Uri_HAS_PATH 256
      * }
      */
-    public static int X3_IMM39_1_SIZE_X() {
-        return (int)23L;
+    public static int Uri_HAS_PATH() {
+        return Uri_HAS_PATH;
     }
+    private static final int Uri_HAS_QUERY = (int)1024L;
     /**
-     * {@snippet :
-     * #define X3_IMM39_1_INST_WORD_POS_X 0
+     * {@snippet lang=c :
+     * #define Uri_HAS_QUERY 1024
      * }
      */
-    public static int X3_IMM39_1_INST_WORD_POS_X() {
-        return (int)0L;
+    public static int Uri_HAS_QUERY() {
+        return Uri_HAS_QUERY;
     }
+    private static final int Uri_HAS_RAW_URI = (int)2048L;
     /**
-     * {@snippet :
-     * #define X3_IMM39_1_SIGN_VAL_POS_X 36
+     * {@snippet lang=c :
+     * #define Uri_HAS_RAW_URI 2048
      * }
      */
-    public static int X3_IMM39_1_SIGN_VAL_POS_X() {
-        return (int)36L;
+    public static int Uri_HAS_RAW_URI() {
+        return Uri_HAS_RAW_URI;
     }
+    private static final int Uri_HAS_SCHEME_NAME = (int)4096L;
     /**
-     * {@snippet :
-     * #define X3_IMM39_2_INST_WORD_X 1
+     * {@snippet lang=c :
+     * #define Uri_HAS_SCHEME_NAME 4096
      * }
      */
-    public static int X3_IMM39_2_INST_WORD_X() {
-        return (int)1L;
+    public static int Uri_HAS_SCHEME_NAME() {
+        return Uri_HAS_SCHEME_NAME;
     }
+    private static final int Uri_HAS_USER_NAME = (int)16384L;
     /**
-     * {@snippet :
-     * #define X3_IMM39_2_SIZE_X 16
+     * {@snippet lang=c :
+     * #define Uri_HAS_USER_NAME 16384
      * }
      */
-    public static int X3_IMM39_2_SIZE_X() {
-        return (int)16L;
+    public static int Uri_HAS_USER_NAME() {
+        return Uri_HAS_USER_NAME;
     }
+    private static final int Uri_HAS_PATH_AND_QUERY = (int)512L;
     /**
-     * {@snippet :
-     * #define X3_IMM39_2_INST_WORD_POS_X 16
+     * {@snippet lang=c :
+     * #define Uri_HAS_PATH_AND_QUERY 512
      * }
      */
-    public static int X3_IMM39_2_INST_WORD_POS_X() {
-        return (int)16L;
+    public static int Uri_HAS_PATH_AND_QUERY() {
+        return Uri_HAS_PATH_AND_QUERY;
     }
+    private static final int Uri_HAS_USER_INFO = (int)8192L;
     /**
-     * {@snippet :
-     * #define X3_IMM39_2_SIGN_VAL_POS_X 20
+     * {@snippet lang=c :
+     * #define Uri_HAS_USER_INFO 8192
      * }
      */
-    public static int X3_IMM39_2_SIGN_VAL_POS_X() {
-        return (int)20L;
+    public static int Uri_HAS_USER_INFO() {
+        return Uri_HAS_USER_INFO;
     }
+    private static final int Uri_HAS_HOST_TYPE = (int)32768L;
     /**
-     * {@snippet :
-     * #define X3_P_INST_WORD_X 3
+     * {@snippet lang=c :
+     * #define Uri_HAS_HOST_TYPE 32768
      * }
      */
-    public static int X3_P_INST_WORD_X() {
-        return (int)3L;
+    public static int Uri_HAS_HOST_TYPE() {
+        return Uri_HAS_HOST_TYPE;
     }
+    private static final int Uri_HAS_PORT = (int)65536L;
     /**
-     * {@snippet :
-     * #define X3_P_SIZE_X 4
+     * {@snippet lang=c :
+     * #define Uri_HAS_PORT 65536
      * }
      */
-    public static int X3_P_SIZE_X() {
-        return (int)4L;
+    public static int Uri_HAS_PORT() {
+        return Uri_HAS_PORT;
     }
+    private static final int Uri_HAS_SCHEME = (int)131072L;
     /**
-     * {@snippet :
-     * #define X3_P_INST_WORD_POS_X 0
+     * {@snippet lang=c :
+     * #define Uri_HAS_SCHEME 131072
      * }
      */
-    public static int X3_P_INST_WORD_POS_X() {
-        return (int)0L;
+    public static int Uri_HAS_SCHEME() {
+        return Uri_HAS_SCHEME;
     }
+    private static final int Uri_HAS_ZONE = (int)262144L;
     /**
-     * {@snippet :
-     * #define X3_P_SIGN_VAL_POS_X 0
+     * {@snippet lang=c :
+     * #define Uri_HAS_ZONE 262144
      * }
      */
-    public static int X3_P_SIGN_VAL_POS_X() {
-        return (int)0L;
+    public static int Uri_HAS_ZONE() {
+        return Uri_HAS_ZONE;
     }
+    private static final int Uri_ENCODING_RFC = (int)41L;
     /**
-     * {@snippet :
-     * #define X3_TMPLT_INST_WORD_X 0
+     * {@snippet lang=c :
+     * #define Uri_ENCODING_RFC 41
      * }
      */
-    public static int X3_TMPLT_INST_WORD_X() {
-        return (int)0L;
+    public static int Uri_ENCODING_RFC() {
+        return Uri_ENCODING_RFC;
     }
+    private static final int PARSE_ENCODE = (int)7L;
     /**
-     * {@snippet :
-     * #define X3_TMPLT_SIZE_X 4
+     * {@snippet lang=c :
+     * #define PARSE_ENCODE 7
      * }
      */
-    public static int X3_TMPLT_SIZE_X() {
-        return (int)4L;
+    public static int PARSE_ENCODE() {
+        return PARSE_ENCODE;
     }
+    private static final int PARSE_DECODE = (int)8L;
     /**
-     * {@snippet :
-     * #define X3_TMPLT_INST_WORD_POS_X 0
+     * {@snippet lang=c :
+     * #define PARSE_DECODE 8
      * }
      */
-    public static int X3_TMPLT_INST_WORD_POS_X() {
-        return (int)0L;
+    public static int PARSE_DECODE() {
+        return PARSE_DECODE;
     }
+    private static final int INET_E_USE_DEFAULT_PROTOCOLHANDLER = (int)-2146697199L;
     /**
-     * {@snippet :
-     * #define X3_TMPLT_SIGN_VAL_POS_X 0
+     * {@snippet lang=c :
+     * #define INET_E_USE_DEFAULT_PROTOCOLHANDLER -2146697199
      * }
      */
-    public static int X3_TMPLT_SIGN_VAL_POS_X() {
-        return (int)0L;
+    public static int INET_E_USE_DEFAULT_PROTOCOLHANDLER() {
+        return INET_E_USE_DEFAULT_PROTOCOLHANDLER;
     }
+    private static final int INET_E_USE_DEFAULT_SETTING = (int)-2146697198L;
     /**
-     * {@snippet :
-     * #define X3_BTYPE_QP_INST_WORD_X 2
+     * {@snippet lang=c :
+     * #define INET_E_USE_DEFAULT_SETTING -2146697198
      * }
      */
-    public static int X3_BTYPE_QP_INST_WORD_X() {
-        return (int)2L;
+    public static int INET_E_USE_DEFAULT_SETTING() {
+        return INET_E_USE_DEFAULT_SETTING;
     }
+    private static final int INET_E_DEFAULT_ACTION = (int)-2146697199L;
     /**
-     * {@snippet :
-     * #define X3_BTYPE_QP_SIZE_X 9
+     * {@snippet lang=c :
+     * #define INET_E_DEFAULT_ACTION -2146697199
      * }
      */
-    public static int X3_BTYPE_QP_SIZE_X() {
-        return (int)9L;
+    public static int INET_E_DEFAULT_ACTION() {
+        return INET_E_DEFAULT_ACTION;
     }
+    private static final int INET_E_QUERYOPTION_UNKNOWN = (int)-2146697197L;
     /**
-     * {@snippet :
-     * #define X3_BTYPE_QP_INST_WORD_POS_X 23
+     * {@snippet lang=c :
+     * #define INET_E_QUERYOPTION_UNKNOWN -2146697197
      * }
      */
-    public static int X3_BTYPE_QP_INST_WORD_POS_X() {
-        return (int)23L;
+    public static int INET_E_QUERYOPTION_UNKNOWN() {
+        return INET_E_QUERYOPTION_UNKNOWN;
     }
+    private static final int INET_E_REDIRECTING = (int)-2146697196L;
     /**
-     * {@snippet :
-     * #define X3_BTYPE_QP_INST_VAL_POS_X 0
+     * {@snippet lang=c :
+     * #define INET_E_REDIRECTING -2146697196
      * }
      */
-    public static int X3_BTYPE_QP_INST_VAL_POS_X() {
-        return (int)0L;
+    public static int INET_E_REDIRECTING() {
+        return INET_E_REDIRECTING;
     }
+    private static final int PIDDI_THUMBNAIL = (int)2L;
     /**
-     * {@snippet :
-     * #define X3_EMPTY_INST_WORD_X 1
+     * {@snippet lang=c :
+     * #define PIDDI_THUMBNAIL 2
      * }
      */
-    public static int X3_EMPTY_INST_WORD_X() {
-        return (int)1L;
+    public static int PIDDI_THUMBNAIL() {
+        return PIDDI_THUMBNAIL;
     }
+    private static final int PIDSI_TITLE = (int)2L;
     /**
-     * {@snippet :
-     * #define X3_EMPTY_SIZE_X 2
+     * {@snippet lang=c :
+     * #define PIDSI_TITLE 2
      * }
      */
-    public static int X3_EMPTY_SIZE_X() {
-        return (int)2L;
+    public static int PIDSI_TITLE() {
+        return PIDSI_TITLE;
     }
+    private static final int PIDSI_SUBJECT = (int)3L;
     /**
-     * {@snippet :
-     * #define X3_EMPTY_INST_WORD_POS_X 14
+     * {@snippet lang=c :
+     * #define PIDSI_SUBJECT 3
      * }
      */
-    public static int X3_EMPTY_INST_WORD_POS_X() {
-        return (int)14L;
+    public static int PIDSI_SUBJECT() {
+        return PIDSI_SUBJECT;
     }
+    private static final int PIDSI_AUTHOR = (int)4L;
     /**
-     * {@snippet :
-     * #define X3_EMPTY_INST_VAL_POS_X 0
+     * {@snippet lang=c :
+     * #define PIDSI_AUTHOR 4
      * }
      */
-    public static int X3_EMPTY_INST_VAL_POS_X() {
-        return (int)0L;
+    public static int PIDSI_AUTHOR() {
+        return PIDSI_AUTHOR;
     }
+    private static final int PIDSI_KEYWORDS = (int)5L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_ABSOLUTE 0
+     * {@snippet lang=c :
+     * #define PIDSI_KEYWORDS 5
      * }
      */
-    public static int IMAGE_REL_BASED_ABSOLUTE() {
-        return (int)0L;
+    public static int PIDSI_KEYWORDS() {
+        return PIDSI_KEYWORDS;
     }
+    private static final int PIDSI_COMMENTS = (int)6L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_HIGH 1
+     * {@snippet lang=c :
+     * #define PIDSI_COMMENTS 6
      * }
      */
-    public static int IMAGE_REL_BASED_HIGH() {
-        return (int)1L;
+    public static int PIDSI_COMMENTS() {
+        return PIDSI_COMMENTS;
     }
+    private static final int PIDSI_TEMPLATE = (int)7L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_LOW 2
+     * {@snippet lang=c :
+     * #define PIDSI_TEMPLATE 7
      * }
      */
-    public static int IMAGE_REL_BASED_LOW() {
-        return (int)2L;
+    public static int PIDSI_TEMPLATE() {
+        return PIDSI_TEMPLATE;
     }
+    private static final int PIDSI_LASTAUTHOR = (int)8L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_HIGHLOW 3
+     * {@snippet lang=c :
+     * #define PIDSI_LASTAUTHOR 8
      * }
      */
-    public static int IMAGE_REL_BASED_HIGHLOW() {
-        return (int)3L;
+    public static int PIDSI_LASTAUTHOR() {
+        return PIDSI_LASTAUTHOR;
     }
+    private static final int PIDSI_REVNUMBER = (int)9L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_HIGHADJ 4
+     * {@snippet lang=c :
+     * #define PIDSI_REVNUMBER 9
      * }
      */
-    public static int IMAGE_REL_BASED_HIGHADJ() {
-        return (int)4L;
+    public static int PIDSI_REVNUMBER() {
+        return PIDSI_REVNUMBER;
     }
+    private static final int PIDSI_EDITTIME = (int)10L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_MACHINE_SPECIFIC_5 5
+     * {@snippet lang=c :
+     * #define PIDSI_EDITTIME 10
      * }
      */
-    public static int IMAGE_REL_BASED_MACHINE_SPECIFIC_5() {
-        return (int)5L;
+    public static int PIDSI_EDITTIME() {
+        return PIDSI_EDITTIME;
     }
+    private static final int PIDSI_LASTPRINTED = (int)11L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_RESERVED 6
+     * {@snippet lang=c :
+     * #define PIDSI_LASTPRINTED 11
      * }
      */
-    public static int IMAGE_REL_BASED_RESERVED() {
-        return (int)6L;
+    public static int PIDSI_LASTPRINTED() {
+        return PIDSI_LASTPRINTED;
     }
+    private static final int PIDSI_CREATE_DTM = (int)12L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_MACHINE_SPECIFIC_7 7
+     * {@snippet lang=c :
+     * #define PIDSI_CREATE_DTM 12
      * }
      */
-    public static int IMAGE_REL_BASED_MACHINE_SPECIFIC_7() {
-        return (int)7L;
+    public static int PIDSI_CREATE_DTM() {
+        return PIDSI_CREATE_DTM;
     }
+    private static final int PIDSI_LASTSAVE_DTM = (int)13L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_MACHINE_SPECIFIC_8 8
+     * {@snippet lang=c :
+     * #define PIDSI_LASTSAVE_DTM 13
      * }
      */
-    public static int IMAGE_REL_BASED_MACHINE_SPECIFIC_8() {
-        return (int)8L;
+    public static int PIDSI_LASTSAVE_DTM() {
+        return PIDSI_LASTSAVE_DTM;
     }
+    private static final int PIDSI_PAGECOUNT = (int)14L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_MACHINE_SPECIFIC_9 9
+     * {@snippet lang=c :
+     * #define PIDSI_PAGECOUNT 14
      * }
      */
-    public static int IMAGE_REL_BASED_MACHINE_SPECIFIC_9() {
-        return (int)9L;
+    public static int PIDSI_PAGECOUNT() {
+        return PIDSI_PAGECOUNT;
     }
+    private static final int PIDSI_WORDCOUNT = (int)15L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_DIR64 10
+     * {@snippet lang=c :
+     * #define PIDSI_WORDCOUNT 15
      * }
      */
-    public static int IMAGE_REL_BASED_DIR64() {
-        return (int)10L;
+    public static int PIDSI_WORDCOUNT() {
+        return PIDSI_WORDCOUNT;
     }
+    private static final int PIDSI_CHARCOUNT = (int)16L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_IA64_IMM64 9
+     * {@snippet lang=c :
+     * #define PIDSI_CHARCOUNT 16
      * }
      */
-    public static int IMAGE_REL_BASED_IA64_IMM64() {
-        return (int)9L;
+    public static int PIDSI_CHARCOUNT() {
+        return PIDSI_CHARCOUNT;
     }
+    private static final int PIDSI_THUMBNAIL = (int)17L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_MIPS_JMPADDR 5
+     * {@snippet lang=c :
+     * #define PIDSI_THUMBNAIL 17
      * }
      */
-    public static int IMAGE_REL_BASED_MIPS_JMPADDR() {
-        return (int)5L;
+    public static int PIDSI_THUMBNAIL() {
+        return PIDSI_THUMBNAIL;
     }
+    private static final int PIDSI_APPNAME = (int)18L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_MIPS_JMPADDR16 9
+     * {@snippet lang=c :
+     * #define PIDSI_APPNAME 18
      * }
      */
-    public static int IMAGE_REL_BASED_MIPS_JMPADDR16() {
-        return (int)9L;
+    public static int PIDSI_APPNAME() {
+        return PIDSI_APPNAME;
     }
+    private static final int PIDSI_DOC_SECURITY = (int)19L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_ARM_MOV32 5
+     * {@snippet lang=c :
+     * #define PIDSI_DOC_SECURITY 19
      * }
      */
-    public static int IMAGE_REL_BASED_ARM_MOV32() {
-        return (int)5L;
+    public static int PIDSI_DOC_SECURITY() {
+        return PIDSI_DOC_SECURITY;
     }
+    private static final int PIDMSI_EDITOR = (int)2L;
     /**
-     * {@snippet :
-     * #define IMAGE_REL_BASED_THUMB_MOV32 7
+     * {@snippet lang=c :
+     * #define PIDMSI_EDITOR 2
      * }
      */
-    public static int IMAGE_REL_BASED_THUMB_MOV32() {
-        return (int)7L;
+    public static int PIDMSI_EDITOR() {
+        return PIDMSI_EDITOR;
     }
+    private static final int PIDMSI_SUPPLIER = (int)3L;
     /**
-     * {@snippet :
-     * #define IMAGE_ARCHIVE_START_SIZE 8
+     * {@snippet lang=c :
+     * #define PIDMSI_SUPPLIER 3
      * }
      */
-    public static int IMAGE_ARCHIVE_START_SIZE() {
-        return (int)8L;
+    public static int PIDMSI_SUPPLIER() {
+        return PIDMSI_SUPPLIER;
     }
+    private static final int PIDMSI_SOURCE = (int)4L;
     /**
-     * {@snippet :
-     * #define IMAGE_SIZEOF_ARCHIVE_MEMBER_HDR 60
+     * {@snippet lang=c :
+     * #define PIDMSI_SOURCE 4
      * }
      */
-    public static int IMAGE_SIZEOF_ARCHIVE_MEMBER_HDR() {
-        return (int)60L;
+    public static int PIDMSI_SOURCE() {
+        return PIDMSI_SOURCE;
     }
+    private static final int PIDMSI_SEQUENCE_NO = (int)5L;
     /**
-     * {@snippet :
-     * #define IMAGE_DYNAMIC_RELOCATION_GUARD_RF_PROLOGUE 1
+     * {@snippet lang=c :
+     * #define PIDMSI_SEQUENCE_NO 5
      * }
      */
-    public static int IMAGE_DYNAMIC_RELOCATION_GUARD_RF_PROLOGUE() {
-        return (int)1L;
+    public static int PIDMSI_SEQUENCE_NO() {
+        return PIDMSI_SEQUENCE_NO;
     }
+    private static final int PIDMSI_PROJECT = (int)6L;
     /**
-     * {@snippet :
-     * #define IMAGE_DYNAMIC_RELOCATION_GUARD_RF_EPILOGUE 2
+     * {@snippet lang=c :
+     * #define PIDMSI_PROJECT 6
      * }
      */
-    public static int IMAGE_DYNAMIC_RELOCATION_GUARD_RF_EPILOGUE() {
-        return (int)2L;
+    public static int PIDMSI_PROJECT() {
+        return PIDMSI_PROJECT;
     }
+    private static final int PIDMSI_STATUS = (int)7L;
     /**
-     * {@snippet :
-     * #define IMAGE_DYNAMIC_RELOCATION_GUARD_IMPORT_CONTROL_TRANSFER 3
+     * {@snippet lang=c :
+     * #define PIDMSI_STATUS 7
      * }
      */
-    public static int IMAGE_DYNAMIC_RELOCATION_GUARD_IMPORT_CONTROL_TRANSFER() {
-        return (int)3L;
+    public static int PIDMSI_STATUS() {
+        return PIDMSI_STATUS;
     }
+    private static final int PIDMSI_OWNER = (int)8L;
     /**
-     * {@snippet :
-     * #define IMAGE_DYNAMIC_RELOCATION_GUARD_INDIR_CONTROL_TRANSFER 4
+     * {@snippet lang=c :
+     * #define PIDMSI_OWNER 8
      * }
      */
-    public static int IMAGE_DYNAMIC_RELOCATION_GUARD_INDIR_CONTROL_TRANSFER() {
-        return (int)4L;
+    public static int PIDMSI_OWNER() {
+        return PIDMSI_OWNER;
     }
+    private static final int PIDMSI_RATING = (int)9L;
     /**
-     * {@snippet :
-     * #define IMAGE_DYNAMIC_RELOCATION_GUARD_SWITCHTABLE_BRANCH 5
+     * {@snippet lang=c :
+     * #define PIDMSI_RATING 9
      * }
      */
-    public static int IMAGE_DYNAMIC_RELOCATION_GUARD_SWITCHTABLE_BRANCH() {
-        return (int)5L;
+    public static int PIDMSI_RATING() {
+        return PIDMSI_RATING;
     }
+    private static final int PIDMSI_PRODUCTION = (int)10L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_BASE_OBLIGATORY 1
+     * {@snippet lang=c :
+     * #define PIDMSI_PRODUCTION 10
      * }
      */
-    public static int IMAGE_HOT_PATCH_BASE_OBLIGATORY() {
-        return (int)1L;
+    public static int PIDMSI_PRODUCTION() {
+        return PIDMSI_PRODUCTION;
     }
+    private static final int PIDMSI_COPYRIGHT = (int)11L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_BASE_CAN_ROLL_BACK 2
+     * {@snippet lang=c :
+     * #define PIDMSI_COPYRIGHT 11
      * }
      */
-    public static int IMAGE_HOT_PATCH_BASE_CAN_ROLL_BACK() {
-        return (int)2L;
+    public static int PIDMSI_COPYRIGHT() {
+        return PIDMSI_COPYRIGHT;
     }
+    private static final int VAR_TIMEVALUEONLY = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_CHUNK_OBLIGATORY 1073741824
+     * {@snippet lang=c :
+     * #define VAR_TIMEVALUEONLY 1
      * }
      */
-    public static int IMAGE_HOT_PATCH_CHUNK_OBLIGATORY() {
-        return (int)1073741824L;
+    public static int VAR_TIMEVALUEONLY() {
+        return VAR_TIMEVALUEONLY;
     }
+    private static final int VAR_DATEVALUEONLY = (int)2L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_CHUNK_RESERVED 1072705536
+     * {@snippet lang=c :
+     * #define VAR_DATEVALUEONLY 2
      * }
      */
-    public static int IMAGE_HOT_PATCH_CHUNK_RESERVED() {
-        return (int)1072705536L;
+    public static int VAR_DATEVALUEONLY() {
+        return VAR_DATEVALUEONLY;
     }
+    private static final int VAR_VALIDDATE = (int)4L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_CHUNK_TYPE 1032192
+     * {@snippet lang=c :
+     * #define VAR_VALIDDATE 4
      * }
      */
-    public static int IMAGE_HOT_PATCH_CHUNK_TYPE() {
-        return (int)1032192L;
+    public static int VAR_VALIDDATE() {
+        return VAR_VALIDDATE;
     }
+    private static final int VAR_CALENDAR_HIJRI = (int)8L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_CHUNK_SOURCE_RVA 32768
+     * {@snippet lang=c :
+     * #define VAR_CALENDAR_HIJRI 8
      * }
      */
-    public static int IMAGE_HOT_PATCH_CHUNK_SOURCE_RVA() {
-        return (int)32768L;
+    public static int VAR_CALENDAR_HIJRI() {
+        return VAR_CALENDAR_HIJRI;
     }
+    private static final int VAR_LOCALBOOL = (int)16L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_CHUNK_TARGET_RVA 16384
+     * {@snippet lang=c :
+     * #define VAR_LOCALBOOL 16
      * }
      */
-    public static int IMAGE_HOT_PATCH_CHUNK_TARGET_RVA() {
-        return (int)16384L;
+    public static int VAR_LOCALBOOL() {
+        return VAR_LOCALBOOL;
     }
+    private static final int VAR_FORMAT_NOSUBSTITUTE = (int)32L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_CHUNK_SIZE 4095
+     * {@snippet lang=c :
+     * #define VAR_FORMAT_NOSUBSTITUTE 32
      * }
      */
-    public static int IMAGE_HOT_PATCH_CHUNK_SIZE() {
-        return (int)4095L;
+    public static int VAR_FORMAT_NOSUBSTITUTE() {
+        return VAR_FORMAT_NOSUBSTITUTE;
     }
+    private static final int VAR_FOURDIGITYEARS = (int)64L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_NONE 0
+     * {@snippet lang=c :
+     * #define VAR_FOURDIGITYEARS 64
      * }
      */
-    public static int IMAGE_HOT_PATCH_NONE() {
-        return (int)0L;
+    public static int VAR_FOURDIGITYEARS() {
+        return VAR_FOURDIGITYEARS;
     }
+    private static final int VAR_CALENDAR_THAI = (int)128L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_FUNCTION 114688
+     * {@snippet lang=c :
+     * #define VAR_CALENDAR_THAI 128
      * }
      */
-    public static int IMAGE_HOT_PATCH_FUNCTION() {
-        return (int)114688L;
+    public static int VAR_CALENDAR_THAI() {
+        return VAR_CALENDAR_THAI;
     }
+    private static final int VAR_CALENDAR_GREGORIAN = (int)256L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_ABSOLUTE 180224
+     * {@snippet lang=c :
+     * #define VAR_CALENDAR_GREGORIAN 256
      * }
      */
-    public static int IMAGE_HOT_PATCH_ABSOLUTE() {
-        return (int)180224L;
+    public static int VAR_CALENDAR_GREGORIAN() {
+        return VAR_CALENDAR_GREGORIAN;
     }
+    private static final int VTDATEGRE_MIN = (int)-657434L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_REL32 245760
+     * {@snippet lang=c :
+     * #define VTDATEGRE_MIN -657434
      * }
      */
-    public static int IMAGE_HOT_PATCH_REL32() {
-        return (int)245760L;
+    public static int VTDATEGRE_MIN() {
+        return VTDATEGRE_MIN;
     }
+    private static final int VTBIT_I1 = (int)65536L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_CALL_TARGET 278528
+     * {@snippet lang=c :
+     * #define VTBIT_I1 65536
      * }
      */
-    public static int IMAGE_HOT_PATCH_CALL_TARGET() {
-        return (int)278528L;
+    public static int VTBIT_I1() {
+        return VTBIT_I1;
     }
+    private static final int VTBIT_UI1 = (int)131072L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_INDIRECT 376832
+     * {@snippet lang=c :
+     * #define VTBIT_UI1 131072
      * }
      */
-    public static int IMAGE_HOT_PATCH_INDIRECT() {
-        return (int)376832L;
+    public static int VTBIT_UI1() {
+        return VTBIT_UI1;
     }
+    private static final int VTBIT_I2 = (int)4L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_NO_CALL_TARGET 409600
+     * {@snippet lang=c :
+     * #define VTBIT_I2 4
      * }
      */
-    public static int IMAGE_HOT_PATCH_NO_CALL_TARGET() {
-        return (int)409600L;
+    public static int VTBIT_I2() {
+        return VTBIT_I2;
     }
+    private static final int VTBIT_UI2 = (int)262144L;
     /**
-     * {@snippet :
-     * #define IMAGE_HOT_PATCH_DYNAMIC_VALUE 491520
+     * {@snippet lang=c :
+     * #define VTBIT_UI2 262144
      * }
      */
-    public static int IMAGE_HOT_PATCH_DYNAMIC_VALUE() {
-        return (int)491520L;
+    public static int VTBIT_UI2() {
+        return VTBIT_UI2;
     }
+    private static final int VTBIT_I4 = (int)8L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_CF_INSTRUMENTED 256
+     * {@snippet lang=c :
+     * #define VTBIT_I4 8
      * }
      */
-    public static int IMAGE_GUARD_CF_INSTRUMENTED() {
-        return (int)256L;
+    public static int VTBIT_I4() {
+        return VTBIT_I4;
     }
+    private static final int VTBIT_UI4 = (int)524288L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_CFW_INSTRUMENTED 512
+     * {@snippet lang=c :
+     * #define VTBIT_UI4 524288
      * }
      */
-    public static int IMAGE_GUARD_CFW_INSTRUMENTED() {
-        return (int)512L;
+    public static int VTBIT_UI4() {
+        return VTBIT_UI4;
     }
+    private static final int VTBIT_I8 = (int)1048576L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_CF_FUNCTION_TABLE_PRESENT 1024
+     * {@snippet lang=c :
+     * #define VTBIT_I8 1048576
      * }
      */
-    public static int IMAGE_GUARD_CF_FUNCTION_TABLE_PRESENT() {
-        return (int)1024L;
+    public static int VTBIT_I8() {
+        return VTBIT_I8;
     }
+    private static final int VTBIT_UI8 = (int)2097152L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_SECURITY_COOKIE_UNUSED 2048
+     * {@snippet lang=c :
+     * #define VTBIT_UI8 2097152
      * }
      */
-    public static int IMAGE_GUARD_SECURITY_COOKIE_UNUSED() {
-        return (int)2048L;
+    public static int VTBIT_UI8() {
+        return VTBIT_UI8;
     }
+    private static final int VTBIT_R4 = (int)16L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_PROTECT_DELAYLOAD_IAT 4096
+     * {@snippet lang=c :
+     * #define VTBIT_R4 16
      * }
      */
-    public static int IMAGE_GUARD_PROTECT_DELAYLOAD_IAT() {
-        return (int)4096L;
+    public static int VTBIT_R4() {
+        return VTBIT_R4;
     }
+    private static final int VTBIT_R8 = (int)32L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_DELAYLOAD_IAT_IN_ITS_OWN_SECTION 8192
+     * {@snippet lang=c :
+     * #define VTBIT_R8 32
      * }
      */
-    public static int IMAGE_GUARD_DELAYLOAD_IAT_IN_ITS_OWN_SECTION() {
-        return (int)8192L;
+    public static int VTBIT_R8() {
+        return VTBIT_R8;
     }
+    private static final int VTBIT_CY = (int)64L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_CF_EXPORT_SUPPRESSION_INFO_PRESENT 16384
+     * {@snippet lang=c :
+     * #define VTBIT_CY 64
      * }
      */
-    public static int IMAGE_GUARD_CF_EXPORT_SUPPRESSION_INFO_PRESENT() {
-        return (int)16384L;
+    public static int VTBIT_CY() {
+        return VTBIT_CY;
     }
+    private static final int VTBIT_DECIMAL = (int)16384L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_CF_ENABLE_EXPORT_SUPPRESSION 32768
+     * {@snippet lang=c :
+     * #define VTBIT_DECIMAL 16384
      * }
      */
-    public static int IMAGE_GUARD_CF_ENABLE_EXPORT_SUPPRESSION() {
-        return (int)32768L;
+    public static int VTBIT_DECIMAL() {
+        return VTBIT_DECIMAL;
     }
+    private static final int VT_HARDTYPE = (int)32768L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_CF_LONGJUMP_TABLE_PRESENT 65536
+     * {@snippet lang=c :
+     * #define VT_HARDTYPE 32768
      * }
      */
-    public static int IMAGE_GUARD_CF_LONGJUMP_TABLE_PRESENT() {
-        return (int)65536L;
+    public static int VT_HARDTYPE() {
+        return VT_HARDTYPE;
     }
+    private static final int MEMBERID_NIL = (int)-1L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_RF_INSTRUMENTED 131072
+     * {@snippet lang=c :
+     * #define MEMBERID_NIL -1
      * }
      */
-    public static int IMAGE_GUARD_RF_INSTRUMENTED() {
-        return (int)131072L;
+    public static int MEMBERID_NIL() {
+        return MEMBERID_NIL;
     }
+    private static final int ID_DEFAULTINST = (int)-2L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_RF_ENABLE 262144
+     * {@snippet lang=c :
+     * #define ID_DEFAULTINST -2
      * }
      */
-    public static int IMAGE_GUARD_RF_ENABLE() {
-        return (int)262144L;
+    public static int ID_DEFAULTINST() {
+        return ID_DEFAULTINST;
     }
+    private static final int MASK_TO_RESET_TLB_BITS = (int)-97L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_RF_STRICT 524288
+     * {@snippet lang=c :
+     * #define MASK_TO_RESET_TLB_BITS -97
      * }
      */
-    public static int IMAGE_GUARD_RF_STRICT() {
-        return (int)524288L;
+    public static int MASK_TO_RESET_TLB_BITS() {
+        return MASK_TO_RESET_TLB_BITS;
     }
+    private static final int E_DRAW = (int)-2147221184L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_RETPOLINE_PRESENT 1048576
+     * {@snippet lang=c :
+     * #define E_DRAW -2147221184
      * }
      */
-    public static int IMAGE_GUARD_RETPOLINE_PRESENT() {
-        return (int)1048576L;
+    public static int E_DRAW() {
+        return E_DRAW;
     }
+    private static final int DATA_E_FORMATETC = (int)-2147221404L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_EH_CONTINUATION_TABLE_PRESENT 4194304
+     * {@snippet lang=c :
+     * #define DATA_E_FORMATETC -2147221404
      * }
      */
-    public static int IMAGE_GUARD_EH_CONTINUATION_TABLE_PRESENT() {
-        return (int)4194304L;
+    public static int DATA_E_FORMATETC() {
+        return DATA_E_FORMATETC;
     }
+    private static final int OLEIVERB_PRIMARY = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_XFG_ENABLED 8388608
+     * {@snippet lang=c :
+     * #define OLEIVERB_PRIMARY 0
      * }
      */
-    public static int IMAGE_GUARD_XFG_ENABLED() {
-        return (int)8388608L;
+    public static int OLEIVERB_PRIMARY() {
+        return OLEIVERB_PRIMARY;
     }
+    private static final int OLEIVERB_SHOW = (int)-1L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_SHIFT 28
+     * {@snippet lang=c :
+     * #define OLEIVERB_SHOW -1
      * }
      */
-    public static int IMAGE_GUARD_CF_FUNCTION_TABLE_SIZE_SHIFT() {
-        return (int)28L;
+    public static int OLEIVERB_SHOW() {
+        return OLEIVERB_SHOW;
     }
+    private static final int OLEIVERB_OPEN = (int)-2L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_FLAG_FID_SUPPRESSED 1
+     * {@snippet lang=c :
+     * #define OLEIVERB_OPEN -2
      * }
      */
-    public static int IMAGE_GUARD_FLAG_FID_SUPPRESSED() {
-        return (int)1L;
+    public static int OLEIVERB_OPEN() {
+        return OLEIVERB_OPEN;
     }
+    private static final int OLEIVERB_HIDE = (int)-3L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_FLAG_EXPORT_SUPPRESSED 2
+     * {@snippet lang=c :
+     * #define OLEIVERB_HIDE -3
      * }
      */
-    public static int IMAGE_GUARD_FLAG_EXPORT_SUPPRESSED() {
-        return (int)2L;
+    public static int OLEIVERB_HIDE() {
+        return OLEIVERB_HIDE;
     }
+    private static final int OLEIVERB_UIACTIVATE = (int)-4L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_FLAG_FID_LANGEXCPTHANDLER 4
+     * {@snippet lang=c :
+     * #define OLEIVERB_UIACTIVATE -4
      * }
      */
-    public static int IMAGE_GUARD_FLAG_FID_LANGEXCPTHANDLER() {
-        return (int)4L;
+    public static int OLEIVERB_UIACTIVATE() {
+        return OLEIVERB_UIACTIVATE;
     }
+    private static final int OLEIVERB_INPLACEACTIVATE = (int)-5L;
     /**
-     * {@snippet :
-     * #define IMAGE_GUARD_FLAG_FID_XFG 8
+     * {@snippet lang=c :
+     * #define OLEIVERB_INPLACEACTIVATE -5
      * }
      */
-    public static int IMAGE_GUARD_FLAG_FID_XFG() {
-        return (int)8L;
+    public static int OLEIVERB_INPLACEACTIVATE() {
+        return OLEIVERB_INPLACEACTIVATE;
     }
+    private static final int OLEIVERB_DISCARDUNDOSTATE = (int)-6L;
     /**
-     * {@snippet :
-     * #define IMAGE_ENCLAVE_POLICY_DEBUGGABLE 1
+     * {@snippet lang=c :
+     * #define OLEIVERB_DISCARDUNDOSTATE -6
      * }
      */
-    public static int IMAGE_ENCLAVE_POLICY_DEBUGGABLE() {
-        return (int)1L;
+    public static int OLEIVERB_DISCARDUNDOSTATE() {
+        return OLEIVERB_DISCARDUNDOSTATE;
     }
+    private static final int EMBDHLP_INPROC_HANDLER = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_ENCLAVE_FLAG_PRIMARY_IMAGE 1
+     * {@snippet lang=c :
+     * #define EMBDHLP_INPROC_HANDLER 0
      * }
      */
-    public static int IMAGE_ENCLAVE_FLAG_PRIMARY_IMAGE() {
-        return (int)1L;
+    public static int EMBDHLP_INPROC_HANDLER() {
+        return EMBDHLP_INPROC_HANDLER;
     }
+    private static final int EMBDHLP_INPROC_SERVER = (int)1L;
     /**
-     * {@snippet :
-     * #define IMAGE_ENCLAVE_IMPORT_MATCH_NONE 0
+     * {@snippet lang=c :
+     * #define EMBDHLP_INPROC_SERVER 1
      * }
      */
-    public static int IMAGE_ENCLAVE_IMPORT_MATCH_NONE() {
-        return (int)0L;
+    public static int EMBDHLP_INPROC_SERVER() {
+        return EMBDHLP_INPROC_SERVER;
     }
+    private static final int EMBDHLP_CREATENOW = (int)0L;
     /**
-     * {@snippet :
-     * #define IMAGE_ENCLAVE_IMPORT_MATCH_UNIQUE_ID 1
+     * {@snippet lang=c :
+     * #define EMBDHLP_CREATENOW 0
      * }
      */
-    public static int IMAGE_ENCLAVE_IMPORT_MATCH_UNIQUE_ID() {
-        return (int)1L;
+    public static int EMBDHLP_CREATENOW() {
+        return EMBDHLP_CREATENOW;
     }
+    private static final int EMBDHLP_DELAYCREATE = (int)65536L;
     /**
-     * {@snippet :
-     * #define IMAGE_ENCLAVE_IMPORT_MATCH_AUTHOR_ID 2
+     * {@snippet lang=c :
+     * #define EMBDHLP_DELAYCREATE 65536
      * }
      */
-    public static int IMAGE_ENCLAVE_IMPORT_MATCH_AUTHOR_ID() {
-        return (int)2L;
+    public static int EMBDHLP_DELAYCREATE() {
+        return EMBDHLP_DELAYCREATE;
     }
+    private static final long OPENFILENAME_SIZE_VERSION_400A = 136L;
     /**
-     * {@snippet :
-     * #define IMAGE_ENCLAVE_IMPORT_MATCH_FAMILY_ID 3
+     * {@snippet lang=c :
+     * #define OPENFILENAME_SIZE_VERSION_400A 136
      * }
      */
-    public static int IMAGE_ENCLAVE_IMPORT_MATCH_FAMILY_ID() {
-        return (int)3L;
+    public static long OPENFILENAME_SIZE_VERSION_400A() {
+        return OPENFILENAME_SIZE_VERSION_400A;
     }
+    private static final long OPENFILENAME_SIZE_VERSION_400W = 136L;
     /**
-     * {@snippet :
-     * #define IMAGE_ENCLAVE_IMPORT_MATCH_IMAGE_ID 4
+     * {@snippet lang=c :
+     * #define OPENFILENAME_SIZE_VERSION_400W 136
      * }
      */
-    public static int IMAGE_ENCLAVE_IMPORT_MATCH_IMAGE_ID() {
-        return (int)4L;
+    public static long OPENFILENAME_SIZE_VERSION_400W() {
+        return OPENFILENAME_SIZE_VERSION_400W;
     }
+    private static final long OPENFILENAME_SIZE_VERSION_400 = 136L;
     /**
-     * {@snippet :
-     * #define IMAGE_DEBUG_TYPE_UNKNOWN 0
+     * {@snippet lang=c :
+     * #define OPENFILENAME_SIZE_VERSION_400 136
      * }
      */
-    public static int IMAGE_DEBUG_TYPE_UNKNOWN() {
-        return (int)0L;
+    public static long OPENFILENAME_SIZE_VERSION_400() {
+        return OPENFILENAME_SIZE_VERSION_400;
     }
+    private static final int CDN_FIRST = (int)4294966695L;
     /**
-     * {@snippet :
-     * #define IMAGE_DEBUG_TYPE_COFF 1
+     * {@snippet lang=c :
+     * #define CDN_FIRST 4294966695
      * }
      */
-    public static int IMAGE_DEBUG_TYPE_COFF() {
-        return (int)1L;
+    public static int CDN_FIRST() {
+        return CDN_FIRST;
     }
+    private static final int CDN_LAST = (int)4294966597L;
     /**
-     * {@snippet :
-     * #define IMAGE_DEBUG_TYPE_CODEVIEW 2
+     * {@snippet lang=c :
+     * #define CDN_LAST 4294966597
      * }
      */
-    public static int IMAGE_DEBUG_TYPE_CODEVIEW() {
-        return (int)2L;
+    public static int CDN_LAST() {
+        return CDN_LAST;
     }
+    private static final int CDN_INITDONE = (int)4294966695L;
     /**
-     * {@snippet :
-     * #define IMAGE_DEBUG_TYPE_FPO 3
+     * {@snippet lang=c :
+     * #define CDN_INITDONE 4294966695
      * }
      */
-    public static int IMAGE_DEBUG_TYPE_FPO() {
-        return (int)3L;
+    public static int CDN_INITDONE() {
+        return CDN_INITDONE;
     }
+    private static final int CDN_SELCHANGE = (int)4294966694L;
     /**
-     * {@snippet :
-     * #define IMAGE_DEBUG_TYPE_MISC 4
+     * {@snippet lang=c :
+     * #define CDN_SELCHANGE 4294966694
      * }
      */
-    public static int IMAGE_DEBUG_TYPE_MISC() {
-        return (int)4L;
+    public static int CDN_SELCHANGE() {
+        return CDN_SELCHANGE;
     }
+    private static final int CDN_FOLDERCHANGE = (int)4294966693L;
     /**
-     * {@snippet :
-     * #define IMAGE_DEBUG_TYPE_EXCEPTION 5
+     * {@snippet lang=c :
+     * #define CDN_FOLDERCHANGE 4294966693
      * }
      */
-    public static int IMAGE_DEBUG_TYPE_EXCEPTION() {
-        return (int)5L;
+    public static int CDN_FOLDERCHANGE() {
+        return CDN_FOLDERCHANGE;
     }
+    private static final int CDN_SHAREVIOLATION = (int)4294966692L;
     /**
-     * {@snippet :
-     * #define IMAGE_DEBUG_TYPE_FIXUP 6
+     * {@snippet lang=c :
+     * #define CDN_SHAREVIOLATION 4294966692
      * }
      */
-    public static int IMAGE_DEBUG_TYPE_FIXUP() {
-        return (int)6L;
+    public static int CDN_SHAREVIOLATION() {
+        return CDN_SHAREVIOLATION;
     }
+    private static final int CDN_HELP = (int)4294966691L;
     /**
-     * {@snippet :
-     * #define IMAGE_DEBUG_TYPE_OMAP_TO_SRC 7
+     * {@snippet lang=c :
+     * #define CDN_HELP 4294966691
      * }
      */
-    public static int IMAGE_DEBUG_TYPE_OMAP_TO_SRC() {
-        return (int)7L;
+    public static int CDN_HELP() {
+        return CDN_HELP;
     }
+    private static final int CDN_FILEOK = (int)4294966690L;
     /**
-     * {@snippet :
-     * #define IMAGE_DEBUG_TYPE_OMAP_FROM_SRC 8
+     * {@snippet lang=c :
+     * #define CDN_FILEOK 4294966690
      * }
      */
-    public static int IMAGE_DEBUG_TYPE_OMAP_FROM_SRC() {
-        return (int)8L;
+    public static int CDN_FILEOK() {
+        return CDN_FILEOK;
     }
 }
-
 

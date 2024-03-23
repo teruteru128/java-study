@@ -2,20 +2,31 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _DISK_GEOMETRY DISK_GEOMETRY;
+ * {@snippet lang=c :
+ * typedef struct _DISK_GEOMETRY {
+ *     LARGE_INTEGER Cylinders;
+ *     MEDIA_TYPE MediaType;
+ *     DWORD TracksPerCylinder;
+ *     DWORD SectorsPerTrack;
+ *     DWORD BytesPerSector;
+ * } DISK_GEOMETRY
  * }
  */
-public final class DISK_GEOMETRY extends _DISK_GEOMETRY {
+public class DISK_GEOMETRY extends _DISK_GEOMETRY {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private DISK_GEOMETRY() {}
+    DISK_GEOMETRY() {
+        // Should not be called directly
+    }
 }
-
 

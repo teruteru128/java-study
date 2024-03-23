@@ -2,112 +2,219 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct tagCLEANLOCALSTORAGE {
- *     IUnknown* pInterface;
+ *     IUnknown *pInterface;
  *     PVOID pStorage;
  *     DWORD flags;
- * };
+ * }
  * }
  */
 public class tagCLEANLOCALSTORAGE {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$3443.const$4;
+    tagCLEANLOCALSTORAGE() {
+        // Should not be called directly
     }
-    public static VarHandle pInterface$VH() {
-        return constants$3443.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * IUnknown* pInterface;
-     * }
-     */
-    public static MemorySegment pInterface$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3443.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * IUnknown* pInterface;
-     * }
-     */
-    public static void pInterface$set(MemorySegment seg, MemorySegment x) {
-        constants$3443.const$5.set(seg, x);
-    }
-    public static MemorySegment pInterface$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3443.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pInterface$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3443.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle pStorage$VH() {
-        return constants$3444.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * PVOID pStorage;
-     * }
-     */
-    public static MemorySegment pStorage$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$3444.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * PVOID pStorage;
-     * }
-     */
-    public static void pStorage$set(MemorySegment seg, MemorySegment x) {
-        constants$3444.const$0.set(seg, x);
-    }
-    public static MemorySegment pStorage$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$3444.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void pStorage$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$3444.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle flags$VH() {
-        return constants$3444.const$1;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD flags;
-     * }
-     */
-    public static int flags$get(MemorySegment seg) {
-        return (int)constants$3444.const$1.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD flags;
-     * }
-     */
-    public static void flags$set(MemorySegment seg, int x) {
-        constants$3444.const$1.set(seg, x);
-    }
-    public static int flags$get(MemorySegment seg, long index) {
-        return (int)constants$3444.const$1.get(seg.asSlice(index*sizeof()));
-    }
-    public static void flags$set(MemorySegment seg, long index, int x) {
-        constants$3444.const$1.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("pInterface"),
+        Windows_h.C_POINTER.withName("pStorage"),
+        Windows_h.C_LONG.withName("flags"),
+        MemoryLayout.paddingLayout(4)
+    ).withName("tagCLEANLOCALSTORAGE");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final AddressLayout pInterface$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pInterface"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * IUnknown *pInterface
+     * }
+     */
+    public static final AddressLayout pInterface$layout() {
+        return pInterface$LAYOUT;
+    }
+
+    private static final long pInterface$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * IUnknown *pInterface
+     * }
+     */
+    public static final long pInterface$offset() {
+        return pInterface$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * IUnknown *pInterface
+     * }
+     */
+    public static MemorySegment pInterface(MemorySegment struct) {
+        return struct.get(pInterface$LAYOUT, pInterface$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * IUnknown *pInterface
+     * }
+     */
+    public static void pInterface(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pInterface$LAYOUT, pInterface$OFFSET, fieldValue);
+    }
+
+    private static final AddressLayout pStorage$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("pStorage"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * PVOID pStorage
+     * }
+     */
+    public static final AddressLayout pStorage$layout() {
+        return pStorage$LAYOUT;
+    }
+
+    private static final long pStorage$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * PVOID pStorage
+     * }
+     */
+    public static final long pStorage$offset() {
+        return pStorage$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * PVOID pStorage
+     * }
+     */
+    public static MemorySegment pStorage(MemorySegment struct) {
+        return struct.get(pStorage$LAYOUT, pStorage$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * PVOID pStorage
+     * }
+     */
+    public static void pStorage(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(pStorage$LAYOUT, pStorage$OFFSET, fieldValue);
+    }
+
+    private static final OfInt flags$LAYOUT = (OfInt)$LAYOUT.select(groupElement("flags"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD flags
+     * }
+     */
+    public static final OfInt flags$layout() {
+        return flags$LAYOUT;
+    }
+
+    private static final long flags$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD flags
+     * }
+     */
+    public static final long flags$offset() {
+        return flags$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD flags
+     * }
+     */
+    public static int flags(MemorySegment struct) {
+        return struct.get(flags$LAYOUT, flags$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD flags
+     * }
+     */
+    public static void flags(MemorySegment struct, int fieldValue) {
+        struct.set(flags$LAYOUT, flags$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 

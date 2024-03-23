@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagCAUI CAUI;
+ * {@snippet lang=c :
+ * typedef struct tagCAUI {
+ *     ULONG cElems;
+ *     USHORT *pElems;
+ * } CAUI
  * }
  */
-public final class CAUI extends tagCAUI {
+public class CAUI extends tagCAUI {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private CAUI() {}
+    CAUI() {
+        // Should not be called directly
+    }
 }
-
 

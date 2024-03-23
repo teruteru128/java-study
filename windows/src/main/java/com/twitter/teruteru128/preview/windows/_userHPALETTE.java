@@ -2,165 +2,382 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _userHPALETTE {
  *     LONG fContext;
- *     union __MIDL_IWinTypes_0008 u;
- * };
+ *     union __MIDL_IWinTypes_0008 {
+ *         LONG hInproc;
+ *         LOGPALETTE *hRemote;
+ *         long long hInproc64;
+ *     } u;
+ * }
  * }
  */
 public class _userHPALETTE {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2358.const$5;
+    _userHPALETTE() {
+        // Should not be called directly
     }
-    public static VarHandle fContext$VH() {
-        return constants$2359.const$0;
+
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_LONG.withName("fContext"),
+        MemoryLayout.paddingLayout(4),
+        _userHPALETTE.__MIDL_IWinTypes_0008.layout().withName("u")
+    ).withName("_userHPALETTE");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
     }
+
+    private static final OfInt fContext$LAYOUT = (OfInt)$LAYOUT.select(groupElement("fContext"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * LONG fContext
+     * }
+     */
+    public static final OfInt fContext$layout() {
+        return fContext$LAYOUT;
+    }
+
+    private static final long fContext$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * LONG fContext
+     * }
+     */
+    public static final long fContext$offset() {
+        return fContext$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * LONG fContext;
+     * {@snippet lang=c :
+     * LONG fContext
      * }
      */
-    public static int fContext$get(MemorySegment seg) {
-        return (int)constants$2359.const$0.get(seg);
+    public static int fContext(MemorySegment struct) {
+        return struct.get(fContext$LAYOUT, fContext$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * LONG fContext;
+     * {@snippet lang=c :
+     * LONG fContext
      * }
      */
-    public static void fContext$set(MemorySegment seg, int x) {
-        constants$2359.const$0.set(seg, x);
+    public static void fContext(MemorySegment struct, int fieldValue) {
+        struct.set(fContext$LAYOUT, fContext$OFFSET, fieldValue);
     }
-    public static int fContext$get(MemorySegment seg, long index) {
-        return (int)constants$2359.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void fContext$set(MemorySegment seg, long index, int x) {
-        constants$2359.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
+
     /**
-     * {@snippet :
+     * {@snippet lang=c :
      * union __MIDL_IWinTypes_0008 {
      *     LONG hInproc;
-     *     LOGPALETTE* hRemote;
+     *     LOGPALETTE *hRemote;
      *     long long hInproc64;
-     * };
+     * }
      * }
      */
-    public static final class __MIDL_IWinTypes_0008 {
+    public static class __MIDL_IWinTypes_0008 {
 
-        // Suppresses default constructor, ensuring non-instantiability.
-        private __MIDL_IWinTypes_0008() {}
-        public static MemoryLayout $LAYOUT() {
-            return constants$2359.const$1;
+        __MIDL_IWinTypes_0008() {
+            // Should not be called directly
         }
-        public static VarHandle hInproc$VH() {
-            return constants$2359.const$2;
+
+        private static final GroupLayout $LAYOUT = MemoryLayout.unionLayout(
+            Windows_h.C_LONG.withName("hInproc"),
+            Windows_h.C_POINTER.withName("hRemote"),
+            Windows_h.C_LONG_LONG.withName("hInproc64")
+        ).withName("__MIDL_IWinTypes_0008");
+
+        /**
+         * The layout of this union
+         */
+        public static final GroupLayout layout() {
+            return $LAYOUT;
         }
+
+        private static final OfInt hInproc$LAYOUT = (OfInt)$LAYOUT.select(groupElement("hInproc"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * LONG hInproc
+         * }
+         */
+        public static final OfInt hInproc$layout() {
+            return hInproc$LAYOUT;
+        }
+
+        private static final long hInproc$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * LONG hInproc
+         * }
+         */
+        public static final long hInproc$offset() {
+            return hInproc$OFFSET;
+        }
+
         /**
          * Getter for field:
-         * {@snippet :
-         * LONG hInproc;
+         * {@snippet lang=c :
+         * LONG hInproc
          * }
          */
-        public static int hInproc$get(MemorySegment seg) {
-            return (int)constants$2359.const$2.get(seg);
+        public static int hInproc(MemorySegment union) {
+            return union.get(hInproc$LAYOUT, hInproc$OFFSET);
         }
+
         /**
          * Setter for field:
-         * {@snippet :
-         * LONG hInproc;
+         * {@snippet lang=c :
+         * LONG hInproc
          * }
          */
-        public static void hInproc$set(MemorySegment seg, int x) {
-            constants$2359.const$2.set(seg, x);
+        public static void hInproc(MemorySegment union, int fieldValue) {
+            union.set(hInproc$LAYOUT, hInproc$OFFSET, fieldValue);
         }
-        public static int hInproc$get(MemorySegment seg, long index) {
-            return (int)constants$2359.const$2.get(seg.asSlice(index*sizeof()));
+
+        private static final AddressLayout hRemote$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("hRemote"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * LOGPALETTE *hRemote
+         * }
+         */
+        public static final AddressLayout hRemote$layout() {
+            return hRemote$LAYOUT;
         }
-        public static void hInproc$set(MemorySegment seg, long index, int x) {
-            constants$2359.const$2.set(seg.asSlice(index*sizeof()), x);
+
+        private static final long hRemote$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * LOGPALETTE *hRemote
+         * }
+         */
+        public static final long hRemote$offset() {
+            return hRemote$OFFSET;
         }
-        public static VarHandle hRemote$VH() {
-            return constants$2359.const$3;
-        }
+
         /**
          * Getter for field:
-         * {@snippet :
-         * LOGPALETTE* hRemote;
+         * {@snippet lang=c :
+         * LOGPALETTE *hRemote
          * }
          */
-        public static MemorySegment hRemote$get(MemorySegment seg) {
-            return (java.lang.foreign.MemorySegment)constants$2359.const$3.get(seg);
+        public static MemorySegment hRemote(MemorySegment union) {
+            return union.get(hRemote$LAYOUT, hRemote$OFFSET);
         }
+
         /**
          * Setter for field:
-         * {@snippet :
-         * LOGPALETTE* hRemote;
+         * {@snippet lang=c :
+         * LOGPALETTE *hRemote
          * }
          */
-        public static void hRemote$set(MemorySegment seg, MemorySegment x) {
-            constants$2359.const$3.set(seg, x);
+        public static void hRemote(MemorySegment union, MemorySegment fieldValue) {
+            union.set(hRemote$LAYOUT, hRemote$OFFSET, fieldValue);
         }
-        public static MemorySegment hRemote$get(MemorySegment seg, long index) {
-            return (java.lang.foreign.MemorySegment)constants$2359.const$3.get(seg.asSlice(index*sizeof()));
+
+        private static final OfLong hInproc64$LAYOUT = (OfLong)$LAYOUT.select(groupElement("hInproc64"));
+
+        /**
+         * Layout for field:
+         * {@snippet lang=c :
+         * long long hInproc64
+         * }
+         */
+        public static final OfLong hInproc64$layout() {
+            return hInproc64$LAYOUT;
         }
-        public static void hRemote$set(MemorySegment seg, long index, MemorySegment x) {
-            constants$2359.const$3.set(seg.asSlice(index*sizeof()), x);
+
+        private static final long hInproc64$OFFSET = 0;
+
+        /**
+         * Offset for field:
+         * {@snippet lang=c :
+         * long long hInproc64
+         * }
+         */
+        public static final long hInproc64$offset() {
+            return hInproc64$OFFSET;
         }
-        public static VarHandle hInproc64$VH() {
-            return constants$2359.const$4;
-        }
+
         /**
          * Getter for field:
-         * {@snippet :
-         * long long hInproc64;
+         * {@snippet lang=c :
+         * long long hInproc64
          * }
          */
-        public static long hInproc64$get(MemorySegment seg) {
-            return (long)constants$2359.const$4.get(seg);
+        public static long hInproc64(MemorySegment union) {
+            return union.get(hInproc64$LAYOUT, hInproc64$OFFSET);
         }
+
         /**
          * Setter for field:
-         * {@snippet :
-         * long long hInproc64;
+         * {@snippet lang=c :
+         * long long hInproc64
          * }
          */
-        public static void hInproc64$set(MemorySegment seg, long x) {
-            constants$2359.const$4.set(seg, x);
+        public static void hInproc64(MemorySegment union, long fieldValue) {
+            union.set(hInproc64$LAYOUT, hInproc64$OFFSET, fieldValue);
         }
-        public static long hInproc64$get(MemorySegment seg, long index) {
-            return (long)constants$2359.const$4.get(seg.asSlice(index*sizeof()));
+
+        /**
+         * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+         * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+         */
+        public static MemorySegment asSlice(MemorySegment array, long index) {
+            return array.asSlice(layout().byteSize() * index);
         }
-        public static void hInproc64$set(MemorySegment seg, long index, long x) {
-            constants$2359.const$4.set(seg.asSlice(index*sizeof()), x);
+
+        /**
+         * The size (in bytes) of this union
+         */
+        public static long sizeof() { return layout().byteSize(); }
+
+        /**
+         * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+         */
+        public static MemorySegment allocate(SegmentAllocator allocator) {
+            return allocator.allocate(layout());
         }
-        public static long sizeof() { return $LAYOUT().byteSize(); }
-        public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-        public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-            return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+        /**
+         * Allocate an array of size {@code elementCount} using {@code allocator}.
+         * The returned segment has size {@code elementCount * layout().byteSize()}.
+         */
+        public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+            return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
         }
-        public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+         * The returned segment has size {@code layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+            return reinterpret(addr, 1, arena, cleanup);
+        }
+
+        /**
+         * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+         * The returned segment has size {@code elementCount * layout().byteSize()}
+         */
+        public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+            return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+        }
     }
 
-    public static MemorySegment u$slice(MemorySegment seg) {
-        return seg.asSlice(8, 8);
+    private static final GroupLayout u$LAYOUT = (GroupLayout)$LAYOUT.select(groupElement("u"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * union __MIDL_IWinTypes_0008 u
+     * }
+     */
+    public static final GroupLayout u$layout() {
+        return u$LAYOUT;
     }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+    private static final long u$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * union __MIDL_IWinTypes_0008 u
+     * }
+     */
+    public static final long u$offset() {
+        return u$OFFSET;
     }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * union __MIDL_IWinTypes_0008 u
+     * }
+     */
+    public static MemorySegment u(MemorySegment struct) {
+        return struct.asSlice(u$OFFSET, u$LAYOUT.byteSize());
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * union __MIDL_IWinTypes_0008 u
+     * }
+     */
+    public static void u(MemorySegment struct, MemorySegment fieldValue) {
+        MemorySegment.copy(fieldValue, 0L, struct, u$OFFSET, u$LAYOUT.byteSize());
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
 }
-
 

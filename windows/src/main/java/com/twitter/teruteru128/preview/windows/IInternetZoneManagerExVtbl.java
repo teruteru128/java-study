@@ -2,946 +2,1837 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct IInternetZoneManagerExVtbl {
- *     HRESULT (*QueryInterface)(IInternetZoneManagerEx*,const IID*,void**);
- *     ULONG (*AddRef)(IInternetZoneManagerEx*);
- *     ULONG (*Release)(IInternetZoneManagerEx*);
- *     HRESULT (*GetZoneAttributes)(IInternetZoneManagerEx*,DWORD,ZONEATTRIBUTES*);
- *     HRESULT (*SetZoneAttributes)(IInternetZoneManagerEx*,DWORD,ZONEATTRIBUTES*);
- *     HRESULT (*GetZoneCustomPolicy)(IInternetZoneManagerEx*,DWORD,const GUID*,BYTE**,DWORD*,URLZONEREG);
- *     HRESULT (*SetZoneCustomPolicy)(IInternetZoneManagerEx*,DWORD,const GUID*,BYTE*,DWORD,URLZONEREG);
- *     HRESULT (*GetZoneActionPolicy)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG);
- *     HRESULT (*SetZoneActionPolicy)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG);
- *     HRESULT (*PromptAction)(IInternetZoneManagerEx*,DWORD,HWND,LPCWSTR,LPCWSTR,DWORD);
- *     HRESULT (*LogAction)(IInternetZoneManagerEx*,DWORD,LPCWSTR,LPCWSTR,DWORD);
- *     HRESULT (*CreateZoneEnumerator)(IInternetZoneManagerEx*,DWORD*,DWORD*,DWORD);
- *     HRESULT (*GetZoneAt)(IInternetZoneManagerEx*,DWORD,DWORD,DWORD*);
- *     HRESULT (*DestroyZoneEnumerator)(IInternetZoneManagerEx*,DWORD);
- *     HRESULT (*CopyTemplatePoliciesToZone)(IInternetZoneManagerEx*,DWORD,DWORD,DWORD);
- *     HRESULT (*GetZoneActionPolicyEx)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG,DWORD);
- *     HRESULT (*SetZoneActionPolicyEx)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG,DWORD);
- * };
+ *     HRESULT (*QueryInterface)(IInternetZoneManagerEx *, const IID *const, void **) __attribute__((stdcall));
+ *     ULONG (*AddRef)(IInternetZoneManagerEx *) __attribute__((stdcall));
+ *     ULONG (*Release)(IInternetZoneManagerEx *) __attribute__((stdcall));
+ *     HRESULT (*GetZoneAttributes)(IInternetZoneManagerEx *, DWORD, ZONEATTRIBUTES *) __attribute__((stdcall));
+ *     HRESULT (*SetZoneAttributes)(IInternetZoneManagerEx *, DWORD, ZONEATTRIBUTES *) __attribute__((stdcall));
+ *     HRESULT (*GetZoneCustomPolicy)(IInternetZoneManagerEx *, DWORD, const GUID *const, BYTE **, DWORD *, URLZONEREG) __attribute__((stdcall));
+ *     HRESULT (*SetZoneCustomPolicy)(IInternetZoneManagerEx *, DWORD, const GUID *const, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall));
+ *     HRESULT (*GetZoneActionPolicy)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall));
+ *     HRESULT (*SetZoneActionPolicy)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall));
+ *     HRESULT (*PromptAction)(IInternetZoneManagerEx *, DWORD, HWND, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall));
+ *     HRESULT (*LogAction)(IInternetZoneManagerEx *, DWORD, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall));
+ *     HRESULT (*CreateZoneEnumerator)(IInternetZoneManagerEx *, DWORD *, DWORD *, DWORD) __attribute__((stdcall));
+ *     HRESULT (*GetZoneAt)(IInternetZoneManagerEx *, DWORD, DWORD, DWORD *) __attribute__((stdcall));
+ *     HRESULT (*DestroyZoneEnumerator)(IInternetZoneManagerEx *, DWORD) __attribute__((stdcall));
+ *     HRESULT (*CopyTemplatePoliciesToZone)(IInternetZoneManagerEx *, DWORD, DWORD, DWORD) __attribute__((stdcall));
+ *     HRESULT (*GetZoneActionPolicyEx)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG, DWORD) __attribute__((stdcall));
+ *     HRESULT (*SetZoneActionPolicyEx)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG, DWORD) __attribute__((stdcall));
+ * }
  * }
  */
 public class IInternetZoneManagerExVtbl {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$4283.const$0;
+    IInternetZoneManagerExVtbl() {
+        // Should not be called directly
     }
+
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_POINTER.withName("QueryInterface"),
+        Windows_h.C_POINTER.withName("AddRef"),
+        Windows_h.C_POINTER.withName("Release"),
+        Windows_h.C_POINTER.withName("GetZoneAttributes"),
+        Windows_h.C_POINTER.withName("SetZoneAttributes"),
+        Windows_h.C_POINTER.withName("GetZoneCustomPolicy"),
+        Windows_h.C_POINTER.withName("SetZoneCustomPolicy"),
+        Windows_h.C_POINTER.withName("GetZoneActionPolicy"),
+        Windows_h.C_POINTER.withName("SetZoneActionPolicy"),
+        Windows_h.C_POINTER.withName("PromptAction"),
+        Windows_h.C_POINTER.withName("LogAction"),
+        Windows_h.C_POINTER.withName("CreateZoneEnumerator"),
+        Windows_h.C_POINTER.withName("GetZoneAt"),
+        Windows_h.C_POINTER.withName("DestroyZoneEnumerator"),
+        Windows_h.C_POINTER.withName("CopyTemplatePoliciesToZone"),
+        Windows_h.C_POINTER.withName("GetZoneActionPolicyEx"),
+        Windows_h.C_POINTER.withName("SetZoneActionPolicyEx")
+    ).withName("IInternetZoneManagerExVtbl");
+
     /**
-     * {@snippet :
- * HRESULT (*QueryInterface)(IInternetZoneManagerEx*,const IID*,void**);
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    /**
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IInternetZoneManagerEx *, const IID *const, void **) __attribute__((stdcall))
      * }
      */
-    public interface QueryInterface {
+    public static class QueryInterface {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1, java.lang.foreign.MemorySegment _x2);
-        static MemorySegment allocate(QueryInterface fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4283.const$1, fi, constants$37.const$3, scope);
+        QueryInterface() {
+            // Should not be called directly
         }
-        static QueryInterface ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1, java.lang.foreign.MemorySegment __x2) -> {
-                try {
-                    return (int)constants$620.const$5.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(QueryInterface.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(QueryInterface.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle QueryInterface$VH() {
-        return constants$4283.const$2;
+    private static final AddressLayout QueryInterface$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("QueryInterface"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IInternetZoneManagerEx *, const IID *const, void **) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout QueryInterface$layout() {
+        return QueryInterface$LAYOUT;
     }
+
+    private static final long QueryInterface$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IInternetZoneManagerEx *, const IID *const, void **) __attribute__((stdcall))
+     * }
+     */
+    public static final long QueryInterface$offset() {
+        return QueryInterface$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*QueryInterface)(IInternetZoneManagerEx*,const IID*,void**);
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IInternetZoneManagerEx *, const IID *const, void **) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment QueryInterface$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4283.const$2.get(seg);
+    public static MemorySegment QueryInterface(MemorySegment struct) {
+        return struct.get(QueryInterface$LAYOUT, QueryInterface$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*QueryInterface)(IInternetZoneManagerEx*,const IID*,void**);
+     * {@snippet lang=c :
+     * HRESULT (*QueryInterface)(IInternetZoneManagerEx *, const IID *const, void **) __attribute__((stdcall))
      * }
      */
-    public static void QueryInterface$set(MemorySegment seg, MemorySegment x) {
-        constants$4283.const$2.set(seg, x);
+    public static void QueryInterface(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(QueryInterface$LAYOUT, QueryInterface$OFFSET, fieldValue);
     }
-    public static MemorySegment QueryInterface$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4283.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void QueryInterface$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4283.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static QueryInterface QueryInterface(MemorySegment segment, Arena scope) {
-        return QueryInterface.ofAddress(QueryInterface$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * ULONG (*AddRef)(IInternetZoneManagerEx*);
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IInternetZoneManagerEx *) __attribute__((stdcall))
      * }
      */
-    public interface AddRef {
+    public static class AddRef {
 
-        int apply(java.lang.foreign.MemorySegment _x0);
-        static MemorySegment allocate(AddRef fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4283.const$3, fi, constants$18.const$5, scope);
+        AddRef() {
+            // Should not be called directly
         }
-        static AddRef ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0) -> {
-                try {
-                    return (int)constants$495.const$0.invokeExact(symbol, __x0);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(AddRef.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(AddRef.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle AddRef$VH() {
-        return constants$4283.const$4;
+    private static final AddressLayout AddRef$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("AddRef"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IInternetZoneManagerEx *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout AddRef$layout() {
+        return AddRef$LAYOUT;
     }
+
+    private static final long AddRef$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IInternetZoneManagerEx *) __attribute__((stdcall))
+     * }
+     */
+    public static final long AddRef$offset() {
+        return AddRef$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * ULONG (*AddRef)(IInternetZoneManagerEx*);
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IInternetZoneManagerEx *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment AddRef$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4283.const$4.get(seg);
+    public static MemorySegment AddRef(MemorySegment struct) {
+        return struct.get(AddRef$LAYOUT, AddRef$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * ULONG (*AddRef)(IInternetZoneManagerEx*);
+     * {@snippet lang=c :
+     * ULONG (*AddRef)(IInternetZoneManagerEx *) __attribute__((stdcall))
      * }
      */
-    public static void AddRef$set(MemorySegment seg, MemorySegment x) {
-        constants$4283.const$4.set(seg, x);
+    public static void AddRef(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(AddRef$LAYOUT, AddRef$OFFSET, fieldValue);
     }
-    public static MemorySegment AddRef$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4283.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void AddRef$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4283.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static AddRef AddRef(MemorySegment segment, Arena scope) {
-        return AddRef.ofAddress(AddRef$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * ULONG (*Release)(IInternetZoneManagerEx*);
+     * {@snippet lang=c :
+     * ULONG (*Release)(IInternetZoneManagerEx *) __attribute__((stdcall))
      * }
      */
-    public interface Release {
+    public static class Release {
 
-        int apply(java.lang.foreign.MemorySegment _x0);
-        static MemorySegment allocate(Release fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4283.const$5, fi, constants$18.const$5, scope);
+        Release() {
+            // Should not be called directly
         }
-        static Release ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0) -> {
-                try {
-                    return (int)constants$495.const$0.invokeExact(symbol, __x0);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(Release.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(Release.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle Release$VH() {
-        return constants$4284.const$0;
+    private static final AddressLayout Release$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("Release"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * ULONG (*Release)(IInternetZoneManagerEx *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout Release$layout() {
+        return Release$LAYOUT;
     }
+
+    private static final long Release$OFFSET = 16;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * ULONG (*Release)(IInternetZoneManagerEx *) __attribute__((stdcall))
+     * }
+     */
+    public static final long Release$offset() {
+        return Release$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * ULONG (*Release)(IInternetZoneManagerEx*);
+     * {@snippet lang=c :
+     * ULONG (*Release)(IInternetZoneManagerEx *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment Release$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4284.const$0.get(seg);
+    public static MemorySegment Release(MemorySegment struct) {
+        return struct.get(Release$LAYOUT, Release$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * ULONG (*Release)(IInternetZoneManagerEx*);
+     * {@snippet lang=c :
+     * ULONG (*Release)(IInternetZoneManagerEx *) __attribute__((stdcall))
      * }
      */
-    public static void Release$set(MemorySegment seg, MemorySegment x) {
-        constants$4284.const$0.set(seg, x);
+    public static void Release(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(Release$LAYOUT, Release$OFFSET, fieldValue);
     }
-    public static MemorySegment Release$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4284.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void Release$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4284.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static Release Release(MemorySegment segment, Arena scope) {
-        return Release.ofAddress(Release$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*GetZoneAttributes)(IInternetZoneManagerEx*,DWORD,ZONEATTRIBUTES*);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneAttributes)(IInternetZoneManagerEx *, DWORD, ZONEATTRIBUTES *) __attribute__((stdcall))
      * }
      */
-    public interface GetZoneAttributes {
+    public static class GetZoneAttributes {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2);
-        static MemorySegment allocate(GetZoneAttributes fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4284.const$1, fi, constants$485.const$5, scope);
+        GetZoneAttributes() {
+            // Should not be called directly
         }
-        static GetZoneAttributes ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2) -> {
-                try {
-                    return (int)constants$1770.const$5.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(GetZoneAttributes.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(GetZoneAttributes.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle GetZoneAttributes$VH() {
-        return constants$4284.const$2;
+    private static final AddressLayout GetZoneAttributes$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("GetZoneAttributes"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneAttributes)(IInternetZoneManagerEx *, DWORD, ZONEATTRIBUTES *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout GetZoneAttributes$layout() {
+        return GetZoneAttributes$LAYOUT;
     }
+
+    private static final long GetZoneAttributes$OFFSET = 24;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneAttributes)(IInternetZoneManagerEx *, DWORD, ZONEATTRIBUTES *) __attribute__((stdcall))
+     * }
+     */
+    public static final long GetZoneAttributes$offset() {
+        return GetZoneAttributes$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*GetZoneAttributes)(IInternetZoneManagerEx*,DWORD,ZONEATTRIBUTES*);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneAttributes)(IInternetZoneManagerEx *, DWORD, ZONEATTRIBUTES *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment GetZoneAttributes$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4284.const$2.get(seg);
+    public static MemorySegment GetZoneAttributes(MemorySegment struct) {
+        return struct.get(GetZoneAttributes$LAYOUT, GetZoneAttributes$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*GetZoneAttributes)(IInternetZoneManagerEx*,DWORD,ZONEATTRIBUTES*);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneAttributes)(IInternetZoneManagerEx *, DWORD, ZONEATTRIBUTES *) __attribute__((stdcall))
      * }
      */
-    public static void GetZoneAttributes$set(MemorySegment seg, MemorySegment x) {
-        constants$4284.const$2.set(seg, x);
+    public static void GetZoneAttributes(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(GetZoneAttributes$LAYOUT, GetZoneAttributes$OFFSET, fieldValue);
     }
-    public static MemorySegment GetZoneAttributes$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4284.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void GetZoneAttributes$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4284.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static GetZoneAttributes GetZoneAttributes(MemorySegment segment, Arena scope) {
-        return GetZoneAttributes.ofAddress(GetZoneAttributes$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetZoneAttributes)(IInternetZoneManagerEx*,DWORD,ZONEATTRIBUTES*);
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneAttributes)(IInternetZoneManagerEx *, DWORD, ZONEATTRIBUTES *) __attribute__((stdcall))
      * }
      */
-    public interface SetZoneAttributes {
+    public static class SetZoneAttributes {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2);
-        static MemorySegment allocate(SetZoneAttributes fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4284.const$3, fi, constants$485.const$5, scope);
+        SetZoneAttributes() {
+            // Should not be called directly
         }
-        static SetZoneAttributes ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2) -> {
-                try {
-                    return (int)constants$1770.const$5.invokeExact(symbol, __x0, __x1, __x2);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetZoneAttributes.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetZoneAttributes.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetZoneAttributes$VH() {
-        return constants$4284.const$4;
+    private static final AddressLayout SetZoneAttributes$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetZoneAttributes"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneAttributes)(IInternetZoneManagerEx *, DWORD, ZONEATTRIBUTES *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetZoneAttributes$layout() {
+        return SetZoneAttributes$LAYOUT;
     }
+
+    private static final long SetZoneAttributes$OFFSET = 32;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneAttributes)(IInternetZoneManagerEx *, DWORD, ZONEATTRIBUTES *) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetZoneAttributes$offset() {
+        return SetZoneAttributes$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetZoneAttributes)(IInternetZoneManagerEx*,DWORD,ZONEATTRIBUTES*);
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneAttributes)(IInternetZoneManagerEx *, DWORD, ZONEATTRIBUTES *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetZoneAttributes$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4284.const$4.get(seg);
+    public static MemorySegment SetZoneAttributes(MemorySegment struct) {
+        return struct.get(SetZoneAttributes$LAYOUT, SetZoneAttributes$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetZoneAttributes)(IInternetZoneManagerEx*,DWORD,ZONEATTRIBUTES*);
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneAttributes)(IInternetZoneManagerEx *, DWORD, ZONEATTRIBUTES *) __attribute__((stdcall))
      * }
      */
-    public static void SetZoneAttributes$set(MemorySegment seg, MemorySegment x) {
-        constants$4284.const$4.set(seg, x);
+    public static void SetZoneAttributes(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetZoneAttributes$LAYOUT, SetZoneAttributes$OFFSET, fieldValue);
     }
-    public static MemorySegment SetZoneAttributes$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4284.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetZoneAttributes$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4284.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetZoneAttributes SetZoneAttributes(MemorySegment segment, Arena scope) {
-        return SetZoneAttributes.ofAddress(SetZoneAttributes$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*GetZoneCustomPolicy)(IInternetZoneManagerEx*,DWORD,const GUID*,BYTE**,DWORD*,URLZONEREG);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneCustomPolicy)(IInternetZoneManagerEx *, DWORD, const GUID *const, BYTE **, DWORD *, URLZONEREG) __attribute__((stdcall))
      * }
      */
-    public interface GetZoneCustomPolicy {
+    public static class GetZoneCustomPolicy {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2, java.lang.foreign.MemorySegment _x3, java.lang.foreign.MemorySegment _x4, int _x5);
-        static MemorySegment allocate(GetZoneCustomPolicy fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4284.const$5, fi, constants$1408.const$3, scope);
+        GetZoneCustomPolicy() {
+            // Should not be called directly
         }
-        static GetZoneCustomPolicy ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2, java.lang.foreign.MemorySegment __x3, java.lang.foreign.MemorySegment __x4, int __x5) -> {
-                try {
-                    return (int)constants$4278.const$2.invokeExact(symbol, __x0, __x1, __x2, __x3, __x4, __x5);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, int _x5);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_INT
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(GetZoneCustomPolicy.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(GetZoneCustomPolicy.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, int _x5) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle GetZoneCustomPolicy$VH() {
-        return constants$4285.const$0;
+    private static final AddressLayout GetZoneCustomPolicy$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("GetZoneCustomPolicy"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneCustomPolicy)(IInternetZoneManagerEx *, DWORD, const GUID *const, BYTE **, DWORD *, URLZONEREG) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout GetZoneCustomPolicy$layout() {
+        return GetZoneCustomPolicy$LAYOUT;
     }
+
+    private static final long GetZoneCustomPolicy$OFFSET = 40;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneCustomPolicy)(IInternetZoneManagerEx *, DWORD, const GUID *const, BYTE **, DWORD *, URLZONEREG) __attribute__((stdcall))
+     * }
+     */
+    public static final long GetZoneCustomPolicy$offset() {
+        return GetZoneCustomPolicy$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*GetZoneCustomPolicy)(IInternetZoneManagerEx*,DWORD,const GUID*,BYTE**,DWORD*,URLZONEREG);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneCustomPolicy)(IInternetZoneManagerEx *, DWORD, const GUID *const, BYTE **, DWORD *, URLZONEREG) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment GetZoneCustomPolicy$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4285.const$0.get(seg);
+    public static MemorySegment GetZoneCustomPolicy(MemorySegment struct) {
+        return struct.get(GetZoneCustomPolicy$LAYOUT, GetZoneCustomPolicy$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*GetZoneCustomPolicy)(IInternetZoneManagerEx*,DWORD,const GUID*,BYTE**,DWORD*,URLZONEREG);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneCustomPolicy)(IInternetZoneManagerEx *, DWORD, const GUID *const, BYTE **, DWORD *, URLZONEREG) __attribute__((stdcall))
      * }
      */
-    public static void GetZoneCustomPolicy$set(MemorySegment seg, MemorySegment x) {
-        constants$4285.const$0.set(seg, x);
+    public static void GetZoneCustomPolicy(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(GetZoneCustomPolicy$LAYOUT, GetZoneCustomPolicy$OFFSET, fieldValue);
     }
-    public static MemorySegment GetZoneCustomPolicy$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4285.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void GetZoneCustomPolicy$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4285.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static GetZoneCustomPolicy GetZoneCustomPolicy(MemorySegment segment, Arena scope) {
-        return GetZoneCustomPolicy.ofAddress(GetZoneCustomPolicy$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetZoneCustomPolicy)(IInternetZoneManagerEx*,DWORD,const GUID*,BYTE*,DWORD,URLZONEREG);
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneCustomPolicy)(IInternetZoneManagerEx *, DWORD, const GUID *const, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
      * }
      */
-    public interface SetZoneCustomPolicy {
+    public static class SetZoneCustomPolicy {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2, java.lang.foreign.MemorySegment _x3, int _x4, int _x5);
-        static MemorySegment allocate(SetZoneCustomPolicy fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4285.const$1, fi, constants$4278.const$4, scope);
+        SetZoneCustomPolicy() {
+            // Should not be called directly
         }
-        static SetZoneCustomPolicy ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2, java.lang.foreign.MemorySegment __x3, int __x4, int __x5) -> {
-                try {
-                    return (int)constants$4279.const$0.invokeExact(symbol, __x0, __x1, __x2, __x3, __x4, __x5);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3, int _x4, int _x5);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_INT
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetZoneCustomPolicy.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetZoneCustomPolicy.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3, int _x4, int _x5) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetZoneCustomPolicy$VH() {
-        return constants$4285.const$2;
+    private static final AddressLayout SetZoneCustomPolicy$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetZoneCustomPolicy"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneCustomPolicy)(IInternetZoneManagerEx *, DWORD, const GUID *const, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetZoneCustomPolicy$layout() {
+        return SetZoneCustomPolicy$LAYOUT;
     }
+
+    private static final long SetZoneCustomPolicy$OFFSET = 48;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneCustomPolicy)(IInternetZoneManagerEx *, DWORD, const GUID *const, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetZoneCustomPolicy$offset() {
+        return SetZoneCustomPolicy$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetZoneCustomPolicy)(IInternetZoneManagerEx*,DWORD,const GUID*,BYTE*,DWORD,URLZONEREG);
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneCustomPolicy)(IInternetZoneManagerEx *, DWORD, const GUID *const, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetZoneCustomPolicy$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4285.const$2.get(seg);
+    public static MemorySegment SetZoneCustomPolicy(MemorySegment struct) {
+        return struct.get(SetZoneCustomPolicy$LAYOUT, SetZoneCustomPolicy$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetZoneCustomPolicy)(IInternetZoneManagerEx*,DWORD,const GUID*,BYTE*,DWORD,URLZONEREG);
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneCustomPolicy)(IInternetZoneManagerEx *, DWORD, const GUID *const, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
      * }
      */
-    public static void SetZoneCustomPolicy$set(MemorySegment seg, MemorySegment x) {
-        constants$4285.const$2.set(seg, x);
+    public static void SetZoneCustomPolicy(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetZoneCustomPolicy$LAYOUT, SetZoneCustomPolicy$OFFSET, fieldValue);
     }
-    public static MemorySegment SetZoneCustomPolicy$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4285.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetZoneCustomPolicy$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4285.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetZoneCustomPolicy SetZoneCustomPolicy(MemorySegment segment, Arena scope) {
-        return SetZoneCustomPolicy.ofAddress(SetZoneCustomPolicy$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*GetZoneActionPolicy)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneActionPolicy)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
      * }
      */
-    public interface GetZoneActionPolicy {
+    public static class GetZoneActionPolicy {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, int _x2, java.lang.foreign.MemorySegment _x3, int _x4, int _x5);
-        static MemorySegment allocate(GetZoneActionPolicy fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4285.const$3, fi, constants$720.const$5, scope);
+        GetZoneActionPolicy() {
+            // Should not be called directly
         }
-        static GetZoneActionPolicy ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, int __x2, java.lang.foreign.MemorySegment __x3, int __x4, int __x5) -> {
-                try {
-                    return (int)constants$4279.const$3.invokeExact(symbol, __x0, __x1, __x2, __x3, __x4, __x5);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, int _x2, MemorySegment _x3, int _x4, int _x5);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_INT
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(GetZoneActionPolicy.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(GetZoneActionPolicy.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, int _x2, MemorySegment _x3, int _x4, int _x5) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle GetZoneActionPolicy$VH() {
-        return constants$4285.const$4;
+    private static final AddressLayout GetZoneActionPolicy$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("GetZoneActionPolicy"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneActionPolicy)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout GetZoneActionPolicy$layout() {
+        return GetZoneActionPolicy$LAYOUT;
     }
+
+    private static final long GetZoneActionPolicy$OFFSET = 56;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneActionPolicy)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
+     * }
+     */
+    public static final long GetZoneActionPolicy$offset() {
+        return GetZoneActionPolicy$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*GetZoneActionPolicy)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneActionPolicy)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment GetZoneActionPolicy$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4285.const$4.get(seg);
+    public static MemorySegment GetZoneActionPolicy(MemorySegment struct) {
+        return struct.get(GetZoneActionPolicy$LAYOUT, GetZoneActionPolicy$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*GetZoneActionPolicy)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneActionPolicy)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
      * }
      */
-    public static void GetZoneActionPolicy$set(MemorySegment seg, MemorySegment x) {
-        constants$4285.const$4.set(seg, x);
+    public static void GetZoneActionPolicy(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(GetZoneActionPolicy$LAYOUT, GetZoneActionPolicy$OFFSET, fieldValue);
     }
-    public static MemorySegment GetZoneActionPolicy$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4285.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void GetZoneActionPolicy$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4285.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static GetZoneActionPolicy GetZoneActionPolicy(MemorySegment segment, Arena scope) {
-        return GetZoneActionPolicy.ofAddress(GetZoneActionPolicy$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetZoneActionPolicy)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG);
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneActionPolicy)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
      * }
      */
-    public interface SetZoneActionPolicy {
+    public static class SetZoneActionPolicy {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, int _x2, java.lang.foreign.MemorySegment _x3, int _x4, int _x5);
-        static MemorySegment allocate(SetZoneActionPolicy fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4285.const$5, fi, constants$720.const$5, scope);
+        SetZoneActionPolicy() {
+            // Should not be called directly
         }
-        static SetZoneActionPolicy ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, int __x2, java.lang.foreign.MemorySegment __x3, int __x4, int __x5) -> {
-                try {
-                    return (int)constants$4279.const$3.invokeExact(symbol, __x0, __x1, __x2, __x3, __x4, __x5);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, int _x2, MemorySegment _x3, int _x4, int _x5);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_INT
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetZoneActionPolicy.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetZoneActionPolicy.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, int _x2, MemorySegment _x3, int _x4, int _x5) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetZoneActionPolicy$VH() {
-        return constants$4286.const$0;
+    private static final AddressLayout SetZoneActionPolicy$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetZoneActionPolicy"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneActionPolicy)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetZoneActionPolicy$layout() {
+        return SetZoneActionPolicy$LAYOUT;
     }
+
+    private static final long SetZoneActionPolicy$OFFSET = 64;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneActionPolicy)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetZoneActionPolicy$offset() {
+        return SetZoneActionPolicy$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetZoneActionPolicy)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG);
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneActionPolicy)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetZoneActionPolicy$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4286.const$0.get(seg);
+    public static MemorySegment SetZoneActionPolicy(MemorySegment struct) {
+        return struct.get(SetZoneActionPolicy$LAYOUT, SetZoneActionPolicy$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetZoneActionPolicy)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG);
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneActionPolicy)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG) __attribute__((stdcall))
      * }
      */
-    public static void SetZoneActionPolicy$set(MemorySegment seg, MemorySegment x) {
-        constants$4286.const$0.set(seg, x);
+    public static void SetZoneActionPolicy(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetZoneActionPolicy$LAYOUT, SetZoneActionPolicy$OFFSET, fieldValue);
     }
-    public static MemorySegment SetZoneActionPolicy$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4286.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SetZoneActionPolicy$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4286.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static SetZoneActionPolicy SetZoneActionPolicy(MemorySegment segment, Arena scope) {
-        return SetZoneActionPolicy.ofAddress(SetZoneActionPolicy$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*PromptAction)(IInternetZoneManagerEx*,DWORD,HWND,LPCWSTR,LPCWSTR,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*PromptAction)(IInternetZoneManagerEx *, DWORD, HWND, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
      * }
      */
-    public interface PromptAction {
+    public static class PromptAction {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2, java.lang.foreign.MemorySegment _x3, java.lang.foreign.MemorySegment _x4, int _x5);
-        static MemorySegment allocate(PromptAction fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4286.const$1, fi, constants$1408.const$3, scope);
+        PromptAction() {
+            // Should not be called directly
         }
-        static PromptAction ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2, java.lang.foreign.MemorySegment __x3, java.lang.foreign.MemorySegment __x4, int __x5) -> {
-                try {
-                    return (int)constants$4278.const$2.invokeExact(symbol, __x0, __x1, __x2, __x3, __x4, __x5);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, int _x5);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(PromptAction.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(PromptAction.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3, MemorySegment _x4, int _x5) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle PromptAction$VH() {
-        return constants$4286.const$2;
+    private static final AddressLayout PromptAction$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("PromptAction"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*PromptAction)(IInternetZoneManagerEx *, DWORD, HWND, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout PromptAction$layout() {
+        return PromptAction$LAYOUT;
     }
+
+    private static final long PromptAction$OFFSET = 72;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*PromptAction)(IInternetZoneManagerEx *, DWORD, HWND, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long PromptAction$offset() {
+        return PromptAction$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*PromptAction)(IInternetZoneManagerEx*,DWORD,HWND,LPCWSTR,LPCWSTR,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*PromptAction)(IInternetZoneManagerEx *, DWORD, HWND, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment PromptAction$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4286.const$2.get(seg);
+    public static MemorySegment PromptAction(MemorySegment struct) {
+        return struct.get(PromptAction$LAYOUT, PromptAction$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*PromptAction)(IInternetZoneManagerEx*,DWORD,HWND,LPCWSTR,LPCWSTR,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*PromptAction)(IInternetZoneManagerEx *, DWORD, HWND, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
      * }
      */
-    public static void PromptAction$set(MemorySegment seg, MemorySegment x) {
-        constants$4286.const$2.set(seg, x);
+    public static void PromptAction(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(PromptAction$LAYOUT, PromptAction$OFFSET, fieldValue);
     }
-    public static MemorySegment PromptAction$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4286.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void PromptAction$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4286.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static PromptAction PromptAction(MemorySegment segment, Arena scope) {
-        return PromptAction.ofAddress(PromptAction$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*LogAction)(IInternetZoneManagerEx*,DWORD,LPCWSTR,LPCWSTR,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*LogAction)(IInternetZoneManagerEx *, DWORD, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
      * }
      */
-    public interface LogAction {
+    public static class LogAction {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, java.lang.foreign.MemorySegment _x2, java.lang.foreign.MemorySegment _x3, int _x4);
-        static MemorySegment allocate(LogAction fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4286.const$3, fi, constants$657.const$2, scope);
+        LogAction() {
+            // Should not be called directly
         }
-        static LogAction ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, java.lang.foreign.MemorySegment __x2, java.lang.foreign.MemorySegment __x3, int __x4) -> {
-                try {
-                    return (int)constants$3607.const$2.invokeExact(symbol, __x0, __x1, __x2, __x3, __x4);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3, int _x4);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(LogAction.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(LogAction.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, MemorySegment _x2, MemorySegment _x3, int _x4) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle LogAction$VH() {
-        return constants$4286.const$4;
+    private static final AddressLayout LogAction$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("LogAction"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*LogAction)(IInternetZoneManagerEx *, DWORD, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout LogAction$layout() {
+        return LogAction$LAYOUT;
     }
+
+    private static final long LogAction$OFFSET = 80;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*LogAction)(IInternetZoneManagerEx *, DWORD, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long LogAction$offset() {
+        return LogAction$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*LogAction)(IInternetZoneManagerEx*,DWORD,LPCWSTR,LPCWSTR,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*LogAction)(IInternetZoneManagerEx *, DWORD, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment LogAction$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4286.const$4.get(seg);
+    public static MemorySegment LogAction(MemorySegment struct) {
+        return struct.get(LogAction$LAYOUT, LogAction$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*LogAction)(IInternetZoneManagerEx*,DWORD,LPCWSTR,LPCWSTR,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*LogAction)(IInternetZoneManagerEx *, DWORD, LPCWSTR, LPCWSTR, DWORD) __attribute__((stdcall))
      * }
      */
-    public static void LogAction$set(MemorySegment seg, MemorySegment x) {
-        constants$4286.const$4.set(seg, x);
+    public static void LogAction(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(LogAction$LAYOUT, LogAction$OFFSET, fieldValue);
     }
-    public static MemorySegment LogAction$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4286.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void LogAction$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4286.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static LogAction LogAction(MemorySegment segment, Arena scope) {
-        return LogAction.ofAddress(LogAction$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*CreateZoneEnumerator)(IInternetZoneManagerEx*,DWORD*,DWORD*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*CreateZoneEnumerator)(IInternetZoneManagerEx *, DWORD *, DWORD *, DWORD) __attribute__((stdcall))
      * }
      */
-    public interface CreateZoneEnumerator {
+    public static class CreateZoneEnumerator {
 
-        int apply(java.lang.foreign.MemorySegment _x0, java.lang.foreign.MemorySegment _x1, java.lang.foreign.MemorySegment _x2, int _x3);
-        static MemorySegment allocate(CreateZoneEnumerator fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4286.const$5, fi, constants$607.const$3, scope);
+        CreateZoneEnumerator() {
+            // Should not be called directly
         }
-        static CreateZoneEnumerator ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, java.lang.foreign.MemorySegment __x1, java.lang.foreign.MemorySegment __x2, int __x3) -> {
-                try {
-                    return (int)constants$2133.const$3.invokeExact(symbol, __x0, __x1, __x2, __x3);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, int _x3);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(CreateZoneEnumerator.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(CreateZoneEnumerator.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, MemorySegment _x1, MemorySegment _x2, int _x3) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle CreateZoneEnumerator$VH() {
-        return constants$4287.const$0;
+    private static final AddressLayout CreateZoneEnumerator$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("CreateZoneEnumerator"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*CreateZoneEnumerator)(IInternetZoneManagerEx *, DWORD *, DWORD *, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout CreateZoneEnumerator$layout() {
+        return CreateZoneEnumerator$LAYOUT;
     }
+
+    private static final long CreateZoneEnumerator$OFFSET = 88;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*CreateZoneEnumerator)(IInternetZoneManagerEx *, DWORD *, DWORD *, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long CreateZoneEnumerator$offset() {
+        return CreateZoneEnumerator$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*CreateZoneEnumerator)(IInternetZoneManagerEx*,DWORD*,DWORD*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*CreateZoneEnumerator)(IInternetZoneManagerEx *, DWORD *, DWORD *, DWORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment CreateZoneEnumerator$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4287.const$0.get(seg);
+    public static MemorySegment CreateZoneEnumerator(MemorySegment struct) {
+        return struct.get(CreateZoneEnumerator$LAYOUT, CreateZoneEnumerator$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*CreateZoneEnumerator)(IInternetZoneManagerEx*,DWORD*,DWORD*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*CreateZoneEnumerator)(IInternetZoneManagerEx *, DWORD *, DWORD *, DWORD) __attribute__((stdcall))
      * }
      */
-    public static void CreateZoneEnumerator$set(MemorySegment seg, MemorySegment x) {
-        constants$4287.const$0.set(seg, x);
+    public static void CreateZoneEnumerator(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(CreateZoneEnumerator$LAYOUT, CreateZoneEnumerator$OFFSET, fieldValue);
     }
-    public static MemorySegment CreateZoneEnumerator$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4287.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void CreateZoneEnumerator$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4287.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static CreateZoneEnumerator CreateZoneEnumerator(MemorySegment segment, Arena scope) {
-        return CreateZoneEnumerator.ofAddress(CreateZoneEnumerator$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*GetZoneAt)(IInternetZoneManagerEx*,DWORD,DWORD,DWORD*);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneAt)(IInternetZoneManagerEx *, DWORD, DWORD, DWORD *) __attribute__((stdcall))
      * }
      */
-    public interface GetZoneAt {
+    public static class GetZoneAt {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, int _x2, java.lang.foreign.MemorySegment _x3);
-        static MemorySegment allocate(GetZoneAt fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4287.const$1, fi, constants$644.const$5, scope);
+        GetZoneAt() {
+            // Should not be called directly
         }
-        static GetZoneAt ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, int __x2, java.lang.foreign.MemorySegment __x3) -> {
-                try {
-                    return (int)constants$2131.const$5.invokeExact(symbol, __x0, __x1, __x2, __x3);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, int _x2, MemorySegment _x3);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(GetZoneAt.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(GetZoneAt.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, int _x2, MemorySegment _x3) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle GetZoneAt$VH() {
-        return constants$4287.const$2;
+    private static final AddressLayout GetZoneAt$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("GetZoneAt"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneAt)(IInternetZoneManagerEx *, DWORD, DWORD, DWORD *) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout GetZoneAt$layout() {
+        return GetZoneAt$LAYOUT;
     }
+
+    private static final long GetZoneAt$OFFSET = 96;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneAt)(IInternetZoneManagerEx *, DWORD, DWORD, DWORD *) __attribute__((stdcall))
+     * }
+     */
+    public static final long GetZoneAt$offset() {
+        return GetZoneAt$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*GetZoneAt)(IInternetZoneManagerEx*,DWORD,DWORD,DWORD*);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneAt)(IInternetZoneManagerEx *, DWORD, DWORD, DWORD *) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment GetZoneAt$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4287.const$2.get(seg);
+    public static MemorySegment GetZoneAt(MemorySegment struct) {
+        return struct.get(GetZoneAt$LAYOUT, GetZoneAt$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*GetZoneAt)(IInternetZoneManagerEx*,DWORD,DWORD,DWORD*);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneAt)(IInternetZoneManagerEx *, DWORD, DWORD, DWORD *) __attribute__((stdcall))
      * }
      */
-    public static void GetZoneAt$set(MemorySegment seg, MemorySegment x) {
-        constants$4287.const$2.set(seg, x);
+    public static void GetZoneAt(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(GetZoneAt$LAYOUT, GetZoneAt$OFFSET, fieldValue);
     }
-    public static MemorySegment GetZoneAt$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4287.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void GetZoneAt$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4287.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static GetZoneAt GetZoneAt(MemorySegment segment, Arena scope) {
-        return GetZoneAt.ofAddress(GetZoneAt$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*DestroyZoneEnumerator)(IInternetZoneManagerEx*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*DestroyZoneEnumerator)(IInternetZoneManagerEx *, DWORD) __attribute__((stdcall))
      * }
      */
-    public interface DestroyZoneEnumerator {
+    public static class DestroyZoneEnumerator {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1);
-        static MemorySegment allocate(DestroyZoneEnumerator fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4287.const$3, fi, constants$65.const$2, scope);
+        DestroyZoneEnumerator() {
+            // Should not be called directly
         }
-        static DestroyZoneEnumerator ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1) -> {
-                try {
-                    return (int)constants$800.const$4.invokeExact(symbol, __x0, __x1);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(DestroyZoneEnumerator.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(DestroyZoneEnumerator.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle DestroyZoneEnumerator$VH() {
-        return constants$4287.const$4;
+    private static final AddressLayout DestroyZoneEnumerator$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("DestroyZoneEnumerator"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*DestroyZoneEnumerator)(IInternetZoneManagerEx *, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout DestroyZoneEnumerator$layout() {
+        return DestroyZoneEnumerator$LAYOUT;
     }
+
+    private static final long DestroyZoneEnumerator$OFFSET = 104;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*DestroyZoneEnumerator)(IInternetZoneManagerEx *, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long DestroyZoneEnumerator$offset() {
+        return DestroyZoneEnumerator$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*DestroyZoneEnumerator)(IInternetZoneManagerEx*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*DestroyZoneEnumerator)(IInternetZoneManagerEx *, DWORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment DestroyZoneEnumerator$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4287.const$4.get(seg);
+    public static MemorySegment DestroyZoneEnumerator(MemorySegment struct) {
+        return struct.get(DestroyZoneEnumerator$LAYOUT, DestroyZoneEnumerator$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*DestroyZoneEnumerator)(IInternetZoneManagerEx*,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*DestroyZoneEnumerator)(IInternetZoneManagerEx *, DWORD) __attribute__((stdcall))
      * }
      */
-    public static void DestroyZoneEnumerator$set(MemorySegment seg, MemorySegment x) {
-        constants$4287.const$4.set(seg, x);
+    public static void DestroyZoneEnumerator(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(DestroyZoneEnumerator$LAYOUT, DestroyZoneEnumerator$OFFSET, fieldValue);
     }
-    public static MemorySegment DestroyZoneEnumerator$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4287.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void DestroyZoneEnumerator$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4287.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static DestroyZoneEnumerator DestroyZoneEnumerator(MemorySegment segment, Arena scope) {
-        return DestroyZoneEnumerator.ofAddress(DestroyZoneEnumerator$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*CopyTemplatePoliciesToZone)(IInternetZoneManagerEx*,DWORD,DWORD,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*CopyTemplatePoliciesToZone)(IInternetZoneManagerEx *, DWORD, DWORD, DWORD) __attribute__((stdcall))
      * }
      */
-    public interface CopyTemplatePoliciesToZone {
+    public static class CopyTemplatePoliciesToZone {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, int _x2, int _x3);
-        static MemorySegment allocate(CopyTemplatePoliciesToZone fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4287.const$5, fi, constants$775.const$4, scope);
+        CopyTemplatePoliciesToZone() {
+            // Should not be called directly
         }
-        static CopyTemplatePoliciesToZone ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, int __x2, int __x3) -> {
-                try {
-                    return (int)constants$1135.const$1.invokeExact(symbol, __x0, __x1, __x2, __x3);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, int _x2, int _x3);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(CopyTemplatePoliciesToZone.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(CopyTemplatePoliciesToZone.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, int _x2, int _x3) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle CopyTemplatePoliciesToZone$VH() {
-        return constants$4288.const$0;
+    private static final AddressLayout CopyTemplatePoliciesToZone$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("CopyTemplatePoliciesToZone"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*CopyTemplatePoliciesToZone)(IInternetZoneManagerEx *, DWORD, DWORD, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout CopyTemplatePoliciesToZone$layout() {
+        return CopyTemplatePoliciesToZone$LAYOUT;
     }
+
+    private static final long CopyTemplatePoliciesToZone$OFFSET = 112;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*CopyTemplatePoliciesToZone)(IInternetZoneManagerEx *, DWORD, DWORD, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long CopyTemplatePoliciesToZone$offset() {
+        return CopyTemplatePoliciesToZone$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*CopyTemplatePoliciesToZone)(IInternetZoneManagerEx*,DWORD,DWORD,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*CopyTemplatePoliciesToZone)(IInternetZoneManagerEx *, DWORD, DWORD, DWORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment CopyTemplatePoliciesToZone$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4288.const$0.get(seg);
+    public static MemorySegment CopyTemplatePoliciesToZone(MemorySegment struct) {
+        return struct.get(CopyTemplatePoliciesToZone$LAYOUT, CopyTemplatePoliciesToZone$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*CopyTemplatePoliciesToZone)(IInternetZoneManagerEx*,DWORD,DWORD,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*CopyTemplatePoliciesToZone)(IInternetZoneManagerEx *, DWORD, DWORD, DWORD) __attribute__((stdcall))
      * }
      */
-    public static void CopyTemplatePoliciesToZone$set(MemorySegment seg, MemorySegment x) {
-        constants$4288.const$0.set(seg, x);
+    public static void CopyTemplatePoliciesToZone(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(CopyTemplatePoliciesToZone$LAYOUT, CopyTemplatePoliciesToZone$OFFSET, fieldValue);
     }
-    public static MemorySegment CopyTemplatePoliciesToZone$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4288.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void CopyTemplatePoliciesToZone$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4288.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static CopyTemplatePoliciesToZone CopyTemplatePoliciesToZone(MemorySegment segment, Arena scope) {
-        return CopyTemplatePoliciesToZone.ofAddress(CopyTemplatePoliciesToZone$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*GetZoneActionPolicyEx)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneActionPolicyEx)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG, DWORD) __attribute__((stdcall))
      * }
      */
-    public interface GetZoneActionPolicyEx {
+    public static class GetZoneActionPolicyEx {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, int _x2, java.lang.foreign.MemorySegment _x3, int _x4, int _x5, int _x6);
-        static MemorySegment allocate(GetZoneActionPolicyEx fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4288.const$2, fi, constants$4288.const$1, scope);
+        GetZoneActionPolicyEx() {
+            // Should not be called directly
         }
-        static GetZoneActionPolicyEx ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, int __x2, java.lang.foreign.MemorySegment __x3, int __x4, int __x5, int __x6) -> {
-                try {
-                    return (int)constants$4288.const$3.invokeExact(symbol, __x0, __x1, __x2, __x3, __x4, __x5, __x6);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, int _x2, MemorySegment _x3, int _x4, int _x5, int _x6);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_INT,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(GetZoneActionPolicyEx.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(GetZoneActionPolicyEx.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, int _x2, MemorySegment _x3, int _x4, int _x5, int _x6) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle GetZoneActionPolicyEx$VH() {
-        return constants$4288.const$4;
+    private static final AddressLayout GetZoneActionPolicyEx$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("GetZoneActionPolicyEx"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneActionPolicyEx)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout GetZoneActionPolicyEx$layout() {
+        return GetZoneActionPolicyEx$LAYOUT;
     }
+
+    private static final long GetZoneActionPolicyEx$OFFSET = 120;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneActionPolicyEx)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long GetZoneActionPolicyEx$offset() {
+        return GetZoneActionPolicyEx$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*GetZoneActionPolicyEx)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneActionPolicyEx)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG, DWORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment GetZoneActionPolicyEx$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4288.const$4.get(seg);
+    public static MemorySegment GetZoneActionPolicyEx(MemorySegment struct) {
+        return struct.get(GetZoneActionPolicyEx$LAYOUT, GetZoneActionPolicyEx$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*GetZoneActionPolicyEx)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*GetZoneActionPolicyEx)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG, DWORD) __attribute__((stdcall))
      * }
      */
-    public static void GetZoneActionPolicyEx$set(MemorySegment seg, MemorySegment x) {
-        constants$4288.const$4.set(seg, x);
+    public static void GetZoneActionPolicyEx(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(GetZoneActionPolicyEx$LAYOUT, GetZoneActionPolicyEx$OFFSET, fieldValue);
     }
-    public static MemorySegment GetZoneActionPolicyEx$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4288.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void GetZoneActionPolicyEx$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4288.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static GetZoneActionPolicyEx GetZoneActionPolicyEx(MemorySegment segment, Arena scope) {
-        return GetZoneActionPolicyEx.ofAddress(GetZoneActionPolicyEx$get(segment), scope);
-    }
+
     /**
-     * {@snippet :
- * HRESULT (*SetZoneActionPolicyEx)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneActionPolicyEx)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG, DWORD) __attribute__((stdcall))
      * }
      */
-    public interface SetZoneActionPolicyEx {
+    public static class SetZoneActionPolicyEx {
 
-        int apply(java.lang.foreign.MemorySegment _x0, int _x1, int _x2, java.lang.foreign.MemorySegment _x3, int _x4, int _x5, int _x6);
-        static MemorySegment allocate(SetZoneActionPolicyEx fi, Arena scope) {
-            return RuntimeHelper.upcallStub(constants$4288.const$5, fi, constants$4288.const$1, scope);
+        SetZoneActionPolicyEx() {
+            // Should not be called directly
         }
-        static SetZoneActionPolicyEx ofAddress(MemorySegment addr, Arena arena) {
-            MemorySegment symbol = addr.reinterpret(arena, null);
-            return (java.lang.foreign.MemorySegment __x0, int __x1, int __x2, java.lang.foreign.MemorySegment __x3, int __x4, int __x5, int __x6) -> {
-                try {
-                    return (int)constants$4288.const$3.invokeExact(symbol, __x0, __x1, __x2, __x3, __x4, __x5, __x6);
-                } catch (Throwable ex$) {
-                    throw new AssertionError("should not reach here", ex$);
-                }
-            };
+
+        /**
+         * The function pointer signature, expressed as a functional interface
+         */
+        public interface Function {
+            int apply(MemorySegment _x0, int _x1, int _x2, MemorySegment _x3, int _x4, int _x5, int _x6);
+        }
+
+        private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_LONG,
+            Windows_h.C_POINTER,
+            Windows_h.C_LONG,
+            Windows_h.C_INT,
+            Windows_h.C_LONG
+        );
+
+        /**
+         * The descriptor of this function pointer
+         */
+        public static FunctionDescriptor descriptor() {
+            return $DESC;
+        }
+
+        private static final MethodHandle UP$MH = Windows_h.upcallHandle(SetZoneActionPolicyEx.Function.class, "apply", $DESC);
+
+        /**
+         * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+         * The lifetime of the returned segment is managed by {@code arena}
+         */
+        public static MemorySegment allocate(SetZoneActionPolicyEx.Function fi, Arena arena) {
+            return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+        }
+
+        private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+        /**
+         * Invoke the upcall stub {@code funcPtr}, with given parameters
+         */
+        public static int invoke(MemorySegment funcPtr,MemorySegment _x0, int _x1, int _x2, MemorySegment _x3, int _x4, int _x5, int _x6) {
+            try {
+                return (int) DOWN$MH.invokeExact(funcPtr, _x0, _x1, _x2, _x3, _x4, _x5, _x6);
+            } catch (Throwable ex$) {
+                throw new AssertionError("should not reach here", ex$);
+            }
         }
     }
 
-    public static VarHandle SetZoneActionPolicyEx$VH() {
-        return constants$4289.const$0;
+    private static final AddressLayout SetZoneActionPolicyEx$LAYOUT = (AddressLayout)$LAYOUT.select(groupElement("SetZoneActionPolicyEx"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneActionPolicyEx)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final AddressLayout SetZoneActionPolicyEx$layout() {
+        return SetZoneActionPolicyEx$LAYOUT;
     }
+
+    private static final long SetZoneActionPolicyEx$OFFSET = 128;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneActionPolicyEx)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG, DWORD) __attribute__((stdcall))
+     * }
+     */
+    public static final long SetZoneActionPolicyEx$offset() {
+        return SetZoneActionPolicyEx$OFFSET;
+    }
+
     /**
      * Getter for field:
-     * {@snippet :
-     * HRESULT (*SetZoneActionPolicyEx)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneActionPolicyEx)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG, DWORD) __attribute__((stdcall))
      * }
      */
-    public static MemorySegment SetZoneActionPolicyEx$get(MemorySegment seg) {
-        return (java.lang.foreign.MemorySegment)constants$4289.const$0.get(seg);
+    public static MemorySegment SetZoneActionPolicyEx(MemorySegment struct) {
+        return struct.get(SetZoneActionPolicyEx$LAYOUT, SetZoneActionPolicyEx$OFFSET);
     }
+
     /**
      * Setter for field:
-     * {@snippet :
-     * HRESULT (*SetZoneActionPolicyEx)(IInternetZoneManagerEx*,DWORD,DWORD,BYTE*,DWORD,URLZONEREG,DWORD);
+     * {@snippet lang=c :
+     * HRESULT (*SetZoneActionPolicyEx)(IInternetZoneManagerEx *, DWORD, DWORD, BYTE *, DWORD, URLZONEREG, DWORD) __attribute__((stdcall))
      * }
      */
-    public static void SetZoneActionPolicyEx$set(MemorySegment seg, MemorySegment x) {
-        constants$4289.const$0.set(seg, x);
+    public static void SetZoneActionPolicyEx(MemorySegment struct, MemorySegment fieldValue) {
+        struct.set(SetZoneActionPolicyEx$LAYOUT, SetZoneActionPolicyEx$OFFSET, fieldValue);
     }
-    public static MemorySegment SetZoneActionPolicyEx$get(MemorySegment seg, long index) {
-        return (java.lang.foreign.MemorySegment)constants$4289.const$0.get(seg.asSlice(index*sizeof()));
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
     }
-    public static void SetZoneActionPolicyEx$set(MemorySegment seg, long index, MemorySegment x) {
-        constants$4289.const$0.set(seg.asSlice(index*sizeof()), x);
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
     }
-    public static SetZoneActionPolicyEx SetZoneActionPolicyEx(MemorySegment segment, Arena scope) {
-        return SetZoneActionPolicyEx.ofAddress(SetZoneActionPolicyEx$get(segment), scope);
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
     }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
     }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
 }
-
 

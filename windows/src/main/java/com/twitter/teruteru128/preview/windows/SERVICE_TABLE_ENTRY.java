@@ -2,20 +2,25 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _SERVICE_TABLE_ENTRYA SERVICE_TABLE_ENTRY;
+ * {@snippet lang=c :
+ * typedef SERVICE_TABLE_ENTRYA SERVICE_TABLE_ENTRY
  * }
  */
-public final class SERVICE_TABLE_ENTRY extends _SERVICE_TABLE_ENTRYA {
+public class SERVICE_TABLE_ENTRY extends _SERVICE_TABLE_ENTRYA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private SERVICE_TABLE_ENTRY() {}
+    SERVICE_TABLE_ENTRY() {
+        // Should not be called directly
+    }
 }
-
 

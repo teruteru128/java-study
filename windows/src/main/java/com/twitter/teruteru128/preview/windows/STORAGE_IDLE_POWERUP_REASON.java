@@ -2,20 +2,29 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _STORAGE_IDLE_POWERUP_REASON STORAGE_IDLE_POWERUP_REASON;
+ * {@snippet lang=c :
+ * typedef struct _STORAGE_IDLE_POWERUP_REASON {
+ *     DWORD Version;
+ *     DWORD Size;
+ *     STORAGE_POWERUP_REASON_TYPE PowerupReason;
+ * } STORAGE_IDLE_POWERUP_REASON
  * }
  */
-public final class STORAGE_IDLE_POWERUP_REASON extends _STORAGE_IDLE_POWERUP_REASON {
+public class STORAGE_IDLE_POWERUP_REASON extends _STORAGE_IDLE_POWERUP_REASON {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private STORAGE_IDLE_POWERUP_REASON() {}
+    STORAGE_IDLE_POWERUP_REASON() {
+        // Should not be called directly
+    }
 }
-
 

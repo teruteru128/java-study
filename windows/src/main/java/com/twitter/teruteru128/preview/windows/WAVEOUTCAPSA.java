@@ -2,20 +2,34 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct tagWAVEOUTCAPSA WAVEOUTCAPSA;
+ * {@snippet lang=c :
+ * typedef struct tagWAVEOUTCAPSA {
+ *     WORD wMid;
+ *     WORD wPid;
+ *     MMVERSION vDriverVersion;
+ *     CHAR szPname[32];
+ *     DWORD dwFormats;
+ *     WORD wChannels;
+ *     WORD wReserved1;
+ *     DWORD dwSupport;
+ * } WAVEOUTCAPSA
  * }
  */
-public final class WAVEOUTCAPSA extends tagWAVEOUTCAPSA {
+public class WAVEOUTCAPSA extends tagWAVEOUTCAPSA {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private WAVEOUTCAPSA() {}
+    WAVEOUTCAPSA() {
+        // Should not be called directly
+    }
 }
-
 

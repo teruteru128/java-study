@@ -2,20 +2,28 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * typedef struct _NDR_EXPR_DESC NDR_EXPR_DESC;
+ * {@snippet lang=c :
+ * typedef struct _NDR_EXPR_DESC {
+ *     const unsigned short *pOffset;
+ *     PFORMAT_STRING pFormatExpr;
+ * } NDR_EXPR_DESC
  * }
  */
-public final class NDR_EXPR_DESC extends _NDR_EXPR_DESC {
+public class NDR_EXPR_DESC extends _NDR_EXPR_DESC {
 
-    // Suppresses default constructor, ensuring non-instantiability.
-    private NDR_EXPR_DESC() {}
+    NDR_EXPR_DESC() {
+        // Should not be called directly
+    }
 }
-
 

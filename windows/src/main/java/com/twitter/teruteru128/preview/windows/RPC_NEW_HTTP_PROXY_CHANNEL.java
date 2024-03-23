@@ -2,32 +2,78 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
- * long (*RPC_NEW_HTTP_PROXY_CHANNEL)(enum _RPC_HTTP_REDIRECTOR_STAGE RedirectorStage,unsigned short* ServerName,unsigned short* ServerPort,unsigned short* RemoteUser,unsigned short* AuthType,void* ResourceUuid,void* SessionId,void* Interface,void* Reserved,unsigned long Flags,unsigned short** NewServerName,unsigned short** NewServerPort);
+ * {@snippet lang=c :
+ * typedef RPC_STATUS (*RPC_NEW_HTTP_PROXY_CHANNEL)(RPC_HTTP_REDIRECTOR_STAGE, RPC_WSTR, RPC_WSTR, RPC_WSTR, RPC_WSTR, void *, void *, void *, void *, unsigned long, RPC_WSTR *, RPC_WSTR *) __attribute__((stdcall))
  * }
  */
-public interface RPC_NEW_HTTP_PROXY_CHANNEL {
+public class RPC_NEW_HTTP_PROXY_CHANNEL {
 
-    int apply(int RedirectorStage, java.lang.foreign.MemorySegment ServerName, java.lang.foreign.MemorySegment ServerPort, java.lang.foreign.MemorySegment RemoteUser, java.lang.foreign.MemorySegment AuthType, java.lang.foreign.MemorySegment ResourceUuid, java.lang.foreign.MemorySegment SessionId, java.lang.foreign.MemorySegment Interface, java.lang.foreign.MemorySegment Reserved, int Flags, java.lang.foreign.MemorySegment NewServerName, java.lang.foreign.MemorySegment NewServerPort);
-    static MemorySegment allocate(RPC_NEW_HTTP_PROXY_CHANNEL fi, Arena scope) {
-        return RuntimeHelper.upcallStub(constants$1760.const$0, fi, constants$1759.const$5, scope);
+    RPC_NEW_HTTP_PROXY_CHANNEL() {
+        // Should not be called directly
     }
-    static RPC_NEW_HTTP_PROXY_CHANNEL ofAddress(MemorySegment addr, Arena arena) {
-        MemorySegment symbol = addr.reinterpret(arena, null);
-        return (int _RedirectorStage, java.lang.foreign.MemorySegment _ServerName, java.lang.foreign.MemorySegment _ServerPort, java.lang.foreign.MemorySegment _RemoteUser, java.lang.foreign.MemorySegment _AuthType, java.lang.foreign.MemorySegment _ResourceUuid, java.lang.foreign.MemorySegment _SessionId, java.lang.foreign.MemorySegment _Interface, java.lang.foreign.MemorySegment _Reserved, int _Flags, java.lang.foreign.MemorySegment _NewServerName, java.lang.foreign.MemorySegment _NewServerPort) -> {
-            try {
-                return (int)constants$1760.const$1.invokeExact(symbol, _RedirectorStage, _ServerName, _ServerPort, _RemoteUser, _AuthType, _ResourceUuid, _SessionId, _Interface, _Reserved, _Flags, _NewServerName, _NewServerPort);
-            } catch (Throwable ex$) {
-                throw new AssertionError("should not reach here", ex$);
-            }
-        };
+
+    /**
+     * The function pointer signature, expressed as a functional interface
+     */
+    public interface Function {
+        int apply(int RedirectorStage, MemorySegment ServerName, MemorySegment ServerPort, MemorySegment RemoteUser, MemorySegment AuthType, MemorySegment ResourceUuid, MemorySegment SessionId, MemorySegment Interface, MemorySegment Reserved, int Flags, MemorySegment NewServerName, MemorySegment NewServerPort);
+    }
+
+    private static final FunctionDescriptor $DESC = FunctionDescriptor.of(
+        Windows_h.C_LONG,
+        Windows_h.C_INT,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER,
+        Windows_h.C_LONG,
+        Windows_h.C_POINTER,
+        Windows_h.C_POINTER
+    );
+
+    /**
+     * The descriptor of this function pointer
+     */
+    public static FunctionDescriptor descriptor() {
+        return $DESC;
+    }
+
+    private static final MethodHandle UP$MH = Windows_h.upcallHandle(RPC_NEW_HTTP_PROXY_CHANNEL.Function.class, "apply", $DESC);
+
+    /**
+     * Allocates a new upcall stub, whose implementation is defined by {@code fi}.
+     * The lifetime of the returned segment is managed by {@code arena}
+     */
+    public static MemorySegment allocate(RPC_NEW_HTTP_PROXY_CHANNEL.Function fi, Arena arena) {
+        return Linker.nativeLinker().upcallStub(UP$MH.bindTo(fi), $DESC, arena);
+    }
+
+    private static final MethodHandle DOWN$MH = Linker.nativeLinker().downcallHandle($DESC);
+
+    /**
+     * Invoke the upcall stub {@code funcPtr}, with given parameters
+     */
+    public static int invoke(MemorySegment funcPtr,int RedirectorStage, MemorySegment ServerName, MemorySegment ServerPort, MemorySegment RemoteUser, MemorySegment AuthType, MemorySegment ResourceUuid, MemorySegment SessionId, MemorySegment Interface, MemorySegment Reserved, int Flags, MemorySegment NewServerName, MemorySegment NewServerPort) {
+        try {
+            return (int) DOWN$MH.invokeExact(funcPtr, RedirectorStage, ServerName, ServerPort, RemoteUser, AuthType, ResourceUuid, SessionId, Interface, Reserved, Flags, NewServerName, NewServerPort);
+        } catch (Throwable ex$) {
+            throw new AssertionError("should not reach here", ex$);
+        }
     }
 }
-
 

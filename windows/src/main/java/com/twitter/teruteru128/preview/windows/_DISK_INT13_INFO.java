@@ -2,168 +2,312 @@
 
 package com.twitter.teruteru128.preview.windows;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.VarHandle;
-import java.nio.ByteOrder;
+import java.lang.invoke.*;
 import java.lang.foreign.*;
+import java.nio.ByteOrder;
+import java.util.*;
+import java.util.function.*;
+import java.util.stream.*;
+
 import static java.lang.foreign.ValueLayout.*;
+import static java.lang.foreign.MemoryLayout.PathElement.*;
+
 /**
- * {@snippet :
+ * {@snippet lang=c :
  * struct _DISK_INT13_INFO {
  *     WORD DriveSelect;
  *     DWORD MaxCylinders;
  *     WORD SectorsPerTrack;
  *     WORD MaxHeads;
  *     WORD NumberDrives;
- * };
+ * }
  * }
  */
 public class _DISK_INT13_INFO {
 
-    public static MemoryLayout $LAYOUT() {
-        return constants$2543.const$1;
+    _DISK_INT13_INFO() {
+        // Should not be called directly
     }
-    public static VarHandle DriveSelect$VH() {
-        return constants$2543.const$2;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD DriveSelect;
-     * }
-     */
-    public static short DriveSelect$get(MemorySegment seg) {
-        return (short)constants$2543.const$2.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD DriveSelect;
-     * }
-     */
-    public static void DriveSelect$set(MemorySegment seg, short x) {
-        constants$2543.const$2.set(seg, x);
-    }
-    public static short DriveSelect$get(MemorySegment seg, long index) {
-        return (short)constants$2543.const$2.get(seg.asSlice(index*sizeof()));
-    }
-    public static void DriveSelect$set(MemorySegment seg, long index, short x) {
-        constants$2543.const$2.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle MaxCylinders$VH() {
-        return constants$2543.const$3;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * DWORD MaxCylinders;
-     * }
-     */
-    public static int MaxCylinders$get(MemorySegment seg) {
-        return (int)constants$2543.const$3.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * DWORD MaxCylinders;
-     * }
-     */
-    public static void MaxCylinders$set(MemorySegment seg, int x) {
-        constants$2543.const$3.set(seg, x);
-    }
-    public static int MaxCylinders$get(MemorySegment seg, long index) {
-        return (int)constants$2543.const$3.get(seg.asSlice(index*sizeof()));
-    }
-    public static void MaxCylinders$set(MemorySegment seg, long index, int x) {
-        constants$2543.const$3.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle SectorsPerTrack$VH() {
-        return constants$2543.const$4;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD SectorsPerTrack;
-     * }
-     */
-    public static short SectorsPerTrack$get(MemorySegment seg) {
-        return (short)constants$2543.const$4.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD SectorsPerTrack;
-     * }
-     */
-    public static void SectorsPerTrack$set(MemorySegment seg, short x) {
-        constants$2543.const$4.set(seg, x);
-    }
-    public static short SectorsPerTrack$get(MemorySegment seg, long index) {
-        return (short)constants$2543.const$4.get(seg.asSlice(index*sizeof()));
-    }
-    public static void SectorsPerTrack$set(MemorySegment seg, long index, short x) {
-        constants$2543.const$4.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle MaxHeads$VH() {
-        return constants$2543.const$5;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD MaxHeads;
-     * }
-     */
-    public static short MaxHeads$get(MemorySegment seg) {
-        return (short)constants$2543.const$5.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD MaxHeads;
-     * }
-     */
-    public static void MaxHeads$set(MemorySegment seg, short x) {
-        constants$2543.const$5.set(seg, x);
-    }
-    public static short MaxHeads$get(MemorySegment seg, long index) {
-        return (short)constants$2543.const$5.get(seg.asSlice(index*sizeof()));
-    }
-    public static void MaxHeads$set(MemorySegment seg, long index, short x) {
-        constants$2543.const$5.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static VarHandle NumberDrives$VH() {
-        return constants$2544.const$0;
-    }
-    /**
-     * Getter for field:
-     * {@snippet :
-     * WORD NumberDrives;
-     * }
-     */
-    public static short NumberDrives$get(MemorySegment seg) {
-        return (short)constants$2544.const$0.get(seg);
-    }
-    /**
-     * Setter for field:
-     * {@snippet :
-     * WORD NumberDrives;
-     * }
-     */
-    public static void NumberDrives$set(MemorySegment seg, short x) {
-        constants$2544.const$0.set(seg, x);
-    }
-    public static short NumberDrives$get(MemorySegment seg, long index) {
-        return (short)constants$2544.const$0.get(seg.asSlice(index*sizeof()));
-    }
-    public static void NumberDrives$set(MemorySegment seg, long index, short x) {
-        constants$2544.const$0.set(seg.asSlice(index*sizeof()), x);
-    }
-    public static long sizeof() { return $LAYOUT().byteSize(); }
-    public static MemorySegment allocate(SegmentAllocator allocator) { return allocator.allocate($LAYOUT()); }
-    public static MemorySegment allocateArray(long len, SegmentAllocator allocator) {
-        return allocator.allocate(MemoryLayout.sequenceLayout(len, $LAYOUT()));
-    }
-    public static MemorySegment ofAddress(MemorySegment addr, Arena arena) { return RuntimeHelper.asArray(addr, $LAYOUT(), 1, arena); }
-}
 
+    private static final GroupLayout $LAYOUT = MemoryLayout.structLayout(
+        Windows_h.C_SHORT.withName("DriveSelect"),
+        MemoryLayout.paddingLayout(2),
+        Windows_h.C_LONG.withName("MaxCylinders"),
+        Windows_h.C_SHORT.withName("SectorsPerTrack"),
+        Windows_h.C_SHORT.withName("MaxHeads"),
+        Windows_h.C_SHORT.withName("NumberDrives"),
+        MemoryLayout.paddingLayout(2)
+    ).withName("_DISK_INT13_INFO");
+
+    /**
+     * The layout of this struct
+     */
+    public static final GroupLayout layout() {
+        return $LAYOUT;
+    }
+
+    private static final OfShort DriveSelect$LAYOUT = (OfShort)$LAYOUT.select(groupElement("DriveSelect"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD DriveSelect
+     * }
+     */
+    public static final OfShort DriveSelect$layout() {
+        return DriveSelect$LAYOUT;
+    }
+
+    private static final long DriveSelect$OFFSET = 0;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD DriveSelect
+     * }
+     */
+    public static final long DriveSelect$offset() {
+        return DriveSelect$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD DriveSelect
+     * }
+     */
+    public static short DriveSelect(MemorySegment struct) {
+        return struct.get(DriveSelect$LAYOUT, DriveSelect$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD DriveSelect
+     * }
+     */
+    public static void DriveSelect(MemorySegment struct, short fieldValue) {
+        struct.set(DriveSelect$LAYOUT, DriveSelect$OFFSET, fieldValue);
+    }
+
+    private static final OfInt MaxCylinders$LAYOUT = (OfInt)$LAYOUT.select(groupElement("MaxCylinders"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * DWORD MaxCylinders
+     * }
+     */
+    public static final OfInt MaxCylinders$layout() {
+        return MaxCylinders$LAYOUT;
+    }
+
+    private static final long MaxCylinders$OFFSET = 4;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * DWORD MaxCylinders
+     * }
+     */
+    public static final long MaxCylinders$offset() {
+        return MaxCylinders$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * DWORD MaxCylinders
+     * }
+     */
+    public static int MaxCylinders(MemorySegment struct) {
+        return struct.get(MaxCylinders$LAYOUT, MaxCylinders$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * DWORD MaxCylinders
+     * }
+     */
+    public static void MaxCylinders(MemorySegment struct, int fieldValue) {
+        struct.set(MaxCylinders$LAYOUT, MaxCylinders$OFFSET, fieldValue);
+    }
+
+    private static final OfShort SectorsPerTrack$LAYOUT = (OfShort)$LAYOUT.select(groupElement("SectorsPerTrack"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD SectorsPerTrack
+     * }
+     */
+    public static final OfShort SectorsPerTrack$layout() {
+        return SectorsPerTrack$LAYOUT;
+    }
+
+    private static final long SectorsPerTrack$OFFSET = 8;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD SectorsPerTrack
+     * }
+     */
+    public static final long SectorsPerTrack$offset() {
+        return SectorsPerTrack$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD SectorsPerTrack
+     * }
+     */
+    public static short SectorsPerTrack(MemorySegment struct) {
+        return struct.get(SectorsPerTrack$LAYOUT, SectorsPerTrack$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD SectorsPerTrack
+     * }
+     */
+    public static void SectorsPerTrack(MemorySegment struct, short fieldValue) {
+        struct.set(SectorsPerTrack$LAYOUT, SectorsPerTrack$OFFSET, fieldValue);
+    }
+
+    private static final OfShort MaxHeads$LAYOUT = (OfShort)$LAYOUT.select(groupElement("MaxHeads"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD MaxHeads
+     * }
+     */
+    public static final OfShort MaxHeads$layout() {
+        return MaxHeads$LAYOUT;
+    }
+
+    private static final long MaxHeads$OFFSET = 10;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD MaxHeads
+     * }
+     */
+    public static final long MaxHeads$offset() {
+        return MaxHeads$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD MaxHeads
+     * }
+     */
+    public static short MaxHeads(MemorySegment struct) {
+        return struct.get(MaxHeads$LAYOUT, MaxHeads$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD MaxHeads
+     * }
+     */
+    public static void MaxHeads(MemorySegment struct, short fieldValue) {
+        struct.set(MaxHeads$LAYOUT, MaxHeads$OFFSET, fieldValue);
+    }
+
+    private static final OfShort NumberDrives$LAYOUT = (OfShort)$LAYOUT.select(groupElement("NumberDrives"));
+
+    /**
+     * Layout for field:
+     * {@snippet lang=c :
+     * WORD NumberDrives
+     * }
+     */
+    public static final OfShort NumberDrives$layout() {
+        return NumberDrives$LAYOUT;
+    }
+
+    private static final long NumberDrives$OFFSET = 12;
+
+    /**
+     * Offset for field:
+     * {@snippet lang=c :
+     * WORD NumberDrives
+     * }
+     */
+    public static final long NumberDrives$offset() {
+        return NumberDrives$OFFSET;
+    }
+
+    /**
+     * Getter for field:
+     * {@snippet lang=c :
+     * WORD NumberDrives
+     * }
+     */
+    public static short NumberDrives(MemorySegment struct) {
+        return struct.get(NumberDrives$LAYOUT, NumberDrives$OFFSET);
+    }
+
+    /**
+     * Setter for field:
+     * {@snippet lang=c :
+     * WORD NumberDrives
+     * }
+     */
+    public static void NumberDrives(MemorySegment struct, short fieldValue) {
+        struct.set(NumberDrives$LAYOUT, NumberDrives$OFFSET, fieldValue);
+    }
+
+    /**
+     * Obtains a slice of {@code arrayParam} which selects the array element at {@code index}.
+     * The returned segment has address {@code arrayParam.address() + index * layout().byteSize()}
+     */
+    public static MemorySegment asSlice(MemorySegment array, long index) {
+        return array.asSlice(layout().byteSize() * index);
+    }
+
+    /**
+     * The size (in bytes) of this struct
+     */
+    public static long sizeof() { return layout().byteSize(); }
+
+    /**
+     * Allocate a segment of size {@code layout().byteSize()} using {@code allocator}
+     */
+    public static MemorySegment allocate(SegmentAllocator allocator) {
+        return allocator.allocate(layout());
+    }
+
+    /**
+     * Allocate an array of size {@code elementCount} using {@code allocator}.
+     * The returned segment has size {@code elementCount * layout().byteSize()}.
+     */
+    public static MemorySegment allocateArray(long elementCount, SegmentAllocator allocator) {
+        return allocator.allocate(MemoryLayout.sequenceLayout(elementCount, layout()));
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, Arena arena, Consumer<MemorySegment> cleanup) {
+        return reinterpret(addr, 1, arena, cleanup);
+    }
+
+    /**
+     * Reinterprets {@code addr} using target {@code arena} and {@code cleanupAction) (if any).
+     * The returned segment has size {@code elementCount * layout().byteSize()}
+     */
+    public static MemorySegment reinterpret(MemorySegment addr, long elementCount, Arena arena, Consumer<MemorySegment> cleanup) {
+        return addr.reinterpret(layout().byteSize() * elementCount, arena, cleanup);
+    }
+}
 
