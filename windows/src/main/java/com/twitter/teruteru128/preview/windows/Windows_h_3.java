@@ -5,6 +5,7 @@ package com.twitter.teruteru128.preview.windows;
 import java.lang.invoke.*;
 import java.lang.foreign.*;
 import java.nio.ByteOrder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
@@ -2878,37 +2879,37 @@ public class Windows_h_3 extends Windows_h_4 {
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_SHA256_ALGORITHM "S"
+     * #define BCRYPT_SHA256_ALGORITHM L"SHA256"
      * }
      */
     public static MemorySegment BCRYPT_SHA256_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_SHA256_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SHA256", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_SHA256_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_SHA384_ALGORITHM "S"
+     * #define BCRYPT_SHA384_ALGORITHM L"SHA384"
      * }
      */
     public static MemorySegment BCRYPT_SHA384_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_SHA384_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SHA384", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_SHA384_ALGORITHM;
     }
     /**
      * {@snippet lang=c :
-     * #define BCRYPT_SHA512_ALGORITHM "S"
+     * #define BCRYPT_SHA512_ALGORITHM L"SHA512"
      * }
      */
     public static MemorySegment BCRYPT_SHA512_ALGORITHM() {
         class Holder {
             static final MemorySegment BCRYPT_SHA512_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SHA512", StandardCharsets.UTF_16LE);
         }
         return Holder.BCRYPT_SHA512_ALGORITHM;
     }
@@ -4018,7 +4019,7 @@ public class Windows_h_3 extends Windows_h_4 {
     public static MemorySegment NCRYPT_SHA256_ALGORITHM() {
         class Holder {
             static final MemorySegment NCRYPT_SHA256_ALGORITHM
-                = Windows_h.LIBRARY_ARENA.allocateFrom("S");
+                = Windows_h.LIBRARY_ARENA.allocateFrom("SHA256", StandardCharsets.UTF_16LE);
         }
         return Holder.NCRYPT_SHA256_ALGORITHM;
     }
