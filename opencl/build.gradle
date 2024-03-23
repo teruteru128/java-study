@@ -4,15 +4,17 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(22)
+    }
 }
 
 compileJava {
     //options.fork = true
     //options.forkOptions.setMemoryInitialSize('16G')
     //options.forkOptions.setMemoryMaximumSize('16G')
-    options.compilerArgs += ['--enable-preview'
-    //, '-Xlint:preview'
+    options.compilerArgs += [
+            '--enable-preview'
+            //, '-Xlint:preview'
     ]
 }

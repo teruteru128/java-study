@@ -4,23 +4,27 @@ plugins {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(22)
+    }
 }
 
 compileJava {
     //options.fork = true
-    //options.forkOptions.setMemoryInitialSize('16G')
-    //options.forkOptions.setMemoryMaximumSize('16G')
-    options.compilerArgs += ['--enable-preview'
-    //, '-Xlint:preview'
+    options.forkOptions.setMemoryInitialSize('16G')
+    options.forkOptions.setMemoryMaximumSize('16G')
+    options.compilerArgs += [
+            '--enable-preview'
+            //, '-Xlint:preview'
     ]
 }
 
 application {
     mainModule = 'com.twitter.teruteru.preview'
     mainClass = 'com.twitter.teruteru128.preview.Main'
-    applicationDefaultJvmArgs = ['--enable-preview', '--enable-native-access=com.twitter.teruteru.preview,com.twitter.teruteru.preview.opencl,com.twitter.teruteru.preview.windows', '-Xms64G', '-Xmx64G']
+    applicationDefaultJvmArgs = [
+            '--enable-preview',
+            '--enable-native-access=com.twitter.teruteru.preview,com.twitter.teruteru.preview.opencl,com.twitter.teruteru.preview.windows', '-Xms64G', '-Xmx64G']
 }
 
 dependencies {
